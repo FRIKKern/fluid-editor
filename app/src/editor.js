@@ -637,12 +637,42 @@ function renderPanel() {
     </div>`);
     if (sel.more?.length) parts.push(`<div class="group"><h3>Align group</h3><div class="row">${ALIGNS.map(([k, label]) => `<button class="btn" data-act="align" data-v="${k}">${label}</button>`).join('')}</div><div class="row"><button class="btn" data-act="stack">Stack blocks</button></div></div>`);
     parts.push(sectionGroup(s));
+    parts.push(`<div class="group"><h3>Add block</h3><div class="row">${ADD_TYPES.map(([n]) => `<button class="btn" data-act="add" data-v="${n}">${n}</button>`).join('')}</div></div>`);
     parts.push(layersGroup(s));
   } else {
     parts.push(`<div class="group"><h3>Page</h3><p class="hint">Click a block to select it. Drag to move. Pull a handle to resize. Double-click text to edit. Arrow keys move one cell. Esc cancels, Cmd+Z undoes.</p></div>`);
   }
   parts.push(`<div class="group"><h3>Activity</h3><pre class="log">${notes.join('\n') || 'Nothing yet'}</pre></div>`);
   panel.innerHTML = parts.join('');
+}
+
+// Add Block (U5, T13): each type lands at the top left of the section with the size
+// the oracle gives it (parity/findings/T13.json). The phone placement is ours: the
+// bottom of the phone stack, full content width (not measured yet).
+const ADD_TYPES = [
+  ['Text', 8, 2, () => ({ type: 'text', html: '<p data-rte-preserve-empty="true"></p>' })],
+  ['Image', 6, 6, () => ({ type: 'image', alt: '' })],
+  ['Button', 6, 2, () => ({ type: 'button', label: 'Learn more', href: '#' })],
+  ['Video', 8, 8, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: 'video' })],
+  ['Form', 9, 16, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: 'form' })],
+  ['Accordion', 8, 8, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: 'accordion' })],
+  ['Shape', 6, 6, () => ({ type: 'shape', fill: '#ffffff', radius: '0' })],
+  ['Scrolling', 24, 2, () => ({ type: 'scrolling', text: 'Scrolling text', size: 5 })],
+  ['Line', 4, 1, () => ({ type: 'line' })],
+];
+function addBlock(sid, name) {
+  const [, w, h, make] = ADD_TYPES.find((t) => t[0] === name);
+  const s = S(sid);
+  const id = `${name.toLowerCase()}-${Date.now().toString(36)}`;
+  const mobileEnd = Math.max(1, ...s.blocks.map((b) => b.layout.mobile.area[2]));
+  const zTop = (bpName) => Math.max(0, ...s.blocks.map((b) => b.layout[bpName].z)) + 1;
+  const block = { id, ...make(), layout: {
+    desktop: { area: [1, 2, 1 + h, 2 + w], z: zTop('desktop'), justify: 'flex-start', align: 'flex-start' },
+    mobile: { area: [mobileEnd, 2, mobileEnd + Math.min(h, 6), 10], z: zTop('mobile'), justify: 'flex-start', align: 'flex-start' },
+  } };
+  s.blocks.push(block);
+  for (const bpName of ['desktop', 'mobile']) s.rows[bpName] = Math.max(s.rows[bpName], block.layout[bpName].area[2] - 1);
+  sel = { sid, bid: id };
 }
 
 // Align Group, as on the oracle (traces T0018, T0019): blocks line up on the group's
@@ -760,6 +790,7 @@ panel.addEventListener('click', (e) => {
   if (btn.dataset.act === 'justify') L.justify = btn.dataset.v;
   if (btn.dataset.act === 'align') alignGroup(btn.dataset.v);
   if (btn.dataset.act === 'stack') stackBlocks();
+  if (btn.dataset.act === 'add') addBlock(sel.sid, btn.dataset.v);
   renderSectionDom(sel.sid);
   commit(before, `${btn.textContent} on ${b.id}`);
 });

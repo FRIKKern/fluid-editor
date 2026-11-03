@@ -2,7 +2,7 @@
 
 [![Parity: one cell per item, done, partial, open or unknown](images/parity.svg)](../README.md)
 
-57 of 108 items done, 41 partial, 10 open, 0 unknown.
+58 of 108 items done, 40 partial, 10 open, 0 unknown.
 Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. Edit the JSON, never this page.
 
 ## Harness and oracle
@@ -66,9 +66,9 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | T8 | Gallery block | M5 Chrome and blocks | ○ open |  |
 | T9 | Form block | M5 Chrome and blocks | ✓ done | Evidence: parity/findings/T9.json: the Contact form (name, email, textareas, checkboxes, select, button) rebuilt to measured sizes; Contact 65/65 boxes at 5 widths. Checkbox row height is fitted (max(21.1px, 1.4em + 0.8px)), not derived |
 | T10 | Embed and code blocks | M5 Chrome and blocks | ○ open |  |
-| T11 | Line, map and social links blocks | M5 Chrome and blocks | ◐ partial | Evidence: Social links: three 20px icons, 12px apart, right-aligned in the footer, rendered and box-matched (Gate B). Icons are placeholders; line and map blocks not built |
+| T11 | Line, map and social links blocks | M5 Chrome and blocks | ◐ partial | Evidence: Social links: three 20px icons, 12px apart (footer, Gate B). Line block: 4x1 by default, a 1px rule centered in its area (ours, look not measured). Map not built |
 | T12 | Remaining block types from the add-block menu | M5 Chrome and blocks | ◐ partial | Evidence: Scrolling block: heading formula with size value 5, height = 1.4em + 120px (measured at 375, 768, 1280, 1920); rendered as a static line, boxes match on Home and Services. The moving wave text is not built. Other block types in the menu not built |
-| T13 | Default and minimum size per block type | M2 Renderer | ◐ partial | Evidence: A new Text block lands at 1/2/3/10 (8 columns by 2 rows) in an empty section; a blank section starts with 8 rows. Other block types not measured |
+| T13 | Default and minimum size per block type | M2 Renderer | ✓ done | Evidence: parity/findings/T13.json: in an empty section every type lands at row 1, column 2: Text 8x2, Image 6x6, Button 6x2, Video 8x8, Form 9x16 (section grows to 16 rows), Accordion 8x8, Shape 6x6, Scrolling 24x2, Line 4x1. Our Add Block menu gives the same areas (tested Text 1/2/3/10, Form 1/2/17/11 with 16 rows, Line 1/2/2/6) |
 | T14 | Which types keep an aspect ratio and which follow content | M2 Renderer | ◐ partial | Evidence: Shapes do not keep an aspect ratio: a corner resize of 2 columns and 1 row changes both freely (T0008). Images not tested |
 
 ## Geometry and snapping
@@ -138,7 +138,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 |---|---|---|---|---|
 | L1 | Separate area and z per block, row count per layout | M4 Editor core | ✓ done | Evidence: Separate area and z per layout (Gate A, Gate B); phone traces T0015 to T0017 replay in our 428px phone canvas |
 | L2 | Shared content | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
-| L3 | Where a new block lands on phones | M4 Editor core | ◐ partial | Evidence: On the demo page the oracle generated phone layouts by stacking blocks over columns 2 to 10: text and buttons 2 rows, shapes 6 rows (fixtures/oracle/demo-page.json, app/src/demo-data.js) |
+| L3 | Where a new block lands on phones | M4 Editor core | ◐ partial | Evidence: Generated phone layouts stack blocks over columns 2 to 10 (demo import). A block added in our editor goes to the bottom of the phone stack at full content width; the oracle rule for an added block is not measured yet |
 | L4 | Whether phone edits survive later desktop edits | M4 Editor core | ✓ done | Evidence: parity/findings/L4.json: a phone move down, then a desktop move right of the same block, left the phone area as edited. Our editor keeps the two layouts separate |
 | L5 | Hiding a block on one layout | M4 Editor core | ◐ partial | Evidence: No hide control found on the oracle: not in the desktop or phone block toolbars, and not in the shape Edit panel (Design: shape style, corner radius, Stretch, Color, Blend Mode, Stroke; Animation). Other block types and help pages not checked |
 | L6 | Phone-only overrides such as font size | M4 Editor core | ○ open |  |
@@ -161,7 +161,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | U2 | Grid look: SVG pattern, `#B7B7B7`, `#F2F2F240`, radius 3 | M5 Chrome and blocks | ◐ partial |  |
 | U3 | Hover and selection outlines, handles, label pill | M5 Chrome and blocks | ◐ partial | Evidence: Handles: 10px squares, white, 2px rgb(2,122,255), cursors nw/ne/se/sw-resize, row-resize, col-resize (applied). Blocks carry a label pill with their type, e.g. "Text" (sqs-block-label-tag). Hover not measured |
 | U4 | Block toolbar: edit, design, duplicate, delete, layers | M5 Chrome and blocks | ◐ partial | Evidence: Oracle toolbars. Text: Write, Edit, Align Vertically, Pin, Duplicate, Remove. Shape: Edit, Pin, Move Forward, Move Backward, Duplicate, Remove. Shape in phone view: Edit, Pin, Move Up, Move Down, Remove. Section: Add Block, Open Layers Panel, Edit Section, View Layouts, Duplicate, Save, Move Up, Move Down, Remove. Ours has Move Forward and Move Backward |
-| U5 | Add block menu and default placement | M5 Chrome and blocks | ◐ partial | Evidence: Oracle Add Block menu: search box; Essentials: Text, Image, Button, Video, Form, Accordion, Shape, Scrolling, Line; Sell: Product, Pricing Plan, Donation, Scheduling, more. New blocks land top left |
+| U5 | Add block menu and default placement | M5 Chrome and blocks | ◐ partial | Evidence: Oracle menu: search, Essentials (Text, Image, Button, Video, Form, Accordion, Shape, Scrolling, Line), Sell, more. Our panel has the nine Essentials with the oracle default sizes and places (T13). Phone placement of a new block is ours, not measured; the search box and other groups are not built |
 | U6 | Top bar: Save, Exit, undo, redo, device toggle, preview | M5 Chrome and blocks | ◐ partial |  |
 | U7 | Animation timings, `is-transitioning-visibility` | M5 Chrome and blocks | ✓ done | Evidence: Oracle: transition opacity 0.1s cubic-bezier(0.66, 0, 0.34, 1) on .fe-block in the editor. Our editor uses the same transition (app/src/editor-frame.css) |
 
