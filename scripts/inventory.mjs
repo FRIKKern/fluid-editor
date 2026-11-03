@@ -182,17 +182,20 @@ await oEnsureDemo();
 viewport(O, 1600, 1000);
 for (const [name, what, oDrive, uDrive] of STATES) {
   if (only.length && !only.includes(name)) continue;
-  let oList = [], uList = [], error = null;
+  let oList = [], uList = [], error = null, oScroll = null;
   try {
     await oReset();
     await oDrive();
     await pause(700);
     oList = evalJs(O, COLLECT);
+    oScroll = evalJs(O, `(() => JSON.stringify(document.getElementById('sqs-site-frame').contentWindow.scrollY))()`);
     shot(O, `${name}-oracle`);
   } catch (e) { error = `oracle: ${String(e.message).slice(0, 120)}`; }
   try {
     await uReset();
     if (uDrive) run(uDrive);
+    // Same scroll as the oracle canvas, so the screenshots line up for scripts/visual-diff.mjs.
+    if (oScroll != null) run(`W.scrollTo(0, ${oScroll}); await sleep(250)`);
     await pause(400);
     uList = evalJs(U, COLLECT);
     shot(U, `${name}-ours`);

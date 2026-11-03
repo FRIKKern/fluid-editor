@@ -32,6 +32,8 @@ The gates check what we built. The inventory finds what we did not think of:
 npm run inventory -- --shots <dir>   drive the oracle and ours through the same editor states,
                                       list every visible control and label, keep what ours lacks
 npm run missing                       docs/MISSING.md from parity/inventory.json
+npm run visual-diff -- --shots <dir>  per state, the canvas pixels that differ, and an
+                                      oracle | ours | difference image for the paper
 npm run publish-review -- --shots <dir>   the same, with screenshot pairs, as a Barkpark paper
 ```
 
