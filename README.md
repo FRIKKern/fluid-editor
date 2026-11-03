@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 7 changes, 3 milestones closed
+- **Today** · 8 changes, 3 milestones closed
+  - Record block toolbars per layout and add phone Move Up and Move Down ([#26](https://github.com/FRIKKern/fluid-editor/pull/26))
   - Fix a stray space in the P5 evidence ([#25](https://github.com/FRIKKern/fluid-editor/pull/25))
-  - Add divider Stroke and Thickness options ([#24](https://github.com/FRIKKern/fluid-editor/pull/24))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
