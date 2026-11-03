@@ -270,6 +270,14 @@
     "evidence": "Header: parity/findings/P7.json, built to the measured rule. Footer: the oracle footer is one Fluid Engine section (custom height 10vh, padding 1vmax, black theme, 7 text blocks and social links), imported and rendered. Gate B 365 of 365 boxes incl. header offset and footer at 375, 767, 768, 1280, 1920 (parity/gate-b.json). The header switch width (817px) is stored, not derived"
   },
   {
+    "id": "P8",
+    "area": "Page and site context",
+    "milestone": "M2",
+    "status": "open",
+    "title": "Site header content in a centred max-width container",
+    "evidence": "Found in the editor screenshot comparison 2026-11-03: on the oracle the site title starts at x 92 and the nav ends near x 1491 in a 1583px canvas, which fits content centred in a 1400px container; ours pads the header by 4vw (title at x 64). Not measured: the header container rule at other widths"
+  },
+  {
     "id": "T1",
     "area": "Block types",
     "milestone": "M2",
@@ -306,7 +314,7 @@
     "milestone": "M2",
     "status": "partial",
     "title": "Button block: sizes, styles, stretch",
-    "evidence": "Button fills its block height (59px at 768, 61.6px at 1280), 56px side padding, Poppins 500 16px. Sizes small and large not measured"
+    "evidence": "Button fills its block height (59px at 768, 61.6px at 1280), 56px side padding, Poppins 500 16px. Sizes small and large not measured. Found in the editor screenshot comparison 2026-11-03: the demo hero button fills its block on the oracle (x 92 to 375), ours is narrower and centred (x 130 to 336); Gate B checks block boxes, not the button inside"
   },
   {
     "id": "T6",
@@ -870,7 +878,17 @@
     "area": "Editor chrome",
     "milestone": "M5",
     "status": "partial",
-    "title": "Top bar: Save, Exit, undo, redo, device toggle, preview"
+    "title": "Top bar: Save, Exit, undo, redo, device toggle, preview",
+    "evidence": "Our top bar is laid out like the oracle's (gap review screenshots, 2026-11-03): a dark 56 by 38 Save that greys out when there is nothing to save, a plain Exit, Undo and Redo icons, the page name and Page · Published in the middle, the Desktop View and Mobile View toggle on grey, Site Styles and Preview icons. Preview hides all editor chrome and stops editing; Escape leaves it. Our Export and Reset are behind a developer menu. Not built: Site Styles; the oracle's preview look is not measured",
+    "controls": [
+      "Save",
+      "Exit",
+      "Undo",
+      "Redo",
+      "Desktop View",
+      "Mobile View",
+      "Toggle preview mode"
+    ]
   },
   {
     "id": "U9",

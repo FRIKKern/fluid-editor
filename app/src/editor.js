@@ -396,6 +396,7 @@ function nearest(from, to, f) {
 
 // ---------- gestures ----------
 function onDown(e) {
+  if (document.body.classList.contains('is-preview')) return;
   if (e.button !== 0) return;
   const handle = e.target.closest('.fe-handle');
   const blk = e.target.closest('.fe-block');
@@ -1042,39 +1043,6 @@ let sectionTab = 'Design';
 let customGap = false;
 const fillScreen = (s) => !(s.height === 'custom' && s.customHeight == null);
 const gapKind = (s) => (customGap ? 'custom' : s.gap === 0 && (s.rowGap ?? 0) === 0 ? 'zero' : s.gap === MEDIUM_GAP && (s.rowGap ?? MEDIUM_GAP) === MEDIUM_GAP ? 'medium' : 'custom');
-function sectionGroup(s) {
-  const fe = feEl(s.id);
-  const m = measure(fe);
-  const minRows = Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1));
-  const stretched = m.rows.filter((h) => h > m.rowMin + 0.5).length;
-  const opt = (act, v, label, on) => `<button class="btn${on ? ' is-on' : ''}" data-sact="${act}" data-v="${v}" aria-pressed="${on}">${label}</button>`;
-  const tabs = `<div class="row" role="tablist">${['Design', 'Background', 'Colors'].map((t) => `<button class="btn${t === sectionTab ? ' is-on' : ''}" role="tab" aria-selected="${t === sectionTab}" data-sact="tab" data-v="${t}">${t}</button>`).join('')}</div>`;
-  let body = '';
-  if (sectionTab === 'Design') {
-    const gk = gapKind(s);
-    body = `<label>Row Count <input type="number" data-act="rows" min="${minRows}" max="10000" value="${s.rows[bp]}"></label>
-    <div class="row">Gap ${opt('gap', 'zero', 'Zero', gk === 'zero')}${opt('gap', 'medium', 'Medium', gk === 'medium')}${opt('gap', 'custom', 'Custom', gk === 'custom')}</div>
-    ${gk === 'custom' ? `<label>Column gap <input type="range" data-act="gap" min="0" max="50" value="${s.gap}"> ${s.gap}px</label><label>Row gap <input type="range" data-act="rowGap" min="0" max="50" value="${s.rowGap ?? s.gap}"> ${s.rowGap ?? s.gap}px</label>` : ''}
-    <label><input type="checkbox" data-act="fill" ${fillScreen(s) ? 'checked' : ''}> Fill Screen</label>
-    ${fillScreen(s) ? `<div class="row">Height ${[['small', 'S'], ['medium', 'M'], ['large', 'L'], ['custom', 'Custom']].map(([v, l]) => opt('height', v, l, s.height === v)).join('')}</div>
-    ${s.height === 'custom' ? `<label>Custom height <input type="number" data-act="customHeight" min="1" max="100" value="${s.customHeight}"> vh</label>` : ''}
-    <div class="row">Alignment ${[['top', 'Top'], ['middle', 'Center'], ['bottom', 'Bottom']].map(([v, l]) => opt('valign', v, l, (s.valign || 'middle') === v)).join('')}</div>` : ''}
-    <label><input type="checkbox" data-act="divider" ${s.divider ? 'checked' : ''}> Divider</label>
-    ${s.divider ? `<div class="row">Stroke ${[['none', 'None'], ['solid', 'Solid'], ['dashed', 'Dashed']].map(([v, l]) => opt('dividerStroke', v, l, (s.dividerStroke || 'solid') === v)).join('')}</div>
-    <div class="row">Thickness ${['S', 'M', 'L'].map((v) => opt('dividerThickness', v, v, (s.dividerThickness || 'M') === v)).join('')}</div>` : ''}`;
-  } else if (sectionTab === 'Background') {
-    body = `<div class="row">Background Width ${opt('bgWidth', 'full-bleed', 'Full Bleed', (s.bgWidth || 'full-bleed') === 'full-bleed')}${opt('bgWidth', 'inset', 'Inset', s.bgWidth === 'inset')}</div>`;
-  } else {
-    body = `<div class="row">${THEMES.map(([l, v]) => opt('theme', v, l, (s.theme || '').replace(/^theme-/, '') === v)).join('')}</div>`;
-  }
-  return `<div class="group" data-group="section"><h3>Edit Section</h3>${tabs}${body}<dl data-dev>
-    <dt>Section</dt><dd>${s.id}</dd>
-    <dt>Columns</dt><dd>${COLS[bp]} + 2 gutters</dd>
-    <dt>Row min</dt><dd>${m.rowMin.toFixed(2)}px</dd>
-    <dt>Stretched</dt><dd>${stretched} of ${m.rows.length} rows</dd>
-  </dl></div>`;
-}
-
 function onSectionClick(e) {
   const btn = e.target.closest('button[data-sact]');
   if (!btn || !secSid()) return;
@@ -1300,6 +1268,7 @@ layersPanel.addEventListener('drop', (e) => {
   renderLayersPanel();
 });
 function onContextMenu(e) {
+  if (document.body.classList.contains('is-preview')) return;
   const blk = e.target.closest('.fe-block');
   if (!blk || gesture) return;
   e.preventDefault();
@@ -1329,6 +1298,7 @@ contextMenu.addEventListener('click', (e) => {
 });
 
 function onHover(e) {
+  if (document.body.classList.contains('is-preview')) return;
   if (gesture && gesture.type !== 'pending') return;
   const secEl = e.target.closest?.('section.page-section[data-section-id]');
   const sid = secEl && model.sections.some((x) => x.id === secEl.dataset.sectionId) ? secEl.dataset.sectionId : null;
@@ -1385,6 +1355,8 @@ function setBp(next) {
   bp = next;
   $('bp-desktop').classList.toggle('is-on', bp === 'desktop');
   $('bp-mobile').classList.toggle('is-on', bp === 'mobile');
+  $('bp-desktop').setAttribute('aria-checked', String(bp === 'desktop'));
+  $('bp-mobile').setAttribute('aria-checked', String(bp === 'mobile'));
   stage.classList.toggle('is-mobile', bp === 'mobile');
   // Phones use overlay scrollbars, so the preview must not lose width to one.
   doc.documentElement.style.scrollbarWidth = bp === 'mobile' ? 'none' : '';
@@ -1393,6 +1365,17 @@ function setBp(next) {
     updateUi();
   });
 }
+// Preview (oracle "Toggle preview mode"): the page without editor chrome; Escape or the
+// button again leaves it. Our developer tools sit behind the menu next to it.
+function setPreview(on) {
+  document.body.classList.toggle('is-preview', on);
+  doc?.body.classList.toggle('is-preview', on);
+  $('preview').setAttribute('aria-pressed', String(on));
+  if (on) { closeFloating(); closeSectionPanel(); designOpen = null; if (editing) finishTextEdit(); select(null); }
+}
+$('preview').addEventListener('click', () => setPreview(!document.body.classList.contains('is-preview')));
+$('dev-toggle').addEventListener('click', () => { $('dev-pop').hidden = !$('dev-pop').hidden; });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('is-preview')) setPreview(false); });
 $('bp-desktop').addEventListener('click', () => setBp('desktop'));
 $('bp-mobile').addEventListener('click', () => setBp('mobile'));
 document.addEventListener('keydown', onKey);
