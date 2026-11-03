@@ -24,7 +24,7 @@
     "status": "partial",
     "title": "Corpus of at least 300 sections from at least 30 public sites",
     "gate": "covers gap 0 and 11, bleed blocks, overlap, every block type in area 3",
-    "evidence": "parity/corpus.json: 351 sections, 55 sites, gaps 0/11/20/27, 61 bleed blocks, 53 sections with overlap, 16 block types. Missing: gallery and map blocks"
+    "evidence": "parity/corpus.json: 359 sections from 56 sites incl. the oracle demo page; gaps 0/11/20/27, bleed, overlap, sticky. Missing: gallery and map blocks"
   },
   {
     "id": "H4",
@@ -60,7 +60,7 @@
     "status": "done",
     "title": "Trace replay in our editor through cmux",
     "gate": "replays H6's trace and diffs the end state",
-    "evidence": "scripts/replay.mjs replays T0001 in our editor and writes parity/gate-c.json (0 of 1: text height, see P6)"
+    "evidence": "scripts/replay.mjs: Gate C 2 of 2 traces, undo 2 of 2 (parity/gate-c.json)"
   },
   {
     "id": "H8",
@@ -84,22 +84,25 @@
     "id": "O1",
     "area": "Harness and oracle",
     "milestone": "M1",
-    "status": "open",
-    "title": "Build the 8 demo sections on the trial site with the same grid areas as `src/demo.js`. Needs approval: this saves the trial site"
+    "status": "done",
+    "title": "Build the 8 demo sections on the trial site, page \"How Fluid Engine works\"",
+    "evidence": "scripts/oracle-build.mjs and scripts/oracle/demo-spec.mjs; parity/oracle-build.json: 56 blocks, 54 at the spec area, 2 text blocks grown by the oracle's content guard; saved 2026-11-03"
   },
   {
     "id": "O2",
     "area": "Harness and oracle",
     "milestone": "M1",
-    "status": "open",
-    "title": "Capture the 8 sections as fixtures, both layouts"
+    "status": "done",
+    "title": "Capture the 8 sections as fixtures, both layouts",
+    "evidence": "scripts/oracle-import.mjs: fixtures/oracle/demo-page.json, 8 section CSS files in fixtures/css, app/src/demo-data.js; Gate A 359 of 359"
   },
   {
     "id": "O3",
     "area": "Harness and oracle",
     "milestone": "M1",
-    "status": "open",
-    "title": "Copy measured section padding, fonts and type sizes into `src/site.css`"
+    "status": "done",
+    "title": "Match the oracle fonts, type sizes and button sizing in app/src/site.css",
+    "evidence": "Trial site fonts switched to Poppins (Google Fonts) for headings, paragraphs, misc and 3 button styles. Gate B 280 of 280 block boxes at 375, 767, 768, 1280, 1920 on the demo page (parity/gate-b.json)"
   },
   {
     "id": "C1",
@@ -196,7 +199,7 @@
     "milestone": "M2",
     "status": "done",
     "title": "Sticky blocks: position sticky with a top, center or bottom anchor and an offset, desktop only",
-    "evidence": "Found in 11 blocks of the corpus; Gate A 351 of 351"
+    "evidence": "Found in 11 corpus blocks; Gate A 359 of 359. The oracle block toolbar has a Pin button, likely the sticky setting (not tried)"
   },
   {
     "id": "C13",
@@ -219,7 +222,8 @@
     "area": "Page and site context",
     "milestone": "M2",
     "status": "partial",
-    "title": "Section wrapper styles"
+    "title": "Section wrapper styles",
+    "evidence": "Measured: the first section has padding-top 114.67px (under the header), others 0; min-height 10vh. Boxes are measured relative to the grid, so padding is not in Gate B yet"
   },
   {
     "id": "P3",
@@ -246,9 +250,9 @@
     "id": "P6",
     "area": "Page and site context",
     "milestone": "M2",
-    "status": "open",
+    "status": "done",
     "title": "Fonts and type scale, including how sizes follow viewport width",
-    "evidence": "Oracle heading uses Adobe font \"obviously\" 66.4px at 1600px; it cannot be copied (O2), so M1 must switch the trial site to Google Fonts both sides load"
+    "evidence": "Heading and body sizes follow min((v-1)*1.2vw+1rem, max((v-1)*0.012*maxPageWidth+1rem, v*1rem)) above 767px and (v-1)*0.012*min(100vh,900px)+1rem on portrait phones; h1 60.71px at a 1242px frame matches. Gate B 280 of 280 with text wrapping at 375px"
   },
   {
     "id": "P7",
@@ -276,8 +280,9 @@
     "id": "T3",
     "area": "Block types",
     "milestone": "M2",
-    "status": "partial",
-    "title": "Text block"
+    "status": "done",
+    "title": "Text block",
+    "evidence": "Text block markup and margins (headings 2rem, paragraphs 1em, first and last child 0) match: Gate B 280 of 280"
   },
   {
     "id": "T4",
@@ -291,7 +296,8 @@
     "area": "Block types",
     "milestone": "M2",
     "status": "partial",
-    "title": "Button block: sizes, styles, stretch"
+    "title": "Button block: sizes, styles, stretch",
+    "evidence": "Button fills its block height (59px at 768, 61.6px at 1280), 56px side padding, Poppins 500 16px. Sizes small and large not measured"
   },
   {
     "id": "T6",
@@ -346,9 +352,10 @@
     "id": "T13",
     "area": "Block types",
     "milestone": "M2",
-    "status": "unknown",
+    "status": "partial",
     "title": "Default and minimum size per block type",
-    "wasUnknown": true
+    "wasUnknown": true,
+    "evidence": "A new Text block lands at 1/2/3/10 (8 columns by 2 rows) in an empty section; a blank section starts with 8 rows. Other block types not measured"
   },
   {
     "id": "T14",
@@ -518,7 +525,7 @@
     "milestone": "M4",
     "status": "done",
     "title": "Normalize at the start of a drag or keyboard move",
-    "evidence": "traces/T0001-key-right.json: one ArrowRight on the oracle remapped a 1-row heading to 6 rows and moved the image 5 rows down"
+    "evidence": "traces/T0002-demo-hero-right.json and traces/T0003-section4-button-down.json replay with the same end state (parity/gate-c.json 2 of 2). History: traces/retired/T0001-key-right.json"
   },
   {
     "id": "R2",
@@ -533,7 +540,8 @@
     "area": "Row stretch",
     "milestone": "M4",
     "status": "partial",
-    "title": "Exact pixel to grid conversion"
+    "title": "Exact pixel to grid conversion",
+    "evidence": "While building section 1 the oracle remapped the heading from 3/2/7/16 to 4/2/7/16 and the paragraph from 7/2/11/14 to 7/2/10/14 during later drags: normalization can move start rows too"
   },
   {
     "id": "R4",
@@ -625,7 +633,8 @@
     "area": "Overlap and layers",
     "milestone": "M4",
     "status": "open",
-    "title": "Selecting a block covered by another"
+    "title": "Selecting a block covered by another",
+    "evidence": "The oracle section toolbar has an \"Open Layers Panel\" button; not opened yet"
   },
   {
     "id": "Z5",
@@ -654,9 +663,10 @@
     "id": "L3",
     "area": "Phone layout",
     "milestone": "M4",
-    "status": "unknown",
+    "status": "partial",
     "title": "Where a new block lands on phones",
-    "wasUnknown": true
+    "wasUnknown": true,
+    "evidence": "On the demo page the oracle generated phone layouts by stacking blocks over columns 2 to 10: text and buttons 2 rows, shapes 6 rows (fixtures/oracle/demo-page.json, app/src/demo-data.js)"
   },
   {
     "id": "L4",
@@ -688,6 +698,14 @@
     "status": "unknown",
     "title": "Behaviour between 600 and 767px",
     "wasUnknown": true
+  },
+  {
+    "id": "L8",
+    "area": "Phone layout",
+    "milestone": "M4",
+    "status": "open",
+    "title": "Give demo section 7 its staggered phone layout on the oracle, then trace phone edits",
+    "gate": "A trace of a phone-layout move replays to the same end state"
   },
   {
     "id": "S1",
@@ -731,21 +749,23 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Hover and selection outlines, handles, label pill",
-    "evidence": "Handles measured on the oracle: 10px squares, white, 2px rgb(2,122,255), cursors nw/ne/se/sw-resize, row-resize, col-resize. Applied in app/src/editor-frame.css. Hover and label pill not measured"
+    "evidence": "Handles: 10px squares, white, 2px rgb(2,122,255), cursors nw/ne/se/sw-resize, row-resize, col-resize (applied). Blocks carry a label pill with their type, e.g. \"Text\" (sqs-block-label-tag). Hover not measured"
   },
   {
     "id": "U4",
     "area": "Editor chrome",
     "milestone": "M5",
-    "status": "open",
-    "title": "Block toolbar: edit, design, duplicate, delete, layers"
+    "status": "partial",
+    "title": "Block toolbar: edit, design, duplicate, delete, layers",
+    "evidence": "Oracle block toolbar on a text block: Write, Edit, Align Vertically, Pin, Duplicate, Remove. Section toolbar: Add Block, Open Layers Panel, Edit Section, View Layouts, Duplicate, Save, Move Up, Move Down, Remove"
   },
   {
     "id": "U5",
     "area": "Editor chrome",
     "milestone": "M5",
-    "status": "open",
-    "title": "Add block menu and default placement"
+    "status": "partial",
+    "title": "Add block menu and default placement",
+    "evidence": "Oracle Add Block menu: search box; Essentials: Text, Image, Button, Video, Form, Accordion, Shape, Scrolling, Line; Sell: Product, Pricing Plan, Donation, Scheduling, more. New blocks land top left"
   },
   {
     "id": "U6",
@@ -768,7 +788,7 @@
     "milestone": "M6",
     "status": "done",
     "title": "One undo step per gesture; normalization is not undone and does not mark the page changed",
-    "evidence": "traces/T0001-key-right.json: oracle undo has 1 step and keeps the normalization, Save stays disabled. Our editor does the same since m0-harness; replay leaves only the text height diff"
+    "evidence": "traces/retired/T0001-key-right.json: undo keeps the normalization and Save stays disabled. T0002 and T0003: undo restores the move in our editor as on the oracle (parity/gate-c.json, undo pass)"
   },
   {
     "id": "Y2",
@@ -811,9 +831,10 @@
     "id": "A2",
     "area": "Accessibility and order",
     "milestone": "M6",
-    "status": "unknown",
+    "status": "partial",
     "title": "DOM order of blocks",
-    "wasUnknown": true
+    "wasUnknown": true,
+    "evidence": "Block DOM order follows the phone layout row order: 8 of 8 demo sections, 248 of 286 corpus sections with 2+ blocks (desktop row order: 164). The exceptions are not explained yet"
   },
   {
     "id": "A3",

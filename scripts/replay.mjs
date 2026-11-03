@@ -4,13 +4,14 @@
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, waitFor, goto, viewport, resetViewport, pause } from './lib/cmux.mjs';
 import { diffStates } from './lib/trace.mjs';
+import { DEMO } from '../app/src/demo-data.js';
 
 const args = process.argv.slice(2);
 const arg = (n, d) => {
   const i = args.indexOf(`--${n}`);
   return i >= 0 ? args[i + 1] : d;
 };
-const surface = arg('surface', 'surface:42');
+const surface = arg('surface', 'surface:45');
 const url = arg('url', 'http://127.0.0.1:5178/index.html?replay');
 const only = args.filter((a, i) => !a.startsWith('--') && !args[i - 1]?.startsWith('--'));
 const dir = new URL('../traces/', import.meta.url);
@@ -18,8 +19,18 @@ const traces = readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => JS
 
 // Our model for one trace: the oracle's blocks and areas, with text content kept and
 // every other block drawn as a plain shape. Fonts and type sizes are ours (item P6).
+const published = {};
+for (const sec of DEMO.sections) for (const b of sec.blocks) published[b.id] = b;
+
 function modelFor(t) {
   const blocks = Object.entries(t.before.blocks).map(([id, s]) => {
+    // Prefer the published content of the same block (clean HTML, real labels).
+    const p = published[id];
+    if (p) {
+      const L = { area: s.area, z: s.z, justify: p.layout.desktop.justify || 'flex-start', align: p.layout.desktop.align || 'flex-start' };
+      const { layout, ...content } = p;
+      return { ...content, layout: { desktop: L, mobile: L } };
+    }
     const c = t.content[id] || { type: 'shape' };
     const L = { area: s.area, z: s.z, justify: 'flex-start', align: 'flex-start' };
     const base = c.type === 'text' ? { type: 'text', html: c.html } : { type: 'shape', fill: '#d9d4ca', radius: '0', label: c.type };
@@ -60,7 +71,9 @@ for (const t of traces) {
   waitFor(surface, `(() => !!(window.fe && document.getElementById('site-frame').clientWidth === ${t.oracle.frameWidth}))()`, 20);
   evalJs(surface, `JSON.stringify(fe.load(${JSON.stringify(modelFor(t))}))`);
   if (t.layout !== 'desktop') evalJs(surface, `(() => { fe.setBp('${t.layout}'); return 'true'; })()`);
-  await pause(300);
+  // Text height decides row stretch, so wait until the canvas has its fonts.
+  const fonts = evalJs(surface, `(async () => { const d = document.getElementById('site-frame').contentDocument; await d.fonts.ready; await d.fonts.load('400 16px Poppins'); await d.fonts.load('500 16px Poppins'); await new Promise((r) => setTimeout(r, 300)); return JSON.stringify(d.fonts.check('400 16px Poppins')); })()`);
+  if (fonts !== true) throw new Error('Poppins did not load in the editor canvas');
   evalJs(surface, SELECT(t.gesture.target));
   for (const k of t.gesture.keys || []) {
     evalJs(surface, KEY(k));

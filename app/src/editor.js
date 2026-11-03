@@ -4,7 +4,7 @@
 import { renderPage, renderSection, exportHtml, LAST_LINE, COLS } from './render.js';
 import { demoModel } from './demo.js';
 
-const KEY = 'fluid-editor:model:v1';
+const KEY = 'fluid-editor:model:v2';
 const $ = (id) => document.getElementById(id);
 const frame = $('site-frame');
 const panel = $('panel');

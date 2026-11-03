@@ -6,6 +6,7 @@
 //                node scripts/box-diff.mjs --oracle <url> --swap
 // Options: --surface surface:45 --widths 375,767,768,1280,1920 --tolerance 1
 import { readFileSync, writeFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, goto, viewport, resetViewport, pause } from './lib/cmux.mjs';
 import { parseSectionCss } from './lib/parse.mjs';
 import { sectionCss } from '../app/src/render.js';
@@ -19,16 +20,20 @@ const surface = arg('surface', 'surface:45');
 const oracle = arg('oracle');
 const ours = arg('ours');
 const swap = args.includes('--swap');
+// --oracle-frame <surface>: measure the oracle inside the Squarespace editor's full-screen
+// preview on that surface, with the site frame resized to each width (a logged-in visit
+// to the site URL redirects to the editor). The editor page must be open, not in edit mode.
+const oracleFrame = arg('oracle-frame');
 // --fault breaks our CSS on purpose (desktop rows 0.0215 to 0.03) to prove the gate can fail.
 const fault = args.includes('--fault');
 const widths = arg('widths', '375,767,768,1280,1920').split(',').map(Number);
 const tol = Number(arg('tolerance', '1'));
-if (!oracle || (!ours && !swap)) throw new Error('need --oracle <url> and either --ours <url> or --swap');
+if ((!oracle && !oracleFrame) || (!ours && !swap)) throw new Error('need --oracle <url> or --oracle-frame <surface>, and either --ours <url> or --swap');
 
 const MEASURE = `(async () => {
   await document.fonts.ready;
   const out = {};
-  for (const fe of document.querySelectorAll('.fluid-engine')) {
+  for (const fe of document.querySelectorAll('main#page .fluid-engine')) {
     const sid = [...fe.classList].find((c) => /^fe-[\\w-]+$/.test(c) && c !== 'fe-block');
     const r = fe.getBoundingClientRect();
     for (const b of fe.querySelectorAll(':scope > .fe-block')) {
@@ -66,16 +71,34 @@ async function measure(url, width, map) {
   viewport(surface, width, 1000);
   goto(surface, url);
   waitFor(surface, `document.readyState === 'complete' && !!document.querySelector('.fluid-engine')`, 40);
+  await pause(600);
   let swapped = null;
   if (map) swapped = evalJs(surface, SWAP(map));
   await pause(400);
   return { boxes: evalJs(surface, MEASURE), swapped };
 }
 
+async function measureFrame(width) {
+  const s = oracleFrame;
+  viewport(s, 1920, 1100);
+  const inPreview = evalJs(s, `(() => JSON.stringify(!![...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Close full screen preview' && x.getBoundingClientRect().width > 0)))()`);
+  if (!inPreview) {
+    evalJs(s, `(() => { const b = [...document.querySelectorAll('button')].find((x) => (x.getAttribute('aria-label') || x.textContent).trim() === 'Preview'); document.querySelectorAll('#fx-target').forEach((e) => e.removeAttribute('id')); b.id = 'fx-target'; return 'true'; })()`);
+    execFileSync('cmux', ['browser', '--surface', s, 'click', '#fx-target']);
+    await pause(2500);
+  }
+  evalJs(s, `(() => { const f = document.getElementById('sqs-site-frame'); f.style.setProperty('width', '${width}px', 'important'); f.style.setProperty('max-width', 'none', 'important'); f.style.setProperty('min-width', '0', 'important'); f.style.setProperty('height', '1000px', 'important'); f.style.setProperty('flex', 'none', 'important'); return 'true'; })()`);
+  await pause(1200);
+  const got = evalJs(s, `(() => { const f = document.getElementById('sqs-site-frame'); return JSON.stringify([f.contentWindow.innerWidth, f.contentWindow.innerHeight]); })()`);
+  if (got[0] !== width) throw new Error(`oracle frame is ${got[0]}px wide, wanted ${width}`);
+  const js = MEASURE.replace('(async () => {', "(async () => { const document = window.document.getElementById('sqs-site-frame').contentDocument;");
+  return { boxes: evalJs(s, js), swapped: null };
+}
+
 const map = swap ? swapCss() : null;
-const report = { gate: 'B', oracle, ours: ours || 'swap: same page with our CSS', tolerance: tol, widths: [], pass: 0, total: 0 };
+const report = { gate: 'B', oracle: oracle || `editor preview on ${oracleFrame}`, ours: ours || 'swap: same page with our CSS', tolerance: tol, widths: [], pass: 0, total: 0 };
 for (const w of widths) {
-  const a = await measure(oracle, w);
+  const a = oracleFrame ? await measureFrame(w) : await measure(oracle, w);
   const b = await measure(ours || oracle, w, map);
   const fails = [];
   let n = 0;
@@ -92,6 +115,7 @@ for (const w of widths) {
   for (const f of fails.slice(0, 3)) console.log(`  ${f.block}: ${f.reason || `oracle ${f.oracle} ours ${f.ours}`}`);
 }
 resetViewport(surface);
+if (oracleFrame) viewport(oracleFrame, 1600, 1000);
 console.log(`Gate B, block boxes: ${report.pass} of ${report.total} block boxes match`);
 if (!fault) writeFileSync(new URL('../parity/gate-b.json', import.meta.url), JSON.stringify(report, null, 2) + '\n');
 if (!report.total) {

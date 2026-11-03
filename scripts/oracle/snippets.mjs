@@ -18,7 +18,7 @@ export const ENTER_EDIT = `(() => {
 // own per-block style tag (data-test="fluid-engine-grid-css"), not from layout math.
 export const READ = (index) => `(() => {
   ${FRAME}
-  const fe = d.querySelectorAll('.fluid-engine')[${index}];
+  const fe = d.querySelectorAll('main#page .fluid-engine')[${index}];
   const rowEl = fe.querySelector('.fe-grid-row');
   const sectionId = rowEl ? [...rowEl.classList].find((c) => c.startsWith('rows-')).replace(/^rows-/, '').replace(/-\\d+$/, '') : null;
   const layout = W.innerWidth >= 768 ? 'desktop' : 'mobile';
@@ -34,7 +34,9 @@ export const READ = (index) => `(() => {
       z: Number(part.match(/z-index:\\s*(-?\\d+)/)[1]),
     };
     const kind = b.querySelector('[data-sqsp-block]')?.dataset.sqspBlock || 'unknown';
-    content[id] = kind === 'text' ? { type: 'text', html: b.querySelector('.sqs-html-content')?.innerHTML.trim() || '' } : { type: kind };
+    // In edit mode the text sits inside the editor's own wrappers; keep only the document.
+    const src = b.querySelector('.ProseMirror') || b.querySelector('.sqs-html-content');
+    content[id] = kind === 'text' ? { type: 'text', html: src?.innerHTML.trim() || '' } : { type: kind };
   }
   const btn = (n) => [...document.querySelectorAll('button')].find((x) => (x.getAttribute('aria-label') || x.textContent.trim()) === n);
   const off = (b) => !b || b.disabled === true || b.getAttribute('aria-disabled') === 'true';
@@ -47,11 +49,12 @@ export const READ = (index) => `(() => {
   });
 })()`;
 
-export const SELECT = (index, blockId) => `(() => {
+export const SELECT = (index, blockId) => `(async () => {
   ${FRAME}
-  const fe = d.querySelectorAll('.fluid-engine')[${index}];
+  const fe = d.querySelectorAll('main#page .fluid-engine')[${index}];
   const b = fe.querySelector('.fe-block[data-block-id="${blockId}"]');
-  b.scrollIntoView({ block: 'center' });
+  { const q0 = b.getBoundingClientRect(); if (q0.top < 60 || q0.bottom > W.innerHeight - 20) W.scrollTo(0, W.scrollY + q0.top - 120); }
+  await new Promise((res) => setTimeout(res, 400)); // the frame applies the scroll a moment later
   const r = b.getBoundingClientRect();
   const o = { bubbles: true, cancelable: true, composed: true, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2, button: 0, pointerId: 1, isPrimary: true, pointerType: 'mouse', view: W };
   b.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, buttons: 1 }));
@@ -64,7 +67,7 @@ export const SELECT = (index, blockId) => `(() => {
 
 export const KEY = (index, blockId, key) => `(() => {
   ${FRAME}
-  const fe = d.querySelectorAll('.fluid-engine')[${index}];
+  const fe = d.querySelectorAll('main#page .fluid-engine')[${index}];
   const b = fe.querySelector('.fe-block[data-block-id="${blockId}"]');
   const t = d.activeElement && d.activeElement !== d.body ? d.activeElement : b;
   const codes = { ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40 };

@@ -72,4 +72,4 @@ node scripts/replay.mjs           # Gate C: replay every trace in our editor
 npm run parity && npm run roadmap   # redraw the pictures
 ```
 
-The oracle is `halibut-keyboard-jlhd.squarespace.com`, driven through cmux.
+The oracle is the page "How Fluid Engine works" on `halibut-keyboard-jlhd.squarespace.com`, driven through cmux ([0004](docs/decisions/0004-oracle-page-and-preview-frame.md)). `app/page.html` is our published version of it.

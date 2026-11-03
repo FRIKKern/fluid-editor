@@ -1,0 +1,176 @@
+{
+  "id": "T0003-section4-button-down",
+  "journey": "J07",
+  "items": [
+    "R1",
+    "R2"
+  ],
+  "oracle": {
+    "editor": "https://halibut-keyboard-jlhd.squarespace.com/config/pages",
+    "page": "/how-fluid-engine-works",
+    "capturedAt": "2026-11-03",
+    "frameWidth": 1600
+  },
+  "layout": "desktop",
+  "section": {
+    "id": "6ae9c91ee35b9d4d31006f9e",
+    "index": 3,
+    "gap": 11,
+    "rowGap": 11
+  },
+  "content": {
+    "yui_3_17_2_1_1793705593367_16670": {
+      "type": "text",
+      "html": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"3fa2518a-8ce1-4b22-8efd-33843e7f220f\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Text pushes rows down</h2></div></div></div></div>"
+    },
+    "yui_3_17_2_1_1793705593367_16898": {
+      "type": "text",
+      "html": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"ed064d24-497b-49a9-9759-2f8f88946ffa\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">When the window gets narrower this paragraph wraps onto more lines than its rows hold. The browser stretches those rows to fit the text, and everything below moves down. Start a drag anywhere in this section and the editor first converts the stretched rows back into uniform rows, so every snap moves the same distance.</p></div></div></div></div>"
+    },
+    "yui_3_17_2_1_1793705593367_17180": {
+      "type": "button"
+    },
+    "yui_3_17_2_1_1793705593367_17450": {
+      "type": "text",
+      "html": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"0fa4cb1b-a2a9-4353-8013-afa65e84247d\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">On the published page the stretch stays. That is how text wraps on narrow screens without any JavaScript.</p></div></div></div></div>"
+    }
+  },
+  "before": {
+    "rows": 12,
+    "blocks": {
+      "yui_3_17_2_1_1793705593367_16670": {
+        "area": [
+          1,
+          2,
+          5,
+          18
+        ],
+        "z": 1
+      },
+      "yui_3_17_2_1_1793705593367_16898": {
+        "area": [
+          4,
+          2,
+          7,
+          12
+        ],
+        "z": 2
+      },
+      "yui_3_17_2_1_1793705593367_17180": {
+        "area": [
+          9,
+          2,
+          11,
+          7
+        ],
+        "z": 3
+      },
+      "yui_3_17_2_1_1793705593367_17450": {
+        "area": [
+          4,
+          15,
+          8,
+          25
+        ],
+        "z": 4
+      }
+    }
+  },
+  "gesture": {
+    "kind": "key",
+    "target": "yui_3_17_2_1_1793705593367_17180",
+    "keys": [
+      "ArrowDown"
+    ]
+  },
+  "after": {
+    "rows": 12,
+    "blocks": {
+      "yui_3_17_2_1_1793705593367_16670": {
+        "area": [
+          1,
+          2,
+          5,
+          18
+        ],
+        "z": 1
+      },
+      "yui_3_17_2_1_1793705593367_16898": {
+        "area": [
+          4,
+          2,
+          7,
+          12
+        ],
+        "z": 2
+      },
+      "yui_3_17_2_1_1793705593367_17180": {
+        "area": [
+          10,
+          2,
+          12,
+          7
+        ],
+        "z": 3
+      },
+      "yui_3_17_2_1_1793705593367_17450": {
+        "area": [
+          4,
+          15,
+          8,
+          25
+        ],
+        "z": 4
+      }
+    }
+  },
+  "undo": {
+    "steps": 1,
+    "afterUndo": {
+      "rows": 12,
+      "blocks": {
+        "yui_3_17_2_1_1793705593367_16670": {
+          "area": [
+            1,
+            2,
+            5,
+            18
+          ],
+          "z": 1
+        },
+        "yui_3_17_2_1_1793705593367_16898": {
+          "area": [
+            4,
+            2,
+            7,
+            12
+          ],
+          "z": 2
+        },
+        "yui_3_17_2_1_1793705593367_17180": {
+          "area": [
+            9,
+            2,
+            11,
+            7
+          ],
+          "z": 3
+        },
+        "yui_3_17_2_1_1793705593367_17450": {
+          "area": [
+            4,
+            15,
+            8,
+            25
+          ],
+          "z": 4
+        }
+      }
+    },
+    "restored": true,
+    "restoredBy": "reload"
+  },
+  "notes": [
+    "gesture changed yui_3_17_2_1_1793705593367_17180: area want 9/2/11/7, got 10/2/12/7"
+  ]
+}
