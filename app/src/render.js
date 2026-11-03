@@ -194,7 +194,16 @@ export const DIVIDER_EDGE = [0.5, 0.438, 0.375, 0.313, 0.253, 0.196, 0.143, 0.09
   0.505, 0.569, 0.631, 0.693, 0.753, 0.81, 0.864, 0.91, 0.947, 0.972, 0.98, 0.973, 0.95, 0.914, 0.868, 0.815, 0.757, 0.698, 0.636, 0.573, 0.51];
 const pct = (k) => +(k * 100 / (DIVIDER_EDGE.length - 1)).toFixed(3);
 const DIVIDER_CLIP = `polygon(0 0, 100% 0, ${DIVIDER_EDGE.map((r, k) => `${pct(k)}% calc(100% - ${+(6 * (1 - r)).toFixed(3)}vw)`).reverse().join(', ')})`;
-const DIVIDER_SVG = `<svg class="section-divider-stroke" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true"><path d="M${DIVIDER_EDGE.map((r, k) => `${+(k / (DIVIDER_EDGE.length - 1)).toFixed(4)} ${r}`).join(' L')}" /></svg>`;
+const DIVIDER_PATH = `M${DIVIDER_EDGE.map((r, k) => `${+(k / (DIVIDER_EDGE.length - 1)).toFixed(4)} ${r}`).join(' L')}`;
+// Stroke (parity/findings/DIVOPTS.json): none, solid or dashed (5px dash, 21px gap, square
+// caps, measured at 6px); thickness S 2px, M 6px (default), L 15px.
+export const DIVIDER_THICKNESS = { S: 2, M: 6, L: 15 };
+const dividerSvg = (s) => {
+  const style = s.dividerStroke || 'solid';
+  if (style === 'none') return '';
+  const w = DIVIDER_THICKNESS[s.dividerThickness || 'M'];
+  return `<svg class="section-divider-stroke" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true"><path d="${DIVIDER_PATH}" style="stroke-width: ${w}px;${style === 'dashed' ? ' stroke-dasharray: 5px 21px;' : ''}" /></svg>`;
+};
 
 export function renderSection(s, model) {
   // Section settings (P3, P4, P5): height S/M/L, vertical alignment, content width, background width.
@@ -209,7 +218,7 @@ export function renderSection(s, model) {
   ].filter(Boolean).join(' ');
   const themeName = (s.theme || '').replace(/^theme-/, '');
   const style = s.height === 'custom' ? ` style="--custom-height: ${s.customHeight ?? 0};"` : '';
-  return `<section class="${cls}" data-section-id="${s.id}" data-section-theme="${themeName}"${style}><div class="section-background"${s.divider ? ` style="clip-path: ${DIVIDER_CLIP};"` : ''}></div>${s.divider ? DIVIDER_SVG : ''}<div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
+  return `<section class="${cls}" data-section-id="${s.id}" data-section-theme="${themeName}"${style}><div class="section-background"${s.divider ? ` style="clip-path: ${DIVIDER_CLIP};"` : ''}></div>${s.divider ? dividerSvg(s) : ''}<div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
 }
 
 // Site header (P7), measured on the oracle (parity/findings/P7.json): it lies over the
