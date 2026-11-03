@@ -9,7 +9,7 @@
 // The oracle must be open in edit mode on the demo page; nothing is saved (O1).
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, waitFor } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, waitFor, screenshot, requireWebKit } from './lib/cmux.mjs';
 import { BUTTON } from './oracle/snippets.mjs';
 import { select, click, escape, deselect, hoverSection, blockIds } from './oracle/ui.mjs';
 
@@ -19,6 +19,7 @@ const O = process.env.ORACLE_SURFACE || 'surface:40';
 const U = process.env.FLUID_SURFACE || 'surface:59';
 const shots = arg('shots', null);
 const only = (arg('only', '') || '').split(',').filter(Boolean);
+requireWebKit(U, 'the inventory');
 if (shots) mkdirSync(shots, { recursive: true });
 const ours = 'http://127.0.0.1:5178/index.html';
 
@@ -60,7 +61,7 @@ const COLLECT = `(() => {
   return JSON.stringify([...out.values()]);
 })()`;
 
-const shot = (surface, name) => { if (shots) execFileSync('cmux', ['browser', '--surface', surface, 'screenshot', '--out', `${shots}/${name}.png`]); };
+const shot = (surface, name) => { if (shots) screenshot(surface, `${shots}/${name}.png`); };
 
 // ---------- the oracle ----------
 const oframe = `const f = document.getElementById('sqs-site-frame'); const d = f.contentDocument; const W = f.contentWindow;`;

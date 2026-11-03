@@ -651,9 +651,22 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Text toolbar: styles, bold, italic, links, alignment, color, size",
-    "evidence": "The text toolbar opens from Write (parity/findings/TEXTBAR.json): Squarespace AI, Text Style (Heading 1-4, Paragraph 1-3, Monospace, shortcuts Cmd+Opt+6 to 0 and M), Bold, Italic, Text Color (Palette, Custom), Scaled Text, Text Highlight, Link (URL or a site page), Text Alignment (left, center, right, justify), Quote, Bullet List, Numbered List, Strike, Outdent, Indent, Clear Formatting. parity/findings/TEXTOPS.json records the HTML of 17 actions; our Text group makes the same HTML for all 17 (npm run text-check, parity/text-check.json). Missing: Text Color, Scaled Text, Highlight, Link, the style shortcuts, a floating toolbar over the block while writing (hands-on testing 2026-11-03: ours puts the buttons in the side panel, the oracle shows them above the text), per-action undo inside an edit (ours undoes the whole edit; the oracle took 1 undo per action), and the published look of quotes, lists and monospace",
+    "evidence": "The text toolbar opens from Write (parity/findings/TEXTBAR.json): Squarespace AI, Text Style (Heading 1-4, Paragraph 1-3, Monospace, shortcuts Cmd+Opt+6 to 0 and M), Bold, Italic, Text Color (Palette, Custom), Scaled Text, Text Highlight, Link (URL or a site page), Text Alignment (left, center, right, justify), Quote, Bullet List, Numbered List, Strike, Outdent, Indent, Clear Formatting. parity/findings/TEXTOPS.json records the HTML of 17 actions; our Text group makes the same HTML for all 17 (npm run text-check, parity/text-check.json). Our text toolbar now floats 58px above the block while writing, laid out like the oracle's with the Text Style dropdown (with its shortcuts) and the Text Alignment menu. Missing: Text Color, Scaled Text, Highlight, Link, the style shortcuts, per-action undo inside an edit (ours undoes the whole edit; the oracle took 1 undo per action), and the published look of quotes, lists and monospace",
     "outOfScope": [
       "0005: Squarespace AI"
+    ],
+    "controls": [
+      "Text Style",
+      "Bold",
+      "Italic",
+      "Text Alignment",
+      "Quote",
+      "Bullet List",
+      "Numbered List",
+      "Strike",
+      "Outdent",
+      "Indent",
+      "Clear Formatting"
     ]
   },
   {

@@ -7,7 +7,7 @@
 // Options: --surface surface:45 --widths 375,767,768,1280,1920 --tolerance 1
 import { readFileSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
-import { evalJs, waitFor, goto, viewport, resetViewport, pause } from './lib/cmux.mjs';
+import { evalJs, waitFor, goto, viewport, resetViewport, pause, requireWebKit } from './lib/cmux.mjs';
 import { ensureVisible } from './lib/cmux.mjs';
 import { parseSectionCss } from './lib/parse.mjs';
 import { sectionCss } from '../app/src/render.js';
@@ -18,6 +18,7 @@ const arg = (n, d) => {
   return i >= 0 ? args[i + 1] : d;
 };
 const surface = arg('surface', process.env.FLUID_SURFACE || 'surface:59');
+requireWebKit(surface, 'Gate B (box-diff)');
 const oracle = arg('oracle');
 const ours = arg('ours');
 const swap = args.includes('--swap');
