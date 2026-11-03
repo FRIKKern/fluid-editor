@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 29 changes, 3 milestones closed
+- **Today** · 30 changes, 3 milestones closed
+  - E4, U11: text style shortcuts, Cmd+B, Cmd+I and Shift+S ([#48](https://github.com/FRIKKern/fluid-editor/pull/48))
   - Gate C: a filtered replay leaves parity/gate-c.json alone ([#47](https://github.com/FRIKKern/fluid-editor/pull/47))
-  - Trim the side panel to developer readouts and Align Group ([#46](https://github.com/FRIKKern/fluid-editor/pull/46))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
