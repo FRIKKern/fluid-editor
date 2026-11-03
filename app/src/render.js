@@ -194,10 +194,10 @@ export function renderSection(s, model) {
     `vertical-alignment--${s.valign || 'middle'}`,
     `content-width--${s.contentWidth || 'wide'}`,
     `horizontal-alignment--${s.halign || 'center'}`,
-    s.theme || '',
   ].filter(Boolean).join(' ');
+  const themeName = (s.theme || '').replace(/^theme-/, '');
   const style = s.height === 'custom' ? ` style="--custom-height: ${s.customHeight ?? 0};"` : '';
-  return `<section class="${cls}" data-section-id="${s.id}"${style}><div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
+  return `<section class="${cls}" data-section-id="${s.id}" data-section-theme="${themeName}"${style}><div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
 }
 
 // Site header (P7), measured on the oracle (parity/findings/P7.json): it lies over the

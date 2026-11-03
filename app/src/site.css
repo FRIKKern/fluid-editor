@@ -98,9 +98,7 @@ p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
 }
 .page-section.content-width--medium .content { width: 75%; }
 
-.theme-accent { --section-bg: var(--accent); }
-.theme-light { --section-bg: #f4f1ec; }
-.theme-dark { --section-bg: #151515; --section-ink: #f4f4f4; }
+
 
 /* Shared block rules, same behaviour as the oracle */
 .fluid-engine .sqs-block { display: flex; height: 100%; width: 100%; flex-direction: column; }
@@ -166,8 +164,7 @@ body { position: relative; }
 .page-section.section-height--custom > .content-wrapper { padding: calc(var(--custom-height, 0) * 0.1vmax) 0; }
 /* An empty paragraph keeps one line, as on the oracle (22.4px for 16px text). */
 .sqs-html-content p[data-rte-preserve-empty]:empty::before { content: ""; display: inline-block; }
-.theme-black { --section-bg: #000; --section-ink: #fff; }
-.theme-black a { color: inherit; }
+.page-section a { color: inherit; }
 
 /* Social links (T11) */
 .social-icons { display: flex; gap: 12px; }
@@ -230,3 +227,33 @@ body { position: relative; }
 /* Line block (T11) */
 .sqs-block-horizontalrule .sqs-block-content { height: 100%; display: flex; align-items: center; }
 .sqs-block-horizontalrule hr { width: 100%; margin: 0; border: 0; border-top: 1px solid currentColor; }
+
+/* Color themes (P5). Palette and theme mappings read from the trial site 2026-11-03:
+   each theme names a palette color for the background, headings, paragraphs and buttons. */
+:root {
+  --white-hsl: 0,0%,100%;
+  --black-hsl: 0,0%,0%;
+  --accent-hsl: 3.87096774,70.45454545%,82.74509804%;
+  --lightAccent-hsl: 42.54545455,100%,67.64705882%;
+  --darkAccent-hsl: 273.06122449,90.18404908%,68.03921569%;
+  --safeLightAccent-hsl: 3.87096774,70.45454545%,82.74509804%;
+  --safeDarkAccent-hsl: 0,0%,0%;
+  --safeInverseAccent-hsl: 0,0%,0%;
+  --safeInverseLightAccent-hsl: 0,0%,0%;
+  --safeInverseDarkAccent-hsl: 0,0%,100%;
+}
+.page-section {
+  --section-bg: hsla(var(--darkAccent-hsl), 1); --heading-color: hsla(var(--black-hsl), 1); --section-ink: hsla(var(--black-hsl), 1);
+  --button-bg: hsla(var(--black-hsl), 1); --button-ink: hsla(var(--white-hsl), 1);
+}
+.page-section[data-section-theme="white"] { --section-bg: hsla(var(--white-hsl), 1); --heading-color: hsla(var(--black-hsl), 1); --section-ink: hsla(var(--black-hsl), 1); --button-bg: hsla(var(--safeDarkAccent-hsl), 1); --button-ink: hsla(var(--safeInverseDarkAccent-hsl), 1); }
+.page-section[data-section-theme="white-bold"] { --section-bg: hsla(var(--white-hsl), 1); --heading-color: hsla(var(--safeDarkAccent-hsl), 1); --section-ink: hsla(var(--black-hsl), 1); --button-bg: hsla(var(--safeDarkAccent-hsl), 1); --button-ink: hsla(var(--safeInverseDarkAccent-hsl), 1); }
+.page-section[data-section-theme="light-bold"] { --section-bg: hsla(var(--lightAccent-hsl), 1); --heading-color: hsla(var(--safeDarkAccent-hsl), 1); --section-ink: hsla(var(--black-hsl), 1); --button-bg: hsla(var(--safeDarkAccent-hsl), 1); --button-ink: hsla(var(--safeInverseDarkAccent-hsl), 1); }
+.page-section[data-section-theme="dark"] { --section-bg: hsla(var(--darkAccent-hsl), 1); --heading-color: hsla(var(--white-hsl), 1); --section-ink: hsla(var(--white-hsl), 1); --button-bg: hsla(var(--safeLightAccent-hsl), 1); --button-ink: hsla(var(--safeInverseLightAccent-hsl), 1); }
+.page-section[data-section-theme="dark-bold"] { --section-bg: hsla(var(--darkAccent-hsl), 1); --heading-color: hsla(var(--black-hsl), 1); --section-ink: hsla(var(--white-hsl), 1); --button-bg: hsla(var(--safeLightAccent-hsl), 1); --button-ink: hsla(var(--safeInverseLightAccent-hsl), 1); }
+.page-section[data-section-theme="black"] { --section-bg: hsla(var(--black-hsl), 1); --heading-color: hsla(var(--white-hsl), 1); --section-ink: hsla(var(--white-hsl), 1); --button-bg: hsla(var(--safeLightAccent-hsl), 1); --button-ink: hsla(var(--safeInverseLightAccent-hsl), 1); }
+.page-section[data-section-theme="black-bold"] { --section-bg: hsla(var(--black-hsl), 1); --heading-color: hsla(var(--safeLightAccent-hsl), 1); --section-ink: hsla(var(--white-hsl), 1); --button-bg: hsla(var(--safeLightAccent-hsl), 1); --button-ink: hsla(var(--safeInverseLightAccent-hsl), 1); }
+.page-section[data-section-theme="bright"] { --section-bg: hsla(var(--accent-hsl), 1); --heading-color: hsla(var(--safeInverseAccent-hsl), 1); --section-ink: hsla(var(--safeInverseAccent-hsl), 1); --button-bg: hsla(var(--safeInverseAccent-hsl), 1); --button-ink: hsla(var(--accent-hsl), 1); }
+.page-section[data-section-theme="bright-inverse"] { --section-bg: hsla(var(--safeInverseAccent-hsl), 1); --heading-color: hsla(var(--accent-hsl), 1); --section-ink: hsla(var(--accent-hsl), 1); --button-bg: hsla(var(--accent-hsl), 1); --button-ink: hsla(var(--safeInverseAccent-hsl), 1); }
+.page-section h1, .page-section h2, .page-section h3, .page-section h4 { color: var(--heading-color); }
+.page-section .sqs-block-button-element, .page-section .form-submit { background: var(--button-bg); color: var(--button-ink); }

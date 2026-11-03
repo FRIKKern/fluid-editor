@@ -247,7 +247,7 @@
     "milestone": "M2",
     "status": "partial",
     "title": "Section alignment, color themes, background image and video, dividers",
-    "evidence": "Edit Section panel: Background, Colors, Grid (Row Count, Gap zero/medium/custom), Section (Fill Screen, Height S/M/L/custom, vertical alignment top/center/bottom), Divider, Anchor Link. Our sections render height, vertical alignment, content width and horizontal alignment classes; top/bottom alignment CSS is ours (not measured), backgrounds, themes and dividers not built"
+    "evidence": "Edit Section panel: Background, Colors, Grid (Row Count, Gap zero/medium/custom), Section (Fill Screen, Height S/M/L/custom, vertical alignment top/center/bottom), Divider, Anchor Link. Our sections render height, vertical alignment, content width and horizontal alignment classes and the 9 color themes from the trial site palette (data-section-theme). scripts/color-diff.mjs matches section background, heading, paragraph and button colors on all 5 pages: demo 31/31, Home 21/21, Services 11/11, About 12/12, Contact 6/6 (parity/colors-*.json). Background image and video and dividers are not built"
   },
   {
     "id": "P6",
