@@ -1,0 +1,77 @@
+{
+  "check": "block design in the editor",
+  "pass": 10,
+  "total": 10,
+  "results": [
+    {
+      "label": "Opacity",
+      "what": "opacity",
+      "oracle": "0.5",
+      "ours": "0.5",
+      "ok": true
+    },
+    {
+      "label": "Rotate",
+      "what": "transform",
+      "oracle": "matrix(0.984808, 0.173648, -0.173648, 0.984808, 0, 0)",
+      "ours": "matrix(0.984808, 0.173648, -0.173648, 0.984808, 0, 0)",
+      "ok": true
+    },
+    {
+      "label": "#9",
+      "what": "transform",
+      "oracle": "matrix(1.2, 0, 0, 1, 0, 0)",
+      "ours": "matrix(1.2, 0, 0, 1, 0, 0)",
+      "ok": true
+    },
+    {
+      "label": "#10",
+      "what": "transform",
+      "oracle": "matrix(1, 0, 0, 0.8, 0, 0)",
+      "ours": "matrix(1, 0, 0, 0.8, 0, 0)",
+      "ok": true
+    },
+    {
+      "label": "#11",
+      "what": "transform",
+      "oracle": "matrix(1, 0, 0, 1, 20, 0)",
+      "ours": "matrix(1, 0, 0, 1, 20, 0)",
+      "ok": true
+    },
+    {
+      "label": "#12",
+      "what": "transform",
+      "oracle": "matrix(1, 0, 0, 1, 0, -15)",
+      "ours": "matrix(1, 0, 0, 1, 0, -15)",
+      "ok": true
+    },
+    {
+      "label": "#13",
+      "what": "transform",
+      "oracle": "matrix(1, 0, 0.176327, 1, 0, 0)",
+      "ours": "matrix(1, 0, 0.176327, 1, 0, 0)",
+      "ok": true
+    },
+    {
+      "label": "#14",
+      "what": "transform",
+      "oracle": "matrix(1, 0.087489, 0, 1, 0, 0)",
+      "ours": "matrix(1, 0.087489, 0, 1, 0, 0)",
+      "ok": true
+    },
+    {
+      "label": "Background",
+      "what": "background",
+      "oracle": "rgb(255, 255, 255)",
+      "ours": "rgb(255, 255, 255)",
+      "ok": true
+    },
+    {
+      "label": "Blur",
+      "what": "backdrop",
+      "oracle": "blur(15px)",
+      "ours": "blur(15px)",
+      "ok": true
+    }
+  ]
+}

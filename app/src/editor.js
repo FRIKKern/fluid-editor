@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { renderPage, renderSection, exportHtml, LAST_LINE, COLS } from './render.js';
+import { renderPage, renderSection, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition } from './toolbar.js';
@@ -189,7 +189,8 @@ toolbar.addEventListener('click', (e) => {
   const { sid, bid } = sel;
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
-  if (act === 'edit' || act === 'pin' || act === 'primary' || act === 'link') { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
+  if (act === 'edit') { designOpen = bid; updateUi(); panel.querySelector('[data-group="design"]')?.scrollIntoView({ block: 'nearest' }); return; }
+  if (act === 'pin' || act === 'primary' || act === 'link') { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
   const before = JSON.stringify(model);
   if (act === 'align') { const order = ['flex-start', 'center', 'flex-end']; const L = lay(b); L.justify = order[(order.indexOf(L.justify || 'flex-start') + 1) % 3]; }
   if (act === 'z+' || act === 'z-') zSwap(sid, b, act === 'z+');
@@ -698,6 +699,41 @@ function onPaste(e) {
   onTextInput();
 }
 
+// Edit > Design (parity/findings/DESIGN.json): Background and Blur switches, Opacity,
+// Rotate, Scale X and Y, Offset X and Y, Skew X and Y. The values go into the block's
+// transform-vars rule (render.js designCss). Stroke and Blend Mode are not built.
+let designOpen = null;
+const DESIGN_FIELDS = [['opacity', 'Opacity', '%', 0, 100], ['rotate', 'Rotate', '°', -360, 360], ['sx', 'Scale X', '%', 0, 1000], ['sy', 'Scale Y', '%', 0, 1000],
+  ['tx', 'Offset X', 'px', -10000, 10000], ['ty', 'Offset Y', 'px', -10000, 10000], ['kx', 'Skew X', '°', -89, 89], ['ky', 'Skew Y', '°', -89, 89]];
+function designGroup(b) {
+  const d = { ...DESIGN_DEFAULTS, ...b.design };
+  return `<div class="group" data-group="design"><h3>Design</h3>
+    <label><input type="checkbox" data-design="background" ${d.background ? 'checked' : ''}> Background</label>
+    <label><input type="checkbox" data-design="blur" ${d.blur ? 'checked' : ''}> Blur</label>
+    ${DESIGN_FIELDS.map(([k, l, u, min, max]) => `<label>${l} <input type="number" data-design="${k}" min="${min}" max="${max}" value="${d[k]}"> ${u}</label>`).join('')}
+  </div>`;
+}
+panel.addEventListener('change', (e) => {
+  const input = e.target.closest('input[data-design]');
+  if (!input || !sel) return;
+  e.stopImmediatePropagation();
+  const before = JSON.stringify(model);
+  const b = B(sel.sid, sel.bid);
+  const k = input.dataset.design;
+  const d = { ...(b.design || {}) };
+  if (input.type === 'checkbox') { if (input.checked) d[k] = true; else delete d[k]; }
+  else {
+    const f = DESIGN_FIELDS.find((x) => x[0] === k);
+    const v = Number(input.value);
+    if (!Number.isFinite(v)) return;
+    const c = Math.min(f[4], Math.max(f[3], v));
+    if (c === DESIGN_DEFAULTS[k]) delete d[k]; else d[k] = c;
+  }
+  if (Object.keys(d).length) b.design = d; else delete b.design;
+  renderSectionDom(sel.sid);
+  commit(before, `${k} set on ${b.id}`);
+}, true);
+
 // The text toolbar (E4, parity/findings/TEXTOPS.json), in the oracle's order: Text Style,
 // Bold, Italic, Quote, Bullet List, Numbered List, Strike, Outdent, Indent, Text Alignment,
 // Clear Formatting. Not built: Squarespace AI, Text Color, Scaled Text, Text Highlight, Link.
@@ -802,6 +838,7 @@ function renderPanel() {
     </div>`);
     if (sel.more?.length) parts.push(`<div class="group"><h3>Align group</h3><div class="row">${ALIGNS.map(([k, label]) => `<button class="btn" data-act="align" data-v="${k}">${label}</button>`).join('')}</div><div class="row"><button class="btn" data-act="stack">Stack blocks</button></div></div>`);
     if (editing) parts.push(textGroup());
+    if (designOpen === sel.bid) parts.push(designGroup(b));
     parts.push(sectionGroup(s));
     parts.push(`<div class="group"><h3>Add block</h3><div class="row">${ADD_TYPES.map(([n]) => `<button class="btn" data-act="add" data-v="${n}">${n}</button>`).join('')}</div></div>`);
     parts.push(layersGroup(s));

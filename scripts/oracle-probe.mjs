@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -773,6 +773,57 @@ if (which === 'TOOLBARGEO') {
   }
   if (saveDisabled() !== true) throw new Error('The probe changed the page');
   write('TOOLBARGEO', { question: 'Where is the block toolbar relative to the selected block, how does it look, and how is the selection drawn?', frame: '1600x945', ...out });
+}
+
+if (which === 'DESIGN') {
+  // T15 (block design): what each control in a block's Edit > Design tab changes. Open Edit on
+  // a block, list the controls with their labels, then for each named input type a test value,
+  // press Enter, read the block's styles (the block, its content, and the transform style
+  // elements inside it), and undo. Usage: DESIGN [section] [block] ['{"Opacity":"50"}'].
+  const i = Number(process.argv[3] ?? 2), k = Number(process.argv[4] ?? 1);
+  const id = blockIds(i)[k];
+  const tests = (process.argv[5] && JSON.parse(process.argv[5])) || null;
+  const open = async () => {
+    await select(i, id); await pause(800);
+    await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Edit' && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().width < 80)`, { wait: 1800 });
+    await click(`() => [...document.querySelectorAll('button, [role=tab]')].find((x) => x.textContent.trim() === 'Design' && x.getBoundingClientRect().width > 0)`, { wait: 1200 });
+  };
+  const CONTROLS = `(() => { const vis = (e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && !e.closest('#sqs-site-frame'); };
+    const labelOf = (e) => { let n = e; for (let d = 0; d < 6 && n; d++, n = n.parentElement) { const l = [...n.querySelectorAll('label, span, div, p')].filter((x) => x.childElementCount === 0 && x.textContent.trim() && !/^[\\d.%°px-]+$/.test(x.textContent.trim()) && vis(x) && x.getBoundingClientRect().top <= e.getBoundingClientRect().bottom).pop(); if (l) return l.textContent.trim(); } return ''; };
+    return JSON.stringify([...document.querySelectorAll('input, select, [role=switch], [role=slider]')].filter(vis).map((e, n) => { e.dataset.fxCtl = String(n); return { n, type: e.type || e.getAttribute('role'), label: e.getAttribute('aria-label') || labelOf(e), value: e.type === 'checkbox' ? e.checked : e.value, top: Math.round(e.getBoundingClientRect().top) }; })); })()`;
+  const READ = `(() => { ${FRAME}
+    const b = d.querySelector('.fe-block[data-block-id="${id}"]');
+    const els = [b, ...b.querySelectorAll('.fluid-engine-block-contents, .sqs-block, .sqs-block-content, .sqs-html-content')];
+    const css = (e) => { const c = W.getComputedStyle(e); return { cls: [...e.classList].filter((x) => !/^[A-Za-z0-9_]{16}$|^fe-block-yui|^fluid-engine-[a-z0-9]{5,7}$/.test(x)).slice(0, 3).join('.'), opacity: c.opacity, transform: c.transform, transformOrigin: c.transformOrigin, filter: c.filter, backdrop: c.backdropFilter, mix: c.mixBlendMode, bg: c.backgroundColor, border: c.borderTopWidth + ' ' + c.borderTopStyle + ' ' + c.borderTopColor, radius: c.borderRadius, inline: e.getAttribute('style') || '' }; };
+    const styles = [...b.querySelectorAll('style')].map((x) => x.textContent.replace(/\\s+/g, ' ').slice(0, 600)).filter(Boolean);
+    return JSON.stringify({ els: els.map(css), styles }); })()`;
+  await open();
+  const controls = evalJs(S, CONTROLS);
+  console.log('controls', JSON.stringify(controls.map((c) => `${c.n}:${c.type}:${c.label}=${c.value}`)));
+  const base = evalJs(S, READ);
+  const out = { controls, base, changes: {} };
+  await escape(); await deselect(i);
+  for (const [label, value] of Object.entries(tests || {})) {
+    try {
+      await open();
+      const ctl = evalJs(S, CONTROLS).find((c) => (label.startsWith('#') ? c.n === Number(label.slice(1)) : c.label === label || c.label.startsWith(label)));
+      if (!ctl) throw new Error(`no control ${label}`);
+      evalJs(S, `(() => { document.querySelectorAll('#fx-ctl').forEach((x) => x.removeAttribute('id')); document.querySelector('[data-fx-ctl="${ctl.n}"]').id = 'fx-ctl'; return 'true'; })()`);
+      if (ctl.type === 'checkbox' || ctl.type === 'switch') execFileSync('cmux', ['browser', '--surface', S, 'click', '#fx-ctl']);
+      else { execFileSync('cmux', ['browser', '--surface', S, 'fill', '#fx-ctl', String(value)]); execFileSync('cmux', ['browser', '--surface', S, 'press', 'Enter']); }
+      await pause(1500);
+      const after = evalJs(S, READ);
+      const diff = after.els.map((e, n) => Object.fromEntries(Object.entries(e).filter(([kk, v]) => v !== base.els[n]?.[kk]))).map((x, n) => (Object.keys(x).length ? { el: after.els[n].cls, ...x } : null)).filter(Boolean);
+      out.changes[label] = { set: value, control: ctl, diff, styles: after.styles.filter((x) => !base.styles.includes(x)), changed: saveDisabled() !== true };
+    } catch (e) { out.changes[label] = { error: String(e.message).slice(0, 120) }; }
+    console.log(label, JSON.stringify(out.changes[label]).slice(0, 700));
+    await escape(); await escape();
+    let n = 0; while (n < 6 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); }
+    out.changes[label].undoSteps = n;
+    await deselect(i);
+    if (saveDisabled() !== true) throw new Error('Unsaved changes remain');
+  }
+  write(process.env.NAME || 'DESIGN', { question: 'What does each control in the block Edit > Design tab change on the block?', block: [i, k], ...out });
 }
 
 if (which === 'T13') {
