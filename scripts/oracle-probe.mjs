@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -706,6 +706,39 @@ if (which === 'AUTOSCROLL') {
     }
   }
   write('AUTOSCROLL', { question: 'How fast does the editor frame scroll while a dragged block is held near the window edge?', block: [i, k], ...out });
+}
+
+if (which === 'NEAR') {
+  // X4: which blocks get data-is-near-dragged-block. Hold a drag of one block of a section at
+  // several offsets (whole cells), read the flag on every other block, release and undo.
+  // For each other block the gaps to the target area are counted in grid lines.
+  const i = Number(process.argv[3] ?? 4);
+  const ids = blockIds(i);
+  const id = ids[0];
+  const p = pitch(i);
+  const areaOf = (bid) => area(i, bid);
+  const start = Object.fromEntries(ids.map((b) => [b, areaOf(b)]));
+  const OFFS = (process.argv[4] && JSON.parse(process.argv[4])) || [[0, 1], [1, 0], [2, 0], [3, 0], [4, 0], [6, 0], [0, 2], [0, 3], [0, 4], [0, 6], [-1, 0], [5, 3]];
+  const runs = [];
+  for (const [dc, dr] of OFFS) {
+    await select(i, id); await pause(400);
+    const mid = await hold(blockEl(i, id), dc * p.col, dr * p.row, {});
+    await release({}); await pause(500);
+    let n = 0; while (n < 4 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); }
+    await escape(); await deselect(i);
+    const [r0, c0, r1, c1] = start[id];
+    const t = [r0 + dr, c0 + dc, r1 + dr, c1 + dc];
+    const others = ids.filter((b) => b !== id).map((b) => {
+      const [a0, b0, a1, b1] = start[b];
+      const colGap = Math.max(0, b0 - t[3], t[1] - b1), rowGap = Math.max(0, a0 - t[2], t[0] - a1);
+      const near = (mid.attrs || []).some((x) => x.id === b && x.near === 'true');
+      return { id: b, area: start[b], colGap, rowGap, overlap: colGap === 0 && rowGap === 0, near };
+    });
+    runs.push({ by: [dc, dr], target: t, others });
+    console.log(`by ${dc},${dr} target ${t.join('/')}:`, others.map((o) => `${o.id.slice(-5)} gap c${o.colGap} r${o.rowGap} ${o.near ? 'NEAR' : '-'}`).join(' | '));
+    if (saveDisabled() !== true) throw new Error('Unsaved changes remain');
+  }
+  write('NEAR', { question: 'Which blocks get data-is-near-dragged-block while a block is held at a target?', section: i, dragged: id, start, runs });
 }
 
 if (which === 'T13') {
