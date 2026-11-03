@@ -39,6 +39,8 @@ npm run visual-diff -- --shots <dir>  per state, the canvas pixels that differ, 
 npm run publish-review -- --shots <dir>   the same, with screenshot pairs, as a Barkpark paper
 ```
 
+`npm run review` runs all four in order.
+
 Every gap is matched against `parity/items.json`. An item lists the oracle labels it covers in `controls`; a gap no item lists or names is UNTRACKED, and a new item is due.
 
 ## The bar
