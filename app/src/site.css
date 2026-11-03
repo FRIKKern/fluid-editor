@@ -120,7 +120,7 @@ p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
 .fluid-engine .sqs-block { display: flex; height: 100%; width: 100%; flex-direction: column; }
 .sqs-block-alignment-wrapper { display: flex; flex-direction: column; height: 100%; }
 
-.sqs-block-button .sqs-block-content { display: flex; height: 100%; }
+.sqs-block-button .sqs-block-content { display: flex; height: 100%; width: 100%; }
 .sqs-block-button-element {
   display: inline-flex; align-items: center; justify-content: center;
   /* Fills its block, as on the oracle: the height (59px at 768, 61.6px at 1280) and the width

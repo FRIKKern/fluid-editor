@@ -37,7 +37,9 @@ const ICON = {
   trash: '<path d="M4 6h16"/><path d="M9 6V4h6v2"/><path d="M6 6l1 14h10l1-14"/>',
 };
 
-export function sectionChromeHtml({ first, last }) {
+// mode 'phone': no Add Block and no View Layouts (the oracle's phone view). blockSelected: only
+// the outline and Layers stay, as on the oracle while a block of the section is selected.
+export function sectionChromeHtml({ first, last, phone = false, blockSelected = false }) {
   const wide = (act, icon, label, cls = '', text = label) => `<button type="button" class="sc-wide ${cls}" data-sc="${act}" aria-label="${label}"${cls.includes('sc-unbuilt') ? ' data-unbuilt' : ''}>${svg(ICON[icon])}<span>${text}</span></button>`;
   const sq = (act, icon, label, off) => `<button type="button" class="sc-sq${off ? ' is-off' : ''}" data-sc="${act}" aria-label="${label}" title="${label}">${svg(ICON[icon])}</button>`;
   return `<div class="sc-outline" data-sc-part="outline"></div>
@@ -45,19 +47,35 @@ export function sectionChromeHtml({ first, last }) {
     <div class="sc-pill" data-sc-part="add-block"><button type="button" class="sc-left sc-add-block" data-sc="add-block" aria-label="Add Block">${svg(ICON.plus)}<span>Add Block</span></button></div>
     <div class="sc-card" data-sc-part="card">
       ${wide('edit', 'pencil', 'Edit Section')}
-      ${wide('layouts', 'layouts', 'View Layouts', 'sc-unbuilt')}
+      ${phone ? '' : wide('layouts', 'layouts', 'View Layouts', 'sc-unbuilt')}
       <div class="sc-row">${sq('duplicate', 'duplicate', 'Duplicate Section')}${sq('save', 'heart', 'Save Section').replace('class="sc-sq', 'data-unbuilt class="sc-sq')}${sq('up', 'up', 'Move Section Up', first)}${sq('down', 'down', 'Move Section Down', last)}</div>
       ${wide('remove', 'trash', 'Remove Section', 'sc-remove', 'Remove')}
     </div>
     <button type="button" class="sc-add-section" data-sc="add-section-above" data-sc-part="add-top" aria-label="Add Section" data-unbuilt>Add Section</button>
-    <button type="button" class="sc-add-section" data-sc="add-section-below" data-sc-part="add-bottom" aria-label="Add Section" data-unbuilt>Add Section</button>`;
+    <button type="button" class="sc-add-section" data-sc="add-section-below" data-sc-part="add-bottom" aria-label="Add Section" data-unbuilt>Add Section</button>`
+    .split('\n').filter((line) => !(blockSelected && /data-sc-part="(card|add-block|add-top|add-bottom)"/.test(line)) && !(phone && /data-sc-part="add-block"/.test(line))).join('\n')
+    .replace('class="sc-card"', `class="sc-card${phone ? ' is-phone' : ''}"`);
 }
 
 // Boxes in the stage's coordinates. `sec` is the section's rect inside the canvas, `frame`
 // and `stage` are rects in the editor window, `headerBottom` the site header's bottom in the
 // canvas on the first section (0 otherwise).
-export function sectionChromeLayout(sec, frame, stage, headerBottom) {
+export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = false) {
   const ox = frame.left - stage.left, oy = frame.top - stage.top;
+  if (phone) {
+    // Phone view (oracle screenshot): the canvas is 428 wide in the middle; Layers sits 68px left
+    // of it and the card 22px right of it, both at the same height as on desktop.
+    const top = Math.max(sec.top, headerBottom);
+    const cardTop = Math.max(top + 21.1, 21.1);
+    const midX = sec.left + sec.width / 2 - 111.1 / 2;
+    return {
+      outline: { left: ox + sec.left, top: oy + sec.top, width: sec.width, height: sec.height },
+      layers: { left: ox - 68, top: oy + Math.max(top + 21.1, 21.1) },
+      card: { left: ox + frame.width + 22, top: oy + cardTop },
+      'add-top': { left: ox + midX, top: oy + Math.max(sec.top, headerBottom) - 18 },
+      'add-bottom': { left: ox + midX, top: oy + sec.bottom - 18 },
+    };
+  }
   const top = Math.max(sec.top, headerBottom);
   const cardTop = Math.min(Math.max(top + 21.1, 51.2), sec.bottom - 210);
   const leftTop = Math.min(Math.max(top + 25.1, 48.2), sec.bottom - 36);

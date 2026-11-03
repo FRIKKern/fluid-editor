@@ -1142,16 +1142,18 @@ panel.addEventListener('click', onSectionClick, true);
 panel.addEventListener('change', onSectionChange);
 sectionPanel.addEventListener('click', onSectionClick, true);
 sectionPanel.addEventListener('change', onSectionChange);
-function chromeSid() { return editSid || hoverSid; }
+function chromeSid() { return editSid || sel?.sid || hoverSid; }
 function placeChrome() {
   const sid = chromeSid();
   const el = sid && doc && sectionEl(sid);
   if (!el || gesture?.type === 'move' || gesture?.type === 'resize') { chrome.hidden = true; return; }
   const k = model.sections.findIndex((x) => x.id === sid);
-  const key = `${sid}|${k}|${model.sections.length}`;
-  if (chrome.dataset.key !== key) { chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1 }); chrome.dataset.key = key; }
+  const phone = bp === 'mobile';
+  const blockSelected = !editSid && sel?.sid === sid;
+  const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}`;
+  if (chrome.dataset.key !== key) { chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected }); chrome.dataset.key = key; }
   const header = k === 0 ? doc.getElementById('header') : null;
-  const L = sectionChromeLayout(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), header ? header.getBoundingClientRect().bottom : 0);
+  const L = sectionChromeLayout(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), header ? header.getBoundingClientRect().bottom : 0, phone);
   for (const [part, box] of Object.entries(L)) {
     const node = chrome.querySelector(`[data-sc-part="${part}"]`);
     if (!node) continue;
