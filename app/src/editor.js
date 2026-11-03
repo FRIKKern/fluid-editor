@@ -763,12 +763,15 @@ const ADD_TYPES = [
   ['Text', 8, 2, () => ({ type: 'text', html: '<p data-rte-preserve-empty="true"></p>' })],
   ['Image', 6, 6, () => ({ type: 'image', alt: '' })],
   ['Button', 6, 2, () => ({ type: 'button', label: 'Learn more', href: '#' })],
-  ['Video', 8, 8, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: 'video' })],
+  ['Video', 8, 8, () => ({ type: 'video' })],
   ['Form', 9, 16, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: 'form' })],
   ['Accordion', 8, 8, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: 'accordion' })],
   ['Shape', 6, 6, () => ({ type: 'shape', fill: '#ffffff', radius: '0' })],
   ['Scrolling', 24, 2, () => ({ type: 'scrolling', text: 'Scrolling text', size: 5 })],
   ['Line', 4, 1, () => ({ type: 'line' })],
+  // From the menu search (parity/findings/T10.json): Code 4 by 6, Embed 8 by 8.
+  ['Code', 4, 6, () => ({ type: 'code', html: '<p>Hello, World!</p>' })],
+  ['Embed', 8, 8, () => ({ type: 'embed' })],
 ];
 function addBlock(sid, name) {
   const [, w, h, make] = ADD_TYPES.find((t) => t[0] === name);

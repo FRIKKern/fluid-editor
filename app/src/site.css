@@ -273,3 +273,7 @@ body { position: relative; }
 .page-section[data-section-theme="bright-inverse"] { --section-bg: hsla(var(--safeInverseAccent-hsl), 1); --heading-color: hsla(var(--accent-hsl), 1); --section-ink: hsla(var(--accent-hsl), 1); --button-bg: hsla(var(--accent-hsl), 1); --button-ink: hsla(var(--safeInverseAccent-hsl), 1); }
 .page-section h1, .page-section h2, .page-section h3, .page-section h4 { color: var(--heading-color); }
 .page-section .sqs-block-button-element, .page-section .form-submit { background: var(--button-bg); color: var(--button-ink); }
+
+/* Embed and video placeholders (T7, T10): the editor shows them, the published page does not. */
+.sqs-embed-container .sqs-blockStatus, .sqs-block-video-placeholder--empty { display: none; }
+.sqs-block-code .sqs-code-container > :last-child { margin-bottom: 0; }
