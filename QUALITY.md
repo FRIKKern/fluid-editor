@@ -24,6 +24,19 @@ Two narrower checks run beside the gates:
 
 Run `eval "$(npm run -s surfaces)"` first: it finds or opens the oracle and editor tabs and exports `ORACLE_SURFACE` and `FLUID_SURFACE`.
 
+## Finding what is missing
+
+The gates check what we built. The inventory finds what we did not think of:
+
+```
+npm run inventory -- --shots <dir>   drive the oracle and ours through the same editor states,
+                                      list every visible control and label, keep what ours lacks
+npm run missing                       docs/MISSING.md from parity/inventory.json
+npm run publish-review -- --shots <dir>   the same, with screenshot pairs, as a Barkpark paper
+```
+
+Every gap is matched against `parity/items.json`. An item lists the oracle labels it covers in `controls`; a gap no item lists or names is UNTRACKED, and a new item is due.
+
 ## The bar
 
 | Rule | Check |

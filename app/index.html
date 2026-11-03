@@ -11,8 +11,8 @@
   <div class="bar-left">
     <button id="save" class="btn primary" disabled>Save</button>
     <button id="exit" class="btn">Exit</button>
-    <button id="undo" class="icon" title="Undo (Cmd+Z)" disabled>&#8630;</button>
-    <button id="redo" class="icon" title="Redo (Shift+Cmd+Z)" disabled>&#8631;</button>
+    <button id="undo" class="icon" aria-label="Undo" title="Undo (Cmd+Z)" disabled>&#8630;</button>
+    <button id="redo" class="icon" aria-label="Redo" title="Redo (Shift+Cmd+Z)" disabled>&#8631;</button>
   </div>
   <div class="bar-center">
     <div class="page-name">How Fluid Engine works</div>
@@ -20,8 +20,8 @@
   </div>
   <div class="bar-right">
     <div class="seg" role="group" aria-label="Device">
-      <button id="bp-desktop" class="seg-btn is-on" title="Desktop layout">Desktop</button>
-      <button id="bp-mobile" class="seg-btn" title="Phone layout">Phone</button>
+      <button id="bp-desktop" class="seg-btn is-on" aria-label="Desktop View" title="Desktop layout">Desktop</button>
+      <button id="bp-mobile" class="seg-btn" aria-label="Mobile View" title="Phone layout">Phone</button>
     </div>
     <button id="export" class="btn">Export HTML</button>
     <button id="reset" class="btn">Reset demo</button>

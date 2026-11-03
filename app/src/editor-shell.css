@@ -121,3 +121,37 @@ button { font: inherit; color: inherit; }
 .sc-menu { position: absolute; z-index: 12; width: 180px; padding: 6px; background: #fff; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.12) 0 6px 24px 0, rgba(0, 0, 0, 0.08) 0 0 1px 0; display: flex; flex-direction: column; }
 .sc-menu button { text-align: left; padding: 8px 10px; border: 0; background: transparent; border-radius: 3px; font: 14px/1.2 "Helvetica Neue", Helvetica, Arial, sans-serif; cursor: pointer; }
 .sc-menu button:hover { background: #f2f2f2; }
+
+/* Edit Section panel contents, drawn like the oracle's (app/src/section-chrome.js sectionPanelHtml). */
+.section-panel { padding: 0; font: 14px/1.3 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; }
+.sp-tabs { display: flex; gap: 16px; padding: 0 22px; height: 55px; align-items: flex-end; border-bottom: 1px solid #e7e7e7; }
+.sp-tab { border: 0; background: none; padding: 0 0 14px; font: inherit; color: #6f6f6f; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.sp-tab.is-on { color: #0e0e0e; font-weight: 500; border-bottom-color: #0e0e0e; }
+.sp-body { padding: 8px 22px 16px 22px; }
+.sp-head { margin: 22px 0 6px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6f6f6f; }
+.sp-head:first-child { margin-top: 14px; }
+.sp-row { display: flex; align-items: center; justify-content: space-between; min-height: 44px; border-bottom: 1px solid #e7e7e7; gap: 8px; }
+.sp-row-wide { flex-wrap: wrap; padding: 6px 0; }
+.sp-label { flex: none; }
+.sp-ctl { display: flex; align-items: center; gap: 6px; }
+.sp-seg { min-width: 36px; height: 36px; padding: 0 8px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 3px; background: transparent; color: #0e0e0e; font: 500 14px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; cursor: pointer; }
+.sp-seg:hover { background: #f6f6f6; }
+.sp-seg.is-on { background: #ececec; }
+.sp-num { width: 77px; height: 36px; box-sizing: border-box; border: 0; border-radius: 3px; background: #f2f2f2; text-align: center; font: inherit; -moz-appearance: textfield; appearance: textfield; }
+.sp-num::-webkit-inner-spin-button, .sp-num::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.sp-val { min-width: 24px; text-align: right; color: #6f6f6f; }
+.sp-switch { position: relative; display: inline-block; width: 28px; height: 16px; }
+.sp-switch input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.sp-switch span { position: absolute; inset: 0; border-radius: 8px; background: #6f6f6f; pointer-events: none; transition: background 0.15s; }
+.sp-switch span::after { content: ""; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: #fff; transition: transform 0.15s; }
+.sp-switch input:checked + span { background: #4ba57a; }
+.sp-switch input:checked + span::after { transform: translateX(12px); }
+.sp-help { margin: 12px 0 0; font-size: 12px; line-height: 16px; color: #6f6f6f; }
+.sp-anchor { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 10px; background: #f2f2f2; border-radius: 3px; margin-top: 6px; }
+.sp-anchor span { color: #6f6f6f; }
+.sp-anchor input { flex: 1; border: 0; background: transparent; font: inherit; }
+.sp-themes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 14px; }
+.sp-theme { height: 64px; border: 1px solid #e7e7e7; border-radius: 6px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; padding: 8px 10px; cursor: pointer; font: inherit; }
+.sp-theme.is-on { outline: 2px solid #027aff; outline-offset: 1px; }
+.sp-aa { font-size: 18px; }
+.sp-tname { font-size: 11px; opacity: 0.8; }
