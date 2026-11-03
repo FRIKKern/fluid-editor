@@ -44,6 +44,12 @@ function ensureEditing() {
 const state = (s) => ({ rows: s.rows, blocks: s.blocks });
 
 ensureEditing();
+// The editor reopens in the last device view; traces are desktop unless --mobile.
+{
+  const wantMobile = args.includes('--mobile');
+  const w = evalJs(surface, `(() => JSON.stringify(document.getElementById('sqs-site-frame').contentWindow.innerWidth))()`);
+  if ((w < 768) !== wantMobile) await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === '${wantMobile ? 'Mobile' : 'Desktop'} View')`, { wait: 2500 });
+}
 const before = evalJs(surface, READ(index));
 if (!before.saveDisabled) throw new Error('The oracle has unsaved changes. Save or discard them by hand first; the recorder never touches unsaved work.');
 const t = arg('target', 'first');

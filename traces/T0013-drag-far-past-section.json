@@ -1,0 +1,220 @@
+{
+  "id": "T0013-drag-far-past-section",
+  "journey": "J04",
+  "items": [
+    "X9"
+  ],
+  "oracle": {
+    "editor": "https://halibut-keyboard-jlhd.squarespace.com/config/pages",
+    "page": "/how-fluid-engine-works",
+    "capturedAt": "2026-11-03",
+    "frameWidth": 1600
+  },
+  "layout": "desktop",
+  "section": {
+    "id": "6ae9c8ed003fad56b11dd976",
+    "index": 2,
+    "gap": 11,
+    "rowGap": 11
+  },
+  "content": {
+    "yui_3_17_2_1_1793705593367_15917": {
+      "type": "text",
+      "html": "<h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Rows scale with the width</h2>"
+    },
+    "yui_3_17_2_1_1793705593367_16145": {
+      "type": "text",
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Row height follows the width, so a layout keeps its proportions when the window changes.</p>"
+    },
+    "yui_3_17_2_1_1793705593367_16395": {
+      "type": "shape"
+    }
+  },
+  "before": {
+    "rows": 11,
+    "blocks": {
+      "yui_3_17_2_1_1793705593367_15917": {
+        "area": [
+          1,
+          2,
+          5,
+          16
+        ],
+        "z": 1
+      },
+      "yui_3_17_2_1_1793705593367_16145": {
+        "area": [
+          3,
+          2,
+          8,
+          13
+        ],
+        "z": 2
+      },
+      "yui_3_17_2_1_1793705593367_16395": {
+        "area": [
+          2,
+          15,
+          12,
+          25
+        ],
+        "z": 3
+      }
+    }
+  },
+  "gesture": {
+    "kind": "drag",
+    "target": "yui_3_17_2_1_1793705593367_16395",
+    "grab": [
+      0.5,
+      0.5
+    ],
+    "by": {
+      "cols": 2,
+      "rows": 20
+    }
+  },
+  "mid": {
+    "attrs": [
+      {
+        "id": "yui_3_17_2_1_1793705593367_16395",
+        "near": "false",
+        "matchW": "false",
+        "matchH": "false",
+        "selected": "true",
+        "transform": "translate(113.5px, 821.88px)"
+      }
+    ],
+    "layers": [
+      {
+        "cls": "fluid-engine-block-editing-indicator-<id>.fluid-engine-15w4nb7",
+        "area": "1 / 2 / 5 / 16",
+        "z": "100001"
+      },
+      {
+        "cls": "fluid-engine-block-editing-indicator-<id>.fluid-engine-block-wrapper.fluid-engine-1ci65gg",
+        "area": "1 / 2 / 5 / 16",
+        "z": "10001"
+      },
+      {
+        "cls": "fluid-engine-block-editing-indicator-<id>.fluid-engine-original-position.undefined.fluid-engine-roynbj",
+        "area": "1 / 2 / 5 / 16",
+        "z": "auto"
+      },
+      {
+        "cls": "fluid-engine-block-editing-indicator-<id>.fluid-engine-1m1szx",
+        "area": "3 / 2 / 8 / 13",
+        "z": "100002"
+      },
+      {
+        "cls": "fluid-engine-block-editing-indicator-<id>.fluid-engine-block-wrapper.fluid-engine-tbyivy",
+        "area": "3 / 2 / 8 / 13",
+        "z": "10002"
+      },
+      {
+        "cls": "fluid-engine-block-editing-indicator-<id>.fluid-engine-original-position.undefined.fluid-engine-roynbj",
+        "area": "3 / 2 / 8 / 13",
+        "z": "auto"
+      },
+      {
+        "cls": "fluid-engine-block-editing-indicator-<id>.fluid-engine-1rehnjs",
+        "area": "2 / 15 / 12 / 25",
+        "z": "100003"
+      },
+      {
+        "cls": "fluid-engine-block-editing-indicator-<id>.fluid-engine-block-wrapper.fluid-engine-y66lpy",
+        "area": "2 / 15 / 12 / 25",
+        "z": "999999"
+      },
+      {
+        "cls": "fluid-engine-block-editing-indicator-<id>.fluid-engine-original-position.undefined.fluid-engine-roynbj",
+        "area": "2 / 15 / 12 / 25",
+        "z": "auto"
+      }
+    ],
+    "guides": 0,
+    "gridVisible": [
+      "false",
+      "false",
+      "true",
+      "false",
+      "false",
+      "false",
+      "false",
+      "false"
+    ]
+  },
+  "after": {
+    "rows": 31,
+    "blocks": {
+      "yui_3_17_2_1_1793705593367_15917": {
+        "area": [
+          1,
+          2,
+          5,
+          16
+        ],
+        "z": 1
+      },
+      "yui_3_17_2_1_1793705593367_16145": {
+        "area": [
+          3,
+          2,
+          8,
+          13
+        ],
+        "z": 2
+      },
+      "yui_3_17_2_1_1793705593367_16395": {
+        "area": [
+          22,
+          17,
+          32,
+          27
+        ],
+        "z": 3
+      }
+    }
+  },
+  "undo": {
+    "steps": 1,
+    "afterUndo": {
+      "rows": 11,
+      "blocks": {
+        "yui_3_17_2_1_1793705593367_15917": {
+          "area": [
+            1,
+            2,
+            5,
+            16
+          ],
+          "z": 1
+        },
+        "yui_3_17_2_1_1793705593367_16145": {
+          "area": [
+            3,
+            2,
+            8,
+            13
+          ],
+          "z": 2
+        },
+        "yui_3_17_2_1_1793705593367_16395": {
+          "area": [
+            2,
+            15,
+            12,
+            25
+          ],
+          "z": 3
+        }
+      }
+    },
+    "restored": true,
+    "restoredBy": "reload"
+  },
+  "notes": [
+    "gesture changed rows: want 11, got 31",
+    "gesture changed yui_3_17_2_1_1793705593367_16395: area want 2/15/12/25, got 22/17/32/27"
+  ]
+}

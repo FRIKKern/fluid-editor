@@ -404,24 +404,26 @@
     "id": "G5",
     "area": "Geometry and snapping",
     "milestone": "M4",
-    "status": "open",
+    "status": "partial",
     "title": "Snap to other blocks' edges and centers, `data-is-matching-width` and `data-is-matching-height`",
     "wasUnknown": true,
-    "evidence": "Answered (T0007): while resizing to 11 columns, the other 11-column block gets data-is-matching-width=\"true\". It is an equal-size highlight, not an edge snap. Not built in our editor"
+    "evidence": "Our editor sets data-is-matching-width and -height during a resize on blocks of the same size, as on the oracle (T0007), with a dashed outline. The oracle look is not measured"
   },
   {
     "id": "G6",
     "area": "Geometry and snapping",
     "milestone": "M4",
-    "status": "open",
-    "title": "Alignment guide lines"
+    "status": "partial",
+    "title": "Alignment guide lines",
+    "evidence": "During a drag the oracle showed no guide-line elements (class names with guide, alignment-line or snap-line: 0, T0004 to T0010); the equal-size highlight (G5) is the visible alignment aid seen so far"
   },
   {
     "id": "G7",
     "area": "Geometry and snapping",
     "milestone": "M4",
-    "status": "open",
-    "title": "Auto-scroll near the top and bottom edge during a drag"
+    "status": "partial",
+    "title": "Auto-scroll near the top and bottom edge during a drag",
+    "evidence": "The oracle auto-scrolls while the pointer is held near the bottom edge inside the window (T0010: the block moved 30px more than the pointer) and not when the pointer is below the window (T0013). Our editor scrolls in an 80px band at up to 600px/s; band and speed are not measured, so T0010 still fails by one row"
   },
   {
     "id": "G8",
@@ -459,10 +461,10 @@
     "id": "X4",
     "area": "Gestures",
     "milestone": "M4",
-    "status": "open",
+    "status": "partial",
     "title": "What happens to nearby blocks, `data-is-near-dragged-block`",
     "wasUnknown": true,
-    "evidence": "Answered (T0004 to T0007 mid): blocks overlapping or next to the dragged block get data-is-near-dragged-block=\"true\"; a far drag (T0010) marks none. Exact distance not measured; not built in our editor"
+    "evidence": "Our editor sets data-is-near-dragged-block on blocks within 2 tracks of the target, as seen on the oracle (T0004 to T0007). The oracle distance rule is not measured exactly, and nothing is drawn for it"
   },
   {
     "id": "X5",
@@ -494,24 +496,26 @@
     "id": "X8",
     "area": "Gestures",
     "milestone": "M4",
-    "status": "open",
-    "title": "Multi-select and group move"
+    "status": "partial",
+    "title": "Multi-select and group move",
+    "evidence": "Oracle: Shift-click adds a block to the selection (both data-is-selected and aria-selected); the group toolbar has Stack Blocks, Align Group, Move Forward, Move Backward, Duplicate, Remove. Our editor: Shift-click toggles, drag and arrow keys move the group by the same rows and columns. Group toolbar not built"
   },
   {
     "id": "X9",
     "area": "Gestures",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "Dragging a block into another section",
     "wasUnknown": true,
-    "evidence": "Dragging 14 rows down past the section edge keeps the block in its section and grows the section from 11 to 26 rows (T0010). Our editor lands one row higher (parity/gate-c.json, T0010 fails)"
+    "evidence": "Dragging past the bottom grows the section and the block stays (T0010, T0013); rows past the edge use the normal pitch (T0013 drag of 20 rows, T0014 resize of 8 rows). Our editor replays T0013 and T0014 (parity/gate-c.json, 12 of 13)"
   },
   {
     "id": "X10",
     "area": "Gestures",
     "milestone": "M4",
     "status": "open",
-    "title": "Locked blocks, `data-is-locked`"
+    "title": "Locked blocks, `data-is-locked`",
+    "evidence": "No lock control found in the block toolbar, the group toolbar or the Layers rows; data-is-locked stays false"
   },
   {
     "id": "X11",
@@ -589,10 +593,10 @@
     "id": "E3",
     "area": "Text editing",
     "milestone": "M4",
-    "status": "open",
+    "status": "done",
     "title": "Whether the block shrinks when text is deleted",
     "wasUnknown": true,
-    "evidence": "Answered (parity/findings/E3.json): replacing a paragraph with a short sentence moved its end row up from 3/2/8/13 to 3/2/5/13, a minimum of 2 rows. Our editor only grows text blocks"
+    "evidence": "parity/findings/E3.json: on the oracle a paragraph replaced with one short sentence went from 3/2/8/13 to 3/2/5/13. Our editor gives the same 3/2/5/13 for the same edit (end row follows the text both ways, minimum 2 rows)"
   },
   {
     "id": "E4",
@@ -638,16 +642,17 @@
     "id": "Z3",
     "area": "Overlap and layers",
     "milestone": "M4",
-    "status": "open",
-    "title": "Bring to front and Send to back"
+    "status": "partial",
+    "title": "Bring to front and Send to back",
+    "evidence": "The oracle has no Bring to front button: you drag a row in the sortable Layers list. Our Layers list reorders by drag and hands out the section z values in the new order; the oracle renumbering is not traced"
   },
   {
     "id": "Z4",
     "area": "Overlap and layers",
     "milestone": "M4",
-    "status": "open",
+    "status": "done",
     "title": "Selecting a block covered by another",
-    "evidence": "The oracle section toolbar has an \"Open Layers Panel\" button; not opened yet"
+    "evidence": "Oracle Layers panel (section toolbar): the blocks front to back, text blocks by their first words, others by type; rows are sortable. Our panel has the same list; a click selects a covered block"
   },
   {
     "id": "Z5",
@@ -662,7 +667,7 @@
     "milestone": "M4",
     "status": "done",
     "title": "Separate area and z per block, row count per layout",
-    "evidence": "Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace"
+    "evidence": "Separate area and z per layout (Gate A, Gate B); our phone canvas is 428px wide, the oracle phone frame width"
   },
   {
     "id": "L2",
@@ -742,7 +747,8 @@
     "area": "Section settings and Stacks",
     "milestone": "M5",
     "status": "open",
-    "title": "Stacks: grouped blocks with their own order and spacing"
+    "title": "Stacks: grouped blocks with their own order and spacing",
+    "evidence": "The oracle group toolbar (Shift-select 2 blocks) offers Stack Blocks; not opened yet"
   },
   {
     "id": "U1",
@@ -794,10 +800,10 @@
     "id": "U7",
     "area": "Editor chrome",
     "milestone": "M5",
-    "status": "open",
+    "status": "done",
     "title": "Animation timings, `is-transitioning-visibility`",
     "wasUnknown": true,
-    "evidence": "Answered: blocks in the editor fade with transition opacity 0.1s cubic-bezier(0.66, 0, 0.34, 1) (class is-transitioning-visibility). Not built in our editor"
+    "evidence": "Oracle: transition opacity 0.1s cubic-bezier(0.66, 0, 0.34, 1) on .fe-block in the editor. Our editor uses the same transition (app/src/editor-frame.css)"
   },
   {
     "id": "Y1",
