@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 1 change, 1 milestone closed
+- **Today** · 1 change, 2 milestones closed
+  - Delivered: [M1: Oracle page](https://github.com/FRIKKern/fluid-editor/issues/3)
   - Delivered: [M0: Harness](https://github.com/FRIKKern/fluid-editor/issues/2)
-  - Fluid editor prototype: renderer, editor, 8-section demo page, Gate A, parity plan and generated progress pictures
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
