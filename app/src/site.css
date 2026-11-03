@@ -62,15 +62,34 @@ p { margin: 1em 0; line-height: var(--body-font-line-height); letter-spacing: va
 .sqs-block-html .sqs-html-content > *:first-child { margin-top: 0; }
 .sqs-block-html .sqs-html-content > *:last-child { margin-bottom: 0; }
 
+/* Sections (P3, P5), measured on the oracle (parity/findings/P3.json):
+   height S/M/L sets a minimum height of 33/66/100vh and top and bottom padding of
+   3.3/6.6/10vmax (66px on a 375 by 1000 phone); the content sits in the middle unless aligned to the top or bottom. */
 .page-section {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
-  min-height: 10vh;
   background: var(--section-bg, var(--paper));
   color: var(--section-ink, var(--ink));
 }
+.page-section.section-height--small { min-height: 33vh; }
+.page-section.section-height--medium { min-height: 66vh; }
+.page-section.section-height--large { min-height: 100vh; }
+.page-section.vertical-alignment--top { justify-content: flex-start; }
+.page-section.vertical-alignment--bottom { justify-content: flex-end; }
 .page-section > .content-wrapper { display: flex; width: 100%; }
+.page-section.section-height--small > .content-wrapper { padding: 3.3vmax 0; }
+.page-section.section-height--medium > .content-wrapper { padding: 6.6vmax 0; }
+.page-section.section-height--large > .content-wrapper { padding: 10vmax 0; }
+.page-section.horizontal-alignment--center > .content-wrapper { justify-content: center; }
+.page-section.horizontal-alignment--left > .content-wrapper { justify-content: flex-start; }
+.page-section.horizontal-alignment--right > .content-wrapper { justify-content: flex-end; }
 .page-section .content { width: 100%; }
+@media screen and (min-width: 768px) {
+  .page-section.content-width--narrow .content { width: 50%; }
+}
+.page-section.content-width--medium .content { width: 75%; }
 
 .theme-accent { --section-bg: var(--accent); }
 .theme-light { --section-bg: #f4f1ec; }
@@ -111,3 +130,25 @@ p { margin: 1em 0; line-height: var(--body-font-line-height); letter-spacing: va
 .sqs-stack-container { height: 100%; display: flex; flex-direction: column; gap: var(--stack-gap, 20px); justify-content: flex-start; align-items: flex-start; }
 .sqs-stack-container.direction-row { flex-direction: row; }
 .stack-child-container { align-self: stretch; min-height: 20px; min-width: 20px; display: flex; flex-direction: column; }
+
+/* Site header (P7), see renderHeader in render.js */
+body { position: relative; }
+.site-header { position: absolute; top: 0; left: 0; right: 0; z-index: 10; }
+.header-inner { display: flex; align-items: center; padding: 3vw 4vw; }
+.header-title {
+  --site-title-font-size-value: 2;
+  flex: none; color: inherit; text-decoration: none; white-space: nowrap;
+  line-height: 1.3em; letter-spacing: .01rem;
+  font-size: min(calc((var(--site-title-font-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--site-title-font-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--site-title-font-size-value) * 1rem)));
+}
+.header-nav { flex: 1; display: flex; justify-content: flex-end; gap: 1.3vw; white-space: nowrap; }
+.header-nav-item, .header-action { color: inherit; text-decoration: none; font-size: 16px; letter-spacing: .01rem; }
+.header-actions { display: flex; gap: 1.3vw; white-space: nowrap; padding-left: 2vw; }
+.header-burger { display: none; width: 40px; height: 40px; margin-left: auto; padding: 0; border: 0; background: none; cursor: pointer; flex-direction: column; justify-content: center; gap: 8px; }
+.header-burger span { display: block; height: 1px; width: 35px; background: currentColor; }
+.site-header.is-collapsed .header-inner { padding: 6vw; }
+.site-header.is-collapsed .header-nav, .site-header.is-collapsed .header-actions { display: none; }
+.site-header.is-collapsed .header-burger { display: flex; }
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  .header-title { font-size: calc((var(--site-title-font-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
+}

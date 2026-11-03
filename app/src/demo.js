@@ -3,6 +3,9 @@
 // grid areas and content. Gate B compares the two.
 import { DEMO } from './demo-data.js';
 
+// The oracle's header (read 2026-11-03); the importer does not capture it yet.
+const HEADER = { title: 'Your Site Title', nav: [{ label: 'Services' }, { label: 'About' }, { label: 'Contact' }], actions: [{ label: 'Login' }] };
+
 export function demoModel() {
-  return JSON.parse(JSON.stringify(DEMO));
+  return { header: HEADER, ...JSON.parse(JSON.stringify(DEMO)) };
 }

@@ -17,7 +17,7 @@ const arg = (n, d) => {
   const i = args.indexOf(`--${n}`);
   return i >= 0 ? args[i + 1] : d;
 };
-const surface = arg('surface', 'surface:45');
+const surface = arg('surface', process.env.FLUID_SURFACE || 'surface:59');
 const oracle = arg('oracle');
 const ours = arg('ours');
 const swap = args.includes('--swap');
@@ -32,11 +32,15 @@ const tol = Number(arg('tolerance', '1'));
 if ((!oracle && !oracleFrame) || (!ours && !swap)) throw new Error('need --oracle <url> or --oracle-frame <surface>, and either --ours <url> or --swap');
 
 const MEASURE = `(async () => {
+  const withoutSections = ${args.includes('--no-sections')};
   await document.fonts.ready;
   const out = {};
   for (const fe of document.querySelectorAll('main#page .fluid-engine')) {
     const sid = [...fe.classList].find((c) => /^fe-[\\w-]+$/.test(c) && c !== 'fe-block');
     const r = fe.getBoundingClientRect();
+    // The section itself: grid offset inside it and its height (P2, P3).
+    const sec = fe.closest('.page-section');
+    if (sec && !withoutSections) { const q = sec.getBoundingClientRect(); out[sid + ' section'] = [r.left - q.left, r.top - q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10); }
     for (const b of fe.querySelectorAll(':scope > .fe-block')) {
       const id = [...b.classList].find((c) => c.startsWith('fe-block-'));
       const q = b.getBoundingClientRect();
