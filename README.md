@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 5 changes, 3 milestones closed
-  - Render the default section divider and add its toggle ([#23](https://github.com/FRIKKern/fluid-editor/pull/23))
-  - Add an Edit Section panel and measure every section setting ([#22](https://github.com/FRIKKern/fluid-editor/pull/22))
+- **Today** · 7 changes, 3 milestones closed
+  - Fix a stray space in the P5 evidence ([#25](https://github.com/FRIKKern/fluid-editor/pull/25))
+  - Add divider Stroke and Thickness options ([#24](https://github.com/FRIKKern/fluid-editor/pull/24))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
