@@ -92,6 +92,10 @@ async function oEnsureDemo() {
 async function oReset() {
   // Close menus with a real key press, then make sure the editor is editing the demo page.
   for (let k = 0; k < 2; k++) { try { execFileSync('cmux', ['browser', '--surface', O, 'press', 'Escape']); } catch {} await pause(300); }
+  // The full-screen preview and the Site Styles panel have their own close buttons.
+  for (const label of ['Close full screen preview', 'Toggle preview mode']) {
+    if (evalJs(O, `(() => JSON.stringify(!![...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === ${JSON.stringify(label)} && x.getAttribute('aria-pressed') !== 'false' && x.getBoundingClientRect().width > 0 && ${label === 'Close full screen preview'})))()`) === true) await oCmuxClick(oByLabel(label), 1500);
+  }
   await oEnsureDemo();
   for (let k = 0; k < 3; k++) await escape();
   for (const i of [0, 2]) await deselect(i);
@@ -148,6 +152,19 @@ const STATES = [
     `await pick(${S2}, 2); { const b = d.querySelector('.fe-block[data-block-id="' + bid(${S2}, 2) + '"]'); const q = b.getBoundingClientRect(); b.dispatchEvent(new W.MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: q.left + 40, clientY: q.top + 40, button: 2 })); await sleep(200); }`],
   ['phone-idle', 'Phone layout, nothing selected', async () => { await oCmuxClick(oByLabel('Mobile View'), 2500); }, `fe.setBp('mobile'); await sleep(300)`],
   ['phone-text-selected', 'Phone layout, a text block selected', async () => { await oCmuxClick(oByLabel('Mobile View'), 2500); await select(S2, blockIds(S2)[1]); }, `fe.setBp('mobile'); await sleep(300); await pick(${S2}, 1)`],
+  ['preview', 'Preview mode (top bar)', async () => { await oCmuxClick(oByLabel('Toggle preview mode'), 2000); }, `await press('#preview')`],
+  ['add-section-menu', 'Add Section on a section edge', async () => { await hoverSection(S2); await oCmuxClick(oSectionButton(S2, '/^\s*add section\s*$/i'), 1800); }, `await hover(${S2}); await press('#section-chrome [data-sc="add-section-below"]')`],
+  ['view-layouts', 'View Layouts of a section', async () => { await hoverSection(S2); await oCmuxClick(oSectionButton(S2, '/view layouts/i'), 1800); }, `await hover(${S2}); await press('#section-chrome [data-sc="layouts"]')`],
+  ['button-link', 'Link popover of a button block', async () => { await select(0, blockIds(0)[2]); await oCmuxClick(oByLabel('Open link editor popover', 80), 1500); }, `await pick(0, 2)`],
+  ['phone-section-hover', 'Phone layout, pointer over a section', async () => { await oCmuxClick(oByLabel('Mobile View'), 2500); await hoverSection(S2); }, `fe.setBp('mobile'); await sleep(300); await hover(${S2})`],
+  ['text-style-menu', 'Writing, the Text Style menu open', async () => { const id = blockIds(S2)[1]; await select(S2, id); await oCmuxClick(oByLabel('Write', 80), 1500); await oCmuxClick(oByLabel('Text Style'), 1200); },
+    `await pick(${S2}, 1); await press('#block-toolbar [data-tb="write"]'); await press('#text-bar [data-fmt="style-menu"]')`],
+  ['text-align-menu', 'Writing, the Text Alignment menu open', async () => { const id = blockIds(S2)[1]; await select(S2, id); await oCmuxClick(oByLabel('Write', 80), 1500); await oCmuxClick(oByLabel('Text Alignment'), 1200); },
+    `await pick(${S2}, 1); await press('#block-toolbar [data-tb="write"]'); await press('#text-bar [data-fmt="align-menu"]')`],
+  ['text-link', 'Writing, the Link popover open', async () => { const id = blockIds(S2)[1]; await select(S2, id); await oCmuxClick(oByLabel('Write', 80), 1500); await oCmuxClick(oByLabel('Link'), 1200); },
+    `await pick(${S2}, 1); await press('#block-toolbar [data-tb="write"]'); await press('#text-bar [data-fmt="link"]')`],
+  ['text-color', 'Writing, the Text Color popover open', async () => { const id = blockIds(S2)[1]; await select(S2, id); await oCmuxClick(oByLabel('Write', 80), 1500); await oCmuxClick(oByLabel('Text Color'), 1200); },
+    `await pick(${S2}, 1); await press('#block-toolbar [data-tb="write"]'); await press('#text-bar [data-fmt="color"]')`],
   ['site-styles', 'Site Styles panel (top bar)', async () => { await oCmuxClick(oByLabel('Toggle Site Styles editing'), 2000); }, `await press('[aria-label="Toggle Site Styles editing"]')`],
 ];
 
