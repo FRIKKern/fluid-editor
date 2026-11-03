@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 24 changes, 3 milestones closed
+- **Today** · 25 changes, 3 milestones closed
+  - U6: top bar like the oracle's, with Preview ([#43](https://github.com/FRIKKern/fluid-editor/pull/43))
   - Add Block menu, Layers panel and the block right-click menu like the oracle's ([#42](https://github.com/FRIKKern/fluid-editor/pull/42))
-  - T15: the block Edit panel floats next to the block like the oracle's ([#41](https://github.com/FRIKKern/fluid-editor/pull/41))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
