@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 8 changes, 3 milestones closed
+- **Today** · 9 changes, 3 milestones closed
+  - Add the text toolbar with the oracle's HTML for 17 actions ([#27](https://github.com/FRIKKern/fluid-editor/pull/27))
   - Record block toolbars per layout and add phone Move Up and Move Down ([#26](https://github.com/FRIKKern/fluid-editor/pull/26))
-  - Fix a stray space in the P5 evidence ([#25](https://github.com/FRIKKern/fluid-editor/pull/25))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
