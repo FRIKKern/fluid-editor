@@ -2,6 +2,7 @@
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
 import { renderPage, renderSection, exportHtml, LAST_LINE, COLS } from './render.js';
+import * as fmt from './text-format.js';
 import { demoModel } from './demo.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -629,7 +630,49 @@ function startTextEdit(sid, bid) {
   fe.style.gridAutoRows = `${m.rowMin}px`;
   editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area] };
   ce.addEventListener('input', onTextInput);
+  renderPanel();
 }
+
+// The text toolbar (E4, parity/findings/TEXTOPS.json), in the oracle's order: Text Style,
+// Bold, Italic, Quote, Bullet List, Numbered List, Strike, Outdent, Indent, Text Alignment,
+// Clear Formatting. Not built: Squarespace AI, Text Color, Scaled Text, Text Highlight, Link.
+const TEXT_ACTIONS = [['bold', 'Bold'], ['italic', 'Italic'], ['quote', 'Quote'], ['bullet', 'Bullet List'], ['numbered', 'Numbered List'], ['strike', 'Strike'],
+  ['outdent', 'Outdent'], ['indent', 'Indent'], ['align:left', 'Align left'], ['align:center', 'Align center'], ['align:right', 'Align right'], ['align:justify', 'Align justify'], ['clear', 'Clear Formatting']];
+function textGroup() {
+  const cur = fmt.currentStyle(editing.ce, win.getSelection());
+  return `<div class="group" data-group="text"><h3>Text</h3>
+    <label>Text Style <select data-fmt="style">${fmt.STYLES.map(([l, v]) => `<option value="${v}" ${v === cur ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+    <div class="row">${TEXT_ACTIONS.map(([a, l]) => `<button class="btn" data-fmt="${a}" aria-label="${l}">${l}</button>`).join('')}</div></div>`;
+}
+function applyFormat(act, value) {
+  const ed = editing;
+  if (!ed) return;
+  const sel = win.getSelection();
+  const [kind, arg] = act.split(':');
+  if (kind === 'style') fmt.setStyle(doc, ed.ce, sel, value);
+  if (kind === 'bold' || kind === 'italic' || kind === 'strike') fmt.toggleMark(doc, ed.ce, sel, kind);
+  if (kind === 'quote' || kind === 'bullet' || kind === 'numbered') fmt.toggleWrap(doc, ed.ce, sel, kind);
+  if (kind === 'indent') fmt.indent(ed.ce, sel, 1);
+  if (kind === 'outdent') fmt.indent(ed.ce, sel, -1);
+  if (kind === 'align') fmt.align(ed.ce, sel, arg);
+  if (kind === 'clear') fmt.clearFormatting(ed.ce, sel);
+  ed.ce.focus();
+  onTextInput();
+}
+// Buttons keep the text selection: no focus change on mousedown.
+panel.addEventListener('mousedown', (e) => { if (e.target.closest('button[data-fmt]')) e.preventDefault(); });
+panel.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-fmt]');
+  if (!btn || !editing) return;
+  e.stopImmediatePropagation();
+  applyFormat(btn.dataset.fmt);
+}, true);
+panel.addEventListener('change', (e) => {
+  const el = e.target.closest('select[data-fmt="style"]');
+  if (!el || !editing) return;
+  e.stopImmediatePropagation();
+  applyFormat('style', el.value);
+}, true);
 
 // When an edit makes the text taller, move the block's end row instead of
 // letting the row stretch.
@@ -690,6 +733,7 @@ function renderPanel() {
     <div class="row">${['flex-start', 'center', 'flex-end'].map((v) => `<button class="btn" data-act="justify" data-v="${v}" ${L.justify === v ? 'disabled' : ''}>${{ 'flex-start': 'Top', center: 'Middle', 'flex-end': 'Bottom' }[v]}</button>`).join('')}</div>
     </div>`);
     if (sel.more?.length) parts.push(`<div class="group"><h3>Align group</h3><div class="row">${ALIGNS.map(([k, label]) => `<button class="btn" data-act="align" data-v="${k}">${label}</button>`).join('')}</div><div class="row"><button class="btn" data-act="stack">Stack blocks</button></div></div>`);
+    if (editing) parts.push(textGroup());
     parts.push(sectionGroup(s));
     parts.push(`<div class="group"><h3>Add block</h3><div class="row">${ADD_TYPES.map(([n]) => `<button class="btn" data-act="add" data-v="${n}">${n}</button>`).join('')}</div></div>`);
     parts.push(layersGroup(s));
@@ -1063,6 +1107,8 @@ function boot() {
     normalize,
     measure: (sid) => measure(feEl(sid)),
     select: (sid, bid) => { select({ sid, bid }); return true; },
+    edit: (sid, bid) => { startTextEdit(sid, bid); return !!editing; },
+    finishEdit: () => { finishTextEdit(); return true; },
   };
 }
 

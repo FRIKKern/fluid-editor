@@ -2,7 +2,7 @@
 
 [![Parity: one cell per item, done, partial, open or unknown](images/parity.svg)](../README.md)
 
-67 of 108 items done, 35 partial, 6 open, 0 unknown.
+67 of 108 items done, 36 partial, 5 open, 0 unknown.
 Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. Edit the JSON, never this page.
 
 ## Harness and oracle
@@ -118,7 +118,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | E1 | How editing starts: double-click or click on a selected block | M4 Editor core | ✓ done | Evidence: parity/findings/E1.json: a click on an already selected text block opens the oracle text editor. Our editor does the same (double-click still works) |
 | E2 | End row grows while typing | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | E3 | Whether the block shrinks when text is deleted | M4 Editor core | ✓ done | Evidence: parity/findings/E3.json: on the oracle a paragraph replaced with one short sentence went from 3/2/8/13 to 3/2/5/13. Our editor gives the same 3/2/5/13 for the same edit (end row follows the text both ways, minimum 2 rows) |
-| E4 | Text toolbar: styles, bold, italic, links, alignment, color, size | M5 Chrome and blocks | ○ open |  |
+| E4 | Text toolbar: styles, bold, italic, links, alignment, color, size | M5 Chrome and blocks | ◐ partial | Evidence: The text toolbar opens from Write (parity/findings/TEXTBAR.json): Squarespace AI, Text Style (Heading 1-4, Paragraph 1-3, Monospace, shortcuts Cmd+Opt+6 to 0 and M), Bold, Italic, Text Color (Palette, Custom), Scaled Text, Text Highlight, Link (URL or a site page), Text Alignment (left, center, right, justify), Quote, Bullet List, Numbered List, Strike, Outdent, Indent, Clear Formatting. parity/findings/TEXTOPS.json records the HTML of 17 actions; our Text group makes the same HTML for all 17 (npm run text-check, parity/text-check.json). Missing: AI, Text Color, Scaled Text, Highlight, Link, the style shortcuts, a floating toolbar, per-action undo inside an edit (ours undoes the whole edit; the oracle took 1 undo per action), and the published look of quotes, lists and monospace |
 | E5 | Paste handling and HTML cleanup | M5 Chrome and blocks | ○ open |  |
 | E6 | Whether a desktop text edit changes the phone layout's height | M4 Editor core | ✓ done | Evidence: parity/findings/E6.json: a desktop text edit left the phone area 3/2/5/10 unchanged. Our editor changes only the current layout when text grows |
 
