@@ -46,6 +46,7 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 | Captured oracle CSS, stamped | [`fixtures/`](fixtures/README.md) |
 | Gate results; what the corpus covers | [`parity/`](parity/): `gate-a.json`, `gate-b.json`, `gate-c.json`, `corpus.json` |
 | Recorded oracle gestures | [`traces/`](traces/README.md) |
+| What the oracle shows that ours does not | `docs/MISSING.md`, from `npm run review` ([QUALITY.md](QUALITY.md#finding-what-is-missing)) |
 | How we work | [`CONTRIBUTING.md`](CONTRIBUTING.md), [`AGENTS.md`](AGENTS.md) |
 | Decisions | [`docs/decisions/`](docs/decisions/), one page each |
 
@@ -69,6 +70,7 @@ npm run capture && npm run fixtures   # grow the corpus politely, then extract C
 node scripts/box-diff.mjs --oracle <url> --swap      # Gate B in a cmux tab
 node scripts/oracle-record.mjs --id T0002-… --keys ArrowDown   # H6, on the oracle
 node scripts/replay.mjs           # Gate C: replay every trace in our editor
+eval "$(npm run -s surfaces)"; npm run review   # gap inventory, pixel diff, Barkpark paper
 npm run parity && npm run roadmap   # redraw the pictures
 ```
 
