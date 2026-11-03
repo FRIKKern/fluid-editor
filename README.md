@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 11 changes, 3 milestones closed
+- **Today** · 12 changes, 3 milestones closed
+  - Add Exit with the oracle's unsaved changes question ([#30](https://github.com/FRIKKern/fluid-editor/pull/30))
   - Add Code, Embed and Video blocks with the oracle's defaults ([#29](https://github.com/FRIKKern/fluid-editor/pull/29))
-  - Clean pasted text with the oracle's rules ([#28](https://github.com/FRIKKern/fluid-editor/pull/28))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
