@@ -69,6 +69,11 @@ for (const id of also) {
     return 'true'; })()`);
   await pause(600);
 }
+// Where the target sits in the canvas window when the gesture starts: replay scrolls to the
+// same place, so edge effects such as auto-scroll (G7) happen at the same distance.
+const view = evalJs(surface, `(() => { const f = document.getElementById('sqs-site-frame'); const d = f.contentDocument; const W = f.contentWindow;
+  const b = d.querySelectorAll('main#page .fluid-engine')[${index}].querySelector('.fe-block[data-block-id="${target}"]'); const q = b.getBoundingClientRect();
+  return JSON.stringify({ blockTop: Math.round(q.top * 10) / 10, innerHeight: W.innerHeight, innerWidth: W.innerWidth }); })()`);
 // Gesture: keys (default), a drag of the block, or a resize from one handle, in grid units.
 const dragBy = arg('drag');
 const resizeDir = arg('resize');
@@ -132,6 +137,7 @@ const trace = {
   oracle: { editor: 'https://halibut-keyboard-jlhd.squarespace.com/config/pages', page: pagePath, capturedAt: new Date().toISOString().slice(0, 10), frameWidth: before.frameWidth },
   layout: before.layout,
   section: { id: before.sectionId, index, gap: before.gap, rowGap: before.rowGap },
+  view,
   content: before.content,
   before: state(before),
   gesture,

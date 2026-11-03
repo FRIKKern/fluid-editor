@@ -1,10 +1,11 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { renderPage, renderSection, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS } from './render.js';
+import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition } from './toolbar.js';
+import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop } from './section-chrome.js';
 import { demoModel } from './demo.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -94,9 +95,30 @@ function dropMissingSelection() {
   sel = ids.length ? { sid: sel.sid, bid: ids[0], more: ids.slice(1) } : null;
 }
 
+// The site header lies over the first section in the canvas too, as in the oracle editor;
+// the first section is padded by its height after every render (render.js HEADER_SCRIPT).
+function fitHeader() {
+  const h = doc.getElementById('header');
+  const first = doc.querySelector('main#page .page-section');
+  if (first) first.style.paddingTop = h ? `${h.getBoundingClientRect().height}px` : '';
+}
+// The header follows the model: a model without one (a replayed trace) shows none.
+let headerJson = null;
+function renderHeaderOnce() {
+  const json = JSON.stringify(model.header || null);
+  if (json === headerJson) return;
+  headerJson = json;
+  const old = doc.getElementById('header') || doc.getElementById('header-slot');
+  if (!old) return;
+  if (!model.header) { old.outerHTML = '<div id="header-slot"></div>'; return; }
+  old.outerHTML = renderHeader(model.header);
+  new win.Function(HEADER_SCRIPT)();
+}
 function renderAll() {
   dropMissingSelection();
+  renderHeaderOnce();
   doc.getElementById('page').innerHTML = renderPage(model);
+  fitHeader();
   for (const s of model.sections) decorate(s.id);
   drawSelection();
   updateUi();
@@ -110,6 +132,7 @@ function renderSectionDom(sid) {
     sectionEl(id).replaceWith(tmp.firstElementChild);
     decorate(id);
   }
+  fitHeader();
   drawSelection();
 }
 
@@ -814,7 +837,9 @@ function updateUi() {
   // turns on (parity/findings/EXIT.json).
   $('page-state').textContent = 'Page · Published';
   renderPanel();
+  if (editSid) renderSectionPanel();
   placeToolbar();
+  placeChrome();
 }
 
 function renderPanel() {
@@ -839,7 +864,7 @@ function renderPanel() {
     if (sel.more?.length) parts.push(`<div class="group"><h3>Align group</h3><div class="row">${ALIGNS.map(([k, label]) => `<button class="btn" data-act="align" data-v="${k}">${label}</button>`).join('')}</div><div class="row"><button class="btn" data-act="stack">Stack blocks</button></div></div>`);
     if (editing) parts.push(textGroup());
     if (designOpen === sel.bid) parts.push(designGroup(b));
-    parts.push(sectionGroup(s));
+    // The section settings live in the floating Edit Section panel (U9).
     parts.push(`<div class="group"><h3>Add block</h3><div class="row">${ADD_TYPES.map(([n]) => `<button class="btn" data-act="add" data-v="${n}">${n}</button>`).join('')}</div></div>`);
     parts.push(layersGroup(s));
   } else {
@@ -1069,14 +1094,14 @@ function sectionGroup(s) {
   </dl></div>`;
 }
 
-panel.addEventListener('click', (e) => {
+function onSectionClick(e) {
   const btn = e.target.closest('button[data-sact]');
-  if (!btn || !sel) return;
+  if (!btn || !secSid()) return;
   e.stopImmediatePropagation();
-  const s = S(sel.sid);
+  const s = S(secSid());
   const { sact: act, v } = btn.dataset;
-  if (act === 'tab') { sectionTab = v; customGap = false; renderPanel(); return; }
-  if (act === 'gap' && v === 'custom') { customGap = true; renderPanel(); return; }
+  if (act === 'tab') { sectionTab = v; customGap = false; renderPanel(); if (editSid) renderSectionPanel(); return; }
+  if (act === 'gap' && v === 'custom') { customGap = true; renderPanel(); if (editSid) renderSectionPanel(); return; }
   const before = JSON.stringify(model);
   if (act === 'gap') { customGap = false; s.gap = v === 'zero' ? 0 : MEDIUM_GAP; s.rowGap = s.gap; }
   if (act === 'height') { s.height = v; s.customHeight = v === 'custom' ? (s.customHeight ?? 1) : undefined; }
@@ -1088,7 +1113,7 @@ panel.addEventListener('click', (e) => {
   if (JSON.stringify(model) === before) return;
   renderSectionDom(s.id);
   commit(before, `Section ${s.id} ${act} set to ${v}`);
-}, true);
+}
 
 panel.addEventListener('click', (e) => {
   const btn = e.target.closest('button[data-act]');
@@ -1106,11 +1131,11 @@ panel.addEventListener('click', (e) => {
   commit(before, `${btn.textContent} on ${b.id}`);
 });
 
-panel.addEventListener('change', (e) => {
+function onSectionChange(e) {
   const input = e.target.closest('input[data-act]');
-  if (!input || !sel) return;
+  if (!input || !secSid()) return;
   const before = JSON.stringify(model);
-  const s = S(sel.sid);
+  const s = S(secSid());
   const act = input.dataset.act;
   if (act === 'divider') {
     if (input.checked) s.divider = true; else { delete s.divider; delete s.dividerStroke; delete s.dividerThickness; }
@@ -1127,7 +1152,101 @@ panel.addEventListener('change', (e) => {
   if (JSON.stringify(model) === before) return;
   renderSectionDom(s.id);
   commit(before, `Section ${s.id} ${act} set to ${input.type === 'checkbox' ? input.checked : input.value}`);
+}
+
+// ---------- section chrome (U9, U10) ----------
+// Hovering a section shows its toolbar; Edit Section opens the settings in a floating panel
+// for that section, with or without a selected block.
+const chrome = $('section-chrome');
+const sectionPanel = $('section-panel');
+const addMenu = $('add-block-menu');
+let hoverSid = null;
+let editSid = null;
+const secSid = () => editSid || sel?.sid || null;
+panel.addEventListener('click', onSectionClick, true);
+panel.addEventListener('change', onSectionChange);
+sectionPanel.addEventListener('click', onSectionClick, true);
+sectionPanel.addEventListener('change', onSectionChange);
+function chromeSid() { return editSid || hoverSid; }
+function placeChrome() {
+  const sid = chromeSid();
+  const el = sid && doc && sectionEl(sid);
+  if (!el || gesture?.type === 'move' || gesture?.type === 'resize') { chrome.hidden = true; return; }
+  const k = model.sections.findIndex((x) => x.id === sid);
+  const key = `${sid}|${k}|${model.sections.length}`;
+  if (chrome.dataset.key !== key) { chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1 }); chrome.dataset.key = key; }
+  const header = k === 0 ? doc.getElementById('header') : null;
+  const L = sectionChromeLayout(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), header ? header.getBoundingClientRect().bottom : 0);
+  for (const [part, box] of Object.entries(L)) {
+    const node = chrome.querySelector(`[data-sc-part="${part}"]`);
+    if (!node) continue;
+    for (const [prop, v] of Object.entries(box)) node.style[prop] = `${v}px`;
+  }
+  chrome.hidden = false;
+  if (editSid) {
+    // 342px from the canvas's right edge (the window edge on the oracle, where the canvas is the window).
+    sectionPanel.style.left = `${stage.getBoundingClientRect().width - 342}px`;
+    sectionPanel.style.top = `${sectionPanelTop(L.card.top, stage.getBoundingClientRect().height)}px`;
+  }
+}
+function renderSectionPanel() {
+  if (!editSid || !S(editSid)) { editSid = null; sectionPanel.hidden = true; return; }
+  sectionPanel.innerHTML = sectionGroup(S(editSid));
+  sectionPanel.hidden = false;
+}
+function closeSectionPanel() { if (!editSid) return; editSid = null; renderSectionPanel(); placeChrome(); }
+const newId = () => Math.random().toString(16).slice(2, 14).padEnd(12, '0') + Date.now().toString(16).slice(-12);
+chrome.addEventListener('mousedown', (e) => e.preventDefault());
+chrome.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-sc]');
+  const sid = chromeSid();
+  if (!btn || !sid || btn.classList.contains('is-off')) return;
+  const act = btn.dataset.sc;
+  const k = model.sections.findIndex((x) => x.id === sid);
+  if (act === 'edit') { editSid = sid; sectionTab = 'Design'; customGap = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
+  if (act === 'add-block') {
+    const r = btn.getBoundingClientRect(), st = stage.getBoundingClientRect();
+    addMenu.innerHTML = ADD_TYPES.map(([n]) => `<button type="button" data-add="${n}">${n}</button>`).join('');
+    addMenu.style.left = `${r.left - st.left}px`; addMenu.style.top = `${r.bottom - st.top + 6}px`;
+    addMenu.dataset.sid = sid; addMenu.hidden = false; return;
+  }
+  if (act === 'layers' || act === 'layouts' || act === 'save' || act.startsWith('add-section')) { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
+  const before = JSON.stringify(model);
+  if (act === 'up' && k > 0) [model.sections[k - 1], model.sections[k]] = [model.sections[k], model.sections[k - 1]];
+  if (act === 'down' && k < model.sections.length - 1) [model.sections[k + 1], model.sections[k]] = [model.sections[k], model.sections[k + 1]];
+  if (act === 'duplicate') {
+    const copy = JSON.parse(JSON.stringify(model.sections[k]));
+    copy.id = newId();
+    for (const b of copy.blocks) b.id = `yui_copy_${newId()}`;
+    model.sections.splice(k + 1, 0, copy);
+  }
+  if (act === 'remove') {
+    model.sections.splice(k, 1);
+    if (sel?.sid === sid) sel = null;
+    if (editSid === sid) editSid = null;
+    hoverSid = null;
+  }
+  if (JSON.stringify(model) === before) return;
+  renderAll();
+  renderSectionPanel();
+  commit(before, `${btn.getAttribute('aria-label')} ${sid}`);
 });
+addMenu.addEventListener('click', (e) => {
+  const b = e.target.closest('button[data-add]');
+  if (!b) return;
+  const before = JSON.stringify(model);
+  const sid = addMenu.dataset.sid;
+  addBlock(sid, b.dataset.add);
+  addMenu.hidden = true;
+  renderSectionDom(sid);
+  commit(before, `Added ${b.dataset.add} to ${sid}`);
+});
+function onHover(e) {
+  if (gesture && gesture.type !== 'pending') return;
+  const secEl = e.target.closest?.('section.page-section[data-section-id]');
+  const sid = secEl && model.sections.some((x) => x.id === secEl.dataset.sectionId) ? secEl.dataset.sectionId : null;
+  if (sid && sid !== hoverSid) { hoverSid = sid; placeChrome(); }
+}
 
 // ---------- top bar ----------
 $('undo').addEventListener('click', undo);
@@ -1193,8 +1312,12 @@ document.addEventListener('keydown', onKey);
 
 // ---------- boot ----------
 function boot() {
-  frame.contentWindow.addEventListener('scroll', () => placeToolbar(), { passive: true });
-  window.addEventListener('resize', () => placeToolbar());
+  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); }, { passive: true });
+  window.addEventListener('resize', () => { placeToolbar(); placeChrome(); });
+  frame.contentDocument.addEventListener('pointermove', onHover);
+  frame.contentDocument.addEventListener('pointerdown', () => { addMenu.hidden = true; closeSectionPanel(); }, true);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { addMenu.hidden = true; closeSectionPanel(); } });
+  frame.contentDocument.addEventListener('keydown', (e) => { if (e.key === 'Escape') { addMenu.hidden = true; closeSectionPanel(); } });
   doc = frame.contentDocument;
   win = frame.contentWindow;
   doc.addEventListener('pointerdown', onDown);
