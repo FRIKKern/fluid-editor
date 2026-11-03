@@ -1,0 +1,126 @@
+{
+  "item": "TEXTOPS",
+  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
+  "capturedAt": "2026-11-03",
+  "question": "What HTML does each text formatting action produce on a selected word?",
+  "block": [
+    2,
+    1
+  ],
+  "bar": [
+    "div|button|Squarespace AI|96",
+    "div|checkbox|Bold|271",
+    "div|checkbox|Italic|311",
+    "div|button|Text Color|351",
+    "div|checkbox|Scaled Text|391",
+    "div|button|Text Highlight|431",
+    "div|button|Link|471",
+    "div|button|Text Alignment|516",
+    "div|checkbox|Quote|561",
+    "div|checkbox|Bullet List|601",
+    "div|checkbox|Numbered List|641",
+    "div|checkbox|Strike|686",
+    "div|button|Outdent|731",
+    "div|button|Indent|771",
+    "div|button|Clear Formatting|816"
+  ],
+  "base": "<p>On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+  "Heading 1": {
+    "html": "<h1>On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</h1><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Heading 4": {
+    "html": "<h4>On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</h4><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Paragraph 1": {
+    "html": "<p class=\"sqsrte-large\">On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Paragraph 3": {
+    "html": "<p class=\"sqsrte-small\">On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Monospace": {
+    "html": "<pre><code>On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</code></pre><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Bold": {
+    "html": "<p><strong>On</strong> desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Italic": {
+    "html": "<p><em>On</em> desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Strike": {
+    "html": "<p><span style=\"text-decoration: line-through;\">On</span> desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Scaled Text": {
+    "html": "<div class=\"sqsrte-scaled-text-container loaded\"><span class=\"sqsrte-scaled-text\" style=\"font-size: 8.5px;\"><p>On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p></span></div><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Quote": {
+    "html": "<blockquote><p>On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p></blockquote><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Bullet List": {
+    "html": "<ul data-rte-list=\"default\"><li><p>On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p></li></ul><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Numbered List": {
+    "html": "<ol data-rte-list=\"default\"><li><p>On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p></li></ol><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Indent": {
+    "html": "<p data-indent=\"1\" style=\"margin-left: 40px; white-space: pre-wrap\">On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Align center": {
+    "html": "<p style=\"text-align: center; white-space: pre-wrap\">On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Align right": {
+    "html": "<p style=\"text-align: right; white-space: pre-wrap\">On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Align justify": {
+    "html": "<p style=\"text-align: justify; white-space: pre-wrap\">On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Heading 2": {
+    "html": "<h2>On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</h2><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "Heading 3": {
+    "html": "<h3>On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</h3><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "changed": true,
+    "undoSteps": 1
+  },
+  "alignItems": [
+    "Text Alignment|button",
+    "Text align: left|checkbox",
+    "Text align: center|checkbox",
+    "Text align: right|checkbox",
+    "Text align: justify|checkbox"
+  ],
+  "runs": "three runs on 2026-11-03: block buttons, marks and lists on the first paragraph, then styles and alignment from their menus"
+}

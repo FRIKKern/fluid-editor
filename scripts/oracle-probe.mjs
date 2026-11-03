@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | T13 | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | T13 | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -473,6 +473,97 @@ if (which === 'EDITPANEL') {
   await view('Desktop');
   if (saveDisabled() !== true) throw new Error('The probe changed the page; it must stay read only');
   write('EDITPANEL', { question: 'Does the text Edit panel offer phone-only settings such as font size?', block: [i, k], ...out });
+}
+
+if (which === 'TEXTBAR') {
+  // E4: the text formatting toolbar. Edit the paragraph of demo section 2, select its
+  // first word, list every control that appears, open each menu-like control once and
+  // list its items. Nothing is applied; Escape closes each menu. Read only.
+  const [i, k] = [2, 1];
+  const id = blockIds(i)[k];
+  const CONTROLS = `(() => { ${FRAME}
+    const vis = (e, w) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && q.bottom > 0 && q.top < w.innerHeight; };
+    const name = (e) => (e.getAttribute('aria-label') || e.getAttribute('title') || e.textContent.trim()).slice(0, 40);
+    const skip = /^(edit section|open section settings|view layouts|duplicate section|save section|move section (up|down)|remove section|add section|add block|open layers panel|desktop view|mobile view|toggle site styles editing|toggle preview mode|save|exit|undo|redo|write|edit|align vertically|pin|move forward|move backward|duplicate|remove)$/i;
+    const pick = (root, w, where) => [...root.querySelectorAll('button, [role=button], [role=menuitem], [role=option], [role=menuitemradio], select')].filter((e) => vis(e, w) && (where === 'frame' || e.getBoundingClientRect().top > 56) && !e.closest('nav, [class*=sidebar], [class*=Sidebar]'))
+      .map((e) => ({ name: name(e), pressed: e.getAttribute('aria-pressed') || e.getAttribute('aria-checked') || e.getAttribute('aria-expanded') || '', where })).filter((c) => c.name && !skip.test(c.name));
+    return JSON.stringify([...pick(document, window, 'top'), ...pick(d, W, 'frame')]); })()`;
+  await select(i, id); await pause(900);
+  await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Write' && x.getBoundingClientRect().width > 0)`, { wait: 1800 });
+  evalJs(S, `(() => { ${FRAME} const p = d.querySelector('.fe-block[data-block-id="${id}"] [contenteditable=true] p'); const t = p.firstChild; const r = d.createRange(); r.setStart(t, 0); r.setEnd(t, Math.max(1, t.textContent.indexOf(' '))); const sel = W.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    d.dispatchEvent(new W.Event('selectionchange')); p.dispatchEvent(new W.MouseEvent('mouseup', { bubbles: true })); return 'true'; })()`);
+  await pause(1200);
+  execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS || '/tmp'}/textbar.png`]);
+  const bar = evalJs(S, CONTROLS);
+  console.log('bar', JSON.stringify(bar.map((c) => c.name + (c.pressed ? '[' + c.pressed + ']' : '') + (c.where === 'frame' ? '*' : ''))));
+  const menus = {};
+  for (const c of bar.filter((c) => c.pressed === 'false' || /style|size|color|align|list|link|more|font|format/i.test(c.name)).slice(0, 8)) {
+    try {
+      await click(`() => { const all = [...document.querySelectorAll('button, [role=button]')].filter((e) => (e.getAttribute('aria-label') || e.getAttribute('title') || e.textContent.trim()).slice(0, 40) === ${'NAME'} && e.getBoundingClientRect().width > 0 && e.getBoundingClientRect().top > 56); return all[0]; }`.replace('NAME', JSON.stringify(c.name)), { wait: 1000 });
+      execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS || '/tmp'}/textbar-${c.name.replace(/\W+/g, '-').toLowerCase()}.png`]);
+      const after = evalJs(S, CONTROLS).map((x) => x.name);
+      menus[c.name] = after.filter((n) => !bar.some((b) => b.name === n));
+      console.log('menu', c.name, JSON.stringify(menus[c.name]));
+      execFileSync('cmux', ['browser', '--surface', S, 'press', 'Escape']); await pause(600);
+    } catch (e) { menus[c.name] = { error: String(e.message).slice(0, 60) }; }
+  }
+  await escape(); await escape(); await deselect(i);
+  let n = 0; while (n < 5 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(800); }
+  if (saveDisabled() !== true) throw new Error('The probe changed the page; it must stay read only');
+  write('TEXTBAR', { question: 'Which controls does the text formatting toolbar offer, and what do its menus hold?', block: [i, k], bar, menus });
+}
+
+if (which === 'TEXTOPS') {
+  // E4: what HTML each formatting action makes. For each action: Write on the paragraph of
+  // demo section 2, select its first word, apply the action (shortcut key or toolbar
+  // button), read the text block's HTML, undo until Save is disabled again.
+  const [i, k] = [2, 1];
+  const id = blockIds(i)[k];
+  const HTML = `(() => { ${FRAME} const blk = d.querySelector('.fe-block[data-block-id="${id}"]'); const c = blk.querySelector('.ProseMirror') || blk.querySelector('.sqs-html-content'); return JSON.stringify(c.innerHTML.replace(/ data-rte-preserve-empty="true"/g, '').replace(/ style="white-space:pre-wrap;"/g, '').replace(/ class="([^"]*)"/g, (m, v) => (/sqsrte|preFade|fade|text-align/.test(v) ? m : '')).slice(0, 700)); })()`;
+  const startWrite = async () => {
+    await select(i, id); await pause(900);
+    await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Write' && x.getBoundingClientRect().width > 0)`, { wait: 1500 });
+    evalJs(S, `(() => { ${FRAME} const pm = d.querySelector('.fe-block[data-block-id="${id}"] .ProseMirror'); pm.focus(); const p = pm.querySelector('p'); const t = p.firstChild; const r = d.createRange(); r.setStart(t, 0); r.setEnd(t, t.textContent.indexOf(' ')); const sel = W.getSelection(); sel.removeAllRanges(); sel.addRange(r); d.dispatchEvent(new W.Event('selectionchange')); return 'true'; })()`);
+    await pause(900);
+  };
+  const BAR = `(() => { const style = [...document.querySelectorAll('button, [role]')].find((e) => e.getAttribute('aria-label') === 'Text Style' && e.getBoundingClientRect().width > 0); if (!style) return JSON.stringify(null);
+    let bar = style; while (bar.parentElement && bar.getBoundingClientRect().width < 600) bar = bar.parentElement;
+    return JSON.stringify([...bar.querySelectorAll('*')].filter((e) => e.getBoundingClientRect().width > 12 && e.getBoundingClientRect().width < 60 && (e.getAttribute('aria-label') || e.getAttribute('role') || e.tagName === 'BUTTON')).map((e) => [e.tagName.toLowerCase(), e.getAttribute('role') || '', e.getAttribute('aria-label') || '', Math.round(e.getBoundingClientRect().left)].join('|'))); })()`;
+  const key = (k2, mods) => evalJs(S, `(() => { ${FRAME} const t = d.activeElement; const o = { key: '${k2}', code: '${/^[0-9]$/.test(k2) ? 'Digit' + k2 : 'Key' + k2.toUpperCase()}', metaKey: true, altKey: ${mods.includes('alt')}, shiftKey: ${mods.includes('shift')}, bubbles: true, cancelable: true }; t.dispatchEvent(new W.KeyboardEvent('keydown', o)); t.dispatchEvent(new W.KeyboardEvent('keyup', o)); return 'true'; })()`);
+  const undoAll = async () => { await escape(); await escape(); let n = 0; while (n < 6 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); } await deselect(i); return n; };
+  await startWrite();
+  const bar = evalJs(S, BAR);
+  console.log('bar', JSON.stringify(bar));
+  const base = evalJs(S, HTML);
+  await undoAll();
+  const ACTIONS = (process.argv[3] ? JSON.parse(process.argv[3]) : null) || [['Heading 1', 'Text Style>Heading 1'], ['Heading 4', 'Text Style>Heading 4'], ['Paragraph 1', 'Text Style>Paragraph 1'], ['Paragraph 3', 'Text Style>Paragraph 3'], ['Monospace', 'Text Style>Monospace'],
+    ['Bold', 'Bold'], ['Italic', 'Italic'], ['Strike', 'Strike'], ['Scaled Text', 'Scaled Text'], ['Quote', 'Quote'], ['Bullet List', 'Bullet List'], ['Numbered List', 'Numbered List'], ['Indent', 'Indent'], ['Align center', 'Text Alignment>center'], ['Align right', 'Text Alignment>right'], ['Align justify', 'Text Alignment>justify']];
+  const out = { base };
+  for (const [name, how] of ACTIONS) {
+    try {
+      await startWrite();
+      if (Array.isArray(how)) key(how[0], how[1]);
+      else {
+        const [label, idx] = how.split('>');
+        await click(`() => [...document.querySelectorAll('button, [role=button], [role=checkbox], [role=radio], [role=switch]')].find((e) => (e.getAttribute('aria-label') || '').toLowerCase().startsWith(${'LBL'}.toLowerCase()) && e.getBoundingClientRect().width > 0)`.replace('LBL', JSON.stringify(label)), { wait: 1000 });
+        if (idx) {
+          out.alignItems = out.alignItems || evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('[aria-label]')].filter((e) => /align/i.test(e.getAttribute('aria-label')) && e.getBoundingClientRect().width > 0).map((e) => e.getAttribute('aria-label') + '|' + (e.getAttribute('role') || e.tagName))))()`);
+          await click(`() => { const want = IX;
+            const byLabel = [...document.querySelectorAll('[aria-label]')].find((e) => e.getBoundingClientRect().width > 0 && new RegExp(want, 'i').test(e.getAttribute('aria-label')) && !['Text Alignment', 'Text Style'].includes(e.getAttribute('aria-label')));
+            if (byLabel) return byLabel;
+            const leaf = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && e.textContent.trim() === want && e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'));
+            return leaf && (leaf.closest('[role=menuitem], [role=option], [role=menuitemradio], [role=button], button, li') || leaf); }`.replace('IX', JSON.stringify(idx)), { wait: 1000 });
+        }
+      }
+      await pause(900);
+      out[name] = { html: evalJs(S, HTML), changed: saveDisabled() !== true };
+    } catch (e) { out[name] = { error: String(e.message).slice(0, 80) }; }
+    out[name].undoSteps = await undoAll();
+    console.log(name, JSON.stringify(out[name]).slice(0, 300));
+  }
+  if (saveDisabled() !== true) throw new Error('The probe left unsaved changes');
+  console.log('align items', JSON.stringify(out.alignItems));
+  write('TEXTOPS', { question: 'What HTML does each text formatting action produce on a selected word?', block: [i, k], bar, ...out });
 }
 
 if (which === 'T13') {
