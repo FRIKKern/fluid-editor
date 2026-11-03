@@ -433,9 +433,9 @@
     "id": "G7",
     "area": "Geometry and snapping",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "Auto-scroll near the top and bottom edge during a drag",
-    "evidence": "The oracle auto-scrolls while the pointer is held near the bottom edge inside the window (T0010: the block moved 30px more than the pointer) and not when the pointer is below the window (T0013). Our editor scrolls in an 80px band at up to 600px/s; band and speed are not measured, so T0010 still fails by one row"
+    "evidence": "parity/findings/AUTOSCROLL.json, 29 holds of 1.2s: the oracle scrolls in 10px steps about every 70ms while the pointer is within 60px of the bottom edge (none at 65px) or 40px of the top (none at 60px), and stops once the pointer plus the scroll since the drag began would leave the window; a pointer outside the window scrolls nothing (T0013). Ours uses the same rule: npm run autoscroll-check, 29 of 29 holds within one 10px step (parity/autoscroll-check.json). Replay now holds the pointer like the recorder (25ms moves, 700ms before release): T0010 passes, Gate C 20 of 20 on three runs in a row"
   },
   {
     "id": "G8",
@@ -520,7 +520,7 @@
     "status": "done",
     "title": "Dragging a block into another section",
     "wasUnknown": true,
-    "evidence": "Dragging past the bottom grows the section and the block stays (T0010, T0013); rows past the edge use the normal pitch (T0013 drag of 20 rows, T0014 resize of 8 rows). Our editor replays T0013 and T0014 (parity/gate-c.json, 12 of 13)"
+    "evidence": "Dragging past the bottom grows the section and the block stays (T0010, T0013); rows past the edge use the normal pitch (T0013 drag of 20 rows, T0014 resize of 8 rows). Our editor replays T0013 and T0014 and T0010 (parity/gate-c.json)"
   },
   {
     "id": "X10",

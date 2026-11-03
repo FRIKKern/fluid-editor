@@ -10,7 +10,7 @@ import { evalJs } from './lib/cmux.mjs';
 import { parseSectionCss } from './lib/parse.mjs';
 
 const args = process.argv.slice(2);
-const surface = args.includes('--surface') ? args[args.indexOf('--surface') + 1] : 'surface:40';
+const surface = args.includes('--surface') ? args[args.indexOf('--surface') + 1] : process.env.ORACLE_SURFACE || 'surface:40';
 const HOST = 'halibut-keyboard-jlhd.squarespace.com';
 // --title "Home" --slug home imports another page of the trial site; the default is the demo page.
 const opt = (n, d) => (args.includes(`--${n}`) ? args[args.indexOf(`--${n}`) + 1] : d);

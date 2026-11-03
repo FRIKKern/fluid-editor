@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -663,6 +663,49 @@ if (which === 'EXIT') {
   out.afterUndo = evalJs(S, BAR);
   if (saveDisabled() !== true) throw new Error('Unsaved changes remain');
   write('EXIT', { question: 'How does the editor mark unsaved work, and what does Exit do with it?', block: [i, k], ...out });
+}
+
+if (which === 'AUTOSCROLL') {
+  // G7: the auto-scroll speed near the window edge during a drag. Grab a block of demo
+  // section 2, move the pointer to a fixed distance from the bottom (or top) edge of the
+  // editor frame's window, sample scrollY every 50ms for 1.2s, move back to the middle,
+  // release and undo. One run per distance.
+  const [i, k] = [2, 2];
+  const id = blockIds(i)[k];
+  const dists = (process.argv[3] && JSON.parse(process.argv[3])) || [-20, 2, 10, 25, 40, 60, 80, 100, 130];
+  const out = { frame: evalJs(S, `(() => { ${FRAME} return JSON.stringify([W.innerWidth, W.innerHeight]); })()`), runs: {} };
+  for (const edge of ['bottom', 'top']) {
+    for (const dist of dists) {
+      await select(i, id); await pause(500);
+      const r = evalJs(S, `(async () => { ${FRAME}
+        const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+        const b = d.querySelector('.fe-block[data-block-id="${id}"]');
+        // Put the block in the middle of the window first.
+        { const q0 = b.getBoundingClientRect(); W.scrollTo(0, W.scrollY + q0.top + q0.height / 2 - W.innerHeight / 2); await sleep(300); }
+        const q = b.getBoundingClientRect(); const x = q.left + q.width / 2, y0 = q.top + q.height / 2;
+        const o = { bubbles: true, cancelable: true, composed: true, pointerId: 1, isPrimary: true, pointerType: 'mouse', button: 0, view: W };
+        const at = (t, cx, cy, buttons) => { const tgt = t === 'down' ? b : d; tgt.dispatchEvent(new W.PointerEvent('pointer' + t, { ...o, clientX: cx, clientY: cy, buttons })); tgt.dispatchEvent(new W.MouseEvent('mouse' + t, { ...o, clientX: cx, clientY: cy, buttons })); };
+        at('down', x, y0, 1);
+        for (let s = 1; s <= 4; s++) { at('move', x, y0 + s * 5, 1); await sleep(25); }
+        const y = ${edge === 'bottom' ? `W.innerHeight - ${dist}` : `${dist}`};
+        const steps = 8; for (let s = 1; s <= steps; s++) { at('move', x, y0 + 20 + (y - y0 - 20) * s / steps, 1); await sleep(20); }
+        const t0 = performance.now(), s0 = W.scrollY; const samples = [];
+        while (performance.now() - t0 < 1200) { await sleep(50); at('move', x, y, 1); samples.push([Math.round(performance.now() - t0), Math.round((W.scrollY - s0) * 10) / 10]); }
+        at('move', x, W.innerHeight / 2, 1); await sleep(150);
+        at('up', x, W.innerHeight / 2, 0);
+        return JSON.stringify({ y, samples }); })()`);
+      await pause(600);
+      let n = 0; while (n < 4 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); }
+      await escape(); await deselect(i);
+      const s1 = r.samples, last = s1.at(-1), mid = s1[Math.floor(s1.length / 2)];
+      r.speed = Math.round(((last[1] - mid[1]) / ((last[0] - mid[0]) / 1000)) * 10) / 10;
+      r.undoSteps = n;
+      out.runs[`${edge} ${dist}`] = r;
+      console.log(edge, dist, 'y', r.y, 'speed px/s', r.speed, 'scrolled', last[1], 'undo', n);
+      if (saveDisabled() !== true) throw new Error('Unsaved changes remain');
+    }
+  }
+  write('AUTOSCROLL', { question: 'How fast does the editor frame scroll while a dragged block is held near the window edge?', block: [i, k], ...out });
 }
 
 if (which === 'T13') {
