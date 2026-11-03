@@ -2,7 +2,7 @@
 
 [![Parity: one cell per item, done, partial, open or unknown](images/parity.svg)](../README.md)
 
-69 of 108 items done, 39 partial, 0 open, 0 unknown.
+70 of 108 items done, 38 partial, 0 open, 0 unknown.
 Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. Edit the JSON, never this page.
 
 ## Harness and oracle
@@ -91,11 +91,11 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | X1 | Move threshold before a drag starts, 4px in the prototype | M4 Editor core | ✓ done | Evidence: parity/findings/X1.json and a 9 to 15px run: the oracle starts a drag after more than 10px (10 no, 11 yes). Our threshold is the same |
 | X2 | How the block follows the pointer and how the target shows | M4 Editor core | ◐ partial | Evidence: While held, the block follows the pointer exactly: transform translate equals the pointer distance (T0004 to T0006 mid). The dragged block wrapper gets z-index 999999 and the grid shows only in its own section. Target outline look not measured |
 | X3 | Original-position outline during a drag | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
-| X4 | What happens to nearby blocks, `data-is-near-dragged-block` | M4 Editor core | ◐ partial | Evidence: Our editor sets data-is-near-dragged-block on blocks within 2 tracks of the target, as seen on the oracle (T0004 to T0007). The oracle distance rule is not measured exactly, and nothing is drawn for it |
+| X4 | What happens to nearby blocks, `data-is-near-dragged-block` | M4 Editor core | ✓ done | Evidence: parity/findings/NEAR.json, 18 held targets on demo section 4: a block gets data-is-near-dragged-block when its column gap and row gap to the target area are both at most 1 grid line; the dragged block itself never does. Ours uses that rule: npm run near-check, 72 of 72 flags match (parity/near-check.json). Nothing is drawn for it on the oracle either (no extra layers in T0004 to T0010) |
 | X5 | Resize from 8 handles with the opposite edge fixed | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | X6 | Which handles each block type shows | M4 Editor core | ◐ partial | Evidence: parity/findings/X6.json: text, shape and button blocks show all 8 handles with the same cursors on the oracle, as in our editor. Image, form, line and scrolling not checked |
-| X7 | Shift and Alt modifiers | M4 Editor core | ◐ partial | Evidence: Shift has no effect on a shape corner resize (T0008, T0009 end the same); our editor replays both (parity/gate-c.json). Alt and images not tested |
-| X8 | Multi-select and group move | M4 Editor core | ◐ partial | Evidence: Shift-click multi-select, group drag and arrows (round 1). Align Group: Left, Horizontal Center, Right, Top, Vertical Center, Bottom line up on the group bounding box (T0018 Align Left, T0019 Align Vertical Center); our panel has the same six and replays both. Group toolbar Duplicate and Remove not built |
+| X7 | Shift and Alt modifiers | M4 Editor core | ◐ partial | Evidence: Shift has no effect on a shape corner resize (T0008, T0009 end the same). Alt has no effect on a drag: the block moves, no copy appears (T0024). Our editor replays all three (parity/gate-c.json). Alt on resize and images not tested |
+| X8 | Multi-select and group move | M4 Editor core | ◐ partial | Evidence: Shift-click multi-select moves as a group: drag 2 columns and 3 rows (T0022) and ArrowDown (T0023) move both blocks by the same amount; our editor replays both. Align Group: Left, Horizontal Center, Right, Top, Vertical Center, Bottom line up on the group bounding box (T0018, T0019); our panel has the same six and replays both. Group toolbar Duplicate and Remove not built |
 | X9 | Dragging a block into another section | M4 Editor core | ✓ done | Evidence: Dragging past the bottom grows the section and the block stays (T0010, T0013); rows past the edge use the normal pitch (T0013 drag of 20 rows, T0014 resize of 8 rows). Our editor replays T0013 and T0014 and T0010 (parity/gate-c.json) |
 | X10 | Locked blocks, `data-is-locked` | M4 Editor core | ✓ done | Evidence: The oracle has no lock control: none in the desktop or phone toolbars of text, shape and button blocks (parity/findings/TOOLBARS.json), the group toolbar or the Layers rows, and data-is-locked is false on every block read. Our editor has no lock either |
 | X11 | Touch and pen input | M4 Editor core | ◐ partial |  |

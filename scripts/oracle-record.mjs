@@ -123,6 +123,8 @@ const reloaded = evalJs(surface, READ(index));
 const left = diffStates(state(before), state(reloaded));
 if (left.length) throw new Error(`The oracle did not come back to the saved layout:\n${left.join('\n')}`);
 
+// Shift-added blocks travel with every gesture kind, not only buttons, so replay selects them too.
+if (also.length && !gesture.also) gesture.also = also;
 const trace = {
   id,
   journey: arg('journey', 'J07'),

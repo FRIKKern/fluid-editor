@@ -233,7 +233,8 @@ function flagNeighbours(g, t) {
     const mine = o.id === g.bid;
     const gapC = Math.max(a[1] - t[3], t[1] - a[3], 0);
     const gapR = Math.max(a[0] - t[2], t[0] - a[2], 0);
-    el.dataset.isNearDraggedBlock = String(mine || (gapC <= 2 && gapR <= 2));
+    // parity/findings/NEAR.json: near when both gaps are at most 1 line; never the dragged block.
+    el.dataset.isNearDraggedBlock = String(!mine && gapC <= 1 && gapR <= 1);
     el.dataset.isMatchingWidth = String(!mine && g.type === 'resize' && a[3] - a[1] === t[3] - t[1]);
     el.dataset.isMatchingHeight = String(!mine && g.type === 'resize' && a[2] - a[0] === t[2] - t[0]);
   }

@@ -474,10 +474,10 @@
     "id": "X4",
     "area": "Gestures",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "What happens to nearby blocks, `data-is-near-dragged-block`",
     "wasUnknown": true,
-    "evidence": "Our editor sets data-is-near-dragged-block on blocks within 2 tracks of the target, as seen on the oracle (T0004 to T0007). The oracle distance rule is not measured exactly, and nothing is drawn for it"
+    "evidence": "parity/findings/NEAR.json, 18 held targets on demo section 4: a block gets data-is-near-dragged-block when its column gap and row gap to the target area are both at most 1 grid line; the dragged block itself never does. Ours uses that rule: npm run near-check, 72 of 72 flags match (parity/near-check.json). Nothing is drawn for it on the oracle either (no extra layers in T0004 to T0010)"
   },
   {
     "id": "X5",
@@ -503,7 +503,7 @@
     "status": "partial",
     "title": "Shift and Alt modifiers",
     "wasUnknown": true,
-    "evidence": "Shift has no effect on a shape corner resize (T0008, T0009 end the same); our editor replays both (parity/gate-c.json). Alt and images not tested"
+    "evidence": "Shift has no effect on a shape corner resize (T0008, T0009 end the same). Alt has no effect on a drag: the block moves, no copy appears (T0024). Our editor replays all three (parity/gate-c.json). Alt on resize and images not tested"
   },
   {
     "id": "X8",
@@ -511,7 +511,7 @@
     "milestone": "M4",
     "status": "partial",
     "title": "Multi-select and group move",
-    "evidence": "Shift-click multi-select, group drag and arrows (round 1). Align Group: Left, Horizontal Center, Right, Top, Vertical Center, Bottom line up on the group bounding box (T0018 Align Left, T0019 Align Vertical Center); our panel has the same six and replays both. Group toolbar Duplicate and Remove not built"
+    "evidence": "Shift-click multi-select moves as a group: drag 2 columns and 3 rows (T0022) and ArrowDown (T0023) move both blocks by the same amount; our editor replays both. Align Group: Left, Horizontal Center, Right, Top, Vertical Center, Bottom line up on the group bounding box (T0018, T0019); our panel has the same six and replays both. Group toolbar Duplicate and Remove not built"
   },
   {
     "id": "X9",
