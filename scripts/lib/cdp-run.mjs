@@ -33,8 +33,9 @@ try {
     while (!ok && Date.now() < end) { try { ok = !!(await evaluate(cmd.js)); } catch {} if (!ok) await sleep(200); }
     if (!ok) throw new Error('timeout: Condition not met before timeout');
   }
-  if (cmd.op === 'goto') { await send('Page.navigate', { url: cmd.url }); await sleep(150); await settle(); }
-  if (cmd.op === 'reload') { await send('Page.reload', {}); await sleep(150); await settle(); }
+  // Never serve a cached script: the dev server may have restarted from another checkout.
+  if (cmd.op === 'goto') { await send('Network.setCacheDisabled', { cacheDisabled: true }); await send('Page.navigate', { url: cmd.url }); await sleep(150); await settle(); }
+  if (cmd.op === 'reload') { await send('Page.reload', { ignoreCache: true }); await sleep(150); await settle(); }
   if (cmd.op === 'viewport') {
     // Window bounds persist after this connection closes; an emulation override would not.
     const { result } = await send('Browser.getWindowForTarget', { targetId: page.id });

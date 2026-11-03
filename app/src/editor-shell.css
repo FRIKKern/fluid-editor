@@ -244,3 +244,8 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 .block-toolbar .tb-pop { position: absolute; top: 48px; left: 40px; display: flex; flex-direction: column; padding: 6px; background: #fff; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.12) 0 6px 24px 0, rgba(0, 0, 0, 0.08) 0 0 1px 0; min-width: 210px; }
 .block-toolbar .tb-pop button { height: 36px; padding: 0 12px; border: 0; background: transparent; text-align: left; font: 13px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; cursor: pointer; border-radius: 3px; }
 .block-toolbar .tb-pop button:hover { background: #f2f2f2; }
+
+/* Phone view: faint lines at section edges across the white area (behind the canvas). */
+.phone-lines { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.phone-line { position: absolute; left: 0; right: 0; height: 1px; background: #e7e7e7; }
+.stage.is-mobile #site-frame { position: relative; z-index: 1; }
