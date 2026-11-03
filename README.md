@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 2 changes, 3 milestones closed
+- **Today** · 3 changes, 3 milestones closed
+  - Render Background Width Inset and record the Edit Section panel ([#21](https://github.com/FRIKKern/fluid-editor/pull/21))
   - Render the 9 section color themes and check colors against the oracle ([#20](https://github.com/FRIKKern/fluid-editor/pull/20))
-  - Delivered: [M3: Unknowns](https://github.com/FRIKKern/fluid-editor/issues/5)
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
