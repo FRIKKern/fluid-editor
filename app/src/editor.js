@@ -4,7 +4,7 @@
 import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
-import { toolbarItems, toolbarHtml, toolbarPosition } from './toolbar.js';
+import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
 import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml } from './menus.js';
@@ -184,6 +184,25 @@ function drawSelectionLayers() {
     ind2.style.zIndex = String(100000 + lay(o).z);
     feEl(sel.sid).append(ind2);
   }
+  // A group (X8, gap review screenshot): one outline with eight handles around all selected
+  // blocks; each block keeps a thin outline. Resizing the group is not built: the handles show
+  // and do not respond.
+  if (sel.more?.length && gesture?.type !== 'move') {
+    for (const el3 of feEl(sel.sid).querySelectorAll('.fe-indicator')) { el3.classList.add('is-member'); el3.replaceChildren(); }
+    const areas = [sel.bid, ...sel.more].map((id) => (id === sel.bid ? gesture?.target : gesture?.moreTargets?.[id]) || lay(B(sel.sid, id)).area);
+    const box = [Math.min(...areas.map((a) => a[0])), Math.min(...areas.map((a) => a[1])), Math.max(...areas.map((a) => a[2])), Math.max(...areas.map((a) => a[3]))];
+    const g = doc.createElement('div');
+    g.className = 'fe-indicator is-group';
+    setArea(g, box);
+    g.style.zIndex = '199999';
+    for (const dir of ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w']) {
+      const h = doc.createElement('div');
+      h.className = 'fe-handle is-static';
+      h.dataset.dir = dir;
+      g.append(h);
+    }
+    feEl(sel.sid).append(g);
+  }
 }
 
 // ---------- floating block toolbar (U4) ----------
@@ -194,7 +213,19 @@ function zInfo(sid, b) {
   const over = S(sid).blocks.filter((o) => o !== b && o.layout[bp] && hit(L.area, o.layout[bp].area));
   return { overlaps: over.length > 0, above: over.some((o) => o.layout[bp].z > L.z), below: over.some((o) => o.layout[bp].z < L.z) };
 }
+let groupAlignOpen = false;
+function placeGroupToolbar() {
+  const g = doc.querySelector('.fe-indicator.is-group');
+  if (!g) { toolbar.hidden = true; return; }
+  const key = `group|${sel.bid}|${sel.more.join(',')}|${groupAlignOpen}`;
+  if (toolbar.dataset.key !== key) { toolbar.innerHTML = groupToolbarHtml(groupAlignOpen); toolbar.dataset.key = key; }
+  const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), g.getBoundingClientRect());
+  toolbar.style.left = `${p.left}px`;
+  toolbar.style.top = `${p.top}px`;
+  toolbar.hidden = false;
+}
 function placeToolbar() {
+  if (sel?.more?.length && !gesture?.type?.match(/move|resize/) && !editing && doc && !document.body.classList.contains('is-preview')) { placeGroupToolbar(); return; }
   if (!sel || sel.more?.length || gesture?.type === 'move' || gesture?.type === 'resize' || editing || !doc || designOpen === sel.bid) { toolbar.hidden = true; return; }
   const b = B(sel.sid, sel.bid);
   const el = blockEl(sel.bid);
@@ -213,6 +244,20 @@ toolbar.addEventListener('click', (e) => {
   if (!btn || !sel || btn.classList.contains('is-off')) return;
   const act = btn.dataset.tb;
   const { sid, bid } = sel;
+  if (sel.more?.length) {
+    // The group toolbar.
+    if (act === 'align-menu') { groupAlignOpen = !groupAlignOpen; placeToolbar(); return; }
+    groupAlignOpen = false;
+    const before = JSON.stringify(model);
+    const ids = [bid, ...sel.more];
+    if (act === 'stack') stackBlocks();
+    if (act.startsWith('align:')) alignGroup(act.slice(6));
+    if (act === 'gduplicate') for (const id of ids) duplicateBlock(sid, id);
+    if (act === 'gremove') { S(sid).blocks = S(sid).blocks.filter((o) => !ids.includes(o.id)); sel = null; }
+    renderSectionDom(sid);
+    commit(before, `${btn.getAttribute('aria-label')} on ${ids.length} blocks`);
+    return;
+  }
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   if (act === 'edit') { designOpen = bid; designTab = 'Design'; updateUi(); return; }
@@ -902,10 +947,8 @@ function renderPanel() {
       <dt>z-index</dt><dd>${L.z}</dd>
     </dl>
     </div>`);
-    // Move Forward and Backward, Move Up and Down, Align Vertically and Add Block live where the
-    // oracle has them: the block toolbar and the section chrome. Align Group stays here until
-    // the group toolbar is built (X8).
-    if (sel.more?.length) parts.push(`<div class="group"><h3>Align group</h3><div class="row">${ALIGNS.map(([k, label]) => `<button class="btn" data-act="align" data-v="${k}">${label}</button>`).join('')}</div><div class="row"><button class="btn" data-act="stack">Stack blocks</button></div></div>`);
+    // Move Forward and Backward, Move Up and Down, Align Vertically, Add Block and the group
+    // actions live where the oracle has them: the block and group toolbars and the section chrome.
 
   } else {
     parts.push(`<div class="group" data-dev><h3>Page</h3><p class="hint">Click a block to select it. Drag to move. Pull a handle to resize. Double-click text to edit. Arrow keys move one cell. Esc cancels, Cmd+Z undoes.</p></div>`);
@@ -1009,7 +1052,6 @@ function moveInStack(sid, b, up) {
   upper.layout.mobile.area = [U[0] + lh + gap, U[1], U[0] + lh + gap + uh, U[3]];
 }
 
-const ALIGNS = [['left', 'Left'], ['hcenter', 'Center'], ['right', 'Right'], ['top', 'Top'], ['vcenter', 'Middle'], ['bottom', 'Bottom']];
 function alignGroup(kind) {
   const ids = [sel.bid, ...(sel.more || [])];
   const L = ids.map((id) => lay(B(sel.sid, id)));

@@ -51,3 +51,8 @@ html { overflow-anchor: none; }
 body.is-preview .fluid-engine.is-editing .fe-block { cursor: default; }
 body.is-preview .fluid-engine.is-editing .fe-block:hover { outline: none; }
 body.is-preview .fe-indicator, body.is-preview .fe-grid-row { display: none; }
+
+/* A group selection (X8): thin outlines on the members, one outline with handles around all. */
+.fe-indicator.is-member { box-shadow: 0 0 0 1px rgb(108, 164, 244); }
+.fe-indicator.is-group { box-shadow: 0 0 0 1px rgb(2, 122, 255), 0 0 0 2px rgb(2, 122, 255); }
+.fe-handle.is-static { pointer-events: none; }

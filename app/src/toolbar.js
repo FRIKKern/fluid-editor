@@ -71,3 +71,28 @@ export function toolbarPosition(frameRect, stageRect, blockRect) {
     top: frameRect.top - stageRect.top + Math.max(blockRect.top - 60, 23.5),
   };
 }
+
+// The group toolbar (X8), from the gap review screenshot with two blocks selected: Stack Blocks |
+// Align Group (a menu of six), two icons not identified yet | Duplicate, Remove. Same box and
+// button sizes as the block toolbar, above the group's bounding box.
+const GICON = {
+  stack: '<rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/>',
+  align: '<path d="M5 4v16"/><rect x="8" y="6" width="11" height="4"/><rect x="8" y="14" width="7" height="4"/>',
+  unknown1: '<rect x="4" y="4" width="12" height="12" stroke-dasharray="2 2"/><path d="M18 18h2M18 14h2M14 18v2"/>',
+  unknown2: '<rect x="6" y="6" width="12" height="12" stroke-dasharray="2 2"/>',
+};
+export const GROUP_ALIGNS = [['left', 'Align Left'], ['hcenter', 'Align Horizontal Center'], ['right', 'Align Right'], ['top', 'Align Top'], ['vcenter', 'Align Vertical Center'], ['bottom', 'Align Bottom']];
+export function groupToolbarHtml(alignOpen) {
+  const b = (act, label, icon, extra = '') => `<button type="button" class="tb-btn" data-tb="${act}" aria-label="${label}" title="${label}"${extra}>${icon}</button>`;
+  const g = (k) => svg(GICON[k]).replace('stroke-width="1.6"', 'stroke-width="1.6"');
+  return [
+    b('stack', 'Stack Blocks', g('stack')),
+    '<span class="tb-sep" aria-hidden="true"></span>',
+    b('align-menu', 'Align Group', g('align'), ` aria-expanded="${!!alignOpen}"`).replace('class="tb-btn"', 'class="tb-btn tb-flush"'),
+    b('unknown1', 'Group action (not identified yet)', g('unknown1'), ' data-unbuilt disabled'),
+    b('unknown2', 'Group action (not identified yet)', g('unknown2'), ' data-unbuilt disabled'),
+    '<span class="tb-sep" aria-hidden="true"></span>',
+    b('gduplicate', 'Duplicate', svg(ICON.duplicate)),
+    b('gremove', 'Remove', svg(ICON.remove)).replace('class="tb-btn"', 'class="tb-btn tb-remove"'),
+  ].join('') + (alignOpen ? `<div class="tb-pop" role="menu">${GROUP_ALIGNS.map(([k, l]) => `<button type="button" role="menuitem" data-tb="align:${k}" aria-label="${l}">${l}</button>`).join('')}</div>` : '');
+}
