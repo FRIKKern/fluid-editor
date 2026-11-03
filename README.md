@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 33 changes, 3 milestones closed
+- **Today** · 34 changes, 3 milestones closed
+  - Record the WebKit results of section-check and design-edit-check ([#52](https://github.com/FRIKKern/fluid-editor/pull/52))
   - chrome-check: deselect before hovering sections ([#51](https://github.com/FRIKKern/fluid-editor/pull/51))
-  - U9: section chrome while a block is selected and in the phone view; T5 button width ([#50](https://github.com/FRIKKern/fluid-editor/pull/50))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
