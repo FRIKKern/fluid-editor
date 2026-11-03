@@ -1,0 +1,82 @@
+/* Site-level styles. The variables match the trial site
+   halibut-keyboard-jlhd.squarespace.com, read 2026-11-03.
+   Section padding and type sizes are placeholders, not measured yet. */
+:root {
+  --sqs-site-gutter: 4vw;
+  --sqs-mobile-site-gutter: 6vw;
+  --sqs-site-max-width: 1400px;
+
+  --paper: #ffffff;
+  --ink: #141414;
+  --muted: #5b5b5b;
+  --accent: #b665f5;
+  --accent-2: #ffd34e;
+  --line: #e4e4e4;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 18px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-section {
+  display: flex;
+  position: relative;
+  padding-top: 3.3vmax;
+  padding-bottom: 3.3vmax;
+  background: var(--section-bg, var(--paper));
+  color: var(--section-ink, var(--ink));
+}
+.page-section > .content-wrapper { display: flex; width: 100%; }
+.page-section .content { width: 100%; }
+
+.theme-accent { --section-bg: var(--accent); --section-ink: #111; }
+.theme-light { --section-bg: #f4f1ec; }
+.theme-dark { --section-bg: #151515; --section-ink: #f4f4f4; --muted: #b9b9b9; --line: #333; }
+
+/* Shared block rules copied from Squarespace site.css */
+.fluid-engine .sqs-block { display: flex; height: 100%; width: 100%; flex-direction: column; }
+.sqs-block-alignment-wrapper { display: flex; flex-direction: column; height: 100%; }
+
+.sqs-html-content > :first-child { margin-top: 0; }
+.sqs-html-content > :last-child { margin-bottom: 0; }
+.sqs-html-content h1 { font-size: calc(1.6rem + 2.4vw); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 0.4em; font-weight: 600; }
+.sqs-html-content h2 { font-size: calc(1.3rem + 1.3vw); line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 0.4em; font-weight: 600; }
+.sqs-html-content p { margin: 0 0 0.8em; }
+.sqs-html-content p.lead { font-size: calc(1rem + 0.35vw); }
+.sqs-html-content .small { font-size: 0.85rem; color: var(--muted); }
+.sqs-html-content ul { margin: 0; padding-left: 1.1em; }
+.sqs-html-content li { margin: 0 0 0.35em; }
+.sqs-html-content code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.85em; background: rgba(127,127,127,0.14); padding: 0.1em 0.3em; border-radius: 4px; }
+
+.sqs-block-button .sqs-block-content { display: flex; height: 100%; }
+.sqs-block-button-element {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 100%; height: 100%; min-height: 44px; padding: 0 1.2em;
+  border-radius: 999px; background: var(--section-ink, var(--ink)); color: var(--section-bg, var(--paper));
+  font-weight: 600; text-decoration: none; white-space: nowrap;
+}
+
+.sqs-stretched .sqs-block-content { height: 100%; width: 100%; }
+.sqs-shape {
+  width: 100%; height: 100%;
+  background: var(--shape-fill); border-radius: var(--shape-radius);
+  color: var(--shape-ink);
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 0.5em; overflow: hidden;
+}
+.sqs-shape-label { font-weight: 600; font-size: 0.95rem; line-height: 1.25; }
+
+.sqs-block-code pre {
+  margin: 0; padding: 1.1em 1.2em; overflow: auto;
+  background: #0f0f0f; color: #e8e8e8; border-radius: 10px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; line-height: 1.5;
+}

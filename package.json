@@ -1,0 +1,17 @@
+{
+  "name": "fluid-editor",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 5178 --bind 127.0.0.1 --directory app",
+    "check": "node scripts/check-render.mjs && node scripts/check-items.mjs && node scripts/check-docs.mjs",
+    "fixtures": "node scripts/extract-fixtures.mjs",
+    "parity": "node scripts/generate-parity.mjs",
+    "roadmap": "node scripts/generate-roadmap.mjs",
+    "timeline": "node scripts/readme-timeline.mjs"
+  },
+  "description": "A grid editor that behaves like Squarespace Fluid Engine, 1:1, checked against a real Squarespace site",
+  "engines": {
+    "node": ">=22"
+  }
+}

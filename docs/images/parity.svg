@@ -1,0 +1,300 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="914" viewBox="0 0 1200 914" role="img" aria-labelledby="t d">
+<title id="t">Fluid editor parity</title>
+<desc id="d">26 of 105 items done, 20 partial, 37 open, 22 unknown. Harness and oracle: 1 of 12 done. Published grid CSS: 8 of 11 done. Page and site context: 1 of 7 done. Block types: 1 of 14 done. Geometry and snapping: 3 of 8 done. Gestures: 3 of 12 done. Row stretch: 1 of 5 done. Text editing: 1 of 6 done. Overlap and layers: 1 of 5 done. Phone layout: 2 of 7 done. Section settings and Stacks: 0 of 3 done. Editor chrome: 1 of 7 done. History, save and publish: 2 of 5 done. Accessibility and order: 1 of 3 done.</desc>
+<style>
+  svg { --bg:#fbfaf7; --card:#ffffff; --line:#e3e0d6; --ink:#1f1e1b; --muted:#6c6a63; --done:#2c7a4b; --now:#b26b00; --todo:#a3a097; --nowbg:#fff6e5; --partbg:#fdf0d8; --unk:#8a6fb0; }
+  @media (prefers-color-scheme: dark) {
+    svg { --bg:#14161a; --card:#1c1f24; --line:#30343b; --ink:#ecebe6; --muted:#9a9ca3; --done:#6cc28f; --now:#e8b55a; --todo:#6d7179; --nowbg:#2a2418; --partbg:#3a2f1a; --unk:#b39ddb; }
+  }
+  text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
+  .muted { fill: var(--muted); } .done { fill: var(--done); } .now { fill: var(--now); } .todo { fill: var(--todo); } .unk { fill: var(--unk); }
+  .bg { fill: var(--bg); } .track { fill: var(--line); } .bar { fill: var(--done); } .rule { stroke: var(--line); }
+  .card { fill: var(--card); stroke: var(--line); } .card.on { fill: var(--nowbg); stroke: var(--now); stroke-width: 2; }
+  .c-done { fill: var(--done); } .t-done { fill: #fff; }
+  .c-partial { fill: var(--partbg); stroke: var(--now); } .t-partial { fill: var(--now); }
+  .c-open { fill: var(--card); stroke: var(--line); } .t-open { fill: var(--muted); }
+  .c-unknown { fill: url(#hatch); stroke: var(--unk); stroke-dasharray: 3 2; } .t-unknown { fill: var(--unk); }
+  .hatch-bg { fill: var(--card); } .hatch-line { stroke: var(--line); }
+  .s-done { fill: var(--done); } .s-partial { fill: var(--now); } .s-open { fill: var(--line); } .s-unknown { fill: var(--unk); }
+</style>
+<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" class="hatch-bg"/><path d="M0 0V6" class="hatch-line" stroke-width="3"/></pattern></defs>
+<rect class="bg" width="1200" height="914" rx="16"/>
+<text x="40" y="70" font-size="36" font-weight="700" letter-spacing="-0.8">Parity</text>
+<text x="40" y="102" font-size="19" class="muted">Everything that has to match Fluid Engine, one cell per item.</text>
+<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">26<tspan class="muted" font-weight="400"> / 105</tspan></text>
+<text x="1160" y="102" font-size="16" text-anchor="end" class="muted">items done</text>
+<rect x="40" y="124" width="277.3333333333333" height="10" class="s-done"/>
+<rect x="317.3333333333333" y="124" width="213.33333333333334" height="10" class="s-partial"/>
+<rect x="530.6666666666666" y="124" width="394.6666666666667" height="10" class="s-open"/>
+<rect x="925.3333333333333" y="124" width="234.66666666666666" height="10" class="s-unknown"/>
+<text x="40" y="172" font-size="16"><tspan class="done">✓ 26 done</tspan><tspan class="now" dx="24">◐ 20 partial</tspan><tspan class="todo" dx="24">○ 37 open</tspan><tspan class="unk" dx="24">? 22 unknown</tspan></text>
+<text x="1160" y="172" font-size="16" text-anchor="end" class="muted">unknown: needs a trace on the oracle before it can be built</text>
+<path d="M40 190H1160" class="rule"/>
+<g data-area="Harness and oracle">
+<text x="40" y="234" font-size="15" font-weight="600">Harness and oracle</text>
+<text x="324" y="234" font-size="14" text-anchor="end" class="muted">1/12</text>
+<rect x="340" y="214" width="50" height="30" rx="6" class="c-done"><title>H1 CSS round trip check, `scripts/check-render.mjs`: done</title></rect>
+<text x="365" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-done">H1</text>
+<rect x="396" y="214" width="50" height="30" rx="6" class="c-open"><title>H2 Fixture capture tool: URL list in, section CSS, markup, URL, date and sha256 out: open</title></rect>
+<text x="421" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H2</text>
+<rect x="452" y="214" width="50" height="30" rx="6" class="c-open"><title>H3 Corpus of at least 300 sections from at least 30 public sites: open</title></rect>
+<text x="477" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H3</text>
+<rect x="508" y="214" width="50" height="30" rx="6" class="c-open"><title>H4 Box diff: load an oracle page and our render, compare every `.fe-block` rect: open</title></rect>
+<text x="533" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H4</text>
+<rect x="564" y="214" width="50" height="30" rx="6" class="c-open"><title>H5 Trace format, `traces/&lt;id&gt;.json`: before state, gesture, after state, oracle URL, date: open</title></rect>
+<text x="589" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H5</text>
+<rect x="620" y="214" width="50" height="30" rx="6" class="c-open"><title>H6 Trace recorder through cmux on the trial site: open</title></rect>
+<text x="645" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H6</text>
+<rect x="676" y="214" width="50" height="30" rx="6" class="c-open"><title>H7 Trace replay in our editor through cmux: open</title></rect>
+<text x="701" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H7</text>
+<rect x="732" y="214" width="50" height="30" rx="6" class="c-open"><title>H8 Status report: `npm run status` prints counts per area and milestone: open</title></rect>
+<text x="757" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H8</text>
+<rect x="788" y="214" width="50" height="30" rx="6" class="c-open"><title>H9 Git repo with fixtures and traces kept out of history: open</title></rect>
+<text x="813" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H9</text>
+<rect x="844" y="214" width="50" height="30" rx="6" class="c-open"><title>O1 Build the 8 demo sections on the trial site with the same grid areas as `src/demo.js`. Needs approval: this saves the trial site: open</title></rect>
+<text x="869" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">O1</text>
+<rect x="900" y="214" width="50" height="30" rx="6" class="c-open"><title>O2 Capture the 8 sections as fixtures, both layouts: open</title></rect>
+<text x="925" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">O2</text>
+<rect x="956" y="214" width="50" height="30" rx="6" class="c-open"><title>O3 Copy measured section padding, fonts and type sizes into `src/site.css`: open</title></rect>
+<text x="981" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">O3</text>
+</g>
+<g data-area="Published grid CSS">
+<text x="40" y="280" font-size="15" font-weight="600">Published grid CSS</text>
+<text x="324" y="280" font-size="14" text-anchor="end" class="muted">8/11</text>
+<rect x="340" y="260" width="50" height="30" rx="6" class="c-done"><title>C1 26 tracks, 24 or 8 content columns plus 2 gutter tracks: done</title></rect>
+<text x="365" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C1</text>
+<rect x="396" y="260" width="50" height="30" rx="6" class="c-done"><title>C2 `--cell-max-width` from site max width and gap: done</title></rect>
+<text x="421" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C2</text>
+<rect x="452" y="260" width="50" height="30" rx="6" class="c-done"><title>C3 Row minimum: container width times 0.0215 on desktop, 24px on phones: done</title></rect>
+<text x="477" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C3</text>
+<rect x="508" y="260" width="50" height="30" rx="6" class="c-done"><title>C4 Gap subtracted from the outer gutter: done</title></rect>
+<text x="533" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C4</text>
+<rect x="564" y="260" width="50" height="30" rx="6" class="c-done"><title>C5 Mobile-first CSS, switch at `min-width: 768px`: done</title></rect>
+<text x="589" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C5</text>
+<rect x="620" y="260" width="50" height="30" rx="6" class="c-done"><title>C6 `grid-area` start and end lines and z-index per layout: done</title></rect>
+<text x="645" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C6</text>
+<rect x="676" y="260" width="50" height="30" rx="6" class="c-done"><title>C7 `justify-content` and `align-items` per layout: done</title></rect>
+<text x="701" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C7</text>
+<rect x="732" y="260" width="50" height="30" rx="6" class="c-done"><title>C8 `overflow-x: clip`: done</title></rect>
+<text x="757" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C8</text>
+<rect x="788" y="260" width="50" height="30" rx="6" class="c-partial"><title>C9 Inset content width: CSS emitted, no setting yet: partial</title></rect>
+<text x="813" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">C9</text>
+<rect x="844" y="260" width="50" height="30" rx="6" class="c-unknown"><title>C10 Content of the `@media (max-width: 767px)` block inside each block rule: unknown</title></rect>
+<text x="869" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">C10</text>
+<rect x="900" y="260" width="50" height="30" rx="6" class="c-unknown"><title>C11 Other per-block CSS for other block types and settings: unknown</title></rect>
+<text x="925" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">C11</text>
+</g>
+<g data-area="Page and site context">
+<text x="40" y="326" font-size="15" font-weight="600">Page and site context</text>
+<text x="324" y="326" font-size="14" text-anchor="end" class="muted">1/7</text>
+<rect x="340" y="306" width="50" height="30" rx="6" class="c-done"><title>P1 Site variables for the trial site: done</title></rect>
+<text x="365" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-done">P1</text>
+<rect x="396" y="306" width="50" height="30" rx="6" class="c-partial"><title>P2 Section wrapper styles: partial</title></rect>
+<text x="421" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">P2</text>
+<rect x="452" y="306" width="50" height="30" rx="6" class="c-open"><title>P3 Section height settings and padding: open</title></rect>
+<text x="477" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-open">P3</text>
+<rect x="508" y="306" width="50" height="30" rx="6" class="c-open"><title>P4 Section content width, full or inset: open</title></rect>
+<text x="533" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-open">P4</text>
+<rect x="564" y="306" width="50" height="30" rx="6" class="c-open"><title>P5 Section alignment, color themes, background image and video, dividers: open</title></rect>
+<text x="589" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-open">P5</text>
+<rect x="620" y="306" width="50" height="30" rx="6" class="c-open"><title>P6 Fonts and type scale, including how sizes follow viewport width: open</title></rect>
+<text x="645" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-open">P6</text>
+<rect x="676" y="306" width="50" height="30" rx="6" class="c-open"><title>P7 Header and footer: open</title></rect>
+<text x="701" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-open">P7</text>
+</g>
+<g data-area="Block types">
+<text x="40" y="372" font-size="15" font-weight="600">Block types</text>
+<text x="324" y="372" font-size="14" text-anchor="end" class="muted">1/14</text>
+<rect x="340" y="352" width="50" height="30" rx="6" class="c-done"><title>T1 Wrapper chain `.fe-block &gt; .sqs-block &gt; .sqs-block-content`: done</title></rect>
+<text x="365" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-done">T1</text>
+<rect x="396" y="352" width="50" height="30" rx="6" class="c-partial"><title>T2 `.sqs-block-alignment-wrapper` on the right block types: partial</title></rect>
+<text x="421" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">T2</text>
+<rect x="452" y="352" width="50" height="30" rx="6" class="c-partial"><title>T3 Text block: partial</title></rect>
+<text x="477" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">T3</text>
+<rect x="508" y="352" width="50" height="30" rx="6" class="c-open"><title>T4 Image block: fit, fill, crop, focal point, stretched: open</title></rect>
+<text x="533" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-open">T4</text>
+<rect x="564" y="352" width="50" height="30" rx="6" class="c-partial"><title>T5 Button block: sizes, styles, stretch: partial</title></rect>
+<text x="589" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">T5</text>
+<rect x="620" y="352" width="50" height="30" rx="6" class="c-partial"><title>T6 Shape block and the Squarespace shape set: partial</title></rect>
+<text x="645" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">T6</text>
+<rect x="676" y="352" width="50" height="30" rx="6" class="c-open"><title>T7 Video block: open</title></rect>
+<text x="701" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-open">T7</text>
+<rect x="732" y="352" width="50" height="30" rx="6" class="c-open"><title>T8 Gallery block: open</title></rect>
+<text x="757" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-open">T8</text>
+<rect x="788" y="352" width="50" height="30" rx="6" class="c-open"><title>T9 Form block: open</title></rect>
+<text x="813" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-open">T9</text>
+<rect x="844" y="352" width="50" height="30" rx="6" class="c-open"><title>T10 Embed and code blocks: open</title></rect>
+<text x="869" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-open">T10</text>
+<rect x="900" y="352" width="50" height="30" rx="6" class="c-open"><title>T11 Line, map and social links blocks: open</title></rect>
+<text x="925" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-open">T11</text>
+<rect x="956" y="352" width="50" height="30" rx="6" class="c-open"><title>T12 Remaining block types from the add-block menu: open</title></rect>
+<text x="981" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-open">T12</text>
+<rect x="1012" y="352" width="50" height="30" rx="6" class="c-unknown"><title>T13 Default and minimum size per block type: unknown</title></rect>
+<text x="1037" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">T13</text>
+<rect x="1068" y="352" width="50" height="30" rx="6" class="c-unknown"><title>T14 Which types keep an aspect ratio and which follow content: unknown</title></rect>
+<text x="1093" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">T14</text>
+</g>
+<g data-area="Geometry and snapping">
+<text x="40" y="418" font-size="15" font-weight="600">Geometry and snapping</text>
+<text x="324" y="418" font-size="14" text-anchor="end" class="muted">3/8</text>
+<rect x="340" y="398" width="50" height="30" rx="6" class="c-done"><title>G1 Snap to measured column lines, gutter tracks included: done</title></rect>
+<text x="365" y="418" font-size="13" font-weight="700" text-anchor="middle" class="t-done">G1</text>
+<rect x="396" y="398" width="50" height="30" rx="6" class="c-done"><title>G2 Uniform row pitch after normalization: done</title></rect>
+<text x="421" y="418" font-size="13" font-weight="700" text-anchor="middle" class="t-done">G2</text>
+<rect x="452" y="398" width="50" height="30" rx="6" class="c-done"><title>G3 Grab offset kept during a drag: done</title></rect>
+<text x="477" y="418" font-size="13" font-weight="700" text-anchor="middle" class="t-done">G3</text>
+<rect x="508" y="398" width="50" height="30" rx="6" class="c-unknown"><title>G4 Snap threshold and dead zone: unknown</title></rect>
+<text x="533" y="418" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">G4</text>
+<rect x="564" y="398" width="50" height="30" rx="6" class="c-unknown"><title>G5 Snap to other blocks' edges and centers, `data-is-matching-width` and `data-is-matching-height`: unknown</title></rect>
+<text x="589" y="418" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">G5</text>
+<rect x="620" y="398" width="50" height="30" rx="6" class="c-open"><title>G6 Alignment guide lines: open</title></rect>
+<text x="645" y="418" font-size="13" font-weight="700" text-anchor="middle" class="t-open">G6</text>
+<rect x="676" y="398" width="50" height="30" rx="6" class="c-open"><title>G7 Auto-scroll near the top and bottom edge during a drag: open</title></rect>
+<text x="701" y="418" font-size="13" font-weight="700" text-anchor="middle" class="t-open">G7</text>
+<rect x="732" y="398" width="50" height="30" rx="6" class="c-unknown"><title>G8 Editor zoom or scaled preview: unknown</title></rect>
+<text x="757" y="418" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">G8</text>
+</g>
+<g data-area="Gestures">
+<text x="40" y="464" font-size="15" font-weight="600">Gestures</text>
+<text x="324" y="464" font-size="14" text-anchor="end" class="muted">3/12</text>
+<rect x="340" y="444" width="50" height="30" rx="6" class="c-partial"><title>X1 Move threshold before a drag starts, 4px in the prototype: partial</title></rect>
+<text x="365" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">X1</text>
+<rect x="396" y="444" width="50" height="30" rx="6" class="c-partial"><title>X2 How the block follows the pointer and how the target shows: partial</title></rect>
+<text x="421" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">X2</text>
+<rect x="452" y="444" width="50" height="30" rx="6" class="c-done"><title>X3 Original-position outline during a drag: done</title></rect>
+<text x="477" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X3</text>
+<rect x="508" y="444" width="50" height="30" rx="6" class="c-unknown"><title>X4 What happens to nearby blocks, `data-is-near-dragged-block`: unknown</title></rect>
+<text x="533" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">X4</text>
+<rect x="564" y="444" width="50" height="30" rx="6" class="c-done"><title>X5 Resize from 8 handles with the opposite edge fixed: done</title></rect>
+<text x="589" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X5</text>
+<rect x="620" y="444" width="50" height="30" rx="6" class="c-unknown"><title>X6 Which handles each block type shows: unknown</title></rect>
+<text x="645" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">X6</text>
+<rect x="676" y="444" width="50" height="30" rx="6" class="c-unknown"><title>X7 Shift and Alt modifiers: unknown</title></rect>
+<text x="701" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">X7</text>
+<rect x="732" y="444" width="50" height="30" rx="6" class="c-open"><title>X8 Multi-select and group move: open</title></rect>
+<text x="757" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-open">X8</text>
+<rect x="788" y="444" width="50" height="30" rx="6" class="c-unknown"><title>X9 Dragging a block into another section: unknown</title></rect>
+<text x="813" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">X9</text>
+<rect x="844" y="444" width="50" height="30" rx="6" class="c-open"><title>X10 Locked blocks, `data-is-locked`: open</title></rect>
+<text x="869" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-open">X10</text>
+<rect x="900" y="444" width="50" height="30" rx="6" class="c-partial"><title>X11 Touch and pen input: partial</title></rect>
+<text x="925" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">X11</text>
+<rect x="956" y="444" width="50" height="30" rx="6" class="c-done"><title>X12 Esc cancels, one gesture is one undo step: done</title></rect>
+<text x="981" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X12</text>
+</g>
+<g data-area="Row stretch">
+<text x="40" y="510" font-size="15" font-weight="600">Row stretch</text>
+<text x="324" y="510" font-size="14" text-anchor="end" class="muted">1/5</text>
+<rect x="340" y="490" width="50" height="30" rx="6" class="c-done"><title>R1 Normalize at the start of a drag or keyboard move: done</title></rect>
+<text x="365" y="510" font-size="13" font-weight="700" text-anchor="middle" class="t-done">R1</text>
+<rect x="396" y="490" width="50" height="30" rx="6" class="c-partial"><title>R2 Whether normalization also runs on select, resize or edit start: partial</title></rect>
+<text x="421" y="510" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">R2</text>
+<rect x="452" y="490" width="50" height="30" rx="6" class="c-partial"><title>R3 Exact pixel to grid conversion: partial</title></rect>
+<text x="477" y="510" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">R3</text>
+<rect x="508" y="490" width="50" height="30" rx="6" class="c-unknown"><title>R4 Whether the row count shrinks after normalization or a drag: unknown</title></rect>
+<text x="533" y="510" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">R4</text>
+<rect x="564" y="490" width="50" height="30" rx="6" class="c-unknown"><title>R5 Behaviour when viewport width or a font change stretches rows: unknown</title></rect>
+<text x="589" y="510" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">R5</text>
+</g>
+<g data-area="Text editing">
+<text x="40" y="556" font-size="15" font-weight="600">Text editing</text>
+<text x="324" y="556" font-size="14" text-anchor="end" class="muted">1/6</text>
+<rect x="340" y="536" width="50" height="30" rx="6" class="c-partial"><title>E1 How editing starts: double-click or click on a selected block: partial</title></rect>
+<text x="365" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">E1</text>
+<rect x="396" y="536" width="50" height="30" rx="6" class="c-done"><title>E2 End row grows while typing: done</title></rect>
+<text x="421" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E2</text>
+<rect x="452" y="536" width="50" height="30" rx="6" class="c-unknown"><title>E3 Whether the block shrinks when text is deleted: unknown</title></rect>
+<text x="477" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">E3</text>
+<rect x="508" y="536" width="50" height="30" rx="6" class="c-open"><title>E4 Text toolbar: styles, bold, italic, links, alignment, color, size: open</title></rect>
+<text x="533" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-open">E4</text>
+<rect x="564" y="536" width="50" height="30" rx="6" class="c-open"><title>E5 Paste handling and HTML cleanup: open</title></rect>
+<text x="589" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-open">E5</text>
+<rect x="620" y="536" width="50" height="30" rx="6" class="c-unknown"><title>E6 Whether a desktop text edit changes the phone layout's height: unknown</title></rect>
+<text x="645" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">E6</text>
+</g>
+<g data-area="Overlap and layers">
+<text x="40" y="602" font-size="15" font-weight="600">Overlap and layers</text>
+<text x="324" y="602" font-size="14" text-anchor="end" class="muted">1/5</text>
+<rect x="340" y="582" width="50" height="30" rx="6" class="c-done"><title>Z1 Overlap allowed: done</title></rect>
+<text x="365" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Z1</text>
+<rect x="396" y="582" width="50" height="30" rx="6" class="c-unknown"><title>Z2 How Bring forward and Send backward change z: unknown</title></rect>
+<text x="421" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">Z2</text>
+<rect x="452" y="582" width="50" height="30" rx="6" class="c-open"><title>Z3 Bring to front and Send to back: open</title></rect>
+<text x="477" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-open">Z3</text>
+<rect x="508" y="582" width="50" height="30" rx="6" class="c-open"><title>Z4 Selecting a block covered by another: open</title></rect>
+<text x="533" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-open">Z4</text>
+<rect x="564" y="582" width="50" height="30" rx="6" class="c-partial"><title>Z5 Editor layer z-index of about 10000 + z and 100000 + z: partial</title></rect>
+<text x="589" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">Z5</text>
+</g>
+<g data-area="Phone layout">
+<text x="40" y="648" font-size="15" font-weight="600">Phone layout</text>
+<text x="324" y="648" font-size="14" text-anchor="end" class="muted">2/7</text>
+<rect x="340" y="628" width="50" height="30" rx="6" class="c-done"><title>L1 Separate area and z per block, row count per layout: done</title></rect>
+<text x="365" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-done">L1</text>
+<rect x="396" y="628" width="50" height="30" rx="6" class="c-done"><title>L2 Shared content: done</title></rect>
+<text x="421" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-done">L2</text>
+<rect x="452" y="628" width="50" height="30" rx="6" class="c-unknown"><title>L3 Where a new block lands on phones: unknown</title></rect>
+<text x="477" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">L3</text>
+<rect x="508" y="628" width="50" height="30" rx="6" class="c-unknown"><title>L4 Whether phone edits survive later desktop edits: unknown</title></rect>
+<text x="533" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">L4</text>
+<rect x="564" y="628" width="50" height="30" rx="6" class="c-unknown"><title>L5 Hiding a block on one layout: unknown</title></rect>
+<text x="589" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">L5</text>
+<rect x="620" y="628" width="50" height="30" rx="6" class="c-open"><title>L6 Phone-only overrides such as font size: open</title></rect>
+<text x="645" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-open">L6</text>
+<rect x="676" y="628" width="50" height="30" rx="6" class="c-unknown"><title>L7 Behaviour between 600 and 767px: unknown</title></rect>
+<text x="701" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">L7</text>
+</g>
+<g data-area="Section settings and Stacks">
+<text x="40" y="694" font-size="15" font-weight="600">Section settings and Stacks</text>
+<text x="324" y="694" font-size="14" text-anchor="end" class="muted">0/3</text>
+<rect x="340" y="674" width="50" height="30" rx="6" class="c-partial"><title>S1 Row count per layout, and whether it is the only per-layout section setting: partial</title></rect>
+<text x="365" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">S1</text>
+<rect x="396" y="674" width="50" height="30" rx="6" class="c-partial"><title>S2 Spacing values allowed: partial</title></rect>
+<text x="421" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">S2</text>
+<rect x="452" y="674" width="50" height="30" rx="6" class="c-open"><title>S3 Stacks: grouped blocks with their own order and spacing: open</title></rect>
+<text x="477" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-open">S3</text>
+</g>
+<g data-area="Editor chrome">
+<text x="40" y="740" font-size="15" font-weight="600">Editor chrome</text>
+<text x="324" y="740" font-size="14" text-anchor="end" class="muted">1/7</text>
+<rect x="340" y="720" width="50" height="30" rx="6" class="c-done"><title>U1 Grid overlay only during a gesture: done</title></rect>
+<text x="365" y="740" font-size="13" font-weight="700" text-anchor="middle" class="t-done">U1</text>
+<rect x="396" y="720" width="50" height="30" rx="6" class="c-partial"><title>U2 Grid look: SVG pattern, `#B7B7B7`, `#F2F2F240`, radius 3: partial</title></rect>
+<text x="421" y="740" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">U2</text>
+<rect x="452" y="720" width="50" height="30" rx="6" class="c-partial"><title>U3 Hover and selection outlines, handles, label pill: partial</title></rect>
+<text x="477" y="740" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">U3</text>
+<rect x="508" y="720" width="50" height="30" rx="6" class="c-open"><title>U4 Block toolbar: edit, design, duplicate, delete, layers: open</title></rect>
+<text x="533" y="740" font-size="13" font-weight="700" text-anchor="middle" class="t-open">U4</text>
+<rect x="564" y="720" width="50" height="30" rx="6" class="c-open"><title>U5 Add block menu and default placement: open</title></rect>
+<text x="589" y="740" font-size="13" font-weight="700" text-anchor="middle" class="t-open">U5</text>
+<rect x="620" y="720" width="50" height="30" rx="6" class="c-partial"><title>U6 Top bar: Save, Exit, undo, redo, device toggle, preview: partial</title></rect>
+<text x="645" y="740" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">U6</text>
+<rect x="676" y="720" width="50" height="30" rx="6" class="c-unknown"><title>U7 Animation timings, `is-transitioning-visibility`: unknown</title></rect>
+<text x="701" y="740" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">U7</text>
+</g>
+<g data-area="History, save and publish">
+<text x="40" y="786" font-size="15" font-weight="600">History, save and publish</text>
+<text x="324" y="786" font-size="14" text-anchor="end" class="muted">2/5</text>
+<rect x="340" y="766" width="50" height="30" rx="6" class="c-done"><title>Y1 One undo step per gesture, normalization included: done</title></rect>
+<text x="365" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Y1</text>
+<rect x="396" y="766" width="50" height="30" rx="6" class="c-partial"><title>Y2 Undo grouping while typing: partial</title></rect>
+<text x="421" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">Y2</text>
+<rect x="452" y="766" width="50" height="30" rx="6" class="c-open"><title>Y3 Save versus publish, drafts, revision conflicts: open</title></rect>
+<text x="477" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-open">Y3</text>
+<rect x="508" y="766" width="50" height="30" rx="6" class="c-open"><title>Y4 Copy and paste between sections and pages: open</title></rect>
+<text x="533" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-open">Y4</text>
+<rect x="564" y="766" width="50" height="30" rx="6" class="c-done"><title>Y5 Published page has no layout JavaScript: done</title></rect>
+<text x="589" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Y5</text>
+</g>
+<g data-area="Accessibility and order">
+<text x="40" y="832" font-size="15" font-weight="600">Accessibility and order</text>
+<text x="324" y="832" font-size="14" text-anchor="end" class="muted">1/3</text>
+<rect x="340" y="812" width="50" height="30" rx="6" class="c-done"><title>A1 ARIA roles grid and gridcell: done</title></rect>
+<text x="365" y="832" font-size="13" font-weight="700" text-anchor="middle" class="t-done">A1</text>
+<rect x="396" y="812" width="50" height="30" rx="6" class="c-unknown"><title>A2 DOM order of blocks: unknown</title></rect>
+<text x="421" y="832" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">A2</text>
+<rect x="452" y="812" width="50" height="30" rx="6" class="c-partial"><title>A3 Keyboard: Tab order, arrow moves, resize with keys: partial</title></rect>
+<text x="477" y="832" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">A3</text>
+</g>
+<text x="40" y="888" font-size="14" class="muted">Generated by scripts/generate-parity.mjs from parity/items.json · the list with evidence: docs/PARITY.md</text>
+</svg>

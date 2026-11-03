@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fluid editor prototype</title>
+<link rel="stylesheet" href="src/editor-shell.css">
+</head>
+<body>
+<header class="bar">
+  <div class="bar-left">
+    <button id="save" class="btn primary" disabled>Save</button>
+    <button id="undo" class="icon" title="Undo (Cmd+Z)" disabled>&#8630;</button>
+    <button id="redo" class="icon" title="Redo (Shift+Cmd+Z)" disabled>&#8631;</button>
+  </div>
+  <div class="bar-center">
+    <div class="page-name">How Fluid Engine works</div>
+    <div class="page-state" id="page-state">Prototype</div>
+  </div>
+  <div class="bar-right">
+    <div class="seg" role="group" aria-label="Device">
+      <button id="bp-desktop" class="seg-btn is-on" title="Desktop layout">Desktop</button>
+      <button id="bp-mobile" class="seg-btn" title="Phone layout">Phone</button>
+    </div>
+    <button id="export" class="btn">Export HTML</button>
+    <button id="reset" class="btn">Reset demo</button>
+  </div>
+</header>
+<div class="work">
+  <div class="stage" id="stage">
+    <iframe id="site-frame" src="site.html" title="Page canvas"></iframe>
+  </div>
+  <aside class="panel" id="panel" aria-live="polite"></aside>
+</div>
+<script type="module" src="src/editor.js"></script>
+</body>
+</html>

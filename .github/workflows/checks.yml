@@ -1,0 +1,14 @@
+# Gate A, item rules and doc rules on every push and pull request (QUALITY.md).
+name: checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: 22 }
+      - run: npm run check

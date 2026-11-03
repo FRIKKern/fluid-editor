@@ -1,0 +1,37 @@
+/* Editor-only layers inside the canvas. The published page never loads this file.
+   Like Squarespace, every editor layer is a grid item that shares a grid-area
+   with its block, so it lines up without pixel math. */
+/* Re-rendering a section must not make the browser shift the scroll position. */
+html { overflow-anchor: none; }
+.fluid-engine.is-editing { isolation: isolate; }
+.fluid-engine.is-editing .fe-block { cursor: grab; touch-action: none; }
+.fluid-engine.is-editing .fe-block:hover { outline: 1px solid rgba(17, 105, 247, 0.55); }
+.fluid-engine.is-editing .fe-block.is-text-editing { cursor: text; outline: 2px solid #1169f7; }
+.fluid-engine.is-editing .fe-block.is-dragging { cursor: grabbing; z-index: 100001 !important; opacity: 0.92; }
+.fluid-engine.is-editing [contenteditable="true"] { outline: none; }
+
+.fe-grid-row {
+  display: grid; grid-template-columns: subgrid;
+  pointer-events: none; z-index: -1;
+}
+.fe-grid-cell {
+  border: 1px solid #b7b7b7; border-radius: 3px; background: #f2f2f240;
+}
+
+.fe-indicator { pointer-events: none; position: relative; outline: 2px solid #1169f7; }
+.fe-handle {
+  position: absolute; width: 12px; height: 12px; margin: -6px 0 0 -6px;
+  background: #fff; border: 2px solid #1169f7; border-radius: 50%;
+  pointer-events: auto; touch-action: none;
+}
+.fe-handle[data-dir="nw"] { left: 0; top: 0; cursor: nwse-resize; }
+.fe-handle[data-dir="n"]  { left: 50%; top: 0; cursor: ns-resize; }
+.fe-handle[data-dir="ne"] { left: 100%; top: 0; cursor: nesw-resize; }
+.fe-handle[data-dir="e"]  { left: 100%; top: 50%; cursor: ew-resize; }
+.fe-handle[data-dir="se"] { left: 100%; top: 100%; cursor: nwse-resize; }
+.fe-handle[data-dir="s"]  { left: 50%; top: 100%; cursor: ns-resize; }
+.fe-handle[data-dir="sw"] { left: 0; top: 100%; cursor: nesw-resize; }
+.fe-handle[data-dir="w"]  { left: 0; top: 50%; cursor: ew-resize; }
+
+.fe-original-position { pointer-events: none; outline: 1px dashed #1169f7; }
+.fe-transform-indicator { pointer-events: none; background: rgba(17, 105, 247, 0.16); outline: 1px solid #1169f7; z-index: 100000; }

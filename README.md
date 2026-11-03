@@ -1,0 +1,69 @@
+[![Fluid editor roadmap: milestones M0 to M6, each with the reward it ships, its item count and its status on the board](docs/images/roadmap.svg)](docs/ROADMAP.md)
+
+[![Parity: every item that has to match Fluid Engine, one cell each, done, partial, open or unknown](docs/images/parity.svg)](docs/PARITY.md)
+
+## Vision
+
+A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same
+published CSS, same feel when you drag, resize and type. We copy behaviour by
+watching it, never by copying Squarespace code ([0001](docs/decisions/0001-black-box-oracle.md)).
+
+"1:1" is a number here. A real Squarespace trial site is the oracle, and three
+gates compare against it: CSS round trip, block boxes at 5 widths, and recorded
+gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
+
+![The editor during a drag: the grid shows, a dashed outline marks where the block was, the blue area shows where it will land](docs/images/editor/drag-desktop.png)
+
+## What we get
+
+| Reward | Milestone |
+|---|---|
+| 1:1 becomes a number we can watch go up | M0 |
+| The demo page exists on real Squarespace to compare against | M1 |
+| Published pages match the oracle at every width | M2 |
+| Nothing left to guess: every unknown has a recorded answer | M3 |
+| Drag, resize and type feel the same | M4 |
+| It looks like the real editor, with every block type | M5 |
+| Save, publish and keyboard use are ready for real work | M6 |
+
+## What happened
+
+<!-- timeline:start -->
+- Nothing yet
+<!-- timeline:end -->
+
+## Where things live (one fact, one home)
+
+| What | Where |
+|---|---|
+| Milestones | [`docs/ROADMAP.md`](docs/ROADMAP.md) |
+| Every item and its status, with evidence | [`parity/items.json`](parity/items.json), listed in [`docs/PARITY.md`](docs/PARITY.md) |
+| Status of milestones, who does what | Goal issue [#1](https://github.com/FRIKKern/fluid-editor/issues/1) and its sub-issues. Never in docs |
+| The journeys (the spec of "works") | [`JOURNEYS.md`](JOURNEYS.md) |
+| The quality bar and the gates | [`QUALITY.md`](QUALITY.md) |
+| Captured oracle CSS, stamped | [`fixtures/`](fixtures/README.md) |
+| Gate results | [`parity/gate-a.json`](parity/gate-a.json) |
+| How we work | [`CONTRIBUTING.md`](CONTRIBUTING.md), [`AGENTS.md`](AGENTS.md) |
+| Decisions | [`docs/decisions/`](docs/decisions/), one page each |
+
+## Layout
+
+```
+app/          the editor: index.html shell, site.html canvas, src/ renderer + editor
+fixtures/     oracle CSS per section (css/, index.json); raw pages stay local
+parity/       items.json (one home for item status), gate results
+scripts/      gates, generators for the pictures and the timeline, doc checks
+docs/         roadmap, parity list, decisions, images
+```
+
+## Run it
+
+```sh
+npm run dev        # the editor on http://127.0.0.1:5178
+npm run check      # Gate A, item rules, doc rules
+npm run parity     # redraw docs/images/parity.svg and docs/PARITY.md
+npm run roadmap    # redraw docs/images/roadmap.svg from the board
+npm run timeline   # rewrite the timeline above
+```
+
+The oracle is `halibut-keyboard-jlhd.squarespace.com`, driven through cmux.
