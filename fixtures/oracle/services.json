@@ -1,0 +1,326 @@
+{
+  "capturedAt": "2026-11-03",
+  "source": "https://halibut-keyboard-jlhd.squarespace.com/services",
+  "frameWidth": 1920,
+  "frameHeight": 1000,
+  "vars": {
+    "--heading-1-size-value": "4",
+    "--heading-2-size-value": "3.5",
+    "--heading-3-size-value": "2.5",
+    "--heading-4-size-value": "1.6",
+    "--normal-text-size-value": "1",
+    "--large-text-size-value": "1.5",
+    "--small-text-size-value": ".9",
+    "--maxPageWidth": "1400px",
+    "--heading-font-line-height": "1.3em",
+    "--body-font-line-height": "1.4em",
+    "--heading-font-letter-spacing": ".01rem",
+    "--body-font-letter-spacing": "0em",
+    "--heading-font-font-weight": "400",
+    "--body-font-font-weight": "400",
+    "--sqs-site-gutter": "",
+    "--sqs-mobile-site-gutter": "",
+    "--sqs-site-max-width": ""
+  },
+  "sections": [
+    {
+      "sectionId": "6ae35c86908fad60b011d427",
+      "feId": "6ae35c86908fad60b011d426",
+      "theme": "bright",
+      "css": "\n\n.fe-6ae35c86908fad60b011d426 {\n  --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);\n  --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1)) ) / 8 );\n\n  display: grid;\n  position: relative;\n  grid-area: 1/1/-1/-1;\n  grid-template-rows: repeat(15,minmax(24px, auto));\n  grid-template-columns:\n    minmax(var(--grid-gutter), 1fr)\n    repeat(8, minmax(0, var(--cell-max-width)))\n    minmax(var(--grid-gutter), 1fr);\n  row-gap: 11.0px;\n  column-gap: 11.0px;\n  overflow-x: hidden;\n  overflow-x: clip;\n}\n\n@media (min-width: 768px) {\n  .background-width--inset .fe-6ae35c86908fad60b011d426 {\n    --inset-padding: calc(var(--sqs-site-gutter) * 2);\n  }\n\n  .fe-6ae35c86908fad60b011d426 {\n    --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);\n    --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1)) ) / 24 );\n    --inset-padding: 0vw;\n\n    --row-height-scaling-factor: 0.0215;\n    --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding) ));\n\n    grid-template-rows: repeat(27,minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));\n    grid-template-columns:\n      minmax(var(--grid-gutter), 1fr)\n      repeat(24, minmax(0, var(--cell-max-width)))\n      minmax(var(--grid-gutter), 1fr);\n  }\n}\n\n\n  .fe-block-67fbc912e6fbce551690 {\n    grid-area: 1/2/4/5;\n    z-index: 1;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-67fbc912e6fbce551690 .sqs-block {\n    justify-content: center;\n  }\n\n  .fe-block-67fbc912e6fbce551690 .sqs-block-alignment-wrapper {\n    align-items: center;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-67fbc912e6fbce551690 {\n      grid-area: 2/2/5/5;\n      z-index: 1;\n\n      \n\n      \n    }\n\n    .fe-block-67fbc912e6fbce551690 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-67fbc912e6fbce551690 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n  .fe-block-19be5e6d4ca7a1a3fa2f {\n    grid-area: 4/2/5/10;\n    z-index: 2;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-19be5e6d4ca7a1a3fa2f .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-19be5e6d4ca7a1a3fa2f .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-19be5e6d4ca7a1a3fa2f {\n      grid-area: 2/9/9/26;\n      z-index: 2;\n\n      \n\n      \n    }\n\n    .fe-block-19be5e6d4ca7a1a3fa2f .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-19be5e6d4ca7a1a3fa2f .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-adf18494c7e0ac0989a3 {\n    grid-area: 6/2/12/10;\n    z-index: 3;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-adf18494c7e0ac0989a3 .sqs-block {\n    justify-content: center;\n  }\n\n  .fe-block-adf18494c7e0ac0989a3 .sqs-block-alignment-wrapper {\n    align-items: center;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-adf18494c7e0ac0989a3 {\n      grid-area: 10/9/23/26;\n      z-index: 3;\n\n      \n\n      \n    }\n\n    .fe-block-adf18494c7e0ac0989a3 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-adf18494c7e0ac0989a3 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n  .fe-block-1ea2926427fad0cfab91 {\n    grid-area: 13/2/14/10;\n    z-index: 4;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-1ea2926427fad0cfab91 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-1ea2926427fad0cfab91 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-1ea2926427fad0cfab91 {\n      grid-area: 24/9/25/26;\n      z-index: 4;\n\n      \n\n      \n    }\n\n    .fe-block-1ea2926427fad0cfab91 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-1ea2926427fad0cfab91 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-11844e17759c3b13abec {\n    grid-area: 15/2/16/10;\n    z-index: 5;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-11844e17759c3b13abec .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-11844e17759c3b13abec .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-11844e17759c3b13abec {\n      grid-area: 27/9/28/26;\n      z-index: 5;\n\n      \n\n      \n    }\n\n    .fe-block-11844e17759c3b13abec .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-11844e17759c3b13abec .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n",
+      "customHeight": 0,
+      "settings": {
+        "background-width": "full-bleed",
+        "section-height": "custom",
+        "content-width": "wide",
+        "horizontal-alignment": "center",
+        "vertical-alignment": "middle"
+      },
+      "section": {
+        "paddingTop": "157.8125px",
+        "paddingBottom": "0px",
+        "minHeight": "0px",
+        "background": "rgb(242, 184, 180)",
+        "inlineStyle": "padding-top: 157.8125px;"
+      },
+      "grid": {
+        "left": 0,
+        "width": 1903
+      },
+      "text": {
+        "h1": null,
+        "h2": {
+          "fontFamily": "Poppins",
+          "fontSize": "58px",
+          "lineHeight": "67.860001px",
+          "letterSpacing": "0.16px",
+          "fontWeight": "400",
+          "marginTop": "0px",
+          "marginBottom": "0px",
+          "color": "rgb(0, 0, 0)",
+          "textTransform": "none"
+        },
+        "p": {
+          "fontFamily": "Poppins",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "letterSpacing": "normal",
+          "fontWeight": "400",
+          "marginTop": "16px",
+          "marginBottom": "0px",
+          "color": "rgb(0, 0, 0)",
+          "textTransform": "none"
+        }
+      },
+      "blocks": [
+        {
+          "id": "67fbc912e6fbce551690",
+          "kind": "image",
+          "alt": "",
+          "radius": "0px"
+        },
+        {
+          "id": "19be5e6d4ca7a1a3fa2f",
+          "kind": "text",
+          "html": "<h2 style=\"white-space:pre-wrap;\">We sit at the intersection of brand identity and digital design, offering a <span class=\"sqsrte-text-highlight\" data-text-attribute-id=\"24dee8dd-1b12-40bf-9a9a-5083a6d39622\">wide</span> and <span class=\"sqsrte-text-highlight\" data-text-attribute-id=\"11d697ef-621d-48ac-935e-b24f22d65656\">rich</span> range of project scopes.</h2>"
+        },
+        {
+          "id": "adf18494c7e0ac0989a3",
+          "kind": "image",
+          "alt": "",
+          "radius": "60px"
+        },
+        {
+          "id": "1ea2926427fad0cfab91",
+          "kind": "text",
+          "html": "<h3 style=\"white-space:pre-wrap;\">Make it stand out. It all begins with an idea. Here are just a few of the services we provide for your business.</h3>"
+        },
+        {
+          "id": "11844e17759c3b13abec",
+          "kind": "text",
+          "html": "<h4 style=\"white-space:pre-wrap;\">General Design</h4><p class=\"\" style=\"white-space:pre-wrap;\">It all begins with an idea. Maybe you want to launch a business. Maybe you want to turn a hobby into something more. Or maybe you have a creative project to share with the world. Whatever it is, the way you tell your story online can make all the difference.</p>"
+        }
+      ]
+    },
+    {
+      "sectionId": "6ae35c86908fad60b011d42b",
+      "feId": "6ae35c86908fad60b011d42a",
+      "theme": "dark-bold",
+      "css": "\n\n.fe-6ae35c86908fad60b011d42a {\n  --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);\n  --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1)) ) / 8 );\n\n  display: grid;\n  position: relative;\n  grid-area: 1/1/-1/-1;\n  grid-template-rows: repeat(7,minmax(24px, auto));\n  grid-template-columns:\n    minmax(var(--grid-gutter), 1fr)\n    repeat(8, minmax(0, var(--cell-max-width)))\n    minmax(var(--grid-gutter), 1fr);\n  row-gap: 11.0px;\n  column-gap: 11.0px;\n  overflow-x: hidden;\n  overflow-x: clip;\n}\n\n@media (min-width: 768px) {\n  .background-width--inset .fe-6ae35c86908fad60b011d42a {\n    --inset-padding: calc(var(--sqs-site-gutter) * 2);\n  }\n\n  .fe-6ae35c86908fad60b011d42a {\n    --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);\n    --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1)) ) / 24 );\n    --inset-padding: 0vw;\n\n    --row-height-scaling-factor: 0.0215;\n    --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding) ));\n\n    grid-template-rows: repeat(8,minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));\n    grid-template-columns:\n      minmax(var(--grid-gutter), 1fr)\n      repeat(24, minmax(0, var(--cell-max-width)))\n      minmax(var(--grid-gutter), 1fr);\n  }\n}\n\n\n  .fe-block-a15e8aa28e4b3269e9bb {\n    grid-area: 2/2/3/10;\n    z-index: 1;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-a15e8aa28e4b3269e9bb .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-a15e8aa28e4b3269e9bb .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-a15e8aa28e4b3269e9bb {\n      grid-area: 2/9/3/25;\n      z-index: 1;\n\n      \n\n      \n    }\n\n    .fe-block-a15e8aa28e4b3269e9bb .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-a15e8aa28e4b3269e9bb .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-01b1b58be307459a926d {\n    grid-area: 4/2/5/10;\n    z-index: 2;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-01b1b58be307459a926d .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-01b1b58be307459a926d .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-01b1b58be307459a926d {\n      grid-area: 4/9/5/25;\n      z-index: 2;\n\n      \n\n      \n    }\n\n    .fe-block-01b1b58be307459a926d .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-01b1b58be307459a926d .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-554464c8eb444d8d240d {\n    grid-area: 6/2/7/10;\n    z-index: 3;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-554464c8eb444d8d240d .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-554464c8eb444d8d240d .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-554464c8eb444d8d240d {\n      grid-area: 6/9/7/25;\n      z-index: 3;\n\n      \n\n      \n    }\n\n    .fe-block-554464c8eb444d8d240d .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-554464c8eb444d8d240d .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n",
+      "customHeight": 0,
+      "settings": {
+        "background-width": "full-bleed",
+        "section-height": "custom",
+        "content-width": "wide",
+        "horizontal-alignment": "center",
+        "vertical-alignment": "middle"
+      },
+      "section": {
+        "paddingTop": "0px",
+        "paddingBottom": "0px",
+        "minHeight": "0px",
+        "background": "rgb(181, 100, 247)",
+        "inlineStyle": null
+      },
+      "grid": {
+        "left": 0,
+        "width": 1903
+      },
+      "text": {
+        "h1": null,
+        "h2": null,
+        "p": {
+          "fontFamily": "Poppins",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "letterSpacing": "normal",
+          "fontWeight": "400",
+          "marginTop": "16px",
+          "marginBottom": "0px",
+          "color": "rgb(255, 255, 255)",
+          "textTransform": "none"
+        }
+      },
+      "blocks": [
+        {
+          "id": "a15e8aa28e4b3269e9bb",
+          "kind": "text",
+          "html": "<h4 style=\"white-space:pre-wrap;\"><span class=\"sqsrte-text-color--black\">Digital Advertising</span></h4><p class=\"\" style=\"white-space:pre-wrap;\"><span class=\"sqsrte-text-color--black\">It all begins with an idea. Maybe you want to launch a business. Maybe you want to turn a hobby into something more. Or maybe you have a creative project to share with the world. Whatever it is, the way you tell your story online can make all the difference.</span></p>"
+        },
+        {
+          "id": "01b1b58be307459a926d",
+          "kind": "text",
+          "html": "<h4 style=\"white-space:pre-wrap;\"><span class=\"sqsrte-text-color--black\">Data &amp; Analytics</span></h4><p class=\"\" style=\"white-space:pre-wrap;\"><span class=\"sqsrte-text-color--black\">It all begins with an idea. Maybe you want to launch a business. Maybe you want to turn a hobby into something more. Or maybe you have a creative project to share with the world. Whatever it is, the way you tell your story online can make all the difference.</span></p>"
+        },
+        {
+          "id": "554464c8eb444d8d240d",
+          "kind": "text",
+          "html": "<h4 style=\"white-space:pre-wrap;\"><span class=\"sqsrte-text-color--black\">SEO Optimization</span></h4><p class=\"\" style=\"white-space:pre-wrap;\"><span class=\"sqsrte-text-color--black\">It all begins with an idea. Maybe you want to launch a business. Maybe you want to turn a hobby into something more. Or maybe you have a creative project to share with the world. Whatever it is, the way you tell your story online can make all the difference.</span></p>"
+        }
+      ]
+    },
+    {
+      "sectionId": "6ae35c86908fad60b011d42f",
+      "feId": "6ae35c86908fad60b011d42e",
+      "theme": "light-bold",
+      "css": "\n\n.fe-6ae35c86908fad60b011d42e {\n  --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);\n  --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1)) ) / 8 );\n\n  display: grid;\n  position: relative;\n  grid-area: 1/1/-1/-1;\n  grid-template-rows: repeat(5,minmax(24px, auto));\n  grid-template-columns:\n    minmax(var(--grid-gutter), 1fr)\n    repeat(8, minmax(0, var(--cell-max-width)))\n    minmax(var(--grid-gutter), 1fr);\n  row-gap: 11.0px;\n  column-gap: 11.0px;\n  overflow-x: hidden;\n  overflow-x: clip;\n}\n\n@media (min-width: 768px) {\n  .background-width--inset .fe-6ae35c86908fad60b011d42e {\n    --inset-padding: calc(var(--sqs-site-gutter) * 2);\n  }\n\n  .fe-6ae35c86908fad60b011d42e {\n    --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);\n    --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1)) ) / 24 );\n    --inset-padding: 0vw;\n\n    --row-height-scaling-factor: 0.0215;\n    --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding) ));\n\n    grid-template-rows: repeat(9,minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));\n    grid-template-columns:\n      minmax(var(--grid-gutter), 1fr)\n      repeat(24, minmax(0, var(--cell-max-width)))\n      minmax(var(--grid-gutter), 1fr);\n  }\n}\n\n\n  .fe-block-c2ebbeeddb7e17b953d7 {\n    grid-area: 2/1/3/11;\n    z-index: 1;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-c2ebbeeddb7e17b953d7 .sqs-block {\n    justify-content: center;\n  }\n\n  .fe-block-c2ebbeeddb7e17b953d7 .sqs-block-alignment-wrapper {\n    align-items: center;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-c2ebbeeddb7e17b953d7 {\n      grid-area: 3/1/4/27;\n      z-index: 1;\n\n      \n\n      \n    }\n\n    .fe-block-c2ebbeeddb7e17b953d7 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-c2ebbeeddb7e17b953d7 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n  .fe-block-3a74c221f209f72720d5 {\n    grid-area: 3/2/5/10;\n    z-index: 2;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-3a74c221f209f72720d5 .sqs-block {\n    justify-content: center;\n  }\n\n  .fe-block-3a74c221f209f72720d5 .sqs-block-alignment-wrapper {\n    align-items: center;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-3a74c221f209f72720d5 {\n      grid-area: 5/11/7/17;\n      z-index: 2;\n\n      \n\n      \n    }\n\n    .fe-block-3a74c221f209f72720d5 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-3a74c221f209f72720d5 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n",
+      "customHeight": 0,
+      "settings": {
+        "background-width": "full-bleed",
+        "section-height": "custom",
+        "content-width": "wide",
+        "horizontal-alignment": "center",
+        "vertical-alignment": "middle"
+      },
+      "section": {
+        "paddingTop": "0px",
+        "paddingBottom": "0px",
+        "minHeight": "0px",
+        "background": "rgb(255, 207, 90)",
+        "inlineStyle": null
+      },
+      "grid": {
+        "left": 0,
+        "width": 1903
+      },
+      "text": {
+        "h1": {
+          "fontFamily": "Poppins",
+          "fontSize": "83.199997px",
+          "lineHeight": "116.480003px",
+          "letterSpacing": "0.16px",
+          "fontWeight": "400",
+          "marginTop": "0px",
+          "marginBottom": "0px",
+          "color": "rgb(0, 0, 0)",
+          "textTransform": "none"
+        },
+        "h2": null,
+        "p": null
+      },
+      "blocks": [
+        {
+          "id": "c2ebbeeddb7e17b953d7",
+          "kind": "scrolling",
+          "text": "Let's create together",
+          "size": 5
+        },
+        {
+          "id": "3a74c221f209f72720d5",
+          "kind": "button",
+          "label": "Contact Us",
+          "href": "/contact",
+          "style": {
+            "backgroundColor": "rgb(0, 0, 0)",
+            "color": "rgb(255, 255, 255)",
+            "borderRadius": "300px",
+            "fontSize": "16px",
+            "fontFamily": "Poppins",
+            "fontWeight": "500",
+            "letterSpacing": "0.32px",
+            "paddingTop": "0px",
+            "paddingLeft": "56px",
+            "height": "71.1875px",
+            "width": "341.6875px"
+          },
+          "align": "start"
+        }
+      ]
+    }
+  ],
+  "footer": [
+    {
+      "sectionId": "6ae35c85908fad60b011d36f",
+      "feId": "6ae35c85908fad60b011d36e",
+      "theme": "black",
+      "css": "\n\n.fe-6ae35c85908fad60b011d36e {\n  --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);\n  --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1)) ) / 8 );\n\n  display: grid;\n  position: relative;\n  grid-area: 1/1/-1/-1;\n  grid-template-rows: repeat(13,minmax(24px, auto));\n  grid-template-columns:\n    minmax(var(--grid-gutter), 1fr)\n    repeat(8, minmax(0, var(--cell-max-width)))\n    minmax(var(--grid-gutter), 1fr);\n  row-gap: 11.0px;\n  column-gap: 11.0px;\n  overflow-x: hidden;\n  overflow-x: clip;\n}\n\n@media (min-width: 768px) {\n  .background-width--inset .fe-6ae35c85908fad60b011d36e {\n    --inset-padding: calc(var(--sqs-site-gutter) * 2);\n  }\n\n  .fe-6ae35c85908fad60b011d36e {\n    --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);\n    --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1)) ) / 24 );\n    --inset-padding: 0vw;\n\n    --row-height-scaling-factor: 0.0215;\n    --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding) ));\n\n    grid-template-rows: repeat(13,minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));\n    grid-template-columns:\n      minmax(var(--grid-gutter), 1fr)\n      repeat(24, minmax(0, var(--cell-max-width)))\n      minmax(var(--grid-gutter), 1fr);\n  }\n}\n\n\n  .fe-block-636b96b2b096a118b7d6 {\n    grid-area: 2/2/3/8;\n    z-index: 2;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-636b96b2b096a118b7d6 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-636b96b2b096a118b7d6 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-636b96b2b096a118b7d6 {\n      grid-area: 3/2/7/11;\n      z-index: 2;\n\n      \n\n      \n    }\n\n    .fe-block-636b96b2b096a118b7d6 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-636b96b2b096a118b7d6 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-724a557167add4725645 {\n    grid-area: 3/2/4/10;\n    z-index: 3;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-724a557167add4725645 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-724a557167add4725645 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-724a557167add4725645 {\n      grid-area: 7/2/8/11;\n      z-index: 3;\n\n      \n\n      \n    }\n\n    .fe-block-724a557167add4725645 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-724a557167add4725645 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-46d09ab909e7089f1593 {\n    grid-area: 5/2/6/10;\n    z-index: 6;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-46d09ab909e7089f1593 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-46d09ab909e7089f1593 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-46d09ab909e7089f1593 {\n      grid-area: 3/16/4/20;\n      z-index: 6;\n\n      \n\n      \n    }\n\n    .fe-block-46d09ab909e7089f1593 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-46d09ab909e7089f1593 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-40ffcb52ae3969b1440b {\n    grid-area: 6/2/7/10;\n    z-index: 7;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-40ffcb52ae3969b1440b .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-40ffcb52ae3969b1440b .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-40ffcb52ae3969b1440b {\n      grid-area: 5/16/6/20;\n      z-index: 7;\n\n      \n\n      \n    }\n\n    .fe-block-40ffcb52ae3969b1440b .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-40ffcb52ae3969b1440b .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-1bdd29a0afeafea2acac {\n    grid-area: 7/2/8/10;\n    z-index: 8;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-1bdd29a0afeafea2acac .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-1bdd29a0afeafea2acac .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-1bdd29a0afeafea2acac {\n      grid-area: 4/16/5/20;\n      z-index: 8;\n\n      \n\n      \n    }\n\n    .fe-block-1bdd29a0afeafea2acac .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-1bdd29a0afeafea2acac .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-924bd17097b231469d10 {\n    grid-area: 11/2/12/10;\n    z-index: 9;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-924bd17097b231469d10 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-924bd17097b231469d10 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-924bd17097b231469d10 {\n      grid-area: 13/2/14/8;\n      z-index: 9;\n\n      \n\n      \n    }\n\n    .fe-block-924bd17097b231469d10 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-924bd17097b231469d10 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-a18a88473610da2ad87e {\n    grid-area: 12/2/13/10;\n    z-index: 10;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-a18a88473610da2ad87e .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-a18a88473610da2ad87e .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-a18a88473610da2ad87e {\n      grid-area: 3/21/7/26;\n      z-index: 10;\n\n      \n\n      \n    }\n\n    .fe-block-a18a88473610da2ad87e .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-a18a88473610da2ad87e .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-27bbe12ff290dc052639 {\n    grid-area: 13/2/14/10;\n    z-index: 11;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-27bbe12ff290dc052639 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-27bbe12ff290dc052639 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-27bbe12ff290dc052639 {\n      grid-area: 10/21/11/25;\n      z-index: 11;\n\n      \n\n      \n    }\n\n    .fe-block-27bbe12ff290dc052639 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-27bbe12ff290dc052639 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n",
+      "customHeight": 10,
+      "settings": {
+        "background-width": "full-bleed",
+        "section-height": "custom",
+        "content-width": "wide",
+        "horizontal-alignment": "center",
+        "vertical-alignment": "middle"
+      },
+      "section": {
+        "paddingTop": "0px",
+        "paddingBottom": "0px",
+        "minHeight": "100px",
+        "background": "rgb(0, 0, 0)",
+        "inlineStyle": "min-height: 10vh;"
+      },
+      "grid": {
+        "left": 0,
+        "width": 1903
+      },
+      "text": {
+        "h1": null,
+        "h2": {
+          "fontFamily": "Poppins",
+          "fontSize": "58px",
+          "lineHeight": "67.860001px",
+          "letterSpacing": "0.16px",
+          "fontWeight": "400",
+          "marginTop": "0px",
+          "marginBottom": "0px",
+          "color": "rgb(255, 255, 255)",
+          "textTransform": "none"
+        },
+        "p": {
+          "fontFamily": "Poppins",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "letterSpacing": "normal",
+          "fontWeight": "400",
+          "marginTop": "0px",
+          "marginBottom": "0px",
+          "color": "rgb(255, 255, 255)",
+          "textTransform": "none"
+        }
+      },
+      "blocks": [
+        {
+          "id": "636b96b2b096a118b7d6",
+          "kind": "text",
+          "html": "<h2 style=\"white-space:pre-wrap;\">Agaro Collective</h2>"
+        },
+        {
+          "id": "724a557167add4725645",
+          "kind": "text",
+          "html": "<p class=\"\" style=\"white-space:pre-wrap;\">Agaro Collective is an independent strategy and design consultancy based in New York, NY. We’ve helped hundreds of clients realize their online potential. We are thrilled to have the opportunity to help you reach yours. </p>"
+        },
+        {
+          "id": "46d09ab909e7089f1593",
+          "kind": "text",
+          "html": "<p class=\"\" style=\"white-space:pre-wrap;\"><a href=\"/services\">Services</a></p>"
+        },
+        {
+          "id": "40ffcb52ae3969b1440b",
+          "kind": "text",
+          "html": "<p class=\"\" style=\"white-space:pre-wrap;\"><a href=\"/contact\">Contact</a></p>"
+        },
+        {
+          "id": "1bdd29a0afeafea2acac",
+          "kind": "text",
+          "html": "<p class=\"\" style=\"white-space:pre-wrap;\"><a href=\"/about\">About</a></p>"
+        },
+        {
+          "id": "924bd17097b231469d10",
+          "kind": "text",
+          "html": "<p class=\"sqsrte-small\" style=\"white-space:pre-wrap;\">Made with <a href=\"http://squarespace.com\">Squarespace</a></p>"
+        },
+        {
+          "id": "a18a88473610da2ad87e",
+          "kind": "text",
+          "html": "<p class=\"\" style=\"white-space:pre-wrap;\">email@example.com<br>(555) 555-5555</p><p class=\"\" style=\"white-space:pre-wrap;\">123 Demo Street<br>New York, NY 12345</p>"
+        },
+        {
+          "id": "27bbe12ff290dc052639",
+          "kind": "social-links",
+          "count": 3,
+          "align": "right"
+        }
+      ]
+    }
+  ]
+}

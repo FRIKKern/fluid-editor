@@ -24,7 +24,7 @@
     "status": "partial",
     "title": "Corpus of at least 300 sections from at least 30 public sites",
     "gate": "covers gap 0 and 11, bleed blocks, overlap, every block type in area 3",
-    "evidence": "parity/corpus.json: 359 sections from 56 sites incl. the oracle demo page; gaps 0/11/20/27, bleed, overlap, sticky. Missing: gallery and map blocks"
+    "evidence": "parity/corpus.json and Gate A 380 of 380 sections from 56 sites incl. the 5 oracle pages and footer. Missing: gallery and map blocks"
   },
   {
     "id": "H4",
@@ -286,14 +286,15 @@
     "milestone": "M2",
     "status": "done",
     "title": "Text block",
-    "evidence": "Text block markup and margins (headings 2rem, paragraphs 1em, first and last child 0) match: Gate B 280 of 280"
+    "evidence": "Text blocks incl. sqsrte-large (value 1.5) and -small (0.9) paragraphs, paragraph margin 1rem, empty paragraphs keeping one line: Gate B on all 5 oracle pages at 375, 767, 768, 1280, 1920: demo 365/365, Home 220/220, Services 110/110, About 140/140, Contact 65/65 (parity/gate-b*.json)"
   },
   {
     "id": "T4",
     "area": "Block types",
     "milestone": "M5",
-    "status": "open",
-    "title": "Image block: fit, fill, crop, focal point, stretched"
+    "status": "partial",
+    "title": "Image block: fit, fill, crop, focal point, stretched",
+    "evidence": "Image blocks fill their grid area; ours renders a neutral placeholder (oracle images stay out of the repo, O2). Boxes match on Home, Services, About (Gate B on all 5 oracle pages at 375, 767, 768, 1280, 1920: demo 365/365, Home 220/220, Services 110/110, About 140/140, Contact 65/65 (parity/gate-b*.json)). Fit, crop and focal point not built"
   },
   {
     "id": "T5",
@@ -329,8 +330,9 @@
     "id": "T9",
     "area": "Block types",
     "milestone": "M5",
-    "status": "open",
-    "title": "Form block"
+    "status": "done",
+    "title": "Form block",
+    "evidence": "parity/findings/T9.json: the Contact form (name, email, textareas, checkboxes, select, button) rebuilt to measured sizes; Contact 65/65 boxes at 5 widths. Checkbox row height is fitted (max(21.1px, 1.4em + 0.8px)), not derived"
   },
   {
     "id": "T10",
@@ -351,8 +353,9 @@
     "id": "T12",
     "area": "Block types",
     "milestone": "M5",
-    "status": "open",
-    "title": "Remaining block types from the add-block menu"
+    "status": "partial",
+    "title": "Remaining block types from the add-block menu",
+    "evidence": "Scrolling block: heading formula with size value 5, height = 1.4em + 120px (measured at 375, 768, 1280, 1920); rendered as a static line, boxes match on Home and Services. The moving wave text is not built. Other block types in the menu not built"
   },
   {
     "id": "T13",

@@ -12,7 +12,11 @@ import { parseSectionCss } from './lib/parse.mjs';
 const args = process.argv.slice(2);
 const surface = args.includes('--surface') ? args[args.indexOf('--surface') + 1] : 'surface:40';
 const HOST = 'halibut-keyboard-jlhd.squarespace.com';
-const PAGE = '/how-fluid-engine-works';
+// --title "Home" --slug home imports another page of the trial site; the default is the demo page.
+const opt = (n, d) => (args.includes(`--${n}`) ? args[args.indexOf(`--${n}`) + 1] : d);
+const SLUG = opt('slug', 'demo');
+const TITLE = opt('title', 'How Fluid Engine works');
+let PAGE = '/how-fluid-engine-works';
 const today = new Date().toISOString().slice(0, 10);
 
 const READ = `(() => {
@@ -32,6 +36,19 @@ const READ = `(() => {
       const out = { id: [...b.classList].find((c) => c.startsWith('fe-block-')).slice(9), kind };
       if (kind === 'text') out.html = b.querySelector('.sqs-html-content')?.innerHTML.trim() || '';
       if (kind === 'button') { const a = b.querySelector('a, button'); out.label = a?.textContent.trim(); out.href = a?.getAttribute('href') || '#'; out.style = pick(a, ['backgroundColor', 'color', 'borderRadius', 'fontSize', 'fontFamily', 'fontWeight', 'letterSpacing', 'paddingTop', 'paddingLeft', 'height', 'width']); out.align = W.getComputedStyle(b.querySelector('.sqs-block-content') || b).textAlign; }
+      if (kind === 'image') { const img = b.querySelector('img'); out.alt = img?.getAttribute('alt') || ''; const fig = b.querySelector('.sqs-image, .fluid-image-container, figure'); out.radius = fig ? W.getComputedStyle(b.querySelector('.fluid-image-container, .sqs-image-content, figure') || fig).borderRadius : null; }
+      if (kind === 'form') {
+        out.fields = [...b.querySelectorAll('form .form-item')].map((it) => {
+          const label = (it.querySelector('label.title, legend')?.textContent || '').trim();
+          if (it.querySelector('.first-name')) return { kind: 'name', label, parts: [...it.querySelectorAll('.field label')].map((l) => l.textContent.trim()) };
+          if (it.querySelector('textarea')) return { kind: 'textarea', label };
+          if (it.querySelector('input[type=checkbox]')) return { kind: 'checkbox', label, options: [...it.querySelectorAll('input[type=checkbox]')].map((i) => (i.closest('label') || i.parentElement).textContent.trim()) };
+          if (it.querySelector('select')) return { kind: 'select', label, options: [...it.querySelectorAll('option')].map((o) => o.textContent.trim()) };
+          return { kind: it.querySelector('input')?.type || 'text', label };
+        });
+        out.button = b.querySelector('form button')?.textContent.trim() || 'Send';
+      }
+      if (kind === 'scrolling') { out.text = b.querySelector('.Marquee-item')?.textContent.trim() || ''; out.size = Number((b.querySelector('style')?.textContent.match(/--marquee-font-size-value:\s*([\d.]+)/) || [])[1] || 5); }
       if (kind === 'social-links') { out.count = b.querySelectorAll('a').length; out.align = [...b.querySelector('.sqs-svg-icon--outer')?.classList || []].find((c) => c.startsWith('social-icon-alignment-'))?.slice(22) || 'left'; }
       if (kind === 'shape') { const p = b.querySelector('svg path, svg rect, svg circle, svg polygon'); out.fill = p ? W.getComputedStyle(p).fill : null; out.svg = (b.querySelector('svg')?.outerHTML || '').length; }
       return out;
@@ -53,13 +70,22 @@ const READ = `(() => {
   return JSON.stringify({ frameWidth: W.innerWidth, frameHeight: W.innerHeight, vars, sections, footer });
 })()`;
 
+// --path /about: load that page in the editor's site frame (read only, not edit mode).
+const wantPath = opt('path', SLUG === 'demo' ? '/how-fluid-engine-works' : null);
+if (wantPath) {
+  const { waitFor } = await import('./lib/cmux.mjs');
+  evalJs(surface, `(() => { const f = document.getElementById('sqs-site-frame'); if (f.contentDocument.location.pathname !== ${JSON.stringify(wantPath)}) f.src = ${JSON.stringify(wantPath)}; return 'true'; })()`);
+  waitFor(surface, `(() => { const d = document.getElementById('sqs-site-frame').contentDocument; return d.location.pathname === ${JSON.stringify(wantPath)} && d.readyState !== 'loading' && !!d.querySelector('main#page .fluid-engine'); })()`, 40);
+  await new Promise((r) => setTimeout(r, 1500));
+}
+PAGE = evalJs(surface, `(() => JSON.stringify(document.getElementById('sqs-site-frame').contentDocument.location.pathname))()`);
 const snap = evalJs(surface, READ);
 if (snap.error) throw new Error(snap.error);
 if (!snap.sections.length) throw new Error('no sections found on the page');
 
 mkdirSync(new URL('../fixtures/oracle/', import.meta.url), { recursive: true });
-const index = JSON.parse(readFileSync(new URL('../fixtures/index.json', import.meta.url), 'utf8')).filter((f) => !f.url.startsWith(`https://${HOST}${PAGE}`));
-const model = { version: 1, title: 'How Fluid Engine works', source: `https://${HOST}${PAGE}`, capturedAt: today, sections: [], footer: [] };
+const index = JSON.parse(readFileSync(new URL('../fixtures/index.json', import.meta.url), 'utf8')).filter((f) => f.url !== `https://${HOST}${PAGE}`);
+const model = { version: 1, title: TITLE, source: `https://${HOST}${PAGE}`, capturedAt: today, sections: [], footer: [] };
 for (const [where, list] of [['sections', snap.sections], ['footer', snap.footer || []]]) for (const s of list) {
   if (!s.css) throw new Error(`section ${s.sectionId}: no published section CSS found`);
   const sha256 = createHash('sha256').update(s.css).digest('hex');
@@ -87,13 +113,21 @@ for (const [where, list] of [['sections', snap.sections], ['footer', snap.footer
         : b.kind === 'button' ? { type: 'button', label: b.label, href: b.href }
         : b.kind === 'shape' ? { type: 'shape', fill: b.fill || '#fff', radius: '0' }
         : b.kind === 'social-links' ? { type: 'social', count: b.count, align: b.align }
+        : b.kind === 'image' ? { type: 'image', alt: b.alt, radius: b.radius }
+        : b.kind === 'scrolling' ? { type: 'scrolling', text: b.text, size: b.size }
+        : b.kind === 'form' ? { type: 'form', fields: b.fields, button: b.button }
         : { type: 'shape', fill: '#ccc', radius: '0', label: b.kind };
       return { id: b.id, ...content, layout: g.layout };
     }),
   });
 }
 writeFileSync(new URL('../fixtures/index.json', import.meta.url), JSON.stringify(index, null, 2) + '\n');
-writeFileSync(new URL('../fixtures/oracle/demo-page.json', import.meta.url), JSON.stringify({ capturedAt: today, source: model.source, ...snap }, null, 2) + '\n');
-writeFileSync(new URL('../app/src/demo-data.js', import.meta.url), `// Generated by scripts/oracle-import.mjs from ${model.source} on ${today}. Do not edit by hand.\nexport const DEMO = ${JSON.stringify(model, null, 2)};\n`);
+writeFileSync(new URL(`../fixtures/oracle/${SLUG === 'demo' ? 'demo-page' : SLUG}.json`, import.meta.url), JSON.stringify({ capturedAt: today, source: model.source, ...snap }, null, 2) + '\n');
+const header = `// Generated by scripts/oracle-import.mjs from ${model.source} on ${today}. Do not edit by hand.\n`;
+if (SLUG === 'demo') writeFileSync(new URL('../app/src/demo-data.js', import.meta.url), `${header}export const DEMO = ${JSON.stringify(model, null, 2)};\n`);
+else {
+  mkdirSync(new URL('../app/src/pages/', import.meta.url), { recursive: true });
+  writeFileSync(new URL(`../app/src/pages/${SLUG}.js`, import.meta.url), `${header}export const PAGE = ${JSON.stringify(model, null, 2)};\n`);
+}
 console.log(`imported ${model.sections.length} sections, ${model.sections.reduce((n, s) => n + s.blocks.length, 0)} blocks; frame ${snap.frameWidth}px`);
 console.log(JSON.stringify(snap.vars));
