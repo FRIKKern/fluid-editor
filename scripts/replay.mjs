@@ -119,7 +119,7 @@ for (const t of traces) {
     await pause(400);
   } else if (g.kind === 'button') {
     // Our panel names: Bring forward (z+) and Send backward (z-).
-    const map = { 'Move Forward': '[data-act="z+"]', 'Move Backward': '[data-act="z-"]',
+    const map = { 'Move Forward': '[data-act="z+"]', 'Move Backward': '[data-act="z-"]', 'Move Up': '[data-act="up"]', 'Move Down': '[data-act="down"]',
       'Align Group>Align Left': '[data-act="align"][data-v="left"]', 'Align Group>Align Right': '[data-act="align"][data-v="right"]',
       'Align Group>Align Horizontal Center': '[data-act="align"][data-v="hcenter"]', 'Align Group>Align Top': '[data-act="align"][data-v="top"]',
       'Align Group>Align Vertical Center': '[data-act="align"][data-v="vcenter"]', 'Align Group>Align Bottom': '[data-act="align"][data-v="bottom"]' };
