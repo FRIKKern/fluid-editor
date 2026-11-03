@@ -10,12 +10,13 @@
 <header class="bar">
   <div class="bar-left">
     <button id="save" class="btn primary" disabled>Save</button>
+    <button id="exit" class="btn">Exit</button>
     <button id="undo" class="icon" title="Undo (Cmd+Z)" disabled>&#8630;</button>
     <button id="redo" class="icon" title="Redo (Shift+Cmd+Z)" disabled>&#8631;</button>
   </div>
   <div class="bar-center">
     <div class="page-name">How Fluid Engine works</div>
-    <div class="page-state" id="page-state">Prototype</div>
+    <div class="page-state" id="page-state">Page · Published</div>
   </div>
   <div class="bar-right">
     <div class="seg" role="group" aria-label="Device">
@@ -31,6 +32,11 @@
     <iframe id="site-frame" src="site.html" title="Page canvas"></iframe>
   </div>
   <aside class="panel" id="panel" aria-live="polite"></aside>
+</div>
+<div class="exit-dialog" id="exit-dialog" role="dialog" aria-labelledby="exit-title" hidden>
+  <p class="exit-title" id="exit-title">Exit Without Saving?</p>
+  <p>Any unsaved changes will be discarded when you exit.</p>
+  <div class="row"><button class="btn" id="exit-save">Save</button><button class="btn danger" id="exit-discard">Exit</button></div>
 </div>
 <script type="module" src="src/editor.js"></script>
 </body>

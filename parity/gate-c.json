@@ -1,6 +1,6 @@
 {
   "gate": "C",
-  "pass": 20,
+  "pass": 19,
   "total": 20,
   "results": [
     {
@@ -61,8 +61,11 @@
     },
     {
       "trace": "T0010-drag-past-section",
-      "pass": true,
-      "diffs": [],
+      "pass": false,
+      "diffs": [
+        "rows: want 26, got 25",
+        "yui_3_17_2_1_1793705593367_16395: area want 17/15/27/25, got 16/15/26/25"
+      ],
       "undoPass": true,
       "undoDiffs": []
     },

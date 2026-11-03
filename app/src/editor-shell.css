@@ -74,3 +74,9 @@ button { font: inherit; color: inherit; }
 .layer.is-on { background: #e8f0fe; }
 .btn.is-on { background: #e8f0fe; border-color: #1169f7; }
 .group [role=tablist] { margin-bottom: 8px; }
+.exit-dialog { position: fixed; top: 44px; left: 78px; width: 342px; padding: 20px 32px 22px; background: #fff; box-shadow: 0 2px 16px rgba(0,0,0,0.18); z-index: 20; font-size: 14px; }
+.exit-dialog[hidden] { display: none; }
+.exit-dialog p { margin: 0 0 4px; line-height: 22px; }
+.exit-dialog .exit-title { font-weight: 600; }
+.exit-dialog .row { justify-content: flex-end; margin-top: 14px; }
+.btn.danger { color: #d0021b; }

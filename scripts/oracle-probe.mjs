@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -612,6 +612,57 @@ if (which === 'PASTE') {
   }
   if (saveDisabled() !== true) throw new Error('The probe left unsaved changes');
   write('PASTE', { question: 'What does the text editor keep from pasted HTML and plain text?', block: [i, k], samples: out });
+}
+
+if (which === 'EXIT') {
+  // Y3: what the editor says about unsaved work. Make one change (ArrowRight on a selected
+  // block), read the top bar, click Exit and record the dialog, then choose the option that
+  // keeps editing (Escape; never Save or Exit), undo, and check Save is disabled again.
+  const [i, k] = [2, 2];
+  const id = blockIds(i)[k];
+  const BAR = `(() => { const t = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.getBoundingClientRect().top < 55 && e.getBoundingClientRect().width > 0 && e.textContent.trim()).map((e) => e.textContent.trim());
+    const save = [...document.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Save'); return JSON.stringify({ text: [...new Set(t)], saveDisabled: save?.disabled }); })()`;
+  const shot = (n) => process.env.SHOTS && execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS}/${n}.png`]);
+  const start = both(i);
+  const out = { clean: evalJs(S, BAR) };
+  await select(i, id); await pause(600);
+  const { key: press } = await import('./oracle/ui.mjs');
+  await press('ArrowRight'); await pause(1200);
+  out.dirty = evalJs(S, BAR);
+  console.log('dirty', JSON.stringify(out.dirty));
+  if (out.dirty.saveDisabled !== false) throw new Error('The change did not make the page dirty');
+  if (process.env.DIRTY_ONLY) { let n = 0; while (n < 4 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); } console.log('undone', n, saveDisabled()); process.exit(0); }
+  await escape(); await deselect(i);
+  // A native confirm() would not show in the DOM: record any call and answer Cancel.
+  evalJs(S, `(() => { window.__asked = []; for (const f of ['confirm', 'alert', 'prompt']) { const name = f; window[name] = (m) => { window.__asked.push([name, String(m)]); return name === 'confirm' ? false : null; }; } return 'true'; })()`);
+  await click(`() => [...document.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Exit' && x.getBoundingClientRect().width > 0)`, { wait: 1800 });
+  shot('exit-dialog');
+  out.nativeDialogs = evalJs(S, `(() => JSON.stringify(window.__asked || 'page changed'))()`);
+  out.stillEditing = evalJs(S, `(() => JSON.stringify(!![...document.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Save' && x.getBoundingClientRect().width > 0)))()`);
+  console.log('native', JSON.stringify(out.nativeDialogs), 'stillEditing', out.stillEditing);
+  if (!out.stillEditing) {
+    // Exit left the editor: write what happened, then check the saved page is unchanged.
+    out.dialog = null;
+    reload(S); await pause(1500); try { execFileSync('cmux', ['browser', '--surface', S, 'dialog', 'accept']); } catch {}
+    ensurePage(); evalJs(S, ENTER_EDIT); waitFor(S, READY, 30);
+    const now = both(i);
+    out.savedUnchanged = JSON.stringify(now) === JSON.stringify(start);
+    write('EXIT', { question: 'How does the editor mark unsaved work, and what does Exit do with it?', block: [i, k], ...out });
+    if (!out.savedUnchanged) throw new Error('The saved page changed after Exit');
+    process.exit(0);
+  }
+  // The dialog has no Cancel (Save and Exit only); Escape closes it and keeps editing.
+  out.dialog = evalJs(S, `(() => { const h = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && /without saving/i.test(e.textContent) && e.getBoundingClientRect().width > 0);
+    if (!h) return JSON.stringify(null); let box = h; while (box.parentElement && !box.querySelector('button')) box = box.parentElement;
+    return JSON.stringify({ text: [...new Set([...box.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && e.textContent.trim()).map((e) => e.textContent.trim()))], buttons: [...box.querySelectorAll('button')].filter((x) => x.getBoundingClientRect().width > 0).map((x) => x.textContent.trim() || x.getAttribute('aria-label')) }); })()`);
+  console.log('dialog', JSON.stringify(out.dialog));
+  execFileSync('cmux', ['browser', '--surface', S, 'press', 'Escape']); await pause(1500);
+  out.kept = 'Escape';
+  out.afterKeep = evalJs(S, BAR);
+  let n = 0; while (n < 4 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); }
+  out.afterUndo = evalJs(S, BAR);
+  if (saveDisabled() !== true) throw new Error('Unsaved changes remain');
+  write('EXIT', { question: 'How does the editor mark unsaved work, and what does Exit do with it?', block: [i, k], ...out });
 }
 
 if (which === 'T13') {

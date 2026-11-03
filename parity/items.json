@@ -844,8 +844,9 @@
     "id": "Y3",
     "area": "History, save and publish",
     "milestone": "M6",
-    "status": "open",
-    "title": "Save versus publish, drafts, revision conflicts"
+    "status": "partial",
+    "title": "Save versus publish, drafts, revision conflicts",
+    "evidence": "parity/findings/EXIT.json: the top bar has Save and Exit and no separate publish control; the status line stays \"Page · Published\" with unsaved changes, and only Save turns on. Exit with unsaved changes asks \"Exit Without Saving? Any unsaved changes will be discarded when you exit.\" with Save and Exit and no Cancel; Escape closes it and keeps editing. In one earlier run Exit left the editor without the question; the saved page was unchanged. Ours has the same status line, Exit, question and Escape; Exit discards, Save stores in this browser, and both open the published page (page.html?saved). Not measured: what Save does on the live site (the probe never saves, O1), drafts, and revision conflicts between two editors"
   },
   {
     "id": "Y4",

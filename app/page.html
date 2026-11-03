@@ -18,7 +18,9 @@ import { renderPage, renderHeader, renderFooter, HEADER_SCRIPT } from './src/ren
 import { demoModel } from './src/demo.js';
 // ?page=home renders another imported trial-site page (app/src/pages/home.js).
 const slug = new URLSearchParams(location.search).get('page');
-const model = slug ? { header: demoModel().header, ...(await import(`./src/pages/${slug}.js`)).PAGE } : demoModel();
+// ?saved renders the model the editor last saved in this browser (Exit opens it).
+const saved = (() => { if (!new URLSearchParams(location.search).has('saved')) return null; try { return JSON.parse(localStorage.getItem('fluid-editor:model:v2')); } catch { return null; } })();
+const model = saved || (slug ? { header: demoModel().header, ...(await import(`./src/pages/${slug}.js`)).PAGE } : demoModel());
 document.getElementById('header-slot').outerHTML = renderHeader(model.header);
 document.getElementById('page').innerHTML = renderPage(model);
 document.getElementById('page').insertAdjacentHTML('afterend', renderFooter(model));
