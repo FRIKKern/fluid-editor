@@ -2,7 +2,7 @@
 
 [![Parity: one cell per item, done, partial, open or unknown](images/parity.svg)](../README.md)
 
-58 of 108 items done, 40 partial, 10 open, 0 unknown.
+62 of 108 items done, 36 partial, 10 open, 0 unknown.
 Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. Edit the JSON, never this page.
 
 ## Harness and oracle
@@ -88,12 +88,12 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 
 | Id | Item | Milestone | Status | Gate or evidence |
 |---|---|---|---|---|
-| X1 | Move threshold before a drag starts, 4px in the prototype | M4 Editor core | ◐ partial |  |
+| X1 | Move threshold before a drag starts, 4px in the prototype | M4 Editor core | ✓ done | Evidence: parity/findings/X1.json and a 9 to 15px run: the oracle starts a drag after more than 10px (10 no, 11 yes). Our threshold is the same |
 | X2 | How the block follows the pointer and how the target shows | M4 Editor core | ◐ partial | Evidence: While held, the block follows the pointer exactly: transform translate equals the pointer distance (T0004 to T0006 mid). The dragged block wrapper gets z-index 999999 and the grid shows only in its own section. Target outline look not measured |
 | X3 | Original-position outline during a drag | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | X4 | What happens to nearby blocks, `data-is-near-dragged-block` | M4 Editor core | ◐ partial | Evidence: Our editor sets data-is-near-dragged-block on blocks within 2 tracks of the target, as seen on the oracle (T0004 to T0007). The oracle distance rule is not measured exactly, and nothing is drawn for it |
 | X5 | Resize from 8 handles with the opposite edge fixed | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
-| X6 | Which handles each block type shows | M4 Editor core | ◐ partial | Evidence: Text and shape blocks show all 8 handles on the oracle (screenshot, T0007 used the east handle of a shape). Buttons and other types not checked |
+| X6 | Which handles each block type shows | M4 Editor core | ◐ partial | Evidence: parity/findings/X6.json: text, shape and button blocks show all 8 handles with the same cursors on the oracle, as in our editor. Image, form, line and scrolling not checked |
 | X7 | Shift and Alt modifiers | M4 Editor core | ◐ partial | Evidence: Shift has no effect on a shape corner resize (T0008, T0009 end the same); our editor replays both (parity/gate-c.json). Alt and images not tested |
 | X8 | Multi-select and group move | M4 Editor core | ◐ partial | Evidence: Shift-click multi-select, group drag and arrows (round 1). Align Group: Left, Horizontal Center, Right, Top, Vertical Center, Bottom line up on the group bounding box (T0018 Align Left, T0019 Align Vertical Center); our panel has the same six and replays both. Group toolbar Duplicate and Remove not built |
 | X9 | Dragging a block into another section | M4 Editor core | ✓ done | Evidence: Dragging past the bottom grows the section and the block stays (T0010, T0013); rows past the edge use the normal pitch (T0013 drag of 20 rows, T0014 resize of 8 rows). Our editor replays T0013 and T0014 (parity/gate-c.json, 12 of 13) |
@@ -108,14 +108,14 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | R1 | Normalize at the start of a drag or keyboard move | M4 Editor core | ✓ done | Evidence: traces/T0002-demo-hero-right.json and traces/T0003-section4-button-down.json replay with the same end state (parity/gate-c.json 2 of 2). History: traces/retired/T0001-key-right.json |
 | R2 | Whether normalization also runs on select, resize or edit start | M4 Editor core | ◐ partial | Evidence: Keyboard: yes (traces/T0001-key-right.json). Select: 1 of 2 oracle runs normalized, 2026-11-03; cause not proven |
 | R3 | Exact pixel to grid conversion | M4 Editor core | ◐ partial | Evidence: While building section 1 the oracle remapped the heading from 3/2/7/16 to 4/2/7/16 and the paragraph from 7/2/11/14 to 7/2/10/14 during later drags: normalization can move start rows too |
-| R4 | Whether the row count shrinks after normalization or a drag | M4 Editor core | ◐ partial | Evidence: traces/T0001-key-right.json: row count grows on normalization (24 to 29) and stays after undo. Shrinking not seen yet |
+| R4 | Whether the row count shrinks after normalization or a drag | M4 Editor core | ✓ done | Evidence: parity/findings/R4.json: a drag 6 rows down grew the section from 11 to 17 rows; dragging back up kept 17. The row count does not shrink. Our editor never shrinks it either |
 | R5 | Behaviour when viewport width or a font change stretches rows | M4 Editor core | ✓ done | Evidence: Published rows stretch with the width exactly as on the oracle: Gate B 280 of 280 at 375 to 1920px and 168 of 168 at 600 to 700px (parity/gate-b.json, parity/gate-b-600-767.json). The editor removes stretch at the next gesture (T0003) |
 
 ## Text editing
 
 | Id | Item | Milestone | Status | Gate or evidence |
 |---|---|---|---|---|
-| E1 | How editing starts: double-click or click on a selected block | M4 Editor core | ◐ partial |  |
+| E1 | How editing starts: double-click or click on a selected block | M4 Editor core | ✓ done | Evidence: parity/findings/E1.json: a click on an already selected text block opens the oracle text editor. Our editor does the same (double-click still works) |
 | E2 | End row grows while typing | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | E3 | Whether the block shrinks when text is deleted | M4 Editor core | ✓ done | Evidence: parity/findings/E3.json: on the oracle a paragraph replaced with one short sentence went from 3/2/8/13 to 3/2/5/13. Our editor gives the same 3/2/5/13 for the same edit (end row follows the text both ways, minimum 2 rows) |
 | E4 | Text toolbar: styles, bold, italic, links, alignment, color, size | M5 Chrome and blocks | ○ open |  |
@@ -138,7 +138,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 |---|---|---|---|---|
 | L1 | Separate area and z per block, row count per layout | M4 Editor core | ✓ done | Evidence: Separate area and z per layout (Gate A, Gate B); phone traces T0015 to T0017 replay in our 428px phone canvas |
 | L2 | Shared content | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
-| L3 | Where a new block lands on phones | M4 Editor core | ◐ partial | Evidence: Generated phone layouts stack blocks over columns 2 to 10 (demo import). A block added in our editor goes to the bottom of the phone stack at full content width; the oracle rule for an added block is not measured yet |
+| L3 | Where a new block lands on phones | M4 Editor core | ✓ done | Evidence: parity/findings/L3.json: a Text block added on desktop at 1/2/3/10 went to phone 3/2/5/10, after the heading, and the later phone blocks moved down 2 rows. Our editor gives the same five phone areas for the same add |
 | L4 | Whether phone edits survive later desktop edits | M4 Editor core | ✓ done | Evidence: parity/findings/L4.json: a phone move down, then a desktop move right of the same block, left the phone area as edited. Our editor keeps the two layouts separate |
 | L5 | Hiding a block on one layout | M4 Editor core | ◐ partial | Evidence: No hide control found on the oracle: not in the desktop or phone block toolbars, and not in the shape Edit panel (Design: shape style, corner radius, Stretch, Color, Blend Mode, Stroke; Animation). Other block types and help pages not checked |
 | L6 | Phone-only overrides such as font size | M4 Editor core | ○ open |  |

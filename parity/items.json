@@ -446,8 +446,9 @@
     "id": "X1",
     "area": "Gestures",
     "milestone": "M4",
-    "status": "partial",
-    "title": "Move threshold before a drag starts, 4px in the prototype"
+    "status": "done",
+    "title": "Move threshold before a drag starts, 4px in the prototype",
+    "evidence": "parity/findings/X1.json and a 9 to 15px run: the oracle starts a drag after more than 10px (10 no, 11 yes). Our threshold is the same"
   },
   {
     "id": "X2",
@@ -489,7 +490,7 @@
     "status": "partial",
     "title": "Which handles each block type shows",
     "wasUnknown": true,
-    "evidence": "Text and shape blocks show all 8 handles on the oracle (screenshot, T0007 used the east handle of a shape). Buttons and other types not checked"
+    "evidence": "parity/findings/X6.json: text, shape and button blocks show all 8 handles with the same cursors on the oracle, as in our editor. Image, form, line and scrolling not checked"
   },
   {
     "id": "X7",
@@ -568,10 +569,10 @@
     "id": "R4",
     "area": "Row stretch",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "Whether the row count shrinks after normalization or a drag",
     "wasUnknown": true,
-    "evidence": "traces/T0001-key-right.json: row count grows on normalization (24 to 29) and stays after undo. Shrinking not seen yet"
+    "evidence": "parity/findings/R4.json: a drag 6 rows down grew the section from 11 to 17 rows; dragging back up kept 17. The row count does not shrink. Our editor never shrinks it either"
   },
   {
     "id": "R5",
@@ -586,8 +587,9 @@
     "id": "E1",
     "area": "Text editing",
     "milestone": "M4",
-    "status": "partial",
-    "title": "How editing starts: double-click or click on a selected block"
+    "status": "done",
+    "title": "How editing starts: double-click or click on a selected block",
+    "evidence": "parity/findings/E1.json: a click on an already selected text block opens the oracle text editor. Our editor does the same (double-click still works)"
   },
   {
     "id": "E2",
@@ -689,10 +691,10 @@
     "id": "L3",
     "area": "Phone layout",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "Where a new block lands on phones",
     "wasUnknown": true,
-    "evidence": "Generated phone layouts stack blocks over columns 2 to 10 (demo import). A block added in our editor goes to the bottom of the phone stack at full content width; the oracle rule for an added block is not measured yet"
+    "evidence": "parity/findings/L3.json: a Text block added on desktop at 1/2/3/10 went to phone 3/2/5/10, after the heading, and the later phone blocks moved down 2 rows. Our editor gives the same five phone areas for the same add"
   },
   {
     "id": "L4",

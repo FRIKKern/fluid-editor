@@ -6,7 +6,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
 import { READY, LOADED, ENTER_EDIT, KEY, BUTTON } from './oracle/snippets.mjs';
-import { select, click, editText, pasteHtml, escape, deselect, addSection, addBlock, removeBlock, sectionCount, area } from './oracle/ui.mjs';
+import { select, click, editText, pasteHtml, escape, deselect, addSection, addBlock, removeBlock, sectionCount, area, hold, release, blockEl, pitch, blockIds } from './oracle/ui.mjs';
 
 const S = process.env.ORACLE_SURFACE || 'surface:40';
 const which = process.argv[2];
@@ -198,5 +198,44 @@ if (which === 'T13') {
   const n = evalJs(S, `(() => { ${FRAME} return JSON.stringify(d.querySelectorAll('main#page .fluid-engine').length); })()`);
   if (n !== 8) throw new Error(`after reload the page has ${n} sections, expected the saved 8`);
   write('T13', { question: 'Where does each block type land, and how big, when added to an empty section?', section: 'scratch section at the end, removed by reload', results, savedSectionsAfterReload: n });
+}
+
+if (which === 'BATCH') {
+  // L3, E1, X1, X6, R4 in one pass on the demo page; every change is undone, then a reload check.
+  const out = {};
+  const undoAll = async () => { await escape(); let n = 0; while (n < 10 && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); } return n; };
+  const startAll = {}; for (let k = 0; k < 8; k++) startAll[k] = both(k);
+
+  // L3: add a Text block on desktop to section 6, read its phone area.
+  { const i = 6; const id = await addBlock(i, 'Text'); await escape(); await pause(900);
+    const a = both(i)[id]; const others = Object.entries(both(i)).filter(([k]) => k !== id).map(([, v]) => v.mobile);
+    out.L3 = { added: a, otherPhoneAreas: others }; await deselect(i); await undoAll(); }
+
+  // E1: click a selected text block once more; is the text editor open?
+  { const i = 2; const id = blockIds(i)[1]; await select(i, id); await pause(500); await select(i, id); await pause(900);
+    out.E1 = { editorOpenAfterSecondClick: evalJs(S, `(() => { ${FRAME} return JSON.stringify(!!d.querySelector('.fe-block[data-block-id="${id}"] .ProseMirror[contenteditable=true]')); })()`) };
+    await escape(); await deselect(i); }
+
+  // X1: hold a drag of 2, 4, 8 and 16px; does the grid show, does the block move?
+  { const i = 2; const id = blockIds(i)[2]; out.X1 = {};
+    for (const px of [2, 4, 8, 16]) { await select(i, id); const mid = await hold(blockEl(i, id), px, 0, { steps: 4 }); await release(); await pause(600);
+      out.X1[px] = { gridVisible: mid.gridVisible?.[i], transform: (mid.attrs || []).find((a) => a.id === id)?.transform || '' }; await undoAll(); } }
+
+  // X6: handles shown for each block type present on the page.
+  { out.X6 = {}; const kinds = { text: [2, 1], shape: [2, 2], button: [0, 2] };
+    for (const [kind, [i, k]] of Object.entries(kinds)) { const id = blockIds(i)[k]; await select(i, id); await pause(600);
+      out.X6[kind] = evalJs(S, `(() => { ${FRAME} return JSON.stringify([...d.querySelectorAll('.fluid-engine *')].filter((e) => { const q = e.getBoundingClientRect(); return q.width === 10 && q.height === 10 && /resize/.test(W.getComputedStyle(e).cursor); }).map((e) => W.getComputedStyle(e).cursor)); })()`);
+      await deselect(i); } }
+
+  // R4: drag a block 6 rows down past the bottom, then back up; does the row count shrink?
+  { const i = 2; const id = blockIds(i)[2]; const rows = () => evalJs(S, `(() => { ${FRAME} return JSON.stringify(W.getComputedStyle(d.querySelectorAll('main#page .fluid-engine')[${i}]).gridTemplateRows.split(' ').length); })()`);
+    const r0 = rows(); const p = pitch(i);
+    await select(i, id); await hold(blockEl(i, id), 0, 6 * p.row); await release(); await pause(900); const r1 = rows(); const a1 = area(i, id);
+    await select(i, id); await hold(blockEl(i, id), 0, -6 * p.row); await release(); await pause(900); const r2 = rows(); const a2 = area(i, id);
+    out.R4 = { rowsBefore: r0, afterDragDown: { rows: r1, area: a1 }, afterDragBack: { rows: r2, area: a2 } }; await undoAll(); }
+
+  const steps = await restore(startAll, [0, 1, 2, 3, 4, 5, 6, 7]);
+  for (const [k, v] of Object.entries(out)) write(k, { question: k, ...v, note: 'from oracle-probe.mjs BATCH; every change undone, saved page checked after reload' });
+  console.log(JSON.stringify(out, null, 1));
 }
 
