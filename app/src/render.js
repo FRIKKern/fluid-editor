@@ -140,6 +140,30 @@ function blockInner(b, model) {
       const kids = (b.children || []).map((c) => `<div class="stack-child-container">${blockInner({ ...c, id: `${b.id}-${c.id}` }, model)}</div>`).join('');
       return `<div class="sqs-block stack-block sqs-block-stack" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-stack-container direction-${b.direction || 'column'}" style="--stack-gap:${b.gap ?? 20}px">${kids}</div></div></div>`;
     }
+    case 'image': {
+      // Image blocks (T4) fill their grid area; the picture is a neutral placeholder
+      // here (oracle images stay out of the repo, QUALITY.md O2).
+      const r = b.radius ? `border-radius:${b.radius};` : '';
+      return `<div class="sqs-block image-block sqs-block-image sqs-stretched" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-container" style="${r}" role="img" aria-label="${escapeHtml(b.alt || '')}"></div></div></div>`;
+    }
+    case 'form': {
+      // Form block (T9), sized to the oracle Contact form (parity/findings/T9.json).
+      const e = escapeHtml;
+      const field = (f) => {
+        const req = (t) => { const m = t.match(/^(.*?)(\(required\))$/); return m ? `${e(m[1])}<span class="req">${e(m[2])}</span>` : e(t); };
+        if (f.kind === 'name') return `<fieldset class="form-item form-name"><legend>${e(f.label)}</legend><div class="name-parts">${(f.parts || []).map((p) => `<div class="field"><label class="caption"><span class="caption-row">${req(p)}</span></label><input type="text"></div>`).join('')}</div></fieldset>`;
+        if (f.kind === 'textarea') return `<div class="form-item"><label class="title">${e(f.label)}</label><textarea></textarea></div>`;
+        if (f.kind === 'checkbox') return `<fieldset class="form-item form-checkbox"><legend>${e(f.label)}</legend>${(f.options || []).map((o) => `<div class="option"><label><input type="checkbox"><span>${e(o)}</span></label></div>`).join('')}</fieldset>`;
+        if (f.kind === 'select') return `<div class="form-item form-select"><label class="title">${e(f.label)}</label><select>${(f.options || []).map((o) => `<option>${e(o)}</option>`).join('')}</select></div>`;
+        return `<div class="form-item"><label class="title">${e(f.label)}</label><input type="${f.kind === 'email' ? 'email' : 'text'}"></div>`;
+      };
+      return `<div class="sqs-block form-block sqs-block-form" id="block-${b.id}"><div class="sqs-block-content"><form class="fe-form" onsubmit="return false">${(b.fields || []).map(field).join('')}<div class="form-button-wrapper"><button class="form-submit" type="submit">${e(b.button || 'Send')}</button></div></form></div></div>`;
+    }
+    case 'scrolling': {
+      // Scrolling text (T12): the oracle draws the line along a wave path; its height is
+      // the line height (1.4em, heading formula with size value 5) plus 120px.
+      return `<div class="sqs-block scrolling-block sqs-block-scrolling" id="block-${b.id}"><div class="sqs-block-content"><div class="marquee" style="--marquee-font-size-value:${b.size || 5}"><span class="marquee-text">${escapeHtml(b.text || '')}</span></div></div></div>`;
+    }
     case 'social': {
       // Social links (T11): icons of 20px, 12px apart, as on the oracle footer.
       const icons = Array.from({ length: b.count || 3 }, () => '<a class="social-icon" href="#" aria-label="Social link"><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"/></svg></a>').join('');
@@ -168,7 +192,7 @@ export function renderSection(s, model) {
     `horizontal-alignment--${s.halign || 'center'}`,
     s.theme || '',
   ].filter(Boolean).join(' ');
-  const style = s.height === 'custom' && s.customHeight != null ? ` style="min-height: ${s.customHeight}vh;"` : '';
+  const style = s.height === 'custom' ? ` style="--custom-height: ${s.customHeight ?? 0};"` : '';
   return `<section class="${cls}" data-section-id="${s.id}"${style}><div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
 }
 

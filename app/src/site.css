@@ -13,6 +13,8 @@
   --heading-3-size-value: 2.5;
   --heading-4-size-value: 1.6;
   --normal-text-size-value: 1;
+  --large-text-size-value: 1.5;
+  --small-text-size-value: .9;
   --heading-font-line-height: 1.3em;
   --body-font-line-height: 1.4em;
   --heading-font-letter-spacing: .01rem;
@@ -45,6 +47,8 @@ body {
   h2 { font-size: calc((var(--heading-2-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
   h3 { font-size: calc((var(--heading-3-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
   h4 { font-size: calc((var(--heading-4-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
+  .sqsrte-large { font-size: calc((var(--large-text-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
+  .sqsrte-small { font-size: calc((var(--small-text-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
 }
 @media screen and (min-width: 768px), screen and (orientation: landscape) {
   body { font-size: min(calc((var(--normal-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--normal-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--normal-text-size-value) * 1rem))); }
@@ -52,13 +56,16 @@ body {
   h2 { font-size: min(calc((var(--heading-2-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--heading-2-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--heading-2-size-value) * 1rem))); }
   h3 { font-size: min(calc((var(--heading-3-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--heading-3-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--heading-3-size-value) * 1rem))); }
   h4 { font-size: min(calc((var(--heading-4-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--heading-4-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--heading-4-size-value) * 1rem))); }
+  .sqsrte-large { font-size: min(calc((var(--large-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--large-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--large-text-size-value) * 1rem))); }
+  .sqsrte-small { font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); }
 }
 h1, h2, h3, h4 { margin: 2rem 0; font-weight: 400; letter-spacing: var(--heading-font-letter-spacing); }
 h1 { line-height: calc(var(--heading-font-line-height) * (1 + (1 - var(--heading-1-size-value)) / 25)); }
 h2 { line-height: calc(var(--heading-font-line-height) * (1 + (1 - var(--heading-2-size-value)) / 25)); }
 h3 { line-height: calc(var(--heading-font-line-height) * (1 + (1 - var(--heading-3-size-value)) / 25)); }
 h4 { line-height: calc(var(--heading-font-line-height) * (1 + (1 - var(--heading-4-size-value)) / 25)); }
-p { margin: 1em 0; line-height: var(--body-font-line-height); letter-spacing: var(--body-font-letter-spacing); }
+p, .sqsrte-large, .sqsrte-small { line-height: var(--body-font-line-height); }
+p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
 .sqs-block-html .sqs-html-content > *:first-child { margin-top: 0; }
 .sqs-block-html .sqs-html-content > *:last-child { margin-bottom: 0; }
 
@@ -153,8 +160,12 @@ body { position: relative; }
   .header-title { font-size: calc((var(--site-title-font-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
 }
 
-/* Custom section height (footer): min-height comes inline in vh; padding 1vmax, one sample (P3). */
-.page-section.section-height--custom > .content-wrapper { padding: 1vmax 0; }
+/* Custom section height N (P3): min-height N vh and padding N/10 vmax
+   (oracle: 10 gives 10vh and 1vmax, 0 gives none; linear between is assumed). */
+.page-section.section-height--custom { min-height: calc(var(--custom-height, 0) * 1vh); }
+.page-section.section-height--custom > .content-wrapper { padding: calc(var(--custom-height, 0) * 0.1vmax) 0; }
+/* An empty paragraph keeps one line, as on the oracle (22.4px for 16px text). */
+.sqs-html-content p[data-rte-preserve-empty]:empty::before { content: ""; display: inline-block; }
 .theme-black { --section-bg: #000; --section-ink: #fff; }
 .theme-black a { color: inherit; }
 
@@ -164,3 +175,54 @@ body { position: relative; }
 .social-icons.social-icon-alignment-center { justify-content: center; }
 .social-icon { display: block; width: 20px; height: 20px; color: inherit; }
 .social-icon svg { display: block; }
+
+/* Image blocks (T4): fill the block; placeholder picture */
+.sqs-block-image .fluid-image-container { width: 100%; height: 100%; overflow: hidden; background: linear-gradient(135deg, #d9d4ca, #bfb8aa); }
+
+/* Scrolling block (T12), measured on the oracle Home page */
+.marquee {
+  --v: var(--marquee-font-size-value, 5);
+  font-size: min(calc((var(--v) - 1) * 1.2vw + 1rem), max(calc((var(--v) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--v) * 1rem)));
+  line-height: 1.4em; letter-spacing: .01rem; white-space: nowrap; overflow: hidden;
+  height: calc(1.4em + 120px); display: flex; align-items: center;
+}
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  .marquee { font-size: calc((var(--v) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
+}
+
+/* Form block (T9), sizes measured on the oracle Contact form */
+.fe-form { margin: 0; }
+.fe-form .form-item { margin: 0 0 20px; padding: 0; border: 0; min-width: 0; }
+.fe-form legend { padding: 0 0 8px; font-size: 16px; line-height: 22.4px; }
+.fe-form label.title { display: block; font-size: 16px; line-height: 22.4px; padding-bottom: 8px; }
+.fe-form label.caption { display: block; padding-bottom: 4px; }
+/* Name sub-labels and checkbox labels use the small text size (value 0.9). */
+.fe-form .caption-row, .fe-form .form-checkbox .option {
+  --v: var(--small-text-size-value);
+  font-size: min(calc((var(--v) - 1) * 1.2vw + 1rem), max(calc((var(--v) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--v) * 1rem)));
+  line-height: 1.4em;
+}
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  .fe-form .caption-row, .fe-form .form-checkbox .option { font-size: calc((var(--v) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
+}
+.fe-form .caption-row { display: flex; flex-wrap: wrap; align-items: baseline; padding-bottom: 4px; }
+.fe-form .caption-row .req { display: block; line-height: 1em; }
+.fe-form input[type=text], .fe-form input[type=email], .fe-form textarea, .fe-form select {
+  display: block; width: 100%; box-sizing: border-box; font: inherit; font-size: 16px; line-height: 22.4px;
+  padding: 10px 20px; border: 1px solid currentColor; background: transparent; color: inherit; border-radius: 0;
+}
+.fe-form input[type=text], .fe-form input[type=email] { height: 47px; }
+.fe-form textarea { height: 100px; resize: vertical; }
+.fe-form select { height: 44.6px; }
+.fe-form .name-parts { display: flex; gap: 10px; }
+.fe-form .name-parts .field { flex: 1; min-width: 0; }
+.fe-form .form-checkbox .option { margin-top: 14px; display: flex; min-height: max(21.1px, calc(1.4em + 0.8px)); }
+/* Fitted to the oracle, not derived: one-line rows are 21.7px at 375 and 21.1px at 1280 and 1920. */
+.fe-form .form-checkbox legend + .option { margin-top: 6px; }
+.fe-form .form-checkbox label { display: inline-flex; align-items: center; gap: 11px; vertical-align: baseline; }
+.fe-form .form-checkbox input {
+  appearance: none; -webkit-appearance: none; box-sizing: border-box;
+  width: 20px; height: 20px; margin: 0; flex: none; border: 2px solid currentColor;
+}
+.fe-form .form-button-wrapper { margin: 0; }
+.fe-form .form-submit { height: 66.6px; padding: 20.8px 56px; border: 0; border-radius: 300px; background: #000; color: #fff; font: inherit; font-weight: 500; letter-spacing: .02em; }

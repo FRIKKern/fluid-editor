@@ -87,6 +87,14 @@ async function measureFrame(width) {
   const s = oracleFrame;
   viewport(s, 1920, 1100);
   const inPreview = evalJs(s, `(() => JSON.stringify(!![...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Close full screen preview' && x.getBoundingClientRect().width > 0)))()`);
+  // --oracle-path /about: load that page in the site frame first (once).
+  const want = arg('oracle-path');
+  if (want && !measureFrame.picked) {
+    evalJs(s, `(() => { const f = document.getElementById('sqs-site-frame'); if (f.contentDocument.location.pathname !== ${'${JSON.stringify(want)}'}) f.src = ${'${JSON.stringify(want)}'}; return 'true'; })()`.replaceAll('${JSON.stringify(want)}', JSON.stringify(want)));
+    waitFor(s, `(() => { const d = document.getElementById('sqs-site-frame').contentDocument; return d.location.pathname === ${'${JSON.stringify(want)}'} && d.readyState !== 'loading' && !!d.querySelector('main#page .fluid-engine'); })()`.replaceAll('${JSON.stringify(want)}', JSON.stringify(want)), 40);
+    await pause(1500);
+    measureFrame.picked = true;
+  }
   if (!inPreview) {
     evalJs(s, `(() => { const b = [...document.querySelectorAll('button')].find((x) => (x.getAttribute('aria-label') || x.textContent).trim() === 'Preview'); document.querySelectorAll('#fx-target').forEach((e) => e.removeAttribute('id')); b.id = 'fx-target'; return 'true'; })()`);
     execFileSync('cmux', ['browser', '--surface', s, 'click', '#fx-target']);
@@ -96,6 +104,11 @@ async function measureFrame(width) {
   await pause(1200);
   const got = evalJs(s, `(() => { const f = document.getElementById('sqs-site-frame'); return JSON.stringify([f.contentWindow.innerWidth, f.contentWindow.innerHeight]); })()`);
   if (got[0] !== width) throw new Error(`oracle frame is ${got[0]}px wide, wanted ${width}`);
+  // Never measure the wrong page: the frame must still show --oracle-path.
+  if (want) {
+    const at = evalJs(s, `(() => JSON.stringify(document.getElementById('sqs-site-frame').contentDocument.location.pathname))()`);
+    if (at !== want) throw new Error(`oracle frame shows ${at}, wanted ${want}`);
+  }
   const js = MEASURE.replace('(async () => {', "(async () => { const document = window.document.getElementById('sqs-site-frame').contentDocument;");
   return { boxes: evalJs(s, js), swapped: null };
 }

@@ -2,7 +2,7 @@
 
 [![Parity: one cell per item, done, partial, open or unknown](images/parity.svg)](../README.md)
 
-56 of 108 items done, 39 partial, 13 open, 0 unknown.
+57 of 108 items done, 41 partial, 10 open, 0 unknown.
 Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. Edit the JSON, never this page.
 
 ## Harness and oracle
@@ -11,7 +11,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 |---|---|---|---|---|
 | H1 | CSS round trip check, `scripts/check-render.mjs` | M0 Harness | ✓ done | Gate: 351 of 351 sections match. Evidence: parity/gate-a.json |
 | H2 | Fixture capture tool: URL list in, section CSS, markup, URL, date and sha256 out | M0 Harness | ✓ done | Gate: recapturing a page gives the same sha. Evidence: scripts/capture.mjs: robots.txt for "*", sitemap, 1 request per second. Recapture of alignflow-fluid-demo home: 11 of 11 section shas match fixtures/index.json, 2026-11-03 |
-| H3 | Corpus of at least 300 sections from at least 30 public sites | M0 Harness | ◐ partial | Gate: covers gap 0 and 11, bleed blocks, overlap, every block type in area 3. Evidence: parity/corpus.json: 359 sections from 56 sites incl. the oracle demo page; gaps 0/11/20/27, bleed, overlap, sticky. Missing: gallery and map blocks |
+| H3 | Corpus of at least 300 sections from at least 30 public sites | M0 Harness | ◐ partial | Gate: covers gap 0 and 11, bleed blocks, overlap, every block type in area 3. Evidence: parity/corpus.json and Gate A 380 of 380 sections from 56 sites incl. the 5 oracle pages and footer. Missing: gallery and map blocks |
 | H4 | Box diff: load an oracle page and our render, compare every `.fe-block` rect | M0 Harness | ✓ done | Gate: reports pass or fail per block per width. Evidence: parity/gate-b.json: achromatic-fluid-demo home, our CSS swapped in, 70 of 70 boxes at 5 widths. With --fault the gate fails 0 of 14 at 1280px |
 | H5 | Trace format, `traces/<id>.json`: before state, gesture, after state, oracle URL, date | M0 Harness | ✓ done | Gate: schema written and one trace stored. Evidence: scripts/lib/trace.mjs (format and Gate C diff), scripts/check-traces.mjs in npm run check |
 | H6 | Trace recorder through cmux on the trial site | M0 Harness | ✓ done | Gate: records one keyboard move and undoes it. Evidence: traces/T0001-key-right.json: recorded by scripts/oracle-record.mjs; oracle back to the saved layout after reload |
@@ -58,16 +58,16 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 |---|---|---|---|---|
 | T1 | Wrapper chain `.fe-block > .sqs-block > .sqs-block-content` | M2 Renderer | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | T2 | `.sqs-block-alignment-wrapper` on the right block types | M2 Renderer | ◐ partial |  |
-| T3 | Text block | M2 Renderer | ✓ done | Evidence: Text block markup and margins (headings 2rem, paragraphs 1em, first and last child 0) match: Gate B 280 of 280 |
-| T4 | Image block: fit, fill, crop, focal point, stretched | M5 Chrome and blocks | ○ open |  |
+| T3 | Text block | M2 Renderer | ✓ done | Evidence: Text blocks incl. sqsrte-large (value 1.5) and -small (0.9) paragraphs, paragraph margin 1rem, empty paragraphs keeping one line: Gate B on all 5 oracle pages at 375, 767, 768, 1280, 1920: demo 365/365, Home 220/220, Services 110/110, About 140/140, Contact 65/65 (parity/gate-b*.json) |
+| T4 | Image block: fit, fill, crop, focal point, stretched | M5 Chrome and blocks | ◐ partial | Evidence: Image blocks fill their grid area; ours renders a neutral placeholder (oracle images stay out of the repo, O2). Boxes match on Home, Services, About (Gate B on all 5 oracle pages at 375, 767, 768, 1280, 1920: demo 365/365, Home 220/220, Services 110/110, About 140/140, Contact 65/65 (parity/gate-b*.json)). Fit, crop and focal point not built |
 | T5 | Button block: sizes, styles, stretch | M2 Renderer | ◐ partial | Evidence: Button fills its block height (59px at 768, 61.6px at 1280), 56px side padding, Poppins 500 16px. Sizes small and large not measured |
 | T6 | Shape block and the Squarespace shape set | M2 Renderer | ◐ partial | Evidence: Oracle shape Edit panel: Design tab with shape style picker, square or rounded corners with a px radius, Stretch toggle, Color, Blend Mode, Stroke; Animation tab. Default shape: white square filling its block. Ours renders a filled div |
 | T7 | Video block | M5 Chrome and blocks | ○ open |  |
 | T8 | Gallery block | M5 Chrome and blocks | ○ open |  |
-| T9 | Form block | M5 Chrome and blocks | ○ open |  |
+| T9 | Form block | M5 Chrome and blocks | ✓ done | Evidence: parity/findings/T9.json: the Contact form (name, email, textareas, checkboxes, select, button) rebuilt to measured sizes; Contact 65/65 boxes at 5 widths. Checkbox row height is fitted (max(21.1px, 1.4em + 0.8px)), not derived |
 | T10 | Embed and code blocks | M5 Chrome and blocks | ○ open |  |
 | T11 | Line, map and social links blocks | M5 Chrome and blocks | ◐ partial | Evidence: Social links: three 20px icons, 12px apart, right-aligned in the footer, rendered and box-matched (Gate B). Icons are placeholders; line and map blocks not built |
-| T12 | Remaining block types from the add-block menu | M5 Chrome and blocks | ○ open |  |
+| T12 | Remaining block types from the add-block menu | M5 Chrome and blocks | ◐ partial | Evidence: Scrolling block: heading formula with size value 5, height = 1.4em + 120px (measured at 375, 768, 1280, 1920); rendered as a static line, boxes match on Home and Services. The moving wave text is not built. Other block types in the menu not built |
 | T13 | Default and minimum size per block type | M2 Renderer | ◐ partial | Evidence: A new Text block lands at 1/2/3/10 (8 columns by 2 rows) in an empty section; a blank section starts with 8 rows. Other block types not measured |
 | T14 | Which types keep an aspect ratio and which follow content | M2 Renderer | ◐ partial | Evidence: Shapes do not keep an aspect ratio: a corner resize of 2 columns and 1 row changes both freely (T0008). Images not tested |
 
