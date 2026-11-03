@@ -4,6 +4,7 @@
 import { renderPage, renderSection, exportHtml, LAST_LINE, COLS } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
+import { toolbarItems, toolbarHtml, toolbarPosition } from './toolbar.js';
 import { demoModel } from './demo.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -126,6 +127,10 @@ function decorate(sid) {
 }
 
 function drawSelection() {
+  drawSelectionLayers();
+  placeToolbar();
+}
+function drawSelectionLayers() {
   for (const el of doc.querySelectorAll('.fe-indicator')) el.remove();
   for (const el of doc.querySelectorAll('.fe-block[data-is-selected="true"]')) el.dataset.isSelected = 'false';
   if (!sel || gesture?.type === 'move') return;
@@ -154,6 +159,46 @@ function drawSelection() {
     feEl(sel.sid).append(ind2);
   }
 }
+
+// ---------- floating block toolbar (U4) ----------
+const toolbar = $('block-toolbar');
+function zInfo(sid, b) {
+  const L = lay(b);
+  const hit = (a, o) => a[0] < o[2] && o[0] < a[2] && a[1] < o[3] && o[1] < a[3];
+  const over = S(sid).blocks.filter((o) => o !== b && o.layout[bp] && hit(L.area, o.layout[bp].area));
+  return { overlaps: over.length > 0, above: over.some((o) => o.layout[bp].z > L.z), below: over.some((o) => o.layout[bp].z < L.z) };
+}
+function placeToolbar() {
+  if (!sel || sel.more?.length || gesture?.type === 'move' || gesture?.type === 'resize' || editing || !doc) { toolbar.hidden = true; return; }
+  const b = B(sel.sid, sel.bid);
+  const el = blockEl(sel.bid);
+  if (!b || !el) { toolbar.hidden = true; return; }
+  const z = zInfo(sel.sid, b);
+  const key = `${sel.bid}|${bp}|${JSON.stringify(z)}`;
+  if (toolbar.dataset.key !== key) { toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z), z); toolbar.dataset.key = key; }
+  const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), el.getBoundingClientRect());
+  toolbar.style.left = `${p.left}px`;
+  toolbar.style.top = `${p.top}px`;
+  toolbar.hidden = false;
+}
+toolbar.addEventListener('mousedown', (e) => e.preventDefault());
+toolbar.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-tb]');
+  if (!btn || !sel || btn.classList.contains('is-off')) return;
+  const act = btn.dataset.tb;
+  const { sid, bid } = sel;
+  const b = B(sid, bid);
+  if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
+  if (act === 'edit' || act === 'pin' || act === 'primary' || act === 'link') { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
+  const before = JSON.stringify(model);
+  if (act === 'align') { const order = ['flex-start', 'center', 'flex-end']; const L = lay(b); L.justify = order[(order.indexOf(L.justify || 'flex-start') + 1) % 3]; }
+  if (act === 'z+' || act === 'z-') zSwap(sid, b, act === 'z+');
+  if (act === 'up' || act === 'down') moveInStack(sid, b, act === 'up');
+  if (act === 'duplicate') duplicateBlock(sid, bid);
+  if (act === 'remove') { S(sid).blocks = S(sid).blocks.filter((o) => o.id !== bid); sel = null; }
+  renderSectionDom(sid);
+  commit(before, `${btn.getAttribute('aria-label')} on ${bid}`);
+});
 
 function select(next) {
   sel = next;
@@ -733,6 +778,7 @@ function updateUi() {
   // turns on (parity/findings/EXIT.json).
   $('page-state').textContent = 'Page · Published';
   renderPanel();
+  placeToolbar();
 }
 
 function renderPanel() {
@@ -834,6 +880,15 @@ function duplicateBlock(sid, bid) {
 
 // Align Group, as on the oracle (traces T0018, T0019): blocks line up on the group's
 // bounding box; centers round to the nearest line.
+// Like the oracle's Move Forward / Move Backward (traces T0011, T0012): swap z-index
+// with the block next above or below in z order.
+function zSwap(sid, b, up) {
+  const L = lay(b);
+  const others = S(sid).blocks.filter((o) => o !== b).map((o) => lay(o));
+  const next = others.filter((o) => (up ? o.z > L.z : o.z < L.z)).sort((x, y) => (up ? x.z - y.z : y.z - x.z))[0];
+  if (next) [L.z, next.z] = [next.z, L.z];
+}
+
 // Phone Move Up and Move Down (traces T0020, T0021): the phone toolbar has these instead of
 // Move Forward, Move Backward and Duplicate. The block trades places with the previous or
 // next block in the phone stack (by start row): the lower one takes the upper one's start
@@ -1004,14 +1059,7 @@ panel.addEventListener('click', (e) => {
   const before = JSON.stringify(model);
   const b = B(sel.sid, sel.bid);
   const L = lay(b);
-  // Like the oracle's Move Forward / Move Backward (traces T0011, T0012): swap z-index
-  // with the block next above or below in z order.
-  if (btn.dataset.act === 'z+' || btn.dataset.act === 'z-') {
-    const up = btn.dataset.act === 'z+';
-    const others = S(sel.sid).blocks.filter((o) => o !== b).map((o) => lay(o));
-    const next = others.filter((o) => (up ? o.z > L.z : o.z < L.z)).sort((x, y) => (up ? x.z - y.z : y.z - x.z))[0];
-    if (next) [L.z, next.z] = [next.z, L.z];
-  }
+  if (btn.dataset.act === 'z+' || btn.dataset.act === 'z-') zSwap(sel.sid, b, btn.dataset.act === 'z+');
   if (btn.dataset.act === 'up' || btn.dataset.act === 'down') moveInStack(sel.sid, b, btn.dataset.act === 'up');
   if (btn.dataset.act === 'justify') L.justify = btn.dataset.v;
   if (btn.dataset.act === 'align') alignGroup(btn.dataset.v);
@@ -1108,6 +1156,8 @@ document.addEventListener('keydown', onKey);
 
 // ---------- boot ----------
 function boot() {
+  frame.contentWindow.addEventListener('scroll', () => placeToolbar(), { passive: true });
+  window.addEventListener('resize', () => placeToolbar());
   doc = frame.contentDocument;
   win = frame.contentWindow;
   doc.addEventListener('pointerdown', onDown);

@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -739,6 +739,40 @@ if (which === 'NEAR') {
     if (saveDisabled() !== true) throw new Error('Unsaved changes remain');
   }
   write('NEAR', { question: 'Which blocks get data-is-near-dragged-block while a block is held at a target?', section: i, dragged: id, start, runs });
+}
+
+if (which === 'TOOLBARGEO') {
+  // U3, U4: the geometry and look of the block toolbar and the selection outline. Select a
+  // block, find the toolbar (the box holding its Remove button), read its box relative to the
+  // block, its style, each button's box and label, and the selection outline. Read only.
+  const cases = (process.argv[3] && JSON.parse(process.argv[3])) || [[2, 1, 'text'], [2, 2, 'shape'], [0, 2, 'button'], [0, 0, 'text at page top'], [3, 0, 'text at section top']];
+  const out = {};
+  for (const [i, k, label] of cases) {
+    const id = blockIds(i)[k];
+    await select(i, id); await pause(900);
+    out[label] = evalJs(S, `(() => { ${FRAME}
+      const fr = f.getBoundingClientRect();
+      const b = d.querySelector('.fe-block[data-block-id="${id}"]'); const bq = b.getBoundingClientRect();
+      const rel = (q) => [q.left - fr.left - bq.left, q.top - fr.top - bq.top, q.width, q.height].map((v) => Math.round(v * 10) / 10);
+      const rm = [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Remove' && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().width < 60);
+      if (!rm) return JSON.stringify({ error: 'no toolbar' });
+      let bar = rm; while (bar.parentElement && bar.parentElement.getBoundingClientRect().width < 700 && !(bar.querySelectorAll('button').length >= 3 && W.getComputedStyle(bar).backgroundColor !== 'rgba(0, 0, 0, 0)')) bar = bar.parentElement;
+      const cs = getComputedStyle(bar);
+      const buttons = [...bar.querySelectorAll('button')].filter((x) => x.getBoundingClientRect().width > 0).map((x) => { const c = getComputedStyle(x); const sv = x.querySelector('svg'); const pth = sv && sv.querySelector('path, rect, circle, line, polyline'); const pc = pth && getComputedStyle(pth); return { label: x.getAttribute('aria-label') || x.textContent.trim(), box: rel(x.getBoundingClientRect()), color: c.color, bg: c.backgroundColor, radius: c.borderRadius, icon: sv ? { size: [Math.round(sv.getBoundingClientRect().width), Math.round(sv.getBoundingClientRect().height)], fill: pc && pc.fill, stroke: pc && pc.stroke, strokeWidth: pc && pc.strokeWidth } : null, text: x.textContent.trim(), font: c.font }; });
+      const seps = [...bar.querySelectorAll('*')].filter((e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.width <= 2 && q.height >= 10 && q.height <= 40; }).map((e) => ({ box: rel(e.getBoundingClientRect()), bg: getComputedStyle(e).backgroundColor }));
+      const icon = bar.querySelector('button svg'); const iq = icon && icon.getBoundingClientRect();
+      // Selection outline and handles inside the frame.
+      const outline = [...d.querySelectorAll('.fluid-engine *')].filter((e) => { const q = e.getBoundingClientRect(); const c = W.getComputedStyle(e); return Math.abs(q.width - bq.width) < 6 && Math.abs(q.height - bq.height) < 6 && (c.outlineStyle !== 'none' || c.borderTopStyle !== 'none' || c.boxShadow !== 'none') && e !== b; }).map((e) => { const c = W.getComputedStyle(e); return { cls: [...e.classList].filter((x) => !/^[A-Za-z0-9_]{16}$|^fluid-engine-[a-z0-9]{5,7}$/.test(x)).join('.').slice(0, 80), box: [Math.round(e.getBoundingClientRect().left - bq.left), Math.round(e.getBoundingClientRect().top - bq.top), Math.round(e.getBoundingClientRect().width), Math.round(e.getBoundingClientRect().height)], outline: c.outlineStyle !== 'none' ? c.outlineWidth + ' ' + c.outlineStyle + ' ' + c.outlineColor + ' offset ' + c.outlineOffset : '', border: c.borderTopStyle !== 'none' ? c.borderTopWidth + ' ' + c.borderTopStyle + ' ' + c.borderTopColor : '', shadow: c.boxShadow !== 'none' ? c.boxShadow : '' }; }).slice(0, 6);
+      const pill = [...d.querySelectorAll('.fe-block [class*=label-tag], .fe-block [class*=pill]')].filter((e) => e.getBoundingClientRect().width > 0).map((e) => ({ text: e.textContent.trim(), box: [Math.round(e.getBoundingClientRect().left - bq.left), Math.round(e.getBoundingClientRect().top - bq.top), Math.round(e.getBoundingClientRect().width), Math.round(e.getBoundingClientRect().height)], bg: W.getComputedStyle(e).backgroundColor, color: W.getComputedStyle(e).color, font: W.getComputedStyle(e).font }));
+      return JSON.stringify({ block: [Math.round(bq.left), Math.round(bq.top), Math.round(bq.width), Math.round(bq.height)], frameTop: Math.round(fr.top),
+        bar: { box: rel(bar.getBoundingClientRect()), bg: cs.backgroundColor, radius: cs.borderRadius, shadow: cs.boxShadow, padding: cs.padding, gap: cs.gap, border: cs.border },
+        buttons, seps, icon: iq && [Math.round(iq.width), Math.round(iq.height)], outline, pill }); })()`);
+    console.log(label, JSON.stringify(out[label]).slice(0, 900));
+    if (process.env.SHOTS) execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS}/toolbar-${label.replace(/\W+/g, '-')}.png`]);
+    await escape(); await deselect(i);
+  }
+  if (saveDisabled() !== true) throw new Error('The probe changed the page');
+  write('TOOLBARGEO', { question: 'Where is the block toolbar relative to the selected block, how does it look, and how is the selection drawn?', frame: '1600x945', ...out });
 }
 
 if (which === 'T13') {
