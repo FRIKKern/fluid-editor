@@ -498,7 +498,7 @@
     "milestone": "M4",
     "status": "partial",
     "title": "Multi-select and group move",
-    "evidence": "Oracle: Shift-click adds a block to the selection (both data-is-selected and aria-selected); the group toolbar has Stack Blocks, Align Group, Move Forward, Move Backward, Duplicate, Remove. Our editor: Shift-click toggles, drag and arrow keys move the group by the same rows and columns. Group toolbar not built"
+    "evidence": "Shift-click multi-select, group drag and arrows (round 1). Align Group: Left, Horizontal Center, Right, Top, Vertical Center, Bottom line up on the group bounding box (T0018 Align Left, T0019 Align Vertical Center); our panel has the same six and replays both. Group toolbar Duplicate and Remove not built"
   },
   {
     "id": "X9",
@@ -667,7 +667,7 @@
     "milestone": "M4",
     "status": "done",
     "title": "Separate area and z per block, row count per layout",
-    "evidence": "Separate area and z per layout (Gate A, Gate B); our phone canvas is 428px wide, the oracle phone frame width"
+    "evidence": "Separate area and z per layout (Gate A, Gate B); phone traces T0015 to T0017 replay in our 428px phone canvas"
   },
   {
     "id": "L2",
@@ -724,9 +724,10 @@
     "id": "L8",
     "area": "Phone layout",
     "milestone": "M4",
-    "status": "open",
-    "title": "Give demo section 7 its staggered phone layout on the oracle, then trace phone edits",
-    "gate": "A trace of a phone-layout move replays to the same end state"
+    "status": "done",
+    "title": "Phone layout edits on demo section 7, traced and replayed",
+    "gate": "A trace of a phone-layout move replays to the same end state",
+    "evidence": "Phone-view traces T0015 (arrow), T0016 (drag), T0017 (resize from the west handle) replay in our 428px phone canvas, undo included (parity/gate-c.json). The phone view normalizes stretched rows at a gesture too. The oracle phone layout stays its generated stacking; a hand-made stagger was not saved"
   },
   {
     "id": "S1",
@@ -746,9 +747,9 @@
     "id": "S3",
     "area": "Section settings and Stacks",
     "milestone": "M5",
-    "status": "open",
+    "status": "partial",
     "title": "Stacks: grouped blocks with their own order and spacing",
-    "evidence": "The oracle group toolbar (Shift-select 2 blocks) offers Stack Blocks; not opened yet"
+    "evidence": "parity/findings/S3.json: Stack Blocks replaces the selected blocks with one block over their bounding box; inside, a flex column with a 20px gap, start-aligned, children stretched to full width, min 20px; toolbar Edit, link, Stack Options, Pin, Duplicate, Remove. Ours builds the same structure and values. Difference: the oracle stack grew to 1/2/7/18, ours is 1/2/6/18; the oracle children seem to keep their old block heights (112 + 20 + 112px needs 7 rows). Stack Options not explored"
   },
   {
     "id": "U1",

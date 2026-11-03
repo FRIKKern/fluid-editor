@@ -3,6 +3,7 @@
 // Usage: node scripts/replay.mjs [--surface surface:42] [--url http://127.0.0.1:5178/index.html?replay] [trace ids…]
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, waitFor, goto, viewport, resetViewport, pause } from './lib/cmux.mjs';
+import { ensureVisible } from './lib/cmux.mjs';
 import { diffStates } from './lib/trace.mjs';
 import { DEMO } from '../app/src/demo-data.js';
 
@@ -47,12 +48,12 @@ const READ = (sid) => `(() => {
   return JSON.stringify({ rows: s.rows[fe.bp], blocks });
 })()`;
 
-const SELECT = (id) => `(() => {
+const SELECT = (id, shift = false) => `(() => {
   const f = document.getElementById('site-frame'); const d = f.contentDocument; const W = f.contentWindow;
   const b = d.querySelector('.fe-block[data-block-id="${id}"]');
   b.scrollIntoView({ block: 'center' });
   const r = b.getBoundingClientRect();
-  const o = { bubbles: true, cancelable: true, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2, button: 0, pointerId: 1, isPrimary: true };
+  const o = { bubbles: true, cancelable: true, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2, button: 0, pointerId: 1, isPrimary: true, shiftKey: ${shift} };
   b.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, buttons: 1 }));
   d.documentElement.dispatchEvent(new W.PointerEvent('pointerup', { ...o, buttons: 0 }));
   return JSON.stringify(true);
@@ -84,6 +85,7 @@ const KEY = (key) => `(() => {
   return JSON.stringify(true);
 })()`;
 
+if (ensureVisible(surface)) console.log(`${surface} was hidden; moved it to its own pane`);
 const results = [];
 for (const t of traces) {
   viewport(surface, t.oracle.frameWidth, 1000);
@@ -96,6 +98,7 @@ for (const t of traces) {
   if (fonts !== true) throw new Error('Poppins did not load in the editor canvas');
   evalJs(surface, SELECT(t.gesture.target));
   const g = t.gesture;
+  for (const id of g.also || []) evalJs(surface, SELECT(id, true));
   if (g.kind === 'key') {
     for (const k of g.keys || []) {
       evalJs(surface, KEY(k));
@@ -106,9 +109,13 @@ for (const t of traces) {
     await pause(400);
   } else if (g.kind === 'button') {
     // Our panel names: Bring forward (z+) and Send backward (z-).
-    const act = { 'Move Forward': 'z+', 'Move Backward': 'z-' }[g.button];
-    if (!act) throw new Error(`no button in our editor for "${g.button}"`);
-    evalJs(surface, `(() => { document.querySelector('#panel button[data-act="${act}"]').click(); return 'true'; })()`);
+    const map = { 'Move Forward': '[data-act="z+"]', 'Move Backward': '[data-act="z-"]',
+      'Align Group>Align Left': '[data-act="align"][data-v="left"]', 'Align Group>Align Right': '[data-act="align"][data-v="right"]',
+      'Align Group>Align Horizontal Center': '[data-act="align"][data-v="hcenter"]', 'Align Group>Align Top': '[data-act="align"][data-v="top"]',
+      'Align Group>Align Vertical Center': '[data-act="align"][data-v="vcenter"]', 'Align Group>Align Bottom': '[data-act="align"][data-v="bottom"]' };
+    const sel = map[g.button];
+    if (!sel) throw new Error(`no button in our editor for "${g.button}"`);
+    evalJs(surface, `(() => { document.querySelector('#panel button${sel}').click(); return 'true'; })()`);
     await pause(300);
   }
   const after = evalJs(surface, READ(t.section.id));

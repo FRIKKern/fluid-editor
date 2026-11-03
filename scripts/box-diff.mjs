@@ -8,6 +8,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, goto, viewport, resetViewport, pause } from './lib/cmux.mjs';
+import { ensureVisible } from './lib/cmux.mjs';
 import { parseSectionCss } from './lib/parse.mjs';
 import { sectionCss } from '../app/src/render.js';
 
@@ -95,6 +96,7 @@ async function measureFrame(width) {
   return { boxes: evalJs(s, js), swapped: null };
 }
 
+if (ensureVisible(surface)) console.log(`${surface} was hidden; moved it to its own pane`);
 const map = swap ? swapCss() : null;
 const report = { gate: 'B', oracle: oracle || `editor preview on ${oracleFrame}`, ours: ours || 'swap: same page with our CSS', tolerance: tol, widths: [], pass: 0, total: 0 };
 for (const w of widths) {

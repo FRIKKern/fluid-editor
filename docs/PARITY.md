@@ -2,7 +2,7 @@
 
 [![Parity: one cell per item, done, partial, open or unknown](images/parity.svg)](../README.md)
 
-53 of 108 items done, 36 partial, 19 open, 0 unknown.
+54 of 108 items done, 37 partial, 17 open, 0 unknown.
 Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. Edit the JSON, never this page.
 
 ## Harness and oracle
@@ -95,7 +95,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | X5 | Resize from 8 handles with the opposite edge fixed | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | X6 | Which handles each block type shows | M4 Editor core | ◐ partial | Evidence: Text and shape blocks show all 8 handles on the oracle (screenshot, T0007 used the east handle of a shape). Buttons and other types not checked |
 | X7 | Shift and Alt modifiers | M4 Editor core | ◐ partial | Evidence: Shift has no effect on a shape corner resize (T0008, T0009 end the same); our editor replays both (parity/gate-c.json). Alt and images not tested |
-| X8 | Multi-select and group move | M4 Editor core | ◐ partial | Evidence: Oracle: Shift-click adds a block to the selection (both data-is-selected and aria-selected); the group toolbar has Stack Blocks, Align Group, Move Forward, Move Backward, Duplicate, Remove. Our editor: Shift-click toggles, drag and arrow keys move the group by the same rows and columns. Group toolbar not built |
+| X8 | Multi-select and group move | M4 Editor core | ◐ partial | Evidence: Shift-click multi-select, group drag and arrows (round 1). Align Group: Left, Horizontal Center, Right, Top, Vertical Center, Bottom line up on the group bounding box (T0018 Align Left, T0019 Align Vertical Center); our panel has the same six and replays both. Group toolbar Duplicate and Remove not built |
 | X9 | Dragging a block into another section | M4 Editor core | ✓ done | Evidence: Dragging past the bottom grows the section and the block stays (T0010, T0013); rows past the edge use the normal pitch (T0013 drag of 20 rows, T0014 resize of 8 rows). Our editor replays T0013 and T0014 (parity/gate-c.json, 12 of 13) |
 | X10 | Locked blocks, `data-is-locked` | M4 Editor core | ○ open | Evidence: No lock control found in the block toolbar, the group toolbar or the Layers rows; data-is-locked stays false |
 | X11 | Touch and pen input | M4 Editor core | ◐ partial |  |
@@ -136,14 +136,14 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 
 | Id | Item | Milestone | Status | Gate or evidence |
 |---|---|---|---|---|
-| L1 | Separate area and z per block, row count per layout | M4 Editor core | ✓ done | Evidence: Separate area and z per layout (Gate A, Gate B); our phone canvas is 428px wide, the oracle phone frame width |
+| L1 | Separate area and z per block, row count per layout | M4 Editor core | ✓ done | Evidence: Separate area and z per layout (Gate A, Gate B); phone traces T0015 to T0017 replay in our 428px phone canvas |
 | L2 | Shared content | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | L3 | Where a new block lands on phones | M4 Editor core | ◐ partial | Evidence: On the demo page the oracle generated phone layouts by stacking blocks over columns 2 to 10: text and buttons 2 rows, shapes 6 rows (fixtures/oracle/demo-page.json, app/src/demo-data.js) |
 | L4 | Whether phone edits survive later desktop edits | M4 Editor core | ✓ done | Evidence: parity/findings/L4.json: a phone move down, then a desktop move right of the same block, left the phone area as edited. Our editor keeps the two layouts separate |
 | L5 | Hiding a block on one layout | M4 Editor core | ◐ partial | Evidence: No hide control found on the oracle: not in the desktop or phone block toolbars, and not in the shape Edit panel (Design: shape style, corner radius, Stretch, Color, Blend Mode, Stroke; Animation). Other block types and help pages not checked |
 | L6 | Phone-only overrides such as font size | M4 Editor core | ○ open |  |
 | L7 | Behaviour between 600 and 767px | M4 Editor core | ✓ done | Evidence: Gate B 168 of 168 block boxes at 600, 650 and 700px (parity/gate-b-600-767.json); the third-party report of extra space in this range did not reproduce on the demo page |
-| L8 | Give demo section 7 its staggered phone layout on the oracle, then trace phone edits | M4 Editor core | ○ open | Gate: A trace of a phone-layout move replays to the same end state |
+| L8 | Phone layout edits on demo section 7, traced and replayed | M4 Editor core | ✓ done | Gate: A trace of a phone-layout move replays to the same end state. Evidence: Phone-view traces T0015 (arrow), T0016 (drag), T0017 (resize from the west handle) replay in our 428px phone canvas, undo included (parity/gate-c.json). The phone view normalizes stretched rows at a gesture too. The oracle phone layout stays its generated stacking; a hand-made stagger was not saved |
 
 ## Section settings and Stacks
 
@@ -151,7 +151,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 |---|---|---|---|---|
 | S1 | Row count per layout, and whether it is the only per-layout section setting | M4 Editor core | ◐ partial |  |
 | S2 | Spacing values allowed | M4 Editor core | ◐ partial |  |
-| S3 | Stacks: grouped blocks with their own order and spacing | M5 Chrome and blocks | ○ open | Evidence: The oracle group toolbar (Shift-select 2 blocks) offers Stack Blocks; not opened yet |
+| S3 | Stacks: grouped blocks with their own order and spacing | M5 Chrome and blocks | ◐ partial | Evidence: parity/findings/S3.json: Stack Blocks replaces the selected blocks with one block over their bounding box; inside, a flex column with a 20px gap, start-aligned, children stretched to full width, min 20px; toolbar Edit, link, Stack Options, Pin, Duplicate, Remove. Ours builds the same structure and values. Difference: the oracle stack grew to 1/2/7/18, ours is 1/2/6/18; the oracle children seem to keep their old block heights (112 + 20 + 112px needs 7 rows). Stack Options not explored |
 
 ## Editor chrome
 

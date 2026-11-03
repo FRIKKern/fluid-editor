@@ -1,0 +1,207 @@
+{
+  "id": "T0018-align-left",
+  "journey": "J07",
+  "items": [
+    "X8"
+  ],
+  "oracle": {
+    "editor": "https://halibut-keyboard-jlhd.squarespace.com/config/pages",
+    "page": "/how-fluid-engine-works",
+    "capturedAt": "2026-11-03",
+    "frameWidth": 1600
+  },
+  "layout": "desktop",
+  "section": {
+    "id": "6ae9c9f0c9303326ad797009",
+    "index": 6,
+    "gap": 11,
+    "rowGap": 11
+  },
+  "content": {
+    "yui_3_17_2_1_1793705593367_20163": {
+      "type": "text",
+      "html": "<h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">A separate phone layout</h2>"
+    },
+    "yui_3_17_2_1_1793705593367_20391": {
+      "type": "text",
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Content is shared. Placement is not. Each block has one area for desktop and one for phones, and each section has a row count for each. Switch to the phone view and move these tiles. The desktop layout stays as it is.</p>"
+    },
+    "yui_3_17_2_1_1793705593367_20641": {
+      "type": "shape"
+    },
+    "yui_3_17_2_1_1793705593367_20907": {
+      "type": "shape"
+    },
+    "yui_3_17_2_1_1793705593367_21185": {
+      "type": "shape"
+    }
+  },
+  "before": {
+    "rows": 13,
+    "blocks": {
+      "yui_3_17_2_1_1793705593367_20163": {
+        "area": [
+          1,
+          2,
+          4,
+          18
+        ],
+        "z": 1
+      },
+      "yui_3_17_2_1_1793705593367_20391": {
+        "area": [
+          3,
+          2,
+          6,
+          15
+        ],
+        "z": 2
+      },
+      "yui_3_17_2_1_1793705593367_20641": {
+        "area": [
+          8,
+          2,
+          12,
+          9
+        ],
+        "z": 3
+      },
+      "yui_3_17_2_1_1793705593367_20907": {
+        "area": [
+          8,
+          10,
+          12,
+          17
+        ],
+        "z": 4
+      },
+      "yui_3_17_2_1_1793705593367_21185": {
+        "area": [
+          8,
+          18,
+          12,
+          25
+        ],
+        "z": 5
+      }
+    }
+  },
+  "gesture": {
+    "kind": "button",
+    "target": "yui_3_17_2_1_1793705593367_20641",
+    "button": "Align Group>Align Left",
+    "also": [
+      "yui_3_17_2_1_1793705593367_20907",
+      "yui_3_17_2_1_1793705593367_21185"
+    ]
+  },
+  "after": {
+    "rows": 13,
+    "blocks": {
+      "yui_3_17_2_1_1793705593367_20163": {
+        "area": [
+          1,
+          2,
+          4,
+          18
+        ],
+        "z": 1
+      },
+      "yui_3_17_2_1_1793705593367_20391": {
+        "area": [
+          3,
+          2,
+          6,
+          15
+        ],
+        "z": 2
+      },
+      "yui_3_17_2_1_1793705593367_20641": {
+        "area": [
+          8,
+          2,
+          12,
+          9
+        ],
+        "z": 3
+      },
+      "yui_3_17_2_1_1793705593367_20907": {
+        "area": [
+          8,
+          2,
+          12,
+          9
+        ],
+        "z": 4
+      },
+      "yui_3_17_2_1_1793705593367_21185": {
+        "area": [
+          8,
+          2,
+          12,
+          9
+        ],
+        "z": 5
+      }
+    }
+  },
+  "undo": {
+    "steps": 1,
+    "afterUndo": {
+      "rows": 13,
+      "blocks": {
+        "yui_3_17_2_1_1793705593367_20163": {
+          "area": [
+            1,
+            2,
+            4,
+            18
+          ],
+          "z": 1
+        },
+        "yui_3_17_2_1_1793705593367_20391": {
+          "area": [
+            3,
+            2,
+            6,
+            15
+          ],
+          "z": 2
+        },
+        "yui_3_17_2_1_1793705593367_20641": {
+          "area": [
+            8,
+            2,
+            12,
+            9
+          ],
+          "z": 3
+        },
+        "yui_3_17_2_1_1793705593367_20907": {
+          "area": [
+            8,
+            10,
+            12,
+            17
+          ],
+          "z": 4
+        },
+        "yui_3_17_2_1_1793705593367_21185": {
+          "area": [
+            8,
+            18,
+            12,
+            25
+          ],
+          "z": 5
+        }
+      }
+    },
+    "restored": true,
+    "restoredBy": "reload"
+  },
+  "notes": [
+    "gesture changed yui_3_17_2_1_1793705593367_20907: area want 8/10/12/17, got 8/2/12/9",
+    "gesture changed yui_3_17_2_1_1793705593367_21185: area want 8/18/12/25, got 8/2/12/9"
+  ]
+}
