@@ -8,6 +8,10 @@ export const DEMO = {
     {
       "id": "6ae9c4c0bcb4bb2a26d0b56d",
       "theme": "",
+      "height": "medium",
+      "valign": "middle",
+      "contentWidth": "wide",
+      "halign": "center",
       "gap": 11,
       "rows": {
         "mobile": 18,
@@ -167,6 +171,10 @@ export const DEMO = {
     {
       "id": "6ae9c694d16597187edaa8bc",
       "theme": "",
+      "height": "medium",
+      "valign": "middle",
+      "contentWidth": "wide",
+      "halign": "center",
       "gap": 11,
       "rows": {
         "mobile": 154,
@@ -986,6 +994,10 @@ export const DEMO = {
     {
       "id": "6ae9c8ed003fad56b11dd976",
       "theme": "",
+      "height": "medium",
+      "valign": "middle",
+      "contentWidth": "wide",
+      "halign": "center",
       "gap": 11,
       "rows": {
         "mobile": 10,
@@ -1085,6 +1097,10 @@ export const DEMO = {
     {
       "id": "6ae9c91ee35b9d4d31006f9e",
       "theme": "",
+      "height": "medium",
+      "valign": "middle",
+      "contentWidth": "wide",
+      "halign": "center",
       "gap": 11,
       "rows": {
         "mobile": 8,
@@ -1213,6 +1229,10 @@ export const DEMO = {
     {
       "id": "6ae9c9615ebd1d67309db19c",
       "theme": "",
+      "height": "medium",
+      "valign": "middle",
+      "contentWidth": "wide",
+      "halign": "center",
       "gap": 11,
       "rows": {
         "mobile": 16,
@@ -1342,6 +1362,10 @@ export const DEMO = {
     {
       "id": "6ae9c9a4b98cd84460c9e916",
       "theme": "",
+      "height": "medium",
+      "valign": "middle",
+      "contentWidth": "wide",
+      "halign": "center",
       "gap": 11,
       "rows": {
         "mobile": 18,
@@ -1500,6 +1524,10 @@ export const DEMO = {
     {
       "id": "6ae9c9f0c9303326ad797009",
       "theme": "",
+      "height": "medium",
+      "valign": "middle",
+      "contentWidth": "wide",
+      "halign": "center",
       "gap": 11,
       "rows": {
         "mobile": 22,
@@ -1659,6 +1687,10 @@ export const DEMO = {
     {
       "id": "6ae9ca39eebbe472a6d53b50",
       "theme": "",
+      "height": "medium",
+      "valign": "middle",
+      "contentWidth": "wide",
+      "halign": "center",
       "gap": 11,
       "rows": {
         "mobile": 6,

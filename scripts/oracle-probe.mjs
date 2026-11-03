@@ -130,3 +130,44 @@ if (which === 'E3E6') {
     answer: s0.mobile === g.mobile ? 'No: the phone area did not change while the desktop end row grew.' : `Yes: the phone area went from ${s0.mobile} to ${g.mobile}.`,
   });
 }
+
+if (which === 'SECTION') {
+  // Section settings (P3, P5, S2): open Edit Section on section 2, click each option,
+  // read the section's markup and computed layout, undo after each.
+  const i = 2;
+  const start = { [i]: both(i) };
+  const READ_SECTION = `(() => { ${FRAME}
+    const sec = d.querySelectorAll('main#page .page-section')[${i}];
+    const fe = sec.querySelector('.fluid-engine'); const wrap = sec.querySelector('.content-wrapper');
+    const cs = W.getComputedStyle(sec), fs = W.getComputedStyle(fe), ws = W.getComputedStyle(wrap);
+    const rows = fs.gridTemplateRows.split(' ');
+    return JSON.stringify({
+      classes: [...sec.classList].filter((c) => !/^[A-Za-z0-9_]{16}$/.test(c)).join(' '),
+      data: Object.fromEntries([...sec.attributes].filter((a) => a.name.startsWith('data-') && !/current-(styles|context)|controllers/.test(a.name)).map((a) => [a.name, a.value.slice(0, 60)])),
+      inline: sec.getAttribute('style'),
+      height: Math.round(sec.getBoundingClientRect().height), paddingTop: cs.paddingTop, paddingBottom: cs.paddingBottom, minHeight: cs.minHeight,
+      wrapper: { alignItems: ws.alignItems, justifyContent: ws.justifyContent, padding: ws.padding, minHeight: ws.minHeight },
+      grid: { rows: rows.length, firstRow: rows[0], rowGap: fs.rowGap, columnGap: fs.columnGap, height: Math.round(fe.getBoundingClientRect().height), alignSelf: fs.alignSelf },
+      divider: !!sec.querySelector('[class*=divider]'),
+    }); })()`;
+  const openPanel = async () => {
+    const { hoverSection } = await import('./oracle/ui.mjs');
+    await hoverSection(i);
+    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 });
+  };
+  const option = (label) => click(`() => { const leaf = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.getBoundingClientRect().width > 0 && e.getBoundingClientRect().left > 1100 && e.textContent.trim() === ${'${JSON.stringify(label)}'}).pop(); if (!leaf) return null; return leaf.closest('button, label, [role=button], [role=radio], [role=switch], [role=tab]') || leaf; }`.replace('${JSON.stringify(label)}', JSON.stringify(label)), { wait: 1500 });
+  const results = { base: evalJs(S, READ_SECTION) };
+  for (const label of ['S', 'L', 'Fill Screen', 'Vertical center', 'Vertical bottom', 'Zero gap', 'Divider']) {
+    await openPanel();
+    try { await option(label); } catch (e) { results[label] = { error: String(e.message).slice(0, 80) }; continue; }
+    await pause(800);
+    results[label] = evalJs(S, READ_SECTION);
+    let n = 0;
+    await escape();
+    while (n < 5 && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); }
+    results[label].undoSteps = n;
+  }
+  const steps = await restore(start, [i]);
+  write('SECTION', { question: 'What does each section setting change?', section: i, results, undoSteps: steps });
+}
+

@@ -154,8 +154,47 @@ export function renderBlock(b, model) {
 }
 
 export function renderSection(s, model) {
-  return `<section class="page-section ${s.theme || ''}" data-section-id="${s.id}"><div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
+  // Section settings (P3, P5): height S/M/L, vertical alignment, content width.
+  const cls = [
+    'page-section',
+    `section-height--${s.height || 'medium'}`,
+    `vertical-alignment--${s.valign || 'middle'}`,
+    `content-width--${s.contentWidth || 'wide'}`,
+    `horizontal-alignment--${s.halign || 'center'}`,
+    s.theme || '',
+  ].filter(Boolean).join(' ');
+  return `<section class="${cls}" data-section-id="${s.id}"><div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
 }
+
+// Site header (P7), measured on the oracle (parity/findings/P7.json): it lies over the
+// first section; desktop is the title's line height plus 3vw above and below, phones a
+// 40px row (the menu button) plus 6vw. A small script switches to the phone header when
+// title, menu and actions no longer fit, and pads the first section by the header's
+// height, as the oracle's own script does. Spacing: 4vw sides, 1.3vw between menu
+// items, 2vw before the actions.
+export function renderHeader(h) {
+  if (!h) return '';
+  const nav = (h.nav || []).map((n) => `<a class="header-nav-item" href="${escapeHtml(n.href || '#')}">${escapeHtml(n.label)}</a>`).join('');
+  const actions = (h.actions || []).map((n) => `<a class="header-action" href="${escapeHtml(n.href || '#')}">${escapeHtml(n.label)}</a>`).join('');
+  return `<header class="site-header" id="header" data-collapse-below="${h.collapseBelow || 817}"><div class="header-inner"><a class="header-title" href="/">${escapeHtml(h.title)}</a><nav class="header-nav">${nav}</nav><div class="header-actions">${actions}</div><button class="header-burger" type="button" aria-label="Open Menu"><span></span><span></span></button></div></header>`;
+}
+
+export const HEADER_SCRIPT = `(() => {
+  const header = document.getElementById('header');
+  if (!header) return;
+  const fit = () => {
+    header.classList.remove('is-collapsed');
+    const inner = header.querySelector('.header-inner');
+    // The oracle switched at 817px for this title and menu (measured); its rule for
+    // other content is not known, so the width is stored on the header.
+    if (window.innerWidth < Number(header.dataset.collapseBelow || 817)) header.classList.add('is-collapsed');
+    const first = document.querySelector('main#page .page-section');
+    if (first) first.style.paddingTop = header.getBoundingClientRect().height + 'px';
+  };
+  fit();
+  addEventListener('resize', fit);
+  document.fonts && document.fonts.ready.then(fit);
+})();`;
 
 export function renderPage(model) {
   return model.sections.map((s) => renderSection(s, model)).join('\n');
@@ -172,9 +211,11 @@ export function exportHtml(model, siteCss) {
 <style>${siteCss}</style>
 </head>
 <body>
+${renderHeader(model.header)}
 <main id="page">
 ${renderPage(model)}
 </main>
+<script>${HEADER_SCRIPT}</script>
 </body>
 </html>
 `;

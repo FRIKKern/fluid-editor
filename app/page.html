@@ -11,11 +11,15 @@
 </head>
 <body>
 <!-- The published page: our renderer's HTML and CSS, no editor. Gate B measures this. -->
+<div id="header-slot"></div>
 <main id="page"></main>
 <script type="module">
-import { renderPage } from './src/render.js';
+import { renderPage, renderHeader, HEADER_SCRIPT } from './src/render.js';
 import { demoModel } from './src/demo.js';
-document.getElementById('page').innerHTML = renderPage(demoModel());
+const model = demoModel();
+document.getElementById('header-slot').outerHTML = renderHeader(model.header);
+document.getElementById('page').innerHTML = renderPage(model);
+new Function(HEADER_SCRIPT)();
 document.documentElement.dataset.rendered = 'true';
 </script>
 </body>

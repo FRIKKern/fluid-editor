@@ -39,6 +39,7 @@ const READ = `(() => {
     const fr = fe.getBoundingClientRect();
     return {
       sectionId: s.dataset.sectionId, feId: feClass.slice(3), theme: s.dataset.sectionTheme, css: style || null,
+      settings: Object.fromEntries([...s.classList].map((c) => c.match(/^(section-height|vertical-alignment|content-width|horizontal-alignment|background-width)--(.+)$/)).filter(Boolean).map((m) => [m[1], m[2]])),
       section: { paddingTop: sc.paddingTop, paddingBottom: sc.paddingBottom, minHeight: sc.minHeight, background: W.getComputedStyle(s.querySelector('.section-background') || s).backgroundColor, inlineStyle: s.getAttribute('style') },
       grid: { left: fr.left, width: fr.width },
       text: { h1: pick(s.querySelector('h1'), T), h2: pick(s.querySelector('h2'), T), p: pick(s.querySelector('.sqs-html-content p'), T) },
@@ -66,6 +67,10 @@ for (const s of snap.sections) {
   model.sections.push({
     id: s.feId,
     theme: s.theme ? `theme-${s.theme}` : '',
+    height: s.settings['section-height'] || 'medium',
+    valign: s.settings['vertical-alignment'] || 'middle',
+    contentWidth: s.settings['content-width'] || 'wide',
+    halign: s.settings['horizontal-alignment'] || 'center',
     gap: grid.gap,
     ...(grid.rowGap != null && { rowGap: grid.rowGap }),
     rows: grid.rows,

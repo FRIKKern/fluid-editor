@@ -12,7 +12,7 @@ const arg = (n, d) => {
   const i = args.indexOf(`--${n}`);
   return i >= 0 ? args[i + 1] : d;
 };
-const surface = arg('surface', 'surface:45');
+const surface = arg('surface', process.env.FLUID_SURFACE || 'surface:59');
 const url = arg('url', 'http://127.0.0.1:5178/index.html?replay');
 const only = args.filter((a, i) => !a.startsWith('--') && !args[i - 1]?.startsWith('--'));
 const dir = new URL('../traces/', import.meta.url);
@@ -88,9 +88,19 @@ const KEY = (key) => `(() => {
 if (ensureVisible(surface)) console.log(`${surface} was hidden; moved it to its own pane`);
 const results = [];
 for (const t of traces) {
+  ensureVisible(surface);
   viewport(surface, t.oracle.frameWidth, 1000);
   goto(surface, url);
-  waitFor(surface, `(() => !!(window.fe && document.getElementById('site-frame').clientWidth === ${t.oracle.frameWidth}))()`, 20);
+  waitFor(surface, `(() => !!window.fe)()`, 20);
+  // Viewport emulation in a small pane can land a pixel off; nudge until exact.
+  for (let k = 0, w = t.oracle.frameWidth; k < 4; k++) {
+    const got = evalJs(surface, `(() => JSON.stringify(document.getElementById('site-frame').clientWidth))()`);
+    if (got === t.oracle.frameWidth) break;
+    w += t.oracle.frameWidth - got;
+    viewport(surface, w, 1000);
+    await pause(400);
+  }
+  waitFor(surface, `(() => document.getElementById('site-frame').clientWidth === ${t.oracle.frameWidth})()`, 10);
   evalJs(surface, `JSON.stringify(fe.load(${JSON.stringify(modelFor(t))}))`);
   if (t.layout !== 'desktop') evalJs(surface, `(() => { fe.setBp('${t.layout}'); return 'true'; })()`);
   // Text height decides row stretch, so wait until the canvas has its fonts.

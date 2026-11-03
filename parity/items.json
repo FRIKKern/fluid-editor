@@ -221,30 +221,33 @@
     "id": "P2",
     "area": "Page and site context",
     "milestone": "M2",
-    "status": "partial",
+    "status": "done",
     "title": "Section wrapper styles",
-    "evidence": "Measured: the first section has padding-top 114.67px (under the header), others 0; min-height 10vh. Boxes are measured relative to the grid, so padding is not in Gate B yet"
+    "evidence": "Section markup, min-height, wrapper padding and vertical centering match: every section's height and grid offset within 1px (parity/gate-b.json: 320 of 320 boxes incl. 8 section boxes at 375, 767, 768, 1280, 1920; parity/gate-b-600-767.json 192 of 192)"
   },
   {
     "id": "P3",
     "area": "Page and site context",
     "milestone": "M2",
-    "status": "open",
-    "title": "Section height settings and padding"
+    "status": "partial",
+    "title": "Section height settings and padding",
+    "evidence": "parity/findings/P3.json: height S/M/L = min-height 33/66/100vh and wrapper padding 3.3/6.6/10vmax; content centered. Built and matched for medium on all 8 sections (parity/gate-b.json: 320 of 320 boxes incl. 8 section boxes at 375, 767, 768, 1280, 1920; parity/gate-b-600-767.json 192 of 192). Custom height and Fill Screen not modelled"
   },
   {
     "id": "P4",
     "area": "Page and site context",
     "milestone": "M2",
     "status": "open",
-    "title": "Section content width, full or inset"
+    "title": "Section content width, full or inset",
+    "evidence": "Oracle classes: content-width--wide (100%), --medium (75%), --narrow (50% from 768px) from the trial site stylesheet; our CSS has the same three. No content-width control found in the Edit Section panel"
   },
   {
     "id": "P5",
     "area": "Page and site context",
     "milestone": "M2",
-    "status": "open",
-    "title": "Section alignment, color themes, background image and video, dividers"
+    "status": "partial",
+    "title": "Section alignment, color themes, background image and video, dividers",
+    "evidence": "Edit Section panel: Background, Colors, Grid (Row Count, Gap zero/medium/custom), Section (Fill Screen, Height S/M/L/custom, vertical alignment top/center/bottom), Divider, Anchor Link. Our sections render height, vertical alignment, content width and horizontal alignment classes; top/bottom alignment CSS is ours (not measured), backgrounds, themes and dividers not built"
   },
   {
     "id": "P6",
@@ -258,8 +261,9 @@
     "id": "P7",
     "area": "Page and site context",
     "milestone": "M2",
-    "status": "open",
-    "title": "Header and footer"
+    "status": "partial",
+    "title": "Header and footer",
+    "evidence": "parity/findings/P7.json: header built to the measured rule (desktop: title line height + 3vw padding, phone: 40px + 6vw), first section padded by its height as on the oracle (parity/gate-b.json: 320 of 320 boxes incl. 8 section boxes at 375, 767, 768, 1280, 1920; parity/gate-b-600-767.json 192 of 192). The 817px switch is stored, not derived; footer not built"
   },
   {
     "id": "T1",
@@ -741,7 +745,8 @@
     "area": "Section settings and Stacks",
     "milestone": "M4",
     "status": "partial",
-    "title": "Spacing values allowed"
+    "title": "Spacing values allowed",
+    "evidence": "Gap values seen: 0, 11, 20, 27px (corpus). Edit Section offers Zero gap, Medium gap and Custom gap"
   },
   {
     "id": "S3",

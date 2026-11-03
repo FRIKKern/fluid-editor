@@ -1,0 +1,13 @@
+{
+  "item": "P7",
+  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
+  "capturedAt": "2026-11-03",
+  "question": "How tall is the site header, and how does it switch to the phone header?",
+  "measured": {
+    "headerHeightPx": { "375": 85, "768": 132.16, "780": 133.59, "800": 136, "850": 85.05, "900": 88.83, "1024": 98.2, "1100": 103.95, "1280": 117.55, "1920": 157.81 },
+    "siteTitleFontPx": { "375": 26.8, "768": 26.8, "1024": 28.288, "1100": 29.2, "1280": 31.36, "1920": 32.8 },
+    "switch": "phone header (menu button) up to 816px wide, full menu from 817px",
+    "positionsAt1280": { "titleLeft": 51.2, "Services": [931.7, 66.2], "About": [1014.5, 47.9], "Contact": [1079, 65], "Login": [1169.7, 42.2] }
+  },
+  "answer": "The header lies over the first section, whose padding-top equals the header height. Desktop: title line height (title size value 2 on the heading formula, line height 1.3em) plus 3vw above and below; 4vw side padding, 1.3vw between menu items, 2vw before Login. Phone header: a 40px row plus 6vw above and below. The switch at 817px is not a plain fit of the items; its rule is unknown."
+}
