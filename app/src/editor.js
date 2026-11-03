@@ -928,6 +928,7 @@ function updateUi() {
   renderBlockPanel();
   placeToolbar();
   placeChrome();
+  placePhoneLines();
 }
 
 function renderPanel() {
@@ -1224,6 +1225,20 @@ function readThemeColors() {
   host.remove();
   return out;
 }
+// Phone view (gap review screenshot): faint lines run across the white area at each section
+// edge, outside the 428px canvas.
+function placePhoneLines() {
+  const host = $('phone-lines');
+  if (bp !== 'mobile' || !doc) { host.replaceChildren(); return; }
+  const fr = frame.getBoundingClientRect(), st = stage.getBoundingClientRect();
+  host.replaceChildren(...[...doc.querySelectorAll('main#page .page-section')].map((sec) => {
+    const y = fr.top - st.top + sec.getBoundingClientRect().bottom;
+    const line = document.createElement('div');
+    line.className = 'phone-line';
+    line.style.top = `${Math.round(y)}px`;
+    return line;
+  }).filter((l) => parseFloat(l.style.top) > fr.top - st.top && parseFloat(l.style.top) < st.height));
+}
 function renderSectionPanel() {
   if (!editSid || !S(editSid)) { editSid = null; sectionPanel.hidden = true; return; }
   const s = S(editSid);
@@ -1449,7 +1464,10 @@ document.addEventListener('keydown', onKey);
 
 // ---------- boot ----------
 function boot() {
-  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeBlockPanel(); if (editing) renderTextBar(); }, { passive: true });
+  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); if (editing) renderTextBar(); }, { passive: true });
+  // The canvas changes width when the layout switches; place the overlays again once it has.
+  // Watch the canvas page itself: it reflows after the canvas element changes width.
+  new frame.contentWindow.ResizeObserver(() => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); }).observe(frame.contentDocument.body);
   window.addEventListener('resize', () => { placeToolbar(); placeChrome(); });
   frame.contentDocument.addEventListener('pointermove', onHover);
   frame.contentDocument.addEventListener('pointerdown', () => { closeFloating(); closeSectionPanel(); }, true);
