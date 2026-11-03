@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 16 changes, 3 milestones closed
+- **Today** · 17 changes, 3 milestones closed
+  - Record what is out of scope in decision 0005 ([#35](https://github.com/FRIKKern/fluid-editor/pull/35))
   - Add block design: opacity, transforms, blur and background ([#34](https://github.com/FRIKKern/fluid-editor/pull/34))
-  - Add the floating block toolbar and the oracle's selection rings ([#33](https://github.com/FRIKKern/fluid-editor/pull/33))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
