@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 38 changes, 3 milestones closed
+- **Today** · 39 changes, 3 milestones closed
+  - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
   - Inventory: nine more states ([#56](https://github.com/FRIKKern/fluid-editor/pull/56))
-  - README: point to the gap review ([#55](https://github.com/FRIKKern/fluid-editor/pull/55))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
