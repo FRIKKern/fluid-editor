@@ -171,3 +171,29 @@ button { font: inherit; color: inherit; }
 .bp-select { border: 0; background: transparent; font: inherit; color: #6f6f6f; }
 /* Shown where the oracle shows it, not built yet: dimmed, and skipped by the inventory. */
 [data-unbuilt] { opacity: 0.45; }
+
+/* Add Block, Layers and the block context menu (app/src/menus.js). */
+.am-panel, .lp-panel, .cm-menu { position: absolute; z-index: 13; background: #fff; box-shadow: rgba(0, 0, 0, 0.12) 0 16px 64px 0, rgba(0, 0, 0, 0.08) 0 0 1px 0; font: 14px/1.3 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; box-sizing: border-box; }
+.am-panel[hidden], .lp-panel[hidden], .cm-menu[hidden] { display: none; }
+.am-panel { width: 320px; height: 500px; border-radius: 8px; padding: 11px 28px 11px 11px; overflow-y: auto; }
+.am-search { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 12px; background: #f2f2f2; border-radius: 6px; color: #3e3e3e; }
+.am-search input { flex: 1; border: 0; background: transparent; font: inherit; outline: none; -webkit-appearance: none; }
+.am-head { margin: 22px 0 12px; font-weight: 500; }
+.am-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; }
+.am-tile { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 12px; border: 0; border-radius: 3px; background: #f7f7f7; font: 13px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; cursor: pointer; text-align: left; }
+.am-tile:hover { background: #ececec; }
+.am-none { margin: 22px 0; text-align: center; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+.lp-panel { width: 240px; max-height: 500px; border-radius: 8px; padding: 12px 11px; overflow-y: auto; }
+.lp-title { padding: 8px 11px 14px; font-size: 15px; font-weight: 500; }
+.lp-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+.lp-row { display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; background: #f7f7f7; border-radius: 3px; cursor: grab; }
+.lp-row.is-on { background: #e8f0fe; }
+.lp-icon { display: inline-flex; color: #0e0e0e; }
+.lp-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cm-menu { width: 174px; border-radius: 4px; padding: 6px 0; display: flex; flex-direction: column; }
+.cm-menu hr { border: 0; border-top: 1px solid #e7e7e7; margin: 6px 0; }
+.cm-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 36px; padding: 0 11px; border: 0; background: transparent; font: 13px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; cursor: pointer; text-align: left; }
+.cm-item:hover:not(:disabled) { background: #f2f2f2; }
+.cm-item:disabled { color: #b7b7b7; cursor: default; }
+.cm-item kbd { font: 11px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; padding: 2px 4px; background: #f2f2f2; border-radius: 3px; color: #6f6f6f; }
+.cm-more { margin-left: auto; color: #3e3e3e; }

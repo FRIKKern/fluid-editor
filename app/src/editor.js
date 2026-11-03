@@ -7,6 +7,7 @@ import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
 import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS } from './block-panel.js';
+import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml } from './menus.js';
 import { demoModel } from './demo.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -882,7 +883,6 @@ function renderPanel() {
     if (editing) parts.push(textGroup());
     // The section settings live in the floating Edit Section panel (U9).
     parts.push(`<div class="group"><h3>Add block</h3><div class="row">${ADD_TYPES.map(([n]) => `<button class="btn" data-act="add" data-v="${n}">${n}</button>`).join('')}</div></div>`);
-    parts.push(layersGroup(s));
   } else {
     parts.push(`<div class="group" data-dev><h3>Page</h3><p class="hint">Click a block to select it. Drag to move. Pull a handle to resize. Double-click text to edit. Arrow keys move one cell. Esc cancels, Cmd+Z undoes.</p></div>`);
   }
@@ -1030,42 +1030,6 @@ function stackBlocks() {
 
 // Layers, as on the oracle: the section's blocks front to back by z-index; text blocks
 // show their first words, others their type. Click selects, drag reorders.
-function layersGroup(s) {
-  const rows = [...s.blocks].sort((a, b) => lay(b).z - lay(a).z).map((b) => {
-    const label = b.type === 'text' ? (b.html || '').replace(/<[^>]+>/g, ' ').trim().slice(0, 28) || 'Text' : b.type[0].toUpperCase() + b.type.slice(1);
-    return `<li class="layer${sel?.bid === b.id ? ' is-on' : ''}" draggable="true" data-layer="${b.id}">${label.replace(/</g, '&lt;')}</li>`;
-  });
-  return `<div class="group"><h3>Layers</h3><ol class="layers">${rows.join('')}</ol></div>`;
-}
-
-let dragLayer = null;
-panel.addEventListener('click', (e) => {
-  const li = e.target.closest('li[data-layer]');
-  if (li && sel) select({ sid: sel.sid, bid: li.dataset.layer });
-});
-panel.addEventListener('dragstart', (e) => {
-  const li = e.target.closest('li[data-layer]');
-  if (li) dragLayer = li.dataset.layer;
-});
-panel.addEventListener('dragover', (e) => {
-  if (dragLayer && e.target.closest('li[data-layer]')) e.preventDefault();
-});
-panel.addEventListener('drop', (e) => {
-  const li = e.target.closest('li[data-layer]');
-  if (!li || !dragLayer || !sel) return;
-  e.preventDefault();
-  const before = JSON.stringify(model);
-  const s = S(sel.sid);
-  const order = [...s.blocks].sort((a, b) => lay(b).z - lay(a).z).map((b) => b.id).filter((id) => id !== dragLayer);
-  order.splice(order.indexOf(li.dataset.layer), 0, dragLayer);
-  // Keep the section's set of z values; hand them out in the new front-to-back order.
-  const zs = s.blocks.map((b) => lay(b).z).sort((a, b) => b - a);
-  order.forEach((id, k) => { lay(B(sel.sid, id)).z = zs[k]; });
-  dragLayer = null;
-  renderSectionDom(sel.sid);
-  commit(before, 'Reordered layers');
-});
-
 // Edit Section (P3, P4, P5, S1, S2), the oracle's three tabs (parity/findings/PANEL.json,
 // SETTINGS.json): Design has Row Count, Gap (Zero 0px, Medium 11px, Custom column and row
 // gaps 0 to 50px), Fill Screen, Height S/M/L/Custom and vertical Alignment; Background has
@@ -1242,13 +1206,26 @@ chrome.addEventListener('click', (e) => {
   const act = btn.dataset.sc;
   const k = model.sections.findIndex((x) => x.id === sid);
   if (act === 'edit') { editSid = sid; sectionTab = 'Design'; customGap = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
+  // Add Block and Layers open over the section's top left (oracle screenshots: the Add Block
+  // panel at the Layers box plus 5px, the Layers panel under the Layers button).
+  const pill = chrome.querySelector('[data-sc-part="layers"]').getBoundingClientRect(), st = stage.getBoundingClientRect();
   if (act === 'add-block') {
-    const r = btn.getBoundingClientRect(), st = stage.getBoundingClientRect();
-    addMenu.innerHTML = ADD_TYPES.map(([n]) => `<button type="button" data-add="${n}">${n}</button>`).join('');
-    addMenu.style.left = `${r.left - st.left}px`; addMenu.style.top = `${r.bottom - st.top + 6}px`;
-    addMenu.dataset.sid = sid; addMenu.hidden = false; return;
+    closeFloating();
+    addMenu.innerHTML = addBlockMenuHtml(ADD_TYPES);
+    addMenu.style.left = `${pill.left - st.left + 5}px`; addMenu.style.top = `${pill.top - st.top + 1}px`;
+    addMenu.dataset.sid = sid; addMenu.hidden = false;
+    addMenu.querySelector('input')?.focus();
+    return;
   }
-  if (act === 'layers' || act === 'layouts' || act === 'save' || act.startsWith('add-section')) { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
+  if (act === 'layers') {
+    closeFloating();
+    layersPanel.dataset.sid = sid;
+    renderLayersPanel();
+    layersPanel.style.left = `${pill.left - st.left}px`; layersPanel.style.top = `${pill.bottom - st.top - 9}px`;
+    layersPanel.hidden = false;
+    return;
+  }
+  if (act === 'layouts' || act === 'save' || act.startsWith('add-section')) { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
   const before = JSON.stringify(model);
   if (act === 'up' && k > 0) [model.sections[k - 1], model.sections[k]] = [model.sections[k], model.sections[k - 1]];
   if (act === 'down' && k < model.sections.length - 1) [model.sections[k + 1], model.sections[k]] = [model.sections[k], model.sections[k + 1]];
@@ -1279,6 +1256,78 @@ addMenu.addEventListener('click', (e) => {
   renderSectionDom(sid);
   commit(before, `Added ${b.dataset.add} to ${sid}`);
 });
+// ---------- floating menus: Add Block, Layers, the block context menu ----------
+const layersPanel = $('layers-panel');
+const contextMenu = $('context-menu');
+function closeFloating() { addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; }
+addMenu.addEventListener('input', (e) => {
+  if (!e.target.matches('[data-am="search"]')) return;
+  const q = e.target.value;
+  addMenu.innerHTML = addBlockMenuHtml(ADD_TYPES, q);
+  const input = addMenu.querySelector('input'); input.focus(); input.setSelectionRange(q.length, q.length);
+});
+function layerRows(s) {
+  return [...s.blocks].sort((a, b) => lay(b).z - lay(a).z).map((b) => ({ id: b.id, type: b.type[0].toUpperCase() + b.type.slice(1), on: sel?.bid === b.id,
+    label: b.type === 'text' ? (b.html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 28) || 'Text' : b.type[0].toUpperCase() + b.type.slice(1) }));
+}
+function renderLayersPanel() {
+  const s = S(layersPanel.dataset.sid);
+  if (!s) { layersPanel.hidden = true; return; }
+  layersPanel.innerHTML = layersPanelHtml(layerRows(s));
+}
+layersPanel.addEventListener('click', (e) => {
+  const li = e.target.closest('li[data-layer]');
+  if (li) { select({ sid: layersPanel.dataset.sid, bid: li.dataset.layer }); renderLayersPanel(); }
+});
+let dragRow = null;
+layersPanel.addEventListener('dragstart', (e) => { dragRow = e.target.closest('li[data-layer]')?.dataset.layer || null; });
+layersPanel.addEventListener('dragover', (e) => { if (dragRow && e.target.closest('li[data-layer]')) e.preventDefault(); });
+layersPanel.addEventListener('drop', (e) => {
+  const li = e.target.closest('li[data-layer]');
+  const sid = layersPanel.dataset.sid;
+  if (!li || !dragRow || !sid) return;
+  e.preventDefault();
+  const before = JSON.stringify(model);
+  const s = S(sid);
+  const order = [...s.blocks].sort((a, b) => lay(b).z - lay(a).z).map((b) => b.id).filter((id) => id !== dragRow);
+  order.splice(order.indexOf(li.dataset.layer), 0, dragRow);
+  // The oracle reorders by dragging rows (Z3): keep the section's z values, hand them out front to back.
+  const zs = s.blocks.map((b) => lay(b).z).sort((a, b) => b - a);
+  order.forEach((id, k) => { lay(B(sid, id)).z = zs[k]; });
+  dragRow = null;
+  renderSectionDom(sid);
+  commit(before, 'Reordered layers');
+  renderLayersPanel();
+});
+function onContextMenu(e) {
+  const blk = e.target.closest('.fe-block');
+  if (!blk || gesture) return;
+  e.preventDefault();
+  const sid = blk.closest('section').dataset.sectionId;
+  if (sel?.bid !== blk.dataset.blockId) select({ sid, bid: blk.dataset.blockId });
+  closeFloating();
+  contextMenu.innerHTML = contextMenuHtml({ canPaste: false });
+  const fr = frame.getBoundingClientRect(), st = stage.getBoundingClientRect();
+  contextMenu.style.left = `${Math.min(fr.left - st.left + e.clientX, st.width - 180)}px`;
+  contextMenu.style.top = `${Math.min(fr.top - st.top + e.clientY, st.height - 400)}px`;
+  contextMenu.hidden = false;
+}
+contextMenu.addEventListener('mousedown', (e) => e.preventDefault());
+contextMenu.addEventListener('click', (e) => {
+  const it = e.target.closest('button[data-cm]');
+  if (!it || it.disabled || !sel) return;
+  const act = it.dataset.cm;
+  contextMenu.hidden = true;
+  if (it.hasAttribute('data-unbuilt')) { note(`${it.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
+  const before = JSON.stringify(model);
+  const sid = sel.sid;
+  if (act === 'duplicate') duplicateBlock(sid, sel.bid);
+  if (act === 'delete') { const ids = [sel.bid, ...(sel.more || [])]; S(sid).blocks = S(sid).blocks.filter((b) => !ids.includes(b.id)); sel = null; }
+  if (act === 'stack') stackBlocks();
+  renderSectionDom(sid);
+  commit(before, `${it.getAttribute('aria-label')} from the block menu`);
+});
+
 function onHover(e) {
   if (gesture && gesture.type !== 'pending') return;
   const secEl = e.target.closest?.('section.page-section[data-section-id]');
@@ -1353,9 +1402,10 @@ function boot() {
   frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeBlockPanel(); }, { passive: true });
   window.addEventListener('resize', () => { placeToolbar(); placeChrome(); });
   frame.contentDocument.addEventListener('pointermove', onHover);
-  frame.contentDocument.addEventListener('pointerdown', () => { addMenu.hidden = true; closeSectionPanel(); }, true);
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { addMenu.hidden = true; closeSectionPanel(); if (designOpen) { designOpen = null; updateUi(); } } });
-  frame.contentDocument.addEventListener('keydown', (e) => { if (e.key === 'Escape') { addMenu.hidden = true; closeSectionPanel(); } });
+  frame.contentDocument.addEventListener('pointerdown', () => { closeFloating(); closeSectionPanel(); }, true);
+  frame.contentDocument.addEventListener('contextmenu', onContextMenu);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeFloating(); closeSectionPanel(); if (designOpen) { designOpen = null; updateUi(); } } });
+  frame.contentDocument.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeFloating(); closeSectionPanel(); } });
   doc = frame.contentDocument;
   win = frame.contentWindow;
   doc.addEventListener('pointerdown', onDown);

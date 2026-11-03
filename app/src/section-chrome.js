@@ -41,7 +41,7 @@ export function sectionChromeHtml({ first, last }) {
   const wide = (act, icon, label, cls = '', text = label) => `<button type="button" class="sc-wide ${cls}" data-sc="${act}" aria-label="${label}"${cls.includes('sc-unbuilt') ? ' data-unbuilt' : ''}>${svg(ICON[icon])}<span>${text}</span></button>`;
   const sq = (act, icon, label, off) => `<button type="button" class="sc-sq${off ? ' is-off' : ''}" data-sc="${act}" aria-label="${label}" title="${label}">${svg(ICON[icon])}</button>`;
   return `<div class="sc-outline" data-sc-part="outline"></div>
-    <div class="sc-pill" data-sc-part="layers"><button type="button" class="sc-left sc-layers" data-sc="layers" aria-label="Open Layers Panel" data-unbuilt>${svg(ICON.layers)}</button></div>
+    <div class="sc-pill" data-sc-part="layers"><button type="button" class="sc-left sc-layers" data-sc="layers" aria-label="Open Layers Panel">${svg(ICON.layers)}</button></div>
     <div class="sc-pill" data-sc-part="add-block"><button type="button" class="sc-left sc-add-block" data-sc="add-block" aria-label="Add Block">${svg(ICON.plus)}<span>Add Block</span></button></div>
     <div class="sc-card" data-sc-part="card">
       ${wide('edit', 'pencil', 'Edit Section')}
