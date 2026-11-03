@@ -1,0 +1,87 @@
+{
+  "item": "PASTE",
+  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
+  "capturedAt": "2026-11-03",
+  "question": "What does the text editor keep from pasted HTML and plain text?",
+  "block": [
+    2,
+    1
+  ],
+  "samples": {
+    "marks": {
+      "pasted": "<b>bold</b> <i>it</i> <u>under</u> <s>strike</s> <strong>strong</strong> <em>em</em>",
+      "result": "<p><strong>bold</strong> <em>it</em> <u>under</u> <span style=\"text-decoration: line-through;\">strike</span> <strong>strong</strong> <em>em</em></p>",
+      "undoSteps": 1
+    },
+    "inline style": {
+      "pasted": "<span style=\"color:red;font-size:30px;font-family:Comic Sans MS;background:yellow\">styled</span> plain",
+      "result": "<p>styled plain</p>",
+      "undoSteps": 1
+    },
+    "divs": {
+      "pasted": "<div>one</div><div>two</div>",
+      "result": "<p>one</p><p>two</p>",
+      "undoSteps": 1
+    },
+    "headings": {
+      "pasted": "<h1>H1</h1><h2>H2</h2><h3>H3</h3><h4>H4</h4><h5>H5</h5><h6>H6</h6>",
+      "result": "<h1>H1</h1><h2>H2</h2><h3>H3</h3><h4>H4</h4><p>H5</p><p>H6</p>",
+      "undoSteps": 1
+    },
+    "br": {
+      "pasted": "<p>a<br>b</p>",
+      "result": "<p>a<br>b</p>",
+      "undoSteps": 1
+    },
+    "link": {
+      "pasted": "<p><a href=\"https://example.com/x\" target=\"_blank\" title=\"t\">link</a> after</p>",
+      "result": "<p><a target=\"_blank\" href=\"https://example.com/x\">link</a> after</p>",
+      "undoSteps": 1
+    },
+    "lists": {
+      "pasted": "<ul><li>x</li><li>y</li></ul><ol><li>z</li></ol>",
+      "result": "<ul data-rte-list=\"default\"><li><p>x</p></li><li><p>y</p></li></ul><ol data-rte-list=\"default\"><li><p>z</p></li></ol>",
+      "undoSteps": 1
+    },
+    "table": {
+      "pasted": "<table><tr><td>c1</td><td>c2</td></tr><tr><td>c3</td><td>c4</td></tr></table>",
+      "result": "<p>c1c2c3c4</p>",
+      "undoSteps": 1
+    },
+    "image": {
+      "pasted": "<p>before <img src=\"https://example.com/x.png\" alt=\"x\"> after</p>",
+      "result": "<p>before after</p>",
+      "undoSteps": 1
+    },
+    "word": {
+      "pasted": "<p class=\"MsoNormal\" style=\"margin:0cm;mso-line-height-alt:12pt\"><span lang=\"EN-US\" style=\"font-size:11pt;mso-bidi-font-weight:bold\">word text</span><o:p></o:p></p>",
+      "result": "<p>word text</p>",
+      "undoSteps": 1
+    },
+    "code": {
+      "pasted": "<pre>code  spaced\nline2</pre><p><code>inline</code> text</p>",
+      "result": "<pre><code>code  spaced\nline2</code></pre><p>inline text</p>",
+      "undoSteps": 1
+    },
+    "quote": {
+      "pasted": "<blockquote>q text</blockquote>",
+      "result": "<blockquote><p>q text</p></blockquote>",
+      "undoSteps": 1
+    },
+    "align": {
+      "pasted": "<p style=\"text-align:center\">c</p><p align=\"right\">r</p>",
+      "result": "<p>c</p><p>r</p>",
+      "undoSteps": 1
+    },
+    "sup sub mark": {
+      "pasted": "<p><mark>hi</mark> x<sup>2</sup> y<sub>3</sub></p>",
+      "result": "<p><mark style=\"background: #7676764D; padding: 3px 0px; margin: -3px 0px; color: inherit;\">hi</mark> x2 y3</p>",
+      "undoSteps": 1
+    },
+    "plain text": {
+      "pasted": "line one\nline two\n\nline four",
+      "result": "<p>line one</p><p>line two</p><p>line four</p>",
+      "undoSteps": 1
+    }
+  }
+}

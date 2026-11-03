@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | T13 | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -564,6 +564,54 @@ if (which === 'TEXTOPS') {
   if (saveDisabled() !== true) throw new Error('The probe left unsaved changes');
   console.log('align items', JSON.stringify(out.alignItems));
   write('TEXTOPS', { question: 'What HTML does each text formatting action produce on a selected word?', block: [i, k], bar, ...out });
+}
+
+if (which === 'PASTE') {
+  // E5: what the text editor keeps from pasted HTML. Each sample replaces the content of the
+  // paragraph block of demo section 2 (Write, select all, paste), the result is read, then
+  // undone until Save is disabled again.
+  const [i, k] = [2, 1];
+  const id = blockIds(i)[k];
+  const SAMPLES = [
+    ['marks', '<b>bold</b> <i>it</i> <u>under</u> <s>strike</s> <strong>strong</strong> <em>em</em>'],
+    ['inline style', '<span style="color:red;font-size:30px;font-family:Comic Sans MS;background:yellow">styled</span> plain'],
+    ['divs', '<div>one</div><div>two</div>'],
+    ['headings', '<h1>H1</h1><h2>H2</h2><h3>H3</h3><h4>H4</h4><h5>H5</h5><h6>H6</h6>'],
+    ['br', '<p>a<br>b</p>'],
+    ['link', '<p><a href="https://example.com/x" target="_blank" title="t">link</a> after</p>'],
+    ['lists', '<ul><li>x</li><li>y</li></ul><ol><li>z</li></ol>'],
+    ['table', '<table><tr><td>c1</td><td>c2</td></tr><tr><td>c3</td><td>c4</td></tr></table>'],
+    ['image', '<p>before <img src="https://example.com/x.png" alt="x"> after</p>'],
+    ['word', '<p class="MsoNormal" style="margin:0cm;mso-line-height-alt:12pt"><span lang="EN-US" style="font-size:11pt;mso-bidi-font-weight:bold">word text</span><o:p></o:p></p>'],
+    ['code', '<pre>code  spaced\nline2</pre><p><code>inline</code> text</p>'],
+    ['quote', '<blockquote>q text</blockquote>'],
+    ['align', '<p style="text-align:center">c</p><p align="right">r</p>'],
+    ['sup sub mark', '<p><mark>hi</mark> x<sup>2</sup> y<sub>3</sub></p>'],
+  ];
+  const PLAIN = 'line one\nline two\n\nline four';
+  const undoAll = async () => { await escape(); await escape(); let n = 0; while (n < 8 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); } await deselect(i); return n; };
+  const startWrite = async () => {
+    await select(i, id); await pause(900);
+    await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Write' && x.getBoundingClientRect().width > 0)`, { wait: 1500 });
+  };
+  const clean = (h) => h.replace(/ data-rte-preserve-empty="true"/g, '').replace(/ style="white-space:pre-wrap;"/g, '');
+  const out = {};
+  for (const [name, html] of [...SAMPLES, ['plain text', null]]) {
+    try {
+      await startWrite();
+      let r;
+      if (html) r = await pasteHtml(id, html);
+      else r = evalJs(S, `(async () => { ${FRAME} const pm = d.querySelector('.fe-block[data-block-id="${id}"] .ProseMirror[contenteditable=true]'); pm.focus();
+        const rg = d.createRange(); rg.selectNodeContents(pm); const sel = W.getSelection(); sel.removeAllRanges(); sel.addRange(rg); await new Promise((res) => setTimeout(res, 250));
+        const dt = new W.DataTransfer(); dt.setData('text/plain', ${JSON.stringify(PLAIN)}); pm.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true }));
+        await new Promise((res) => setTimeout(res, 400)); return JSON.stringify(pm.innerHTML); })()`);
+      out[name] = { pasted: html ?? PLAIN, result: clean(r) };
+    } catch (e) { out[name] = { error: String(e.message).slice(0, 80) }; }
+    out[name].undoSteps = await undoAll();
+    console.log(name.padEnd(13), JSON.stringify(out[name].result || out[name].error).slice(0, 300));
+  }
+  if (saveDisabled() !== true) throw new Error('The probe left unsaved changes');
+  write('PASTE', { question: 'What does the text editor keep from pasted HTML and plain text?', block: [i, k], samples: out });
 }
 
 if (which === 'T13') {
