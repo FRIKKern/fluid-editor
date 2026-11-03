@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | SECTIONBAR [sections json] | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | SECTIONBAR [sections json] | UNBUILT [names json] | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -865,6 +865,81 @@ if (which === 'SECTIONBAR') {
   }
   if (saveDisabled() !== true) throw new Error('The probe changed the page');
   write('SECTIONBAR', { question: 'What does a hovered section show, and where does the Edit Section panel open?', frame: '1600x1000 window', sections: out });
+}
+
+if (which === 'UNBUILT') {
+  // What the controls ours shows dimmed actually do (U11, L5, E4, U4, Y4, S4). For each: one
+  // action on demo section 2, read the block's markup and the section's style rule before and
+  // after, then undo until Save is disabled. Usage: UNBUILT [names json]
+  const i = 2;
+  const ids = blockIds(i);
+  const shape = ids[2], text = ids[1];
+  const shot = (n) => process.env.SHOTS && execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS}/unbuilt-${n}.png`]);
+  const READ = (id) => evalJs(S, `(() => { ${FRAME}
+    const sec = d.querySelectorAll('main#page .page-section')[${i}];
+    const b = sec.querySelector('.fe-block[data-block-id="${id}"]');
+    const css = [...sec.querySelectorAll('style')].map((x) => x.textContent.replace(/\\s+/g, ' ')).join(' | ');
+    const pm = b && (b.querySelector('.ProseMirror') || b.querySelector('.sqs-html-content'));
+    return JSON.stringify({ exists: !!b, cls: b ? [...b.classList].filter((c) => !/^fe-block-yui|^fluid-engine-[a-z0-9]{5,7}$/.test(c)).join(' ') : null,
+      attrs: b ? Object.fromEntries([...b.attributes].filter((a) => a.name.startsWith('data-') || a.name === 'style').map((a) => [a.name, a.value.slice(0, 200)])) : null,
+      display: b ? W.getComputedStyle(b).display : null, position: b ? W.getComputedStyle(b).position : null, top: b ? W.getComputedStyle(b).top : null,
+      html: pm ? pm.innerHTML.replace(/ data-rte-preserve-empty="true"/g, '').slice(0, 600) : null, css: css.length, cssText: css.slice(0, 4000),
+      blocks: [...sec.querySelectorAll('.fe-block')].map((x) => x.dataset.blockId + ' ' + W.getComputedStyle(x).gridArea), rows: W.getComputedStyle(sec.querySelector('.fluid-engine')).gridTemplateRows.split(' ').length }); })()`);
+  const diffCss = (a, b) => { const A = new Set(a.split(/(?<=\})/)), B = b.split(/(?<=\})/); return B.filter((r) => !A.has(r)).map((r) => r.trim()).filter(Boolean).slice(0, 12); };
+  const undoAll = async () => { for (let k = 0; k < 3; k++) await escape(); let n = 0; while (n < 8 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); } return n; };
+  const menu = async (id, label) => {
+    await select(i, id); await pause(500);
+    evalJs(S, `(() => { ${FRAME} const b = d.querySelector('.fe-block[data-block-id="${id}"]'); const q = b.getBoundingClientRect(); b.dispatchEvent(new W.MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: q.left + 30, clientY: q.top + 30, button: 2, view: W })); return 'true'; })()`);
+    await pause(900);
+    await click(`() => [...document.querySelectorAll('button, [role=menuitem], li, div, span')].filter((e) => e.childElementCount <= 3 && e.textContent.trim().startsWith(${'LBL'}) && e.getBoundingClientRect().width > 0 && e.getBoundingClientRect().width < 260).pop()`.replace('LBL', JSON.stringify(label)), { wait: 1500 });
+  };
+  const startWrite = async (id) => {
+    await select(i, id); await pause(700);
+    await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Write' && x.getBoundingClientRect().width > 0)`, { wait: 1500 });
+    evalJs(S, `(() => { ${FRAME} const pm = d.querySelector('.fe-block[data-block-id="${id}"] .ProseMirror'); pm.focus(); const t = pm.querySelector('p').firstChild; const r = d.createRange(); r.setStart(t, 0); r.setEnd(t, t.textContent.indexOf(' ')); const sel = W.getSelection(); sel.removeAllRanges(); sel.addRange(r); d.dispatchEvent(new W.Event('selectionchange')); return 'true'; })()`);
+    await pause(900);
+  };
+  const labelsNow = () => evalJs(S, `(() => JSON.stringify([...new Set([...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.textContent.trim() && e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')).map((e) => e.textContent.trim().slice(0, 40)))].slice(-60)))()`);
+  const STEPS = {
+    'hide-desktop': async () => { await menu(shape, 'Hide on desktop'); },
+    'hide-mobile': async () => { await menu(shape, 'Hide on mobile'); },
+    'copy-paste': async () => { await menu(shape, 'Copy'); await escape(); await deselect(i); await menu(text, 'Paste'); },
+    'paste-properties-menu': async () => { await menu(shape, 'Copy Properties'); },
+    'arrange-menu': async () => { await menu(shape, 'Arrange'); },
+    'pin': async () => { await select(i, shape); await pause(500); await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Pin' && x.getBoundingClientRect().width > 0)`, { wait: 1500 }); },
+    'link-url': async () => { await startWrite(text); await click(`() => [...document.querySelectorAll('[aria-label]')].find((x) => x.getAttribute('aria-label') === 'Link' && x.getBoundingClientRect().width > 0)`, { wait: 1200 });
+      const inp = evalJs(S, `(() => { const i = [...document.querySelectorAll('input')].find((x) => x.getBoundingClientRect().width > 0 && /url|link|http/i.test((x.placeholder || '') + (x.getAttribute('aria-label') || ''))); document.querySelectorAll('#fx-in').forEach((y) => y.removeAttribute('id')); if (!i) return JSON.stringify(false); i.id = 'fx-in'; return JSON.stringify(true); })()`);
+      if (inp) { execFileSync('cmux', ['browser', '--surface', S, 'fill', '#fx-in', 'https://example.com/a']); execFileSync('cmux', ['browser', '--surface', S, 'press', 'Enter']); await pause(1200); } },
+    'link-page': async () => { await startWrite(text); await click(`() => [...document.querySelectorAll('[aria-label]')].find((x) => x.getAttribute('aria-label') === 'Link' && x.getBoundingClientRect().width > 0)`, { wait: 1200 });
+      await click(`() => [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.textContent.trim() === 'Services' && e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')).pop()`, { wait: 1500 }); },
+    'text-color': async () => { await startWrite(text); await click(`() => [...document.querySelectorAll('[aria-label]')].find((x) => x.getAttribute('aria-label') === 'Text Color' && x.getBoundingClientRect().width > 0)`, { wait: 1200 });
+      await click(`() => { const pal = [...document.querySelectorAll('[aria-label], [role=radio], [role=option], button')].filter((e) => e.getBoundingClientRect().width > 0 && e.getBoundingClientRect().width < 40 && !e.closest('#sqs-site-frame') && /color|swatch|accent|white|black/i.test((e.getAttribute('aria-label') || '') + (e.className || ''))); return pal[1] || pal[0]; }`, { wait: 1500 }); },
+    'section-handle': async () => { const { hoverSection } = await import('./oracle/ui.mjs'); await hoverSection(i); await pause(600);
+      const h = evalJs(S, `(() => { ${FRAME} const sec = d.querySelectorAll('main#page .page-section')[${i}]; const sq = sec.getBoundingClientRect(); const all = [...d.querySelectorAll('*'), ...document.querySelectorAll('*')].filter((e) => { const q = e.getBoundingClientRect(); const c = (e.ownerDocument === d ? W : window).getComputedStyle(e); return q.width > 30 && q.width < 60 && q.height > 20 && q.height < 40 && /rgb\\(0, 1[0-3]\\d, 2[45]\\d\\)|rgb\\(2, 122, 255\\)/.test(c.backgroundColor) && !/add section/i.test(e.textContent); });
+        return JSON.stringify(all.map((e) => { const q = e.getBoundingClientRect(); const inF = e.ownerDocument === d; return { inFrame: inF, aria: e.getAttribute('aria-label') || '', cls: String(e.className).slice(0, 80), cursor: (inF ? W : window).getComputedStyle(e).cursor, box: inF ? [q.left - sq.left, q.top - sq.top, q.width, q.height] : [q.left, q.top, q.width, q.height] }; })); })()`);
+      out['section-handle-found'] = h; console.log('handle', JSON.stringify(h)); },
+  };
+  const names = (process.argv[3] && JSON.parse(process.argv[3])) || Object.keys(STEPS);
+  const out = {};
+  for (const name of names) {
+    const target = /link|color|paste/.test(name) ? text : shape;
+    const before = READ(target);
+    let error = null, labels = null;
+    try { await STEPS[name](); await pause(800); labels = labelsNow(); shot(name); } catch (e) { error = String(e.message).slice(0, 160); }
+    const after = READ(target);
+    const changed = saveDisabled() !== true;
+    const delta = {};
+    for (const k of ['exists', 'cls', 'display', 'position', 'top', 'html', 'rows']) if (JSON.stringify(before[k]) !== JSON.stringify(after[k])) delta[k] = [before[k], after[k]];
+    if (JSON.stringify(before.attrs) !== JSON.stringify(after.attrs)) delta.attrs = [before.attrs, after.attrs];
+    if (JSON.stringify(before.blocks) !== JSON.stringify(after.blocks)) delta.blocks = [before.blocks, after.blocks];
+    const css = diffCss(before.cssText, after.cssText);
+    out[name] = { ...(out[name] || {}), changed, delta, newCssRules: css, labelsAfter: labels, error };
+    out[name].undoSteps = await undoAll();
+    await deselect(i);
+    console.log(name, JSON.stringify({ changed, delta, css: css.slice(0, 3), error }).slice(0, 900));
+    if (saveDisabled() !== true) throw new Error('Unsaved changes remain; stopping');
+  }
+  write('UNBUILT', { question: 'What do the controls ours shows dimmed do on the oracle?', section: i, blocks: { shape, text }, steps: out });
 }
 
 if (which === 'T13') {
