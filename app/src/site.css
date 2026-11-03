@@ -92,9 +92,14 @@ p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
 .page-section.vertical-alignment--top { justify-content: flex-start; }
 .page-section.vertical-alignment--bottom { justify-content: flex-end; }
 .page-section > .content-wrapper { display: flex; width: 100%; }
-.page-section.section-height--small > .content-wrapper { padding: 3.3vmax 0; }
-.page-section.section-height--medium > .content-wrapper { padding: 6.6vmax 0; }
-.page-section.section-height--large > .content-wrapper { padding: 10vmax 0; }
+.page-section.section-height--small > .content-wrapper { --section-pad: 3.3vmax; }
+.page-section.section-height--medium > .content-wrapper { --section-pad: 6.6vmax; }
+.page-section.section-height--large > .content-wrapper { --section-pad: 10vmax; }
+.page-section > .content-wrapper { padding: var(--section-pad, 0) 0; }
+/* Vertical top and bottom (parity/findings/VALIGN-TOP.json, 5 frame sizes): the near
+   edge gets the 4vw site gutter and the far edge twice the height padding. */
+.page-section.vertical-alignment--top > .content-wrapper { padding: var(--sqs-site-gutter, 4vw) 0 calc(var(--section-pad, 0) * 2); }
+.page-section.vertical-alignment--bottom > .content-wrapper { padding: calc(var(--section-pad, 0) * 2) 0 var(--sqs-site-gutter, 4vw); }
 .page-section.horizontal-alignment--center > .content-wrapper { justify-content: center; }
 .page-section.horizontal-alignment--left > .content-wrapper { justify-content: flex-start; }
 .page-section.horizontal-alignment--right > .content-wrapper { justify-content: flex-end; }
@@ -167,7 +172,7 @@ body { position: relative; }
 /* Custom section height N (P3): min-height N vh and padding N/10 vmax
    (oracle: 10 gives 10vh and 1vmax, 0 gives none; linear between is assumed). */
 .page-section.section-height--custom { min-height: calc(var(--custom-height, 0) * 1vh); }
-.page-section.section-height--custom > .content-wrapper { padding: calc(var(--custom-height, 0) * 0.1vmax) 0; }
+.page-section.section-height--custom > .content-wrapper { --section-pad: calc(var(--custom-height, 0) * 0.1vmax); }
 /* An empty paragraph keeps one line, as on the oracle (22.4px for 16px text). */
 .sqs-html-content p[data-rte-preserve-empty]:empty::before { content: ""; display: inline-block; }
 .page-section a { color: inherit; }

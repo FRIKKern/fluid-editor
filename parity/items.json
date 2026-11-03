@@ -232,15 +232,15 @@
     "milestone": "M2",
     "status": "partial",
     "title": "Section height settings and padding",
-    "evidence": "parity/findings/P3.json: height S/M/L = min-height 33/66/100vh, wrapper padding 3.3/6.6/10vmax; custom height N = inline min-height Nvh with 1vmax padding (footer, all 5 widths). Matched: Gate B 365 of 365. Fill Screen not modelled"
+    "evidence": "parity/findings/P3.json, SETTINGS.json, FILL-SCREEN.json: height S/M/L = min-height 33/66/100vh with wrapper padding 3.3/6.6/10vmax; Custom height starts at 1 (1vh, 0.1vmax padding); unchecking Fill Screen makes the section fit its content (custom height, no minimum, no padding) and hides Height and Alignment. Our Edit Section panel has all of these and npm run section-check: 26 of 26 readings match (parity/section-check.json). Gate B 365 of 365. Missing: the range of the custom height input (ours 1 to 100)"
   },
   {
     "id": "P4",
     "area": "Page and site context",
     "milestone": "M2",
-    "status": "partial",
+    "status": "done",
     "title": "Section content width, full or inset",
-    "evidence": "The setting is Edit Section > Background > Background Width: Full Bleed or Inset (parity/findings/PANEL.json). Inset pads the section by 4vw on every side at every width and the background fills the padded box; the grid shrinks by --inset-padding from 768px (parity/findings/INSET.json). Our section with background-width--inset matches the oracle background and grid boxes within 1px at 375, 768, 1280 and 1600px. The content-width--wide/medium/narrow classes have no Fluid Engine control. Missing: the setting in our editor"
+    "evidence": "Edit Section > Background > Background Width: Full Bleed or Inset (parity/findings/PANEL.json). Inset pads the section by 4vw on every side and insets the background layer by 4vw (parity/findings/INSET.json); ours matches within 1px at 375, 768, 1280 and 1600px. Our Edit Section panel has the same Background tab. The content-width--wide/medium/narrow classes have no Fluid Engine control"
   },
   {
     "id": "P5",
@@ -248,7 +248,7 @@
     "milestone": "M2",
     "status": "partial",
     "title": "Section alignment, color themes, background image and video, dividers",
-    "evidence": "Edit Section panel: Background, Colors, Grid (Row Count, Gap zero/medium/custom), Section (Fill Screen, Height S/M/L/custom, vertical alignment top/center/bottom), Divider, Anchor Link. Our sections render height, vertical alignment, content width and horizontal alignment classes and the 9 color themes from the trial site palette (data-section-theme). scripts/color-diff.mjs matches section background, heading, paragraph and button colors on all 5 pages: demo 31/31, Home 21/21, Services 11/11, About 12/12, Contact 6/6 (parity/colors-*.json). Background image and video and dividers are not built"
+    "evidence": "Vertical alignment (parity/findings/VALIGN-TOP.json, 5 frame sizes): top gives the wrapper 4vw on top and twice the height padding below, bottom the reverse. Colors tab: Lightest 1/2 white, white-bold; Light 1/2 light, light-bold; Bright 1/2 bright-inverse, bright; Dark 1/2 dark, dark-bold; Darkest 1/2 black, black-bold (parity/findings/SETTINGS.json). npm run section-check: 26 of 26 readings match (parity/section-check.json), and scripts/color-diff.mjs matches 81 of 81 colors on the 5 pages. Our Edit Section panel has Alignment and Colors. Missing: background image, video and art, and dividers (Divider adds .section-divider-display, +124px at 1600 by 945)"
   },
   {
     "id": "P6",
@@ -745,15 +745,16 @@
     "area": "Section settings and Stacks",
     "milestone": "M4",
     "status": "partial",
-    "title": "Row count per layout, and whether it is the only per-layout section setting"
+    "title": "Row count per layout, and whether it is the only per-layout section setting",
+    "evidence": "Edit Section > Design > Row Count: a number input, min = the current row count (11 on demo section 2), max 10000 (parity/findings/SETTINGS.json). Our panel has Row Count per layout with min = the lowest row the blocks need. Not measured: whether the oracle Row Count is per layout"
   },
   {
     "id": "S2",
     "area": "Section settings and Stacks",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "Spacing values allowed",
-    "evidence": "Gap values seen: 0, 11, 20, 27px (corpus). Edit Section offers Zero gap, Medium gap and Custom gap"
+    "evidence": "Gap: Zero gap (0px), Medium gap (11px, the default), Custom gap with separate Column gap and Row gap sliders from 0 to 50px that start at the current gap (parity/findings/SETTINGS.json). Zero gap matches within 1px (section height and grid height, npm run section-check). Our panel has the same three options and sliders. Corpus gaps: 0, 11, 20, 27px"
   },
   {
     "id": "S3",
