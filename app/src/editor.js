@@ -884,12 +884,12 @@ function renderPanel() {
       <dt>Size</dt><dd>${c1 - c0} cols, ${r1 - r0} rows</dd>
       <dt>z-index</dt><dd>${L.z}</dd>
     </dl>
-    <div class="row">${bp === 'mobile' ? '<button class="btn" data-act="up">Move Up</button><button class="btn" data-act="down">Move Down</button>' : '<button class="btn" data-act="z+">Move Forward</button><button class="btn" data-act="z-">Move Backward</button>'}</div>
-    <div class="row">${['flex-start', 'center', 'flex-end'].map((v) => `<button class="btn" data-act="justify" data-v="${v}" ${L.justify === v ? 'disabled' : ''}>${{ 'flex-start': 'Top', center: 'Middle', 'flex-end': 'Bottom' }[v]}</button>`).join('')}</div>
     </div>`);
+    // Move Forward and Backward, Move Up and Down, Align Vertically and Add Block live where the
+    // oracle has them: the block toolbar and the section chrome. Align Group stays here until
+    // the group toolbar is built (X8).
     if (sel.more?.length) parts.push(`<div class="group"><h3>Align group</h3><div class="row">${ALIGNS.map(([k, label]) => `<button class="btn" data-act="align" data-v="${k}">${label}</button>`).join('')}</div><div class="row"><button class="btn" data-act="stack">Stack blocks</button></div></div>`);
-    // The section settings live in the floating Edit Section panel (U9).
-    parts.push(`<div class="group"><h3>Add block</h3><div class="row">${ADD_TYPES.map(([n]) => `<button class="btn" data-act="add" data-v="${n}">${n}</button>`).join('')}</div></div>`);
+
   } else {
     parts.push(`<div class="group" data-dev><h3>Page</h3><p class="hint">Click a block to select it. Drag to move. Pull a handle to resize. Double-click text to edit. Arrow keys move one cell. Esc cancels, Cmd+Z undoes.</p></div>`);
   }
