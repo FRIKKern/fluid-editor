@@ -34,6 +34,31 @@ for (const [name, ch, style, reads] of cases) for (const o of reads) {
   n++; if (!ok) bad++;
   console.log(name.padEnd(12), `${o.w}x${o.h}`.padEnd(10), ok ? 'match' : `DIFF oracle ${JSON.stringify(o)} ours ${JSON.stringify(r)}`);
 }
+// Divider (parity/findings/DIVIDER.json): section height and the clip edge at 41 x positions,
+// found on our page by hit-testing the clipped background, at the oracle's three frame sizes.
+const div = FIND('DIVIDER');
+const divReads = [['1600x945', div.on], ...Object.entries(div.widths)];
+const dividers = [];
+for (const [size, o] of divReads) {
+  const [w, h] = size.split('x').map(Number);
+  viewport(S, w, h); goto(S, 'http://127.0.0.1:5178/page.html'); await pause(2200);
+  evalJs(S, `(() => { window.__div = null; Promise.all([import('./src/render.js'), import('./src/demo.js')]).then(([r, d]) => { const m = d.demoModel(); const s = m.sections[2]; s.divider = true;
+    const old = document.querySelectorAll('.page-section')[2]; old.outerHTML = r.renderSection(s, m); window.__div = true; }); return 'true'; })()`);
+  await pause(1200);
+  const r = evalJs(S, `(() => { const sec = document.querySelectorAll('.page-section')[2]; const q = sec.getBoundingClientRect(); const bg = sec.querySelector('.section-background');
+    sec.querySelectorAll('.content-wrapper, .section-divider-stroke').forEach((e) => { e.style.pointerEvents = 'none'; });
+    scrollTo(0, scrollY + q.bottom - innerHeight + 10); const b = sec.getBoundingClientRect();
+    const band = innerWidth * 0.06; const xs = [...Array(41).keys()].map((k) => Math.min(b.width - 0.5, Math.max(0.5, k / 40 * b.width)));
+    const ys = xs.map((x) => { let lo = b.bottom - band - 2, hi = b.bottom + 0.5; if (document.elementFromPoint(x, lo) !== bg) return null; for (let n = 0; n < 20; n++) { const m = (lo + hi) / 2; if (document.elementFromPoint(x, m) === bg) lo = m; else hi = m; } return Math.round((lo - b.top) * 10) / 10; });
+    return JSON.stringify({ height: Math.round(b.height * 10) / 10, ys }); })()`);
+  const diffs = o.edge.ys.map((y, k) => (y == null || r.ys[k] == null ? 99 : Math.abs(y - r.ys[k])));
+  const worst = Math.max(...diffs);
+  const ok = Math.abs(r.height - o.section[3]) <= 1 && worst <= 1;
+  n++; if (!ok) bad++;
+  dividers.push({ size, ok, height: [o.section[3], r.height], worstEdge: worst });
+  console.log('Divider'.padEnd(12), size.padEnd(10), ok ? 'match' : 'DIFF', `height ${o.section[3]} vs ${r.height}, edge within ${worst.toFixed(1)}px`);
+}
+
 // Colors tab: each theme's background, heading and paragraph color at 1600 by 945.
 const themes = [];
 viewport(S, 1600, 945); goto(S, 'http://127.0.0.1:5178/page.html'); await pause(2200);
@@ -46,5 +71,5 @@ for (const [label, o] of Object.entries(design).filter(([k, v]) => (k === 'base'
   console.log(label.padEnd(12), (o.theme || 'default').padEnd(15), ok ? 'match' : `DIFF oracle ${o.bg} ${o.ink} ours ${r.bg} ${r.ink}`);
 }
 console.log(`Section settings: ${n - bad} of ${n} readings match`);
-writeFileSync(new URL('../parity/section-check.json', import.meta.url), JSON.stringify({ check: 'section settings', tolerance: 1, pass: n - bad, total: n, themes }, null, 2) + '\n');
+writeFileSync(new URL('../parity/section-check.json', import.meta.url), JSON.stringify({ check: 'section settings', tolerance: 1, pass: n - bad, total: n, dividers, themes }, null, 2) + '\n');
 process.exit(bad ? 1 : 0);
