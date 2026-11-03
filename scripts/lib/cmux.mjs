@@ -1,7 +1,20 @@
 // Drives a cmux browser surface: run JS in the page, wait for a condition, reload.
 import { execFileSync } from 'node:child_process';
 
-const run = (args, timeout = 60000) => execFileSync('cmux', ['browser', ...args], { encoding: 'utf8', timeout }).trim();
+// cmux sometimes answers "surface was already recovered. Retry the command"; retry those.
+function run(args, timeout = 60000) {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return execFileSync('cmux', ['browser', ...args], { encoding: 'utf8', timeout, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+    } catch (e) {
+      if (attempt < 4 && /recovered|Retry the command/i.test(String(e.stderr || e.message))) {
+        execFileSync('sleep', ['1']);
+        continue;
+      }
+      throw e;
+    }
+  }
+}
 
 export function evalJs(surface, js) {
   const out = run(['--surface', surface, 'eval', '--script', js]);

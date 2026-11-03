@@ -1,68 +1,93 @@
-/* Site-level styles. The variables match the trial site
-   halibut-keyboard-jlhd.squarespace.com, read 2026-11-03.
-   Section padding and type sizes are placeholders, not measured yet. */
+/* Site-level styles matched to the oracle, halibut-keyboard-jlhd.squarespace.com,
+   measured 2026-11-03 (fixtures/oracle/demo-page.json). Values are the oracle's
+   style settings; the size formulas are written here from what its pages compute.
+   Poppins loads from Google Fonts (see site.html and exportHtml). */
 :root {
   --sqs-site-gutter: 4vw;
   --sqs-mobile-site-gutter: 6vw;
   --sqs-site-max-width: 1400px;
+  --maxPageWidth: 1400px;
 
-  --paper: #ffffff;
-  --ink: #141414;
-  --muted: #5b5b5b;
-  --accent: #b665f5;
+  --heading-1-size-value: 4;
+  --heading-2-size-value: 3.5;
+  --heading-3-size-value: 2.5;
+  --heading-4-size-value: 1.6;
+  --normal-text-size-value: 1;
+  --heading-font-line-height: 1.3em;
+  --body-font-line-height: 1.4em;
+  --heading-font-letter-spacing: .01rem;
+  --body-font-letter-spacing: 0em;
+
+  --paper: rgb(181, 100, 247);
+  --ink: #000;
+  --accent: rgb(181, 100, 247);
   --accent-2: #ffd34e;
   --line: #e4e4e4;
+  --muted: #333;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-
 html, body { margin: 0; }
 
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 18px;
-  line-height: 1.55;
+  font-family: Poppins, sans-serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
 }
+
+/* Text sizes: phones in portrait scale with the viewport height, everything else
+   with the width, capped where the page reaches its max width. */
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  body { font-size: calc((var(--normal-text-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
+  h1 { font-size: calc((var(--heading-1-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
+  h2 { font-size: calc((var(--heading-2-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
+  h3 { font-size: calc((var(--heading-3-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
+  h4 { font-size: calc((var(--heading-4-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
+}
+@media screen and (min-width: 768px), screen and (orientation: landscape) {
+  body { font-size: min(calc((var(--normal-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--normal-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--normal-text-size-value) * 1rem))); }
+  h1 { font-size: min(calc((var(--heading-1-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--heading-1-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--heading-1-size-value) * 1rem))); }
+  h2 { font-size: min(calc((var(--heading-2-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--heading-2-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--heading-2-size-value) * 1rem))); }
+  h3 { font-size: min(calc((var(--heading-3-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--heading-3-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--heading-3-size-value) * 1rem))); }
+  h4 { font-size: min(calc((var(--heading-4-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--heading-4-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--heading-4-size-value) * 1rem))); }
+}
+h1, h2, h3, h4 { margin: 2rem 0; font-weight: 400; letter-spacing: var(--heading-font-letter-spacing); }
+h1 { line-height: calc(var(--heading-font-line-height) * (1 + (1 - var(--heading-1-size-value)) / 25)); }
+h2 { line-height: calc(var(--heading-font-line-height) * (1 + (1 - var(--heading-2-size-value)) / 25)); }
+h3 { line-height: calc(var(--heading-font-line-height) * (1 + (1 - var(--heading-3-size-value)) / 25)); }
+h4 { line-height: calc(var(--heading-font-line-height) * (1 + (1 - var(--heading-4-size-value)) / 25)); }
+p { margin: 1em 0; line-height: var(--body-font-line-height); letter-spacing: var(--body-font-letter-spacing); }
+.sqs-block-html .sqs-html-content > *:first-child { margin-top: 0; }
+.sqs-block-html .sqs-html-content > *:last-child { margin-bottom: 0; }
 
 .page-section {
   display: flex;
   position: relative;
-  padding-top: 3.3vmax;
-  padding-bottom: 3.3vmax;
+  min-height: 10vh;
   background: var(--section-bg, var(--paper));
   color: var(--section-ink, var(--ink));
 }
 .page-section > .content-wrapper { display: flex; width: 100%; }
 .page-section .content { width: 100%; }
 
-.theme-accent { --section-bg: var(--accent); --section-ink: #111; }
+.theme-accent { --section-bg: var(--accent); }
 .theme-light { --section-bg: #f4f1ec; }
-.theme-dark { --section-bg: #151515; --section-ink: #f4f4f4; --muted: #b9b9b9; --line: #333; }
+.theme-dark { --section-bg: #151515; --section-ink: #f4f4f4; }
 
-/* Shared block rules copied from Squarespace site.css */
+/* Shared block rules, same behaviour as the oracle */
 .fluid-engine .sqs-block { display: flex; height: 100%; width: 100%; flex-direction: column; }
 .sqs-block-alignment-wrapper { display: flex; flex-direction: column; height: 100%; }
-
-.sqs-html-content > :first-child { margin-top: 0; }
-.sqs-html-content > :last-child { margin-bottom: 0; }
-.sqs-html-content h1 { font-size: calc(1.6rem + 2.4vw); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 0.4em; font-weight: 600; }
-.sqs-html-content h2 { font-size: calc(1.3rem + 1.3vw); line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 0.4em; font-weight: 600; }
-.sqs-html-content p { margin: 0 0 0.8em; }
-.sqs-html-content p.lead { font-size: calc(1rem + 0.35vw); }
-.sqs-html-content .small { font-size: 0.85rem; color: var(--muted); }
-.sqs-html-content ul { margin: 0; padding-left: 1.1em; }
-.sqs-html-content li { margin: 0 0 0.35em; }
-.sqs-html-content code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.85em; background: rgba(127,127,127,0.14); padding: 0.1em 0.3em; border-radius: 4px; }
 
 .sqs-block-button .sqs-block-content { display: flex; height: 100%; }
 .sqs-block-button-element {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 100%; height: 100%; min-height: 44px; padding: 0 1.2em;
-  border-radius: 999px; background: var(--section-ink, var(--ink)); color: var(--section-bg, var(--paper));
-  font-weight: 600; text-decoration: none; white-space: nowrap;
+  /* Fills its block's height, as on the oracle (59px at 768, 61.6px at 1280). */
+  padding: 0 56px; height: 100%;
+  border-radius: 300px; background: #000; color: #fff;
+  font-family: Poppins, sans-serif; font-weight: 500; font-size: 16px; letter-spacing: .02em;
+  text-decoration: none; white-space: nowrap;
 }
 
 .sqs-stretched .sqs-block-content { height: 100%; width: 100%; }
@@ -71,9 +96,9 @@ body {
   background: var(--shape-fill); border-radius: var(--shape-radius);
   color: var(--shape-ink);
   display: flex; align-items: center; justify-content: center; text-align: center;
-  padding: 0.5em; overflow: hidden;
+  overflow: hidden;
 }
-.sqs-shape-label { font-weight: 600; font-size: 0.95rem; line-height: 1.25; }
+.sqs-shape-label { font-weight: 500; font-size: 0.95rem; line-height: 1.25; }
 
 .sqs-block-code pre {
   margin: 0; padding: 1.1em 1.2em; overflow: auto;

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Fluid Engine works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="src/site.css">
+</head>
+<body>
+<!-- The published page: our renderer's HTML and CSS, no editor. Gate B measures this. -->
+<main id="page"></main>
+<script type="module">
+import { renderPage } from './src/render.js';
+import { demoModel } from './src/demo.js';
+document.getElementById('page').innerHTML = renderPage(demoModel());
+document.documentElement.dataset.rendered = 'true';
+</script>
+</body>
+</html>

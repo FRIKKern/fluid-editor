@@ -1,22 +1,21 @@
 {
   "gate": "C",
-  "pass": 0,
-  "total": 1,
+  "pass": 2,
+  "total": 2,
   "results": [
     {
-      "trace": "T0001-key-right",
-      "pass": false,
-      "diffs": [
-        "rows: want 29, got 32",
-        "db1d665a8795d4af2f99: area want 6/3/12/21, got 6/3/15/21",
-        "faf6dea47159f126293d: area want 14/2/30/26, got 17/2/33/26"
-      ],
-      "undoPass": false,
-      "undoDiffs": [
-        "rows: want 29, got 32",
-        "db1d665a8795d4af2f99: area want 6/2/12/20, got 6/2/15/20",
-        "faf6dea47159f126293d: area want 14/2/30/26, got 17/2/33/26"
-      ]
+      "trace": "T0002-demo-hero-right",
+      "pass": true,
+      "diffs": [],
+      "undoPass": true,
+      "undoDiffs": []
+    },
+    {
+      "trace": "T0003-section4-button-down",
+      "pass": true,
+      "diffs": [],
+      "undoPass": true,
+      "undoDiffs": []
     }
   ]
 }
