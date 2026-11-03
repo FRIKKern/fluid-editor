@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 31 changes, 3 milestones closed
+- **Today** · 32 changes, 3 milestones closed
+  - U9: section chrome while a block is selected and in the phone view; T5 button width ([#50](https://github.com/FRIKKern/fluid-editor/pull/50))
   - npm run review: inventory, visual diff, MISSING.md and the Barkpark paper in one go ([#49](https://github.com/FRIKKern/fluid-editor/pull/49))
-  - E4, U11: text style shortcuts, Cmd+B, Cmd+I and Shift+S ([#48](https://github.com/FRIKKern/fluid-editor/pull/48))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
