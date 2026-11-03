@@ -129,13 +129,15 @@ for (const t of traces) {
     await pause(400);
   } else if (g.kind === 'button') {
     // Our panel names: Bring forward (z+) and Send backward (z-).
-    const map = { 'Move Forward': '[data-act="z+"]', 'Move Backward': '[data-act="z-"]', 'Move Up': '[data-act="up"]', 'Move Down': '[data-act="down"]',
-      'Align Group>Align Left': '[data-act="align"][data-v="left"]', 'Align Group>Align Right': '[data-act="align"][data-v="right"]',
-      'Align Group>Align Horizontal Center': '[data-act="align"][data-v="hcenter"]', 'Align Group>Align Top': '[data-act="align"][data-v="top"]',
-      'Align Group>Align Vertical Center': '[data-act="align"][data-v="vcenter"]', 'Align Group>Align Bottom': '[data-act="align"][data-v="bottom"]' };
+    // Block buttons are pressed on the floating block toolbar, as on the oracle; Align Group is
+    // still in our side panel until the group toolbar exists.
+    const map = { 'Move Forward': '#block-toolbar button[data-tb="z+"]', 'Move Backward': '#block-toolbar button[data-tb="z-"]', 'Move Up': '#block-toolbar button[data-tb="up"]', 'Move Down': '#block-toolbar button[data-tb="down"]',
+      'Align Group>Align Left': '#panel button[data-act="align"][data-v="left"]', 'Align Group>Align Right': '#panel button[data-act="align"][data-v="right"]',
+      'Align Group>Align Horizontal Center': '#panel button[data-act="align"][data-v="hcenter"]', 'Align Group>Align Top': '#panel button[data-act="align"][data-v="top"]',
+      'Align Group>Align Vertical Center': '#panel button[data-act="align"][data-v="vcenter"]', 'Align Group>Align Bottom': '#panel button[data-act="align"][data-v="bottom"]' };
     const sel = map[g.button];
     if (!sel) throw new Error(`no button in our editor for "${g.button}"`);
-    evalJs(surface, `(() => { document.querySelector('#panel button${sel}').click(); return 'true'; })()`);
+    evalJs(surface, `(() => { const b = document.querySelector('${sel}'); if (!b) throw new Error('no button ${sel}'); b.click(); return 'true'; })()`);
     await pause(300);
   }
   const after = evalJs(surface, READ(t.section.id));
