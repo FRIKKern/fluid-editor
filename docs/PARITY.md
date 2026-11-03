@@ -2,7 +2,7 @@
 
 [![Parity: one cell per item, done, partial, open or unknown](images/parity.svg)](../README.md)
 
-63 of 108 items done, 36 partial, 9 open, 0 unknown.
+64 of 108 items done, 36 partial, 8 open, 0 unknown.
 Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. Edit the JSON, never this page.
 
 ## Harness and oracle
@@ -34,7 +34,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | C6 | `grid-area` start and end lines and z-index per layout | M2 Renderer | ✓ done | Evidence: parity/gate-a.json |
 | C7 | `justify-content` and `align-items` per layout | M2 Renderer | ✓ done | Evidence: parity/gate-a.json |
 | C8 | `overflow-x: clip` | M2 Renderer | ✓ done | Evidence: parity/gate-a.json |
-| C9 | Inset content width: CSS emitted, no setting yet | M2 Renderer | ◐ partial |  |
+| C9 | Inset content width: CSS emitted, no setting yet | M2 Renderer | ✓ done | Evidence: Sections carry background-width--full-bleed or --inset, imported from the oracle. Inset CSS (4vw section padding, background layer inset by 4vw, --inset-padding from 768px) matches parity/findings/INSET.json within 1px at 375, 768, 1280 and 1600px |
 | C10 | Content of the `@media (max-width: 767px)` block inside each block rule | M2 Renderer | ✓ done | Evidence: Empty in all 1347 block rules of 351 captured sections; Gate A 351 of 351 |
 | C11 | Other per-block CSS for other block types and settings | M2 Renderer | ✓ done | Evidence: Gate A 351 of 351: the only other per-block CSS is sticky (C12). Gallery and map blocks not in the corpus yet (H3) |
 | C12 | Sticky blocks: position sticky with a top, center or bottom anchor and an offset, desktop only | M2 Renderer | ✓ done | Evidence: Found in 11 corpus blocks; Gate A 359 of 359. The oracle block toolbar has a Pin button, likely the sticky setting (not tried) |
@@ -47,7 +47,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | P1 | Site variables for the trial site | M2 Renderer | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | P2 | Section wrapper styles | M2 Renderer | ✓ done | Evidence: Section markup, min-height, wrapper padding and vertical centering match: every section's height and grid offset within 1px (parity/gate-b.json: 320 of 320 boxes incl. 8 section boxes at 375, 767, 768, 1280, 1920; parity/gate-b-600-767.json 192 of 192) |
 | P3 | Section height settings and padding | M2 Renderer | ◐ partial | Evidence: parity/findings/P3.json: height S/M/L = min-height 33/66/100vh, wrapper padding 3.3/6.6/10vmax; custom height N = inline min-height Nvh with 1vmax padding (footer, all 5 widths). Matched: Gate B 365 of 365. Fill Screen not modelled |
-| P4 | Section content width, full or inset | M2 Renderer | ○ open | Evidence: Oracle classes: content-width--wide (100%), --medium (75%), --narrow (50% from 768px) from the trial site stylesheet; our CSS has the same three. No content-width control found in the Edit Section panel |
+| P4 | Section content width, full or inset | M2 Renderer | ◐ partial | Evidence: The setting is Edit Section > Background > Background Width: Full Bleed or Inset (parity/findings/PANEL.json). Inset pads the section by 4vw on every side at every width and the background fills the padded box; the grid shrinks by --inset-padding from 768px (parity/findings/INSET.json). Our section with background-width--inset matches the oracle background and grid boxes within 1px at 375, 768, 1280 and 1600px. The content-width--wide/medium/narrow classes have no Fluid Engine control. Missing: the setting in our editor |
 | P5 | Section alignment, color themes, background image and video, dividers | M2 Renderer | ◐ partial | Evidence: Edit Section panel: Background, Colors, Grid (Row Count, Gap zero/medium/custom), Section (Fill Screen, Height S/M/L/custom, vertical alignment top/center/bottom), Divider, Anchor Link. Our sections render height, vertical alignment, content width and horizontal alignment classes and the 9 color themes from the trial site palette (data-section-theme). scripts/color-diff.mjs matches section background, heading, paragraph and button colors on all 5 pages: demo 31/31, Home 21/21, Services 11/11, About 12/12, Contact 6/6 (parity/colors-*.json). Background image and video and dividers are not built |
 | P6 | Fonts and type scale, including how sizes follow viewport width | M2 Renderer | ✓ done | Evidence: Heading and body sizes follow min((v-1)*1.2vw+1rem, max((v-1)*0.012*maxPageWidth+1rem, v*1rem)) above 767px and (v-1)*0.012*min(100vh,900px)+1rem on portrait phones; h1 60.71px at a 1242px frame matches. Gate B 280 of 280 with text wrapping at 375px |
 | P7 | Header and footer | M2 Renderer | ✓ done | Evidence: Header: parity/findings/P7.json, built to the measured rule. Footer: the oracle footer is one Fluid Engine section (custom height 10vh, padding 1vmax, black theme, 7 text blocks and social links), imported and rendered. Gate B 365 of 365 boxes incl. header offset and footer at 375, 767, 768, 1280, 1920 (parity/gate-b.json). The header switch width (817px) is stored, not derived |

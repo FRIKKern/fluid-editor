@@ -172,8 +172,9 @@
     "id": "C9",
     "area": "Published grid CSS",
     "milestone": "M2",
-    "status": "partial",
-    "title": "Inset content width: CSS emitted, no setting yet"
+    "status": "done",
+    "title": "Inset content width: CSS emitted, no setting yet",
+    "evidence": "Sections carry background-width--full-bleed or --inset, imported from the oracle. Inset CSS (4vw section padding, background layer inset by 4vw, --inset-padding from 768px) matches parity/findings/INSET.json within 1px at 375, 768, 1280 and 1600px"
   },
   {
     "id": "C10",
@@ -237,9 +238,9 @@
     "id": "P4",
     "area": "Page and site context",
     "milestone": "M2",
-    "status": "open",
+    "status": "partial",
     "title": "Section content width, full or inset",
-    "evidence": "Oracle classes: content-width--wide (100%), --medium (75%), --narrow (50% from 768px) from the trial site stylesheet; our CSS has the same three. No content-width control found in the Edit Section panel"
+    "evidence": "The setting is Edit Section > Background > Background Width: Full Bleed or Inset (parity/findings/PANEL.json). Inset pads the section by 4vw on every side at every width and the background fills the padded box; the grid shrinks by --inset-padding from 768px (parity/findings/INSET.json). Our section with background-width--inset matches the oracle background and grid boxes within 1px at 375, 768, 1280 and 1600px. The content-width--wide/medium/narrow classes have no Fluid Engine control. Missing: the setting in our editor"
   },
   {
     "id": "P5",

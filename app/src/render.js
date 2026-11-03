@@ -187,17 +187,18 @@ export function renderBlock(b, model) {
 }
 
 export function renderSection(s, model) {
-  // Section settings (P3, P5): height S/M/L, vertical alignment, content width.
+  // Section settings (P3, P4, P5): height S/M/L, vertical alignment, content width, background width.
   const cls = [
     'page-section',
     `section-height--${s.height || 'medium'}`,
     `vertical-alignment--${s.valign || 'middle'}`,
     `content-width--${s.contentWidth || 'wide'}`,
     `horizontal-alignment--${s.halign || 'center'}`,
+    `background-width--${s.bgWidth || 'full-bleed'}`,
   ].filter(Boolean).join(' ');
   const themeName = (s.theme || '').replace(/^theme-/, '');
   const style = s.height === 'custom' ? ` style="--custom-height: ${s.customHeight ?? 0};"` : '';
-  return `<section class="${cls}" data-section-id="${s.id}" data-section-theme="${themeName}"${style}><div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
+  return `<section class="${cls}" data-section-id="${s.id}" data-section-theme="${themeName}"${style}><div class="section-background"></div><div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
 }
 
 // Site header (P7), measured on the oracle (parity/findings/P7.json): it lies over the

@@ -77,9 +77,15 @@ p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
   flex-direction: column;
   justify-content: center;
   position: relative;
-  background: var(--section-bg, var(--paper));
+  isolation: isolate;
   color: var(--section-ink, var(--ink));
 }
+/* The section color sits on its own layer, as on the oracle. Background Width Inset
+   (P4, parity/findings/INSET.json) pads the section by 4vw on every side at every
+   width, and the background fills the padded box; the body color shows around it. */
+.page-section > .section-background { position: absolute; inset: 0; z-index: -1; background: var(--section-bg, var(--paper)); }
+.page-section.background-width--inset { padding: 4vw; }
+.page-section.background-width--inset > .section-background { inset: 4vw; }
 .page-section.section-height--small { min-height: 33vh; }
 .page-section.section-height--medium { min-height: 66vh; }
 .page-section.section-height--large { min-height: 100vh; }

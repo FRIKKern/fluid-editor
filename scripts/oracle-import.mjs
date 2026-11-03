@@ -101,6 +101,7 @@ for (const [where, list] of [['sections', snap.sections], ['footer', snap.footer
     valign: s.settings['vertical-alignment'] || 'middle',
     contentWidth: s.settings['content-width'] || 'wide',
     halign: s.settings['horizontal-alignment'] || 'center',
+    bgWidth: s.settings['background-width'] || 'full-bleed',
     ...(s.settings['section-height'] === 'custom' && { customHeight: s.customHeight }),
     gap: grid.gap,
     ...(grid.rowGap != null && { rowGap: grid.rowGap }),
