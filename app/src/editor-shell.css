@@ -155,3 +155,19 @@ button { font: inherit; color: inherit; }
 .sp-theme.is-on { outline: 2px solid #027aff; outline-offset: 1px; }
 .sp-aa { font-size: 18px; }
 .sp-tname { font-size: 11px; opacity: 0.8; }
+
+/* The block Edit panel (app/src/block-panel.js), in the section panel's style. */
+.block-panel { width: 320px; max-height: 500px; }
+.bp-thead { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; padding: 14px 0 6px; border-top: 1px solid #e7e7e7; font-weight: 500; }
+.bp-more { letter-spacing: 2px; font-weight: 700; color: #0e0e0e; }
+.bp-trow { display: flex; align-items: center; justify-content: space-between; margin-top: 7px; gap: 8px; }
+.bp-pair { display: flex; gap: 7px; }
+.bp-box { display: inline-flex; align-items: center; justify-content: space-between; width: 171px; height: 44px; padding: 0 10px; box-sizing: border-box; background: #f2f2f2; border-radius: 3px; }
+.bp-pair .bp-box { width: 82px; }
+.bp-box input { width: 100%; min-width: 0; border: 0; background: transparent; font: inherit; appearance: textfield; -moz-appearance: textfield; }
+.bp-box input::-webkit-inner-spin-button, .bp-box input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.bp-unit { color: #6f6f6f; white-space: nowrap; }
+.bp-unit b { font-weight: 400; margin-left: 4px; color: #9a9a9a; }
+.bp-select { border: 0; background: transparent; font: inherit; color: #6f6f6f; }
+/* Shown where the oracle shows it, not built yet: dimmed, and skipped by the inventory. */
+[data-unbuilt] { opacity: 0.45; }

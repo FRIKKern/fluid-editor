@@ -23,7 +23,7 @@ for (const [label, c] of Object.entries(F.changes)) {
     const s = fe.model.sections[${si}]; const bid = [...d.querySelectorAll('section[data-section-id="' + s.id + '"] .fe-block')].map((e) => e.dataset.blockId)[${bi}];
     fe.select(s.id, bid); await sleep(150);
     document.querySelector('#block-toolbar button[data-tb="edit"]').click(); await sleep(150);
-    const input = document.querySelector('#panel input[data-design="${k}"]');
+    const input = document.querySelector('#block-panel input[data-design="${k}"]');
     if (input.type === 'checkbox') input.checked = true; else input.value = ${JSON.stringify(c.set)};
     input.dispatchEvent(new Event('change', { bubbles: true })); await sleep(250);
     const el = d.querySelector('.fe-block[data-block-id="' + bid + '"]'); const cs = W.getComputedStyle(el);
