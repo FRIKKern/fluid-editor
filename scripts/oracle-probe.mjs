@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | T13 | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | T13 | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -334,6 +334,79 @@ if (which === 'DIVIDER') {
   await pause(1200);
   const steps = await restore(start, [...new Set([i, on.index])].filter((k) => k >= 0));
   write('DIVIDER', { question: 'What does the section Divider add, and which options does it show?', section: i, frame: '1600x945 unless named', before, panelOn, shapes, on, widths, undoSteps: steps });
+}
+
+if (which === 'DIVSHAPES') {
+  // P5: the divider's Shape, Stroke, Color and Thickness controls. Turn Divider on, then
+  // screenshot the panel and click each control row once, recording what opens. Undone after.
+  const i = 2;
+  const start = Object.fromEntries([...Array(8).keys()].map((k) => [k, both(k)]));
+  const { hoverSection } = await import('./oracle/ui.mjs');
+  const shot = (name) => execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS || '/tmp'}/${name}.png`]);
+  const openPanel = async () => { await hoverSection(i);
+    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 }); };
+  const hasDivider = () => evalJs(S, `(() => JSON.stringify(!![...document.querySelectorAll('input[type=checkbox]')].find((x) => x.getAttribute('aria-label') === 'Divider')))()`);
+  for (let t = 0; t < 3 && hasDivider() !== true; t++) { await escape(); await openPanel(); }
+  await click(`() => { const e = [...document.querySelectorAll('input[type=checkbox]')].find((x) => x.getAttribute('aria-label') === 'Divider'); return e && (e.closest('label, [role=switch]') || e); }`, { wait: 2500 });
+  const PANEL = `(() => { const ok = (e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.left > 1200 && !e.closest('#sqs-site-frame'); };
+    return JSON.stringify({ text: [...new Set([...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && ok(e) && e.textContent.trim()).map((e) => e.textContent.trim().slice(0, 40)))],
+      controls: [...document.querySelectorAll('button, input, select, [role=button], [role=slider], [role=combobox]')].filter(ok).map((e) => [e.tagName.toLowerCase(), e.type || '', e.getAttribute('aria-label') || e.textContent.trim().slice(0, 30), e.value ?? '', e.min || '', e.max || ''].join('|')) }); })()`;
+  evalJs(S, `(() => { const e = [...document.querySelectorAll('body *')].find((x) => x.childElementCount === 0 && x.textContent.trim() === 'Thickness'); if (e) e.scrollIntoView({ block: 'center' }); return 'true'; })()`);
+  await pause(800); shot('divider-panel');
+  const out = { on: evalJs(S, PANEL) };
+  for (const label of ['Shape', 'Stroke', 'Color']) {
+    try {
+      await click(`() => { const L = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.textContent.trim() === ${'LBL'} && e.getBoundingClientRect().left > 1200).pop(); return L.closest('button, [role=button], li, [class*=row], [class*=Row]') || L.parentElement; }`.replace('LBL', JSON.stringify(label)), { wait: 1500 });
+      shot(`divider-${label.toLowerCase()}`);
+      out[label] = evalJs(S, PANEL);
+      console.log(label, JSON.stringify(out[label]).slice(0, 600));
+      execFileSync('cmux', ['browser', '--surface', S, 'press', 'Escape']); await pause(800);
+      if (hasDivider() !== true) { await openPanel(); }
+    } catch (e) { out[label] = { error: String(e.message).slice(0, 80) }; }
+  }
+  await escape();
+  const steps = await restore(start, [...Array(8).keys()]);
+  write('DIVSHAPES', { question: 'Which options do the divider Shape, Stroke and Color controls offer?', section: i, ...out, undoSteps: steps });
+}
+
+if (which === 'DIVOPTS') {
+  // P5: each divider Stroke and Thickness option, by row and position, and the shape
+  // settings behind Edit Settings. Reads the stroke and the edge after each; undone after.
+  const i = 2;
+  const start = Object.fromEntries([...Array(8).keys()].map((k) => [k, both(k)]));
+  const { hoverSection } = await import('./oracle/ui.mjs');
+  const shot = (name) => execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS || '/tmp'}/${name}.png`]);
+  const openPanel = async () => { await hoverSection(i);
+    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 }); };
+  const hasDivider = () => evalJs(S, `(() => JSON.stringify(!![...document.querySelectorAll('input[type=checkbox]')].find((x) => x.getAttribute('aria-label') === 'Divider')))()`);
+  const ensurePanel = async () => { for (let t = 0; t < 3 && hasDivider() !== true; t++) { await escape(); await openPanel(); } };
+  await ensurePanel();
+  await click(`() => { const e = [...document.querySelectorAll('input[type=checkbox]')].find((x) => x.getAttribute('aria-label') === 'Divider'); return e && (e.closest('label, [role=switch]') || e); }`, { wait: 2500 });
+  const READ = `(() => { ${FRAME}
+    const sec = d.querySelectorAll('main#page .page-section')[${i}]; const sq = sec.getBoundingClientRect();
+    const e = sec.querySelector('.section-divider-stroke'); const cs = e && W.getComputedStyle(e); const svg = sec.querySelector('.section-divider-svg-stroke');
+    const blk = sec.querySelector('.section-divider-block');
+    return JSON.stringify({ height: Math.round(sq.height * 10) / 10, band: blk && Math.round(blk.getBoundingClientRect().height * 10) / 10, classes: [...sec.classList].filter((c) => /divider/.test(c)).join(' '),
+      stroke: cs && { width: cs.strokeWidth, color: cs.stroke, dash: cs.strokeDasharray, linecap: cs.strokeLinecap, svgDisplay: W.getComputedStyle(svg).display, opacity: cs.opacity } }); })()`;
+  const rowOption = (row, k) => click(`() => { const L = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.textContent.trim() === ${'ROW'} && e.getBoundingClientRect().left > 1200).pop(); let r = L; while (r && r.querySelectorAll('label[value]').length < 2) r = r.parentElement; return r && r.querySelectorAll('label[value]')[${'K'}]; }`.replace('ROW', JSON.stringify(row)).replace('K', String(k)), { wait: 1800 });
+  const out = { on: evalJs(S, READ), options: {} };
+  for (const [row, k, name] of [['Stroke', 0, 'none'], ['Stroke', 2, 'dashed'], ['Stroke', 1, 'solid'], ['Thickness', 0, 'S'], ['Thickness', 2, 'L'], ['Thickness', 3, 'custom'], ['Thickness', 1, 'M']]) {
+    try { await ensurePanel(); await rowOption(row, k); out.options[`${row} ${name}`] = evalJs(S, READ); }
+    catch (e) { out.options[`${row} ${name}`] = { error: String(e.message).slice(0, 80) }; }
+    console.log(row, name, JSON.stringify(out.options[`${row} ${name}`]));
+  }
+  try {
+    await ensurePanel();
+    await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Edit Settings' && x.getBoundingClientRect().width > 0)`, { wait: 1500 });
+    shot('divider-settings');
+    out.settings = evalJs(S, `(() => { const ok = (e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.left > 1150 && !e.closest('#sqs-site-frame'); };
+      return JSON.stringify({ text: [...new Set([...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && ok(e) && e.textContent.trim()).map((e) => e.textContent.trim().slice(0, 40)))],
+        inputs: [...document.querySelectorAll('input, [role=slider]')].filter(ok).map((e) => [e.type || e.getAttribute('role'), e.getAttribute('aria-label') || '', e.value ?? e.getAttribute('aria-valuenow'), e.min || e.getAttribute('aria-valuemin') || '', e.max || e.getAttribute('aria-valuemax') || '', e.step || ''].join('|')) }); })()`);
+    console.log('settings', JSON.stringify(out.settings));
+  } catch (e) { out.settings = { error: String(e.message).slice(0, 80) }; }
+  await escape();
+  const steps = await restore(start, [...Array(8).keys()]);
+  write('DIVOPTS', { question: 'What do the divider Stroke and Thickness options change, and what does Edit Settings offer?', section: i, frame: '1600x945', ...out, undoSteps: steps });
 }
 
 if (which === 'T13') {

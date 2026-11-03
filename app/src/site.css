@@ -90,7 +90,7 @@ p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
    background is clipped along the wave and a 6px stroke, not scaled with the band, follows it. */
 .page-section.has-section-divider { padding-bottom: 6vw; }
 .page-section > .section-divider-stroke { position: absolute; left: 0; bottom: 0; width: 100%; height: 6vw; overflow: visible; z-index: -1; pointer-events: none; }
-.section-divider-stroke path { fill: none; stroke: #000; stroke-width: 6px; vector-effect: non-scaling-stroke; }
+.section-divider-stroke path { fill: none; stroke: #000; stroke-width: 6px; stroke-linecap: square; vector-effect: non-scaling-stroke; }
 .page-section.section-height--small { min-height: 33vh; }
 .page-section.section-height--medium { min-height: 66vh; }
 .page-section.section-height--large { min-height: 100vh; }

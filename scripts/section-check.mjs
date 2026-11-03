@@ -59,6 +59,23 @@ for (const [size, o] of divReads) {
   console.log('Divider'.padEnd(12), size.padEnd(10), ok ? 'match' : 'DIFF', `height ${o.section[3]} vs ${r.height}, edge within ${worst.toFixed(1)}px`);
 }
 
+// Divider Stroke and Thickness (parity/findings/DIVOPTS.json): computed stroke width, dash and caps.
+const dopts = FIND('DIVOPTS').options;
+const strokes = [];
+viewport(S, 1600, 945); goto(S, 'http://127.0.0.1:5178/page.html'); await pause(2200);
+for (const [name, o] of Object.entries(dopts)) {
+  if (!o.stroke || name === 'Thickness custom') continue;
+  const set = { 'Stroke none': { dividerStroke: 'none' }, 'Stroke dashed': { dividerStroke: 'dashed' }, 'Stroke solid': {}, 'Thickness S': { dividerThickness: 'S' }, 'Thickness L': { dividerThickness: 'L' }, 'Thickness M': {} }[name];
+  evalJs(S, `(() => { window.__div = null; Promise.all([import('./src/render.js'), import('./src/demo.js')]).then(([r, d]) => { const m = d.demoModel(); const s = Object.assign(m.sections[2], { divider: true }, ${JSON.stringify(set)});
+    document.querySelectorAll('.page-section')[2].outerHTML = r.renderSection(s, m); window.__div = true; }); return 'true'; })()`);
+  await pause(700);
+  const r = evalJs(S, `(() => { const e = document.querySelectorAll('.page-section')[2].querySelector('.section-divider-stroke path'); if (!e) return JSON.stringify({ width: '0px', dash: '0px' }); const cs = getComputedStyle(e); return JSON.stringify({ width: cs.strokeWidth, dash: cs.strokeDasharray === 'none' ? '0px' : cs.strokeDasharray, linecap: cs.strokeLinecap }); })()`);
+  const ok = r.width === o.stroke.width && r.dash === o.stroke.dash && (o.stroke.width === '0px' || r.linecap === o.stroke.linecap);
+  n++; if (!ok) bad++;
+  strokes.push({ name, ok });
+  console.log(name.padEnd(16), ok ? 'match' : `DIFF oracle ${JSON.stringify(o.stroke)} ours ${JSON.stringify(r)}`);
+}
+
 // Colors tab: each theme's background, heading and paragraph color at 1600 by 945.
 const themes = [];
 viewport(S, 1600, 945); goto(S, 'http://127.0.0.1:5178/page.html'); await pause(2200);
@@ -71,5 +88,5 @@ for (const [label, o] of Object.entries(design).filter(([k, v]) => (k === 'base'
   console.log(label.padEnd(12), (o.theme || 'default').padEnd(15), ok ? 'match' : `DIFF oracle ${o.bg} ${o.ink} ours ${r.bg} ${r.ink}`);
 }
 console.log(`Section settings: ${n - bad} of ${n} readings match`);
-writeFileSync(new URL('../parity/section-check.json', import.meta.url), JSON.stringify({ check: 'section settings', tolerance: 1, pass: n - bad, total: n, dividers, themes }, null, 2) + '\n');
+writeFileSync(new URL('../parity/section-check.json', import.meta.url), JSON.stringify({ check: 'section settings', tolerance: 1, pass: n - bad, total: n, dividers, strokes, themes }, null, 2) + '\n');
 process.exit(bad ? 1 : 0);

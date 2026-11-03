@@ -52,7 +52,14 @@ export function resetViewport(surface) {
 export function ensureVisible(surface) {
   const state = run(['--surface', surface, 'eval', 'document.visibilityState']);
   if (state.includes('visible')) return false;
-  execFileSync('cmux', ['split-off', '--surface', surface, 'right', '--focus', 'false'], { encoding: 'utf8' });
+  try {
+    execFileSync('cmux', ['split-off', '--surface', surface, 'right', '--focus', 'false'], { encoding: 'utf8', stdio: 'pipe' });
+  } catch (e) {
+    // The surface already has a pane of its own that is not on screen. Pages without
+    // iframes still lay out; the editor and the oracle do not, so callers that need them check.
+    console.warn(`warning: ${surface} is hidden and cannot be split off (${String(e.stderr || e.message).trim().split('\n')[0]})`);
+    return false;
+  }
   execFileSync('sleep', ['1']);
   return true;
 }
