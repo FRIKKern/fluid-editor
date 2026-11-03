@@ -14,11 +14,12 @@
 <div id="header-slot"></div>
 <main id="page"></main>
 <script type="module">
-import { renderPage, renderHeader, HEADER_SCRIPT } from './src/render.js';
+import { renderPage, renderHeader, renderFooter, HEADER_SCRIPT } from './src/render.js';
 import { demoModel } from './src/demo.js';
 const model = demoModel();
 document.getElementById('header-slot').outerHTML = renderHeader(model.header);
 document.getElementById('page').innerHTML = renderPage(model);
+document.getElementById('page').insertAdjacentHTML('afterend', renderFooter(model));
 new Function(HEADER_SCRIPT)();
 document.documentElement.dataset.rendered = 'true';
 </script>

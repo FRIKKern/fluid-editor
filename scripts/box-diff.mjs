@@ -35,7 +35,7 @@ const MEASURE = `(async () => {
   const withoutSections = ${args.includes('--no-sections')};
   await document.fonts.ready;
   const out = {};
-  for (const fe of document.querySelectorAll('main#page .fluid-engine')) {
+  for (const fe of document.querySelectorAll('main#page .fluid-engine, footer .fluid-engine')) {
     const sid = [...fe.classList].find((c) => /^fe-[\\w-]+$/.test(c) && c !== 'fe-block');
     const r = fe.getBoundingClientRect();
     // The section itself: grid offset inside it and its height (P2, P3).

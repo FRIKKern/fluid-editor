@@ -1786,5 +1786,256 @@ export const DEMO = {
         }
       ]
     }
+  ],
+  "footer": [
+    {
+      "id": "6ae35c85908fad60b011d36e",
+      "theme": "theme-black",
+      "height": "custom",
+      "valign": "middle",
+      "contentWidth": "wide",
+      "halign": "center",
+      "customHeight": 10,
+      "gap": 11,
+      "rows": {
+        "mobile": 13,
+        "desktop": 13
+      },
+      "blocks": [
+        {
+          "id": "636b96b2b096a118b7d6",
+          "type": "text",
+          "html": "<h2 style=\"white-space:pre-wrap;\">Agaro Collective</h2>",
+          "layout": {
+            "mobile": {
+              "area": [
+                2,
+                2,
+                3,
+                8
+              ],
+              "z": 2,
+              "justify": "flex-start",
+              "align": "flex-start"
+            },
+            "desktop": {
+              "area": [
+                3,
+                2,
+                7,
+                11
+              ],
+              "z": 2,
+              "justify": "flex-start",
+              "align": "flex-start"
+            }
+          }
+        },
+        {
+          "id": "724a557167add4725645",
+          "type": "text",
+          "html": "<p class=\"\" style=\"white-space:pre-wrap;\">Agaro Collective is an independent strategy and design consultancy based in New York, NY. We’ve helped hundreds of clients realize their online potential. We are thrilled to have the opportunity to help you reach yours. </p>",
+          "layout": {
+            "mobile": {
+              "area": [
+                3,
+                2,
+                4,
+                10
+              ],
+              "z": 3,
+              "justify": "flex-start",
+              "align": "flex-start"
+            },
+            "desktop": {
+              "area": [
+                7,
+                2,
+                8,
+                11
+              ],
+              "z": 3,
+              "justify": "flex-start",
+              "align": "flex-start"
+            }
+          }
+        },
+        {
+          "id": "46d09ab909e7089f1593",
+          "type": "text",
+          "html": "<p class=\"\" style=\"white-space:pre-wrap;\"><a href=\"/services\">Services</a></p>",
+          "layout": {
+            "mobile": {
+              "area": [
+                5,
+                2,
+                6,
+                10
+              ],
+              "z": 6,
+              "justify": "flex-start",
+              "align": "flex-start"
+            },
+            "desktop": {
+              "area": [
+                3,
+                16,
+                4,
+                20
+              ],
+              "z": 6,
+              "justify": "flex-start",
+              "align": "flex-start"
+            }
+          }
+        },
+        {
+          "id": "40ffcb52ae3969b1440b",
+          "type": "text",
+          "html": "<p class=\"\" style=\"white-space:pre-wrap;\"><a href=\"/contact\">Contact</a></p>",
+          "layout": {
+            "mobile": {
+              "area": [
+                6,
+                2,
+                7,
+                10
+              ],
+              "z": 7,
+              "justify": "flex-start",
+              "align": "flex-start"
+            },
+            "desktop": {
+              "area": [
+                5,
+                16,
+                6,
+                20
+              ],
+              "z": 7,
+              "justify": "flex-start",
+              "align": "flex-start"
+            }
+          }
+        },
+        {
+          "id": "1bdd29a0afeafea2acac",
+          "type": "text",
+          "html": "<p class=\"\" style=\"white-space:pre-wrap;\"><a href=\"/about\">About</a></p>",
+          "layout": {
+            "mobile": {
+              "area": [
+                7,
+                2,
+                8,
+                10
+              ],
+              "z": 8,
+              "justify": "flex-start",
+              "align": "flex-start"
+            },
+            "desktop": {
+              "area": [
+                4,
+                16,
+                5,
+                20
+              ],
+              "z": 8,
+              "justify": "flex-start",
+              "align": "flex-start"
+            }
+          }
+        },
+        {
+          "id": "924bd17097b231469d10",
+          "type": "text",
+          "html": "<p class=\"sqsrte-small\" style=\"white-space:pre-wrap;\">Made with <a href=\"http://squarespace.com\">Squarespace</a></p>",
+          "layout": {
+            "mobile": {
+              "area": [
+                11,
+                2,
+                12,
+                10
+              ],
+              "z": 9,
+              "justify": "flex-start",
+              "align": "flex-start"
+            },
+            "desktop": {
+              "area": [
+                13,
+                2,
+                14,
+                8
+              ],
+              "z": 9,
+              "justify": "flex-start",
+              "align": "flex-start"
+            }
+          }
+        },
+        {
+          "id": "a18a88473610da2ad87e",
+          "type": "text",
+          "html": "<p class=\"\" style=\"white-space:pre-wrap;\">email@example.com<br>(555) 555-5555</p><p class=\"\" style=\"white-space:pre-wrap;\">123 Demo Street<br>New York, NY 12345</p>",
+          "layout": {
+            "mobile": {
+              "area": [
+                12,
+                2,
+                13,
+                10
+              ],
+              "z": 10,
+              "justify": "flex-start",
+              "align": "flex-start"
+            },
+            "desktop": {
+              "area": [
+                3,
+                21,
+                7,
+                26
+              ],
+              "z": 10,
+              "justify": "flex-start",
+              "align": "flex-start"
+            }
+          }
+        },
+        {
+          "id": "27bbe12ff290dc052639",
+          "type": "social",
+          "count": 3,
+          "align": "right",
+          "layout": {
+            "mobile": {
+              "area": [
+                13,
+                2,
+                14,
+                10
+              ],
+              "z": 11,
+              "justify": "flex-start",
+              "align": "flex-start"
+            },
+            "desktop": {
+              "area": [
+                10,
+                21,
+                11,
+                25
+              ],
+              "z": 11,
+              "justify": "flex-start",
+              "align": "flex-start"
+            }
+          }
+        }
+      ]
+    }
   ]
 };
