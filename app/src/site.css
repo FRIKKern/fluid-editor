@@ -123,8 +123,9 @@ p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
 .sqs-block-button .sqs-block-content { display: flex; height: 100%; }
 .sqs-block-button-element {
   display: inline-flex; align-items: center; justify-content: center;
-  /* Fills its block's height, as on the oracle (59px at 768, 61.6px at 1280). */
-  padding: 0 56px; height: 100%;
+  /* Fills its block, as on the oracle: the height (59px at 768, 61.6px at 1280) and the width
+     (the demo hero button is 283 by 71, its block's box; parity/findings/TOOLBARGEO.json). */
+  padding: 0 56px; height: 100%; width: 100%; box-sizing: border-box;
   border-radius: 300px; background: #000; color: #fff;
   font-family: Poppins, sans-serif; font-weight: 500; font-size: 16px; letter-spacing: .02em;
   text-decoration: none; white-space: nowrap;

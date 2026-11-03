@@ -3,6 +3,8 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 
 const inv = JSON.parse(readFileSync(new URL('../parity/inventory.json', import.meta.url), 'utf8'));
+const visual = (() => { try { return JSON.parse(readFileSync(new URL('../parity/visual.json', import.meta.url), 'utf8')); } catch { return null; } })();
+const pct = (name) => { const v = visual?.states.find((x) => x.name === name); return v ? `${v.percent}%` : ''; };
 const ORDER = ['UNTRACKED', 'mentioned', 'side panel only', 'tracked', 'out of scope'];
 const MEANING = {
   UNTRACKED: 'no item lists or mentions it: a gap nobody wrote down',
@@ -24,9 +26,9 @@ const lines = [
   '',
   '## By state',
   '',
-  '| State | What | Oracle labels | Ours has | Untracked | Mentioned | Side panel only | Tracked |',
-  '|---|---|---|---|---|---|---|---|',
-  ...inv.states.map((s) => `| ${s.name} | ${cell(s.what)} | ${s.oracle} | ${s.present} | ${count(s, 'UNTRACKED')} | ${count(s, 'mentioned')} | ${count(s, 'side panel only')} | ${count(s, 'tracked')} |`),
+  '| State | What | Oracle labels | Ours has | Untracked | Mentioned | Side panel only | Tracked | Canvas pixels differing |',
+  '|---|---|---|---|---|---|---|---|---|',
+  ...inv.states.map((s) => `| ${s.name} | ${cell(s.what)} | ${s.oracle} | ${s.present} | ${count(s, 'UNTRACKED')} | ${count(s, 'mentioned')} | ${count(s, 'side panel only')} | ${count(s, 'tracked')} | ${pct(s.name)} |`),
   '',
 ];
 for (const st of ORDER) {
