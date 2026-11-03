@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="914" viewBox="0 0 1200 914" role="img" aria-labelledby="t d">
 <title id="t">Fluid editor parity</title>
-<desc id="d">26 of 105 items done, 20 partial, 37 open, 22 unknown. Harness and oracle: 1 of 12 done. Published grid CSS: 8 of 11 done. Page and site context: 1 of 7 done. Block types: 1 of 14 done. Geometry and snapping: 3 of 8 done. Gestures: 3 of 12 done. Row stretch: 1 of 5 done. Text editing: 1 of 6 done. Overlap and layers: 1 of 5 done. Phone layout: 2 of 7 done. Section settings and Stacks: 0 of 3 done. Editor chrome: 1 of 7 done. History, save and publish: 2 of 5 done. Accessibility and order: 1 of 3 done.</desc>
+<desc id="d">37 of 107 items done, 23 partial, 29 open, 18 unknown. Harness and oracle: 8 of 12 done. Published grid CSS: 12 of 13 done. Page and site context: 1 of 7 done. Block types: 1 of 14 done. Geometry and snapping: 3 of 8 done. Gestures: 3 of 12 done. Row stretch: 1 of 5 done. Text editing: 1 of 6 done. Overlap and layers: 1 of 5 done. Phone layout: 2 of 7 done. Section settings and Stacks: 0 of 3 done. Editor chrome: 1 of 7 done. History, save and publish: 2 of 5 done. Accessibility and order: 1 of 3 done.</desc>
 <style>
   svg { --bg:#fbfaf7; --card:#ffffff; --line:#e3e0d6; --ink:#1f1e1b; --muted:#6c6a63; --done:#2c7a4b; --now:#b26b00; --todo:#a3a097; --nowbg:#fff6e5; --partbg:#fdf0d8; --unk:#8a6fb0; }
   @media (prefers-color-scheme: dark) {
@@ -21,36 +21,36 @@
 <rect class="bg" width="1200" height="914" rx="16"/>
 <text x="40" y="70" font-size="36" font-weight="700" letter-spacing="-0.8">Parity</text>
 <text x="40" y="102" font-size="19" class="muted">Everything that has to match Fluid Engine, one cell per item.</text>
-<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">26<tspan class="muted" font-weight="400"> / 105</tspan></text>
+<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">37<tspan class="muted" font-weight="400"> / 107</tspan></text>
 <text x="1160" y="102" font-size="16" text-anchor="end" class="muted">items done</text>
-<rect x="40" y="124" width="277.3333333333333" height="10" class="s-done"/>
-<rect x="317.3333333333333" y="124" width="213.33333333333334" height="10" class="s-partial"/>
-<rect x="530.6666666666666" y="124" width="394.6666666666667" height="10" class="s-open"/>
-<rect x="925.3333333333333" y="124" width="234.66666666666666" height="10" class="s-unknown"/>
-<text x="40" y="172" font-size="16"><tspan class="done">✓ 26 done</tspan><tspan class="now" dx="24">◐ 20 partial</tspan><tspan class="todo" dx="24">○ 37 open</tspan><tspan class="unk" dx="24">? 22 unknown</tspan></text>
+<rect x="40" y="124" width="387.2897196261682" height="10" class="s-done"/>
+<rect x="427.2897196261682" y="124" width="240.74766355140187" height="10" class="s-partial"/>
+<rect x="668.0373831775701" y="124" width="303.5514018691589" height="10" class="s-open"/>
+<rect x="971.588785046729" y="124" width="188.41121495327104" height="10" class="s-unknown"/>
+<text x="40" y="172" font-size="16"><tspan class="done">✓ 37 done</tspan><tspan class="now" dx="24">◐ 23 partial</tspan><tspan class="todo" dx="24">○ 29 open</tspan><tspan class="unk" dx="24">? 18 unknown</tspan></text>
 <text x="1160" y="172" font-size="16" text-anchor="end" class="muted">unknown: needs a trace on the oracle before it can be built</text>
 <path d="M40 190H1160" class="rule"/>
 <g data-area="Harness and oracle">
 <text x="40" y="234" font-size="15" font-weight="600">Harness and oracle</text>
-<text x="324" y="234" font-size="14" text-anchor="end" class="muted">1/12</text>
+<text x="324" y="234" font-size="14" text-anchor="end" class="muted">8/12</text>
 <rect x="340" y="214" width="50" height="30" rx="6" class="c-done"><title>H1 CSS round trip check, `scripts/check-render.mjs`: done</title></rect>
 <text x="365" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-done">H1</text>
-<rect x="396" y="214" width="50" height="30" rx="6" class="c-open"><title>H2 Fixture capture tool: URL list in, section CSS, markup, URL, date and sha256 out: open</title></rect>
-<text x="421" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H2</text>
-<rect x="452" y="214" width="50" height="30" rx="6" class="c-open"><title>H3 Corpus of at least 300 sections from at least 30 public sites: open</title></rect>
-<text x="477" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H3</text>
-<rect x="508" y="214" width="50" height="30" rx="6" class="c-open"><title>H4 Box diff: load an oracle page and our render, compare every `.fe-block` rect: open</title></rect>
-<text x="533" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H4</text>
-<rect x="564" y="214" width="50" height="30" rx="6" class="c-open"><title>H5 Trace format, `traces/&lt;id&gt;.json`: before state, gesture, after state, oracle URL, date: open</title></rect>
-<text x="589" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H5</text>
-<rect x="620" y="214" width="50" height="30" rx="6" class="c-open"><title>H6 Trace recorder through cmux on the trial site: open</title></rect>
-<text x="645" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H6</text>
-<rect x="676" y="214" width="50" height="30" rx="6" class="c-open"><title>H7 Trace replay in our editor through cmux: open</title></rect>
-<text x="701" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H7</text>
-<rect x="732" y="214" width="50" height="30" rx="6" class="c-open"><title>H8 Status report: `npm run status` prints counts per area and milestone: open</title></rect>
-<text x="757" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H8</text>
-<rect x="788" y="214" width="50" height="30" rx="6" class="c-open"><title>H9 Git repo with fixtures and traces kept out of history: open</title></rect>
-<text x="813" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">H9</text>
+<rect x="396" y="214" width="50" height="30" rx="6" class="c-done"><title>H2 Fixture capture tool: URL list in, section CSS, markup, URL, date and sha256 out: done</title></rect>
+<text x="421" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-done">H2</text>
+<rect x="452" y="214" width="50" height="30" rx="6" class="c-partial"><title>H3 Corpus of at least 300 sections from at least 30 public sites: partial</title></rect>
+<text x="477" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">H3</text>
+<rect x="508" y="214" width="50" height="30" rx="6" class="c-done"><title>H4 Box diff: load an oracle page and our render, compare every `.fe-block` rect: done</title></rect>
+<text x="533" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-done">H4</text>
+<rect x="564" y="214" width="50" height="30" rx="6" class="c-done"><title>H5 Trace format, `traces/&lt;id&gt;.json`: before state, gesture, after state, oracle URL, date: done</title></rect>
+<text x="589" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-done">H5</text>
+<rect x="620" y="214" width="50" height="30" rx="6" class="c-done"><title>H6 Trace recorder through cmux on the trial site: done</title></rect>
+<text x="645" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-done">H6</text>
+<rect x="676" y="214" width="50" height="30" rx="6" class="c-done"><title>H7 Trace replay in our editor through cmux: done</title></rect>
+<text x="701" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-done">H7</text>
+<rect x="732" y="214" width="50" height="30" rx="6" class="c-done"><title>H8 Status report: `npm run status` prints counts per area and milestone: done</title></rect>
+<text x="757" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-done">H8</text>
+<rect x="788" y="214" width="50" height="30" rx="6" class="c-done"><title>H9 Git repo with fixtures and traces kept out of history: done</title></rect>
+<text x="813" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-done">H9</text>
 <rect x="844" y="214" width="50" height="30" rx="6" class="c-open"><title>O1 Build the 8 demo sections on the trial site with the same grid areas as `src/demo.js`. Needs approval: this saves the trial site: open</title></rect>
 <text x="869" y="234" font-size="13" font-weight="700" text-anchor="middle" class="t-open">O1</text>
 <rect x="900" y="214" width="50" height="30" rx="6" class="c-open"><title>O2 Capture the 8 sections as fixtures, both layouts: open</title></rect>
@@ -60,7 +60,7 @@
 </g>
 <g data-area="Published grid CSS">
 <text x="40" y="280" font-size="15" font-weight="600">Published grid CSS</text>
-<text x="324" y="280" font-size="14" text-anchor="end" class="muted">8/11</text>
+<text x="324" y="280" font-size="14" text-anchor="end" class="muted">12/13</text>
 <rect x="340" y="260" width="50" height="30" rx="6" class="c-done"><title>C1 26 tracks, 24 or 8 content columns plus 2 gutter tracks: done</title></rect>
 <text x="365" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C1</text>
 <rect x="396" y="260" width="50" height="30" rx="6" class="c-done"><title>C2 `--cell-max-width` from site max width and gap: done</title></rect>
@@ -79,10 +79,14 @@
 <text x="757" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C8</text>
 <rect x="788" y="260" width="50" height="30" rx="6" class="c-partial"><title>C9 Inset content width: CSS emitted, no setting yet: partial</title></rect>
 <text x="813" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">C9</text>
-<rect x="844" y="260" width="50" height="30" rx="6" class="c-unknown"><title>C10 Content of the `@media (max-width: 767px)` block inside each block rule: unknown</title></rect>
-<text x="869" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">C10</text>
-<rect x="900" y="260" width="50" height="30" rx="6" class="c-unknown"><title>C11 Other per-block CSS for other block types and settings: unknown</title></rect>
-<text x="925" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">C11</text>
+<rect x="844" y="260" width="50" height="30" rx="6" class="c-done"><title>C10 Content of the `@media (max-width: 767px)` block inside each block rule: done</title></rect>
+<text x="869" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C10</text>
+<rect x="900" y="260" width="50" height="30" rx="6" class="c-done"><title>C11 Other per-block CSS for other block types and settings: done</title></rect>
+<text x="925" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C11</text>
+<rect x="956" y="260" width="50" height="30" rx="6" class="c-done"><title>C12 Sticky blocks: position sticky with a top, center or bottom anchor and an offset, desktop only: done</title></rect>
+<text x="981" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C12</text>
+<rect x="1012" y="260" width="50" height="30" rx="6" class="c-done"><title>C13 Separate row gap and column gap; the column gap sets the gutter and cell width: done</title></rect>
+<text x="1037" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C13</text>
 </g>
 <g data-area="Page and site context">
 <text x="40" y="326" font-size="15" font-weight="600">Page and site context</text>
@@ -167,8 +171,8 @@
 <text x="533" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">X4</text>
 <rect x="564" y="444" width="50" height="30" rx="6" class="c-done"><title>X5 Resize from 8 handles with the opposite edge fixed: done</title></rect>
 <text x="589" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X5</text>
-<rect x="620" y="444" width="50" height="30" rx="6" class="c-unknown"><title>X6 Which handles each block type shows: unknown</title></rect>
-<text x="645" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">X6</text>
+<rect x="620" y="444" width="50" height="30" rx="6" class="c-partial"><title>X6 Which handles each block type shows: partial</title></rect>
+<text x="645" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">X6</text>
 <rect x="676" y="444" width="50" height="30" rx="6" class="c-unknown"><title>X7 Shift and Alt modifiers: unknown</title></rect>
 <text x="701" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">X7</text>
 <rect x="732" y="444" width="50" height="30" rx="6" class="c-open"><title>X8 Multi-select and group move: open</title></rect>
@@ -191,8 +195,8 @@
 <text x="421" y="510" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">R2</text>
 <rect x="452" y="490" width="50" height="30" rx="6" class="c-partial"><title>R3 Exact pixel to grid conversion: partial</title></rect>
 <text x="477" y="510" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">R3</text>
-<rect x="508" y="490" width="50" height="30" rx="6" class="c-unknown"><title>R4 Whether the row count shrinks after normalization or a drag: unknown</title></rect>
-<text x="533" y="510" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">R4</text>
+<rect x="508" y="490" width="50" height="30" rx="6" class="c-partial"><title>R4 Whether the row count shrinks after normalization or a drag: partial</title></rect>
+<text x="533" y="510" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">R4</text>
 <rect x="564" y="490" width="50" height="30" rx="6" class="c-unknown"><title>R5 Behaviour when viewport width or a font change stretches rows: unknown</title></rect>
 <text x="589" y="510" font-size="13" font-weight="700" text-anchor="middle" class="t-unknown">R5</text>
 </g>
@@ -275,7 +279,7 @@
 <g data-area="History, save and publish">
 <text x="40" y="786" font-size="15" font-weight="600">History, save and publish</text>
 <text x="324" y="786" font-size="14" text-anchor="end" class="muted">2/5</text>
-<rect x="340" y="766" width="50" height="30" rx="6" class="c-done"><title>Y1 One undo step per gesture, normalization included: done</title></rect>
+<rect x="340" y="766" width="50" height="30" rx="6" class="c-done"><title>Y1 One undo step per gesture; normalization is not undone and does not mark the page changed: done</title></rect>
 <text x="365" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Y1</text>
 <rect x="396" y="766" width="50" height="30" rx="6" class="c-partial"><title>Y2 Undo grouping while typing: partial</title></rect>
 <text x="421" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">Y2</text>

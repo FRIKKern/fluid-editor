@@ -5,43 +5,11 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { sectionCss } from '../app/src/render.js';
+import { parseSectionCss } from './lib/parse.mjs';
 
 const verbose = process.argv.includes('--verbose');
 const root = new URL('../fixtures/', import.meta.url);
 const collapse = (s) => s.replace(/\s+/g, ' ').trim();
-
-export function parseSectionCss(css) {
-  const head = css.match(/\.fe-([\w-]+) \{\s*--grid-gutter: calc\(var\(--sqs-mobile-site-gutter, 6vw\) - ([\d.]+)px\)/);
-  if (!head) return null;
-  const mobileRows = css.match(/grid-template-rows: repeat\((\d+),minmax\(24px, auto\)\)/);
-  const desktopRows = css.match(/grid-template-rows: repeat\((\d+),minmax\(calc\(var\(--container-width\)/);
-  const section = {
-    id: head[1],
-    gap: parseFloat(head[2]),
-    rows: { mobile: mobileRows ? +mobileRows[1] : null, desktop: desktopRows ? +desktopRows[1] : null },
-    blocks: [],
-  };
-  const byId = new Map();
-  for (const m of css.matchAll(/\.fe-block-([\w-]+) \{\s*grid-area: ([\d/-]+);\s*z-index: (-?\d+);/g)) {
-    const id = m[1];
-    if (!byId.has(id)) {
-      byId.set(id, { id, layout: {} });
-      section.blocks.push(byId.get(id));
-    }
-    const b = byId.get(id);
-    b.layout[b.layout.mobile ? 'desktop' : 'mobile'] = { area: m[2].split('/').map(Number), z: +m[3] };
-  }
-  for (const b of section.blocks) {
-    const j = [...css.matchAll(new RegExp(`\\.fe-block-${b.id} \\.sqs-block \\{\\s*justify-content: ([\\w-]+);`, 'g'))];
-    const a = [...css.matchAll(new RegExp(`\\.fe-block-${b.id} \\.sqs-block-alignment-wrapper \\{\\s*align-items: ([\\w-]+);`, 'g'))];
-    ['mobile', 'desktop'].forEach((bp, i) => {
-      if (!b.layout[bp]) return;
-      b.layout[bp].justify = j[i]?.[1];
-      b.layout[bp].align = a[i]?.[1];
-    });
-  }
-  return section;
-}
 
 function firstDiff(a, b) {
   let i = 0;
@@ -55,8 +23,9 @@ const perSite = new Map();
 let pass = 0;
 for (const fx of index) {
   const css = readFileSync(new URL(fx.file, root), 'utf8');
-  const site = perSite.get(fx.url) || { pass: 0, total: 0 };
-  perSite.set(fx.url, site);
+  const host = new URL(fx.url).host;
+  const site = perSite.get(host) || { pass: 0, total: 0 };
+  perSite.set(host, site);
   site.total++;
   if (createHash('sha256').update(css).digest('hex') !== fx.sha256) {
     failures.push({ file: fx.file, reason: 'sha256 does not match fixtures/index.json' });
@@ -77,7 +46,8 @@ for (const fx of index) {
 
 const total = index.length;
 const lines = [`Gate A, CSS round trip: ${pass} of ${total} sections match`];
-for (const [url, s] of perSite) lines.push(`  ${url} ${s.pass} of ${s.total}`);
+if (verbose) for (const [host, s] of perSite) lines.push(`  ${host} ${s.pass} of ${s.total}`);
+else lines.push(`  from ${perSite.size} sites; --verbose lists them`);
 for (const x of failures.slice(0, verbose ? failures.length : 5)) {
   lines.push(`- ${x.file}: ${x.reason}`);
   if (x.want) lines.push(`  want: ...${x.want}...`, `  got:  ...${x.got}...`);

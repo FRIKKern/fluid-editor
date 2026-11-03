@@ -5,72 +5,80 @@
     "milestone": "M0",
     "status": "done",
     "title": "CSS round trip check, `scripts/check-render.mjs`",
-    "gate": "24 of 24 captured sections match",
+    "gate": "351 of 351 sections match",
     "evidence": "parity/gate-a.json"
   },
   {
     "id": "H2",
     "area": "Harness and oracle",
     "milestone": "M0",
-    "status": "open",
+    "status": "done",
     "title": "Fixture capture tool: URL list in, section CSS, markup, URL, date and sha256 out",
-    "gate": "recapturing a page gives the same sha"
+    "gate": "recapturing a page gives the same sha",
+    "evidence": "scripts/capture.mjs: robots.txt for \"*\", sitemap, 1 request per second. Recapture of alignflow-fluid-demo home: 11 of 11 section shas match fixtures/index.json, 2026-11-03"
   },
   {
     "id": "H3",
     "area": "Harness and oracle",
     "milestone": "M0",
-    "status": "open",
+    "status": "partial",
     "title": "Corpus of at least 300 sections from at least 30 public sites",
-    "gate": "covers gap 0 and 11, bleed blocks, overlap, every block type in area 3"
+    "gate": "covers gap 0 and 11, bleed blocks, overlap, every block type in area 3",
+    "evidence": "parity/corpus.json: 351 sections, 55 sites, gaps 0/11/20/27, 61 bleed blocks, 53 sections with overlap, 16 block types. Missing: gallery and map blocks"
   },
   {
     "id": "H4",
     "area": "Harness and oracle",
     "milestone": "M0",
-    "status": "open",
+    "status": "done",
     "title": "Box diff: load an oracle page and our render, compare every `.fe-block` rect",
-    "gate": "reports pass or fail per block per width"
+    "gate": "reports pass or fail per block per width",
+    "evidence": "parity/gate-b.json: achromatic-fluid-demo home, our CSS swapped in, 70 of 70 boxes at 5 widths. With --fault the gate fails 0 of 14 at 1280px"
   },
   {
     "id": "H5",
     "area": "Harness and oracle",
     "milestone": "M0",
-    "status": "open",
+    "status": "done",
     "title": "Trace format, `traces/<id>.json`: before state, gesture, after state, oracle URL, date",
-    "gate": "schema written and one trace stored"
+    "gate": "schema written and one trace stored",
+    "evidence": "scripts/lib/trace.mjs (format and Gate C diff), scripts/check-traces.mjs in npm run check"
   },
   {
     "id": "H6",
     "area": "Harness and oracle",
     "milestone": "M0",
-    "status": "open",
+    "status": "done",
     "title": "Trace recorder through cmux on the trial site",
-    "gate": "records one keyboard move and undoes it"
+    "gate": "records one keyboard move and undoes it",
+    "evidence": "traces/T0001-key-right.json: recorded by scripts/oracle-record.mjs; oracle back to the saved layout after reload"
   },
   {
     "id": "H7",
     "area": "Harness and oracle",
     "milestone": "M0",
-    "status": "open",
+    "status": "done",
     "title": "Trace replay in our editor through cmux",
-    "gate": "replays H6's trace and diffs the end state"
+    "gate": "replays H6's trace and diffs the end state",
+    "evidence": "scripts/replay.mjs replays T0001 in our editor and writes parity/gate-c.json (0 of 1: text height, see P6)"
   },
   {
     "id": "H8",
     "area": "Harness and oracle",
     "milestone": "M0",
-    "status": "open",
+    "status": "done",
     "title": "Status report: `npm run status` prints counts per area and milestone",
-    "gate": "runs in CI or by hand with no errors"
+    "gate": "runs in CI or by hand with no errors",
+    "evidence": "npm run status prints milestones and areas with board state"
   },
   {
     "id": "H9",
     "area": "Harness and oracle",
     "milestone": "M0",
-    "status": "open",
+    "status": "done",
     "title": "Git repo with fixtures and traces kept out of history",
-    "gate": "first commit made"
+    "gate": "first commit made",
+    "evidence": "FRIKKern/fluid-editor, first commit 383848b, checks and housekeeping green"
   },
   {
     "id": "O1",
@@ -168,15 +176,35 @@
     "id": "C10",
     "area": "Published grid CSS",
     "milestone": "M2",
-    "status": "unknown",
-    "title": "Content of the `@media (max-width: 767px)` block inside each block rule"
+    "status": "done",
+    "title": "Content of the `@media (max-width: 767px)` block inside each block rule",
+    "wasUnknown": true,
+    "evidence": "Empty in all 1347 block rules of 351 captured sections; Gate A 351 of 351"
   },
   {
     "id": "C11",
     "area": "Published grid CSS",
     "milestone": "M2",
-    "status": "unknown",
-    "title": "Other per-block CSS for other block types and settings"
+    "status": "done",
+    "title": "Other per-block CSS for other block types and settings",
+    "wasUnknown": true,
+    "evidence": "Gate A 351 of 351: the only other per-block CSS is sticky (C12). Gallery and map blocks not in the corpus yet (H3)"
+  },
+  {
+    "id": "C12",
+    "area": "Published grid CSS",
+    "milestone": "M2",
+    "status": "done",
+    "title": "Sticky blocks: position sticky with a top, center or bottom anchor and an offset, desktop only",
+    "evidence": "Found in 11 blocks of the corpus; Gate A 351 of 351"
+  },
+  {
+    "id": "C13",
+    "area": "Published grid CSS",
+    "milestone": "M2",
+    "status": "done",
+    "title": "Separate row gap and column gap; the column gap sets the gutter and cell width",
+    "evidence": "just-my-type and river demos use 11px rows with 27px and 20px columns; Gate A 351 of 351"
   },
   {
     "id": "P1",
@@ -219,7 +247,8 @@
     "area": "Page and site context",
     "milestone": "M2",
     "status": "open",
-    "title": "Fonts and type scale, including how sizes follow viewport width"
+    "title": "Fonts and type scale, including how sizes follow viewport width",
+    "evidence": "Oracle heading uses Adobe font \"obviously\" 66.4px at 1600px; it cannot be copied (O2), so M1 must switch the trial site to Google Fonts both sides load"
   },
   {
     "id": "P7",
@@ -318,14 +347,16 @@
     "area": "Block types",
     "milestone": "M2",
     "status": "unknown",
-    "title": "Default and minimum size per block type"
+    "title": "Default and minimum size per block type",
+    "wasUnknown": true
   },
   {
     "id": "T14",
     "area": "Block types",
     "milestone": "M2",
     "status": "unknown",
-    "title": "Which types keep an aspect ratio and which follow content"
+    "title": "Which types keep an aspect ratio and which follow content",
+    "wasUnknown": true
   },
   {
     "id": "G1",
@@ -356,14 +387,16 @@
     "area": "Geometry and snapping",
     "milestone": "M4",
     "status": "unknown",
-    "title": "Snap threshold and dead zone"
+    "title": "Snap threshold and dead zone",
+    "wasUnknown": true
   },
   {
     "id": "G5",
     "area": "Geometry and snapping",
     "milestone": "M4",
     "status": "unknown",
-    "title": "Snap to other blocks' edges and centers, `data-is-matching-width` and `data-is-matching-height`"
+    "title": "Snap to other blocks' edges and centers, `data-is-matching-width` and `data-is-matching-height`",
+    "wasUnknown": true
   },
   {
     "id": "G6",
@@ -384,7 +417,8 @@
     "area": "Geometry and snapping",
     "milestone": "M4",
     "status": "unknown",
-    "title": "Editor zoom or scaled preview"
+    "title": "Editor zoom or scaled preview",
+    "wasUnknown": true
   },
   {
     "id": "X1",
@@ -413,7 +447,8 @@
     "area": "Gestures",
     "milestone": "M4",
     "status": "unknown",
-    "title": "What happens to nearby blocks, `data-is-near-dragged-block`"
+    "title": "What happens to nearby blocks, `data-is-near-dragged-block`",
+    "wasUnknown": true
   },
   {
     "id": "X5",
@@ -427,15 +462,18 @@
     "id": "X6",
     "area": "Gestures",
     "milestone": "M4",
-    "status": "unknown",
-    "title": "Which handles each block type shows"
+    "status": "partial",
+    "title": "Which handles each block type shows",
+    "wasUnknown": true,
+    "evidence": "Oracle text block shows all 8 handles (screenshot 2026-11-03). Other block types not checked"
   },
   {
     "id": "X7",
     "area": "Gestures",
     "milestone": "M4",
     "status": "unknown",
-    "title": "Shift and Alt modifiers"
+    "title": "Shift and Alt modifiers",
+    "wasUnknown": true
   },
   {
     "id": "X8",
@@ -449,7 +487,8 @@
     "area": "Gestures",
     "milestone": "M4",
     "status": "unknown",
-    "title": "Dragging a block into another section"
+    "title": "Dragging a block into another section",
+    "wasUnknown": true
   },
   {
     "id": "X10",
@@ -479,14 +518,15 @@
     "milestone": "M4",
     "status": "done",
     "title": "Normalize at the start of a drag or keyboard move",
-    "evidence": "Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace"
+    "evidence": "traces/T0001-key-right.json: one ArrowRight on the oracle remapped a 1-row heading to 6 rows and moved the image 5 rows down"
   },
   {
     "id": "R2",
     "area": "Row stretch",
     "milestone": "M4",
     "status": "partial",
-    "title": "Whether normalization also runs on select, resize or edit start"
+    "title": "Whether normalization also runs on select, resize or edit start",
+    "evidence": "Keyboard: yes (traces/T0001-key-right.json). Select: 1 of 2 oracle runs normalized, 2026-11-03; cause not proven"
   },
   {
     "id": "R3",
@@ -499,15 +539,18 @@
     "id": "R4",
     "area": "Row stretch",
     "milestone": "M4",
-    "status": "unknown",
-    "title": "Whether the row count shrinks after normalization or a drag"
+    "status": "partial",
+    "title": "Whether the row count shrinks after normalization or a drag",
+    "wasUnknown": true,
+    "evidence": "traces/T0001-key-right.json: row count grows on normalization (24 to 29) and stays after undo. Shrinking not seen yet"
   },
   {
     "id": "R5",
     "area": "Row stretch",
     "milestone": "M4",
     "status": "unknown",
-    "title": "Behaviour when viewport width or a font change stretches rows"
+    "title": "Behaviour when viewport width or a font change stretches rows",
+    "wasUnknown": true
   },
   {
     "id": "E1",
@@ -529,7 +572,8 @@
     "area": "Text editing",
     "milestone": "M4",
     "status": "unknown",
-    "title": "Whether the block shrinks when text is deleted"
+    "title": "Whether the block shrinks when text is deleted",
+    "wasUnknown": true
   },
   {
     "id": "E4",
@@ -550,7 +594,8 @@
     "area": "Text editing",
     "milestone": "M4",
     "status": "unknown",
-    "title": "Whether a desktop text edit changes the phone layout's height"
+    "title": "Whether a desktop text edit changes the phone layout's height",
+    "wasUnknown": true
   },
   {
     "id": "Z1",
@@ -565,7 +610,8 @@
     "area": "Overlap and layers",
     "milestone": "M4",
     "status": "unknown",
-    "title": "How Bring forward and Send backward change z"
+    "title": "How Bring forward and Send backward change z",
+    "wasUnknown": true
   },
   {
     "id": "Z3",
@@ -609,21 +655,24 @@
     "area": "Phone layout",
     "milestone": "M4",
     "status": "unknown",
-    "title": "Where a new block lands on phones"
+    "title": "Where a new block lands on phones",
+    "wasUnknown": true
   },
   {
     "id": "L4",
     "area": "Phone layout",
     "milestone": "M4",
     "status": "unknown",
-    "title": "Whether phone edits survive later desktop edits"
+    "title": "Whether phone edits survive later desktop edits",
+    "wasUnknown": true
   },
   {
     "id": "L5",
     "area": "Phone layout",
     "milestone": "M4",
     "status": "unknown",
-    "title": "Hiding a block on one layout"
+    "title": "Hiding a block on one layout",
+    "wasUnknown": true
   },
   {
     "id": "L6",
@@ -637,7 +686,8 @@
     "area": "Phone layout",
     "milestone": "M4",
     "status": "unknown",
-    "title": "Behaviour between 600 and 767px"
+    "title": "Behaviour between 600 and 767px",
+    "wasUnknown": true
   },
   {
     "id": "S1",
@@ -680,7 +730,8 @@
     "area": "Editor chrome",
     "milestone": "M5",
     "status": "partial",
-    "title": "Hover and selection outlines, handles, label pill"
+    "title": "Hover and selection outlines, handles, label pill",
+    "evidence": "Handles measured on the oracle: 10px squares, white, 2px rgb(2,122,255), cursors nw/ne/se/sw-resize, row-resize, col-resize. Applied in app/src/editor-frame.css. Hover and label pill not measured"
   },
   {
     "id": "U4",
@@ -708,15 +759,16 @@
     "area": "Editor chrome",
     "milestone": "M5",
     "status": "unknown",
-    "title": "Animation timings, `is-transitioning-visibility`"
+    "title": "Animation timings, `is-transitioning-visibility`",
+    "wasUnknown": true
   },
   {
     "id": "Y1",
     "area": "History, save and publish",
     "milestone": "M6",
     "status": "done",
-    "title": "One undo step per gesture, normalization included",
-    "evidence": "Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace"
+    "title": "One undo step per gesture; normalization is not undone and does not mark the page changed",
+    "evidence": "traces/T0001-key-right.json: oracle undo has 1 step and keeps the normalization, Save stays disabled. Our editor does the same since m0-harness; replay leaves only the text height diff"
   },
   {
     "id": "Y2",
@@ -760,7 +812,8 @@
     "area": "Accessibility and order",
     "milestone": "M6",
     "status": "unknown",
-    "title": "DOM order of blocks"
+    "title": "DOM order of blocks",
+    "wasUnknown": true
   },
   {
     "id": "A3",

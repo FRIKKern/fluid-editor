@@ -19,8 +19,9 @@ function wrap(text, width) {
 
 function progress(m, all) {
   if (m.id === 'M3') {
-    const left = all.filter((i) => i.status === 'unknown').length;
-    return { done: all.length - left, total: all.length, text: `${left} unknowns left` };
+    const was = all.filter((i) => i.wasUnknown);
+    const left = was.filter((i) => i.status === 'unknown').length;
+    return { done: was.length - left, total: was.length, text: `${was.length - left} of ${was.length} unknowns answered` };
   }
   const mine = all.filter((i) => i.milestone === m.id);
   const done = mine.filter((i) => i.status === 'done').length;

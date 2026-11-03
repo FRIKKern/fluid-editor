@@ -170,7 +170,10 @@ function contentRows(b, m) {
 // Remove row stretch: measure every block in pixels and convert back to
 // grid lines on uniform rows. Same idea as the Squarespace engineering post:
 // it runs at the start of a drag or keyboard move.
+// Like the oracle (trace T0001): normalization is not an undo step, and it does
+// not mark a saved page as changed. Callers take their undo snapshot after it.
 function normalize(sid) {
+  const wasClean = JSON.stringify(model) === savedJson;
   const fe = feEl(sid);
   const m = measure(fe);
   const stretched = m.rows.filter((h) => h > m.rowMin + 0.5).length;
@@ -190,6 +193,7 @@ function normalize(sid) {
     lay(b).area = next[i];
   });
   s.rows[bp] = Math.max(Math.round((m.r.height + m.rg) / m.pitch), ...next.map((a) => a[2] - 1));
+  if (wasClean) savedJson = JSON.stringify(model);
   renderSectionDom(sid);
   note(`Normalized ${stretched} stretched rows, ${moved} blocks remapped`);
   return stretched;
@@ -304,6 +308,7 @@ function prepare(e, type, extra = {}) {
     doc.documentElement.setPointerCapture(e.pointerId);
   } catch {}
   normalize(g.sid);
+  g.before = JSON.stringify(model);
   const s = S(g.sid);
   const b = B(g.sid, g.bid);
   const fe = feEl(g.sid);
@@ -440,8 +445,8 @@ function onKey(e) {
   }
   if (ARROWS[e.key] && sel && !gesture) {
     e.preventDefault();
-    const before = JSON.stringify(model);
     normalize(sel.sid);
+    const before = JSON.stringify(model);
     const b = B(sel.sid, sel.bid);
     const [dr, dc] = ARROWS[e.key];
     const a = lay(b).area;
@@ -462,9 +467,9 @@ function onDblClick(e) {
   const sid = blk.closest('section').dataset.sectionId;
   const b = B(sid, blk.dataset.blockId);
   if (b.type !== 'text') return;
-  const before = JSON.stringify(model);
   select({ sid, bid: b.id });
   normalize(sid);
+  const before = JSON.stringify(model);
   const el = blockEl(b.id);
   el.classList.add('is-text-editing');
   const ce = el.querySelector('.sqs-html-content');
@@ -658,10 +663,22 @@ function boot() {
   });
   renderAll();
   // Expose state for automated checks (cmux / Playwright).
+  // Replay mode (?replay) hides the panel so the canvas width matches the oracle frame.
+  if (new URLSearchParams(location.search).has('replay')) document.body.classList.add('is-replay');
   window.fe = {
     get model() { return model; },
     get bp() { return bp; },
     get gesture() { return gesture; },
+    get canUndo() { return undoStack.length > 0; },
+    load(next) {
+      model = JSON.parse(JSON.stringify(next));
+      undoStack.length = 0;
+      redoStack.length = 0;
+      sel = null;
+      renderAll();
+      return true;
+    },
+    setBp,
     undo,
     normalize,
     measure: (sid) => measure(feEl(sid)),

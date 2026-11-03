@@ -22,9 +22,21 @@ export function escapeHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
+// Sticky blocks, desktop only in all 278 captured sections. Three forms seen.
+export function stickyCss(st) {
+  if (!st) return '';
+  const o = `${st.offset}px`;
+  if (st.anchor === 'top') return `position: sticky; top: calc(${o} + var(--header-fixed-top-offset, 0px));`;
+  if (st.anchor === 'center') return `position: sticky; top: calc(50% + ${o} + (var(--header-fixed-top-offset, 0px) / 2) - (var(--block-height, 0px) / 2));`;
+  if (st.anchor === 'bottom') return `position: sticky; bottom: ${o};`;
+  throw new Error(`unknown sticky anchor ${st.anchor}`);
+}
+
+// Column gap sets the gutter and cell width; row gap can differ.
 export function sectionGridCss(s) {
   const id = s.id;
   const g = f1(s.gap);
+  const rg = f1(s.rowGap ?? s.gap);
   return `
 .fe-${id} {
   --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - ${g}px);
@@ -38,7 +50,7 @@ export function sectionGridCss(s) {
     minmax(var(--grid-gutter), 1fr)
     repeat(8, minmax(0, var(--cell-max-width)))
     minmax(var(--grid-gutter), 1fr);
-  row-gap: ${g}px;
+  row-gap: ${rg}px;
   column-gap: ${g}px;
   overflow-x: hidden;
   overflow-x: clip;
@@ -92,6 +104,7 @@ export function blockCss(b) {
     .fe-block-${id} {
       grid-area: ${areaText(d.area)};
       z-index: ${d.z};
+      ${stickyCss(d.sticky)}
     }
 
     .fe-block-${id} .sqs-block {
