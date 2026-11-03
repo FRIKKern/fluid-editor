@@ -15,6 +15,7 @@ Two narrower checks run beside the gates:
 | `scripts/color-diff.mjs` | Section background, heading, paragraph and button colors on each oracle page against ours | Equal for every section |
 | `npm run section-check` | Each Edit Section option measured on the oracle (`parity/findings/SETTINGS.json`, `VALIGN-TOP.json`, `FILL-SCREEN.json`) against our section with the same setting | Section height, wrapper padding and grid height within 1px, theme colors equal |
 | `npm run text-check` | The HTML of each text toolbar action on the oracle (`parity/findings/TEXTOPS.json`) against the same action in our editor | Equal after dropping a bare `white-space: pre-wrap` style |
+| `npm run paste-check` | The HTML the oracle keeps from 15 pasted samples (`parity/findings/PASTE.json`) against our paste of the same samples | Equal after dropping a bare `white-space: pre-wrap` style |
 
 ## The bar
 

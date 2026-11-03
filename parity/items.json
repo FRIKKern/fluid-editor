@@ -621,8 +621,9 @@
     "id": "E5",
     "area": "Text editing",
     "milestone": "M5",
-    "status": "open",
-    "title": "Paste handling and HTML cleanup"
+    "status": "partial",
+    "title": "Paste handling and HTML cleanup",
+    "evidence": "parity/findings/PASTE.json: 15 samples pasted over a whole text block. Kept: strong/em (from b, i), u, line-through span (from s), links with target and href, br, h1-h4, lists as data-rte-list li > p, blockquote > p, pre > code, mark with the highlight style. Changed: div, h5, h6 to p; a table to one p of run-together cell text; plain text to one p per line with empty lines dropped. Dropped: inline styles, classes, alignment, img, sup, sub, inline code, Word markup; white space collapses. Our paste cleanup (app/src/paste.js) gives the same HTML for all 15 (npm run paste-check, parity/paste-check.json). Not measured: a paste into the middle of a paragraph (ours puts a single paragraph inline and other content after the block)"
   },
   {
     "id": "E6",

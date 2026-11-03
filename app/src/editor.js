@@ -3,6 +3,7 @@
 // on commit; during a gesture we change inline styles and editor layers.
 import { renderPage, renderSection, exportHtml, LAST_LINE, COLS } from './render.js';
 import * as fmt from './text-format.js';
+import { cleanPaste, insertPaste } from './paste.js';
 import { demoModel } from './demo.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -630,7 +631,18 @@ function startTextEdit(sid, bid) {
   fe.style.gridAutoRows = `${m.rowMin}px`;
   editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area] };
   ce.addEventListener('input', onTextInput);
+  ce.addEventListener('paste', onPaste);
   renderPanel();
+}
+
+// Paste (E5): our own cleanup with the oracle's rules (app/src/paste.js).
+function onPaste(e) {
+  const ed = editing;
+  if (!ed) return;
+  e.preventDefault();
+  const dt = e.clipboardData;
+  insertPaste(doc, ed.ce, win.getSelection(), cleanPaste(doc, dt.getData('text/html'), dt.getData('text/plain')));
+  onTextInput();
 }
 
 // The text toolbar (E4, parity/findings/TEXTOPS.json), in the oracle's order: Text Style,
