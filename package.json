@@ -22,7 +22,10 @@
     "near-check": "node scripts/near-check.mjs",
     "chrome-check": "node scripts/chrome-check.mjs",
     "extract-design": "node scripts/extract-design.mjs",
-    "design-edit-check": "node scripts/design-edit-check.mjs"
+    "design-edit-check": "node scripts/design-edit-check.mjs",
+    "inventory": "node scripts/inventory.mjs",
+    "missing": "node scripts/generate-missing.mjs",
+    "publish-review": "node scripts/publish-review.mjs"
   },
   "description": "A grid editor that behaves like Squarespace Fluid Engine, 1:1, checked against a real Squarespace site",
   "engines": {

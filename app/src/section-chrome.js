@@ -76,3 +76,55 @@ export function sectionChromeLayout(sec, frame, stage, headerBottom) {
 export function sectionPanelTop(cardTop, windowHeight) {
   return Math.max(0, Math.min(cardTop, windowHeight - 476));
 }
+
+// The Edit Section panel (U9), drawn like the oracle's (parity/findings/PANEL.json,
+// SETTINGS.json, screenshots in the gap review): text tabs with an underline, small grey
+// group headings, one row per setting with its control on the right and a line under it,
+// switches for Fill Screen and Divider, icon toggles for Gap and Alignment. The control hooks
+// (data-sact, data-act) are the ones the editor and the checks already use.
+const pi = (d, w = 20) => `<svg width="${w}" height="${w}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const PI = {
+  gapZero: '<rect x="5" y="5" width="14" height="14"/><path d="M12 5v14M5 12h14"/>',
+  gapMedium: '<rect x="4" y="4" width="6.5" height="6.5"/><rect x="13.5" y="4" width="6.5" height="6.5"/><rect x="4" y="13.5" width="6.5" height="6.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5"/>',
+  more: '<circle cx="6" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="18" cy="12" r="1.3" fill="currentColor"/>',
+  top: '<path d="M6 5h12"/><path d="M12 19V9"/><path d="M8.5 12.5L12 9l3.5 3.5"/>',
+  middle: '<path d="M6 12h12"/><path d="M12 4v5"/><path d="M9.5 6.5L12 9l2.5-2.5"/><path d="M12 20v-5"/><path d="M9.5 17.5L12 15l2.5 2.5"/>',
+  bottom: '<path d="M6 19h12"/><path d="M12 5v10"/><path d="M8.5 11.5L12 15l3.5-3.5"/>',
+  none: '<circle cx="12" cy="12" r="7"/><path d="M7 17L17 7"/>',
+  solid: '<path d="M5 12h14"/>',
+  dashed: '<path d="M4 12h3M10.5 12h3M17 12h3"/>',
+};
+export function sectionPanelHtml(s, o) {
+  const tab = (t) => `<button type="button" role="tab" class="sp-tab${t === o.tab ? ' is-on' : ''}" aria-selected="${t === o.tab}" data-sact="tab" data-v="${t}">${t}</button>`;
+  const seg = (act, v, label, on, html = label) => `<button type="button" class="sp-seg${on ? ' is-on' : ''}" data-sact="${act}" data-v="${v}" aria-label="${label}" aria-pressed="${on}" title="${label}">${html}</button>`;
+  const row = (label, control, cls = '') => `<div class="sp-row ${cls}"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
+  const sw = (act, on, label) => `<label class="sp-switch"><input type="checkbox" data-act="${act}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
+  const head = (t) => `<div class="sp-head">${t}</div>`;
+  let body = '';
+  if (o.tab === 'Design') {
+    const gk = o.gapKind;
+    body = head('Grid')
+      + row('Row Count', `<input class="sp-num" type="number" data-act="rows" aria-label="Row Count" min="${o.minRows}" max="10000" value="${s.rows[o.bp]}">`)
+      + row('Gap', seg('gap', 'zero', 'Zero gap', gk === 'zero', pi(PI.gapZero)) + seg('gap', 'medium', 'Medium gap', gk === 'medium', pi(PI.gapMedium)) + seg('gap', 'custom', 'Custom gap', gk === 'custom', pi(PI.more)))
+      + (gk === 'custom' ? row('Column gap', `<input type="range" data-act="gap" aria-label="Column gap slider" min="0" max="50" value="${s.gap}"><span class="sp-val">${s.gap}</span>`) + row('Row gap', `<input type="range" data-act="rowGap" aria-label="Row gap slider" min="0" max="50" value="${s.rowGap ?? s.gap}"><span class="sp-val">${s.rowGap ?? s.gap}</span>`) : '')
+      + head('Section')
+      + row('Fill Screen', sw('fill', o.fill, 'Fill Screen'))
+      + (o.fill ? row('Height', seg('height', 'small', 'S', s.height === 'small') + seg('height', 'medium', 'M', s.height === 'medium') + seg('height', 'large', 'L', s.height === 'large') + seg('height', 'custom', 'Custom height', s.height === 'custom', pi(PI.more)))
+        + (s.height === 'custom' ? row('Custom height', `<input class="sp-num" type="number" data-act="customHeight" aria-label="Custom height" min="1" max="100" value="${s.customHeight}">`) : '')
+        + row('Alignment', seg('valign', 'top', 'Vertical top', s.valign === 'top', pi(PI.top)) + seg('valign', 'middle', 'Vertical center', (s.valign || 'middle') === 'middle', pi(PI.middle)) + seg('valign', 'bottom', 'Vertical bottom', s.valign === 'bottom', pi(PI.bottom))) : '')
+      + '<p class="sp-help">Fill screen will expand the background height to fill a portion of the user’s screen.</p>'
+      + head('Styling')
+      + row('Divider', sw('divider', !!s.divider, 'Divider'))
+      + (s.divider ? row('Stroke', seg('dividerStroke', 'none', 'No stroke', s.dividerStroke === 'none', pi(PI.none)) + seg('dividerStroke', 'solid', 'Solid stroke', (s.dividerStroke || 'solid') === 'solid', pi(PI.solid)) + seg('dividerStroke', 'dashed', 'Dashed stroke', s.dividerStroke === 'dashed', pi(PI.dashed)))
+        + row('Thickness', seg('dividerThickness', 'S', 'S', s.dividerThickness === 'S') + seg('dividerThickness', 'M', 'M', (s.dividerThickness || 'M') === 'M') + seg('dividerThickness', 'L', 'L', s.dividerThickness === 'L')) : '')
+      + head('Anchor Link')
+      + `<div class="sp-anchor"><span>#</span><input type="text" data-act="anchor" aria-label="Anchor Link" placeholder="Add name" value="${(s.anchor || '').replace(/"/g, '&quot;')}"></div>`;
+  } else if (o.tab === 'Background') {
+    body = row('Background Width', seg('bgWidth', 'full-bleed', 'Full Bleed', (s.bgWidth || 'full-bleed') === 'full-bleed') + seg('bgWidth', 'inset', 'Inset', s.bgWidth === 'inset'), 'sp-row-wide')
+      + '<p class="sp-help">Background image, video and art are not built yet.</p>';
+  } else {
+    const cur = (s.theme || '').replace(/^theme-/, '');
+    body = `<div class="sp-themes">${o.themes.map(([label, v]) => { const c = o.themeColors[v] || {}; return `<button type="button" class="sp-theme${cur === v ? ' is-on' : ''}" data-sact="theme" data-v="${v}" aria-label="${label}" aria-pressed="${cur === v}" style="background:${c.bg || '#fff'};color:${c.ink || '#000'}"><span class="sp-aa">Aa</span><span class="sp-tname">${label}</span></button>`; }).join('')}</div>`;
+  }
+  return `<div class="sp-tabs" role="tablist">${['Design', 'Background', 'Colors'].map(tab).join('')}</div><div class="sp-body">${body}</div>`;
+}

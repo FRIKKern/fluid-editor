@@ -5,7 +5,7 @@ import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAS
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition } from './toolbar.js';
-import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop } from './section-chrome.js';
+import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
 import { demoModel } from './demo.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -850,7 +850,7 @@ function renderPanel() {
     const b = B(sel.sid, sel.bid);
     const L = lay(b);
     const [r0, c0, r1, c1] = L.area;
-    parts.push(`<div class="group"><h3>Block</h3><dl>
+    parts.push(`<div class="group"><h3 data-dev>Block</h3><dl data-dev>
       <dt>Id</dt><dd>${b.id}</dd>
       <dt>Type</dt><dd>${b.type}</dd>
       <dt>Layout</dt><dd>${bp}</dd>
@@ -868,9 +868,10 @@ function renderPanel() {
     parts.push(`<div class="group"><h3>Add block</h3><div class="row">${ADD_TYPES.map(([n]) => `<button class="btn" data-act="add" data-v="${n}">${n}</button>`).join('')}</div></div>`);
     parts.push(layersGroup(s));
   } else {
-    parts.push(`<div class="group"><h3>Page</h3><p class="hint">Click a block to select it. Drag to move. Pull a handle to resize. Double-click text to edit. Arrow keys move one cell. Esc cancels, Cmd+Z undoes.</p></div>`);
+    parts.push(`<div class="group" data-dev><h3>Page</h3><p class="hint">Click a block to select it. Drag to move. Pull a handle to resize. Double-click text to edit. Arrow keys move one cell. Esc cancels, Cmd+Z undoes.</p></div>`);
   }
-  parts.push(`<div class="group"><h3>Activity</h3><pre class="log">${notes.join('\n') || 'Nothing yet'}</pre></div>`);
+  // data-dev marks readouts for developers; the inventory (scripts/inventory.mjs) skips them.
+  parts.push(`<div class="group" data-dev><h3>Activity</h3><pre class="log">${notes.join('\n') || 'Nothing yet'}</pre></div>`);
   panel.innerHTML = parts.join('');
 }
 
@@ -1086,7 +1087,7 @@ function sectionGroup(s) {
   } else {
     body = `<div class="row">${THEMES.map(([l, v]) => opt('theme', v, l, (s.theme || '').replace(/^theme-/, '') === v)).join('')}</div>`;
   }
-  return `<div class="group" data-group="section"><h3>Edit Section</h3>${tabs}${body}<dl>
+  return `<div class="group" data-group="section"><h3>Edit Section</h3>${tabs}${body}<dl data-dev>
     <dt>Section</dt><dd>${s.id}</dd>
     <dt>Columns</dt><dd>${COLS[bp]} + 2 gutters</dd>
     <dt>Row min</dt><dd>${m.rowMin.toFixed(2)}px</dd>
@@ -1137,7 +1138,10 @@ function onSectionChange(e) {
   const before = JSON.stringify(model);
   const s = S(secSid());
   const act = input.dataset.act;
-  if (act === 'divider') {
+  if (act === 'anchor') {
+    const v = input.value.trim().replace(/[^A-Za-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '');
+    if (v) s.anchor = v; else delete s.anchor;
+  } else if (act === 'divider') {
     if (input.checked) s.divider = true; else { delete s.divider; delete s.dividerStroke; delete s.dividerThickness; }
   } else if (act === 'fill') {
     if (input.checked) { s.height = 'medium'; delete s.customHeight; } else { s.height = 'custom'; delete s.customHeight; }
@@ -1189,9 +1193,27 @@ function placeChrome() {
     sectionPanel.style.top = `${sectionPanelTop(L.card.top, stage.getBoundingClientRect().height)}px`;
   }
 }
+// Theme colors for the Colors tab tiles, read once from the canvas (site.css lives there).
+let themeColors = null;
+function readThemeColors() {
+  const host = doc.createElement('section');
+  host.className = 'page-section';
+  host.style.cssText = 'position:absolute;left:-9999px;top:0;width:10px;height:10px;';
+  host.innerHTML = '<div class="section-background"></div><h2>x</h2>';
+  doc.body.append(host);
+  const out = {};
+  for (const [, v] of THEMES) {
+    host.dataset.sectionTheme = v;
+    out[v] = { bg: win.getComputedStyle(host.querySelector('.section-background')).backgroundColor, ink: win.getComputedStyle(host.querySelector('h2')).color };
+  }
+  host.remove();
+  return out;
+}
 function renderSectionPanel() {
   if (!editSid || !S(editSid)) { editSid = null; sectionPanel.hidden = true; return; }
-  sectionPanel.innerHTML = sectionGroup(S(editSid));
+  const s = S(editSid);
+  themeColors = themeColors || readThemeColors();
+  sectionPanel.innerHTML = sectionPanelHtml(s, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors });
   sectionPanel.hidden = false;
 }
 function closeSectionPanel() { if (!editSid) return; editSid = null; renderSectionPanel(); placeChrome(); }
