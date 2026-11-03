@@ -29,7 +29,8 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- Nothing yet
+- **Today** · 1 change
+  - Fluid editor prototype: renderer, editor, 8-section demo page, Gate A, parity plan and generated progress pictures
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
