@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="914" viewBox="0 0 1200 914" role="img" aria-labelledby="t d">
 <title id="t">Fluid editor parity</title>
-<desc id="d">63 of 108 items done, 36 partial, 9 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 12 of 13 done. Page and site context: 4 of 7 done. Block types: 4 of 14 done. Geometry and snapping: 5 of 8 done. Gestures: 5 of 12 done. Row stretch: 3 of 5 done. Text editing: 4 of 6 done. Overlap and layers: 3 of 5 done. Phone layout: 6 of 8 done. Section settings and Stacks: 0 of 3 done. Editor chrome: 2 of 7 done. History, save and publish: 2 of 5 done. Accessibility and order: 2 of 3 done.</desc>
+<desc id="d">64 of 108 items done, 36 partial, 8 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 4 of 7 done. Block types: 4 of 14 done. Geometry and snapping: 5 of 8 done. Gestures: 5 of 12 done. Row stretch: 3 of 5 done. Text editing: 4 of 6 done. Overlap and layers: 3 of 5 done. Phone layout: 6 of 8 done. Section settings and Stacks: 0 of 3 done. Editor chrome: 2 of 7 done. History, save and publish: 2 of 5 done. Accessibility and order: 2 of 3 done.</desc>
 <style>
   svg { --bg:#fbfaf7; --card:#ffffff; --line:#e3e0d6; --ink:#1f1e1b; --muted:#6c6a63; --done:#2c7a4b; --now:#b26b00; --todo:#a3a097; --nowbg:#fff6e5; --partbg:#fdf0d8; --unk:#8a6fb0; }
   @media (prefers-color-scheme: dark) {
@@ -21,12 +21,12 @@
 <rect class="bg" width="1200" height="914" rx="16"/>
 <text x="40" y="70" font-size="36" font-weight="700" letter-spacing="-0.8">Parity</text>
 <text x="40" y="102" font-size="19" class="muted">Everything that has to match Fluid Engine, one cell per item.</text>
-<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">63<tspan class="muted" font-weight="400"> / 108</tspan></text>
+<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">64<tspan class="muted" font-weight="400"> / 108</tspan></text>
 <text x="1160" y="102" font-size="16" text-anchor="end" class="muted">items done</text>
-<rect x="40" y="124" width="653.3333333333334" height="10" class="s-done"/>
-<rect x="693.3333333333334" y="124" width="373.3333333333333" height="10" class="s-partial"/>
-<rect x="1066.6666666666667" y="124" width="93.33333333333333" height="10" class="s-open"/>
-<text x="40" y="172" font-size="16"><tspan class="done">✓ 63 done</tspan><tspan class="now" dx="24">◐ 36 partial</tspan><tspan class="todo" dx="24">○ 9 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
+<rect x="40" y="124" width="663.7037037037037" height="10" class="s-done"/>
+<rect x="703.7037037037037" y="124" width="373.3333333333333" height="10" class="s-partial"/>
+<rect x="1077.037037037037" y="124" width="82.96296296296296" height="10" class="s-open"/>
+<text x="40" y="172" font-size="16"><tspan class="done">✓ 64 done</tspan><tspan class="now" dx="24">◐ 36 partial</tspan><tspan class="todo" dx="24">○ 8 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
 <text x="1160" y="172" font-size="16" text-anchor="end" class="muted">unknown: needs a trace on the oracle before it can be built</text>
 <path d="M40 190H1160" class="rule"/>
 <g data-area="Harness and oracle">
@@ -59,7 +59,7 @@
 </g>
 <g data-area="Published grid CSS">
 <text x="40" y="280" font-size="15" font-weight="600">Published grid CSS</text>
-<text x="324" y="280" font-size="14" text-anchor="end" class="muted">12/13</text>
+<text x="324" y="280" font-size="14" text-anchor="end" class="done">13/13</text>
 <rect x="340" y="260" width="50" height="30" rx="6" class="c-done"><title>C1 26 tracks, 24 or 8 content columns plus 2 gutter tracks: done</title></rect>
 <text x="365" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C1</text>
 <rect x="396" y="260" width="50" height="30" rx="6" class="c-done"><title>C2 `--cell-max-width` from site max width and gap: done</title></rect>
@@ -76,8 +76,8 @@
 <text x="701" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C7</text>
 <rect x="732" y="260" width="50" height="30" rx="6" class="c-done"><title>C8 `overflow-x: clip`: done</title></rect>
 <text x="757" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C8</text>
-<rect x="788" y="260" width="50" height="30" rx="6" class="c-partial"><title>C9 Inset content width: CSS emitted, no setting yet: partial</title></rect>
-<text x="813" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">C9</text>
+<rect x="788" y="260" width="50" height="30" rx="6" class="c-done"><title>C9 Inset content width: CSS emitted, no setting yet: done</title></rect>
+<text x="813" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C9</text>
 <rect x="844" y="260" width="50" height="30" rx="6" class="c-done"><title>C10 Content of the `@media (max-width: 767px)` block inside each block rule: done</title></rect>
 <text x="869" y="280" font-size="13" font-weight="700" text-anchor="middle" class="t-done">C10</text>
 <rect x="900" y="260" width="50" height="30" rx="6" class="c-done"><title>C11 Other per-block CSS for other block types and settings: done</title></rect>
@@ -96,8 +96,8 @@
 <text x="421" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-done">P2</text>
 <rect x="452" y="306" width="50" height="30" rx="6" class="c-partial"><title>P3 Section height settings and padding: partial</title></rect>
 <text x="477" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">P3</text>
-<rect x="508" y="306" width="50" height="30" rx="6" class="c-open"><title>P4 Section content width, full or inset: open</title></rect>
-<text x="533" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-open">P4</text>
+<rect x="508" y="306" width="50" height="30" rx="6" class="c-partial"><title>P4 Section content width, full or inset: partial</title></rect>
+<text x="533" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">P4</text>
 <rect x="564" y="306" width="50" height="30" rx="6" class="c-partial"><title>P5 Section alignment, color themes, background image and video, dividers: partial</title></rect>
 <text x="589" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">P5</text>
 <rect x="620" y="306" width="50" height="30" rx="6" class="c-done"><title>P6 Fonts and type scale, including how sizes follow viewport width: done</title></rect>

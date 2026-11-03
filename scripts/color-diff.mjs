@@ -21,12 +21,15 @@ const READ = (doc) => `(() => { const d = ${doc}; const W = d.defaultView;
       buttonBg: css(s.querySelector('.sqs-block-button-element, form button'), 'backgroundColor'), buttonInk: css(s.querySelector('.sqs-block-button-element, form button'), 'color') };
   })); })()`;
 
-evalJs(oracle, `(() => { const f = document.getElementById('sqs-site-frame'); if (f.contentDocument.location.pathname !== ${JSON.stringify(path)}) f.src = ${JSON.stringify(path)}; return 'true'; })()`);
-waitFor(oracle, `(() => { const d = document.getElementById('sqs-site-frame').contentDocument; return d.location.pathname === ${JSON.stringify(path)} && d.readyState !== 'loading' && !!d.querySelector('main#page .fluid-engine'); })()`, 40);
-await pause(2000);
-// Never read the wrong page: the frame must still show the path, and its section count must be stable.
-const at = evalJs(oracle, `(() => JSON.stringify(document.getElementById('sqs-site-frame').contentDocument.location.pathname))()`);
-if (at !== path) throw new Error(`oracle frame shows ${at}, wanted ${path}`);
+// Never read the wrong page: the frame must show the path, and still show it after a pause.
+const shows = () => evalJs(oracle, `(() => JSON.stringify(document.getElementById('sqs-site-frame').contentDocument.location.pathname))()`);
+for (let tries = 0; ; tries++) {
+  evalJs(oracle, `(() => { const f = document.getElementById('sqs-site-frame'); if (f.contentDocument.location.pathname !== ${JSON.stringify(path)}) f.src = ${JSON.stringify(path)}; return 'true'; })()`);
+  try { waitFor(oracle, `(() => { const d = document.getElementById('sqs-site-frame').contentDocument; return d.location.pathname === ${JSON.stringify(path)} && d.readyState !== 'loading' && !!d.querySelector('main#page .fluid-engine'); })()`, 40); } catch {}
+  await pause(2000);
+  if (shows() === path) break;
+  if (tries === 2) throw new Error(`oracle frame shows ${shows()}, wanted ${path}`);
+}
 const a = evalJs(oracle, READ("document.getElementById('sqs-site-frame').contentDocument"));
 ensureVisible(surface);
 viewport(surface, 1280, 1000);

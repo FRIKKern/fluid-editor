@@ -171,6 +171,65 @@ if (which === 'SECTION') {
   write('SECTION', { question: 'What does each section setting change?', section: i, results, undoSteps: steps });
 }
 
+if (which === 'PANEL') {
+  // P4, P5, C9: every label in the Edit Section panel, tab by tab. Read only; nothing is clicked except tabs.
+  const i = 2;
+  const { hoverSection } = await import('./oracle/ui.mjs');
+  await hoverSection(i);
+  await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 });
+  const LABELS = `(() => { const fr = document.getElementById('sqs-site-frame').getBoundingClientRect();
+    const inPanel = (e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && (q.left > fr.right - 420 || q.left > 1000); };
+    const leaves = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && inPanel(e) && e.textContent.trim() && !e.closest('#sqs-site-frame'));
+    const aria = [...document.querySelectorAll('[aria-label]')].filter((e) => inPanel(e)).map((e) => e.getAttribute('aria-label'));
+    const tabs = [...document.querySelectorAll('[role=tab]')].filter(inPanel).map((e) => e.textContent.trim());
+    return JSON.stringify({ text: [...new Set(leaves.map((e) => e.textContent.trim().slice(0, 50)))], aria: [...new Set(aria)], tabs }); })()`;
+  const first = evalJs(S, LABELS);
+  const out = { [first.tabs.join('|') || 'panel']: first };
+  for (const t of first.tabs) {
+    await click(`() => [...document.querySelectorAll('[role=tab]')].find((e) => e.textContent.trim() === ${'${JSON.stringify(t)}'})`.replace('${JSON.stringify(t)}', JSON.stringify(t)), { wait: 1200 });
+    out[t] = evalJs(S, LABELS);
+    console.log(t, JSON.stringify(out[t]).slice(0, 400));
+  }
+  await escape();
+  write('PANEL', { question: 'Which settings does the Edit Section panel offer on each tab?', section: i, tabs: out, saveDisabled: saveDisabled() });
+}
+
+if (which === 'INSET') {
+  // P4, C9: Background tab > Background Width > Inset on section 2. Read the section, its
+  // background and its grid before and after, then undo and reload-check.
+  const i = 2;
+  const start = { [i]: both(i) };
+  const READ = `(() => { ${FRAME}
+    const sec = d.querySelectorAll('main#page .page-section')[${i}];
+    const box = (e) => { if (!e) return null; const q = e.getBoundingClientRect(); return [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10); };
+    const fe = sec.querySelector('.fluid-engine'); const bg = sec.querySelector('.section-background');
+    return JSON.stringify({ frameWidth: W.innerWidth, classes: [...sec.classList].filter((c) => /width|bleed/.test(c)).join(' '),
+      section: box(sec), background: box(bg), backgroundStyle: bg && { left: W.getComputedStyle(bg).left, right: W.getComputedStyle(bg).right, width: W.getComputedStyle(bg).width, borderRadius: W.getComputedStyle(bg).borderRadius },
+      grid: box(fe), columns: W.getComputedStyle(fe).gridTemplateColumns.split(' ').slice(0, 3).join(' '), inset: W.getComputedStyle(fe).getPropertyValue('--inset-padding'),
+      container: W.getComputedStyle(fe).getPropertyValue('--container-width'), wrapper: W.getComputedStyle(sec.querySelector('.content-wrapper')).padding }); })()`;
+  const { hoverSection } = await import('./oracle/ui.mjs');
+  const before = evalJs(S, READ);
+  await hoverSection(i);
+  await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 });
+  await click(`() => [...document.querySelectorAll('[role=tab]')].find((e) => e.textContent.trim() === 'Background')`, { wait: 1200 });
+  await click(`() => { const leaf = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.getBoundingClientRect().width > 0 && e.textContent.trim() === 'Inset').pop(); return leaf && (leaf.closest('button, label, [role=radio], [role=button]') || leaf); }`, { wait: 1800 });
+  const after = evalJs(S, READ);
+  console.log('before', JSON.stringify(before)); console.log('after', JSON.stringify(after));
+  await escape();
+  const widths = {};
+  for (const w of [375, 768, 1280]) {
+    evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame'); for (const [k, v] of [['width', '${w}px'], ['max-width', 'none'], ['min-width', '0'], ['flex', 'none']]) f.style.setProperty(k, v, 'important'); return 'true'; })()`);
+    await pause(1500);
+    widths[w] = evalJs(S, READ);
+    console.log(w, JSON.stringify(widths[w]));
+  }
+  evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame'); for (const k of ['width', 'max-width', 'min-width', 'flex']) f.style.removeProperty(k); return 'true'; })()`);
+  await pause(1500);
+  after.widths = widths;
+  const steps = await restore(start, [i]);
+  write('INSET', { question: 'What does Background Width Inset change on a Fluid Engine section?', section: i, before, after, undoSteps: steps });
+}
+
 if (which === 'T13') {
   // Default size and place of each block type: a scratch section at the end, one block
   // at a time (added, read, removed), then a reload that discards it all (nothing saved).
