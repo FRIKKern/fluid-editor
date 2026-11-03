@@ -48,10 +48,12 @@ const READ = (sid) => `(() => {
   return JSON.stringify({ rows: s.rows[fe.bp], blocks });
 })()`;
 
-const SELECT = (id, shift = false) => `(() => {
+// A trace with a recorded view puts the target at the same height in the canvas window as on
+// the oracle; older traces center it.
+const SELECT = (id, shift = false, view = null) => `(() => {
   const f = document.getElementById('site-frame'); const d = f.contentDocument; const W = f.contentWindow;
   const b = d.querySelector('.fe-block[data-block-id="${id}"]');
-  b.scrollIntoView({ block: 'center' });
+  ${view === 'keep' ? '' : view ? `W.scrollTo(0, W.scrollY + b.getBoundingClientRect().top - ${view.blockTop});` : `b.scrollIntoView({ block: 'center' });`}
   const r = b.getBoundingClientRect();
   const o = { bubbles: true, cancelable: true, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2, button: 0, pointerId: 1, isPrimary: true, shiftKey: ${shift} };
   b.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, buttons: 1 }));
@@ -105,13 +107,17 @@ for (const t of traces) {
   }
   waitFor(surface, `(() => document.getElementById('site-frame').clientWidth === ${t.oracle.frameWidth})()`, 10);
   evalJs(surface, `JSON.stringify(fe.load(${JSON.stringify(modelFor(t))}))`);
+  // A trace with a recorded view needs room to scroll the target to its recorded height.
+  if (t.view) evalJs(surface, `(() => { document.getElementById('site-frame').contentDocument.body.style.padding = '1000px 0'; return 'true'; })()`);
   if (t.layout !== 'desktop') evalJs(surface, `(() => { fe.setBp('${t.layout}'); return 'true'; })()`);
   // Text height decides row stretch, so wait until the canvas has its fonts.
   const fonts = evalJs(surface, `(async () => { const d = document.getElementById('site-frame').contentDocument; await d.fonts.ready; await d.fonts.load('400 16px Poppins'); await d.fonts.load('500 16px Poppins'); await new Promise((r) => setTimeout(r, 300)); return JSON.stringify(d.fonts.check('400 16px Poppins')); })()`);
   if (fonts !== true) throw new Error('Poppins did not load in the editor canvas');
-  evalJs(surface, SELECT(t.gesture.target));
   const g = t.gesture;
-  for (const id of g.also || []) evalJs(surface, SELECT(id, true));
+  evalJs(surface, SELECT(g.target, false, t.view));
+  if (only.length) console.log('  start', evalJs(surface, `(() => { const f = document.getElementById('site-frame'); const b = f.contentDocument.querySelector('.fe-block[data-block-id="${g.target}"]'); return JSON.stringify({ top: Math.round(b.getBoundingClientRect().top * 10) / 10, h: f.contentWindow.innerHeight, scrollY: f.contentWindow.scrollY }); })()`));
+  // Shift-added blocks are selected where they are, so the target keeps its recorded place.
+  for (const id of g.also || []) evalJs(surface, SELECT(id, true, t.view ? 'keep' : null));
   if (g.kind === 'key') {
     for (const k of g.keys || []) {
       evalJs(surface, KEY(k));

@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | SECTIONBAR [sections json] | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -824,6 +824,47 @@ if (which === 'DESIGN') {
     if (saveDisabled() !== true) throw new Error('Unsaved changes remain');
   }
   write(process.env.NAME || 'DESIGN', { question: 'What does each control in the block Edit > Design tab change on the block?', block: [i, k], ...out });
+}
+
+if (which === 'SECTIONBAR') {
+  // U9, U10, S4: the section chrome. Hover a section, read every visible control that belongs
+  // to it (its box relative to the section, label, colors, the box of its toolbar group), then
+  // open Edit Section and read the panel box and look. Read only; Escape closes the panel.
+  const cases = (process.argv[3] && JSON.parse(process.argv[3])) || [2, 0, 7];
+  const shot = (n) => process.env.SHOTS && execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS}/${n}.png`]);
+  const { hoverSection } = await import('./oracle/ui.mjs');
+  const out = {};
+  for (const i of cases) {
+    await escape(); await deselect(i);
+    await hoverSection(i); await pause(900);
+    const READ = `(() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const d = f.contentDocument, W = f.contentWindow;
+      const sec = d.querySelectorAll('main#page .page-section')[${i}]; const sq = sec.getBoundingClientRect();
+      const top = fr.top + sq.top, left = fr.left + sq.left, bottom = fr.top + sq.bottom;
+      const rel = (q) => [q.left - left, q.top - top, q.width, q.height].map((v) => Math.round(v * 10) / 10);
+      const look = (e) => { const c = getComputedStyle(e); return { bg: c.backgroundColor, color: c.color, radius: c.borderRadius, shadow: c.boxShadow === 'none' ? '' : c.boxShadow, border: c.borderTopWidth !== '0px' ? c.borderTopWidth + ' ' + c.borderTopStyle + ' ' + c.borderTopColor : '', font: c.fontSize + ' ' + c.fontWeight + ' ' + c.letterSpacing + ' ' + c.textTransform }; };
+      const btns = [...document.querySelectorAll('button')].filter((x) => { const q = x.getBoundingClientRect(); return q.width > 0 && q.height > 0 && q.top >= top - 70 && q.top <= bottom + 10 && !x.closest('[class*=sidebar], nav'); })
+        .map((x) => ({ label: (x.getAttribute('aria-label') || x.textContent.trim()).slice(0, 30), text: x.textContent.trim().slice(0, 20), box: rel(x.getBoundingClientRect()), ...look(x) })).filter((b) => b.label && !/^(Save|Exit|Undo|Redo|Desktop View|Mobile View|Toggle)/.test(b.label));
+      const edit = [...document.querySelectorAll('button')].find((x) => /edit section/i.test(x.textContent) && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().top >= top - 70 && x.getBoundingClientRect().top <= bottom);
+      let card = edit; while (card && card.parentElement && getComputedStyle(card).backgroundColor === 'rgba(0, 0, 0, 0)') card = card.parentElement;
+      const handle = [...d.querySelectorAll('*')].filter((e) => { const q = e.getBoundingClientRect(); return q.width > 20 && q.width < 70 && q.height > 15 && q.height < 50 && Math.abs(q.bottom - sq.bottom) < 40 && getComputedStyle(e).backgroundColor === 'rgb(0, 125, 255)' || false; });
+      const blues = [...document.querySelectorAll('*'), ...d.querySelectorAll('*')].filter((e) => { const c = (e.ownerDocument === d ? W : window).getComputedStyle(e); const q = e.getBoundingClientRect(); return q.width > 15 && q.width < 300 && q.height > 15 && q.height < 60 && /rgb\(0, 1[0-3]\d, 2[45]\d\)|rgb\(2, 122, 255\)|rgb\(17, 105, 247\)/.test(c.backgroundColor); })
+        .map((e) => { const inFrame = e.ownerDocument === d; const q = e.getBoundingClientRect(); const c = (inFrame ? W : window).getComputedStyle(e); return { inFrame, cls: (typeof e.className === 'string' ? e.className : '').split(' ').filter((x) => x && !/^[A-Za-z0-9_]{16}$|^css-|^fluid-engine-[a-z0-9]{5,7}$/.test(x)).slice(0, 3).join('.'), text: e.textContent.trim().slice(0, 20), aria: e.getAttribute('aria-label') || '', box: inFrame ? [q.left - sq.left, q.top - sq.top, q.width, q.height].map((v) => Math.round(v)) : rel(q), bg: c.backgroundColor, radius: c.borderRadius }; });
+      const outline = [sec, ...sec.querySelectorAll(':scope > *')].map((e) => { const c = W.getComputedStyle(e); return { cls: [...e.classList].slice(0, 2).join('.'), outline: c.outlineStyle !== 'none' ? c.outlineWidth + ' ' + c.outlineStyle + ' ' + c.outlineColor + ' ' + c.outlineOffset : '', border: c.borderTopStyle !== 'none' ? c.borderTopWidth + ' ' + c.borderTopStyle + ' ' + c.borderTopColor : '', shadow: c.boxShadow !== 'none' ? c.boxShadow : '' }; }).filter((x) => x.outline || x.border || x.shadow);
+      return JSON.stringify({ section: [Math.round(sq.left), Math.round(sq.top), Math.round(sq.width), Math.round(sq.height)], frame: [Math.round(fr.left), Math.round(fr.top), Math.round(fr.width), Math.round(fr.height)], buttons: btns, card: card && { box: rel(card.getBoundingClientRect()), ...look(card), padding: getComputedStyle(card).padding }, blues, outline }); })()`;
+    const hovered = evalJs(S, READ);
+    shot(`section-${i}-hover`);
+    console.log('section', i, JSON.stringify(hovered).slice(0, 1600));
+    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 70 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 });
+    const panel = evalJs(S, `(() => { const tab = [...document.querySelectorAll('[role=tab], button')].find((e) => e.textContent.trim() === 'Design' && e.getBoundingClientRect().width > 0); if (!tab) return JSON.stringify(null);
+      let p = tab; while (p.parentElement && !(getComputedStyle(p).backgroundColor !== 'rgba(0, 0, 0, 0)' && p.getBoundingClientRect().height > 200)) p = p.parentElement;
+      const q = p.getBoundingClientRect(), c = getComputedStyle(p); return JSON.stringify({ box: [q.left, q.top, q.width, q.height].map(Math.round), window: [innerWidth, innerHeight], bg: c.backgroundColor, radius: c.borderRadius, shadow: c.boxShadow, overflow: c.overflowY, tabs: [...p.querySelectorAll('[role=tab]')].map((t) => [t.textContent.trim(), Math.round(t.getBoundingClientRect().left - q.left), Math.round(t.getBoundingClientRect().top - q.top)]) }); })()`);
+    shot(`section-${i}-panel`);
+    console.log('panel', i, JSON.stringify(panel));
+    out[i] = { hovered, panel };
+    await escape(); await escape();
+  }
+  if (saveDisabled() !== true) throw new Error('The probe changed the page');
+  write('SECTIONBAR', { question: 'What does a hovered section show, and where does the Edit Section panel open?', frame: '1600x1000 window', sections: out });
 }
 
 if (which === 'T13') {

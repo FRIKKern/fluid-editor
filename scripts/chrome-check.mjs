@@ -44,6 +44,36 @@ for (const [name, [si, bi]] of Object.entries(F.cases)) {
   results.push({ name, checks });
   console.log(`${name}: ${checks.filter((c) => c.ok).length} of ${checks.length}`);
 }
+// Section chrome (U9, parity/findings/SECTIONBAR.json): hover sections 0 and 7 with the same
+// section top in the canvas as on the oracle, and compare every control box relative to the
+// section. Section 2 was hovered while scrolled under the previous section's toolbar, so it
+// is left out.
+const SB = JSON.parse(readFileSync(new URL('../parity/findings/SECTIONBAR.json', import.meta.url)));
+const LABEL = { 'Open Layers Panel': 'layers', 'Add Block': 'add-block', 'Open Section Settings': 'edit', 'View Layouts': 'layouts', 'Duplicate Section': 'duplicate', 'Move Section Up': 'up', 'Move Section Down': 'down', 'Remove Section': 'remove' };
+for (const i of ['0', '7']) {
+  const h = SB.sections[i].hovered;
+  const r = evalJs(S, `(async () => { const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow; const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+    const sec = d.querySelectorAll('section.page-section')[${i}];
+    W.scrollTo(0, W.scrollY + sec.getBoundingClientRect().top - ${h.section[1]}); await sleep(250);
+    const q0 = sec.getBoundingClientRect(); sec.dispatchEvent(new W.PointerEvent('pointermove', { bubbles: true, clientX: q0.left + 500, clientY: q0.bottom - 40 })); await sleep(200);
+    const fr = f.getBoundingClientRect(), q = sec.getBoundingClientRect();
+    const rel = (e) => { const b = e.getBoundingClientRect(); return [b.left - fr.left - q.left, b.top - fr.top - q.top, b.width, b.height].map((v) => Math.round(v * 10) / 10); };
+    const c = document.getElementById('section-chrome');
+    return JSON.stringify({ secTop: Math.round(q.top), boxes: Object.fromEntries([...c.querySelectorAll('[data-sc]')].map((e) => [e.dataset.sc, rel(e)])), card: rel(c.querySelector('[data-sc-part="card"]')) }); })()`);
+  const add = (what, ok, detail) => { total++; if (ok) pass++; if (!ok) console.log(`  section ${i}: ${what} ${detail || ''}`); return ok; };
+  let n = 0, k0 = total;
+  add('section place', Math.abs(r.secTop - h.section[1]) <= 1, `oracle ${h.section[1]} ours ${r.secTop}`);
+  add('card box', near(r.card, h.card.box), `oracle ${h.card.box} ours ${r.card}`);
+  const seen = new Set();
+  for (const b of h.buttons) {
+    // Add Section: the one in the top half of the section is the top edge button.
+    const key = LABEL[b.label] || (b.label === 'Add Section' ? (b.box[1] < h.section[3] / 2 ? 'add-section-above' : 'add-section-below') : null);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    add(`${b.label} box`, !!r.boxes[key] && near(r.boxes[key], b.box), `oracle ${b.box} ours ${r.boxes[key]}`);
+  }
+  console.log(`section ${i}: ${total - k0} checks`);
+}
 console.log(`Editor chrome: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/chrome-check.json', import.meta.url), JSON.stringify({ check: 'block toolbar and selection rings', tolerance: 1, pass, total, results }, null, 2) + '\n');
 process.exit(pass === total ? 0 : 1);
