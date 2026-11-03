@@ -6,6 +6,7 @@ import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
+import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS } from './block-panel.js';
 import { demoModel } from './demo.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -192,7 +193,7 @@ function zInfo(sid, b) {
   return { overlaps: over.length > 0, above: over.some((o) => o.layout[bp].z > L.z), below: over.some((o) => o.layout[bp].z < L.z) };
 }
 function placeToolbar() {
-  if (!sel || sel.more?.length || gesture?.type === 'move' || gesture?.type === 'resize' || editing || !doc) { toolbar.hidden = true; return; }
+  if (!sel || sel.more?.length || gesture?.type === 'move' || gesture?.type === 'resize' || editing || !doc || designOpen === sel.bid) { toolbar.hidden = true; return; }
   const b = B(sel.sid, sel.bid);
   const el = blockEl(sel.bid);
   if (!b || !el) { toolbar.hidden = true; return; }
@@ -212,7 +213,7 @@ toolbar.addEventListener('click', (e) => {
   const { sid, bid } = sel;
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
-  if (act === 'edit') { designOpen = bid; updateUi(); panel.querySelector('[data-group="design"]')?.scrollIntoView({ block: 'nearest' }); return; }
+  if (act === 'edit') { designOpen = bid; designTab = 'Design'; updateUi(); return; }
   if (act === 'pin' || act === 'primary' || act === 'link') { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
   const before = JSON.stringify(model);
   if (act === 'align') { const order = ['flex-start', 'center', 'flex-end']; const L = lay(b); L.justify = order[(order.indexOf(L.justify || 'flex-start') + 1) % 3]; }
@@ -726,17 +727,30 @@ function onPaste(e) {
 // Rotate, Scale X and Y, Offset X and Y, Skew X and Y. The values go into the block's
 // transform-vars rule (render.js designCss). Stroke and Blend Mode are not built.
 let designOpen = null;
-const DESIGN_FIELDS = [['opacity', 'Opacity', '%', 0, 100], ['rotate', 'Rotate', '°', -360, 360], ['sx', 'Scale X', '%', 0, 1000], ['sy', 'Scale Y', '%', 0, 1000],
-  ['tx', 'Offset X', 'px', -10000, 10000], ['ty', 'Offset Y', 'px', -10000, 10000], ['kx', 'Skew X', '°', -89, 89], ['ky', 'Skew Y', '°', -89, 89]];
-function designGroup(b) {
-  const d = { ...DESIGN_DEFAULTS, ...b.design };
-  return `<div class="group" data-group="design"><h3>Design</h3>
-    <label><input type="checkbox" data-design="background" ${d.background ? 'checked' : ''}> Background</label>
-    <label><input type="checkbox" data-design="blur" ${d.blur ? 'checked' : ''}> Blur</label>
-    ${DESIGN_FIELDS.map(([k, l, u, min, max]) => `<label>${l} <input type="number" data-design="${k}" min="${min}" max="${max}" value="${d[k]}"> ${u}</label>`).join('')}
-  </div>`;
+let designTab = 'Design';
+const blockPanel = $('block-panel');
+function renderBlockPanel() {
+  const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
+  if (!b) { if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab);
+  placeBlockPanel();
+  blockPanel.hidden = false;
 }
-panel.addEventListener('change', (e) => {
+function placeBlockPanel() {
+  if (!designOpen || !sel) return;
+  const el = blockEl(sel.bid);
+  if (!el) return;
+  const p = blockPanelPosition(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect());
+  blockPanel.style.left = `${p.left}px`;
+  blockPanel.style.top = `${p.top}px`;
+}
+blockPanel.addEventListener('click', (e) => {
+  const t = e.target.closest('[data-btab]');
+  if (!t) return;
+  designTab = t.dataset.btab;
+  renderBlockPanel();
+});
+function onDesignChange(e) {
   const input = e.target.closest('input[data-design]');
   if (!input || !sel) return;
   e.stopImmediatePropagation();
@@ -755,7 +769,9 @@ panel.addEventListener('change', (e) => {
   if (Object.keys(d).length) b.design = d; else delete b.design;
   renderSectionDom(sel.sid);
   commit(before, `${k} set on ${b.id}`);
-}, true);
+}
+panel.addEventListener('change', onDesignChange, true);
+blockPanel.addEventListener('change', onDesignChange, true);
 
 // The text toolbar (E4, parity/findings/TEXTOPS.json), in the oracle's order: Text Style,
 // Bold, Italic, Quote, Bullet List, Numbered List, Strike, Outdent, Indent, Text Alignment,
@@ -838,6 +854,7 @@ function updateUi() {
   $('page-state').textContent = 'Page · Published';
   renderPanel();
   if (editSid) renderSectionPanel();
+  renderBlockPanel();
   placeToolbar();
   placeChrome();
 }
@@ -863,7 +880,6 @@ function renderPanel() {
     </div>`);
     if (sel.more?.length) parts.push(`<div class="group"><h3>Align group</h3><div class="row">${ALIGNS.map(([k, label]) => `<button class="btn" data-act="align" data-v="${k}">${label}</button>`).join('')}</div><div class="row"><button class="btn" data-act="stack">Stack blocks</button></div></div>`);
     if (editing) parts.push(textGroup());
-    if (designOpen === sel.bid) parts.push(designGroup(b));
     // The section settings live in the floating Edit Section panel (U9).
     parts.push(`<div class="group"><h3>Add block</h3><div class="row">${ADD_TYPES.map(([n]) => `<button class="btn" data-act="add" data-v="${n}">${n}</button>`).join('')}</div></div>`);
     parts.push(layersGroup(s));
@@ -1334,11 +1350,11 @@ document.addEventListener('keydown', onKey);
 
 // ---------- boot ----------
 function boot() {
-  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); }, { passive: true });
+  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeBlockPanel(); }, { passive: true });
   window.addEventListener('resize', () => { placeToolbar(); placeChrome(); });
   frame.contentDocument.addEventListener('pointermove', onHover);
   frame.contentDocument.addEventListener('pointerdown', () => { addMenu.hidden = true; closeSectionPanel(); }, true);
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { addMenu.hidden = true; closeSectionPanel(); } });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { addMenu.hidden = true; closeSectionPanel(); if (designOpen) { designOpen = null; updateUi(); } } });
   frame.contentDocument.addEventListener('keydown', (e) => { if (e.key === 'Escape') { addMenu.hidden = true; closeSectionPanel(); } });
   doc = frame.contentDocument;
   win = frame.contentWindow;

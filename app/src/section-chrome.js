@@ -38,19 +38,19 @@ const ICON = {
 };
 
 export function sectionChromeHtml({ first, last }) {
-  const wide = (act, icon, label, cls = '', text = label) => `<button type="button" class="sc-wide ${cls}" data-sc="${act}" aria-label="${label}">${svg(ICON[icon])}<span>${text}</span></button>`;
+  const wide = (act, icon, label, cls = '', text = label) => `<button type="button" class="sc-wide ${cls}" data-sc="${act}" aria-label="${label}"${cls.includes('sc-unbuilt') ? ' data-unbuilt' : ''}>${svg(ICON[icon])}<span>${text}</span></button>`;
   const sq = (act, icon, label, off) => `<button type="button" class="sc-sq${off ? ' is-off' : ''}" data-sc="${act}" aria-label="${label}" title="${label}">${svg(ICON[icon])}</button>`;
   return `<div class="sc-outline" data-sc-part="outline"></div>
-    <div class="sc-pill" data-sc-part="layers"><button type="button" class="sc-left sc-layers" data-sc="layers" aria-label="Open Layers Panel">${svg(ICON.layers)}</button></div>
+    <div class="sc-pill" data-sc-part="layers"><button type="button" class="sc-left sc-layers" data-sc="layers" aria-label="Open Layers Panel" data-unbuilt>${svg(ICON.layers)}</button></div>
     <div class="sc-pill" data-sc-part="add-block"><button type="button" class="sc-left sc-add-block" data-sc="add-block" aria-label="Add Block">${svg(ICON.plus)}<span>Add Block</span></button></div>
     <div class="sc-card" data-sc-part="card">
       ${wide('edit', 'pencil', 'Edit Section')}
-      ${wide('layouts', 'layouts', 'View Layouts')}
-      <div class="sc-row">${sq('duplicate', 'duplicate', 'Duplicate Section')}${sq('save', 'heart', 'Save Section')}${sq('up', 'up', 'Move Section Up', first)}${sq('down', 'down', 'Move Section Down', last)}</div>
+      ${wide('layouts', 'layouts', 'View Layouts', 'sc-unbuilt')}
+      <div class="sc-row">${sq('duplicate', 'duplicate', 'Duplicate Section')}${sq('save', 'heart', 'Save Section').replace('class="sc-sq', 'data-unbuilt class="sc-sq')}${sq('up', 'up', 'Move Section Up', first)}${sq('down', 'down', 'Move Section Down', last)}</div>
       ${wide('remove', 'trash', 'Remove Section', 'sc-remove', 'Remove')}
     </div>
-    <button type="button" class="sc-add-section" data-sc="add-section-above" data-sc-part="add-top" aria-label="Add Section">Add Section</button>
-    <button type="button" class="sc-add-section" data-sc="add-section-below" data-sc-part="add-bottom" aria-label="Add Section">Add Section</button>`;
+    <button type="button" class="sc-add-section" data-sc="add-section-above" data-sc-part="add-top" aria-label="Add Section" data-unbuilt>Add Section</button>
+    <button type="button" class="sc-add-section" data-sc="add-section-below" data-sc-part="add-bottom" aria-label="Add Section" data-unbuilt>Add Section</button>`;
 }
 
 // Boxes in the stage's coordinates. `sec` is the section's rect inside the canvas, `frame`

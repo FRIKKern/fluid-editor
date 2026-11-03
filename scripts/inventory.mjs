@@ -29,7 +29,7 @@ const COLLECT = `(() => {
   const f = document.querySelector('#sqs-site-frame, #site-frame');
   const docs = [[document, window, 'top']]; if (f && f.contentDocument) docs.push([f.contentDocument, f.contentWindow, 'frame']);
   const CONTROL = 'button, a[href], input, select, textarea, [role=button], [role=tab], [role=menuitem], [role=menuitemradio], [role=menuitemcheckbox], [role=checkbox], [role=radio], [role=switch], [role=option], [role=slider], [role=combobox]';
-  const SKIP = '[data-dev], .sqs-block-content, .sqs-html-content, header#header, header.site-header, .header-inner, footer, #footer-sections, [data-section-id] .content-wrapper p, script, style, #site-frame, #sqs-site-frame';
+  const SKIP = '[data-dev], [data-unbuilt], .sqs-block-content, .sqs-html-content, header#header, header.site-header, .header-inner, footer, #footer-sections, [data-section-id] .content-wrapper p, script, style, #site-frame, #sqs-site-frame';
   const out = new Map();
   for (const [d, W, where] of docs) {
     // Visible means on screen, not hidden by any ancestor's opacity or visibility, and the
