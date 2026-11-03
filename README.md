@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 37 changes, 3 milestones closed
+- **Today** · 38 changes, 3 milestones closed
+  - Inventory: nine more states ([#56](https://github.com/FRIKKern/fluid-editor/pull/56))
   - README: point to the gap review ([#55](https://github.com/FRIKKern/fluid-editor/pull/55))
-  - UNBUILT probe: what the dimmed controls do on the oracle ([#54](https://github.com/FRIKKern/fluid-editor/pull/54))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
