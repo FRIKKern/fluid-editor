@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 13 changes, 3 milestones closed
+- **Today** · 14 changes, 3 milestones closed
+  - Trace group gestures and measure the near rule ([#32](https://github.com/FRIKKern/fluid-editor/pull/32))
   - Match the oracle's auto-scroll and make T0010 replay reliably ([#31](https://github.com/FRIKKern/fluid-editor/pull/31))
-  - Add Exit with the oracle's unsaved changes question ([#30](https://github.com/FRIKKern/fluid-editor/pull/30))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
