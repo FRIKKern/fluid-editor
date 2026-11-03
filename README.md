@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 4 changes, 3 milestones closed
+- **Today** · 5 changes, 3 milestones closed
+  - Render the default section divider and add its toggle ([#23](https://github.com/FRIKKern/fluid-editor/pull/23))
   - Add an Edit Section panel and measure every section setting ([#22](https://github.com/FRIKKern/fluid-editor/pull/22))
-  - Render Background Width Inset and record the Edit Section panel ([#21](https://github.com/FRIKKern/fluid-editor/pull/21))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
