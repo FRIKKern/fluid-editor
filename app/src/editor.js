@@ -721,7 +721,9 @@ function updateUi() {
   $('redo').disabled = !redoStack.length;
   const dirty = JSON.stringify(model) !== savedJson;
   $('save').disabled = !dirty;
-  $('page-state').textContent = dirty ? 'Unsaved changes' : 'Saved';
+  // The oracle's status line stays "Page · Published" with unsaved changes; only Save
+  // turns on (parity/findings/EXIT.json).
+  $('page-state').textContent = 'Page · Published';
   renderPanel();
 }
 
@@ -1046,6 +1048,18 @@ $('save').addEventListener('click', () => {
   }
   updateUi();
 });
+// Exit (Y3, parity/findings/EXIT.json): with unsaved changes the oracle asks "Exit Without
+// Saving?" with Save and Exit and no Cancel; Escape closes the question and keeps editing.
+// Exit discards the changes. Ours then opens the published page with the saved model.
+const leave = () => { location.href = 'page.html?saved'; };
+$('exit').addEventListener('click', () => {
+  if (editing) finishTextEdit();
+  if (JSON.stringify(model) === savedJson) return leave();
+  $('exit-dialog').hidden = false;
+});
+$('exit-save').addEventListener('click', () => { $('exit-dialog').hidden = true; $('save').click(); if (JSON.stringify(model) === savedJson) leave(); });
+$('exit-discard').addEventListener('click', () => { model = JSON.parse(savedJson); leave(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('exit-dialog').hidden) { e.preventDefault(); $('exit-dialog').hidden = true; } }, true);
 $('reset').addEventListener('click', () => {
   const before = JSON.stringify(model);
   model = demoModel();

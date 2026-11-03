@@ -2,7 +2,7 @@
 
 [![Parity: one cell per item, done, partial, open or unknown](images/parity.svg)](../README.md)
 
-68 of 108 items done, 39 partial, 1 open, 0 unknown.
+68 of 108 items done, 40 partial, 0 open, 0 unknown.
 Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. Edit the JSON, never this page.
 
 ## Harness and oracle
@@ -171,7 +171,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 |---|---|---|---|---|
 | Y1 | One undo step per gesture; normalization is not undone and does not mark the page changed | M6 Save and polish | ✓ done | Evidence: traces/retired/T0001-key-right.json: undo keeps the normalization and Save stays disabled. T0002 and T0003: undo restores the move in our editor as on the oracle (parity/gate-c.json, undo pass) |
 | Y2 | Undo grouping while typing | M6 Save and polish | ◐ partial |  |
-| Y3 | Save versus publish, drafts, revision conflicts | M6 Save and polish | ○ open |  |
+| Y3 | Save versus publish, drafts, revision conflicts | M6 Save and polish | ◐ partial | Evidence: parity/findings/EXIT.json: the top bar has Save and Exit and no separate publish control; the status line stays "Page · Published" with unsaved changes, and only Save turns on. Exit with unsaved changes asks "Exit Without Saving? Any unsaved changes will be discarded when you exit." with Save and Exit and no Cancel; Escape closes it and keeps editing. In one earlier run Exit left the editor without the question; the saved page was unchanged. Ours has the same status line, Exit, question and Escape; Exit discards, Save stores in this browser, and both open the published page (page.html?saved). Not measured: what Save does on the live site (the probe never saves, O1), drafts, and revision conflicts between two editors |
 | Y4 | Copy and paste between sections and pages | M6 Save and polish | ◐ partial | Evidence: parity/findings/KEYS.json, KEYS2.json: Cmd+D duplicates one row down and one column right, on top, and right below the original on phones (3/16/13/26, phone 11/2/17/10); our editor gives the same. Delete and Backspace remove the block. Cmd+C and Cmd+V did nothing with scripted key events (the clipboard needs real ones), so copy and paste is not answered |
 | Y5 | Published page has no layout JavaScript | M6 Save and polish | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 
