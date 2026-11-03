@@ -152,3 +152,15 @@ body { position: relative; }
 @media screen and (max-width: 767px) and (orientation: portrait) {
   .header-title { font-size: calc((var(--site-title-font-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
 }
+
+/* Custom section height (footer): min-height comes inline in vh; padding 1vmax, one sample (P3). */
+.page-section.section-height--custom > .content-wrapper { padding: 1vmax 0; }
+.theme-black { --section-bg: #000; --section-ink: #fff; }
+.theme-black a { color: inherit; }
+
+/* Social links (T11) */
+.social-icons { display: flex; gap: 12px; }
+.social-icons.social-icon-alignment-right { justify-content: flex-end; }
+.social-icons.social-icon-alignment-center { justify-content: center; }
+.social-icon { display: block; width: 20px; height: 20px; color: inherit; }
+.social-icon svg { display: block; }

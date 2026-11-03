@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="914" viewBox="0 0 1200 914" role="img" aria-labelledby="t d">
 <title id="t">Fluid editor parity</title>
-<desc id="d">55 of 108 items done, 39 partial, 14 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 12 of 13 done. Page and site context: 3 of 7 done. Block types: 2 of 14 done. Geometry and snapping: 5 of 8 done. Gestures: 4 of 12 done. Row stretch: 2 of 5 done. Text editing: 3 of 6 done. Overlap and layers: 3 of 5 done. Phone layout: 5 of 8 done. Section settings and Stacks: 0 of 3 done. Editor chrome: 2 of 7 done. History, save and publish: 2 of 5 done. Accessibility and order: 1 of 3 done.</desc>
+<desc id="d">56 of 108 items done, 39 partial, 13 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 12 of 13 done. Page and site context: 4 of 7 done. Block types: 2 of 14 done. Geometry and snapping: 5 of 8 done. Gestures: 4 of 12 done. Row stretch: 2 of 5 done. Text editing: 3 of 6 done. Overlap and layers: 3 of 5 done. Phone layout: 5 of 8 done. Section settings and Stacks: 0 of 3 done. Editor chrome: 2 of 7 done. History, save and publish: 2 of 5 done. Accessibility and order: 1 of 3 done.</desc>
 <style>
   svg { --bg:#fbfaf7; --card:#ffffff; --line:#e3e0d6; --ink:#1f1e1b; --muted:#6c6a63; --done:#2c7a4b; --now:#b26b00; --todo:#a3a097; --nowbg:#fff6e5; --partbg:#fdf0d8; --unk:#8a6fb0; }
   @media (prefers-color-scheme: dark) {
@@ -21,12 +21,12 @@
 <rect class="bg" width="1200" height="914" rx="16"/>
 <text x="40" y="70" font-size="36" font-weight="700" letter-spacing="-0.8">Parity</text>
 <text x="40" y="102" font-size="19" class="muted">Everything that has to match Fluid Engine, one cell per item.</text>
-<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">55<tspan class="muted" font-weight="400"> / 108</tspan></text>
+<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">56<tspan class="muted" font-weight="400"> / 108</tspan></text>
 <text x="1160" y="102" font-size="16" text-anchor="end" class="muted">items done</text>
-<rect x="40" y="124" width="570.3703703703703" height="10" class="s-done"/>
-<rect x="610.3703703703703" y="124" width="404.44444444444446" height="10" class="s-partial"/>
-<rect x="1014.8148148148148" y="124" width="145.1851851851852" height="10" class="s-open"/>
-<text x="40" y="172" font-size="16"><tspan class="done">✓ 55 done</tspan><tspan class="now" dx="24">◐ 39 partial</tspan><tspan class="todo" dx="24">○ 14 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
+<rect x="40" y="124" width="580.7407407407408" height="10" class="s-done"/>
+<rect x="620.7407407407408" y="124" width="404.44444444444446" height="10" class="s-partial"/>
+<rect x="1025.1851851851852" y="124" width="134.8148148148148" height="10" class="s-open"/>
+<text x="40" y="172" font-size="16"><tspan class="done">✓ 56 done</tspan><tspan class="now" dx="24">◐ 39 partial</tspan><tspan class="todo" dx="24">○ 13 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
 <text x="1160" y="172" font-size="16" text-anchor="end" class="muted">unknown: needs a trace on the oracle before it can be built</text>
 <path d="M40 190H1160" class="rule"/>
 <g data-area="Harness and oracle">
@@ -89,7 +89,7 @@
 </g>
 <g data-area="Page and site context">
 <text x="40" y="326" font-size="15" font-weight="600">Page and site context</text>
-<text x="324" y="326" font-size="14" text-anchor="end" class="muted">3/7</text>
+<text x="324" y="326" font-size="14" text-anchor="end" class="muted">4/7</text>
 <rect x="340" y="306" width="50" height="30" rx="6" class="c-done"><title>P1 Site variables for the trial site: done</title></rect>
 <text x="365" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-done">P1</text>
 <rect x="396" y="306" width="50" height="30" rx="6" class="c-done"><title>P2 Section wrapper styles: done</title></rect>
@@ -102,8 +102,8 @@
 <text x="589" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">P5</text>
 <rect x="620" y="306" width="50" height="30" rx="6" class="c-done"><title>P6 Fonts and type scale, including how sizes follow viewport width: done</title></rect>
 <text x="645" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-done">P6</text>
-<rect x="676" y="306" width="50" height="30" rx="6" class="c-partial"><title>P7 Header and footer: partial</title></rect>
-<text x="701" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">P7</text>
+<rect x="676" y="306" width="50" height="30" rx="6" class="c-done"><title>P7 Header and footer: done</title></rect>
+<text x="701" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-done">P7</text>
 </g>
 <g data-area="Block types">
 <text x="40" y="372" font-size="15" font-weight="600">Block types</text>
@@ -128,8 +128,8 @@
 <text x="813" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-open">T9</text>
 <rect x="844" y="352" width="50" height="30" rx="6" class="c-open"><title>T10 Embed and code blocks: open</title></rect>
 <text x="869" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-open">T10</text>
-<rect x="900" y="352" width="50" height="30" rx="6" class="c-open"><title>T11 Line, map and social links blocks: open</title></rect>
-<text x="925" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-open">T11</text>
+<rect x="900" y="352" width="50" height="30" rx="6" class="c-partial"><title>T11 Line, map and social links blocks: partial</title></rect>
+<text x="925" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">T11</text>
 <rect x="956" y="352" width="50" height="30" rx="6" class="c-open"><title>T12 Remaining block types from the add-block menu: open</title></rect>
 <text x="981" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-open">T12</text>
 <rect x="1012" y="352" width="50" height="30" rx="6" class="c-partial"><title>T13 Default and minimum size per block type: partial</title></rect>

@@ -231,7 +231,7 @@
     "milestone": "M2",
     "status": "partial",
     "title": "Section height settings and padding",
-    "evidence": "parity/findings/P3.json: height S/M/L = min-height 33/66/100vh and wrapper padding 3.3/6.6/10vmax; content centered. Built and matched for medium on all 8 sections (parity/gate-b.json: 320 of 320 boxes incl. 8 section boxes at 375, 767, 768, 1280, 1920; parity/gate-b-600-767.json 192 of 192). Custom height and Fill Screen not modelled"
+    "evidence": "parity/findings/P3.json: height S/M/L = min-height 33/66/100vh, wrapper padding 3.3/6.6/10vmax; custom height N = inline min-height Nvh with 1vmax padding (footer, all 5 widths). Matched: Gate B 365 of 365. Fill Screen not modelled"
   },
   {
     "id": "P4",
@@ -261,9 +261,9 @@
     "id": "P7",
     "area": "Page and site context",
     "milestone": "M2",
-    "status": "partial",
+    "status": "done",
     "title": "Header and footer",
-    "evidence": "parity/findings/P7.json: header built to the measured rule (desktop: title line height + 3vw padding, phone: 40px + 6vw), first section padded by its height as on the oracle (parity/gate-b.json: 320 of 320 boxes incl. 8 section boxes at 375, 767, 768, 1280, 1920; parity/gate-b-600-767.json 192 of 192). The 817px switch is stored, not derived; footer not built"
+    "evidence": "Header: parity/findings/P7.json, built to the measured rule. Footer: the oracle footer is one Fluid Engine section (custom height 10vh, padding 1vmax, black theme, 7 text blocks and social links), imported and rendered. Gate B 365 of 365 boxes incl. header offset and footer at 375, 767, 768, 1280, 1920 (parity/gate-b.json). The header switch width (817px) is stored, not derived"
   },
   {
     "id": "T1",
@@ -343,8 +343,9 @@
     "id": "T11",
     "area": "Block types",
     "milestone": "M5",
-    "status": "open",
-    "title": "Line, map and social links blocks"
+    "status": "partial",
+    "title": "Line, map and social links blocks",
+    "evidence": "Social links: three 20px icons, 12px apart, right-aligned in the footer, rendered and box-matched (Gate B). Icons are placeholders; line and map blocks not built"
   },
   {
     "id": "T12",

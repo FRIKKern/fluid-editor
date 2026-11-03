@@ -2,7 +2,7 @@
 
 [![Parity: one cell per item, done, partial, open or unknown](images/parity.svg)](../README.md)
 
-55 of 108 items done, 39 partial, 14 open, 0 unknown.
+56 of 108 items done, 39 partial, 13 open, 0 unknown.
 Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. Edit the JSON, never this page.
 
 ## Harness and oracle
@@ -46,11 +46,11 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 |---|---|---|---|---|
 | P1 | Site variables for the trial site | M2 Renderer | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | P2 | Section wrapper styles | M2 Renderer | ✓ done | Evidence: Section markup, min-height, wrapper padding and vertical centering match: every section's height and grid offset within 1px (parity/gate-b.json: 320 of 320 boxes incl. 8 section boxes at 375, 767, 768, 1280, 1920; parity/gate-b-600-767.json 192 of 192) |
-| P3 | Section height settings and padding | M2 Renderer | ◐ partial | Evidence: parity/findings/P3.json: height S/M/L = min-height 33/66/100vh and wrapper padding 3.3/6.6/10vmax; content centered. Built and matched for medium on all 8 sections (parity/gate-b.json: 320 of 320 boxes incl. 8 section boxes at 375, 767, 768, 1280, 1920; parity/gate-b-600-767.json 192 of 192). Custom height and Fill Screen not modelled |
+| P3 | Section height settings and padding | M2 Renderer | ◐ partial | Evidence: parity/findings/P3.json: height S/M/L = min-height 33/66/100vh, wrapper padding 3.3/6.6/10vmax; custom height N = inline min-height Nvh with 1vmax padding (footer, all 5 widths). Matched: Gate B 365 of 365. Fill Screen not modelled |
 | P4 | Section content width, full or inset | M2 Renderer | ○ open | Evidence: Oracle classes: content-width--wide (100%), --medium (75%), --narrow (50% from 768px) from the trial site stylesheet; our CSS has the same three. No content-width control found in the Edit Section panel |
 | P5 | Section alignment, color themes, background image and video, dividers | M2 Renderer | ◐ partial | Evidence: Edit Section panel: Background, Colors, Grid (Row Count, Gap zero/medium/custom), Section (Fill Screen, Height S/M/L/custom, vertical alignment top/center/bottom), Divider, Anchor Link. Our sections render height, vertical alignment, content width and horizontal alignment classes; top/bottom alignment CSS is ours (not measured), backgrounds, themes and dividers not built |
 | P6 | Fonts and type scale, including how sizes follow viewport width | M2 Renderer | ✓ done | Evidence: Heading and body sizes follow min((v-1)*1.2vw+1rem, max((v-1)*0.012*maxPageWidth+1rem, v*1rem)) above 767px and (v-1)*0.012*min(100vh,900px)+1rem on portrait phones; h1 60.71px at a 1242px frame matches. Gate B 280 of 280 with text wrapping at 375px |
-| P7 | Header and footer | M2 Renderer | ◐ partial | Evidence: parity/findings/P7.json: header built to the measured rule (desktop: title line height + 3vw padding, phone: 40px + 6vw), first section padded by its height as on the oracle (parity/gate-b.json: 320 of 320 boxes incl. 8 section boxes at 375, 767, 768, 1280, 1920; parity/gate-b-600-767.json 192 of 192). The 817px switch is stored, not derived; footer not built |
+| P7 | Header and footer | M2 Renderer | ✓ done | Evidence: Header: parity/findings/P7.json, built to the measured rule. Footer: the oracle footer is one Fluid Engine section (custom height 10vh, padding 1vmax, black theme, 7 text blocks and social links), imported and rendered. Gate B 365 of 365 boxes incl. header offset and footer at 375, 767, 768, 1280, 1920 (parity/gate-b.json). The header switch width (817px) is stored, not derived |
 
 ## Block types
 
@@ -66,7 +66,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | T8 | Gallery block | M5 Chrome and blocks | ○ open |  |
 | T9 | Form block | M5 Chrome and blocks | ○ open |  |
 | T10 | Embed and code blocks | M5 Chrome and blocks | ○ open |  |
-| T11 | Line, map and social links blocks | M5 Chrome and blocks | ○ open |  |
+| T11 | Line, map and social links blocks | M5 Chrome and blocks | ◐ partial | Evidence: Social links: three 20px icons, 12px apart, right-aligned in the footer, rendered and box-matched (Gate B). Icons are placeholders; line and map blocks not built |
 | T12 | Remaining block types from the add-block menu | M5 Chrome and blocks | ○ open |  |
 | T13 | Default and minimum size per block type | M2 Renderer | ◐ partial | Evidence: A new Text block lands at 1/2/3/10 (8 columns by 2 rows) in an empty section; a blank section starts with 8 rows. Other block types not measured |
 | T14 | Which types keep an aspect ratio and which follow content | M2 Renderer | ◐ partial | Evidence: Shapes do not keep an aspect ratio: a corner resize of 2 columns and 1 row changes both freely (T0008). Images not tested |

@@ -140,6 +140,11 @@ function blockInner(b, model) {
       const kids = (b.children || []).map((c) => `<div class="stack-child-container">${blockInner({ ...c, id: `${b.id}-${c.id}` }, model)}</div>`).join('');
       return `<div class="sqs-block stack-block sqs-block-stack" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-stack-container direction-${b.direction || 'column'}" style="--stack-gap:${b.gap ?? 20}px">${kids}</div></div></div>`;
     }
+    case 'social': {
+      // Social links (T11): icons of 20px, 12px apart, as on the oracle footer.
+      const icons = Array.from({ length: b.count || 3 }, () => '<a class="social-icon" href="#" aria-label="Social link"><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"/></svg></a>').join('');
+      return `<div class="sqs-block socialaccountlinks-v2-block sqs-block-socialaccountlinks-v2" id="block-${b.id}"><div class="sqs-block-content"><div class="social-icons social-icon-alignment-${b.align || 'left'}">${icons}</div></div></div>`;
+    }
     case 'code': {
       const src = b.codeOf ? sectionGridCss(model.sections.find((s) => s.id === b.codeOf)).trim() : b.code;
       return `<div class="sqs-block code-block sqs-block-code" data-block-type="23" id="block-${b.id}"><div class="sqs-block-content"><pre><code>${escapeHtml(src)}</code></pre></div></div>`;
@@ -163,7 +168,8 @@ export function renderSection(s, model) {
     `horizontal-alignment--${s.halign || 'center'}`,
     s.theme || '',
   ].filter(Boolean).join(' ');
-  return `<section class="${cls}" data-section-id="${s.id}"><div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
+  const style = s.height === 'custom' && s.customHeight != null ? ` style="min-height: ${s.customHeight}vh;"` : '';
+  return `<section class="${cls}" data-section-id="${s.id}"${style}><div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
 }
 
 // Site header (P7), measured on the oracle (parity/findings/P7.json): it lies over the
@@ -200,6 +206,12 @@ export function renderPage(model) {
   return model.sections.map((s) => renderSection(s, model)).join('\n');
 }
 
+// The site footer: Fluid Engine sections of their own (P7).
+export function renderFooter(model) {
+  if (!model.footer?.length) return '';
+  return `<footer class="sections" id="footer-sections">${model.footer.map((s) => renderSection(s, model)).join('')}</footer>`;
+}
+
 export function exportHtml(model, siteCss) {
   return `<!doctype html>
 <html lang="en">
@@ -215,6 +227,7 @@ ${renderHeader(model.header)}
 <main id="page">
 ${renderPage(model)}
 </main>
+${renderFooter(model)}
 <script>${HEADER_SCRIPT}</script>
 </body>
 </html>

@@ -23,7 +23,7 @@ const READ = `(() => {
   for (const k of ['--heading-1-size-value', '--heading-2-size-value', '--heading-3-size-value', '--heading-4-size-value', '--normal-text-size-value', '--large-text-size-value', '--small-text-size-value', '--maxPageWidth', '--heading-font-line-height', '--body-font-line-height', '--heading-font-letter-spacing', '--body-font-letter-spacing', '--heading-font-font-weight', '--body-font-font-weight', '--sqs-site-gutter', '--sqs-mobile-site-gutter', '--sqs-site-max-width']) vars[k] = root.getPropertyValue(k).trim();
   const pick = (el, props) => { if (!el) return null; const c = W.getComputedStyle(el); return Object.fromEntries(props.map((p) => [p, c[p]])); };
   const T = ['fontFamily', 'fontSize', 'lineHeight', 'letterSpacing', 'fontWeight', 'marginTop', 'marginBottom', 'color', 'textTransform'];
-  const sections = [...d.querySelectorAll('main#page .page-section')].map((s) => {
+  const readSection = (s) => {
     const fe = s.querySelector('.fluid-engine');
     const feClass = [...fe.classList].find((c) => /^fe-[\\w-]+$/.test(c));
     const style = [...s.querySelectorAll('style')].map((x) => x.textContent).find((t) => t.includes('--grid-gutter') && t.includes('.' + feClass + ' {'));
@@ -32,6 +32,7 @@ const READ = `(() => {
       const out = { id: [...b.classList].find((c) => c.startsWith('fe-block-')).slice(9), kind };
       if (kind === 'text') out.html = b.querySelector('.sqs-html-content')?.innerHTML.trim() || '';
       if (kind === 'button') { const a = b.querySelector('a, button'); out.label = a?.textContent.trim(); out.href = a?.getAttribute('href') || '#'; out.style = pick(a, ['backgroundColor', 'color', 'borderRadius', 'fontSize', 'fontFamily', 'fontWeight', 'letterSpacing', 'paddingTop', 'paddingLeft', 'height', 'width']); out.align = W.getComputedStyle(b.querySelector('.sqs-block-content') || b).textAlign; }
+      if (kind === 'social-links') { out.count = b.querySelectorAll('a').length; out.align = [...b.querySelector('.sqs-svg-icon--outer')?.classList || []].find((c) => c.startsWith('social-icon-alignment-'))?.slice(22) || 'left'; }
       if (kind === 'shape') { const p = b.querySelector('svg path, svg rect, svg circle, svg polygon'); out.fill = p ? W.getComputedStyle(p).fill : null; out.svg = (b.querySelector('svg')?.outerHTML || '').length; }
       return out;
     });
@@ -39,14 +40,17 @@ const READ = `(() => {
     const fr = fe.getBoundingClientRect();
     return {
       sectionId: s.dataset.sectionId, feId: feClass.slice(3), theme: s.dataset.sectionTheme, css: style || null,
+      customHeight: (() => { try { return JSON.parse(s.dataset.currentStyles || '{}').customSectionHeight; } catch (e) { return null; } })(),
       settings: Object.fromEntries([...s.classList].map((c) => c.match(/^(section-height|vertical-alignment|content-width|horizontal-alignment|background-width)--(.+)$/)).filter(Boolean).map((m) => [m[1], m[2]])),
       section: { paddingTop: sc.paddingTop, paddingBottom: sc.paddingBottom, minHeight: sc.minHeight, background: W.getComputedStyle(s.querySelector('.section-background') || s).backgroundColor, inlineStyle: s.getAttribute('style') },
       grid: { left: fr.left, width: fr.width },
       text: { h1: pick(s.querySelector('h1'), T), h2: pick(s.querySelector('h2'), T), p: pick(s.querySelector('.sqs-html-content p'), T) },
       blocks,
     };
-  });
-  return JSON.stringify({ frameWidth: W.innerWidth, frameHeight: W.innerHeight, vars, sections });
+  };
+  const sections = [...d.querySelectorAll('main#page .page-section')].map(readSection);
+  const footer = [...d.querySelectorAll('footer .page-section')].map(readSection);
+  return JSON.stringify({ frameWidth: W.innerWidth, frameHeight: W.innerHeight, vars, sections, footer });
 })()`;
 
 const snap = evalJs(surface, READ);
@@ -55,8 +59,8 @@ if (!snap.sections.length) throw new Error('no sections found on the page');
 
 mkdirSync(new URL('../fixtures/oracle/', import.meta.url), { recursive: true });
 const index = JSON.parse(readFileSync(new URL('../fixtures/index.json', import.meta.url), 'utf8')).filter((f) => !f.url.startsWith(`https://${HOST}${PAGE}`));
-const model = { version: 1, title: 'How Fluid Engine works', source: `https://${HOST}${PAGE}`, capturedAt: today, sections: [] };
-for (const s of snap.sections) {
+const model = { version: 1, title: 'How Fluid Engine works', source: `https://${HOST}${PAGE}`, capturedAt: today, sections: [], footer: [] };
+for (const [where, list] of [['sections', snap.sections], ['footer', snap.footer || []]]) for (const s of list) {
   if (!s.css) throw new Error(`section ${s.sectionId}: no published section CSS found`);
   const sha256 = createHash('sha256').update(s.css).digest('hex');
   const file = `css/${HOST}--${s.feId}.css`;
@@ -64,13 +68,14 @@ for (const s of snap.sections) {
   index.push({ file, url: `https://${HOST}${PAGE}`, sectionId: s.feId, capturedAt: today, sha256 });
   const grid = parseSectionCss(s.css);
   const byId = Object.fromEntries(grid.blocks.map((b) => [b.id, b]));
-  model.sections.push({
+  model[where].push({
     id: s.feId,
     theme: s.theme ? `theme-${s.theme}` : '',
     height: s.settings['section-height'] || 'medium',
     valign: s.settings['vertical-alignment'] || 'middle',
     contentWidth: s.settings['content-width'] || 'wide',
     halign: s.settings['horizontal-alignment'] || 'center',
+    ...(s.settings['section-height'] === 'custom' && { customHeight: s.customHeight }),
     gap: grid.gap,
     ...(grid.rowGap != null && { rowGap: grid.rowGap }),
     rows: grid.rows,
@@ -81,6 +86,7 @@ for (const s of snap.sections) {
       const content = b.kind === 'text' ? { type: 'text', html: b.html }
         : b.kind === 'button' ? { type: 'button', label: b.label, href: b.href }
         : b.kind === 'shape' ? { type: 'shape', fill: b.fill || '#fff', radius: '0' }
+        : b.kind === 'social-links' ? { type: 'social', count: b.count, align: b.align }
         : { type: 'shape', fill: '#ccc', radius: '0', label: b.kind };
       return { id: b.id, ...content, layout: g.layout };
     }),
