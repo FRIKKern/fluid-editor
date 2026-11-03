@@ -3,11 +3,12 @@
 // the same frame sizes: section height, wrapper padding, grid height, gaps and theme colors.
 // Writes parity/section-check.json. Usage: npm run section-check (dev server on 5178).
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, requireWebKit } from './lib/cmux.mjs';
 const FIND = (n) => JSON.parse(readFileSync(new URL('../parity/findings/' + n + '.json', import.meta.url)));
 
 const design = FIND('SETTINGS').results;
 const S = process.env.FLUID_SURFACE || 'surface:59'; ensureVisible(S);
+requireWebKit(S, 'section-check');
 // [name, class changes, style, oracle reads [{w,h,height,padTop,padBottom,gridHeight}]]
 const px = (v) => parseFloat(v);
 const one = (r, w, h) => ({ w, h, height: r.height, padTop: px(r.wrapPadding.split(' ')[0]), padBottom: px(r.wrapPadding.split(' ')[2] ?? r.wrapPadding.split(' ')[0]), gridHeight: r.gridHeight });

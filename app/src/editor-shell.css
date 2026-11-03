@@ -217,3 +217,23 @@ button { font: inherit; color: inherit; }
 .dev-pop[hidden] { display: none; }
 /* Preview: the page without editor chrome. */
 body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview #section-panel, body.is-preview #block-panel, body.is-preview .am-panel, body.is-preview .lp-panel, body.is-preview .cm-menu { display: none !important; }
+
+/* The floating text toolbar (app/src/text-bar.js). */
+.text-bar { position: absolute; z-index: 11; }
+.text-bar[hidden] { display: none; }
+.tx-row { display: flex; align-items: center; height: 44px; padding: 0 6px; background: #fff; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.08) 0 0 1px 0; }
+.tx-btn { width: 40px; height: 36px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 3px; background: transparent; color: #0e0e0e; cursor: pointer; }
+.tx-btn:hover:not(:disabled) { background: #f2f2f2; }
+.tx-btn[data-unbuilt] { cursor: default; }
+.tx-style { height: 36px; padding: 0 8px; display: inline-flex; align-items: center; gap: 6px; border: 0; border-radius: 3px; background: transparent; font: 15px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; cursor: pointer; }
+.tx-style:hover, .tx-style[aria-expanded="true"] { background: #f2f2f2; }
+.tx-sep { width: 1px; height: 20px; background: #e7e7e7; margin: 0 4px; flex: none; }
+.tx-pop { position: absolute; top: 48px; background: #fff; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.12) 0 6px 24px 0, rgba(0, 0, 0, 0.08) 0 0 1px 0; padding: 6px; }
+.tx-styles { left: 46px; display: flex; flex-direction: column; min-width: 210px; }
+.tx-styles button { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 12px; border: 0; background: transparent; font: 14px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; text-align: left; cursor: pointer; }
+.tx-styles button:hover { background: #f2f2f2; }
+.tx-check { width: 14px; }
+.tx-aligns { left: 360px; display: flex; }
+.tx-sname { flex: 1; }
+.tx-keys { display: inline-flex; gap: 3px; }
+.tx-keys kbd { font: 10px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; padding: 2px 4px; border-radius: 3px; background: #f2f2f2; color: #6f6f6f; }

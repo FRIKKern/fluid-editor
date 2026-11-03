@@ -28,7 +28,11 @@ for (const [name, [act, value]] of Object.entries(OURS)) {
     const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow;
     const ce = d.querySelector('.fe-block[data-block-id="' + b.id + '"] .sqs-html-content'); const t = ce.querySelector('p').firstChild;
     const r = d.createRange(); r.setStart(t, 0); r.setEnd(t, t.textContent.indexOf(' ')); const sel = W.getSelection(); sel.removeAllRanges(); sel.addRange(r);
-    ${act === 'style' ? `const el = document.querySelector('#panel select[data-fmt="style"]'); el.value = ${JSON.stringify(value)}; el.dispatchEvent(new Event('change', { bubbles: true }));` : `document.querySelector('#panel button[data-fmt="${act}"]').click();`}
+    ${act === 'style'
+      ? `document.querySelector('#text-bar [data-fmt="style-menu"]').click(); document.querySelector('#text-bar [data-fmt="style"][data-v=${JSON.stringify(value)}]').click();`
+      : act.startsWith('align:')
+        ? `document.querySelector('#text-bar [data-fmt="align-menu"]').click(); document.querySelector('#text-bar [data-fmt="${act}"]').click();`
+        : `document.querySelector('#text-bar button[data-fmt="${act}"]').click();`}
     return JSON.stringify(ce.innerHTML); })()`);
   const ok = norm(html) === norm(o.html.replace(/…$/, ''));
   results.push({ name, ok });

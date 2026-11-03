@@ -2,7 +2,7 @@
 // end state with the oracle's. Writes parity/gate-c.json.
 // Usage: node scripts/replay.mjs [--surface surface:42] [--url http://127.0.0.1:5178/index.html?replay] [trace ids…]
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, waitFor, goto, viewport, resetViewport, pause } from './lib/cmux.mjs';
+import { evalJs, waitFor, goto, viewport, resetViewport, pause, requireWebKit } from './lib/cmux.mjs';
 import { ensureVisible } from './lib/cmux.mjs';
 import { diffStates } from './lib/trace.mjs';
 import { DEMO } from '../app/src/demo-data.js';
@@ -13,6 +13,7 @@ const arg = (n, d) => {
   return i >= 0 ? args[i + 1] : d;
 };
 const surface = arg('surface', process.env.FLUID_SURFACE || 'surface:59');
+requireWebKit(surface, 'Gate C (replay)');
 const url = arg('url', 'http://127.0.0.1:5178/index.html?replay');
 const only = args.filter((a, i) => !a.startsWith('--') && !args[i - 1]?.startsWith('--'));
 const dir = new URL('../traces/', import.meta.url);

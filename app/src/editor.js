@@ -8,6 +8,7 @@ import { toolbarItems, toolbarHtml, toolbarPosition } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
 import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml } from './menus.js';
+import { textBarHtml, textBarPosition } from './text-bar.js';
 import { demoModel } from './demo.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -712,7 +713,9 @@ function startTextEdit(sid, bid) {
   editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area] };
   ce.addEventListener('input', onTextInput);
   ce.addEventListener('paste', onPaste);
+  doc.addEventListener('selectionchange', onTextSelection);
   renderPanel();
+  renderTextBar();
 }
 
 // Paste (E5): our own cleanup with the oracle's rules (app/src/paste.js).
@@ -780,11 +783,15 @@ blockPanel.addEventListener('change', onDesignChange, true);
 // Clear Formatting. Not built: Squarespace AI, Text Color, Scaled Text, Text Highlight, Link.
 const TEXT_ACTIONS = [['bold', 'Bold'], ['italic', 'Italic'], ['quote', 'Quote'], ['bullet', 'Bullet List'], ['numbered', 'Numbered List'], ['strike', 'Strike'],
   ['outdent', 'Outdent'], ['indent', 'Indent'], ['align:left', 'Align left'], ['align:center', 'Align center'], ['align:right', 'Align right'], ['align:justify', 'Align justify'], ['clear', 'Clear Formatting']];
-function textGroup() {
-  const cur = fmt.currentStyle(editing.ce, win.getSelection());
-  return `<div class="group" data-group="text"><h3>Text</h3>
-    <label>Text Style <select data-fmt="style">${fmt.STYLES.map(([l, v]) => `<option value="${v}" ${v === cur ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
-    <div class="row">${TEXT_ACTIONS.map(([a, l]) => `<button class="btn" data-fmt="${a}" aria-label="${l}">${l}</button>`).join('')}</div></div>`;
+const textBar = $('text-bar');
+let textMenu = null; // 'style' | 'align' | null
+function renderTextBar() {
+  if (!editing || document.body.classList.contains('is-preview')) { textBar.hidden = true; textMenu = null; return; }
+  textBar.innerHTML = textBarHtml(fmt.currentStyle(editing.ce, win.getSelection()), textMenu);
+  const p = textBarPosition(blockEl(editing.bid).getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect());
+  textBar.style.left = `${p.left}px`;
+  textBar.style.top = `${p.top}px`;
+  textBar.hidden = false;
 }
 function applyFormat(act, value) {
   const ed = editing;
@@ -802,19 +809,16 @@ function applyFormat(act, value) {
   onTextInput();
 }
 // Buttons keep the text selection: no focus change on mousedown.
-panel.addEventListener('mousedown', (e) => { if (e.target.closest('button[data-fmt]')) e.preventDefault(); });
-panel.addEventListener('click', (e) => {
-  const btn = e.target.closest('button[data-fmt]');
-  if (!btn || !editing) return;
-  e.stopImmediatePropagation();
-  applyFormat(btn.dataset.fmt);
-}, true);
-panel.addEventListener('change', (e) => {
-  const el = e.target.closest('select[data-fmt="style"]');
-  if (!el || !editing) return;
-  e.stopImmediatePropagation();
-  applyFormat('style', el.value);
-}, true);
+textBar.addEventListener('mousedown', (e) => { if (e.target.closest('button')) e.preventDefault(); });
+textBar.addEventListener('click', (e) => {
+  const b = e.target.closest('button[data-fmt]');
+  if (!b || !editing || b.disabled) return;
+  const act = b.dataset.fmt;
+  if (act === 'style-menu' || act === 'align-menu') { const m = act === 'style-menu' ? 'style' : 'align'; textMenu = textMenu === m ? null : m; renderTextBar(); return; }
+  textMenu = null;
+  if (act === 'style') applyFormat('style', b.dataset.v); else applyFormat(act);
+  renderTextBar();
+});
 
 // When an edit makes the text taller, move the block's end row instead of
 // letting the row stretch.
@@ -832,10 +836,13 @@ function onTextInput() {
   }
 }
 
+function onTextSelection() { if (editing && !textMenu) renderTextBar(); }
 function finishTextEdit() {
   const ed = editing;
   if (!ed) return;
   editing = null;
+  doc.removeEventListener('selectionchange', onTextSelection);
+  renderTextBar();
   const b = B(ed.sid, ed.bid);
   b.html = ed.ce.innerHTML;
   lay(b).area = ed.area;
@@ -881,7 +888,6 @@ function renderPanel() {
     <div class="row">${['flex-start', 'center', 'flex-end'].map((v) => `<button class="btn" data-act="justify" data-v="${v}" ${L.justify === v ? 'disabled' : ''}>${{ 'flex-start': 'Top', center: 'Middle', 'flex-end': 'Bottom' }[v]}</button>`).join('')}</div>
     </div>`);
     if (sel.more?.length) parts.push(`<div class="group"><h3>Align group</h3><div class="row">${ALIGNS.map(([k, label]) => `<button class="btn" data-act="align" data-v="${k}">${label}</button>`).join('')}</div><div class="row"><button class="btn" data-act="stack">Stack blocks</button></div></div>`);
-    if (editing) parts.push(textGroup());
     // The section settings live in the floating Edit Section panel (U9).
     parts.push(`<div class="group"><h3>Add block</h3><div class="row">${ADD_TYPES.map(([n]) => `<button class="btn" data-act="add" data-v="${n}">${n}</button>`).join('')}</div></div>`);
   } else {
@@ -1382,7 +1388,7 @@ document.addEventListener('keydown', onKey);
 
 // ---------- boot ----------
 function boot() {
-  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeBlockPanel(); }, { passive: true });
+  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeBlockPanel(); if (editing) renderTextBar(); }, { passive: true });
   window.addEventListener('resize', () => { placeToolbar(); placeChrome(); });
   frame.contentDocument.addEventListener('pointermove', onHover);
   frame.contentDocument.addEventListener('pointerdown', () => { closeFloating(); closeSectionPanel(); }, true);
