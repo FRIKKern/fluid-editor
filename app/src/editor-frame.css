@@ -4,7 +4,10 @@
 /* Re-rendering a section must not make the browser shift the scroll position. */
 html { overflow-anchor: none; }
 .fluid-engine.is-editing { isolation: isolate; }
-.fluid-engine.is-editing .fe-block { cursor: grab; touch-action: none; }
+.fluid-engine.is-editing .fe-block { cursor: grab; touch-action: none; transition: opacity 0.1s cubic-bezier(0.66, 0, 0.34, 1); }
+/* Same-size blocks during a resize (G5), measured as an attribute on the oracle; the look is ours. */
+.fluid-engine.is-editing .fe-block[data-is-matching-width="true"],
+.fluid-engine.is-editing .fe-block[data-is-matching-height="true"] { outline: 1px dashed rgb(2, 122, 255); }
 .fluid-engine.is-editing .fe-block:hover { outline: 1px solid rgba(17, 105, 247, 0.55); }
 .fluid-engine.is-editing .fe-block.is-text-editing { cursor: text; outline: 2px solid #1169f7; }
 .fluid-engine.is-editing .fe-block.is-dragging { cursor: grabbing; z-index: 100001 !important; opacity: 0.92; }

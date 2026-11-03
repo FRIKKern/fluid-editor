@@ -46,7 +46,7 @@ button { font: inherit; color: inherit; }
 .stage { flex: 1; min-width: 0; display: flex; justify-content: center; overflow: hidden; }
 #site-frame { width: 100%; height: 100%; border: 0; background: #fff; }
 .stage.is-mobile { padding: 16px 0; }
-.stage.is-mobile #site-frame { width: 390px; border-radius: 14px; box-shadow: 0 0 0 1px var(--line), 0 8px 30px rgba(0,0,0,0.12); }
+.stage.is-mobile #site-frame { width: 428px; border-radius: 14px; box-shadow: 0 0 0 1px var(--line), 0 8px 30px rgba(0,0,0,0.12); }
 
 .panel {
   width: 280px; flex: none; overflow: auto;
@@ -67,3 +67,8 @@ button { font: inherit; color: inherit; }
 
 /* Replay mode: no panel, so the canvas width equals the viewport width. */
 .is-replay .panel { display: none; }
+
+.layers { list-style: none; margin: 0; padding: 0; }
+.layer { padding: 7px 8px; border-radius: 6px; cursor: grab; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.layer:hover { background: #f3f3f3; }
+.layer.is-on { background: #e8f0fe; }

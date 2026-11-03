@@ -132,6 +132,16 @@ function drawSelection() {
     ind.append(h);
   }
   feEl(sel.sid).append(ind);
+  for (const id of sel.more || []) {
+    const o = B(sel.sid, id);
+    const el2 = blockEl(id);
+    if (el2) el2.dataset.isSelected = 'true';
+    const ind2 = doc.createElement('div');
+    ind2.className = 'fe-indicator';
+    setArea(ind2, gesture?.moreTargets?.[id] || lay(o).area);
+    ind2.style.zIndex = String(100000 + lay(o).z);
+    feEl(sel.sid).append(ind2);
+  }
 }
 
 function select(next) {
@@ -199,6 +209,59 @@ function normalize(sid) {
   return stretched;
 }
 
+// Flags the oracle sets during a gesture (traces T0004 to T0007): blocks next to or
+// overlapping the target get data-is-near-dragged-block; during a resize, blocks with
+// the same width or height get data-is-matching-width / -height. "Next to" is within
+// 2 tracks, the closest gap seen flagged (T0004).
+function flagNeighbours(g, t) {
+  const s = S(g.sid);
+  for (const o of s.blocks) {
+    const el = blockEl(o.id);
+    if (!el) continue;
+    const a = lay(o).area;
+    const mine = o.id === g.bid;
+    const gapC = Math.max(a[1] - t[3], t[1] - a[3], 0);
+    const gapR = Math.max(a[0] - t[2], t[0] - a[2], 0);
+    el.dataset.isNearDraggedBlock = String(mine || (gapC <= 2 && gapR <= 2));
+    el.dataset.isMatchingWidth = String(!mine && g.type === 'resize' && a[3] - a[1] === t[3] - t[1]);
+    el.dataset.isMatchingHeight = String(!mine && g.type === 'resize' && a[2] - a[0] === t[2] - t[0]);
+  }
+}
+
+function clearFlags(sid) {
+  for (const el of feEl(sid).querySelectorAll(':scope > .fe-block')) {
+    el.dataset.isNearDraggedBlock = 'false';
+    el.dataset.isMatchingWidth = 'false';
+    el.dataset.isMatchingHeight = 'false';
+  }
+}
+
+// G7: scroll the canvas while the pointer stays near its top or bottom edge.
+// The oracle does this (trace T0010 moved 30px more than the pointer); band and
+// speed here are our own, not measured.
+const EDGE = 80;
+const EDGE_SPEED = 600; // px per second at the very edge
+function autoScroll(g) {
+  if (g.scrolling) return;
+  g.scrolling = true;
+  let last = performance.now();
+  const tick = (now) => {
+    if (gesture !== g || !g.lastEvent) { g.scrolling = false; return; }
+    const y = g.lastEvent.clientY;
+    const h = win.innerHeight;
+    // Only inside the window: a pointer below it scrolls nothing (trace T0013).
+    const depth = y > h || y < 0 ? 0 : y > h - EDGE ? (y - (h - EDGE)) / EDGE : y < EDGE ? -(EDGE - y) / EDGE : 0;
+    if (depth) {
+      win.scrollBy(0, depth * EDGE_SPEED * ((now - last) / 1000));
+      if (g.type === 'move') updateMove(g.lastEvent);
+      else if (g.type === 'resize') updateResize(g.lastEvent);
+    }
+    last = now;
+    win.requestAnimationFrame(tick);
+  };
+  win.requestAnimationFrame(tick);
+}
+
 function showGrid(sid, rowCount) {
   const fe = feEl(sid);
   fe.dataset.gridIsVisible = 'true';
@@ -261,7 +324,16 @@ function onDown(e) {
   }
   e.preventDefault();
   const sid = blk.closest('section').dataset.sectionId;
-  select({ sid, bid: blk.dataset.blockId });
+  const bid = blk.dataset.blockId;
+  // Shift-click adds or removes a block from the selection, as on the oracle (X8).
+  if (e.shiftKey && sel && sel.sid === sid) {
+    const ids = [sel.bid, ...(sel.more || [])];
+    const next = ids.includes(bid) ? ids.filter((x) => x !== bid) : [...ids, bid];
+    select(next.length ? { sid, bid: next[0], more: next.slice(1) } : null);
+    return;
+  }
+  const keep = sel && sel.sid === sid && [sel.bid, ...(sel.more || [])].includes(bid) && sel.more?.length;
+  select(keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid });
   const r = blk.getBoundingClientRect();
   gesture = {
     type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId,
@@ -276,8 +348,10 @@ function onMove(e) {
     if (Math.hypot(e.clientX - gesture.x0, e.clientY - gesture.y0) < 4) return;
     beginMove(e);
   }
+  gesture.lastEvent = { clientX: e.clientX, clientY: e.clientY };
   if (gesture.type === 'move') updateMove(e);
   else if (gesture.type === 'resize') updateResize(e);
+  if (gesture.type === 'move' || gesture.type === 'resize') autoScroll(gesture);
 }
 
 function onUp(e) {
@@ -290,6 +364,7 @@ function onUp(e) {
   const s = S(g.sid);
   const b = B(g.sid, g.bid);
   lay(b).area = g.target;
+  for (const o of g.more || []) if (o.target && o.target[0] >= 1 && o.target[1] >= 1 && o.target[3] <= LAST_LINE[bp]) lay(B(g.sid, o.id)).area = o.target;
   growRows(s);
   endGesture();
   renderSectionDom(g.sid);
@@ -313,6 +388,7 @@ function prepare(e, type, extra = {}) {
   const b = B(g.sid, g.bid);
   const fe = feEl(g.sid);
   g.orig = [...lay(b).area];
+  g.rows0 = s.rows[bp];
   g.target = [...g.orig];
   g.m = measure(fe);
   fe.style.gridAutoRows = `${g.m.rowMin}px`;
@@ -326,6 +402,7 @@ function beginMove(e) {
   const b = B(g.sid, g.bid);
   drawSelection();
   g.tind = layer(feEl(g.sid), 'fe-transform-indicator', g.orig);
+  g.more = (sel?.more || []).map((id) => ({ id, orig: [...lay(B(g.sid, id)).area] }));
   const el = blockEl(g.bid);
   el.classList.add('is-dragging');
   g.z = lay(b).z;
@@ -345,11 +422,20 @@ function updateMove(e) {
   const baseTop = top + (r0 - 1) * m.pitch;
   blockEl(g.bid).style.transform = `translate(${left - baseLeft}px, ${y - baseTop}px)`;
   const nc0 = nearest(1, LAST_LINE[bp] - w, (c) => m.colStart[c - 1] - left);
+  // Uniform pitch, also past the last row (traces T0013, T0014).
   const nr0 = Math.max(1, Math.round((y - top) / m.pitch) + 1);
   const t = [nr0, nc0, nr0 + h, nc0 + w];
+  // Other selected blocks move by the same number of rows and columns.
+  for (const o of g.more || []) {
+    const dr = nr0 - r0, dc = nc0 - c0;
+    o.target = [o.orig[0] + dr, o.orig[1] + dc, o.orig[2] + dr, o.orig[3] + dc];
+    const el2 = blockEl(o.id);
+    if (el2) el2.style.transform = blockEl(g.bid).style.transform;
+  }
   if (!same(t, g.target)) {
     g.target = t;
     setArea(g.tind, t);
+    flagNeighbours(g, t);
     if (t[2] - 1 > g.shownRows) showGrid(g.sid, t[2] - 1);
   }
 }
@@ -386,6 +472,7 @@ function updateResize(e) {
   }
   const t = [r0, c0, r1, c1];
   g.target = t;
+  flagNeighbours(g, t);
   const ind = fe.querySelector('.fe-indicator');
   if (ind) setArea(ind, t);
   if (t[2] - 1 > g.shownRows) showGrid(g.sid, t[2] - 1);
@@ -398,7 +485,9 @@ function endGesture() {
   const fe = feEl(g.sid);
   fe.dataset.gridIsVisible = 'false';
   fe.style.gridAutoRows = '';
+  clearFlags(g.sid);
   for (const el of fe.querySelectorAll('.fe-grid-row, .fe-original-position, .fe-transform-indicator')) el.remove();
+  for (const o of g.more || []) { const el2 = blockEl(o.id); if (el2) el2.style.transform = ''; }
   const el = blockEl(g.bid);
   if (el) {
     el.classList.remove('is-dragging');
@@ -447,14 +536,14 @@ function onKey(e) {
     e.preventDefault();
     normalize(sel.sid);
     const before = JSON.stringify(model);
-    const b = B(sel.sid, sel.bid);
     const [dr, dc] = ARROWS[e.key];
-    const a = lay(b).area;
-    const next = [a[0] + dr, a[1] + dc, a[2] + dr, a[3] + dc];
-    if (next[0] >= 1 && next[1] >= 1 && next[3] <= LAST_LINE[bp]) {
-      lay(b).area = next;
+    const group = [sel.bid, ...(sel.more || [])].map((id) => B(sel.sid, id));
+    const nexts = group.map((b) => { const a = lay(b).area; return [a[0] + dr, a[1] + dc, a[2] + dr, a[3] + dc]; });
+    if (nexts.every((n) => n[0] >= 1 && n[1] >= 1 && n[3] <= LAST_LINE[bp])) {
+      group.forEach((b, k) => { lay(b).area = nexts[k]; });
       growRows(S(sel.sid));
     }
+    const b = group[0];
     renderSectionDom(sel.sid);
     commit(before, `Keyboard moved ${sel.bid} to ${lay(b).area.join('/')}`);
   }
@@ -493,8 +582,10 @@ function onDblClick(e) {
 function onTextInput() {
   const ed = editing;
   const b = B(ed.sid, ed.bid);
-  const need = contentRows(b, ed.m);
-  if (ed.area[2] - ed.area[0] < need) {
+  // The end row follows the text both ways, but not below 2 rows
+  // (parity/findings/E3.json: a one-line paragraph ended at 2 rows).
+  const need = Math.max(2, contentRows(b, ed.m));
+  if (ed.area[2] - ed.area[0] !== need) {
     ed.area[2] = ed.area[0] + need;
     setArea(blockEl(ed.bid), ed.area);
     const ind = feEl(ed.sid).querySelector('.fe-indicator');
@@ -545,12 +636,51 @@ function renderPanel() {
     <div class="row">${['flex-start', 'center', 'flex-end'].map((v) => `<button class="btn" data-act="justify" data-v="${v}" ${L.justify === v ? 'disabled' : ''}>${{ 'flex-start': 'Top', center: 'Middle', 'flex-end': 'Bottom' }[v]}</button>`).join('')}</div>
     </div>`);
     parts.push(sectionGroup(s));
+    parts.push(layersGroup(s));
   } else {
     parts.push(`<div class="group"><h3>Page</h3><p class="hint">Click a block to select it. Drag to move. Pull a handle to resize. Double-click text to edit. Arrow keys move one cell. Esc cancels, Cmd+Z undoes.</p></div>`);
   }
   parts.push(`<div class="group"><h3>Activity</h3><pre class="log">${notes.join('\n') || 'Nothing yet'}</pre></div>`);
   panel.innerHTML = parts.join('');
 }
+
+// Layers, as on the oracle: the section's blocks front to back by z-index; text blocks
+// show their first words, others their type. Click selects, drag reorders.
+function layersGroup(s) {
+  const rows = [...s.blocks].sort((a, b) => lay(b).z - lay(a).z).map((b) => {
+    const label = b.type === 'text' ? (b.html || '').replace(/<[^>]+>/g, ' ').trim().slice(0, 28) || 'Text' : b.type[0].toUpperCase() + b.type.slice(1);
+    return `<li class="layer${sel?.bid === b.id ? ' is-on' : ''}" draggable="true" data-layer="${b.id}">${label.replace(/</g, '&lt;')}</li>`;
+  });
+  return `<div class="group"><h3>Layers</h3><ol class="layers">${rows.join('')}</ol></div>`;
+}
+
+let dragLayer = null;
+panel.addEventListener('click', (e) => {
+  const li = e.target.closest('li[data-layer]');
+  if (li && sel) select({ sid: sel.sid, bid: li.dataset.layer });
+});
+panel.addEventListener('dragstart', (e) => {
+  const li = e.target.closest('li[data-layer]');
+  if (li) dragLayer = li.dataset.layer;
+});
+panel.addEventListener('dragover', (e) => {
+  if (dragLayer && e.target.closest('li[data-layer]')) e.preventDefault();
+});
+panel.addEventListener('drop', (e) => {
+  const li = e.target.closest('li[data-layer]');
+  if (!li || !dragLayer || !sel) return;
+  e.preventDefault();
+  const before = JSON.stringify(model);
+  const s = S(sel.sid);
+  const order = [...s.blocks].sort((a, b) => lay(b).z - lay(a).z).map((b) => b.id).filter((id) => id !== dragLayer);
+  order.splice(order.indexOf(li.dataset.layer), 0, dragLayer);
+  // Keep the section's set of z values; hand them out in the new front-to-back order.
+  const zs = s.blocks.map((b) => lay(b).z).sort((a, b) => b - a);
+  order.forEach((id, k) => { lay(B(sel.sid, id)).z = zs[k]; });
+  dragLayer = null;
+  renderSectionDom(sel.sid);
+  commit(before, 'Reordered layers');
+});
 
 function sectionGroup(s) {
   const fe = feEl(s.id);

@@ -1,7 +1,7 @@
 {
   "gate": "C",
-  "pass": 10,
-  "total": 11,
+  "pass": 12,
+  "total": 13,
   "results": [
     {
       "trace": "T0002-demo-hero-right",
@@ -78,6 +78,20 @@
     },
     {
       "trace": "T0012-move-backward",
+      "pass": true,
+      "diffs": [],
+      "undoPass": true,
+      "undoDiffs": []
+    },
+    {
+      "trace": "T0013-drag-far-past-section",
+      "pass": true,
+      "diffs": [],
+      "undoPass": true,
+      "undoDiffs": []
+    },
+    {
+      "trace": "T0014-resize-past-section",
       "pass": true,
       "diffs": [],
       "undoPass": true,
