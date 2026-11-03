@@ -1,0 +1,27 @@
+# 0005 Some parts of items are out of scope
+
+Date: 2026-11-03 · Status: accepted
+
+```
+item in parity/items.json ── outOfScope: ["0005: …"] ──► done when everything else is done
+```
+
+## Context
+
+Several partial items could never become done. They name parts that need a Squarespace service or a real save on the trial site, and the black-box rules forbid that (0001, QUALITY.md O1). Others name a block Fluid Engine does not offer. Leaving them partial hides the work that is still possible.
+
+## Decision
+
+An item can carry `outOfScope`: a list of parts this repo will not build or measure, each starting with the decision that says so. An item is done when every part outside that list is done. `npm run check` requires each entry to name a decision file. `docs/PARITY.md` lists the entries.
+
+Out of scope now:
+
+- **Squarespace AI in the text toolbar (E4).** It is a hosted text service. Our toolbar has no AI button.
+- **What Save does on the live site, drafts, and revision conflicts (Y3).** Measuring them means saving the trial site, or two editors at once. Probes never save (O1). Our editor saves to the browser.
+- **The Sell group of the Add Block menu (U5).** Product, donation and member blocks need a Squarespace store or account.
+- **Gallery blocks in the corpus (H3).** Fluid Engine offers no Gallery block (parity/findings/T8.json).
+
+## Considered
+
+- **A fifth status, out.** Rejected: most of these items have parts that are in scope, and a new status splits the heatmap.
+- **Delete the items.** Rejected: the parts stay visible, and a later decision can bring one back.
