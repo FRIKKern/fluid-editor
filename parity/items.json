@@ -629,7 +629,7 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Text toolbar: styles, bold, italic, links, alignment, color, size",
-    "evidence": "The text toolbar opens from Write (parity/findings/TEXTBAR.json): Squarespace AI, Text Style (Heading 1-4, Paragraph 1-3, Monospace, shortcuts Cmd+Opt+6 to 0 and M), Bold, Italic, Text Color (Palette, Custom), Scaled Text, Text Highlight, Link (URL or a site page), Text Alignment (left, center, right, justify), Quote, Bullet List, Numbered List, Strike, Outdent, Indent, Clear Formatting. parity/findings/TEXTOPS.json records the HTML of 17 actions; our Text group makes the same HTML for all 17 (npm run text-check, parity/text-check.json). Missing: Text Color, Scaled Text, Highlight, Link, the style shortcuts, a floating toolbar, per-action undo inside an edit (ours undoes the whole edit; the oracle took 1 undo per action), and the published look of quotes, lists and monospace",
+    "evidence": "The text toolbar opens from Write (parity/findings/TEXTBAR.json): Squarespace AI, Text Style (Heading 1-4, Paragraph 1-3, Monospace, shortcuts Cmd+Opt+6 to 0 and M), Bold, Italic, Text Color (Palette, Custom), Scaled Text, Text Highlight, Link (URL or a site page), Text Alignment (left, center, right, justify), Quote, Bullet List, Numbered List, Strike, Outdent, Indent, Clear Formatting. parity/findings/TEXTOPS.json records the HTML of 17 actions; our Text group makes the same HTML for all 17 (npm run text-check, parity/text-check.json). Missing: Text Color, Scaled Text, Highlight, Link, the style shortcuts, a floating toolbar over the block while writing (hands-on testing 2026-11-03: ours puts the buttons in the side panel, the oracle shows them above the text), per-action undo inside an edit (ours undoes the whole edit; the oracle took 1 undo per action), and the published look of quotes, lists and monospace",
     "outOfScope": [
       "0005: Squarespace AI"
     ]
@@ -832,6 +832,22 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Top bar: Save, Exit, undo, redo, device toggle, preview"
+  },
+  {
+    "id": "U7",
+    "area": "Editor chrome",
+    "milestone": "M5",
+    "status": "open",
+    "title": "Section toolbar on hover and the floating Edit Section panel",
+    "evidence": "Found in hands-on testing 2026-11-03. Oracle: hovering a section shows Add Block and Layers at its top left, and Edit Section, View Layouts, Duplicate, Save Section, Move Up, Move Down and Remove at its top right (parity/findings/TOOLBARS.json notes); Edit Section opens a floating panel at the top right (Design, Background, Colors). Ours shows the section settings only in the side panel, and only after a block in the section is selected, so an empty section cannot be edited. Not measured: toolbar and panel geometry"
+  },
+  {
+    "id": "U8",
+    "area": "Editor chrome",
+    "milestone": "M5",
+    "status": "open",
+    "title": "Section actions: Add Section, Duplicate, Move Up and Down, Remove, Save Section, View Layouts",
+    "evidence": "Found in hands-on testing 2026-11-03. The oracle section toolbar has these actions and an ADD SECTION button on each section edge; none are built in our editor. Not measured: what each does to the page model, and the Add Section layout picker"
   },
   {
     "id": "U7",
