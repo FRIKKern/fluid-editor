@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 1 change, 3 milestones closed
+- **Today** · 2 changes, 3 milestones closed
+  - Render the 9 section color themes and check colors against the oracle ([#20](https://github.com/FRIKKern/fluid-editor/pull/20))
   - Delivered: [M3: Unknowns](https://github.com/FRIKKern/fluid-editor/issues/5)
-  - Delivered: [M1: Oracle page](https://github.com/FRIKKern/fluid-editor/issues/3)
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
