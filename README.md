@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 22 changes, 3 milestones closed
+- **Today** · 23 changes, 3 milestones closed
+  - T15: the block Edit panel floats next to the block like the oracle's ([#41](https://github.com/FRIKKern/fluid-editor/pull/41))
   - Add the inventory and draw the Edit Section panel like the oracle's ([#40](https://github.com/FRIKKern/fluid-editor/pull/40))
-  - U9: section toolbar on hover and the floating Edit Section panel ([#39](https://github.com/FRIKKern/fluid-editor/pull/39))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
