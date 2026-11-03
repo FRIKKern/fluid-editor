@@ -46,3 +46,8 @@ html { overflow-anchor: none; }
 .fluid-engine .sqs-embed-container .sqs-blockStatus strong { letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
 .fluid-engine .sqs-block-video-placeholder--empty { display: block; height: 100%; background: rgba(0, 0, 0, 0.06); }
 .fluid-engine .sqs-block-embed .sqs-block-content, .fluid-engine .sqs-embed-container, .fluid-engine .sqs-block-video .sqs-block-content, .fluid-engine .sqs-block-video .sqs-block-content > div { height: 100%; }
+
+/* Preview mode: no editor outlines, handles or grab cursors in the canvas. */
+body.is-preview .fluid-engine.is-editing .fe-block { cursor: default; }
+body.is-preview .fluid-engine.is-editing .fe-block:hover { outline: none; }
+body.is-preview .fe-indicator, body.is-preview .fe-grid-row { display: none; }
