@@ -686,7 +686,7 @@ function renderPanel() {
       <dt>Size</dt><dd>${c1 - c0} cols, ${r1 - r0} rows</dd>
       <dt>z-index</dt><dd>${L.z}</dd>
     </dl>
-    <div class="row"><button class="btn" data-act="z+">Move Forward</button><button class="btn" data-act="z-">Move Backward</button></div>
+    <div class="row">${bp === 'mobile' ? '<button class="btn" data-act="up">Move Up</button><button class="btn" data-act="down">Move Down</button>' : '<button class="btn" data-act="z+">Move Forward</button><button class="btn" data-act="z-">Move Backward</button>'}</div>
     <div class="row">${['flex-start', 'center', 'flex-end'].map((v) => `<button class="btn" data-act="justify" data-v="${v}" ${L.justify === v ? 'disabled' : ''}>${{ 'flex-start': 'Top', center: 'Middle', 'flex-end': 'Bottom' }[v]}</button>`).join('')}</div>
     </div>`);
     if (sel.more?.length) parts.push(`<div class="group"><h3>Align group</h3><div class="row">${ALIGNS.map(([k, label]) => `<button class="btn" data-act="align" data-v="${k}">${label}</button>`).join('')}</div><div class="row"><button class="btn" data-act="stack">Stack blocks</button></div></div>`);
@@ -765,6 +765,23 @@ function duplicateBlock(sid, bid) {
 
 // Align Group, as on the oracle (traces T0018, T0019): blocks line up on the group's
 // bounding box; centers round to the nearest line.
+// Phone Move Up and Move Down (traces T0020, T0021): the phone toolbar has these instead of
+// Move Forward, Move Backward and Duplicate. The block trades places with the previous or
+// next block in the phone stack (by start row): the lower one takes the upper one's start
+// row, the upper one follows it. Heights, columns and z-index stay.
+function moveInStack(sid, b, up) {
+  const stack = S(sid).blocks.filter((o) => o.layout.mobile).sort((x, y) => x.layout.mobile.area[0] - y.layout.mobile.area[0] || x.layout.mobile.area[1] - y.layout.mobile.area[1]);
+  const k = stack.indexOf(b);
+  const other = stack[up ? k - 1 : k + 1];
+  if (!other) return;
+  const [upper, lower] = up ? [other, b] : [b, other];
+  const U = upper.layout.mobile.area, Lw = lower.layout.mobile.area;
+  const gap = Lw[0] - U[2];
+  const uh = U[2] - U[0], lh = Lw[2] - Lw[0];
+  lower.layout.mobile.area = [U[0], Lw[1], U[0] + lh, Lw[3]];
+  upper.layout.mobile.area = [U[0] + lh + gap, U[1], U[0] + lh + gap + uh, U[3]];
+}
+
 const ALIGNS = [['left', 'Left'], ['hcenter', 'Center'], ['right', 'Right'], ['top', 'Top'], ['vcenter', 'Middle'], ['bottom', 'Bottom']];
 function alignGroup(kind) {
   const ids = [sel.bid, ...(sel.more || [])];
@@ -926,6 +943,7 @@ panel.addEventListener('click', (e) => {
     const next = others.filter((o) => (up ? o.z > L.z : o.z < L.z)).sort((x, y) => (up ? x.z - y.z : y.z - x.z))[0];
     if (next) [L.z, next.z] = [next.z, L.z];
   }
+  if (btn.dataset.act === 'up' || btn.dataset.act === 'down') moveInStack(sel.sid, b, btn.dataset.act === 'up');
   if (btn.dataset.act === 'justify') L.justify = btn.dataset.v;
   if (btn.dataset.act === 'align') alignGroup(btn.dataset.v);
   if (btn.dataset.act === 'stack') stackBlocks();

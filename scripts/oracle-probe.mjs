@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | T13 | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | T13 | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -407,6 +407,72 @@ if (which === 'DIVOPTS') {
   await escape();
   const steps = await restore(start, [...Array(8).keys()]);
   write('DIVOPTS', { question: 'What do the divider Stroke and Thickness options change, and what does Edit Settings offer?', section: i, frame: '1600x945', ...out, undoSteps: steps });
+}
+
+if (which === 'TOOLBARS') {
+  // U4, L5, L6, X10, E4: the controls each block type offers on desktop and on phones.
+  // Select a block, list every visible control outside the top bar and the section
+  // toolbars; for text, click again to edit and list the formatting toolbar. Read only.
+  const SECTION_UI = /^(edit section|open section settings|view layouts|duplicate section|save section|move section (up|down)|remove section|add section|add block|layers|desktop view|mobile view|toggle site styles editing|toggle preview mode|save|exit|undo|redo)$/i;
+  const CONTROLS = `(() => { ${FRAME}
+    const vis = (e, w) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && q.bottom > 0 && q.top < w.innerHeight && w.getComputedStyle(e).visibility !== 'hidden'; };
+    const name = (e) => (e.getAttribute('aria-label') || e.getAttribute('title') || e.getAttribute('data-tooltip') || e.textContent.trim()).slice(0, 40);
+    const pick = (root, w, where) => [...root.querySelectorAll('button, [role=button], [role=menuitem], [role=radio], [role=checkbox], select, input')].filter((e) => vis(e, w) && !e.closest('.fe-block .sqs-html-content, .sqs-block-content form') && (where !== 'top' || e.getBoundingClientRect().top > 56))
+      .map((e) => ({ name: name(e), pressed: e.getAttribute('aria-pressed') || e.getAttribute('aria-checked') || '', where })).filter((c) => c.name && !${SECTION_UI.toString()}.test(c.name));
+    return JSON.stringify([...pick(document, window, 'top'), ...pick(d, W, 'frame')]); })()`;
+  const kinds = { text: [2, 1], shape: [2, 2], button: [0, 2] };
+  const out = {};
+  for (const layout of ['Desktop', 'Mobile']) {
+    await view(layout);
+    await pause(1500);
+    out[layout] = {};
+    for (const [kind, [i, k]] of Object.entries(kinds)) {
+      const id = blockIds(i)[k];
+      await select(i, id); await pause(900);
+      const r = { selected: evalJs(S, CONTROLS) };
+      r.locked = evalJs(S, `(() => { ${FRAME} return JSON.stringify(d.querySelector('.fe-block[data-block-id="${id}"]')?.getAttribute('data-is-locked')); })()`);
+      if (kind === 'text') {
+        await select(i, id); await pause(1200);
+        r.editing = evalJs(S, `(() => { ${FRAME} return JSON.stringify(!!d.querySelector('.fe-block[data-block-id="${id}"] [contenteditable=true]')); })()`);
+        r.formatting = evalJs(S, CONTROLS);
+        await escape();
+      }
+      out[layout][kind] = r;
+      console.log(layout, kind, JSON.stringify(r).slice(0, 700));
+      await escape(); await deselect(i);
+    }
+  }
+  await view('Desktop');
+  if (saveDisabled() !== true) throw new Error('The probe changed the page; it must stay read only');
+  write('TOOLBARS', { question: 'Which controls does each block type offer when selected, on desktop and on phones?', blocks: kinds, ...out });
+}
+
+if (which === 'EDITPANEL') {
+  // L6: open the text block's Edit panel on desktop and on phones and list every label,
+  // to see whether phones offer their own font size or other overrides. Read only.
+  const [i, k] = [2, 1];
+  const LABELS = `(() => { const vis = (e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && !e.closest('#sqs-site-frame'); };
+    const panel = [...document.querySelectorAll('[role=dialog], [class*=panel], [class*=Panel], [class*=popover], [class*=Popover]')].filter(vis).filter((e) => e.getBoundingClientRect().top > 50 && e.getBoundingClientRect().width < 700).pop();
+    if (!panel) return JSON.stringify(null);
+    return JSON.stringify({ text: [...new Set([...panel.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && vis(e) && e.textContent.trim()).map((e) => e.textContent.trim().slice(0, 40)))],
+      controls: [...panel.querySelectorAll('button, input, select, [role=tab], [role=slider]')].filter(vis).map((e) => (e.getAttribute('aria-label') || e.textContent.trim() || e.type).slice(0, 30) + (e.value && e.tagName === 'INPUT' ? '=' + e.value : '')) }); })()`;
+  const out = {};
+  for (const layout of ['Desktop', 'Mobile']) {
+    await view(layout); await pause(1500);
+    const id = blockIds(i)[k];
+    await select(i, id); await pause(900);
+    await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Edit' && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().width < 80)`, { wait: 2000 });
+    out[layout] = { tabs: evalJs(S, LABELS) };
+    for (const tab of (out[layout].tabs?.controls || []).filter((c) => /^(Design|Animation|Content|Style|Format)$/.test(c))) {
+      await click(`() => [...document.querySelectorAll('button, [role=tab]')].find((x) => x.textContent.trim() === ${'TAB'} && x.getBoundingClientRect().width > 0)`.replace('TAB', JSON.stringify(tab)), { wait: 1200 });
+      out[layout][tab] = evalJs(S, LABELS);
+    }
+    console.log(layout, JSON.stringify(out[layout]).slice(0, 900));
+    await escape(); await escape(); await deselect(i);
+  }
+  await view('Desktop');
+  if (saveDisabled() !== true) throw new Error('The probe changed the page; it must stay read only');
+  write('EDITPANEL', { question: 'Does the text Edit panel offer phone-only settings such as font size?', block: [i, k], ...out });
 }
 
 if (which === 'T13') {
