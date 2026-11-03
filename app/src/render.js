@@ -191,8 +191,39 @@ function blockInner(b, model) {
   }
 }
 
+// Block design (Edit > Design, parity/findings/DESIGN.json): the oracle writes one rule per
+// block in <style class="transform-vars">, in this exact form (corpus pages, 134 blocks).
+// --block-transform stays none until a transform is set. Blur adds backdrop-filter:
+// blur(15px) and Background a white block background on this site.
+export const DESIGN_DEFAULTS = { opacity: 100, tx: 0, ty: 0, rotate: 0, sx: 100, sy: 100, kx: 0, ky: 0, ox: 50, oy: 50 };
+const TRANSFORM = 'translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y))';
+export function designCss(b) {
+  const d = { ...DESIGN_DEFAULTS, ...b.design };
+  const moved = d.tx || d.ty || d.rotate || d.sx !== 100 || d.sy !== 100 || d.kx || d.ky;
+  return `
+    .fe-block-${b.id} {
+      --opacity: ${d.opacity}%;
+      --translate-x: ${d.tx}px;
+      --translate-y: ${d.ty}px;
+      --rotation: ${d.rotate}deg;
+      --scale-x: ${d.sx}%;
+      --scale-y: ${d.sy}%;
+      --skew-x: ${d.kx}deg;
+      --skew-y: ${d.ky}deg;
+      --origin-x: ${d.ox}%;
+      --origin-y: ${d.oy}%;
+      --block-transform: ${moved ? TRANSFORM : 'none'};
+
+      opacity: var(--opacity, 1);
+      transform: var(--block-transform);
+      transform-origin: var(--origin-x) var(--origin-y);${d.blur ? '\n      backdrop-filter: blur(15px);' : ''}
+    }${d.background ? `\n    .fe-block-${b.id} .sqs-block { background-color: rgb(255, 255, 255); }` : ''}
+  `;
+}
+
 export function renderBlock(b, model) {
-  return `<div class="fe-block fe-block-${b.id}" data-block-id="${b.id}">${blockInner(b, model)}</div>`;
+  const design = b.design ? `<style class="transform-vars">${designCss(b)}</style>` : '';
+  return `<div class="fe-block fe-block-${b.id}" data-block-id="${b.id}">${blockInner(b, model)}${design}</div>`;
 }
 
 // Section divider (P5), measured on the oracle (parity/findings/DIVIDER.json): the default

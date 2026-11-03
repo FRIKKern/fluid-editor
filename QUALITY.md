@@ -19,6 +19,8 @@ Two narrower checks run beside the gates:
 | `npm run autoscroll-check` | The oracle's auto-scroll total for 29 held pointer positions (`parity/findings/AUTOSCROLL.json`) against the same holds in our editor | Within one 10px step |
 | `npm run near-check` | Which blocks the oracle flags near a held drag (`parity/findings/NEAR.json`) against our flags for the same holds | Equal for every block |
 | `npm run chrome-check` | The oracle's block toolbar and selection rings for 5 selected blocks (`parity/findings/TOOLBARGEO.json`) against ours on the same blocks | Toolbar, button and separator boxes within 1px, same labels, same ring colors |
+| `node scripts/check-design.mjs` (in `npm run check`) | The 111 block design rules of the corpus (`fixtures/design.json`) against our render of the same values | Equal after collapsing white space |
+| `npm run design-edit-check` | The styles 10 Edit > Design values gave on the oracle (`parity/findings/DESIGN.json`) against the same values set in our editor | Equal computed opacity, transform, backdrop filter and background |
 
 Run `eval "$(npm run -s surfaces)"` first: it finds or opens the oracle and editor tabs and exports `ORACLE_SURFACE` and `FLUID_SURFACE`.
 

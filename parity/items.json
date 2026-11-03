@@ -380,6 +380,14 @@
     "evidence": "Shapes do not keep an aspect ratio: a corner resize of 2 columns and 1 row changes both freely (T0008). Images not tested"
   },
   {
+    "id": "T15",
+    "area": "Block types",
+    "milestone": "M5",
+    "status": "partial",
+    "title": "Block design: background, blur, opacity, transforms (Edit > Design)",
+    "evidence": "parity/findings/DESIGN.json: a block Edit > Design tab has Background and Blur switches, Opacity, Rotate, Scale X/Y, Offset X/Y, Skew X/Y, Stroke and Blend Mode, plus an Animation tab. The values are CSS variables in one rule per block (<style class=\"transform-vars\">); --block-transform stays none until a transform is set; Blur adds backdrop-filter: blur(15px), Background a white block background. Our renderer writes the same rule: npm run check round-trips all 111 rules of the corpus (fixtures/design.json). Our Edit > Design group (from the toolbar Edit button) gives the oracle styles for all 10 probed values (npm run design-edit-check). Missing: Stroke, Blend Mode, Animation, the background color and padding options, the oracle importer reading these values, and whether they differ per layout"
+  },
+  {
     "id": "G1",
     "area": "Geometry and snapping",
     "milestone": "M4",
@@ -799,7 +807,7 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Block toolbar: edit, design, duplicate, delete, layers",
-    "evidence": "The floating toolbar (parity/findings/TOOLBARGEO.json, 5 blocks at a 1600px window): white, 42px tall, 6px radius, no shadow, 4px right of the block and 60px above it, never closer than 23.5px to the canvas top; 36px buttons 4px apart, 1px by 20px #e7e7e7 separators, icons #0e0e0e, Remove #db3642, unavailable #b7b7b7. Buttons per type and layout as in parity/findings/TOOLBARS.json; Move Forward and Backward only when the block overlaps another. Ours matches the toolbar box, every button and separator box, the labels and the rings within 1px: npm run chrome-check, 64 of 64 (parity/chrome-check.json). Write, Align Vertically, Move Forward/Backward, Move Up/Down, Duplicate and Remove work. Our icons are our own. Not built: Edit (the block panel), Pin, the button style menu and link; Align Vertically cycles top, middle and bottom instead of opening a menu; phone separators are not measured"
+    "evidence": "The floating toolbar (parity/findings/TOOLBARGEO.json, 5 blocks at a 1600px window): white, 42px tall, 6px radius, no shadow, 4px right of the block and 60px above it, never closer than 23.5px to the canvas top; 36px buttons 4px apart, 1px by 20px #e7e7e7 separators, icons #0e0e0e, Remove #db3642, unavailable #b7b7b7. Buttons per type and layout as in parity/findings/TOOLBARS.json; Move Forward and Backward only when the block overlaps another. Ours matches the toolbar box, every button and separator box, the labels and the rings within 1px: npm run chrome-check, 64 of 64 (parity/chrome-check.json). Write, Align Vertically, Move Forward/Backward, Move Up/Down, Duplicate and Remove work. Our icons are our own. Edit opens our Design group (T15). Not built: Pin, the button style menu and link; Align Vertically cycles top, middle and bottom instead of opening a menu; phone separators are not measured"
   },
   {
     "id": "U5",
