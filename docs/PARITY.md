@@ -2,7 +2,7 @@
 
 [![Parity: one cell per item, done, partial, open or unknown](images/parity.svg)](../README.md)
 
-62 of 108 items done, 36 partial, 10 open, 0 unknown.
+63 of 108 items done, 36 partial, 9 open, 0 unknown.
 Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. Edit the JSON, never this page.
 
 ## Harness and oracle
@@ -160,7 +160,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | U1 | Grid overlay only during a gesture | M5 Chrome and blocks | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | U2 | Grid look: SVG pattern, `#B7B7B7`, `#F2F2F240`, radius 3 | M5 Chrome and blocks | ◐ partial |  |
 | U3 | Hover and selection outlines, handles, label pill | M5 Chrome and blocks | ◐ partial | Evidence: Handles: 10px squares, white, 2px rgb(2,122,255), cursors nw/ne/se/sw-resize, row-resize, col-resize (applied). Blocks carry a label pill with their type, e.g. "Text" (sqs-block-label-tag). Hover not measured |
-| U4 | Block toolbar: edit, design, duplicate, delete, layers | M5 Chrome and blocks | ◐ partial | Evidence: Oracle toolbars. Text: Write, Edit, Align Vertically, Pin, Duplicate, Remove. Shape: Edit, Pin, Move Forward, Move Backward, Duplicate, Remove. Shape in phone view: Edit, Pin, Move Up, Move Down, Remove. Section: Add Block, Open Layers Panel, Edit Section, View Layouts, Duplicate, Save, Move Up, Move Down, Remove. Ours has Move Forward and Move Backward |
+| U4 | Block toolbar: edit, design, duplicate, delete, layers | M5 Chrome and blocks | ◐ partial | Evidence: Oracle toolbars: text Write, Edit, Align Vertically, Pin, Duplicate, Remove; shape Edit, Pin, Move Forward, Move Backward, Duplicate, Remove; phone shape Edit, Pin, Move Up, Move Down, Remove; section Add Block, Layers, Edit Section, View Layouts, Duplicate, Save, Move Up/Down, Remove. Our editor has Move Forward/Backward, Duplicate (Cmd+D) and Remove (Delete) as keys and panel buttons; no floating toolbar yet |
 | U5 | Add block menu and default placement | M5 Chrome and blocks | ◐ partial | Evidence: Oracle menu: search, Essentials (Text, Image, Button, Video, Form, Accordion, Shape, Scrolling, Line), Sell, more. Our panel has the nine Essentials with the oracle default sizes and places (T13). Phone placement of a new block is ours, not measured; the search box and other groups are not built |
 | U6 | Top bar: Save, Exit, undo, redo, device toggle, preview | M5 Chrome and blocks | ◐ partial |  |
 | U7 | Animation timings, `is-transitioning-visibility` | M5 Chrome and blocks | ✓ done | Evidence: Oracle: transition opacity 0.1s cubic-bezier(0.66, 0, 0.34, 1) on .fe-block in the editor. Our editor uses the same transition (app/src/editor-frame.css) |
@@ -172,7 +172,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | Y1 | One undo step per gesture; normalization is not undone and does not mark the page changed | M6 Save and polish | ✓ done | Evidence: traces/retired/T0001-key-right.json: undo keeps the normalization and Save stays disabled. T0002 and T0003: undo restores the move in our editor as on the oracle (parity/gate-c.json, undo pass) |
 | Y2 | Undo grouping while typing | M6 Save and polish | ◐ partial |  |
 | Y3 | Save versus publish, drafts, revision conflicts | M6 Save and polish | ○ open |  |
-| Y4 | Copy and paste between sections and pages | M6 Save and polish | ○ open |  |
+| Y4 | Copy and paste between sections and pages | M6 Save and polish | ◐ partial | Evidence: parity/findings/KEYS.json, KEYS2.json: Cmd+D duplicates one row down and one column right, on top, and right below the original on phones (3/16/13/26, phone 11/2/17/10); our editor gives the same. Delete and Backspace remove the block. Cmd+C and Cmd+V did nothing with scripted key events (the clipboard needs real ones), so copy and paste is not answered |
 | Y5 | Published page has no layout JavaScript | M6 Save and polish | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 
 ## Accessibility and order
@@ -181,4 +181,4 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 |---|---|---|---|---|
 | A1 | ARIA roles grid and gridcell | M6 Save and polish | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | A2 | DOM order of blocks | M6 Save and polish | ◐ partial | Evidence: Block DOM order follows the phone layout row order: 8 of 8 demo sections, 248 of 286 corpus sections with 2+ blocks (desktop row order: 164). The exceptions are not explained yet |
-| A3 | Keyboard: Tab order, arrow moves, resize with keys | M6 Save and polish | ◐ partial |  |
+| A3 | Keyboard: Tab order, arrow moves, resize with keys | M6 Save and polish | ✓ done | Evidence: parity/findings/KEYS.json, KEYS2.json: arrows and Alt+arrows move one cell; Cmd+Left/Right change the end column, Cmd+Up/Down the end row; Tab and Shift+Tab do not change the selection. Our editor gives the same areas for Cmd+Right (2/15/12/26), Cmd+Up (2/15/11/25), Alt+Right (2/16/12/26) |

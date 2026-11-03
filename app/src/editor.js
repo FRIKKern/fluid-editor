@@ -83,7 +83,16 @@ function redo() {
 }
 
 // ---------- rendering ----------
+// After undo, redo or a reload of the model the selected block may no longer exist.
+function dropMissingSelection() {
+  if (!sel) return;
+  const s = model.sections.find((x) => x.id === sel.sid);
+  const ids = [sel.bid, ...(sel.more || [])].filter((id) => s?.blocks.some((b) => b.id === id));
+  sel = ids.length ? { sid: sel.sid, bid: ids[0], more: ids.slice(1) } : null;
+}
+
 function renderAll() {
+  dropMissingSelection();
   doc.getElementById('page').innerHTML = renderPage(model);
   for (const s of model.sections) decorate(s.id);
   drawSelection();
@@ -537,6 +546,43 @@ function onKey(e) {
     else select(null);
     return;
   }
+  // Keys measured on the oracle (parity/findings/KEYS.json, KEYS2.json).
+  if (sel && !gesture && (e.key === 'Delete' || e.key === 'Backspace')) {
+    e.preventDefault();
+    const before = JSON.stringify(model);
+    const ids = [sel.bid, ...(sel.more || [])];
+    const s = S(sel.sid);
+    s.blocks = s.blocks.filter((b) => !ids.includes(b.id));
+    const sid = sel.sid;
+    sel = null;
+    renderSectionDom(sid);
+    commit(before, `Removed ${ids.length} block${ids.length > 1 ? 's' : ''}`);
+    return;
+  }
+  if (sel && !gesture && mod && e.key.toLowerCase() === 'd') {
+    e.preventDefault();
+    const before = JSON.stringify(model);
+    duplicateBlock(sel.sid, sel.bid);
+    renderSectionDom(sel.sid);
+    commit(before, 'Duplicated a block');
+    return;
+  }
+  if (ARROWS[e.key] && sel && !gesture && mod) {
+    // Cmd+Arrow moves the block's end edges: Left and Right the end column, Up and Down the end row.
+    e.preventDefault();
+    normalize(sel.sid);
+    const before = JSON.stringify(model);
+    const b = B(sel.sid, sel.bid);
+    const [dr, dc] = ARROWS[e.key];
+    const a = lay(b).area;
+    const next = [a[0], a[1], Math.max(a[0] + 1, a[2] + dr), Math.min(LAST_LINE[bp], Math.max(a[1] + 1, a[3] + dc))];
+    if (b.type === 'text') next[2] = Math.max(next[2], a[0] + contentRows(b, measure(feEl(sel.sid))));
+    lay(b).area = next;
+    growRows(S(sel.sid));
+    renderSectionDom(sel.sid);
+    commit(before, `Keyboard resized ${sel.bid} to ${next.join('/')}`);
+    return;
+  }
   if (ARROWS[e.key] && sel && !gesture) {
     e.preventDefault();
     normalize(sel.sid);
@@ -690,6 +736,31 @@ function addBlock(sid, name) {
   s.blocks.push(block);
   for (const bpName of ['desktop', 'mobile']) s.rows[bpName] = Math.max(s.rows[bpName], block.layout[bpName].area[2] - 1);
   sel = { sid, bid: id };
+}
+
+// Cmd+D (KEYS2): the copy is one row down and one column right on desktop, the same
+// size, on top; on phones it goes right below the original and later blocks move down.
+function duplicateBlock(sid, bid) {
+  const s = S(sid);
+  const orig = B(sid, bid);
+  const copy = JSON.parse(JSON.stringify(orig));
+  copy.id = `${orig.type}-${Date.now().toString(36)}`;
+  const d = copy.layout.desktop.area;
+  const w = d[3] - d[1];
+  const c0 = Math.min(d[1] + 1, LAST_LINE.desktop - w);
+  copy.layout.desktop.area = [d[0] + 1, c0, d[2] + 1, c0 + w];
+  copy.layout.desktop.z = Math.max(...s.blocks.map((b) => b.layout.desktop.z)) + 1;
+  const m = orig.layout.mobile.area;
+  const h = m[2] - m[0];
+  for (const b of s.blocks) {
+    const a = b.layout.mobile.area;
+    if (b !== orig && a[0] >= m[2]) b.layout.mobile.area = [a[0] + h, a[1], a[2] + h, a[3]];
+  }
+  copy.layout.mobile.area = [m[2], m[1], m[2] + h, m[3]];
+  copy.layout.mobile.z = Math.max(...s.blocks.map((b) => b.layout.mobile.z)) + 1;
+  s.blocks.splice(s.blocks.indexOf(orig) + 1, 0, copy);
+  for (const bpName of ['desktop', 'mobile']) s.rows[bpName] = Math.max(s.rows[bpName], copy.layout[bpName].area[2] - 1);
+  sel = { sid, bid: copy.id };
 }
 
 // Align Group, as on the oracle (traces T0018, T0019): blocks line up on the group's

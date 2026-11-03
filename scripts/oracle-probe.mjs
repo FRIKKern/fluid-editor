@@ -239,3 +239,38 @@ if (which === 'BATCH') {
   console.log(JSON.stringify(out, null, 1));
 }
 
+if (which === 'KEYS') {
+  // A3, Y4: key combinations on a selected block; area, block count and selection after each.
+  const i = 2;
+  const startAll = {}; for (let k = 0; k < 8; k++) startAll[k] = both(k);
+  const id = blockIds(i)[2];
+  const press = (key, mods = {}) => evalJs(S, `(() => { ${FRAME}
+    const t = d.querySelector('.fe-block[data-is-selected="true"]') || (d.activeElement !== d.body ? d.activeElement : d.body);
+    const codes = { ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40, Tab: 9, Backspace: 8, Delete: 46, d: 68, c: 67, v: 86, Escape: 27 };
+    const o = { key: '${key}', code: '${key.length === 1 ? 'Key' + key.toUpperCase() : key}', keyCode: codes['${key}'] || 0, which: codes['${key}'] || 0, bubbles: true, cancelable: true, composed: true, shiftKey: ${!!mods.shift}, altKey: ${!!mods.alt}, metaKey: ${!!mods.meta}, ctrlKey: false };
+    for (const type of ['keydown', 'keyup']) t.dispatchEvent(new W.KeyboardEvent(type, o));
+    return 'true'; })()`);
+  const state = () => evalJs(S, `(() => { ${FRAME} const fe = d.querySelectorAll('main#page .fluid-engine')[${i}];
+    const sel = [...fe.querySelectorAll(':scope > .fe-block')].filter((b) => b.dataset.isSelected === 'true').map((b) => b.dataset.blockId);
+    return JSON.stringify({ count: fe.querySelectorAll(':scope > .fe-block').length, selected: sel, active: (d.activeElement && d.activeElement.dataset && d.activeElement.dataset.blockId) || d.activeElement.tagName }); })()`);
+  const undoAll = async () => { await escape(); let n = 0; while (n < 10 && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); } return n; };
+  const combos = process.argv[3] === '2'
+    ? [['ArrowLeft', { meta: true }], ['ArrowDown', { meta: true }], ['ArrowUp', { meta: true }], ['d', { meta: true }], ['Delete', {}]]
+    : [['ArrowRight', { shift: true }], ['ArrowDown', { shift: true }], ['ArrowRight', { alt: true }], ['ArrowRight', { meta: true }], ['Tab', {}], ['Tab', { shift: true }], ['d', { meta: true }], ['c', { meta: true }, 'v'], ['Backspace', {}]];
+  const out = {};
+  for (const [key, mods, then] of combos) {
+    const name = [mods.meta && 'Cmd', mods.alt && 'Alt', mods.shift && 'Shift', key].filter(Boolean).join('+') + (then ? ` then Cmd+${then}` : '');
+    await select(i, id); await pause(400);
+    const before = { area: both(i)[id]?.desktop, ...state() };
+    press(key, mods); await pause(900);
+    if (then) { press(then, { meta: true }); await pause(1200); }
+    const after = { area: both(i)[id]?.desktop || 'gone', ...state() };
+    const all = both(i); after.newAreas = Object.entries(all).filter(([k]) => !(k in startAll[i])).map(([k, v]) => ({ id: k, ...v }));
+    const undone = await undoAll();
+    out[name] = { before, after, undoSteps: undone };
+    console.log(name, JSON.stringify(after), 'undo', undone);
+  }
+  const steps = await restore(startAll, [0, 1, 2, 3, 4, 5, 6, 7]);
+  write(process.argv[3] === '2' ? 'KEYS2' : 'KEYS', { question: 'What do key combinations do on a selected block?', block: id, results: out });
+}
+
