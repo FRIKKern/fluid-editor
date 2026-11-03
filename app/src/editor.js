@@ -332,11 +332,12 @@ function onDown(e) {
     select(next.length ? { sid, bid: next[0], more: next.slice(1) } : null);
     return;
   }
+  const wasSelected = sel && sel.sid === sid && sel.bid === bid && !sel.more?.length;
   const keep = sel && sel.sid === sid && [sel.bid, ...(sel.more || [])].includes(bid) && sel.more?.length;
   select(keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid });
   const r = blk.getBoundingClientRect();
   gesture = {
-    type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId,
+    type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, wasSelected,
     x0: e.clientX, y0: e.clientY, grabX: e.clientX - r.left, grabY: e.clientY - r.top,
     before: JSON.stringify(model),
   };
@@ -345,7 +346,8 @@ function onDown(e) {
 function onMove(e) {
   if (!gesture || e.pointerId !== gesture.pointerId) return;
   if (gesture.type === 'pending') {
-    if (Math.hypot(e.clientX - gesture.x0, e.clientY - gesture.y0) < 4) return;
+    // The oracle starts a drag once the pointer has moved more than 10px (11 does, 10 does not).
+    if (Math.hypot(e.clientX - gesture.x0, e.clientY - gesture.y0) <= 10) return;
     beginMove(e);
   }
   gesture.lastEvent = { clientX: e.clientX, clientY: e.clientY };
@@ -357,7 +359,10 @@ function onMove(e) {
 function onUp(e) {
   if (!gesture || e.pointerId !== gesture.pointerId) return;
   if (gesture.type === 'pending') {
+    // A click on a text block that was already selected opens its editor (E1, as on the oracle).
+    const g = gesture;
     gesture = null;
+    if (g.wasSelected && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
   const g = gesture;
@@ -553,9 +558,12 @@ function onKey(e) {
 function onDblClick(e) {
   const blk = e.target.closest('.fe-block');
   if (!blk || editing) return;
-  const sid = blk.closest('section').dataset.sectionId;
-  const b = B(sid, blk.dataset.blockId);
-  if (b.type !== 'text') return;
+  startTextEdit(blk.closest('section').dataset.sectionId, blk.dataset.blockId);
+}
+
+function startTextEdit(sid, bid) {
+  const b = B(sid, bid);
+  if (!b || b.type !== 'text' || editing) return;
   select({ sid, bid: b.id });
   normalize(sid);
   const before = JSON.stringify(model);
@@ -664,12 +672,21 @@ function addBlock(sid, name) {
   const [, w, h, make] = ADD_TYPES.find((t) => t[0] === name);
   const s = S(sid);
   const id = `${name.toLowerCase()}-${Date.now().toString(36)}`;
-  const mobileEnd = Math.max(1, ...s.blocks.map((b) => b.layout.mobile.area[2]));
+  // Phone (L3, parity/findings/L3.json): the new block joins the phone stack in desktop
+  // reading order (row, then column; after blocks that start at the same place) and the
+  // blocks after it move down by its height.
+  const key = (a) => a[0] * 100 + a[1];
+  const before = s.blocks.filter((b) => key(b.layout.desktop.area) <= key([1, 2]));
+  const mobileEnd = before.length ? Math.max(...before.map((b) => b.layout.mobile.area[2])) : 1;
   const zTop = (bpName) => Math.max(0, ...s.blocks.map((b) => b.layout[bpName].z)) + 1;
   const block = { id, ...make(), layout: {
     desktop: { area: [1, 2, 1 + h, 2 + w], z: zTop('desktop'), justify: 'flex-start', align: 'flex-start' },
-    mobile: { area: [mobileEnd, 2, mobileEnd + Math.min(h, 6), 10], z: zTop('mobile'), justify: 'flex-start', align: 'flex-start' },
+    mobile: { area: [mobileEnd, 2, mobileEnd + h, 10], z: zTop('mobile'), justify: 'flex-start', align: 'flex-start' },
   } };
+  for (const b of s.blocks) {
+    const a = b.layout.mobile.area;
+    if (!before.includes(b) && a[0] >= mobileEnd) b.layout.mobile.area = [a[0] + h, a[1], a[2] + h, a[3]];
+  }
   s.blocks.push(block);
   for (const bpName of ['desktop', 'mobile']) s.rows[bpName] = Math.max(s.rows[bpName], block.layout[bpName].area[2] - 1);
   sel = { sid, bid: id };
