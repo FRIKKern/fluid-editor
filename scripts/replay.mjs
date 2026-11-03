@@ -156,7 +156,9 @@ resetViewport(surface);
 
 const pass = results.filter((r) => r.pass).length;
 console.log(`Gate C, trace replay: ${pass} of ${results.length} traces match`);
-writeFileSync(new URL('../parity/gate-c.json', import.meta.url), JSON.stringify({ gate: 'C', pass, total: results.length, results }, null, 2) + '\n');
+// Replaying some traces by id is for debugging: it never replaces the gate's full result.
+if (only.length) console.log('(a filtered run; parity/gate-c.json is unchanged)');
+else writeFileSync(new URL('../parity/gate-c.json', import.meta.url), JSON.stringify({ gate: 'C', pass, total: results.length, results }, null, 2) + '\n');
 if (!results.length) {
   console.error('Gate C: no traces, nothing to replay');
   process.exitCode = 1;
