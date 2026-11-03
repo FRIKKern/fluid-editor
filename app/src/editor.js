@@ -846,20 +846,66 @@ panel.addEventListener('drop', (e) => {
   commit(before, 'Reordered layers');
 });
 
+// Edit Section (P3, P4, P5, S1, S2), the oracle's three tabs (parity/findings/PANEL.json,
+// SETTINGS.json): Design has Row Count, Gap (Zero 0px, Medium 11px, Custom column and row
+// gaps 0 to 50px), Fill Screen, Height S/M/L/Custom and vertical Alignment; Background has
+// Background Width; Colors has ten themes. Unchecking Fill Screen makes the section fit its
+// content and hides Height and Alignment, as on the oracle.
+const THEMES = [['Lightest 1', 'white'], ['Lightest 2', 'white-bold'], ['Light 1', 'light'], ['Light 2', 'light-bold'], ['Bright 1', 'bright-inverse'],
+  ['Bright 2', 'bright'], ['Dark 1', 'dark'], ['Dark 2', 'dark-bold'], ['Darkest 1', 'black'], ['Darkest 2', 'black-bold']];
+const MEDIUM_GAP = 11;
+let sectionTab = 'Design';
+let customGap = false;
+const fillScreen = (s) => !(s.height === 'custom' && s.customHeight == null);
+const gapKind = (s) => (customGap ? 'custom' : s.gap === 0 && (s.rowGap ?? 0) === 0 ? 'zero' : s.gap === MEDIUM_GAP && (s.rowGap ?? MEDIUM_GAP) === MEDIUM_GAP ? 'medium' : 'custom');
 function sectionGroup(s) {
   const fe = feEl(s.id);
   const m = measure(fe);
   const minRows = Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1));
   const stretched = m.rows.filter((h) => h > m.rowMin + 0.5).length;
-  return `<div class="group"><h3>Section ${s.id}</h3><dl>
+  const opt = (act, v, label, on) => `<button class="btn${on ? ' is-on' : ''}" data-sact="${act}" data-v="${v}" aria-pressed="${on}">${label}</button>`;
+  const tabs = `<div class="row" role="tablist">${['Design', 'Background', 'Colors'].map((t) => `<button class="btn${t === sectionTab ? ' is-on' : ''}" role="tab" aria-selected="${t === sectionTab}" data-sact="tab" data-v="${t}">${t}</button>`).join('')}</div>`;
+  let body = '';
+  if (sectionTab === 'Design') {
+    const gk = gapKind(s);
+    body = `<label>Row Count <input type="number" data-act="rows" min="${minRows}" max="10000" value="${s.rows[bp]}"></label>
+    <div class="row">Gap ${opt('gap', 'zero', 'Zero', gk === 'zero')}${opt('gap', 'medium', 'Medium', gk === 'medium')}${opt('gap', 'custom', 'Custom', gk === 'custom')}</div>
+    ${gk === 'custom' ? `<label>Column gap <input type="range" data-act="gap" min="0" max="50" value="${s.gap}"> ${s.gap}px</label><label>Row gap <input type="range" data-act="rowGap" min="0" max="50" value="${s.rowGap ?? s.gap}"> ${s.rowGap ?? s.gap}px</label>` : ''}
+    <label><input type="checkbox" data-act="fill" ${fillScreen(s) ? 'checked' : ''}> Fill Screen</label>
+    ${fillScreen(s) ? `<div class="row">Height ${[['small', 'S'], ['medium', 'M'], ['large', 'L'], ['custom', 'Custom']].map(([v, l]) => opt('height', v, l, s.height === v)).join('')}</div>
+    ${s.height === 'custom' ? `<label>Custom height <input type="number" data-act="customHeight" min="1" max="100" value="${s.customHeight}"> vh</label>` : ''}
+    <div class="row">Alignment ${[['top', 'Top'], ['middle', 'Center'], ['bottom', 'Bottom']].map(([v, l]) => opt('valign', v, l, (s.valign || 'middle') === v)).join('')}</div>` : ''}`;
+  } else if (sectionTab === 'Background') {
+    body = `<div class="row">Background Width ${opt('bgWidth', 'full-bleed', 'Full Bleed', (s.bgWidth || 'full-bleed') === 'full-bleed')}${opt('bgWidth', 'inset', 'Inset', s.bgWidth === 'inset')}</div>`;
+  } else {
+    body = `<div class="row">${THEMES.map(([l, v]) => opt('theme', v, l, (s.theme || '').replace(/^theme-/, '') === v)).join('')}</div>`;
+  }
+  return `<div class="group" data-group="section"><h3>Edit Section</h3>${tabs}${body}<dl>
+    <dt>Section</dt><dd>${s.id}</dd>
     <dt>Columns</dt><dd>${COLS[bp]} + 2 gutters</dd>
     <dt>Row min</dt><dd>${m.rowMin.toFixed(2)}px</dd>
     <dt>Stretched</dt><dd>${stretched} of ${m.rows.length} rows</dd>
-  </dl>
-  <label>Rows (${bp}) <input type="number" data-act="rows" min="${minRows}" value="${s.rows[bp]}"></label>
-  <label>Spacing <input type="number" data-act="gap" min="0" max="40" value="${s.gap}"></label>
-  </div>`;
+  </dl></div>`;
 }
+
+panel.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-sact]');
+  if (!btn || !sel) return;
+  e.stopImmediatePropagation();
+  const s = S(sel.sid);
+  const { sact: act, v } = btn.dataset;
+  if (act === 'tab') { sectionTab = v; customGap = false; renderPanel(); return; }
+  if (act === 'gap' && v === 'custom') { customGap = true; renderPanel(); return; }
+  const before = JSON.stringify(model);
+  if (act === 'gap') { customGap = false; s.gap = v === 'zero' ? 0 : MEDIUM_GAP; s.rowGap = s.gap; }
+  if (act === 'height') { s.height = v; s.customHeight = v === 'custom' ? (s.customHeight ?? 1) : undefined; }
+  if (act === 'valign') s.valign = v;
+  if (act === 'bgWidth') s.bgWidth = v;
+  if (act === 'theme') s.theme = v;
+  if (JSON.stringify(model) === before) return;
+  renderSectionDom(s.id);
+  commit(before, `Section ${s.id} ${act} set to ${v}`);
+}, true);
 
 panel.addEventListener('click', (e) => {
   const btn = e.target.closest('button[data-act]');
@@ -888,14 +934,20 @@ panel.addEventListener('change', (e) => {
   if (!input || !sel) return;
   const before = JSON.stringify(model);
   const s = S(sel.sid);
-  const v = Math.round(Number(input.value));
-  if (!Number.isFinite(v)) return;
-  if (input.dataset.act === 'rows') {
-    s.rows[bp] = Math.max(Number(input.min), v);
+  const act = input.dataset.act;
+  if (act === 'fill') {
+    if (input.checked) { s.height = 'medium'; delete s.customHeight; } else { s.height = 'custom'; delete s.customHeight; }
+  } else {
+    const v = Math.round(Number(input.value));
+    if (!Number.isFinite(v)) return;
+    if (act === 'rows') s.rows[bp] = Math.min(10000, Math.max(Number(input.min), v));
+    if (act === 'gap') { s.rowGap = s.rowGap ?? s.gap; s.gap = Math.min(50, Math.max(0, v)); }
+    if (act === 'rowGap') s.rowGap = Math.min(50, Math.max(0, v));
+    if (act === 'customHeight') s.customHeight = Math.min(100, Math.max(1, v));
   }
-  if (input.dataset.act === 'gap') s.gap = Math.min(40, Math.max(0, v));
+  if (JSON.stringify(model) === before) return;
   renderSectionDom(s.id);
-  commit(before, `Section ${s.id} ${input.dataset.act} set to ${input.dataset.act === 'rows' ? s.rows[bp] : s.gap}`);
+  commit(before, `Section ${s.id} ${act} set to ${act === 'fill' ? input.checked : input.value}`);
 });
 
 // ---------- top bar ----------
@@ -985,6 +1037,7 @@ function boot() {
     undo,
     normalize,
     measure: (sid) => measure(feEl(sid)),
+    select: (sid, bid) => { select({ sid, bid }); return true; },
   };
 }
 

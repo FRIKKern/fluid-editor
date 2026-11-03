@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="914" viewBox="0 0 1200 914" role="img" aria-labelledby="t d">
 <title id="t">Fluid editor parity</title>
-<desc id="d">64 of 108 items done, 36 partial, 8 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 4 of 7 done. Block types: 4 of 14 done. Geometry and snapping: 5 of 8 done. Gestures: 5 of 12 done. Row stretch: 3 of 5 done. Text editing: 4 of 6 done. Overlap and layers: 3 of 5 done. Phone layout: 6 of 8 done. Section settings and Stacks: 0 of 3 done. Editor chrome: 2 of 7 done. History, save and publish: 2 of 5 done. Accessibility and order: 2 of 3 done.</desc>
+<desc id="d">66 of 108 items done, 34 partial, 8 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 5 of 7 done. Block types: 4 of 14 done. Geometry and snapping: 5 of 8 done. Gestures: 5 of 12 done. Row stretch: 3 of 5 done. Text editing: 4 of 6 done. Overlap and layers: 3 of 5 done. Phone layout: 6 of 8 done. Section settings and Stacks: 1 of 3 done. Editor chrome: 2 of 7 done. History, save and publish: 2 of 5 done. Accessibility and order: 2 of 3 done.</desc>
 <style>
   svg { --bg:#fbfaf7; --card:#ffffff; --line:#e3e0d6; --ink:#1f1e1b; --muted:#6c6a63; --done:#2c7a4b; --now:#b26b00; --todo:#a3a097; --nowbg:#fff6e5; --partbg:#fdf0d8; --unk:#8a6fb0; }
   @media (prefers-color-scheme: dark) {
@@ -21,12 +21,12 @@
 <rect class="bg" width="1200" height="914" rx="16"/>
 <text x="40" y="70" font-size="36" font-weight="700" letter-spacing="-0.8">Parity</text>
 <text x="40" y="102" font-size="19" class="muted">Everything that has to match Fluid Engine, one cell per item.</text>
-<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">64<tspan class="muted" font-weight="400"> / 108</tspan></text>
+<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">66<tspan class="muted" font-weight="400"> / 108</tspan></text>
 <text x="1160" y="102" font-size="16" text-anchor="end" class="muted">items done</text>
-<rect x="40" y="124" width="663.7037037037037" height="10" class="s-done"/>
-<rect x="703.7037037037037" y="124" width="373.3333333333333" height="10" class="s-partial"/>
+<rect x="40" y="124" width="684.4444444444445" height="10" class="s-done"/>
+<rect x="724.4444444444445" y="124" width="352.5925925925926" height="10" class="s-partial"/>
 <rect x="1077.037037037037" y="124" width="82.96296296296296" height="10" class="s-open"/>
-<text x="40" y="172" font-size="16"><tspan class="done">✓ 64 done</tspan><tspan class="now" dx="24">◐ 36 partial</tspan><tspan class="todo" dx="24">○ 8 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
+<text x="40" y="172" font-size="16"><tspan class="done">✓ 66 done</tspan><tspan class="now" dx="24">◐ 34 partial</tspan><tspan class="todo" dx="24">○ 8 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
 <text x="1160" y="172" font-size="16" text-anchor="end" class="muted">unknown: needs a trace on the oracle before it can be built</text>
 <path d="M40 190H1160" class="rule"/>
 <g data-area="Harness and oracle">
@@ -89,15 +89,15 @@
 </g>
 <g data-area="Page and site context">
 <text x="40" y="326" font-size="15" font-weight="600">Page and site context</text>
-<text x="324" y="326" font-size="14" text-anchor="end" class="muted">4/7</text>
+<text x="324" y="326" font-size="14" text-anchor="end" class="muted">5/7</text>
 <rect x="340" y="306" width="50" height="30" rx="6" class="c-done"><title>P1 Site variables for the trial site: done</title></rect>
 <text x="365" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-done">P1</text>
 <rect x="396" y="306" width="50" height="30" rx="6" class="c-done"><title>P2 Section wrapper styles: done</title></rect>
 <text x="421" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-done">P2</text>
 <rect x="452" y="306" width="50" height="30" rx="6" class="c-partial"><title>P3 Section height settings and padding: partial</title></rect>
 <text x="477" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">P3</text>
-<rect x="508" y="306" width="50" height="30" rx="6" class="c-partial"><title>P4 Section content width, full or inset: partial</title></rect>
-<text x="533" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">P4</text>
+<rect x="508" y="306" width="50" height="30" rx="6" class="c-done"><title>P4 Section content width, full or inset: done</title></rect>
+<text x="533" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-done">P4</text>
 <rect x="564" y="306" width="50" height="30" rx="6" class="c-partial"><title>P5 Section alignment, color themes, background image and video, dividers: partial</title></rect>
 <text x="589" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">P5</text>
 <rect x="620" y="306" width="50" height="30" rx="6" class="c-done"><title>P6 Fonts and type scale, including how sizes follow viewport width: done</title></rect>
@@ -251,11 +251,11 @@
 </g>
 <g data-area="Section settings and Stacks">
 <text x="40" y="694" font-size="15" font-weight="600">Section settings and Stacks</text>
-<text x="324" y="694" font-size="14" text-anchor="end" class="muted">0/3</text>
+<text x="324" y="694" font-size="14" text-anchor="end" class="muted">1/3</text>
 <rect x="340" y="674" width="50" height="30" rx="6" class="c-partial"><title>S1 Row count per layout, and whether it is the only per-layout section setting: partial</title></rect>
 <text x="365" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">S1</text>
-<rect x="396" y="674" width="50" height="30" rx="6" class="c-partial"><title>S2 Spacing values allowed: partial</title></rect>
-<text x="421" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">S2</text>
+<rect x="396" y="674" width="50" height="30" rx="6" class="c-done"><title>S2 Spacing values allowed: done</title></rect>
+<text x="421" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-done">S2</text>
 <rect x="452" y="674" width="50" height="30" rx="6" class="c-partial"><title>S3 Stacks: grouped blocks with their own order and spacing: partial</title></rect>
 <text x="477" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">S3</text>
 </g>

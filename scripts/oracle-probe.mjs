@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | T13 | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -131,46 +131,6 @@ if (which === 'E3E6') {
   });
 }
 
-if (which === 'SECTION') {
-  // Section settings (P3, P5, S2): open Edit Section on section 2, click each option,
-  // read the section's markup and computed layout, undo after each.
-  const i = 2;
-  const start = { [i]: both(i) };
-  const READ_SECTION = `(() => { ${FRAME}
-    const sec = d.querySelectorAll('main#page .page-section')[${i}];
-    const fe = sec.querySelector('.fluid-engine'); const wrap = sec.querySelector('.content-wrapper');
-    const cs = W.getComputedStyle(sec), fs = W.getComputedStyle(fe), ws = W.getComputedStyle(wrap);
-    const rows = fs.gridTemplateRows.split(' ');
-    return JSON.stringify({
-      classes: [...sec.classList].filter((c) => !/^[A-Za-z0-9_]{16}$/.test(c)).join(' '),
-      data: Object.fromEntries([...sec.attributes].filter((a) => a.name.startsWith('data-') && !/current-(styles|context)|controllers/.test(a.name)).map((a) => [a.name, a.value.slice(0, 60)])),
-      inline: sec.getAttribute('style'),
-      height: Math.round(sec.getBoundingClientRect().height), paddingTop: cs.paddingTop, paddingBottom: cs.paddingBottom, minHeight: cs.minHeight,
-      wrapper: { alignItems: ws.alignItems, justifyContent: ws.justifyContent, padding: ws.padding, minHeight: ws.minHeight },
-      grid: { rows: rows.length, firstRow: rows[0], rowGap: fs.rowGap, columnGap: fs.columnGap, height: Math.round(fe.getBoundingClientRect().height), alignSelf: fs.alignSelf },
-      divider: !!sec.querySelector('[class*=divider]'),
-    }); })()`;
-  const openPanel = async () => {
-    const { hoverSection } = await import('./oracle/ui.mjs');
-    await hoverSection(i);
-    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 });
-  };
-  const option = (label) => click(`() => { const leaf = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.getBoundingClientRect().width > 0 && e.getBoundingClientRect().left > 1100 && e.textContent.trim() === ${'${JSON.stringify(label)}'}).pop(); if (!leaf) return null; return leaf.closest('button, label, [role=button], [role=radio], [role=switch], [role=tab]') || leaf; }`.replace('${JSON.stringify(label)}', JSON.stringify(label)), { wait: 1500 });
-  const results = { base: evalJs(S, READ_SECTION) };
-  for (const label of ['S', 'L', 'Fill Screen', 'Vertical center', 'Vertical bottom', 'Zero gap', 'Divider']) {
-    await openPanel();
-    try { await option(label); } catch (e) { results[label] = { error: String(e.message).slice(0, 80) }; continue; }
-    await pause(800);
-    results[label] = evalJs(S, READ_SECTION);
-    let n = 0;
-    await escape();
-    while (n < 5 && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); }
-    results[label].undoSteps = n;
-  }
-  const steps = await restore(start, [i]);
-  write('SECTION', { question: 'What does each section setting change?', section: i, results, undoSteps: steps });
-}
-
 if (which === 'PANEL') {
   // P4, P5, C9: every label in the Edit Section panel, tab by tab. Read only; nothing is clicked except tabs.
   const i = 2;
@@ -228,6 +188,92 @@ if (which === 'INSET') {
   after.widths = widths;
   const steps = await restore(start, [i]);
   write('INSET', { question: 'What does Background Width Inset change on a Fluid Engine section?', section: i, before, after, undoSteps: steps });
+}
+
+if (which === 'SETTINGS') {
+  // P3, P5, S1, S2: click one Edit Section option at a time on section 2, read the section
+  // after the change renders, then undo. Colors tab options give the theme names.
+  const i = 2;
+  const start = { [i]: both(i) };
+  const READ = `(() => { ${FRAME}
+    const sec = d.querySelectorAll('main#page .page-section')[${i}];
+    const fe = sec.querySelector('.fluid-engine'), wrap = sec.querySelector('.content-wrapper'), bg = sec.querySelector('.section-background');
+    const cs = W.getComputedStyle(sec), fs = W.getComputedStyle(fe), ws = W.getComputedStyle(wrap);
+    const rows = fs.gridTemplateRows.split(' ');
+    const div = sec.querySelector('.section-divider-display, [class*=divider]');
+    return JSON.stringify({ classes: [...sec.classList].filter((c) => /--|section$/.test(c)).join(' '), theme: sec.dataset.sectionTheme, inline: (sec.getAttribute('style') || '').replace(/outline[^;]*;|scroll-margin-top[^;]*;/g, '').trim(),
+      height: Math.round(sec.getBoundingClientRect().height * 10) / 10, minHeight: cs.minHeight, wrapPadding: ws.padding, wrapMinHeight: ws.minHeight, justify: ws.justifyContent, align: ws.alignItems,
+      rows: rows.length, firstRow: rows[0], rowGap: fs.rowGap, columnGap: fs.columnGap, gridHeight: Math.round(fe.getBoundingClientRect().height * 10) / 10,
+      bg: bg && W.getComputedStyle(bg).backgroundColor, divider: div ? { cls: div.className.slice(0, 80), h: Math.round(div.getBoundingClientRect().height) } : null, frameH: W.innerHeight,
+      inputs: [...document.querySelectorAll('input[type=number], input[type=text], input[type=range]')].filter((e) => e.getBoundingClientRect().left > 1200 && e.getBoundingClientRect().width > 0).map((e) => (e.getAttribute('aria-label') || e.type) + '=' + e.value + (e.min ? ' [' + e.min + '..' + e.max + ']' : '')),
+      fullClasses: [...sec.classList].filter((c) => !/^[A-Za-z0-9_]{16}$/.test(c)).join(' '),
+      ink: ['h1, h2, h3', 'p', '.sqs-block-button-element'].map((q) => { const e = sec.querySelector(q); return e ? W.getComputedStyle(e).color + (q.includes('button') ? ' on ' + W.getComputedStyle(e).backgroundColor : '') : null; }),
+      all: [...d.querySelectorAll('main#page .page-section')].map((x) => [...x.classList].filter((c) => /height--|alignment--|width--/.test(c)).join(' ') + '|' + x.dataset.sectionTheme) }); })()`;
+  const { hoverSection } = await import('./oracle/ui.mjs');
+  const open = async (tab) => {
+    await hoverSection(i);
+    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 });
+    await click(`() => [...document.querySelectorAll('[role=tab]')].find((e) => e.textContent.trim() === ${'TAB'})`.replace('TAB', JSON.stringify(tab)), { wait: 1200 });
+  };
+  const pick = (label) => click(`() => { const L = ${'LBL'}; const hit = [...document.querySelectorAll('[aria-label], body *')].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame') && (e.getAttribute('aria-label') === L || (e.childElementCount === 0 && e.textContent.trim() === L))).pop(); return hit && (hit.closest('button, label, [role=radio], [role=button], [role=switch], [role=option]') || hit); }`.replace('LBL', JSON.stringify(label)), { wait: 2500 });
+  const base = evalJs(S, READ);
+  const results = { base };
+  await open('Design'); await escape();
+  const OPTS = (process.argv[3] ? JSON.parse(process.argv[3]) : null) || [['Design', 'S'], ['Design', 'L'], ['Design', 'Custom height'], ['Design', 'Fill Screen'], ['Design', 'Vertical top'], ['Design', 'Vertical bottom'],
+    ['Design', 'Zero gap'], ['Design', 'Custom gap'], ['Design', 'Divider'],
+    ['Colors', 'Lightest 1'], ['Colors', 'Lightest 2'], ['Colors', 'Light 1'], ['Colors', 'Light 2'], ['Colors', 'Bright 1'], ['Colors', 'Bright 2'], ['Colors', 'Dark 1'], ['Colors', 'Dark 2'], ['Colors', 'Darkest 1'], ['Colors', 'Darkest 2']];
+  for (const [tab, label] of OPTS) {
+    // The first panel open after the probe starts does not always take: retry once when nothing changed.
+    for (let t = 0; t < 2; t++) {
+      try { await open(tab); await pick(label); await pause(1200); results[label] = evalJs(S, READ); }
+      catch (e) { results[label] = { error: String(e.message).slice(0, 80) }; }
+      if (results[label].error || saveDisabled() !== true) break;
+      await escape();
+    }
+    await escape();
+    let n = 0; while (n < 6 && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); }
+    if (results[label]) results[label].undoSteps = n;
+    const d = Object.fromEntries(Object.entries(results[label] || {}).filter(([k, v]) => JSON.stringify(v) !== JSON.stringify(base[k])));
+    console.log(label, JSON.stringify(d));
+  }
+  const steps = await restore(start, [i]);
+  write('SETTINGS', { question: 'What does each Edit Section option change on a Fluid Engine section?', section: i, results, undoSteps: steps });
+}
+
+if (which === 'OPTION') {
+  // One Edit Section option on section 2, read at several frame sizes, then undone.
+  // Usage: node scripts/oracle-probe.mjs OPTION '["Design","Vertical top"]' [name]
+  const [tab, label] = JSON.parse(process.argv[3]);
+  const name = process.argv[4] || 'OPTION';
+  const i = 2;
+  const start = { [i]: both(i) };
+  const READ = `(() => { ${FRAME}
+    const sec = d.querySelectorAll('main#page .page-section')[${i}];
+    const fe = sec.querySelector('.fluid-engine'), ws = W.getComputedStyle(sec.querySelector('.content-wrapper'));
+    return JSON.stringify({ w: W.innerWidth, h: W.innerHeight, classes: [...sec.classList].filter((c) => /height--|alignment--/.test(c)).join(' '), inline: sec.getAttribute('style'),
+      height: Math.round(sec.getBoundingClientRect().height * 10) / 10, minHeight: W.getComputedStyle(sec).minHeight, padTop: ws.paddingTop, padBottom: ws.paddingBottom,
+      gridHeight: Math.round(fe.getBoundingClientRect().height * 10) / 10, gridTop: Math.round((fe.getBoundingClientRect().top - sec.getBoundingClientRect().top) * 10) / 10 }); })()`;
+  const { hoverSection } = await import('./oracle/ui.mjs');
+  const openPanel = async () => { await hoverSection(i);
+    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 }); };
+  await openPanel(); await escape();
+  await openPanel();
+  const help = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && /fill screen will/i.test(e.textContent)).map((e) => e.textContent.trim())))()`);
+  await click(`() => [...document.querySelectorAll('[role=tab]')].find((e) => e.textContent.trim() === ${'TAB'})`.replace('TAB', JSON.stringify(tab)), { wait: 1200 });
+  await click(`() => { const L = ${'LBL'}; const hit = [...document.querySelectorAll('body *')].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame') && (e.getAttribute('aria-label') === L || (e.childElementCount === 0 && e.textContent.trim() === L))).pop(); return hit && (hit.closest('button, label, [role=radio], [role=button], [role=switch]') || hit); }`.replace('LBL', JSON.stringify(label)), { wait: 2500 });
+  if (saveDisabled() === true) throw new Error(`${label} changed nothing`);
+  await escape();
+  const reads = [evalJs(S, READ)];
+  for (const [w, h] of [[375, 700], [768, 1000], [1280, 800], [1920, 1000]]) {
+    evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame'); for (const [k, v] of [['width', '${w}px'], ['height', '${h}px'], ['max-width', 'none'], ['min-width', '0'], ['flex', 'none']]) f.style.setProperty(k, v, 'important'); return 'true'; })()`);
+    await pause(1500);
+    reads.push(evalJs(S, READ));
+  }
+  evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame'); for (const k of ['width', 'height', 'max-width', 'min-width', 'flex']) f.style.removeProperty(k); return 'true'; })()`);
+  await pause(1500);
+  for (const r of reads) console.log(JSON.stringify(r));
+  const steps = await restore(start, [i]);
+  write(name, { question: `What does Edit Section > ${tab} > ${label} change, at several frame sizes?`, section: i, help, reads, undoSteps: steps });
 }
 
 if (which === 'T13') {
