@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 14 changes, 3 milestones closed
+- **Today** · 15 changes, 3 milestones closed
+  - Add the floating block toolbar and the oracle's selection rings ([#33](https://github.com/FRIKKern/fluid-editor/pull/33))
   - Trace group gestures and measure the near rule ([#32](https://github.com/FRIKKern/fluid-editor/pull/32))
-  - Match the oracle's auto-scroll and make T0010 replay reliably ([#31](https://github.com/FRIKKern/fluid-editor/pull/31))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
