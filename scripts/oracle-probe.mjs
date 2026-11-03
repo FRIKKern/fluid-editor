@@ -6,7 +6,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
 import { READY, LOADED, ENTER_EDIT, KEY, BUTTON } from './oracle/snippets.mjs';
-import { select, click, editText, pasteHtml, escape, deselect } from './oracle/ui.mjs';
+import { select, click, editText, pasteHtml, escape, deselect, addSection, addBlock, removeBlock, sectionCount, area } from './oracle/ui.mjs';
 
 const S = process.env.ORACLE_SURFACE || 'surface:40';
 const which = process.argv[2];
@@ -169,5 +169,34 @@ if (which === 'SECTION') {
   }
   const steps = await restore(start, [i]);
   write('SECTION', { question: 'What does each section setting change?', section: i, results, undoSteps: steps });
+}
+
+if (which === 'T13') {
+  // Default size and place of each block type: a scratch section at the end, one block
+  // at a time (added, read, removed), then a reload that discards it all (nothing saved).
+  const types = ['Text', 'Image', 'Button', 'Video', 'Form', 'Accordion', 'Shape', 'Scrolling', 'Line'];
+  await addSection();
+  const i = sectionCount() - 1;
+  const results = {};
+  for (const t of types) {
+    try {
+      const id = await addBlock(i, t);
+      await escape();
+      await pause(800);
+      results[t] = { area: area(i, id).join('/'), rows: evalJs(S, `(() => { ${FRAME} return JSON.stringify(W.getComputedStyle(d.querySelectorAll('main#page .fluid-engine')[${i}]).gridTemplateRows.split(' ').length); })()`) };
+      await deselect(i);
+      await removeBlock(i, id);
+    } catch (e) {
+      results[t] = { error: String(e.message).slice(0, 100) };
+    }
+    console.log(t, JSON.stringify(results[t]));
+  }
+  reload(S);
+  await pause(1500);
+  try { execFileSync('cmux', ['browser', '--surface', S, 'dialog', 'accept']); } catch {}
+  ensurePage();
+  const n = evalJs(S, `(() => { ${FRAME} return JSON.stringify(d.querySelectorAll('main#page .fluid-engine').length); })()`);
+  if (n !== 8) throw new Error(`after reload the page has ${n} sections, expected the saved 8`);
+  write('T13', { question: 'Where does each block type land, and how big, when added to an empty section?', section: 'scratch section at the end, removed by reload', results, savedSectionsAfterReload: n });
 }
 

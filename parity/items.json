@@ -347,7 +347,7 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Line, map and social links blocks",
-    "evidence": "Social links: three 20px icons, 12px apart, right-aligned in the footer, rendered and box-matched (Gate B). Icons are placeholders; line and map blocks not built"
+    "evidence": "Social links: three 20px icons, 12px apart (footer, Gate B). Line block: 4x1 by default, a 1px rule centered in its area (ours, look not measured). Map not built"
   },
   {
     "id": "T12",
@@ -361,10 +361,10 @@
     "id": "T13",
     "area": "Block types",
     "milestone": "M2",
-    "status": "partial",
+    "status": "done",
     "title": "Default and minimum size per block type",
     "wasUnknown": true,
-    "evidence": "A new Text block lands at 1/2/3/10 (8 columns by 2 rows) in an empty section; a blank section starts with 8 rows. Other block types not measured"
+    "evidence": "parity/findings/T13.json: in an empty section every type lands at row 1, column 2: Text 8x2, Image 6x6, Button 6x2, Video 8x8, Form 9x16 (section grows to 16 rows), Accordion 8x8, Shape 6x6, Scrolling 24x2, Line 4x1. Our Add Block menu gives the same areas (tested Text 1/2/3/10, Form 1/2/17/11 with 16 rows, Line 1/2/2/6)"
   },
   {
     "id": "T14",
@@ -692,7 +692,7 @@
     "status": "partial",
     "title": "Where a new block lands on phones",
     "wasUnknown": true,
-    "evidence": "On the demo page the oracle generated phone layouts by stacking blocks over columns 2 to 10: text and buttons 2 rows, shapes 6 rows (fixtures/oracle/demo-page.json, app/src/demo-data.js)"
+    "evidence": "Generated phone layouts stack blocks over columns 2 to 10 (demo import). A block added in our editor goes to the bottom of the phone stack at full content width; the oracle rule for an added block is not measured yet"
   },
   {
     "id": "L4",
@@ -797,7 +797,7 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Add block menu and default placement",
-    "evidence": "Oracle Add Block menu: search box; Essentials: Text, Image, Button, Video, Form, Accordion, Shape, Scrolling, Line; Sell: Product, Pricing Plan, Donation, Scheduling, more. New blocks land top left"
+    "evidence": "Oracle menu: search, Essentials (Text, Image, Button, Video, Form, Accordion, Shape, Scrolling, Line), Sell, more. Our panel has the nine Essentials with the oracle default sizes and places (T13). Phone placement of a new block is ours, not measured; the search box and other groups are not built"
   },
   {
     "id": "U6",

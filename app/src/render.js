@@ -164,6 +164,10 @@ function blockInner(b, model) {
       // the line height (1.4em, heading formula with size value 5) plus 120px.
       return `<div class="sqs-block scrolling-block sqs-block-scrolling" id="block-${b.id}"><div class="sqs-block-content"><div class="marquee" style="--marquee-font-size-value:${b.size || 5}"><span class="marquee-text">${escapeHtml(b.text || '')}</span></div></div></div>`;
     }
+    case 'line': {
+      // Line block (T11): a horizontal rule centered in its area.
+      return `<div class="sqs-block horizontalrule-block sqs-block-horizontalrule" id="block-${b.id}"><div class="sqs-block-content"><hr></div></div>`;
+    }
     case 'social': {
       // Social links (T11): icons of 20px, 12px apart, as on the oracle footer.
       const icons = Array.from({ length: b.count || 3 }, () => '<a class="social-icon" href="#" aria-label="Social link"><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"/></svg></a>').join('');
