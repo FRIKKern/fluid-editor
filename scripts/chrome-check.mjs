@@ -54,6 +54,8 @@ const LABEL = { 'Open Layers Panel': 'layers', 'Add Block': 'add-block', 'Open S
 for (const i of ['0', '7']) {
   const h = SB.sections[i].hovered;
   const r = evalJs(S, `(async () => { const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow; const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+    // No block selected: a selected block trims its section's chrome to the outline and Layers.
+    d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(100);
     const sec = d.querySelectorAll('section.page-section')[${i}];
     W.scrollTo(0, W.scrollY + sec.getBoundingClientRect().top - ${h.section[1]}); await sleep(250);
     const q0 = sec.getBoundingClientRect(); sec.dispatchEvent(new W.PointerEvent('pointermove', { bubbles: true, clientX: q0.left + 500, clientY: q0.bottom - 40 })); await sleep(200);
