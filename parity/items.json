@@ -536,7 +536,19 @@
     "milestone": "M4",
     "status": "partial",
     "title": "Multi-select and group move",
-    "evidence": "Shift-click multi-select moves as a group: drag 2 columns and 3 rows (T0022) and ArrowDown (T0023) move both blocks by the same amount; our editor replays both. Align Group: Left, Horizontal Center, Right, Top, Vertical Center, Bottom line up on the group bounding box (T0018, T0019); our panel has the same six and replays both. Group toolbar Duplicate and Remove not built"
+    "evidence": "Shift-click multi-select moves as a group: drag 2 columns and 3 rows (T0022) and ArrowDown (T0023) move both blocks by the same amount; our editor replays both. Align Group: Left, Horizontal Center, Right, Top, Vertical Center, Bottom line up on the group bounding box (T0018, T0019); our group toolbar has the same six behind Align Group and replays both. From the gap review screenshot: a group gets one outline with eight handles around all its blocks and a group toolbar (Stack Blocks | Align Group, two icons not identified yet | Duplicate, Remove); ours has the same, and Stack Blocks, Align Group, Duplicate and Remove work. Not built: resizing a group from its handles, and the two unidentified buttons",
+    "controls": [
+      "Stack Blocks",
+      "Align Group",
+      "Duplicate",
+      "Remove",
+      "Align Left",
+      "Align Right",
+      "Align Top",
+      "Align Bottom",
+      "Align Horizontal Center",
+      "Align Vertical Center"
+    ]
   },
   {
     "id": "X9",

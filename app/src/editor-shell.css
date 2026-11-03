@@ -240,3 +240,7 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 .tx-keys kbd { font: 10px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; padding: 2px 4px; border-radius: 3px; background: #f2f2f2; color: #6f6f6f; }
 
 .sc-card.is-phone { height: auto; }
+
+.block-toolbar .tb-pop { position: absolute; top: 48px; left: 40px; display: flex; flex-direction: column; padding: 6px; background: #fff; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.12) 0 6px 24px 0, rgba(0, 0, 0, 0.08) 0 0 1px 0; min-width: 210px; }
+.block-toolbar .tb-pop button { height: 36px; padding: 0 12px; border: 0; background: transparent; text-align: left; font: 13px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; cursor: pointer; border-radius: 3px; }
+.block-toolbar .tb-pop button:hover { background: #f2f2f2; }
