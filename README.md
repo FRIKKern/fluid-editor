@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 19 changes, 3 milestones closed
+- **Today** · 20 changes, 3 milestones closed
+  - Track the section bottom handle (S4) ([#38](https://github.com/FRIKKern/fluid-editor/pull/38))
   - Renumber the new section items to U9 and U10 ([#37](https://github.com/FRIKKern/fluid-editor/pull/37))
-  - Track gaps found in hands-on testing ([#36](https://github.com/FRIKKern/fluid-editor/pull/36))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
