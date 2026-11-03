@@ -72,9 +72,19 @@ export async function addBlock(i, type) {
   const before = new Set(allIds().flat());
   await escape();
   await deselect(i);
-  await hoverSection(i);
-  const btnTop = evalJs(SURFACE, `(() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const s = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); const top = fr.top + s.top, bottom = fr.top + s.bottom; const b = [...document.querySelectorAll('button')].filter((x) => x.getBoundingClientRect().width > 0 && /^add block$/i.test((x.getAttribute('aria-label') || x.textContent).trim())).find((x) => { const y = x.getBoundingClientRect().top; return y >= top - 40 && y <= bottom; }); document.querySelectorAll('#fx-target').forEach((x) => x.removeAttribute('id')); if (!b) return JSON.stringify(null); b.id = 'fx-target'; return JSON.stringify(b.getBoundingClientRect().top - fr.top); })()`);
-  if (btnTop == null) throw new Error(`addBlock: no Add Block button on section ${i}`);
+  // The section toolbar does not always appear on the first hover: hover the section
+  // above (or below) first, then this one, up to three times.
+  const findBtn = () => evalJs(SURFACE, `(() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const s = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); const top = fr.top + s.top, bottom = fr.top + s.bottom; const b = [...document.querySelectorAll('button')].filter((x) => x.getBoundingClientRect().width > 0 && /^add block$/i.test((x.getAttribute('aria-label') || x.textContent).trim())).find((x) => { const y = x.getBoundingClientRect().top; return y >= top - 40 && y <= bottom; }) || (() => { const all = [...document.querySelectorAll('button')].filter((x) => x.getBoundingClientRect().width > 0 && /^add block$/i.test((x.getAttribute('aria-label') || x.textContent).trim())); const n = f.contentDocument.querySelectorAll('main#page .page-section').length; return all.length === n ? all[${i}] : null; })(); document.querySelectorAll('#fx-target').forEach((x) => x.removeAttribute('id')); if (!b) return JSON.stringify(null); b.id = 'fx-target'; return JSON.stringify(b.getBoundingClientRect().top - fr.top); })()`);
+  let btnTop = null;
+  for (let t = 0; t < 3 && btnTop == null; t++) {
+    if (t) { await hoverSection(i > 0 ? i - 1 : i + 1); await pause(400); }
+    await hoverSection(i);
+    btnTop = findBtn();
+  }
+  if (btnTop == null) {
+    const seen = evalJs(SURFACE, `(() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const all = f.contentDocument.querySelectorAll('main#page .page-section'); const s = all[${i}]?.getBoundingClientRect(); return JSON.stringify({ sections: all.length, range: s && [Math.round(fr.top + s.top), Math.round(fr.top + s.bottom)], buttons: [...document.querySelectorAll('button')].filter((x) => x.getBoundingClientRect().width > 0 && /add block/i.test(x.getAttribute('aria-label') || x.textContent)).map((x) => Math.round(x.getBoundingClientRect().top)), inFrame: [...f.contentDocument.querySelectorAll('button')].filter((x) => /add block/i.test(x.getAttribute('aria-label') || x.textContent)).map((x) => Math.round(x.getBoundingClientRect().top)) }); })()`);
+    throw new Error(`addBlock: no Add Block button on section ${i} ${JSON.stringify(seen)}`);
+  }
   cmux('click', '#fx-target');
   await pause(1300);
   const leaf = `[...document.querySelectorAll('div,span,button,li')].filter((x) => x.childElementCount === 0 && x.getBoundingClientRect().width > 0 && !x.closest('.fe-block') && !/label-tag/.test(x.className) && x.textContent.trim() === ${JSON.stringify(type)})`;
@@ -88,6 +98,7 @@ export async function addBlock(i, type) {
       cmux('frame', 'main');
     }
     await pause(900);
+    if (process.env.SHOTS) cmux('screenshot', '--out', `${process.env.SHOTS}/addblock-search-${type}.png`);
   }
   await click(`() => ${leaf}.sort((a, b) => Math.abs(a.getBoundingClientRect().top - ${btnTop}) - Math.abs(b.getBoundingClientRect().top - ${btnTop}))[0]`, { inFrame: true, wait: 1500 });
   let mine = null;

@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -617,7 +617,14 @@ if (which === 'PASTE') {
 if (which === 'T13') {
   // Default size and place of each block type: a scratch section at the end, one block
   // at a time (added, read, removed), then a reload that discards it all (nothing saved).
-  const types = ['Text', 'Image', 'Button', 'Video', 'Form', 'Accordion', 'Shape', 'Scrolling', 'Line'];
+  // node scripts/oracle-probe.mjs T13 '["Code","Embed"]' [name] probes other types and also
+  // records each new block's skeleton (tags and classes, no content) into parity/findings/<name>.json.
+  const types = (process.argv[3] && JSON.parse(process.argv[3])) || ['Text', 'Image', 'Button', 'Video', 'Form', 'Accordion', 'Shape', 'Scrolling', 'Line'];
+  const outName = process.argv[4] || 'T13';
+  const SKELETON = (id) => `(() => { ${FRAME} const b = d.querySelector('.fe-block[data-block-id="${id}"]'); if (!b) return JSON.stringify(null);
+    const sk = (e, depth) => { const cls = [...e.classList].filter((c) => !/^[a-z0-9]{6,}$/i.test(c) || /block/.test(c)).join('.'); const tag = e.tagName.toLowerCase() + (cls ? '.' + cls : '') + (e.getAttribute('data-block-type') ? '[type=' + e.getAttribute('data-block-type') + ']' : '');
+      return depth > 4 ? tag : { [tag]: [...e.children].slice(0, 6).map((c) => sk(c, depth + 1)) }; };
+    const q = b.getBoundingClientRect(); return JSON.stringify({ skeleton: sk(b, 0), size: [Math.round(q.width), Math.round(q.height)], text: b.innerText.trim().slice(0, 120) }); })()`;
   await addSection();
   const i = sectionCount() - 1;
   const results = {};
@@ -626,11 +633,13 @@ if (which === 'T13') {
       const id = await addBlock(i, t);
       await escape();
       await pause(800);
-      results[t] = { area: area(i, id).join('/'), rows: evalJs(S, `(() => { ${FRAME} return JSON.stringify(W.getComputedStyle(d.querySelectorAll('main#page .fluid-engine')[${i}]).gridTemplateRows.split(' ').length); })()`) };
+      const extra = outName !== 'T13' ? evalJs(S, SKELETON(id)) : {};
+      results[t] = { ...extra, area: area(i, id).join('/'), rows: evalJs(S, `(() => { ${FRAME} return JSON.stringify(W.getComputedStyle(d.querySelectorAll('main#page .fluid-engine')[${i}]).gridTemplateRows.split(' ').length); })()`) };
       await deselect(i);
       await removeBlock(i, id);
     } catch (e) {
-      results[t] = { error: String(e.message).slice(0, 100) };
+      results[t] = { error: String(e.message).slice(0, 300) };
+      if (process.env.SHOTS) execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS}/t13-${t}.png`]);
     }
     console.log(t, JSON.stringify(results[t]));
   }
@@ -640,7 +649,7 @@ if (which === 'T13') {
   ensurePage();
   const n = evalJs(S, `(() => { ${FRAME} return JSON.stringify(d.querySelectorAll('main#page .fluid-engine').length); })()`);
   if (n !== 8) throw new Error(`after reload the page has ${n} sections, expected the saved 8`);
-  write('T13', { question: 'Where does each block type land, and how big, when added to an empty section?', section: 'scratch section at the end, removed by reload', results, savedSectionsAfterReload: n });
+  write(outName, { question: 'Where does each block type land, and how big, when added to an empty section?' + (outName !== 'T13' ? ' What is its editor markup (tags and classes)?' : ''), section: 'scratch section at the end, removed by reload', results, savedSectionsAfterReload: n });
 }
 
 if (which === 'BATCH') {

@@ -39,3 +39,9 @@ html { overflow-anchor: none; }
 
 .fe-original-position { pointer-events: none; outline: 1px dashed #1169f7; }
 .fe-transform-indicator { pointer-events: none; background: rgba(17, 105, 247, 0.16); outline: 1px solid #1169f7; z-index: 100000; }
+
+/* Placeholders of empty embed and video blocks, editor only (parity/findings/T10.json, T7.json). */
+.fluid-engine .sqs-embed-container .sqs-blockStatus { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; height: 100%; background: rgba(0, 0, 0, 0.06); font: 12px/1.4 system-ui, sans-serif; color: #333; text-transform: none; }
+.fluid-engine .sqs-embed-container .sqs-blockStatus strong { letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+.fluid-engine .sqs-block-video-placeholder--empty { display: block; height: 100%; background: rgba(0, 0, 0, 0.06); }
+.fluid-engine .sqs-block-embed .sqs-block-content, .fluid-engine .sqs-embed-container, .fluid-engine .sqs-block-video .sqs-block-content, .fluid-engine .sqs-block-video .sqs-block-content > div { height: 100%; }

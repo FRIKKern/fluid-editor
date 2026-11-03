@@ -317,15 +317,17 @@
     "id": "T7",
     "area": "Block types",
     "milestone": "M5",
-    "status": "open",
-    "title": "Video block"
+    "status": "partial",
+    "title": "Video block",
+    "evidence": "parity/findings/T7.json and T13.json: Add Block > Video lands at 1/2/9/10 (8 columns, 8 rows) with an empty placeholder (.sqs-block-video-placeholder--empty, no text). Our Video block has the same area, the published class string (website-component-block sqs-block-video, type 1337, from the corpus) and an editor-only placeholder. Missing: adding a video URL, the player, its settings"
   },
   {
     "id": "T8",
     "area": "Block types",
     "milestone": "M5",
-    "status": "open",
-    "title": "Gallery block"
+    "status": "done",
+    "title": "Gallery block",
+    "evidence": "Fluid Engine on the trial site offers no Gallery block: the Add Block search for Gallery shows NO RESULTS (parity/findings/T8.json). Our Add Block list has none either"
   },
   {
     "id": "T9",
@@ -339,8 +341,9 @@
     "id": "T10",
     "area": "Block types",
     "milestone": "M5",
-    "status": "open",
-    "title": "Embed and code blocks"
+    "status": "partial",
+    "title": "Embed and code blocks",
+    "evidence": "parity/findings/T10.json: Add Block > Code lands at 1/2/7/6 (4 columns, 6 rows) holding <p>Hello, World!</p> in .sqs-code-container; Embed lands at 1/2/9/10 with the placeholder EMBED BLOCK, Add an embed URL or code. Ours adds both with the same areas, text and published class strings (type 1337). Missing: editing the code, entering an embed URL or code, and how embeds render"
   },
   {
     "id": "T11",
@@ -804,7 +807,7 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Add block menu and default placement",
-    "evidence": "Oracle menu: search, Essentials (Text, Image, Button, Video, Form, Accordion, Shape, Scrolling, Line), Sell, more. Our panel has the nine Essentials with the oracle default sizes and places (T13). Phone placement of a new block is ours, not measured; the search box and other groups are not built"
+    "evidence": "Oracle menu: search, Essentials (Text, Image, Button, Video, Form, Accordion, Shape, Scrolling, Line), Sell, more. Our panel has the nine Essentials with the oracle default sizes and places (T13). Phone placement of a new block is ours, not measured; the search box and other groups are not built. Code and Embed are now in our list from the menu search (parity/findings/T10.json)"
   },
   {
     "id": "U6",
