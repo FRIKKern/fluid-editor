@@ -43,7 +43,8 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 | The journeys (the spec of "works") | [`JOURNEYS.md`](JOURNEYS.md) |
 | The quality bar and the gates | [`QUALITY.md`](QUALITY.md) |
 | Captured oracle CSS, stamped | [`fixtures/`](fixtures/README.md) |
-| Gate results | [`parity/gate-a.json`](parity/gate-a.json) |
+| Gate results; what the corpus covers | [`parity/`](parity/): `gate-a.json`, `gate-b.json`, `gate-c.json`, `corpus.json` |
+| Recorded oracle gestures | [`traces/`](traces/README.md) |
 | How we work | [`CONTRIBUTING.md`](CONTRIBUTING.md), [`AGENTS.md`](AGENTS.md) |
 | Decisions | [`docs/decisions/`](docs/decisions/), one page each |
 
@@ -61,10 +62,13 @@ docs/         roadmap, parity list, decisions, images
 
 ```sh
 npm run dev        # the editor on http://127.0.0.1:5178
-npm run check      # Gate A, item rules, doc rules
-npm run parity     # redraw docs/images/parity.svg and docs/PARITY.md
-npm run roadmap    # redraw docs/images/roadmap.svg from the board
-npm run timeline   # rewrite the timeline above
+npm run check      # Gate A, item, trace and doc rules
+npm run status     # progress per milestone and area
+npm run capture && npm run fixtures   # grow the corpus politely, then extract CSS
+node scripts/box-diff.mjs --oracle <url> --swap      # Gate B in a cmux tab
+node scripts/oracle-record.mjs --id T0002-… --keys ArrowDown   # H6, on the oracle
+node scripts/replay.mjs           # Gate C: replay every trace in our editor
+npm run parity && npm run roadmap   # redraw the pictures
 ```
 
 The oracle is `halibut-keyboard-jlhd.squarespace.com`, driven through cmux.

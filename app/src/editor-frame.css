@@ -18,20 +18,21 @@ html { overflow-anchor: none; }
   border: 1px solid #b7b7b7; border-radius: 3px; background: #f2f2f240;
 }
 
-.fe-indicator { pointer-events: none; position: relative; outline: 2px solid #1169f7; }
+.fe-indicator { pointer-events: none; position: relative; outline: 1px solid rgb(2, 122, 255); }
+/* Handles measured on the oracle 2026-11-03: 10px squares, white, 2px rgb(2, 122, 255) border. */
 .fe-handle {
-  position: absolute; width: 12px; height: 12px; margin: -6px 0 0 -6px;
-  background: #fff; border: 2px solid #1169f7; border-radius: 50%;
+  position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; box-sizing: border-box;
+  background: #fff; border: 2px solid rgb(2, 122, 255); border-radius: 0;
   pointer-events: auto; touch-action: none;
 }
-.fe-handle[data-dir="nw"] { left: 0; top: 0; cursor: nwse-resize; }
-.fe-handle[data-dir="n"]  { left: 50%; top: 0; cursor: ns-resize; }
-.fe-handle[data-dir="ne"] { left: 100%; top: 0; cursor: nesw-resize; }
-.fe-handle[data-dir="e"]  { left: 100%; top: 50%; cursor: ew-resize; }
-.fe-handle[data-dir="se"] { left: 100%; top: 100%; cursor: nwse-resize; }
-.fe-handle[data-dir="s"]  { left: 50%; top: 100%; cursor: ns-resize; }
-.fe-handle[data-dir="sw"] { left: 0; top: 100%; cursor: nesw-resize; }
-.fe-handle[data-dir="w"]  { left: 0; top: 50%; cursor: ew-resize; }
+.fe-handle[data-dir="nw"] { left: 0; top: 0; cursor: nw-resize; }
+.fe-handle[data-dir="n"]  { left: 50%; top: 0; cursor: row-resize; }
+.fe-handle[data-dir="ne"] { left: 100%; top: 0; cursor: ne-resize; }
+.fe-handle[data-dir="e"]  { left: 100%; top: 50%; cursor: col-resize; }
+.fe-handle[data-dir="se"] { left: 100%; top: 100%; cursor: se-resize; }
+.fe-handle[data-dir="s"]  { left: 50%; top: 100%; cursor: row-resize; }
+.fe-handle[data-dir="sw"] { left: 0; top: 100%; cursor: sw-resize; }
+.fe-handle[data-dir="w"]  { left: 0; top: 50%; cursor: col-resize; }
 
 .fe-original-position { pointer-events: none; outline: 1px dashed #1169f7; }
 .fe-transform-indicator { pointer-events: none; background: rgba(17, 105, 247, 0.16); outline: 1px solid #1169f7; z-index: 100000; }

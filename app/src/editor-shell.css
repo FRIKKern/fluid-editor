@@ -64,3 +64,6 @@ button { font: inherit; color: inherit; }
 .panel input[type=number] { width: 72px; height: 28px; border: 1px solid var(--line); border-radius: 6px; padding: 0 6px; font: inherit; }
 .panel .hint { color: var(--muted); margin: 6px 0 0; }
 .panel .log { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11px; color: var(--muted); white-space: pre-wrap; margin: 0; }
+
+/* Replay mode: no panel, so the canvas width equals the viewport width. */
+.is-replay .panel { display: none; }
