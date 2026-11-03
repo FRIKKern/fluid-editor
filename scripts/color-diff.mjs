@@ -6,7 +6,7 @@ import { evalJs, waitFor, goto, viewport, pause, ensureVisible } from './lib/cmu
 
 const args = process.argv.slice(2);
 const arg = (n, d) => (args.includes(`--${n}`) ? args[args.indexOf(`--${n}`) + 1] : d);
-const oracle = arg('oracle-frame', 'surface:40');
+const oracle = arg('oracle-frame', process.env.ORACLE_SURFACE || 'surface:40');
 const surface = arg('surface', process.env.FLUID_SURFACE || 'surface:59');
 const path = arg('path', '/how-fluid-engine-works');
 const ours = arg('ours', 'http://127.0.0.1:5178/page.html');

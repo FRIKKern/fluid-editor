@@ -16,7 +16,7 @@ const arg = (n, d) => {
   const i = args.indexOf(`--${n}`);
   return i >= 0 ? args[i + 1] : d;
 };
-const surface = arg('surface', 'surface:40');
+const surface = arg('surface', process.env.ORACLE_SURFACE || 'surface:40');
 const index = Number(arg('section', '0'));
 const keys = arg('keys', 'ArrowRight').split(',');
 const id = arg('id');

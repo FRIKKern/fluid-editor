@@ -250,27 +250,34 @@ function clearFlags(sid) {
 // G7: scroll the canvas while the pointer stays near its top or bottom edge.
 // The oracle does this (trace T0010 moved 30px more than the pointer); band and
 // speed here are our own, not measured.
-const EDGE = 80;
-const EDGE_SPEED = 600; // px per second at the very edge
+// Auto-scroll (G7, parity/findings/AUTOSCROLL.json): the oracle scrolls the frame in 10px
+// steps about every 70ms while the pointer is within 60px of the bottom edge (40px of the
+// top), and stops once the pointer plus the scroll since the drag began would be outside the
+// window. So a pointer held d px from the edge scrolls the next multiple of 10 above d, and a
+// pointer outside the window scrolls nothing (trace T0013).
+const EDGE_BOTTOM = 60;
+const EDGE_TOP = 40;
+const SCROLL_STEP = 10;
+const SCROLL_EVERY = 70; // ms
 function autoScroll(g) {
   if (g.scrolling) return;
   g.scrolling = true;
-  let last = performance.now();
-  const tick = (now) => {
+  if (g.scroll0 == null) g.scroll0 = win.scrollY;
+  const tick = () => {
     if (gesture !== g || !g.lastEvent) { g.scrolling = false; return; }
     const y = g.lastEvent.clientY;
     const h = win.innerHeight;
-    // Only inside the window: a pointer below it scrolls nothing (trace T0013).
-    const depth = y > h || y < 0 ? 0 : y > h - EDGE ? (y - (h - EDGE)) / EDGE : y < EDGE ? -(EDGE - y) / EDGE : 0;
-    if (depth) {
-      win.scrollBy(0, depth * EDGE_SPEED * ((now - last) / 1000));
-      if (g.type === 'move') updateMove(g.lastEvent);
-      else if (g.type === 'resize') updateResize(g.lastEvent);
-    }
-    last = now;
-    win.requestAnimationFrame(tick);
+    const moved = win.scrollY - g.scroll0;
+    let dir = 0;
+    if (y <= h && h - y <= EDGE_BOTTOM && y + moved <= h) dir = 1;
+    else if (y >= 0 && y <= EDGE_TOP && y + moved >= 0) dir = -1;
+    if (!dir) { g.scrolling = false; return; }
+    win.scrollBy(0, dir * SCROLL_STEP);
+    if (g.type === 'move') updateMove(g.lastEvent);
+    else if (g.type === 'resize') updateResize(g.lastEvent);
+    win.setTimeout(tick, SCROLL_EVERY);
   };
-  win.requestAnimationFrame(tick);
+  win.setTimeout(tick, SCROLL_EVERY);
 }
 
 function showGrid(sid, rowCount) {

@@ -74,7 +74,10 @@ const POINTER = (sid, g) => `(async () => {
   const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0, shiftKey: ${!!g.shift}, altKey: ${!!g.alt} };
   el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, clientX: x, clientY: y, buttons: 1 }));
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-  for (let k = 1; k <= 12; k++) { d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x + dx * k / 12, clientY: y + dy * k / 12, buttons: 1 })); await sleep(20); }
+  // The recorder's timing (scripts/oracle/ui.mjs hold): 12 moves 25ms apart, then the pointer
+  // stays put for at least 500ms before release, long enough for auto-scroll to finish (G7).
+  for (let k = 1; k <= 12; k++) { d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x + dx * k / 12, clientY: y + dy * k / 12, buttons: 1 })); await sleep(25); }
+  await sleep(700);
   d.dispatchEvent(new W.PointerEvent('pointerup', { ...o, clientX: x + dx, clientY: y + dy, buttons: 0 }));
   return JSON.stringify(true);
 })()`;
