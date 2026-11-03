@@ -541,7 +541,7 @@ function renderPanel() {
       <dt>Size</dt><dd>${c1 - c0} cols, ${r1 - r0} rows</dd>
       <dt>z-index</dt><dd>${L.z}</dd>
     </dl>
-    <div class="row"><button class="btn" data-act="z+">Bring forward</button><button class="btn" data-act="z-">Send backward</button></div>
+    <div class="row"><button class="btn" data-act="z+">Move Forward</button><button class="btn" data-act="z-">Move Backward</button></div>
     <div class="row">${['flex-start', 'center', 'flex-end'].map((v) => `<button class="btn" data-act="justify" data-v="${v}" ${L.justify === v ? 'disabled' : ''}>${{ 'flex-start': 'Top', center: 'Middle', 'flex-end': 'Bottom' }[v]}</button>`).join('')}</div>
     </div>`);
     parts.push(sectionGroup(s));
@@ -573,8 +573,14 @@ panel.addEventListener('click', (e) => {
   const before = JSON.stringify(model);
   const b = B(sel.sid, sel.bid);
   const L = lay(b);
-  if (btn.dataset.act === 'z+') L.z += 1;
-  if (btn.dataset.act === 'z-') L.z = Math.max(0, L.z - 1);
+  // Like the oracle's Move Forward / Move Backward (traces T0011, T0012): swap z-index
+  // with the block next above or below in z order.
+  if (btn.dataset.act === 'z+' || btn.dataset.act === 'z-') {
+    const up = btn.dataset.act === 'z+';
+    const others = S(sel.sid).blocks.filter((o) => o !== b).map((o) => lay(o));
+    const next = others.filter((o) => (up ? o.z > L.z : o.z < L.z)).sort((x, y) => (up ? x.z - y.z : y.z - x.z))[0];
+    if (next) [L.z, next.z] = [next.z, L.z];
+  }
   if (btn.dataset.act === 'justify') L.justify = btn.dataset.v;
   renderSectionDom(sel.sid);
   commit(before, `${btn.textContent} on ${b.id}`);

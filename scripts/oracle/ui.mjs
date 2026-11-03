@@ -267,3 +267,58 @@ export async function save() {
   const state = evalJs(SURFACE, `(() => JSON.stringify([...document.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Save')?.disabled))()`);
   if (state !== true) throw new Error('save: the Save button is still enabled');
 }
+
+// ---------- gestures in grid units, for traces (M3) ----------
+// Pitch: distance between two content column starts, and between two uniform rows.
+export function pitch(i) {
+  const g = geometry(i);
+  return { col: g.colStart[2] - g.colStart[1], row: g.rowMin + g.rg, g };
+}
+
+const HANDLE_AT = (i, id, dir) => `(d, W) => {
+  const b = d.querySelectorAll('main#page .fluid-engine')[${i}].querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect();
+  const fx = { w: 0, e: 1, n: 0.5, s: 0.5, nw: 0, ne: 1, sw: 0, se: 1 }['${dir}'];
+  const fy = { n: 0, s: 1, w: 0.5, e: 0.5, nw: 0, ne: 0, sw: 1, se: 1 }['${dir}'];
+  const x = b.left + b.width * fx, y = b.top + b.height * fy;
+  return [...d.querySelectorAll('.fluid-engine *')].filter((e) => { const q = e.getBoundingClientRect(); return q.width === 10 && q.height === 10 && /resize/.test(W.getComputedStyle(e).cursor); })
+    .sort((p, q) => { const a = p.getBoundingClientRect(), c = q.getBoundingClientRect(); return Math.hypot(a.left + 5 - x, a.top + 5 - y) - Math.hypot(c.left + 5 - x, c.top + 5 - y); })[0];
+}`;
+
+// Press on an element, move by (dx, dy) px in steps, hold, and return what the editor shows
+// mid-gesture. Call release() afterwards. Modifier keys apply to every pointer event.
+export async function hold(findEl, dx, dy, { fx = 0.5, fy = 0.5, shift = false, alt = false, steps = 12 } = {}) {
+  const r = evalJs(SURFACE, `(async () => {
+    ${FRAME}
+    const el = (${findEl})(d, W);
+    if (!el) return JSON.stringify({ error: 'no element' });
+    const q = el.getBoundingClientRect();
+    const x = q.left + q.width * ${fx}, y = q.top + q.height * ${fy};
+    window.__fxHold = { x: x + ${dx}, y: y + ${dy} };
+    const o = { bubbles: true, cancelable: true, composed: true, pointerId: 1, isPrimary: true, pointerType: 'mouse', button: 0, view: W, shiftKey: ${shift}, altKey: ${alt} };
+    const at = (t, cx, cy, buttons) => { const tgt = t === 'down' ? el : d; tgt.dispatchEvent(new W.PointerEvent('pointer' + t, { ...o, clientX: cx, clientY: cy, buttons })); tgt.dispatchEvent(new W.MouseEvent('mouse' + t, { ...o, clientX: cx, clientY: cy, buttons })); };
+    at('down', x, y, 1);
+    const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+    for (let k = 1; k <= ${steps}; k++) { at('move', x + (${dx} * k) / ${steps}, y + (${dy} * k) / ${steps}, 1); await sleep(25); }
+    await sleep(300);
+    const fe = d.querySelectorAll('main#page .fluid-engine');
+    const attrs = [...el.closest('.fluid-engine').querySelectorAll(':scope > .fe-block')].map((b) => ({ id: b.dataset.blockId, near: b.dataset.isNearDraggedBlock, matchW: b.dataset.isMatchingWidth, matchH: b.dataset.isMatchingHeight, selected: b.dataset.isSelected, transform: b.style.transform || '' }));
+    const own = el.closest('.fluid-engine');
+    const layers = [...own.querySelectorAll(':scope > div')].filter((e) => /indicator|original-position|guide|snap/i.test(e.className)).map((e) => ({ cls: [...e.classList].filter((c) => !/^[A-Za-z0-9_]{16}$/.test(c)).join('.').replace(/[0-9a-f]{20}|yui_[\\d_]+/g, '<id>'), area: W.getComputedStyle(e).gridArea, z: W.getComputedStyle(e).zIndex }));
+    const guides = [...d.querySelectorAll('*')].filter((e) => /guide|alignment-line|snap-line/i.test(typeof e.className === 'string' ? e.className : '')).length;
+    return JSON.stringify({ attrs: attrs.filter((a) => a.near === 'true' || a.matchW === 'true' || a.matchH === 'true' || a.selected === 'true' || a.transform), layers, guides, gridVisible: [...fe].map((x) => x.dataset.gridIsVisible) });
+  })()`);
+  await pause(200);
+  return r;
+}
+
+export async function release({ shift = false, alt = false } = {}) {
+  evalJs(SURFACE, `(() => { ${FRAME}
+    const p = window.__fxHold || { x: 0, y: 0 };
+    const o = { bubbles: true, cancelable: true, composed: true, pointerId: 1, isPrimary: true, pointerType: 'mouse', button: 0, view: W, clientX: p.x, clientY: p.y, buttons: 0, shiftKey: ${shift}, altKey: ${alt} };
+    d.dispatchEvent(new W.PointerEvent('pointerup', o)); d.dispatchEvent(new W.MouseEvent('mouseup', o));
+    return 'true'; })()`);
+  await pause(900);
+}
+
+export const blockEl = (i, id) => BLOCK(i, id);
+export const handleEl = (i, id, dir) => HANDLE_AT(i, id, dir);

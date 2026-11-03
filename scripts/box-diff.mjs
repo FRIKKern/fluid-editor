@@ -117,7 +117,9 @@ for (const w of widths) {
 resetViewport(surface);
 if (oracleFrame) viewport(oracleFrame, 1600, 1000);
 console.log(`Gate B, block boxes: ${report.pass} of ${report.total} block boxes match`);
-if (!fault) writeFileSync(new URL('../parity/gate-b.json', import.meta.url), JSON.stringify(report, null, 2) + '\n');
+// --report <name> writes parity/<name>.json instead of gate-b.json (extra widths, experiments).
+const reportName = arg('report', 'gate-b');
+if (!fault) writeFileSync(new URL(`../parity/${reportName}.json`, import.meta.url), JSON.stringify(report, null, 2) + '\n');
 if (!report.total) {
   console.error('Gate B: no blocks measured');
   process.exitCode = 1;
