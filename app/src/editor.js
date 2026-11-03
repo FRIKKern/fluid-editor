@@ -849,7 +849,7 @@ panel.addEventListener('drop', (e) => {
 // Edit Section (P3, P4, P5, S1, S2), the oracle's three tabs (parity/findings/PANEL.json,
 // SETTINGS.json): Design has Row Count, Gap (Zero 0px, Medium 11px, Custom column and row
 // gaps 0 to 50px), Fill Screen, Height S/M/L/Custom and vertical Alignment; Background has
-// Background Width; Colors has ten themes. Unchecking Fill Screen makes the section fit its
+// Background Width; Colors has ten themes. Divider adds the default wave (shape options not built). Unchecking Fill Screen makes the section fit its
 // content and hides Height and Alignment, as on the oracle.
 const THEMES = [['Lightest 1', 'white'], ['Lightest 2', 'white-bold'], ['Light 1', 'light'], ['Light 2', 'light-bold'], ['Bright 1', 'bright-inverse'],
   ['Bright 2', 'bright'], ['Dark 1', 'dark'], ['Dark 2', 'dark-bold'], ['Darkest 1', 'black'], ['Darkest 2', 'black-bold']];
@@ -874,7 +874,8 @@ function sectionGroup(s) {
     <label><input type="checkbox" data-act="fill" ${fillScreen(s) ? 'checked' : ''}> Fill Screen</label>
     ${fillScreen(s) ? `<div class="row">Height ${[['small', 'S'], ['medium', 'M'], ['large', 'L'], ['custom', 'Custom']].map(([v, l]) => opt('height', v, l, s.height === v)).join('')}</div>
     ${s.height === 'custom' ? `<label>Custom height <input type="number" data-act="customHeight" min="1" max="100" value="${s.customHeight}"> vh</label>` : ''}
-    <div class="row">Alignment ${[['top', 'Top'], ['middle', 'Center'], ['bottom', 'Bottom']].map(([v, l]) => opt('valign', v, l, (s.valign || 'middle') === v)).join('')}</div>` : ''}`;
+    <div class="row">Alignment ${[['top', 'Top'], ['middle', 'Center'], ['bottom', 'Bottom']].map(([v, l]) => opt('valign', v, l, (s.valign || 'middle') === v)).join('')}</div>` : ''}
+    <label><input type="checkbox" data-act="divider" ${s.divider ? 'checked' : ''}> Divider</label>`;
   } else if (sectionTab === 'Background') {
     body = `<div class="row">Background Width ${opt('bgWidth', 'full-bleed', 'Full Bleed', (s.bgWidth || 'full-bleed') === 'full-bleed')}${opt('bgWidth', 'inset', 'Inset', s.bgWidth === 'inset')}</div>`;
   } else {
@@ -935,7 +936,9 @@ panel.addEventListener('change', (e) => {
   const before = JSON.stringify(model);
   const s = S(sel.sid);
   const act = input.dataset.act;
-  if (act === 'fill') {
+  if (act === 'divider') {
+    if (input.checked) s.divider = true; else delete s.divider;
+  } else if (act === 'fill') {
     if (input.checked) { s.height = 'medium'; delete s.customHeight; } else { s.height = 'custom'; delete s.customHeight; }
   } else {
     const v = Math.round(Number(input.value));
@@ -947,7 +950,7 @@ panel.addEventListener('change', (e) => {
   }
   if (JSON.stringify(model) === before) return;
   renderSectionDom(s.id);
-  commit(before, `Section ${s.id} ${act} set to ${act === 'fill' ? input.checked : input.value}`);
+  commit(before, `Section ${s.id} ${act} set to ${input.type === 'checkbox' ? input.checked : input.value}`);
 });
 
 // ---------- top bar ----------

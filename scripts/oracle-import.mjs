@@ -58,6 +58,7 @@ const READ = `(() => {
     return {
       sectionId: s.dataset.sectionId, feId: feClass.slice(3), theme: s.dataset.sectionTheme, css: style || null,
       customHeight: (() => { try { return JSON.parse(s.dataset.currentStyles || '{}').customSectionHeight; } catch (e) { return null; } })(),
+      divider: s.classList.contains('has-section-divider'),
       settings: Object.fromEntries([...s.classList].map((c) => c.match(/^(section-height|vertical-alignment|content-width|horizontal-alignment|background-width)--(.+)$/)).filter(Boolean).map((m) => [m[1], m[2]])),
       section: { paddingTop: sc.paddingTop, paddingBottom: sc.paddingBottom, minHeight: sc.minHeight, background: W.getComputedStyle(s.querySelector('.section-background') || s).backgroundColor, inlineStyle: s.getAttribute('style') },
       grid: { left: fr.left, width: fr.width },
@@ -102,6 +103,7 @@ for (const [where, list] of [['sections', snap.sections], ['footer', snap.footer
     contentWidth: s.settings['content-width'] || 'wide',
     halign: s.settings['horizontal-alignment'] || 'center',
     bgWidth: s.settings['background-width'] || 'full-bleed',
+    ...(s.divider ? { divider: true } : {}),
     ...(s.settings['section-height'] === 'custom' && { customHeight: s.customHeight }),
     gap: grid.gap,
     ...(grid.rowGap != null && { rowGap: grid.rowGap }),

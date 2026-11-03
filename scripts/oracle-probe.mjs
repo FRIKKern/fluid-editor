@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | T13 | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | T13 | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -274,6 +274,66 @@ if (which === 'OPTION') {
   for (const r of reads) console.log(JSON.stringify(r));
   const steps = await restore(start, [i]);
   write(name, { question: `What does Edit Section > ${tab} > ${label} change, at several frame sizes?`, section: i, help, reads, undoSteps: steps });
+}
+
+if (which === 'DIVIDER') {
+  // P5: Edit Section > Design > Divider on section 2. Record the options it reveals and the
+  // divider's geometry (boxes, computed styles, SVG viewBox and path size), never its markup (O2).
+  const i = 2;
+  const start = Object.fromEntries([...Array(8).keys()].map((k) => [k, both(k)]));
+  const { hoverSection } = await import('./oracle/ui.mjs');
+  const openPanel = async () => { await hoverSection(i);
+    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 }); };
+  const PANEL_READ = `(() => { const ok = (e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.left > 1200 && !e.closest('#sqs-site-frame'); };
+    return JSON.stringify({ text: [...new Set([...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && ok(e) && e.textContent.trim()).map((e) => e.textContent.trim().slice(0, 40)))],
+      inputs: [...document.querySelectorAll('input, select')].filter(ok).map((e) => [e.type, e.getAttribute('aria-label') || e.closest('label')?.textContent.trim().slice(0, 30) || '', e.type === 'checkbox' ? e.checked : e.value, e.min, e.max].join('|')) }); })()`;
+  const DIV_READ = `(() => { ${FRAME}
+    const all = [...d.querySelectorAll('main#page .page-section')];
+    const at = all.findIndex((x) => x.querySelector('.section-divider-display'));
+    const sec = all[at >= 0 ? at : ${i}]; const sq = sec.getBoundingClientRect();
+    const box = (e) => { const q = e.getBoundingClientRect(); return [q.left - sq.left, q.top - sq.top, q.width, q.height].map((v) => Math.round(v * 10) / 10); };
+    const divs = [...sec.querySelectorAll('[class*=divider]')];
+    return JSON.stringify({ index: at, frame: [W.innerWidth, W.innerHeight], section: box(sec), sectionClasses: [...sec.classList].filter((c) => /divider|height--/.test(c)).join(' '), sectionStyle: sec.getAttribute('style'),
+      wrapPad: W.getComputedStyle(sec.querySelector('.content-wrapper')).padding,
+      parts: divs.map((e) => { const cs = W.getComputedStyle(e); const svg = e.tagName.toLowerCase() === 'svg' ? e : null;
+        return { tag: e.tagName.toLowerCase(), cls: [...e.classList].join(' '), box: box(e), position: cs.position, bottom: cs.bottom, height: cs.height, fill: cs.fill, bg: cs.backgroundColor, clip: cs.clipPath.slice(0, 60), mask: (cs.maskImage || cs.webkitMaskImage || '').slice(0, 30), transform: cs.transform,
+          viewBox: svg && svg.getAttribute('viewBox'), preserve: svg && svg.getAttribute('preserveAspectRatio'), paths: svg ? [...svg.querySelectorAll('path, use, rect')].map((p) => p.tagName + ':' + (p.getAttribute('d') || '').length + 'ch') : null }; }),
+      // The clip edge as numbers: for 41 x positions across the section, the y (in px from the
+      // section top) where the clip path's fill begins at the bottom, found by bisection.
+      edge: (() => { const path = sec.querySelector('.section-divider-clip'); if (!path) return null; const svg = path.ownerSVGElement;
+        const P = (x, y) => { const pt = svg.createSVGPoint(); pt.x = x; pt.y = y; return path.isPointInFill(pt); };
+        const units = path.closest('clipPath')?.getAttribute('clipPathUnits');
+        return { units, ys: [...Array(41).keys()].map((k) => { const x = k / 40; let lo = 0, hi = 1; if (!P(x, 0.5)) return null; for (let n = 0; n < 30; n++) { const m = (lo + hi) / 2; if (P(x, m)) lo = m; else hi = m; } return Math.round(lo * sq.height * 10) / 10; }) }; })(),
+      next: all[at + 1] ? box(all[at + 1]) : null,
+      clipped: [sec, ...sec.querySelectorAll('*')].filter((e) => W.getComputedStyle(e).clipPath.includes("url")).map((e) => [...e.classList][0] || e.tagName),
+      strokeVisible: (() => { const e = sec.querySelector('.section-divider-svg-stroke'); if (!e) return null; const cs = W.getComputedStyle(e); return { display: cs.display, visibility: cs.visibility, opacity: cs.opacity }; })(),
+      pad: W.getComputedStyle(sec).paddingBottom, wrapH: Math.round(sec.querySelector('.content-wrapper').getBoundingClientRect().height * 10) / 10,
+      stroke: (() => { const e = sec.querySelector('.section-divider-stroke'); if (!e) return null; const cs = W.getComputedStyle(e); return { width: cs.strokeWidth, color: cs.stroke, dash: cs.strokeDasharray, vectorEffect: cs.vectorEffect }; })(),
+      vars: Object.fromEntries([...sec.getAttribute('style').matchAll(/(--[\w-]*divider[\w-]*):\s*([^;]+)/g)].map((m) => [m[1], m[2]])) }); })()`;
+  await openPanel(); await escape(); await openPanel();
+  const before = evalJs(S, DIV_READ);
+  await click(`() => { const e = [...document.querySelectorAll('input[type=checkbox]')].find((x) => x.getAttribute('aria-label') === 'Divider'); return e && (e.closest('label, [role=switch]') || e); }`, { wait: 2500 });
+  if (saveDisabled() === true) throw new Error('Divider changed nothing');
+  const panelOn = evalJs(S, PANEL_READ);
+  const on = evalJs(S, DIV_READ);
+  console.log('panel', JSON.stringify(panelOn)); console.log('on', JSON.stringify(on));
+  // The Shape picker: open it, list the shape names, close it without choosing.
+  let shapes = null;
+  try {
+    await click(`() => { const L = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.textContent.trim() === 'Shape' && e.getBoundingClientRect().width > 0).pop(); const r = L.getBoundingClientRect(); return [...document.querySelectorAll('button, [role=button], [role=combobox]')].filter((x) => { const q = x.getBoundingClientRect(); return q.width > 0 && Math.abs(q.top + q.height / 2 - (r.top + r.height / 2)) < 20 && q.left > r.left; })[0] || L.closest('button, [role=button]') || L; }`, { wait: 1500 });
+    shapes = evalJs(S, PANEL_READ);
+    console.log('shapes', JSON.stringify(shapes));
+  } catch (e) { shapes = { error: String(e.message).slice(0, 80) }; }
+  await escape();
+  const widths = {};
+  for (const [w, h] of [[375, 700], [1280, 800]]) {
+    evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame'); for (const [k, v] of [['width', '${w}px'], ['height', '${h}px'], ['max-width', 'none'], ['min-width', '0'], ['flex', 'none']]) f.style.setProperty(k, v, 'important'); return 'true'; })()`);
+    await pause(1500); widths[`${w}x${h}`] = evalJs(S, DIV_READ);
+  }
+  evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame'); for (const k of ['width', 'height', 'max-width', 'min-width', 'flex']) f.style.removeProperty(k); return 'true'; })()`);
+  await pause(1200);
+  const steps = await restore(start, [...new Set([i, on.index])].filter((k) => k >= 0));
+  write('DIVIDER', { question: 'What does the section Divider add, and which options does it show?', section: i, frame: '1600x945 unless named', before, panelOn, shapes, on, widths, undoSteps: steps });
 }
 
 if (which === 'T13') {
