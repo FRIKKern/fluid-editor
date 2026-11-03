@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 35 changes, 3 milestones closed
-  - X8: group outline and group toolbar like the oracle's ([#53](https://github.com/FRIKKern/fluid-editor/pull/53))
-  - Record the WebKit results of section-check and design-edit-check ([#52](https://github.com/FRIKKern/fluid-editor/pull/52))
+- **Today** · 37 changes, 3 milestones closed
+  - README: point to the gap review ([#55](https://github.com/FRIKKern/fluid-editor/pull/55))
+  - UNBUILT probe: what the dimmed controls do on the oracle ([#54](https://github.com/FRIKKern/fluid-editor/pull/54))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
