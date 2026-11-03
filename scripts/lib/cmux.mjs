@@ -46,3 +46,13 @@ export const pause = (ms) => new Promise((r) => setTimeout(r, ms));
 export function resetViewport(surface) {
   run(['--surface', surface, 'viewport', 'reset']);
 }
+
+// A hidden tab does not load iframes or boot the Squarespace editor. If another
+// session opened a tab on top of ours, give ours its own pane; theirs stay put.
+export function ensureVisible(surface) {
+  const state = run(['--surface', surface, 'eval', 'document.visibilityState']);
+  if (state.includes('visible')) return false;
+  execFileSync('cmux', ['split-off', '--surface', surface, 'right', '--focus', 'false'], { encoding: 'utf8' });
+  execFileSync('sleep', ['1']);
+  return true;
+}

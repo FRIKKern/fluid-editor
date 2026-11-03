@@ -635,6 +635,7 @@ function renderPanel() {
     <div class="row"><button class="btn" data-act="z+">Move Forward</button><button class="btn" data-act="z-">Move Backward</button></div>
     <div class="row">${['flex-start', 'center', 'flex-end'].map((v) => `<button class="btn" data-act="justify" data-v="${v}" ${L.justify === v ? 'disabled' : ''}>${{ 'flex-start': 'Top', center: 'Middle', 'flex-end': 'Bottom' }[v]}</button>`).join('')}</div>
     </div>`);
+    if (sel.more?.length) parts.push(`<div class="group"><h3>Align group</h3><div class="row">${ALIGNS.map(([k, label]) => `<button class="btn" data-act="align" data-v="${k}">${label}</button>`).join('')}</div><div class="row"><button class="btn" data-act="stack">Stack blocks</button></div></div>`);
     parts.push(sectionGroup(s));
     parts.push(layersGroup(s));
   } else {
@@ -642,6 +643,51 @@ function renderPanel() {
   }
   parts.push(`<div class="group"><h3>Activity</h3><pre class="log">${notes.join('\n') || 'Nothing yet'}</pre></div>`);
   panel.innerHTML = parts.join('');
+}
+
+// Align Group, as on the oracle (traces T0018, T0019): blocks line up on the group's
+// bounding box; centers round to the nearest line.
+const ALIGNS = [['left', 'Left'], ['hcenter', 'Center'], ['right', 'Right'], ['top', 'Top'], ['vcenter', 'Middle'], ['bottom', 'Bottom']];
+function alignGroup(kind) {
+  const ids = [sel.bid, ...(sel.more || [])];
+  const L = ids.map((id) => lay(B(sel.sid, id)));
+  const r0 = Math.min(...L.map((l) => l.area[0])), r1 = Math.max(...L.map((l) => l.area[2]));
+  const c0 = Math.min(...L.map((l) => l.area[1])), c1 = Math.max(...L.map((l) => l.area[3]));
+  for (const l of L) {
+    const [a0, b0, a1, b1] = l.area;
+    const h = a1 - a0, w = b1 - b0;
+    let r = a0, c = b0;
+    if (kind === 'left') c = c0;
+    if (kind === 'right') c = c1 - w;
+    if (kind === 'hcenter') c = Math.round((c0 + c1) / 2 - w / 2);
+    if (kind === 'top') r = r0;
+    if (kind === 'bottom') r = r1 - h;
+    if (kind === 'vcenter') r = Math.round((r0 + r1) / 2 - h / 2);
+    l.area = [r, c, r + h, c + w];
+  }
+}
+
+// Stack Blocks (S3): the selected blocks become one stack over their bounding box,
+// on both layouts, children in row order (parity/findings/S3.json). The new block
+// is selected afterwards.
+function stackBlocks() {
+  normalize(sel.sid); // the oracle works on normalized rows here too
+  const s = S(sel.sid);
+  const ids = [sel.bid, ...(sel.more || [])];
+  const parts = ids.map((id) => B(sel.sid, id));
+  const box = (bpName) => {
+    const A = parts.map((b) => b.layout[bpName].area);
+    return [Math.min(...A.map((a) => a[0])), Math.min(...A.map((a) => a[1])), Math.max(...A.map((a) => a[2])), Math.max(...A.map((a) => a[3]))];
+  };
+  const order = [...parts].sort((a, b) => a.layout[bp].area[0] - b.layout[bp].area[0] || a.layout[bp].area[1] - b.layout[bp].area[1]);
+  const id = `stack-${Date.now().toString(36)}`;
+  const layout = {};
+  for (const bpName of ['desktop', 'mobile']) layout[bpName] = { area: box(bpName), z: Math.max(...parts.map((b) => b.layout[bpName].z)), justify: 'flex-start', align: 'flex-start' };
+  const stack = { id, type: 'stack', direction: 'column', gap: 20, children: order.map(({ layout: _l, ...c }) => c), layout };
+  const at = Math.min(...parts.map((b) => s.blocks.indexOf(b)));
+  s.blocks = s.blocks.filter((b) => !ids.includes(b.id));
+  s.blocks.splice(at, 0, stack);
+  sel = { sid: sel.sid, bid: id };
 }
 
 // Layers, as on the oracle: the section's blocks front to back by z-index; text blocks
@@ -712,6 +758,8 @@ panel.addEventListener('click', (e) => {
     if (next) [L.z, next.z] = [next.z, L.z];
   }
   if (btn.dataset.act === 'justify') L.justify = btn.dataset.v;
+  if (btn.dataset.act === 'align') alignGroup(btn.dataset.v);
+  if (btn.dataset.act === 'stack') stackBlocks();
   renderSectionDom(sel.sid);
   commit(before, `${btn.textContent} on ${b.id}`);
 });

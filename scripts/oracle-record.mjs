@@ -43,13 +43,14 @@ function ensureEditing() {
 
 const state = (s) => ({ rows: s.rows, blocks: s.blocks });
 
-ensureEditing();
 // The editor reopens in the last device view; traces are desktop unless --mobile.
-{
+async function setView() {
   const wantMobile = args.includes('--mobile');
   const w = evalJs(surface, `(() => JSON.stringify(document.getElementById('sqs-site-frame').contentWindow.innerWidth))()`);
   if ((w < 768) !== wantMobile) await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === '${wantMobile ? 'Mobile' : 'Desktop'} View')`, { wait: 2500 });
 }
+ensureEditing();
+await setView();
 const before = evalJs(surface, READ(index));
 if (!before.saveDisabled) throw new Error('The oracle has unsaved changes. Save or discard them by hand first; the recorder never touches unsaved work.');
 const t = arg('target', 'first');
@@ -57,6 +58,17 @@ const target = t === 'first' ? Object.keys(before.blocks)[0] : /^\d+$/.test(t) ?
 
 evalJs(surface, SELECT(index, target));
 await pause(400);
+// --also 3,4: Shift-add more blocks (by index in the section) to the selection.
+const also = (arg('also', '') || '').split(',').filter(Boolean).map((k) => Object.keys(before.blocks)[Number(k)]);
+for (const id of also) {
+  evalJs(surface, `(async () => { const f = document.getElementById('sqs-site-frame'); const d = f.contentDocument; const W = f.contentWindow;
+    const b = d.querySelectorAll('main#page .fluid-engine')[${index}].querySelector('.fe-block[data-block-id="${id}"]'); const q = b.getBoundingClientRect();
+    const o = { bubbles: true, cancelable: true, composed: true, clientX: q.left + q.width / 2, clientY: q.top + q.height / 2, button: 0, pointerId: 1, isPrimary: true, pointerType: 'mouse', view: W, shiftKey: true };
+    for (const t of ['pointerdown', 'mousedown']) b.dispatchEvent(new (t.startsWith('pointer') ? W.PointerEvent : W.MouseEvent)(t, { ...o, buttons: 1 }));
+    for (const t of ['pointerup', 'mouseup', 'click']) b.dispatchEvent(new (t.startsWith('pointer') ? W.PointerEvent : W.MouseEvent)(t, { ...o, buttons: 0 }));
+    return 'true'; })()`);
+  await pause(600);
+}
 // Gesture: keys (default), a drag of the block, or a resize from one handle, in grid units.
 const dragBy = arg('drag');
 const resizeDir = arg('resize');
@@ -67,8 +79,11 @@ let mid = null;
 const buttonName = arg('button');
 if (buttonName) {
   // A block toolbar button, clicked like a person (cmux click), e.g. "Move Forward".
-  await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === ${JSON.stringify(buttonName)} && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().width < 60)`, { wait: 1200 });
-  gesture = { kind: 'button', target, button: buttonName };
+  // "Align Group>Align Left" clicks each button in turn.
+  for (const name of buttonName.split('>')) {
+    await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === ${'${JSON.stringify(name)}'} && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().width < 60)`.replace('${JSON.stringify(name)}', JSON.stringify(name)), { wait: 1200 });
+  }
+  gesture = { kind: 'button', target, button: buttonName, ...(also.length && { also }) };
 } else if (dragBy || resizeDir) {
   const p = pitch(index);
   const [fx, fy] = arg('grab', '0.5,0.5').split(',').map(Number);
@@ -103,6 +118,7 @@ reload(surface);
 ensurePage();
 evalJs(surface, ENTER_EDIT);
 waitFor(surface, READY, 30);
+await setView();
 const reloaded = evalJs(surface, READ(index));
 const left = diffStates(state(before), state(reloaded));
 if (left.length) throw new Error(`The oracle did not come back to the saved layout:\n${left.join('\n')}`);

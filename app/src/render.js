@@ -133,6 +133,13 @@ function blockInner(b, model) {
       const label = b.label ? `<span class="sqs-shape-label">${escapeHtml(b.label)}</span>` : '';
       return `<div class="sqs-block shape-block sqs-block-shape sqs-stretched" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-shape" style="${style}">${label}</div></div></div>`;
     }
+    case 'stack': {
+      // A Stack (S3): one grid block whose children flow in a flex column, values
+      // seen on the oracle (parity/findings/S3.json): gap 20px, start-aligned,
+      // children stretch to the full width with a 20px minimum.
+      const kids = (b.children || []).map((c) => `<div class="stack-child-container">${blockInner({ ...c, id: `${b.id}-${c.id}` }, model)}</div>`).join('');
+      return `<div class="sqs-block stack-block sqs-block-stack" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-stack-container direction-${b.direction || 'column'}" style="--stack-gap:${b.gap ?? 20}px">${kids}</div></div></div>`;
+    }
     case 'code': {
       const src = b.codeOf ? sectionGridCss(model.sections.find((s) => s.id === b.codeOf)).trim() : b.code;
       return `<div class="sqs-block code-block sqs-block-code" data-block-type="23" id="block-${b.id}"><div class="sqs-block-content"><pre><code>${escapeHtml(src)}</code></pre></div></div>`;
