@@ -785,6 +785,14 @@
     "evidence": "parity/findings/S3.json: Stack Blocks replaces the selected blocks with one block over their bounding box; inside, a flex column with a 20px gap, start-aligned, children stretched to full width, min 20px; toolbar Edit, link, Stack Options, Pin, Duplicate, Remove. Ours builds the same structure and values. Difference: the oracle stack grew to 1/2/7/18, ours is 1/2/6/18; the oracle children seem to keep their old block heights (112 + 20 + 112px needs 7 rows). Stack Options not explored"
   },
   {
+    "id": "S4",
+    "area": "Section settings and Stacks",
+    "milestone": "M4",
+    "status": "open",
+    "title": "Section bottom handle: remove empty rows after a block moves back up",
+    "evidence": "Found in hands-on testing 2026-11-03. Rows never shrink on their own (R4: 11 to 17 rows after a drag down, still 17 after the drag back), so empty rows stay below the content. The oracle shows a blue handle with an up-down arrow on the section bottom edge, right of center; its Edit Section Row Count input does not go below the current count (parity/findings/SETTINGS.json), so the handle looks like the way to remove rows. Ours has no handle; its Row Count input goes down to the lowest row the blocks need, unlike the oracle input. Not measured: what dragging and clicking the handle do, its look and place"
+  },
+  {
     "id": "U1",
     "area": "Editor chrome",
     "milestone": "M5",
