@@ -84,7 +84,7 @@ export function md(all, ms) {
   for (const [area, list] of groups(all)) {
     lines.push(`## ${area}`, '', '| Id | Item | Milestone | Status | Gate or evidence |', '|---|---|---|---|---|');
     for (const it of list) {
-      const proof = [it.gate && `Gate: ${it.gate}`, it.evidence && `Evidence: ${it.evidence}`].filter(Boolean).join('. ');
+      const proof = [it.gate && `Gate: ${it.gate}`, it.evidence && `Evidence: ${it.evidence}`, it.outOfScope?.length && `Out of scope (docs/decisions): ${it.outOfScope.join('; ')}`].filter(Boolean).join('. ');
       lines.push(`| ${it.id} | ${it.title.replace(/\|/g, '\\|')} | ${it.milestone} ${name[it.milestone] || ''} | ${MARK[it.status]} ${it.status} | ${proof.replace(/\|/g, '\\|')} |`);
     }
     lines.push('');

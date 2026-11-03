@@ -20,7 +20,7 @@ the oracle       ─► halibut-keyboard-jlhd.squarespace.com in a cmux browser 
 3. Work on a branch. The main checkout stays on `main`.
 4. Name the item in the commit: `X6: handles per block type`.
 5. `npm run check` before every commit.
-6. Set the item's status in `parity/items.json` with its evidence, then `npm run parity`.
+6. Set the item's status in `parity/items.json` with its evidence, then `npm run parity`. A part the repo will not build goes in the item's `outOfScope` list with the decision that says so (docs/decisions/0005).
 
 ## Rules
 

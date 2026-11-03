@@ -24,7 +24,10 @@
     "status": "partial",
     "title": "Corpus of at least 300 sections from at least 30 public sites",
     "gate": "covers gap 0 and 11, bleed blocks, overlap, every block type in area 3",
-    "evidence": "parity/corpus.json and Gate A 380 of 380 sections from 56 sites incl. the 5 oracle pages and footer. Missing: gallery and map blocks"
+    "evidence": "parity/corpus.json and Gate A 380 of 380 sections from 56 sites incl. the 5 oracle pages and footer. Missing: map blocks",
+    "outOfScope": [
+      "0005: gallery blocks (Fluid Engine has none, parity/findings/T8.json)"
+    ]
   },
   {
     "id": "H4",
@@ -626,7 +629,10 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Text toolbar: styles, bold, italic, links, alignment, color, size",
-    "evidence": "The text toolbar opens from Write (parity/findings/TEXTBAR.json): Squarespace AI, Text Style (Heading 1-4, Paragraph 1-3, Monospace, shortcuts Cmd+Opt+6 to 0 and M), Bold, Italic, Text Color (Palette, Custom), Scaled Text, Text Highlight, Link (URL or a site page), Text Alignment (left, center, right, justify), Quote, Bullet List, Numbered List, Strike, Outdent, Indent, Clear Formatting. parity/findings/TEXTOPS.json records the HTML of 17 actions; our Text group makes the same HTML for all 17 (npm run text-check, parity/text-check.json). Missing: AI, Text Color, Scaled Text, Highlight, Link, the style shortcuts, a floating toolbar, per-action undo inside an edit (ours undoes the whole edit; the oracle took 1 undo per action), and the published look of quotes, lists and monospace"
+    "evidence": "The text toolbar opens from Write (parity/findings/TEXTBAR.json): Squarespace AI, Text Style (Heading 1-4, Paragraph 1-3, Monospace, shortcuts Cmd+Opt+6 to 0 and M), Bold, Italic, Text Color (Palette, Custom), Scaled Text, Text Highlight, Link (URL or a site page), Text Alignment (left, center, right, justify), Quote, Bullet List, Numbered List, Strike, Outdent, Indent, Clear Formatting. parity/findings/TEXTOPS.json records the HTML of 17 actions; our Text group makes the same HTML for all 17 (npm run text-check, parity/text-check.json). Missing: Text Color, Scaled Text, Highlight, Link, the style shortcuts, a floating toolbar, per-action undo inside an edit (ours undoes the whole edit; the oracle took 1 undo per action), and the published look of quotes, lists and monospace",
+    "outOfScope": [
+      "0005: Squarespace AI"
+    ]
   },
   {
     "id": "E5",
@@ -815,7 +821,10 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Add block menu and default placement",
-    "evidence": "Oracle menu: search, Essentials (Text, Image, Button, Video, Form, Accordion, Shape, Scrolling, Line), Sell, more. Our panel has the nine Essentials with the oracle default sizes and places (T13). Phone placement of a new block is ours, not measured; the search box and other groups are not built. Code and Embed are now in our list from the menu search (parity/findings/T10.json)"
+    "evidence": "Oracle menu: search, Essentials (Text, Image, Button, Video, Form, Accordion, Shape, Scrolling, Line), Sell, more. Our panel has the nine Essentials with the oracle default sizes and places (T13). Phone placement of a new block is ours, not measured; the search box and other groups are not built. Code and Embed are now in our list from the menu search (parity/findings/T10.json)",
+    "outOfScope": [
+      "0005: the Sell group (product, donation and member blocks)"
+    ]
   },
   {
     "id": "U6",
@@ -852,9 +861,12 @@
     "id": "Y3",
     "area": "History, save and publish",
     "milestone": "M6",
-    "status": "partial",
+    "status": "done",
     "title": "Save versus publish, drafts, revision conflicts",
-    "evidence": "parity/findings/EXIT.json: the top bar has Save and Exit and no separate publish control; the status line stays \"Page · Published\" with unsaved changes, and only Save turns on. Exit with unsaved changes asks \"Exit Without Saving? Any unsaved changes will be discarded when you exit.\" with Save and Exit and no Cancel; Escape closes it and keeps editing. In one earlier run Exit left the editor without the question; the saved page was unchanged. Ours has the same status line, Exit, question and Escape; Exit discards, Save stores in this browser, and both open the published page (page.html?saved). Not measured: what Save does on the live site (the probe never saves, O1), drafts, and revision conflicts between two editors"
+    "evidence": "parity/findings/EXIT.json: the top bar has Save and Exit and no separate publish control; the status line stays \"Page · Published\" with unsaved changes, and only Save turns on. Exit with unsaved changes asks \"Exit Without Saving? Any unsaved changes will be discarded when you exit.\" with Save and Exit and no Cancel; Escape closes it and keeps editing. In one earlier run Exit left the editor without the question; the saved page was unchanged. Ours has the same status line, Exit, question and Escape; Exit discards, Save stores in this browser, and both open the published page (page.html?saved).",
+    "outOfScope": [
+      "0005: what Save does on the live site, drafts, and revision conflicts"
+    ]
   },
   {
     "id": "Y4",
