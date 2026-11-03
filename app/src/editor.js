@@ -614,7 +614,24 @@ function onKey(e) {
     if (e.key === 'Escape') {
       e.preventDefault();
       finishTextEdit();
+      return;
     }
+    // The oracle's text shortcuts: Cmd+Opt+6..3 Heading 1..4, Cmd+Opt+2..0 Paragraph 1..3,
+    // Cmd+Opt+M Monospace (listed in its Text Style menu), Cmd+B and Cmd+I. e.code, because
+    // Option changes e.key on macOS.
+    const STYLE_KEYS = { Digit6: 'h1', Digit5: 'h2', Digit4: 'h3', Digit3: 'h4', Digit2: 'p.sqsrte-large', Digit1: 'p', Digit0: 'p.sqsrte-small', KeyM: 'pre' };
+    if (mod && e.altKey && STYLE_KEYS[e.code]) { e.preventDefault(); applyFormat('style', STYLE_KEYS[e.code]); renderTextBar(); return; }
+    if (mod && !e.altKey && !e.shiftKey && (e.code === 'KeyB' || e.code === 'KeyI')) { e.preventDefault(); applyFormat(e.code === 'KeyB' ? 'bold' : 'italic'); return; }
+    return;
+  }
+  // Shift+S stacks the selection (the oracle's right-click menu shows the shortcut).
+  if (sel && !gesture && e.shiftKey && !mod && !e.altKey && e.code === 'KeyS') {
+    e.preventDefault();
+    const before = JSON.stringify(model);
+    const sid = sel.sid;
+    stackBlocks();
+    renderSectionDom(sid);
+    commit(before, 'Stacked with Shift+S');
     return;
   }
   if (mod && e.key.toLowerCase() === 'z') {
