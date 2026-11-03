@@ -9,6 +9,7 @@ import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
 import { READY, LOADED, ENTER_EDIT, READ, SELECT, KEY, BUTTON } from './oracle/snippets.mjs';
 import { validate, diffStates } from './lib/trace.mjs';
+import { pitch, hold, release, blockEl, handleEl, click } from './oracle/ui.mjs';
 
 const args = process.argv.slice(2);
 const arg = (n, d) => {
@@ -50,9 +51,31 @@ const target = t === 'first' ? Object.keys(before.blocks)[0] : /^\d+$/.test(t) ?
 
 evalJs(surface, SELECT(index, target));
 await pause(400);
-for (const k of keys) {
-  evalJs(surface, KEY(index, target, k));
-  await pause(400);
+// Gesture: keys (default), a drag of the block, or a resize from one handle, in grid units.
+const dragBy = arg('drag');
+const resizeDir = arg('resize');
+const by = (arg('by', dragBy || '0,0')).split(',').map(Number);
+const mods = { shift: args.includes('--shift'), alt: args.includes('--alt') };
+let gesture = { kind: 'key', target, keys };
+let mid = null;
+const buttonName = arg('button');
+if (buttonName) {
+  // A block toolbar button, clicked like a person (cmux click), e.g. "Move Forward".
+  await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === ${JSON.stringify(buttonName)} && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().width < 60)`, { wait: 1200 });
+  gesture = { kind: 'button', target, button: buttonName };
+} else if (dragBy || resizeDir) {
+  const p = pitch(index);
+  const [fx, fy] = arg('grab', '0.5,0.5').split(',').map(Number);
+  const find = resizeDir ? handleEl(index, target, resizeDir) : blockEl(index, target);
+  mid = await hold(find, by[0] * p.col, by[1] * p.row, { fx: resizeDir ? 0.5 : fx, fy: resizeDir ? 0.5 : fy, ...mods });
+  await release(mods);
+  gesture = resizeDir ? { kind: 'resize', target, handle: resizeDir, by: { cols: by[0], rows: by[1] }, ...(mods.shift && { shift: true }), ...(mods.alt && { alt: true }) }
+    : { kind: 'drag', target, grab: [fx, fy], by: { cols: by[0], rows: by[1] }, ...(mods.shift && { shift: true }), ...(mods.alt && { alt: true }) };
+} else {
+  for (const k of keys) {
+    evalJs(surface, KEY(index, target, k));
+    await pause(400);
+  }
 }
 // The editor applies a move a moment later; wait for the state to change (up to 4s).
 let after = evalJs(surface, READ(index));
@@ -87,7 +110,8 @@ const trace = {
   section: { id: before.sectionId, index, gap: before.gap, rowGap: before.rowGap },
   content: before.content,
   before: state(before),
-  gesture: { kind: 'key', target, keys },
+  gesture,
+  ...(mid && { mid }),
   after: state(after),
   undo: { steps, afterUndo: state(afterUndo), restored: true, restoredBy: 'reload' },
   notes: [
@@ -95,7 +119,7 @@ const trace = {
     ...diffStates(state(before), state(afterUndo)).map((d) => `after undo, still ${d}`),
   ],
 };
-if (!diffStates(trace.before, trace.after).length) throw new Error('The gesture changed nothing on the oracle; no trace written (no skip-pass).');
+if (!diffStates(trace.before, trace.after).length && !args.includes('--allow-no-change')) throw new Error('The gesture changed nothing on the oracle; no trace written (no skip-pass). Use --allow-no-change when "nothing happens" is the finding.');
 const errors = validate(trace, `${id}.json`);
 if (errors.length) throw new Error(errors.join('\n'));
 writeFileSync(new URL(`../traces/${id}.json`, import.meta.url), JSON.stringify(trace, null, 2) + '\n');

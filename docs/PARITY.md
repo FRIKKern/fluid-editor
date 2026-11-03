@@ -2,7 +2,7 @@
 
 [![Parity: one cell per item, done, partial, open or unknown](images/parity.svg)](../README.md)
 
-42 of 108 items done, 27 partial, 24 open, 15 unknown.
+49 of 108 items done, 31 partial, 28 open, 0 unknown.
 Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. Edit the JSON, never this page.
 
 ## Harness and oracle
@@ -61,7 +61,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | T3 | Text block | M2 Renderer | ✓ done | Evidence: Text block markup and margins (headings 2rem, paragraphs 1em, first and last child 0) match: Gate B 280 of 280 |
 | T4 | Image block: fit, fill, crop, focal point, stretched | M5 Chrome and blocks | ○ open |  |
 | T5 | Button block: sizes, styles, stretch | M2 Renderer | ◐ partial | Evidence: Button fills its block height (59px at 768, 61.6px at 1280), 56px side padding, Poppins 500 16px. Sizes small and large not measured |
-| T6 | Shape block and the Squarespace shape set | M2 Renderer | ◐ partial |  |
+| T6 | Shape block and the Squarespace shape set | M2 Renderer | ◐ partial | Evidence: Oracle shape Edit panel: Design tab with shape style picker, square or rounded corners with a px radius, Stretch toggle, Color, Blend Mode, Stroke; Animation tab. Default shape: white square filling its block. Ours renders a filled div |
 | T7 | Video block | M5 Chrome and blocks | ○ open |  |
 | T8 | Gallery block | M5 Chrome and blocks | ○ open |  |
 | T9 | Form block | M5 Chrome and blocks | ○ open |  |
@@ -69,7 +69,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | T11 | Line, map and social links blocks | M5 Chrome and blocks | ○ open |  |
 | T12 | Remaining block types from the add-block menu | M5 Chrome and blocks | ○ open |  |
 | T13 | Default and minimum size per block type | M2 Renderer | ◐ partial | Evidence: A new Text block lands at 1/2/3/10 (8 columns by 2 rows) in an empty section; a blank section starts with 8 rows. Other block types not measured |
-| T14 | Which types keep an aspect ratio and which follow content | M2 Renderer | ? unknown |  |
+| T14 | Which types keep an aspect ratio and which follow content | M2 Renderer | ◐ partial | Evidence: Shapes do not keep an aspect ratio: a corner resize of 2 columns and 1 row changes both freely (T0008). Images not tested |
 
 ## Geometry and snapping
 
@@ -78,25 +78,25 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | G1 | Snap to measured column lines, gutter tracks included | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | G2 | Uniform row pitch after normalization | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | G3 | Grab offset kept during a drag | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
-| G4 | Snap threshold and dead zone | M4 Editor core | ? unknown |  |
-| G5 | Snap to other blocks' edges and centers, `data-is-matching-width` and `data-is-matching-height` | M4 Editor core | ? unknown |  |
+| G4 | Snap threshold and dead zone | M4 Editor core | ✓ done | Evidence: Drags of 0.3 and 0.5 columns stay, 0.7 moves one column (traces T0004, T0005, T0006); our editor replays all three (parity/gate-c.json) |
+| G5 | Snap to other blocks' edges and centers, `data-is-matching-width` and `data-is-matching-height` | M4 Editor core | ○ open | Evidence: Answered (T0007): while resizing to 11 columns, the other 11-column block gets data-is-matching-width="true". It is an equal-size highlight, not an edge snap. Not built in our editor |
 | G6 | Alignment guide lines | M4 Editor core | ○ open |  |
 | G7 | Auto-scroll near the top and bottom edge during a drag | M4 Editor core | ○ open |  |
-| G8 | Editor zoom or scaled preview | M4 Editor core | ? unknown |  |
+| G8 | Editor zoom or scaled preview | M4 Editor core | ✓ done | Evidence: The oracle editor does not scale its preview: the frame is as wide as the window at 1100 and 1600px, transform identity. Our editor does not scale either |
 
 ## Gestures
 
 | Id | Item | Milestone | Status | Gate or evidence |
 |---|---|---|---|---|
 | X1 | Move threshold before a drag starts, 4px in the prototype | M4 Editor core | ◐ partial |  |
-| X2 | How the block follows the pointer and how the target shows | M4 Editor core | ◐ partial |  |
+| X2 | How the block follows the pointer and how the target shows | M4 Editor core | ◐ partial | Evidence: While held, the block follows the pointer exactly: transform translate equals the pointer distance (T0004 to T0006 mid). The dragged block wrapper gets z-index 999999 and the grid shows only in its own section. Target outline look not measured |
 | X3 | Original-position outline during a drag | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
-| X4 | What happens to nearby blocks, `data-is-near-dragged-block` | M4 Editor core | ? unknown |  |
+| X4 | What happens to nearby blocks, `data-is-near-dragged-block` | M4 Editor core | ○ open | Evidence: Answered (T0004 to T0007 mid): blocks overlapping or next to the dragged block get data-is-near-dragged-block="true"; a far drag (T0010) marks none. Exact distance not measured; not built in our editor |
 | X5 | Resize from 8 handles with the opposite edge fixed | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
-| X6 | Which handles each block type shows | M4 Editor core | ◐ partial | Evidence: Oracle text block shows all 8 handles (screenshot 2026-11-03). Other block types not checked |
-| X7 | Shift and Alt modifiers | M4 Editor core | ? unknown |  |
+| X6 | Which handles each block type shows | M4 Editor core | ◐ partial | Evidence: Text and shape blocks show all 8 handles on the oracle (screenshot, T0007 used the east handle of a shape). Buttons and other types not checked |
+| X7 | Shift and Alt modifiers | M4 Editor core | ◐ partial | Evidence: Shift has no effect on a shape corner resize (T0008, T0009 end the same); our editor replays both (parity/gate-c.json). Alt and images not tested |
 | X8 | Multi-select and group move | M4 Editor core | ○ open |  |
-| X9 | Dragging a block into another section | M4 Editor core | ? unknown |  |
+| X9 | Dragging a block into another section | M4 Editor core | ◐ partial | Evidence: Dragging 14 rows down past the section edge keeps the block in its section and grows the section from 11 to 26 rows (T0010). Our editor lands one row higher (parity/gate-c.json, T0010 fails) |
 | X10 | Locked blocks, `data-is-locked` | M4 Editor core | ○ open |  |
 | X11 | Touch and pen input | M4 Editor core | ◐ partial |  |
 | X12 | Esc cancels, one gesture is one undo step | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
@@ -109,7 +109,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | R2 | Whether normalization also runs on select, resize or edit start | M4 Editor core | ◐ partial | Evidence: Keyboard: yes (traces/T0001-key-right.json). Select: 1 of 2 oracle runs normalized, 2026-11-03; cause not proven |
 | R3 | Exact pixel to grid conversion | M4 Editor core | ◐ partial | Evidence: While building section 1 the oracle remapped the heading from 3/2/7/16 to 4/2/7/16 and the paragraph from 7/2/11/14 to 7/2/10/14 during later drags: normalization can move start rows too |
 | R4 | Whether the row count shrinks after normalization or a drag | M4 Editor core | ◐ partial | Evidence: traces/T0001-key-right.json: row count grows on normalization (24 to 29) and stays after undo. Shrinking not seen yet |
-| R5 | Behaviour when viewport width or a font change stretches rows | M4 Editor core | ? unknown |  |
+| R5 | Behaviour when viewport width or a font change stretches rows | M4 Editor core | ✓ done | Evidence: Published rows stretch with the width exactly as on the oracle: Gate B 280 of 280 at 375 to 1920px and 168 of 168 at 600 to 700px (parity/gate-b.json, parity/gate-b-600-767.json). The editor removes stretch at the next gesture (T0003) |
 
 ## Text editing
 
@@ -117,17 +117,17 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 |---|---|---|---|---|
 | E1 | How editing starts: double-click or click on a selected block | M4 Editor core | ◐ partial |  |
 | E2 | End row grows while typing | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
-| E3 | Whether the block shrinks when text is deleted | M4 Editor core | ? unknown |  |
+| E3 | Whether the block shrinks when text is deleted | M4 Editor core | ○ open | Evidence: Answered (parity/findings/E3.json): replacing a paragraph with a short sentence moved its end row up from 3/2/8/13 to 3/2/5/13, a minimum of 2 rows. Our editor only grows text blocks |
 | E4 | Text toolbar: styles, bold, italic, links, alignment, color, size | M5 Chrome and blocks | ○ open |  |
 | E5 | Paste handling and HTML cleanup | M5 Chrome and blocks | ○ open |  |
-| E6 | Whether a desktop text edit changes the phone layout's height | M4 Editor core | ? unknown |  |
+| E6 | Whether a desktop text edit changes the phone layout's height | M4 Editor core | ✓ done | Evidence: parity/findings/E6.json: a desktop text edit left the phone area 3/2/5/10 unchanged. Our editor changes only the current layout when text grows |
 
 ## Overlap and layers
 
 | Id | Item | Milestone | Status | Gate or evidence |
 |---|---|---|---|---|
 | Z1 | Overlap allowed | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
-| Z2 | How Bring forward and Send backward change z | M4 Editor core | ? unknown |  |
+| Z2 | How Bring forward and Send backward change z | M4 Editor core | ✓ done | Evidence: Move Forward and Move Backward swap z-index with the next block up or down (T0011, T0012); our editor does the same since m3-unknowns and replays both (parity/gate-c.json) |
 | Z3 | Bring to front and Send to back | M4 Editor core | ○ open |  |
 | Z4 | Selecting a block covered by another | M4 Editor core | ○ open | Evidence: The oracle section toolbar has an "Open Layers Panel" button; not opened yet |
 | Z5 | Editor layer z-index of about 10000 + z and 100000 + z | M5 Chrome and blocks | ◐ partial |  |
@@ -139,10 +139,10 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | L1 | Separate area and z per block, row count per layout | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | L2 | Shared content | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | L3 | Where a new block lands on phones | M4 Editor core | ◐ partial | Evidence: On the demo page the oracle generated phone layouts by stacking blocks over columns 2 to 10: text and buttons 2 rows, shapes 6 rows (fixtures/oracle/demo-page.json, app/src/demo-data.js) |
-| L4 | Whether phone edits survive later desktop edits | M4 Editor core | ? unknown |  |
-| L5 | Hiding a block on one layout | M4 Editor core | ? unknown |  |
+| L4 | Whether phone edits survive later desktop edits | M4 Editor core | ✓ done | Evidence: parity/findings/L4.json: a phone move down, then a desktop move right of the same block, left the phone area as edited. Our editor keeps the two layouts separate |
+| L5 | Hiding a block on one layout | M4 Editor core | ◐ partial | Evidence: No hide control found on the oracle: not in the desktop or phone block toolbars, and not in the shape Edit panel (Design: shape style, corner radius, Stretch, Color, Blend Mode, Stroke; Animation). Other block types and help pages not checked |
 | L6 | Phone-only overrides such as font size | M4 Editor core | ○ open |  |
-| L7 | Behaviour between 600 and 767px | M4 Editor core | ? unknown |  |
+| L7 | Behaviour between 600 and 767px | M4 Editor core | ✓ done | Evidence: Gate B 168 of 168 block boxes at 600, 650 and 700px (parity/gate-b-600-767.json); the third-party report of extra space in this range did not reproduce on the demo page |
 | L8 | Give demo section 7 its staggered phone layout on the oracle, then trace phone edits | M4 Editor core | ○ open | Gate: A trace of a phone-layout move replays to the same end state |
 
 ## Section settings and Stacks
@@ -160,10 +160,10 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | U1 | Grid overlay only during a gesture | M5 Chrome and blocks | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | U2 | Grid look: SVG pattern, `#B7B7B7`, `#F2F2F240`, radius 3 | M5 Chrome and blocks | ◐ partial |  |
 | U3 | Hover and selection outlines, handles, label pill | M5 Chrome and blocks | ◐ partial | Evidence: Handles: 10px squares, white, 2px rgb(2,122,255), cursors nw/ne/se/sw-resize, row-resize, col-resize (applied). Blocks carry a label pill with their type, e.g. "Text" (sqs-block-label-tag). Hover not measured |
-| U4 | Block toolbar: edit, design, duplicate, delete, layers | M5 Chrome and blocks | ◐ partial | Evidence: Oracle block toolbar on a text block: Write, Edit, Align Vertically, Pin, Duplicate, Remove. Section toolbar: Add Block, Open Layers Panel, Edit Section, View Layouts, Duplicate, Save, Move Up, Move Down, Remove |
+| U4 | Block toolbar: edit, design, duplicate, delete, layers | M5 Chrome and blocks | ◐ partial | Evidence: Oracle toolbars. Text: Write, Edit, Align Vertically, Pin, Duplicate, Remove. Shape: Edit, Pin, Move Forward, Move Backward, Duplicate, Remove. Shape in phone view: Edit, Pin, Move Up, Move Down, Remove. Section: Add Block, Open Layers Panel, Edit Section, View Layouts, Duplicate, Save, Move Up, Move Down, Remove. Ours has Move Forward and Move Backward |
 | U5 | Add block menu and default placement | M5 Chrome and blocks | ◐ partial | Evidence: Oracle Add Block menu: search box; Essentials: Text, Image, Button, Video, Form, Accordion, Shape, Scrolling, Line; Sell: Product, Pricing Plan, Donation, Scheduling, more. New blocks land top left |
 | U6 | Top bar: Save, Exit, undo, redo, device toggle, preview | M5 Chrome and blocks | ◐ partial |  |
-| U7 | Animation timings, `is-transitioning-visibility` | M5 Chrome and blocks | ? unknown |  |
+| U7 | Animation timings, `is-transitioning-visibility` | M5 Chrome and blocks | ○ open | Evidence: Answered: blocks in the editor fade with transition opacity 0.1s cubic-bezier(0.66, 0, 0.34, 1) (class is-transitioning-visibility). Not built in our editor |
 
 ## History, save and publish
 

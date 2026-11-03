@@ -13,11 +13,13 @@
 //   "before": { "rows": 24, "blocks": { "<blockId>": { "area": [r0, c0, r1, c1], "z": 1 } } },
 //   "gesture": { "kind": "key", "target": "<blockId>", "keys": ["ArrowRight"] }
 //            | { "kind": "drag", "target": "<blockId>", "grab": [fx, fy], "by": { "cols": 3, "rows": 2 } }
-//            | { "kind": "resize", "target": "<blockId>", "handle": "se", "by": { "cols": 1, "rows": -1 } },
+//            | { "kind": "resize", "target": "<blockId>", "handle": "se", "by": { "cols": 1, "rows": -1 }, "shift": true }
+//            | { "kind": "button", "target": "<blockId>", "button": "Move Forward" },
+//   "mid": { … },                       optional: what the editor showed while a drag was held
 //   "after": { "rows": 24, "blocks": { … same shape as before … } },
 //   "undo": { "restored": true }         the oracle state matched "before" after undo
 // }
-export const KINDS = ['key', 'drag', 'resize'];
+export const KINDS = ['key', 'drag', 'resize', 'button'];
 
 const isArea = (a) => Array.isArray(a) && a.length === 4 && a.every(Number.isInteger) && a[0] < a[2] && a[1] < a[3];
 

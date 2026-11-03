@@ -58,6 +58,26 @@ const SELECT = (id) => `(() => {
   return JSON.stringify(true);
 })()`;
 
+// A drag of the block, or of one of our resize handles, by whole or fractional grid units.
+const POINTER = (sid, g) => `(async () => {
+  const f = document.getElementById('site-frame'); const d = f.contentDocument; const W = f.contentWindow;
+  const m = fe.measure('${sid}');
+  const colPitch = m.colStart[2] - m.colStart[1];
+  const dx = ${g.by?.cols || 0} * colPitch, dy = ${g.by?.rows || 0} * m.pitch;
+  const b = d.querySelector('.fe-block[data-block-id="${g.target}"]');
+  const el = ${g.kind === 'resize' ? `d.querySelector('.fe-handle[data-dir="${g.handle}"]')` : 'b'};
+  if (!el) return JSON.stringify('no element');
+  const q = el.getBoundingClientRect();
+  const fx = ${g.kind === 'resize' ? 0.5 : (g.grab?.[0] ?? 0.5)}, fy = ${g.kind === 'resize' ? 0.5 : (g.grab?.[1] ?? 0.5)};
+  const x = q.left + q.width * fx, y = q.top + q.height * fy;
+  const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0, shiftKey: ${!!g.shift}, altKey: ${!!g.alt} };
+  el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, clientX: x, clientY: y, buttons: 1 }));
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  for (let k = 1; k <= 12; k++) { d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x + dx * k / 12, clientY: y + dy * k / 12, buttons: 1 })); await sleep(20); }
+  d.dispatchEvent(new W.PointerEvent('pointerup', { ...o, clientX: x + dx, clientY: y + dy, buttons: 0 }));
+  return JSON.stringify(true);
+})()`;
+
 const KEY = (key) => `(() => {
   const f = document.getElementById('site-frame');
   f.contentDocument.dispatchEvent(new f.contentWindow.KeyboardEvent('keydown', { key: '${key}', bubbles: true, cancelable: true }));
@@ -75,9 +95,21 @@ for (const t of traces) {
   const fonts = evalJs(surface, `(async () => { const d = document.getElementById('site-frame').contentDocument; await d.fonts.ready; await d.fonts.load('400 16px Poppins'); await d.fonts.load('500 16px Poppins'); await new Promise((r) => setTimeout(r, 300)); return JSON.stringify(d.fonts.check('400 16px Poppins')); })()`);
   if (fonts !== true) throw new Error('Poppins did not load in the editor canvas');
   evalJs(surface, SELECT(t.gesture.target));
-  for (const k of t.gesture.keys || []) {
-    evalJs(surface, KEY(k));
-    await pause(200);
+  const g = t.gesture;
+  if (g.kind === 'key') {
+    for (const k of g.keys || []) {
+      evalJs(surface, KEY(k));
+      await pause(200);
+    }
+  } else if (g.kind === 'drag' || g.kind === 'resize') {
+    evalJs(surface, POINTER(t.section.id, g));
+    await pause(400);
+  } else if (g.kind === 'button') {
+    // Our panel names: Bring forward (z+) and Send backward (z-).
+    const act = { 'Move Forward': 'z+', 'Move Backward': 'z-' }[g.button];
+    if (!act) throw new Error(`no button in our editor for "${g.button}"`);
+    evalJs(surface, `(() => { document.querySelector('#panel button[data-act="${act}"]').click(); return 'true'; })()`);
+    await pause(300);
   }
   const after = evalJs(surface, READ(t.section.id));
   const diffs = diffStates(t.after, after);

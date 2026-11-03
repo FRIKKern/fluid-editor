@@ -1,7 +1,7 @@
 {
   "gate": "C",
-  "pass": 2,
-  "total": 2,
+  "pass": 10,
+  "total": 11,
   "results": [
     {
       "trace": "T0002-demo-hero-right",
@@ -12,6 +12,72 @@
     },
     {
       "trace": "T0003-section4-button-down",
+      "pass": true,
+      "diffs": [],
+      "undoPass": true,
+      "undoDiffs": []
+    },
+    {
+      "trace": "T0004-snap-03",
+      "pass": true,
+      "diffs": [],
+      "undoPass": true,
+      "undoDiffs": []
+    },
+    {
+      "trace": "T0005-snap-05",
+      "pass": true,
+      "diffs": [],
+      "undoPass": true,
+      "undoDiffs": []
+    },
+    {
+      "trace": "T0006-snap-07",
+      "pass": true,
+      "diffs": [],
+      "undoPass": true,
+      "undoDiffs": []
+    },
+    {
+      "trace": "T0007-resize-match-width",
+      "pass": true,
+      "diffs": [],
+      "undoPass": true,
+      "undoDiffs": []
+    },
+    {
+      "trace": "T0008-resize-corner",
+      "pass": true,
+      "diffs": [],
+      "undoPass": true,
+      "undoDiffs": []
+    },
+    {
+      "trace": "T0009-resize-corner-shift",
+      "pass": true,
+      "diffs": [],
+      "undoPass": true,
+      "undoDiffs": []
+    },
+    {
+      "trace": "T0010-drag-past-section",
+      "pass": false,
+      "diffs": [
+        "rows: want 26, got 25",
+        "yui_3_17_2_1_1793705593367_16395: area want 17/15/27/25, got 16/15/26/25"
+      ],
+      "undoPass": true,
+      "undoDiffs": []
+    },
+    {
+      "trace": "T0011-move-forward",
+      "pass": true,
+      "diffs": [],
+      "undoPass": true,
+      "undoDiffs": []
+    },
+    {
+      "trace": "T0012-move-backward",
       "pass": true,
       "diffs": [],
       "undoPass": true,
