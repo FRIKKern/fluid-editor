@@ -791,7 +791,7 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Block toolbar: edit, design, duplicate, delete, layers",
-    "evidence": "Oracle toolbars. Text: Write, Edit, Align Vertically, Pin, Duplicate, Remove. Shape: Edit, Pin, Move Forward, Move Backward, Duplicate, Remove. Shape in phone view: Edit, Pin, Move Up, Move Down, Remove. Section: Add Block, Open Layers Panel, Edit Section, View Layouts, Duplicate, Save, Move Up, Move Down, Remove. Ours has Move Forward and Move Backward"
+    "evidence": "Oracle toolbars: text Write, Edit, Align Vertically, Pin, Duplicate, Remove; shape Edit, Pin, Move Forward, Move Backward, Duplicate, Remove; phone shape Edit, Pin, Move Up, Move Down, Remove; section Add Block, Layers, Edit Section, View Layouts, Duplicate, Save, Move Up/Down, Remove. Our editor has Move Forward/Backward, Duplicate (Cmd+D) and Remove (Delete) as keys and panel buttons; no floating toolbar yet"
   },
   {
     "id": "U5",
@@ -843,8 +843,9 @@
     "id": "Y4",
     "area": "History, save and publish",
     "milestone": "M6",
-    "status": "open",
-    "title": "Copy and paste between sections and pages"
+    "status": "partial",
+    "title": "Copy and paste between sections and pages",
+    "evidence": "parity/findings/KEYS.json, KEYS2.json: Cmd+D duplicates one row down and one column right, on top, and right below the original on phones (3/16/13/26, phone 11/2/17/10); our editor gives the same. Delete and Backspace remove the block. Cmd+C and Cmd+V did nothing with scripted key events (the clipboard needs real ones), so copy and paste is not answered"
   },
   {
     "id": "Y5",
@@ -875,7 +876,8 @@
     "id": "A3",
     "area": "Accessibility and order",
     "milestone": "M6",
-    "status": "partial",
-    "title": "Keyboard: Tab order, arrow moves, resize with keys"
+    "status": "done",
+    "title": "Keyboard: Tab order, arrow moves, resize with keys",
+    "evidence": "parity/findings/KEYS.json, KEYS2.json: arrows and Alt+arrows move one cell; Cmd+Left/Right change the end column, Cmd+Up/Down the end row; Tab and Shift+Tab do not change the selection. Our editor gives the same areas for Cmd+Right (2/15/12/26), Cmd+Up (2/15/11/25), Alt+Right (2/16/12/26)"
   }
 ]
