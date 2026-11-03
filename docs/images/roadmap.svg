@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="704" viewBox="0 0 1200 704" role="img" aria-labelledby="t d">
 <title id="t">Fluid editor roadmap</title>
-<desc id="d">0 of 7 milestones delivered. M0 Harness: now, reward: 1:1 becomes a number, 1 of 9 items done. M1 Oracle page: next, reward: The demo page exists on real Squarespace, 0 of 3 items done. M2 Renderer: later, reward: The published page matches, 10 of 25 items done. M3 Unknowns: later, reward: Nothing left to guess, 22 unknowns left. M4 Editor core: later, reward: Drag, resize and edit feel the same, 11 of 42 items done. M5 Chrome and blocks: later, reward: It looks like the real editor, 1 of 18 items done. M6 Save and polish: later, reward: Ready for real work, 3 of 8 items done.</desc>
+<desc id="d">1 of 7 milestones delivered. M0 Harness: done, reward: 1:1 becomes a number, 8 of 9 items done. M1 Oracle page: now, reward: The demo page exists on real Squarespace, 0 of 3 items done. M2 Renderer: next, reward: The published page matches, 14 of 27 items done. M3 Unknowns: later, reward: Nothing left to guess, 4 of 22 unknowns answered. M4 Editor core: later, reward: Drag, resize and edit feel the same, 11 of 42 items done. M5 Chrome and blocks: later, reward: It looks like the real editor, 1 of 18 items done. M6 Save and polish: later, reward: Ready for real work, 3 of 8 items done.</desc>
 <style>
   svg { --bg:#fbfaf7; --card:#ffffff; --line:#e3e0d6; --ink:#1f1e1b; --muted:#6c6a63; --done:#2c7a4b; --now:#b26b00; --todo:#a3a097; --nowbg:#fff6e5; --partbg:#fdf0d8; --unk:#8a6fb0; }
   @media (prefers-color-scheme: dark) {
@@ -14,45 +14,46 @@
 <rect class="bg" width="1200" height="704" rx="16"/>
 <text x="40" y="70" font-size="36" font-weight="700" letter-spacing="-0.8">Fluid editor</text>
 <text x="40" y="102" font-size="19" class="muted">A 1:1 copy of the Fluid Engine editor. Every milestone ships a reward you can see.</text>
-<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">0<tspan class="muted" font-weight="400"> / 7</tspan></text>
+<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">1<tspan class="muted" font-weight="400"> / 7</tspan></text>
 <text x="1160" y="102" font-size="16" text-anchor="end" class="muted">milestones delivered</text>
 <rect x="40" y="124" width="1120" height="8" rx="4" class="track"/>
+<rect x="40" y="124" width="160" height="8" rx="4" class="bar"/>
 <text x="40" y="168" font-size="16"><tspan class="done">✓ delivered</tspan><tspan class="now" dx="24">◐ in progress</tspan><tspan class="todo" dx="24">○ to do</tspan></text>
 <text x="1160" y="168" font-size="16" text-anchor="end" class="muted">M3 runs beside M2 · the oracle is a real Squarespace site</text>
 <g data-milestone="M0">
-<rect x="40" y="196" width="268" height="212" rx="12" class="card on"/>
+<rect x="40" y="196" width="268" height="212" rx="12" class="card"/>
 <text x="60" y="228" font-size="13" font-weight="700" letter-spacing="1.5" class="muted">M0</text>
-<text x="288" y="228" font-size="13" font-weight="700" letter-spacing="1.5" text-anchor="end" class="now">NOW</text>
+<text x="288" y="228" font-size="13" font-weight="700" letter-spacing="1.5" text-anchor="end" class="done">DONE</text>
 <text x="60" y="262" font-size="23" font-weight="600">Harness</text>
 <path d="M60 282H288" class="rule"/>
 <text x="60" y="312" font-size="16">1:1 becomes a number</text>
 <rect x="60" y="346" width="228" height="5" rx="2.5" class="track"/>
-<rect x="60" y="346" width="25.333333333333332" height="5" rx="2.5" class="bar"/>
-<text x="60" y="366" font-size="13" class="muted">1 of 9 items done</text>
-<text x="60" y="392" font-size="15" class="now">◐ in progress</text>
+<rect x="60" y="346" width="202.66666666666666" height="5" rx="2.5" class="bar"/>
+<text x="60" y="366" font-size="13" class="muted">8 of 9 items done</text>
+<text x="60" y="392" font-size="15" class="done">✓ delivered</text>
 </g>
 <g data-milestone="M1">
-<rect x="324" y="196" width="268" height="212" rx="12" class="card"/>
+<rect x="324" y="196" width="268" height="212" rx="12" class="card on"/>
 <text x="344" y="228" font-size="13" font-weight="700" letter-spacing="1.5" class="muted">M1</text>
-<text x="572" y="228" font-size="13" font-weight="700" letter-spacing="1.5" text-anchor="end" class="muted">NEXT</text>
+<text x="572" y="228" font-size="13" font-weight="700" letter-spacing="1.5" text-anchor="end" class="now">NOW</text>
 <text x="344" y="262" font-size="23" font-weight="600">Oracle page</text>
 <path d="M344 282H572" class="rule"/>
 <text x="344" y="312" font-size="16">The demo page exists on real</text>
 <text x="344" y="334" font-size="16">Squarespace</text>
 <rect x="344" y="346" width="228" height="5" rx="2.5" class="track"/>
 <text x="344" y="366" font-size="13" class="muted">0 of 3 items done</text>
-<text x="344" y="392" font-size="15" class="todo">○ to do</text>
+<text x="344" y="392" font-size="15" class="now">◐ in progress</text>
 </g>
 <g data-milestone="M2">
 <rect x="608" y="196" width="268" height="212" rx="12" class="card"/>
 <text x="628" y="228" font-size="13" font-weight="700" letter-spacing="1.5" class="muted">M2</text>
-<text x="856" y="228" font-size="13" font-weight="700" letter-spacing="1.5" text-anchor="end" class="todo">LATER</text>
+<text x="856" y="228" font-size="13" font-weight="700" letter-spacing="1.5" text-anchor="end" class="muted">NEXT</text>
 <text x="628" y="262" font-size="23" font-weight="600">Renderer</text>
 <path d="M628 282H856" class="rule"/>
 <text x="628" y="312" font-size="16">The published page matches</text>
 <rect x="628" y="346" width="228" height="5" rx="2.5" class="track"/>
-<rect x="628" y="346" width="91.2" height="5" rx="2.5" class="bar"/>
-<text x="628" y="366" font-size="13" class="muted">10 of 25 items done</text>
+<rect x="628" y="346" width="118.22222222222223" height="5" rx="2.5" class="bar"/>
+<text x="628" y="366" font-size="13" class="muted">14 of 27 items done</text>
 <text x="628" y="392" font-size="15" class="todo">○ to do</text>
 </g>
 <g data-milestone="M3">
@@ -63,8 +64,8 @@
 <path d="M912 282H1140" class="rule"/>
 <text x="912" y="312" font-size="16">Nothing left to guess</text>
 <rect x="912" y="346" width="228" height="5" rx="2.5" class="track"/>
-<rect x="912" y="346" width="180.22857142857143" height="5" rx="2.5" class="bar"/>
-<text x="912" y="366" font-size="13" class="muted">22 unknowns left</text>
+<rect x="912" y="346" width="41.45454545454545" height="5" rx="2.5" class="bar"/>
+<text x="912" y="366" font-size="13" class="muted">4 of 22 unknowns answered</text>
 <text x="912" y="392" font-size="15" class="todo">○ to do</text>
 </g>
 <g data-milestone="M4">
