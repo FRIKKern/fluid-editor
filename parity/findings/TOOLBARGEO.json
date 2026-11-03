@@ -1,0 +1,1074 @@
+{
+  "item": "TOOLBARGEO",
+  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
+  "capturedAt": "2026-11-03",
+  "question": "Where is the block toolbar relative to the selected block, how does it look, and how is the selection drawn?",
+  "frame": "1600x945",
+  "text": {
+    "block": [
+      92,
+      121,
+      636,
+      194
+    ],
+    "frameTop": 55,
+    "bar": {
+      "box": [
+        4,
+        -60,
+        330,
+        42
+      ],
+      "bg": "rgb(255, 255, 255)",
+      "radius": "6px",
+      "shadow": "none",
+      "padding": "0px",
+      "gap": "normal",
+      "border": "0px none rgb(62, 62, 62)"
+    },
+    "buttons": [
+      {
+        "label": "Write",
+        "box": [
+          8,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px",
+        "icon": null,
+        "text": "",
+        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+      },
+      {
+        "label": "Edit",
+        "box": [
+          48,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px",
+        "icon": null,
+        "text": "",
+        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+      },
+      {
+        "label": "Align Vertically",
+        "box": [
+          89,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px",
+        "icon": null,
+        "text": "",
+        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+      },
+      {
+        "label": "Pin",
+        "box": [
+          129,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(14, 14, 14)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px",
+        "icon": {
+          "size": [
+            20,
+            20
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+      },
+      {
+        "label": "Move Forward",
+        "box": [
+          169,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(183, 183, 183)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "none",
+          "stroke": "rgb(183, 183, 183)",
+          "strokeWidth": "2px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+      },
+      {
+        "label": "Move Backward",
+        "box": [
+          209,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(14, 14, 14)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "none",
+          "stroke": "rgb(14, 14, 14)",
+          "strokeWidth": "2px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+      },
+      {
+        "label": "Duplicate",
+        "box": [
+          254,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+      },
+      {
+        "label": "Remove",
+        "box": [
+          294,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(219, 54, 66)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+      }
+    ],
+    "seps": [
+      {
+        "box": [
+          88,
+          -49,
+          1,
+          20
+        ],
+        "bg": "rgb(231, 231, 231)"
+      },
+      {
+        "box": [
+          249,
+          -49,
+          1,
+          20
+        ],
+        "bg": "rgb(231, 231, 231)"
+      }
+    ],
+    "icon": [
+      20,
+      20
+    ],
+    "outline": [
+      {
+        "cls": "fluid-engine-block-editing-indicator-yui_3_17_2_1_1793705593367_16145",
+        "box": [
+          0,
+          0,
+          636,
+          194
+        ],
+        "outline": "",
+        "border": "3px solid rgba(0, 0, 0, 0)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          1,
+          1,
+          634,
+          192
+        ],
+        "outline": "",
+        "border": "2px solid rgba(0, 0, 0, 0)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          -2,
+          -2,
+          640,
+          198
+        ],
+        "outline": "",
+        "border": "1px solid rgb(108, 164, 244)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          -1,
+          -1,
+          638,
+          196
+        ],
+        "outline": "",
+        "border": "1px solid rgb(2, 122, 255)",
+        "shadow": ""
+      }
+    ],
+    "pill": []
+  },
+  "shape": {
+    "block": [
+      856,
+      80,
+      577,
+      400
+    ],
+    "frameTop": 55,
+    "bar": {
+      "box": [
+        4,
+        -56.5,
+        254,
+        42
+      ],
+      "bg": "rgb(255, 255, 255)",
+      "radius": "6px",
+      "shadow": "none",
+      "padding": "0px",
+      "gap": "normal",
+      "border": "0px none rgb(62, 62, 62)"
+    },
+    "buttons": [
+      {
+        "label": "Edit",
+        "box": [
+          8,
+          -53.5,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Pin",
+        "box": [
+          53,
+          -53.5,
+          36,
+          36
+        ],
+        "color": "rgb(14, 14, 14)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Move Forward",
+        "box": [
+          93,
+          -53.5,
+          36,
+          36
+        ],
+        "color": "rgb(183, 183, 183)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Move Backward",
+        "box": [
+          133,
+          -53.5,
+          36,
+          36
+        ],
+        "color": "rgb(14, 14, 14)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Duplicate",
+        "box": [
+          178,
+          -53.5,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Remove",
+        "box": [
+          218,
+          -53.5,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      }
+    ],
+    "seps": [
+      {
+        "box": [
+          48,
+          -45.5,
+          1,
+          20
+        ],
+        "bg": "rgb(231, 231, 231)"
+      },
+      {
+        "box": [
+          173,
+          -45.5,
+          1,
+          20
+        ],
+        "bg": "rgb(231, 231, 231)"
+      }
+    ],
+    "icon": [
+      22,
+      22
+    ],
+    "outline": [
+      {
+        "cls": "fluid-engine-block-editing-indicator-yui_3_17_2_1_1793705593367_16395",
+        "box": [
+          0,
+          0,
+          577,
+          400
+        ],
+        "outline": "",
+        "border": "3px solid rgba(0, 0, 0, 0)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          1,
+          1,
+          575,
+          398
+        ],
+        "outline": "",
+        "border": "2px solid rgba(0, 0, 0, 0)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          -2,
+          -2,
+          581,
+          404
+        ],
+        "outline": "",
+        "border": "1px solid rgb(108, 164, 244)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          -1,
+          -1,
+          579,
+          402
+        ],
+        "outline": "",
+        "border": "1px solid rgb(2, 122, 255)",
+        "shadow": ""
+      }
+    ],
+    "pill": []
+  },
+  "button": {
+    "block": [
+      92,
+      120,
+      283,
+      71
+    ],
+    "frameTop": 55,
+    "bar": {
+      "box": [
+        4,
+        -60,
+        305.7,
+        42
+      ],
+      "bg": "rgb(255, 255, 255)",
+      "radius": "6px",
+      "shadow": "none",
+      "padding": "0px",
+      "gap": "normal",
+      "border": "0px none rgb(62, 62, 62)"
+    },
+    "buttons": [
+      {
+        "label": "Edit",
+        "box": [
+          8,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(49, 49, 49)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+      },
+      {
+        "label": "Primary",
+        "box": [
+          53,
+          -57,
+          96.7,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "Primary",
+        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+      },
+      {
+        "label": "Open link editor popover",
+        "box": [
+          149.7,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px",
+        "icon": null,
+        "text": "",
+        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+      },
+      {
+        "label": "Pin",
+        "box": [
+          189.7,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(14, 14, 14)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px",
+        "icon": {
+          "size": [
+            20,
+            20
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+      },
+      {
+        "label": "Duplicate",
+        "box": [
+          229.7,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+      },
+      {
+        "label": "Remove",
+        "box": [
+          269.7,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(219, 54, 66)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+      }
+    ],
+    "seps": [
+      {
+        "box": [
+          48,
+          -49,
+          1,
+          20
+        ],
+        "bg": "rgb(231, 231, 231)"
+      }
+    ],
+    "icon": [
+      22,
+      22
+    ],
+    "outline": [
+      {
+        "cls": "fluid-engine-block-editing-indicator-yui_3_17_2_1_1793705139153_932",
+        "box": [
+          0,
+          0,
+          283,
+          71
+        ],
+        "outline": "",
+        "border": "3px solid rgba(0, 0, 0, 0)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          1,
+          1,
+          281,
+          69
+        ],
+        "outline": "",
+        "border": "2px solid rgba(0, 0, 0, 0)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          -2,
+          -2,
+          287,
+          75
+        ],
+        "outline": "",
+        "border": "1px solid rgb(108, 164, 244)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          -1,
+          -1,
+          285,
+          73
+        ],
+        "outline": "",
+        "border": "1px solid rgb(2, 122, 255)",
+        "shadow": ""
+      },
+      {
+        "cls": "sqs-block-button-element--medium.sqs-button-element--primary.sqs-block-button-el",
+        "box": [
+          0,
+          0,
+          283,
+          71
+        ],
+        "outline": "",
+        "border": "0px solid rgb(255, 255, 255)",
+        "shadow": ""
+      },
+      {
+        "cls": "fluid-engine-block-editing-indicator-yui_3_17_2_1_1793705593367_17180",
+        "box": [
+          0,
+          2162,
+          283,
+          71
+        ],
+        "outline": "",
+        "border": "3px solid rgba(0, 0, 0, 0)",
+        "shadow": ""
+      }
+    ],
+    "pill": []
+  },
+  "text at page top": {
+    "block": [
+      92,
+      121,
+      812,
+      112
+    ],
+    "frameTop": 55,
+    "bar": {
+      "box": [
+        4,
+        -60,
+        250,
+        42
+      ],
+      "bg": "rgb(255, 255, 255)",
+      "radius": "6px",
+      "shadow": "none",
+      "padding": "0px",
+      "gap": "normal",
+      "border": "0px none rgb(62, 62, 62)"
+    },
+    "buttons": [
+      {
+        "label": "Write",
+        "box": [
+          8,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Edit",
+        "box": [
+          48,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Align Vertically",
+        "box": [
+          89,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Pin",
+        "box": [
+          129,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(14, 14, 14)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Duplicate",
+        "box": [
+          174,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Remove",
+        "box": [
+          214,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      }
+    ],
+    "seps": [
+      {
+        "box": [
+          88,
+          -49,
+          1,
+          20
+        ],
+        "bg": "rgb(231, 231, 231)"
+      },
+      {
+        "box": [
+          169,
+          -49,
+          1,
+          20
+        ],
+        "bg": "rgb(231, 231, 231)"
+      }
+    ],
+    "icon": [
+      20,
+      20
+    ],
+    "outline": [
+      {
+        "cls": "fluid-engine-block-editing-indicator-yui_3_17_2_1_1793705139153_437",
+        "box": [
+          0,
+          0,
+          812,
+          112
+        ],
+        "outline": "",
+        "border": "3px solid rgba(0, 0, 0, 0)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          1,
+          1,
+          810,
+          110
+        ],
+        "outline": "",
+        "border": "2px solid rgba(0, 0, 0, 0)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          -2,
+          -2,
+          816,
+          116
+        ],
+        "outline": "",
+        "border": "1px solid rgb(108, 164, 244)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          -1,
+          -1,
+          814,
+          114
+        ],
+        "outline": "",
+        "border": "1px solid rgb(2, 122, 255)",
+        "shadow": ""
+      }
+    ],
+    "pill": []
+  },
+  "text at section top": {
+    "block": [
+      92,
+      121,
+      930,
+      153
+    ],
+    "frameTop": 55,
+    "bar": {
+      "box": [
+        4,
+        -60,
+        330,
+        42
+      ],
+      "bg": "rgb(255, 255, 255)",
+      "radius": "6px",
+      "shadow": "none",
+      "padding": "0px",
+      "gap": "normal",
+      "border": "0px none rgb(62, 62, 62)"
+    },
+    "buttons": [
+      {
+        "label": "Write",
+        "box": [
+          8,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Edit",
+        "box": [
+          48,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Align Vertically",
+        "box": [
+          89,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Pin",
+        "box": [
+          129,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(14, 14, 14)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Move Forward",
+        "box": [
+          169,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(14, 14, 14)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Move Backward",
+        "box": [
+          209,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(183, 183, 183)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Duplicate",
+        "box": [
+          254,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      },
+      {
+        "label": "Remove",
+        "box": [
+          294,
+          -57,
+          36,
+          36
+        ],
+        "color": "rgb(62, 62, 62)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "radius": "3px"
+      }
+    ],
+    "seps": [
+      {
+        "box": [
+          88,
+          -49,
+          1,
+          20
+        ],
+        "bg": "rgb(231, 231, 231)"
+      },
+      {
+        "box": [
+          249,
+          -49,
+          1,
+          20
+        ],
+        "bg": "rgb(231, 231, 231)"
+      }
+    ],
+    "icon": [
+      20,
+      20
+    ],
+    "outline": [
+      {
+        "cls": "fluid-engine-block-editing-indicator-yui_3_17_2_1_1793705593367_16670",
+        "box": [
+          0,
+          0,
+          930,
+          153
+        ],
+        "outline": "",
+        "border": "3px solid rgba(0, 0, 0, 0)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          1,
+          1,
+          928,
+          151
+        ],
+        "outline": "",
+        "border": "2px solid rgba(0, 0, 0, 0)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          -2,
+          -2,
+          934,
+          157
+        ],
+        "outline": "",
+        "border": "1px solid rgb(108, 164, 244)",
+        "shadow": ""
+      },
+      {
+        "cls": "",
+        "box": [
+          -1,
+          -1,
+          932,
+          155
+        ],
+        "outline": "",
+        "border": "1px solid rgb(2, 122, 255)",
+        "shadow": ""
+      }
+    ],
+    "pill": []
+  },
+  "cases": {
+    "text": [
+      2,
+      1
+    ],
+    "shape": [
+      2,
+      2
+    ],
+    "button": [
+      0,
+      2
+    ],
+    "text at page top": [
+      0,
+      0
+    ],
+    "text at section top": [
+      3,
+      0
+    ]
+  }
+}

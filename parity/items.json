@@ -791,7 +791,7 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Hover and selection outlines, handles, label pill",
-    "evidence": "Handles: 10px squares, white, 2px rgb(2,122,255), cursors nw/ne/se/sw-resize, row-resize, col-resize (applied). Blocks carry a label pill with their type, e.g. \"Text\" (sqs-block-label-tag). Hover not measured"
+    "evidence": "Handles: 10px squares, white, 2px rgb(2,122,255), cursors nw/ne/se/sw-resize, row-resize, col-resize. Selection: two 1px rings outside the block, #027aff inside and #6ca4f4 outside (parity/findings/TOOLBARGEO.json); ours draws the same rings (npm run chrome-check). Blocks carry a label pill with their type, e.g. \"Text\" (sqs-block-label-tag). Hover not measured"
   },
   {
     "id": "U4",
@@ -799,7 +799,7 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Block toolbar: edit, design, duplicate, delete, layers",
-    "evidence": "parity/findings/TOOLBARS.json at a 1600px window: desktop text Write, Edit, Align Vertically, Pin, Move Forward, Move Backward, Duplicate, Remove; shape Edit, Pin, Move Forward, Move Backward, Duplicate, Remove; button Edit, Primary, link editor, Pin, Duplicate, Remove. Phones drop Duplicate, Move Forward/Backward and the button style and link: text Write, Edit, Align Vertically, Pin, Move Up, Move Down, Remove; shape and button Edit, Pin, Move Up, Move Down, Remove. At a 773px window the editor shows its sidebar and Move Forward/Backward are missing. Section toolbar: Add Block, Layers, Edit Section, View Layouts, Duplicate, Save, Move Up/Down, Remove. Our panel has Move Forward/Backward on desktop and Move Up/Down on phones (T0020, T0021), Duplicate (Cmd+D) and Remove (Delete) as keys; no floating toolbar, Write, Pin or Edit panel yet"
+    "evidence": "The floating toolbar (parity/findings/TOOLBARGEO.json, 5 blocks at a 1600px window): white, 42px tall, 6px radius, no shadow, 4px right of the block and 60px above it, never closer than 23.5px to the canvas top; 36px buttons 4px apart, 1px by 20px #e7e7e7 separators, icons #0e0e0e, Remove #db3642, unavailable #b7b7b7. Buttons per type and layout as in parity/findings/TOOLBARS.json; Move Forward and Backward only when the block overlaps another. Ours matches the toolbar box, every button and separator box, the labels and the rings within 1px: npm run chrome-check, 64 of 64 (parity/chrome-check.json). Write, Align Vertically, Move Forward/Backward, Move Up/Down, Duplicate and Remove work. Our icons are our own. Not built: Edit (the block panel), Pin, the button style menu and link; Align Vertically cycles top, middle and bottom instead of opening a menu; phone separators are not measured"
   },
   {
     "id": "U5",

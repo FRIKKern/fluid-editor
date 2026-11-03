@@ -1,0 +1,73 @@
+// The floating block toolbar (U3, U4), measured on the oracle at a 1600px window
+// (parity/findings/TOOLBARGEO.json, TOOLBARS.json):
+//   box        white, 42px tall, 6px radius, no shadow, 4px padding; its left edge 4px right of
+//              the block, its top 60px above the block, never closer than 23.5px to the
+//              canvas top
+//   buttons    36px squares 4px apart, 3px radius; icons 22px (Pin 20px) in #0e0e0e, Remove
+//              #db3642, unavailable #b7b7b7; separators 1 by 20px #e7e7e7
+//   per type   text: Write, Edit | Align Vertically, Pin, [Move Forward, Move Backward] | Duplicate, Remove
+//              button: Edit | Primary, Link, Pin, Duplicate, Remove
+//              others: Edit | Pin, [Move Forward, Move Backward] | Duplicate, Remove
+//              Move Forward and Backward show only when the block overlaps another block.
+//   phones     Duplicate and the z buttons give way to Move Up and Move Down; the button style
+//              and link go. Separators on phones are not measured; ours keep the desktop groups.
+// The icons are ours (O2: no Squarespace assets).
+
+const ICON = {
+  edit: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/>',
+  align: '<path d="M5 4h14"/><path d="M12 8v12"/><path d="M8 12l4-4 4 4"/>',
+  pin: '<path d="M14 3l7 7-3 1-4 4 1 5-2 1-4-4-5 5-1-1 5-5-4-4 1-2 5 1 4-4z"/>',
+  forward: '<rect x="8" y="8" width="12" height="12" rx="1"/><path d="M4 16V5a1 1 0 0 1 1-1h11" stroke-dasharray="2 2"/>',
+  backward: '<rect x="4" y="4" width="12" height="12" rx="1" stroke-dasharray="2 2"/><path d="M20 8v11a1 1 0 0 1-1 1H8"/>',
+  duplicate: '<rect x="8" y="8" width="12" height="12" rx="1"/><path d="M4 16V5a1 1 0 0 1 1-1h11"/>',
+  remove: '<path d="M4 6h16"/><path d="M9 6V4h6v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 10v6M14 10v6"/>',
+  link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  up: '<path d="M12 19V5"/><path d="M6 11l6-6 6 6"/>',
+  down: '<path d="M12 5v14"/><path d="M6 13l6 6 6-6"/>',
+  chevron: '<path d="M8 10l4 4 4-4"/>',
+};
+const svg = (name, size = 22) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[name]}</svg>`;
+
+const B = {
+  write: { label: 'Write', html: '<span class="tb-write">Aa</span>' },
+  edit: { label: 'Edit', html: svg('edit') },
+  align: { label: 'Align Vertically', html: svg('align'), cls: 'tb-flush' },
+  pin: { label: 'Pin', html: svg('pin', 20) },
+  'z+': { label: 'Move Forward', html: svg('forward') },
+  'z-': { label: 'Move Backward', html: svg('backward') },
+  duplicate: { label: 'Duplicate', html: svg('duplicate') },
+  remove: { label: 'Remove', html: svg('remove'), cls: 'tb-remove' },
+  primary: { label: 'Primary', html: `<span class="tb-text">Primary</span>${svg('chevron')}`, cls: 'tb-wide' },
+  link: { label: 'Open link editor popover', html: svg('link'), cls: 'tb-flush' },
+  up: { label: 'Move Up', html: svg('up') },
+  down: { label: 'Move Down', html: svg('down') },
+};
+
+// The groups of buttons for a block, with '|' for a separator.
+export function toolbarItems(type, bp, z) {
+  const zs = z.overlaps ? ['z+', 'z-'] : [];
+  if (bp === 'mobile') {
+    if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', 'up', 'down', '|', 'remove'];
+    return ['edit', '|', 'pin', 'up', 'down', '|', 'remove'];
+  }
+  if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove'];
+  if (type === 'button') return ['edit', '|', 'primary', 'link', 'pin', 'duplicate', 'remove'];
+  return ['edit', '|', 'pin', ...zs, '|', 'duplicate', 'remove'];
+}
+
+export function toolbarHtml(items, z) {
+  return items.map((k) => {
+    if (k === '|') return '<span class="tb-sep" aria-hidden="true"></span>';
+    const b = B[k];
+    const off = (k === 'z+' && !z.above) || (k === 'z-' && !z.below);
+    return `<button type="button" class="tb-btn ${b.cls || ''}${off ? ' is-off' : ''}" data-tb="${k}" aria-label="${b.label}" title="${b.label}">${b.html}</button>`;
+  }).join('');
+}
+
+// Where the toolbar goes, in the stage's coordinates.
+export function toolbarPosition(frameRect, stageRect, blockRect) {
+  return {
+    left: frameRect.left - stageRect.left + blockRect.left + 4,
+    top: frameRect.top - stageRect.top + Math.max(blockRect.top - 60, 23.5),
+  };
+}

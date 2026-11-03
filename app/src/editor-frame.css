@@ -21,7 +21,8 @@ html { overflow-anchor: none; }
   border: 1px solid #b7b7b7; border-radius: 3px; background: #f2f2f240;
 }
 
-.fe-indicator { pointer-events: none; position: relative; outline: 1px solid rgb(2, 122, 255); }
+/* Selection (U3, parity/findings/TOOLBARGEO.json): two 1px rings outside the block, #027aff inside and #6ca4f4 outside. */
+.fe-indicator { pointer-events: none; position: relative; box-shadow: 0 0 0 1px rgb(2, 122, 255), 0 0 0 2px rgb(108, 164, 244); }
 /* Handles measured on the oracle 2026-11-03: 10px squares, white, 2px rgb(2, 122, 255) border. */
 .fe-handle {
   position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; box-sizing: border-box;
