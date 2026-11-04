@@ -1662,8 +1662,14 @@ function boot() {
   });
   renderAll();
   // Expose state for automated checks (cmux / Playwright).
-  // Replay mode (?replay) hides the panel so the canvas width matches the oracle frame.
+  // Replay mode (?replay) always hides the inspector so the canvas width matches the oracle frame.
   if (new URLSearchParams(location.search).has('replay')) document.body.classList.add('is-replay');
+  // The inspector side panel: off by default, remembered per browser (developer menu).
+  const insp = $('inspector-toggle');
+  const setInspector = (on) => { document.body.classList.toggle('show-inspector', on); insp.setAttribute('aria-pressed', String(on)); insp.textContent = on ? 'Hide inspector' : 'Show inspector'; try { localStorage.setItem('fe-inspector', on ? '1' : ''); } catch {} placeChrome?.(); };
+  let inspOn = false; try { inspOn = localStorage.getItem('fe-inspector') === '1'; } catch {}
+  setInspector(inspOn);
+  insp.addEventListener('click', () => setInspector(!document.body.classList.contains('show-inspector')));
   window.fe = {
     get model() { return model; },
     get bp() { return bp; },
