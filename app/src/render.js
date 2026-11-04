@@ -161,10 +161,13 @@ function blockInner(b, model) {
       return `<div class="sqs-block stack-block sqs-block-stack" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-stack-container direction-${b.direction || 'column'}" style="--stack-gap:${b.gap ?? 20}px">${kids}</div></div></div>`;
     }
     case 'image': {
-      // Image blocks (T4) fill their grid area; the picture is a neutral placeholder
-      // here (oracle images stay out of the repo, QUALITY.md O2).
+      // Image blocks (T4): Fill, the default here, covers the block. Fit and Shape are measured
+      // in parity/findings/IMAGEMODES.json. The picture is a neutral placeholder (QUALITY.md O2),
+      // so Fit uses b.aspect, or 3:2 when the block has none.
       const r = b.radius ? `border-radius:${b.radius};` : '';
-      return `<div class="sqs-block image-block sqs-block-image sqs-stretched" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-container" style="${r}" role="img" aria-label="${escapeHtml(b.alt || '')}"></div></div></div>`;
+      const mode = b.mode === 'fit' || b.mode === 'shape' ? ` image-mode-${b.mode}` : '';
+      const aspect = b.mode === 'fit' ? `--image-aspect:${Number(b.aspect) || 1.5};` : '';
+      return `<div class="sqs-block image-block sqs-block-image sqs-stretched${mode}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-container" style="${r}${aspect}" role="img" aria-label="${escapeHtml(b.alt || '')}"></div></div></div>`;
     }
     case 'form': {
       // Form block (T9), sized to the oracle Contact form (parity/findings/T9.json).
