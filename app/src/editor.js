@@ -7,7 +7,7 @@ import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
 import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition } from './block-panel.js';
-import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml } from './menus.js';
+import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
 import { siteStylesHtml } from './site-styles.js';
@@ -1565,7 +1565,7 @@ addSectionPanel.addEventListener('click', (e) => {
 });
 addSectionPanel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeAddSection(); } });
 
-function closeFloating() { addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('link-popover').hidden = true; }
+function closeFloating() { addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('arrange-menu').hidden = true; $('link-popover').hidden = true; }
 addMenu.addEventListener('input', (e) => {
   if (!e.target.matches('[data-am="search"]')) return;
   const q = e.target.value;
@@ -1629,13 +1629,15 @@ contextMenu.addEventListener('click', (e) => {
   const it = e.target.closest('button[data-cm]');
   if (!it || it.disabled || !sel) return;
   const act = it.dataset.cm;
-  contextMenu.hidden = true;
+  if (act === 'arrange') { openArrange(it); return; }
+  contextMenu.hidden = true; arrangeMenu.hidden = true;
   if (it.hasAttribute('data-unbuilt')) { note(`${it.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
   const before = JSON.stringify(model);
   const sid = sel.sid;
   if (act === 'duplicate') duplicateBlock(sid, sel.bid);
   if (act === 'delete') { const ids = [sel.bid, ...(sel.more || [])]; S(sid).blocks = S(sid).blocks.filter((b) => !ids.includes(b.id)); sel = null; }
   if (act === 'stack') stackBlocks();
+  if (act.startsWith('z-')) arrange(sid, sel.bid, act.slice(2));
   if (act === 'hide-desktop' || act === 'hide-mobile') hideBlocks(sid, [sel.bid, ...(sel.more || [])], act === 'hide-desktop' ? 'desktop' : 'mobile');
   renderSectionDom(sid);
   commit(before, `${it.getAttribute('aria-label')} from the block menu`);
@@ -1660,6 +1662,49 @@ function unhideBlock(sid, id) {
   commit(before, `Showed ${id} on ${bp}`);
   renderLayersPanel();
 }
+
+// Arrange (ARRANGE.json): to front or back, or forward or backward past every block it
+// overlaps on that side; then the section's blocks are numbered 1 to n in that order (the oracle renumbered
+// 1, 2, 3 after each move).
+function overlaps(a, b) { return a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3]; }
+function arrange(sid, bid, how) {
+  const s = S(sid), b = B(sid, bid);
+  const order = [...s.blocks].sort((x, y) => lay(x).z - lay(y).z).filter((x) => x !== b);
+  let at;
+  const mine = [...s.blocks].sort((x, y) => lay(x).z - lay(y).z).indexOf(b);
+  if (how === 'front') at = order.length;
+  else if (how === 'back') at = 0;
+  else {
+    const all = [...s.blocks].sort((x, y) => lay(x).z - lay(y).z);
+    // Past every block it overlaps in that direction: the heading overlapping the paragraph (2)
+    // and the shape (3) went to 3 on the oracle.
+    const range = how === 'forward' ? all.slice(mine + 1).reverse() : all.slice(0, mine);
+    const hit = range.find((o) => overlaps(lay(o).area, lay(b).area));
+    if (!hit) return;
+    const k = order.indexOf(hit);
+    at = how === 'forward' ? k + 1 : k;
+  }
+  order.splice(at, 0, b);
+  order.forEach((x, n) => { lay(x).z = n + 1; });
+}
+const arrangeMenu = $('arrange-menu');
+function openArrange(item) {
+  arrangeMenu.innerHTML = arrangeMenuHtml();
+  const r = item.getBoundingClientRect(), st = stage.getBoundingClientRect();
+  arrangeMenu.style.left = `${r.right - st.left + 4}px`;
+  arrangeMenu.style.top = `${r.top - st.top - 6}px`;
+  arrangeMenu.hidden = false;
+}
+arrangeMenu.addEventListener('mousedown', (e) => e.preventDefault());
+arrangeMenu.addEventListener('click', (e) => {
+  const it = e.target.closest('button[data-cm]');
+  if (!it || !sel) return;
+  arrangeMenu.hidden = true; contextMenu.hidden = true;
+  const before = JSON.stringify(model);
+  arrange(sel.sid, sel.bid, it.dataset.cm.slice(2));
+  renderSectionDom(sel.sid);
+  commit(before, `${it.getAttribute('aria-label')} from Arrange`);
+});
 
 function onHover(e) {
   if (document.body.classList.contains('is-preview')) return;
