@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 43 changes
+- **Today** · 44 changes
+  - P5: section background image, Image/Video/Art radios, Color Theme Editor, Aa on themes ([#101](https://github.com/FRIKKern/fluid-editor/pull/101))
   - U11: Copy and Paste of blocks, Copy and Paste Properties for transforms ([#100](https://github.com/FRIKKern/fluid-editor/pull/100))
-  - X2: flags during a gesture as in the traces, mid-check ([#99](https://github.com/FRIKKern/fluid-editor/pull/99))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
