@@ -20,17 +20,29 @@ export async function click(find, { inFrame = false, wait = 1200 } = {}) {
   await pause(wait);
 }
 
-export async function hoverSection(i) {
+export async function hoverSection(i, top = 80) {
   cmux('frame', '#sqs-site-frame');
   try {
-    // scrollIntoView does not move the editor frame; scrolling its window does.
-    evalJs(SURFACE, `(() => { const s = document.querySelectorAll('main#page .page-section')[${i}]; document.querySelectorAll('#fx-hover').forEach((x) => x.removeAttribute('id')); scrollTo(0, scrollY + s.getBoundingClientRect().top - 80); s.id = 'fx-hover'; return JSON.stringify(true); })()`);
+    // scrollIntoView does not move the editor frame; scrolling its window does. The page scrolls
+    // smoothly, so a plain scrollTo is still moving when the next step reads a box.
+    evalJs(SURFACE, `(() => { const s = document.querySelectorAll('main#page .page-section')[${i}]; document.querySelectorAll('#fx-hover').forEach((x) => x.removeAttribute('id')); scrollTo({ top: scrollY + s.getBoundingClientRect().top - ${top}, behavior: 'instant' }); s.id = 'fx-hover'; return JSON.stringify(true); })()`);
     await pause(400);
     cmux('hover', '#fx-hover');
   } finally {
     cmux('frame', 'main');
   }
   await pause(700);
+}
+
+// Open Edit Section on section i, and retry: the click after a panel closed opens nothing. The
+// toolbar of the section above can show too; this section's own is the lowest.
+export async function openSectionPanel(i, top = 80) {
+  const open = () => evalJs(SURFACE, `(() => JSON.stringify(!![...document.querySelectorAll('[role=tab]')].find((e) => e.textContent.trim() === 'Design' && e.getBoundingClientRect().width > 0)))()`) === true;
+  for (let t = 0; t < 4 && !open(); t++) {
+    await hoverSection(i, top);
+    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute('aria-label'), x.textContent].some((t) => /edit section|open section settings/i.test(t || '')) && x.getBoundingClientRect().width > 0).filter((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 70 && y <= fr.top + sec.bottom; }).at(-1); }`, { wait: 1200 });
+  }
+  if (!open()) throw new Error(`openSectionPanel: section ${i} did not open`);
 }
 
 const byText = (sel, text) => `() => [...document.querySelectorAll('${sel}')].filter((x) => x.getBoundingClientRect().width > 0).find((x) => [x.getAttribute('aria-label'), x.textContent].some((t) => (t || '').trim().toLowerCase() === ${JSON.stringify(text.toLowerCase())}))`;
@@ -145,6 +157,8 @@ export async function editText(i, id) {
 }
 
 export async function escape() {
+  // A synthetic Escape does not close a panel in Chrome; a real one does.
+  if (SURFACE.startsWith('cdp:')) { cmux('press', 'Escape'); await pause(500); return; }
   evalJs(SURFACE, `(() => { ${FRAME} const t = d.activeElement || d.body; for (const type of ['keydown', 'keyup']) t.dispatchEvent(new W.KeyboardEvent(type, { key: 'Escape', code: 'Escape', keyCode: 27, bubbles: true, cancelable: true, composed: true })); return 'true'; })()`);
   await pause(500);
 }
@@ -218,7 +232,7 @@ function linePx(g, c, r) {
 export async function select(i, id) {
   evalJs(SURFACE, `(async () => { ${FRAME}
     const b = d.querySelectorAll('main#page .fluid-engine')[${i}].querySelector('.fe-block[data-block-id="${id}"]');
-    { const q0 = b.getBoundingClientRect(); if (q0.top < 60 || q0.bottom > W.innerHeight - 20) W.scrollTo(0, W.scrollY + q0.top - 120); }
+    { const q0 = b.getBoundingClientRect(); if (q0.top < 60 || q0.bottom > W.innerHeight - 20) W.scrollTo({ top: W.scrollY + q0.top - 120, behavior: 'instant' }); }
     await new Promise((res) => setTimeout(res, 400));
     const q = b.getBoundingClientRect();
     const o = { bubbles: true, cancelable: true, composed: true, clientX: q.left + q.width / 2, clientY: q.top + q.height / 2, button: 0, pointerId: 1, isPrimary: true, pointerType: 'mouse', view: W };

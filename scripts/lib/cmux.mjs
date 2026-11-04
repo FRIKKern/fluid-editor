@@ -110,12 +110,15 @@ export function ensureVisible(surface) {
   return true;
 }
 
-// Geometry is compared with the oracle as WebKit draws it in a cmux tab. Headless Chrome has no
-// layout scrollbar and a 500px minimum width, so its boxes differ for reasons unrelated to us:
-// geometry checks refuse it.
-export function requireWebKit(surface, check) {
-  if (isCdp(surface)) {
-    console.error(`${check} compares geometry with the oracle as WebKit draws it; run it on a cmux surface, not ${surface}.`);
-    process.exit(2);
-  }
+// Geometry is compared within one browser engine: a scrollbar is 15 or 17px in WebKit and 0 in
+// headless Chrome, and text wraps at different widths (docs/decisions/0006). `oracle` is the live
+// oracle surface, or a finding: one recorded on a cdp surface says engine: "chrome", an older one
+// says nothing and is WebKit.
+const engineOf = (s) => (isCdp(s) ? 'chrome' : 'webkit');
+export const engine = engineOf;
+export function requireSameEngine(surface, check, oracle) {
+  const want = typeof oracle === 'string' ? engineOf(oracle) : oracle?.engine || 'webkit';
+  if (engineOf(surface) === want) return;
+  console.error(`${check} compares geometry with an oracle reading from ${want}; ${surface} is ${engineOf(surface)}. Run it on a ${want === 'chrome' ? 'cdp:<port>' : 'cmux'} surface, or record the oracle again.`);
+  process.exit(2);
 }

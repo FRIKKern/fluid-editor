@@ -1,45 +1,122 @@
 {
   "gate": "B",
-  "oracle": "editor preview on surface:40",
-  "ours": "http://127.0.0.1:5178/page.html?page=home",
+  "engine": "chrome",
+  "oracle": "editor preview on headless Chrome",
+  "ours": "http://127.0.0.1:5210/page.html?page=home",
   "tolerance": 1,
   "widths": [
     {
       "width": 375,
-      "blocks": 44,
-      "pass": 44,
+      "blocks": 45,
+      "pass": 40,
       "swappedSections": null,
-      "fails": []
+      "fails": [
+        {
+          "block": "fe-6ae35c85908fad60b011d3b1 section",
+          "oracle": [
+            0,
+            0,
+            375,
+            915.4
+          ],
+          "ours": [
+            0,
+            0,
+            375,
+            907.7
+          ]
+        },
+        {
+          "block": "fe-6ae35c85908fad60b011d3b1 fe-block-f430c693d7a1b697a4f4",
+          "oracle": [
+            22.5,
+            35,
+            116.9,
+            66.6
+          ],
+          "ours": [
+            22.5,
+            35,
+            116.9,
+            59
+          ]
+        },
+        {
+          "block": "fe-6ae35c85908fad60b011d3b1 fe-block-1803bf1bd8248d6b035f",
+          "oracle": [
+            22.5,
+            112.6,
+            330,
+            275.4
+          ],
+          "ours": [
+            22.5,
+            105,
+            330,
+            275.4
+          ]
+        },
+        {
+          "block": "fe-6ae35c85908fad60b011d3b1 fe-block-528806754e75de52045b",
+          "oracle": [
+            22.5,
+            434,
+            330,
+            179.3
+          ],
+          "ours": [
+            22.5,
+            426.4,
+            330,
+            179.3
+          ]
+        },
+        {
+          "block": "fe-6ae35c85908fad60b011d3b1 fe-block-379ac76753d8f92cac8a",
+          "oracle": [
+            22.5,
+            659.3,
+            330,
+            256.1
+          ],
+          "ours": [
+            22.5,
+            651.7,
+            330,
+            256.1
+          ]
+        }
+      ]
     },
     {
       "width": 767,
-      "blocks": 44,
-      "pass": 44,
+      "blocks": 45,
+      "pass": 45,
       "swappedSections": null,
       "fails": []
     },
     {
       "width": 768,
-      "blocks": 44,
-      "pass": 44,
+      "blocks": 45,
+      "pass": 45,
       "swappedSections": null,
       "fails": []
     },
     {
       "width": 1280,
-      "blocks": 44,
-      "pass": 44,
+      "blocks": 45,
+      "pass": 45,
       "swappedSections": null,
       "fails": []
     },
     {
       "width": 1920,
-      "blocks": 44,
-      "pass": 44,
+      "blocks": 45,
+      "pass": 45,
       "swappedSections": null,
       "fails": []
     }
   ],
   "pass": 220,
-  "total": 220
+  "total": 225
 }

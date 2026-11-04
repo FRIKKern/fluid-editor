@@ -5,7 +5,7 @@
 // node scripts/oracle-record.mjs --surface surface:40 --id T0001-key-right --journey J07 \
 //   --items R1,R4,Y1 --section 0 --target first --keys ArrowRight
 import { writeFileSync } from 'node:fs';
-import { browser, evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
+import { browser, evalJs, waitFor, reload, pause, engine } from './lib/cmux.mjs';
 import { READY, LOADED, ENTER_EDIT, READ, SELECT, KEY, BUTTON } from './oracle/snippets.mjs';
 import { validate, diffStates } from './lib/trace.mjs';
 import { pitch, hold, release, blockEl, handleEl, click } from './oracle/ui.mjs';
@@ -133,7 +133,7 @@ const trace = {
   id,
   journey: arg('journey', 'J07'),
   items: arg('items', 'R1').split(','),
-  oracle: { editor: 'https://halibut-keyboard-jlhd.squarespace.com/config/pages', page: pagePath, capturedAt: new Date().toISOString().slice(0, 10), frameWidth: before.frameWidth },
+  oracle: { editor: 'https://halibut-keyboard-jlhd.squarespace.com/config/pages', page: pagePath, capturedAt: new Date().toISOString().slice(0, 10), frameWidth: before.frameWidth, engine: engine(surface) },
   layout: before.layout,
   section: { id: before.sectionId, index, gap: before.gap, rowGap: before.rowGap },
   view,

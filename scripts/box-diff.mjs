@@ -1,12 +1,12 @@
 // H4 and Gate B: measure every .fe-block box, relative to its section, at each
-// width, on two pages, and require them within 1px. Runs in a cmux browser tab.
+// width, on two pages, and require them within 1px. Both sides run in one engine: two cmux tabs or two cdp: surfaces.
 //
 // Two pages:     node scripts/box-diff.mjs --oracle <url> --ours <url>
 // One page, our CSS swapped in for each captured section (no other change):
 //                node scripts/box-diff.mjs --oracle <url> --swap
 // Options: --surface surface:45 --widths 375,767,768,1280,1920 --tolerance 1
 import { readFileSync, writeFileSync } from 'node:fs';
-import { browser, evalJs, waitFor, goto, viewport, resetViewport, pause, requireWebKit } from './lib/cmux.mjs';
+import { browser, evalJs, waitFor, goto, viewport, resetViewport, pause, requireSameEngine, engine } from './lib/cmux.mjs';
 import { ensureVisible } from './lib/cmux.mjs';
 import { parseSectionCss } from './lib/parse.mjs';
 import { sectionCss } from '../app/src/render.js';
@@ -17,7 +17,6 @@ const arg = (n, d) => {
   return i >= 0 ? args[i + 1] : d;
 };
 const surface = arg('surface', process.env.FLUID_SURFACE || 'surface:59');
-requireWebKit(surface, 'Gate B (box-diff)');
 const oracle = arg('oracle');
 const ours = arg('ours');
 const swap = args.includes('--swap');
@@ -25,6 +24,7 @@ const swap = args.includes('--swap');
 // preview on that surface, with the site frame resized to each width (a logged-in visit
 // to the site URL redirects to the editor). The editor page must be open, not in edit mode.
 const oracleFrame = arg('oracle-frame');
+if (oracleFrame) requireSameEngine(surface, 'Gate B (box-diff)', oracleFrame);
 // --fault breaks our CSS on purpose (desktop rows 0.0215 to 0.03) to prove the gate can fail.
 const fault = args.includes('--fault');
 const widths = arg('widths', '375,767,768,1280,1920').split(',').map(Number);
@@ -45,6 +45,9 @@ const MEASURE = `(async () => {
       const id = [...b.classList].find((c) => c.startsWith('fe-block-'));
       const q = b.getBoundingClientRect();
       out[sid + ' ' + id] = [q.left - r.left, q.top - r.top, q.width, q.height].map((v) => Math.round(v * 10) / 10);
+      // The button inside its block: it can overflow the block, which the block's box does not show.
+      const bt = b.querySelector('.sqs-block-button-element');
+      if (bt) { const t = bt.getBoundingClientRect(); out[sid + ' ' + id + ' button'] = [t.left - r.left, t.top - r.top, t.width, t.height].map((v) => Math.round(v * 10) / 10); }
     }
   }
   return JSON.stringify(out);
@@ -87,18 +90,34 @@ async function measureFrame(width) {
   const s = oracleFrame;
   viewport(s, 1920, 1100);
   const inPreview = evalJs(s, `(() => JSON.stringify(!![...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Close full screen preview' && x.getBoundingClientRect().width > 0)))()`);
-  // --oracle-path /about: load that page in the site frame first (once).
-  const want = arg('oracle-path');
-  if (want && !measureFrame.picked) {
-    evalJs(s, `(() => { const f = document.getElementById('sqs-site-frame'); if (f.contentDocument.location.pathname !== ${'${JSON.stringify(want)}'}) f.src = ${'${JSON.stringify(want)}'}; return 'true'; })()`.replaceAll('${JSON.stringify(want)}', JSON.stringify(want)));
-    waitFor(s, `(() => { const d = document.getElementById('sqs-site-frame').contentDocument; return d.location.pathname === ${'${JSON.stringify(want)}'} && d.readyState !== 'loading' && !!d.querySelector('main#page .fluid-engine'); })()`.replaceAll('${JSON.stringify(want)}', JSON.stringify(want)), 40);
-    await pause(1500);
-    measureFrame.picked = true;
-  }
   if (!inPreview) {
     evalJs(s, `(() => { const b = [...document.querySelectorAll('button')].find((x) => (x.getAttribute('aria-label') || x.textContent).trim() === 'Preview'); document.querySelectorAll('#fx-target').forEach((e) => e.removeAttribute('id')); b.id = 'fx-target'; return 'true'; })()`);
     browser(s, 'click', '#fx-target');
     await pause(2500);
+  }
+  // --oracle-path /about: load that page in the site frame once, after Preview: entering Preview puts the frame back on the page it had.
+  const want = arg('oracle-path');
+  if (want && !measureFrame.picked) {
+    // The editor can put the frame back on its own page a moment later, so the page has to stay.
+    const J = JSON.stringify(want);
+    const onPage = () => evalJs(s, `(() => { const d = document.getElementById('sqs-site-frame').contentDocument; return JSON.stringify(d.location.pathname === ${J} && d.readyState !== 'loading' && !!d.querySelector('main#page .fluid-engine')); })()`) === true;
+    let stayed = false;
+    for (let t = 0; t < 5 && !stayed; t++) {
+      if (!onPage()) evalJs(s, `(() => { document.getElementById('sqs-site-frame').src = ${J}; return 'true'; })()`);
+      for (let n = 0; n < 40 && !onPage(); n++) await pause(500);
+      await pause(4000);
+      stayed = onPage();
+    }
+    if (!stayed) throw new Error(`oracle frame would not stay on ${want}`);
+    await pause(1500);
+    measureFrame.picked = true;
+    // Pictures load lazily, and until they have, a picture can hold its row taller than it stays
+    // (About at 375px: 245 on the first read, 234 after). Show the whole page and wait for them.
+    evalJs(s, `(async () => { const f = document.getElementById('sqs-site-frame'); const W = f.contentWindow, d = f.contentDocument; const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+      for (let y = 0; y < d.documentElement.scrollHeight; y += 400) { W.scrollTo({ top: y, behavior: 'instant' }); await sleep(150); }
+      for (let n = 0; n < 60 && [...d.images].some((i) => !i.complete); n++) await sleep(250);
+      W.scrollTo({ top: 0, behavior: 'instant' }); return JSON.stringify([...d.images].filter((i) => !i.complete).length); })()`);
+    await pause(1000);
   }
   evalJs(s, `(() => { const f = document.getElementById('sqs-site-frame'); f.style.setProperty('width', '${width}px', 'important'); f.style.setProperty('max-width', 'none', 'important'); f.style.setProperty('min-width', '0', 'important'); f.style.setProperty('height', '1000px', 'important'); f.style.setProperty('flex', 'none', 'important'); return 'true'; })()`);
   await pause(1200);
@@ -115,7 +134,7 @@ async function measureFrame(width) {
 
 if (ensureVisible(surface)) console.log(`${surface} was hidden; moved it to its own pane`);
 const map = swap ? swapCss() : null;
-const report = { gate: 'B', oracle: oracle || `editor preview on ${oracleFrame}`, ours: ours || 'swap: same page with our CSS', tolerance: tol, widths: [], pass: 0, total: 0 };
+const report = { gate: 'B', engine: engine(surface), oracle: oracle || `editor preview on ${oracleFrame.startsWith('cdp:') ? 'headless Chrome' : oracleFrame}`, ours: ours || 'swap: same page with our CSS', tolerance: tol, widths: [], pass: 0, total: 0 };
 for (const w of widths) {
   const a = oracleFrame ? await measureFrame(w) : await measure(oracle, w);
   const b = await measure(ours || oracle, w, map);

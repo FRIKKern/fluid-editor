@@ -6,7 +6,8 @@
 //   mouse type x y buttons mods | drag from to steps holdMs mods
 // `frame` is a selector for a same-origin iframe: js and selectors run inside it, and x, y are
 // in its coordinates. Input events always go to the top page, so they are shifted by the frame's box.
-import { writeFileSync } from 'node:fs';
+import { spawn } from 'node:child_process';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const cmd = JSON.parse(process.argv[2]);
 const base = `http://127.0.0.1:${cmd.port}`;
@@ -67,11 +68,11 @@ async function toPage(x, y) {
   return { x: o.x + x * o.k, y: o.y + y * o.k };
 }
 const mouseEvent = (type, p, { button = 'none', buttons = 0, clickCount = 0, mods } = {}) => send('Input.dispatchMouseEvent', { type, x: p.x, y: p.y, button, buttons, clickCount, modifiers: modBits(mods) });
-// The middle of an element, scrolled into view first as a person would. On the oracle the toolbar
+// The middle of an element, scrolled into view first if the middle is off screen. On the oracle the toolbar
 // buttons named below are refused: no script may press them by accident (QUALITY.md, O1).
 async function centerOf(sel, { guard = false } = {}) {
   const c = await evaluate(`(() => { const el = document.querySelector(${JSON.stringify(sel)}); if (!el) return null;
-    let q = el.getBoundingClientRect(); if (q.top < 0 || q.left < 0 || q.bottom > innerHeight || q.right > innerWidth) { el.scrollIntoView({ block: 'center', inline: 'center' }); q = el.getBoundingClientRect(); }
+    let q = el.getBoundingClientRect(); const mx = q.left + q.width / 2, my = q.top + q.height / 2; const clipped = () => { for (let p = el.parentElement; p; p = p.parentElement) { if (getComputedStyle(p).overflowY === 'visible') continue; const r = p.getBoundingClientRect(); if (my < r.top || my > r.bottom) return true; } return false; }; if (mx < 0 || my < 0 || mx > innerWidth || my > innerHeight || clipped()) { el.scrollIntoView({ block: 'center', inline: 'center' }); q = el.getBoundingClientRect(); }
     return { x: q.left + q.width / 2, y: q.top + q.height / 2, label: (el.getAttribute('aria-label') || el.textContent || '').trim().toLowerCase(), host: location.hostname }; })()`);
   if (!c) throw new Error(`no element ${sel}`);
   if (guard && /(^|\.)squarespace\.com$/.test(c.host) && /^(save|publish)$/.test(c.label) && !process.env.ORACLE_ALLOW_SAVE) throw new Error(`refused to click "${c.label}" on the oracle`);
@@ -127,8 +128,32 @@ try {
   // Never serve a cached script: the dev server may have restarted from another checkout.
   if (cmd.op === 'goto') { await send('Page.enable'); await send('Network.setCacheDisabled', { cacheDisabled: true }); await send('Page.navigate', { url: cmd.url }); await sleep(150); await settle(); }
   if (cmd.op === 'reload') { await send('Page.enable'); await send('Page.reload', { ignoreCache: true }); await sleep(150); await settle(); }
+  if (cmd.op === 'narrow') {
+    // Runs on its own in the background: an emulation override lasts only as long as its connection.
+    await send('Emulation.setDeviceMetricsOverride', { width: cmd.w, height: cmd.h, deviceScaleFactor: 1, mobile: false });
+    ws.onclose = () => process.exit(0);
+    await new Promise(() => {});
+  }
   if (cmd.op === 'viewport') {
-    // Window bounds persist after this connection closes; an emulation override would not.
+    const narrowPid = `/tmp/fluid-editor-chrome-${cmd.port}/narrow.pid`;
+    // Wait until it is gone: its override ends when its connection closes.
+    try {
+      const old = Number(readFileSync(narrowPid, 'utf8'));
+      process.kill(old);
+      for (let k = 0; k < 40; k++) { process.kill(old, 0); await sleep(50); }
+    } catch {}
+    // Chrome's window is at least 500px wide, so narrower sizes are emulated by a background process.
+    if (cmd.w < 500) {
+      mkdirSync(`/tmp/fluid-editor-chrome-${cmd.port}`, { recursive: true });
+      const child = spawn(process.execPath, [process.argv[1], JSON.stringify({ port: cmd.port, op: 'narrow', w: cmd.w, h: cmd.h })], { detached: true, stdio: 'ignore' });
+      child.unref();
+      writeFileSync(narrowPid, String(child.pid));
+      const end = Date.now() + 5000;
+      while (Date.now() < end && (await evaluateIn(undefined, 'innerWidth')) !== cmd.w) await sleep(50);
+      if ((await evaluateIn(undefined, 'innerWidth')) !== cmd.w) throw new Error(`could not emulate ${cmd.w}px`);
+      ws.close(); process.exit(0);
+    }
+    // Window bounds persist after this connection closes.
     const { result } = await send('Browser.getWindowForTarget', { targetId: page.id });
     // The window includes Chrome's own frame: set it, read the inner size, correct, repeat.
     let w = cmd.w, h = cmd.h;

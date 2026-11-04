@@ -1,11 +1,11 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | SECTIONBAR [sections json] | UNBUILT [names json] | BUTTONEDIT | TEXTLINK | TEXTCOLOR | BLEND [section] [block] [options json] | BATCH | KEYS
-import { writeFileSync, mkdirSync } from 'node:fs';
-import { browser, evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | SECTIONBAR [sections json] | UNBUILT [names json] | BUTTONEDIT | TEXTLINK | TEXTCOLOR | BLEND [section] [block] [options json] | BATCH | KEYS | SNAP [cases json]
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { browser, evalJs, waitFor, reload, pause, engine } from './lib/cmux.mjs';
 import { READY, LOADED, ENTER_EDIT, KEY, BUTTON } from './oracle/snippets.mjs';
-import { select, click, editText, pasteHtml, escape, deselect, addSection, addBlock, removeBlock, sectionCount, area, hold, release, blockEl, pitch, blockIds } from './oracle/ui.mjs';
+import { select, click, editText, pasteHtml, escape, deselect, addSection, addBlock, removeBlock, sectionCount, area, hold, release, blockEl, pitch, blockIds, exitWithoutSaving, openSectionPanel } from './oracle/ui.mjs';
 
 const S = process.env.ORACLE_SURFACE || 'surface:40';
 const which = process.argv[2];
@@ -57,9 +57,26 @@ async function restore(snapshotBefore, sections) {
   return steps;
 }
 
+// Every leaf that differs between two readings, as { "path": [old, new] }.
+function changes(a, b, path = '', out = {}) {
+  if (a && b && typeof a === 'object' && typeof b === 'object') {
+    for (const k of new Set([...Object.keys(a), ...Object.keys(b)])) changes(a[k], b[k], path ? `${path}.${k}` : k, out);
+  } else if (JSON.stringify(a) !== JSON.stringify(b)) out[path] = [a ?? null, b ?? null];
+  return out;
+}
+
 function write(item, finding) {
   mkdirSync(new URL('../parity/findings/', import.meta.url), { recursive: true });
-  writeFileSync(new URL(`../parity/findings/${item}.json`, import.meta.url), JSON.stringify({ item, oracle: `https://halibut-keyboard-jlhd.squarespace.com${PAGE}`, capturedAt: today, ...finding }, null, 2) + '\n');
+  const file = new URL(`../parity/findings/${item}.json`, import.meta.url);
+  const next = { item, oracle: PAGE, capturedAt: today, engine: engine(S), ...finding };
+  // Recording over an older reading keeps what changed, so nobody can move a bar unseen.
+  if (existsSync(file)) {
+    const { recordedAgain: _, capturedAt, engine: oldEngine = 'webkit', ...old } = JSON.parse(readFileSync(file, 'utf8'));
+    const { capturedAt: __, engine: ___, ...now } = next;
+    const changed = changes(old, now);
+    if (Object.keys(changed).length) next.recordedAgain = { from: { engine: oldEngine, capturedAt }, why: process.env.RERECORD_WHY || 'not given', changed };
+  }
+  writeFileSync(file, JSON.stringify(next, null, 2) + '\n');
   console.log(`wrote parity/findings/${item}.json`);
 }
 
@@ -135,7 +152,7 @@ if (which === 'PANEL') {
   const i = 2;
   const { hoverSection } = await import('./oracle/ui.mjs');
   await hoverSection(i);
-  await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 });
+  await openSectionPanel(i);
   const LABELS = `(() => { const fr = document.getElementById('sqs-site-frame').getBoundingClientRect();
     const inPanel = (e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && (q.left > fr.right - 420 || q.left > 1000); };
     const leaves = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && inPanel(e) && e.textContent.trim() && !e.closest('#sqs-site-frame'));
@@ -169,7 +186,7 @@ if (which === 'INSET') {
   const { hoverSection } = await import('./oracle/ui.mjs');
   const before = evalJs(S, READ);
   await hoverSection(i);
-  await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 });
+  await openSectionPanel(i);
   await click(`() => [...document.querySelectorAll('[role=tab]')].find((e) => e.textContent.trim() === 'Background')`, { wait: 1200 });
   await click(`() => { const leaf = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.getBoundingClientRect().width > 0 && e.textContent.trim() === 'Inset').pop(); return leaf && (leaf.closest('button, label, [role=radio], [role=button]') || leaf); }`, { wait: 1800 });
   const after = evalJs(S, READ);
@@ -211,10 +228,12 @@ if (which === 'SETTINGS') {
   const { hoverSection } = await import('./oracle/ui.mjs');
   const open = async (tab) => {
     await hoverSection(i);
-    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 });
+    await openSectionPanel(i);
     await click(`() => [...document.querySelectorAll('[role=tab]')].find((e) => e.textContent.trim() === ${'TAB'})`.replace('TAB', JSON.stringify(tab)), { wait: 1200 });
   };
   const pick = (label) => click(`() => { const L = ${'LBL'}; const hit = [...document.querySelectorAll('[aria-label], body *')].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame') && (e.getAttribute('aria-label') === L || (e.childElementCount === 0 && e.textContent.trim() === L))).pop(); return hit && (hit.closest('button, label, [role=radio], [role=button], [role=switch], [role=option]') || hit); }`.replace('LBL', JSON.stringify(label)), { wait: 2500 });
+  // Text in a section that was never on screen has no heading or paragraph yet: show it first.
+  await hoverSection(i); await pause(1200);
   const base = evalJs(S, READ);
   const results = { base };
   await open('Design'); await escape();
@@ -226,7 +245,7 @@ if (which === 'SETTINGS') {
     for (let t = 0; t < 2; t++) {
       try { await open(tab); await pick(label); await pause(1200); results[label] = evalJs(S, READ); }
       catch (e) { results[label] = { error: String(e.message).slice(0, 80) }; }
-      if (results[label].error || saveDisabled() !== true) break;
+      if (!results[label].error && saveDisabled() !== true) break;
       await escape();
     }
     await escape();
@@ -254,7 +273,7 @@ if (which === 'OPTION') {
       gridHeight: Math.round(fe.getBoundingClientRect().height * 10) / 10, gridTop: Math.round((fe.getBoundingClientRect().top - sec.getBoundingClientRect().top) * 10) / 10 }); })()`;
   const { hoverSection } = await import('./oracle/ui.mjs');
   const openPanel = async () => { await hoverSection(i);
-    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 }); };
+    await openSectionPanel(i); };
   await openPanel(); await escape();
   await openPanel();
   const help = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && /fill screen will/i.test(e.textContent)).map((e) => e.textContent.trim())))()`);
@@ -282,7 +301,7 @@ if (which === 'DIVIDER') {
   const start = Object.fromEntries([...Array(8).keys()].map((k) => [k, both(k)]));
   const { hoverSection } = await import('./oracle/ui.mjs');
   const openPanel = async () => { await hoverSection(i);
-    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 }); };
+    await openSectionPanel(i); };
   const PANEL_READ = `(() => { const ok = (e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.left > 1200 && !e.closest('#sqs-site-frame'); };
     return JSON.stringify({ text: [...new Set([...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && ok(e) && e.textContent.trim()).map((e) => e.textContent.trim().slice(0, 40)))],
       inputs: [...document.querySelectorAll('input, select')].filter(ok).map((e) => [e.type, e.getAttribute('aria-label') || e.closest('label')?.textContent.trim().slice(0, 30) || '', e.type === 'checkbox' ? e.checked : e.value, e.min, e.max].join('|')) }); })()`;
@@ -343,7 +362,7 @@ if (which === 'DIVSHAPES') {
   const { hoverSection } = await import('./oracle/ui.mjs');
   const shot = (name) => browser(S, 'screenshot', '--out', `${process.env.SHOTS || '/tmp'}/${name}.png`);
   const openPanel = async () => { await hoverSection(i);
-    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 }); };
+    await openSectionPanel(i); };
   const hasDivider = () => evalJs(S, `(() => JSON.stringify(!![...document.querySelectorAll('input[type=checkbox]')].find((x) => x.getAttribute('aria-label') === 'Divider')))()`);
   for (let t = 0; t < 3 && hasDivider() !== true; t++) { await escape(); await openPanel(); }
   await click(`() => { const e = [...document.querySelectorAll('input[type=checkbox]')].find((x) => x.getAttribute('aria-label') === 'Divider'); return e && (e.closest('label, [role=switch]') || e); }`, { wait: 2500 });
@@ -376,7 +395,7 @@ if (which === 'DIVOPTS') {
   const { hoverSection } = await import('./oracle/ui.mjs');
   const shot = (name) => browser(S, 'screenshot', '--out', `${process.env.SHOTS || '/tmp'}/${name}.png`);
   const openPanel = async () => { await hoverSection(i);
-    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 }); };
+    await openSectionPanel(i); };
   const hasDivider = () => evalJs(S, `(() => JSON.stringify(!![...document.querySelectorAll('input[type=checkbox]')].find((x) => x.getAttribute('aria-label') === 'Divider')))()`);
   const ensurePanel = async () => { for (let t = 0; t < 3 && hasDivider() !== true; t++) { await escape(); await openPanel(); } };
   await ensurePanel();
@@ -915,10 +934,12 @@ if (which === 'TOOLBARGEO') {
   // U3, U4: the geometry and look of the block toolbar and the selection outline. Select a
   // block, find the toolbar (the box holding its Remove button), read its box relative to the
   // block, its style, each button's box and label, and the selection outline. Read only.
-  const cases = (process.argv[3] && JSON.parse(process.argv[3])) || [[2, 1, 'text'], [2, 2, 'shape'], [0, 2, 'button'], [0, 0, 'text at page top'], [3, 0, 'text at section top']];
+  const cases = (process.argv[3] && JSON.parse(process.argv[3])) || [[2, 1, 'text', 121], [2, 2, 'shape', 80], [0, 2, 'button', 120], [0, 0, 'text at page top', 121], [3, 0, 'text at section top', 121]];
   const out = {};
-  for (const [i, k, label] of cases) {
+  for (const [i, k, label, top] of cases) {
     const id = blockIds(i)[k];
+    // The block's top in the canvas decides whether the toolbar clamps: the shape at 80 does.
+    if (top != null) { evalJs(S, `(() => { ${FRAME} W.scrollTo({ top: W.scrollY + d.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect().top - ${top}, behavior: 'instant' }); return 'true'; })()`); await pause(300); }
     await select(i, id); await pause(900);
     out[label] = evalJs(S, `(() => { ${FRAME}
       const fr = f.getBoundingClientRect();
@@ -942,7 +963,44 @@ if (which === 'TOOLBARGEO') {
     await escape(); await deselect(i);
   }
   if (saveDisabled() !== true) throw new Error('The probe changed the page');
-  write('TOOLBARGEO', { question: 'Where is the block toolbar relative to the selected block, how does it look, and how is the selection drawn?', frame: '1600x945', ...out });
+  write('TOOLBARGEO', { question: 'Where is the block toolbar relative to the selected block, how does it look, and how is the selection drawn?', frame: '1600x945', cases: Object.fromEntries(cases.map(([i, k, label]) => [label, [i, k]])), ...out });
+}
+
+if (which === 'SNAP') {
+  // G4: at which pointer distance a held drag or resize takes the next grid line. Holds one real
+  // pointer (cdp surface only), walks it 1px at a time out, back through zero and home, and
+  // notes each px where the drop target changes. Nothing is released away from home, and the
+  // probe ends with Exit Without Saving.
+  // Usage: SNAP ['[[section, block, "move"|handle, maxX, maxY], ...]']
+  const { mouse, browser: b } = await import('./lib/cmux.mjs');
+  const { enterEdit, geometry } = await import('./oracle/ui.mjs');
+  const cases = (process.argv[3] && JSON.parse(process.argv[3])) || [[2, 2, 'move', 125, 75], [0, 2, 'move', 125, 30], [2, 2, 'se', 125, 75], [2, 2, 'nw', 125, 75]];
+  const out = [];
+  for (const [i, k, kind, mx, my] of cases) {
+    await enterEdit();
+    const id = blockIds(i)[k]; const g = geometry(i); const area0 = area(i, id);
+    evalJs(S, `(() => { ${FRAME} const b = d.querySelector('.fe-block[data-block-id="${id}"]'); const q = b.getBoundingClientRect(); if (q.top < 150 || q.bottom > W.innerHeight - 150) W.scrollTo({ top: W.scrollY + q.top - 300, behavior: 'instant' }); d.querySelectorAll('#fx-b').forEach((x) => x.removeAttribute('id')); b.id = 'fx-b'; return 'true'; })()`);
+    await pause(300);
+    b(S, 'frame', '#sqs-site-frame');
+    b(S, 'click', '#fx-b'); await pause(500);
+    // A handle sits on the block's edge; a move grabs the middle.
+    const [cx, cy] = evalJs(S, kind === 'move' ? `(() => { const q = document.getElementById('fx-b').getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`
+      : `(() => { const q = document.getElementById('fx-b').getBoundingClientRect(); const x = q.left + q.width * ${kind.includes('w') ? 0 : kind.includes('e') ? 1 : 0.5}, y = q.top + q.height * ${kind.includes('n') ? 0 : kind.includes('s') ? 1 : 0.5}; const h = [...document.querySelectorAll('.fluid-engine *')].filter((e) => { const r = e.getBoundingClientRect(); return r.width === 10 && r.height === 10 && /resize/.test(getComputedStyle(e).cursor); }).sort((p, q2) => { const a = p.getBoundingClientRect(), c = q2.getBoundingClientRect(); return Math.hypot(a.left + 5 - x, a.top + 5 - y) - Math.hypot(c.left + 5 - x, c.top + 5 - y); })[0]; const r = h.getBoundingClientRect(); return JSON.stringify([r.left + 5, r.top + 5]); })()`);
+    const read = () => evalJs(S, `(() => { const el = document.getElementById('fx-b'); const layers = [...el.closest('.fluid-engine').querySelectorAll(':scope > div')].filter((e) => !e.classList.contains('fe-block') && !e.classList.contains('fe-grid-row') && !e.classList.contains('fe-grid-column')).map((e) => getComputedStyle(e).gridArea).at(-1); return JSON.stringify(layers); })()`);
+    mouse(S, 'move', cx, cy); mouse(S, 'down', cx, cy);
+    mouse(S, 'move', cx + 14, cy, { buttons: 1 }); await pause(150); mouse(S, 'move', cx, cy, { buttons: 1 }); await pause(150);
+    const walk = async (axis, from, to) => { const seen = []; let last = read(); const step = from < to ? 1 : -1; for (let v = from; v !== to + step; v += step) { mouse(S, 'move', axis === 'x' ? cx + v : cx, axis === 'y' ? cy + v : cy, { buttons: 1 }); await pause(60); const r = read(); if (r !== last) seen.push([v, r]); last = r; } return seen; };
+    const reading = { section: i, block: k, kind, start: area0, colPitch: g.colStart[2] - g.colStart[1], rowPitch: g.rowMin + g.rg, colGap: g.cg, rowGap: g.rg, marginTrack: g.cols[0], mx, my };
+    reading.xOut = await walk('x', 0, mx); reading.xBack = await walk('x', mx, -mx); reading.xHome = await walk('x', -mx, 0);
+    reading.yOut = await walk('y', 0, my); reading.yBack = await walk('y', my, -my); reading.yHome = await walk('y', -my, 0);
+    mouse(S, 'up', cx, cy); await pause(500);
+    b(S, 'frame', 'main');
+    out.push(reading);
+    console.log(JSON.stringify(reading));
+    console.log('left dirty:', await exitWithoutSaving());
+  }
+  write('SNAP', { question: 'At what pointer distance does a held drag or resize take the next grid line?', frame: '1600x945', method: 'One real pointer held, walked 1px at a time with a pause of 60ms. Each pair is [px from the press, area the target took].', readings: out });
+  process.exit(0);
 }
 
 if (which === 'DESIGN') {
@@ -1053,7 +1111,8 @@ if (which === 'SECTIONBAR') {
   const out = {};
   for (const i of cases) {
     await escape(); await deselect(i);
-    await hoverSection(i); await pause(900);
+    // Same places as our editor can reach (it has no footer, so section 7 sits at 321 at most).
+    await hoverSection(i, { 0: 0, 2: 22, 7: 321 }[i] ?? 80); await pause(900);
     const READ = `(() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const d = f.contentDocument, W = f.contentWindow;
       const sec = d.querySelectorAll('main#page .page-section')[${i}]; const sq = sec.getBoundingClientRect();
       const top = fr.top + sq.top, left = fr.left + sq.left, bottom = fr.top + sq.bottom;
@@ -1071,10 +1130,11 @@ if (which === 'SECTIONBAR') {
     const hovered = evalJs(S, READ);
     shot(`section-${i}-hover`);
     console.log('section', i, JSON.stringify(hovered).slice(0, 1600));
-    await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 70 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 });
-    const panel = evalJs(S, `(() => { const tab = [...document.querySelectorAll('[role=tab], button')].find((e) => e.textContent.trim() === 'Design' && e.getBoundingClientRect().width > 0); if (!tab) return JSON.stringify(null);
+    const readPanel = () => evalJs(S, `(() => { const tab = [...document.querySelectorAll('[role=tab], button')].find((e) => e.textContent.trim() === 'Design' && e.getBoundingClientRect().width > 0); if (!tab) return JSON.stringify(null);
       let p = tab; while (p.parentElement && !(getComputedStyle(p).backgroundColor !== 'rgba(0, 0, 0, 0)' && p.getBoundingClientRect().height > 200)) p = p.parentElement;
       const q = p.getBoundingClientRect(), c = getComputedStyle(p); return JSON.stringify({ box: [q.left, q.top, q.width, q.height].map(Math.round), window: [innerWidth, innerHeight], bg: c.backgroundColor, radius: c.borderRadius, shadow: c.boxShadow, overflow: c.overflowY, tabs: [...p.querySelectorAll('[role=tab]')].map((t) => [t.textContent.trim(), Math.round(t.getBoundingClientRect().left - q.left), Math.round(t.getBoundingClientRect().top - q.top)]) }); })()`);
+    await openSectionPanel(i, { 0: 0, 2: 22, 7: 321 }[i] ?? 80);
+    const panel = readPanel();
     shot(`section-${i}-panel`);
     console.log('panel', i, JSON.stringify(panel));
     out[i] = { hovered, panel };
@@ -1271,3 +1331,6 @@ if (which === 'KEYS') {
   write(process.argv[3] === '2' ? 'KEYS2' : 'KEYS', { question: 'What do key combinations do on a selected block?', block: id, results: out });
 }
 
+// O1: nothing a probe did survives. The reload some probes end with has already dropped it, then
+// this finds nothing to do.
+try { await exitWithoutSaving(); } catch {}

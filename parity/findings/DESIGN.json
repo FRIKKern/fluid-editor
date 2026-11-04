@@ -1,8 +1,9 @@
 {
   "item": "DESIGN",
-  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
-  "capturedAt": "2026-11-03",
-  "question": "What does each control in the block Edit > Design tab change on the block?",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
+  "question": "What does each control in the block Edit > Design tab change on the block (styles, and for shapes the SVG markup)?",
   "block": [
     2,
     1
@@ -48,70 +49,70 @@
       "type": "checkbox",
       "label": "Background",
       "value": false,
-      "top": 250
+      "top": 249
     },
     {
       "n": 6,
       "type": "checkbox",
       "label": "Blur",
       "value": false,
-      "top": 385
+      "top": 384
     },
     {
       "n": 7,
       "type": "text",
       "label": "Opacity",
       "value": "100%",
-      "top": 488
+      "top": 487
     },
     {
       "n": 8,
       "type": "text",
       "label": "Rotate",
       "value": "0°",
-      "top": 539
+      "top": 538
     },
     {
       "n": 9,
       "type": "text",
       "label": "",
       "value": "100%",
-      "top": 590
+      "top": 589
     },
     {
       "n": 10,
       "type": "text",
       "label": "",
       "value": "100%",
-      "top": 590
+      "top": 589
     },
     {
       "n": 11,
       "type": "text",
       "label": "",
       "value": "0px",
-      "top": 641
+      "top": 640
     },
     {
       "n": 12,
       "type": "text",
       "label": "",
       "value": "0px",
-      "top": 641
+      "top": 640
     },
     {
       "n": 13,
       "type": "text",
       "label": "",
       "value": "0°",
-      "top": 692
+      "top": 691
     },
     {
       "n": 14,
       "type": "text",
       "label": "",
       "value": "0°",
-      "top": 692
+      "top": 691
     }
   ],
   "base": {
@@ -120,7 +121,7 @@
         "cls": "fe-block.is-transitioning-visibility",
         "opacity": "1",
         "transform": "none",
-        "transformOrigin": "317.796875px 97.234375px",
+        "transformOrigin": "317.797px 97.2344px",
         "filter": "none",
         "backdrop": "none",
         "mix": "normal",
@@ -133,7 +134,7 @@
         "cls": "fluid-engine-block-contents.accept-pointer-events",
         "opacity": "1",
         "transform": "none",
-        "transformOrigin": "317.796875px 97.234375px",
+        "transformOrigin": "317.797px 97.2344px",
         "filter": "none",
         "backdrop": "none",
         "mix": "normal",
@@ -146,7 +147,7 @@
         "cls": "yui3-widget.yui3-block-base.sqs-block-csr",
         "opacity": "1",
         "transform": "none",
-        "transformOrigin": "317.796875px 97.234375px",
+        "transformOrigin": "317.797px 97.2344px",
         "filter": "none",
         "backdrop": "none",
         "mix": "normal",
@@ -159,7 +160,7 @@
         "cls": "sqs-block-website-component-content.sqs-block-content",
         "opacity": "1",
         "transform": "none",
-        "transformOrigin": "317.796875px 52.796875px",
+        "transformOrigin": "317.797px 52.8125px",
         "filter": "none",
         "backdrop": "none",
         "mix": "normal",
@@ -172,7 +173,7 @@
         "cls": "sqs-html-content",
         "opacity": "1",
         "transform": "none",
-        "transformOrigin": "317.796875px 52.796875px",
+        "transformOrigin": "317.797px 52.8125px",
         "filter": "none",
         "backdrop": "none",
         "mix": "normal",
@@ -188,7 +189,8 @@
       " @media screen and (max-width: 767px) { #block-yui_3_17_2_1_1793705593367_16145 { } } @media screen and (max-width: 767px) { #block-yui_3_17_2_1_1793705593367_16145 .sqs-html-content { } } @media screen and (max-width: 767px) { }",
       " .fe-block-yui_3_17_2_1_1793705593367_16145 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); } ",
       " "
-    ]
+    ],
+    "markup": null
   },
   "changes": {
     "Opacity": {
@@ -198,7 +200,7 @@
         "type": "text",
         "label": "Opacity",
         "value": "100%",
-        "top": 488
+        "top": 487
       },
       "diff": [
         {
@@ -219,7 +221,7 @@
         "type": "text",
         "label": "Rotate",
         "value": "0°",
-        "top": 539
+        "top": 538
       },
       "diff": [
         {
@@ -240,7 +242,7 @@
         "type": "text",
         "label": "",
         "value": "100%",
-        "top": 590
+        "top": 589
       },
       "diff": [
         {
@@ -261,7 +263,7 @@
         "type": "text",
         "label": "",
         "value": "100%",
-        "top": 590
+        "top": 589
       },
       "diff": [
         {
@@ -282,7 +284,7 @@
         "type": "text",
         "label": "",
         "value": "0px",
-        "top": 641
+        "top": 640
       },
       "diff": [
         {
@@ -303,7 +305,7 @@
         "type": "text",
         "label": "",
         "value": "0px",
-        "top": 641
+        "top": 640
       },
       "diff": [
         {
@@ -324,7 +326,7 @@
         "type": "text",
         "label": "",
         "value": "0°",
-        "top": 692
+        "top": 691
       },
       "diff": [
         {
@@ -345,13 +347,13 @@
         "type": "text",
         "label": "",
         "value": "0°",
-        "top": 692
+        "top": 691
       },
       "diff": [
         {
           "el": "fe-block",
           "cls": "fe-block",
-          "transform": "matrix(1, 0.087489, 0, 1, 0, 0)",
+          "transform": "matrix(1, 0.0874887, 0, 1, 0, 0)",
           "inline": "--block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 5deg; --origin-x: 50%; --origin-y: 50%;"
         }
       ],
@@ -366,31 +368,31 @@
         "type": "checkbox",
         "label": "Background",
         "value": false,
-        "top": 250
+        "top": 249
       },
       "diff": [
         {
           "el": "fe-block",
           "cls": "fe-block",
-          "transformOrigin": "317.796875px 117.78125px",
+          "transformOrigin": "317.797px 117.781px",
           "inline": "--block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
         },
         {
           "el": "fluid-engine-block-contents.accept-pointer-events",
-          "transformOrigin": "317.796875px 117.78125px"
+          "transformOrigin": "317.797px 117.781px"
         },
         {
           "el": "yui3-widget.yui3-block-base.sqs-block-csr",
-          "transformOrigin": "317.796875px 117.78125px",
+          "transformOrigin": "317.797px 117.781px",
           "bg": "rgb(255, 255, 255)"
         },
         {
           "el": "sqs-block-website-component-content.sqs-block-content",
-          "transformOrigin": "317.796875px 102.117188px"
+          "transformOrigin": "317.797px 102.141px"
         },
         {
           "el": "sqs-html-content",
-          "transformOrigin": "317.796875px 102.117188px"
+          "transformOrigin": "317.797px 102.141px"
         }
       ],
       "styles": [
@@ -406,28 +408,181 @@
         "type": "checkbox",
         "label": "Blur",
         "value": false,
-        "top": 385
+        "top": 384
       },
       "diff": [
         {
           "el": "fe-block",
           "cls": "fe-block",
-          "transformOrigin": "317.796875px 52.796875px",
+          "transformOrigin": "317.797px 52.8125px",
           "backdrop": "blur(15px)",
           "inline": "--block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; backdrop-filter: blur(15px);"
         },
         {
           "el": "fluid-engine-block-contents.accept-pointer-events",
-          "transformOrigin": "317.796875px 52.796875px"
+          "transformOrigin": "317.797px 52.8125px"
         },
         {
           "el": "yui3-widget.yui3-block-base.sqs-block-csr",
-          "transformOrigin": "317.796875px 52.796875px"
+          "transformOrigin": "317.797px 52.8125px"
         }
       ],
       "styles": [],
       "changed": true,
       "undoSteps": 1
+    }
+  },
+  "recordedAgain": {
+    "from": {
+      "engine": "webkit",
+      "capturedAt": "2026-11-03"
+    },
+    "why": "The old reading is WebKit with a 17px scrollbar, so the canvas was 1583px wide. Headless Chrome has no layout scrollbar, so it is 1600px wide (docs/decisions/0006).",
+    "changed": {
+      "question": [
+        "What does each control in the block Edit > Design tab change on the block?",
+        "What does each control in the block Edit > Design tab change on the block (styles, and for shapes the SVG markup)?"
+      ],
+      "controls.5.top": [
+        250,
+        249
+      ],
+      "controls.6.top": [
+        385,
+        384
+      ],
+      "controls.7.top": [
+        488,
+        487
+      ],
+      "controls.8.top": [
+        539,
+        538
+      ],
+      "controls.9.top": [
+        590,
+        589
+      ],
+      "controls.10.top": [
+        590,
+        589
+      ],
+      "controls.11.top": [
+        641,
+        640
+      ],
+      "controls.12.top": [
+        641,
+        640
+      ],
+      "controls.13.top": [
+        692,
+        691
+      ],
+      "controls.14.top": [
+        692,
+        691
+      ],
+      "base.els.0.transformOrigin": [
+        "317.796875px 97.234375px",
+        "317.797px 97.2344px"
+      ],
+      "base.els.1.transformOrigin": [
+        "317.796875px 97.234375px",
+        "317.797px 97.2344px"
+      ],
+      "base.els.2.transformOrigin": [
+        "317.796875px 97.234375px",
+        "317.797px 97.2344px"
+      ],
+      "base.els.3.transformOrigin": [
+        "317.796875px 52.796875px",
+        "317.797px 52.8125px"
+      ],
+      "base.els.4.transformOrigin": [
+        "317.796875px 52.796875px",
+        "317.797px 52.8125px"
+      ],
+      "base.markup": [
+        null,
+        null
+      ],
+      "changes.Opacity.control.top": [
+        488,
+        487
+      ],
+      "changes.Rotate.control.top": [
+        539,
+        538
+      ],
+      "changes.#9.control.top": [
+        590,
+        589
+      ],
+      "changes.#10.control.top": [
+        590,
+        589
+      ],
+      "changes.#11.control.top": [
+        641,
+        640
+      ],
+      "changes.#12.control.top": [
+        641,
+        640
+      ],
+      "changes.#13.control.top": [
+        692,
+        691
+      ],
+      "changes.#14.control.top": [
+        692,
+        691
+      ],
+      "changes.#14.diff.0.transform": [
+        "matrix(1, 0.087489, 0, 1, 0, 0)",
+        "matrix(1, 0.0874887, 0, 1, 0, 0)"
+      ],
+      "changes.Background.control.top": [
+        250,
+        249
+      ],
+      "changes.Background.diff.0.transformOrigin": [
+        "317.796875px 117.78125px",
+        "317.797px 117.781px"
+      ],
+      "changes.Background.diff.1.transformOrigin": [
+        "317.796875px 117.78125px",
+        "317.797px 117.781px"
+      ],
+      "changes.Background.diff.2.transformOrigin": [
+        "317.796875px 117.78125px",
+        "317.797px 117.781px"
+      ],
+      "changes.Background.diff.3.transformOrigin": [
+        "317.796875px 102.117188px",
+        "317.797px 102.141px"
+      ],
+      "changes.Background.diff.4.transformOrigin": [
+        "317.796875px 102.117188px",
+        "317.797px 102.141px"
+      ],
+      "changes.Blur.control.top": [
+        385,
+        384
+      ],
+      "changes.Blur.diff.0.transformOrigin": [
+        "317.796875px 52.796875px",
+        "317.797px 52.8125px"
+      ],
+      "changes.Blur.diff.1.transformOrigin": [
+        "317.796875px 52.796875px",
+        "317.797px 52.8125px"
+      ],
+      "changes.Blur.diff.2.transformOrigin": [
+        "317.796875px 52.796875px",
+        "317.797px 52.8125px"
+      ]
     }
   }
 }

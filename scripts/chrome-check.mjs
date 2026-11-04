@@ -5,12 +5,12 @@
 // Our icons are drawn by us (O2), so the check compares boxes and colors, not pixels.
 // Writes parity/chrome-check.json. Usage: npm run chrome-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, requireWebKit } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, requireSameEngine } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
-requireWebKit(S, 'chrome-check');
 const F = JSON.parse(readFileSync(new URL('../parity/findings/TOOLBARGEO.json', import.meta.url)));
+requireSameEngine(S, 'chrome-check', F);
 ensureVisible(S);
 viewport(S, 1600, 1000);
 goto(S, `${BASE}/index.html?replay`); await pause(2500);
@@ -69,7 +69,8 @@ for (const i of ['0', '7']) {
   add('section place', Math.abs(r.secTop - h.section[1]) <= 1, `oracle ${h.section[1]} ours ${r.secTop}`);
   add('card box', near(r.card, h.card.box), `oracle ${h.card.box} ours ${r.card}`);
   const seen = new Set();
-  for (const b of h.buttons) {
+  // Newest first: the section's own toolbar is listed after the one above it, if that one shows too.
+  for (const b of [...h.buttons].reverse()) {
     // Add Section: the one in the top half of the section is the top edge button.
     const key = LABEL[b.label] || (b.label === 'Add Section' ? (b.box[1] < h.section[3] / 2 ? 'add-section-above' : 'add-section-below') : null);
     if (!key || seen.has(key)) continue;

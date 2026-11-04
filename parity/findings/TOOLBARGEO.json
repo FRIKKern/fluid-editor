@@ -1,12 +1,35 @@
 {
   "item": "TOOLBARGEO",
-  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
-  "capturedAt": "2026-11-03",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
   "question": "Where is the block toolbar relative to the selected block, how does it look, and how is the selection drawn?",
   "frame": "1600x945",
+  "cases": {
+    "text": [
+      2,
+      1
+    ],
+    "shape": [
+      2,
+      2
+    ],
+    "button": [
+      0,
+      2
+    ],
+    "text at page top": [
+      0,
+      0
+    ],
+    "text at section top": [
+      3,
+      0
+    ]
+  },
   "text": {
     "block": [
-      92,
+      100,
       121,
       636,
       194
@@ -40,7 +63,7 @@
         "radius": "3px",
         "icon": null,
         "text": "",
-        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Edit",
@@ -55,7 +78,7 @@
         "radius": "3px",
         "icon": null,
         "text": "",
-        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Align Vertically",
@@ -70,7 +93,7 @@
         "radius": "3px",
         "icon": null,
         "text": "",
-        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Pin",
@@ -93,7 +116,7 @@
           "strokeWidth": "1px"
         },
         "text": "",
-        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Move Forward",
@@ -116,7 +139,7 @@
           "strokeWidth": "2px"
         },
         "text": "",
-        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Move Backward",
@@ -139,7 +162,7 @@
           "strokeWidth": "2px"
         },
         "text": "",
-        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Duplicate",
@@ -162,7 +185,7 @@
           "strokeWidth": "1px"
         },
         "text": "",
-        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Remove",
@@ -185,7 +208,7 @@
           "strokeWidth": "1px"
         },
         "text": "",
-        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       }
     ],
     "seps": [
@@ -266,7 +289,7 @@
   },
   "shape": {
     "block": [
-      856,
+      864,
       80,
       577,
       400
@@ -297,7 +320,18 @@
         ],
         "color": "rgb(62, 62, 62)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(49, 49, 49)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Pin",
@@ -309,7 +343,18 @@
         ],
         "color": "rgb(14, 14, 14)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": {
+          "size": [
+            20,
+            20
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Move Forward",
@@ -321,7 +366,18 @@
         ],
         "color": "rgb(183, 183, 183)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "none",
+          "stroke": "rgb(183, 183, 183)",
+          "strokeWidth": "2px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Move Backward",
@@ -333,7 +389,18 @@
         ],
         "color": "rgb(14, 14, 14)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "none",
+          "stroke": "rgb(14, 14, 14)",
+          "strokeWidth": "2px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Duplicate",
@@ -345,7 +412,18 @@
         ],
         "color": "rgb(62, 62, 62)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Remove",
@@ -357,7 +435,18 @@
         ],
         "color": "rgb(62, 62, 62)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(219, 54, 66)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       }
     ],
     "seps": [
@@ -438,7 +527,7 @@
   },
   "button": {
     "block": [
-      92,
+      100,
       120,
       283,
       71
@@ -480,7 +569,7 @@
           "strokeWidth": "1px"
         },
         "text": "",
-        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Primary",
@@ -503,7 +592,7 @@
           "strokeWidth": "1px"
         },
         "text": "Primary",
-        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Open link editor popover",
@@ -518,7 +607,7 @@
         "radius": "3px",
         "icon": null,
         "text": "",
-        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Pin",
@@ -541,7 +630,7 @@
           "strokeWidth": "1px"
         },
         "text": "",
-        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Duplicate",
@@ -564,7 +653,7 @@
           "strokeWidth": "1px"
         },
         "text": "",
-        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Remove",
@@ -587,7 +676,7 @@
           "strokeWidth": "1px"
         },
         "text": "",
-        "font": "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif"
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       }
     ],
     "seps": [
@@ -683,7 +772,7 @@
   },
   "text at page top": {
     "block": [
-      92,
+      100,
       121,
       812,
       112
@@ -714,7 +803,10 @@
         ],
         "color": "rgb(62, 62, 62)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": null,
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Edit",
@@ -726,7 +818,10 @@
         ],
         "color": "rgb(62, 62, 62)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": null,
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Align Vertically",
@@ -738,7 +833,10 @@
         ],
         "color": "rgb(62, 62, 62)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": null,
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Pin",
@@ -750,7 +848,18 @@
         ],
         "color": "rgb(14, 14, 14)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": {
+          "size": [
+            20,
+            20
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Duplicate",
@@ -762,7 +871,18 @@
         ],
         "color": "rgb(62, 62, 62)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Remove",
@@ -774,7 +894,18 @@
         ],
         "color": "rgb(62, 62, 62)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(219, 54, 66)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       }
     ],
     "seps": [
@@ -855,7 +986,7 @@
   },
   "text at section top": {
     "block": [
-      92,
+      100,
       121,
       930,
       153
@@ -886,7 +1017,10 @@
         ],
         "color": "rgb(62, 62, 62)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": null,
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Edit",
@@ -898,7 +1032,10 @@
         ],
         "color": "rgb(62, 62, 62)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": null,
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Align Vertically",
@@ -910,7 +1047,10 @@
         ],
         "color": "rgb(62, 62, 62)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": null,
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Pin",
@@ -922,7 +1062,18 @@
         ],
         "color": "rgb(14, 14, 14)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": {
+          "size": [
+            20,
+            20
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Move Forward",
@@ -934,7 +1085,18 @@
         ],
         "color": "rgb(14, 14, 14)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "none",
+          "stroke": "rgb(14, 14, 14)",
+          "strokeWidth": "2px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Move Backward",
@@ -946,7 +1108,18 @@
         ],
         "color": "rgb(183, 183, 183)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "none",
+          "stroke": "rgb(183, 183, 183)",
+          "strokeWidth": "2px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Duplicate",
@@ -958,7 +1131,18 @@
         ],
         "color": "rgb(62, 62, 62)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       {
         "label": "Remove",
@@ -970,7 +1154,18 @@
         ],
         "color": "rgb(62, 62, 62)",
         "bg": "rgba(0, 0, 0, 0)",
-        "radius": "3px"
+        "radius": "3px",
+        "icon": {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(219, 54, 66)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        },
+        "text": "",
+        "font": "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
       }
     ],
     "seps": [
@@ -1049,26 +1244,441 @@
     ],
     "pill": []
   },
-  "cases": {
-    "text": [
-      2,
-      1
-    ],
-    "shape": [
-      2,
-      2
-    ],
-    "button": [
-      0,
-      2
-    ],
-    "text at page top": [
-      0,
-      0
-    ],
-    "text at section top": [
-      3,
-      0
-    ]
+  "recordedAgain": {
+    "from": {
+      "engine": "webkit",
+      "capturedAt": "2026-11-03"
+    },
+    "why": "The old reading is WebKit with a 17px scrollbar, so the canvas was 1583px wide. Headless Chrome has no layout scrollbar, so it is 1600px wide (docs/decisions/0006).",
+    "changed": {
+      "text.block.0": [
+        92,
+        100
+      ],
+      "text.buttons.0.font": [
+        "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text.buttons.1.font": [
+        "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text.buttons.2.font": [
+        "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text.buttons.3.font": [
+        "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text.buttons.4.font": [
+        "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text.buttons.5.font": [
+        "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text.buttons.6.font": [
+        "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text.buttons.7.font": [
+        "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "shape.block.0": [
+        856,
+        864
+      ],
+      "shape.buttons.0.icon": [
+        null,
+        {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(49, 49, 49)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        }
+      ],
+      "shape.buttons.0.text": [
+        null,
+        ""
+      ],
+      "shape.buttons.0.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "shape.buttons.1.icon": [
+        null,
+        {
+          "size": [
+            20,
+            20
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        }
+      ],
+      "shape.buttons.1.text": [
+        null,
+        ""
+      ],
+      "shape.buttons.1.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "shape.buttons.2.icon": [
+        null,
+        {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "none",
+          "stroke": "rgb(183, 183, 183)",
+          "strokeWidth": "2px"
+        }
+      ],
+      "shape.buttons.2.text": [
+        null,
+        ""
+      ],
+      "shape.buttons.2.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "shape.buttons.3.icon": [
+        null,
+        {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "none",
+          "stroke": "rgb(14, 14, 14)",
+          "strokeWidth": "2px"
+        }
+      ],
+      "shape.buttons.3.text": [
+        null,
+        ""
+      ],
+      "shape.buttons.3.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "shape.buttons.4.icon": [
+        null,
+        {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        }
+      ],
+      "shape.buttons.4.text": [
+        null,
+        ""
+      ],
+      "shape.buttons.4.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "shape.buttons.5.icon": [
+        null,
+        {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(219, 54, 66)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        }
+      ],
+      "shape.buttons.5.text": [
+        null,
+        ""
+      ],
+      "shape.buttons.5.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "button.block.0": [
+        92,
+        100
+      ],
+      "button.buttons.0.font": [
+        "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "button.buttons.1.font": [
+        "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "button.buttons.2.font": [
+        "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "button.buttons.3.font": [
+        "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "button.buttons.4.font": [
+        "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "button.buttons.5.font": [
+        "12px / 22px Clarkson, Proxima Nova, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text at page top.block.0": [
+        92,
+        100
+      ],
+      "text at page top.buttons.0.icon": [
+        null,
+        null
+      ],
+      "text at page top.buttons.0.text": [
+        null,
+        ""
+      ],
+      "text at page top.buttons.0.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text at page top.buttons.1.icon": [
+        null,
+        null
+      ],
+      "text at page top.buttons.1.text": [
+        null,
+        ""
+      ],
+      "text at page top.buttons.1.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text at page top.buttons.2.icon": [
+        null,
+        null
+      ],
+      "text at page top.buttons.2.text": [
+        null,
+        ""
+      ],
+      "text at page top.buttons.2.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text at page top.buttons.3.icon": [
+        null,
+        {
+          "size": [
+            20,
+            20
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        }
+      ],
+      "text at page top.buttons.3.text": [
+        null,
+        ""
+      ],
+      "text at page top.buttons.3.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text at page top.buttons.4.icon": [
+        null,
+        {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        }
+      ],
+      "text at page top.buttons.4.text": [
+        null,
+        ""
+      ],
+      "text at page top.buttons.4.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text at page top.buttons.5.icon": [
+        null,
+        {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(219, 54, 66)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        }
+      ],
+      "text at page top.buttons.5.text": [
+        null,
+        ""
+      ],
+      "text at page top.buttons.5.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text at section top.block.0": [
+        92,
+        100
+      ],
+      "text at section top.buttons.0.icon": [
+        null,
+        null
+      ],
+      "text at section top.buttons.0.text": [
+        null,
+        ""
+      ],
+      "text at section top.buttons.0.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text at section top.buttons.1.icon": [
+        null,
+        null
+      ],
+      "text at section top.buttons.1.text": [
+        null,
+        ""
+      ],
+      "text at section top.buttons.1.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text at section top.buttons.2.icon": [
+        null,
+        null
+      ],
+      "text at section top.buttons.2.text": [
+        null,
+        ""
+      ],
+      "text at section top.buttons.2.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text at section top.buttons.3.icon": [
+        null,
+        {
+          "size": [
+            20,
+            20
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        }
+      ],
+      "text at section top.buttons.3.text": [
+        null,
+        ""
+      ],
+      "text at section top.buttons.3.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text at section top.buttons.4.icon": [
+        null,
+        {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "none",
+          "stroke": "rgb(14, 14, 14)",
+          "strokeWidth": "2px"
+        }
+      ],
+      "text at section top.buttons.4.text": [
+        null,
+        ""
+      ],
+      "text at section top.buttons.4.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text at section top.buttons.5.icon": [
+        null,
+        {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "none",
+          "stroke": "rgb(183, 183, 183)",
+          "strokeWidth": "2px"
+        }
+      ],
+      "text at section top.buttons.5.text": [
+        null,
+        ""
+      ],
+      "text at section top.buttons.5.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text at section top.buttons.6.icon": [
+        null,
+        {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(14, 14, 14)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        }
+      ],
+      "text at section top.buttons.6.text": [
+        null,
+        ""
+      ],
+      "text at section top.buttons.6.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "text at section top.buttons.7.icon": [
+        null,
+        {
+          "size": [
+            22,
+            22
+          ],
+          "fill": "rgb(219, 54, 66)",
+          "stroke": "none",
+          "strokeWidth": "1px"
+        }
+      ],
+      "text at section top.buttons.7.text": [
+        null,
+        ""
+      ],
+      "text at section top.buttons.7.font": [
+        null,
+        "12px / 22px Clarkson, \"Proxima Nova\", \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ]
+    }
   }
 }

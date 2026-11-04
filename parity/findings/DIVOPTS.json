@@ -1,7 +1,8 @@
 {
   "item": "DIVOPTS",
-  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
-  "capturedAt": "2026-11-03",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
   "question": "What do the divider Stroke and Thickness options change, and what does Edit Settings offer?",
   "section": 2,
   "frame": "1600x945",
@@ -115,47 +116,182 @@
     "text": [
       "Edit Section",
       "Remove",
-      "Design",
-      "Background",
-      "Colors",
-      "Grid",
-      "Row Count",
-      "Gap",
-      "Zero gap",
-      "Medium gap",
-      "Custom gap",
-      "Section",
-      "Fill Screen",
-      "Height",
+      "Back",
+      "Shape",
+      "Shuffle Settings",
+      "Width",
       "S",
       "M",
       "L",
-      "Custom height",
-      "Alignment",
-      "Vertical top",
-      "Vertical center",
-      "Vertical bottom",
-      "Fill screen will expand the background h",
-      "Styling",
-      "Divider",
-      "Shape",
-      "Stroke",
-      "Color",
-      "Thickness",
-      "Anchor Link",
-      "#",
-      "Shuffle Settings",
-      "Width",
-      "Flip"
+      "Height",
+      "Flip",
+      "Alignment"
     ],
     "inputs": [
-      "number|Row Count|11|11|10000|1",
-      "checkbox|||||",
-      "checkbox|Divider||||",
-      "text|||||",
       "text|Alignment|0px|||",
       "range|Alignment|0|-1000|1000|1"
     ]
   },
-  "undoSteps": 7
+  "undoSteps": 7,
+  "recordedAgain": {
+    "from": {
+      "engine": "webkit",
+      "capturedAt": "2026-11-03"
+    },
+    "why": "The old reading is WebKit with a 17px scrollbar, so the canvas was 1583px wide. Headless Chrome has no layout scrollbar, so it is 1600px wide (docs/decisions/0006).",
+    "changed": {
+      "settings.text.2": [
+        "Design",
+        "Back"
+      ],
+      "settings.text.3": [
+        "Background",
+        "Shape"
+      ],
+      "settings.text.4": [
+        "Colors",
+        "Shuffle Settings"
+      ],
+      "settings.text.5": [
+        "Grid",
+        "Width"
+      ],
+      "settings.text.6": [
+        "Row Count",
+        "S"
+      ],
+      "settings.text.7": [
+        "Gap",
+        "M"
+      ],
+      "settings.text.8": [
+        "Zero gap",
+        "L"
+      ],
+      "settings.text.9": [
+        "Medium gap",
+        "Height"
+      ],
+      "settings.text.10": [
+        "Custom gap",
+        "Flip"
+      ],
+      "settings.text.11": [
+        "Section",
+        "Alignment"
+      ],
+      "settings.text.12": [
+        "Fill Screen",
+        null
+      ],
+      "settings.text.13": [
+        "Height",
+        null
+      ],
+      "settings.text.14": [
+        "S",
+        null
+      ],
+      "settings.text.15": [
+        "M",
+        null
+      ],
+      "settings.text.16": [
+        "L",
+        null
+      ],
+      "settings.text.17": [
+        "Custom height",
+        null
+      ],
+      "settings.text.18": [
+        "Alignment",
+        null
+      ],
+      "settings.text.19": [
+        "Vertical top",
+        null
+      ],
+      "settings.text.20": [
+        "Vertical center",
+        null
+      ],
+      "settings.text.21": [
+        "Vertical bottom",
+        null
+      ],
+      "settings.text.22": [
+        "Fill screen will expand the background h",
+        null
+      ],
+      "settings.text.23": [
+        "Styling",
+        null
+      ],
+      "settings.text.24": [
+        "Divider",
+        null
+      ],
+      "settings.text.25": [
+        "Shape",
+        null
+      ],
+      "settings.text.26": [
+        "Stroke",
+        null
+      ],
+      "settings.text.27": [
+        "Color",
+        null
+      ],
+      "settings.text.28": [
+        "Thickness",
+        null
+      ],
+      "settings.text.29": [
+        "Anchor Link",
+        null
+      ],
+      "settings.text.30": [
+        "#",
+        null
+      ],
+      "settings.text.31": [
+        "Shuffle Settings",
+        null
+      ],
+      "settings.text.32": [
+        "Width",
+        null
+      ],
+      "settings.text.33": [
+        "Flip",
+        null
+      ],
+      "settings.inputs.0": [
+        "number|Row Count|11|11|10000|1",
+        "text|Alignment|0px|||"
+      ],
+      "settings.inputs.1": [
+        "checkbox|||||",
+        "range|Alignment|0|-1000|1000|1"
+      ],
+      "settings.inputs.2": [
+        "checkbox|Divider||||",
+        null
+      ],
+      "settings.inputs.3": [
+        "text|||||",
+        null
+      ],
+      "settings.inputs.4": [
+        "text|Alignment|0px|||",
+        null
+      ],
+      "settings.inputs.5": [
+        "range|Alignment|0|-1000|1000|1",
+        null
+      ]
+    }
+  }
 }

@@ -1,7 +1,8 @@
 {
   "item": "VALIGN-TOP",
-  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
-  "capturedAt": "2026-11-03",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
   "question": "What does Edit Section > Design > Vertical top change, at several frame sizes?",
   "section": 2,
   "help": [
@@ -12,11 +13,11 @@
       "w": 1600,
       "h": 945,
       "classes": "section-height--medium horizontal-alignment--center vertical-alignment--top",
-      "inline": "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+      "inline": "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;",
       "height": 716.2,
-      "minHeight": "623.700012px",
+      "minHeight": "623.7px",
       "padTop": "64px",
-      "padBottom": "211.199997px",
+      "padBottom": "211.2px",
       "gridHeight": 441,
       "gridTop": 64
     },
@@ -24,11 +25,11 @@
       "w": 375,
       "h": 700,
       "classes": "section-height--medium horizontal-alignment--center vertical-alignment--top",
-      "inline": "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+      "inline": "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;",
       "height": 587.8,
       "minHeight": "462px",
       "padTop": "15px",
-      "padBottom": "92.400002px",
+      "padBottom": "92.4px",
       "gridHeight": 480.4,
       "gridTop": 15
     },
@@ -36,23 +37,23 @@
       "w": 768,
       "h": 1000,
       "classes": "section-height--medium horizontal-alignment--center vertical-alignment--top",
-      "inline": "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+      "inline": "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;",
       "height": 660,
       "minHeight": "660px",
-      "padTop": "30.719999px",
+      "padTop": "30.72px",
       "padBottom": "132px",
-      "gridHeight": 385.6,
+      "gridHeight": 330,
       "gridTop": 30.7
     },
     {
       "w": 1280,
       "h": 800,
       "classes": "section-height--medium horizontal-alignment--center vertical-alignment--top",
-      "inline": "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+      "inline": "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;",
       "height": 608.6,
       "minHeight": "528px",
-      "padTop": "51.200001px",
-      "padBottom": "168.960007px",
+      "padTop": "51.2px",
+      "padBottom": "168.96px",
       "gridHeight": 388.4,
       "gridTop": 51.2
     },
@@ -60,14 +61,79 @@
       "w": 1920,
       "h": 1000,
       "classes": "section-height--medium horizontal-alignment--center vertical-alignment--top",
-      "inline": "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+      "inline": "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;",
       "height": 771.3,
       "minHeight": "660px",
-      "padTop": "76.800003px",
-      "padBottom": "253.440002px",
+      "padTop": "76.8px",
+      "padBottom": "253.44px",
       "gridHeight": 441,
       "gridTop": 76.8
     }
   ],
-  "undoSteps": 1
+  "undoSteps": 1,
+  "recordedAgain": {
+    "from": {
+      "engine": "webkit",
+      "capturedAt": "2026-11-03"
+    },
+    "why": "The old reading is WebKit with a 17px scrollbar, so the canvas was 1583px wide. Headless Chrome has no layout scrollbar, so it is 1600px wide (docs/decisions/0006).",
+    "changed": {
+      "reads.0.inline": [
+        "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+        "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;"
+      ],
+      "reads.0.minHeight": [
+        "623.700012px",
+        "623.7px"
+      ],
+      "reads.0.padBottom": [
+        "211.199997px",
+        "211.2px"
+      ],
+      "reads.1.inline": [
+        "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+        "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;"
+      ],
+      "reads.1.padBottom": [
+        "92.400002px",
+        "92.4px"
+      ],
+      "reads.2.inline": [
+        "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+        "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;"
+      ],
+      "reads.2.padTop": [
+        "30.719999px",
+        "30.72px"
+      ],
+      "reads.2.gridHeight": [
+        385.6,
+        330
+      ],
+      "reads.3.inline": [
+        "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+        "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;"
+      ],
+      "reads.3.padTop": [
+        "51.200001px",
+        "51.2px"
+      ],
+      "reads.3.padBottom": [
+        "168.960007px",
+        "168.96px"
+      ],
+      "reads.4.inline": [
+        "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+        "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;"
+      ],
+      "reads.4.padTop": [
+        "76.800003px",
+        "76.8px"
+      ],
+      "reads.4.padBottom": [
+        "253.440002px",
+        "253.44px"
+      ]
+    }
+  }
 }
