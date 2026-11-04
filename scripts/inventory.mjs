@@ -159,7 +159,7 @@ const run = (js) => evalJs(U, `(async () => { const sleep = (ms) => new Promise(
   const press = async (sel) => { const e = document.querySelector(sel); if (!e) return false; e.click(); await sleep(200); return true; };
   ${js}; return 'true'; })()`);
 async function uReset() {
-  viewport(U, 1880, 1000);
+  viewport(U, 1600, 1000); // the inspector is hidden by default, so ours is as wide as the oracle window
   goto(U, ours); await pause(1200);
   evalJs(U, `(() => { localStorage.clear(); return 'true'; })()`);
   goto(U, ours); await pause(2200);
