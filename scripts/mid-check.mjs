@@ -1,7 +1,7 @@
 // X2: hold each recorded drag and resize in our editor and compare what the blocks say while held
 // with the trace's mid state: near, matching width and height, selected, the grid in one section.
 // G5, G6: then hold what parity/findings/GUIDES.json measured and compare the target area, the
-// ring box, the center line and the width of the held block. X8, X13: the group handles, the marquee.
+// ring box, the center line and the width of the held block. X8, X13, Z3: the group handles, the marquee, the Layers rows.
 // Runs on headless Chrome. Writes parity/mid-check.json. Usage: npm run mid-check.
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, waitFor } from './lib/cmux.mjs';
@@ -212,10 +212,39 @@ mq('into the next section stays in this one', marqueeRun('below', ['next']), { '
 mq('over nothing keeps a selection', marqueeRun('below', ['empty'], true), { 'steps.0.ids': 'paragraph', after: 'paragraph' });
 mq('over a block replaces it on release', marqueeRun('shape', ['shape'], true), { 'steps.0.ids': 'paragraph,shape', after: 'shape' });
 mq('a click clears it', marqueeRun('below', [], true), { after: '' });
+// Z3: dragging rows in the Layers list (LAYERS.json). Each step is one row dragged by some pixels.
+const LY = JSON.parse(readFileSync(new URL('../parity/findings/LAYERS.json', import.meta.url)));
+const layerRun = (steps, remove) => evalJs(S, `(async () => { ${FRAME}
+  const names = ['heading', 'paragraph', 'shape']; const ids = s.blocks.map((b) => b.id);
+  const panel = document.getElementById('layers-panel'); const out = [];
+  d.querySelector('.fe-block[data-block-id="' + ids[0] + '"]').scrollIntoView({ block: 'center' }); await sleep(150);
+  fe.select(s.id, ids[0]); await sleep(30);
+  ${remove ? `fe.select(s.id, ids[names.indexOf('${remove}')]); d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Delete', bubbles: true })); await sleep(50); fe.select(s.id, ids[0]);` : ''}
+  document.querySelector('button[data-sc="layers"]').click(); await sleep(50);
+  for (const st of ${JSON.stringify(steps)}) {
+    const li = panel.querySelectorAll('li[data-layer]')[st.row]; const r = li.getBoundingClientRect();
+    const o = { bubbles: true, pointerId: 1, button: 0, clientX: r.left + 40, clientY: r.top + 22 };
+    li.dispatchEvent(new PointerEvent('pointerdown', { ...o, buttons: 1 }));
+    for (let k = 1; k <= 6; k++) document.dispatchEvent(new PointerEvent('pointermove', { ...o, clientY: o.clientY + st.by * k / 6, buttons: 1 }));
+    const held = !!document.querySelector('.lp-ghost') === (Math.abs(st.by) >= 4) && (Math.abs(st.by) < 4 || !!panel.querySelector('.lp-row.is-slot')) && getComputedStyle(li).userSelect === 'none';
+    document.dispatchEvent(new PointerEvent('pointerup', { ...o, clientY: o.clientY + st.by }));
+    await sleep(40);
+    const blocks = fe.model.sections[${F.section}].blocks;
+    out.push({ held, rows: [...panel.querySelectorAll('li[data-layer]')].map((e) => names[ids.indexOf(e.dataset.layer)]), z: blocks.map((b) => b.layout.desktop.z) });
+  }
+  while (fe.canUndo) fe.undo();
+  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+  return JSON.stringify(out); })()`);
+const layerCase = (name, steps, remove) => {
+  const got = layerRun(steps, remove);
+  steps.forEach((st, k) => groupCases.push({ name: `layers ${name} ${k + 1}`, diffs: [JSON.stringify(got[k].rows) !== JSON.stringify(st.rows) && `rows: oracle ${st.rows}, ours ${got[k].rows}`, JSON.stringify(got[k].z) !== JSON.stringify(st.z) && `z: oracle ${st.z}, ours ${got[k].z}`, !got[k].held && 'no ghost and slot while held'].filter(Boolean) }));
+};
+layerCase('drags', LY.steps);
+layerCase('with a hole', LY.hole.steps, LY.hole.removed);
 const groupFails = groupCases.filter((c) => c.diffs.length && !c.known);
 const groupKnown = groupCases.filter((c) => c.known);
 for (const c of groupFails) console.log(`DIFF ${c.name}\n  ${c.diffs.join('\n  ')}`);
 for (const c of groupKnown) if (!c.diffs.length) { console.log(`Known miss gone: ${c.name}`); groupFails.push(c); }
-console.log(`Group resize and marquee: ${groupCases.length - groupFails.length - groupKnown.length} of ${groupCases.length} match, ${groupKnown.length} named known miss`);
+console.log(`Group resize, marquee and layers: ${groupCases.length - groupFails.length - groupKnown.length} of ${groupCases.length} match, ${groupKnown.length} named known miss`);
 writeFileSync(new URL('../parity/mid-check.json', import.meta.url), JSON.stringify({ check: 'mid-gesture flags, guides, center snap and group resize', pass: pass + guidePass + groupCases.length - groupFails.length - groupKnown.length, known: groupKnown.map((c) => c.name), total: traces.length + groupCases.length + cases.length, results, guides: guideResults, groups: groupCases }, null, 2) + '\n');
 process.exit(pass === traces.length && guidePass === cases.length && !groupFails.length ? 0 : 1);

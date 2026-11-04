@@ -1,11 +1,11 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 64,
+  "pass": 71,
   "known": [
     "group south by 4",
     "group drop n 0,-1"
   ],
-  "total": 66,
+  "total": 73,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -318,6 +318,34 @@
     },
     {
       "name": "marquee a click clears it",
+      "diffs": []
+    },
+    {
+      "name": "layers drags 1",
+      "diffs": []
+    },
+    {
+      "name": "layers drags 2",
+      "diffs": []
+    },
+    {
+      "name": "layers drags 3",
+      "diffs": []
+    },
+    {
+      "name": "layers drags 4",
+      "diffs": []
+    },
+    {
+      "name": "layers drags 5",
+      "diffs": []
+    },
+    {
+      "name": "layers with a hole 1",
+      "diffs": []
+    },
+    {
+      "name": "layers with a hole 2",
       "diffs": []
     }
   ]

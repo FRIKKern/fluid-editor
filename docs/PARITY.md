@@ -2,7 +2,7 @@
 
 [![Parity: one cell per item, done, partial, open or unknown](images/parity.svg)](../README.md)
 
-77 of 118 items done, 41 partial, 0 open, 0 unknown.
+78 of 118 items done, 40 partial, 0 open, 0 unknown.
 Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. Edit the JSON, never this page.
 
 ## Harness and oracle
@@ -132,7 +132,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 |---|---|---|---|---|
 | Z1 | Overlap allowed | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 | Z2 | How Bring forward and Send backward change z | M4 Editor core | ✓ done | Evidence: Move Forward and Move Backward swap z-index with the next block up or down (T0011, T0012); our editor does the same since m3-unknowns and replays both (parity/gate-c.json). The block menu's Arrange submenu (parity/findings/ARRANGE.json, demo section 2): Move to back and Move to front put the block at the bottom or top; Move backward and Move forward move it past every block it overlaps on that side (the heading overlapping the paragraph and the shape went from 1 to 3); after each move the section's blocks are numbered 1 to n; one undo each. Ours gives the same z order for all four cases (headless Chrome) |
-| Z3 | Bring to front and Send to back | M4 Editor core | ◐ partial | Evidence: The oracle has no Bring to front button: you drag a row in the sortable Layers list. Our Layers list reorders by drag and hands out the section z values in the new order; the oracle renumbering is not traced |
+| Z3 | Bring to front and Send to back | M4 Editor core | ✓ done | Evidence: The oracle has no Bring to front button: you drag a row in the sortable Layers list. Measured with real mouse input (parity/findings/LAYERS.json): a drop numbers the blocks 1 to n, the front row highest, also after a removed block left a hole; one undo per drop; a row passes the next when its edge crosses that row's center; while held it follows the pointer over a blue slot and the other rows make way. Ours now does the same with a pointer drag, in place of the browser's own drag: npm run mid-check, 7 Layers cases of 7, and a screenshot next to the oracle's, which caught row text being selected during the drag. The panel is 240 by 500, 11px under its button, as on the oracle. Inferred: moving up uses the same crossing rule, only -72 was tried; the ghost's color comes from pixels. Not measured: whether the ghost follows in x, the distance before a press is a drag, whether blocks change while held. The row icons are not matched: ours is smaller, the name starts 6px further left. Gate C not run on this: it refuses headless Chrome |
 | Z4 | Selecting a block covered by another | M4 Editor core | ✓ done | Evidence: Oracle Layers panel (section toolbar): the blocks front to back, text blocks by their first words, others by type; rows are sortable. Our panel has the same list; a click selects a covered block. The Layers panel now floats under the section's Layers button, as on the oracle, and its rows reorder by drag. The oracle Layers list names a text block by its first words Labels from the gap review of 2026-11-04 (docs/MISSING.md). |
 | Z5 | Editor layer z-index of about 10000 + z and 100000 + z | M5 Chrome and blocks | ◐ partial |  |
 

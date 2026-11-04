@@ -798,9 +798,9 @@
     "id": "Z3",
     "area": "Overlap and layers",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "Bring to front and Send to back",
-    "evidence": "The oracle has no Bring to front button: you drag a row in the sortable Layers list. Our Layers list reorders by drag and hands out the section z values in the new order; the oracle renumbering is not traced"
+    "evidence": "The oracle has no Bring to front button: you drag a row in the sortable Layers list. Measured with real mouse input (parity/findings/LAYERS.json): a drop numbers the blocks 1 to n, the front row highest, also after a removed block left a hole; one undo per drop; a row passes the next when its edge crosses that row's center; while held it follows the pointer over a blue slot and the other rows make way. Ours now does the same with a pointer drag, in place of the browser's own drag: npm run mid-check, 7 Layers cases of 7, and a screenshot next to the oracle's, which caught row text being selected during the drag. The panel is 240 by 500, 11px under its button, as on the oracle. Inferred: moving up uses the same crossing rule, only -72 was tried; the ghost's color comes from pixels. Not measured: whether the ghost follows in x, the distance before a press is a drag, whether blocks change while held. The row icons are not matched: ours is smaller, the name starts 6px further left. Gate C not run on this: it refuses headless Chrome"
   },
   {
     "id": "Z4",

@@ -1,0 +1,134 @@
+{
+  "item": "LAYERS",
+  "capturedAt": "2026-11-04",
+  "question": "What does dragging a row in the Layers list do to the blocks' z values?",
+  "section": 2,
+  "window": [
+    1600,
+    945
+  ],
+  "how": "real mouse input in headless Chrome on the demo page, nothing saved: Exit Without Saving after each run. Blocks: heading z 1, paragraph z 2, shape z 3. Rows front to back, center 47px apart, 44px high.",
+  "z": "after a drop the blocks are numbered 1 to n, the front row highest. A removed block leaves a hole (1, 3) until the next drop",
+  "steps": [
+    {
+      "row": 0,
+      "by": 72,
+      "rows": [
+        "paragraph",
+        "heading",
+        "shape"
+      ],
+      "z": [
+        2,
+        3,
+        1
+      ]
+    },
+    {
+      "row": 1,
+      "by": -72,
+      "rows": [
+        "heading",
+        "paragraph",
+        "shape"
+      ],
+      "z": [
+        3,
+        2,
+        1
+      ]
+    },
+    {
+      "row": 0,
+      "by": 119,
+      "rows": [
+        "paragraph",
+        "shape",
+        "heading"
+      ],
+      "z": [
+        1,
+        3,
+        2
+      ]
+    },
+    {
+      "row": 0,
+      "by": 10,
+      "rows": [
+        "paragraph",
+        "shape",
+        "heading"
+      ],
+      "z": [
+        1,
+        3,
+        2
+      ]
+    },
+    {
+      "row": 0,
+      "by": 30,
+      "rows": [
+        "shape",
+        "paragraph",
+        "heading"
+      ],
+      "z": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "hole": {
+    "removed": "paragraph",
+    "z": [
+      1,
+      3
+    ],
+    "steps": [
+      {
+        "row": 1,
+        "by": -72,
+        "rows": [
+          "heading",
+          "shape"
+        ],
+        "z": [
+          2,
+          1
+        ]
+      },
+      {
+        "row": 1,
+        "by": -72,
+        "rows": [
+          "shape",
+          "heading"
+        ],
+        "z": [
+          1,
+          2
+        ]
+      }
+    ]
+  },
+  "crossing": "moving down, a row passes the next one when its bottom edge crosses that row's center: 10px no, 30px yes, and 72px passes two. Up is taken to be the same with the top edge; only -72 was tried",
+  "hold": {
+    "ghost": "the row follows the pointer in y, over everything, read from the shot: over white rgb(232, 241, 254), over the page color rgb(201, 178, 249), so about rgb(215, 230, 253) at .57, with a soft shadow",
+    "slot": "where it would land: a blue row rgb(72, 148, 255) with no content",
+    "others": "make way while held",
+    "panel": "stays put, the layers order in the section does not need a reload"
+  },
+  "undo": "one undo per drop, back to Save disabled after one drop",
+  "notMeasured": [
+    "whether the ghost also follows the pointer in x: ours does not",
+    "the distance before a press counts as a drag: ours uses 4px",
+    "whether the page's blocks change while held: ours changes them on the drop"
+  ],
+  "panel": {
+    "box": "240 by 500, 11px under the Layers button: 22,279 with the button at 224 to 268, and 22,132 with it at 77 to 121",
+    "rows": "text not selectable while dragging"
+  }
+}

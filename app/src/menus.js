@@ -34,7 +34,7 @@ export function addBlockMenuHtml(types, query = '') {
 }
 
 export function layersPanelHtml(rows) {
-  return `<div class="lp-title">Layers</div><ol class="lp-list">${rows.map((r) => `<li class="lp-row${r.on ? ' is-on' : ''}${r.hidden ? ' is-hidden' : ''}" role="button" tabindex="0" draggable="true" data-layer="${r.id}" aria-label="${r.label.replace(/"/g, '&quot;')}"><span class="lp-icon">${svg(TYPE_ICON[r.type] || TYPE_ICON.Shape)}</span><span class="lp-name">${r.label.replace(/</g, '&lt;')}</span>${r.hidden ? `<button type="button" class="lp-eye" data-unhide="${r.id}" aria-label="Show block" title="Hidden on this layout">${svg('<path d="M3 3l18 18"/><path d="M10.6 6.1A9.8 9.8 0 0 1 12 6c5 0 9 6 9 6a15.5 15.5 0 0 1-3 3.4M6.5 7.5A15.4 15.4 0 0 0 3 12s4 6 9 6a9 9 0 0 0 4-1"/>')}</button>` : ''}</li>`).join('')}</ol>`;
+  return `<div class="lp-title">Layers</div><ol class="lp-list">${rows.map((r) => `<li class="lp-row${r.on ? ' is-on' : ''}${r.hidden ? ' is-hidden' : ''}" role="button" tabindex="0" data-layer="${r.id}" aria-label="${r.label.replace(/"/g, '&quot;')}"><span class="lp-icon">${svg(TYPE_ICON[r.type] || TYPE_ICON.Shape)}</span><span class="lp-name">${r.label.replace(/</g, '&lt;')}</span>${r.hidden ? `<button type="button" class="lp-eye" data-unhide="${r.id}" aria-label="Show block" title="Hidden on this layout">${svg('<path d="M3 3l18 18"/><path d="M10.6 6.1A9.8 9.8 0 0 1 12 6c5 0 9 6 9 6a15.5 15.5 0 0 1-3 3.4M6.5 7.5A15.4 15.4 0 0 0 3 12s4 6 9 6a9 9 0 0 0 4-1"/>')}</button>` : ''}</li>`).join('')}</ol>`;
 }
 
 const K = { cmd: '⌘', shift: '⇧', back: '⌫' };
