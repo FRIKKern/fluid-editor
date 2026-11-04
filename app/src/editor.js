@@ -6,7 +6,7 @@ import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
-import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml } from './block-panel.js';
+import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -287,7 +287,7 @@ toolbar.addEventListener('click', (e) => {
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
-  if (act === 'edit') { designOpen = bid; designTab = b.type === 'button' ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { designOpen = bid; designTab = b.type === 'button' || b.type === 'embed' || (b.type === 'code' && b.html != null) ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && b.type === 'button') { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
@@ -947,17 +947,21 @@ let designOpen = null;
 let designTab = 'Design';
 let blendOpen = false;
 let animPicker = false;
+let embedData = false;
 const blockPanel = $('block-panel');
 function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
-  if (!b) { animPicker = false; blendOpen = false; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
-  const content = b.type === 'button' ? { label: b.label, href: b.href } : b.type === 'image' ? { src: b.src, href: b.href, alt: b.alt, filename: b.filename } : null;
+  if (!b) { animPicker = false; blendOpen = false; embedData = false; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  const content = b.type === 'button' ? { label: b.label, href: b.href } : b.type === 'image' ? { src: b.src, href: b.href, alt: b.alt, filename: b.filename }
+    : b.type === 'code' && b.html != null ? { kind: 'code', html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource }
+    : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if (!content && designTab === 'Content') designTab = 'Design';
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', corner: parseFloat(b.radius) || 0 } : null;
-  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : null), shape, image);
+  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : null), shape, image);
+  blockPanel.style.width = b.type === 'code' && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
   placeBlockPanel();
   blockPanel.hidden = false;
 }
@@ -966,7 +970,7 @@ function placeBlockPanel() {
   if (!designOpen || !sel || panelMoved === designOpen) return;
   const el = blockEl(sel.bid);
   if (!el) return;
-  const p = blockPanelPosition(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect());
+  const p = blockPanelPosition(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), blockPanel.offsetWidth || 320);
   blockPanel.style.left = `${p.left}px`;
   blockPanel.style.top = `${p.top}px`;
 }
@@ -1081,6 +1085,57 @@ blockPanel.addEventListener('change', (e) => {
   f.blur();
   setButton((b) => { b.label = v; }, 'Button text changed');
 }, true);
+// Code and embed (parity/findings/CODEEMBED.json). The canvas follows the typing; a text is one
+// undo step when the field is left. A block grows to hold its code and does not shrink back.
+let codeBefore = null;
+function growToFit(b) {
+  const m = measure(feEl(sel.sid)), L = lay(b);
+  const need = contentRows(b, m);
+  if (L.area[2] - L.area[0] < need) { L.area = [L.area[0], L.area[1], L.area[0] + need, L.area[3]]; renderSectionDom(sel.sid); }
+}
+blockPanel.addEventListener('input', (e) => {
+  const f = e.target.closest('textarea[data-content="code"], textarea[data-content="embedHtml"]');
+  if (!f || !sel) return;
+  const b = B(sel.sid, sel.bid);
+  codeBefore ??= JSON.stringify(model);
+  if (f.dataset.content === 'code') b.html = f.value;
+  else if (f.value) { b.html = f.value; delete b.embedInvalid; } else delete b.html;
+  renderSectionDom(sel.sid);
+  if (b.type === 'code') growToFit(b);
+  const lines = f.parentElement.querySelector('.bp-code-lines');
+  lines.innerHTML = Array.from({ length: f.value.split('\n').length }, (_, n) => n + 1).join('<br>');
+  placeBlockPanel();
+});
+blockPanel.addEventListener('change', (e) => {
+  const f = e.target.closest('[data-content="code"], [data-content="embedHtml"]');
+  if (f) { if (codeBefore != null) commit(codeBefore, f.dataset.content === 'code' ? 'Code changed' : 'Embed data changed'); codeBefore = null; return; }
+  const c = e.target.closest('[data-content="codeMode"], [data-content="showSource"], [data-content="embedUrl"], [data-content="description"]');
+  if (!c || !sel) return;
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  if (c.dataset.content === 'codeMode') {
+    // CSS, JavaScript and Plain Text turn Display Source Code on, and it stays on (CODEEMBED.json).
+    if (c.value === 'html') delete b.codeMode; else b.codeMode = c.value;
+    if (!['html', 'markdown'].includes(c.value)) b.showSource = true;
+  }
+  if (c.dataset.content === 'showSource') { if (c.checked) b.showSource = true; else delete b.showSource; }
+  if (c.dataset.content === 'embedUrl') { c.blur(); if (c.value) { b.embedUrl = c.value; b.embedInvalid = true; } else { delete b.embedUrl; delete b.embedInvalid; } }
+  if (c.dataset.content === 'description') { if (c.value) b.description = c.value; else delete b.description; }
+  renderSectionDom(sel.sid);
+  if (b.type === 'code') growToFit(b);
+  commit(before, `${c.dataset.content} changed on ${b.id}`);
+  renderBlockPanel();
+});
+blockPanel.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-embed]');
+  if (!a || !sel) return;
+  const b = B(sel.sid, sel.bid), v = a.dataset.embed;
+  if (v === 'data' || v === 'back') { embedData = v === 'data'; renderBlockPanel(); return; }
+  const before = JSON.stringify(model);
+  if (v === 'code') b.embedAs = 'code'; else delete b.embedAs;
+  commit(before, `Embed as ${v}`);
+  renderBlockPanel();
+});
+
 // Image Alternate Filename and alt text, one undo step when the field is left; empty removes it.
 blockPanel.addEventListener('change', (e) => {
   const f = e.target.closest('input[data-content="alt"], input[data-content="filename"]');
@@ -1119,6 +1174,8 @@ async function readPicture(file) {
   c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
   return { src: c.toDataURL('image/webp', 0.85), aspect: bmp.width / bmp.height };
 }
+// Keys typed in a panel field stay in the field: a Backspace there must not remove the block.
+blockPanel.addEventListener('keydown', (e) => { if (e.key !== 'Escape' && e.target.matches('input, textarea, select')) e.stopPropagation(); });
 blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input[data-content]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); });
 
 const linkPop = $('link-popover');

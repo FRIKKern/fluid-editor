@@ -390,7 +390,16 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Embed and code blocks",
-    "evidence": "parity/findings/T10.json: Add Block > Code lands at 1/2/7/6 (4 columns, 6 rows) holding <p>Hello, World!</p> in .sqs-code-container; Embed lands at 1/2/9/10 with the placeholder EMBED BLOCK, Add an embed URL or code. Ours adds both with the same areas, text and published class strings (type 1337). Missing: editing the code, entering an embed URL or code, and how embeds render"
+    "evidence": "parity/findings/T10.json: Add Block > Code lands at 1/2/7/6 (4 columns, 6 rows) holding <p>Hello, World!</p> in .sqs-code-container; Embed lands at 1/2/9/10 with the placeholder EMBED BLOCK, Add an embed URL or code. Ours adds both with the same areas, text and published class strings (type 1337). Built from parity/findings/CODEEMBED.json (measured 2026-11-04 on the oracle in headless Chrome, unsaved): both open on Content. Code: a 575 wide panel with Mode (CSS, HTML, JavaScript, Markdown, Plain Text), Display Source Code and the code; HTML shows as HTML, Markdown is rendered (ours reads headings, paragraphs, emphasis, strong and inline code only), the rest and the switch show <pre class=\"source-code\">; CSS, JavaScript and Plain Text turn the switch on; long code adds rows. Embed: Embed as Link or Code Snippet, Embed data with Back, Custom thumbnail (off, as on the oracle for non-videos), Description; the status box and its invalid state. Design on both is the transforms alone. npm run code-check, 26 of 26, headless Chrome with a real Backspace. Not built: a link that finds real content (the oracle uses a lookup service of its host, so ours always ends in No embeddable content found), the full-screen button, the Learn More link, what Description publishes. Not measured: why the oracle's embed went from 8 to 6 rows after a short snippet; ours keeps its rows",
+    "controls": [
+      "Mode",
+      "Display Source Code",
+      "Embed as",
+      "Code Snippet",
+      "Embed data",
+      "Custom thumbnail",
+      "Description"
+    ]
   },
   {
     "id": "T11",

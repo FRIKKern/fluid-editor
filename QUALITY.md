@@ -25,6 +25,7 @@ Two narrower checks run beside the gates:
 | `npm run design-edit-check` | The styles 10 Edit > Design values gave on the oracle (`parity/findings/DESIGN.json`) against the same values set in our editor | Equal computed opacity, transform, backdrop filter and background |
 | `npm run image-check` | Where the picture sits for Fit, Fill and Shape on the oracle (`parity/findings/IMAGEMODES.json`) against the same buttons in our editor | Picture box within 1px of the measured rule, block size unchanged, one undo step |
 | `npm run site-styles-check` | What each style pack set on the oracle's page and how its popover sits (`parity/findings/SITESTYLES2.json`) against the same tiles in our editor | Same palette, heading, paragraph and button values for all 38 packs, popover width and left equal, one undo step |
+| `npm run code-check` | What each code mode, Display Source Code and Embed data wrote on the oracle (`parity/findings/CODEEMBED.json`) against the same input in our editor, with real keys | Equal HTML, same rows and panel size, one undo step |
 
 The dev server (`npm run dev`, scripts/serve.mjs) sends `Cache-Control: no-store`. Set `FLUID_PORT` to run a checkout on its own port (default 5178), and `CDP_PORT` to give it its own headless Chrome: `FLUID_PORT=5201 CDP_PORT=9341`. Under python's http.server a WebKit tab kept old modules, so a check could measure code older than the checkout.
 
