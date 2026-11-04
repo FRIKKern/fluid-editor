@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 51 changes
+- **Today** · 52 changes
+  - X8: group handles resize and group Move Forward, Move Backward ([#109](https://github.com/FRIKKern/fluid-editor/pull/109))
   - U12: disclosure views, Base Size and Reset dialog ([#108](https://github.com/FRIKKern/fluid-editor/pull/108))
-  - T12: Accordion block, measured on the oracle ([#107](https://github.com/FRIKKern/fluid-editor/pull/107))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
