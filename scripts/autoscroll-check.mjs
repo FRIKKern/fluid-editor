@@ -23,11 +23,12 @@ for (const [name, want] of Object.entries(F.totals)) {
     const q = b.getBoundingClientRect(); const x = q.left + q.width / 2, y0 = q.top + q.height / 2;
     const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 };
     const at = (t, cx, cy, buttons) => (t === 'down' ? b : d).dispatchEvent(new W.PointerEvent('pointer' + t, { ...o, clientX: cx, clientY: cy, buttons }));
+    const s0 = W.scrollY;
     at('down', x, y0, 1);
     for (let k = 1; k <= 4; k++) { at('move', x, y0 + k * 5, 1); await sleep(25); }
     const y = ${edge === 'bottom' ? `W.innerHeight - ${dist}` : dist};
     for (let k = 1; k <= 8; k++) { at('move', x, y0 + 20 + (y - y0 - 20) * k / 8, 1); await sleep(20); }
-    const s0 = W.scrollY; const t0 = performance.now();
+    const t0 = performance.now();
     while (performance.now() - t0 < 1200) { await sleep(50); at('move', x, y, 1); }
     const got = W.scrollY - s0;
     at('move', x, W.innerHeight / 2, 1); await sleep(150); at('up', x, W.innerHeight / 2, 0);
