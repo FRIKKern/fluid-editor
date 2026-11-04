@@ -80,7 +80,9 @@ async function oEnsureDemo() {
   let s = oInfo();
   if (s.editing && s.title.includes(PAGE_TITLE)) return;
   if (s.save === false) throw new Error('The oracle has unsaved changes; stopping (O1)');
-  if (s.editing) await oCmuxClick(oByLabel('Exit'), 3500);
+  // Site Styles (/config/site-styles) is not edit mode but has its own Exit; leave it too.
+  const inStyles = evalJs(O, '(() => JSON.stringify(location.pathname.includes("site-styles")))()') === true;
+  if (s.editing || inStyles) await oCmuxClick(oByLabel('Exit'), 3500);
   s = oInfo();
   // Exit can land on the dashboard: the page list with our page lives at /config/pages.
   const linkVisible = () => evalJs(O, `(() => JSON.stringify(!![...document.querySelectorAll('*')].find((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(PAGE_TITLE)} && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().left < 400)))()`);
