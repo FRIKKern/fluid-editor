@@ -29,13 +29,27 @@ function buttonContentHtml(c) {
 // picture with Replace, Edit and Remove, then Link, Alternate Filename and Image alt text. Those
 // labels are all that is measured, so the sizes follow the button's Content tab. Replace reads a
 // file from this computer; Edit, the oracle's full-screen image editor, is not built.
+const addBox = (title, note, act) => `<button type="button" class="bp-add-box"${act ? ` data-image-act="${act}"` : ' disabled data-unbuilt title="Not built yet"'} aria-label="${title}"><span class="bp-add-plus" aria-hidden="true">${pi('<path d="M12 5v14M5 12h14"/>')}</span><strong>${title}</strong><small>${note}</small></button>`;
 function imageContentHtml(c) {
+  // A new image (MEDIAEMPTY.json): Add an Image takes a picture from this computer, nothing is uploaded.
+  if (c.empty) return `${addBox('Add an Image', '20 MB max', 'replace')}<input class="bp-pic-file" type="file" accept="image/*" hidden data-image-file>${linkField(c.href)}`;
   const text = (key, label, value) => `<div class="bp-field"><span class="bp-flabel">${label}</span><input class="bp-text" type="text" aria-label="${label}" data-content="${key}" value="${esc(value || '')}"></div>`;
   const pic = c.src ? `<img class="bp-pic-img" alt="" src="${esc(c.src)}">` : '';
   return `<div class="bp-pic">${pic}<div class="bp-pic-actions"><button type="button" data-image-act="replace">Replace</button><button type="button" data-unbuilt disabled title="Not built yet">Edit</button><button type="button" class="bp-link-remove" data-image-act="remove"${c.src ? '' : ' disabled'}>Remove</button></div><input class="bp-pic-file" type="file" accept="image/*" hidden data-image-file></div>`
     + linkField(c.href)
     + text('filename', 'Alternate Filename', c.filename)
     + text('alt', 'Image alt text', c.alt);
+}
+
+// Content tab of a new video (MEDIAEMPTY.json). Uploads, the player and the storage dialog are not
+// built, so those rows are dim. Description is kept on the block.
+function videoContentHtml(c) {
+  return addBox('Add a Video', '30 minutes max')
+    + '<div class="bp-video-store" data-unbuilt title="Not built yet"><span>Video Storage</span><span>30 min left</span></div>'
+    + '<div class="sp-row" data-unbuilt title="Not built yet"><span class="sp-label">Custom thumbnail</span><label class="sp-switch"><input type="checkbox" disabled aria-label="Custom thumbnail"><span aria-hidden="true"></span></label></div>'
+    + '<div class="sp-row" data-unbuilt title="Not built yet"><span class="sp-label">Lazy Loading</span><span class="bp-unbuilt-chip">Auto</span></div>'
+    + '<p class="bp-help">Lazy loading is an optimization that defers loading content until the block is near the visible portion of the page.</p>'
+    + `<div class="bp-video-head">Elements</div><div class="bp-field"><span class="sp-label">Description</span><textarea class="bp-desc" aria-label="Description" placeholder="Add description here..." data-content="description">${esc(c.description || '')}</textarea></div>`;
 }
 
 // Content tab of a code block (parity/findings/CODEEMBED.json): Mode, Display Source Code and the
@@ -150,7 +164,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   const box = ([k, l, u, min, max, axis]) => `<label class="bp-box"><input type="number" data-design="${k}" aria-label="${axis ? `${l} ${axis}` : l}" min="${min}" max="${max}" value="${d[k]}"><span class="bp-unit">${u}${axis ? ` <b>${axis}</b>` : ''}</span></label>`;
   let body;
   if (tab === 'Content' && content) {
-    body = image ? imageContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : buttonContentHtml(content);
+    body = image ? imageContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
   } else if (tab === 'Design' && content?.kind === 'accordion') {
     body = accordionDesignHtml(content, open, d);
   } else if (tab === 'Design') {
@@ -160,8 +174,13 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       if (f[5] === 'X') { pairs.push(`<div class="bp-trow"><span class="sp-label">${f[1]}</span><span class="bp-pair">${box(f)}${box(DESIGN_FIELDS[i + 1])}</span></div>`); i++; }
       else pairs.push(`<div class="bp-trow"><span class="sp-label">${f[1]}</span>${box(f)}</div>`);
     }
+    // A new video (MEDIAEMPTY.json): Appearance, Transforms, Effects. Its Corner is not built.
+    if (content?.kind === 'video') body = '<div class="bp-thead"><span>Appearance</span></div>' + row('Background', sw('background', d.background, 'Background')) + strokeRows(d)
+      + row('Corner', '<span class="bp-unbuilt-chip" data-unbuilt title="Not built yet">0px</span>')
+      + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>${pairs.join('')}`
+      + '<div class="bp-thead"><span>Effects</span></div>' + blendRow(d.blend || 'normal', open === 'blend') + row('Blur', sw('blur', d.blur, 'Blur'));
     // Code and embed blocks (CODEEMBED.json) have the transforms alone.
-    if (content?.kind === 'code' || content?.kind === 'embed') body = `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>${pairs.join('')}`;
+    else if (content?.kind === 'code' || content?.kind === 'embed') body = `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>${pairs.join('')}`;
     // A shape's Design tab (parity/findings/SHAPEDESIGN.json) has no Background or Stroke row:
     // shape style, Corner radius with Uniform or Individual radii, Stretch, Color, Blend Mode,
     // Drop Shadow, Blur, then the transforms.
@@ -181,7 +200,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       const off = (l) => row(l, `<label class="sp-switch" data-unbuilt title="Not built yet"><input type="checkbox" disabled aria-label="${l}"><span aria-hidden="true"></span></label>`);
       body = `<div class="bp-modes" role="radiogroup" aria-label="Image mode">${seg('fit', 'Fit')}${seg('fill', 'Fill')}${seg('shape', 'Shape')}</div>`
         + (image.mode === 'shape' ? chip('Shape', 'Circle') + off('Stretch') : row('Corner', `<label class="bp-box"><input type="number" data-image-corner aria-label="Corner" min="0" max="1000" value="${image.corner}"><span class="bp-unit">px</span></label>`))
-        + chip('Image Effect', '›') + off('Overlay') + off('Lightbox')
+        + (image.empty ? '' : chip('Image Effect', '›') + off('Overlay') + off('Lightbox'))
         + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
         + pairs.join('');
     }

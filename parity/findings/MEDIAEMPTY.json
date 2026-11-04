@@ -1,0 +1,202 @@
+{
+  "item": "T7, T4, T14",
+  "capturedAt": "2026-11-04",
+  "question": "What do a new, empty image and video block look like, what do their Edit panels offer, and how does a video resize?",
+  "page": "demo page, unsaved; left with Exit Without Saving; nothing uploaded",
+  "image": {
+    "area": [
+      1,
+      2,
+      7,
+      8
+    ],
+    "size": [
+      342,
+      236
+    ],
+    "openTab": "Content",
+    "emptyClass": "fluid-image-component-empty-state-node",
+    "panels": {
+      "Content": [
+        "Content",
+        "Design",
+        "Animation",
+        "Add an Image",
+        "20 MB max",
+        "Link",
+        "Attach link"
+      ],
+      "Design": [
+        "Content",
+        "Design",
+        "Animation",
+        "Fit",
+        "Fill",
+        "Shape",
+        "Corner",
+        "Transforms",
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew",
+        "Anchor"
+      ]
+    },
+    "addButton": [
+      36,
+      36
+    ],
+    "defaultMode": "Fit",
+    "resize": {
+      "se 2 cols 1 row": {
+        "from": [
+          1,
+          2,
+          7,
+          8
+        ],
+        "to": [
+          1,
+          2,
+          8,
+          10
+        ]
+      }
+    }
+  },
+  "video": {
+    "area": [
+      1,
+      2,
+      9,
+      10
+    ],
+    "size": [
+      459,
+      318
+    ],
+    "openTab": "Content",
+    "placeholder": {
+      "box": [
+        0,
+        0,
+        459.3,
+        298.5
+      ],
+      "gradient": "linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.4) 33%, rgba(0, 0, 0, 0))",
+      "color": "rgb(49, 49, 49)",
+      "widthToHeight": 0.65
+    },
+    "icon": [
+      216.6,
+      135.9,
+      26,
+      26.6
+    ],
+    "panels": {
+      "Content": [
+        "Content",
+        "Design",
+        "Animation",
+        "Add a Video",
+        "30 minutes max",
+        "Video Storage",
+        "30 min left",
+        "Custom thumbnail",
+        "Lazy Loading",
+        "Auto",
+        "Lazy loading is an optimization that defers loading content until the block is near the visible portion of the page.",
+        "Elements",
+        "Description"
+      ],
+      "Design": [
+        "Content",
+        "Design",
+        "Animation",
+        "Appearance",
+        "Background",
+        "Stroke",
+        "Corner",
+        "Transforms",
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew",
+        "Anchor",
+        "Effects",
+        "Blend Mode",
+        "Normal",
+        "Blur"
+      ]
+    },
+    "descriptionPlaceholder": "Add description here...",
+    "resize": {
+      "se 2 cols 1 row": {
+        "from": [
+          1,
+          2,
+          9,
+          10
+        ],
+        "to": [
+          1,
+          2,
+          11,
+          12
+        ]
+      },
+      "e 2 cols": {
+        "from": [
+          1,
+          2,
+          9,
+          10
+        ],
+        "to": [
+          1,
+          2,
+          11,
+          12
+        ]
+      },
+      "s 2 rows": {
+        "from": [
+          1,
+          2,
+          11,
+          12
+        ],
+        "to": [
+          1,
+          2,
+          13,
+          12
+        ]
+      },
+      "se -2 cols": {
+        "from": [
+          1,
+          2,
+          13,
+          12
+        ],
+        "to": [
+          1,
+          2,
+          13,
+          10
+        ]
+      }
+    },
+    "rule": "the block is at least as tall as its placeholder, whose height is 0.65 of its width; it does not shrink when the width shrinks"
+  },
+  "notMeasured": [
+    "an image with a picture: which tab Edit opens on",
+    "Remove on a picture: assumed to return to the empty state",
+    "a published page with an empty image or video",
+    "the video player, uploads and storage dialog: not tried (no uploads)",
+    "clicking + on the canvas"
+  ]
+}

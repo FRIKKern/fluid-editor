@@ -312,7 +312,7 @@ body { position: relative; }
 .page-section .sqs-block-button-element, .page-section .form-submit { background: var(--button-bg); color: var(--button-ink); }
 
 /* Embed and video placeholders (T7, T10): the editor shows them, the published page does not. */
-.sqs-embed-container .sqs-blockStatus, .sqs-block-video-placeholder--empty { display: none; }
+.sqs-embed-container .sqs-blockStatus, .sqs-block-video-placeholder--empty, .fluid-image-component-empty-state-node { display: none; }
 .sqs-block-code .sqs-code-container > :last-child { margin-bottom: 0; }
 
 /* Text colors of the trial site palette (parity/findings/TEXTCOLOR.json). */

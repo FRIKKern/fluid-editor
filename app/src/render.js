@@ -207,6 +207,8 @@ function blockInner(b, model) {
       const alt = escapeHtml(b.alt || '');
       const inner = b.src ? `<div class="fluid-image-container has-picture" style="${r}${aspect}"><img src="${escapeHtml(b.src)}" alt="${alt}"></div>`
         : `<div class="fluid-image-container" style="${r}${aspect}" role="img" aria-label="${alt}"></div>`;
+      // A new block has no picture yet (MEDIAEMPTY.json): the editor shows a white box with a +.
+      if (b.empty) return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-image image-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-component-empty-state-node"><span class="fluid-image-add" aria-hidden="true"></span></div></div></div>`;
       const pic = b.href ? `<a class="sqs-block-image-link" href="${escapeHtml(b.href)}">${inner}</a>` : inner;
       return `<div class="sqs-block image-block sqs-block-image sqs-stretched${mode}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${pic}</div></div>`;
     }
@@ -247,7 +249,7 @@ function blockInner(b, model) {
       return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-embed embed-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-embed-container">${b.html || status}</div></div></div>`;
     }
     case 'video':
-      return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-video video-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div>${b.html || '<div class="sqs-block-video-placeholder sqs-block-video-placeholder--empty"></div>'}</div></div></div>`;
+      return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-video video-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div>${b.html || '<div class="sqs-block-video-placeholder sqs-block-video-placeholder--empty"><div class="sqs-block-video-placeholder__ui"><div class="sqs-block-video-placeholder__icon"><svg viewBox="0 0 26 21" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 2" aria-hidden="true"><rect x="1" y="1" width="24" height="19"/><path d="M10.5 7v7l6-3.5z" fill="currentColor" stroke="none"/></svg></div></div></div>'}</div></div></div>`;
     case 'code': {
       if (b.html != null) return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-code code-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-code-container">${codeOutput(b)}</div></div></div>`;
       const src = b.codeOf ? sectionGridCss(model.sections.find((s) => s.id === b.codeOf)).trim() : b.code;

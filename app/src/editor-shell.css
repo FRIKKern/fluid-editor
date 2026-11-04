@@ -303,6 +303,18 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 .bp-item-actions button { border: 0; background: none; padding: 0; font-family: inherit; font-size: 12px; font-weight: 500; line-height: 16px; letter-spacing: .03em; text-transform: uppercase; color: #0e0e0e; cursor: pointer; }
 .bp-item-actions .bp-link-remove { color: #db3642; }
 
+/* A new image's and video's Content tab (MEDIAEMPTY.json): a dashed 276 by 129 box. */
+.bp-add-box { display: flex; flex-direction: column; align-items: center; box-sizing: border-box; width: 276px; height: 129px; margin-top: 8px; padding: 21px 0 0; border: 1px dashed #d0d0d0; border-radius: 6px; background: none; font: inherit; color: #0e0e0e; cursor: pointer; }
+.bp-add-box:disabled { cursor: default; }
+.bp-add-plus { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #f2f2f2; }
+.bp-add-box strong { margin-top: 14px; font-weight: 400; line-height: 20px; }
+.bp-add-box small { font-size: 12px; line-height: 16px; color: #6f6f6f; }
+.bp-video-store + .sp-row { margin-top: 13px; }
+.bp-video-store { display: flex; justify-content: space-between; box-sizing: border-box; width: 276px; height: 78px; margin-top: 11px; padding: 20px 22px; background: #f2f2f2; border-radius: 3px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #6f6f6f; }
+.bp-help { margin: 12px 0 0; font-size: 12px; line-height: 16px; color: #6f6f6f; }
+.sp-body > .bp-thead:first-child { border-top: 0; margin-top: 0; }
+.bp-video-head { margin-top: 26px; font-weight: 500; color: #0e0e0e; }
+
 /* Image Content tab (IMAGEMODES.json lists its labels; sizes follow the button's fields). */
 .bp-pic { width: 276px; margin-top: 16px; border: 1px solid #e7e7e7; border-radius: 3px; box-sizing: border-box; }
 .bp-pic-img { display: block; width: 100%; height: 120px; object-fit: contain; background: #f2f2f2; }
@@ -314,6 +326,8 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 .bp-flabel { font-size: 12px; color: #6f6f6f; line-height: 14px; }
 .bp-text { box-sizing: border-box; width: 276px; height: 44px; padding: 0 12px; border: 0; border-radius: 3px; background: #f2f2f2; font: inherit; color: #0e0e0e; }
 .bp-attach { box-sizing: border-box; width: 276px; height: 44px; border: 1px solid #e7e7e7; border-radius: 3px; background: #fff; font: inherit; color: #0e0e0e; cursor: pointer; }
+.bp-attach { font-size: 12px; font-weight: 500; letter-spacing: .03em; text-transform: uppercase; }
+.bp-field:has(> .bp-attach) > .bp-flabel { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
 .bp-link { width: 276px; border: 1px solid #e7e7e7; border-radius: 3px; box-sizing: border-box; padding: 0 16px; }
 .bp-link-url { display: block; width: 244px; height: 66px; border: 0; background: none; padding: 0; text-align: left; font: inherit; color: #0e0e0e; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
 .bp-link-actions { display: flex; gap: 22px; height: 55px; align-items: center; border-top: 1px solid #e7e7e7; }
