@@ -83,6 +83,49 @@ export function toggleMark(doc, root, sel, name) {
   return true;
 }
 
+// Text Color and Text Highlight (E4, parity/findings/TEXTCOLOR.json). A palette color wraps
+// the selection in <span class="sqsrte-text-color--NAME">; inside such a span the class
+// changes. Highlight wraps it in <span class="sqsrte-text-highlight" data-text-attribute-id>
+// with a new id each time.
+export const TEXT_COLORS = [['Lightest', 'white', 'rgb(255, 255, 255)'], ['Light', 'lightAccent', 'rgb(255, 207, 90)'], ['Bright', 'accent', 'rgb(242, 184, 180)'], ['Dark', 'darkAccent', 'rgb(181, 100, 247)'], ['Darkest', 'black', 'rgb(0, 0, 0)']];
+const spanWith = (root, range, test) => {
+  let n = range.startContainer.nodeType === 1 ? range.startContainer : range.startContainer.parentElement;
+  while (n && n !== root && !(n.tagName === 'SPAN' && test(n))) n = n.parentElement;
+  return n && n !== root && n.contains(range.endContainer) ? n : null;
+};
+const isColor = (e) => [...e.classList].some((c) => c.startsWith('sqsrte-text-color--'));
+export function currentTextColor(root, sel) {
+  if (!sel.rangeCount) return null;
+  const sp = spanWith(root, sel.getRangeAt(0), isColor);
+  return sp ? [...sp.classList].find((c) => c.startsWith('sqsrte-text-color--')).slice(19) : null;
+}
+function wrapRange(doc, sel, el) {
+  const range = sel.getRangeAt(0);
+  el.append(range.extractContents());
+  range.insertNode(el);
+  sel.removeAllRanges();
+  const r = doc.createRange();
+  r.selectNodeContents(el);
+  sel.addRange(r);
+}
+export function setTextColor(doc, root, sel, name) {
+  if (!sel.rangeCount || sel.isCollapsed) return false;
+  const sp = spanWith(root, sel.getRangeAt(0), isColor);
+  if (sp) { sp.className = `sqsrte-text-color--${name}`; return true; }
+  const el = doc.createElement('span');
+  el.className = `sqsrte-text-color--${name}`;
+  wrapRange(doc, sel, el);
+  return true;
+}
+export function addHighlight(doc, root, sel) {
+  if (!sel.rangeCount || sel.isCollapsed) return false;
+  const el = doc.createElement('span');
+  el.className = 'sqsrte-text-highlight';
+  el.setAttribute('data-text-attribute-id', (doc.defaultView.crypto || crypto).randomUUID());
+  wrapRange(doc, sel, el);
+  return true;
+}
+
 // Link (E7, parity/findings/TEXTLINK.json): the oracle wraps the selected text in
 // <a href="..."> with no other attribute. Inside an existing link the href changes; an empty
 // href removes the link. Returns false when there is nothing to link.

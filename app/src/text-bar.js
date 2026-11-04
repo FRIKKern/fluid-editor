@@ -3,9 +3,9 @@
 // Text Style dropdown, Bold, Italic, Text Color, Scaled Text, Text Highlight, Link | Text
 // Alignment (a menu of four) | Quote, Bullet List, Numbered List | Strike | Outdent, Indent |
 // Clear Formatting, on a 40px pitch. Our icons are our own (O2). AI is out of scope
-// (docs/decisions/0005); Color, Scaled Text and Highlight are shown but not built. Link opens
-// the link editor (E7).
-import { STYLES } from './text-format.js';
+// (docs/decisions/0005); Scaled Text is shown but not built. Link opens the link editor (E7);
+// Text Color opens the palette, Text Highlight applies at once.
+import { STYLES, TEXT_COLORS } from './text-format.js';
 
 const svg = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const I = {
@@ -32,14 +32,14 @@ const I = {
 const btn = (act, label, opts = {}) => `<button type="button" class="tx-btn${opts.on ? ' is-on' : ''}" data-fmt="${act}" aria-label="${label}" title="${label}"${opts.unbuilt ? ' data-unbuilt disabled' : ''}>${svg(I[opts.icon || act])}</button>`;
 const sep = '<span class="tx-sep" aria-hidden="true"></span>';
 
-export function textBarHtml(style, open) {
+export function textBarHtml(style, open, color = null) {
   const styleLabel = (STYLES.find(([, v]) => v === style) || STYLES[5])[0];
   const items = [
     `<button type="button" class="tx-btn" aria-label="Squarespace AI" title="Squarespace AI (out of scope)" data-unbuilt disabled>${svg(I.ai)}</button>`,
     sep,
     `<button type="button" class="tx-style" data-fmt="style-menu" aria-label="Text Style" aria-expanded="${open === 'style'}">${styleLabel}${svg(I.chevron)}</button>`,
     sep,
-    btn('bold', 'Bold'), btn('italic', 'Italic'), btn('color', 'Text Color', { unbuilt: true }), btn('scaled', 'Scaled Text', { unbuilt: true }), btn('highlight', 'Text Highlight', { unbuilt: true }), btn('link', 'Link'),
+    btn('bold', 'Bold'), btn('italic', 'Italic'), `<button type="button" class="tx-btn" data-fmt="color-menu" aria-label="Text Color" title="Text Color" aria-expanded="${open === 'color'}">${svg(I.color)}</button>`, btn('scaled', 'Scaled Text', { unbuilt: true }), btn('highlight', 'Text Highlight'), btn('link', 'Link'),
     sep,
     `<button type="button" class="tx-btn" data-fmt="align-menu" aria-label="Text Alignment" aria-expanded="${open === 'align'}">${svg(I['align:left'])}</button>`,
     sep,
@@ -55,7 +55,10 @@ export function textBarHtml(style, open) {
   const KEYS = { h1: '6', h2: '5', h3: '4', h4: '3', 'p.sqsrte-large': '2', p: '1', 'p.sqsrte-small': '0', pre: 'M' };
   const styleMenu = open === 'style' ? `<div class="tx-pop tx-styles" role="menu">${STYLES.map(([l, v]) => `<button type="button" role="menuitemradio" aria-checked="${v === style}" data-fmt="style" data-v="${v}" aria-label="${l}"><span class="tx-check">${v === style ? '✓' : ''}</span><span class="tx-sname">${l}</span><span class="tx-keys"><kbd>⌘</kbd><kbd>⌥</kbd><kbd>${KEYS[v]}</kbd></span></button>`).join('')}</div>` : '';
   const alignMenu = open === 'align' ? `<div class="tx-pop tx-aligns" role="menu">${['left', 'center', 'right', 'justify'].map((a) => btn(`align:${a}`, `Text align: ${a}`)).join('')}</div>` : '';
-  return `<div class="tx-row">${items}</div>${styleMenu}${alignMenu}`;
+  // Text Color (parity/findings/TEXTCOLOR.json): Palette and Custom tabs, five 34px swatches
+  // named after the site colors, the current one checked. Custom is not built.
+  const colorMenu = open === 'color' ? `<div class="tx-pop tx-colors" role="dialog" aria-label="Text Color"><div class="tx-ctabs"><button type="button" role="tab" class="tx-ctab is-on" aria-selected="true">Palette</button><button type="button" role="tab" class="tx-ctab" aria-selected="false" data-unbuilt disabled>Custom</button></div><div class="tx-swatches">${TEXT_COLORS.map(([l, k, rgb]) => `<label class="tx-swatch"><span style="background:${rgb}"></span><input type="checkbox" aria-label="${l}" data-fmt="color" data-v="${k}" ${color === k ? 'checked' : ''}></label>`).join('')}</div></div>` : '';
+  return `<div class="tx-row">${items}</div>${styleMenu}${alignMenu}${colorMenu}`;
 }
 
 // 58px above the block's top edge, its left edge on the block's (oracle screenshot), kept

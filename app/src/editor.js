@@ -978,9 +978,23 @@ const TEXT_ACTIONS = [['bold', 'Bold'], ['italic', 'Italic'], ['quote', 'Quote']
   ['outdent', 'Outdent'], ['indent', 'Indent'], ['align:left', 'Align left'], ['align:center', 'Align center'], ['align:right', 'Align right'], ['align:justify', 'Align justify'], ['clear', 'Clear Formatting']];
 const textBar = $('text-bar');
 let textMenu = null; // 'style' | 'align' | null
+// The checked swatch: the color span around the selection, else the palette color equal to
+// the text's computed color (the oracle checks Darkest on plain black text, TEXTCOLOR.json).
+function currentColorKey() {
+  const sel = win.getSelection();
+  const k = fmt.currentTextColor(editing.ce, sel);
+  if (k || !sel.rangeCount) return k;
+  const n = sel.getRangeAt(0).startContainer;
+  const el = n.nodeType === 1 ? n : n.parentElement;
+  const rgb = win.getComputedStyle(el).color;
+  return (fmt.TEXT_COLORS.find(([, , c]) => c === rgb) || [])[1] || null;
+}
 function renderTextBar() {
   if (!editing || document.body.classList.contains('is-preview')) { textBar.hidden = true; textMenu = null; return; }
-  textBar.innerHTML = textBarHtml(fmt.currentStyle(editing.ce, win.getSelection()), textMenu);
+  textBar.innerHTML = textBarHtml(fmt.currentStyle(editing.ce, win.getSelection()), textMenu, textMenu === 'color' ? currentColorKey() : null);
+  // The color popover is centred under its button, 6px below it (TEXTCOLOR.json).
+  const cp = textBar.querySelector('.tx-colors'), cb = textBar.querySelector('[data-fmt="color-menu"]');
+  if (cp && cb) { cp.style.left = `${cb.offsetLeft + cb.offsetWidth / 2 - 127}px`; cp.style.top = `${cb.offsetTop + cb.offsetHeight + 6}px`; }
   const p = textBarPosition(blockEl(editing.bid).getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect());
   textBar.style.left = `${p.left}px`;
   textBar.style.top = `${p.top}px`;
@@ -998,17 +1012,21 @@ function applyFormat(act, value) {
   if (kind === 'outdent') fmt.indent(ed.ce, sel, -1);
   if (kind === 'align') fmt.align(ed.ce, sel, arg);
   if (kind === 'clear') fmt.clearFormatting(ed.ce, sel);
+  if (kind === 'color') fmt.setTextColor(doc, ed.ce, sel, value);
+  if (kind === 'highlight') fmt.addHighlight(doc, ed.ce, sel);
   ed.ce.focus();
   onTextInput();
 }
 // Buttons keep the text selection: no focus change on mousedown.
-textBar.addEventListener('mousedown', (e) => { if (e.target.closest('button')) e.preventDefault(); });
+textBar.addEventListener('mousedown', (e) => { if (e.target.closest('button, .tx-swatch')) e.preventDefault(); });
 textBar.addEventListener('click', (e) => {
+  const sw = e.target.closest('input[data-fmt="color"]');
+  if (sw && editing) { textMenu = null; applyFormat('color', sw.dataset.v); renderTextBar(); return; }
   const b = e.target.closest('button[data-fmt]');
   if (!b || !editing || b.disabled) return;
   const act = b.dataset.fmt;
   if (act === 'link') { openTextLink(b); return; }
-  if (act === 'style-menu' || act === 'align-menu') { const m = act === 'style-menu' ? 'style' : 'align'; textMenu = textMenu === m ? null : m; renderTextBar(); return; }
+  if (act === 'style-menu' || act === 'align-menu' || act === 'color-menu') { const m = act.replace('-menu', ''); textMenu = textMenu === m ? null : m; renderTextBar(); return; }
   textMenu = null;
   if (act === 'style') applyFormat('style', b.dataset.v); else applyFormat(act);
   renderTextBar();
