@@ -1,11 +1,14 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 71,
+  "pass": 276,
   "known": [
     "group south by 4",
-    "group drop n 0,-1"
+    "group drop n 0,-1",
+    "hold from the margin track 1300,12",
+    "hold from the margin track 1500,12",
+    "hold phone, full width -24,12"
   ],
-  "total": 73,
+  "total": 281,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -346,6 +349,1052 @@
     },
     {
       "name": "layers with a hole 2",
+      "diffs": []
+    },
+    {
+      "name": "hold down, two free rows below 0,14",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, two free rows below 0,20",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, two free rows below 0,30",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, two free rows below 0,50",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, two free rows below 0,60",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, two free rows below 0,90",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, two free rows below 0,100",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, two free rows below 0,120",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, two free rows below 0,140",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, two free rows below 0,170",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, two free rows below 0,200",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, no free row below 0,14",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, no free row below 0,20",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, no free row below 0,30",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, no free row below 0,40",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, no free row below 0,50",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, no free row below 0,60",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, no free row below 0,70",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, no free row below 0,80",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, no free row below 0,100",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, no free row below 0,120",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold up from row 3 0,-14",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold up from row 3 0,-30",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold up from row 3 0,-50",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold up from row 3 0,-70",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold up from row 3 0,-80",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold up from row 3 0,-90",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold up from row 3 0,-100",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold up from row 3 0,-120",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold left -10,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold left -30,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold left -60,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold left -80,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold left -100,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold left -120,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold left -160,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right 10,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right 900,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right 1100,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right 1120,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right 1140,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right 1160,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right 1180,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right 1200,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right 1300,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from column 11, both sides -200,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from column 11, both sides -400,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from column 11, both sides -500,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from column 11, both sides -560,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from column 11, both sides -600,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from column 11, both sides -700,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from column 11, both sides 300,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from column 11, both sides 600,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from column 11, both sides 700,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from column 11, both sides 760,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from column 11, both sides 800,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from column 11, both sides 900,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from the margin track -20,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from the margin track -60,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from the margin track -100,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from the margin track 40,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from the margin track 80,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from the margin track 120,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from the margin track 1100,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold from the margin track 1300,12",
+      "diffs": [
+        "ring: oracle 1 / 20 / 7 / 26, ours 1 / 21 / 7 / 27",
+        "bx: oracle 1254.25, ours 1212.968994140625",
+        "w: oracle 341.75, ours 383.015625"
+      ],
+      "known": true
+    },
+    {
+      "name": "hold from the margin track 1500,12",
+      "diffs": [
+        "ring: oracle 1 / 20 / 7 / 26, ours 1 / 21 / 7 / 27",
+        "bx: oracle 1254.25, ours 1212.968994140625",
+        "w: oracle 341.75, ours 383.015625"
+      ],
+      "known": true
+    },
+    {
+      "name": "hold full width, around the center -60,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center -50,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center -40,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center -30,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center -24,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center -20,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center -16,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center -12,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center -8,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center -4,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center 0,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center 4,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center 8,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center 12,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center 16,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center 20,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center 24,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center 30,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center 40,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center 50,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold full width, around the center 60,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other -50,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other -100,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other -150,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other -300,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 0,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 300,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 500,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 600,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 700,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 800,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 900,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 1000,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 0,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 0,40",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 0,70",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 0,100",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 0,200",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 0,300",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 0,120",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold group, pressed block left of the other 0,-100",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width -36,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width -30,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width -24,12",
+      "diffs": [
+        "line: oracle null, ours centered"
+      ],
+      "known": true
+    },
+    {
+      "name": "hold phone, full width -20,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width -16,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width -12,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width -8,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width -4,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width 0,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width 4,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width 8,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width 12,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width 16,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width 20,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width 24,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width 30,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, full width 36,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -260,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -200,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -160,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -120,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -90,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -70,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -50,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -40,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -30,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -24,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -20,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -16,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -12,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -8,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) -4,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) 0,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) 4,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) 8,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) 12,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) 16,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) 20,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) 24,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) 30,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) 40,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) 50,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) 70,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) 90,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) 120,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 7 columns (odd) 160,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -260,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -200,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -160,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -120,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -90,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -70,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -50,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -40,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -30,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -24,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -20,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -16,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -12,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -8,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) -4,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) 0,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) 4,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) 8,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) 12,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) 16,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) 20,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) 24,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) 30,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) 40,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) 50,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) 70,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) 90,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) 120,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold phone, 4 columns (even) 160,12",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right, one pixel at a time 28,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right, one pixel at a time 29,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right, one pixel at a time 30,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right, one pixel at a time 34,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right, one pixel at a time 35,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right, one pixel at a time 88,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right, one pixel at a time 89,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right, one pixel at a time 93,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold right, one pixel at a time 94,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold back left, one pixel at a time 100,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold back left, one pixel at a time 94,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold back left, one pixel at a time 93,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold back left, one pixel at a time 35,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold back left, one pixel at a time 34,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, one pixel at a time 0,20",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, one pixel at a time 0,21",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, one pixel at a time 0,26",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, one pixel at a time 0,27",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, one pixel at a time 0,61",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, one pixel at a time 0,62",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, one pixel at a time 0,67",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold down, one pixel at a time 0,68",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold one move and a release",
+      "diffs": []
+    },
+    {
+      "name": "hold phone resize east -24",
+      "diffs": []
+    },
+    {
+      "name": "hold phone resize east -36",
+      "diffs": []
+    },
+    {
+      "name": "hold phone resize east -48",
       "diffs": []
     }
   ]

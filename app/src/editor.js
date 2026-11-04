@@ -20,7 +20,7 @@ const frame = $('site-frame');
 const panel = $('panel');
 const stage = $('stage');
 
-const CENTER_LINE = (1 + LAST_LINE.desktop) / 2; // grid line 14, the middle of the canvas
+const centerLine = () => (1 + LAST_LINE[bp]) / 2; // the middle of the canvas: line 14, on phones line 6
 let model = load() ?? demoModel();
 let savedJson = JSON.stringify(model);
 let bp = 'desktop';
@@ -489,7 +489,8 @@ function flagNeighbours(g, t) {
   }
   setMarks(g.tind, { w: anyW, h: anyH });
   // The center line turns solid yellow when the target is centered (GUIDES.json).
-  g.line?.classList.toggle('is-centered', t[1] + t[3] === 2 * CENTER_LINE);
+  // A held block sets this itself in updateMove, from where it is and not from its target.
+  if (g.type !== 'move') g.line?.classList.toggle('is-centered', t[1] + t[3] === 2 * centerLine());
 }
 
 function setMarks(el, { near = false, w = false, h = false }) {
@@ -693,7 +694,12 @@ function onMove(e) {
   if (!gesture || e.pointerId !== gesture.pointerId) return;
   if (gesture.type === 'pending') {
     // The oracle starts a drag once the pointer has moved more than 10px (11 does, 10 does not).
-    if (Math.hypot(e.clientX - gesture.x0, e.clientY - gesture.y0) <= 10) return;
+    // The move that crosses it changes nothing, and a release right after it is no drag: the next
+    // move starts the drag (parity/findings/HOLD.json).
+    if (!gesture.armed) {
+      gesture.armed = Math.hypot(e.clientX - gesture.x0, e.clientY - gesture.y0) > 10;
+      return;
+    }
     beginMove(e);
   }
   gesture.lastEvent = { clientX: e.clientX, clientY: e.clientY };
@@ -748,14 +754,12 @@ function prepare(e, type, extra = {}) {
   g.original = layer(fe, 'fe-original-position', g.orig);
   fe.classList.add('is-gesture');
   // parity/findings/GUIDES.json: the target ring on top of everything, and the center line of the
-  // section behind the blocks. Phones have no center line.
+  // section behind the blocks. Phones show the line only while it is yellow (HOLD.json).
   g.tind = marksLayer(fe, 'fe-transform-indicator', g.orig);
-  if (bp === 'desktop') {
-    g.line = doc.createElement('div');
-    g.line.className = 'fe-center-line';
-    const section = fe.closest('section');
-    section.insertBefore(g.line, section.querySelector(':scope > .content-wrapper'));
-  }
+  g.line = doc.createElement('div');
+  g.line.className = bp === 'desktop' ? 'fe-center-line' : 'fe-center-line is-phone';
+  const section = fe.closest('section');
+  section.insertBefore(g.line, section.querySelector(':scope > .content-wrapper'));
   if (type === 'resize') {
     g.marks = {};
     for (const o of s.blocks) if (o.id !== g.bid) g.marks[o.id] = marksLayer(fe, 'is-other', lay(o).area, 100000 + lay(o).z);
@@ -770,6 +774,8 @@ function prepare(e, type, extra = {}) {
 function beginMove(e) {
   const g = prepare(e, 'move');
   g.more = (sel?.more || []).map((id) => ({ id, orig: [...lay(B(g.sid, id)).area] }));
+  // A group's ring is around all its blocks from the start.
+  if (g.more.length) setArea(g.tind, boxOf([g.orig, ...g.more.map((o) => o.orig)]));
   const el = blockEl(g.bid);
   el.classList.add('is-dragging');
 }
@@ -786,44 +792,59 @@ function updateMove(e) {
   const y = e.clientY - g.grabY;
   const baseLeft = m.colStart[c0 - 1];
   const baseTop = top + (r0 - 1) * m.pitch;
-  blockEl(g.bid).style.transform = `translate(${left - baseLeft}px, ${y - baseTop}px)`;
-  // The edge in front decides: the right one going right, the left one going left.
+  const solo = !g.more.length;
+  const blockWidth = m.colEnd[c1 - 2] - baseLeft;
+  const colPitch = m.colStart[2] - m.colStart[1];
+  // The edge in front decides (G4, SNAP.json): the right one going right, the left one going left.
+  // A block on the left margin track goes right by its left edge, as its width is about to change.
+  // A group stops when its box reaches the side of the grid (HOLD.json).
+  const origs = [g.orig, ...g.more.map((o) => o.orig)];
+  const cMin = c0 + 1 - Math.min(...origs.map((a) => a[1]));
+  const cMax = c0 + LAST_LINE[bp] - Math.max(...origs.map((a) => a[3]));
   const dx = left - baseLeft;
-  const nc0 = dx > 0 ? snapColumn(m, c0 + w, dx, w + 1, LAST_LINE[bp]) - w : snapColumn(m, c0, dx, 1, LAST_LINE[bp] - w);
+  const nc0 = dx > 0 && c0 > 1 ? snapColumn(m, c0 + w, dx, cMin + w, cMax + w) - w : snapColumn(m, c0, dx, cMin, cMax);
   const nr0 = Math.max(1, snapRow(m, r0, y - baseTop));
   let t = [nr0, nc0, nr0 + h, nc0 + w];
-  // Center snap (G5, parity/findings/GUIDES.json): a block of an odd width cannot center on the
-  // center line, so within half a column of it the target takes one more column and is centered.
-  // The block shows the wider size, and a drop keeps it. Not for a group or on phones.
-  let wide = false;
-  if (bp === 'desktop' && !g.more.length && w % 2) {
-    const blockWidth = m.colEnd[c1 - 2] - m.colStart[c0 - 1];
-    const q = fe.getBoundingClientRect();
-    if (Math.abs(left + blockWidth / 2 - (q.left + q.right) / 2) <= (m.colStart[2] - m.colStart[1]) / 2) {
-      const cs = CENTER_LINE - (w + 1) / 2;
-      t = [nr0, cs, nr0 + h, cs + w + 1];
-      wide = true;
-    }
-  }
-  if (wide !== !!g.wide) {
-    g.wide = wide;
-    blockEl(g.bid).style.gridColumnEnd = wide ? String(c1 + 1) : '';
+  // Center snap (G5, parity/findings/GUIDES.json, HOLD.json): within half a column of the center
+  // the line is yellow. A block of an odd width cannot center on it, so there the target takes one
+  // more column and is centered, and a drop keeps it. Not for a group.
+  const q = fe.getBoundingClientRect();
+  const near = solo && Math.abs(left + blockWidth / 2 - (q.left + q.right) / 2) <= colPitch / 2;
+  if (near && w % 2) {
+    const cs = centerLine() - (w + 1) / 2;
+    t = [nr0, cs, nr0 + h, cs + w + 1];
   }
   // Other selected blocks move by the same number of rows and columns.
-  for (const o of g.more || []) {
+  for (const o of g.more) {
     const dr = nr0 - r0, dc = nc0 - c0;
     o.target = [o.orig[0] + dr, o.orig[1] + dc, o.orig[2] + dr, o.orig[3] + dc];
-    const el2 = blockEl(o.id);
-    if (el2) el2.style.transform = blockEl(g.bid).style.transform;
   }
+  // A group has one ring around all its blocks (GUIDES.json).
+  const all = [t, ...g.more.map((o) => o.target)];
+  const box = [Math.min(...all.map((a) => a[0])), Math.min(...all.map((a) => a[1])), Math.max(...all.map((a) => a[2])), Math.max(...all.map((a) => a[3]))];
   if (!same(t, g.target)) {
     g.target = t;
-    // A group has one ring around all its blocks (GUIDES.json).
-    const all = [t, ...g.more.map((o) => o.target)];
-    const box = [Math.min(...all.map((a) => a[0])), Math.min(...all.map((a) => a[1])), Math.max(...all.map((a) => a[2])), Math.max(...all.map((a) => a[3]))];
     setArea(g.tind, box);
     flagNeighbours(g, box);
-    if (t[2] - 1 > g.shownRows) showGrid(g.sid, t[2] - 1);
+    // The grid follows the target down and back up, never below its own rows (HOLD.json).
+    const rows = Math.max(g.rows0, box[2] - 1);
+    if (rows !== g.shownRows) showGrid(g.sid, rows);
+  }
+  g.line.classList.toggle('is-centered', solo ? near : box[1] + box[3] === 2 * centerLine());
+  // The held block follows the pointer but stays inside the grid. A lone block takes the target's
+  // width: narrower it keeps its center, wider it keeps its left edge. A group keeps its widths.
+  // The right limit is 4px short of the grid, on desktop and on phones (HOLD.json).
+  const el = blockEl(g.bid);
+  const width = solo ? m.colEnd[t[3] - 2] - m.colStart[t[1] - 1] : blockWidth;
+  if (solo) el.style.width = `${width}px`;
+  const b = fe.getBoundingClientRect();
+  const shown = left + Math.max(0, (blockWidth - width) / 2);
+  const x = Math.max(b.left, Math.min(shown, b.right - 4 - width));
+  const yShown = Math.max(top, Math.min(y, b.bottom - el.getBoundingClientRect().height));
+  el.style.transform = `translate(${x - baseLeft}px, ${yShown - baseTop}px)`;
+  for (const o of g.more) {
+    const el2 = blockEl(o.id);
+    if (el2) el2.style.transform = el.style.transform;
   }
 }
 
@@ -935,6 +956,7 @@ function endGesture() {
     el.classList.remove('is-dragging');
     el.style.transform = '';
     el.style.gridArea = '';
+    el.style.width = '';
   }
   try {
     doc.documentElement.releasePointerCapture(g.pointerId);

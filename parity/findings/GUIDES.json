@@ -20,13 +20,13 @@
     "group": "one ring around the target areas of all blocks in the group: 1 / 4 / 8 / 18 for the heading and paragraph"
   },
   "centerLine": {
-    "where": "a child of the section, full section height, behind the blocks, desktop only: no line on phones (one hold at 428px)",
+    "where": "a child of the section, full section height, behind the blocks. Phones have it too, but only while it is yellow, at any window width (HOLD.json corrects the first reading here, one hold at 428px away from the center)",
     "shown": "while a block is held, for drag, resize and group, only in its own section",
     "normal": { "borderLeft": "2px dashed rgb(2, 122, 255)", "left": 799, "width": 2, "opacity": 0.65, "zIndex": "auto" },
     "centered": { "borderLeft": "2px solid rgb(255, 184, 2)", "borderRight": "1px solid rgb(255, 215, 2)", "left": 798.5, "width": 3, "opacity": 1, "zIndex": "999999", "pixels": "799 and 800 are rgb(255, 184, 2), 801 is rgb(255, 215, 2)" }
   },
   "centerSnap": {
-    "rule": "desktop, one block: a block of an odd width cannot center on line 14, so while its center is within half a column of the canvas center the target takes one more column, centered. The block shows the wider size, and a drop stores it. An even width centers as it is. A resize only turns the line yellow: it does not stretch.",
+    "rule": "desktop and phones (HOLD.json), one block: a block of an odd width cannot center on line 14, so while its center is within half a column of the canvas center the target takes one more column, centered. The block shows the wider size, and a drop stores it. An even width centers as it is. A resize only turns the line yellow: it does not stretch.",
     "paragraphDrag": [
       { "dx": 340, "area": "3 / 8 / 8 / 19", "ring": [449.8, 331.6, 641.6, 200.5], "line": "normal", "block": [440.1, 635.7] },
       { "dx": 352, "area": "3 / 8 / 8 / 19", "ring": [449.8, 331.6, 641.6, 200.5], "line": "normal", "block": [452.1, 635.7] },

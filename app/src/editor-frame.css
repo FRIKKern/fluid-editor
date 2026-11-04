@@ -56,6 +56,7 @@ html { overflow-anchor: none; }
 
 /* The section's center line while a block is held (G6): behind the blocks; solid yellow and on top when the target is centered. */
 .fe-center-line { position: absolute; top: 0; bottom: 0; left: calc(50% - 1px); border-left: 2px dashed rgb(2, 122, 255); opacity: 0.65; pointer-events: none; }
+.fe-center-line.is-phone:not(.is-centered) { display: none; }
 .fe-center-line.is-centered { left: calc(50% - 1.5px); border-left: 2px solid rgb(255, 184, 2); border-right: 1px solid rgb(255, 215, 2); opacity: 1; z-index: 999999; }
 
 /* Placeholders of empty embed and video blocks, editor only (parity/findings/T10.json, T7.json). */

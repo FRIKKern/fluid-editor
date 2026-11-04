@@ -1,0 +1,1873 @@
+{
+ "item": "HOLD",
+ "capturedAt": "2026-11-04",
+ "question": "Where does a held block sit, and does the window width decide the center line on phones?",
+ "how": "real mouse in headless Chrome on an empty not-linked page, with one new blank section and new Shape blocks, nothing saved: Exit Without Saving after each run. Desktop frame 1600 wide, row pitch 41.09, column pitch 58.79. Phone frame 428 wide, 10 tracks, column pitch 48.45. bx and by are the block's distance from where it started.",
+ "start": "a press does nothing. A move past 10px starts the drag but changes nothing: no ring, no transform. The next move shows it. A release right after that one move is no drag: one move of 200, 100 and a release left the area as it was.",
+ "follows": "inside the limits the block is at the pointer on both axes, moving down, up, left and right, and at the same place coming back. Holding still changes nothing (1.5s waits).",
+ "limits": {
+  "top": "the top of the grid box",
+  "bottom": "the bottom of the grid box, which grows with the target in the same move: bottom gap 0",
+  "left": "the left of the grid box, within 0.33px",
+  "right": "4px short of the grid box: the block's right edge stops at 1596 of 1600 and at 423.67 of 428. Why 4 is not known, it is what both views measure",
+  "target": "the limits hold the block only. The target and the ring still follow the pointer"
+ },
+ "grid": "the grid has max(its own rows, last row of the target) rows while held, going down and coming back up: 8 rows, 11 at target 6 / 2 / 12 / 8, 13 at 8 / 2 / 14 / 8, 9 at 4 / 2 / 10 / 8, 8 at 1 / 2 / 7 / 8",
+ "width": "a lone held block has the width of its target. It takes a margin track when the target does: 341.75 becomes 382.95 at 1 / 21 / 7 / 27 and at 1 / 1 / 7 / 7. Wider, its left edge stays where it was. Narrower, its center stays where it was: from 1 / 1 / 7 / 7 at dx 80 the block is at 100.55 and not 80. A group keeps its widths.",
+ "target": "the step rule is G4's, in SNAP.json. These sweeps agree with it: sideways it stays to dx 34 and moves at 35, then at 94; coming back the same; down it stays to 26 and moves at 27, then at 68. Full width 1 / 2 / 7 / 26 stays to dx 50 and goes to 1 / 3 / 7 / 27 at dx 60; on phones full width goes between dx 12 and 16 on both sides. The limits below do not stop the target. One exception to the edge in front, from one sweep: a block on the left margin track going right goes by its left edge: 1 / 1 / 7 / 7 stays at dx 40, 1 / 2 / 7 / 8 at dx 80 and 120, 1 / 19 / 7 / 25 at dx 1100.",
+ "group": "both blocks get the same transform. It has the pressed block's limits: left stops at -100 as for a lone block, the bottom too. The other block is not held inside the grid: at dx 1000 its right edge is 2029. The ring stops when the box reaches the side: 1 / 11 / 7 / 27. Only the pressed block on the left was measured, so a group pressed on its right block is not known.",
+ "centerLine": {
+  "window": "the window width does not decide it. Mobile View holds at windows 1600, 1000, 800 and 500 (a window asked to be 428 came out 500) gave the same 17 readings: the frame is 428 wide in all of them",
+  "phones": "phones have the line, in the same place and colors, but only while it is yellow: no dashed line, at any point in 3 sweeps. The earlier single hold at a 428 window was away from the center",
+  "rule": "a lone held block: yellow when the center of the block at its own width is within half a column of the canvas center, on desktop and on phones. Not the target: full width stays on the centered target 1 / 2 / 7 / 26 to dx 50, but is dashed from dx 30, and on phones 1 / 3 / 7 / 11 is yellow to 23.67 off the center. A resize goes by the target: east -24 yellow at 1 / 2 / 7 / 10, east -36 none at 1 / 2 / 7 / 9.",
+  "snap": "phones also center-snap: a 7 column block takes one more column within half a column of the center, as 1 / 2 / 7 / 10, at width 376"
+ },
+ "notMeasured": "a group on phones. The rule for the 4px",
+ "phoneResize": [
+  {
+   "dx": -24,
+   "ring": "1 / 2 / 7 / 10",
+   "line": "centered"
+  },
+  {
+   "dx": -36,
+   "ring": "1 / 2 / 7 / 9",
+   "line": null
+  },
+  {
+   "dx": -48,
+   "ring": "1 / 2 / 7 / 9",
+   "line": null
+  }
+ ],
+ "oneMove": {
+  "move": [
+   200,
+   100
+  ],
+  "before": "1 / 2 / 7 / 8",
+  "held": null,
+  "after": "1 / 2 / 7 / 8"
+ },
+ "sweeps": [
+  {
+   "name": "down, two free rows below",
+   "area": "1 / 2 / 7 / 8",
+   "moves": [
+    {
+     "dx": 0,
+     "dy": 14,
+     "ring": null,
+     "bx": 0,
+     "by": 0,
+     "gapBelow": 82.18
+    },
+    {
+     "dx": 0,
+     "dy": 20,
+     "ring": "1 / 2 / 7 / 8",
+     "bx": 0,
+     "by": 20,
+     "gapBelow": 62.18
+    },
+    {
+     "dx": 0,
+     "dy": 30,
+     "ring": "2 / 2 / 8 / 8",
+     "bx": 0,
+     "by": 30,
+     "gapBelow": 52.18
+    },
+    {
+     "dx": 0,
+     "dy": 50,
+     "ring": "2 / 2 / 8 / 8",
+     "bx": 0,
+     "by": 50,
+     "gapBelow": 32.18
+    },
+    {
+     "dx": 0,
+     "dy": 60,
+     "ring": "2 / 2 / 8 / 8",
+     "bx": 0,
+     "by": 60,
+     "gapBelow": 22.18
+    },
+    {
+     "dx": 0,
+     "dy": 90,
+     "ring": "3 / 2 / 9 / 8",
+     "bx": 0,
+     "by": 82.19,
+     "gapBelow": 0
+    },
+    {
+     "dx": 0,
+     "dy": 100,
+     "ring": "3 / 2 / 9 / 8",
+     "bx": 0,
+     "by": 82.19,
+     "gapBelow": 0
+    },
+    {
+     "dx": 0,
+     "dy": 120,
+     "ring": "4 / 2 / 10 / 8",
+     "bx": 0,
+     "by": 120,
+     "gapBelow": 3.28
+    },
+    {
+     "dx": 0,
+     "dy": 140,
+     "ring": "4 / 2 / 10 / 8",
+     "bx": 0,
+     "by": 123.29,
+     "gapBelow": 0
+    },
+    {
+     "dx": 0,
+     "dy": 170,
+     "ring": "5 / 2 / 11 / 8",
+     "bx": 0,
+     "by": 164.38,
+     "gapBelow": 0
+    },
+    {
+     "dx": 0,
+     "dy": 200,
+     "ring": "6 / 2 / 12 / 8",
+     "bx": 0,
+     "by": 200,
+     "gapBelow": 5.47
+    }
+   ]
+  },
+  {
+   "name": "down, no free row below",
+   "area": "3 / 2 / 9 / 8",
+   "moves": [
+    {
+     "dx": 0,
+     "dy": 14,
+     "ring": null,
+     "bx": 0,
+     "by": 0,
+     "gapBelow": 0
+    },
+    {
+     "dx": 0,
+     "dy": 20,
+     "ring": "3 / 2 / 9 / 8",
+     "bx": 0,
+     "by": 0,
+     "gapBelow": 0
+    },
+    {
+     "dx": 0,
+     "dy": 30,
+     "ring": "4 / 2 / 10 / 8",
+     "bx": 0,
+     "by": 30,
+     "gapBelow": 11.1
+    },
+    {
+     "dx": 0,
+     "dy": 40,
+     "ring": "4 / 2 / 10 / 8",
+     "bx": 0,
+     "by": 40,
+     "gapBelow": 1.1
+    },
+    {
+     "dx": 0,
+     "dy": 50,
+     "ring": "4 / 2 / 10 / 8",
+     "bx": 0,
+     "by": 41.1,
+     "gapBelow": 0
+    },
+    {
+     "dx": 0,
+     "dy": 60,
+     "ring": "4 / 2 / 10 / 8",
+     "bx": 0,
+     "by": 41.1,
+     "gapBelow": 0
+    },
+    {
+     "dx": 0,
+     "dy": 70,
+     "ring": "5 / 2 / 11 / 8",
+     "bx": 0,
+     "by": 70,
+     "gapBelow": 12.19
+    },
+    {
+     "dx": 0,
+     "dy": 80,
+     "ring": "5 / 2 / 11 / 8",
+     "bx": 0,
+     "by": 80,
+     "gapBelow": 2.19
+    },
+    {
+     "dx": 0,
+     "dy": 100,
+     "ring": "5 / 2 / 11 / 8",
+     "bx": 0,
+     "by": 82.19,
+     "gapBelow": 0
+    },
+    {
+     "dx": 0,
+     "dy": 120,
+     "ring": "6 / 2 / 12 / 8",
+     "bx": 0,
+     "by": 120,
+     "gapBelow": 3.29
+    }
+   ]
+  },
+  {
+   "name": "up from row 3",
+   "area": "3 / 2 / 9 / 8",
+   "moves": [
+    {
+     "dx": 0,
+     "dy": -14,
+     "ring": null,
+     "bx": 0,
+     "by": 0,
+     "gapBelow": 0
+    },
+    {
+     "dx": 0,
+     "dy": -30,
+     "ring": "2 / 2 / 8 / 8",
+     "bx": 0,
+     "by": -30,
+     "gapBelow": 30
+    },
+    {
+     "dx": 0,
+     "dy": -50,
+     "ring": "2 / 2 / 8 / 8",
+     "bx": 0,
+     "by": -50,
+     "gapBelow": 50
+    },
+    {
+     "dx": 0,
+     "dy": -70,
+     "ring": "1 / 2 / 7 / 8",
+     "bx": 0,
+     "by": -70,
+     "gapBelow": 70
+    },
+    {
+     "dx": 0,
+     "dy": -80,
+     "ring": "1 / 2 / 7 / 8",
+     "bx": 0,
+     "by": -80,
+     "gapBelow": 80
+    },
+    {
+     "dx": 0,
+     "dy": -90,
+     "ring": "1 / 2 / 7 / 8",
+     "bx": 0,
+     "by": -82.19,
+     "gapBelow": 82.18
+    },
+    {
+     "dx": 0,
+     "dy": -100,
+     "ring": "1 / 2 / 7 / 8",
+     "bx": 0,
+     "by": -82.19,
+     "gapBelow": 82.18
+    },
+    {
+     "dx": 0,
+     "dy": -120,
+     "ring": "1 / 2 / 7 / 8",
+     "bx": 0,
+     "by": -82.19,
+     "gapBelow": 82.18
+    }
+   ]
+  },
+  {
+   "name": "left",
+   "area": "1 / 2 / 7 / 8",
+   "moves": [
+    {
+     "dx": -10,
+     "dy": 0,
+     "ring": null,
+     "bx": 0,
+     "by": 0,
+     "w": 341.69
+    },
+    {
+     "dx": -30,
+     "dy": 0,
+     "ring": null,
+     "bx": 0,
+     "by": 0,
+     "w": 341.69
+    },
+    {
+     "dx": -60,
+     "dy": 0,
+     "ring": "1 / 1 / 7 / 7",
+     "bx": -60,
+     "by": 0,
+     "w": 382.95
+    },
+    {
+     "dx": -80,
+     "dy": 0,
+     "ring": "1 / 1 / 7 / 7",
+     "bx": -80,
+     "by": 0,
+     "w": 382.95
+    },
+    {
+     "dx": -100,
+     "dy": 0,
+     "ring": "1 / 1 / 7 / 7",
+     "bx": -100,
+     "by": 0,
+     "w": 382.95
+    },
+    {
+     "dx": -120,
+     "dy": 0,
+     "ring": "1 / 1 / 7 / 7",
+     "bx": -100,
+     "by": 0,
+     "w": 382.95
+    },
+    {
+     "dx": -160,
+     "dy": 0,
+     "ring": "1 / 1 / 7 / 7",
+     "bx": -100,
+     "by": 0,
+     "w": 382.95
+    }
+   ]
+  },
+  {
+   "name": "right",
+   "area": "1 / 2 / 7 / 8",
+   "moves": [
+    {
+     "dx": 10,
+     "dy": 0,
+     "ring": null,
+     "bx": 0,
+     "by": 0,
+     "w": 341.69
+    },
+    {
+     "dx": 900,
+     "dy": 0,
+     "ring": null,
+     "bx": 0,
+     "by": 0,
+     "w": 341.69
+    },
+    {
+     "dx": 1100,
+     "dy": 0,
+     "ring": "1 / 20 / 7 / 26",
+     "bx": 1100,
+     "by": 0,
+     "w": 341.75
+    },
+    {
+     "dx": 1120,
+     "dy": 0,
+     "ring": "1 / 21 / 7 / 27",
+     "bx": 1113.04,
+     "by": 0,
+     "w": 382.95
+    },
+    {
+     "dx": 1140,
+     "dy": 0,
+     "ring": "1 / 21 / 7 / 27",
+     "bx": 1113.04,
+     "by": 0,
+     "w": 382.95
+    },
+    {
+     "dx": 1160,
+     "dy": 0,
+     "ring": "1 / 21 / 7 / 27",
+     "bx": 1113.04,
+     "by": 0,
+     "w": 382.95
+    },
+    {
+     "dx": 1180,
+     "dy": 0,
+     "ring": "1 / 21 / 7 / 27",
+     "bx": 1113.04,
+     "by": 0,
+     "w": 382.95
+    },
+    {
+     "dx": 1200,
+     "dy": 0,
+     "ring": "1 / 21 / 7 / 27",
+     "bx": 1113.04,
+     "by": 0,
+     "w": 382.95
+    },
+    {
+     "dx": 1300,
+     "dy": 0,
+     "ring": "1 / 21 / 7 / 27",
+     "bx": 1113.04,
+     "by": 0,
+     "w": 382.95
+    }
+   ]
+  },
+  {
+   "name": "from column 11, both sides",
+   "area": "1 / 11 / 7 / 17",
+   "pre": [
+    0,
+    12
+   ],
+   "moves": [
+    {
+     "dx": -200,
+     "dy": 12,
+     "ring": "1 / 8 / 7 / 14",
+     "bx": -200,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal"
+    },
+    {
+     "dx": -400,
+     "dy": 12,
+     "ring": "1 / 4 / 7 / 10",
+     "bx": -400,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal"
+    },
+    {
+     "dx": -500,
+     "dy": 12,
+     "ring": "1 / 3 / 7 / 9",
+     "bx": -500,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal"
+    },
+    {
+     "dx": -560,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 8",
+     "bx": -560,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal"
+    },
+    {
+     "dx": -600,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 7",
+     "bx": -600,
+     "by": 12,
+     "w": 382.95,
+     "line": "normal"
+    },
+    {
+     "dx": -700,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 7",
+     "bx": -629.12,
+     "by": 12,
+     "w": 382.95,
+     "line": "normal"
+    },
+    {
+     "dx": 300,
+     "dy": 12,
+     "ring": "1 / 16 / 7 / 22",
+     "bx": 300,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal"
+    },
+    {
+     "dx": 600,
+     "dy": 12,
+     "ring": "1 / 21 / 7 / 27",
+     "bx": 583.92,
+     "by": 12,
+     "w": 382.95,
+     "line": "normal"
+    },
+    {
+     "dx": 700,
+     "dy": 12,
+     "ring": "1 / 21 / 7 / 27",
+     "bx": 583.92,
+     "by": 12,
+     "w": 382.95,
+     "line": "normal"
+    },
+    {
+     "dx": 760,
+     "dy": 12,
+     "ring": "1 / 21 / 7 / 27",
+     "bx": 583.92,
+     "by": 12,
+     "w": 382.95,
+     "line": "normal"
+    },
+    {
+     "dx": 800,
+     "dy": 12,
+     "ring": "1 / 21 / 7 / 27",
+     "bx": 583.92,
+     "by": 12,
+     "w": 382.95,
+     "line": "normal"
+    },
+    {
+     "dx": 900,
+     "dy": 12,
+     "ring": "1 / 21 / 7 / 27",
+     "bx": 583.92,
+     "by": 12,
+     "w": 382.95,
+     "line": "normal"
+    }
+   ]
+  },
+  {
+   "name": "from the margin track",
+   "area": "1 / 1 / 7 / 7",
+   "pre": [
+    0,
+    12
+   ],
+   "moves": [
+    {
+     "dx": -20,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 7",
+     "bx": 0,
+     "by": 12,
+     "w": 382.95,
+     "line": "normal"
+    },
+    {
+     "dx": -60,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 7",
+     "bx": 0,
+     "by": 12,
+     "w": 382.95,
+     "line": "normal"
+    },
+    {
+     "dx": -100,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 7",
+     "bx": 0,
+     "by": 12,
+     "w": 382.95,
+     "line": "normal"
+    },
+    {
+     "dx": 40,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 7",
+     "bx": 40,
+     "by": 12,
+     "w": 382.95,
+     "line": "normal"
+    },
+    {
+     "dx": 80,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 8",
+     "bx": 100.55,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal"
+    },
+    {
+     "dx": 120,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 8",
+     "bx": 140.55,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal"
+    },
+    {
+     "dx": 1100,
+     "dy": 12,
+     "ring": "1 / 19 / 7 / 25",
+     "bx": 1120.55,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal"
+    },
+    {
+     "dx": 1300,
+     "dy": 12,
+     "ring": "1 / 20 / 7 / 26",
+     "bx": 1254.25,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal"
+    },
+    {
+     "dx": 1500,
+     "dy": 12,
+     "ring": "1 / 20 / 7 / 26",
+     "bx": 1254.25,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal"
+    }
+   ]
+  },
+  {
+   "name": "full width, around the center",
+   "area": "1 / 2 / 7 / 26",
+   "pre": [
+    0,
+    12
+   ],
+   "moves": [
+    {
+     "dx": -60,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 25",
+     "bx": -60,
+     "by": 12,
+     "w": 1441.2,
+     "line": "normal"
+    },
+    {
+     "dx": -50,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": -50,
+     "by": 12,
+     "w": 1400,
+     "line": "normal"
+    },
+    {
+     "dx": -40,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": -40,
+     "by": 12,
+     "w": 1400,
+     "line": "normal"
+    },
+    {
+     "dx": -30,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": -30,
+     "by": 12,
+     "w": 1400,
+     "line": "normal"
+    },
+    {
+     "dx": -24,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": -24,
+     "by": 12,
+     "w": 1400,
+     "line": "centered"
+    },
+    {
+     "dx": -20,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": -20,
+     "by": 12,
+     "w": 1400,
+     "line": "centered"
+    },
+    {
+     "dx": -16,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": -16,
+     "by": 12,
+     "w": 1400,
+     "line": "centered"
+    },
+    {
+     "dx": -12,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": -12,
+     "by": 12,
+     "w": 1400,
+     "line": "centered"
+    },
+    {
+     "dx": -8,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": -8,
+     "by": 12,
+     "w": 1400,
+     "line": "centered"
+    },
+    {
+     "dx": -4,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": -4,
+     "by": 12,
+     "w": 1400,
+     "line": "centered"
+    },
+    {
+     "dx": 0,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": 0,
+     "by": 12,
+     "w": 1400,
+     "line": "centered"
+    },
+    {
+     "dx": 4,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": 4,
+     "by": 12,
+     "w": 1400,
+     "line": "centered"
+    },
+    {
+     "dx": 8,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": 8,
+     "by": 12,
+     "w": 1400,
+     "line": "centered"
+    },
+    {
+     "dx": 12,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": 12,
+     "by": 12,
+     "w": 1400,
+     "line": "centered"
+    },
+    {
+     "dx": 16,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": 16,
+     "by": 12,
+     "w": 1400,
+     "line": "centered"
+    },
+    {
+     "dx": 20,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": 20,
+     "by": 12,
+     "w": 1400,
+     "line": "centered"
+    },
+    {
+     "dx": 24,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": 24,
+     "by": 12,
+     "w": 1400,
+     "line": "centered"
+    },
+    {
+     "dx": 30,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": 30,
+     "by": 12,
+     "w": 1400,
+     "line": "normal"
+    },
+    {
+     "dx": 40,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": 40,
+     "by": 12,
+     "w": 1400,
+     "line": "normal"
+    },
+    {
+     "dx": 50,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 26",
+     "bx": 50,
+     "by": 12,
+     "w": 1400,
+     "line": "normal"
+    },
+    {
+     "dx": 60,
+     "dy": 12,
+     "ring": "1 / 3 / 7 / 27",
+     "bx": 54.79,
+     "by": 12,
+     "w": 1441.2,
+     "line": "normal"
+    }
+   ]
+  },
+  {
+   "name": "group, pressed block left of the other",
+   "area": "1 / 2 / 7 / 8",
+   "other": "1 / 12 / 7 / 18",
+   "pre": [
+    0,
+    12
+   ],
+   "moves": [
+    {
+     "dx": -50,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 18",
+     "bx": -50,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": -50,
+     "feH": 317.75
+    },
+    {
+     "dx": -100,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 17",
+     "bx": -100,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": -100,
+     "feH": 317.75
+    },
+    {
+     "dx": -150,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 17",
+     "bx": -100,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": -100,
+     "feH": 317.75
+    },
+    {
+     "dx": -300,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 17",
+     "bx": -100,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": -100,
+     "feH": 317.75
+    },
+    {
+     "dx": 0,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 18",
+     "bx": 0,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 0,
+     "feH": 317.75
+    },
+    {
+     "dx": 300,
+     "dy": 12,
+     "ring": "1 / 7 / 7 / 23",
+     "bx": 300,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 300,
+     "feH": 317.75
+    },
+    {
+     "dx": 500,
+     "dy": 12,
+     "ring": "1 / 10 / 7 / 26",
+     "bx": 500,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 500,
+     "feH": 317.75
+    },
+    {
+     "dx": 600,
+     "dy": 12,
+     "ring": "1 / 11 / 7 / 27",
+     "bx": 600,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 600,
+     "feH": 317.75
+    },
+    {
+     "dx": 700,
+     "dy": 12,
+     "ring": "1 / 11 / 7 / 27",
+     "bx": 700,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 700,
+     "feH": 317.75
+    },
+    {
+     "dx": 800,
+     "dy": 12,
+     "ring": "1 / 11 / 7 / 27",
+     "bx": 800,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 800,
+     "feH": 317.75
+    },
+    {
+     "dx": 900,
+     "dy": 12,
+     "ring": "1 / 11 / 7 / 27",
+     "bx": 900,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 900,
+     "feH": 317.75
+    },
+    {
+     "dx": 1000,
+     "dy": 12,
+     "ring": "1 / 11 / 7 / 27",
+     "bx": 1000,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 1000,
+     "feH": 317.75
+    },
+    {
+     "dx": 0,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 18",
+     "bx": 0,
+     "by": 12,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 0,
+     "feH": 317.75
+    },
+    {
+     "dx": 0,
+     "dy": 40,
+     "ring": "2 / 2 / 8 / 18",
+     "bx": 0,
+     "by": 40,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 0,
+     "feH": 317.75
+    },
+    {
+     "dx": 0,
+     "dy": 70,
+     "ring": "3 / 2 / 9 / 18",
+     "bx": 0,
+     "by": 70,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 0,
+     "feH": 317.75
+    },
+    {
+     "dx": 0,
+     "dy": 100,
+     "ring": "3 / 2 / 9 / 18",
+     "bx": 0,
+     "by": 82.19,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 0,
+     "feH": 317.75
+    },
+    {
+     "dx": 0,
+     "dy": 200,
+     "ring": "6 / 2 / 12 / 18",
+     "bx": 0,
+     "by": 200,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 0,
+     "feH": 441.03
+    },
+    {
+     "dx": 0,
+     "dy": 300,
+     "ring": "8 / 2 / 14 / 18",
+     "bx": 0,
+     "by": 287.66,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 0,
+     "feH": 523.22
+    },
+    {
+     "dx": 0,
+     "dy": 120,
+     "ring": "4 / 2 / 10 / 18",
+     "bx": 0,
+     "by": 120,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 0,
+     "feH": 358.84
+    },
+    {
+     "dx": 0,
+     "dy": -100,
+     "ring": "1 / 2 / 7 / 18",
+     "bx": 0,
+     "by": 0,
+     "w": 341.75,
+     "line": "normal",
+     "otherTx": 0,
+     "feH": 317.75
+    }
+   ]
+  },
+  {
+   "name": "phone, full width",
+   "view": "mobile",
+   "area": "1 / 2 / 7 / 10",
+   "pre": [
+    0,
+    12
+   ],
+   "moves": [
+    {
+     "dx": -36,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 9",
+     "bx": -24.81,
+     "w": 353.63,
+     "line": null
+    },
+    {
+     "dx": -30,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 9",
+     "bx": -18.81,
+     "w": 353.63,
+     "line": null
+    },
+    {
+     "dx": -24,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 9",
+     "bx": -12.81,
+     "w": 353.63,
+     "line": null
+    },
+    {
+     "dx": -20,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 9",
+     "bx": -8.81,
+     "w": 353.63,
+     "line": "centered"
+    },
+    {
+     "dx": -16,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 9",
+     "bx": -4.81,
+     "w": 353.63,
+     "line": "centered"
+    },
+    {
+     "dx": -12,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": -12.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": -8,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": -8.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": -4,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": -4.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": 0,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": 0.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": 4,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": 4.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": 8,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": 8.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": 12,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": 12.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": 16,
+     "dy": 12,
+     "ring": "1 / 3 / 7 / 11",
+     "bx": 27.19,
+     "w": 353.63,
+     "line": "centered"
+    },
+    {
+     "dx": 20,
+     "dy": 12,
+     "ring": "1 / 3 / 7 / 11",
+     "bx": 31.19,
+     "w": 353.63,
+     "line": "centered"
+    },
+    {
+     "dx": 24,
+     "dy": 12,
+     "ring": "1 / 3 / 7 / 11",
+     "bx": 35.19,
+     "w": 353.63,
+     "line": "centered"
+    },
+    {
+     "dx": 30,
+     "dy": 12,
+     "ring": "1 / 3 / 7 / 11",
+     "bx": 41.19,
+     "w": 353.63,
+     "line": null
+    },
+    {
+     "dx": 36,
+     "dy": 12,
+     "ring": "1 / 3 / 7 / 11",
+     "bx": 44.38,
+     "w": 353.63,
+     "line": null
+    }
+   ]
+  },
+  {
+   "name": "phone, 7 columns (odd)",
+   "view": "mobile",
+   "area": "1 / 2 / 7 / 9",
+   "pre": [
+    0,
+    12
+   ],
+   "moves": [
+    {
+     "dx": -260,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 8",
+     "bx": -26.0,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": -200,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 8",
+     "bx": -26.0,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": -160,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 8",
+     "bx": -26.0,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": -120,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 8",
+     "bx": -26.0,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": -90,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 8",
+     "bx": -26.0,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": -70,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 8",
+     "bx": -26.0,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": -50,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 8",
+     "bx": -26.0,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": -40,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 8",
+     "bx": -26.0,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": -30,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 8",
+     "bx": -18.87,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": -24,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 8",
+     "bx": -12.87,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": -20,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 8",
+     "bx": -8.87,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": -16,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 8",
+     "bx": -4.87,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": -12,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 9",
+     "bx": -12.0,
+     "w": 327.63,
+     "line": null
+    },
+    {
+     "dx": -8,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 9",
+     "bx": -8.0,
+     "w": 327.63,
+     "line": null
+    },
+    {
+     "dx": -4,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 9",
+     "bx": -4.0,
+     "w": 327.63,
+     "line": null
+    },
+    {
+     "dx": 0,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 9",
+     "bx": 0.0,
+     "w": 327.63,
+     "line": null
+    },
+    {
+     "dx": 4,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": 4.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": 8,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": 8.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": 12,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": 12.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": 16,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": 16.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": 20,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": 20.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": 24,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": 22.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": 30,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": 22.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": 40,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 10",
+     "bx": 22.0,
+     "w": 376,
+     "line": "centered"
+    },
+    {
+     "dx": 50,
+     "dy": 12,
+     "ring": "1 / 3 / 7 / 10",
+     "bx": 50.0,
+     "w": 327.63,
+     "line": null
+    },
+    {
+     "dx": 70,
+     "dy": 12,
+     "ring": "1 / 4 / 7 / 11",
+     "bx": 81.13,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": 90,
+     "dy": 12,
+     "ring": "1 / 4 / 7 / 11",
+     "bx": 92.75,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": 120,
+     "dy": 12,
+     "ring": "1 / 4 / 7 / 11",
+     "bx": 92.75,
+     "w": 305.25,
+     "line": null
+    },
+    {
+     "dx": 160,
+     "dy": 12,
+     "ring": "1 / 4 / 7 / 11",
+     "bx": 92.75,
+     "w": 305.25,
+     "line": null
+    }
+   ]
+  },
+  {
+   "name": "phone, 4 columns (even)",
+   "view": "mobile",
+   "area": "1 / 2 / 7 / 6",
+   "pre": [
+    0,
+    12
+   ],
+   "moves": [
+    {
+     "dx": -260,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 5",
+     "bx": -26.0,
+     "w": 160.13,
+     "line": null
+    },
+    {
+     "dx": -200,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 5",
+     "bx": -26.0,
+     "w": 160.13,
+     "line": null
+    },
+    {
+     "dx": -160,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 5",
+     "bx": -26.0,
+     "w": 160.13,
+     "line": null
+    },
+    {
+     "dx": -120,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 5",
+     "bx": -26.0,
+     "w": 160.13,
+     "line": null
+    },
+    {
+     "dx": -90,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 5",
+     "bx": -26.0,
+     "w": 160.13,
+     "line": null
+    },
+    {
+     "dx": -70,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 5",
+     "bx": -26.0,
+     "w": 160.13,
+     "line": null
+    },
+    {
+     "dx": -50,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 5",
+     "bx": -26.0,
+     "w": 160.13,
+     "line": null
+    },
+    {
+     "dx": -40,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 5",
+     "bx": -26.0,
+     "w": 160.13,
+     "line": null
+    },
+    {
+     "dx": -30,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 5",
+     "bx": -18.84,
+     "w": 160.13,
+     "line": null
+    },
+    {
+     "dx": -24,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 5",
+     "bx": -12.84,
+     "w": 160.13,
+     "line": null
+    },
+    {
+     "dx": -20,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 5",
+     "bx": -8.84,
+     "w": 160.13,
+     "line": null
+    },
+    {
+     "dx": -16,
+     "dy": 12,
+     "ring": "1 / 1 / 7 / 5",
+     "bx": -4.84,
+     "w": 160.13,
+     "line": null
+    },
+    {
+     "dx": -12,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 6",
+     "bx": -12.0,
+     "w": 182.5,
+     "line": null
+    },
+    {
+     "dx": -8,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 6",
+     "bx": -8.0,
+     "w": 182.5,
+     "line": null
+    },
+    {
+     "dx": -4,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 6",
+     "bx": -4.0,
+     "w": 182.5,
+     "line": null
+    },
+    {
+     "dx": 0,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 6",
+     "bx": 0.0,
+     "w": 182.5,
+     "line": null
+    },
+    {
+     "dx": 4,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 6",
+     "bx": 4.0,
+     "w": 182.5,
+     "line": null
+    },
+    {
+     "dx": 8,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 6",
+     "bx": 8.0,
+     "w": 182.5,
+     "line": null
+    },
+    {
+     "dx": 12,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 6",
+     "bx": 12.0,
+     "w": 182.5,
+     "line": null
+    },
+    {
+     "dx": 16,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 6",
+     "bx": 16.0,
+     "w": 182.5,
+     "line": null
+    },
+    {
+     "dx": 20,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 6",
+     "bx": 20.0,
+     "w": 182.5,
+     "line": null
+    },
+    {
+     "dx": 24,
+     "dy": 12,
+     "ring": "1 / 2 / 7 / 6",
+     "bx": 24.0,
+     "w": 182.5,
+     "line": null
+    },
+    {
+     "dx": 30,
+     "dy": 12,
+     "ring": "1 / 3 / 7 / 7",
+     "bx": 30.0,
+     "w": 182.5,
+     "line": null
+    },
+    {
+     "dx": 40,
+     "dy": 12,
+     "ring": "1 / 3 / 7 / 7",
+     "bx": 40.0,
+     "w": 182.5,
+     "line": null
+    },
+    {
+     "dx": 50,
+     "dy": 12,
+     "ring": "1 / 3 / 7 / 7",
+     "bx": 50.0,
+     "w": 182.5,
+     "line": null
+    },
+    {
+     "dx": 70,
+     "dy": 12,
+     "ring": "1 / 3 / 7 / 7",
+     "bx": 70.0,
+     "w": 182.5,
+     "line": null
+    },
+    {
+     "dx": 90,
+     "dy": 12,
+     "ring": "1 / 4 / 7 / 8",
+     "bx": 90.0,
+     "w": 182.5,
+     "line": "centered"
+    },
+    {
+     "dx": 120,
+     "dy": 12,
+     "ring": "1 / 4 / 7 / 8",
+     "bx": 120.0,
+     "w": 182.5,
+     "line": "centered"
+    },
+    {
+     "dx": 160,
+     "dy": 12,
+     "ring": "1 / 5 / 7 / 9",
+     "bx": 160.0,
+     "w": 182.5,
+     "line": null
+    }
+   ]
+  },
+  {
+   "name": "right, one pixel at a time",
+   "area": "1 / 2 / 7 / 8",
+   "pre": [
+    0,
+    12
+   ],
+   "moves": [
+    {
+     "dx": 28,
+     "dy": 0,
+     "ring": "1 / 2 / 7 / 8"
+    },
+    {
+     "dx": 29,
+     "dy": 0,
+     "ring": "1 / 2 / 7 / 8"
+    },
+    {
+     "dx": 30,
+     "dy": 0,
+     "ring": "1 / 2 / 7 / 8"
+    },
+    {
+     "dx": 34,
+     "dy": 0,
+     "ring": "1 / 2 / 7 / 8"
+    },
+    {
+     "dx": 35,
+     "dy": 0,
+     "ring": "1 / 3 / 7 / 9"
+    },
+    {
+     "dx": 88,
+     "dy": 0,
+     "ring": "1 / 3 / 7 / 9"
+    },
+    {
+     "dx": 89,
+     "dy": 0,
+     "ring": "1 / 3 / 7 / 9"
+    },
+    {
+     "dx": 93,
+     "dy": 0,
+     "ring": "1 / 3 / 7 / 9"
+    },
+    {
+     "dx": 94,
+     "dy": 0,
+     "ring": "1 / 4 / 7 / 10"
+    }
+   ]
+  },
+  {
+   "name": "back left, one pixel at a time",
+   "area": "1 / 2 / 7 / 8",
+   "pre": [
+    0,
+    12
+   ],
+   "moves": [
+    {
+     "dx": 100,
+     "dy": 0,
+     "ring": "1 / 4 / 7 / 10"
+    },
+    {
+     "dx": 94,
+     "dy": 0,
+     "ring": "1 / 4 / 7 / 10"
+    },
+    {
+     "dx": 93,
+     "dy": 0,
+     "ring": "1 / 3 / 7 / 9"
+    },
+    {
+     "dx": 35,
+     "dy": 0,
+     "ring": "1 / 3 / 7 / 9"
+    },
+    {
+     "dx": 34,
+     "dy": 0,
+     "ring": "1 / 2 / 7 / 8"
+    }
+   ]
+  },
+  {
+   "name": "down, one pixel at a time",
+   "area": "1 / 2 / 7 / 8",
+   "pre": [
+    0,
+    12
+   ],
+   "moves": [
+    {
+     "dx": 0,
+     "dy": 20,
+     "ring": "1 / 2 / 7 / 8"
+    },
+    {
+     "dx": 0,
+     "dy": 21,
+     "ring": "1 / 2 / 7 / 8"
+    },
+    {
+     "dx": 0,
+     "dy": 26,
+     "ring": "1 / 2 / 7 / 8"
+    },
+    {
+     "dx": 0,
+     "dy": 27,
+     "ring": "2 / 2 / 8 / 8"
+    },
+    {
+     "dx": 0,
+     "dy": 61,
+     "ring": "2 / 2 / 8 / 8"
+    },
+    {
+     "dx": 0,
+     "dy": 62,
+     "ring": "2 / 2 / 8 / 8"
+    },
+    {
+     "dx": 0,
+     "dy": 67,
+     "ring": "2 / 2 / 8 / 8"
+    },
+    {
+     "dx": 0,
+     "dy": 68,
+     "ring": "3 / 2 / 9 / 8"
+    }
+   ]
+  }
+ ],
+ "knownMisses": [
+  {
+   "sweep": "from the margin track",
+   "at": [
+    1300,
+    1500
+   ],
+   "why": "the oracle's target is 1 / 20 / 7 / 26, ours 1 / 21 / 7 / 27. No rule found: one sweep"
+  },
+  {
+   "sweep": "phone, full width",
+   "at": [
+    -24
+   ],
+   "why": "the center is 0.1px outside half a column on the oracle and just inside on ours: 376 and 376.66 wide"
+  }
+ ]
+}

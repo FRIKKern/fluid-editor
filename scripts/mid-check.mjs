@@ -2,6 +2,7 @@
 // with the trace's mid state: near, matching width and height, selected, the grid in one section.
 // G5, G6: then hold what parity/findings/GUIDES.json measured and compare the target area, the
 // ring box, the center line and the width of the held block. X8, X13, Z3: the group handles, the marquee, the Layers rows.
+// X2: where a held block sits and the center line on phones (HOLD.json).
 // Runs on headless Chrome. Writes parity/mid-check.json. Usage: npm run mid-check.
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, waitFor } from './lib/cmux.mjs';
@@ -241,10 +242,45 @@ const layerCase = (name, steps, remove) => {
 };
 layerCase('drags', LY.steps);
 layerCase('with a hole', LY.hole.steps, LY.hole.removed);
+// X2, G5: where a held block sits (HOLD.json). Every sweep is one hold in a section of its own.
+const H = JSON.parse(readFileSync(new URL('../parity/findings/HOLD.json', import.meta.url)));
+const area = (x) => x.split(' / ').map(Number);
+const holdModel = (sw) => { const b = (id, a, z) => ({ id, type: 'shape', fill: '#d9d4ca', radius: '0', label: id, layout: { desktop: { area: area(a), z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: area(a), z, justify: 'flex-start', align: 'flex-start' } } }); return { version: 1, title: 'hold', sections: [{ id: 'hold', theme: '', height: 'small', valign: 'top', gap: traces[0].section.gap, rowGap: traces[0].section.rowGap, rows: { desktop: 8, mobile: 6 }, blocks: [b('held', sw.area, 1), ...(sw.other ? [b('other', sw.other, 2)] : [])] }] }; };
+const sweep = (sw, moves, release = 'pointercancel', handle = null) => evalJs(S, `(async () => { const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow; const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  fe.load(${JSON.stringify(holdModel(sw))}); fe.setBp('${sw.view || 'desktop'}'); await sleep(120);
+  W.scrollTo(0, 0); await sleep(30);
+  const block = (id) => d.querySelector('.fe-block[data-block-id="' + id + '"]'); const b = block('held'), o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 };
+  const mid = (e) => { const r = e.getBoundingClientRect(); return { clientX: r.left + r.width / 2, clientY: r.top + r.height / 2 }; };
+  fe.select('hold', 'held'); await sleep(30);
+  ${sw.other ? `{ const c = { ...o, ...mid(block('other')), shiftKey: true }; block('other').dispatchEvent(new W.PointerEvent('pointerdown', { ...c, buttons: 1 })); d.dispatchEvent(new W.PointerEvent('pointerup', { ...c, buttons: 0 })); await sleep(30); }` : ''}
+  const el = ${handle ? `d.querySelector('.fe-handle[data-dir="${handle}"]')` : 'b'}; const c = mid(el); const q0 = b.getBoundingClientRect(), bottom = () => d.querySelector('.fluid-engine').getBoundingClientRect().bottom;
+  el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, ...c, buttons: 1 }));
+  const go = (m) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: c.clientX + m[0], clientY: c.clientY + m[1], buttons: 1 }));
+  ${sw.pre ? `go(${JSON.stringify(sw.pre)}); await sleep(15);` : ''}
+  const out = [];
+  for (const m of ${JSON.stringify(moves)}) { go(m); await sleep(25);
+    const ring = d.querySelector('.fe-transform-indicator'), line = d.querySelector('.fe-center-line'), q = b.getBoundingClientRect(), l = line && W.getComputedStyle(line), other = block('other');
+    out.push({ ring: ring ? W.getComputedStyle(ring).gridArea : null, bx: q.left - q0.left, by: q.top - q0.top, w: q.width, gapBelow: bottom() - q.bottom, otherTx: other ? other.getBoundingClientRect().left - ${sw.other ? `(() => { const a = fe.measure('hold'); return a.colStart[${area(sw.other || '0 / 1')[1] - 1}]; })()` : '0'} : null, feH: d.querySelector('.fluid-engine').getBoundingClientRect().height, line: !line || l.display === 'none' ? null : l.borderLeftStyle === 'solid' ? 'centered' : 'normal' }); }
+  d.dispatchEvent(new W.PointerEvent('${release}', { ...o, buttons: 0 })); await sleep(30);
+  const after = fe.model.sections[0].blocks[0].layout['${sw.view || 'desktop'}'].area.join(' / ');
+  fe.setBp('desktop'); return JSON.stringify({ out, after }); })()`);
+for (const sw of H.sweeps) {
+  const { out } = sweep(sw, sw.moves.map((m) => [m.dx, m.dy]));
+  sw.moves.forEach((m, k) => {
+    const g = out[k], name = `hold ${sw.name} ${m.dx},${m.dy}`;
+    const diffs = [];
+    if (g.ring !== m.ring) diffs.push(`ring: oracle ${m.ring}, ours ${g.ring}`);
+    for (const key of ['bx', 'by', 'w', 'gapBelow', 'otherTx', 'feH']) if (m[key] !== undefined && !near(g[key], m[key])) diffs.push(`${key}: oracle ${m[key]}, ours ${g[key]}`);
+    if (m.line !== undefined && g.line !== m.line) diffs.push(`line: oracle ${m.line}, ours ${g.line}`);
+    groupCases.push({ name, diffs, known: H.knownMisses.some((x) => x.sweep === sw.name && x.at.includes(m.dx)) });
+  });
+}
+{ const r = sweep({ area: H.oneMove.before }, [H.oneMove.move], 'pointerup'); groupCases.push({ name: 'hold one move and a release', diffs: [r.out[0].ring !== null && 'a ring on the first move', r.after !== H.oneMove.after && `drop: ${r.after}`].filter(Boolean) }); }
+{ const sw = { view: 'mobile', area: '1 / 2 / 7 / 10', pre: [-12, 0] }; for (const c of H.phoneResize) { const { out } = sweep(sw, [[c.dx, 0]], 'pointercancel', 'e'); groupCases.push({ name: `hold phone resize east ${c.dx}`, diffs: [out[0].ring !== c.ring && `ring: oracle ${c.ring}, ours ${out[0].ring}`, out[0].line !== c.line && `line: oracle ${c.line}, ours ${out[0].line}`].filter(Boolean) }); } }
 const groupFails = groupCases.filter((c) => c.diffs.length && !c.known);
 const groupKnown = groupCases.filter((c) => c.known);
 for (const c of groupFails) console.log(`DIFF ${c.name}\n  ${c.diffs.join('\n  ')}`);
 for (const c of groupKnown) if (!c.diffs.length) { console.log(`Known miss gone: ${c.name}`); groupFails.push(c); }
-console.log(`Group resize, marquee and layers: ${groupCases.length - groupFails.length - groupKnown.length} of ${groupCases.length} match, ${groupKnown.length} named known miss`);
+console.log(`Group resize, marquee, layers and holds: ${groupCases.length - groupFails.length - groupKnown.length} of ${groupCases.length} match, ${groupKnown.length} named known miss`);
 writeFileSync(new URL('../parity/mid-check.json', import.meta.url), JSON.stringify({ check: 'mid-gesture flags, guides, center snap and group resize', pass: pass + guidePass + groupCases.length - groupFails.length - groupKnown.length, known: groupKnown.map((c) => c.name), total: traces.length + groupCases.length + cases.length, results, guides: guideResults, groups: groupCases }, null, 2) + '\n');
 process.exit(pass === traces.length && guidePass === cases.length && !groupFails.length ? 0 : 1);
