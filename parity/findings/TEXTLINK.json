@@ -1,0 +1,95 @@
+{
+  "item": "TEXTLINK",
+  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "question": "What does the text toolbar Link open, where, and what HTML does a link write?",
+  "block": [
+    2,
+    1
+  ],
+  "base": "<p>On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+  "selection": [
+    252,
+    175,
+    23,
+    22
+  ],
+  "linkButton": [
+    631,
+    119,
+    36,
+    36
+  ],
+  "popover": {
+    "box": [
+      489,
+      165,
+      320,
+      167
+    ],
+    "focused": true,
+    "text": [
+      "URL",
+      "Open link in new tab"
+    ],
+    "checkbox": [
+      {
+        "label": null,
+        "checked": false
+      }
+    ]
+  },
+  "popoverFocused": {
+    "box": [
+      489,
+      165,
+      320,
+      167
+    ],
+    "focused": true,
+    "text": [
+      "URL",
+      "Open link in new tab"
+    ],
+    "checkbox": [
+      {
+        "label": null,
+        "checked": false
+      }
+    ]
+  },
+  "url": {
+    "html": "<p><a href=\"https://example.com/probe\">On</a> desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "popoverAfter": null,
+    "changed": true,
+    "undoSteps": 1
+  },
+  "url new tab": {
+    "html": "<p>On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p>Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+    "popoverAfter": {
+      "box": [
+        489,
+        165,
+        320,
+        167
+      ],
+      "focused": false,
+      "text": [
+        "URL",
+        "Open link in new tab"
+      ],
+      "checkbox": [
+        {
+          "label": null,
+          "checked": false
+        }
+      ]
+    },
+    "changed": false,
+    "undoSteps": 1
+  },
+  "page": {
+    "error": "Command failed: cmux browser --surface surface:96 eval --script (() => { const el = (() => [...docum",
+    "undoSteps": 0
+  }
+}

@@ -83,6 +83,33 @@ export function toggleMark(doc, root, sel, name) {
   return true;
 }
 
+// Link (E7, parity/findings/TEXTLINK.json): the oracle wraps the selected text in
+// <a href="..."> with no other attribute. Inside an existing link the href changes; an empty
+// href removes the link. Returns false when there is nothing to link.
+export function linkAt(root, range) {
+  let n = range.startContainer.nodeType === 1 ? range.startContainer : range.startContainer.parentElement;
+  while (n && n !== root && n.tagName !== 'A') n = n.parentElement;
+  return n && n !== root ? n : null;
+}
+export function setLink(doc, root, sel, range, href) {
+  const a = linkAt(root, range);
+  if (a) {
+    if (href) a.setAttribute('href', href);
+    else { const parent = a.parentNode; while (a.firstChild) parent.insertBefore(a.firstChild, a); a.remove(); parent.normalize(); }
+    return true;
+  }
+  if (!href || range.collapsed) return false;
+  const wrap = doc.createElement('a');
+  wrap.setAttribute('href', href);
+  wrap.append(range.extractContents());
+  range.insertNode(wrap);
+  sel.removeAllRanges();
+  const r = doc.createRange();
+  r.selectNodeContents(wrap);
+  sel.addRange(r);
+  return true;
+}
+
 // Quote and lists wrap each selected block; applying the same again unwraps it.
 export function toggleWrap(doc, root, sel, kind) {
   for (const el of selectedBlocks(root, sel)) {
