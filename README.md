@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 12 changes
+- **Today** · 13 changes
+  - Blend Mode in the block Edit panel ([#70](https://github.com/FRIKKern/fluid-editor/pull/70))
   - Toolbar link button opens the link editor ([#69](https://github.com/FRIKKern/fluid-editor/pull/69))
-  - Button Content tab and link editor ([#68](https://github.com/FRIKKern/fluid-editor/pull/68))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
