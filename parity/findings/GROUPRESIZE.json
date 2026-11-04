@@ -1,0 +1,284 @@
+{
+  "item": "GROUPRESIZE",
+  "capturedAt": "2026-11-04",
+  "question": "What do a group's handles do, and what are the two unnamed buttons of the group toolbar?",
+  "section": 2,
+  "window": [
+    1600,
+    945
+  ],
+  "how": "real mouse input in headless Chrome on the demo page. A marquee selects the heading 1/2/5/16 and the paragraph 3/2/8/13, the group box 1/2/8/16. Nothing saved: Exit Without Saving after every run; the shape 2/15/12/25 stays put.",
+  "toolbar": {
+    "buttons": [
+      "Stack Blocks",
+      "Align Group",
+      "Move Forward",
+      "Move Backward",
+      "Duplicate",
+      "Remove"
+    ],
+    "start": {
+      "Move Forward": "enabled, the shape is above the group",
+      "Move Backward": "disabled, nothing below the group"
+    },
+    "moveForward": {
+      "before": "z 1, 2, 3",
+      "after": "heading 2, paragraph 3, shape 1",
+      "then": "Move Forward disabled, Move Backward enabled"
+    },
+    "box": {
+      "left": 97,
+      "top": 240,
+      "width": 261,
+      "height": 44,
+      "buttons": [
+        102,
+        147,
+        192,
+        232,
+        277,
+        317
+      ],
+      "buttonSize": 36,
+      "groupBoxTop": 304,
+      "separators": "after Stack Blocks, after Align Group, after Move Backward"
+    }
+  },
+  "handles": "eight, on a box 2px outside the group, cursors as on a single block",
+  "held": {
+    "ring": "the target ring around the new group box, center line and grid as in GUIDES.json",
+    "blocks": "each block shows its snapped new area while held, no pointer follow",
+    "chrome": "the section chrome stays on screen, unlike a single block's resize",
+    "nearAndMatch": "the flags are set by the rule of the ring box, no near ring drawn; matching not seen on group members"
+  },
+  "east": [
+    {
+      "byCols": 1,
+      "ring": "1 / 2 / 8 / 17",
+      "heading": 15,
+      "paragraph": 12
+    },
+    {
+      "byCols": 2,
+      "ring": "1 / 2 / 8 / 18",
+      "heading": 16,
+      "paragraph": 12
+    },
+    {
+      "byCols": 3,
+      "ring": "1 / 2 / 8 / 19",
+      "heading": 17,
+      "paragraph": 13
+    },
+    {
+      "byCols": 4,
+      "ring": "1 / 2 / 8 / 20",
+      "heading": 18,
+      "paragraph": 14
+    },
+    {
+      "byCols": 5,
+      "ring": "1 / 2 / 8 / 21",
+      "heading": 19,
+      "paragraph": 15
+    },
+    {
+      "byCols": 6,
+      "ring": "1 / 2 / 8 / 22",
+      "heading": 20,
+      "paragraph": 15
+    },
+    {
+      "byCols": 7,
+      "ring": "1 / 2 / 8 / 23",
+      "heading": 21,
+      "paragraph": 16
+    },
+    {
+      "byCols": 8,
+      "ring": "1 / 2 / 8 / 24",
+      "heading": 22,
+      "paragraph": 18
+    },
+    {
+      "byCols": 9,
+      "ring": "1 / 2 / 8 / 25",
+      "heading": 23,
+      "paragraph": 18
+    },
+    {
+      "byCols": 0,
+      "ring": "1 / 2 / 8 / 16",
+      "heading": 14,
+      "paragraph": 11
+    },
+    {
+      "byCols": -1,
+      "ring": "1 / 2 / 8 / 15",
+      "heading": 13,
+      "paragraph": 10
+    },
+    {
+      "byCols": -2,
+      "ring": "1 / 2 / 8 / 14",
+      "heading": 12,
+      "paragraph": 10
+    },
+    {
+      "byCols": -3,
+      "ring": "1 / 2 / 8 / 13",
+      "heading": 11,
+      "paragraph": 9
+    },
+    {
+      "byCols": -5,
+      "ring": "1 / 2 / 8 / 11",
+      "heading": 9,
+      "paragraph": 7
+    },
+    {
+      "byCols": -7,
+      "ring": "1 / 2 / 8 / 9",
+      "heading": 7,
+      "paragraph": 5
+    }
+  ],
+  "south": [
+    {
+      "byRows": 2,
+      "ring": "1 / 2 / 10 / 16",
+      "headingRows": 5,
+      "paragraphStart": 4,
+      "paragraphRows": 6
+    },
+    {
+      "byRows": 3,
+      "ring": "1 / 2 / 11 / 16",
+      "headingRows": 5,
+      "paragraphStart": 4,
+      "paragraphRows": 7
+    },
+    {
+      "byRows": 4,
+      "ring": "1 / 2 / 12 / 16",
+      "headingRows": 7,
+      "paragraphStart": 4,
+      "paragraphRows": 8
+    },
+    {
+      "byRows": 5,
+      "ring": "1 / 2 / 13 / 16",
+      "headingRows": 7,
+      "paragraphStart": 4,
+      "paragraphRows": 9
+    },
+    {
+      "byRows": 0,
+      "ring": "1 / 2 / 8 / 16",
+      "headingRows": 4,
+      "paragraphStart": 3,
+      "paragraphRows": 5
+    },
+    {
+      "byRows": -1,
+      "ring": "1 / 2 / 7 / 16",
+      "headingRows": 4,
+      "paragraphStart": 3,
+      "paragraphRows": 4
+    },
+    {
+      "byRows": -2,
+      "ring": "1 / 2 / 6 / 16",
+      "headingRows": 3,
+      "paragraphStart": 2,
+      "paragraphRows": 4
+    },
+    {
+      "byRows": -3,
+      "ring": "1 / 2 / 5 / 16",
+      "headingRows": 3,
+      "paragraphStart": 2,
+      "paragraphRows": 3
+    },
+    {
+      "byRows": -4,
+      "ring": "1 / 2 / 4 / 16",
+      "headingRows": 2,
+      "paragraphStart": 1,
+      "paragraphRows": 3
+    }
+  ],
+  "rule": {
+    "scale": "k = new group size / old group size in cells, rounded to one decimal, per axis. An edge on the group box stays on the box. Other edges: start = group start + offset times k. Width in columns: size times k, a half rounds down. Height in rows: round((rows px times k + gap) / row pitch), where rows px = rows times pitch minus gap. A text block keeps the rows its content needs by moving its start up (the paragraph at 3 rows). Inferred from one group: it fits all 15 widths and 8 of 9 heights; a group of 11 rows gives the heading 7 rows, the rule 6."
+  },
+  "drops": [
+    {
+      "dir": "e",
+      "cols": 3,
+      "rows": 0,
+      "heading": "1 / 2 / 5 / 19",
+      "paragraph": "3 / 2 / 7 / 15",
+      "held": "the paragraph 3 / 2 / 8 / 15",
+      "known": "loses a row on drop"
+    },
+    {
+      "dir": "se",
+      "cols": 3,
+      "rows": 2,
+      "heading": "1 / 2 / 6 / 19",
+      "paragraph": "4 / 2 / 9 / 15",
+      "held": "the paragraph 4 / 2 / 10 / 15",
+      "known": "loses a row on drop"
+    },
+    {
+      "dir": "s",
+      "cols": 0,
+      "rows": 3,
+      "heading": "1 / 2 / 6 / 16",
+      "paragraph": "4 / 2 / 11 / 13"
+    },
+    {
+      "dir": "w",
+      "cols": -1,
+      "rows": 0,
+      "heading": "1 / 1 / 5 / 16",
+      "paragraph": "3 / 1 / 8 / 13"
+    },
+    {
+      "dir": "e",
+      "cols": -2,
+      "rows": 0,
+      "heading": "1 / 2 / 5 / 14",
+      "paragraph": "3 / 2 / 8 / 12"
+    },
+    {
+      "dir": "n",
+      "cols": 0,
+      "rows": -1,
+      "heading": "1 / 2 / 5 / 16",
+      "paragraph": "3 / 2 / 8 / 13"
+    },
+    {
+      "dir": "s",
+      "cols": 0,
+      "rows": -3,
+      "heading": "1 / 2 / 4 / 16",
+      "paragraph": "2 / 2 / 5 / 13"
+    }
+  ],
+  "textRowsAfterDrop": "after a drop that widens a text block the oracle sometimes takes a row off it (the paragraph 5 to 4 rows in the e3 drop above, against 5 rows while held). Seen for a group and for a single block's resize: at 13 columns yes, at 12 no, at 15 yes in a group and no alone, at 18 no. Rule not found, not built.",
+  "undo": "enabled after every drop, also after the north drop that moved nothing",
+  "knownMisses": [
+    {
+      "case": "south by 4 rows",
+      "oracle": "heading 7 rows",
+      "rule": "6 rows"
+    },
+    {
+      "case": "group drop n 0,-1",
+      "oracle": "a drop that moves nothing still enables undo",
+      "rule": "ours adds no undo step when nothing changed"
+    }
+  ],
+  "selected": "The section's chrome stays on screen with a group selected (marquee), and while its handles are held. The group toolbar lies over Add Block."
+}

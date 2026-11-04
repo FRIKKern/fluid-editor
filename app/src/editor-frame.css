@@ -84,7 +84,11 @@ body.is-preview .fe-indicator, body.is-preview .fe-grid-row { display: none; }
 /* A group selection (X8): thin outlines on the members, one outline with handles around all. */
 .fe-indicator.is-member { box-shadow: 0 0 0 1px rgb(108, 164, 244); }
 .fe-indicator.is-group { box-shadow: 0 0 0 1px rgb(2, 122, 255), 0 0 0 2px rgb(2, 122, 255); }
-.fe-handle.is-static { pointer-events: none; }
+/* parity/findings/GROUPRESIZE.json: a group's handles sit 2px outside its box. */
+.is-group > .fe-handle[data-dir*="w"] { margin-left: -7px; }
+.is-group > .fe-handle[data-dir*="e"] { margin-left: -3px; }
+.is-group > .fe-handle[data-dir*="n"] { margin-top: -7px; }
+.is-group > .fe-handle[data-dir*="s"] { margin-top: -3px; }
 
 /* Marquee box (parity/findings/X13.json). */
 .fe-marquee { position: fixed; z-index: 2147483000; border: 3px solid rgb(0, 114, 240); box-sizing: border-box; pointer-events: none; }

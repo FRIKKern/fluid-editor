@@ -26,7 +26,7 @@ const ICON = {
   down: '<path d="M12 5v14"/><path d="M6 13l6 6 6-6"/>',
   chevron: '<path d="M8 10l4 4 4-4"/>',
 };
-const svg = (name, size = 22) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[name]}</svg>`;
+const svg = (name, size = 22) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[name] ?? name}</svg>`;
 
 const B = {
   write: { label: 'Write', html: '<span class="tb-write">Aa</span>' },
@@ -72,25 +72,23 @@ export function toolbarPosition(frameRect, stageRect, blockRect) {
   };
 }
 
-// The group toolbar (X8), from the gap review screenshot with two blocks selected: Stack Blocks |
-// Align Group (a menu of six), two icons not identified yet | Duplicate, Remove. Same box and
-// button sizes as the block toolbar, above the group's bounding box.
+// The group toolbar (X8, parity/findings/GROUPRESIZE.json): Stack Blocks | Align Group (a menu of
+// six) | Move Forward, Move Backward | Duplicate, Remove, above the group's bounding box.
 const GICON = {
   stack: '<rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/>',
   align: '<path d="M5 4v16"/><rect x="8" y="6" width="11" height="4"/><rect x="8" y="14" width="7" height="4"/>',
-  unknown1: '<rect x="4" y="4" width="12" height="12" stroke-dasharray="2 2"/><path d="M18 18h2M18 14h2M14 18v2"/>',
-  unknown2: '<rect x="6" y="6" width="12" height="12" stroke-dasharray="2 2"/>',
 };
 export const GROUP_ALIGNS = [['left', 'Align Left'], ['hcenter', 'Align Horizontal Center'], ['right', 'Align Right'], ['top', 'Align Top'], ['vcenter', 'Align Vertical Center'], ['bottom', 'Align Bottom']];
-export function groupToolbarHtml(alignOpen) {
+export function groupToolbarHtml(alignOpen, z = { above: true, below: true }) {
   const b = (act, label, icon, extra = '') => `<button type="button" class="tb-btn" data-tb="${act}" aria-label="${label}" title="${label}"${extra}>${icon}</button>`;
   const g = (k) => svg(GICON[k]).replace('stroke-width="1.6"', 'stroke-width="1.6"');
   return [
     b('stack', 'Stack Blocks', g('stack')),
     '<span class="tb-sep" aria-hidden="true"></span>',
-    b('align-menu', 'Align Group', g('align'), ` aria-expanded="${!!alignOpen}"`).replace('class="tb-btn"', 'class="tb-btn tb-flush"'),
-    b('unknown1', 'Group action (not identified yet)', g('unknown1'), ' data-unbuilt disabled'),
-    b('unknown2', 'Group action (not identified yet)', g('unknown2'), ' data-unbuilt disabled'),
+    b('align-menu', 'Align Group', g('align'), ` aria-expanded="${!!alignOpen}"`),
+    '<span class="tb-sep" aria-hidden="true"></span>',
+    b('z+', 'Move Forward', svg('forward')).replace('class="tb-btn"', `class="tb-btn${z.above ? '' : ' is-off'}"`),
+    b('z-', 'Move Backward', svg('backward')).replace('class="tb-btn"', `class="tb-btn${z.below ? '' : ' is-off'}"`),
     '<span class="tb-sep" aria-hidden="true"></span>',
     b('gduplicate', 'Duplicate', svg(ICON.duplicate)),
     b('gremove', 'Remove', svg(ICON.remove)).replace('class="tb-btn"', 'class="tb-btn tb-remove"'),
