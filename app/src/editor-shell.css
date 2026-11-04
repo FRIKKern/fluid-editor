@@ -78,11 +78,20 @@ body.show-inspector:not(.is-replay) .panel { display: block; }
 .layer.is-on { background: #e8f0fe; }
 .btn.is-on { background: #e8f0fe; border-color: #1169f7; }
 .group [role=tablist] { margin-bottom: 8px; }
-.exit-dialog { position: fixed; top: 44px; left: 78px; width: 342px; padding: 20px 32px 22px; background: #fff; box-shadow: 0 2px 16px rgba(0,0,0,0.18); z-index: 20; font-size: 14px; }
+/* Exit Without Saving? (parity/findings/TOPBAR.json, dialog) */
+.exit-overlay { position: fixed; inset: 0; z-index: 19; background: rgba(231, 231, 231, 0.6); animation: exit-fade 0.2s; }
+.exit-overlay[hidden] { display: none; }
+.exit-dialog { position: fixed; top: 45px; left: 78px; width: 342px; box-sizing: border-box; padding: 27px 33px 16px; background: #fff; color: #0e0e0e; box-shadow: rgba(0, 0, 0, 0.12) 0 16px 64px, rgba(0, 0, 0, 0.08) 0 0 1px; z-index: 20; font: 400 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: -0.14px; animation: exit-in 0.2s; }
 .exit-dialog[hidden] { display: none; }
-.exit-dialog p { margin: 0 0 4px; line-height: 22px; }
+.exit-dialog p { margin: 0; }
 .exit-dialog .exit-title { font-weight: 600; }
-.exit-dialog .row { justify-content: flex-end; margin-top: 14px; }
+.exit-row { display: flex; justify-content: flex-end; gap: 22px; margin-top: 11px; }
+.exit-row button { height: 36px; padding: 0; border: 0; background: none; color: #0e0e0e; font: 500 14px/14px "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: -0.14px; cursor: pointer; }
+.exit-row button:hover { color: #666; }
+.exit-row .is-exit { color: rgb(195, 45, 56); }
+.exit-row .is-exit:hover { color: rgb(150, 35, 43); }
+@keyframes exit-fade { from { opacity: 0; } }
+@keyframes exit-in { from { opacity: 0; transform: translateY(6px); } }
 .btn.danger { color: #d0021b; }
 
 /* The floating block toolbar (U4), measured on the oracle (parity/findings/TOOLBARGEO.json). */
@@ -218,9 +227,11 @@ body.show-inspector:not(.is-replay) .panel { display: block; }
 
 /* Top bar like the oracle's (gap review screenshots): a dark 56 by 38 Save, plain Exit, icon
    buttons, a grey device toggle with the current layout on white. */
-.tb-save { width: 56px; height: 38px; border: 0; border-radius: 4px; background: #0e0e0e; color: #fff; font: 500 14px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; cursor: pointer; }
-.tb-save:disabled { background: #b5b5b5; cursor: default; }
-.tb-exit { height: 38px; padding: 0 10px; border: 0; background: transparent; font: 500 14px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; cursor: pointer; }
+.tb-save { width: 56px; height: 38px; border: 1px solid #0e0e0e; border-radius: 3px; background: #0e0e0e; color: #fff; font: 500 14px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: -0.14px; cursor: pointer; }
+.tb-save:hover:not(:disabled) { background: #454545; border-color: #454545; }
+.tb-save:disabled { background: #b7b7b7; border-color: #b7b7b7; cursor: not-allowed; }
+.tb-exit { height: 38px; padding: 0 10px; border: 0; background: transparent; font: 500 14px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: -0.14px; color: #0e0e0e; cursor: pointer; }
+.tb-exit:hover { color: #666; }
 .tb-icon { width: 40px; height: 38px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #0e0e0e; cursor: pointer; }
 .tb-icon:hover:not(:disabled) { background: #f2f2f2; }
 .tb-icon:disabled { color: #b7b7b7; cursor: default; }
@@ -589,10 +600,21 @@ body.is-preview .bs-menu { display: none !important; }
 .bar-left #redo { margin-left: 8px; }
 .bar-right { gap: 0; grid-column: 3; }
 .bar-left { grid-column: 1; }
-.bar-right .tb-seg { gap: 0; padding: 0; }
-.bar-right .tb-seg-btn { width: 46px; height: 32px; }
-.bar-right .tb-icon { width: 36px; height: 36px; }
-.bar-right #site-styles-toggle, .bar-right #reload-preview { margin-left: 13px; }
+.bar-right .tb-seg { gap: 0; padding: 0; border: 2px solid #f2f2f2; border-radius: 3px; background: #f2f2f2; }
+.bar-right .tb-seg-btn { width: 46px; height: 32px; border-radius: 2px; color: #666; }
+.bar-right .tb-seg-btn:hover, .bar-right .tb-seg-btn.is-on { color: #0e0e0e; }
+.bar-right .tb-icon { width: 36px; height: 36px; color: #0e0e0e; }
+.bar-right .tb-icon[aria-pressed="true"] { background: transparent; }
+.bar-right .tb-icon:hover:not(:disabled) { background: #f2f2f2; }
+.bar-left .tb-icon { position: relative; color: #0e0e0e; border-radius: 3px; }
+.bar-left .tb-icon:disabled { color: #0e0e0e; opacity: 0.2; }
+.bar-left #undo::before { content: ""; position: absolute; inset: -8px 0; }
+#preview .tb-close, body.is-preview #preview .tb-play { display: none; }
+body.is-preview #preview .tb-close { display: block; }
+.bar-right #site-styles-toggle, .bar-right #reload-preview { margin-left: 11px; }
+.bar-tip { position: fixed; z-index: 30052; display: flex; gap: 11px; box-sizing: border-box; height: 44px; padding: 11px 16px; border-radius: 3px; background: #0e0e0e; color: #fff; font: 400 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; white-space: nowrap; pointer-events: none; }
+.bar-tip[hidden] { display: none; }
+.bar-tip kbd { padding: 0 6px; border-radius: 2px; background: #454545; color: #e7e7e7; font: 500 11px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; }
 .bar-right #preview { margin-left: 11px; }
 .bar { position: relative; }
 .bar-center { position: absolute; left: 50%; top: 0; transform: translateX(-50%); padding-top: 12.1px; white-space: nowrap; pointer-events: none; }

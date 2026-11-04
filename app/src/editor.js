@@ -2589,14 +2589,51 @@ $('save').addEventListener('click', () => {
 // Saving?" with Save and Exit and no Cancel; Escape closes the question and keeps editing.
 // Exit discards the changes. Ours then opens the published page with the saved model.
 const leave = () => { location.href = 'page.html?saved'; };
+function showExitDialog(on) {
+  $('exit-dialog').hidden = !on;
+  $('exit-overlay').hidden = !on;
+}
 $('exit').addEventListener('click', () => {
   if (editing) finishTextEdit();
   if (JSON.stringify(model) === savedJson) return leave();
-  $('exit-dialog').hidden = false;
+  showExitDialog(true);
 });
-$('exit-save').addEventListener('click', () => { $('exit-dialog').hidden = true; $('save').click(); if (JSON.stringify(model) === savedJson) leave(); });
+$('exit-overlay').addEventListener('click', () => showExitDialog(false));
+$('exit-save').addEventListener('click', () => { showExitDialog(false); $('save').click(); if (JSON.stringify(model) === savedJson) leave(); });
 $('exit-discard').addEventListener('click', () => { model = JSON.parse(savedJson); leave(); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('exit-dialog').hidden) { e.preventDefault(); $('exit-dialog').hidden = true; } }, true);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('exit-dialog').hidden) { e.preventDefault(); showExitDialog(false); } }, true);
+
+// The bar's tooltips (parity/findings/TOPBAR.json, tips): centered under the control, kept 11px from
+// the left and 22px from the right, with no delay and no fade. Icon buttons sit 11.5px above theirs.
+const barTip = $('bar-tip');
+function showBarTip(btn) {
+  if (btn.disabled) return;
+  const preview = document.body.classList.contains('is-preview');
+  const closing = preview && btn.id === 'preview';
+  const keys = closing ? '' : btn.dataset.tipKeys;
+  barTip.replaceChildren(closing ? 'Close' : btn.dataset.tip);
+  for (const k of keys ? keys.split(' ') : []) { const el = document.createElement('kbd'); el.textContent = k; barTip.append(el); }
+  barTip.hidden = false;
+  const q = btn.getBoundingClientRect();
+  const w = barTip.getBoundingClientRect().width;
+  barTip.style.left = `${Math.max(11, Math.min(q.left + q.width / 2 - w / 2, window.innerWidth - 22 - w))}px`;
+  barTip.style.top = `${q.bottom + (btn.classList.contains('tb-icon') ? 11.5 : 6.5)}px`;
+}
+for (const btn of document.querySelectorAll('.bar [data-tip]')) {
+  btn.addEventListener('pointerenter', () => showBarTip(btn));
+  btn.addEventListener('pointerleave', () => { barTip.hidden = true; });
+}
+document.addEventListener('keydown', onBarKey);
+frameBarKeys();
+function onBarKey(e) {
+  if (!(e.metaKey || e.ctrlKey)) return;
+  if (e.code === 'KeyS' && !e.shiftKey && !e.altKey) { e.preventDefault(); if (!$('save').disabled) $('save').click(); }
+  if (e.code === 'KeyP' && e.shiftKey && !e.altKey) { e.preventDefault(); $('preview').click(); }
+}
+function frameBarKeys() {
+  frame.addEventListener('load', () => frame.contentDocument.addEventListener('keydown', onBarKey));
+  frame.contentDocument?.addEventListener('keydown', onBarKey);
+}
 $('reset').addEventListener('click', () => {
   const before = JSON.stringify(model);
   model = demoModel();

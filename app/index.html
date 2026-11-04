@@ -12,10 +12,10 @@
        the middle, the device toggle, Site Styles and Preview on the right. Our own tools sit in
        a developer menu (data-dev) the inventory ignores. -->
   <div class="bar-left">
-    <button id="save" class="tb-save" disabled>Save</button>
+    <button id="save" class="tb-save" data-tip="Save Changes" data-tip-keys="⌘ S" disabled>Save</button>
     <button id="exit" class="tb-exit">Exit</button>
-    <button id="undo" class="tb-icon" aria-label="Undo" title="Undo (Cmd+Z)" disabled><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
-    <button id="redo" class="tb-icon" aria-label="Redo" title="Redo (Shift+Cmd+Z)" disabled><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14l5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
+    <button id="undo" class="tb-icon" aria-label="Undo" disabled><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+    <button id="redo" class="tb-icon" aria-label="Redo" disabled><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14l5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
   </div>
   <div class="bar-center">
     <div class="page-name">How Fluid Engine works</div>
@@ -23,12 +23,12 @@
   </div>
   <div class="bar-right">
     <div class="tb-seg" role="radiogroup" aria-label="Device">
-      <button id="bp-desktop" class="tb-seg-btn is-on" role="radio" aria-checked="true" aria-label="Desktop View" title="Desktop layout"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4"/></svg></button>
-      <button id="bp-mobile" class="tb-seg-btn" role="radio" aria-checked="false" aria-label="Mobile View" title="Phone layout"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg></button>
+      <button id="bp-desktop" class="tb-seg-btn is-on" role="radio" aria-checked="true" aria-label="Desktop View" data-tip="Desktop View"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4"/></svg></button>
+      <button id="bp-mobile" class="tb-seg-btn" role="radio" aria-checked="false" aria-label="Mobile View" data-tip="Mobile View"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg></button>
     </div>
-    <button class="tb-icon" id="site-styles-toggle" aria-label="Toggle Site Styles editing" aria-pressed="false" title="Site Styles"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4l6 6-8 8-6-6z"/><path d="M6 12l-2 6 6-2"/><path d="M9 7l8 8"/></svg></button>
-    <button id="reload-preview" class="tb-icon" aria-label="Reload page preview" title="Reload page preview"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></svg></button>
-    <button id="preview" class="tb-icon" aria-label="Toggle preview mode" aria-pressed="false" title="Preview"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4l12 8-12 8z"/></svg></button>
+    <button class="tb-icon" id="site-styles-toggle" aria-label="Toggle Site Styles editing" aria-pressed="false" data-tip="Site Styles"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4l6 6-8 8-6-6z"/><path d="M6 12l-2 6 6-2"/><path d="M9 7l8 8"/></svg></button>
+    <button id="reload-preview" class="tb-icon" aria-label="Reload page preview" data-tip="Reload"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></svg></button>
+    <button id="preview" class="tb-icon" aria-label="Toggle preview mode" aria-pressed="false" data-tip="Preview" data-tip-keys="⌘ ⇧ P"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="tb-play"><path d="M7 4l12 8-12 8z"/></svg><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" class="tb-close"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     <div class="dev-menu" data-dev>
       <button id="dev-toggle" class="tb-icon" aria-label="Developer tools" title="Developer tools"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="18" cy="12" r="1.3" fill="currentColor"/></svg></button>
       <div class="dev-pop" id="dev-pop" hidden>
@@ -59,10 +59,12 @@
   </div>
   <aside class="panel" id="panel" aria-live="polite"></aside>
 </div>
+<div class="bar-tip" id="bar-tip" hidden></div>
+<div class="exit-overlay" id="exit-overlay" hidden></div>
 <div class="exit-dialog" id="exit-dialog" role="dialog" aria-labelledby="exit-title" hidden>
   <p class="exit-title" id="exit-title">Exit Without Saving?</p>
   <p>Any unsaved changes will be discarded when you exit.</p>
-  <div class="row"><button class="btn" id="exit-save">Save</button><button class="btn danger" id="exit-discard">Exit</button></div>
+  <div class="exit-row"><button id="exit-save">Save</button><button class="is-exit" id="exit-discard">Exit</button></div>
 </div>
 <script type="module" src="src/editor.js"></script>
 <aside class="site-styles" id="site-styles" role="dialog" aria-label="Site Styles" hidden></aside>
