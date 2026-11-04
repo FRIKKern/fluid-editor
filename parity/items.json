@@ -1147,9 +1147,9 @@
     "id": "U13",
     "area": "Editor chrome",
     "milestone": "M5",
-    "status": "open",
+    "status": "partial",
     "title": "Move the block Edit panel by dragging",
-    "evidence": "The oracle block Edit panel has a control labelled Click and drag to reposition block editor form, on text and shape panels. Ours stays where it opens. Not measured: where the handle sits and whether the place is kept. Labels from the gap review of 2026-11-04 (docs/MISSING.md).",
+    "evidence": "The oracle block Edit panel has a control labelled Click and drag to reposition block editor form, on text and shape panels. Ours stays where it opens. Not measured: where the handle sits and whether the place is kept. Labels from the gap review of 2026-11-04 (docs/MISSING.md). Measured 2026-11-04 (parity/findings/BUTTONEDIT.json, SHAPEDESIGN probe read): the handle is the panel's 55px header, 320px wide, the tabs sit on it. Ours: the header is a drag layer with the same label; a drag moves the panel inside the editor area and it stays there until the panel closes; the tabs still switch (headless Chrome). Not measured: whether the oracle keeps the place when the panel reopens",
     "controls": [
       "Click and drag to reposition block editor form"
     ]

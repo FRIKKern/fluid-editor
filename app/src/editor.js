@@ -804,7 +804,7 @@ const blockPanel = $('block-panel');
 function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
-  if (!b) { blendOpen = false; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!b) { blendOpen = false; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   const content = b.type === 'button' ? { label: b.label, href: b.href } : null;
   if (!content && designTab === 'Content') designTab = 'Design';
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
@@ -813,8 +813,9 @@ function renderBlockPanel() {
   placeBlockPanel();
   blockPanel.hidden = false;
 }
+let panelMoved = null; // the block whose panel was dragged; it stays where it was dropped
 function placeBlockPanel() {
-  if (!designOpen || !sel) return;
+  if (!designOpen || !sel || panelMoved === designOpen) return;
   const el = blockEl(sel.bid);
   if (!el) return;
   const p = blockPanelPosition(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect());
@@ -833,6 +834,23 @@ blockPanel.addEventListener('click', (e) => {
   designTab = t.dataset.btab;
   closeLinkPopover();
   renderBlockPanel();
+});
+
+// Drag the panel by its header (U13). Tabs and other controls in the header still click.
+blockPanel.addEventListener('pointerdown', (e) => {
+  const h = e.target.closest('[data-drag-panel], .sp-tabs');
+  if (!h || e.target.closest('button') || e.button !== 0) return;
+  e.preventDefault();
+  const st = stage.getBoundingClientRect(), r = blockPanel.getBoundingClientRect();
+  const dx = e.clientX - r.left, dy = e.clientY - r.top;
+  const move = (ev) => {
+    blockPanel.style.left = `${Math.max(0, Math.min(ev.clientX - dx - st.left, st.width - r.width))}px`;
+    blockPanel.style.top = `${Math.max(0, Math.min(ev.clientY - dy - st.top, st.height - 55))}px`;
+    panelMoved = designOpen;
+  };
+  const up = () => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
+  window.addEventListener('pointermove', move);
+  window.addEventListener('pointerup', up);
 });
 
 // One design value of the selected block, as one undo step (null removes it).
