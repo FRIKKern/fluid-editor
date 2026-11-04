@@ -610,9 +610,9 @@
     "id": "X13",
     "area": "Gestures",
     "milestone": "M4",
-    "status": "open",
+    "status": "partial",
     "title": "Marquee selection: drag over an empty area to select the blocks inside",
-    "evidence": "Found in hands-on testing 2026-11-03: on the oracle a drag that starts on empty canvas draws a selection area and selects several blocks at once. Ours only has Shift-click. Not measured: whether a block must be inside the area or only touch it, whether it crosses sections, and the look of the area"
+    "evidence": "Found in hands-on testing 2026-11-03: on the oracle a drag that starts on empty canvas draws a selection area and selects several blocks at once.  Measured 2026-11-04 (parity/findings/X13.json, demo section 2): the box is a 3px rgb(0, 114, 240) outline with no fill; a block it touches is selected (a corner of the paragraph was enough); the paragraph and the shape together got the group toolbar (Stack Blocks, Align Group). Ours draws the same box and selects the same blocks (headless Chrome: both cases). Not measured: a drag across sections, autoscroll during a marquee"
   },
   {
     "id": "X12",

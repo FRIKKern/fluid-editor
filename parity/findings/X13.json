@@ -1,0 +1,98 @@
+{
+  "item": "X13",
+  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "question": "What does a drag on empty canvas select, and how does the box look?",
+  "section": 2,
+  "look": "read from the screenshot mid-drag: a 3px rgb(0, 114, 240) outline from the start point to the pointer, no fill; the blocks under it get the thin hover outline",
+  "rule": "a block the box touches is selected (case B touched only a corner of the paragraph and selected it); two or more selected blocks get the group toolbar (Stack Blocks, Align Group)",
+  "steps": "pointer events on the frame document from an empty point below the paragraph; nothing was saved (Save stayed disabled, no undo needed)",
+  "geo": {
+    "sec": [
+      0,
+      211,
+      1583,
+      863
+    ],
+    "fe": [
+      0,
+      316,
+      1583,
+      757
+    ],
+    "blocks": [
+      [
+        "15917",
+        92,
+        316,
+        904,
+        388
+      ],
+      [
+        "16145",
+        92,
+        399,
+        727,
+        552
+      ],
+      [
+        "16395",
+        856,
+        358,
+        1433,
+        757
+      ]
+    ]
+  },
+  "cases": {
+    "A": {
+      "from": [
+        102,
+        612
+      ],
+      "to": [
+        896,
+        393
+      ],
+      "during": {
+        "startOn": "fe-a1vspns4ry fluid-engine is-editing",
+        "fresh": []
+      },
+      "after": {
+        "selected": [
+          "16145",
+          "16395"
+        ],
+        "toolbar": [
+          "Stack Blocks",
+          "Align Group"
+        ]
+      }
+    },
+    "B": {
+      "from": [
+        102,
+        612
+      ],
+      "to": [
+        152,
+        532
+      ],
+      "during": {
+        "startOn": "fe-a1vspns4ry fluid-engine is-editing",
+        "fresh": []
+      },
+      "after": {
+        "selected": [
+          "16145"
+        ],
+        "toolbar": [
+          "Write",
+          "Edit"
+        ]
+      }
+    }
+  },
+  "saveDisabled": true,
+  "undo": 0
+}

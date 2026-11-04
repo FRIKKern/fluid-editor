@@ -2,7 +2,7 @@
 
 [![Parity: one cell per item, done, partial, open or unknown](images/parity.svg)](../README.md)
 
-71 of 118 items done, 45 partial, 2 open, 0 unknown.
+71 of 118 items done, 46 partial, 1 open, 0 unknown.
 Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. Edit the JSON, never this page.
 
 ## Harness and oracle
@@ -101,7 +101,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | X9 | Dragging a block into another section | M4 Editor core | ✓ done | Evidence: Dragging past the bottom grows the section and the block stays (T0010, T0013); rows past the edge use the normal pitch (T0013 drag of 20 rows, T0014 resize of 8 rows). Our editor replays T0013 and T0014 and T0010 (parity/gate-c.json) |
 | X10 | Locked blocks, `data-is-locked` | M4 Editor core | ✓ done | Evidence: The oracle has no lock control: none in the desktop or phone toolbars of text, shape and button blocks (parity/findings/TOOLBARS.json), the group toolbar or the Layers rows, and data-is-locked is false on every block read. Our editor has no lock either |
 | X11 | Touch and pen input | M4 Editor core | ◐ partial |  |
-| X13 | Marquee selection: drag over an empty area to select the blocks inside | M4 Editor core | ○ open | Evidence: Found in hands-on testing 2026-11-03: on the oracle a drag that starts on empty canvas draws a selection area and selects several blocks at once. Ours only has Shift-click. Not measured: whether a block must be inside the area or only touch it, whether it crosses sections, and the look of the area |
+| X13 | Marquee selection: drag over an empty area to select the blocks inside | M4 Editor core | ◐ partial | Evidence: Found in hands-on testing 2026-11-03: on the oracle a drag that starts on empty canvas draws a selection area and selects several blocks at once.  Measured 2026-11-04 (parity/findings/X13.json, demo section 2): the box is a 3px rgb(0, 114, 240) outline with no fill; a block it touches is selected (a corner of the paragraph was enough); the paragraph and the shape together got the group toolbar (Stack Blocks, Align Group). Ours draws the same box and selects the same blocks (headless Chrome: both cases). Not measured: a drag across sections, autoscroll during a marquee |
 | X12 | Esc cancels, one gesture is one undo step | M4 Editor core | ✓ done | Evidence: Scripted cmux run on the prototype, 2026-11-03. Not yet a stored trace |
 
 ## Row stretch

@@ -447,6 +447,26 @@ function nearest(from, to, f) {
 }
 
 // ---------- gestures ----------
+// Marquee (X13, parity/findings/X13.json): a drag from empty canvas draws a 3px rgb(0, 114, 240)
+// box and selects every block of that section it touches; two or more get the group toolbar.
+function startMarquee(e, fe) {
+  const sid = fe.closest('section').dataset.sectionId;
+  const x0 = e.clientX, y0 = e.clientY;
+  let box = null;
+  const move = (ev) => {
+    const x1 = ev.clientX, y1 = ev.clientY;
+    if (!box && Math.hypot(x1 - x0, y1 - y0) < 4) return;
+    if (!box) { box = doc.createElement('div'); box.className = 'fe-marquee'; doc.body.append(box); }
+    const L = Math.min(x0, x1), T = Math.min(y0, y1), R = Math.max(x0, x1), Bm = Math.max(y0, y1);
+    Object.assign(box.style, { left: `${L}px`, top: `${T}px`, width: `${R - L}px`, height: `${Bm - T}px` });
+    const ids = [...fe.querySelectorAll(':scope > .fe-block')].filter((b) => { const q = b.getBoundingClientRect(); return q.width && q.left <= R && q.right >= L && q.top <= Bm && q.bottom >= T; }).map((b) => b.dataset.blockId);
+    select(ids.length ? { sid, bid: ids[0], more: ids.slice(1) } : null);
+  };
+  const up = () => { doc.removeEventListener('pointermove', move); doc.removeEventListener('pointerup', up); box?.remove(); };
+  doc.addEventListener('pointermove', move);
+  doc.addEventListener('pointerup', up);
+}
+
 function onDown(e) {
   if (document.body.classList.contains('is-preview')) return;
   if (e.button !== 0) return;
@@ -463,6 +483,8 @@ function onDown(e) {
   }
   if (!blk) {
     select(null);
+    const fe = e.target.closest('.fluid-engine');
+    if (fe && !e.target.closest('.fe-handle, .fe-indicator')) startMarquee(e, fe);
     return;
   }
   e.preventDefault();
