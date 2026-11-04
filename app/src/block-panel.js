@@ -98,7 +98,15 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
       + pairs.join('');
   } else {
-    body = '<p class="sp-help" data-unbuilt>Animations are not built yet.</p>';
+    // Animation (parity/findings/ANIMATION.json): the empty state and the preset picker as on
+    // the oracle; the animations themselves are not built (data-unbuilt).
+    body = open === 'anim-picker'
+      ? `<div class="an-head"><button type="button" class="an-back" data-anim="back" aria-label="Back">${pi('<path d="M15 6l-6 6 6 6"/>')}</button><span>Trigger</span></div>`
+        + `<label class="an-trigger" data-unbuilt><select aria-label="Trigger" disabled>${['On Hover', 'On Press', 'Loop', 'On Scroll', 'On Appear', 'Follow'].map((t) => `<option>${t}</option>`).join('')}</select></label>`
+        + `<div class="an-presets">${['Grow', 'Lift', 'Look', 'Jump', 'Squish', 'Jitter'].map((n) => `<button type="button" class="an-preset" data-unbuilt disabled><span class="an-sq"></span>${n}</button>`).join('')}</div>`
+        + '<button type="button" class="an-blank" data-unbuilt disabled>Start blank</button>'
+      : `<div class="an-row"><span class="an-title">Triggers</span><span class="an-actions"><button type="button" class="an-icon" aria-label="Animation list actions" data-unbuilt disabled>···</button><button type="button" class="an-icon" data-anim="add" aria-label="Add a new animation">${pi('<path d="M12 5v14M5 12h14"/>')}</button></span></div>`
+        + '<button type="button" class="an-empty" data-anim="add" aria-label="Press + to get startedUse a preset or customize"><strong>Press + to get started</strong><span>Use a preset or customize</span></button>';
   }
   const tabs = content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
   // The header is also the drag handle (U13): the oracle labels it Click and drag to reposition block editor form.
