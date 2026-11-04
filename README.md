@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 47 changes
+- **Today** · 48 changes
+  - U12: style pack popovers with measured picks ([#105](https://github.com/FRIKKern/fluid-editor/pull/105))
   - G5, G6: center line, center snap, target ring and matching marks as on the oracle ([#104](https://github.com/FRIKKern/fluid-editor/pull/104))
-  - Oracle tooling: drive the oracle in headless Chrome with real input ([#103](https://github.com/FRIKKern/fluid-editor/pull/103))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
