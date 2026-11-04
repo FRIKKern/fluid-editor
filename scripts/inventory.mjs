@@ -107,7 +107,7 @@ async function oReset() {
   await oEnsureDemo();
   for (let k = 0; k < 3; k++) await escape();
   for (const i of [0, 2]) await deselect(i);
-  if (evalJs(O, `(() => JSON.stringify(!![...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Desktop View' && x.getAttribute('aria-pressed') === 'false')))()`) === true) await oCmuxClick(oByLabel('Desktop View'), 2500);
+  if (evalJs(O, `(() => JSON.stringify(!![...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Desktop View' && (x.getAttribute('aria-checked') || x.getAttribute('aria-pressed')) === 'false')))()`) === true) await oCmuxClick(oByLabel('Desktop View'), 2500);
   if (oSave() === false) {
     let n = 0; while (n < 8 && oSave() === false && evalJs(O, BUTTON('Undo')) === true) { n++; await pause(900); }
     if (oSave() === false) throw new Error('The oracle has unsaved changes; stopping (O1)');

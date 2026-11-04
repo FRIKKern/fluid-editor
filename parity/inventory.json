@@ -1,0 +1,1842 @@
+{
+  "capturedAt": "2026-11-04",
+  "oracle": "halibut-keyboard-jlhd.squarespace.com, demo page, 1600 by 1000 window",
+  "ours": "app/index.html, canvas 1600 wide",
+  "states": [
+    {
+      "name": "idle",
+      "what": "Edit mode, nothing selected",
+      "oracle": 10,
+      "present": 9,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "section-hover",
+      "what": "Pointer over a section",
+      "oracle": 20,
+      "present": 15,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Add Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Open Section Settings",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "View Layouts",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Save Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "section-design",
+      "what": "Edit Section, Design tab",
+      "oracle": 23,
+      "present": 21,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "section-background",
+      "what": "Edit Section, Background tab",
+      "oracle": 22,
+      "present": 15,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "radio",
+          "label": "Image",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U5"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "radio",
+          "label": "Video",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U5"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "radio",
+          "label": "Art",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Add an Image20 MB max",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Add an Image",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "section-colors",
+      "what": "Edit Section, Colors tab",
+      "oracle": 21,
+      "present": 12,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "a",
+          "label": "Color Theme Editor",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "AaLightest 1",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "AaLightest 2",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "AaLight 1",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "AaLight 2",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "AaBright 1",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "AaBright 2",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "add-block-menu",
+      "what": "Add Block menu of a section",
+      "oracle": 26,
+      "present": 20,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Product",
+          "where": "frame",
+          "status": "out of scope",
+          "items": [],
+          "outOfScope": [
+            "U5"
+          ]
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Pricing Plan",
+          "where": "frame",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Donation",
+          "where": "frame",
+          "status": "out of scope",
+          "items": [],
+          "outOfScope": [
+            "U5"
+          ]
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Scheduling",
+          "where": "frame",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Sell",
+          "where": "frame",
+          "status": "out of scope",
+          "items": [
+            "U5"
+          ],
+          "outOfScope": [
+            "U5"
+          ]
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "layers",
+      "what": "Layers panel of a section",
+      "oracle": 24,
+      "present": 16,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Add Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Open Layers Panel",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "Z4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Add Block",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Open Section Settings",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "View Layouts",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Save Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "On desktop the smallest a row can be is the cont",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "text-selected",
+      "what": "A text block selected",
+      "oracle": 19,
+      "present": 18,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "text-writing",
+      "what": "Writing in a text block, a word selected",
+      "oracle": 27,
+      "present": 21,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Squarespace AI",
+          "where": "top",
+          "status": "out of scope",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": [
+            "E4"
+          ]
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Text Color",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "checkbox",
+          "label": "Scaled Text",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Text Highlight",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Link",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4",
+            "S3",
+            "U4"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "text-edit-design",
+      "what": "Text block Edit panel, Design tab",
+      "oracle": 23,
+      "present": 19,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "combobox",
+          "label": "More actions",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "text-edit-animation",
+      "what": "Text block Edit panel, Animation tab",
+      "oracle": 17,
+      "present": 11,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "combobox",
+          "label": "Animation list actions",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Add a new animation",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Press + to get startedUse a preset or customize",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Triggers",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "shape-selected",
+      "what": "A shape block selected",
+      "oracle": 17,
+      "present": 16,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "shape-edit",
+      "what": "Shape block Edit panel",
+      "oracle": 21,
+      "present": 12,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "radio",
+          "label": "Individual corner radii",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "input:checkbox",
+          "label": "Stretch",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "T5",
+            "T6",
+            "R5",
+            "L5"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Color",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "P5",
+            "T6",
+            "T15",
+            "E4",
+            "L5"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Shape style",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "T6",
+            "L5"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Styling",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "button-selected",
+      "what": "A button block selected",
+      "oracle": 17,
+      "present": 16,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "button-edit",
+      "what": "Button block Edit panel",
+      "oracle": 0,
+      "present": 0,
+      "missing": [],
+      "error": "oracle: not reached: \"Opacity\" is not on screen"
+    },
+    {
+      "name": "group-selected",
+      "what": "Two blocks selected with Shift",
+      "oracle": 25,
+      "present": 15,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Add Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Open Section Settings",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "View Layouts",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Duplicate Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Save Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Move Section Up",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Move Section Down",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Move Forward",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Z2",
+            "U4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Move Backward",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Z2"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "block-context-menu",
+      "what": "Right-click on a selected block",
+      "oracle": 10,
+      "present": 3,
+      "missing": [
+        {
+          "kind": "text",
+          "label": "Copy",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U11"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Paste",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U11"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Copy Properties",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U11"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Paste Properties",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U11"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Arrange",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U11"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Hide on desktop",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U11"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Hide on mobile",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U11"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "phone-idle",
+      "what": "Phone layout, nothing selected",
+      "oracle": 18,
+      "present": 9,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Add Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Open Layers Panel",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "Z4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Open Section Settings",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Duplicate Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Save Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Move Section Up",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Move Section Down",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Remove Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "phone-text-selected",
+      "what": "Phone layout, a text block selected",
+      "oracle": 18,
+      "present": 17,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "preview",
+      "what": "Preview mode (top bar)",
+      "oracle": 8,
+      "present": 6,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Reload page preview",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Previewing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "add-section-menu",
+      "what": "Add Section on a section edge",
+      "oracle": 20,
+      "present": 15,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Add Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Open Section Settings",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "View Layouts",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Save Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "view-layouts",
+      "what": "View Layouts of a section",
+      "oracle": 11,
+      "present": 9,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Layouts",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "O2",
+            "L4",
+            "L5",
+            "U9",
+            "U10"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "button-link",
+      "what": "Link popover of a button block",
+      "oracle": 26,
+      "present": 16,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "URL",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "combobox",
+          "label": "Enter link, search, or add files",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "option",
+          "label": "Services/services",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "option",
+          "label": "About/about",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "option",
+          "label": "Contact/contact",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "option",
+          "label": "How Fluid Engine works/how-fluid-engine-works",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "option",
+          "label": "Home/home",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Main Navigation",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Hidden Navigation",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "phone-section-hover",
+      "what": "Phone layout, pointer over a section",
+      "oracle": 18,
+      "present": 14,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Add Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Open Section Settings",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Save Section",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U9"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "text-style-menu",
+      "what": "Writing, the Text Style menu open",
+      "oracle": 35,
+      "present": 29,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Squarespace AI",
+          "where": "top",
+          "status": "out of scope",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": [
+            "E4"
+          ]
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Text Color",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "checkbox",
+          "label": "Scaled Text",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Text Highlight",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Link",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4",
+            "S3",
+            "U4"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "text-align-menu",
+      "what": "Writing, the Text Alignment menu open",
+      "oracle": 31,
+      "present": 25,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Squarespace AI",
+          "where": "top",
+          "status": "out of scope",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": [
+            "E4"
+          ]
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Text Color",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "checkbox",
+          "label": "Scaled Text",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Text Highlight",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Link",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4",
+            "S3",
+            "U4"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "text-link",
+      "what": "Writing, the Link popover open",
+      "oracle": 27,
+      "present": 21,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Squarespace AI",
+          "where": "top",
+          "status": "out of scope",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": [
+            "E4"
+          ]
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Text Color",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "checkbox",
+          "label": "Scaled Text",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Text Highlight",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Link",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4",
+            "S3",
+            "U4"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "text-color",
+      "what": "Writing, the Text Color popover open",
+      "oracle": 29,
+      "present": 21,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Squarespace AI",
+          "where": "top",
+          "status": "out of scope",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": [
+            "E4"
+          ]
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Text Color",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "checkbox",
+          "label": "Scaled Text",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Text Highlight",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Link",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4",
+            "S3",
+            "U4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "tab",
+          "label": "Palette",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "tab",
+          "label": "Custom",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "P3",
+            "P5",
+            "P7",
+            "E4",
+            "S2"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "site-styles",
+      "what": "Site Styles panel (top bar)",
+      "oracle": 21,
+      "present": 8,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Close",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Themes style pack popover",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Fonts style pack popover",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Open Fonts style disclosure",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Colors style pack popover",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Open Colors style disclosure",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Buttons style pack popover",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Open Buttons style disclosure",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Forms style pack popover",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Open Forms style disclosure",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Miscellaneous",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Subscribe",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Site Styles",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U6"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    }
+  ]
+}
