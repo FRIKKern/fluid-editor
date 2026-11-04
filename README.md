@@ -29,10 +29,11 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 69 changes
+- **Today** · 1 change
+  - G6, X13, Z3: correct G6's phone note, close X13's stale label gap, Layers rows as measured ([#128](https://github.com/FRIKKern/fluid-editor/pull/128))
+- **Yesterday** · 69 changes
   - X2, G5: a held block stays inside the grid, phones have the center line ([#126](https://github.com/FRIKKern/fluid-editor/pull/126))
-  - Gap review: refresh the inventory in headless Chrome, reach the 4 states it missed ([#125](https://github.com/FRIKKern/fluid-editor/pull/125))
-- **Yesterday** · 39 changes, 3 milestones closed
+- **This week** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
 
