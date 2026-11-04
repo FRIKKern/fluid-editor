@@ -1,0 +1,104 @@
+{
+  "item": "Z2",
+  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "question": "What does each item of the block menu's Arrange submenu do to z-index?",
+  "section": 2,
+  "blocks": "heading 15917 (1/2/5/16), paragraph 16145 (3/2/8/13), shape 16395 (2/15/12/25); the shape overlaps the heading only",
+  "steps": "select the block, right-click, Arrange, the item; read each block's computed z-index; undo until Save is disabled",
+  "ids": [
+    "15917",
+    "16145",
+    "16395"
+  ],
+  "base": [
+    [
+      "15917",
+      "1"
+    ],
+    [
+      "16145",
+      "2"
+    ],
+    [
+      "16395",
+      "3"
+    ]
+  ],
+  "Move to back": {
+    "target": "16395",
+    "z": [
+      [
+        "15917",
+        "2"
+      ],
+      [
+        "16145",
+        "3"
+      ],
+      [
+        "16395",
+        "1"
+      ]
+    ],
+    "changed": true,
+    "undo": 1
+  },
+  "Move to front": {
+    "target": "15917",
+    "z": [
+      [
+        "15917",
+        "3"
+      ],
+      [
+        "16145",
+        "1"
+      ],
+      [
+        "16395",
+        "2"
+      ]
+    ],
+    "changed": true,
+    "undo": 1
+  },
+  "Move backward": {
+    "target": "16395",
+    "z": [
+      [
+        "15917",
+        "2"
+      ],
+      [
+        "16145",
+        "3"
+      ],
+      [
+        "16395",
+        "1"
+      ]
+    ],
+    "changed": true,
+    "undo": 1
+  },
+  "Move forward": {
+    "target": "15917",
+    "z": [
+      [
+        "15917",
+        "3"
+      ],
+      [
+        "16145",
+        "1"
+      ],
+      [
+        "16395",
+        "2"
+      ]
+    ],
+    "changed": true,
+    "undo": 1
+  }
+}

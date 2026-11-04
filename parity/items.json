@@ -751,7 +751,7 @@
     "status": "done",
     "title": "How Bring forward and Send backward change z",
     "wasUnknown": true,
-    "evidence": "Move Forward and Move Backward swap z-index with the next block up or down (T0011, T0012); our editor does the same since m3-unknowns and replays both (parity/gate-c.json)",
+    "evidence": "Move Forward and Move Backward swap z-index with the next block up or down (T0011, T0012); our editor does the same since m3-unknowns and replays both (parity/gate-c.json). The block menu's Arrange submenu (parity/findings/ARRANGE.json, demo section 2): Move to back and Move to front put the block at the bottom or top; Move backward and Move forward move it past every block it overlaps on that side (the heading overlapping the paragraph and the shape went from 1 to 3); after each move the section's blocks are numbered 1 to n; one undo each. Ours gives the same z order for all four cases (headless Chrome)",
     "controls": [
       "Move Forward",
       "Move Backward"
@@ -1028,7 +1028,7 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Block right-click menu",
-    "evidence": "Found by the gap review (scripts/inventory.mjs, 2026-11-03): right-click on a block opens Copy (Cmd+C), Paste (Cmd+V), Duplicate (Cmd+D), Delete, Copy Properties, Paste Properties, Stack (Shift+S), Arrange, Hide on desktop (Cmd+Shift+H), Hide on mobile. Ours opens the same menu; Duplicate, Delete and Stack work, and Shift+S stacks the selection as the menu shows. Not measured or built: Copy and Paste of blocks, the Properties and Arrange submenus,. Hide on desktop and Hide on mobile are built (L5). The submenus read on 2026-11-04: Copy Properties (Transforms, Animations), Paste Properties (Replace Animations), Arrange (Move forward, Move to front, Move backward, Move to back). Copy and Paste of a block made no change in the probe (the clipboard did not reach the page)",
+    "evidence": "Found by the gap review (scripts/inventory.mjs, 2026-11-03): right-click on a block opens Copy (Cmd+C), Paste (Cmd+V), Duplicate (Cmd+D), Delete, Copy Properties, Paste Properties, Stack (Shift+S), Arrange, Hide on desktop (Cmd+Shift+H), Hide on mobile. Ours opens the same menu; Duplicate, Delete and Stack work, and Shift+S stacks the selection as the menu shows. Not measured or built: Copy and Paste of blocks, the Properties and Arrange submenus,. Hide on desktop and Hide on mobile are built (L5). The submenus read on 2026-11-04: Copy Properties (Transforms, Animations), Paste Properties (Replace Animations), Arrange (Move forward, Move to front, Move backward, Move to back). Copy and Paste of a block made no change in the probe (the clipboard did not reach the page). Arrange is built (Z2)",
     "controls": [
       "Copy",
       "Paste",

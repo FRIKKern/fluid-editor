@@ -38,6 +38,12 @@ export function layersPanelHtml(rows) {
 }
 
 const K = { cmd: '⌘', shift: '⇧', back: '⌫' };
+// The Arrange submenu (parity/findings/ARRANGE.json).
+export function arrangeMenuHtml() {
+  const it = (act, label, keys = '') => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"><span>${label}</span>${keys ? `<kbd>${keys}</kbd>` : ''}</button>`;
+  return [it('z-forward', 'Move forward', '↑'), it('z-front', 'Move to front'), it('z-backward', 'Move backward', '↓'), it('z-back', 'Move to back')].join('');
+}
+
 export function contextMenuHtml({ canPaste }) {
   const item = (act, label, keys = '', opts = {}) => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"${opts.off ? ' disabled' : ''}${opts.unbuilt ? ' data-unbuilt' : ''}><span>${label}</span>${keys ? `<kbd>${keys}</kbd>` : ''}${opts.more ? '<span class="cm-more">›</span>' : ''}</button>`;
   return [
@@ -50,7 +56,7 @@ export function contextMenuHtml({ canPaste }) {
     item('paste-props', 'Paste Properties', '', { more: true, unbuilt: true }),
     '<hr>',
     item('stack', 'Stack', `${K.shift} S`),
-    item('arrange', 'Arrange', '', { more: true, unbuilt: true }),
+    item('arrange', 'Arrange', '', { more: true }),
     '<hr>',
     item('hide-desktop', 'Hide on desktop', `${K.cmd} ${K.shift} H`),
     item('hide-mobile', 'Hide on mobile', ''),
