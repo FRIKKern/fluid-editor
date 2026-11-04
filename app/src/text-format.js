@@ -142,10 +142,16 @@ function wrapRange(doc, sel, el) {
 export function setTextColor(doc, root, sel, name) {
   if (!sel.rangeCount || sel.isCollapsed) return false;
   const sp = spanWith(root, sel.getRangeAt(0), isColor);
-  if (sp) { sp.className = `sqsrte-text-color--${name}`; return true; }
+  if (sp) { sp.className = `sqsrte-text-color--${name}`; sp.removeAttribute('style'); return true; }
   const el = doc.createElement('span');
   el.className = `sqsrte-text-color--${name}`;
   wrapRange(doc, sel, el);
+  return true;
+}
+// Custom tab: <span class="sqsrte-text-color--custom" style="color: #668040;">.
+export function setCustomColor(doc, root, sel, hex) {
+  if (!setTextColor(doc, root, sel, 'custom')) return false;
+  spanWith(root, sel.getRangeAt(0), isColor)?.setAttribute('style', `color: ${hex};`);
   return true;
 }
 export function addHighlight(doc, root, sel) {

@@ -68,6 +68,16 @@ p, .sqsrte-large, .sqsrte-small { line-height: var(--body-font-line-height); }
 p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
 .sqs-block-html .sqs-html-content > *:first-child { margin-top: 0; }
 .sqs-block-html .sqs-html-content > *:last-child { margin-bottom: 0; }
+/* Lists and monospace (parity/findings/TEXTCOLOR.json, look): the marker is a 40px box before the
+   paragraph, in the list's indent; a list item's paragraph has half a paragraph's margin. */
+.sqs-html-content li { list-style: none; }
+.sqs-html-content li > p { margin: .5rem 0; }
+.sqs-html-content li > p::before { display: inline-block; box-sizing: border-box; width: 40px; margin-left: -40px; text-align: right; white-space: pre; }
+.sqs-html-content ul > li > p::before { content: "•"; padding-right: 10px; }
+.sqs-html-content ol > li { counter-increment: rte-list; }
+.sqs-html-content ol > li > p::before { content: "  " counter(rte-list) ". "; }
+.sqs-html-content pre { margin: 1rem 0; font-family: monospace, serif; font-size: 1rem; line-height: var(--body-font-line-height); white-space: pre-wrap; }
+.sqs-html-content pre code { font-family: Poppins; font-size: 1rem; font-weight: 500; line-height: 1; letter-spacing: .01em; }
 
 /* Sections (P3, P5), measured on the oracle (parity/findings/P3.json):
    height S/M/L sets a minimum height of 33/66/100vh and top and bottom padding of

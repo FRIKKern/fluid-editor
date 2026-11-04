@@ -1427,7 +1427,8 @@ function currentColorKey() {
 }
 function renderTextBar() {
   if (!editing || document.body.classList.contains('is-preview')) { textBar.hidden = true; textMenu = null; return; }
-  textBar.innerHTML = textBarHtml(fmt.currentStyle(editing.ce, win.getSelection()), textMenu, textMenu === 'color' ? currentColorKey() : null);
+  textBar.innerHTML = textBarHtml(fmt.currentStyle(editing.ce, win.getSelection()), textMenu, textMenu === 'color' ? currentColorKey() : null, textMenu === 'color' ? customColor : null);
+  paintCustomColor();
   // The color popover is centred under its button, 6px below it (TEXTCOLOR.json).
   const cp = textBar.querySelector('.tx-colors'), cb = textBar.querySelector('[data-fmt="color-menu"]');
   if (cp && cb) { cp.style.left = `${cb.offsetLeft + cb.offsetWidth / 2 - 127}px`; cp.style.top = `${cb.offsetTop + cb.offsetHeight + 6}px`; }
@@ -1454,15 +1455,85 @@ function applyFormat(act, value) {
   ed.ce.focus();
   onTextInput();
 }
+// The Custom tab of Text Color (parity/findings/TEXTCOLOR.json, custom). A color map, a hue bar and a
+// Hex field. Each pick is written at once and the popover stays open. null is the Palette tab.
+let customColor = null;
+const hsvToHex = ({ h, s, v }) => {
+  const f = (n) => { const k = (n + h / 60) % 6; return Math.round(255 * (v - v * s * Math.max(0, Math.min(k, 4 - k, 1)))).toString(16).padStart(2, '0'); };
+  return `#${f(5)}${f(3)}${f(1)}`.toUpperCase();
+};
+const hexToHsv = (hex) => {
+  const [r, g, b] = [1, 3, 5].map((k) => parseInt(hex.slice(k, k + 2), 16) / 255);
+  const v = Math.max(r, g, b), d = v - Math.min(r, g, b);
+  const h = !d ? 0 : v === r ? ((g - b) / d + 6) % 6 : v === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return { h: h * 60, s: v ? d / v : 0, v };
+};
+const fullHex = (t) => (/^#[0-9a-f]{6}$/i.test(t) ? t : /^#[0-9a-f]{3}$/i.test(t) ? t.replace(/[0-9a-f]/gi, '$&$&') : null)?.toUpperCase();
+// What the selection has now: its color as hex, and whether it is a custom one.
+function selectionColor() {
+  const s0 = win.getSelection();
+  const n = s0.rangeCount ? s0.getRangeAt(0).startContainer : editing.ce;
+  const [r, g, b] = win.getComputedStyle(n.nodeType === 1 ? n : n.parentElement).color.match(/\d+/g).map(Number);
+  return `#${[r, g, b].map((x) => x.toString(16).padStart(2, '0')).join('')}`.toUpperCase();
+}
+function openCustomColor() {
+  const hex = selectionColor();
+  customColor = { ...hexToHsv(hex), hex };
+}
+function paintCustomColor() {
+  const c = customColor, map = textBar.querySelector('.tx-cmap');
+  if (!c || !map) return;
+  const thumb = map.firstChild;
+  thumb.style.left = `${c.s * 254 - 8}px`;
+  thumb.style.top = `${(1 - c.v) * 240 - 8}px`;
+  thumb.style.background = c.hex;
+  map.style.backgroundColor = `hsl(${c.h}, 100%, 50%)`;
+  textBar.querySelector('.tx-chue').firstChild.style.left = `${3 + (c.h / 360) * 234}px`;
+  const input = textBar.querySelector('input[aria-label="Hex"]');
+  if (input !== document.activeElement) input.value = c.hex;
+}
+function pickCustomColor() {
+  if (!editing) return;
+  fmt.setCustomColor(doc, editing.ce, win.getSelection(), customColor.hex);
+  onTextInput();
+  paintCustomColor();
+}
+function dragCustomColor(e, el, read) {
+  const move = (ev) => {
+    const r = el.getBoundingClientRect();
+    read(Math.max(0, Math.min(1, (ev.clientX - r.left) / r.width)), Math.max(0, Math.min(1, (ev.clientY - r.top) / r.height)));
+    customColor.hex = hsvToHex(customColor);
+    pickCustomColor();
+  };
+  const up = () => { document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', up); };
+  document.addEventListener('pointermove', move);
+  document.addEventListener('pointerup', up);
+  move(e);
+}
+textBar.addEventListener('pointerdown', (e) => {
+  const map = e.target.closest('.tx-cmap'), hue = e.target.closest('.tx-chue');
+  if (map) dragCustomColor(e, map, (x, y) => { customColor.s = x; customColor.v = 1 - y; });
+  if (hue) dragCustomColor(e, hue, (x) => { customColor.h = x * 360; });
+});
+textBar.addEventListener('input', (e) => {
+  if (e.target.matches('input[aria-label="Alpha"]')) { e.target.value = `${e.target.value.replace(/\D/g, '')}%`; return; }
+  if (!e.target.matches('input[aria-label="Hex"]')) return;
+  const hex = fullHex(e.target.value.trim());
+  if (hex) { customColor = { ...hexToHsv(hex), hex }; pickCustomColor(); }
+});
+textBar.addEventListener('focusout', (e) => { if (e.target.matches('input[aria-label="Hex"]') && customColor) e.target.value = customColor.hex; });
 // Buttons keep the text selection: no focus change on mousedown.
-textBar.addEventListener('mousedown', (e) => { if (e.target.closest('button, .tx-swatch')) e.preventDefault(); });
+textBar.addEventListener('mousedown', (e) => { if (e.target.closest('button, .tx-swatch, .tx-cmap, .tx-chue')) e.preventDefault(); });
 textBar.addEventListener('click', (e) => {
+  const ctab = e.target.closest('[data-ctab]');
+  if (ctab && editing) { if (ctab.dataset.ctab === 'Custom') openCustomColor(); else customColor = null; renderTextBar(); return; }
   const sw = e.target.closest('input[data-fmt="color"]');
   if (sw && editing) { textMenu = null; applyFormat('color', sw.dataset.v); renderTextBar(); return; }
   const b = e.target.closest('button[data-fmt]');
   if (!b || !editing || b.disabled) return;
   const act = b.dataset.fmt;
   if (act === 'link') { openTextLink(b); return; }
+  if (act === 'color-menu') { customColor = null; if (textMenu !== 'color' && fmt.currentTextColor(editing.ce, win.getSelection()) === 'custom') openCustomColor(); }
   if (act === 'style-menu' || act === 'align-menu' || act === 'color-menu') { const m = act.replace('-menu', ''); textMenu = textMenu === m ? null : m; renderTextBar(); return; }
   textMenu = null;
   if (act === 'style') applyFormat('style', b.dataset.v); else applyFormat(act);

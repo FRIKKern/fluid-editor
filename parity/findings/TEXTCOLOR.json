@@ -1,6 +1,5 @@
 {
   "item": "TEXTCOLOR",
-  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
   "capturedAt": "2026-11-04",
   "question": "What do Text Color and Text Highlight offer, and what HTML does a pick write?",
   "block": [
@@ -129,5 +128,190 @@
     },
     "changed": true,
     "undoSteps": 1
+  },
+  "custom": {
+    "how": "real mouse and key input in headless Chrome on the word On, 2026-11-04. Nothing saved: Exit Without Saving after every run.",
+    "popover": {
+      "box": [
+        250,
+        376,
+        254,
+        405
+      ],
+      "rule": "centred under the Text Color button, 6px below, as the Palette tab"
+    },
+    "tabs": {
+      "box": {
+        "Palette": [
+          6,
+          0,
+          115,
+          55
+        ],
+        "Custom": [
+          133,
+          0,
+          115,
+          55
+        ]
+      },
+      "text": "14px; rgb(14, 14, 14) selected, rgb(102, 102, 102) not",
+      "underline": [
+        127,
+        53,
+        127,
+        2
+      ]
+    },
+    "map": {
+      "box": [
+        0,
+        66,
+        254,
+        240
+      ],
+      "rule": "x is saturation, y is value from the top; a click at 127,120 gives #804040 and hsl(0, 33%, 38%)",
+      "thumb": "16px, 3px white border, round, inner and outer 1px rgb(118, 118, 118) ring, filled with the color"
+    },
+    "hue": {
+      "box": [
+        0,
+        317,
+        254,
+        22
+      ],
+      "rule": "x over the whole bar is the hue; a click at 60 gives hue 84.47, #668040 from #804040. The thumb centre moves from 11 to 245",
+      "gradient": "to left, rgb(255, 0, 0) 0%, rgb(255, 0, 153) 10%, rgb(205, 0, 255) 20%, rgb(50, 0, 255) 30%, rgb(0, 102 ... read this far; the rest of the stops are inferred from the look"
+    },
+    "fields": {
+      "Hex": {
+        "box": [
+          0,
+          345,
+          192,
+          44
+        ],
+        "value": "#000000 at the start"
+      },
+      "Alpha": {
+        "box": [
+          192,
+          345,
+          62,
+          44
+        ],
+        "value": "100%"
+      },
+      "background": "rgb(242, 242, 242)"
+    },
+    "html": "<span class=\"sqsrte-text-color--custom\" style=\"color: #804040;\">On</span>",
+    "hexField": [
+      {
+        "typed": "#00ff00",
+        "html": "color: #00FF00;"
+      },
+      {
+        "typed": "#f0a",
+        "html": "color: #FF00AA;",
+        "fieldKeeps": "#f0a until the field is left"
+      },
+      {
+        "typed": "#zzz",
+        "html": "no change"
+      },
+      {
+        "typed": "00ff00 without the #",
+        "html": "no change"
+      }
+    ],
+    "alphaField": {
+      "typed": [
+        "50%",
+        "25"
+      ],
+      "shows": [
+        "50%",
+        "25%"
+      ],
+      "html": "no change, solid color; back to 100% on reopen"
+    },
+    "keepsOpen": "the popover stays open after each pick",
+    "reopen": "reopens on the Custom tab with the color",
+    "paletteAfter": "no swatch checked",
+    "undo": "2 picks in one edit took 2 undos until Save was disabled again; ours takes 1 for the edit"
+  },
+  "look": {
+    "note": "Read in edit mode from the page's own frame after each toolbar action, not saved or published: the site's stylesheets are the same, so this is inferred to be the published look. A blockquote first in a block has margin-top 0.",
+    "quote": {
+      "blockquote": {
+        "marginBottom": "16px",
+        "marginLeft": "40px",
+        "marginRight": "40px"
+      },
+      "p": {
+        "marginTop": "16px",
+        "fontSize": "16px"
+      }
+    },
+    "bullet": {
+      "ul": {
+        "marginBottom": "16px",
+        "paddingLeft": "40px"
+      },
+      "li": {
+        "listStyleType": "none"
+      },
+      "p": {
+        "marginTop": "8px",
+        "marginBottom": "8px"
+      },
+      "before": {
+        "content": "\"•\"",
+        "display": "inline-block",
+        "width": "40px",
+        "marginLeft": "-40px",
+        "paddingRight": "10px",
+        "whiteSpace": "pre"
+      }
+    },
+    "numbered": {
+      "ol": {
+        "marginBottom": "16px",
+        "paddingLeft": "40px"
+      },
+      "li": {
+        "listStyleType": "none",
+        "counterIncrement": "rte-list 1"
+      },
+      "p": {
+        "marginTop": "8px",
+        "marginBottom": "8px"
+      },
+      "before": {
+        "content": "\"  \" counter(rte-list) \". \"",
+        "display": "inline-block",
+        "width": "40px",
+        "marginLeft": "-40px",
+        "paddingRight": "0px",
+        "whiteSpace": "pre"
+      }
+    },
+    "mono": {
+      "pre": {
+        "fontFamily": "monospace, serif",
+        "fontSize": "16px",
+        "lineHeight": "22.4px",
+        "marginBottom": "16px",
+        "whiteSpace": "pre-wrap"
+      },
+      "code": {
+        "fontFamily": "Poppins",
+        "fontSize": "16px",
+        "fontWeight": "500",
+        "lineHeight": "16px",
+        "letterSpacing": "0.16px"
+      }
+    },
+    "inferred": "the marker's text-align: right, from the shot"
   }
 }
