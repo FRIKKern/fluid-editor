@@ -1,4 +1,4 @@
-// Small marks of the editor chrome against parity/findings/MARKS.json and TOPBAR.json, with real input in our editor.
+// Small marks of the editor chrome against parity/findings/MARKS.json, TOPBAR.json, SECTIONBAR.json and P3.json, with real input in our editor.
 // Writes parity/marks-check.json. Usage: npm run marks-check (FLUID_SURFACE=cdp:<port> FLUID_PORT=<port>).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, browser, drag, mouse } from './lib/cmux.mjs';
@@ -288,6 +288,130 @@ add('Cmd+S in the canvas saves', dirty() === false);
 const held = evalJs(S, `(() => JSON.stringify(localStorage.length))()`);
 keyOn('top', 'KeyS', 's', false); await pause(200);
 add('Cmd+S with nothing to save does nothing', dirty() === false && evalJs(S, `(() => JSON.stringify(localStorage.length))()`) === held);
+
+// U9: where the section chrome and Edit Section's panel go, how they answer the mouse, the Layers list.
+const SB = JSON.parse(readFileSync(new URL('../parity/findings/SECTIONBAR.json', import.meta.url)));
+const P3 = JSON.parse(readFileSync(new URL('../parity/findings/P3.json', import.meta.url)));
+await fresh();
+const frameScroll = async (y) => { evalJs(S, `(() => { document.querySelector('iframe').contentWindow.scrollTo({ left: 0, top: ${y}, behavior: 'instant' }); return 'ok'; })()`); await pause(150); };
+const chromeBox = (label) => evalJs(S, `(() => { const x = [...document.querySelectorAll('#section-chrome button')].find((b) => b.getAttribute('aria-label') === '${label}'); if (!x) return 'null'; const q = x.getBoundingClientRect(); return JSON.stringify([q.left, q.top, q.width, q.height]); })()`);
+const sectionTop = (i) => evalJs(S, `(() => { const s = document.querySelector('iframe').contentDocument.querySelectorAll('main#page .page-section')[${i}]; return JSON.stringify(s.getBoundingClientRect().top + 55); })()`);
+const hoverInSection = async (y, x = 60) => { mouse(S, 'move', x, y); await pause(60); mouse(S, 'move', x + 2, y + 1); await pause(260); };
+const panelRect = () => evalJs(S, `(() => { const p = document.getElementById('section-panel'); if (p.hidden) return 'null'; const q = p.getBoundingClientRect(); return JSON.stringify([q.left, q.top, q.width, q.height]); })()`);
+const pressAt = async (x, y) => { mouse(S, 'move', x, y); await pause(60); mouse(S, 'down', x, y); mouse(S, 'up', x, y); await pause(180); };
+const openPanelAt = async (edit, H) => {
+  const sy = 914 + 55 + 29 - edit;
+  await frameScroll(sy);
+  await hoverInSection(Math.min(H - 10, Math.max(70, 914 - sy + 55 + 40)));
+  const e = chromeBox('Edit Section');
+  await pressAt(e[0] + 60, e[1] + 20);
+  const p = panelRect();
+  browser(S, 'press', 'Escape'); await pause(120); await hoverBar(800, 20); await pause(180);
+  return { e: e[1], p: p && p[1] };
+};
+for (const [e, want] of SB.panelTop.samples.H1000.filter(([v]) => [84, 222.6, 301, 311, 491, 531, 751, 771, 951].includes(v))) {
+  const r = await openPanelAt(e, 1000);
+  add(`panel top, Edit at ${e}`, Math.abs(r.e - e) <= 1 && Math.abs(r.p - want) <= 1.5, JSON.stringify([r, want]));
+}
+viewport(S, 1600, 800); await pause(300);
+for (const [e, want] of SB.panelTop.samples.H800.filter(([v]) => [111, 311, 361, 561, 711].includes(v))) {
+  const r = await openPanelAt(e, 800);
+  add(`panel top, 800 tall, Edit at ${e}`, Math.abs(r.e - e) <= 1 && Math.abs(r.p - want) <= 1.5, JSON.stringify([r, want]));
+}
+viewport(S, 1600, 1000); await pause(300);
+// With the panel open: comes along with the button, stops at H - 476, leaves the section's bottom alone.
+await frameScroll(914); await hoverInSection(300);
+const pe = chromeBox('Edit Section'); await pressAt(pe[0] + 60, pe[1] + 20);
+const during = {};
+for (const y of [814, 514, 464, 214, 714, 1014, 1214, 1414]) { await frameScroll(y); during[y] = panelRect()[1]; }
+add('open panel follows the button', Math.abs(during[814] - 179) <= 3 && Math.abs(during[514] - 479) <= 3, JSON.stringify(during));
+add('open panel stops at H - 476', during[464] === 524 && during[214] === 524 && during[714] === 524, JSON.stringify(during));
+add('open panel stays in the section', Math.abs(during[1014] - (1772 - 1014 + 55 + 1 - 476)) <= 1 && during[1414] === 0, JSON.stringify(during));
+browser(S, 'press', 'Escape'); await pause(120); await hoverBar(800, 20); await pause(200);
+// Stuck chrome, on any scroll; not stopped by the section's bottom.
+for (const [sy, y] of [[914, 300], [1214, 300], [1700, 80]]) {
+  await frameScroll(sy); await hoverInSection(y);
+  const ed = chromeBox('Edit Section'), la = chromeBox('Open Layers Panel'), rm = chromeBox('Remove Section');
+  add(`stuck at scroll ${sy}`, Math.abs(ed[1] - 84) <= 0.2 && Math.abs(la[1] - 81) <= 0.2 && Math.abs(rm[1] - 236) <= 0.2, JSON.stringify([ed[1], la[1], rm[1]]));
+}
+await frameScroll(0); await hoverInSection(700);
+add('first section under its header', Math.abs(chromeBox('Edit Section')[1] - 222.6) <= 0.5 && Math.abs(chromeBox('Open Layers Panel')[1] - 219.6) <= 0.5);
+// Fade: the parts run their animation, the outline does not; it goes after the mouse leaves.
+await hoverBar(800, 20); await pause(220);
+add('chrome gone after the mouse leaves', evalJs(S, `(() => JSON.stringify(document.getElementById('section-chrome').hidden))()`));
+evalJs(S, `(() => { window.__fade = []; const t0 = performance.now(); const id = setInterval(() => { const c = document.querySelector('#section-chrome:not([hidden]) .sc-card'); if (c) window.__fade.push(+getComputedStyle(c).opacity); if (performance.now() - t0 > 20000) clearInterval(id); }, 16); return 'ok'; })()`);
+mouse(S, 'move', 60, 400); mouse(S, 'move', 62, 401); await pause(1000);
+const fading = evalJs(S, `(() => { const c = getComputedStyle(document.querySelector('.sc-card')), o = getComputedStyle(document.querySelector('.sc-outline')); const seen = window.__fade; return JSON.stringify({ name: c.animationName, time: c.animationDuration, outline: o.animationName, least: Math.min(...seen), last: seen.at(-1) }); })()`);
+add('chrome slides in over 0.17s', fading.name === 'sc-in' && fading.time === '0.17s' && fading.outline === 'none' && fading.least < 0.9 && fading.last === 1, JSON.stringify(fading));
+// Hover colors.
+const hoverColor = async (label) => { await hoverInSection(400); const b = chromeBox(label); mouse(S, 'move', b[0] + 10, b[1] + 10); await pause(100); return evalJs(S, `(() => { const x = [...document.querySelectorAll('#section-chrome button')].find((b) => b.getAttribute('aria-label') === '${label}'); return JSON.stringify(getComputedStyle(x).backgroundColor); })()`); };
+for (const [label, ours] of [['Open Layers Panel', 'Layers'], ['Add Block', 'Add Block'], ['Edit Section', 'Edit Section'], ['Duplicate Section', 'Duplicate Section'], ['Remove Section', 'Remove Section']]) {
+  const c = await hoverColor(label);
+  add(`hover ${label}`, c === SB.hover[ours], c);
+}
+const addc = await hoverColor('Add Section'); add('hover Add Section stays', addc === 'rgb(2, 122, 255)', addc);
+await hoverInSection(400);
+for (const [label, want, off] of [['Edit Section', [1416, 95 - 84], 'svg'], ['Add Block', [94, 88 - 81], 'svg']]) {
+  const b = chromeBox(label);
+  const q = evalJs(S, `(() => { const x = [...document.querySelectorAll('#section-chrome button')].find((b) => b.getAttribute('aria-label') === '${label}'); const r = x.querySelector('${off}').getBoundingClientRect(); const t = x.querySelector('span').getBoundingClientRect(); return JSON.stringify([r.left, r.top, r.width, t.left]); })()`);
+  add(`${label} icon and words`, Math.abs(q[0] - want[0]) <= 0.6 && Math.abs(q[1] - b[1] - want[1]) <= 1 && q[2] === 22 && Math.abs(q[3] - (label === 'Add Block' ? 127 : 1448)) <= 0.6, JSON.stringify(q));
+}
+// The Layers list, section 0 at rest.
+await frameScroll(914); await hoverInSection(300);
+const LA = chromeBox('Open Layers Panel'); await pressAt(LA[0] + 18, LA[1] + 18); await pause(100);
+const list = evalJs(S, `(() => { const p = document.getElementById('layers-panel'), r = p.querySelector('.lp-row'), t = p.querySelector('.lp-title'); const q = (e) => { const b = e.getBoundingClientRect(); return [b.left, b.top, b.width, b.height]; }; const c = getComputedStyle(r); const tr = document.createRange(); tr.selectNodeContents(t); return JSON.stringify({ panel: q(p), radius: getComputedStyle(p).borderRadius, title: [tr.getBoundingClientRect().left, tr.getBoundingClientRect().top], font: getComputedStyle(t).fontSize + '/' + getComputedStyle(t).lineHeight, row: q(r), rowBg: c.backgroundColor, pitch: q(p.querySelectorAll('.lp-row')[1])[1] - q(r)[1], icon: q(r.querySelector('.lp-icon svg')), name: q(r.querySelector('.lp-name')), layersBg: getComputedStyle(document.querySelector('.sc-layers')).backgroundColor }); })()`);
+const LL = SB.layersList;
+add('Layers list box and radius', list.panel.every((v, i) => Math.abs(v - LL.box[i]) <= 1) && list.radius === LL.radius, JSON.stringify(list.panel));
+add('Layers title', Math.abs(list.title[0] - LL.title.box[0]) <= 1 && Math.abs(list.title[1] - LL.title.box[1]) <= 1 && list.font === '16px/22px', JSON.stringify(list.title));
+add('Layers row', Math.abs(list.row[0] - LL.row.x) <= 1 && Math.abs(list.row[2] - LL.row.width) <= 1 && list.row[3] === LL.row.height && list.pitch === LL.row.pitch && list.rowBg === LL.row.bg, JSON.stringify([list.row, list.pitch, list.rowBg]));
+add('Layers icon and name', Math.abs(list.icon[0] - LL.row.icon[0]) <= 1 && list.icon[2] === 22 && Math.abs(list.name[0] - LL.row.name.x) <= 1, JSON.stringify([list.icon, list.name]));
+add('Layers stays pressed', list.layersBg === SB.hover.layersOpen.match(/rgb\([^)]*\)/)[0], list.layersBg);
+const rowY = list.row[1] + 22;
+mouse(S, 'move', LL.row.x + 60, rowY); await pause(80);
+const rowHover = evalJs(S, `(() => { const r = document.querySelector('#layers-panel .lp-row'), e = r.querySelector('.lp-eye'), q = e.getBoundingClientRect(); return JSON.stringify({ bg: getComputedStyle(r).backgroundColor, eye: e.getAttribute('aria-label'), box: [q.left, q.top, q.width, q.height], rowRight: r.getBoundingClientRect().right }); })()`);
+add('Row hover shows the eye', rowHover.bg === LL.row.hoverBg && rowHover.eye === LL.eye.label && rowHover.box[2] === 36 && rowHover.box[3] === 36 && Math.abs(rowHover.rowRight - rowHover.box[0] - rowHover.box[2] - 3) <= 0.6, JSON.stringify(rowHover));
+const undoCount = () => evalJs(S, `(() => JSON.stringify(document.getElementById('undo').disabled))()`);
+add('Nothing to undo yet', undoCount() === true);
+mouse(S, 'move', rowHover.box[0] + 18, rowHover.box[1] + 18); await pause(80);
+add('Eye white on hover', evalJs(S, `(() => JSON.stringify(getComputedStyle(document.querySelector('#layers-panel .lp-eye')).backgroundColor))()`) === 'rgb(255, 255, 255)');
+mouse(S, 'down', rowHover.box[0] + 18, rowHover.box[1] + 18); mouse(S, 'up', rowHover.box[0] + 18, rowHover.box[1] + 18); await pause(200);
+const hid = evalJs(S, `(() => { const p = document.getElementById('layers-panel'), r = p.querySelector('.lp-row'); const bid = r.dataset.layer; return JSON.stringify({ open: !p.hidden, dim: r.classList.contains('is-hidden'), eye: r.querySelector('.lp-eye').getAttribute('aria-label'), shown: getComputedStyle(r.querySelector('.lp-eye')).display !== 'none', gone: !document.querySelector('iframe').contentDocument.querySelector('.fe-block[data-block-id="' + bid + '"]')?.getBoundingClientRect().width, undo: !document.getElementById('undo').disabled }); })()`);
+add('Eye hides the block, list stays', hid.open && hid.dim && hid.eye === 'Show Block' && hid.shown && hid.gone && hid.undo, JSON.stringify(hid));
+evalJs(S, `(() => { document.querySelector('#layers-panel .lp-eye').click(); return 'ok'; })()`); await pause(120);
+add('Show Block brings it back', evalJs(S, `(() => { const r = document.querySelector('#layers-panel .lp-row'); return JSON.stringify(!r.classList.contains('is-hidden') && !!document.querySelector('iframe').contentDocument.querySelector('.fe-block[data-block-id="' + r.dataset.layer + '"]').getBoundingClientRect().width); })()`));
+mouse(S, 'move', LL.row.x + 60, rowY); await pause(60); mouse(S, 'down', LL.row.x + 60, rowY); mouse(S, 'up', LL.row.x + 60, rowY); await pause(160); mouse(S, 'move', 800, 900); await pause(120);
+const picked = evalJs(S, `(() => { const r = document.querySelector('#layers-panel .lp-row'); return JSON.stringify({ on: r.classList.contains('is-on'), bg: getComputedStyle(r).backgroundColor, eye: getComputedStyle(r.querySelector('.lp-eye')).display !== 'none' }); })()`);
+add('Picked row blue with its eye', picked.on && picked.bg === LL.row.pickedBg && picked.eye, JSON.stringify(picked));
+browser(S, 'press', 'Escape'); await pause(120);
+// Phones.
+await fresh();
+evalJs(S, `document.getElementById('bp-mobile').click()`); await pause(500);
+await frameScroll(900); await hoverInSection(700, 800);
+const pl = chromeBox('Open Layers Panel'), ped = chromeBox('Edit Section');
+add('Phone Layers and card', pl[0] === 522 && ped[0] === 1043 && !chromeBox('Add Block') && !chromeBox('View Layouts'), JSON.stringify([pl, ped]));
+await pressAt(ped[0] + 60, ped[1] + 20);
+const pp = panelRect();
+add('Phone panel', pp[0] === 1209 && Math.abs(pp[1] - (ped[1] + 49)) <= 1.5, JSON.stringify([pp, ped[1]]));
+browser(S, 'press', 'Escape'); await pause(120);
+await frameScroll(0); await pause(120);
+const lines = evalJs(S, `(() => { const hd = document.querySelector('iframe').contentDocument.getElementById('header').getBoundingClientRect().bottom; const s0 = document.querySelector('iframe').contentDocument.querySelector('main#page .page-section').getBoundingClientRect().bottom; const tops = [...document.querySelectorAll('.phone-line')].map((l) => parseFloat(l.style.top)); const b = getComputedStyle(document.querySelector('.stage'), '::before'); return JSON.stringify({ hd: Math.round(hd), s0: Math.round(s0), tops, under: [b.height, b.backgroundColor], color: getComputedStyle(document.querySelector('.phone-line')).backgroundColor, shadow: getComputedStyle(document.getElementById('site-frame')).boxShadow }); })()`);
+add('Phone lines at the header and sections', lines.tops.includes(lines.hd) && lines.tops.includes(lines.s0) && lines.color === SB.phone.lines.color, JSON.stringify(lines));
+add('Phone line under the bar', lines.under[0] === '1px' && lines.under[1] === SB.phone.lines['under bar'].match(/rgb\([^)]*\)/)[0], JSON.stringify(lines.under));
+add('Phone canvas shadow', lines.shadow.includes('24px'), lines.shadow);
+
+// P3: the custom height's slider and field (parity/findings/P3.json, range).
+await fresh();
+await frameScroll(914); await hoverInSection(300);
+const pc = chromeBox('Edit Section'); await pressAt(pc[0] + 60, pc[1] + 20);
+evalJs(S, `(() => { document.querySelector('#section-panel button[aria-label="Custom height"]').click(); return 'ok'; })()`); await pause(200);
+const sli = evalJs(S, `(() => { const r = document.querySelector('.sp-custom-height input[type=range]'), t = document.querySelector('.sp-custom-height input[type=text]'), q = (e) => { const b = e.getBoundingClientRect(); return [b.left, b.width]; }; return JSON.stringify({ min: r.min, max: r.max, step: r.step, r: q(r), t: q(t), v: t.value }); })()`);
+add('Custom height slider 1 to 100', sli.min === String(P3.range.slider.min) && sli.max === String(P3.range.slider.max) && sli.step === String(P3.range.slider.step) && sli.r[1] === 237 && sli.t[1] === 28, JSON.stringify(sli));
+add('Custom height slider and field boxes', Math.abs(sli.r[0] - P3.range.slider.box[0]) <= 1 && Math.abs(sli.t[0] - P3.range.field.box[0]) <= 1, JSON.stringify(sli));
+const typeHeight = async (v) => { evalJs(S, `(() => { const t = document.querySelector('.sp-custom-height input[type=text]'); t.focus(); t.select(); return 'ok'; })()`); for (const ch of String(v)) browser(S, 'press', ch); browser(S, 'press', 'Tab'); await pause(200); return evalJs(S, `(() => { const s = document.querySelector('iframe').contentDocument.querySelectorAll('main#page .page-section')[1], c = document.querySelector('iframe').contentWindow.getComputedStyle(s), r = document.querySelector('.sp-custom-height input[type=range]'), t = document.querySelector('.sp-custom-height input[type=text]'); return JSON.stringify({ min: c.minHeight, r: r.value, t: t.value }); })()`); };
+for (const v of ['0', '1', '50', '100', '150', '300', '1000']) {
+  const r = await typeHeight(v);
+  add(`Custom height ${v}`, r.min === P3.range.field.typed[v][0] && r.t === v && r.r === String(Math.max(1, Math.min(100, Number(v)))), JSON.stringify(r));
+}
 
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);

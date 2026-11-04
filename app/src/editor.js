@@ -1981,7 +1981,8 @@ function onSectionChange(e) {
     if (act === 'rows') s.rows[bp] = Math.min(10000, Math.max(Number(input.min), v));
     if (act === 'gap') { s.rowGap = s.rowGap ?? s.gap; s.gap = Math.min(50, Math.max(0, v)); }
     if (act === 'rowGap') s.rowGap = Math.min(50, Math.max(0, v));
-    if (act === 'customHeight') s.customHeight = Math.min(100, Math.max(1, v));
+    // The slider runs 1 to 100; the field also takes 0 and more than 100 (parity/findings/P3.json, range).
+    if (act === 'customHeight') s.customHeight = Math.max(0, v);
   }
   if (JSON.stringify(model) === before) return;
   renderSectionDom(s.id);
@@ -1996,11 +1997,16 @@ const sectionPanel = $('section-panel');
 const addMenu = $('add-block-menu');
 let hoverSid = null;
 let editSid = null;
+let panelPlace = null;
 const secSid = () => editSid || sel?.sid || null;
 panel.addEventListener('click', onSectionClick, true);
 panel.addEventListener('change', onSectionChange);
 sectionPanel.addEventListener('click', onSectionClick, true);
 sectionPanel.addEventListener('change', onSectionChange);
+// The slider's number follows the drag; the section itself changes on release.
+sectionPanel.addEventListener('input', (e) => {
+  if (e.target.matches('.sp-custom-height input[type="range"]')) e.target.nextElementSibling.value = e.target.value;
+});
 // Background tab: Add an Image and Remove (P5), one undo step each; Colors tab: Color Theme Editor.
 for (const host of [panel, sectionPanel]) {
   host.addEventListener('click', (e) => {
@@ -2032,16 +2038,28 @@ for (const host of [panel, sectionPanel]) {
   });
 }
 function chromeSid() { return editSid || sel?.sid || hoverSid; }
+// The chrome fades out over 0.15s when the mouse leaves; a gesture takes it away at once (SECTIONBAR.json, fade).
+let chromeOut = 0;
+function hideChrome(fade) {
+  if (chrome.hidden || (fade && chromeOut)) return;
+  clearTimeout(chromeOut); chromeOut = 0;
+  if (!fade) { chrome.classList.remove('is-out'); chrome.hidden = true; return; }
+  chrome.classList.add('is-out');
+  chromeOut = setTimeout(() => { chromeOut = 0; chrome.classList.remove('is-out'); chrome.hidden = true; }, 150);
+}
 function placeChrome() {
   const sid = chromeSid();
   const el = sid && doc && sectionEl(sid);
-  if (!el || gesture?.type === 'move' || gesture?.type === 'resize') { chrome.hidden = true; return; }
+  if (!el || gesture?.type === 'move' || gesture?.type === 'resize') { hideChrome(!el); return; }
   const k = model.sections.findIndex((x) => x.id === sid);
   const phone = bp === 'mobile';
   // A group leaves the section's chrome on screen (GROUPRESIZE.json); one selected block does not.
   const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length && !marquee;
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}`;
+  const appears = chrome.hidden || !!chromeOut || chrome.dataset.key?.split('|')[0] !== sid;
+  if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); }
   if (chrome.dataset.key !== key) { chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected }); chrome.dataset.key = key; }
+  if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
   const header = k === 0 ? doc.getElementById('header') : null;
   const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
   // The Add Section buttons sit on the sum of the rounded heights above, not on the section's edge
@@ -2056,9 +2074,12 @@ function placeChrome() {
   }
   chrome.hidden = false;
   if (editSid) {
-    // 342px from the canvas's right edge (the window edge on the oracle, where the canvas is the window).
-    sectionPanel.style.left = `${stage.getBoundingClientRect().width - 342}px`;
-    sectionPanel.style.top = `${sectionPanelTop(L.card.top, stage.getBoundingClientRect().height)}px`;
+    // 342px from the window's right edge; on phones 195px right of the canvas (SECTIONBAR.json).
+    const st = stage.getBoundingClientRect(), fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect();
+    sectionPanel.style.left = `${phone ? fr.right - st.left + 195 : st.width - 342}px`;
+    const place = sectionPanelTop({ edit: st.top + L.card.top + 7, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom, prev: panelPlace?.sid === editSid ? panelPlace.top : null });
+    panelPlace = { sid: editSid, top: place };
+    sectionPanel.style.top = `${place - st.top}px`;
   }
 }
 // Theme colors for the Colors tab tiles, read once from the canvas (site.css lives there).
@@ -2083,7 +2104,7 @@ function placePhoneLines() {
   const host = $('phone-lines');
   if (bp !== 'mobile' || !doc) { host.replaceChildren(); return; }
   const fr = frame.getBoundingClientRect(), st = stage.getBoundingClientRect();
-  host.replaceChildren(...[...doc.querySelectorAll('main#page .page-section')].map((sec) => {
+  host.replaceChildren(...[doc.getElementById('header'), ...doc.querySelectorAll('main#page .page-section')].filter(Boolean).map((sec) => {
     const y = fr.top - st.top + sec.getBoundingClientRect().bottom;
     const line = document.createElement('div');
     line.className = 'phone-line';
@@ -2098,7 +2119,7 @@ function renderSectionPanel() {
   sectionPanel.innerHTML = sectionPanelHtml(s, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors });
   sectionPanel.hidden = false;
 }
-function closeSectionPanel() { if (!editSid) return; editSid = null; renderSectionPanel(); placeChrome(); }
+function closeSectionPanel() { if (!editSid) return; editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
 const newId = () => Math.random().toString(16).slice(2, 14).padEnd(12, '0') + Date.now().toString(16).slice(-12);
 chrome.addEventListener('mousedown', (e) => e.preventDefault());
 chrome.addEventListener('click', (e) => {
@@ -2107,7 +2128,7 @@ chrome.addEventListener('click', (e) => {
   if (!btn || !sid || btn.classList.contains('is-off')) return;
   const act = btn.dataset.sc;
   const k = model.sections.findIndex((x) => x.id === sid);
-  if (act === 'edit') { editSid = sid; sectionTab = 'Design'; customGap = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
+  if (act === 'edit') { editSid = sid; panelPlace = null; sectionTab = 'Design'; customGap = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
   // Add Block and Layers open over the section's top left (oracle screenshots: the Add Block
   // panel at the Layers box plus 5px, the Layers panel under the Layers button).
   const pill = chrome.querySelector('[data-sc-part="layers"]').getBoundingClientRect(), st = stage.getBoundingClientRect();
@@ -2446,6 +2467,16 @@ layersPanel.addEventListener('click', (e) => {
   if (rowDragged) return;
   const eye = e.target.closest('[data-unhide]');
   if (eye) { e.stopPropagation(); unhideBlock(layersPanel.dataset.sid, eye.dataset.unhide); return; }
+  const hide = e.target.closest('[data-hide]');
+  if (hide) {
+    e.stopPropagation();
+    const before = JSON.stringify(model), sid = layersPanel.dataset.sid;
+    hideBlocks(sid, [hide.dataset.hide], bp);
+    renderSectionDom(sid);
+    commit(before, `Hid ${hide.dataset.hide} on ${bp}`);
+    renderLayersPanel();
+    return;
+  }
   const li = e.target.closest('li[data-layer]');
   if (li && B(layersPanel.dataset.sid, li.dataset.layer) && lay(B(layersPanel.dataset.sid, li.dataset.layer)).hidden) return;
   if (li) { select({ sid: layersPanel.dataset.sid, bid: li.dataset.layer }); renderLayersPanel(); }
@@ -2617,6 +2648,8 @@ function onHover(e) {
 }
 
 // ---------- top bar ----------
+// The mouse on the bar has left every section; on the canvas's white sides it has not (SECTIONBAR.json, fade).
+document.querySelector('.bar').addEventListener('pointerenter', () => { if (hoverSid) { hoverSid = null; placeChrome(); } });
 $('undo').addEventListener('click', undo);
 $('redo').addEventListener('click', redo);
 $('save').addEventListener('click', () => {

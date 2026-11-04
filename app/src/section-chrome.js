@@ -17,14 +17,13 @@
 //                 1px #4894ff border, 6px radius
 //   header        on the first section everything, the top Add Section too, sits below the
 //                 site header
-//   scrolled      when the section top is above the canvas, the card sticks 51.2px and the left
-//                 buttons 48.2px below the canvas top (one sample)
+//   scrolled      when the section top is above the canvas, the card sticks 22px and the left
+//                 boxes 22px below the canvas top; neither stops at the section's bottom
 //   panel         Edit Section opens a 320 by 476 panel 342px from the window's right edge,
 //                 white, 8px radius, shadows 0 16px 64px rgba(0,0,0,.12) and 0 0 1px
-//                 rgba(0,0,0,.08). Its top follows the section; the exact rule is not measured,
-//                 ours aligns it with the card and keeps it in the window.
+//                 rgba(0,0,0,.08). sectionPanelTop holds where its top goes.
 
-const svg = (d) => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const svg = (d) => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const ICON = {
   layers: '<path d="M12 4l8 4-8 4-8-4 8-4z"/><path d="M4 12l8 4 8-4"/><path d="M4 16l8 4 8-4"/>',
   plus: '<path d="M12 5v14M5 12h14"/>',
@@ -63,19 +62,21 @@ export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = fal
     // Phone view (oracle screenshot): the canvas is 428 wide in the middle; Layers sits 68px left
     // of it and the card 22px right of it, both at the same height as on desktop.
     const top = Math.max(sec.top, headerBottom);
-    const cardTop = Math.max(top + 21.1, 21.1);
+    const cardTop = Math.max(top, 0) + 22;
     const midX = sec.left + sec.width / 2 - 111.1 / 2;
     return {
       outline: { left: ox + sec.left, top: oy + sec.top, width: sec.width, height: sec.height },
-      layers: { left: ox - 68, top: oy + Math.max(top + 21.1, 21.1) },
+      layers: { left: ox - 68, top: oy + Math.max(top, 0) + 22 },
       card: { left: ox + frame.width + 22, top: oy + cardTop },
       'add-top': { left: ox + midX, top: oy + Math.max(sec.top, headerBottom) - 18 },
       'add-bottom': { left: ox + midX, top: oy + sec.bottom - 18 },
     };
   }
   const top = Math.max(sec.top, headerBottom);
-  const cardTop = Math.min(Math.max(top + 21.1, 51.2), sec.bottom - 210);
-  const leftTop = Math.min(Math.max(top + 25.1, 48.2), sec.bottom - 36);
+  // Stuck 22px under the canvas top while the section's top is above it, and past the section's
+  // bottom if it comes to that (parity/findings/SECTIONBAR.json, sticky).
+  const cardTop = Math.max(top, 0) + 22;
+  const leftTop = Math.max(top, 0) + 26;
   const midX = sec.left + sec.width / 2 - 111.1 / 2;
   return {
     outline: { left: ox + sec.left, top: oy + sec.top, width: sec.width, height: sec.height },
@@ -91,8 +92,20 @@ export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = fal
   };
 }
 
-export function sectionPanelTop(cardTop, windowHeight) {
-  return Math.max(0, Math.min(cardTop, windowHeight - 476));
+// Where Edit Section's panel sits, in window coordinates (parity/findings/SECTIONBAR.json, panelTop).
+// edit is the top of the Edit Section button, H the window height. On opening: 49px under the button
+// while the panel ends 170px above the window's bottom; then H - 520 until the section's top catches
+// up; then held at H - 476, with the panel hanging out of the window once the button is low enough.
+// prev is the panel's place while it stays open: it comes along when the button moves down.
+export function sectionPanelTop({ edit, H, secTop, secBottom, prev = null }) {
+  let p;
+  if (prev != null) p = Math.max(prev, Math.min(edit - 3, H - 476));
+  else if (edit + 49 + 476 <= H - 170) p = edit + 49;
+  else if (edit < H - 240) p = Math.min(H - 476, Math.max(H - 520, secTop + 1));
+  else p = H - 267 + 1.087 * (edit - (H - 240));
+  // It stays inside its section, but never above the section's top or the window's.
+  const inside = secBottom + 1 - 476;
+  return p > inside ? Math.max(secTop, 0, inside) : p;
 }
 
 // The Edit Section panel (U9), drawn like the oracle's (parity/findings/PANEL.json,
@@ -129,7 +142,7 @@ export function sectionPanelHtml(s, o) {
       + head('Section')
       + row('Fill Screen', sw('fill', o.fill, 'Fill Screen'))
       + (o.fill ? row('Height', seg('height', 'small', 'S', s.height === 'small') + seg('height', 'medium', 'M', s.height === 'medium') + seg('height', 'large', 'L', s.height === 'large') + seg('height', 'custom', 'Custom height', s.height === 'custom', pi(PI.more)))
-        + (s.height === 'custom' ? row('Custom height', `<input class="sp-num" type="number" data-act="customHeight" aria-label="Custom height" min="1" max="100" value="${s.customHeight}">`) : '')
+        + (s.height === 'custom' ? `<div class="sp-row sp-custom-height"><input type="range" data-act="customHeight" aria-label="Custom height slider" min="1" max="100" step="1" value="${Math.min(100, s.customHeight)}"><input type="text" inputmode="numeric" data-act="customHeight" aria-label="Custom height" value="${s.customHeight}"></div>` : '')
         + row('Alignment', seg('valign', 'top', 'Vertical top', s.valign === 'top', pi(PI.top)) + seg('valign', 'middle', 'Vertical center', (s.valign || 'middle') === 'middle', pi(PI.middle)) + seg('valign', 'bottom', 'Vertical bottom', s.valign === 'bottom', pi(PI.bottom))) : '')
       + '<p class="sp-help">Fill screen will expand the background height to fill a portion of the user’s screen.</p>'
       + head('Styling')

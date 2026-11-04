@@ -1,9 +1,14 @@
 {
   "item": "SECTIONBAR",
+<<<<<<< HEAD
   "oracle": "/how-fluid-engine-works",
   "capturedAt": "2026-11-04",
   "engine": "chrome",
   "question": "What does a hovered section show, and where does the Edit Section panel open?",
+=======
+  "capturedAt": "2026-11-03",
+  "question": "What does a hovered section show, how does it look and answer the mouse, where does the Edit Section panel open, and what does the Layers list look like?",
+>>>>>>> 7d03fb7 (U9, P3: section chrome, panel top, Layers list and custom height range measured and built, done)
   "frame": "1600x1000 window",
   "sections": {
     "0": {
@@ -968,6 +973,7 @@
       }
     }
   },
+<<<<<<< HEAD
   "recordedAgain": {
     "from": {
       "engine": "webkit",
@@ -1221,4 +1227,240 @@
       ]
     }
   }
+=======
+  "sticky": {
+    "window": [
+      1600,
+      1000
+    ],
+    "read": "13 scrolls of sections 0 to 2, and 5 more with the section ending above the card",
+    "rule": "While the section's top is above the canvas, the Edit Section button sticks at y 84 and Layers and Add Block at y 81, that is 22px and 26px below the canvas top. They do not stop at the section's bottom: read with the bottom at y 127, Remove stayed at y 236. On the first section they sit under the site header. Phones the same: Edit 84, Layers 81."
+  },
+  "panelTop": {
+    "window": [
+      1600,
+      1000
+    ],
+    "also": [
+      1600,
+      800
+    ],
+    "readings": 59,
+    "worstFit": 0.6,
+    "rule": "edit = top of the Edit Section button, H = window height, both from the window's top. On opening: edit + 49 while edit + 525 <= H - 170; else min(H - 476, max(H - 520, section top + 1)) while edit < H - 240; else H - 267 + 1.087 * (edit - (H - 240)), so the panel hangs out of the window. It stays in its section: if the result is more than section bottom + 1 - 476, it takes that value, but never above the section's top or the window's top. Inferred: this is a fit to the readings, with no meaning read for the numbers. Section 1 mostly, sections 0, 2 and 3 too; nothing about the section's own height changes it except the bottom limit.",
+    "samples": {
+      "H1000": [
+        [
+          84,
+          133
+        ],
+        [
+          122.6,
+          172
+        ],
+        [
+          184,
+          233
+        ],
+        [
+          222.6,
+          272
+        ],
+        [
+          284,
+          333
+        ],
+        [
+          301,
+          350
+        ],
+        [
+          311,
+          480
+        ],
+        [
+          331,
+          480
+        ],
+        [
+          491,
+          480
+        ],
+        [
+          511,
+          483
+        ],
+        [
+          531,
+          503
+        ],
+        [
+          551,
+          523
+        ],
+        [
+          571,
+          524
+        ],
+        [
+          751,
+          524
+        ],
+        [
+          771,
+          745
+        ],
+        [
+          851,
+          832
+        ],
+        [
+          951,
+          941
+        ]
+      ],
+      "H800": [
+        [
+          111,
+          280
+        ],
+        [
+          261,
+          280
+        ],
+        [
+          311,
+          283
+        ],
+        [
+          361,
+          324
+        ],
+        [
+          511,
+          324
+        ],
+        [
+          561,
+          534
+        ],
+        [
+          611,
+          589
+        ],
+        [
+          711,
+          697
+        ]
+      ]
+    },
+    "open": "Scrolling with the panel open, from sy 914 to 114 in steps of 50: the panel comes along about 3px above the button, stops at H - 476, and stays there on the way back until the section's bottom pushes it up. Read 1 to 40px off that on the way back, alternating, so it lags or steps; ours does not copy the steps. Inferred from 40 readings.",
+    "phone": {
+      "left": "195px right of the canvas: 1209 on a 586 to 1014 canvas",
+      "top": "edit + 49, one reading"
+    }
+  },
+  "fade": {
+    "in": "Parts go from opacity 0 and 11px higher to their place in about 0.17s, ease-like, read at 16ms steps for the card, Layers and Add Block.",
+    "out": "The same back in about 0.15s, read for the card.",
+    "notRead": "The outline and Add Section: taken as shown at once, and with the others."
+  },
+  "hover": {
+    "Layers": "rgb(242, 242, 242)",
+    "Add Block": "rgb(242, 242, 242)",
+    "Edit Section": "rgb(231, 231, 231)",
+    "View Layouts": "rgb(231, 231, 231)",
+    "Duplicate Section": "rgb(231, 231, 231)",
+    "Remove Section": "rgb(231, 231, 231)",
+    "Add Section": "no change",
+    "tooltips": "none on any",
+    "layersOpen": "Layers stays rgb(231, 231, 231) while its list is open"
+  },
+  "icons": {
+    "box": 22,
+    "Edit": [
+      1416,
+      95
+    ],
+    "Layers": [
+      34,
+      88
+    ],
+    "AddBlock": [
+      94,
+      88
+    ],
+    "textAfterIcon": "Edit Section words at x 1448, Add Block words at x 127",
+    "ours": "Our own drawings at the same boxes (O2)."
+  },
+  "layersList": {
+    "box": [
+      22,
+      132,
+      240,
+      500
+    ],
+    "radius": "11px",
+    "shadow": "rgba(0, 0, 0, 0.12) 0 16px 64px, rgba(0, 0, 0, 0.08) 0 0 1px",
+    "title": {
+      "box": [
+        44,
+        149
+      ],
+      "font": "500 16px/22px"
+    },
+    "row": {
+      "x": 33,
+      "width": 218,
+      "pitch": 47,
+      "height": 44,
+      "bg": "rgb(249, 249, 249)",
+      "hoverBg": "rgb(242, 242, 242)",
+      "pickedBg": "rgb(185, 213, 254)",
+      "pickedBorder": "1px, blue",
+      "icon": [
+        50,
+        22
+      ],
+      "name": {
+        "x": 83,
+        "font": "400 14px/22px"
+      }
+    },
+    "icons": {
+      "Shape": "a filled 22px square",
+      "Text": "a T",
+      "Button": "a box with a dash"
+    },
+    "order": "Top of the stack first; text rows are named by their words, cut with dots",
+    "eye": {
+      "label": "Hide Block",
+      "box": "36 by 36, 3px from the row right edge",
+      "shows": "On hover and while picked",
+      "hover": "white behind it",
+      "click": "Hides the block on this layout, one undo, the list stays open; the row dims and keeps a crossed eye."
+    }
+  },
+  "phone": {
+    "canvas": [
+      586,
+      55,
+      428,
+      945
+    ],
+    "layers": "68px left of the canvas: its box at 518, its button at 522",
+    "card": "22px right of the canvas: 1036, Edit at 1043",
+    "missing": [
+      "Add Block",
+      "View Layouts"
+    ],
+    "lines": {
+      "color": "rgb(231, 231, 231)",
+      "at": "Across the white on both sides: the bottom of the site header and of each section",
+      "under bar": "1px rgb(240, 240, 240) at y 55, always"
+    },
+    "shadow": "Canvas edge fades on white: 241, 243, 246, 249, 252 at 1, 3, 6, 11, 16px out, fit by 0 0 24px rgba(0, 0, 0, 0.11) (inferred)"
+  },
+  "selected": "A selected block leaves its section the outline and Layers, and the block's toolbar (read)."
+>>>>>>> 7d03fb7 (U9, P3: section chrome, panel top, Layers list and custom height range measured and built, done)
 }
