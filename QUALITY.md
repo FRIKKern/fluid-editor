@@ -18,6 +18,7 @@ Two narrower checks run beside the gates:
 | `npm run paste-check` | The HTML the oracle keeps from 15 pasted samples (`parity/findings/PASTE.json`) against our paste of the same samples | Equal after dropping a bare `white-space: pre-wrap` style |
 | `npm run autoscroll-check` | The oracle's auto-scroll total for 29 held pointer positions (`parity/findings/AUTOSCROLL.json`) against the same holds in our editor | Within one 10px step |
 | `npm run near-check` | Which blocks the oracle flags near a held drag (`parity/findings/NEAR.json`) against our flags for the same holds | Equal for every block |
+| `npm run mid-check` | What the blocks say while held in each recorded drag and resize (`traces/`, mid state) against the same hold in our editor | Same near, matching and selected flags on every block, grid shown in one section |
 | `npm run chrome-check` | The oracle's block toolbar and selection rings for 5 selected blocks (`parity/findings/TOOLBARGEO.json`) against ours on the same blocks | Toolbar, button and separator boxes within 1px, same labels, same ring colors |
 | `node scripts/check-chrome.mjs` (in `npm run check`) | The section buttons we draw when hovering, on phones and with a block selected | The list the oracle shows in each view |
 | `node scripts/check-design.mjs` (in `npm run check`) | The 111 block design rules of the corpus (`fixtures/design.json`) against our render of the same values | Equal after collapsing white space |
@@ -26,7 +27,7 @@ Two narrower checks run beside the gates:
 
 The dev server (`npm run dev`, scripts/serve.mjs) sends `Cache-Control: no-store`. Set `FLUID_PORT` to run a checkout on its own port (default 5178), and `CDP_PORT` to give it its own headless Chrome: `FLUID_PORT=5201 CDP_PORT=9341`. Under python's http.server a WebKit tab kept old modules, so a check could measure code older than the checkout.
 
-Geometry is compared with the oracle as WebKit draws it, so Gate B, Gate C, chrome-check, section-check, design-edit-check and the inventory run on a cmux tab. The functional checks (text-check, paste-check, near-check, autoscroll-check, image-check) also run on a headless Chrome that never shows on screen: `eval "$(node scripts/headless.mjs)"` sets `FLUID_SURFACE=cdp:9333`. The geometry checks refuse that surface.
+Geometry is compared with the oracle as WebKit draws it, so Gate B, Gate C, chrome-check, section-check, design-edit-check and the inventory run on a cmux tab. The functional checks (text-check, paste-check, near-check, mid-check, autoscroll-check, image-check) also run on a headless Chrome that never shows on screen: `eval "$(node scripts/headless.mjs)"` sets `FLUID_SURFACE=cdp:9333`. The geometry checks refuse that surface.
 
 Run `eval "$(npm run -s surfaces)"` first: it finds or opens the oracle and editor tabs and exports `ORACLE_SURFACE` and `FLUID_SURFACE`.
 

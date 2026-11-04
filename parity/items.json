@@ -539,7 +539,7 @@
     "milestone": "M4",
     "status": "partial",
     "title": "How the block follows the pointer and how the target shows",
-    "evidence": "While held, the block follows the pointer exactly: transform translate equals the pointer distance (T0004 to T0006 mid). The dragged block wrapper gets z-index 999999 and the grid shows only in its own section. Target outline look not measured"
+    "evidence": "While held, the block follows the pointer exactly: transform translate equals the pointer distance (T0004 to T0006 mid). The dragged block wrapper gets z-index 999999 and the grid shows only in its own section. Target outline look not measured Flags while held: near, matching and selected on every block equal the mid state of all 13 recorded drags and resizes (npm run mid-check, parity/mid-check.json). The dragged block keeps data-is-selected and is near by the same rule from where it started (T0004 near, T0010 not)."
   },
   {
     "id": "X3",

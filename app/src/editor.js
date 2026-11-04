@@ -151,6 +151,9 @@ function decorate(sid) {
     el.setAttribute('role', 'gridcell');
     el.tabIndex = 0;
     el.dataset.isSelected = String(sel?.bid === el.dataset.blockId);
+    el.dataset.isNearDraggedBlock = 'false';
+    el.dataset.isMatchingWidth = 'false';
+    el.dataset.isMatchingHeight = 'false';
   }
 }
 
@@ -160,8 +163,10 @@ function drawSelection() {
 }
 function drawSelectionLayers() {
   for (const el of doc.querySelectorAll('.fe-indicator')) el.remove();
+  // A dragged block stays selected (traces T0004 to T0006 mid); only its layers go away.
+  if (gesture?.type === 'move') return;
   for (const el of doc.querySelectorAll('.fe-block[data-is-selected="true"]')) el.dataset.isSelected = 'false';
-  if (!sel || gesture?.type === 'move') return;
+  if (!sel) return;
   const b = B(sel.sid, sel.bid);
   const el = blockEl(sel.bid);
   if (el) el.dataset.isSelected = 'true';
@@ -378,8 +383,9 @@ function flagNeighbours(g, t) {
     const mine = o.id === g.bid;
     const gapC = Math.max(a[1] - t[3], t[1] - a[3], 0);
     const gapR = Math.max(a[0] - t[2], t[0] - a[2], 0);
-    // parity/findings/NEAR.json: near when both gaps are at most 1 line; never the dragged block.
-    el.dataset.isNearDraggedBlock = String(!mine && gapC <= 1 && gapR <= 1);
+    // parity/findings/NEAR.json: near when both gaps are at most 1 line. The dragged block has the
+    // same rule, from where it started: near on a short drag (T0004), not on a far one (T0010).
+    el.dataset.isNearDraggedBlock = String(gapC <= 1 && gapR <= 1);
     el.dataset.isMatchingWidth = String(!mine && g.type === 'resize' && a[3] - a[1] === t[3] - t[1]);
     el.dataset.isMatchingHeight = String(!mine && g.type === 'resize' && a[2] - a[0] === t[2] - t[0]);
   }
@@ -586,6 +592,8 @@ function prepare(e, type, extra = {}) {
   fe.style.gridAutoRows = `${g.m.rowMin}px`;
   showGrid(g.sid, s.rows[bp]);
   g.original = layer(fe, 'fe-original-position', g.orig);
+  // The flags show from the first move, also on a drag too short to change the target (T0004).
+  flagNeighbours(g, g.target);
   return g;
 }
 
