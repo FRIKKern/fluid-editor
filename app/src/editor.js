@@ -10,6 +10,7 @@ import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS, linkPopoverHtml, lin
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
+import { siteStylesHtml } from './site-styles.js';
 import { demoModel } from './demo.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -1482,6 +1483,19 @@ addMenu.addEventListener('click', (e) => {
 // ---------- floating menus: Add Block, Layers, the block context menu ----------
 const layersPanel = $('layers-panel');
 const contextMenu = $('context-menu');
+// Site Styles (U12): the top bar button opens the panel and insets the editor; Close and the
+// button again close it.
+const siteStyles = $('site-styles');
+function setSiteStyles(on) {
+  if (on) { closeFloating(); closeSectionPanel(); siteStyles.innerHTML = siteStylesHtml(); }
+  siteStyles.hidden = !on;
+  document.body.classList.toggle('styles-open', on);
+  $('site-styles-toggle').setAttribute('aria-pressed', String(on));
+  requestAnimationFrame(() => { placeChrome(); placeToolbar?.(); });
+}
+$('site-styles-toggle').addEventListener('click', () => setSiteStyles(siteStyles.hidden));
+siteStyles.addEventListener('click', (e) => { if (e.target.closest('[data-ss="close"]')) setSiteStyles(false); });
+
 // Add a Section (U10): the panel remembers where the new section goes.
 const addSectionPanel = $('add-section-panel');
 let addSectionAt = null;
