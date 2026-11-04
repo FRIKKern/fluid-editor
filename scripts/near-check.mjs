@@ -2,12 +2,13 @@
 // carry data-is-near-dragged-block. Writes parity/near-check.json. Usage: npm run near-check.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
+import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/NEAR.json', import.meta.url)));
 ensureVisible(S);
 viewport(S, 1600, 1000);
-goto(S, 'http://127.0.0.1:5178/index.html?replay'); await pause(2200);
+goto(S, `${BASE}/index.html?replay`); await pause(2200);
 let pass = 0, total = 0;
 const results = [];
 for (const run of F.runs) {

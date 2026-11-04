@@ -3,6 +3,7 @@
 // Writes parity/paste-check.json. Usage: npm run paste-check (dev server on 5178).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
+import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/PASTE.json', import.meta.url))).samples;
@@ -10,12 +11,12 @@ const norm = (h) => h.replace(/ data-rte-preserve-empty="true"/g, '').replace(/ 
 
 ensureVisible(S);
 viewport(S, 1600, 945);
-goto(S, 'http://127.0.0.1:5178/index.html'); await pause(1500);
+goto(S, `${BASE}/index.html`); await pause(1500);
 evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
 const results = [];
 for (const [name, o] of Object.entries(F)) {
   if (!o.result) continue;
-  goto(S, 'http://127.0.0.1:5178/index.html'); await pause(2000);
+  goto(S, `${BASE}/index.html`); await pause(2000);
   const plain = name === 'plain text';
   const html = evalJs(S, `(() => { const s = fe.model.sections[2]; const b = s.blocks.find((x) => x.type === 'text' && x.html.includes('On desktop the smallest'));
     fe.edit(s.id, b.id);

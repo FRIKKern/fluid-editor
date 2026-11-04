@@ -6,13 +6,14 @@
 // Writes parity/chrome-check.json. Usage: npm run chrome-check.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible, requireWebKit } from './lib/cmux.mjs';
+import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 requireWebKit(S, 'chrome-check');
 const F = JSON.parse(readFileSync(new URL('../parity/findings/TOOLBARGEO.json', import.meta.url)));
 ensureVisible(S);
 viewport(S, 1600, 1000);
-goto(S, 'http://127.0.0.1:5178/index.html?replay'); await pause(2500);
+goto(S, `${BASE}/index.html?replay`); await pause(2500);
 const near = (a, b) => a.length === b.length && a.every((v, i) => Math.abs(v - b[i]) <= 1);
 let pass = 0, total = 0;
 const results = [];

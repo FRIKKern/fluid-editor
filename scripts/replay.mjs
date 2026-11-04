@@ -6,6 +6,7 @@ import { evalJs, waitFor, goto, viewport, resetViewport, pause, requireWebKit } 
 import { ensureVisible } from './lib/cmux.mjs';
 import { diffStates } from './lib/trace.mjs';
 import { DEMO } from '../app/src/demo-data.js';
+import { BASE } from './lib/base.mjs';
 
 const args = process.argv.slice(2);
 const arg = (n, d) => {
@@ -14,7 +15,7 @@ const arg = (n, d) => {
 };
 const surface = arg('surface', process.env.FLUID_SURFACE || 'surface:59');
 requireWebKit(surface, 'Gate C (replay)');
-const url = arg('url', 'http://127.0.0.1:5178/index.html?replay');
+const url = arg('url', `${BASE}/index.html?replay`);
 const only = args.filter((a, i) => !a.startsWith('--') && !args[i - 1]?.startsWith('--'));
 const dir = new URL('../traces/', import.meta.url);
 const traces = readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => JSON.parse(readFileSync(new URL(f, dir), 'utf8'))).filter((t) => !only.length || only.includes(t.id));

@@ -6,9 +6,10 @@
 // hides toolbar items.
 import { execFileSync } from 'node:child_process';
 import { evalJs, viewport, pause } from './lib/cmux.mjs';
+import { PORT, BASE } from './lib/base.mjs';
 
 const ORACLE = 'https://halibut-keyboard-jlhd.squarespace.com/config/pages';
-const OURS = 'http://127.0.0.1:5178/index.html';
+const OURS = `${BASE}/index.html`;
 const tree = () => execFileSync('cmux', ['tree'], { encoding: 'utf8' });
 const find = (re) => tree().split('\n').map((l) => l.match(/surface (surface:\d+) \[browser\].*?(https?:\S+)\s*$/)).filter(Boolean).find((m) => re.test(m[2]))?.[1];
 
@@ -27,7 +28,7 @@ async function ensure(re, url, envRef) {
 }
 
 const oracle = await ensure(/halibut-keyboard-jlhd\.squarespace\.com/, ORACLE, process.env.ORACLE_SURFACE);
-const ours = await ensure(/127\.0\.0\.1:5178/, OURS, process.env.FLUID_SURFACE);
+const ours = await ensure(new RegExp(`127\\.0\\.0\\.1:${PORT}`), OURS, process.env.FLUID_SURFACE);
 viewport(oracle, 1600, 1000);
 const vis = (s) => evalJs(s, '(() => JSON.stringify(document.visibilityState))()');
 if (vis(oracle) !== 'visible') console.error(`warning: ${oracle} (oracle) is hidden; the Squarespace editor only boots in a visible tab`);

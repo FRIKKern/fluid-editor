@@ -13,6 +13,7 @@ import { evalJs, goto, viewport, pause, waitFor, screenshot, requireWebKit } fro
 import { BUTTON } from './oracle/snippets.mjs';
 import { trackedBy } from './lib/coverage.mjs';
 import { select, click, escape, deselect, hoverSection, blockIds } from './oracle/ui.mjs';
+import { BASE } from './lib/base.mjs';
 
 const args = process.argv.slice(2);
 const arg = (n, d) => (args.includes(`--${n}`) ? args[args.indexOf(`--${n}`) + 1] : d);
@@ -22,7 +23,7 @@ const shots = arg('shots', null);
 const only = (arg('only', '') || '').split(',').filter(Boolean);
 requireWebKit(U, 'the inventory');
 if (shots) mkdirSync(shots, { recursive: true });
-const ours = 'http://127.0.0.1:5178/index.html';
+const ours = `${BASE}/index.html`;
 
 // ---------- collecting ----------
 // Every visible control (button, input, tab, menu item, ...) and every short leaf text outside

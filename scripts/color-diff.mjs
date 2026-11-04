@@ -3,13 +3,14 @@
 // Usage: node scripts/color-diff.mjs --path /contact --ours http://127.0.0.1:5178/page.html?page=contact [--slug contact]
 import { writeFileSync } from 'node:fs';
 import { evalJs, waitFor, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
+import { BASE } from './lib/base.mjs';
 
 const args = process.argv.slice(2);
 const arg = (n, d) => (args.includes(`--${n}`) ? args[args.indexOf(`--${n}`) + 1] : d);
 const oracle = arg('oracle-frame', process.env.ORACLE_SURFACE || 'surface:40');
 const surface = arg('surface', process.env.FLUID_SURFACE || 'surface:59');
 const path = arg('path', '/how-fluid-engine-works');
-const ours = arg('ours', 'http://127.0.0.1:5178/page.html');
+const ours = arg('ours', `${BASE}/page.html`);
 const slug = arg('slug', 'demo');
 
 const READ = (doc) => `(() => { const d = ${doc}; const W = d.defaultView;

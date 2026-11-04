@@ -5,6 +5,7 @@
 // Usage: npm run text-check (dev server on 5178, FLUID_SURFACE a visible tab).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
+import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/TEXTOPS.json', import.meta.url)));
@@ -28,9 +29,9 @@ const results = [];
 for (const [name, act, value, oracleHtml] of CASES) {
   const o = { html: oracleHtml };
   if (!o.html) { results.push({ name, ok: false, why: 'no oracle reading' }); continue; }
-  goto(S, 'http://127.0.0.1:5178/index.html?replay'); await pause(1500);
+  goto(S, `${BASE}/index.html?replay`); await pause(1500);
   evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
-  goto(S, 'http://127.0.0.1:5178/index.html'); await pause(2200);
+  goto(S, `${BASE}/index.html`); await pause(2200);
   const html = evalJs(S, `(() => { const s = fe.model.sections[2]; const b = s.blocks.find((x) => x.type === 'text' && x.html.includes('On desktop the smallest'));
     fe.edit(s.id, b.id);
     const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow;
