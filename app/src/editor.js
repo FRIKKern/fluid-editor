@@ -7,7 +7,7 @@ import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
 import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml } from './block-panel.js';
-import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml } from './menus.js';
+import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
 import { siteStylesHtml } from './site-styles.js';
@@ -233,8 +233,14 @@ function placeToolbar() {
   const el = blockEl(sel.bid);
   if (!b || !el) { toolbar.hidden = true; return; }
   const z = zInfo(sel.sid, b);
-  const key = `${sel.bid}|${bp}|${JSON.stringify(z)}`;
-  if (toolbar.dataset.key !== key) { toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z), z); toolbar.dataset.key = key; }
+  const key = `${sel.bid}|${bp}|${JSON.stringify(z)}|${b.buttonStyle || ""}`;
+  if (toolbar.dataset.key !== key) {
+    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z), z);
+    toolbar.dataset.key = key;
+    // The style button names the current style (BUTTONSTYLE.json).
+    const sb = toolbar.querySelector('[data-tb="primary"]');
+    if (sb && b.buttonStyle) { const n = b.buttonStyle[0].toUpperCase() + b.buttonStyle.slice(1); sb.setAttribute('aria-label', n); sb.title = n; sb.querySelector('.tb-text').textContent = n; }
+  }
   const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), el.getBoundingClientRect());
   toolbar.style.left = `${p.left}px`;
   toolbar.style.top = `${p.top}px`;
@@ -272,6 +278,15 @@ toolbar.addEventListener('click', (e) => {
   if (act === 'pin' && bp === 'desktop') {
     if (!b.layout.desktop.sticky) { const before = JSON.stringify(model); b.layout.desktop.sticky = { anchor: 'top', offset: 0 }; renderSectionDom(sid); commit(before, `Pinned ${bid}`); }
     openPin(sid, bid);
+    return;
+  }
+  if (act === 'primary' && b.type === 'button') {
+    const m = $('button-style-menu');
+    if (!m.hidden) { m.hidden = true; return; }
+    m.innerHTML = buttonStyleMenuHtml(b.buttonStyle || 'primary');
+    const r = btn.getBoundingClientRect(), st = stage.getBoundingClientRect();
+    m.style.left = `${r.left - 37 - st.left}px`; m.style.top = `${r.bottom + 12 - st.top}px`;
+    m.dataset.sid = sid; m.dataset.bid = bid; m.hidden = false;
     return;
   }
   if (act === 'pin' || act === 'primary' || act === 'link') { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
@@ -1564,6 +1579,20 @@ chrome.addEventListener('pointerdown', (e) => {
   window.addEventListener('pointerup', up);
 });
 
+const styleMenu = $('button-style-menu');
+styleMenu.addEventListener('mousedown', (e) => e.preventDefault());
+styleMenu.addEventListener('click', (e) => {
+  const o = e.target.closest('[data-bstyle]');
+  if (!o) return;
+  const b = B(styleMenu.dataset.sid, styleMenu.dataset.bid);
+  styleMenu.hidden = true;
+  if (!b) return;
+  const before = JSON.stringify(model);
+  if (o.dataset.bstyle === 'primary') delete b.buttonStyle; else b.buttonStyle = o.dataset.bstyle;
+  renderSectionDom(styleMenu.dataset.sid);
+  commit(before, `Button style ${o.dataset.bstyle}`);
+});
+
 const pinPop = $('pin-popover');
 function openPin(sid, bid) {
   const b = B(sid, bid);
@@ -1628,7 +1657,7 @@ addSectionPanel.addEventListener('click', (e) => {
 });
 addSectionPanel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeAddSection(); } });
 
-function closeFloating() { $('pin-popover').hidden = true; addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('arrange-menu').hidden = true; $('link-popover').hidden = true; }
+function closeFloating() { $('button-style-menu').hidden = true; $('pin-popover').hidden = true; addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('arrange-menu').hidden = true; $('link-popover').hidden = true; }
 addMenu.addEventListener('input', (e) => {
   if (!e.target.matches('[data-am="search"]')) return;
   const q = e.target.value;

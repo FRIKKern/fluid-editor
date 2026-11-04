@@ -915,13 +915,17 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Block toolbar: edit, design, duplicate, delete, layers",
-    "evidence": "The floating toolbar (parity/findings/TOOLBARGEO.json, 5 blocks at a 1600px window): white, 42px tall, 6px radius, no shadow, 4px right of the block and 60px above it, never closer than 23.5px to the canvas top; 36px buttons 4px apart, 1px by 20px #e7e7e7 separators, icons #0e0e0e, Remove #db3642, unavailable #b7b7b7. Buttons per type and layout as in parity/findings/TOOLBARS.json; Move Forward and Backward only when the block overlaps another. Ours matches the toolbar box, every button and separator box, the labels and the rings within 1px: npm run chrome-check, 64 of 64 (parity/chrome-check.json). Write, Align Vertically, Move Forward/Backward, Move Up/Down, Duplicate and Remove work. Our icons are our own. Edit opens our Design group (T15). Not built: the button style menu (the link button opens the link editor, E7); Align Vertically cycles top, middle and bottom instead of opening a menu; phone separators are not measured. Pin (parity/findings/PIN.json, demo shape): the first click pins the block to the top (position: sticky; top: 0px, in the desktop rule only), one undo step, and opens a 248 by 140 popover centred under the button and 7px below it with Pin to Top, Center and Bottom on Scroll, Remove Pin, and Offset (a field and a slider). Ours does the same with the sticky CSS our renderer already writes (headless Chrome). Not measured: the slider's range (ours 0 to 500) and Pin on phones",
+    "evidence": "The floating toolbar (parity/findings/TOOLBARGEO.json, 5 blocks at a 1600px window): white, 42px tall, 6px radius, no shadow, 4px right of the block and 60px above it, never closer than 23.5px to the canvas top; 36px buttons 4px apart, 1px by 20px #e7e7e7 separators, icons #0e0e0e, Remove #db3642, unavailable #b7b7b7. Buttons per type and layout as in parity/findings/TOOLBARS.json; Move Forward and Backward only when the block overlaps another. Ours matches the toolbar box, every button and separator box, the labels and the rings within 1px: npm run chrome-check, 64 of 64 (parity/chrome-check.json). Write, Align Vertically, Move Forward/Backward, Move Up/Down, Duplicate and Remove work. Our icons are our own. Edit opens our Design group (T15). The button style menu is built (the link button opens the link editor, E7); Align Vertically cycles top, middle and bottom instead of opening a menu; phone separators are not measured. Pin (parity/findings/PIN.json, demo shape): the first click pins the block to the top (position: sticky; top: 0px, in the desktop rule only), one undo step, and opens a 248 by 140 popover centred under the button and 7px below it with Pin to Top, Center and Bottom on Scroll, Remove Pin, and Offset (a field and a slider). Ours does the same with the sticky CSS our renderer already writes (headless Chrome). Not measured: the slider's range (ours 0 to 500) and Pin on phones. Button style (parity/findings/BUTTONSTYLE.json): the toolbar's Primary button opens three 171 by 55 options with an Aa sample: Primary, Secondary, Tertiary; each sets data-button-type and data-button-size (medium, large, small) and the classes sqs-block-button-element--SIZE sqs-button-element--TYPE on the link, one undo each; on this site all three look the same. Ours writes the same classes (the data attributes on .sqs-block-content, not a container div) and names the current style on the toolbar (headless Chrome)",
     "controls": [
       "Pin to Top on Scroll",
       "Pin to Center on Scroll",
       "Pin to Bottom on Scroll",
       "Remove Pin",
-      "Offset"
+      "Offset",
+      "AaPrimary",
+      "AaSecondary",
+      "AaTertiary",
+      "Primary"
     ]
   },
   {
