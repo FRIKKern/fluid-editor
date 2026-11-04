@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 68 changes
+- **Today** · 69 changes
+  - X2, G5: a held block stays inside the grid, phones have the center line ([#126](https://github.com/FRIKKern/fluid-editor/pull/126))
   - Gap review: refresh the inventory in headless Chrome, reach the 4 states it missed ([#125](https://github.com/FRIKKern/fluid-editor/pull/125))
-  - U10: Add Section sits on the rounded heights above, as measured ([#124](https://github.com/FRIKKern/fluid-editor/pull/124))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
