@@ -44,16 +44,28 @@ export function arrangeMenuHtml() {
   return [it('z-forward', 'Move forward', '↑'), it('z-front', 'Move to front'), it('z-backward', 'Move backward', '↓'), it('z-back', 'Move to back')].join('');
 }
 
+// Copy Properties and Paste Properties (labels read on the oracle, 2026-11-04: Transforms and
+// Animations; Replace Animations). Replace Transforms is ours: the oracle's menu was read with
+// nothing copied. Animations are not built (T15).
+export function copyPropsMenuHtml() {
+  const it = (act, label, extra = '') => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"${extra}><span>${label}</span></button>`;
+  return [it('pcopy-transforms', 'Transforms'), it('pcopy-animations', 'Animations', ' data-unbuilt')].join('');
+}
+export function pastePropsMenuHtml({ canPaste }) {
+  const it = (act, label, extra = '') => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"${extra}><span>${label}</span></button>`;
+  return [it('ppaste-transforms', 'Replace Transforms', canPaste ? '' : ' disabled'), it('ppaste-animations', 'Replace Animations', ' data-unbuilt')].join('');
+}
+
 export function contextMenuHtml({ canPaste }) {
   const item = (act, label, keys = '', opts = {}) => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"${opts.off ? ' disabled' : ''}${opts.unbuilt ? ' data-unbuilt' : ''}><span>${label}</span>${keys ? `<kbd>${keys}</kbd>` : ''}${opts.more ? '<span class="cm-more">›</span>' : ''}</button>`;
   return [
-    item('copy', 'Copy', `${K.cmd} C`, { unbuilt: true }),
-    item('paste', 'Paste', `${K.cmd} V`, { off: !canPaste, unbuilt: true }),
+    item('copy', 'Copy', `${K.cmd} C`),
+    item('paste', 'Paste', `${K.cmd} V`, { off: !canPaste }),
     item('duplicate', 'Duplicate', `${K.cmd} D`),
     item('delete', 'Delete', K.back),
     '<hr>',
-    item('copy-props', 'Copy Properties', '', { more: true, unbuilt: true }),
-    item('paste-props', 'Paste Properties', '', { more: true, unbuilt: true }),
+    item('copy-props', 'Copy Properties', '', { more: true }),
+    item('paste-props', 'Paste Properties', '', { more: true }),
     '<hr>',
     item('stack', 'Stack', `${K.shift} S`),
     item('arrange', 'Arrange', '', { more: true }),
