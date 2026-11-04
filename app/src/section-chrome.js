@@ -17,8 +17,8 @@
 //                 1px #4894ff border, 6px radius
 //   header        on the first section everything, the top Add Section too, sits below the
 //                 site header
-//   scrolled      when the section top is above the canvas, the card sticks 22px and the left
-//                 boxes 22px below the canvas top; neither stops at the section's bottom
+//   scrolled      when the section top is above the canvas, the card sticks 21.3px and the left
+//                 boxes 21.3px below the canvas top; neither stops at the section's bottom
 //   panel         Edit Section opens a 320 by 476 panel 342px from the window's right edge,
 //                 white, 8px radius, shadows 0 16px 64px rgba(0,0,0,.12) and 0 0 1px
 //                 rgba(0,0,0,.08). sectionPanelTop holds where its top goes.
@@ -62,21 +62,22 @@ export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = fal
     // Phone view (oracle screenshot): the canvas is 428 wide in the middle; Layers sits 68px left
     // of it and the card 22px right of it, both at the same height as on desktop.
     const top = Math.max(sec.top, headerBottom);
-    const cardTop = Math.max(top, 0) + 22;
+    const cardTop = Math.max(top, 0) + 21.3;
     const midX = sec.left + sec.width / 2 - 111.1 / 2;
     return {
       outline: { left: ox + sec.left, top: oy + sec.top, width: sec.width, height: sec.height },
-      layers: { left: ox - 68, top: oy + Math.max(top, 0) + 22 },
+      layers: { left: ox - 68, top: oy + Math.max(top, 0) + 21.3 },
       card: { left: ox + frame.width + 22, top: oy + cardTop },
       'add-top': { left: ox + midX, top: oy + Math.max(sec.top, headerBottom) - 18 },
       'add-bottom': { left: ox + midX, top: oy + sec.bottom - 18 },
     };
   }
   const top = Math.max(sec.top, headerBottom);
-  // Stuck 22px under the canvas top while the section's top is above it, and past the section's
-  // bottom if it comes to that (parity/findings/SECTIONBAR.json, sticky).
-  const cardTop = Math.max(top, 0) + 22;
-  const leftTop = Math.max(top, 0) + 26;
+  // 21.3 below the section's top or the canvas's top, whichever is lower, and past the section's
+  // bottom if it comes to that (parity/findings/SECTIONBAR.json, sticky). The oracle lands on whole
+  // pixels, so its Edit Section reads 27.5 to 29.2 below the top depending on the section.
+  const cardTop = Math.max(top, 0) + 21.3;
+  const leftTop = Math.max(top, 0) + 25.3;
   const midX = sec.left + sec.width / 2 - 111.1 / 2;
   return {
     outline: { left: ox + sec.left, top: oy + sec.top, width: sec.width, height: sec.height },

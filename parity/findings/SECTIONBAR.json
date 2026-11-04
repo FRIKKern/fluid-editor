@@ -1226,7 +1226,21 @@
       1000
     ],
     "read": "13 scrolls of sections 0 to 2, and 5 more with the section ending above the card",
-    "rule": "While the section's top is above the canvas, the Edit Section button sticks at y 84 and Layers and Add Block at y 81, that is 22px and 26px below the canvas top. They do not stop at the section's bottom: read with the bottom at y 127, Remove stayed at y 236. On the first section they sit under the site header. Phones the same: Edit 84, Layers 81."
+    "rule": "While the section's top is above the canvas, the Edit Section button sticks at y 84 and Layers and Add Block at y 81, that is 22px and 26px below the canvas top. They do not stop at the section's bottom: read with the bottom at y 127, Remove stayed at y 236. On the first section they sit under the site header. Phones the same: Edit 84, Layers 81. Ours sticks at 83.3 and 80.3, within 1px, because of the offsets below.",
+    "offsets": {
+      "read": "Edit Section's top minus the section's top, settled, each section with its top near y 155",
+      "Edit": {
+        "1": 28.86,
+        "2": 29.17,
+        "3": 28.95,
+        "4": 28.64,
+        "5": 28.23,
+        "6": 27.92,
+        "7": 27.52
+      },
+      "Layers": "3 less than Edit on each",
+      "note": "The chrome's tops were whole pixels in the window while the section tops were not; why the value steps down along the page is not known (inferred). Ours is 28.3, within 1px of each."
+    }
   },
   "panelTop": {
     "window": [

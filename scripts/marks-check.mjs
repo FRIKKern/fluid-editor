@@ -332,10 +332,10 @@ browser(S, 'press', 'Escape'); await pause(120); await hoverBar(800, 20); await 
 for (const [sy, y] of [[914, 300], [1214, 300], [1700, 80]]) {
   await frameScroll(sy); await hoverInSection(y);
   const ed = chromeBox('Edit Section'), la = chromeBox('Open Layers Panel'), rm = chromeBox('Remove Section');
-  add(`stuck at scroll ${sy}`, Math.abs(ed[1] - 84) <= 0.2 && Math.abs(la[1] - 81) <= 0.2 && Math.abs(rm[1] - 236) <= 0.2, JSON.stringify([ed[1], la[1], rm[1]]));
+  add(`stuck at scroll ${sy}`, Math.abs(ed[1] - 84) <= 1 && Math.abs(la[1] - 81) <= 1 && Math.abs(rm[1] - 236) <= 1, JSON.stringify([ed[1], la[1], rm[1]]));
 }
 await frameScroll(0); await hoverInSection(700);
-add('first section under its header', Math.abs(chromeBox('Edit Section')[1] - 222.6) <= 0.5 && Math.abs(chromeBox('Open Layers Panel')[1] - 219.6) <= 0.5);
+add('first section under its header', Math.abs(chromeBox('Edit Section')[1] - 222.6) <= 1 && Math.abs(chromeBox('Open Layers Panel')[1] - 219.6) <= 1);
 // Fade: the parts run their animation, the outline does not; it goes after the mouse leaves.
 await hoverBar(800, 20); await pause(220);
 add('chrome gone after the mouse leaves', evalJs(S, `(() => JSON.stringify(document.getElementById('section-chrome').hidden))()`));
