@@ -4,6 +4,7 @@
 // parity/design-edit-check.json. Usage: npm run design-edit-check.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible, requireWebKit } from './lib/cmux.mjs';
+import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 requireWebKit(S, 'design-edit-check');
@@ -16,9 +17,9 @@ let pass = 0, total = 0;
 const results = [];
 for (const [label, c] of Object.entries(F.changes)) {
   if (!c.diff) continue;
-  goto(S, 'http://127.0.0.1:5178/index.html'); await pause(1200);
+  goto(S, `${BASE}/index.html`); await pause(1200);
   evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
-  goto(S, 'http://127.0.0.1:5178/index.html'); await pause(2000);
+  goto(S, `${BASE}/index.html`); await pause(2000);
   const k = KEY[label];
   const r = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow;
     const s = fe.model.sections[${si}]; const bid = [...d.querySelectorAll('section[data-section-id="' + s.id + '"] .fe-block')].map((e) => e.dataset.blockId)[${bi}];

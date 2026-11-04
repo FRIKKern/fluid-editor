@@ -4,13 +4,14 @@
 // Writes parity/autoscroll-check.json. Usage: npm run autoscroll-check.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
+import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/AUTOSCROLL.json', import.meta.url)));
 const [fw, fh] = F.frame;
 ensureVisible(S);
 viewport(S, fw, fh + 55);
-goto(S, 'http://127.0.0.1:5178/index.html?replay'); await pause(2200);
+goto(S, `${BASE}/index.html?replay`); await pause(2200);
 const results = [];
 for (const [name, want] of Object.entries(F.totals)) {
   const [edge, dist] = [name.split(' ')[0], Number(name.split(' ')[1])];

@@ -4,6 +4,7 @@
 // Writes parity/section-check.json. Usage: npm run section-check (dev server on 5178).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible, requireWebKit } from './lib/cmux.mjs';
+import { BASE } from './lib/base.mjs';
 const FIND = (n) => JSON.parse(readFileSync(new URL('../parity/findings/' + n + '.json', import.meta.url)));
 
 const design = FIND('SETTINGS').results;
@@ -23,7 +24,7 @@ const cases = [
 ];
 let bad = 0, n = 0;
 for (const [name, ch, style, reads] of cases) for (const o of reads) {
-  viewport(S, o.w, o.h); goto(S, 'http://127.0.0.1:5178/page.html'); await pause(2200);
+  viewport(S, o.w, o.h); goto(S, `${BASE}/page.html`); await pause(2200);
   const r = evalJs(S, `(() => { const sec = document.querySelectorAll('.page-section')[2]; const ch = ${JSON.stringify(ch)};
     if (ch.height) sec.className = sec.className.replace(/section-height--\\w+/, 'section-height--' + ch.height);
     if (ch.valign) sec.className = sec.className.replace(/vertical-alignment--\\w+/, 'vertical-alignment--' + ch.valign);
@@ -42,7 +43,7 @@ const divReads = [['1600x945', div.on], ...Object.entries(div.widths)];
 const dividers = [];
 for (const [size, o] of divReads) {
   const [w, h] = size.split('x').map(Number);
-  viewport(S, w, h); goto(S, 'http://127.0.0.1:5178/page.html'); await pause(2200);
+  viewport(S, w, h); goto(S, `${BASE}/page.html`); await pause(2200);
   evalJs(S, `(() => { window.__div = null; Promise.all([import('./src/render.js'), import('./src/demo.js')]).then(([r, d]) => { const m = d.demoModel(); const s = m.sections[2]; s.divider = true;
     const old = document.querySelectorAll('.page-section')[2]; old.outerHTML = r.renderSection(s, m); window.__div = true; }); return 'true'; })()`);
   await pause(1200);
@@ -63,7 +64,7 @@ for (const [size, o] of divReads) {
 // Divider Stroke and Thickness (parity/findings/DIVOPTS.json): computed stroke width, dash and caps.
 const dopts = FIND('DIVOPTS').options;
 const strokes = [];
-viewport(S, 1600, 945); goto(S, 'http://127.0.0.1:5178/page.html'); await pause(2200);
+viewport(S, 1600, 945); goto(S, `${BASE}/page.html`); await pause(2200);
 for (const [name, o] of Object.entries(dopts)) {
   if (!o.stroke || name === 'Thickness custom') continue;
   const set = { 'Stroke none': { dividerStroke: 'none' }, 'Stroke dashed': { dividerStroke: 'dashed' }, 'Stroke solid': {}, 'Thickness S': { dividerThickness: 'S' }, 'Thickness L': { dividerThickness: 'L' }, 'Thickness M': {} }[name];
@@ -79,7 +80,7 @@ for (const [name, o] of Object.entries(dopts)) {
 
 // Colors tab: each theme's background, heading and paragraph color at 1600 by 945.
 const themes = [];
-viewport(S, 1600, 945); goto(S, 'http://127.0.0.1:5178/page.html'); await pause(2200);
+viewport(S, 1600, 945); goto(S, `${BASE}/page.html`); await pause(2200);
 for (const [label, o] of Object.entries(design).filter(([k, v]) => (k === 'base' || /^(Light|Bright|Dark)/.test(k)) && v.ink)) {
   const r = evalJs(S, `(() => { const sec = document.querySelectorAll('.page-section')[2]; sec.dataset.sectionTheme = ${JSON.stringify(o.theme)};
     return JSON.stringify({ bg: getComputedStyle(sec.querySelector('.section-background')).backgroundColor, ink: ['h1, h2, h3', 'p'].map((q) => getComputedStyle(sec.querySelector(q)).color) }); })()`);

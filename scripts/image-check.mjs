@@ -5,6 +5,7 @@
 // Writes parity/image-check.json. Usage: npm run image-check.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
+import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/IMAGEMODES.json', import.meta.url)));
@@ -32,9 +33,9 @@ for (const x of F.samples.filter((y) => !y.unexplained)) add(`sample ${x.block.j
 
 ensureVisible(S);
 viewport(S, 1600, 1000);
-goto(S, 'http://127.0.0.1:5178/index.html'); await pause(1200);
+goto(S, `${BASE}/index.html`); await pause(1200);
 evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
-goto(S, 'http://127.0.0.1:5178/index.html'); await pause(2000);
+goto(S, `${BASE}/index.html`); await pause(2000);
 
 // Turn the first plain block of section 1 into an image; the panel needs one to act on.
 const id = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; const b = s.blocks.find((x) => x.type === 'text'); const keep = { id: b.id, layout: b.layout }; for (const k of Object.keys(b)) delete b[k]; Object.assign(b, keep, { type: 'image', alt: '', aspect: ${F.aspect} }); fe.load(next); await sleep(400); fe.select(s.id, b.id); await sleep(200); document.querySelector('#block-toolbar button[data-tb="edit"]').click(); await sleep(250); return JSON.stringify(b.id); })()`);
