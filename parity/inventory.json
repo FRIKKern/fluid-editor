@@ -350,15 +350,17 @@
       "name": "layers",
       "what": "Layers panel of a section",
       "oracle": 24,
-      "present": 16,
+      "present": 17,
       "missing": [
         {
           "kind": "control",
           "role": "button",
           "label": "Toggle Site Styles editing",
           "where": "top",
-          "status": "UNTRACKED",
-          "items": [],
+          "status": "tracked",
+          "items": [
+            "U12"
+          ],
           "outOfScope": []
         },
         {
@@ -425,15 +427,6 @@
           "items": [
             "U9"
           ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "On desktop the smallest a row can be is the cont",
-          "where": "top",
-          "status": "UNTRACKED",
-          "items": [],
           "outOfScope": []
         }
       ],

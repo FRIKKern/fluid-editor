@@ -20,7 +20,7 @@ For each editor state, the inventory lists every visible control and label of th
 | section-background | Edit Section, Background tab | 22 | 15 | 0 | 0 | 0 | 7 | 1.86% |
 | section-colors | Edit Section, Colors tab | 21 | 12 | 0 | 0 | 0 | 9 | 3.35% |
 | add-block-menu | Add Block menu of a section | 26 | 20 | 0 | 0 | 0 | 3 | 2.37% |
-| layers | Layers panel of a section | 24 | 16 | 0 | 0 | 0 | 8 | 2.72% |
+| layers | Layers panel of a section | 24 | 17 | 0 | 0 | 0 | 7 | 2.72% |
 | text-selected | A text block selected | 19 | 18 | 0 | 0 | 0 | 1 | 0.17% |
 | text-writing | Writing in a text block, a word selected | 27 | 21 | 0 | 0 | 0 | 5 | 0.34% |
 | text-edit-design | Text block Edit panel, Design tab | 23 | 19 | 0 | 0 | 0 | 4 | 0.43% |
@@ -44,7 +44,7 @@ For each editor state, the inventory lists every visible control and label of th
 | text-color | Writing, the Text Color popover open | 29 | 21 | 0 | 0 | 0 | 7 | 0.94% |
 | site-styles | Site Styles panel (top bar) | 21 | 8 | 0 | 0 | 0 | 11 | 12.79% |
 
-## Tracked (103)
+## Tracked (102)
 
 | Label | Kind | States | Items |
 |---|---|---|---|
@@ -70,7 +70,6 @@ For each editor state, the inventory lists every visible control and label of th
 | Scheduling | button | add-block-menu, add-section-menu | U5, U10 |
 | Open Layers Panel | button | layers, phone-idle | Z4 |
 | Add Block | button | layers | U9 |
-| On desktop the smallest a row can be is the cont | button | layers | Z4 |
 | Text Color | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
 | Scaled Text | checkbox | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
 | Text Highlight | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
