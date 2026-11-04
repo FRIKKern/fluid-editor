@@ -6,7 +6,7 @@ import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
-import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition } from './block-panel.js';
+import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -267,6 +267,13 @@ toolbar.addEventListener('click', (e) => {
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && b.type === 'button') { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
+  // Pin (parity/findings/PIN.json): the first click pins to the top with no offset (desktop) and
+  // opens the popover; one undo step.
+  if (act === 'pin' && bp === 'desktop') {
+    if (!b.layout.desktop.sticky) { const before = JSON.stringify(model); b.layout.desktop.sticky = { anchor: 'top', offset: 0 }; renderSectionDom(sid); commit(before, `Pinned ${bid}`); }
+    openPin(sid, bid);
+    return;
+  }
   if (act === 'pin' || act === 'primary' || act === 'link') { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
   const before = JSON.stringify(model);
   if (act === 'align') { const order = ['flex-start', 'center', 'flex-end']; const L = lay(b); L.justify = order[(order.indexOf(L.justify || 'flex-start') + 1) % 3]; }
@@ -1557,6 +1564,40 @@ chrome.addEventListener('pointerdown', (e) => {
   window.addEventListener('pointerup', up);
 });
 
+const pinPop = $('pin-popover');
+function openPin(sid, bid) {
+  const b = B(sid, bid);
+  pinPop.dataset.sid = sid; pinPop.dataset.bid = bid;
+  pinPop.innerHTML = pinPopoverHtml(b.layout.desktop.sticky);
+  const btn = document.querySelector('#block-toolbar [data-tb="pin"]');
+  const st = stage.getBoundingClientRect();
+  if (btn) { const r = btn.getBoundingClientRect(); pinPop.style.left = `${Math.max(8, r.left + r.width / 2 - 124 - st.left)}px`; pinPop.style.top = `${r.bottom + 7 - st.top}px`; }
+  pinPop.hidden = false;
+}
+function setPin(change, label) {
+  const b = B(pinPop.dataset.sid, pinPop.dataset.bid);
+  if (!b) return;
+  const before = JSON.stringify(model);
+  change(b.layout.desktop);
+  renderSectionDom(pinPop.dataset.sid);
+  commit(before, label);
+  openPin(pinPop.dataset.sid, pinPop.dataset.bid);
+}
+pinPop.addEventListener('mousedown', (e) => { if (e.target.closest('button')) e.preventDefault(); });
+pinPop.addEventListener('click', (e) => {
+  const o = e.target.closest('[data-pin]');
+  if (!o) return;
+  const k = o.dataset.pin;
+  setPin((L) => { if (k === 'remove') delete L.sticky; else L.sticky = { anchor: k, offset: L.sticky?.offset || 0 }; }, k === 'remove' ? 'Removed the pin' : `Pinned to ${k}`);
+});
+pinPop.addEventListener('change', (e) => {
+  const f = e.target.closest('[data-pin-offset], [data-pin-range]');
+  if (!f) return;
+  const v = Math.max(0, Math.min(500, parseFloat(f.value) || 0));
+  setPin((L) => { if (L.sticky) L.sticky = { ...L.sticky, offset: v }; }, `Pin offset ${v}px`);
+});
+pinPop.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('[data-pin-offset]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); if (e.key === 'Escape') pinPop.hidden = true; });
+
 // Add a Section (U10): the panel remembers where the new section goes.
 const addSectionPanel = $('add-section-panel');
 let addSectionAt = null;
@@ -1587,7 +1628,7 @@ addSectionPanel.addEventListener('click', (e) => {
 });
 addSectionPanel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeAddSection(); } });
 
-function closeFloating() { addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('arrange-menu').hidden = true; $('link-popover').hidden = true; }
+function closeFloating() { $('pin-popover').hidden = true; addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('arrange-menu').hidden = true; $('link-popover').hidden = true; }
 addMenu.addEventListener('input', (e) => {
   if (!e.target.matches('[data-am="search"]')) return;
   const q = e.target.value;
