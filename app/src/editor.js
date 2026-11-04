@@ -7,7 +7,7 @@ import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
 import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml } from './block-panel.js';
-import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, buttonStyleMenuHtml } from './menus.js';
+import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
 import { siteStylesHtml } from './site-styles.js';
@@ -737,6 +737,19 @@ function onKey(e) {
     commit(before, 'Hid on desktop with Cmd+Shift+H');
     return;
   }
+  // Cmd+C and Cmd+V copy and paste blocks (the oracle's right-click menu shows the shortcuts).
+  if (mod && !e.shiftKey && !e.altKey && !gesture && (e.code === 'KeyC' || e.code === 'KeyV') && !e.target.closest?.('input, textarea, select, [contenteditable="true"]')) {
+    if (e.code === 'KeyC' && sel) { e.preventDefault(); copyBlocks(); return; }
+    const to = sel?.sid || hoverSid;
+    if (e.code === 'KeyV' && blockClip && to) {
+      e.preventDefault();
+      const before = JSON.stringify(model);
+      pasteBlocks(to);
+      renderSectionDom(to);
+      commit(before, 'Pasted a block');
+      return;
+    }
+  }
   // Shift+S stacks the selection (the oracle's right-click menu shows the shortcut).
   if (sel && !gesture && e.shiftKey && !mod && !e.altKey && e.code === 'KeyS') {
     e.preventDefault();
@@ -1332,6 +1345,54 @@ function duplicateBlock(sid, bid) {
   sel = { sid, bid: copy.id };
 }
 
+// Copy and Paste of blocks (U11). The oracle's clipboard did not reach the page in the probe, so
+// the place is ours: the same grid area in any section, one row and one column on while that
+// area is taken, at the bottom of the phone layout. Ours keeps the copy in memory.
+let blockClip = null;
+let transformClip = null;
+function copyBlocks() {
+  blockClip = [sel.bid, ...(sel.more || [])].map((id) => JSON.parse(JSON.stringify(B(sel.sid, id))));
+}
+function pasteBlocks(sid) {
+  const s = S(sid);
+  const ids = blockClip.map((src, n) => {
+    const copy = JSON.parse(JSON.stringify(src));
+    copy.id = `${src.type}-${Date.now().toString(36)}-${n}`;
+    const d = copy.layout.desktop.area;
+    const w = d[3] - d[1];
+    const taken = (a) => s.blocks.some((b) => b.layout.desktop.area.join() === a.join());
+    for (let k = 0; k < 50 && taken(copy.layout.desktop.area); k++) {
+      const [r0, c0, r1] = copy.layout.desktop.area;
+      const c = Math.min(c0 + 1, LAST_LINE.desktop - w);
+      copy.layout.desktop.area = [r0 + 1, c, r1 + 1, c + w];
+    }
+    const m = copy.layout.mobile.area;
+    const top = Math.max(1, ...s.blocks.map((b) => b.layout.mobile.area[2]));
+    copy.layout.mobile.area = [top, m[1], top + m[2] - m[0], m[3]];
+    for (const bpName of ['desktop', 'mobile']) {
+      copy.layout[bpName].z = Math.max(0, ...s.blocks.map((b) => b.layout[bpName].z)) + 1;
+      s.rows[bpName] = Math.max(s.rows[bpName], copy.layout[bpName].area[2] - 1);
+    }
+    s.blocks.push(copy);
+    return copy.id;
+  });
+  sel = { sid, bid: ids[0], ...(ids.length > 1 ? { more: ids.slice(1) } : {}) };
+}
+// Copy Properties, Transforms: the values of the Design tab's Transforms group.
+function copyTransforms() {
+  const d = B(sel.sid, sel.bid).design || {};
+  transformClip = Object.fromEntries(DESIGN_FIELDS.filter(([k]) => k in d).map(([k]) => [k, d[k]]));
+}
+function pasteTransforms(sid, ids) {
+  for (const id of ids) {
+    const b = B(sid, id);
+    const d = { ...(b.design || {}) };
+    for (const [k] of DESIGN_FIELDS) delete d[k];
+    Object.assign(d, transformClip);
+    if (Object.keys(d).length) b.design = d; else delete b.design;
+  }
+}
+
 // Align Group, as on the oracle (traces T0018, T0019): blocks line up on the group's
 // bounding box; centers round to the nearest line.
 // Like the oracle's Move Forward / Move Backward (traces T0011, T0012): swap z-index
@@ -1790,7 +1851,7 @@ function onContextMenu(e) {
   const sid = blk.closest('section').dataset.sectionId;
   if (sel?.bid !== blk.dataset.blockId) select({ sid, bid: blk.dataset.blockId });
   closeFloating();
-  contextMenu.innerHTML = contextMenuHtml({ canPaste: false });
+  contextMenu.innerHTML = contextMenuHtml({ canPaste: !!blockClip });
   const fr = frame.getBoundingClientRect(), st = stage.getBoundingClientRect();
   contextMenu.style.left = `${Math.min(fr.left - st.left + e.clientX, st.width - 180)}px`;
   contextMenu.style.top = `${Math.min(fr.top - st.top + e.clientY, st.height - 400)}px`;
@@ -1801,11 +1862,15 @@ contextMenu.addEventListener('click', (e) => {
   const it = e.target.closest('button[data-cm]');
   if (!it || it.disabled || !sel) return;
   const act = it.dataset.cm;
-  if (act === 'arrange') { openArrange(it); return; }
+  if (act === 'arrange') { openArrange(it, arrangeMenuHtml()); return; }
+  if (act === 'copy-props') { openArrange(it, copyPropsMenuHtml()); return; }
+  if (act === 'paste-props') { openArrange(it, pastePropsMenuHtml({ canPaste: !!transformClip })); return; }
   contextMenu.hidden = true; arrangeMenu.hidden = true;
   if (it.hasAttribute('data-unbuilt')) { note(`${it.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
+  if (act === 'copy') { copyBlocks(); return; }
   const before = JSON.stringify(model);
   const sid = sel.sid;
+  if (act === 'paste') pasteBlocks(sid);
   if (act === 'duplicate') duplicateBlock(sid, sel.bid);
   if (act === 'delete') { const ids = [sel.bid, ...(sel.more || [])]; S(sid).blocks = S(sid).blocks.filter((b) => !ids.includes(b.id)); sel = null; }
   if (act === 'stack') stackBlocks();
@@ -1860,8 +1925,9 @@ function arrange(sid, bid, how) {
   order.forEach((x, n) => { lay(x).z = n + 1; });
 }
 const arrangeMenu = $('arrange-menu');
-function openArrange(item) {
-  arrangeMenu.innerHTML = arrangeMenuHtml();
+function openArrange(item, html) {
+  arrangeMenu.innerHTML = html;
+  arrangeMenu.setAttribute('aria-label', item.getAttribute('aria-label'));
   const r = item.getBoundingClientRect(), st = stage.getBoundingClientRect();
   arrangeMenu.style.left = `${r.right - st.left + 4}px`;
   arrangeMenu.style.top = `${r.top - st.top - 6}px`;
@@ -1870,12 +1936,16 @@ function openArrange(item) {
 arrangeMenu.addEventListener('mousedown', (e) => e.preventDefault());
 arrangeMenu.addEventListener('click', (e) => {
   const it = e.target.closest('button[data-cm]');
-  if (!it || !sel) return;
+  if (!it || it.disabled || !sel) return;
   arrangeMenu.hidden = true; contextMenu.hidden = true;
+  const act = it.dataset.cm;
+  if (it.hasAttribute('data-unbuilt')) { note(`${it.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
+  if (act === 'pcopy-transforms') { copyTransforms(); return; }
   const before = JSON.stringify(model);
-  arrange(sel.sid, sel.bid, it.dataset.cm.slice(2));
+  if (act === 'ppaste-transforms') pasteTransforms(sel.sid, [sel.bid, ...(sel.more || [])]);
+  else arrange(sel.sid, sel.bid, act.slice(2));
   renderSectionDom(sel.sid);
-  commit(before, `${it.getAttribute('aria-label')} from Arrange`);
+  commit(before, `${it.getAttribute('aria-label')} from the block menu`);
 });
 
 function onHover(e) {
