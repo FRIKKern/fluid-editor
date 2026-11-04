@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 49 changes
+- **Today** · 50 changes
+  - T12: Accordion block, measured on the oracle ([#107](https://github.com/FRIKKern/fluid-editor/pull/107))
   - T10: code and embed Edit panels; keys in a panel field stay in the field ([#106](https://github.com/FRIKKern/fluid-editor/pull/106))
-  - U12: style pack popovers with measured picks ([#105](https://github.com/FRIKKern/fluid-editor/pull/105))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
