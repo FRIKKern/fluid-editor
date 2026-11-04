@@ -170,10 +170,58 @@ function decorate(sid) {
     el.dataset.isMatchingWidth = 'false';
     el.dataset.isMatchingHeight = 'false';
   }
+  drawLabels(sid);
+}
+
+// The label pill of every block (U3, parity/findings/MARKS.json, labels): 22px above the block, seen
+// only on hover. Its box is in the page all the time and takes the pointer, even at opacity 0.
+const LABELS = { text: 'Text', button: 'Button', shape: 'Shape', image: 'Image', video: 'Video', form: 'Form', accordion: 'Accordion', scrolling: 'Scrolling', line: 'Line', code: 'Code', embed: 'Embed', social: 'Social Links', stack: 'Stack' };
+function drawLabels(sid) {
+  const fe = feEl(sid);
+  for (const el of fe.querySelectorAll(':scope > .fe-label')) el.remove();
+  for (const b of S(sid).blocks) {
+    if (!lay(b) || lay(b).hidden) continue;
+    const g = doc.createElement('div');
+    g.className = 'fe-label';
+    g.dataset.for = b.id;
+    setArea(g, lay(b).area);
+    const tag = doc.createElement('span');
+    tag.className = 'fe-label-tag';
+    tag.textContent = b.label === 'form' ? 'Form' : LABELS[b.type] || 'Block';
+    g.append(tag);
+    fe.append(g);
+  }
+}
+
+// Hover (U3): the same two rings as a selection, under it (10000 + z, Z5), with the block's pill.
+// Not while a block is held, and not on a block that is selected.
+let hoverBid = null;
+function drawHover() {
+  for (const el of doc.querySelectorAll('.fe-indicator.is-hover')) el.remove();
+  for (const el of doc.querySelectorAll('.fe-label.is-on')) el.classList.remove('is-on');
+  if (!hoverBid || gesture?.type && gesture.type !== 'pending') return;
+  if (sel && [sel.bid, ...(sel.more || [])].includes(hoverBid)) return;
+  const el = blockEl(hoverBid);
+  if (!el) return;
+  const sid = el.closest('section').dataset.sectionId;
+  const b = B(sid, hoverBid);
+  if (!b) return;
+  const ind = doc.createElement('div');
+  ind.className = 'fe-indicator is-hover';
+  setArea(ind, lay(b).area);
+  ind.style.zIndex = String(10000 + lay(b).z);
+  feEl(sid).append(ind);
+  feEl(sid).querySelector(`:scope > .fe-label[data-for="${hoverBid}"]`)?.classList.add('is-on');
+}
+function setHover(bid) {
+  if (bid === hoverBid) return;
+  hoverBid = bid;
+  drawHover();
 }
 
 function drawSelection() {
   drawSelectionLayers();
+  drawHover();
   placeToolbar();
 }
 function drawSelectionLayers() {
@@ -188,7 +236,8 @@ function drawSelectionLayers() {
   const ind = doc.createElement('div');
   ind.className = 'fe-indicator';
   setArea(ind, gesture?.target || lay(b).area);
-  ind.style.zIndex = String(100000 + lay(b).z);
+  ind.style.zIndex = '999999';
+  ind.dataset.z = lay(b).z;
   for (const dir of ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w']) {
     const h = doc.createElement('div');
     h.className = 'fe-handle';
@@ -203,19 +252,19 @@ function drawSelectionLayers() {
     const ind2 = doc.createElement('div');
     ind2.className = 'fe-indicator';
     setArea(ind2, gesture?.moreTargets?.[id] || lay(o).area);
-    ind2.style.zIndex = String(100000 + lay(o).z);
+    ind2.dataset.z = lay(o).z;
     feEl(sel.sid).append(ind2);
   }
   // A group (X8, gap review screenshot): one outline with eight handles around all selected
   // blocks; each block keeps a thin outline. The handles resize the group (GROUPRESIZE.json).
-  if (marquee || sel.more?.length) for (const el3 of feEl(sel.sid).querySelectorAll('.fe-indicator')) { el3.classList.add('is-member'); el3.replaceChildren(); }
+  if (marquee || sel.more?.length) for (const el3 of feEl(sel.sid).querySelectorAll('.fe-indicator')) { el3.classList.add('is-member'); el3.replaceChildren(); el3.style.zIndex = String(10000 + parseInt(el3.dataset.z, 10)); }
   if (!marquee && sel.more?.length) {
     const areas = [sel.bid, ...sel.more].map((id) => (id === sel.bid ? gesture?.target : gesture?.moreTargets?.[id]) || lay(B(sel.sid, id)).area);
     const box = [Math.min(...areas.map((a) => a[0])), Math.min(...areas.map((a) => a[1])), Math.max(...areas.map((a) => a[2])), Math.max(...areas.map((a) => a[3]))];
     const g = doc.createElement('div');
     g.className = 'fe-indicator is-group';
     setArea(g, box);
-    g.style.zIndex = '199999';
+    g.style.zIndex = '999999';
     for (const dir of ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w']) {
       const h = doc.createElement('div');
       h.className = 'fe-handle';
@@ -553,6 +602,8 @@ function nearest(from, to, f) {
 // with no drag is a click and clears it. No auto-scroll, and Escape does nothing while held.
 let marquee = false;
 function startMarquee(e, fe) {
+  // No text selection while the box is drawn: the oracle shows none.
+  e.preventDefault();
   const sid = fe.closest('section').dataset.sectionId;
   const x0 = e.clientX, y0 = e.clientY;
   const prior = sel;
@@ -2516,6 +2567,7 @@ arrangeMenu.addEventListener('click', (e) => {
 function onHover(e) {
   if (document.body.classList.contains('is-preview')) return;
   if (gesture && gesture.type !== 'pending') return;
+  setHover(e.target.closest?.('.fluid-engine.is-editing > .fe-block')?.dataset.blockId || null);
   const secEl = e.target.closest?.('section.page-section[data-section-id]');
   const sid = secEl && model.sections.some((x) => x.id === secEl.dataset.sectionId) ? secEl.dataset.sectionId : null;
   if (sid && sid !== hoverSid) { hoverSid = sid; placeChrome(); }
@@ -2576,6 +2628,7 @@ function setBp(next) {
   stage.classList.toggle('is-mobile', bp === 'mobile');
   // Phones use overlay scrollbars, so the preview must not lose width to one.
   doc.documentElement.style.scrollbarWidth = bp === 'mobile' ? 'none' : '';
+  for (const sec of model.sections) drawLabels(sec.id);
   requestAnimationFrame(() => {
     drawSelection();
     updateUi();
@@ -2610,6 +2663,7 @@ function boot() {
   new frame.contentWindow.ResizeObserver(() => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); }).observe(frame.contentDocument.body);
   window.addEventListener('resize', () => { placeToolbar(); placeChrome(); });
   frame.contentDocument.addEventListener('pointermove', onHover);
+  frame.contentDocument.documentElement.addEventListener('pointerleave', () => setHover(null));
   frame.contentDocument.addEventListener('pointerdown', () => { closeFloating(); closeSectionPanel(); }, true);
   frame.contentDocument.addEventListener('contextmenu', onContextMenu);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeFloating(); closeSectionPanel(); if (designOpen) { designOpen = null; updateUi(); } } });
@@ -2655,9 +2709,10 @@ function boot() {
     undo,
     normalize,
     measure: (sid) => measure(feEl(sid)),
-    select: (sid, bid) => { select({ sid, bid }); return true; },
+    select: (sid, bid) => { select(sid ? { sid, bid } : null); return true; },
     edit: (sid, bid) => { startTextEdit(sid, bid); return !!editing; },
     finishEdit: () => { finishTextEdit(); return true; },
+    addBlock: (sid, name) => { addBlock(sid, name); renderSectionDom(sid); return true; },
   };
 }
 

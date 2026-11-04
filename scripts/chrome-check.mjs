@@ -30,10 +30,10 @@ for (const [name, [si, bi]] of Object.entries(F.cases)) {
     const fr = f.getBoundingClientRect(), bq = el.getBoundingClientRect();
     const rel = (q) => [q.left - fr.left - bq.left, q.top - fr.top - bq.top, q.width, q.height].map((v) => Math.round(v * 10) / 10);
     const tb = document.getElementById('block-toolbar');
-    const ind = d.querySelector('.fe-indicator');
+    const ind = d.querySelector('.fe-indicator:not(.is-hover)');
     return JSON.stringify({ block: [Math.round(bq.left), Math.round(bq.top)], frameTop: Math.round(fr.top), bar: rel(tb.getBoundingClientRect()), hidden: tb.hidden,
       buttons: [...tb.querySelectorAll('button')].map((x) => ({ label: x.getAttribute('aria-label'), box: rel(x.getBoundingClientRect()), color: getComputedStyle(x).color })),
-      seps: [...tb.querySelectorAll('.tb-sep')].map((x) => rel(x.getBoundingClientRect())), rings: ind && W.getComputedStyle(ind).boxShadow }); })()`);
+      seps: [...tb.querySelectorAll('.tb-sep')].map((x) => rel(x.getBoundingClientRect())), rings: ind && [W.getComputedStyle(ind, '::before'), W.getComputedStyle(ind, '::after')].map((c) => [c.borderTopColor, c.top, c.borderTopWidth].join(' ')).join(', ') }); })()`);
   const checks = [];
   const add = (what, ok, detail) => { total++; if (ok) pass++; checks.push({ what, ok }); if (!ok) console.log(`  ${name}: ${what} ${detail || ''}`); };
   add('frame top', r.frameTop === o.frameTop, `oracle ${o.frameTop} ours ${r.frameTop}`);
@@ -42,7 +42,7 @@ for (const [name, [si, bi]] of Object.entries(F.cases)) {
   add('labels', JSON.stringify(r.buttons.map((b) => b.label)) === JSON.stringify(o.buttons.map((b) => b.label)), `oracle ${o.buttons.map((b) => b.label)} ours ${r.buttons.map((b) => b.label)}`);
   for (const [k, ob] of o.buttons.entries()) { const ours = r.buttons[k]; add(`${ob.label} box`, !!ours && near(ours.box, ob.box), `oracle ${ob.box} ours ${ours?.box}`); }
   add('separators', r.seps.length === o.seps.length && r.seps.every((b, k) => near(b, o.seps[k].box)), `oracle ${o.seps.map((x) => x.box[0])} ours ${r.seps.map((x) => x[0])}`);
-  add('rings', /rgb\(2, 122, 255\) 0px 0px 0px 1px/.test(r.rings) && /rgb\(108, 164, 244\) 0px 0px 0px 2px/.test(r.rings), r.rings);
+  add('rings', r.rings === 'rgb(2, 122, 255) -1px 1px, rgb(108, 164, 244) -2px 1px', r.rings);
   results.push({ name, checks });
   console.log(`${name}: ${checks.filter((c) => c.ok).length} of ${checks.length}`);
 }
