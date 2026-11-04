@@ -21,6 +21,8 @@ export const TYPE_ICON = {
   Code: '<path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/>',
   Embed: '<path d="M8 6H5v12h3M16 6h3v12h-3"/><path d="M11 9l2 6"/>',
 };
+// The Layers row of a shape is a filled square, whatever the shape's color (parity/findings/LAYERS.json).
+const LP_SHAPE = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect width="22" height="22" fill="currentColor"/></svg>';
 const ESSENTIALS = ['Text', 'Image', 'Button', 'Video', 'Form', 'Accordion', 'Shape', 'Scrolling', 'Line'];
 
 export function addBlockMenuHtml(types, query = '') {
@@ -34,7 +36,7 @@ export function addBlockMenuHtml(types, query = '') {
 }
 
 export function layersPanelHtml(rows) {
-  return `<div class="lp-title">Layers</div><ol class="lp-list">${rows.map((r) => `<li class="lp-row${r.on ? ' is-on' : ''}${r.hidden ? ' is-hidden' : ''}" role="button" tabindex="0" data-layer="${r.id}" aria-label="${r.label.replace(/"/g, '&quot;')}"><span class="lp-icon">${svg(TYPE_ICON[r.type] || TYPE_ICON.Shape)}</span><span class="lp-name">${r.label.replace(/</g, '&lt;')}</span>${r.hidden ? `<button type="button" class="lp-eye" data-unhide="${r.id}" aria-label="Show block" title="Hidden on this layout">${svg('<path d="M3 3l18 18"/><path d="M10.6 6.1A9.8 9.8 0 0 1 12 6c5 0 9 6 9 6a15.5 15.5 0 0 1-3 3.4M6.5 7.5A15.4 15.4 0 0 0 3 12s4 6 9 6a9 9 0 0 0 4-1"/>')}</button>` : ''}</li>`).join('')}</ol>`;
+  return `<div class="lp-title">Layers</div><ol class="lp-list">${rows.map((r) => `<li class="lp-row${r.on ? ' is-on' : ''}${r.hidden ? ' is-hidden' : ''}" role="button" tabindex="0" data-layer="${r.id}" aria-label="${r.label.replace(/"/g, '&quot;')}"><span class="lp-icon">${r.type === 'Shape' ? LP_SHAPE : svg(TYPE_ICON[r.type] || TYPE_ICON.Shape, 22)}</span><span class="lp-name">${r.label.replace(/</g, '&lt;')}</span>${r.hidden ? `<button type="button" class="lp-eye" data-unhide="${r.id}" aria-label="Show block" title="Hidden on this layout">${svg('<path d="M3 3l18 18"/><path d="M10.6 6.1A9.8 9.8 0 0 1 12 6c5 0 9 6 9 6a15.5 15.5 0 0 1-3 3.4M6.5 7.5A15.4 15.4 0 0 0 3 12s4 6 9 6a9 9 0 0 0 4-1"/>')}</button>` : ''}</li>`).join('')}</ol>`;
 }
 
 const K = { cmd: '⌘', shift: '⇧', back: '⌫' };
