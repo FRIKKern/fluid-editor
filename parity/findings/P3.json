@@ -1,7 +1,6 @@
 {
   "item": "P3",
   "capturedAt": "2026-11-03",
-  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
   "section": 2,
   "note": "Each option clicked, read, undone. Frame height 1000 minus editor bar.",
   "results": {
@@ -117,5 +116,61 @@
         "error": "click: nothing found for () => { const leaf=[...document.que"
       }
     }
+  },
+  "range": {
+    "read": "2026-11-04, on an unsaved new section on the lab page, Fill Screen on, Height set by its more button",
+    "slider": {
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "box": [
+        1280,
+        504,
+        237,
+        44
+      ],
+      "track": "2px rgb(231, 231, 231)",
+      "thumb": "8px rgb(14, 14, 14)",
+      "note": "Stops at 100 when the field holds more."
+    },
+    "field": {
+      "box": [
+        1528,
+        515,
+        28,
+        22
+      ],
+      "typed": {
+        "0": [
+          "0px",
+          "no padding"
+        ],
+        "1": [
+          "9.45px",
+          "0.1vmax padding"
+        ],
+        "50": [
+          "472.5px"
+        ],
+        "100": [
+          "945px"
+        ],
+        "150": [
+          "1417.5px"
+        ],
+        "300": [
+          "2835px"
+        ],
+        "1000": [
+          "9450px"
+        ]
+      }
+    },
+    "rule": "The field takes 0 and more than 100, up to at least 1000; min-height stays value vh of a 945px frame.",
+    "notRead": [
+      "Above 1000",
+      "A negative number or words: ours keeps the old value for words and takes 0 for less than 0",
+      "The live drag of the slider: ours changes the section on release"
+    ]
   }
 }
