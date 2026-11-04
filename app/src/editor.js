@@ -1443,9 +1443,11 @@ addMenu.addEventListener('input', (e) => {
   addMenu.innerHTML = addBlockMenuHtml(ADD_TYPES, q);
   const input = addMenu.querySelector('input'); input.focus(); input.setSelectionRange(q.length, q.length);
 });
+// A text block is named by its text, cut by CSS (the oracle row label holds at least the
+// first 48 characters, gap review 2026-11-04).
 function layerRows(s) {
   return [...s.blocks].sort((a, b) => lay(b).z - lay(a).z).map((b) => ({ id: b.id, type: b.type[0].toUpperCase() + b.type.slice(1), on: sel?.bid === b.id,
-    label: b.type === 'text' ? (b.html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 28) || 'Text' : b.type[0].toUpperCase() + b.type.slice(1) }));
+    label: b.type === 'text' ? (b.html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() || 'Text' : b.type[0].toUpperCase() + b.type.slice(1) }));
 }
 function renderLayersPanel() {
   const s = S(layersPanel.dataset.sid);

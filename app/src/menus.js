@@ -34,7 +34,7 @@ export function addBlockMenuHtml(types, query = '') {
 }
 
 export function layersPanelHtml(rows) {
-  return `<div class="lp-title">Layers</div><ol class="lp-list">${rows.map((r) => `<li class="lp-row${r.on ? ' is-on' : ''}" draggable="true" data-layer="${r.id}" aria-label="${r.label.replace(/"/g, '&quot;')}"><span class="lp-icon">${svg(TYPE_ICON[r.type] || TYPE_ICON.Shape)}</span><span class="lp-name">${r.label.replace(/</g, '&lt;')}</span></li>`).join('')}</ol>`;
+  return `<div class="lp-title">Layers</div><ol class="lp-list">${rows.map((r) => `<li class="lp-row${r.on ? ' is-on' : ''}" role="button" tabindex="0" draggable="true" data-layer="${r.id}" aria-label="${r.label.replace(/"/g, '&quot;')}"><span class="lp-icon">${svg(TYPE_ICON[r.type] || TYPE_ICON.Shape)}</span><span class="lp-name">${r.label.replace(/</g, '&lt;')}</span></li>`).join('')}</ol>`;
 }
 
 const K = { cmd: '⌘', shift: '⇧', back: '⌫' };
