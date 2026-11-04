@@ -210,7 +210,8 @@ function blockInner(b, model) {
       // A new block has no picture yet (MEDIAEMPTY.json): the editor shows a white box with a +.
       if (b.empty) return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-image image-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-component-empty-state-node"><span class="fluid-image-add" aria-hidden="true"></span></div></div></div>`;
       const pic = b.href ? `<a class="sqs-block-image-link" href="${escapeHtml(b.href)}">${inner}</a>` : inner;
-      return `<div class="sqs-block image-block sqs-block-image sqs-stretched${mode}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${pic}</div></div>`;
+      // The measured chain (parity/findings/BLOCKTYPES.json): an image holds the alignment wrapper.
+      return `<div class="sqs-block image-block sqs-block-image sqs-stretched${mode}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-component-root image-block-outer-wrapper design-layout-fluid image-position-center"><div class="fluid-image-animation-wrapper sqs-image sqs-block-alignment-wrapper">${pic}</div></div></div></div>`;
     }
     case 'accordion':
       return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${accordionHtml(b)}</div></div>`;
