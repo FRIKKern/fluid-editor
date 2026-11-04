@@ -42,16 +42,12 @@ const ICON = {
 export function sectionChromeHtml({ first, last, phone = false, blockSelected = false }) {
   const wide = (act, icon, label, cls = '', text = label) => `<button type="button" class="sc-wide ${cls}" data-sc="${act}" aria-label="${label}"${cls.includes('sc-unbuilt') ? ' data-unbuilt' : ''}>${svg(ICON[icon])}<span>${text}</span></button>`;
   const sq = (act, icon, label, off) => `<button type="button" class="sc-sq${off ? ' is-off' : ''}" data-sc="${act}" aria-label="${label}" title="${label}">${svg(ICON[icon])}</button>`;
+  // Parts are dropped line by line below, so each part stays on one line.
   return `<div class="sc-outline" data-sc-part="outline"></div>
     <div class="sc-pill" data-sc-part="layers"><button type="button" class="sc-left sc-layers" data-sc="layers" aria-label="Open Layers Panel">${svg(ICON.layers)}</button></div>
     ${phone || blockSelected ? '' : '<div class="sc-rows" data-sc-part="rows" role="button" aria-label="Drag to change the row count" title="Drag to add or remove rows"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M8 8l4-4 4 4M8 16l4 4 4-4"/></svg></div>'}
     <div class="sc-pill" data-sc-part="add-block"><button type="button" class="sc-left sc-add-block" data-sc="add-block" aria-label="Add Block">${svg(ICON.plus)}<span>Add Block</span></button></div>
-    <div class="sc-card" data-sc-part="card">
-      ${wide('edit', 'pencil', 'Edit Section')}
-      ${phone ? '' : wide('layouts', 'layouts', 'View Layouts', 'sc-unbuilt')}
-      <div class="sc-row">${sq('duplicate', 'duplicate', 'Duplicate Section')}${sq('save', 'heart', 'Save Section').replace('class="sc-sq', 'data-unbuilt class="sc-sq')}${sq('up', 'up', 'Move Section Up', first)}${sq('down', 'down', 'Move Section Down', last)}</div>
-      ${wide('remove', 'trash', 'Remove Section', 'sc-remove', 'Remove')}
-    </div>
+    <div class="sc-card" data-sc-part="card">${wide('edit', 'pencil', 'Edit Section')}${phone ? '' : wide('layouts', 'layouts', 'View Layouts', 'sc-unbuilt')}<div class="sc-row">${sq('duplicate', 'duplicate', 'Duplicate Section')}${sq('save', 'heart', 'Save Section').replace('class="sc-sq', 'data-unbuilt class="sc-sq')}${sq('up', 'up', 'Move Section Up', first)}${sq('down', 'down', 'Move Section Down', last)}</div>${wide('remove', 'trash', 'Remove Section', 'sc-remove', 'Remove')}</div>
     <button type="button" class="sc-add-section" data-sc="add-section-above" data-sc-part="add-top" aria-label="Add Section">Add Section</button>
     <button type="button" class="sc-add-section" data-sc="add-section-below" data-sc-part="add-bottom" aria-label="Add Section">Add Section</button>`
     .split('\n').filter((line) => !(blockSelected && /data-sc-part="(card|add-block|add-top|add-bottom)"/.test(line)) && !(phone && /data-sc-part="add-block"/.test(line))).join('\n')
