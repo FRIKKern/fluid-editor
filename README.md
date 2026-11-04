@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 18 changes
+- **Today** · 19 changes
+  - Text Color and Text Highlight ([#76](https://github.com/FRIKKern/fluid-editor/pull/76))
   - Text toolbar Link ([#75](https://github.com/FRIKKern/fluid-editor/pull/75))
-  - Dev server sends no-store; layers state reruns with the full text names ([#74](https://github.com/FRIKKern/fluid-editor/pull/74))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
