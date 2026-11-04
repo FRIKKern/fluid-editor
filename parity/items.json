@@ -302,7 +302,8 @@
     "area": "Block types",
     "milestone": "M2",
     "status": "partial",
-    "title": "`.sqs-block-alignment-wrapper` on the right block types"
+    "title": "`.sqs-block-alignment-wrapper` on the right block types",
+    "evidence": "parity/findings/WRAPPER.json: of Image, Video, Code, Embed, Accordion, Form, Scrolling, Line, Shape, Button and Text, only Shape has the wrapper in its markup. Ours now has the same: the wrapper moved from Button to Shape, with the measured container chain on both. 950 boxes of all 5 pages at 375, 767, 768, 1280 and 1920 are the same before and after, in headless Chrome against ourselves. npm run check tests which types carry it. Map, Social Links, Quote and stacks not measured"
   },
   {
     "id": "T3",
@@ -336,7 +337,7 @@
     "milestone": "M2",
     "status": "partial",
     "title": "Button block: sizes, styles, stretch",
-    "evidence": "Button fills its block height (59px at 768, 61.6px at 1280), 56px side padding, Poppins 500 16px. Sizes small and large not measured. Found in the editor screenshot comparison 2026-11-03: the demo hero button fills its block on the oracle (x 92 to 375), ours was narrower and centred (x 130 to 336); the button element and its content box now fill the block (width and height), also when the block centres its content on phones, from that one measured block (283 by 71). Measured 2026-11-04 by hand on the oracle: the button toolbar has Edit, Open link editor popover, Pin, Duplicate and Remove; Edit opens a panel on a Content tab (Text, Link with Attach link) next to Design and Animation. Our Edit opens Design only. Built 2026-11-04 from parity/findings/BUTTONEDIT.json: our button Edit opens on Content (Text field, Link with Attach link, then the link with Edit, Copy and Remove Link) beside Design and Animation; a new text replaces the text of the link, and a button without a link renders href=\"\" as on the oracle (the importer no longer turns it into #). Tested in headless Chrome: text, attach, remove and undo",
+    "evidence": "Button fills its block height (59px at 768, 61.6px at 1280), 56px side padding, Poppins 500 16px. Sizes (parity/findings/BUTTONSTYLE.json): Primary is medium, Secondary large, Tertiary small, with the same box when stretched; an unstretched button is not measured. The markup has the measured sqs-block-button-container and no alignment wrapper (WRAPPER.json). Found in the editor screenshot comparison 2026-11-03: the demo hero button fills its block on the oracle (x 92 to 375), ours was narrower and centred (x 130 to 336); the button element and its content box now fill the block (width and height), also when the block centres its content on phones, from that one measured block (283 by 71). Measured 2026-11-04 by hand on the oracle: the button toolbar has Edit, Open link editor popover, Pin, Duplicate and Remove; Edit opens a panel on a Content tab (Text, Link with Attach link) next to Design and Animation. Our Edit opens Design only. Built 2026-11-04 from parity/findings/BUTTONEDIT.json: our button Edit opens on Content (Text field, Link with Attach link, then the link with Edit, Copy and Remove Link) beside Design and Animation; a new text replaces the text of the link, and a button without a link renders href=\"\" as on the oracle (the importer no longer turns it into #). Tested in headless Chrome: text, attach, remove and undo",
     "controls": [
       "Content",
       "Attach link",
@@ -909,7 +910,7 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Stacks: grouped blocks with their own order and spacing",
-    "evidence": "parity/findings/S3.json: Stack Blocks replaces the selected blocks with one block over their bounding box; inside, a flex column with a 20px gap, start-aligned, children stretched to full width, min 20px; toolbar Edit, link, Stack Options, Pin, Duplicate, Remove. Ours builds the same structure and values. Difference: the oracle stack grew to 1/2/7/18, ours is 1/2/6/18; the oracle children seem to keep their old block heights (112 + 20 + 112px needs 7 rows). Stack Options not explored"
+    "evidence": "parity/findings/S3.json: Stack Blocks replaces the selected blocks with one block over their bounding box; inside, a flex column with a 20px gap, start-aligned, children stretched to full width, min 20px; toolbar Edit, link, Stack Options, Pin, Duplicate, Remove. Ours builds the same structure and values. Retested 2026-11-04 on the demo's section 7: ours gives 1/2/7/18 and 235.6px, the oracle 1/2/7/18 and 236px. Our toolbar lacks link and Stack Options. Stack Options not explored"
   },
   {
     "id": "S4",

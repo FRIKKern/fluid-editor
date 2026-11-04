@@ -180,7 +180,7 @@ function blockInner(b, model) {
       {
         const type = b.buttonStyle || 'primary';
         const size = BUTTON_SIZE[type];
-        return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-alignment-wrapper"><div class="sqs-block-content" data-button-size="${size}" data-button-type="${type}"><a class="sqs-block-button-element--${size} sqs-button-element--${type} sqs-block-button-element" href="${escapeHtml(b.href || '')}">${escapeHtml(b.label)}</a></div></div></div>`;
+        return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-block-button-container sqs-button-block-container-system_desktop sqs-block-button-container--center sqs-stretched" data-button-size="${size}" data-button-type="${type}"><a class="sqs-block-button-element--${size} sqs-button-element--${type} sqs-block-button-element" href="${escapeHtml(b.href || '')}">${escapeHtml(b.label)}</a></div></div></div>`;
       }
     case 'shape': {
       const style = `--shape-fill:${b.fill || 'var(--accent)'};--shape-radius:${b.radius || '0'};--shape-ink:${b.ink || 'inherit'}`;
@@ -188,7 +188,7 @@ function blockInner(b, model) {
       // Stretch off (parity/findings/SHAPEDESIGN.json): the oracle drops data-stretched-to-fill
       // and draws the shape as wide as it is tall.
       const stretched = b.stretch !== false;
-      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-shape${stretched ? '' : ' is-square'}" style="${style}">${label}</div></div></div>`;
+      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-shape-block-outer-container"><div class="sqs-shape-block-container sqs-block-alignment-wrapper sqs-shape-block-container-system_desktop"><div class="sqs-shape${stretched ? '' : ' is-square'}" style="${style}">${label}</div></div></div></div></div>`;
     }
     case 'stack': {
       // A Stack (S3): one grid block whose children flow in a flex column, values

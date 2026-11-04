@@ -122,7 +122,7 @@ p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
 .fluid-engine .sqs-block { display: flex; height: 100%; width: 100%; flex-direction: column; }
 .sqs-block-alignment-wrapper { display: flex; flex-direction: column; height: 100%; }
 
-.sqs-block-button .sqs-block-content { display: flex; height: 100%; width: 100%; }
+.sqs-block-button .sqs-block-content, .sqs-block-button-container { display: flex; height: 100%; width: 100%; }
 .sqs-block-button-element {
   display: inline-flex; align-items: center; justify-content: center;
   /* Fills its block, as on the oracle: the height (59px at 768, 61.6px at 1280) and the width
@@ -145,6 +145,7 @@ p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
 /* Stretch off (parity/findings/SHAPEDESIGN.json): as wide as the block is tall. */
 /* Absolute, so the square adds nothing to the row height (rows grow to fit content). */
 .sqs-block-shape .sqs-block-content { position: relative; height: 100%; }
+.sqs-shape-block-outer-container { width: 100%; height: 100%; }
 .sqs-shape.is-square { position: absolute; top: 0; left: 0; width: auto; max-width: 100%; aspect-ratio: 1 / 1; }
 
 .sqs-block-code pre {
