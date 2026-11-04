@@ -1,0 +1,1596 @@
+{
+  "item": "CAP-PERLAYOUT",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
+  "question": "L6, S1: are block Design values and the section Row Count stored per layout?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "pick",
+      2,
+      1
+    ],
+    [
+      "click",
+      "Edit"
+    ],
+    [
+      "click",
+      "Design"
+    ],
+    [
+      "read",
+      "design panel",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "fill",
+      "Opacity",
+      "50"
+    ],
+    [
+      "read",
+      "desktop after opacity 50",
+      {
+        "inside": [
+          2,
+          1
+        ],
+        "block": [
+          2,
+          1
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "phone after desktop opacity 50",
+      {
+        "inside": [
+          2,
+          1
+        ],
+        "block": [
+          2,
+          1
+        ]
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "panel",
+      2
+    ],
+    [
+      "click",
+      "Design"
+    ],
+    [
+      "read",
+      "row count desktop",
+      {
+        "controls": true,
+        "section": 2
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "panel",
+      2
+    ],
+    [
+      "click",
+      "Design"
+    ],
+    [
+      "read",
+      "row count phone",
+      {
+        "controls": true,
+        "section": 2
+      }
+    ],
+    [
+      "fill",
+      "Row Count",
+      "40"
+    ],
+    [
+      "read",
+      "phone after row count 40",
+      {
+        "controls": true,
+        "section": 2
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "read",
+      "desktop after phone row count 40",
+      {
+        "section": 2
+      }
+    ]
+  ],
+  "reads": {
+    "design panel": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            755,
+            177,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            777,
+            177,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            839,
+            177,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": false,
+          "box": [
+            1027,
+            248.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            766,
+            322,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": false,
+          "box": [
+            1027,
+            383.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            1014.5,
+            440,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            882,
+            487,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            871,
+            487,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            871,
+            520,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            871,
+            487,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0°",
+          "box": [
+            882,
+            538,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            871,
+            538,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            871,
+            571,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            871,
+            538,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            871,
+            589,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            915,
+            589,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            965,
+            589,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1009,
+            589,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            871,
+            640,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            915,
+            640,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            965,
+            640,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1009,
+            640,
+            44,
+            44
+          ]
+        }
+      ],
+      "save": "clean"
+    },
+    "desktop after opacity 50": {
+      "block": {
+        "desktop": "3/2/8/13",
+        "mobile": "3/2/5/10",
+        "box": [
+          100.1,
+          119.6,
+          635.6,
+          194.5
+        ],
+        "cls": "fe-block",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16145",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "0.5",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "3 / 2 / 8 / 13"
+        },
+        "handles": [
+          "col 10x10 at -6,92.2",
+          "col 10x10 at 631.6,92.2",
+          "ne 10x10 at 631.6,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 312.8,-6",
+          "row 10x10 at 312.8,190.5",
+          "se 10x10 at 631.6,190.5",
+          "sw 10x10 at -6,190.5"
+        ]
+      },
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            100.1,
+            119.6,
+            635.6,
+            194.5
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "3",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-html",
+          "box": [
+            100.1,
+            119.6,
+            635.6,
+            194.5
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            100.1,
+            119.6,
+            635.6,
+            105.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-text-block-container",
+          "box": [
+            100.1,
+            119.6,
+            635.6,
+            105.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-html-content",
+          "box": [
+            100.1,
+            119.6,
+            635.6,
+            105.6
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "0",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "css-roynbj",
+          "box": [
+            100.1,
+            119.6,
+            635.6,
+            105.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-editing text-bl",
+          "box": [
+            100.1,
+            119.6,
+            635.6,
+            105.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            100.1,
+            119.6,
+            635.6,
+            105.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "tiptap ProseMirror",
+          "box": [
+            100.1,
+            119.6,
+            635.6,
+            105.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "p",
+          "cls": "",
+          "box": [
+            100.1,
+            119.6,
+            635.6,
+            44.8
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "p",
+          "cls": "",
+          "box": [
+            100.1,
+            180.4,
+            635.6,
+            44.8
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-outline",
+          "box": [
+            100.1,
+            119.6,
+            6,
+            6
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "3px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-inner",
+          "box": [
+            101.1,
+            120.6,
+            4,
+            4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "2px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        }
+      ],
+      "save": "changed"
+    },
+    "phone after desktop opacity 50": {
+      "block": {
+        "desktop": "3/2/8/13",
+        "mobile": "3/2/5/10",
+        "box": [
+          25.7,
+          187.1,
+          376.7,
+          150.4
+        ],
+        "cls": "fe-block",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16145",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "0.5",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "3 / 2 / 5 / 10"
+        },
+        "handles": []
+      },
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            25.7,
+            187.1,
+            376.7,
+            150.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "3",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-html",
+          "box": [
+            25.7,
+            187.1,
+            376.7,
+            150.4
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            25.7,
+            187.1,
+            376.7,
+            150.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-text-block-container",
+          "box": [
+            25.7,
+            187.1,
+            376.7,
+            150.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-html-content",
+          "box": [
+            25.7,
+            187.1,
+            376.7,
+            150.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "0",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "css-roynbj",
+          "box": [
+            25.7,
+            187.1,
+            376.7,
+            150.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-editing text-bl",
+          "box": [
+            25.7,
+            187.1,
+            376.7,
+            150.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            25.7,
+            187.1,
+            376.7,
+            150.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "tiptap ProseMirror",
+          "box": [
+            25.7,
+            187.1,
+            376.7,
+            150.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "p",
+          "cls": "",
+          "box": [
+            25.7,
+            187.1,
+            376.7,
+            89.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "p",
+          "cls": "",
+          "box": [
+            25.7,
+            292.7,
+            376.7,
+            44.8
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-outline",
+          "box": [
+            25.7,
+            187.1,
+            6,
+            6
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "3px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-inner",
+          "box": [
+            26.7,
+            188.1,
+            4,
+            4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "2px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        }
+      ],
+      "save": "changed"
+    },
+    "row count desktop": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1258,
+            213,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1280,
+            213,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1342,
+            213,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1437.7,
+            213,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "input:number",
+          "label": "Row Count",
+          "value": "11",
+          "min": "11",
+          "max": "10000",
+          "step": "1",
+          "box": [
+            1479,
+            310,
+            77,
+            36
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Divider",
+          "value": false,
+          "box": [
+            1530,
+            658.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          79.8,
+          1600,
+          652.2
+        ],
+        "rows": 11,
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1692,
+        "blocks": 3
+      },
+      "save": "clean"
+    },
+    "row count phone": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1209,
+            213,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1231,
+            213,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1293,
+            213,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1388.7,
+            213,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "input:number",
+          "label": "Row Count",
+          "value": "10",
+          "min": "10",
+          "max": "10000",
+          "step": "1",
+          "box": [
+            1430,
+            310,
+            77,
+            36
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Divider",
+          "value": false,
+          "box": [
+            1481,
+            658.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          79.6,
+          428,
+          623.7
+        ],
+        "rows": 10,
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 6478,
+        "blocks": 3
+      },
+      "save": "clean"
+    },
+    "phone after row count 40": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1209,
+            213,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1231,
+            213,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1293,
+            213,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1388.7,
+            213,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "input:number",
+          "label": "Row Count",
+          "value": "40",
+          "min": "10",
+          "max": "10000",
+          "step": "1",
+          "box": [
+            1430,
+            310,
+            77,
+            36
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Divider",
+          "value": false,
+          "box": [
+            1481,
+            658.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          79.6,
+          428,
+          1646.8
+        ],
+        "rows": 40,
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 6478,
+        "blocks": 3
+      },
+      "save": "changed"
+    },
+    "desktop after phone row count 40": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -31.2,
+          1600,
+          652.2
+        ],
+        "rows": 11,
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1803,
+        "blocks": 3
+      },
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

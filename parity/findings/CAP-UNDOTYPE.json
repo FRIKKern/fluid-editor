@@ -1,0 +1,399 @@
+{
+  "item": "CAP-UNDOTYPE",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
+  "question": "Y2: how many undo steps does typing take, in one burst, in two bursts, and across leaving the edit?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "editText",
+      2,
+      1
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keys",
+      "one two three four"
+    ],
+    [
+      "read",
+      "one burst typed",
+      {
+        "html": [
+          2,
+          1
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "one burst",
+      2,
+      1
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "editText",
+      2,
+      1
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keys",
+      "one two"
+    ],
+    [
+      "pause",
+      3000
+    ],
+    [
+      "keys",
+      " three four"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "two bursts 3s apart",
+      2,
+      1
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "editText",
+      2,
+      1
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keys",
+      "one two"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "keys",
+      " three four"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "two bursts 300ms apart",
+      2,
+      1
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "editText",
+      2,
+      1
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keys",
+      "one two"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "keys",
+      " three four"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "two bursts 800ms apart",
+      2,
+      1
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "editText",
+      2,
+      1
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keys",
+      "one two"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "keys",
+      " three four"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "two bursts 1500ms apart",
+      2,
+      1
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "editText",
+      2,
+      1
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keys",
+      "one"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "editText",
+      2,
+      1
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keys",
+      "two"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "two edits",
+      2,
+      1
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "editText",
+      2,
+      1
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "click",
+      "Bold"
+    ],
+    [
+      "click",
+      "Italic"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "two toolbar actions in one edit",
+      2,
+      1
+    ]
+  ],
+  "reads": {
+    "one burst typed": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">On desktop the smallest a row can be is the container width times 0.0215. A 1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Row height follows the width, so a layout keeps its proportions when the window <a href=\"<url>\">changes.one</a> two three four</p>",
+      "save": "clean"
+    },
+    "one burst": {
+      "undo": [
+        [
+          "start",
+          "s its proportions when the window changes.one two three four"
+        ],
+        [
+          1,
+          ", so a layout keeps its proportions when the window changes."
+        ]
+      ],
+      "stillCan": false
+    },
+    "two bursts 3s apart": {
+      "undo": [
+        [
+          "start",
+          "s its proportions when the window changes.one two three four"
+        ],
+        [
+          1,
+          "layout keeps its proportions when the window changes.one two"
+        ],
+        [
+          2,
+          ", so a layout keeps its proportions when the window changes."
+        ]
+      ],
+      "stillCan": false
+    },
+    "two bursts 300ms apart": {
+      "undo": [
+        [
+          "start",
+          "s its proportions when the window changes.one two three four"
+        ],
+        [
+          1,
+          "layout keeps its proportions when the window changes.one two"
+        ],
+        [
+          2,
+          ", so a layout keeps its proportions when the window changes."
+        ]
+      ],
+      "stillCan": false
+    },
+    "two bursts 800ms apart": {
+      "undo": [
+        [
+          "start",
+          "s its proportions when the window changes.one two three four"
+        ],
+        [
+          1,
+          "layout keeps its proportions when the window changes.one two"
+        ],
+        [
+          2,
+          ", so a layout keeps its proportions when the window changes."
+        ]
+      ],
+      "stillCan": false
+    },
+    "two bursts 1500ms apart": {
+      "undo": [
+        [
+          "start",
+          "s its proportions when the window changes.one two three four"
+        ],
+        [
+          1,
+          "layout keeps its proportions when the window changes.one two"
+        ],
+        [
+          2,
+          ", so a layout keeps its proportions when the window changes."
+        ]
+      ],
+      "stillCan": false
+    },
+    "two edits": {
+      "undo": [
+        [
+          "start",
+          " layout keeps its proportions when the window changes.onetwo"
+        ],
+        [
+          1,
+          "o a layout keeps its proportions when the window changes.one"
+        ],
+        [
+          2,
+          ", so a layout keeps its proportions when the window changes."
+        ]
+      ],
+      "stillCan": false
+    },
+    "two toolbar actions in one edit": {
+      "undo": [
+        [
+          "start",
+          ", so a layout keeps its proportions when the window changes."
+        ],
+        [
+          1,
+          ", so a layout keeps its proportions when the window changes."
+        ],
+        [
+          2,
+          ", so a layout keeps its proportions when the window changes."
+        ]
+      ],
+      "stillCan": false
+    }
+  },
+  "errors": [],
+  "leftDirty": false
+}

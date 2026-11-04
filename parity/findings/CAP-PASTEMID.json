@@ -1,0 +1,103 @@
+{
+  "item": "CAP-PASTEMID",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
+  "question": "E5: what does a paste into the middle of a paragraph do?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "editText",
+      2,
+      1
+    ],
+    [
+      "pasteMid",
+      2,
+      1,
+      "<b>PASTED</b>"
+    ],
+    [
+      "read",
+      "inline",
+      {
+        "html": [
+          2,
+          1
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "editText",
+      2,
+      1
+    ],
+    [
+      "pasteMid",
+      2,
+      1,
+      "<p>ONE</p><p>TWO</p>"
+    ],
+    [
+      "read",
+      "two paragraphs",
+      {
+        "html": [
+          2,
+          1
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "editText",
+      2,
+      1
+    ],
+    [
+      "pasteMid",
+      2,
+      1,
+      "<h2>HEAD</h2><p>TAIL</p>"
+    ],
+    [
+      "read",
+      "heading and paragraph",
+      {
+        "html": [
+          2,
+          1
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "inline": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">On desktop the smallest a row can be is the container width times 0.0215. A <strong>PASTED</strong>1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+      "save": "changed"
+    },
+    "two paragraphs": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">On desktop the smallest a row can be is the container width times 0.0215. A ONE</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">TWO1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+      "save": "changed"
+    },
+    "heading and paragraph": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">On desktop the smallest a row can be is the container width times 0.0215. A HEAD</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">TAIL1400px container gives rows of 30.1px. On phones rows start at a fixed 24px.</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Row height follows the width, so a layout keeps its proportions when the window changes.</p>",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

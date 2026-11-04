@@ -20,7 +20,7 @@ function run(args, timeout = 60000) {
 // DevTools protocol by scripts/lib/cdp-run.mjs; everything else is a cmux browser tab.
 const isCdp = (s) => String(s).startsWith('cdp:');
 const frames = new Map(); // the iframe each cdp surface is in, like `cmux browser frame`
-function cdp(surface, cmd, timeout = 120000) {
+export function cdp(surface, cmd, timeout = 120000) {
   const port = Number(String(surface).slice(4));
   return execFileSync(process.execPath, [new URL('./cdp-run.mjs', import.meta.url).pathname, JSON.stringify({ port, frame: frames.get(surface), ...cmd })], { encoding: 'utf8', timeout, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 }

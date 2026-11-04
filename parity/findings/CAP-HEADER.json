@@ -1,0 +1,483 @@
+{
+  "item": "CAP-HEADER",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
+  "question": "P8: where do the header title and actions sit above 1520px?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "frame",
+      1520,
+      900
+    ],
+    [
+      "read",
+      "1520",
+      {
+        "sel": "header#header .header-announcement-bar-wrapper, header#header .header-title, header#header .header-nav, header#header .header-actions, header#header .header-inner"
+      }
+    ],
+    [
+      "frame",
+      1700,
+      900
+    ],
+    [
+      "read",
+      "1700",
+      {
+        "sel": "header#header .header-announcement-bar-wrapper, header#header .header-title, header#header .header-nav, header#header .header-actions, header#header .header-inner"
+      }
+    ],
+    [
+      "frame",
+      1920,
+      900
+    ],
+    [
+      "read",
+      "1920",
+      {
+        "sel": "header#header .header-announcement-bar-wrapper, header#header .header-title, header#header .header-nav, header#header .header-actions, header#header .header-inner"
+      }
+    ],
+    [
+      "frame",
+      2400,
+      900
+    ],
+    [
+      "read",
+      "2400",
+      {
+        "sel": "header#header .header-announcement-bar-wrapper, header#header .header-title, header#header .header-nav, header#header .header-actions, header#header .header-inner"
+      }
+    ],
+    [
+      "unframe"
+    ]
+  ],
+  "reads": {
+    "1520": {
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "header-announcement-bar-wrapper",
+          "box": [
+            0,
+            0,
+            1520,
+            133.8
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-inner container--fluid header-mobile-layout-logo-left-nav-right header-layout-nav-r",
+          "box": [
+            60.8,
+            45.6,
+            1398.4,
+            42.6
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "zIndex": "1",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-title",
+          "box": [
+            60.8,
+            45.6,
+            219,
+            42.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-nav",
+          "box": [
+            279.8,
+            54.1,
+            1106.8,
+            25.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-actions header-actions--right",
+          "box": [
+            1386.7,
+            55.7,
+            72.5,
+            22.4
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        }
+      ],
+      "save": "clean"
+    },
+    "1700": {
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "header-announcement-bar-wrapper",
+          "box": [
+            0,
+            0,
+            1700,
+            144.6
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-inner container--fluid header-mobile-layout-logo-left-nav-right header-layout-nav-r",
+          "box": [
+            150,
+            51,
+            1400,
+            42.6
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "zIndex": "1",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-title",
+          "box": [
+            150,
+            51,
+            219,
+            42.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-nav",
+          "box": [
+            369,
+            59.5,
+            1104.8,
+            25.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-actions header-actions--right",
+          "box": [
+            1473.8,
+            61.1,
+            76.2,
+            22.4
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        }
+      ],
+      "save": "clean"
+    },
+    "1920": {
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "header-announcement-bar-wrapper",
+          "box": [
+            0,
+            0,
+            1920,
+            157.8
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-inner container--fluid header-mobile-layout-logo-left-nav-right header-layout-nav-r",
+          "box": [
+            260,
+            57.6,
+            1400,
+            42.6
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "zIndex": "1",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-title",
+          "box": [
+            260,
+            57.6,
+            219,
+            42.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-nav",
+          "box": [
+            479,
+            66.1,
+            1100.4,
+            25.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-actions header-actions--right",
+          "box": [
+            1579.5,
+            67.7,
+            80.5,
+            22.4
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        }
+      ],
+      "save": "clean"
+    },
+    "2400": {
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "header-announcement-bar-wrapper",
+          "box": [
+            0,
+            0,
+            2400,
+            186.6
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-inner container--fluid header-mobile-layout-logo-left-nav-right header-layout-nav-r",
+          "box": [
+            500,
+            72,
+            1400,
+            42.6
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "zIndex": "1",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-title",
+          "box": [
+            500,
+            72,
+            219,
+            42.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-nav",
+          "box": [
+            719,
+            80.5,
+            1090.8,
+            25.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "header-actions header-actions--right",
+          "box": [
+            1809.8,
+            82.1,
+            90.2,
+            22.4
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        }
+      ],
+      "save": "clean"
+    }
+  },
+  "errors": [],
+  "leftDirty": false
+}
