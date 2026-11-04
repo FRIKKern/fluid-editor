@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 8 changes
+- **Today** · 9 changes
+  - Reached checks for button-edit and add-section-menu; all 29 review states reached ([#66](https://github.com/FRIKKern/fluid-editor/pull/66))
   - List the 12 mentioned gap labels on their items ([#65](https://github.com/FRIKKern/fluid-editor/pull/65))
-  - Items for every gap the review found; MISSING.md matches against current items ([#64](https://github.com/FRIKKern/fluid-editor/pull/64))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
