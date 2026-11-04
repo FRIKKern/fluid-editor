@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 40 changes
-  - T4: image Content tab, Replace with a local picture, Link, alt text, Remove ([#97](https://github.com/FRIKKern/fluid-editor/pull/97))
-  - P8: site header content in a centred 1400px box ([#96](https://github.com/FRIKKern/fluid-editor/pull/96))
+- **Today** · 42 changes
+  - X2: flags during a gesture as in the traces, mid-check ([#99](https://github.com/FRIKKern/fluid-editor/pull/99))
+  - T4: Corner on image Fit and Fill ([#98](https://github.com/FRIKKern/fluid-editor/pull/98))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
