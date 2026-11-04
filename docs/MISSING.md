@@ -34,7 +34,7 @@ For each editor state, the inventory lists every visible control and label of th
 | phone-idle | Phone layout, nothing selected | 18 | 9 | 0 | 0 | 0 | 9 | 3.22% |
 | phone-text-selected | Phone layout, a text block selected | 18 | 17 | 0 | 0 | 0 | 1 | 2.55% |
 | preview | Preview mode (top bar) | 8 | 6 | 0 | 0 | 0 | 2 | 0.16% |
-| add-section-menu | Add Section on a section edge | 25 | 0 | 0 | 19 | 0 | 5 | 20.55% |
+| add-section-menu | Add Section on a section edge | 25 | 0 | 0 | 0 | 0 | 24 | 20.55% |
 | view-layouts | View Layouts of a section | 11 | 9 | 0 | 0 | 0 | 2 | 1.82% |
 | button-link | Link popover of a button block | 26 | 16 | 0 | 0 | 0 | 10 | 3.19% |
 | phone-section-hover | Phone layout, pointer over a section | 18 | 14 | 0 | 0 | 0 | 4 | 2.31% |
@@ -44,31 +44,7 @@ For each editor state, the inventory lists every visible control and label of th
 | text-color | Writing, the Text Color popover open | 29 | 21 | 0 | 0 | 0 | 7 | 0.94% |
 | site-styles | Site Styles panel (top bar) | 21 | 8 | 0 | 0 | 0 | 11 | 12.79% |
 
-## Mentioned (19)
-
-| Label | Kind | States | Items |
-|---|---|---|---|
-| Introduce | text | add-section-menu | U10 |
-| Intro | text | add-section-menu | U10 |
-| About | text | add-section-menu | T3, T4, G7, Z5, U10 |
-| Contact | text | add-section-menu | T3, T4, T9, U10 |
-| Team | text | add-section-menu | U10 |
-| FAQs | text | add-section-menu | U10 |
-| Products | text | add-section-menu | U10 |
-| Services | text | add-section-menu | T3, T4, T12, U10, E7 |
-| Group Events | text | add-section-menu | U10 |
-| Content & Memberships | text | add-section-menu | U10 |
-| Donations | text | add-section-menu | U10 |
-| Showcase | text | add-section-menu | U10 |
-| Images | text | add-section-menu | T4, T14, X7, U10 |
-| Portfolio | text | add-section-menu | U10 |
-| Testimonials | text | add-section-menu | U10 |
-| Videos | text | add-section-menu | U10 |
-| Calendar | text | add-section-menu | U10 |
-| Menus | text | add-section-menu | U10 |
-| Audio | text | add-section-menu | U10 |
-
-## Tracked (84)
+## Tracked (103)
 
 | Label | Kind | States | Items |
 |---|---|---|---|
@@ -91,7 +67,7 @@ For each editor state, the inventory lists every visible control and label of th
 | AaBright 1 | button | section-colors | P5 |
 | AaBright 2 | button | section-colors | P5 |
 | Pricing Plan | button | add-block-menu | U5 |
-| Scheduling | button | add-block-menu, add-section-menu | U5 |
+| Scheduling | button | add-block-menu, add-section-menu | U5, U10 |
 | Open Layers Panel | button | layers, phone-idle | Z4 |
 | Add Block | button | layers | U9 |
 | On desktop the smallest a row can be is the cont | button | layers | Z4 |
@@ -134,6 +110,25 @@ For each editor state, the inventory lists every visible control and label of th
 | Add a Section | text | add-section-menu | U10 |
 | Add Blank | text | add-section-menu | U10 |
 | Saved | text | add-section-menu | U10 |
+| Introduce | text | add-section-menu | U10 |
+| Intro | text | add-section-menu | U10 |
+| About | text | add-section-menu | U10 |
+| Contact | text | add-section-menu | U10 |
+| Team | text | add-section-menu | U10 |
+| FAQs | text | add-section-menu | U10 |
+| Products | text | add-section-menu | U10 |
+| Services | text | add-section-menu | U10 |
+| Group Events | text | add-section-menu | U10 |
+| Content & Memberships | text | add-section-menu | U10 |
+| Donations | text | add-section-menu | U10 |
+| Showcase | text | add-section-menu | U10 |
+| Images | text | add-section-menu | U10 |
+| Portfolio | text | add-section-menu | U10 |
+| Testimonials | text | add-section-menu | U10 |
+| Videos | text | add-section-menu | U10 |
+| Calendar | text | add-section-menu | U10 |
+| Menus | text | add-section-menu | U10 |
+| Audio | text | add-section-menu | U10 |
 | Layouts | button | view-layouts | U10 |
 | URL | button | button-link | E7 |
 | Enter link, search, or add files | combobox | button-link | E7 |
@@ -163,7 +158,7 @@ For each editor state, the inventory lists every visible control and label of th
 |---|---|---|---|
 | Product | button | add-block-menu | U5 |
 | Donation | button | add-block-menu | U5 |
-| Sell | text | add-block-menu, add-section-menu | U5, U10, U5 |
+| Sell | text | add-block-menu, add-section-menu | U10, U5 |
 | Squarespace AI | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4, E4 |
 | Subscribe | button | site-styles | U12 |
 | Site Styles | text | site-styles | U6, U12, U12 |
