@@ -14,7 +14,7 @@
 <div id="header-slot"></div>
 <main id="page"></main>
 <script type="module">
-import { renderPage, renderHeader, renderFooter, HEADER_SCRIPT } from './src/render.js';
+import { renderPage, renderHeader, renderFooter, HEADER_SCRIPT, ACCORDION_SCRIPT } from './src/render.js';
 import { demoModel } from './src/demo.js';
 import { siteStylesHead } from './src/site-style-packs.js';
 // ?page=home renders another imported trial-site page (app/src/pages/home.js).
@@ -27,6 +27,7 @@ document.getElementById('header-slot').outerHTML = renderHeader(model.header);
 document.getElementById('page').innerHTML = renderPage(model);
 document.getElementById('page').insertAdjacentHTML('afterend', renderFooter(model));
 new Function(HEADER_SCRIPT)();
+new Function(ACCORDION_SCRIPT)();
 document.documentElement.dataset.rendered = 'true';
 </script>
 </body>
