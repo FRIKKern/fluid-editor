@@ -5,8 +5,7 @@
 // node scripts/oracle-record.mjs --surface surface:40 --id T0001-key-right --journey J07 \
 //   --items R1,R4,Y1 --section 0 --target first --keys ArrowRight
 import { writeFileSync } from 'node:fs';
-import { execFileSync } from 'node:child_process';
-import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
+import { browser, evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
 import { READY, LOADED, ENTER_EDIT, READ, SELECT, KEY, BUTTON } from './oracle/snippets.mjs';
 import { validate, diffStates } from './lib/trace.mjs';
 import { pitch, hold, release, blockEl, handleEl, click } from './oracle/ui.mjs';
@@ -30,7 +29,7 @@ function ensurePage() {
   const path = evalJs(surface, `(() => JSON.stringify(document.getElementById('sqs-site-frame').contentDocument.location.pathname))()`);
   if (path === pagePath) return;
   evalJs(surface, `(() => { const e = [...document.querySelectorAll('*')].filter((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(pageTitle)} && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().left < 400)[0]; document.querySelectorAll('#fx-target').forEach((y) => y.removeAttribute('id')); e.id = 'fx-target'; return 'true'; })()`);
-  execFileSync('cmux', ['browser', '--surface', surface, 'click', '#fx-target']);
+  browser(surface, 'click', '#fx-target');
   waitFor(surface, `(() => document.getElementById('sqs-site-frame').contentDocument.location.pathname === ${JSON.stringify(pagePath)} && !!document.getElementById('sqs-site-frame').contentDocument.querySelector('main#page .fluid-engine'))()`, 30);
 }
 

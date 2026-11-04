@@ -29,7 +29,9 @@ The dev server (`npm run dev`, scripts/serve.mjs) sends `Cache-Control: no-store
 
 Geometry is compared with the oracle as WebKit draws it, so Gate B, Gate C, chrome-check, section-check, design-edit-check and the inventory run on a cmux tab. The functional checks (text-check, paste-check, near-check, mid-check, autoscroll-check, image-check) also run on a headless Chrome that never shows on screen: `eval "$(node scripts/headless.mjs)"` sets `FLUID_SURFACE=cdp:9333`. The geometry checks refuse that surface.
 
-Run `eval "$(npm run -s surfaces)"` first: it finds or opens the oracle and editor tabs and exports `ORACLE_SURFACE` and `FLUID_SURFACE`.
+For cmux tabs, run `eval "$(npm run -s surfaces)"` first: it finds or opens the oracle and editor tabs and exports `ORACLE_SURFACE` and `FLUID_SURFACE`.
+
+The oracle also runs in headless Chrome, one per lane, in edit mode at the same time (docs/decisions/0006): `eval "$(CDP_PORT=<port> node scripts/oracle-headless.mjs)"` exports `ORACLE_SURFACE=cdp:<port>` and copies the login from a cmux tab. Stop your own `ORACLE_CHROME_PID` when done.
 
 ## Finding what is missing
 
@@ -64,7 +66,7 @@ Every gap is matched against `parity/items.json`. An item lists the oracle label
 
 | # | Rule |
 |---|---|
-| O1 | Read state, do one gesture, read state, undo. Never press Save on the trial site unless the milestone step says so |
+| O1 | Read state, do one gesture, read state, then leave with `exitWithoutSaving()` in `scripts/oracle/ui.mjs`, because undo can leave a page dirty. Never press Save on the trial site unless the milestone step says so. New experiments go on a new page, never an old one (docs/decisions/0006) |
 | O2 | Black box only. No Squarespace JavaScript, CSS files, fonts or images are copied into this repo |
 | O3 | Fixtures in git hold CSS only: ids and grid numbers. Raw pages with other people's content stay in `fixtures/raw/`, which git ignores |
 | O4 | A Squarespace change that breaks a gate is a finding, not a failure to hide. Recapture and record it |

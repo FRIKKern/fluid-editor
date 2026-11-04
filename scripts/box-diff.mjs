@@ -6,8 +6,7 @@
 //                node scripts/box-diff.mjs --oracle <url> --swap
 // Options: --surface surface:45 --widths 375,767,768,1280,1920 --tolerance 1
 import { readFileSync, writeFileSync } from 'node:fs';
-import { execFileSync } from 'node:child_process';
-import { evalJs, waitFor, goto, viewport, resetViewport, pause, requireWebKit } from './lib/cmux.mjs';
+import { browser, evalJs, waitFor, goto, viewport, resetViewport, pause, requireWebKit } from './lib/cmux.mjs';
 import { ensureVisible } from './lib/cmux.mjs';
 import { parseSectionCss } from './lib/parse.mjs';
 import { sectionCss } from '../app/src/render.js';
@@ -98,7 +97,7 @@ async function measureFrame(width) {
   }
   if (!inPreview) {
     evalJs(s, `(() => { const b = [...document.querySelectorAll('button')].find((x) => (x.getAttribute('aria-label') || x.textContent).trim() === 'Preview'); document.querySelectorAll('#fx-target').forEach((e) => e.removeAttribute('id')); b.id = 'fx-target'; return 'true'; })()`);
-    execFileSync('cmux', ['browser', '--surface', s, 'click', '#fx-target']);
+    browser(s, 'click', '#fx-target');
     await pause(2500);
   }
   evalJs(s, `(() => { const f = document.getElementById('sqs-site-frame'); f.style.setProperty('width', '${width}px', 'important'); f.style.setProperty('max-width', 'none', 'important'); f.style.setProperty('min-width', '0', 'important'); f.style.setProperty('height', '1000px', 'important'); f.style.setProperty('flex', 'none', 'important'); return 'true'; })()`);

@@ -3,8 +3,7 @@
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
 // Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | SECTIONBAR [sections json] | UNBUILT [names json] | BUTTONEDIT | TEXTLINK | TEXTCOLOR | BLEND [section] [block] [options json] | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
-import { execFileSync } from 'node:child_process';
-import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
+import { browser, evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
 import { READY, LOADED, ENTER_EDIT, KEY, BUTTON } from './oracle/snippets.mjs';
 import { select, click, editText, pasteHtml, escape, deselect, addSection, addBlock, removeBlock, sectionCount, area, hold, release, blockEl, pitch, blockIds } from './oracle/ui.mjs';
 
@@ -33,7 +32,7 @@ function ensurePage() {
   const path = evalJs(S, `(() => JSON.stringify(document.getElementById('sqs-site-frame').contentDocument.location.pathname))()`);
   if (path === PAGE) return;
   evalJs(S, `(() => { const e = [...document.querySelectorAll('*')].filter((x) => x.childElementCount === 0 && x.textContent.trim() === 'How Fluid Engine works' && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().left < 400)[0]; document.querySelectorAll('#fx-target').forEach((y) => y.removeAttribute('id')); e.id = 'fx-target'; return 'true'; })()`);
-  execFileSync('cmux', ['browser', '--surface', S, 'click', '#fx-target']);
+  browser(S, 'click', '#fx-target');
   waitFor(S, `(() => document.getElementById('sqs-site-frame').contentDocument.location.pathname === '${PAGE}')()`, 30);
 }
 function ensureEditing() {
@@ -342,7 +341,7 @@ if (which === 'DIVSHAPES') {
   const i = 2;
   const start = Object.fromEntries([...Array(8).keys()].map((k) => [k, both(k)]));
   const { hoverSection } = await import('./oracle/ui.mjs');
-  const shot = (name) => execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS || '/tmp'}/${name}.png`]);
+  const shot = (name) => browser(S, 'screenshot', '--out', `${process.env.SHOTS || '/tmp'}/${name}.png`);
   const openPanel = async () => { await hoverSection(i);
     await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 }); };
   const hasDivider = () => evalJs(S, `(() => JSON.stringify(!![...document.querySelectorAll('input[type=checkbox]')].find((x) => x.getAttribute('aria-label') === 'Divider')))()`);
@@ -360,7 +359,7 @@ if (which === 'DIVSHAPES') {
       shot(`divider-${label.toLowerCase()}`);
       out[label] = evalJs(S, PANEL);
       console.log(label, JSON.stringify(out[label]).slice(0, 600));
-      execFileSync('cmux', ['browser', '--surface', S, 'press', 'Escape']); await pause(800);
+      browser(S, 'press', 'Escape'); await pause(800);
       if (hasDivider() !== true) { await openPanel(); }
     } catch (e) { out[label] = { error: String(e.message).slice(0, 80) }; }
   }
@@ -375,7 +374,7 @@ if (which === 'DIVOPTS') {
   const i = 2;
   const start = Object.fromEntries([...Array(8).keys()].map((k) => [k, both(k)]));
   const { hoverSection } = await import('./oracle/ui.mjs');
-  const shot = (name) => execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS || '/tmp'}/${name}.png`]);
+  const shot = (name) => browser(S, 'screenshot', '--out', `${process.env.SHOTS || '/tmp'}/${name}.png`);
   const openPanel = async () => { await hoverSection(i);
     await click(`() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => [x.getAttribute("aria-label"), x.textContent].some((t) => /edit section|open section settings/i.test(t || "")) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 2 && y <= fr.top + sec.bottom; }); }`, { wait: 1800 }); };
   const hasDivider = () => evalJs(S, `(() => JSON.stringify(!![...document.querySelectorAll('input[type=checkbox]')].find((x) => x.getAttribute('aria-label') === 'Divider')))()`);
@@ -493,18 +492,18 @@ if (which === 'TEXTBAR') {
   evalJs(S, `(() => { ${FRAME} const p = d.querySelector('.fe-block[data-block-id="${id}"] [contenteditable=true] p'); const t = p.firstChild; const r = d.createRange(); r.setStart(t, 0); r.setEnd(t, Math.max(1, t.textContent.indexOf(' '))); const sel = W.getSelection(); sel.removeAllRanges(); sel.addRange(r);
     d.dispatchEvent(new W.Event('selectionchange')); p.dispatchEvent(new W.MouseEvent('mouseup', { bubbles: true })); return 'true'; })()`);
   await pause(1200);
-  execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS || '/tmp'}/textbar.png`]);
+  browser(S, 'screenshot', '--out', `${process.env.SHOTS || '/tmp'}/textbar.png`);
   const bar = evalJs(S, CONTROLS);
   console.log('bar', JSON.stringify(bar.map((c) => c.name + (c.pressed ? '[' + c.pressed + ']' : '') + (c.where === 'frame' ? '*' : ''))));
   const menus = {};
   for (const c of bar.filter((c) => c.pressed === 'false' || /style|size|color|align|list|link|more|font|format/i.test(c.name)).slice(0, 8)) {
     try {
       await click(`() => { const all = [...document.querySelectorAll('button, [role=button]')].filter((e) => (e.getAttribute('aria-label') || e.getAttribute('title') || e.textContent.trim()).slice(0, 40) === ${'NAME'} && e.getBoundingClientRect().width > 0 && e.getBoundingClientRect().top > 56); return all[0]; }`.replace('NAME', JSON.stringify(c.name)), { wait: 1000 });
-      execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS || '/tmp'}/textbar-${c.name.replace(/\W+/g, '-').toLowerCase()}.png`]);
+      browser(S, 'screenshot', '--out', `${process.env.SHOTS || '/tmp'}/textbar-${c.name.replace(/\W+/g, '-').toLowerCase()}.png`);
       const after = evalJs(S, CONTROLS).map((x) => x.name);
       menus[c.name] = after.filter((n) => !bar.some((b) => b.name === n));
       console.log('menu', c.name, JSON.stringify(menus[c.name]));
-      execFileSync('cmux', ['browser', '--surface', S, 'press', 'Escape']); await pause(600);
+      browser(S, 'press', 'Escape'); await pause(600);
     } catch (e) { menus[c.name] = { error: String(e.message).slice(0, 60) }; }
   }
   await escape(); await escape(); await deselect(i);
@@ -592,7 +591,7 @@ if (which === 'TEXTLINK') {
   const SELBOX = `(() => { ${FRAME} const r = W.getSelection().getRangeAt(0).getBoundingClientRect(); const f2 = f.getBoundingClientRect(); return JSON.stringify([f2.x + r.x, f2.y + r.y, r.width, r.height].map(Math.round)); })()`;
   const LINKBTN = `() => [...document.querySelectorAll('button, [role=button]')].find((e) => /^link$/i.test(e.getAttribute('aria-label') || '') && e.getBoundingClientRect().width > 0)`;
   const tagInput = () => evalJs(S, `(() => { document.querySelectorAll('#fx-target').forEach((x) => x.removeAttribute('id')); const h = [...document.querySelectorAll('input')].find((e) => e.getAttribute('placeholder') === 'Enter link, search, or add files' && e.getBoundingClientRect().width > 0); if (!h) return JSON.stringify(false); h.id = 'fx-target'; return JSON.stringify(true); })()`);
-  const cm = (...a) => execFileSync('cmux', ['browser', '--surface', S, ...a]);
+  const cm = (...a) => browser(S, ...a);
   if (saveDisabled() !== true) throw new Error('The oracle has unsaved changes; stopping (O1)');
   const out = { block: [i, k] };
   await startWrite();
@@ -750,8 +749,8 @@ if (which === 'BUTTONEDIT') {
       inputs: [...p.querySelectorAll('input')].filter(vis).map((e) => ({ label: e.getAttribute('aria-label'), placeholder: e.getAttribute('placeholder'), value: e.value })),
       buttons: [...p.querySelectorAll('button, [role=button], [role=option], [role=tab]')].filter(vis).map((e) => e.getAttribute('aria-label') || e.textContent.trim()) }); })()`;
   const tag = (find) => evalJs(S, `(() => { document.querySelectorAll('#fx-target').forEach((x) => x.removeAttribute('id')); const el = (${find})(); if (!el) return JSON.stringify(false); el.id = 'fx-target'; return JSON.stringify(true); })()`);
-  const fill = (text) => execFileSync('cmux', ['browser', '--surface', S, 'fill', '#fx-target', text]);
-  const press = (k) => execFileSync('cmux', ['browser', '--surface', S, 'press', k]);
+  const fill = (text) => browser(S, 'fill', '#fx-target', text);
+  const press = (k) => browser(S, 'press', k);
   const out = { block: [i, id], htmlBefore: evalJs(S, BTN) };
   if (saveDisabled() !== true) throw new Error('The oracle has unsaved changes; stopping (O1)');
   await select(i, id); await pause(700);
@@ -793,7 +792,7 @@ if (which === 'EXIT') {
   const id = blockIds(i)[k];
   const BAR = `(() => { const t = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.getBoundingClientRect().top < 55 && e.getBoundingClientRect().width > 0 && e.textContent.trim()).map((e) => e.textContent.trim());
     const save = [...document.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Save'); return JSON.stringify({ text: [...new Set(t)], saveDisabled: save?.disabled }); })()`;
-  const shot = (n) => process.env.SHOTS && execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS}/${n}.png`]);
+  const shot = (n) => process.env.SHOTS && browser(S, 'screenshot', '--out', `${process.env.SHOTS}/${n}.png`);
   const start = both(i);
   const out = { clean: evalJs(S, BAR) };
   await select(i, id); await pause(600);
@@ -814,7 +813,7 @@ if (which === 'EXIT') {
   if (!out.stillEditing) {
     // Exit left the editor: write what happened, then check the saved page is unchanged.
     out.dialog = null;
-    reload(S); await pause(1500); try { execFileSync('cmux', ['browser', '--surface', S, 'dialog', 'accept']); } catch {}
+    reload(S); await pause(1500); try { browser(S, 'dialog', 'accept'); } catch {}
     ensurePage(); evalJs(S, ENTER_EDIT); waitFor(S, READY, 30);
     const now = both(i);
     out.savedUnchanged = JSON.stringify(now) === JSON.stringify(start);
@@ -827,7 +826,7 @@ if (which === 'EXIT') {
     if (!h) return JSON.stringify(null); let box = h; while (box.parentElement && !box.querySelector('button')) box = box.parentElement;
     return JSON.stringify({ text: [...new Set([...box.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && e.textContent.trim()).map((e) => e.textContent.trim()))], buttons: [...box.querySelectorAll('button')].filter((x) => x.getBoundingClientRect().width > 0).map((x) => x.textContent.trim() || x.getAttribute('aria-label')) }); })()`);
   console.log('dialog', JSON.stringify(out.dialog));
-  execFileSync('cmux', ['browser', '--surface', S, 'press', 'Escape']); await pause(1500);
+  browser(S, 'press', 'Escape'); await pause(1500);
   out.kept = 'Escape';
   out.afterKeep = evalJs(S, BAR);
   let n = 0; while (n < 4 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); }
@@ -939,7 +938,7 @@ if (which === 'TOOLBARGEO') {
         bar: { box: rel(bar.getBoundingClientRect()), bg: cs.backgroundColor, radius: cs.borderRadius, shadow: cs.boxShadow, padding: cs.padding, gap: cs.gap, border: cs.border },
         buttons, seps, icon: iq && [Math.round(iq.width), Math.round(iq.height)], outline, pill }); })()`);
     console.log(label, JSON.stringify(out[label]).slice(0, 900));
-    if (process.env.SHOTS) execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS}/toolbar-${label.replace(/\W+/g, '-')}.png`]);
+    if (process.env.SHOTS) browser(S, 'screenshot', '--out', `${process.env.SHOTS}/toolbar-${label.replace(/\W+/g, '-')}.png`);
     await escape(); await deselect(i);
   }
   if (saveDisabled() !== true) throw new Error('The probe changed the page');
@@ -982,8 +981,8 @@ if (which === 'DESIGN') {
       const ctl = evalJs(S, CONTROLS).find((c) => (label.startsWith('#') ? c.n === Number(label.slice(1)) : c.label === label || c.label.startsWith(label)));
       if (!ctl) throw new Error(`no control ${label}`);
       evalJs(S, `(() => { document.querySelectorAll('#fx-ctl').forEach((x) => x.removeAttribute('id')); document.querySelector('[data-fx-ctl="${ctl.n}"]').id = 'fx-ctl'; return 'true'; })()`);
-      if (ctl.type === 'checkbox' || ctl.type === 'switch') execFileSync('cmux', ['browser', '--surface', S, 'click', '#fx-ctl']);
-      else { execFileSync('cmux', ['browser', '--surface', S, 'fill', '#fx-ctl', String(value)]); execFileSync('cmux', ['browser', '--surface', S, 'press', 'Enter']); }
+      if (ctl.type === 'checkbox' || ctl.type === 'switch') browser(S, 'click', '#fx-ctl');
+      else { browser(S, 'fill', '#fx-ctl', String(value)); browser(S, 'press', 'Enter'); }
       await pause(1500);
       const after = evalJs(S, READ);
       const diff = after.els.map((e, n) => Object.fromEntries(Object.entries(e).filter(([kk, v]) => v !== base.els[n]?.[kk]))).map((x, n) => (Object.keys(x).length ? { el: after.els[n].cls, ...x } : null)).filter(Boolean);
@@ -1029,8 +1028,8 @@ if (which === 'BLEND') {
   for (const o of names.filter((t) => t !== 'Normal' && (!only || only.includes(t)))) {
     try {
       await open();
-      for (let n = 0; n < names.indexOf(o); n++) { execFileSync('cmux', ['browser', '--surface', S, 'press', 'ArrowDown']); await pause(120); }
-      execFileSync('cmux', ['browser', '--surface', S, 'press', 'Enter']); await pause(1500);
+      for (let n = 0; n < names.indexOf(o); n++) { browser(S, 'press', 'ArrowDown'); await pause(120); }
+      browser(S, 'press', 'Enter'); await pause(1500);
       const after = evalJs(S, READ);
       out.changes[o] = { blend: after.blend, vars: after.vars, changed: saveDisabled() !== true };
     } catch (e) { out.changes[o] = { error: String(e.message).slice(0, 120) }; }
@@ -1049,7 +1048,7 @@ if (which === 'SECTIONBAR') {
   // to it (its box relative to the section, label, colors, the box of its toolbar group), then
   // open Edit Section and read the panel box and look. Read only; Escape closes the panel.
   const cases = (process.argv[3] && JSON.parse(process.argv[3])) || [2, 0, 7];
-  const shot = (n) => process.env.SHOTS && execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS}/${n}.png`]);
+  const shot = (n) => process.env.SHOTS && browser(S, 'screenshot', '--out', `${process.env.SHOTS}/${n}.png`);
   const { hoverSection } = await import('./oracle/ui.mjs');
   const out = {};
   for (const i of cases) {
@@ -1092,7 +1091,7 @@ if (which === 'UNBUILT') {
   const i = 2;
   const ids = blockIds(i);
   const shape = ids[2], text = ids[1];
-  const shot = (n) => process.env.SHOTS && execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS}/unbuilt-${n}.png`]);
+  const shot = (n) => process.env.SHOTS && browser(S, 'screenshot', '--out', `${process.env.SHOTS}/unbuilt-${n}.png`);
   const READ = (id) => evalJs(S, `(() => { ${FRAME}
     const sec = d.querySelectorAll('main#page .page-section')[${i}];
     const b = sec.querySelector('.fe-block[data-block-id="${id}"]');
@@ -1127,7 +1126,7 @@ if (which === 'UNBUILT') {
     'pin': async () => { await select(i, shape); await pause(500); await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Pin' && x.getBoundingClientRect().width > 0)`, { wait: 1500 }); },
     'link-url': async () => { await startWrite(text); await click(`() => [...document.querySelectorAll('[aria-label]')].find((x) => x.getAttribute('aria-label') === 'Link' && x.getBoundingClientRect().width > 0)`, { wait: 1200 });
       const inp = evalJs(S, `(() => { const i = [...document.querySelectorAll('input')].find((x) => x.getBoundingClientRect().width > 0 && /url|link|http/i.test((x.placeholder || '') + (x.getAttribute('aria-label') || ''))); document.querySelectorAll('#fx-in').forEach((y) => y.removeAttribute('id')); if (!i) return JSON.stringify(false); i.id = 'fx-in'; return JSON.stringify(true); })()`);
-      if (inp) { execFileSync('cmux', ['browser', '--surface', S, 'fill', '#fx-in', 'https://example.com/a']); execFileSync('cmux', ['browser', '--surface', S, 'press', 'Enter']); await pause(1200); } },
+      if (inp) { browser(S, 'fill', '#fx-in', 'https://example.com/a'); browser(S, 'press', 'Enter'); await pause(1200); } },
     'link-page': async () => { await startWrite(text); await click(`() => [...document.querySelectorAll('[aria-label]')].find((x) => x.getAttribute('aria-label') === 'Link' && x.getBoundingClientRect().width > 0)`, { wait: 1200 });
       await click(`() => [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.textContent.trim() === 'Services' && e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')).pop()`, { wait: 1500 }); },
     'text-color': async () => { await startWrite(text); await click(`() => [...document.querySelectorAll('[aria-label]')].find((x) => x.getAttribute('aria-label') === 'Text Color' && x.getBoundingClientRect().width > 0)`, { wait: 1200 });
@@ -1185,13 +1184,13 @@ if (which === 'T13') {
       await removeBlock(i, id);
     } catch (e) {
       results[t] = { error: String(e.message).slice(0, 300) };
-      if (process.env.SHOTS) execFileSync('cmux', ['browser', '--surface', S, 'screenshot', '--out', `${process.env.SHOTS}/t13-${t}.png`]);
+      if (process.env.SHOTS) browser(S, 'screenshot', '--out', `${process.env.SHOTS}/t13-${t}.png`);
     }
     console.log(t, JSON.stringify(results[t]));
   }
   reload(S);
   await pause(1500);
-  try { execFileSync('cmux', ['browser', '--surface', S, 'dialog', 'accept']); } catch {}
+  try { browser(S, 'dialog', 'accept'); } catch {}
   ensurePage();
   const n = evalJs(S, `(() => { ${FRAME} return JSON.stringify(d.querySelectorAll('main#page .fluid-engine').length); })()`);
   if (n !== 8) throw new Error(`after reload the page has ${n} sections, expected the saved 8`);
