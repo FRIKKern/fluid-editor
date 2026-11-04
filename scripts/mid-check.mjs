@@ -1,7 +1,7 @@
 // X2: hold each recorded drag and resize in our editor and compare what the blocks say while held
 // with the trace's mid state: near, matching width and height, selected, the grid in one section.
 // G5, G6: then hold what parity/findings/GUIDES.json measured and compare the target area, the
-// ring box, the center line and the width of the held block.
+// ring box, the center line and the width of the held block. X8: then the group handles.
 // Runs on headless Chrome. Writes parity/mid-check.json. Usage: npm run mid-check.
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, waitFor } from './lib/cmux.mjs';
@@ -118,5 +118,69 @@ for (const { name, got, want } of cases) {
   guideResults.push({ name, pass: !diffs.length, diffs });
 }
 console.log(`Guides and center snap: ${guidePass} of ${cases.length} holds match`);
-writeFileSync(new URL('../parity/mid-check.json', import.meta.url), JSON.stringify({ check: 'mid-gesture flags, guides and center snap', pass: pass + guidePass, total: traces.length + cases.length, results, guides: guideResults }, null, 2) + '\n');
-process.exit(pass === traces.length && guidePass === cases.length ? 0 : 1);
+
+// X8: GROUPRESIZE.json. A group of heading and paragraph, held on one of its handles or dropped.
+const GR = JSON.parse(readFileSync(new URL('../parity/findings/GROUPRESIZE.json', import.meta.url)));
+const holdGroup = (dir, cols, rows, drop = false) => evalJs(S, `(async () => { ${FRAME}
+  const [h, p] = s.blocks; const block = (b) => d.querySelector('.fe-block[data-block-id="' + b.id + '"]');
+  block(h).scrollIntoView({ block: 'center' }); await sleep(150);
+  const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 };
+  const click = (b, shiftKey) => { const r = block(b).getBoundingClientRect(); const c = { ...o, shiftKey, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2 }; block(b).dispatchEvent(new W.PointerEvent('pointerdown', { ...c, buttons: 1 })); d.dispatchEvent(new W.PointerEvent('pointerup', { ...c, buttons: 0 })); };
+  fe.select(s.id, h.id); click(p, true); await sleep(50);
+  const m = fe.measure(s.id); const dx = ${cols} * (m.colStart[2] - m.colStart[1]), dy = ${rows} * m.pitch;
+  const el = d.querySelector('.fe-indicator.is-group .fe-handle[data-dir="${dir}"]');
+  const q = el.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2;
+  el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, clientX: x, clientY: y, buttons: 1 }));
+  for (let k = 1; k <= 8; k++) { d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x + dx * k / 8, clientY: y + dy * k / 8, buttons: 1 })); await sleep(15); }
+  await sleep(120);
+  const ring = d.querySelector('.fe-transform-indicator');
+  const out = { ring: ring && W.getComputedStyle(ring).gridArea, heading: W.getComputedStyle(block(h)).gridArea, paragraph: W.getComputedStyle(block(p)).gridArea };
+  d.dispatchEvent(new W.PointerEvent(${drop ? "'pointerup'" : "'pointercancel'"}, { ...o, clientX: x + dx, clientY: y + dy, buttons: 0 }));
+  await sleep(100);
+  const now = fe.model.sections[${F.section}].blocks;
+  out.after = [now[0].layout.desktop.area.join(' / '), now[1].layout.desktop.area.join(' / ')];
+  out.undo = fe.canUndo;
+  while (fe.canUndo) fe.undo();
+  return JSON.stringify(out); })()`);
+const groupCases = [];
+const parts = (a) => a.split(' / ').map(Number);
+for (const c of GR.east) {
+  const got = holdGroup('e', c.byCols, 0), [h, p] = [parts(got.heading), parts(got.paragraph)];
+  groupCases.push({ name: `group east by ${c.byCols}`, diffs: [h[3] - h[1] !== c.heading && `heading: oracle ${c.heading}, ours ${h[3] - h[1]}`, p[3] - p[1] !== c.paragraph && `paragraph: oracle ${c.paragraph}, ours ${p[3] - p[1]}`, got.after[0] !== '1 / 2 / 5 / 16' && 'cancel kept a change'].filter(Boolean) });
+}
+for (const c of GR.south) {
+  const got = holdGroup('s', 0, c.byRows), [h, p] = [parts(got.heading), parts(got.paragraph)];
+  const known = GR.knownMisses.some((k) => k.case === `south by ${c.byRows} rows`);
+  const diffs = [h[2] - h[0] !== c.headingRows && `heading: oracle ${c.headingRows}, ours ${h[2] - h[0]}`, p[0] !== c.paragraphStart && `paragraph start: oracle ${c.paragraphStart}, ours ${p[0]}`, p[2] - p[0] !== c.paragraphRows && `paragraph: oracle ${c.paragraphRows}, ours ${p[2] - p[0]}`].filter(Boolean);
+  groupCases.push({ name: `group south by ${c.byRows}`, diffs, known });
+}
+for (const c of GR.drops) {
+  const got = holdGroup(c.dir, c.cols, c.rows, true);
+  const diffs = [got.after[0] !== c.heading && `heading: oracle ${c.heading}, ours ${got.after[0]}`, got.after[1] !== (c.held?.split('paragraph ')[1] || c.paragraph) && `paragraph: oracle ${c.paragraph}, ours ${got.after[1]}`, !got.undo && 'no undo step'].filter(Boolean);
+  const name = `group drop ${c.dir} ${c.cols},${c.rows}`;
+  groupCases.push({ name, diffs, known: GR.knownMisses.some((k) => k.case === name) });
+}
+// Move Forward from the oracle's start: z 1, 2, 3 becomes 2, 3, 1, and the buttons swap.
+groupCases.push({ name: 'group move forward', ...(() => {
+  const got = evalJs(S, `(async () => { ${FRAME}
+    const [h, p] = s.blocks; const block = (b) => d.querySelector('.fe-block[data-block-id="' + b.id + '"]');
+    const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 };
+    const click = (b, shiftKey) => { const r = block(b).getBoundingClientRect(); const c = { ...o, shiftKey, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2 }; block(b).dispatchEvent(new W.PointerEvent('pointerdown', { ...c, buttons: 1 })); d.dispatchEvent(new W.PointerEvent('pointerup', { ...c, buttons: 0 })); };
+    fe.select(s.id, h.id); click(p, true); await sleep(50);
+    const off = (a) => document.querySelector('[data-tb="' + a + '"]').classList.contains('is-off');
+    const zs = () => fe.model.sections[${F.section}].blocks.map((b) => b.layout.desktop.z).join();
+    const before = [off('z+'), off('z-'), zs()];
+    document.querySelector('[data-tb="z+"]').click(); await sleep(80);
+    const after = [off('z+'), off('z-'), zs()];
+    while (fe.canUndo) fe.undo();
+    return JSON.stringify({ before, after }); })()`);
+  const diffs = [JSON.stringify(got.before) !== '[false,true,"1,2,3"]' && `before ${got.before}`, JSON.stringify(got.after) !== '[true,false,"2,3,1"]' && `after ${got.after}`].filter(Boolean);
+  return { diffs };
+})() });
+const groupFails = groupCases.filter((c) => c.diffs.length && !c.known);
+const groupKnown = groupCases.filter((c) => c.known);
+for (const c of groupFails) console.log(`DIFF ${c.name}\n  ${c.diffs.join('\n  ')}`);
+for (const c of groupKnown) if (!c.diffs.length) { console.log(`Known miss gone: ${c.name}`); groupFails.push(c); }
+console.log(`Group resize: ${groupCases.length - groupFails.length - groupKnown.length} of ${groupCases.length} match, ${groupKnown.length} named known miss`);
+writeFileSync(new URL('../parity/mid-check.json', import.meta.url), JSON.stringify({ check: 'mid-gesture flags, guides, center snap and group resize', pass: pass + guidePass + groupCases.length - groupFails.length - groupKnown.length, known: groupKnown.map((c) => c.name), total: traces.length + groupCases.length + cases.length, results, guides: guideResults, groups: groupCases }, null, 2) + '\n');
+process.exit(pass === traces.length && guidePass === cases.length && !groupFails.length ? 0 : 1);

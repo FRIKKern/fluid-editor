@@ -179,7 +179,7 @@ function drawSelection() {
 function drawSelectionLayers() {
   for (const el of doc.querySelectorAll('.fe-indicator')) el.remove();
   // A held block stays selected (traces T0004 to T0006 mid); only its layers go away.
-  if (gesture?.type === 'move' || gesture?.type === 'resize') return;
+  if (gesture?.type === 'move' || gesture?.type === 'resize' || gesture?.type === 'gresize') return;
   for (const el of doc.querySelectorAll('.fe-block[data-is-selected="true"]')) el.dataset.isSelected = 'false';
   if (!sel) return;
   const b = B(sel.sid, sel.bid);
@@ -207,8 +207,7 @@ function drawSelectionLayers() {
     feEl(sel.sid).append(ind2);
   }
   // A group (X8, gap review screenshot): one outline with eight handles around all selected
-  // blocks; each block keeps a thin outline. Resizing the group is not built: the handles show
-  // and do not respond.
+  // blocks; each block keeps a thin outline. The handles resize the group (GROUPRESIZE.json).
   if (sel.more?.length) {
     for (const el3 of feEl(sel.sid).querySelectorAll('.fe-indicator')) { el3.classList.add('is-member'); el3.replaceChildren(); }
     const areas = [sel.bid, ...sel.more].map((id) => (id === sel.bid ? gesture?.target : gesture?.moreTargets?.[id]) || lay(B(sel.sid, id)).area);
@@ -219,7 +218,7 @@ function drawSelectionLayers() {
     g.style.zIndex = '199999';
     for (const dir of ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w']) {
       const h = doc.createElement('div');
-      h.className = 'fe-handle is-static';
+      h.className = 'fe-handle';
       h.dataset.dir = dir;
       g.append(h);
     }
@@ -236,17 +235,41 @@ function zInfo(sid, b) {
   return { overlaps: over.length > 0, above: over.some((o) => o.layout[bp].z > L.z), below: over.some((o) => o.layout[bp].z < L.z) };
 }
 let groupAlignOpen = false;
+// Group Move Forward and Backward (parity/findings/GROUPRESIZE.json): is a block outside the group
+// above its top one or below its bottom one? The oracle's case is one block above a group of two.
+function groupZ(sid, ids) {
+  const inside = S(sid).blocks.filter((o) => ids.includes(o.id)).map((o) => lay(o).z);
+  const outside = S(sid).blocks.filter((o) => !ids.includes(o.id)).map((o) => lay(o).z);
+  return { above: outside.some((z) => z > Math.max(...inside)), below: outside.some((z) => z < Math.min(...inside)) };
+}
+// The next block outside the group crosses it, and the z values stay the same set: 1, 2, 3 with
+// the group on 1 and 2 becomes group 2, 3 and the other block 1.
+function groupZSwap(sid, ids, up) {
+  const all = S(sid).blocks.map((o) => lay(o)).sort((a, b) => a.z - b.z);
+  const members = S(sid).blocks.filter((o) => ids.includes(o.id)).map((o) => lay(o));
+  const zs = all.map((L) => L.z);
+  const top = Math.max(...members.map((L) => L.z)), bottom = Math.min(...members.map((L) => L.z));
+  const other = up ? all.find((L) => L.z > top && !members.includes(L)) : [...all].reverse().find((L) => L.z < bottom && !members.includes(L));
+  if (!other) return;
+  const rest = all.filter((L) => L !== other);
+  const at = rest.findIndex((L) => members.includes(L));
+  const lastAt = rest.length - 1 - [...rest].reverse().findIndex((L) => members.includes(L));
+  rest.splice(up ? at : lastAt + 1, 0, other);
+  rest.forEach((L, k) => { L.z = zs[k]; });
+}
 function placeGroupToolbar() {
   const g = doc.querySelector('.fe-indicator.is-group');
   if (!g) { toolbar.hidden = true; return; }
-  const key = `group|${sel.bid}|${sel.more.join(',')}|${groupAlignOpen}`;
-  if (toolbar.dataset.key !== key) { toolbar.innerHTML = groupToolbarHtml(groupAlignOpen); toolbar.dataset.key = key; }
+  const z = groupZ(sel.sid, [sel.bid, ...sel.more]);
+  const key = `group|${sel.bid}|${sel.more.join(',')}|${groupAlignOpen}|${z.above}|${z.below}`;
+  if (toolbar.dataset.key !== key) { toolbar.innerHTML = groupToolbarHtml(groupAlignOpen, z); toolbar.dataset.key = key; }
   const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), g.getBoundingClientRect());
-  toolbar.style.left = `${p.left}px`;
-  toolbar.style.top = `${p.top}px`;
+  toolbar.style.left = `${p.left - 7}px`;
+  toolbar.style.top = `${p.top - 7}px`;
   toolbar.hidden = false;
 }
 function placeToolbar() {
+  toolbar.classList.toggle('is-group', !!sel?.more?.length);
   if (sel?.more?.length && !gesture?.type?.match(/move|resize/) && !editing && doc && !document.body.classList.contains('is-preview')) { placeGroupToolbar(); return; }
   if (!sel || sel.more?.length || gesture?.type === 'move' || gesture?.type === 'resize' || editing || !doc || designOpen === sel.bid) { toolbar.hidden = true; return; }
   const b = B(sel.sid, sel.bid);
@@ -279,6 +302,7 @@ toolbar.addEventListener('click', (e) => {
     const before = JSON.stringify(model);
     const ids = [bid, ...sel.more];
     if (act === 'stack') stackBlocks();
+    if (act === 'z+' || act === 'z-') groupZSwap(sid, ids, act === 'z+');
     if (act.startsWith('align:')) alignGroup(act.slice(6));
     if (act === 'gduplicate') for (const id of ids) duplicateBlock(sid, id);
     if (act === 'gremove') { S(sid).blocks = S(sid).blocks.filter((o) => !ids.includes(o.id)); sel = null; }
@@ -398,14 +422,15 @@ function flagNeighbours(g, t) {
     const el = blockEl(o.id);
     if (!el) continue;
     const a = lay(o).area;
-    const mine = o.id === g.bid;
+    const mine = o.id === g.bid || g.members?.includes(o.id);
     const gapC = Math.max(a[1] - t[3], t[1] - a[3], 0);
     const gapR = Math.max(a[0] - t[2], t[0] - a[2], 0);
     // parity/findings/NEAR.json: near when both gaps are at most 1 line. The dragged block has the
     // same rule, from where it started: near on a short drag (T0004), not on a far one (T0010).
     el.dataset.isNearDraggedBlock = String(gapC <= 1 && gapR <= 1);
-    el.dataset.isMatchingWidth = String(!mine && g.type === 'resize' && a[3] - a[1] === t[3] - t[1]);
-    el.dataset.isMatchingHeight = String(!mine && g.type === 'resize' && a[2] - a[0] === t[2] - t[0]);
+    const resizing = g.type === 'resize' || g.type === 'gresize';
+    el.dataset.isMatchingWidth = String(!mine && resizing && a[3] - a[1] === t[3] - t[1]);
+    el.dataset.isMatchingHeight = String(!mine && resizing && a[2] - a[0] === t[2] - t[0]);
     const w = el.dataset.isMatchingWidth === 'true', h = el.dataset.isMatchingHeight === 'true';
     anyW ||= w; anyH ||= h;
     const marks = g.marks?.[o.id];
@@ -466,6 +491,7 @@ function autoScroll(g) {
     win.scrollBy(0, dir * SCROLL_STEP);
     if (g.type === 'move') updateMove(g.lastEvent);
     else if (g.type === 'resize') updateResize(g.lastEvent);
+    else if (g.type === 'gresize') updateGroupResize(g.lastEvent);
     win.setTimeout(tick, SCROLL_EVERY);
   };
   win.setTimeout(tick, SCROLL_EVERY);
@@ -585,7 +611,8 @@ function onMove(e) {
   gesture.lastEvent = { clientX: e.clientX, clientY: e.clientY };
   if (gesture.type === 'move') updateMove(e);
   else if (gesture.type === 'resize') updateResize(e);
-  if (gesture.type === 'move' || gesture.type === 'resize') autoScroll(gesture);
+  else if (gesture.type === 'gresize') updateGroupResize(e);
+  if (gesture.type === 'move' || gesture.type === 'resize' || gesture.type === 'gresize') autoScroll(gesture);
 }
 
 function onUp(e) {
@@ -712,7 +739,62 @@ function updateMove(e) {
 }
 
 function startResize(e, dir) {
+  if (sel.more?.length) {
+    const members = [sel.bid, ...sel.more];
+    const g = prepare(e, 'gresize', { dir, members });
+    g.more = sel.more.map((id) => ({ id, orig: [...lay(B(g.sid, id)).area] }));
+    g.box0 = boxOf([g.orig, ...g.more.map((o) => o.orig)]);
+    g.box = g.box0;
+    setArea(g.tind, g.box0);
+    flagNeighbours(g, g.box0);
+    return;
+  }
   prepare(e, 'resize', { dir });
+}
+
+const boxOf = (areas) => [Math.min(...areas.map((a) => a[0])), Math.min(...areas.map((a) => a[1])), Math.max(...areas.map((a) => a[2])), Math.max(...areas.map((a) => a[3]))];
+
+// One edge pair of a block in a resized group (parity/findings/GROUPRESIZE.json). An edge on the
+// group box stays on it; the rest scale by k, the size ratio rounded to one decimal. size gives
+// the new size in cells.
+function scaleSpan(a0, a1, b0, b1, n0, n1, k, size) {
+  const start = a0 === b0 ? n0 : n0 + Math.ceil((a0 - b0) * k - 0.5);
+  const end = a1 === b1 ? n1 : start + Math.max(1, size(a1 - a0));
+  return [start, Math.max(start + 1, end)];
+}
+
+function updateGroupResize(e) {
+  const g = gesture;
+  const fe = feEl(g.sid);
+  const m = g.m;
+  const top = fe.getBoundingClientRect().top;
+  let [r0, c0, r1, c1] = g.box0;
+  const x = e.clientX, y = e.clientY;
+  if (g.dir.includes('e')) c1 = nearest(c0 + 1, LAST_LINE[bp], (l) => m.colEnd[l - 2] - x);
+  if (g.dir.includes('w')) c0 = nearest(1, c1 - 1, (l) => m.colStart[l - 1] - x);
+  if (g.dir.includes('s')) r1 = Math.max(r0 + 1, Math.round((y - top + m.rg) / m.pitch) + 1);
+  if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, Math.round((y - top) / m.pitch) + 1));
+  const [br0, bc0, br1, bc1] = g.box0;
+  const kc = Math.round((c1 - c0) / (bc1 - bc0) * 10) / 10, kr = Math.round((r1 - r0) / (br1 - br0) * 10) / 10;
+  const place = (id, a) => {
+    const [cs, ce] = scaleSpan(a[1], a[3], bc0, bc1, c0, c1, kc, (n) => Math.ceil(n * kc - 0.5));
+    const [rs0, re] = scaleSpan(a[0], a[2], br0, br1, r0, r1, kr, (n) => Math.round(((n * m.pitch - m.rg) * kr + m.rg) / m.pitch));
+    const el = blockEl(id);
+    setArea(el, [rs0, cs, re, ce]);
+    // A text block keeps the rows its content needs by moving its start up.
+    const need = contentRows(B(g.sid, id), m);
+    const rs = re - rs0 < need ? Math.max(r0, re - need) : rs0;
+    const t = [rs, cs, Math.max(re, rs + need), ce];
+    setArea(el, t);
+    return t;
+  };
+  const moved = [g.orig, ...g.more.map((o) => o.orig)].map((a, k) => place(k ? g.more[k - 1].id : g.bid, a));
+  g.target = moved[0];
+  g.more.forEach((o, k) => { o.target = moved[k + 1]; });
+  g.box = [r0, c0, r1, c1];
+  setArea(g.tind, g.box);
+  flagNeighbours(g, g.box);
+  if (r1 - 1 > g.shownRows) showGrid(g.sid, r1 - 1);
 }
 
 function updateResize(e) {
@@ -758,7 +840,7 @@ function endGesture() {
   fe.classList.remove('is-gesture');
   g.line?.remove();
   for (const el of fe.querySelectorAll('.fe-grid-row, .fe-original-position, .fe-marks')) el.remove();
-  for (const o of g.more || []) { const el2 = blockEl(o.id); if (el2) el2.style.transform = ''; }
+  for (const o of g.more || []) { const el2 = blockEl(o.id); if (el2) { el2.style.transform = ''; el2.style.gridArea = ''; } }
   const el = blockEl(g.bid);
   if (el) {
     el.classList.remove('is-dragging');
@@ -1769,7 +1851,8 @@ function placeChrome() {
   if (!el || gesture?.type === 'move' || gesture?.type === 'resize') { chrome.hidden = true; return; }
   const k = model.sections.findIndex((x) => x.id === sid);
   const phone = bp === 'mobile';
-  const blockSelected = !editSid && sel?.sid === sid;
+  // A group leaves the section's chrome on screen (GROUPRESIZE.json); one selected block does not.
+  const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length;
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}`;
   if (chrome.dataset.key !== key) { chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected }); chrome.dataset.key = key; }
   const header = k === 0 ? doc.getElementById('header') : null;

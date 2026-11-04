@@ -599,10 +599,12 @@
     "milestone": "M4",
     "status": "partial",
     "title": "Multi-select and group move",
-    "evidence": "Shift-click multi-select moves as a group: drag 2 columns and 3 rows (T0022) and ArrowDown (T0023) move both blocks by the same amount; our editor replays both. Align Group: Left, Horizontal Center, Right, Top, Vertical Center, Bottom line up on the group bounding box (T0018, T0019); our group toolbar has the same six behind Align Group and replays both. From the gap review screenshot: a group gets one outline with eight handles around all its blocks and a group toolbar (Stack Blocks | Align Group, two icons not identified yet | Duplicate, Remove); ours has the same, and Stack Blocks, Align Group, Duplicate and Remove work. Not built: resizing a group from its handles, and the two unidentified buttons",
+    "evidence": "Shift-click multi-select moves as a group: drag 2 columns and 3 rows (T0022) and ArrowDown (T0023) move both blocks by the same amount; our editor replays both. Align Group: Left, Horizontal Center, Right, Top, Vertical Center, Bottom line up on the group bounding box (T0018, T0019); our group toolbar has the same six behind Align Group and replays both. A group gets one outline with eight handles 2px outside its box and a toolbar: Stack Blocks | Align Group | Move Forward, Move Backward | Duplicate, Remove (parity/findings/GROUPRESIZE.json, the two unnamed icons are now named); ours has the same box and buttons, and all of them work. Resizing a group from its handles is built: the blocks scale by the rule in the finding, shown snapped while held, with the ring, center line and section chrome as on the oracle; npm run mid-check holds 15 widths and 9 heights and 7 drops: 30 of 32 match. Not matched, each named in the finding: at 4 rows taller the heading gets 6 rows, the oracle 7; a drop that moves nothing adds no undo step in ours. Not built: after a drop that widens a text block the oracle sometimes takes a row off it, rule not found. Inferred: the scale rule comes from one group of two blocks, and Move Forward with blocks between the group's members is not measured. Gate C not run on this: it refuses headless Chrome",
     "controls": [
       "Stack Blocks",
       "Align Group",
+      "Move Forward",
+      "Move Backward",
       "Duplicate",
       "Remove",
       "Align Left",

@@ -1,7 +1,11 @@
 {
-  "check": "mid-gesture flags, guides and center snap",
-  "pass": 25,
-  "total": 25,
+  "check": "mid-gesture flags, guides, center snap and group resize",
+  "pass": 55,
+  "known": [
+    "group south by 4",
+    "group drop n 0,-1"
+  ],
+  "total": 57,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -128,6 +132,156 @@
     {
       "name": "shape west -13",
       "pass": true,
+      "diffs": []
+    }
+  ],
+  "groups": [
+    {
+      "name": "group east by 1",
+      "diffs": []
+    },
+    {
+      "name": "group east by 2",
+      "diffs": []
+    },
+    {
+      "name": "group east by 3",
+      "diffs": []
+    },
+    {
+      "name": "group east by 4",
+      "diffs": []
+    },
+    {
+      "name": "group east by 5",
+      "diffs": []
+    },
+    {
+      "name": "group east by 6",
+      "diffs": []
+    },
+    {
+      "name": "group east by 7",
+      "diffs": []
+    },
+    {
+      "name": "group east by 8",
+      "diffs": []
+    },
+    {
+      "name": "group east by 9",
+      "diffs": []
+    },
+    {
+      "name": "group east by 0",
+      "diffs": []
+    },
+    {
+      "name": "group east by -1",
+      "diffs": []
+    },
+    {
+      "name": "group east by -2",
+      "diffs": []
+    },
+    {
+      "name": "group east by -3",
+      "diffs": []
+    },
+    {
+      "name": "group east by -5",
+      "diffs": []
+    },
+    {
+      "name": "group east by -7",
+      "diffs": []
+    },
+    {
+      "name": "group south by 2",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "group south by 3",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "group south by 4",
+      "diffs": [
+        "heading: oracle 7, ours 6"
+      ],
+      "known": true
+    },
+    {
+      "name": "group south by 5",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "group south by 0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "group south by -1",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "group south by -2",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "group south by -3",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "group south by -4",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "group drop e 3,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "group drop se 3,2",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "group drop s 0,3",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "group drop w -1,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "group drop e -2,0",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "group drop n 0,-1",
+      "diffs": [
+        "no undo step"
+      ],
+      "known": true
+    },
+    {
+      "name": "group drop s 0,-3",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "group move forward",
       "diffs": []
     }
   ]
