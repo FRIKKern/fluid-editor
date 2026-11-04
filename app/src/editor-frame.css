@@ -73,7 +73,16 @@ html { overflow-anchor: none; }
 .fluid-engine .sqs-embed-container .sqs-blockStatus[data-state="invalid"] { box-shadow: 0 0 0 1px #db3642; }
 .fluid-engine .sqs-blockStatus-box { padding: 24px 23px; height: 95px; box-sizing: border-box; }
 .fluid-engine .sqs-blockStatus-box-title { font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; }
-.fluid-engine .sqs-block-video-placeholder--empty { display: block; height: 100%; background: rgba(0, 0, 0, 0.06); }
+/* A new video's placeholder (MEDIAEMPTY.json): 0.65 of its width tall, so the block's rows follow its width. */
+.fluid-engine .sqs-block-video-placeholder--empty { display: block; position: relative; width: 100%; aspect-ratio: 1 / 0.65; background-color: #313131; background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.4) 33%, rgba(0, 0, 0, 0)); }
+.fluid-engine .sqs-block-video-placeholder__ui { position: absolute; left: calc(50% - 13px); top: calc(50% - 13.3px); width: 26px; height: 26.6px; color: #fff; }
+.fluid-engine .sqs-block-video-placeholder__icon, .fluid-engine .sqs-block-video-placeholder__icon svg { display: block; width: 100%; height: 100%; }
+/* A new image (MEDIAEMPTY.json): a white box with a round + in the middle. */
+.fluid-engine .fluid-image-component-empty-state-node { display: grid; place-items: center; width: 100%; height: 100%; background: #fff; }
+.fluid-engine .sqs-block-image .sqs-block-content:has(> .fluid-image-component-empty-state-node) { height: 100%; }
+.fluid-engine .fluid-image-add { position: relative; width: 36px; height: 36px; border-radius: 50%; background: #f2f2f2; }
+.fluid-engine .fluid-image-add::before, .fluid-engine .fluid-image-add::after { content: ""; position: absolute; left: 10px; top: 17.25px; width: 16px; height: 1.5px; background: #0e0e0e; }
+.fluid-engine .fluid-image-add::after { transform: rotate(90deg); }
 .fluid-engine .sqs-block-embed .sqs-block-content, .fluid-engine .sqs-embed-container, .fluid-engine .sqs-block-video .sqs-block-content, .fluid-engine .sqs-block-video .sqs-block-content > div { height: 100%; }
 
 /* Preview mode: no editor outlines, handles or grab cursors in the canvas. */

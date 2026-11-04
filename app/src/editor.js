@@ -313,7 +313,7 @@ toolbar.addEventListener('click', (e) => {
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
-  if (act === 'edit') { designOpen = bid; designTab = b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || (b.type === 'code' && b.html != null) ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { designOpen = bid; designTab = b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && b.type === 'button') { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
@@ -372,7 +372,8 @@ function measure(fe) {
 // Rows a block needs so its content fits without stretching a row.
 function contentRows(b, m) {
   if (b.type === 'shape') return 1;
-  const c = blockEl(b.id)?.querySelector('.accordion-items-container, .sqs-block-content');
+  const root = blockEl(b.id);
+  const c = root?.querySelector('.accordion-items-container, .sqs-block-video-placeholder--empty') || root?.querySelector('.sqs-block-content');
   if (!c) return 1;
   return Math.max(1, Math.ceil((c.offsetHeight + m.rg) / m.pitch - 0.02));
 }
@@ -1040,14 +1041,15 @@ function renderBlockPanel() {
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
   if (!b) { animPicker = false; blendOpen = false; embedData = false; accView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'accordion' || (accView?.startsWith('acc-item:') && !b.items[Number(accView.slice(9))])) accView = null; // undo can take the item away
-  const content = b.type === 'button' ? { label: b.label, href: b.href } : b.type === 'image' ? { src: b.src, href: b.href, alt: b.alt, filename: b.filename }
+  const content = b.type === 'button' ? { label: b.label, href: b.href } : b.type === 'image' ? { src: b.src, href: b.href, alt: b.alt, filename: b.filename, empty: !!b.empty }
+    : b.type === 'video' && !b.html ? { kind: 'video', description: b.description }
     : b.type === 'code' && b.html != null ? { kind: 'code', html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource }
     : b.type === 'accordion' ? { kind: 'accordion', items: b.items, expandFirst: b.expandFirst, multiple: b.multiple, dividers: b.dividers, showFirst: b.showFirst, showLast: b.showLast, iconSize: b.iconSize, iconThickness: b.iconThickness, iconLeft: b.iconLeft, rowPadding: b.rowPadding }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if (!content && designTab === 'Content') designTab = 'Design';
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false } : null;
-  const image = b.type === 'image' ? { mode: b.mode || 'fill', corner: parseFloat(b.radius) || 0 } : null;
+  const image = b.type === 'image' ? { mode: b.mode || 'fill', corner: parseFloat(b.radius) || 0, empty: !!b.empty } : null;
   blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, b.type === 'accordion' && accView ? accView : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : null), shape, image);
   blockPanel.style.width = b.type === 'code' && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
   // An item's view holds that item open on the canvas (ACCORDION.json).
@@ -1286,7 +1288,7 @@ blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-image-act]');
   if (!a || !sel) return;
   if (a.dataset.imageAct === 'replace') { blockPanel.querySelector('[data-image-file]').click(); return; }
-  setButton((b) => { delete b.src; delete b.aspect; }, 'Image removed');
+  setButton((b) => { delete b.src; delete b.aspect; b.empty = true; }, 'Image removed');
   renderBlockPanel();
 });
 blockPanel.addEventListener('change', async (e) => {
@@ -1297,7 +1299,7 @@ blockPanel.addEventListener('change', async (e) => {
   if (!file) return;
   const pic = await readPicture(file).catch(() => null);
   if (!pic) { note('That file is not a picture'); updateUi(); return; }
-  setButton((b) => { b.src = pic.src; b.aspect = pic.aspect; }, 'Image replaced');
+  setButton((b) => { b.src = pic.src; b.aspect = pic.aspect; delete b.empty; }, 'Image replaced');
   renderBlockPanel();
 }, true);
 // The editor saves to the browser, which holds only a few MB: a picture is kept at most 1600px wide or tall.
@@ -1545,7 +1547,7 @@ function renderPanel() {
 // bottom of the phone stack, full content width (not measured yet).
 const ADD_TYPES = [
   ['Text', 8, 2, () => ({ type: 'text', html: '<p data-rte-preserve-empty="true"></p>' })],
-  ['Image', 6, 6, () => ({ type: 'image', alt: '' })],
+  ['Image', 6, 6, () => ({ type: 'image', alt: '', empty: true, mode: 'fit' })],
   ['Button', 6, 2, () => ({ type: 'button', label: 'Learn more' })],
   ['Video', 8, 8, () => ({ type: 'video' })],
   ['Form', 9, 16, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: 'form' })],
