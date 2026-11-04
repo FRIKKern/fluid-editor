@@ -1,0 +1,134 @@
+// T12: a new accordion in our editor against what the oracle's did (parity/findings/ACCORDION.json):
+// the attributes, boxes at 1600, each S M L choice, placement, the rows it takes after add, delete
+// and expand, the panels' views, one undo step. Keys are real input. Writes parity/accordion-check.json.
+// Usage: FLUID_SURFACE=cdp:<port> npm run accordion-check.
+import { readFileSync, writeFileSync } from 'node:fs';
+import { evalJs, goto, viewport, pause, ensureVisible, browser, mouse } from './lib/cmux.mjs';
+import { BASE } from './lib/base.mjs';
+
+const S = process.env.FLUID_SURFACE || 'surface:59';
+const F = JSON.parse(readFileSync(new URL('../parity/findings/ACCORDION.json', import.meta.url)));
+const ID = 'probe-accordion';
+let pass = 0, total = 0;
+const results = [];
+const add = (what, ok, detail) => { total++; if (ok) pass++; results.push({ what, ok }); console.log(`${what.padEnd(36)} ${ok ? 'match' : `DIFF ${detail}`}`); };
+const near = (a, b, d = 0.6) => Math.abs(a - b) <= d;
+
+ensureVisible(S);
+viewport(S, 1600, 1000);
+goto(S, `${BASE}/index.html`); await pause(1200);
+evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
+goto(S, `${BASE}/index.html`); await pause(2000);
+
+// The block as the Add Block menu makes it, put on a known section and area.
+evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; s.blocks = s.blocks.filter((b) => b.id !== '${ID}'); s.blocks.push({ id: '${ID}', type: 'accordion', items: [1, 2, 3].map((n) => ({ title: 'Accordion Item ' + n, description: 'Description text goes here' })), layout: { desktop: { area: [1, 2, 9, 10], z: 50, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 9, 10], z: 50, justify: 'flex-start', align: 'flex-start' } } }); fe.load(next); await sleep(400); fe.select(s.id, '${ID}'); await sleep(200); document.querySelector('#block-toolbar button[data-tb="edit"]').click(); await sleep(250); return 'true'; })()`);
+const click = async (sel) => { evalJs(S, `(() => { document.querySelector('#block-panel ${sel}').click(); return 'true'; })()`); await pause(220); };
+const tab = (t) => click(`[data-btab="${t}"]`);
+const read = () => evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument; const root = d.querySelector('.fe-block[data-block-id="${ID}"]'); const ul = root.querySelector('.accordion-items-container'); const o = ul.getBoundingClientRect(); const box = (e) => { const r = e.getBoundingClientRect(); return [r.left - o.left, r.top - o.top, r.width, r.height].map((n) => Math.round(n * 10) / 10); }; const li = ul.querySelector('.accordion-item'); const btn = li.querySelector('button'); const cs = getComputedStyle(btn); const m = fe.model.sections.flatMap((s) => s.blocks).find((b) => b.id === '${ID}'); return JSON.stringify({ attrs: Object.fromEntries([...ul.attributes].filter((a) => a.name.startsWith('data-')).map((a) => [a.name, a.value])), ul: box(ul), li: box(li), n: ul.querySelectorAll('.accordion-item').length, titles: [...ul.querySelectorAll('.accordion-item__title')].map((t) => t.textContent), icon: box(li.querySelector('.accordion-icon-container')), line: box(li.querySelector('.plus__horizontal-line')), vline: box(li.querySelector('.plus__vertical-line')), title: box(li.querySelector('.accordion-item__title')), pad: cs.padding, dir: cs.flexDirection, open: [...ul.querySelectorAll('.accordion-item')].map((l) => l.getAttribute('data-is-open')), desc: getComputedStyle(li.querySelector('.accordion-item__description')).fontSize, area: m.layout.desktop.area, undoFree: null, tag: root.querySelector('.sqs-block').className }); })()`);
+const rows = () => { const a = read().area; return a[2] - a[0]; };
+const panelText = () => evalJs(S, `(() => JSON.stringify(document.getElementById('block-panel').innerText.split('\\n').map((t) => t.trim()).filter(Boolean)))()`);
+const undoLen = () => evalJs(S, `(async () => { fe.undo(); await new Promise((res) => setTimeout(res, 300)); return JSON.stringify(true); })()`);
+
+const first = read();
+add('Opens on Content', evalJs(S, `(() => JSON.stringify(document.querySelector('#block-panel [role="tab"][aria-selected="true"]')?.textContent))()`) === F.openTab, 'tab');
+add('Tabs are Content and Design', evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#block-panel [role="tab"]')].map((t) => t.textContent).join()))()`) === 'Content,Design', 'tabs');
+add('Same attributes', JSON.stringify(first.attrs) === JSON.stringify(F.base.attrs), JSON.stringify(first.attrs));
+add('Three items with the names', first.titles.join() === F.base.titles.join(), first.titles.join());
+add('List is 459.3 by 301', near(first.ul[2], F.css.ul.box[2]) && near(first.ul[3], F.rowPadding.M.ul), first.ul.join());
+add('Item is 101', near(first.li[3], F.css.li.box[3]), first.li.join());
+add('Icon box', first.icon.every((v, i) => near(v, F.base.icon[i])), first.icon.join());
+add('Horizontal line', first.line.every((v, i) => near(v, F.base.line[i])), first.line.join());
+add('Vertical line', first.vline.every((v, i) => near(v, F.base.vline[i])), first.vline.join());
+add('Description is 16px', first.desc === '16px', first.desc);
+add('Takes 8 rows', rows() === F.area[2] - F.area[0] , rows());
+
+await click('[data-acc="add"]');
+let r = read();
+add('Add Item adds New Item', r.titles[3] === F.addItem.title, r.titles.join());
+add('Fourth item takes 11 rows', r.area.join() === F.addItem.area.join(), r.area.join());
+await undoLen(); await pause(250);
+r = read();
+add('One undo takes it away', r.n === 3 && r.area.join() === F.area.join(), `${r.n} ${r.area.join()}`);
+await click('[data-acc="add"]');
+await click('[data-acc="del:3"]');
+r = read();
+add('Delete has no dialog, 8 rows again', r.n === 3 && r.area.join() === F.deleteItem.area.join(), `${r.n} ${r.area.join()}`);
+
+await click('[data-acc="open:1"]');
+const item = panelText();
+add('Item view rows', ['Back', 'Accordion Item 2', 'Title', 'Description', 'Duplicate', 'Delete'].every((t) => item.some((x) => x.toLowerCase() === t.toLowerCase())), item.join('|'));
+r = read();
+add('Item view opens it on the canvas', r.open[1] === 'true' && r.open[0] === null, r.open.join());
+// Real keys stay in the field: Backspace must not remove the block.
+evalJs(S, `(() => { const t = document.querySelector('#block-panel input[data-content="accTitle"]'); t.focus(); t.setSelectionRange(t.value.length, t.value.length); return 'true'; })()`);
+browser(S, 'press', 'Backspace'); await pause(150);
+browser(S, 'press', 'X'); await pause(100);
+browser(S, 'press', 'Enter'); await pause(300);
+r = read();
+add('Backspace edits the title only', r.titles[1] === 'Accordion Item X', r.titles.join());
+await click('[data-acc="back"]');
+r = read();
+add('Back closes it', r.open[1] === null, r.open.join());
+
+await tab('Design');
+const design = panelText();
+const want = ['Title', 'Heading 4', 'Description', 'Paragraph 2', 'Expand first item', 'Allow multiple open items', 'Dividers', 'Icon', 'Plus', 'Icon Size', 'Icon Thickness', 'Icon Placement', 'Row Padding', 'Background', 'Stroke', 'Blend Mode', 'Blur'];
+const lost = want.filter((t) => !design.some((x) => x.toLowerCase().replace(/ ›$/, '') === t.toLowerCase()));
+add('Design rows', !lost.length, lost.join());
+add('Design has no transforms', !design.includes('Transforms'), 'Transforms');
+
+const sml = async (key, v) => { await click(`button[data-acc-set="${key}"][data-v="${v}"]`); return read(); };
+for (const k of ['S', 'M', 'L']) {
+  r = await sml('rowPadding', k);
+  add(`Row Padding ${k}`, r.pad === F.rowPadding[k].pad && near(r.ul[3], F.rowPadding[k].ul), `${r.pad} ${r.ul[3]}`);
+}
+r = await sml('rowPadding', 'M');
+add('Rows follow the padding back', rows() === 8, rows());
+for (const k of ['S', 'M', 'L']) { r = await sml('iconSize', k); add(`Icon Size ${k}`, r.icon[2] === F.iconSize[k] && r.icon[3] === F.iconSize[k], r.icon.join()); }
+await sml('iconSize', 'S');
+for (const k of ['S', 'M', 'L']) { r = await sml('iconThickness', k); add(`Icon Thickness ${k}`, `${r.line[3]}px` === F.iconThickness[k], r.line.join()); }
+await sml('iconThickness', 'S');
+r = await sml('iconLeft', 'left');
+add('Icon left', r.dir === F.placement.left.dir && near(r.icon[0], F.placement.left.icon[0]) && near(r.title[0], F.placement.left.title[0]), `${r.dir} ${r.icon.join()} ${r.title.join()}`);
+r = await sml('iconLeft', 'right');
+add('Icon right', r.dir === F.placement.right.dir && near(r.icon[0], F.placement.right.icon[0]), `${r.dir} ${r.icon.join()}`);
+
+const flip = async (label) => { evalJs(S, `(() => { document.querySelector('#block-panel input[aria-label="${label}"]').click(); return 'true'; })()`); await pause(250); return read(); };
+r = await flip('Expand first item');
+add('Expand first writes and opens', r.attrs['data-is-expanded-first-item'] === 'true' && r.open[0] === 'true' && near(r.ul[3], F.expandFirst.ulHeight) && r.area.join() === F.expandFirst.area.join(), `${r.open.join()} ${r.ul[3]} ${r.area.join()}`);
+add('Open icon lies flat', near(r.vline[2], 14) && near(r.vline[3], 1), r.vline.join());
+r = await flip('Expand first item');
+add('Rows shrink again', r.area.join() === F.area.join(), r.area.join());
+r = await flip('Allow multiple open items');
+add('Allow multiple writes', r.attrs['data-should-allow-multiple-open-items'] === 'true', r.attrs['data-should-allow-multiple-open-items']);
+await flip('Allow multiple open items');
+
+await click('[data-acc="dividers"]');
+const div = panelText();
+add('Dividers view rows', ['Back', 'Dividers', 'Show first', 'Show last', 'Thickness', 'Opacity'].every((t) => div.some((x) => x.toLowerCase() === t.toLowerCase())), div.join('|'));
+for (const [label, attr] of [['Dividers', 'data-is-divider-enabled'], ['Show first', 'data-is-first-divider-visible'], ['Show last', 'data-is-last-divider-visible']]) {
+  r = await flip(label);
+  add(`${label} writes`, r.attrs[attr] === 'false', r.attrs[attr]);
+  r = await flip(label);
+}
+await click('[data-acc="design"]');
+add('Back to Design', evalJs(S, `(() => JSON.stringify(!!document.querySelector('#block-panel input[aria-label="Expand first item"]')))()`) === true, 'no Expand row');
+
+// Through the real menu: hover the section, Add Block, the Accordion tile.
+goto(S, `${BASE}/index.html`); await pause(1500);
+evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
+goto(S, `${BASE}/index.html`); await pause(2000);
+const spot = evalJs(S, `(() => { const f = document.getElementById('site-frame'), d = f.contentDocument, sec = d.querySelectorAll('.page-section')[1]; sec.scrollIntoView(); const r = sec.getBoundingClientRect(), o = f.getBoundingClientRect(); return JSON.stringify([o.left + r.left + 40, Math.max(o.top + r.top + 30, 120), fe.model.sections[1].blocks.length]); })()`);
+mouse(S, 'move', spot[0], spot[1]); await pause(500);
+const added = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); document.querySelector('[data-sc="add-block"]').click(); await sleep(250); document.querySelector('button[data-add="Accordion"]').click(); await sleep(400); const b = fe.model.sections[1].blocks.at(-1); return JSON.stringify({ n: fe.model.sections[1].blocks.length, type: b.type, items: b.items?.map((i) => i.title + '/' + i.description), rows: b.layout.desktop.area[2] - b.layout.desktop.area[0], cols: b.layout.desktop.area[3] - b.layout.desktop.area[1] }); })()`);
+add('Add Block makes the default', added.n === spot[2] + 1 && added.type === 'accordion' && added.rows === 8 && added.cols === 8 && added.items.join() === F.base.titles.map((t) => `${t}/Description text goes here`).join(), JSON.stringify(added));
+
+// On the published page a title opens its item and closes the other one.
+evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)); localStorage.setItem('fluid-editor:model:v2', JSON.stringify(m)); return 'true'; })()`);
+goto(S, `${BASE}/page.html?saved`); await pause(1500);
+const pub = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const lis = [...document.querySelectorAll('.accordion-item')], t = (i) => lis[i].querySelector('button'), shown = () => lis.map((l) => getComputedStyle(l.querySelector('.accordion-item__dropdown')).display === 'block'); t(0).click(); await sleep(50); const a = shown(); t(1).click(); await sleep(50); const b = shown(); t(1).click(); await sleep(50); return JSON.stringify({ a, b, c: shown(), n: lis.length }); })()`);
+add('Published titles toggle', pub.n === 3 && pub.a.join() === 'true,false,false' && pub.b.join() === 'false,true,false' && pub.c.join() === 'false,false,false', JSON.stringify(pub));
+
+console.log(`Accordion: ${pass} of ${total} checks match`);
+writeFileSync(new URL('../parity/accordion-check.json', import.meta.url), `${JSON.stringify({ check: 'accordion block', pass, total, results }, null, 2)}\n`);
+if (!total || pass !== total) process.exitCode = 1;

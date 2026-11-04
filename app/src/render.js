@@ -151,6 +151,25 @@ function codeOutput(b) {
   return mode === 'markdown' ? markdownHtml(b.html) : b.html;
 }
 
+// Accordion block (T12, parity/findings/ACCORDION.json): the oracle's list. Icon size S 14, M 24,
+// L 30; line S 1, M 3, L 6; row padding S 15, M 30, L 50. One item is open while its panel view is.
+export const ACCORDION_ICON = { S: 14, M: 24, L: 30 };
+export const ACCORDION_LINE = { S: 1, M: 3, L: 6 };
+export const ACCORDION_PAD = { S: 15, M: 30, L: 50 };
+export const ACCORDION_DESCRIPTION = 'Description text goes here';
+function accordionHtml(b) {
+  const flag = (v) => (v ? 'true' : 'false');
+  const on = b.dividers !== false;
+  const items = (b.items || []).map((it, n) => {
+    const id = `${b.id}-${n + 1}`;
+    const top = n === 0 ? '<div data-sqsp-accordion-block-divider="" class="accordion-divider accordion-divider--top" aria-hidden="true"></div>' : '';
+    const open = n === 0 && b.expandFirst;
+    return `<li class="accordion-item"${open ? ' data-is-open="true"' : ''}>${top}<h4 class="accordion-item__title-wrapper" data-sqsp-accordion-block-item-title=""><button id="button-${id}" class="accordion-item__click-target" aria-expanded="${flag(open)}" aria-controls="dropdown-${id}"><span class="accordion-item__title">${escapeHtml(it.title)}</span><div class="accordion-icon-container" aria-hidden="true"><div class="plus"><div class="plus__horizontal-line"></div><div class="plus__vertical-line"></div></div></div></button></h4><div class="accordion-item__dropdown" id="dropdown-${id}" role="region" aria-labelledby="button-${id}"><div class="accordion-item__description" data-sqsp-accordion-block-item-description="">${escapeHtml(it.description ?? '')}</div></div><div data-sqsp-accordion-block-divider="" class="accordion-divider" aria-hidden="true"></div></li>`;
+  }).join('');
+  const style = `--accordion-icon:${ACCORDION_ICON[b.iconSize || 'S']}px;--accordion-line:${ACCORDION_LINE[b.iconThickness || 'S']}px;--accordion-pad:${ACCORDION_PAD[b.rowPadding || 'M']}px`;
+  return `<ul class="accordion-items-container" style="${style}" data-should-allow-multiple-open-items="${flag(b.multiple)}" data-is-divider-enabled="${flag(on)}" data-is-first-divider-visible="${flag(b.showFirst !== false)}" data-is-last-divider-visible="${flag(b.showLast !== false)}" data-is-expanded-first-item="${flag(b.expandFirst)}" data-accordion-title-alignment="left" data-accordion-description-alignment="left" data-accordion-description-placement="left" data-accordion-icon-placement="${b.iconLeft ? 'left' : 'right'}">${items}</ul>`;
+}
+
 function blockInner(b, model) {
   switch (b.type) {
     case 'text':
@@ -191,6 +210,8 @@ function blockInner(b, model) {
       const pic = b.href ? `<a class="sqs-block-image-link" href="${escapeHtml(b.href)}">${inner}</a>` : inner;
       return `<div class="sqs-block image-block sqs-block-image sqs-stretched${mode}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${pic}</div></div>`;
     }
+    case 'accordion':
+      return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${accordionHtml(b)}</div></div>`;
     case 'form': {
       // Form block (T9), sized to the oracle Contact form (parity/findings/T9.json).
       const e = escapeHtml;
@@ -361,6 +382,17 @@ export const HEADER_SCRIPT = `(() => {
   document.fonts && document.fonts.ready.then(fit);
 })();`;
 
+// On a published page a title opens and closes its item, one at a time unless the block allows
+// more. This behaviour is inferred from the block's labels, not measured on a published page.
+export const ACCORDION_SCRIPT = `document.addEventListener('click', (e) => {
+  const b = e.target.closest('.accordion-item__click-target');
+  if (!b) return;
+  const li = b.closest('.accordion-item'), open = !li.hasAttribute('data-is-open'), ul = li.parentElement;
+  if (open && ul.dataset.shouldAllowMultipleOpenItems !== 'true') for (const o of ul.querySelectorAll('[data-is-open]')) { o.removeAttribute('data-is-open'); o.querySelector('.accordion-item__click-target').setAttribute('aria-expanded', 'false'); }
+  if (open) li.setAttribute('data-is-open', 'true'); else li.removeAttribute('data-is-open');
+  b.setAttribute('aria-expanded', String(open));
+});`;
+
 export function renderPage(model) {
   return model.sections.map((s) => renderSection(s, model)).join('\n');
 }
@@ -388,7 +420,8 @@ ${renderHeader(model.header)}
 ${renderPage(model)}
 </main>
 ${renderFooter(model)}
-<script>${HEADER_SCRIPT}</script>
+<script>${HEADER_SCRIPT}
+${ACCORDION_SCRIPT}</script>
 </body>
 </html>
 `;

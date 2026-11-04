@@ -65,6 +65,42 @@ function embedContentHtml(c, open) {
     + `<div class="bp-field"><span class="sp-label">Description</span><textarea class="bp-desc" aria-label="Description" placeholder="Add description here..." data-content="description">${esc(c.description || '')}</textarea></div>`;
 }
 
+// Content tab of an accordion (parity/findings/ACCORDION.json): the items, each with a trash and a
+// way in, and Add Item. An item's view has Back, Title, Description, Duplicate and Delete. The
+// handles that reorder items are not built.
+const backRow = (act, title) => `<div class="bp-sub"><button type="button" class="bp-back" data-acc="${act}">${pi('<path d="M15 6l-6 6 6 6"/>')}Back</button><span>${esc(title)}</span></div>`;
+function accordionContentHtml(c, open) {
+  if (open?.startsWith('acc-item:')) {
+    const n = Number(open.slice(9)), it = c.items[n];
+    return `${backRow('back', it.title)}<div class="bp-field"><span class="bp-cap">Title</span><input class="bp-text" type="text" aria-label="Title" data-content="accTitle" data-n="${n}" value="${esc(it.title)}"></div>`
+      + `<div class="bp-field"><span class="bp-cap">Description</span><textarea class="bp-desc bp-desc-tall" aria-label="Description" data-content="accDescription" data-n="${n}">${esc(it.description ?? '')}</textarea></div>`
+      + `<div class="bp-item-actions"><button type="button" data-acc="dup:${n}">Duplicate</button><button type="button" class="bp-link-remove" data-acc="del:${n}">Delete</button></div>`;
+  }
+  return c.items.map((it, n) => `<div class="bp-acc-row"><span class="bp-acc-grip" data-unbuilt title="Not built yet" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="bp-acc-t" aria-hidden="true">T</span><button type="button" class="bp-acc-name" data-acc="open:${n}" aria-label="${esc(it.title)}">${esc(it.title)}</button><button type="button" class="bp-acc-trash" data-acc="del:${n}" aria-label="Delete ${esc(it.title)}">${pi('<path d="M5 7h14M10 7V4h4v3M7 7v13h10V7M10.5 11v5M13.5 11v5"/>')}</button><button type="button" class="bp-acc-go" data-acc="open:${n}" aria-hidden="true" tabindex="-1">${pi('<path d="M9 6l6 6-6 6"/>')}</button></div>`).join('')
+    + '<button type="button" class="bp-acc-add" data-acc="add">Add Item</button>';
+}
+// Design tab of an accordion, in the oracle's order. The style pickers and the Icon picker are
+// shown where the oracle shows them but are not built; Background, Stroke, Blend Mode and Blur
+// are the rows every block has.
+const smlRow = (cap, key, cur) => `<div class="bp-cap bp-cap-seg">${cap}</div><div class="bp-sml" role="radiogroup" aria-label="${cap}">${['S', 'M', 'L'].map((k) => `<button type="button" role="radio" class="bp-mode${cur === k ? ' is-on' : ''}" aria-checked="${cur === k}" data-acc-set="${key}" data-v="${k}">${k}</button>`).join('')}<button type="button" class="bp-mode" disabled data-unbuilt title="Not built yet" aria-label="More ${cap}">···</button></div>`;
+function accordionDesignHtml(c, open, d) {
+  const sw = (key, on, label) => `<div class="sp-row"><span class="sp-label">${label}</span><label class="sp-switch"><input type="checkbox" aria-label="${label}" data-acc-set="${key}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label></div>`;
+  if (open === 'acc-dividers') return `${backRow('design', 'Dividers')}${sw('dividers', c.dividers !== false, 'Dividers')}${sw('showFirst', c.showFirst !== false, 'Show first')}${sw('showLast', c.showLast !== false, 'Show last')}`
+    + `<div class="bp-cap bp-cap-seg" data-unbuilt>Thickness</div><div class="bp-sml" data-unbuilt>${['S', 'M', 'L', '···'].map((k) => `<button type="button" class="bp-mode" disabled title="Not built yet">${k}</button>`).join('')}</div><div class="sp-row" data-unbuilt title="Not built yet"><span class="sp-label">Opacity</span><span>1</span></div>`;
+  const chip = (label, v) => `<div class="sp-row" data-unbuilt title="Not built yet"><span class="sp-label">${label}</span><span class="bp-chip-v">${v}</span></div>`;
+  return `<div class="bp-cap bp-cap-seg">Text</div>${chip('Title', 'Heading 4 ›')}${chip('Description', 'Paragraph 2 ›')}<div class="bp-cap bp-cap-seg">Design</div>`
+    + sw('expandFirst', c.expandFirst, 'Expand first item') + sw('multiple', c.multiple, 'Allow multiple open items')
+    + `<button type="button" class="sp-row bp-rowbtn" data-acc="dividers" aria-label="Navigate to Dividers"><span class="sp-label">Dividers</span><span class="bp-chip-v">${c.dividers !== false ? 'On' : 'Off'} ›</span></button>`
+    + chip('Icon', 'Plus')
+    + smlRow('Icon Size', 'iconSize', c.iconSize || 'S') + smlRow('Icon Thickness', 'iconThickness', c.iconThickness || 'S')
+    + `<div class="bp-cap bp-cap-seg">Icon Placement</div><div class="bp-modes bp-modes-2" role="radiogroup" aria-label="Icon Placement">${[['left', c.iconLeft], ['right', !c.iconLeft]].map(([k, on]) => `<button type="button" role="radio" class="bp-mode${on ? ' is-on' : ''}" aria-checked="${!!on}" aria-label="${k}" data-acc-set="iconLeft" data-v="${k}">${k === 'left' ? '←' : '→'}</button>`).join('')}</div>`
+    + smlRow('Row Padding', 'rowPadding', c.rowPadding || 'M')
+    + row2('Background', `<label class="sp-switch"><input type="checkbox" data-design="background" aria-label="Background" ${d.background ? 'checked' : ''}><span aria-hidden="true"></span></label>`)
+    + strokeRows(d) + blendRow(d.blend || 'normal', open === 'blend')
+    + row2('Blur', `<label class="sp-switch"><input type="checkbox" data-design="blur" aria-label="Blur" ${d.blur ? 'checked' : ''}><span aria-hidden="true"></span></label>`);
+}
+const row2 = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
+
 // The link editor popover (BUTTONEDIT.json, the gap review's button-link state): a URL tab, the
 // field Enter link, search, or add files, Open link in new tab and Clear selected page; the site
 // pages show under the field while it is empty, as name and path, grouped by navigation.
@@ -114,7 +150,9 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   const box = ([k, l, u, min, max, axis]) => `<label class="bp-box"><input type="number" data-design="${k}" aria-label="${axis ? `${l} ${axis}` : l}" min="${min}" max="${max}" value="${d[k]}"><span class="bp-unit">${u}${axis ? ` <b>${axis}</b>` : ''}</span></label>`;
   let body;
   if (tab === 'Content' && content) {
-    body = image ? imageContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : buttonContentHtml(content);
+    body = image ? imageContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : buttonContentHtml(content);
+  } else if (tab === 'Design' && content?.kind === 'accordion') {
+    body = accordionDesignHtml(content, open, d);
   } else if (tab === 'Design') {
     const pairs = [];
     for (let i = 0; i < DESIGN_FIELDS.length; i++) {
@@ -164,8 +202,8 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       : `<div class="an-row"><span class="an-title">Triggers</span><span class="an-actions"><button type="button" class="an-icon" aria-label="Animation list actions" data-unbuilt disabled>···</button><button type="button" class="an-icon" data-anim="add" aria-label="Add a new animation">${pi('<path d="M12 5v14M5 12h14"/>')}</button></span></div>`
         + '<button type="button" class="an-empty" data-anim="add" aria-label="Press + to get startedUse a preset or customize"><strong>Press + to get started</strong><span>Use a preset or customize</span></button>';
   }
-  if (tab === 'Content' && open === 'embed-data') return `<div class="sp-body">${body}</div>`;
-  const tabs = content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
+  if ((tab === 'Content' && (open === 'embed-data' || open?.startsWith('acc-item:'))) || open === 'acc-dividers') return `<div class="sp-body">${body}</div>`;
+  const tabs = content?.kind === 'accordion' ? ['Content', 'Design'] : content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
   // The header is also the drag handle (U13): the oracle labels it Click and drag to reposition block editor form.
   return `<div class="bp-drag" role="button" aria-label="Click and drag to reposition block editor form" data-drag-panel></div><div class="sp-tabs" role="tablist">${tabs.map(tabBtn).join('')}</div><div class="sp-body">${body}</div>`;
 }

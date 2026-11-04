@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS } from './render.js';
+import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, ACCORDION_DESCRIPTION } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
@@ -287,7 +287,7 @@ toolbar.addEventListener('click', (e) => {
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
-  if (act === 'edit') { designOpen = bid; designTab = b.type === 'button' || b.type === 'embed' || (b.type === 'code' && b.html != null) ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { designOpen = bid; designTab = b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || (b.type === 'code' && b.html != null) ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && b.type === 'button') { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
@@ -346,7 +346,7 @@ function measure(fe) {
 // Rows a block needs so its content fits without stretching a row.
 function contentRows(b, m) {
   if (b.type === 'shape') return 1;
-  const c = blockEl(b.id)?.querySelector('.sqs-block-content');
+  const c = blockEl(b.id)?.querySelector('.accordion-items-container, .sqs-block-content');
   if (!c) return 1;
   return Math.max(1, Math.ceil((c.offsetHeight + m.rg) / m.pitch - 0.02));
 }
@@ -948,20 +948,26 @@ let designTab = 'Design';
 let blendOpen = false;
 let animPicker = false;
 let embedData = false;
+let accView = null; // 'acc-item:<n>' or 'acc-dividers'
 const blockPanel = $('block-panel');
 function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
-  if (!b) { animPicker = false; blendOpen = false; embedData = false; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
+  if (!b) { animPicker = false; blendOpen = false; embedData = false; accView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (b.type !== 'accordion' || (accView?.startsWith('acc-item:') && !b.items[Number(accView.slice(9))])) accView = null; // undo can take the item away
   const content = b.type === 'button' ? { label: b.label, href: b.href } : b.type === 'image' ? { src: b.src, href: b.href, alt: b.alt, filename: b.filename }
     : b.type === 'code' && b.html != null ? { kind: 'code', html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource }
+    : b.type === 'accordion' ? { kind: 'accordion', items: b.items, expandFirst: b.expandFirst, multiple: b.multiple, dividers: b.dividers, showFirst: b.showFirst, showLast: b.showLast, iconSize: b.iconSize, iconThickness: b.iconThickness, iconLeft: b.iconLeft, rowPadding: b.rowPadding }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if (!content && designTab === 'Content') designTab = 'Design';
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', corner: parseFloat(b.radius) || 0 } : null;
-  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : null), shape, image);
+  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, b.type === 'accordion' && accView ? accView : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : null), shape, image);
   blockPanel.style.width = b.type === 'code' && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
+  // An item's view holds that item open on the canvas (ACCORDION.json).
+  if (b.type === 'accordion') showAccordionItem(b);
   placeBlockPanel();
   blockPanel.hidden = false;
 }
@@ -1134,6 +1140,51 @@ blockPanel.addEventListener('click', (e) => {
   if (v === 'code') b.embedAs = 'code'; else delete b.embedAs;
   commit(before, `Embed as ${v}`);
   renderBlockPanel();
+});
+
+// Accordion (parity/findings/ACCORDION.json). Each change is one undo step, and the block takes the
+// rows its list needs, in both directions.
+function showAccordionItem(b) {
+  const lis = blockEl(b.id)?.querySelectorAll('.accordion-item');
+  const n = accView?.startsWith('acc-item:') ? Number(accView.slice(9)) : -1;
+  lis?.forEach((li, k) => { const on = k === n || (k === 0 && !!b.expandFirst); if (on) li.setAttribute('data-is-open', 'true'); else li.removeAttribute('data-is-open'); li.querySelector('button').setAttribute('aria-expanded', String(on)); });
+}
+function setAccordion(change, label) {
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  change(b);
+  renderSectionDom(sel.sid);
+  showAccordionItem(b);
+  const L = lay(b), need = contentRows(b, measure(feEl(sel.sid)));
+  if (L.area[2] - L.area[0] !== need) { L.area = [L.area[0], L.area[1], L.area[0] + need, L.area[3]]; renderSectionDom(sel.sid); showAccordionItem(b); }
+  commit(before, label);
+  renderBlockPanel();
+}
+blockPanel.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-acc]');
+  const s = e.target.closest('button[data-acc-set]');
+  if ((!a && !s) || !sel) return;
+  if (s) {
+    const k = s.dataset.accSet, v = s.dataset.v;
+    setAccordion((b) => { if (k === 'iconLeft') { if (v === 'left') b.iconLeft = true; else delete b.iconLeft; } else b[k] = v; }, `${k} ${v}`);
+    return;
+  }
+  const [act, arg] = a.dataset.acc.split(':'), n = Number(arg);
+  if (act === 'open') { accView = `acc-item:${n}`; renderBlockPanel(); return; }
+  if (act === 'back') { accView = null; renderBlockPanel(); return; }
+  if (act === 'dividers') { accView = 'acc-dividers'; renderBlockPanel(); return; }
+  if (act === 'design') { accView = null; renderBlockPanel(); return; }
+  accView = null;
+  if (act === 'add') setAccordion((b) => { b.items.push({ title: 'New Item', description: ACCORDION_DESCRIPTION }); }, 'Item added');
+  if (act === 'del') setAccordion((b) => { b.items.splice(n, 1); }, 'Item deleted');
+  if (act === 'dup') setAccordion((b) => { b.items.splice(n + 1, 0, { ...b.items[n] }); }, 'Item duplicated');
+});
+blockPanel.addEventListener('change', (e) => {
+  const t = e.target.closest('[data-content="accTitle"], [data-content="accDescription"]');
+  if (t && sel) { const n = Number(t.dataset.n), key = t.dataset.content === 'accTitle' ? 'title' : 'description', v = t.value; t.blur(); setAccordion((b) => { b.items[n][key] = v; }, `Item ${key} changed`); return; }
+  const c = e.target.closest('input[data-acc-set]');
+  if (!c || !sel) return;
+  const k = c.dataset.accSet, keepOn = ['dividers', 'showFirst', 'showLast'].includes(k), on = c.checked;
+  setAccordion((b) => { if (keepOn) { if (on) delete b[k]; else b[k] = false; } else if (on) b[k] = true; else delete b[k]; }, `${k} ${on ? 'on' : 'off'}`);
 });
 
 // Image Alternate Filename and alt text, one undo step when the field is left; empty removes it.
@@ -1414,7 +1465,7 @@ const ADD_TYPES = [
   ['Button', 6, 2, () => ({ type: 'button', label: 'Learn more' })],
   ['Video', 8, 8, () => ({ type: 'video' })],
   ['Form', 9, 16, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: 'form' })],
-  ['Accordion', 8, 8, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: 'accordion' })],
+  ['Accordion', 8, 8, () => ({ type: 'accordion', items: [1, 2, 3].map((n) => ({ title: `Accordion Item ${n}`, description: ACCORDION_DESCRIPTION })) })],
   ['Shape', 6, 6, () => ({ type: 'shape', fill: '#ffffff', radius: '0' })],
   ['Scrolling', 24, 2, () => ({ type: 'scrolling', text: 'Scrolling text', size: 5 })],
   ['Line', 4, 1, () => ({ type: 'line' })],

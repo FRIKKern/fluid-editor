@@ -1,0 +1,595 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-04",
+ "question": "What is an Accordion block, what do its Edit panels offer, and what does each control write?",
+ "page": "demo page, unsaved; left with Exit Without Saving",
+ "area": [
+  1,
+  2,
+  9,
+  10
+ ],
+ "size": [
+  459,
+  318
+ ],
+ "openTab": "Content",
+ "toolbar": [
+  "Remove"
+ ],
+ "html": "<ul class=\"accordion-items-container\" data-should-allow-multiple-open-items=\"false\" data-is-divider-enabled=\"true\" data-is-first-divider-visible=\"true\" data-is-last-divider-visible=\"true\" data-is-expanded-first-item=\"false\" data-accordion-title-alignment=\"left\" data-accordion-description-alignment=\"left\" data-accordion-description-placement=\"left\" data-accordion-icon-placement=\"right\"> <li class=\"accordion-item\"> <div data-sqsp-accordion-block-divider=\"\" class=\"accordion-divider accordion-divider--top\" aria-hidden=\"true\"></div> <h4 class=\" accordion-item__title-wrapper \" data-sqsp-accordion-block-item-title=\"\"> <button id=\"button-BLOCK-1\" class=\"accordion-item__click-target\" aria-expanded=\"false\" aria-controls=\"dropdown-BLOCK-1\"> <span class=\"accordion-item__title\">Accordion Item 1</span> <div class=\"accordion-icon-container\" aria-hidden=\"true\"> <div class=\"plus\"> <div class=\"plus__horizontal-line\"></div> <div class=\"plus__vertical-line\"></div> </div> </div> </button> </h4> <div class=\"accordion-item__dropdown\" id=\"dropdown-BLOCK-1\" role=\"region\" aria-labelledby=\"button-BLOCK-1\"> <div class=\" accordion-item__description \" data-sqsp-accordion-block-item-description=\"\"> Description text goes here </div> </div> <div data-sqsp-accordion-block-divider=\"\" class=\"accordion-divider\" aria-hidden=\"true\"></div> </li> <li class=\"accordion-item\"> <h4 class=\" accordion-item__title-wrapper \" data-sqsp-accordion-block-item-title=\"\"> <button id=\"button-BLOCK-2\" class=\"accordion-item__click-target\" aria-expanded=\"false\" aria-controls=\"dropdown-BLOCK-2\"> <span class=\"accordion-item__title\">Accordion Item 2</span> <div class=\"accordion-icon-container\" aria-hidden=\"true\"> <div class=\"plus\"> <div class=\"plus__horizontal-line\"></div> <div class=\"plus__vertical-line\"></div> </div> </div> </button> </h4> <div class=\"accordion-item__dropdown\" id=\"dropdown-BLOCK-2\" role=\"region\" aria-labelledby=\"button-BLOCK-2\"> <div class=\" accordion-item__description \" data-sqsp-accordion-block-item-description=\"\"> Description text goes here </div> </div> <div data-sqsp-accordion-block-divider=\"\" class=\"accordion-divider\" aria-hidden=\"true\"></div> </li> <li class=\"accordion-item\"> <h4 class=\" accordion-item__title-wrapper \" data-sqsp-accordion-block-item-title=\"\"> <button id=\"button-yu",
+ "css": {
+  "ul": {
+   "box": [
+    0,
+    0,
+    459.3,
+    301
+   ],
+   "font": "16px / 22.4px Poppins",
+   "color": "rgb(0, 0, 0)",
+   "border": "0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)",
+   "bg": "rgba(0, 0, 0, 0)",
+   "pad": "0px",
+   "margin": "0px",
+   "display": "block",
+   "just": "normal",
+   "opacity": "1"
+  },
+  "li": {
+   "box": [
+    0,
+    0,
+    459.3,
+    101
+   ],
+   "font": "16px / 22.4px Poppins",
+   "color": "rgb(0, 0, 0)",
+   "border": "0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)",
+   "bg": "rgba(0, 0, 0, 0)",
+   "pad": "0px",
+   "margin": "0px",
+   "display": "list-item",
+   "just": "normal",
+   "opacity": "1"
+  },
+  "h4": {
+   "box": [
+    0,
+    1,
+    459.3,
+    99
+   ],
+   "font": "26.08px / 33.0903px Poppins",
+   "color": "rgb(0, 0, 0)",
+   "border": "0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)",
+   "bg": "rgba(0, 0, 0, 0)",
+   "pad": "0px",
+   "margin": "0px",
+   "display": "block",
+   "just": "normal",
+   "opacity": "1"
+  },
+  "btn": {
+   "box": [
+    0,
+    1,
+    459.3,
+    99
+   ],
+   "font": "26.08px Poppins",
+   "color": "rgb(0, 0, 0)",
+   "border": "0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)",
+   "bg": "rgba(0, 0, 0, 0)",
+   "pad": "30px 0px",
+   "margin": "0px",
+   "display": "flex",
+   "just": "space-between",
+   "opacity": "1"
+  },
+  "title": {
+   "box": [
+    0,
+    31,
+    445.3,
+    39
+   ],
+   "font": "26.08px Poppins",
+   "color": "rgb(0, 0, 0)",
+   "border": "0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)",
+   "bg": "rgba(0, 0, 0, 0)",
+   "pad": "0px 14px 0px 0px",
+   "margin": "0px",
+   "display": "block",
+   "just": "normal",
+   "opacity": "1"
+  },
+  "icon": {
+   "box": [
+    445.3,
+    43.5,
+    14,
+    14
+   ],
+   "font": "26.08px Poppins",
+   "color": "rgb(0, 0, 0)",
+   "border": "0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)",
+   "bg": "rgba(0, 0, 0, 0)",
+   "pad": "0px",
+   "margin": "0px",
+   "display": "block",
+   "just": "normal",
+   "opacity": "1"
+  },
+  "iconany": {
+   "box": [
+    445.3,
+    43.5,
+    14,
+    14
+   ],
+   "font": "26.08px Poppins",
+   "color": "rgb(0, 0, 0)",
+   "border": "0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)",
+   "bg": "rgba(0, 0, 0, 0)",
+   "pad": "0px",
+   "margin": "0px",
+   "display": "block",
+   "just": "normal",
+   "opacity": "1"
+  },
+  "dropdown": {
+   "box": [
+    -100.1,
+    -212.9,
+    0,
+    0
+   ],
+   "font": "16px / 22.4px Poppins",
+   "color": "rgb(0, 0, 0)",
+   "border": "0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)",
+   "bg": "rgba(0, 0, 0, 0)",
+   "pad": "0px",
+   "margin": "0px",
+   "display": "none",
+   "just": "normal",
+   "opacity": "1"
+  },
+  "desc": {
+   "box": [
+    -100.1,
+    -212.9,
+    0,
+    0
+   ],
+   "font": "16px / 22.4px Poppins",
+   "color": "rgb(0, 0, 0)",
+   "border": "0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)",
+   "bg": "rgba(0, 0, 0, 0)",
+   "pad": "0px 0px 30px",
+   "margin": "0px",
+   "display": "block",
+   "just": "normal",
+   "opacity": "1"
+  },
+  "divTop": {
+   "box": [
+    0,
+    0,
+    459.3,
+    1
+   ],
+   "font": "16px / 22.4px Poppins",
+   "color": "rgb(0, 0, 0)",
+   "border": "0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)",
+   "bg": "rgb(0, 0, 0)",
+   "pad": "0px",
+   "margin": "0px",
+   "display": "block",
+   "just": "normal",
+   "opacity": "1"
+  },
+  "div": {
+   "box": [
+    0,
+    100,
+    459.3,
+    1
+   ],
+   "font": "16px / 22.4px Poppins",
+   "color": "rgb(0, 0, 0)",
+   "border": "0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)",
+   "bg": "rgb(0, 0, 0)",
+   "pad": "0px",
+   "margin": "0px",
+   "display": "block",
+   "just": "normal",
+   "opacity": "1"
+  }
+ },
+ "panels": {
+  "Content": {
+   "box": [
+    578,
+    270,
+    320,
+    502
+   ],
+   "text": [
+    "Content",
+    "Design",
+    "Accordion Item 1",
+    "Accordion Item 2",
+    "Accordion Item 3",
+    "Add Item"
+   ],
+   "buttons": [
+    {
+     "label": "Click and drag to reposition block editor form",
+     "selected": null
+    },
+    {
+     "label": "Content",
+     "selected": "true"
+    },
+    {
+     "label": "Design",
+     "selected": "false"
+    },
+    {
+     "label": "Accordion Item 1",
+     "selected": null
+    },
+    {
+     "label": "Accordion Item 1",
+     "selected": null
+    },
+    {
+     "label": "Delete Accordion Item 1",
+     "selected": null
+    },
+    {
+     "label": "Accordion Item 2",
+     "selected": null
+    },
+    {
+     "label": "Accordion Item 2",
+     "selected": null
+    },
+    {
+     "label": "Delete Accordion Item 2",
+     "selected": null
+    },
+    {
+     "label": "Accordion Item 3",
+     "selected": null
+    },
+    {
+     "label": "Accordion Item 3",
+     "selected": null
+    },
+    {
+     "label": "Delete Accordion Item 3",
+     "selected": null
+    },
+    {
+     "label": "Add Item",
+     "selected": null
+    }
+   ]
+  },
+  "Design": {
+   "box": [
+    578,
+    270,
+    320,
+    502
+   ],
+   "text": [
+    "Content",
+    "Design",
+    "Text",
+    "Title",
+    "Heading 4",
+    "Description",
+    "Paragraph 2",
+    "Design",
+    "Expand first item",
+    "Allow multiple open items",
+    "Dividers",
+    "On",
+    "Icon",
+    "Plus",
+    "Icon Size",
+    "S",
+    "M",
+    "L",
+    "Icon Thickness",
+    "S",
+    "M",
+    "L",
+    "Icon Placement",
+    "Row Padding",
+    "S",
+    "M",
+    "L",
+    "Background",
+    "Stroke",
+    "Blend Mode",
+    "Normal",
+    "Blur"
+   ],
+   "buttons": [
+    {
+     "label": "Click and drag to reposition block editor form",
+     "selected": null
+    },
+    {
+     "label": "Content",
+     "selected": "false"
+    },
+    {
+     "label": "Design",
+     "selected": "true"
+    },
+    {
+     "label": "Navigate to Title",
+     "selected": null
+    },
+    {
+     "label": "Navigate to Description",
+     "selected": null
+    },
+    {
+     "label": "Navigate to Dividers",
+     "selected": null
+    },
+    {
+     "label": "IconPlus",
+     "selected": null
+    },
+    {
+     "label": "S",
+     "selected": "true"
+    },
+    {
+     "label": "M",
+     "selected": "false"
+    },
+    {
+     "label": "L",
+     "selected": "false"
+    },
+    {
+     "label": "S",
+     "selected": "true"
+    },
+    {
+     "label": "M",
+     "selected": "false"
+    },
+    {
+     "label": "L",
+     "selected": "false"
+    },
+    {
+     "label": "left",
+     "selected": "false"
+    },
+    {
+     "label": "right",
+     "selected": "true"
+    },
+    {
+     "label": "S",
+     "selected": "false"
+    },
+    {
+     "label": "M",
+     "selected": "true"
+    },
+    {
+     "label": "L",
+     "selected": "false"
+    },
+    {
+     "label": "Blend ModeNormal",
+     "selected": null
+    }
+   ]
+  },
+  "item": {
+   "view": "Back, the item title, TITLE field, DESCRIPTION box, DUPLICATE, DELETE"
+  },
+  "dividers": {
+   "view": "Back, Dividers; switches Dividers, Show first, Show last; THICKNESS S M L more; Opacity slider, 1"
+  }
+ },
+ "base": {
+  "attrs": {
+   "data-should-allow-multiple-open-items": "false",
+   "data-is-divider-enabled": "true",
+   "data-is-first-divider-visible": "true",
+   "data-is-last-divider-visible": "true",
+   "data-is-expanded-first-item": "false",
+   "data-accordion-title-alignment": "left",
+   "data-accordion-description-alignment": "left",
+   "data-accordion-description-placement": "left",
+   "data-accordion-icon-placement": "right"
+  },
+  "n": 3,
+  "titles": [
+   "Accordion Item 1",
+   "Accordion Item 2",
+   "Accordion Item 3"
+  ],
+  "open": [
+   null,
+   null,
+   null
+  ],
+  "icon": [
+   445.3,
+   43.5,
+   14,
+   14
+  ],
+  "iconCls": "plus",
+  "line": [
+   445.3,
+   50,
+   14,
+   1
+  ],
+  "vline": [
+   451.8,
+   43.5,
+   1,
+   14
+  ],
+  "lineBg": "rgb(0, 0, 0)",
+  "lineH": "1px",
+  "btnPad": "30px 0px",
+  "btnDir": "row",
+  "title": [
+   0,
+   31,
+   445.3,
+   39
+  ],
+  "div": [
+   0,
+   100,
+   459.3,
+   1
+  ],
+  "divTop": [
+   0,
+   0,
+   459.3,
+   1
+  ],
+  "block": [
+   0,
+   0,
+   459.3,
+   301
+  ]
+ },
+ "addItem": {
+  "title": "New Item",
+  "description": "not read",
+  "area": [
+   1,
+   2,
+   12,
+   10
+  ]
+ },
+ "deleteItem": {
+  "dialog": false,
+  "area": [
+   1,
+   2,
+   9,
+   10
+  ]
+ },
+ "expandFirst": {
+  "attr": "data-is-expanded-first-item=true",
+  "li": "data-is-open=true",
+  "ulHeight": 353.4,
+  "area": [
+   1,
+   2,
+   10,
+   10
+  ],
+  "verticalLine": "turns to lie on the horizontal one"
+ },
+ "allowMultiple": "data-should-allow-multiple-open-items=true",
+ "iconSize": {
+  "S": 14,
+  "M": 24,
+  "L": 30
+ },
+ "iconThickness": {
+  "S": "1px",
+  "M": "3px",
+  "L": "6px"
+ },
+ "rowPadding": {
+  "S": {
+   "lineH": "6px",
+   "lineW": "14px",
+   "pad": "15px 0px",
+   "ul": 211,
+   "icon": [
+    14,
+    14
+   ]
+  },
+  "M": {
+   "lineH": "6px",
+   "lineW": "14px",
+   "pad": "30px 0px",
+   "ul": 301,
+   "icon": [
+    14,
+    14
+   ]
+  },
+  "L": {
+   "lineH": "6px",
+   "lineW": "14px",
+   "pad": "50px 0px",
+   "ul": 421,
+   "icon": [
+    14,
+    14
+   ]
+  }
+ },
+ "placement": {
+  "left": {
+   "dir": "row-reverse",
+   "icon": [
+    0,
+    43.5,
+    14,
+    14
+   ],
+   "title": [
+    14,
+    31,
+    445.3,
+    39
+   ]
+  },
+  "right": {
+   "dir": "row",
+   "icon": [
+    445.3,
+    43.5,
+    14,
+    14
+   ],
+   "title": [
+    0,
+    31,
+    445.3,
+    39
+   ]
+  }
+ },
+ "rows": "the block takes the rows its list needs, in both directions: 8 rows for 3 items, 11 with a fourth, 8 again after deleting it, 9 with the first item open",
+ "notMeasured": [
+  "the Title and Description style pickers",
+  "the Icon picker beyond Plus",
+  "what the Dividers switches write beyond the attributes",
+  "divider Thickness and Opacity",
+  "the more button in each S M L row",
+  "clicking a title on the published page",
+  "whether rows shrink below the default after other changes"
+ ]
+}
