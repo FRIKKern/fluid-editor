@@ -644,9 +644,9 @@
     "id": "X13",
     "area": "Gestures",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "Marquee selection: drag over an empty area to select the blocks inside",
-    "evidence": "Found in hands-on testing 2026-11-03: on the oracle a drag that starts on empty canvas draws a selection area and selects several blocks at once.  Measured 2026-11-04 (parity/findings/X13.json, demo section 2): the box is a 3px rgb(0, 114, 240) outline with no fill; a block it touches is selected (a corner of the paragraph was enough); the paragraph and the shape together got the group toolbar (Stack Blocks, Align Group). Ours draws the same box and selects the same blocks (headless Chrome: both cases). Not measured: a drag across sections, autoscroll during a marquee"
+    "evidence": "Found in hands-on testing 2026-11-03: on the oracle a drag that starts on empty canvas draws a selection area and selects several blocks at once.  Measured 2026-11-04 (parity/findings/X13.json, demo section 2): the box is a 3px rgb(0, 114, 240) outline with no fill; a block it touches is selected (a corner of the paragraph was enough); the paragraph and the shape together got the group toolbar (Stack Blocks, Align Group). Measured again with real mouse input (same finding, measured2): the box starts at 30px, from anywhere in the section; it grows over other sections but selects only blocks of its own section; no auto-scroll at the window edges; held blocks get thin outlines, no toolbar or handles; a selection stays until the box touches a block, then the touched blocks replace it on release; Escape does nothing while held. Ours does all of this: npm run mid-check, 9 marquee cases of 9, and a screenshot next to the oracle's. Inferred: a drag under 30px counts as a click in ours, and a box that touched a block and left it goes back to the earlier selection. Not ours yet: the small type label a hovered block shows. Gate C not run on this: it refuses headless Chrome"
   },
   {
     "id": "X12",

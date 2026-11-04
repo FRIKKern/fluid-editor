@@ -1,10 +1,9 @@
 {
   "item": "X13",
-  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
   "capturedAt": "2026-11-04",
   "question": "What does a drag on empty canvas select, and how does the box look?",
   "section": 2,
-  "look": "read from the screenshot mid-drag: a 3px rgb(0, 114, 240) outline from the start point to the pointer, no fill; the blocks under it get the thin hover outline",
+  "look": "a 3px rgb(0, 114, 240) outline just outside the rectangle from the start point to the pointer, no fill, drawn over the whole window. The blocks it touches get a thin outline, no handles and no toolbar; the section's chrome stays on screen",
   "rule": "a block the box touches is selected (case B touched only a corner of the paragraph and selected it); two or more selected blocks get the group toolbar (Stack Blocks, Align Group)",
   "steps": "pointer events on the frame document from an empty point below the paragraph; nothing was saved (Save stayed disabled, no undo needed)",
   "geo": {
@@ -94,5 +93,73 @@
     }
   },
   "saveDisabled": true,
-  "undo": 0
+  "undo": 0,
+  "measured2": {
+    "how": "real mouse input in headless Chrome, 2026-11-04. Nothing saved: Exit Without Saving after every run.",
+    "threshold": {
+      "rule": "the box starts once the pointer is 30px from the start",
+      "noBox": [
+        [
+          29,
+          0
+        ],
+        [
+          0,
+          24
+        ],
+        [
+          21,
+          21
+        ]
+      ],
+      "box": [
+        [
+          30,
+          0
+        ],
+        [
+          0,
+          30
+        ],
+        [
+          22,
+          22
+        ]
+      ]
+    },
+    "startsFrom": "anywhere in the section: the grid, its margins, and the padding above and below the grid",
+    "touch": {
+      "rule": "real overlap, no margin",
+      "shape": {
+        "box 0.5px above its top": "no",
+        "box 1.5px into it": "yes"
+      },
+      "left": {
+        "box 0.3px short": "no",
+        "box 3.7px into it": "yes"
+      }
+    },
+    "acrossSections": {
+      "box": "keeps growing over the next section",
+      "rule": "only blocks of the section it started in are selected",
+      "downIntoNext": "box over a block of section 3, started in section 2: nothing selected",
+      "upIntoPrevious": "box over the paragraph of section 2, started in section 3: the section 3 block it touches, not the paragraph"
+    },
+    "autoScroll": "none: 3.4s of moves at 1px from the bottom and from the top edge, scroll position unchanged",
+    "live": {
+      "nothingSelectedBefore": "held selection follows the box: paragraph, then nothing, then heading and paragraph, then nothing; released on nothing: nothing selected"
+    },
+    "withASelection": {
+      "press": "keeps it",
+      "boxOverNothing": "keeps it, also after release",
+      "boxOverShape": "held: paragraph and shape; after release: shape only",
+      "click": "clears it"
+    },
+    "escape": "no effect while held: box and selection stay",
+    "notMeasured": [
+      "a drag under 30px with a selection, then release: ours treats it as a click",
+      "a box with a selection that touched a block and then left it: ours goes back to the selection",
+      "the small type label a hovered block shows (TEXT) in the shot: ours has no such label"
+    ]
+  }
 }

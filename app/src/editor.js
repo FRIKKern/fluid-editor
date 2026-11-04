@@ -208,8 +208,8 @@ function drawSelectionLayers() {
   }
   // A group (X8, gap review screenshot): one outline with eight handles around all selected
   // blocks; each block keeps a thin outline. The handles resize the group (GROUPRESIZE.json).
-  if (sel.more?.length) {
-    for (const el3 of feEl(sel.sid).querySelectorAll('.fe-indicator')) { el3.classList.add('is-member'); el3.replaceChildren(); }
+  if (marquee || sel.more?.length) for (const el3 of feEl(sel.sid).querySelectorAll('.fe-indicator')) { el3.classList.add('is-member'); el3.replaceChildren(); }
+  if (!marquee && sel.more?.length) {
     const areas = [sel.bid, ...sel.more].map((id) => (id === sel.bid ? gesture?.target : gesture?.moreTargets?.[id]) || lay(B(sel.sid, id)).area);
     const box = [Math.min(...areas.map((a) => a[0])), Math.min(...areas.map((a) => a[1])), Math.max(...areas.map((a) => a[2])), Math.max(...areas.map((a) => a[3]))];
     const g = doc.createElement('div');
@@ -269,6 +269,7 @@ function placeGroupToolbar() {
   toolbar.hidden = false;
 }
 function placeToolbar() {
+  if (marquee) { toolbar.hidden = true; return; }
   toolbar.classList.toggle('is-group', !!sel?.more?.length);
   if (sel?.more?.length && !gesture?.type?.match(/move|resize/) && !editing && doc && !document.body.classList.contains('is-preview')) { placeGroupToolbar(); return; }
   if (!sel || sel.more?.length || gesture?.type === 'move' || gesture?.type === 'resize' || editing || !doc || designOpen === sel.bid) { toolbar.hidden = true; return; }
@@ -541,24 +542,38 @@ function nearest(from, to, f) {
 }
 
 // ---------- gestures ----------
-// Marquee (X13, parity/findings/X13.json): a drag from empty canvas draws a 3px rgb(0, 114, 240)
-// box and selects every block of that section it touches; two or more get the group toolbar.
+// Marquee (X13, parity/findings/X13.json): a drag of 30px from empty space in a section draws a 3px
+// rgb(0, 114, 240) box. The blocks of that section it touches join the selection while held, with
+// thin outlines only; on release they replace it. A box that touched nothing leaves it alone. A press
+// with no drag is a click and clears it. No auto-scroll, and Escape does nothing while held.
+let marquee = false;
 function startMarquee(e, fe) {
   const sid = fe.closest('section').dataset.sectionId;
   const x0 = e.clientX, y0 = e.clientY;
-  let box = null;
+  const prior = sel;
+  const base = prior?.sid === sid ? [prior.bid, ...(prior.more || [])] : [];
+  let box = null, touched = [];
+  const pick = (ids) => (ids.length ? { sid, bid: ids[0], more: ids.slice(1) } : prior);
   const move = (ev) => {
     const x1 = ev.clientX, y1 = ev.clientY;
-    if (!box && Math.hypot(x1 - x0, y1 - y0) < 4) return;
-    if (!box) { box = doc.createElement('div'); box.className = 'fe-marquee'; doc.body.append(box); }
+    if (!box && Math.hypot(x1 - x0, y1 - y0) < 30) return;
+    if (!box) { box = doc.createElement('div'); box.className = 'fe-marquee'; doc.body.append(box); marquee = true; }
     const L = Math.min(x0, x1), T = Math.min(y0, y1), R = Math.max(x0, x1), Bm = Math.max(y0, y1);
     Object.assign(box.style, { left: `${L}px`, top: `${T}px`, width: `${R - L}px`, height: `${Bm - T}px` });
-    const ids = [...fe.querySelectorAll(':scope > .fe-block')].filter((b) => { const q = b.getBoundingClientRect(); return q.width && q.left <= R && q.right >= L && q.top <= Bm && q.bottom >= T; }).map((b) => b.dataset.blockId);
-    select(ids.length ? { sid, bid: ids[0], more: ids.slice(1) } : null);
+    touched = [...fe.querySelectorAll(':scope > .fe-block')].filter((b) => { const q = b.getBoundingClientRect(); return q.width && q.left <= R && q.right >= L && q.top <= Bm && q.bottom >= T; }).map((b) => b.dataset.blockId);
+    select(pick(touched.length ? [...new Set([...base, ...touched])] : []));
   };
-  const up = () => { doc.removeEventListener('pointermove', move); doc.removeEventListener('pointerup', up); box?.remove(); };
+  const up = () => {
+    doc.removeEventListener('pointermove', move);
+    doc.removeEventListener('pointerup', up);
+    doc.removeEventListener('pointercancel', up);
+    marquee = false;
+    box?.remove();
+    select(box ? pick(touched) : null);
+  };
   doc.addEventListener('pointermove', move);
   doc.addEventListener('pointerup', up);
+  doc.addEventListener('pointercancel', up);
 }
 
 function onDown(e) {
@@ -576,9 +591,9 @@ function onDown(e) {
     return;
   }
   if (!blk) {
-    select(null);
-    const fe = e.target.closest('.fluid-engine');
+    const fe = e.target.closest('section')?.querySelector('.fluid-engine');
     if (fe && !e.target.closest('.fe-handle, .fe-indicator')) startMarquee(e, fe);
+    else select(null);
     return;
   }
   e.preventDefault();
@@ -922,6 +937,7 @@ function onKey(e) {
     return;
   }
   if (e.key === 'Escape') {
+    if (marquee) return;
     if (gesture && gesture.type !== 'pending') cancelGesture();
     else select(null);
     return;
@@ -1857,7 +1873,7 @@ function placeChrome() {
   const k = model.sections.findIndex((x) => x.id === sid);
   const phone = bp === 'mobile';
   // A group leaves the section's chrome on screen (GROUPRESIZE.json); one selected block does not.
-  const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length;
+  const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length && !marquee;
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}`;
   if (chrome.dataset.key !== key) { chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected }); chrome.dataset.key = key; }
   const header = k === 0 ? doc.getElementById('header') : null;
