@@ -866,7 +866,7 @@ function renderBlockPanel() {
   if (!content && designTab === 'Content') designTab = 'Design';
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false } : null;
-  const image = b.type === 'image' ? { mode: b.mode || 'fill' } : null;
+  const image = b.type === 'image' ? { mode: b.mode || 'fill', corner: parseFloat(b.radius) || 0 } : null;
   blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : null), shape, image);
   placeBlockPanel();
   blockPanel.hidden = false;
@@ -942,6 +942,21 @@ blockPanel.addEventListener('click', (e) => {
   commit(before, `image mode ${m.dataset.imageMode} on ${b.id}`);
   renderBlockPanel();
 });
+
+// Image Corner (Fit and Fill only, parity/findings/IMAGEMODES.json): the picture box's corner
+// radius, the value the oracle importer reads from its pages. One undo step.
+blockPanel.addEventListener('change', (e) => {
+  const f = e.target.closest('input[data-image-corner]');
+  if (!f || !sel) return;
+  e.stopImmediatePropagation();
+  const b = B(sel.sid, sel.bid);
+  if (!b || b.type !== 'image') return;
+  const before = JSON.stringify(model);
+  const v = Math.max(0, Math.min(1000, Number(f.value) || 0));
+  if (v) b.radius = `${v}px`; else delete b.radius;
+  renderSectionDom(sel.sid);
+  commit(before, `corner set on ${b.id}`);
+}, true);
 
 // Shape Corner radius and Stretch (parity/findings/SHAPEDESIGN.json), one undo step each.
 blockPanel.addEventListener('change', (e) => {

@@ -1,8 +1,8 @@
 {
   "check": "image Fit, Fill and Shape",
   "tolerance": 1,
-  "pass": 29,
-  "total": 29,
+  "pass": 32,
+  "total": 32,
   "results": [
     {
       "what": "Fit rule on the oracle",
@@ -118,6 +118,18 @@
     },
     {
       "what": "Remove, then undo",
+      "ok": true
+    },
+    {
+      "what": "Corner rounds the picture",
+      "ok": true
+    },
+    {
+      "what": "Corner is not on Shape",
+      "ok": true
+    },
+    {
+      "what": "Corner undo is one step",
       "ok": true
     }
   ]

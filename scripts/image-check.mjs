@@ -84,6 +84,17 @@ add('Link wraps, block filled', content.href === '/services' && content.linkedFi
 add('Undo removes the link', content.undoLink, '');
 add('Remove, then undo', content.removed && content.undoRemove, JSON.stringify(content));
 
+// Corner (Fit and Fill, IMAGEMODES.json designFit; Shape has none, designShape): the picture box
+// gets the radius, the picture is clipped by it, one undo step.
+const corner = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const d = document.getElementById('site-frame').contentDocument; const c = () => d.querySelector('.fe-block[data-block-id="${id}"] .fluid-image-container'); const P = document.getElementById('block-panel'); const out = {};
+  P.querySelector('[data-btab="Design"]').click(); await sleep(150);
+  const f = P.querySelector('input[aria-label="Corner"]'); out.has = !!f; f.value = '24'; f.dispatchEvent(new Event('change', { bubbles: true })); await sleep(250); const st = d.defaultView.getComputedStyle(c()); out.radius = st.borderRadius; out.overflow = st.overflow;
+  out.inShape = (P.querySelector('[data-image-mode="shape"]').click(), await sleep(250), !!P.querySelector('input[aria-label="Corner"]')); document.getElementById('undo').click(); await sleep(250);
+  document.getElementById('undo').click(); await sleep(250); out.undone = d.defaultView.getComputedStyle(c()).borderRadius; return JSON.stringify(out); })()`);
+add('Corner rounds the picture', corner.has && corner.radius === '24px' && corner.overflow === 'hidden', JSON.stringify(corner));
+add('Corner is not on Shape', corner.inShape === false, JSON.stringify(corner));
+add('Corner undo is one step', corner.undone === '0px', JSON.stringify(corner));
+
 console.log(`Image modes: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/image-check.json', import.meta.url), JSON.stringify({ check: 'image Fit, Fill and Shape', tolerance: 1, pass, total, results }, null, 2) + '\n');
 if (!total || pass !== total) process.exitCode = 1;
