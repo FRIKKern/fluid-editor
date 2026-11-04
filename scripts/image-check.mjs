@@ -59,6 +59,31 @@ press('Fit');
 const undone = evalJs(S, `(async () => { const before = JSON.stringify(fe.model); document.getElementById('undo')?.click(); await new Promise((res) => setTimeout(res, 300)); const b = fe.model.sections[1].blocks.find((x) => x.id === ${JSON.stringify(id)}); return JSON.stringify({ changed: before !== JSON.stringify(fe.model), mode: b.mode || 'fill' }); })()`);
 add('Undo is one step', undone.changed && undone.mode === 'fill', JSON.stringify(undone));
 
+// Content tab (labels from IMAGEMODES.json contentTab): Replace with a picture from this computer,
+// a generated 400 by 200 red one, which keeps its aspect in Fit; Link, alt text and Remove. Each
+// is one undo step. Nothing here touches the oracle.
+const content = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const d = document.getElementById('site-frame').contentDocument; const fb = () => d.querySelector('.fe-block[data-block-id="${id}"]'); const model = () => fe.model.sections[1].blocks.find((x) => x.id === ${JSON.stringify(id)}); const P = document.getElementById('block-panel'); const out = {};
+  P.querySelector('[data-btab="Content"]').click(); await sleep(150);
+  out.labels = [...P.querySelectorAll('.bp-pic-actions button, .bp-flabel')].map((x) => x.textContent);
+  const c = document.createElement('canvas'); c.width = 400; c.height = 200; const g = c.getContext('2d'); g.fillStyle = '#d00'; g.fillRect(0, 0, 400, 200);
+  const blob = await new Promise((res) => c.toBlob(res, 'image/png')); const dt = new DataTransfer(); dt.items.add(new File([blob], 'red.png', { type: 'image/png' }));
+  const inp = P.querySelector('[data-image-file]'); inp.files = dt.files; inp.dispatchEvent(new Event('change', { bubbles: true })); await sleep(500);
+  const img = fb().querySelector('.fluid-image-container img'); out.aspect = model().aspect; out.picture = !!img && img.naturalWidth === 400 && img.naturalHeight === 200; out.fill = img && d.defaultView.getComputedStyle(img).objectFit;
+  P.querySelector('[data-btab="Design"]').click(); await sleep(100); P.querySelector('[data-image-mode="fit"]').click(); await sleep(200); out.fit = d.defaultView.getComputedStyle(fb().querySelector('.fluid-image-container img')).objectFit; const q = fb().querySelector('.fluid-image-container').getBoundingClientRect(); out.fitAspect = q.width / q.height; document.getElementById('undo').click(); await sleep(200);
+  document.querySelector('#block-toolbar button[data-tb="edit"]').click(); await sleep(150); P.querySelector('[data-btab="Content"]').click(); await sleep(150);
+  const a = P.querySelector('input[data-content="alt"]'); a.value = 'A red picture'; a.dispatchEvent(new Event('change', { bubbles: true })); await sleep(200); out.alt = fb().querySelector('.fluid-image-container img').alt;
+  P.querySelector('[data-link="open"]').click(); await sleep(150); const lk = document.querySelector('#link-popover .lk-input'); lk.value = '/services'; lk.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); await sleep(200); out.href = fb().querySelector('a.sqs-block-image-link')?.getAttribute('href'); const box = fb().querySelector('.fluid-image-container').getBoundingClientRect(), bq = fb().getBoundingClientRect(); out.linkedFills = Math.abs(box.width - bq.width) < 1 && Math.abs(box.height - bq.height) < 1;
+  document.getElementById('undo').click(); await sleep(200); out.undoLink = !fb().querySelector('a.sqs-block-image-link');
+  P.querySelector('[data-image-act="remove"]')?.click(); await sleep(200); out.removed = !fb().querySelector('img') && !model().src; document.getElementById('undo').click(); await sleep(200); out.undoRemove = !!fb().querySelector('img');
+  return JSON.stringify(out); })()`);
+add('Content tab rows', content.labels.join() === F.contentTab.join(), content.labels.join());
+add('Replace shows the picture', content.picture && content.fill === 'cover' && content.aspect === 2, JSON.stringify(content));
+add('Fit keeps the whole picture', content.fit === 'contain' && Math.abs(content.fitAspect - 2) < 0.02, JSON.stringify(content));
+add('Alt text on the picture', content.alt === 'A red picture', content.alt);
+add('Link wraps, block filled', content.href === '/services' && content.linkedFills, JSON.stringify(content));
+add('Undo removes the link', content.undoLink, '');
+add('Remove, then undo', content.removed && content.undoRemove, JSON.stringify(content));
+
 console.log(`Image modes: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/image-check.json', import.meta.url), JSON.stringify({ check: 'image Fit, Fill and Shape', tolerance: 1, pass, total, results }, null, 2) + '\n');
 if (!total || pass !== total) process.exitCode = 1;

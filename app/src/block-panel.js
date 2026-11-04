@@ -14,12 +14,28 @@ export const DESIGN_FIELDS = [['opacity', 'Opacity', '%', 0, 100], ['rotate', 'R
 // Content tab of a button block (parity/findings/BUTTONEDIT.json): Text, a 276 by 44 field
 // with the placeholder Learn More, and Link, an Attach link button that turns into the link
 // with Edit, Copy and Remove Link once one is set.
-function buttonContentHtml(c) {
-  const link = c.href
-    ? `<div class="bp-link"><button type="button" class="bp-link-url" data-link="edit" aria-label="${esc(c.href)}">${esc(c.href)}</button><div class="bp-link-actions"><button type="button" data-link="edit">Edit</button><button type="button" data-link="copy">Copy</button><button type="button" class="bp-link-remove" data-link="remove">Remove Link</button></div></div>`
+function linkField(href) {
+  const link = href
+    ? `<div class="bp-link"><button type="button" class="bp-link-url" data-link="edit" aria-label="${esc(href)}">${esc(href)}</button><div class="bp-link-actions"><button type="button" data-link="edit">Edit</button><button type="button" data-link="copy">Copy</button><button type="button" class="bp-link-remove" data-link="remove">Remove Link</button></div></div>`
     : '<button type="button" class="bp-attach" data-link="open">Attach link</button>';
+  return `<div class="bp-field"><span class="bp-flabel">Link</span>${link}</div>`;
+}
+function buttonContentHtml(c) {
   return `<div class="bp-field"><span class="bp-flabel">Text</span><input class="bp-text" type="text" aria-label="Text" placeholder="Learn More" data-content="label" value="${esc(c.label || '')}"></div>`
-    + `<div class="bp-field"><span class="bp-flabel">Link</span>${link}</div>`;
+    + linkField(c.href);
+}
+
+// Content tab of an image block, in the oracle's order (parity/findings/IMAGEMODES.json): the
+// picture with Replace, Edit and Remove, then Link, Alternate Filename and Image alt text. Those
+// labels are all that is measured, so the sizes follow the button's Content tab. Replace reads a
+// file from this computer; Edit, the oracle's full-screen image editor, is not built.
+function imageContentHtml(c) {
+  const text = (key, label, value) => `<div class="bp-field"><span class="bp-flabel">${label}</span><input class="bp-text" type="text" aria-label="${label}" data-content="${key}" value="${esc(value || '')}"></div>`;
+  const pic = c.src ? `<img class="bp-pic-img" alt="" src="${esc(c.src)}">` : '';
+  return `<div class="bp-pic">${pic}<div class="bp-pic-actions"><button type="button" data-image-act="replace">Replace</button><button type="button" data-unbuilt disabled title="Not built yet">Edit</button><button type="button" class="bp-link-remove" data-image-act="remove"${c.src ? '' : ' disabled'}>Remove</button></div><input class="bp-pic-file" type="file" accept="image/*" hidden data-image-file></div>`
+    + linkField(c.href)
+    + text('filename', 'Alternate Filename', c.filename)
+    + text('alt', 'Image alt text', c.alt);
 }
 
 // The link editor popover (BUTTONEDIT.json, the gap review's button-link state): a URL tab, the
@@ -71,7 +87,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   const box = ([k, l, u, min, max, axis]) => `<label class="bp-box"><input type="number" data-design="${k}" aria-label="${axis ? `${l} ${axis}` : l}" min="${min}" max="${max}" value="${d[k]}"><span class="bp-unit">${u}${axis ? ` <b>${axis}</b>` : ''}</span></label>`;
   let body;
   if (tab === 'Content' && content) {
-    body = buttonContentHtml(content);
+    body = image ? imageContentHtml(content) : buttonContentHtml(content);
   } else if (tab === 'Design') {
     const pairs = [];
     for (let i = 0; i < DESIGN_FIELDS.length; i++) {
