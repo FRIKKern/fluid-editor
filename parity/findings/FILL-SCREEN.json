@@ -1,7 +1,8 @@
 {
   "item": "FILL-SCREEN",
-  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
-  "capturedAt": "2026-11-03",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
   "question": "What does Edit Section > Design > Fill Screen change, at several frame sizes?",
   "section": 2,
   "help": [
@@ -12,7 +13,7 @@
       "w": 1600,
       "h": 945,
       "classes": "section-height--custom horizontal-alignment--center vertical-alignment--middle",
-      "inline": "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+      "inline": "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;",
       "height": 441,
       "minHeight": "0px",
       "padTop": "0px",
@@ -24,7 +25,7 @@
       "w": 375,
       "h": 700,
       "classes": "section-height--custom horizontal-alignment--center vertical-alignment--middle",
-      "inline": "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+      "inline": "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;",
       "height": 480.4,
       "minHeight": "0px",
       "padTop": "0px",
@@ -36,19 +37,19 @@
       "w": 768,
       "h": 1000,
       "classes": "section-height--custom horizontal-alignment--center vertical-alignment--middle",
-      "inline": "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
-      "height": 385.6,
+      "inline": "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;",
+      "height": 330,
       "minHeight": "0px",
       "padTop": "0px",
       "padBottom": "0px",
-      "gridHeight": 385.6,
+      "gridHeight": 330,
       "gridTop": 0
     },
     {
       "w": 1280,
       "h": 800,
       "classes": "section-height--custom horizontal-alignment--center vertical-alignment--middle",
-      "inline": "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+      "inline": "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;",
       "height": 388.4,
       "minHeight": "0px",
       "padTop": "0px",
@@ -60,7 +61,7 @@
       "w": 1920,
       "h": 1000,
       "classes": "section-height--custom horizontal-alignment--center vertical-alignment--middle",
-      "inline": "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+      "inline": "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;",
       "height": 441,
       "minHeight": "0px",
       "padTop": "0px",
@@ -69,5 +70,42 @@
       "gridTop": 0
     }
   ],
-  "undoSteps": 1
+  "undoSteps": 1,
+  "recordedAgain": {
+    "from": {
+      "engine": "webkit",
+      "capturedAt": "2026-11-03"
+    },
+    "why": "The old reading is WebKit with a 17px scrollbar, so the canvas was 1583px wide. Headless Chrome has no layout scrollbar, so it is 1600px wide (docs/decisions/0006).",
+    "changed": {
+      "reads.0.inline": [
+        "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+        "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;"
+      ],
+      "reads.1.inline": [
+        "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+        "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;"
+      ],
+      "reads.2.inline": [
+        "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+        "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;"
+      ],
+      "reads.2.height": [
+        385.6,
+        330
+      ],
+      "reads.2.gridHeight": [
+        385.6,
+        330
+      ],
+      "reads.3.inline": [
+        "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+        "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;"
+      ],
+      "reads.4.inline": [
+        "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+        "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;"
+      ]
+    }
+  }
 }

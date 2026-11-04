@@ -1,7 +1,8 @@
 {
   "item": "DIVIDER",
-  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
-  "capturedAt": "2026-11-03",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
   "question": "What does the section Divider add, and which options does it show?",
   "section": 2,
   "frame": "1600x945 unless named",
@@ -14,18 +15,18 @@
     "section": [
       0,
       0,
-      1583,
+      1600,
       652.2
     ],
     "sectionClasses": "section-height--medium",
-    "sectionStyle": "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
-    "wrapPad": "105.599998px 0px",
+    "sectionStyle": "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;",
+    "wrapPad": "105.6px 0px",
     "parts": [],
     "edge": null,
     "next": [
       0,
       -1771.8,
-      1583,
+      1600,
       914.1
     ],
     "clipped": [],
@@ -79,43 +80,9 @@
   "shapes": {
     "text": [
       "Edit Section",
-      "Remove",
-      "Design",
-      "Background",
-      "Colors",
-      "Grid",
-      "Row Count",
-      "Gap",
-      "Zero gap",
-      "Medium gap",
-      "Custom gap",
-      "Section",
-      "Fill Screen",
-      "Height",
-      "S",
-      "M",
-      "L",
-      "Custom height",
-      "Alignment",
-      "Vertical top",
-      "Vertical center",
-      "Vertical bottom",
-      "Fill screen will expand the background h",
-      "Styling",
-      "Divider",
-      "Shape",
-      "Stroke",
-      "Color",
-      "Thickness",
-      "Anchor Link",
-      "#"
+      "Remove"
     ],
-    "inputs": [
-      "number|Row Count|11|11|10000",
-      "checkbox|Fill Screen|true||",
-      "checkbox|Divider|true||",
-      "text|#|||"
-    ]
+    "inputs": []
   },
   "on": {
     "index": 2,
@@ -126,12 +93,12 @@
     "section": [
       0,
       0,
-      1583,
+      1600,
       748.2
     ],
     "sectionClasses": "has-section-divider section-height--medium",
-    "sectionStyle": "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
-    "wrapPad": "105.599998px 0px",
+    "sectionStyle": "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;",
+    "wrapPad": "105.6px 0px",
     "parts": [
       {
         "tag": "div",
@@ -139,12 +106,12 @@
         "box": [
           0,
           0,
-          1583,
+          1600,
           748.2
         ],
         "position": "absolute",
         "bottom": "0px",
-        "height": "748.21875px",
+        "height": "748.219px",
         "fill": "rgb(0, 0, 0)",
         "bg": "rgba(0, 0, 0, 0)",
         "clip": "none",
@@ -160,7 +127,7 @@
         "box": [
           0,
           652.2,
-          1583,
+          1600,
           96
         ],
         "position": "absolute",
@@ -181,12 +148,12 @@
         "box": [
           0,
           0,
-          1583,
+          1600,
           748.2
         ],
         "position": "absolute",
         "bottom": "0px",
-        "height": "748.21875px",
+        "height": "748.219px",
         "fill": "rgb(0, 0, 0)",
         "bg": "rgba(0, 0, 0, 0)",
         "clip": "none",
@@ -202,10 +169,10 @@
         "tag": "path",
         "cls": "section-divider-clip",
         "box": [
-          -1,
-          -1,
-          3,
-          2
+          0,
+          189.2,
+          0,
+          0
         ],
         "position": "static",
         "bottom": "auto",
@@ -225,12 +192,12 @@
         "box": [
           0,
           0,
-          1583,
+          1600,
           748.2
         ],
         "position": "absolute",
         "bottom": "0px",
-        "height": "748.21875px",
+        "height": "748.219px",
         "fill": "rgb(0, 0, 0)",
         "bg": "rgba(0, 0, 0, 0)",
         "clip": "none",
@@ -246,9 +213,9 @@
         "tag": "path",
         "cls": "section-divider-stroke",
         "box": [
-          -158300,
+          -160000,
           374.1,
-          161475.5,
+          163209.6,
           748.2
         ],
         "position": "static",
@@ -267,53 +234,53 @@
     "edge": {
       "units": "objectBoundingBox",
       "ys": [
-        700.2,
+        700.3,
         694.2,
         688.2,
-        682.2,
+        682.3,
         676.5,
         671,
-        665.9,
-        661.5,
+        666,
+        661.6,
         658.1,
         655.8,
         655.1,
         656,
         658.3,
-        661.8,
-        666.3,
-        671.4,
-        676.9,
-        682.7,
-        688.6,
+        661.9,
+        666.4,
+        671.5,
+        677,
+        682.8,
+        688.7,
         694.7,
-        700.7,
+        700.8,
         706.8,
         712.8,
-        718.7,
+        718.8,
         724.5,
-        730,
-        735.1,
+        730.1,
+        735.2,
         739.6,
-        743.1,
+        743.2,
         745.5,
         746.3,
         745.6,
         743.4,
         739.9,
         735.5,
-        730.4,
-        724.9,
+        730.5,
+        725,
         719.2,
         713.3,
-        707.2,
-        701.2
+        707.3,
+        701.3
       ]
     },
     "next": [
       0,
       748.2,
-      1583,
+      1600,
       693.3
     ],
     "clipped": [
@@ -344,12 +311,12 @@
       "section": [
         0,
         0,
-        358,
-        595.2
+        375,
+        595.3
       ],
       "sectionClasses": "has-section-divider section-height--medium",
-      "sectionStyle": "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
-      "wrapPad": "46.200001px 0px",
+      "sectionStyle": "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;",
+      "wrapPad": "46.2px 0px",
       "parts": [
         {
           "tag": "div",
@@ -357,12 +324,12 @@
           "box": [
             0,
             0,
-            358,
-            595.2
+            375,
+            595.3
           ],
           "position": "absolute",
           "bottom": "0px",
-          "height": "595.234375px",
+          "height": "595.312px",
           "fill": "rgb(0, 0, 0)",
           "bg": "rgba(0, 0, 0, 0)",
           "clip": "none",
@@ -377,8 +344,8 @@
           "cls": "section-divider-block",
           "box": [
             0,
-            572.7,
-            358,
+            572.8,
+            375,
             22.5
           ],
           "position": "absolute",
@@ -399,12 +366,12 @@
           "box": [
             0,
             0,
-            358,
-            595.2
+            375,
+            595.3
           ],
           "position": "absolute",
           "bottom": "0px",
-          "height": "595.234375px",
+          "height": "595.312px",
           "fill": "rgb(0, 0, 0)",
           "bg": "rgba(0, 0, 0, 0)",
           "clip": "none",
@@ -413,17 +380,17 @@
           "viewBox": null,
           "preserve": null,
           "paths": [
-            "path:280ch"
+            "path:230ch"
           ]
         },
         {
           "tag": "path",
           "cls": "section-divider-clip",
           "box": [
-            -1,
-            -1,
-            3.1,
-            2
+            0,
+            -4495.1,
+            0,
+            0
           ],
           "position": "static",
           "bottom": "auto",
@@ -443,12 +410,12 @@
           "box": [
             0,
             0,
-            358,
-            595.2
+            375,
+            595.3
           ],
           "position": "absolute",
           "bottom": "0px",
-          "height": "595.234375px",
+          "height": "595.312px",
           "fill": "rgb(0, 0, 0)",
           "bg": "rgba(0, 0, 0, 0)",
           "clip": "none",
@@ -457,17 +424,17 @@
           "viewBox": "0 0 1 1",
           "preserve": "none",
           "paths": [
-            "path:284ch"
+            "path:234ch"
           ]
         },
         {
           "tag": "path",
           "cls": "section-divider-stroke",
           "box": [
-            -35800,
-            297.6,
-            36525.1,
-            595.2
+            -37500,
+            297.7,
+            38259,
+            595.3
           ],
           "position": "static",
           "bottom": "auto",
@@ -485,54 +452,54 @@
       "edge": {
         "units": "objectBoundingBox",
         "ys": [
-          583.8,
-          582.4,
-          581,
-          579.6,
-          578.3,
-          577.1,
-          576,
-          575,
-          574.2,
-          573.8,
-          573.7,
+          583.9,
+          582.5,
+          581.1,
+          579.8,
+          578.4,
+          577.2,
+          576.1,
+          575.1,
+          574.3,
           573.9,
+          573.7,
+          574,
           574.5,
-          575.3,
-          576.3,
-          577.5,
-          578.8,
-          580.1,
+          575.4,
+          576.4,
+          577.6,
+          578.9,
+          580.2,
           581.5,
-          582.8,
-          584.2,
-          585.6,
-          587,
-          588.3,
-          589.7,
-          590.9,
-          592.1,
-          593.1,
-          594,
-          594.5,
-          594.8,
+          582.9,
+          584.3,
+          585.7,
+          587.1,
+          588.4,
+          589.8,
+          591,
+          592.2,
+          593.2,
+          594.1,
+          594.6,
+          594.9,
           594.7,
-          594.2,
+          594.3,
           593.5,
-          592.5,
-          591.3,
-          590.1,
-          588.8,
-          587.4,
+          592.6,
+          591.4,
+          590.2,
+          588.9,
+          587.5,
           586.1,
-          584.7
+          584.8
         ]
       },
       "next": [
         0,
-        595.2,
-        358,
-        539.7
+        595.3,
+        375,
+        539.8
       ],
       "clipped": [
         "section-border"
@@ -543,7 +510,7 @@
         "opacity": "1"
       },
       "pad": "22.5px",
-      "wrapH": 572.7,
+      "wrapH": 572.8,
       "stroke": {
         "width": "6px",
         "color": "rgb(0, 0, 0)",
@@ -561,12 +528,12 @@
       "section": [
         0,
         0,
-        1263,
+        1280,
         634.2
       ],
       "sectionClasses": "has-section-divider section-height--medium",
-      "sectionStyle": "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
-      "wrapPad": "84.480003px 0px",
+      "sectionStyle": "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;",
+      "wrapPad": "84.48px 0px",
       "parts": [
         {
           "tag": "div",
@@ -574,12 +541,12 @@
           "box": [
             0,
             0,
-            1263,
+            1280,
             634.2
           ],
           "position": "absolute",
           "bottom": "0px",
-          "height": "634.171875px",
+          "height": "634.172px",
           "fill": "rgb(0, 0, 0)",
           "bg": "rgba(0, 0, 0, 0)",
           "clip": "none",
@@ -595,12 +562,12 @@
           "box": [
             0,
             557.4,
-            1263,
+            1280,
             76.8
           ],
           "position": "absolute",
           "bottom": "0px",
-          "height": "76.796875px",
+          "height": "76.7969px",
           "fill": "rgb(0, 0, 0)",
           "bg": "rgba(0, 0, 0, 0)",
           "clip": "none",
@@ -616,12 +583,12 @@
           "box": [
             0,
             0,
-            1263,
+            1280,
             634.2
           ],
           "position": "absolute",
           "bottom": "0px",
-          "height": "634.171875px",
+          "height": "634.172px",
           "fill": "rgb(0, 0, 0)",
           "bg": "rgba(0, 0, 0, 0)",
           "clip": "none",
@@ -637,10 +604,10 @@
           "tag": "path",
           "cls": "section-divider-clip",
           "box": [
-            -1,
-            -1,
-            3,
-            2
+            0,
+            362,
+            0,
+            0
           ],
           "position": "static",
           "bottom": "auto",
@@ -660,12 +627,12 @@
           "box": [
             0,
             0,
-            1263,
+            1280,
             634.2
           ],
           "position": "absolute",
           "bottom": "0px",
-          "height": "634.171875px",
+          "height": "634.172px",
           "fill": "rgb(0, 0, 0)",
           "bg": "rgba(0, 0, 0, 0)",
           "clip": "none",
@@ -681,9 +648,9 @@
           "tag": "path",
           "cls": "section-divider-stroke",
           "box": [
-            -126300,
+            -128000,
             317.1,
-            128835.5,
+            130569.6,
             634.2
           ],
           "position": "static",
@@ -702,54 +669,54 @@
       "edge": {
         "units": "objectBoundingBox",
         "ys": [
-          595.6,
+          595.7,
           590.8,
           586,
-          581.2,
-          576.6,
+          581.3,
+          576.7,
           572.3,
-          568.2,
+          568.3,
           564.7,
-          561.9,
+          562,
           560.2,
           559.6,
           560.3,
           562.2,
-          565,
+          565.1,
           568.6,
           572.7,
           577.1,
-          581.7,
+          581.8,
           586.5,
           591.3,
-          596.1,
+          596.2,
           601,
           605.8,
-          610.5,
+          610.6,
           615.2,
           619.6,
-          623.6,
-          627.2,
+          623.7,
+          627.3,
           630.1,
           632,
           632.6,
           632.1,
           630.3,
-          627.5,
-          624,
+          627.6,
+          624.1,
           620,
           615.6,
           611,
           606.3,
-          601.4,
-          596.6
+          601.5,
+          596.7
         ]
       },
       "next": [
         0,
         634.2,
-        1263,
-        630.1
+        1280,
+        630.2
       ],
       "clipped": [
         "section-border"
@@ -759,7 +726,7 @@
         "visibility": "visible",
         "opacity": "1"
       },
-      "pad": "76.800003px",
+      "pad": "76.8px",
       "wrapH": 557.4,
       "stroke": {
         "width": "6px",
@@ -770,5 +737,702 @@
       "vars": {}
     }
   },
-  "undoSteps": 1
+  "undoSteps": 1,
+  "recordedAgain": {
+    "from": {
+      "engine": "webkit",
+      "capturedAt": "2026-11-03"
+    },
+    "why": "The old reading is WebKit with a 17px scrollbar, so the canvas was 1583px wide. Headless Chrome has no layout scrollbar, so it is 1600px wide (docs/decisions/0006).",
+    "changed": {
+      "before.section.2": [
+        1583,
+        1600
+      ],
+      "before.sectionStyle": [
+        "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+        "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;"
+      ],
+      "before.wrapPad": [
+        "105.599998px 0px",
+        "105.6px 0px"
+      ],
+      "before.next.2": [
+        1583,
+        1600
+      ],
+      "shapes.text.2": [
+        "Design",
+        null
+      ],
+      "shapes.text.3": [
+        "Background",
+        null
+      ],
+      "shapes.text.4": [
+        "Colors",
+        null
+      ],
+      "shapes.text.5": [
+        "Grid",
+        null
+      ],
+      "shapes.text.6": [
+        "Row Count",
+        null
+      ],
+      "shapes.text.7": [
+        "Gap",
+        null
+      ],
+      "shapes.text.8": [
+        "Zero gap",
+        null
+      ],
+      "shapes.text.9": [
+        "Medium gap",
+        null
+      ],
+      "shapes.text.10": [
+        "Custom gap",
+        null
+      ],
+      "shapes.text.11": [
+        "Section",
+        null
+      ],
+      "shapes.text.12": [
+        "Fill Screen",
+        null
+      ],
+      "shapes.text.13": [
+        "Height",
+        null
+      ],
+      "shapes.text.14": [
+        "S",
+        null
+      ],
+      "shapes.text.15": [
+        "M",
+        null
+      ],
+      "shapes.text.16": [
+        "L",
+        null
+      ],
+      "shapes.text.17": [
+        "Custom height",
+        null
+      ],
+      "shapes.text.18": [
+        "Alignment",
+        null
+      ],
+      "shapes.text.19": [
+        "Vertical top",
+        null
+      ],
+      "shapes.text.20": [
+        "Vertical center",
+        null
+      ],
+      "shapes.text.21": [
+        "Vertical bottom",
+        null
+      ],
+      "shapes.text.22": [
+        "Fill screen will expand the background h",
+        null
+      ],
+      "shapes.text.23": [
+        "Styling",
+        null
+      ],
+      "shapes.text.24": [
+        "Divider",
+        null
+      ],
+      "shapes.text.25": [
+        "Shape",
+        null
+      ],
+      "shapes.text.26": [
+        "Stroke",
+        null
+      ],
+      "shapes.text.27": [
+        "Color",
+        null
+      ],
+      "shapes.text.28": [
+        "Thickness",
+        null
+      ],
+      "shapes.text.29": [
+        "Anchor Link",
+        null
+      ],
+      "shapes.text.30": [
+        "#",
+        null
+      ],
+      "shapes.inputs.0": [
+        "number|Row Count|11|11|10000",
+        null
+      ],
+      "shapes.inputs.1": [
+        "checkbox|Fill Screen|true||",
+        null
+      ],
+      "shapes.inputs.2": [
+        "checkbox|Divider|true||",
+        null
+      ],
+      "shapes.inputs.3": [
+        "text|#|||",
+        null
+      ],
+      "on.section.2": [
+        1583,
+        1600
+      ],
+      "on.sectionStyle": [
+        "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+        "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;"
+      ],
+      "on.wrapPad": [
+        "105.599998px 0px",
+        "105.6px 0px"
+      ],
+      "on.parts.0.box.2": [
+        1583,
+        1600
+      ],
+      "on.parts.0.height": [
+        "748.21875px",
+        "748.219px"
+      ],
+      "on.parts.1.box.2": [
+        1583,
+        1600
+      ],
+      "on.parts.2.box.2": [
+        1583,
+        1600
+      ],
+      "on.parts.2.height": [
+        "748.21875px",
+        "748.219px"
+      ],
+      "on.parts.3.box.0": [
+        -1,
+        0
+      ],
+      "on.parts.3.box.1": [
+        -1,
+        189.2
+      ],
+      "on.parts.3.box.2": [
+        3,
+        0
+      ],
+      "on.parts.3.box.3": [
+        2,
+        0
+      ],
+      "on.parts.4.box.2": [
+        1583,
+        1600
+      ],
+      "on.parts.4.height": [
+        "748.21875px",
+        "748.219px"
+      ],
+      "on.parts.5.box.0": [
+        -158300,
+        -160000
+      ],
+      "on.parts.5.box.2": [
+        161475.5,
+        163209.6
+      ],
+      "on.edge.ys.0": [
+        700.2,
+        700.3
+      ],
+      "on.edge.ys.3": [
+        682.2,
+        682.3
+      ],
+      "on.edge.ys.6": [
+        665.9,
+        666
+      ],
+      "on.edge.ys.7": [
+        661.5,
+        661.6
+      ],
+      "on.edge.ys.13": [
+        661.8,
+        661.9
+      ],
+      "on.edge.ys.14": [
+        666.3,
+        666.4
+      ],
+      "on.edge.ys.15": [
+        671.4,
+        671.5
+      ],
+      "on.edge.ys.16": [
+        676.9,
+        677
+      ],
+      "on.edge.ys.17": [
+        682.7,
+        682.8
+      ],
+      "on.edge.ys.18": [
+        688.6,
+        688.7
+      ],
+      "on.edge.ys.20": [
+        700.7,
+        700.8
+      ],
+      "on.edge.ys.23": [
+        718.7,
+        718.8
+      ],
+      "on.edge.ys.25": [
+        730,
+        730.1
+      ],
+      "on.edge.ys.26": [
+        735.1,
+        735.2
+      ],
+      "on.edge.ys.28": [
+        743.1,
+        743.2
+      ],
+      "on.edge.ys.35": [
+        730.4,
+        730.5
+      ],
+      "on.edge.ys.36": [
+        724.9,
+        725
+      ],
+      "on.edge.ys.39": [
+        707.2,
+        707.3
+      ],
+      "on.edge.ys.40": [
+        701.2,
+        701.3
+      ],
+      "on.next.2": [
+        1583,
+        1600
+      ],
+      "widths.375x700.section.2": [
+        358,
+        375
+      ],
+      "widths.375x700.section.3": [
+        595.2,
+        595.3
+      ],
+      "widths.375x700.sectionStyle": [
+        "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+        "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;"
+      ],
+      "widths.375x700.wrapPad": [
+        "46.200001px 0px",
+        "46.2px 0px"
+      ],
+      "widths.375x700.parts.0.box.2": [
+        358,
+        375
+      ],
+      "widths.375x700.parts.0.box.3": [
+        595.2,
+        595.3
+      ],
+      "widths.375x700.parts.0.height": [
+        "595.234375px",
+        "595.312px"
+      ],
+      "widths.375x700.parts.1.box.1": [
+        572.7,
+        572.8
+      ],
+      "widths.375x700.parts.1.box.2": [
+        358,
+        375
+      ],
+      "widths.375x700.parts.2.box.2": [
+        358,
+        375
+      ],
+      "widths.375x700.parts.2.box.3": [
+        595.2,
+        595.3
+      ],
+      "widths.375x700.parts.2.height": [
+        "595.234375px",
+        "595.312px"
+      ],
+      "widths.375x700.parts.2.paths.0": [
+        "path:280ch",
+        "path:230ch"
+      ],
+      "widths.375x700.parts.3.box.0": [
+        -1,
+        0
+      ],
+      "widths.375x700.parts.3.box.1": [
+        -1,
+        -4495.1
+      ],
+      "widths.375x700.parts.3.box.2": [
+        3.1,
+        0
+      ],
+      "widths.375x700.parts.3.box.3": [
+        2,
+        0
+      ],
+      "widths.375x700.parts.4.box.2": [
+        358,
+        375
+      ],
+      "widths.375x700.parts.4.box.3": [
+        595.2,
+        595.3
+      ],
+      "widths.375x700.parts.4.height": [
+        "595.234375px",
+        "595.312px"
+      ],
+      "widths.375x700.parts.4.paths.0": [
+        "path:284ch",
+        "path:234ch"
+      ],
+      "widths.375x700.parts.5.box.0": [
+        -35800,
+        -37500
+      ],
+      "widths.375x700.parts.5.box.1": [
+        297.6,
+        297.7
+      ],
+      "widths.375x700.parts.5.box.2": [
+        36525.1,
+        38259
+      ],
+      "widths.375x700.parts.5.box.3": [
+        595.2,
+        595.3
+      ],
+      "widths.375x700.edge.ys.0": [
+        583.8,
+        583.9
+      ],
+      "widths.375x700.edge.ys.1": [
+        582.4,
+        582.5
+      ],
+      "widths.375x700.edge.ys.2": [
+        581,
+        581.1
+      ],
+      "widths.375x700.edge.ys.3": [
+        579.6,
+        579.8
+      ],
+      "widths.375x700.edge.ys.4": [
+        578.3,
+        578.4
+      ],
+      "widths.375x700.edge.ys.5": [
+        577.1,
+        577.2
+      ],
+      "widths.375x700.edge.ys.6": [
+        576,
+        576.1
+      ],
+      "widths.375x700.edge.ys.7": [
+        575,
+        575.1
+      ],
+      "widths.375x700.edge.ys.8": [
+        574.2,
+        574.3
+      ],
+      "widths.375x700.edge.ys.9": [
+        573.8,
+        573.9
+      ],
+      "widths.375x700.edge.ys.11": [
+        573.9,
+        574
+      ],
+      "widths.375x700.edge.ys.13": [
+        575.3,
+        575.4
+      ],
+      "widths.375x700.edge.ys.14": [
+        576.3,
+        576.4
+      ],
+      "widths.375x700.edge.ys.15": [
+        577.5,
+        577.6
+      ],
+      "widths.375x700.edge.ys.16": [
+        578.8,
+        578.9
+      ],
+      "widths.375x700.edge.ys.17": [
+        580.1,
+        580.2
+      ],
+      "widths.375x700.edge.ys.19": [
+        582.8,
+        582.9
+      ],
+      "widths.375x700.edge.ys.20": [
+        584.2,
+        584.3
+      ],
+      "widths.375x700.edge.ys.21": [
+        585.6,
+        585.7
+      ],
+      "widths.375x700.edge.ys.22": [
+        587,
+        587.1
+      ],
+      "widths.375x700.edge.ys.23": [
+        588.3,
+        588.4
+      ],
+      "widths.375x700.edge.ys.24": [
+        589.7,
+        589.8
+      ],
+      "widths.375x700.edge.ys.25": [
+        590.9,
+        591
+      ],
+      "widths.375x700.edge.ys.26": [
+        592.1,
+        592.2
+      ],
+      "widths.375x700.edge.ys.27": [
+        593.1,
+        593.2
+      ],
+      "widths.375x700.edge.ys.28": [
+        594,
+        594.1
+      ],
+      "widths.375x700.edge.ys.29": [
+        594.5,
+        594.6
+      ],
+      "widths.375x700.edge.ys.30": [
+        594.8,
+        594.9
+      ],
+      "widths.375x700.edge.ys.32": [
+        594.2,
+        594.3
+      ],
+      "widths.375x700.edge.ys.34": [
+        592.5,
+        592.6
+      ],
+      "widths.375x700.edge.ys.35": [
+        591.3,
+        591.4
+      ],
+      "widths.375x700.edge.ys.36": [
+        590.1,
+        590.2
+      ],
+      "widths.375x700.edge.ys.37": [
+        588.8,
+        588.9
+      ],
+      "widths.375x700.edge.ys.38": [
+        587.4,
+        587.5
+      ],
+      "widths.375x700.edge.ys.40": [
+        584.7,
+        584.8
+      ],
+      "widths.375x700.next.1": [
+        595.2,
+        595.3
+      ],
+      "widths.375x700.next.2": [
+        358,
+        375
+      ],
+      "widths.375x700.next.3": [
+        539.7,
+        539.8
+      ],
+      "widths.375x700.wrapH": [
+        572.7,
+        572.8
+      ],
+      "widths.1280x800.section.2": [
+        1263,
+        1280
+      ],
+      "widths.1280x800.sectionStyle": [
+        "outline: medium; scroll-margin-top: 22px; --header-offset: 0px;",
+        "outline: none; scroll-margin-top: 22px; --header-offset: 0px; user-select: none;"
+      ],
+      "widths.1280x800.wrapPad": [
+        "84.480003px 0px",
+        "84.48px 0px"
+      ],
+      "widths.1280x800.parts.0.box.2": [
+        1263,
+        1280
+      ],
+      "widths.1280x800.parts.0.height": [
+        "634.171875px",
+        "634.172px"
+      ],
+      "widths.1280x800.parts.1.box.2": [
+        1263,
+        1280
+      ],
+      "widths.1280x800.parts.1.height": [
+        "76.796875px",
+        "76.7969px"
+      ],
+      "widths.1280x800.parts.2.box.2": [
+        1263,
+        1280
+      ],
+      "widths.1280x800.parts.2.height": [
+        "634.171875px",
+        "634.172px"
+      ],
+      "widths.1280x800.parts.3.box.0": [
+        -1,
+        0
+      ],
+      "widths.1280x800.parts.3.box.1": [
+        -1,
+        362
+      ],
+      "widths.1280x800.parts.3.box.2": [
+        3,
+        0
+      ],
+      "widths.1280x800.parts.3.box.3": [
+        2,
+        0
+      ],
+      "widths.1280x800.parts.4.box.2": [
+        1263,
+        1280
+      ],
+      "widths.1280x800.parts.4.height": [
+        "634.171875px",
+        "634.172px"
+      ],
+      "widths.1280x800.parts.5.box.0": [
+        -126300,
+        -128000
+      ],
+      "widths.1280x800.parts.5.box.2": [
+        128835.5,
+        130569.6
+      ],
+      "widths.1280x800.edge.ys.0": [
+        595.6,
+        595.7
+      ],
+      "widths.1280x800.edge.ys.3": [
+        581.2,
+        581.3
+      ],
+      "widths.1280x800.edge.ys.4": [
+        576.6,
+        576.7
+      ],
+      "widths.1280x800.edge.ys.6": [
+        568.2,
+        568.3
+      ],
+      "widths.1280x800.edge.ys.8": [
+        561.9,
+        562
+      ],
+      "widths.1280x800.edge.ys.13": [
+        565,
+        565.1
+      ],
+      "widths.1280x800.edge.ys.17": [
+        581.7,
+        581.8
+      ],
+      "widths.1280x800.edge.ys.20": [
+        596.1,
+        596.2
+      ],
+      "widths.1280x800.edge.ys.23": [
+        610.5,
+        610.6
+      ],
+      "widths.1280x800.edge.ys.26": [
+        623.6,
+        623.7
+      ],
+      "widths.1280x800.edge.ys.27": [
+        627.2,
+        627.3
+      ],
+      "widths.1280x800.edge.ys.33": [
+        627.5,
+        627.6
+      ],
+      "widths.1280x800.edge.ys.34": [
+        624,
+        624.1
+      ],
+      "widths.1280x800.edge.ys.39": [
+        601.4,
+        601.5
+      ],
+      "widths.1280x800.edge.ys.40": [
+        596.6,
+        596.7
+      ],
+      "widths.1280x800.next.2": [
+        1263,
+        1280
+      ],
+      "widths.1280x800.next.3": [
+        630.1,
+        630.2
+      ],
+      "widths.1280x800.pad": [
+        "76.800003px",
+        "76.8px"
+      ]
+    }
+  }
 }

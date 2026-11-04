@@ -8,7 +8,7 @@
 // Usage: node scripts/inventory.mjs [--shots dir] [--only state,state]
 // The oracle must be open in edit mode on the demo page; nothing is saved (O1).
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { browser, evalJs, goto, viewport, pause, waitFor, screenshot, requireWebKit } from './lib/cmux.mjs';
+import { browser, evalJs, goto, viewport, pause, waitFor, screenshot, requireSameEngine } from './lib/cmux.mjs';
 import { BUTTON } from './oracle/snippets.mjs';
 import { trackedBy } from './lib/coverage.mjs';
 import { select, click, escape, deselect, hoverSection, blockIds } from './oracle/ui.mjs';
@@ -20,7 +20,7 @@ const O = process.env.ORACLE_SURFACE || 'surface:40';
 const U = process.env.FLUID_SURFACE || 'surface:59';
 const shots = arg('shots', null);
 const only = (arg('only', '') || '').split(',').filter(Boolean);
-requireWebKit(U, 'the inventory');
+requireSameEngine(U, 'the inventory', O);
 if (shots) mkdirSync(shots, { recursive: true });
 const ours = `${BASE}/index.html`;
 

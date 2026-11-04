@@ -3,13 +3,13 @@
 // the same frame sizes: section height, wrapper padding, grid height, gaps and theme colors.
 // Writes parity/section-check.json. Usage: npm run section-check (dev server on 5178).
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, requireWebKit } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, requireSameEngine } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 const FIND = (n) => JSON.parse(readFileSync(new URL('../parity/findings/' + n + '.json', import.meta.url)));
 
 const design = FIND('SETTINGS').results;
 const S = process.env.FLUID_SURFACE || 'surface:59'; ensureVisible(S);
-requireWebKit(S, 'section-check');
+requireSameEngine(S, 'section-check', FIND('SETTINGS'));
 // [name, class changes, style, oracle reads [{w,h,height,padTop,padBottom,gridHeight}]]
 const px = (v) => parseFloat(v);
 const one = (r, w, h) => ({ w, h, height: r.height, padTop: px(r.wrapPadding.split(' ')[0]), padBottom: px(r.wrapPadding.split(' ')[2] ?? r.wrapPadding.split(' ')[0]), gridHeight: r.gridHeight });
@@ -49,8 +49,8 @@ for (const [size, o] of divReads) {
   await pause(1200);
   const r = evalJs(S, `(() => { const sec = document.querySelectorAll('.page-section')[2]; const q = sec.getBoundingClientRect(); const bg = sec.querySelector('.section-background');
     sec.querySelectorAll('.content-wrapper, .section-divider-stroke').forEach((e) => { e.style.pointerEvents = 'none'; });
-    scrollTo(0, scrollY + q.bottom - innerHeight + 10); const b = sec.getBoundingClientRect();
-    const band = innerWidth * 0.06; const xs = [...Array(41).keys()].map((k) => Math.min(b.width - 0.5, Math.max(0.5, k / 40 * b.width)));
+    scrollTo({ top: scrollY + q.bottom - innerHeight + 10, behavior: 'instant' }); const b = sec.getBoundingClientRect();
+    const band = innerWidth * 0.06; const xs = [...Array(41).keys()].map((k) => Math.min(b.width - 1, Math.max(0.5, k / 40 * b.width)));
     const ys = xs.map((x) => { let lo = b.bottom - band - 2, hi = b.bottom + 0.5; if (document.elementFromPoint(x, lo) !== bg) return null; for (let n = 0; n < 20; n++) { const m = (lo + hi) / 2; if (document.elementFromPoint(x, m) === bg) lo = m; else hi = m; } return Math.round((lo - b.top) * 10) / 10; });
     return JSON.stringify({ height: Math.round(b.height * 10) / 10, ys }); })()`);
   const diffs = o.edge.ys.map((y, k) => (y == null || r.ys[k] == null ? 99 : Math.abs(y - r.ys[k])));

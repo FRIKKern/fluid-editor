@@ -3,12 +3,12 @@
 // changed: opacity, transform, backdrop filter, block background. Writes
 // parity/design-edit-check.json. Usage: npm run design-edit-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, requireWebKit } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, requireSameEngine } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
-requireWebKit(S, 'design-edit-check');
 const F = JSON.parse(readFileSync(new URL('../parity/findings/DESIGN.json', import.meta.url)));
+requireSameEngine(S, 'design-edit-check', F);
 const KEY = { Opacity: 'opacity', Rotate: 'rotate', '#9': 'sx', '#10': 'sy', '#11': 'tx', '#12': 'ty', '#13': 'kx', '#14': 'ky', Background: 'background', Blur: 'blur' };
 ensureVisible(S);
 viewport(S, 1600, 1000);

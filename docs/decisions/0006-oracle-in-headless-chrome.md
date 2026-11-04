@@ -29,6 +29,31 @@ Every oracle script drives either kind of surface through `browser()` in `script
 - **One Chrome shared by all lanes.** Rejected: lanes would fight over selection, pointer and edit mode.
 - **Keep the cmux tab.** Rejected: one lane at a time, and it needs the owner's screen.
 
+## Geometry: compare inside one engine
+
+Decided 2026-11-04, from a run of the oracle in headless Chrome against ours in headless Chrome, both with no layout scrollbar. **Geometry checks accept `cdp:` when the oracle readings are also from Chrome.** Every finding says which engine read it (`engine`; no field means WebKit), and box-diff, chrome-check, section-check, design-edit-check and the inventory refuse a mix. Gate C replays grid units, so it runs on either.
+
+The old readings were WebKit with a 17px scrollbar, so a canvas was 1583px wide. In Chrome it is 1600px. That moves block x by 8, a centered thing by 8.5 and the right side by 17, which is what the re-recorded findings show. `recordedAgain` in each finding lists every old and new value.
+
+| Check | Chrome against Chrome |
+|---|---|
+| Gate B, demo page | 375 of 375, also 330 of 330 without sections and 225 of 225 at 600, 650, 700 |
+| Gate B, services | 115 of 115 |
+| Gate B, home | 220 of 225: one picture block at 375 (below) |
+| Gate B, about | 133 of 140: one picture block at 375 (below) |
+| Gate B, contact | 57 of 65: the form block at 375, 767, 768, 1280 (below) |
+| section-check | 35 of 35 |
+| design-edit-check | 10 of 10 |
+| Gate C | 22 of 23: T0005, a real bug (G4) |
+| chrome-check | 86 of 88: section 7 Add Section (U10) |
+
+The first Gate B run in Chrome, 352 of 365, found three real CSS bugs, all fixed here: a button wraps its text (`white-space: normal`, 50 not 41.4 tall at 768), the burger keeps the browser's button padding (37 not 40, so the phone header is 129.16 not 132.16), and `overflow-wrap: break-word` comes from the body ("email@example.com" in a 138.5px block is 67.2 tall, not 44.8). A screenshot then found a fourth that no check saw: at 768 the demo hero button is 158 wide in a 138.5 block, 10px over on each side, and ours was 138.5. Fixed, and Gate B now also compares the button inside each block, so its totals rose by one per button.
+
 ## Limits
 
-Headless Chrome is not WebKit. Whether geometry can be compared Chrome against Chrome is decided separately and recorded here when it is measured.
+WebKit was not run again, so these numbers say nothing about it. Named gaps, none hidden by a lower bar:
+
+- **A picture block at 375, home and about.** The oracle block is taller than ours: 66.6 not 59 on home (picture 481 by 274), 245 not 234 on about (picture 1 by 1), and what is below moves down with it. The oracle reads differently on the same page at the same width: about at 375 read 245, then 234 after the frame went through other widths, and home passed in full on one run. So this is the oracle's lazy picture sizing, not a layout rule. Ours has no pictures (O2).
+- **The form block, contact.** Oracle against ours: 1156.8 and 1144.7 at 375, 1055.2 and 1057.4 at 767, 1090.5 and 1095.3 at 768, 1049 and 1053.7 at 1280. Our form is sized from WebKit readings (T9). Not fixed.
+- **Add Section, section 7.** Oracle top -19.5, ours -18. The cause is measured (U10).
+- **In the editor, the frame can go back to its own page** after `src` is set, so box-diff checks that the page stays.
