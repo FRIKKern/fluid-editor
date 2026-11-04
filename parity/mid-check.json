@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 276,
+  "pass": 277,
   "known": [
     "group south by 4",
     "group drop n 0,-1",
@@ -8,7 +8,7 @@
     "hold from the margin track 1500,12",
     "hold phone, full width -24,12"
   ],
-  "total": 281,
+  "total": 282,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -321,6 +321,10 @@
     },
     {
       "name": "marquee a click clears it",
+      "diffs": []
+    },
+    {
+      "name": "layers row look",
       "diffs": []
     },
     {

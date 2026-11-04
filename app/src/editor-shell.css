@@ -220,9 +220,9 @@ body:has(#layers-panel:not([hidden])) .sc-layers { background: #e7e7e7; }
 .am-tile:hover { background: #ececec; }
 .am-none { margin: 22px 0; text-align: center; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
 .lp-panel { width: 240px; height: 500px; box-sizing: border-box; border-radius: 11px; padding: 12px 11px; overflow-y: auto; }
-.lp-title { padding: 4px 11px 16px; font: 500 16px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; }
+.lp-title { padding: 5px 11px 17px; font-size: 16px; line-height: 20px; font-weight: 500; }
 .lp-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
-.lp-row { display: flex; align-items: center; gap: 11px; height: 44px; padding: 0 17px; background: #f9f9f9; font: 400 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; border-radius: 3px; cursor: grab; user-select: none; }
+.lp-row { display: flex; align-items: center; gap: 11px; height: 44px; padding: 0 17px; background: rgb(249, 249, 249); border-radius: 6px; font-size: 14px; line-height: 22px; cursor: grab; user-select: none; }
 .lp-row:hover { background: #f2f2f2; }
 .lp-row.is-on { background: rgb(185, 213, 254); box-shadow: inset 0 0 0 1px rgb(2, 122, 255); }
 .lp-row.is-slot { background: rgb(72, 148, 255); }

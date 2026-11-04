@@ -240,6 +240,12 @@ const layerCase = (name, steps, remove) => {
   const got = layerRun(steps, remove);
   steps.forEach((st, k) => groupCases.push({ name: `layers ${name} ${k + 1}`, diffs: [JSON.stringify(got[k].rows) !== JSON.stringify(st.rows) && `rows: oracle ${st.rows}, ours ${got[k].rows}`, JSON.stringify(got[k].z) !== JSON.stringify(st.z) && `z: oracle ${st.z}, ours ${got[k].z}`, !got[k].held && 'no ghost and slot while held'].filter(Boolean) }));
 };
+{ const r = evalJs(S, `(async () => { ${FRAME} const b = d.querySelector('.fe-block[data-block-id="' + s.blocks[2].id + '"]'); b.scrollIntoView({ block: 'center' }); await sleep(150); fe.select(s.id, s.blocks[2].id); await sleep(30);
+    document.querySelector('button[data-sc="layers"]').click(); await sleep(50);
+    const p = document.getElementById('layers-panel').getBoundingClientRect(), li = document.querySelector('#layers-panel li[data-layer="' + s.blocks[2].id + '"]'), q = li.getBoundingClientRect(), st = getComputedStyle(li), ic = li.querySelector('.lp-icon svg').getBoundingClientRect(), n = li.querySelector('.lp-name').getBoundingClientRect();
+    const out = { row: [q.left - p.left, q.width, q.height], bg: getComputedStyle(document.querySelector('#layers-panel li:not(.is-on)')).backgroundColor, radius: st.borderRadius, icon: [ic.left - q.left, ic.top - q.top, ic.width, ic.height], name: n.left - q.left, font: st.fontSize, fill: !!li.querySelector('.lp-icon rect[fill="currentColor"]') };
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return JSON.stringify(out); })()`);
+  groupCases.push({ name: 'layers row look', diffs: [JSON.stringify(r.row) !== '[11,218,44]' && `row ${r.row}`, r.bg !== 'rgb(249, 249, 249)' && r.bg, r.radius !== '6px' && r.radius, JSON.stringify(r.icon) !== '[17,11,22,22]' && `icon ${r.icon}`, r.name !== 50 && `name ${r.name}`, r.font !== '14px' && r.font, !r.fill && 'shape icon not filled'].filter(Boolean) }); }
 layerCase('drags', LY.steps);
 layerCase('with a hole', LY.hole.steps, LY.hole.removed);
 // X2, G5: where a held block sits (HOLD.json). Every sweep is one hold in a section of its own.
