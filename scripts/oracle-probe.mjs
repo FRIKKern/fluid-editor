@@ -852,7 +852,9 @@ if (which === 'DESIGN') {
     const els = [b, ...b.querySelectorAll('.fluid-engine-block-contents, .sqs-block, .sqs-block-content, .sqs-html-content')];
     const css = (e) => { const c = W.getComputedStyle(e); return { cls: [...e.classList].filter((x) => !/^[A-Za-z0-9_]{16}$|^fe-block-yui|^fluid-engine-[a-z0-9]{5,7}$/.test(x)).slice(0, 3).join('.'), opacity: c.opacity, transform: c.transform, transformOrigin: c.transformOrigin, filter: c.filter, backdrop: c.backdropFilter, mix: c.mixBlendMode, bg: c.backgroundColor, border: c.borderTopWidth + ' ' + c.borderTopStyle + ' ' + c.borderTopColor, radius: c.borderRadius, inline: e.getAttribute('style') || '' }; };
     const styles = [...b.querySelectorAll('style')].map((x) => x.textContent.replace(/\\s+/g, ' ').slice(0, 600)).filter(Boolean);
-    return JSON.stringify({ els: els.map(css), styles }); })()`;
+    const shape = b.querySelector('.sqs-shape-block-container');
+    const markup = shape ? JSON.stringify({ stretched: shape.hasAttribute('data-stretched-to-fill'), svg: shape.querySelector('svg')?.outerHTML.split('\\n').join(' ') }) : null;
+    return JSON.stringify({ els: els.map(css), styles, markup }); })()`;
   await open();
   const controls = evalJs(S, CONTROLS);
   console.log('controls', JSON.stringify(controls.map((c) => `${c.n}:${c.type}:${c.label}=${c.value}`)));
@@ -870,7 +872,7 @@ if (which === 'DESIGN') {
       await pause(1500);
       const after = evalJs(S, READ);
       const diff = after.els.map((e, n) => Object.fromEntries(Object.entries(e).filter(([kk, v]) => v !== base.els[n]?.[kk]))).map((x, n) => (Object.keys(x).length ? { el: after.els[n].cls, ...x } : null)).filter(Boolean);
-      out.changes[label] = { set: value, control: ctl, diff, styles: after.styles.filter((x) => !base.styles.includes(x)), changed: saveDisabled() !== true };
+      out.changes[label] = { set: value, control: ctl, diff, styles: after.styles.filter((x) => !base.styles.includes(x)), markup: after.markup !== base.markup ? after.markup : undefined, changed: saveDisabled() !== true };
     } catch (e) { out.changes[label] = { error: String(e.message).slice(0, 120) }; }
     console.log(label, JSON.stringify(out.changes[label]).slice(0, 700));
     await escape(); await escape();
@@ -879,7 +881,7 @@ if (which === 'DESIGN') {
     await deselect(i);
     if (saveDisabled() !== true) throw new Error('Unsaved changes remain');
   }
-  write(process.env.NAME || 'DESIGN', { question: 'What does each control in the block Edit > Design tab change on the block?', block: [i, k], ...out });
+  write(process.env.NAME || 'DESIGN', { question: 'What does each control in the block Edit > Design tab change on the block (styles, and for shapes the SVG markup)?', block: [i, k], ...out });
 }
 
 if (which === 'BLEND') {

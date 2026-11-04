@@ -140,6 +140,10 @@ p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
   overflow: hidden;
 }
 .sqs-shape-label { font-weight: 500; font-size: 0.95rem; line-height: 1.25; }
+/* Stretch off (parity/findings/SHAPEDESIGN.json): as wide as the block is tall. */
+/* Absolute, so the square adds nothing to the row height (rows grow to fit content). */
+.sqs-block-shape .sqs-block-content { position: relative; height: 100%; }
+.sqs-shape.is-square { position: absolute; top: 0; left: 0; width: auto; max-width: 100%; aspect-ratio: 1 / 1; }
 
 .sqs-block-code pre {
   margin: 0; padding: 1.1em 1.2em; overflow: auto;
