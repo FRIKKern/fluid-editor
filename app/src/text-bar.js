@@ -32,7 +32,7 @@ const I = {
 const btn = (act, label, opts = {}) => `<button type="button" class="tx-btn${opts.on ? ' is-on' : ''}" data-fmt="${act}" aria-label="${label}" title="${label}"${opts.unbuilt ? ' data-unbuilt disabled' : ''}>${svg(I[opts.icon || act])}</button>`;
 const sep = '<span class="tx-sep" aria-hidden="true"></span>';
 
-export function textBarHtml(style, open, color = null) {
+export function textBarHtml(style, open, color = null, custom = null) {
   const styleLabel = (STYLES.find(([, v]) => v === style) || STYLES[5])[0];
   const items = [
     `<button type="button" class="tx-btn" aria-label="Squarespace AI" title="Squarespace AI (out of scope)" data-unbuilt disabled>${svg(I.ai)}</button>`,
@@ -56,8 +56,12 @@ export function textBarHtml(style, open, color = null) {
   const styleMenu = open === 'style' ? `<div class="tx-pop tx-styles" role="menu">${STYLES.map(([l, v]) => `<button type="button" role="menuitemradio" aria-checked="${v === style}" data-fmt="style" data-v="${v}" aria-label="${l}"><span class="tx-check">${v === style ? '✓' : ''}</span><span class="tx-sname">${l}</span><span class="tx-keys"><kbd>⌘</kbd><kbd>⌥</kbd><kbd>${KEYS[v]}</kbd></span></button>`).join('')}</div>` : '';
   const alignMenu = open === 'align' ? `<div class="tx-pop tx-aligns" role="menu">${['left', 'center', 'right', 'justify'].map((a) => btn(`align:${a}`, `Text align: ${a}`)).join('')}</div>` : '';
   // Text Color (parity/findings/TEXTCOLOR.json): Palette and Custom tabs, five 34px swatches
-  // named after the site colors, the current one checked. Custom is not built.
-  const colorMenu = open === 'color' ? `<div class="tx-pop tx-colors" role="dialog" aria-label="Text Color"><div class="tx-ctabs"><button type="button" role="tab" class="tx-ctab is-on" aria-selected="true">Palette</button><button type="button" role="tab" class="tx-ctab" aria-selected="false" data-unbuilt disabled>Custom</button></div><div class="tx-swatches">${TEXT_COLORS.map(([l, k, rgb]) => `<label class="tx-swatch"><span style="background:${rgb}"></span><input type="checkbox" aria-label="${l}" data-fmt="color" data-v="${k}" ${color === k ? 'checked' : ''}></label>`).join('')}</div></div>` : '';
+  // named after the site colors, the current one checked. Custom: a color map, a hue bar, Hex and
+  // an Alpha field that changes nothing (`custom` holds the tab's color, null for Palette).
+  const tab = (label, on) => `<button type="button" role="tab" class="tx-ctab${on ? ' is-on' : ''}" aria-selected="${on}" data-ctab="${label}">${label}</button>`;
+  const palette = `<div class="tx-swatches">${TEXT_COLORS.map(([l, k, rgb]) => `<label class="tx-swatch"><span style="background:${rgb}"></span><input type="checkbox" aria-label="${l}" data-fmt="color" data-v="${k}" ${color === k ? 'checked' : ''}></label>`).join('')}</div>`;
+  const customTab = custom && `<div class="tx-cmap"><i class="tx-cthumb" role="slider" aria-label="Color Map"></i></div><div class="tx-chue"><i class="tx-cthumb" role="slider" aria-label="Hue slider"></i></div><div class="tx-cfields"><input type="text" aria-label="Hex" spellcheck="false" value="${custom.hex}"><input type="text" aria-label="Alpha" value="100%"></div>`;
+  const colorMenu = open === 'color' ? `<div class="tx-pop tx-colors${custom ? ' is-custom' : ''}" role="dialog" aria-label="Text Color"><div class="tx-ctabs" role="tablist">${tab('Palette', !custom)}${tab('Custom', !!custom)}</div>${custom ? customTab : palette}</div>` : '';
   return `<div class="tx-row">${items}</div>${styleMenu}${alignMenu}${colorMenu}`;
 }
 

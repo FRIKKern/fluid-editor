@@ -362,11 +362,22 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 
 /* Text Color popover (parity/findings/TEXTCOLOR.json): 254 by 123, two 115 by 55 tabs, five
    34px swatches 49px apart starting 12px in; placed by the editor under the button. */
-.tx-colors { width: 254px; height: 123px; padding: 0 6px; box-sizing: border-box; }
-.tx-ctabs { display: flex; border-bottom: 1px solid #e7e7e7; }
-.tx-ctab { width: 115px; height: 55px; border: 0; background: none; font: 14px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #6f6f6f; border-bottom: 2px solid transparent; margin-bottom: -1px; }
-.tx-ctab.is-on { color: #0e0e0e; font-weight: 500; border-bottom-color: #0e0e0e; }
-.tx-swatches { display: flex; gap: 15px; padding: 16px 0 0 6px; }
+.tx-colors { width: 254px; height: 123px; padding: 0; box-sizing: border-box; }
+.tx-colors.is-custom { height: 405px; }
+.tx-ctabs { position: relative; display: flex; gap: 12px; padding: 0 6px; border-bottom: 1px solid #e7e7e7; box-sizing: border-box; height: 55px; }
+.tx-ctabs::after { content: ""; position: absolute; left: 0; bottom: -1px; width: 127px; height: 2px; background: #0e0e0e; }
+.is-custom > .tx-ctabs::after { left: 127px; }
+.tx-ctab { width: 115px; height: 54px; padding: 0; border: 0; background: none; font: 14px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #666; }
+.tx-ctab.is-on { color: #0e0e0e; font-weight: 500; }
+.tx-swatches { display: flex; gap: 15px; padding: 17px 0 0 12px; }
+.tx-cmap { position: absolute; left: 0; top: 66px; width: 254px; height: 240px; touch-action: none; background-image: linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, transparent); }
+.tx-chue { position: absolute; left: 0; top: 317px; width: 254px; height: 22px; touch-action: none; background: linear-gradient(to left, rgb(255, 0, 0) 0%, rgb(255, 0, 153) 10%, rgb(205, 0, 255) 20%, rgb(50, 0, 255) 30%, rgb(0, 102, 255) 40%, rgb(0, 255, 253) 50%, rgb(0, 255, 102) 60%, rgb(53, 255, 0) 70%, rgb(205, 255, 0) 80%, rgb(255, 153, 0) 90%, rgb(255, 0, 0) 100%); }
+.tx-cthumb { position: absolute; width: 16px; height: 16px; box-sizing: border-box; border: 3px solid #fff; border-radius: 100%; box-shadow: rgb(118, 118, 118) 0 0 0 1px, rgb(118, 118, 118) 0 0 0 1px inset; pointer-events: none; }
+.tx-chue .tx-cthumb { top: 3px; }
+.tx-cfields { position: absolute; left: 0; top: 345px; width: 254px; height: 44px; display: flex; gap: 1px; }
+.tx-cfields input { box-sizing: border-box; height: 44px; min-width: 0; padding: 0 11px; border: 0; background: #f2f2f2; font: 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; outline: none; }
+.tx-cfields input[aria-label="Hex"] { width: 191px; border-radius: 3px 0 0 3px; }
+.tx-cfields input[aria-label="Alpha"] { width: 62px; border-radius: 0 3px 3px 0; }
 .tx-swatch { position: relative; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; }
 .tx-swatch span { position: absolute; inset: 0; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12); }
 .tx-swatch input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
