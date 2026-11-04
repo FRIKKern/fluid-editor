@@ -1,8 +1,7 @@
 {
   "item": "U6",
-  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/config/pages",
   "capturedAt": "2026-11-04",
-  "question": "Where is each control of the editor top bar, and what changes in preview?",
+  "question": "Where is each control of the editor top bar, how does it look and answer the mouse, what changes in preview, and how does Exit Without Saving? look?",
   "window": [
     1600,
     1000
@@ -136,7 +135,7 @@
         "color": "rgb(49, 49, 49)"
       },
       {
-        "t": "Page \u00b7 Published",
+        "t": "Page · Published",
         "box": [
           752.7,
           31.1,
@@ -285,5 +284,284 @@
         "pressed": null
       }
     ]
-  }
+  },
+  "states": {
+    "save": {
+      "off": {
+        "bg": "rgb(183, 183, 183)",
+        "border": "rgb(183, 183, 183)",
+        "cursor": "not-allowed",
+        "hover": "no change",
+        "tip": false
+      },
+      "on": {
+        "bg": "rgb(14, 14, 14)",
+        "cursor": "pointer",
+        "hoverBg": "rgb(69, 69, 69)",
+        "tip": true
+      },
+      "text": "500 14px/14px, letter-spacing -0.14px, at x 23"
+    },
+    "exit": {
+      "color": "rgb(14, 14, 14)",
+      "hoverColor": "rgb(102, 102, 102)",
+      "hoverBg": "none",
+      "tip": false,
+      "text": "500 14px/14px, letter-spacing -0.14px"
+    },
+    "undo": {
+      "hit": [
+        145.4,
+        1.5,
+        36,
+        52
+      ],
+      "grey": [
+        145,
+        10,
+        36,
+        36
+      ],
+      "greyColor": "rgb(242, 242, 242)",
+      "offOpacity": 0.2,
+      "offCursor": "default",
+      "onCursor": "pointer",
+      "tip": false,
+      "iconInk": "rgb(14, 14, 14)",
+      "iconBox": [
+        152.4,
+        16.5,
+        22,
+        22
+      ]
+    },
+    "redo": {
+      "box": [
+        189.4,
+        9.5,
+        36,
+        36
+      ],
+      "iconBox": [
+        196.4,
+        16.5,
+        22,
+        22
+      ],
+      "tip": false,
+      "hover": "read only when off: no change"
+    },
+    "device": {
+      "group": [
+        1388,
+        9.5,
+        96,
+        36
+      ],
+      "bg": "rgb(242, 242, 242)",
+      "border": "2px solid rgb(242, 242, 242)",
+      "radius": "3px",
+      "on": {
+        "cell": "white pixels",
+        "color": "rgb(14, 14, 14)"
+      },
+      "off": {
+        "color": "rgb(102, 102, 102)",
+        "hoverColor": "rgb(14, 14, 14)",
+        "hoverBg": "no change"
+      }
+    },
+    "siteStyles": {
+      "hoverGrey": "rgb(242, 242, 242)",
+      "iconInk": "rgb(14, 14, 14)",
+      "radius": "4px"
+    },
+    "preview": {
+      "hoverGrey": [
+        1542,
+        10,
+        36,
+        36
+      ],
+      "hoverGreyColor": "rgb(242, 242, 242)",
+      "inPreview": "white at rest, an X icon, grey on hover",
+      "iconInk": "rgb(14, 14, 14)"
+    },
+    "reload": {
+      "hoverGrey": [
+        1495,
+        10,
+        36,
+        36
+      ],
+      "frame": "the frame does not reload: same time origin, scroll kept"
+    },
+    "bar": {
+      "bg": "white",
+      "lineAtBottom": false,
+      "canvasTop": 55,
+      "name": "500 12px/16px rgb(49, 49, 49)",
+      "state": "500 12px/16px rgb(118, 118, 118)"
+    }
+  },
+  "tips": {
+    "bg": "rgb(14, 14, 14)",
+    "radius": "3px",
+    "padding": "11px 16px",
+    "height": 44,
+    "font": "400 14px/22px",
+    "color": "white",
+    "fade": "none seen: one mouse step on and off shows it about at once",
+    "boxes": {
+      "Desktop View": [
+        1353,
+        50,
+        120.9,
+        44
+      ],
+      "Mobile View": [
+        1403,
+        50,
+        111.6,
+        44
+      ],
+      "Site Styles": [
+        1464,
+        57,
+        98.4,
+        44
+      ],
+      "Preview": [
+        1394.6,
+        57,
+        183.4,
+        44
+      ],
+      "Save Changes": [
+        11,
+        53,
+        189.9,
+        44
+      ],
+      "Reload": [
+        1474,
+        57,
+        77.6,
+        44
+      ],
+      "Close": [
+        1508,
+        57,
+        70,
+        44
+      ]
+    },
+    "chips": {
+      "style": {
+        "bg": "rgb(69, 69, 69)",
+        "radius": "2px",
+        "padding": "0 6px",
+        "color": "rgb(231, 231, 231)",
+        "font": "500 11px/22px",
+        "gap": 11
+      },
+      "Preview": [
+        [
+          1473.8,
+          68,
+          22.2,
+          22
+        ],
+        [
+          1507,
+          68,
+          25,
+          22
+        ],
+        [
+          1543,
+          68,
+          19,
+          22
+        ]
+      ],
+      "Save Changes": [
+        [
+          132.9,
+          64,
+          22.2,
+          22
+        ],
+        [
+          166.1,
+          64,
+          18.8,
+          22
+        ]
+      ]
+    },
+    "none": [
+      "Exit",
+      "Undo",
+      "Redo",
+      "Save while off"
+    ],
+    "rule": "Inferred from the boxes above: centered under the control, kept 11px from the left and 22px from the right of the window; top is the control bottom + 6.5 for Save and the device buttons, + 11.5 for Site Styles, Preview, Reload and Close."
+  },
+  "dialog": {
+    "box": [
+      78,
+      45,
+      342,
+      156
+    ],
+    "bg": "white",
+    "radius": "0",
+    "padding": "27px 33px 16px",
+    "shadow": "rgba(0, 0, 0, 0.12) 0 16px 64px, rgba(0, 0, 0, 0.08) 0 0 1px",
+    "title": "600 14px/22px, -0.14px, rgb(14, 14, 14)",
+    "text": "400 14px/22px",
+    "row": {
+      "marginTop": 11,
+      "gap": 22,
+      "rightEdge": 387,
+      "height": 36,
+      "font": "500 14px/14px"
+    },
+    "save": {
+      "color": "rgb(14, 14, 14)",
+      "hover": "rgb(102, 102, 102)"
+    },
+    "exit": {
+      "color": "rgb(195, 45, 56)",
+      "hover": "rgb(150, 35, 43)",
+      "radius": "3px"
+    },
+    "opens": "opacity 0 to 1 and top 51 to 45 in about 0.2s",
+    "closes": [
+      "a click on the overlay",
+      "Escape"
+    ],
+    "overlay": {
+      "covers": "the whole window, the bar too",
+      "fit": "rgba(231, 231, 231, 0.6)",
+      "how": "Inferred from pixels: white reads 241, purple 181, 100, 247 reads 211, 179, 238."
+    }
+  },
+  "keys": {
+    "previewToggle": {
+      "keys": "Cmd+Shift+P",
+      "how": "A synthetic key event on the top document, on and off again: the state read Previewing, then Page · Published."
+    },
+    "save": {
+      "keys": "Cmd+S",
+      "how": "Not pressed on the oracle (never Save). Known only from the Save Changes tooltip."
+    }
+  },
+  "notMeasured": [
+    "Redo hover while it can redo: taken as Undo's.",
+    "Cmd+S on the oracle.",
+    "The tooltip rule is read from seven tooltips, not from a wider run of window widths.",
+    "The icons are our own drawings at the same boxes and ink colors, not the oracle's, because of O2; the text uses our stand-in font, so tooltip widths run up to about 4px short."
+  ]
 }

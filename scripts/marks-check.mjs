@@ -1,4 +1,4 @@
-// Small marks of the editor chrome against parity/findings/MARKS.json, with real input in our editor.
+// Small marks of the editor chrome against parity/findings/MARKS.json and TOPBAR.json, with real input in our editor.
 // Writes parity/marks-check.json. Usage: npm run marks-check (FLUID_SURFACE=cdp:<port> FLUID_PORT=<port>).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, browser, drag, mouse } from './lib/cmux.mjs';
@@ -206,6 +206,88 @@ const named = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) 
   }
   return JSON.stringify(out); })()`);
 for (const [n, [txt, w]] of Object.entries(named)) add(`label ${n}`, txt === n && Math.abs(w - F.labels.width[n]) <= 2, `${txt} ${w} oracle ${F.labels.width[n]}`);
+
+// U6: the top bar's looks, tooltips, keys and the exit dialog (parity/findings/TOPBAR.json).
+const T = JSON.parse(readFileSync(new URL('../parity/findings/TOPBAR.json', import.meta.url)));
+await fresh();
+const css = (sel, ...props) => evalJs(S, `(() => { const c = getComputedStyle(document.querySelector('${sel}')); return JSON.stringify([${props.map((p) => `c['${p}']`).join()}]); })()`);
+const barTip = () => evalJs(S, `(() => { const e = document.getElementById('bar-tip'); if (e.hidden) return 'null'; const b = (x) => { const q = x.getBoundingClientRect(); return [q.left, q.top, q.width, q.height]; }; return JSON.stringify({ text: e.firstChild.textContent, box: b(e), chips: [...e.querySelectorAll('kbd')].map(b) }); })()`);
+const barAway = async () => { mouse(S, 'move', 800, 700); await pause(120); };
+const hoverBar = async (x, y = 27) => { mouse(S, 'move', x, y); await pause(150); };
+const near4 = (a, b) => a.every((v, i) => Math.abs(v - b[i]) <= 4);
+await barAway();
+add('Save off: grey, not allowed', JSON.stringify(css('#save', 'backgroundColor', 'cursor')) === JSON.stringify([T.states.save.off.bg, T.states.save.off.cursor]), JSON.stringify(css('#save', 'backgroundColor', 'cursor')));
+await hoverBar(40); add('Save off: no tooltip', barTip() === null, JSON.stringify(barTip()));
+await hoverBar(100); add('Exit: no tooltip, grey words', barTip() === null && css('#exit', 'color')[0] === T.states.exit.hoverColor, css('#exit', 'color')[0]);
+await barAway();
+add('Undo off at .2', css('#undo', 'opacity')[0] === String(T.states.undo.offOpacity), css('#undo', 'opacity')[0]);
+add('Bar group grey with 2px line', JSON.stringify(css('.tb-seg', 'backgroundColor', 'borderTopWidth')) === JSON.stringify([T.states.device.bg, '2px']), JSON.stringify(css('.tb-seg', 'backgroundColor', 'borderTopWidth')));
+add('Selected device dark, other grey', css('#bp-desktop', 'color')[0] === T.states.device.on.color && css('#bp-mobile', 'color')[0] === T.states.device.off.color);
+const tipCases = [['Desktop View', 1413], ['Mobile View', 1459], ['Site Styles', 1513], ['Preview', 1560]];
+for (const [name, x] of tipCases) {
+  await hoverBar(x);
+  const t = barTip(), want = T.tips.boxes[name];
+  add(`tooltip ${name}`, t && t.text === name && t.box[1] === want[1] && t.box[3] === want[3] && near4(t.box, want), JSON.stringify(t));
+}
+await hoverBar(1560);
+add('Preview tooltip keeps 22px from the right', barTip().box[0] + barTip().box[2] === 1578, JSON.stringify(barTip().box));
+add('Preview tooltip has three chips', barTip().chips.length === 3 && barTip().chips.every((c, i) => near4(c, T.tips.chips.Preview[i])), JSON.stringify(barTip().chips));
+add('Preview grey on hover', css('#preview', 'backgroundColor')[0] === T.states.preview.hoverGreyColor, css('#preview', 'backgroundColor')[0]);
+await hoverBar(1513); add('Site Styles grey on hover', css('#site-styles-toggle', 'backgroundColor')[0] === T.states.siteStyles.hoverGrey);
+await hoverBar(1459); add('Mobile dark on hover, no fill', css('#bp-mobile', 'color')[0] === T.states.device.off.hoverColor && css('#bp-mobile', 'backgroundColor')[0] === 'rgba(0, 0, 0, 0)', JSON.stringify(css('#bp-mobile', 'color', 'backgroundColor')));
+await barAway();
+add('Tooltip gone when the mouse leaves', barTip() === null);
+const SHAPE_ID = evalJs(S, `(() => { for (const s of fe.model.sections) for (const b of s.blocks) if (b.type === 'shape') { fe.select(s.id, b.id); return JSON.stringify(b.id); } return 'null'; })()`);
+browser(S, 'press', 'Delete'); await pause(300);
+add('Deleted a block for the dirty bar', SHAPE_ID && evalJs(S, `(() => JSON.stringify(!document.getElementById('save').disabled && !document.getElementById('undo').disabled))()`));
+add('Save on: dark', css('#save', 'backgroundColor')[0] === T.states.save.on.bg);
+await hoverBar(40);
+add('Save on: hover and tooltip', css('#save', 'backgroundColor')[0] === T.states.save.on.hoverBg && barTip()?.text === 'Save Changes' && barTip().box[0] === 11 && barTip().box[1] === T.tips.boxes['Save Changes'][1] && barTip().chips.length === 2, JSON.stringify(barTip()));
+await hoverBar(163);
+add('Undo on: 36 grey, no tooltip', css('#undo', 'backgroundColor')[0] === T.states.undo.greyColor && barTip() === null && JSON.stringify(css('#undo', 'height')) === JSON.stringify(['36px']), JSON.stringify(css('#undo', 'backgroundColor', 'height')));
+await hoverBar(163, T.states.undo.hit[1] + 1);
+add('Undo answers above its grey box', css('#undo', 'backgroundColor')[0] === T.states.undo.greyColor, css('#undo', 'backgroundColor')[0]);
+await barAway();
+const keyOn = (where, code, key, shift) => evalJs(S, `(() => { const f = document.querySelector('iframe'); const t = ${where === 'frame' ? 'f.contentDocument' : 'document'}; t.body.dispatchEvent(new (${where === 'frame' ? 'f.contentWindow' : 'window'}.KeyboardEvent)('keydown', { bubbles: true, cancelable: true, metaKey: true, shiftKey: ${shift}, key: '${key}', code: '${code}' })); return 'ok'; })()`);
+// The dialog, while the page has unsaved changes.
+mouse(S, 'move', 100, 27); await pause(120); mouse(S, 'down', 100, 27); mouse(S, 'up', 100, 27); await pause(350);
+const dlg = evalJs(S, `(() => { const b = (x) => { const q = document.querySelector(x).getBoundingClientRect(); return [q.left, q.top, q.width, q.height]; }; return JSON.stringify({ open: !document.getElementById('exit-dialog').hidden, box: b('#exit-dialog'), overlay: b('#exit-overlay'), save: b('#exit-save'), exit: b('#exit-discard') }); })()`);
+add('Dialog opens at the oracle box', dlg.open && dlg.box.every((v, i) => Math.abs(v - T.dialog.box[i]) <= 0.5), JSON.stringify(dlg.box));
+add('Dialog buttons end at 387, gap 22', Math.abs(dlg.exit[0] + dlg.exit[2] - T.dialog.row.rightEdge) <= 0.5 && Math.abs(dlg.exit[0] - dlg.save[0] - dlg.save[2] - T.dialog.row.gap) <= 0.5 && dlg.exit[3] === T.dialog.row.height, JSON.stringify([dlg.save, dlg.exit]));
+add('Overlay covers the window', dlg.overlay[0] === 0 && dlg.overlay[1] === 0 && dlg.overlay[2] === 1600 && dlg.overlay[3] === 1000, JSON.stringify(dlg.overlay));
+add('Overlay color', css('#exit-overlay', 'backgroundColor')[0] === 'rgba(231, 231, 231, 0.6)');
+add('Dialog shadow and padding', css('#exit-dialog', 'paddingTop')[0] === '27px' && css('#exit-dialog', 'boxShadow')[0].includes('64px'));
+add('Dialog Exit red', css('#exit-discard', 'color')[0] === T.dialog.exit.color);
+const dbox = dlg.save;
+mouse(S, 'move', dbox[0] + 8, dbox[1] + 18); await pause(120); add('Dialog Save grey on hover', css('#exit-save', 'color')[0] === T.dialog.save.hover, css('#exit-save', 'color')[0]);
+mouse(S, 'move', dlg.exit[0] + 8, dlg.exit[1] + 18); await pause(120); add('Dialog Exit dark red on hover', css('#exit-discard', 'color')[0] === T.dialog.exit.hover, css('#exit-discard', 'color')[0]);
+mouse(S, 'move', 800, 700); await pause(100); mouse(S, 'down', 800, 700); mouse(S, 'up', 800, 700); await pause(200);
+add('A click on the overlay closes it', evalJs(S, `(() => JSON.stringify(document.getElementById('exit-dialog').hidden && document.getElementById('exit-overlay').hidden))()`));
+evalJs(S, `document.getElementById('exit').click()`); await pause(200); browser(S, 'press', 'Escape'); await pause(200);
+add('Escape closes it', evalJs(S, `(() => JSON.stringify(document.getElementById('exit-dialog').hidden && document.getElementById('exit-overlay').hidden))()`));
+// Cmd+Shift+P and Cmd+S, from the bar's document and from inside the canvas.
+const isPreview = () => evalJs(S, `(() => JSON.stringify(document.body.classList.contains('is-preview')))()`);
+keyOn('top', 'KeyP', 'p', true); await pause(300);
+add('Cmd+Shift+P opens preview', isPreview() === true);
+const scrollAt = () => evalJs(S, `(() => JSON.stringify(document.querySelector('iframe').contentWindow.scrollY))()`);
+evalJs(S, `(() => { document.querySelector('iframe').contentWindow.scrollTo({ left: 0, top: 700, behavior: 'instant' }); return 'ok'; })()`); await pause(200);
+const before = scrollAt();
+await hoverBar(1513);
+add('Reload tooltip', barTip()?.text === 'Reload' && barTip().box[1] === T.tips.boxes.Reload[1] && near4(barTip().box, T.tips.boxes.Reload), JSON.stringify(barTip()));
+mouse(S, 'down', 1513, 27); mouse(S, 'up', 1513, 27); await pause(300);
+add('Reload keeps the scroll', scrollAt() === before, `${before} ${scrollAt()}`);
+await hoverBar(1560);
+add('Close tooltip, X icon', barTip()?.text === 'Close' && barTip().box[1] === T.tips.boxes.Close[1] && evalJs(S, `(() => JSON.stringify(getComputedStyle(document.querySelector('#preview .tb-close')).display !== 'none' && getComputedStyle(document.querySelector('#preview .tb-play')).display === 'none'))()`), JSON.stringify(barTip()));
+await barAway();
+add('Preview button white at rest', css('#preview', 'backgroundColor')[0] === 'rgba(0, 0, 0, 0)', css('#preview', 'backgroundColor')[0]);
+keyOn('frame', 'KeyP', 'p', true); await pause(300);
+add('Cmd+Shift+P in the canvas leaves preview', isPreview() === false);
+const dirty = () => evalJs(S, `(() => JSON.stringify(!document.getElementById('save').disabled))()`);
+keyOn('frame', 'KeyS', 's', false); await pause(300);
+add('Cmd+S in the canvas saves', dirty() === false);
+const held = evalJs(S, `(() => JSON.stringify(localStorage.length))()`);
+keyOn('top', 'KeyS', 's', false); await pause(200);
+add('Cmd+S with nothing to save does nothing', dirty() === false && evalJs(S, `(() => JSON.stringify(localStorage.length))()`) === held);
 
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
