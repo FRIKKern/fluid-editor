@@ -162,12 +162,16 @@ function blockInner(b, model) {
     }
     case 'image': {
       // Image blocks (T4): Fill, the default here, covers the block. Fit and Shape are measured
-      // in parity/findings/IMAGEMODES.json. The picture is a neutral placeholder (QUALITY.md O2),
-      // so Fit uses b.aspect, or 3:2 when the block has none.
+      // in parity/findings/IMAGEMODES.json. Without a picture of the user's own (b.src, Content >
+      // Replace) it is a neutral placeholder (QUALITY.md O2), and Fit uses b.aspect, or 3:2.
       const r = b.radius ? `border-radius:${b.radius};` : '';
       const mode = b.mode === 'fit' || b.mode === 'shape' ? ` image-mode-${b.mode}` : '';
       const aspect = b.mode === 'fit' ? `--image-aspect:${Number(b.aspect) || 1.5};` : '';
-      return `<div class="sqs-block image-block sqs-block-image sqs-stretched${mode}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-container" style="${r}${aspect}" role="img" aria-label="${escapeHtml(b.alt || '')}"></div></div></div>`;
+      const alt = escapeHtml(b.alt || '');
+      const inner = b.src ? `<div class="fluid-image-container has-picture" style="${r}${aspect}"><img src="${escapeHtml(b.src)}" alt="${alt}"></div>`
+        : `<div class="fluid-image-container" style="${r}${aspect}" role="img" aria-label="${alt}"></div>`;
+      const pic = b.href ? `<a class="sqs-block-image-link" href="${escapeHtml(b.href)}">${inner}</a>` : inner;
+      return `<div class="sqs-block image-block sqs-block-image sqs-stretched${mode}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${pic}</div></div>`;
     }
     case 'form': {
       // Form block (T9), sized to the oracle Contact form (parity/findings/T9.json).

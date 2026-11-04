@@ -862,7 +862,7 @@ function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b) { animPicker = false; blendOpen = false; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
-  const content = b.type === 'button' ? { label: b.label, href: b.href } : null;
+  const content = b.type === 'button' ? { label: b.label, href: b.href } : b.type === 'image' ? { src: b.src, href: b.href, alt: b.alt, filename: b.filename } : null;
   if (!content && designTab === 'Content') designTab = 'Design';
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false } : null;
@@ -957,12 +957,12 @@ blockPanel.addEventListener('change', (e) => {
   commit(before, `${f.dataset.shape} set on ${b.id}`);
 }, true);
 
-// Button Content tab: the text and the link (parity/findings/BUTTONEDIT.json). The text is
-// one undo step when the field is left; each link change is one step.
+// Button and image Content tabs: the text and the link (parity/findings/BUTTONEDIT.json). The
+// text is one undo step when the field is left; each link change is one step.
 function setButton(change, label) {
   if (!sel) return;
   const b = B(sel.sid, sel.bid);
-  if (!b || b.type !== 'button') return;
+  if (!b || (b.type !== 'button' && b.type !== 'image')) return;
   const before = JSON.stringify(model);
   change(b);
   renderSectionDom(sel.sid);
@@ -976,6 +976,44 @@ blockPanel.addEventListener('change', (e) => {
   f.blur();
   setButton((b) => { b.label = v; }, 'Button text changed');
 }, true);
+// Image Alternate Filename and alt text, one undo step when the field is left; empty removes it.
+blockPanel.addEventListener('change', (e) => {
+  const f = e.target.closest('input[data-content="alt"], input[data-content="filename"]');
+  if (!f) return;
+  e.stopImmediatePropagation();
+  const key = f.dataset.content, v = f.value;
+  f.blur();
+  setButton((b) => { if (v) b[key] = v; else delete b[key]; }, key === 'alt' ? 'Image alt text changed' : 'Alternate Filename changed');
+  renderBlockPanel();
+}, true);
+// Image Replace and Remove: one undo step each.
+blockPanel.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-image-act]');
+  if (!a || !sel) return;
+  if (a.dataset.imageAct === 'replace') { blockPanel.querySelector('[data-image-file]').click(); return; }
+  setButton((b) => { delete b.src; delete b.aspect; }, 'Image removed');
+  renderBlockPanel();
+});
+blockPanel.addEventListener('change', async (e) => {
+  const f = e.target.closest('input[data-image-file]');
+  if (!f || !sel) return;
+  e.stopImmediatePropagation();
+  const file = f.files[0];
+  if (!file) return;
+  const pic = await readPicture(file).catch(() => null);
+  if (!pic) { note('That file is not a picture'); updateUi(); return; }
+  setButton((b) => { b.src = pic.src; b.aspect = pic.aspect; }, 'Image replaced');
+  renderBlockPanel();
+}, true);
+// The editor saves to the browser, which holds only a few MB: a picture is kept at most 1600px wide or tall.
+async function readPicture(file) {
+  const bmp = await createImageBitmap(file);
+  const k = Math.min(1, 1600 / Math.max(bmp.width, bmp.height));
+  const c = document.createElement('canvas');
+  c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+  c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+  return { src: c.toDataURL('image/webp', 0.85), aspect: bmp.width / bmp.height };
+}
 blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input[data-content]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); });
 
 const linkPop = $('link-popover');
