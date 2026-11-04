@@ -285,9 +285,9 @@
     "id": "P8",
     "area": "Page and site context",
     "milestone": "M2",
-    "status": "open",
+    "status": "partial",
     "title": "Site header content in a centred max-width container",
-    "evidence": "Found in the editor screenshot comparison 2026-11-03: on the oracle the site title starts at x 92 and the nav ends near x 1491 in a 1583px canvas, which fits content centred in a 1400px container; ours pads the header by 4vw (title at x 64). Not measured: the header container rule at other widths"
+    "evidence": "Found in the editor screenshot comparison 2026-11-03: on the oracle the site title starts at x 92 and the nav ends near x 1491 in a 1583px canvas, which fits content centred in a 1400px container; ours padded the header by 4vw (title at x 64). Ours now keeps the header content in a centred 1400px box when 4vw would make it wider (app/src/site.css): title at 51.2 and actions ending at 1228.8 on a 1280px canvas, title at 100 and actions ending at 1500 on a 1600px canvas (headless Chrome), which is the rule at the 1583px reading. Inferred, not measured: the rule at other widths above 1520"
   },
   {
     "id": "T1",
