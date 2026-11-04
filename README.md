@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 67 changes
+- **Today** · 68 changes
+  - Gap review: refresh the inventory in headless Chrome, reach the 4 states it missed ([#125](https://github.com/FRIKKern/fluid-editor/pull/125))
   - U10: Add Section sits on the rounded heights above, as measured ([#124](https://github.com/FRIKKern/fluid-editor/pull/124))
-  - G4: snap at the middle of the next track, as measured px by px ([#123](https://github.com/FRIKKern/fluid-editor/pull/123))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
