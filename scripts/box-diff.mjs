@@ -138,6 +138,9 @@ resetViewport(surface);
 if (oracleFrame) viewport(oracleFrame, 1600, 1000);
 console.log(`Gate B, block boxes: ${report.pass} of ${report.total} block boxes match`);
 // --report <name> writes parity/<name>.json instead of gate-b.json (extra widths, experiments).
+// Put the oracle frame back: a resized frame stays resized, and the next probe or inventory
+// run would measure a 1920px canvas in a 1600px window (it did on 2026-11-04).
+if (oracleFrame) evalJs(oracleFrame, `(() => { const f = document.getElementById('sqs-site-frame'); for (const p of ['width', 'max-width', 'min-width', 'height', 'flex']) f.style.removeProperty(p); return 'true'; })()`);
 const reportName = arg('report', 'gate-b');
 if (!fault) writeFileSync(new URL(`../parity/${reportName}.json`, import.meta.url), JSON.stringify(report, null, 2) + '\n');
 if (!report.total) {

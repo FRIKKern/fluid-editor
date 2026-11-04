@@ -99,6 +99,8 @@ async function oEnsureDemo() {
   if (!(s.editing && s.title.includes(PAGE_TITLE))) throw new Error(`could not open ${PAGE_TITLE} in edit mode (${JSON.stringify(s)})`);
 }
 async function oReset() {
+  // Leftover sizes from scripts/box-diff.mjs would put a 1920px canvas in the 1600px window.
+  evalJs(O, `(() => { const f = document.getElementById('sqs-site-frame'); if (f) for (const p of ['width', 'max-width', 'min-width', 'height', 'flex']) f.style.removeProperty(p); return 'true'; })()`);
   // Close menus with a real key press, then make sure the editor is editing the demo page.
   for (let k = 0; k < 2; k++) { try { execFileSync('cmux', ['browser', '--surface', O, 'press', 'Escape']); } catch {} await pause(300); }
   // The full-screen preview and the Site Styles panel have their own close buttons.
@@ -113,6 +115,14 @@ async function oReset() {
     let n = 0; while (n < 8 && oSave() === false && evalJs(O, BUTTON('Undo')) === true) { n++; await pause(900); }
     if (oSave() === false) throw new Error('The oracle has unsaved changes; stopping (O1)');
   }
+  // Park the pointer on the top bar and end the section hover: left over a section it keeps the
+  // section toolbar up, and the next state counts it (idle showed 20 labels instead of 10).
+  evalJs(O, `(() => { document.querySelectorAll('#fx-park').forEach((x) => x.removeAttribute('id')); const t = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && /Page · /.test(e.textContent) && e.getBoundingClientRect().top < 55); if (t) t.id = 'fx-park'; return JSON.stringify(!!t); })()`);
+  try { execFileSync('cmux', ['browser', '--surface', O, 'hover', '#fx-park']); } catch {}
+  // The top bar alone does not end the section hover; leave events on the page do (tested by
+  // hand: the card went from visible to visibility hidden).
+  evalJs(O, `(() => { const f = document.getElementById('sqs-site-frame'); const d = f.contentDocument, W = f.contentWindow; for (const t of [...d.querySelectorAll('main#page .page-section'), d.querySelector('main'), d.body, d.documentElement]) for (const type of ['pointerout', 'pointerleave', 'mouseout', 'mouseleave']) t && t.dispatchEvent(new W.PointerEvent(type, { bubbles: type.endsWith('out'), clientX: -10, clientY: -10 })); return 'true'; })()`);
+  await pause(400);
 }
 const oShift = (i, id) => evalJs(O, `(() => { ${oframe} const b = d.querySelectorAll('main#page .fluid-engine')[${i}].querySelector('.fe-block[data-block-id="${id}"]'); const q = b.getBoundingClientRect();
   const o = { bubbles: true, cancelable: true, composed: true, clientX: q.left + q.width / 2, clientY: q.top + q.height / 2, button: 0, pointerId: 1, isPrimary: true, pointerType: 'mouse', view: W, shiftKey: true };
@@ -244,14 +254,22 @@ for (const [name, what, oDrive, uDrive] of STATES) {
     await pause(700);
     if (EXPECT[name] && evalJs(O, seen(EXPECT[name])) !== true) throw new Error(`not reached: "${EXPECT[name]}" is not on screen`);
     oList = evalJs(O, COLLECT);
-    oScroll = evalJs(O, `(() => JSON.stringify(document.getElementById('sqs-site-frame').contentWindow.scrollY))()`);
+    // The section that fills most of the oracle's view and its offset there. Ours scrolls to put the
+    // same section at the same offset: page heights differ on phones, so a raw scrollY can land
+    // on another section and push the selection off screen (gap review 2026-11-04).
+    oScroll = evalJs(O, `(() => { const f = document.getElementById('sqs-site-frame'); const secs = [...f.contentDocument.querySelectorAll('main#page .page-section')];
+      const H = f.contentWindow.innerHeight; const vis = (x) => { const r = x.getBoundingClientRect(); return Math.min(r.bottom, H) - Math.max(r.top, 0); };
+      const k = secs.reduce((b, x, n) => (vis(x) > vis(secs[b]) ? n : b), 0); return JSON.stringify({ k, top: secs[k] ? secs[k].getBoundingClientRect().top : 0, y: f.contentWindow.scrollY }); })()`);
     shot(O, `${name}-oracle`);
   } catch (e) { error = `oracle: ${String(e.message).slice(0, 120)}`; }
   try {
     await uReset();
     if (uDrive) run(uDrive);
     // Same scroll as the oracle canvas, so the screenshots line up for scripts/visual-diff.mjs.
-    if (oScroll != null) run(`W.scrollTo(0, ${oScroll}); await sleep(250)`);
+    if (oScroll != null) run(`const sk = secEl(${oScroll.k}); W.scrollTo(0, sk ? W.scrollY + sk.getBoundingClientRect().top - ${oScroll.top} : ${oScroll.y}); await sleep(250)`);
+    // A scroll under the pointer ends our hover; hover states hover again where they are.
+    const hk = /await hover\((\d+)\)/.exec(uDrive || '');
+    if (hk && oScroll != null) run(`const s = secEl(${hk[1]}); const q = s.getBoundingClientRect(); s.dispatchEvent(new W.PointerEvent('pointermove', { bubbles: true, clientX: q.left + q.width / 2, clientY: Math.max(q.top + 20, Math.min(q.bottom - 20, q.top + 260)) })); await sleep(200)`);
     await pause(400);
     uList = evalJs(U, COLLECT);
     shot(U, `${name}-ours`);
