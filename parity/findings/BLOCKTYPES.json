@@ -2411,5 +2411,24 @@
  },
  "notMeasured": [
   "the Sell group (out of scope, decision 0005)"
- ]
+ ],
+ "newScrolling": {
+  "text": [
+   "Dream it",
+   "〰️"
+  ],
+  "content": [
+   0,
+   18.6,
+   1399.8,
+   34
+  ],
+  "lineHeight": "34.16px",
+  "fontSize": "24.4px",
+  "waveIntensity": 0,
+  "note": "no wave, so the block's content is one line, centred in its 2 rows. Font size measured at a 1600 wide page only"
+ },
+ "columnSnap": {
+  "note": "A block that starts in the left gutter (column line 1) snaps differently from others: pulled +2 columns exactly, e handle: 1/1/23/14 to 1/1/23/15 (real mouse). A block starting at line 2 or later moves the full +2. Shrinking moves the full -2. It does not depend on the block type. Not built in ours: resize-check compares only rows for these starts."
+ }
 }

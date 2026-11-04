@@ -421,7 +421,7 @@ function measure(fe) {
 
 // Rows a block needs so its content fits without stretching a row.
 function contentRows(b, m) {
-  if (b.type === 'shape') return 1;
+  if (b.type === 'shape' || b.type === 'image') return 1; // free in every mode (BLOCKTYPES.json)
   const root = blockEl(b.id);
   const c = root?.querySelector('.accordion-items-container, .sqs-block-video-placeholder--empty') || root?.querySelector('.sqs-block-content');
   if (!c) return 1;
@@ -1699,7 +1699,7 @@ const ADD_TYPES = [
   ['Form', 9, 16, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: 'form' })],
   ['Accordion', 8, 8, () => ({ type: 'accordion', items: [1, 2, 3].map((n) => ({ title: `Accordion Item ${n}`, description: ACCORDION_DESCRIPTION })) })],
   ['Shape', 6, 6, () => ({ type: 'shape', fill: '#ffffff', radius: '0' })],
-  ['Scrolling', 24, 2, () => ({ type: 'scrolling', text: 'Scrolling text', size: 5 })],
+  ['Scrolling', 24, 2, () => ({ type: 'scrolling', text: 'Dream it 〰️', size: 1.5, wave: 0 })],
   ['Line', 4, 1, () => ({ type: 'line' })],
   // From the menu search (parity/findings/T10.json): Code 4 by 6, Embed 8 by 8.
   ['Code', 4, 6, () => ({ type: 'code', html: '<p>Hello, World!</p>' })],

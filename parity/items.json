@@ -434,10 +434,10 @@
     "id": "T14",
     "area": "Block types",
     "milestone": "M2",
-    "status": "partial",
+    "status": "done",
     "title": "Which types keep an aspect ratio and which follow content",
     "wasUnknown": true,
-    "evidence": "Shapes do not keep an aspect ratio: a corner resize of 2 columns and 1 row changes both freely (T0008). Measured 2026-11-04 with a se drag of 2 columns and 1 row: empty image 1/2/7/8 to 1/2/8/10, accordion 1/2/9/10 to 1/2/10/12, line 1/2/2/6 to 1/2/3/8, button 1/2/3/8 to 1/2/4/10, text 1/2/3/10 to 1/2/4/12, scrolling 1/2/3/26 to 1/2/4/27: free. Video keeps no fixed block ratio either, but its placeholder is 0.65 of its width tall and the block is at least that tall, so more width brings more rows: 1/2/9/10 to 1/2/11/12; less width leaves the rows (parity/findings/MEDIAEMPTY.json; ours matches on e, s and se, npm run image-check). Other types not compared in ours. Images with a picture not tested"
+    "evidence": "parity/findings/BLOCKTYPES.json, measured on a new page: every Add Block type outside Sell, with the same three real-mouse pulls. No type keeps a fixed block ratio. Rows go where pulled on Image (empty, Fit, Fill and Shape with a picture), Shape, Code, Markdown, Embed, Map, Newsletter and most others. Content sets a minimum on Accordion, Scrolling, Line, Quote, Chart: those gave up fewer rows than pulled. Video, SoundCloud and Zola gave up none, Flickr grew. Video, Summary, SoundCloud, Flickr and Bandsintown gained extra rows when pulled wider, and Instagram lost rows when pulled narrower: their content follows the width. Ours matches on every type it builds, on landing area and all three pulls (Text, Image, Button, Video, Form placeholder, Accordion, Shape, Scrolling, Line, Code, Embed), and on a picture in each mode: npm run resize-check, parity/resize-check.json. Types we do not build are answered by the finding and have nothing to compare. A real video is not built (T7). A new Scrolling block's font size is measured at a 1600 wide page only. Named difference, not part of this claim: columnSnap in the finding, a block starting in the left gutter snaps columns differently, resize-check compares rows only there"
   },
   {
     "id": "T15",
