@@ -799,15 +799,16 @@ function onPaste(e) {
 // transform-vars rule (render.js designCss). Stroke and Blend Mode are not built.
 let designOpen = null;
 let designTab = 'Design';
+let blendOpen = false;
 const blockPanel = $('block-panel');
 function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
-  if (!b) { if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!b) { blendOpen = false; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   const content = b.type === 'button' ? { label: b.label, href: b.href } : null;
   if (!content && designTab === 'Content') designTab = 'Design';
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
-  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content);
+  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, blendOpen ? 'blend' : null);
   placeBlockPanel();
   blockPanel.hidden = false;
 }
@@ -820,6 +821,10 @@ function placeBlockPanel() {
   blockPanel.style.top = `${p.top}px`;
 }
 blockPanel.addEventListener('click', (e) => {
+  if (e.target.closest('[data-blend-toggle]')) { blendOpen = !blendOpen; renderBlockPanel(); return; }
+  const o = e.target.closest('[data-blend]');
+  if (o && sel) { blendOpen = false; setDesign('blend', o.dataset.blend === 'normal' ? null : o.dataset.blend); return; }
+  if (blendOpen && !e.target.closest('.bp-listbox')) { blendOpen = false; renderBlockPanel(); }
   const l = e.target.closest('[data-link]');
   if (l && sel) { onLinkAction(l.dataset.link, l); return; }
   const t = e.target.closest('[data-btab]');
@@ -827,6 +832,21 @@ blockPanel.addEventListener('click', (e) => {
   designTab = t.dataset.btab;
   closeLinkPopover();
   renderBlockPanel();
+});
+
+// One design value of the selected block, as one undo step (null removes it).
+function setDesign(k, v) {
+  const b = B(sel.sid, sel.bid);
+  const before = JSON.stringify(model);
+  const d = { ...(b.design || {}) };
+  if (v == null) delete d[k]; else d[k] = v;
+  if (Object.keys(d).length) b.design = d; else delete b.design;
+  renderSectionDom(sel.sid);
+  commit(before, `${k} set on ${b.id}`);
+}
+blockPanel.addEventListener('keydown', (e) => {
+  const t = e.target.closest('[data-blend-toggle]');
+  if (t && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); blendOpen = !blendOpen; renderBlockPanel(); }
 });
 
 // Button Content tab: the text and the link (parity/findings/BUTTONEDIT.json). The text is

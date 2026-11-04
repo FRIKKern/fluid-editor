@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | SECTIONBAR [sections json] | UNBUILT [names json] | BUTTONEDIT | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | SECTIONBAR [sections json] | UNBUILT [names json] | BUTTONEDIT | BLEND [section] [block] [options json] | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -880,6 +880,51 @@ if (which === 'DESIGN') {
     if (saveDisabled() !== true) throw new Error('Unsaved changes remain');
   }
   write(process.env.NAME || 'DESIGN', { question: 'What does each control in the block Edit > Design tab change on the block?', block: [i, k], ...out });
+}
+
+if (which === 'BLEND') {
+  // T15: the Blend Mode dropdown in a block's Edit > Design tab. List its options, then pick
+  // each one, read the block's computed mix-blend-mode and its style elements, and undo until
+  // Save is disabled (O1). Usage: BLEND [section] [block] ['["Multiply"]'].
+  const i = Number(process.argv[3] ?? 2), k = Number(process.argv[4] ?? 1);
+  const id = blockIds(i)[k];
+  const only = (process.argv[5] && JSON.parse(process.argv[5])) || null;
+  const open = async () => {
+    await select(i, id); await pause(800);
+    await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Edit' && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().width < 80)`, { wait: 1800 });
+    await click(`() => [...document.querySelectorAll('button, [role=tab]')].find((x) => x.textContent.trim() === 'Design' && x.getBoundingClientRect().width > 0)`, { wait: 1200 });
+    await click(`() => [...document.querySelectorAll('[role=button][aria-haspopup=listbox]')].find((x) => /^Blend Mode/.test(x.textContent.trim()) && x.getBoundingClientRect().width > 0)`, { wait: 1000 });
+  };
+  const OPTIONS = `(() => JSON.stringify([...document.querySelectorAll('[role=option]')].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame') && e.textContent.trim() && e.textContent.trim().length < 20).map((e) => ({ text: e.textContent.trim(), selected: e.getAttribute('aria-selected') || e.getAttribute('aria-checked'), role: e.getAttribute('role') }))))()`;
+  const READ = `(() => { ${FRAME} const b = d.querySelector('.fe-block[data-block-id="${id}"]');
+    const els = [b, ...b.querySelectorAll('.fluid-engine-block-contents, .sqs-block, .sqs-block-content')];
+    const all = [...b.querySelectorAll('style')].map((x) => x.textContent.replace(/\\s+/g, ' ')).join(' ');
+    return JSON.stringify({ blend: els.map((e) => W.getComputedStyle(e).mixBlendMode), vars: all.match(/--tweak-[a-z-]*blend[^;}]*/g) || [] }); })()`;
+  if (saveDisabled() !== true) throw new Error('The oracle has unsaved changes; stopping (O1)');
+  const base = evalJs(S, READ);
+  await open();
+  const options = evalJs(S, OPTIONS);
+  console.log('options', JSON.stringify(options));
+  await escape(); await escape(); await deselect(i);
+  const out = { block: [i, k], base, options, changes: {} };
+  // A click on an option does not pick it; the keyboard does (ArrowDown from Normal, Enter).
+  const names = options.map((x) => x.text);
+  for (const o of names.filter((t) => t !== 'Normal' && (!only || only.includes(t)))) {
+    try {
+      await open();
+      for (let n = 0; n < names.indexOf(o); n++) { execFileSync('cmux', ['browser', '--surface', S, 'press', 'ArrowDown']); await pause(120); }
+      execFileSync('cmux', ['browser', '--surface', S, 'press', 'Enter']); await pause(1500);
+      const after = evalJs(S, READ);
+      out.changes[o] = { blend: after.blend, vars: after.vars, changed: saveDisabled() !== true };
+    } catch (e) { out.changes[o] = { error: String(e.message).slice(0, 120) }; }
+    console.log(o, JSON.stringify(out.changes[o]).slice(0, 400));
+    await escape(); await escape();
+    let n = 0; while (n < 6 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); }
+    out.changes[o].undoSteps = n;
+    await deselect(i);
+    if (saveDisabled() !== true) throw new Error('Unsaved changes remain');
+  }
+  write('BLEND', { question: 'Which Blend Mode options does a block Edit > Design tab offer, and what does each write?', ...out });
 }
 
 if (which === 'SECTIONBAR') {

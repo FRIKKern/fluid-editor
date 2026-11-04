@@ -4,7 +4,7 @@
 // Transforms (Opacity, Rotate, Scale X/Y, Offset X/Y, Skew X/Y). Values go into the block's
 // transform-vars rule (render.js designCss). Controls marked data-unbuilt are shown where the
 // oracle shows them but do nothing yet; the inventory counts them as missing.
-import { escapeHtml as esc } from './render.js';
+import { escapeHtml as esc, BLEND_MODES } from './render.js';
 
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
 
@@ -40,7 +40,16 @@ export function linkPopoverPosition(panel, attach, stage) {
   return { left, top };
 }
 
-export function blockPanelHtml(d, tab, content = null) {
+// Blend Mode (parity/findings/BLEND.json): a button reading Blend Mode and the current mode,
+// opening a list of the 16 CSS blend modes.
+const blendValue = (label) => label.toLowerCase().replace(/ /g, '-');
+function blendRow(cur, open) {
+  const name = BLEND_MODES.find((m) => blendValue(m) === cur) || 'Normal';
+  const list = open ? `<div class="bp-listbox" role="listbox" aria-label="Blend Mode">${BLEND_MODES.map((m) => `<div role="option" class="bp-option" aria-selected="${m === name}" data-blend="${blendValue(m)}">${m}</div>`).join('')}</div>` : '';
+  return `<div class="bp-blend-wrap"><div class="sp-row bp-blend" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="${open}" data-blend-toggle><span class="sp-label">Blend Mode</span><span class="bp-blend-value">${name}</span></div>${list}</div>`;
+}
+
+export function blockPanelHtml(d, tab, content = null, open = null) {
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
@@ -57,7 +66,7 @@ export function blockPanelHtml(d, tab, content = null) {
     }
     body = row('Background', sw('background', d.background, 'Background'))
       + row('Stroke', `<span class="sp-ctl" data-unbuilt title="Not built yet">${['No stroke', 'Solid stroke', 'Dashed stroke'].map((l, k) => `<button type="button" class="sp-seg${k === 0 ? ' is-on' : ''}" disabled aria-label="${l}">${pi(['<circle cx="12" cy="12" r="7"/><path d="M7 17L17 7"/>', '<path d="M5 12h14"/>', '<path d="M4 12h3M10.5 12h3M17 12h3"/>'][k])}</button>`).join('')}</span>`)
-      + row('Blend Mode', `<span data-unbuilt title="Not built yet"><select class="bp-select" disabled aria-label="Blend Mode"><option>Normal</option></select></span>`)
+      + blendRow(d.blend || 'normal', open === 'blend')
       + row('Blur', sw('blur', d.blur, 'Blur'))
       + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
       + pairs.join('');
