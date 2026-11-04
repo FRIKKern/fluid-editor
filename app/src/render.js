@@ -1,6 +1,7 @@
 // Model to HTML and CSS. The CSS text follows the per-section <style> that
 // Squarespace publishes for Fluid Engine sections, captured 2026-11-03.
 // Runs in the browser and in Node.
+import { siteStylesHead } from './site-style-packs.js';
 
 export const BPS = ['mobile', 'desktop'];
 export const COLS = { mobile: 8, desktop: 24 };
@@ -361,6 +362,7 @@ export function exportHtml(model, siteCss) {
 <title>${escapeHtml(model.title)}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400&display=swap">
 <style>${siteCss}</style>
+${siteStylesHead(model.siteStyles)}
 </head>
 <body>
 ${renderHeader(model.header)}

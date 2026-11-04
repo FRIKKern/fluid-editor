@@ -24,10 +24,11 @@ Two narrower checks run beside the gates:
 | `node scripts/check-design.mjs` (in `npm run check`) | The 111 block design rules of the corpus (`fixtures/design.json`) against our render of the same values | Equal after collapsing white space |
 | `npm run design-edit-check` | The styles 10 Edit > Design values gave on the oracle (`parity/findings/DESIGN.json`) against the same values set in our editor | Equal computed opacity, transform, backdrop filter and background |
 | `npm run image-check` | Where the picture sits for Fit, Fill and Shape on the oracle (`parity/findings/IMAGEMODES.json`) against the same buttons in our editor | Picture box within 1px of the measured rule, block size unchanged, one undo step |
+| `npm run site-styles-check` | What each style pack set on the oracle's page and how its popover sits (`parity/findings/SITESTYLES2.json`) against the same tiles in our editor | Same palette, heading, paragraph and button values for all 38 packs, popover width and left equal, one undo step |
 
 The dev server (`npm run dev`, scripts/serve.mjs) sends `Cache-Control: no-store`. Set `FLUID_PORT` to run a checkout on its own port (default 5178), and `CDP_PORT` to give it its own headless Chrome: `FLUID_PORT=5201 CDP_PORT=9341`. Under python's http.server a WebKit tab kept old modules, so a check could measure code older than the checkout.
 
-Geometry is compared with the oracle as WebKit draws it, so Gate B, Gate C, chrome-check, section-check, design-edit-check and the inventory run on a cmux tab. The functional checks (text-check, paste-check, near-check, mid-check, autoscroll-check, image-check) also run on a headless Chrome that never shows on screen: `eval "$(node scripts/headless.mjs)"` sets `FLUID_SURFACE=cdp:9333`. The geometry checks refuse that surface.
+Geometry is compared with the oracle as WebKit draws it, so Gate B, Gate C, chrome-check, section-check, design-edit-check and the inventory run on a cmux tab. The functional checks (text-check, paste-check, near-check, mid-check, autoscroll-check, image-check, site-styles-check) also run on a headless Chrome that never shows on screen: `eval "$(node scripts/headless.mjs)"` sets `FLUID_SURFACE=cdp:9333`. The geometry checks refuse that surface.
 
 For cmux tabs, run `eval "$(npm run -s surfaces)"` first: it finds or opens the oracle and editor tabs and exports `ORACLE_SURFACE` and `FLUID_SURFACE`.
 
