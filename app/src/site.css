@@ -196,6 +196,10 @@ body { position: relative; }
 
 /* Image blocks (T4): fill the block; placeholder picture */
 .sqs-block-image .fluid-image-container { width: 100%; height: 100%; overflow: hidden; background: linear-gradient(135deg, #d9d4ca, #bfb8aa); }
+/* Fit and Shape keep the picture inside the block, centred, and never stretch a row. Shape is a circle (IMAGEMODES.json) */
+.image-mode-fit .sqs-block-content, .image-mode-shape .sqs-block-content { display: flex; align-items: center; justify-content: center; container-type: size; }
+.sqs-block-image.image-mode-fit .fluid-image-container, .sqs-block-image.image-mode-shape .fluid-image-container { width: min(100cqw, calc(100cqh * var(--image-aspect, 1))); height: auto; aspect-ratio: var(--image-aspect, 1); }
+.sqs-block-image.image-mode-shape .fluid-image-container { clip-path: circle(50%); }
 
 /* Scrolling block (T12), measured on the oracle Home page */
 .marquee {

@@ -64,7 +64,7 @@ function strokeRows(d) {
   return html;
 }
 
-export function blockPanelHtml(d, tab, content = null, open = null, shape = null) {
+export function blockPanelHtml(d, tab, content = null, open = null, shape = null, image = null) {
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
@@ -91,6 +91,17 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       + row('Blur', sw('blur', d.blur, 'Blur'))
       + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
       + pairs.join('');
+    // An image's Design tab (parity/findings/IMAGEMODES.json) opens with Fit, Fill and Shape.
+    else if (image) {
+      const seg = (m, l) => `<button type="button" role="radio" class="bp-mode${image.mode === m ? ' is-on' : ''}" aria-checked="${image.mode === m}" aria-label="${l}" data-image-mode="${m}">${l}</button>`;
+      const chip = (l, v) => row(l, `<span class="bp-unbuilt-chip" data-unbuilt title="Not built yet" aria-label="${l}">${v}</span>`);
+      const off = (l) => row(l, `<label class="sp-switch" data-unbuilt title="Not built yet"><input type="checkbox" disabled aria-label="${l}"><span aria-hidden="true"></span></label>`);
+      body = `<div class="bp-modes" role="radiogroup" aria-label="Image mode">${seg('fit', 'Fit')}${seg('fill', 'Fill')}${seg('shape', 'Shape')}</div>`
+        + (image.mode === 'shape' ? chip('Shape', 'Circle') + off('Stretch') : chip('Corner', '0px'))
+        + chip('Image Effect', '›') + off('Overlay') + off('Lightbox')
+        + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
+        + pairs.join('');
+    }
     else body = row('Background', sw('background', d.background, 'Background'))
       + strokeRows(d)
       + blendRow(d.blend || 'normal', open === 'blend')

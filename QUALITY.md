@@ -21,10 +21,11 @@ Two narrower checks run beside the gates:
 | `npm run chrome-check` | The oracle's block toolbar and selection rings for 5 selected blocks (`parity/findings/TOOLBARGEO.json`) against ours on the same blocks | Toolbar, button and separator boxes within 1px, same labels, same ring colors |
 | `node scripts/check-design.mjs` (in `npm run check`) | The 111 block design rules of the corpus (`fixtures/design.json`) against our render of the same values | Equal after collapsing white space |
 | `npm run design-edit-check` | The styles 10 Edit > Design values gave on the oracle (`parity/findings/DESIGN.json`) against the same values set in our editor | Equal computed opacity, transform, backdrop filter and background |
+| `npm run image-check` | Where the picture sits for Fit, Fill and Shape on the oracle (`parity/findings/IMAGEMODES.json`) against the same buttons in our editor | Picture box within 1px of the measured rule, block size unchanged, one undo step |
 
 The dev server (`npm run dev`, scripts/serve.mjs) sends `Cache-Control: no-store`. Under python's http.server a WebKit tab kept old modules, so a check could measure code older than the checkout.
 
-Geometry is compared with the oracle as WebKit draws it, so Gate B, Gate C, chrome-check, section-check, design-edit-check and the inventory run on a cmux tab. The functional checks (text-check, paste-check, near-check, autoscroll-check) also run on a headless Chrome that never shows on screen: `eval "$(node scripts/headless.mjs)"` sets `FLUID_SURFACE=cdp:9333`. The geometry checks refuse that surface.
+Geometry is compared with the oracle as WebKit draws it, so Gate B, Gate C, chrome-check, section-check, design-edit-check and the inventory run on a cmux tab. The functional checks (text-check, paste-check, near-check, autoscroll-check, image-check) also run on a headless Chrome that never shows on screen: `eval "$(node scripts/headless.mjs)"` sets `FLUID_SURFACE=cdp:9333`. The geometry checks refuse that surface.
 
 Run `eval "$(npm run -s surfaces)"` first: it finds or opens the oracle and editor tabs and exports `ORACLE_SURFACE` and `FLUID_SURFACE`.
 

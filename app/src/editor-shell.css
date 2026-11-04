@@ -144,6 +144,9 @@ body.show-inspector:not(.is-replay) .panel { display: block; }
 .sp-num { width: 77px; height: 36px; box-sizing: border-box; border: 0; border-radius: 3px; background: #f2f2f2; text-align: center; font: inherit; -moz-appearance: textfield; appearance: textfield; }
 .sp-num::-webkit-inner-spin-button, .sp-num::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 .sp-val { min-width: 24px; text-align: right; color: #6f6f6f; }
+.bp-modes { display: grid; grid-template-columns: repeat(3, 1fr); padding: 2px; margin-bottom: 8px; background: #f2f2f2; border-radius: 4px; }
+.bp-mode { height: 32px; border: 0; border-radius: 3px; background: transparent; color: #6f6f6f; font: inherit; cursor: pointer; }
+.bp-mode.is-on { background: #fff; color: #0e0e0e; font-weight: 600; }
 .sp-switch { position: relative; display: inline-block; width: 28px; height: 16px; }
 .sp-switch input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
 .sp-switch span { position: absolute; inset: 0; border-radius: 8px; background: #6f6f6f; pointer-events: none; transition: background 0.15s; }

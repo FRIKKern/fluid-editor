@@ -866,7 +866,8 @@ function renderBlockPanel() {
   if (!content && designTab === 'Content') designTab = 'Design';
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false } : null;
-  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : null), shape);
+  const image = b.type === 'image' ? { mode: b.mode || 'fill' } : null;
+  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : null), shape, image);
   placeBlockPanel();
   blockPanel.hidden = false;
 }
@@ -927,6 +928,19 @@ function setDesign(k, v) {
 blockPanel.addEventListener('keydown', (e) => {
   const t = e.target.closest('[data-blend-toggle]');
   if (t && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); blendOpen = !blendOpen; renderBlockPanel(); }
+});
+
+// Image Fit, Fill and Shape (parity/findings/IMAGEMODES.json), one undo step each.
+blockPanel.addEventListener('click', (e) => {
+  const m = e.target.closest('[data-image-mode]');
+  if (!m || !sel) return;
+  const b = B(sel.sid, sel.bid);
+  if (!b || b.type !== 'image' || (b.mode || 'fill') === m.dataset.imageMode) return;
+  const before = JSON.stringify(model);
+  if (m.dataset.imageMode === 'fill') delete b.mode; else b.mode = m.dataset.imageMode;
+  renderSectionDom(sel.sid);
+  commit(before, `image mode ${m.dataset.imageMode} on ${b.id}`);
+  renderBlockPanel();
 });
 
 // Shape Corner radius and Stretch (parity/findings/SHAPEDESIGN.json), one undo step each.
