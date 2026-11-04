@@ -6,7 +6,7 @@ import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
-import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS } from './block-panel.js';
+import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { demoModel } from './demo.js';
@@ -260,7 +260,8 @@ toolbar.addEventListener('click', (e) => {
   }
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
-  if (act === 'edit') { designOpen = bid; designTab = 'Design'; updateUi(); return; }
+  // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
+  if (act === 'edit') { designOpen = bid; designTab = b.type === 'button' ? 'Content' : 'Design'; updateUi(); return; }
   if (act === 'pin' || act === 'primary' || act === 'link') { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
   const before = JSON.stringify(model);
   if (act === 'align') { const order = ['flex-start', 'center', 'flex-end']; const L = lay(b); L.justify = order[(order.indexOf(L.justify || 'flex-start') + 1) % 3]; }
@@ -798,8 +799,11 @@ let designTab = 'Design';
 const blockPanel = $('block-panel');
 function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
-  if (!b) { if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
-  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab);
+  if (!b) { closeLinkPopover(); if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  const content = b.type === 'button' ? { label: b.label, href: b.href } : null;
+  if (!content && designTab === 'Content') designTab = 'Design';
+  if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
+  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content);
   placeBlockPanel();
   blockPanel.hidden = false;
 }
@@ -812,10 +816,72 @@ function placeBlockPanel() {
   blockPanel.style.top = `${p.top}px`;
 }
 blockPanel.addEventListener('click', (e) => {
+  const l = e.target.closest('[data-link]');
+  if (l && sel) { onLinkAction(l.dataset.link, l); return; }
   const t = e.target.closest('[data-btab]');
   if (!t) return;
   designTab = t.dataset.btab;
+  closeLinkPopover();
   renderBlockPanel();
+});
+
+// Button Content tab: the text and the link (parity/findings/BUTTONEDIT.json). The text is
+// one undo step when the field is left; each link change is one step.
+function setButton(change, label) {
+  if (!sel) return;
+  const b = B(sel.sid, sel.bid);
+  if (!b || b.type !== 'button') return;
+  const before = JSON.stringify(model);
+  change(b);
+  renderSectionDom(sel.sid);
+  commit(before, label);
+}
+blockPanel.addEventListener('change', (e) => {
+  const f = e.target.closest('input[data-content="label"]');
+  if (!f) return;
+  e.stopImmediatePropagation();
+  const v = f.value;
+  f.blur();
+  setButton((b) => { b.label = v; }, 'Button text changed');
+}, true);
+blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input[data-content]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); });
+
+const linkPop = $('link-popover');
+function closeLinkPopover() { linkPop.hidden = true; }
+function siteLinkGroups() {
+  // The oracle lists each page as name and path, e.g. Services/services. Our header stores no
+  // path for most pages, so the path comes from the name when none is stored.
+  const path = (n) => (n.href && n.href !== '#' ? n.href : `/${n.label.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`);
+  const nav = (model.header?.nav || []).map((n) => ({ label: n.label, href: path(n) }));
+  return [{ name: 'Main Navigation', pages: nav }];
+}
+function onLinkAction(act, el) {
+  const b = B(sel.sid, sel.bid);
+  if (act === 'copy') { navigator.clipboard?.writeText(b.href || '').catch(() => {}); note('Link copied'); updateUi(); return; }
+  if (act === 'remove') { closeLinkPopover(); setButton((x) => { delete x.href; }, 'Link removed'); return; }
+  // open or edit
+  linkPop.innerHTML = linkPopoverHtml(b.href, siteLinkGroups());
+  const p = linkPopoverPosition(blockPanel.getBoundingClientRect(), el.getBoundingClientRect(), stage.getBoundingClientRect());
+  linkPop.style.left = `${p.left}px`; linkPop.style.top = `${p.top}px`;
+  linkPop.hidden = false;
+  linkPop.classList.toggle('has-text', !!b.href);
+  linkPop.querySelector('.lk-input').focus();
+}
+function applyLink(href) {
+  closeLinkPopover();
+  const v = href.trim();
+  setButton((b) => { if (v) b.href = v; else delete b.href; }, v ? 'Link set' : 'Link removed');
+}
+linkPop.addEventListener('input', (e) => { if (e.target.matches('.lk-input')) linkPop.classList.toggle('has-text', !!e.target.value); });
+linkPop.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && e.target.matches('.lk-input')) { e.preventDefault(); applyLink(e.target.value); }
+  if (e.key === 'Escape') { e.stopPropagation(); closeLinkPopover(); }
+});
+linkPop.addEventListener('mousedown', (e) => { if (e.target.closest('button')) e.preventDefault(); });
+linkPop.addEventListener('click', (e) => {
+  const pg = e.target.closest('.lk-page');
+  if (pg) { applyLink(pg.dataset.href); return; }
+  if (e.target.closest('.lk-clear')) { const i = linkPop.querySelector('.lk-input'); i.value = ''; linkPop.classList.remove('has-text'); i.focus(); }
 });
 function onDesignChange(e) {
   const input = e.target.closest('input[data-design]');
@@ -965,7 +1031,7 @@ function renderPanel() {
 const ADD_TYPES = [
   ['Text', 8, 2, () => ({ type: 'text', html: '<p data-rte-preserve-empty="true"></p>' })],
   ['Image', 6, 6, () => ({ type: 'image', alt: '' })],
-  ['Button', 6, 2, () => ({ type: 'button', label: 'Learn more', href: '#' })],
+  ['Button', 6, 2, () => ({ type: 'button', label: 'Learn more' })],
   ['Video', 8, 8, () => ({ type: 'video' })],
   ['Form', 9, 16, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: 'form' })],
   ['Accordion', 8, 8, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: 'accordion' })],
@@ -1309,7 +1375,7 @@ addMenu.addEventListener('click', (e) => {
 // ---------- floating menus: Add Block, Layers, the block context menu ----------
 const layersPanel = $('layers-panel');
 const contextMenu = $('context-menu');
-function closeFloating() { addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; }
+function closeFloating() { addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('link-popover').hidden = true; }
 addMenu.addEventListener('input', (e) => {
   if (!e.target.matches('[data-am="search"]')) return;
   const q = e.target.value;

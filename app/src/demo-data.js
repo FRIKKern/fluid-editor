@@ -80,7 +80,6 @@ export const DEMO = {
           "id": "yui_3_17_2_1_1793705139153_932",
           "type": "button",
           "label": "Learn more",
-          "href": "#",
           "layout": {
             "mobile": {
               "area": [
@@ -1169,7 +1168,6 @@ export const DEMO = {
           "id": "yui_3_17_2_1_1793705593367_17180",
           "type": "button",
           "label": "Learn more",
-          "href": "#",
           "layout": {
             "mobile": {
               "area": [

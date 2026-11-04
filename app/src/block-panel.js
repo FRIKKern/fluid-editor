@@ -4,18 +4,51 @@
 // Transforms (Opacity, Rotate, Scale X/Y, Offset X/Y, Skew X/Y). Values go into the block's
 // transform-vars rule (render.js designCss). Controls marked data-unbuilt are shown where the
 // oracle shows them but do nothing yet; the inventory counts them as missing.
+import { escapeHtml as esc } from './render.js';
+
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
 
 export const DESIGN_FIELDS = [['opacity', 'Opacity', '%', 0, 100], ['rotate', 'Rotate', '°', -360, 360], ['sx', 'Scale', '%', 0, 1000, 'X'], ['sy', 'Scale', '%', 0, 1000, 'Y'],
   ['tx', 'Offset', 'px', -10000, 10000, 'X'], ['ty', 'Offset', 'px', -10000, 10000, 'Y'], ['kx', 'Skew', '°', -89, 89, 'X'], ['ky', 'Skew', '°', -89, 89, 'Y']];
 
-export function blockPanelHtml(d, tab) {
+// Content tab of a button block (parity/findings/BUTTONEDIT.json): Text, a 276 by 44 field
+// with the placeholder Learn More, and Link, an Attach link button that turns into the link
+// with Edit, Copy and Remove Link once one is set.
+function buttonContentHtml(c) {
+  const link = c.href
+    ? `<div class="bp-link"><button type="button" class="bp-link-url" data-link="edit" aria-label="${esc(c.href)}">${esc(c.href)}</button><div class="bp-link-actions"><button type="button" data-link="edit">Edit</button><button type="button" data-link="copy">Copy</button><button type="button" class="bp-link-remove" data-link="remove">Remove Link</button></div></div>`
+    : '<button type="button" class="bp-attach" data-link="open">Attach link</button>';
+  return `<div class="bp-field"><span class="bp-flabel">Text</span><input class="bp-text" type="text" aria-label="Text" placeholder="Learn More" data-content="label" value="${esc(c.label || '')}"></div>`
+    + `<div class="bp-field"><span class="bp-flabel">Link</span>${link}</div>`;
+}
+
+// The link editor popover (BUTTONEDIT.json, the gap review's button-link state): a URL tab, the
+// field Enter link, search, or add files, Open link in new tab and Clear selected page; the site
+// pages show under the field while it is empty, as name and path, grouped by navigation.
+export function linkPopoverHtml(href, groups) {
+  const pages = groups.filter((g) => g.pages.length).map((g) => `<div class="lk-group">${esc(g.name)}</div>${g.pages.map((pg) => `<button type="button" class="lk-page" data-href="${esc(pg.href)}" aria-label="${esc(`${pg.label}${pg.href}`)}"><span>${esc(pg.label)}</span><span class="lk-path">${esc(pg.href)}</span></button>`).join('')}`).join('');
+  return `<div class="lk-tabs"><button type="button" class="lk-tab is-on">URL</button></div>`
+    + `<div class="lk-row"><input class="lk-input" type="text" placeholder="Enter link, search, or add files" value="${esc(href || '')}"><button type="button" class="lk-clear" aria-label="Clear selected page">×</button></div>`
+    + `<label class="lk-newtab" data-unbuilt title="Not built yet"><input type="checkbox" disabled> Open link in new tab</label>`
+    + `<div class="lk-pages">${pages}</div>`;
+}
+
+// One measurement: the popover sat 342px left of the panel and 61px above the Attach link button.
+export function linkPopoverPosition(panel, attach, stage) {
+  const left = Math.max(8, panel.left - stage.left - 342);
+  const top = Math.max(8, Math.min(attach.top - stage.top - 61, stage.height - 175));
+  return { left, top };
+}
+
+export function blockPanelHtml(d, tab, content = null) {
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
   const box = ([k, l, u, min, max, axis]) => `<label class="bp-box"><input type="number" data-design="${k}" aria-label="${axis ? `${l} ${axis}` : l}" min="${min}" max="${max}" value="${d[k]}"><span class="bp-unit">${u}${axis ? ` <b>${axis}</b>` : ''}</span></label>`;
   let body;
-  if (tab === 'Design') {
+  if (tab === 'Content' && content) {
+    body = buttonContentHtml(content);
+  } else if (tab === 'Design') {
     const pairs = [];
     for (let i = 0; i < DESIGN_FIELDS.length; i++) {
       const f = DESIGN_FIELDS[i];
@@ -31,7 +64,8 @@ export function blockPanelHtml(d, tab) {
   } else {
     body = '<p class="sp-help" data-unbuilt>Animations are not built yet.</p>';
   }
-  return `<div class="sp-tabs" role="tablist">${['Design', 'Animation'].map(tabBtn).join('')}</div><div class="sp-body">${body}</div>`;
+  const tabs = content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
+  return `<div class="sp-tabs" role="tablist">${tabs.map(tabBtn).join('')}</div><div class="sp-body">${body}</div>`;
 }
 
 // 18px right of the block and 3px below its top, in the stage's coordinates; left of the block

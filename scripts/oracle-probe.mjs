@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | SECTIONBAR [sections json] | UNBUILT [names json] | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | SECTIONBAR [sections json] | UNBUILT [names json] | BUTTONEDIT | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -612,6 +612,62 @@ if (which === 'PASTE') {
   }
   if (saveDisabled() !== true) throw new Error('The probe left unsaved changes');
   write('PASTE', { question: 'What does the text editor keep from pasted HTML and plain text?', block: [i, k], samples: out });
+}
+
+if (which === 'BUTTONEDIT') {
+  // T5 and E7: the button block Edit panel (Content tab) and its link editor. Read the panel,
+  // then change the button text once and attach one URL, read the published HTML after each,
+  // and undo until Save is disabled again (O1).
+  const i = 0, id = blockIds(0)[2];
+  const BTN = `(() => { ${FRAME} const b = d.querySelector('.fe-block[data-block-id="${id}"] .sqs-block-content'); return JSON.stringify(b ? b.innerHTML.replace(/\\s+/g, ' ').trim() : null); })()`;
+  // The open panel: the element that holds both the Content and the Animation tab.
+  const PANEL = `(() => { const tab = [...document.querySelectorAll('[role=tab], button')].find((e) => e.textContent.trim() === 'Content' && e.getBoundingClientRect().width > 0);
+    if (!tab) return JSON.stringify(null); let p = tab; while (p.parentElement && !/Animation/.test(p.textContent)) p = p.parentElement; while (p.parentElement && p.getBoundingClientRect().height < 200) p = p.parentElement;
+    const r = p.getBoundingClientRect(); const vis = (e) => e.getBoundingClientRect().width > 0;
+    return JSON.stringify({ box: [r.x, r.y, r.width, r.height].map(Math.round),
+      text: [...new Set([...p.querySelectorAll('*')].filter((e) => vis(e) && e.childElementCount === 0 && e.textContent.trim()).map((e) => e.textContent.trim()))],
+      inputs: [...p.querySelectorAll('input, textarea, [contenteditable=true]')].filter(vis).map((e) => { const q = e.getBoundingClientRect(); return { tag: e.tagName, type: e.type || null, label: e.getAttribute('aria-label'), placeholder: e.getAttribute('placeholder'), value: e.value ?? e.textContent, box: [q.x, q.y, q.width, q.height].map(Math.round) }; }),
+      buttons: [...p.querySelectorAll('button, [role=button], [role=tab]')].filter(vis).map((e) => { const q = e.getBoundingClientRect(); return { label: e.getAttribute('aria-label') || e.textContent.trim(), selected: e.getAttribute('aria-selected'), box: [q.x, q.y, q.width, q.height].map(Math.round) }; }) }); })()`;
+  // Everything visible that holds a given text, as the popover root.
+  const POP = (txt) => `(() => { const h = [...document.querySelectorAll('input, *')].find((e) => e.getBoundingClientRect().width > 0 && ((e.getAttribute('placeholder') || '') === ${JSON.stringify(txt)} || (e.childElementCount === 0 && e.textContent.trim() === ${JSON.stringify(txt)})));
+    if (!h) return JSON.stringify(null); let p = h; while (p.parentElement && p.getBoundingClientRect().height < 150) p = p.parentElement; const r = p.getBoundingClientRect(); const vis = (e) => e.getBoundingClientRect().width > 0;
+    return JSON.stringify({ box: [r.x, r.y, r.width, r.height].map(Math.round), text: [...new Set([...p.querySelectorAll('*')].filter((e) => vis(e) && e.childElementCount === 0 && e.textContent.trim()).map((e) => e.textContent.trim()))],
+      inputs: [...p.querySelectorAll('input')].filter(vis).map((e) => ({ label: e.getAttribute('aria-label'), placeholder: e.getAttribute('placeholder'), value: e.value })),
+      buttons: [...p.querySelectorAll('button, [role=button], [role=option], [role=tab]')].filter(vis).map((e) => e.getAttribute('aria-label') || e.textContent.trim()) }); })()`;
+  const tag = (find) => evalJs(S, `(() => { document.querySelectorAll('#fx-target').forEach((x) => x.removeAttribute('id')); const el = (${find})(); if (!el) return JSON.stringify(false); el.id = 'fx-target'; return JSON.stringify(true); })()`);
+  const fill = (text) => execFileSync('cmux', ['browser', '--surface', S, 'fill', '#fx-target', text]);
+  const press = (k) => execFileSync('cmux', ['browser', '--surface', S, 'press', k]);
+  const out = { block: [i, id], htmlBefore: evalJs(S, BTN) };
+  if (saveDisabled() !== true) throw new Error('The oracle has unsaved changes; stopping (O1)');
+  await select(i, id); await pause(700);
+  await click(`() => [...document.querySelectorAll('button')].find((x) => [x.getAttribute('aria-label'), x.textContent.trim()].includes('Edit') && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().width < 80)`, { wait: 1800 });
+  out.blockBox = evalJs(S, `(() => { ${FRAME} const fb = f.getBoundingClientRect(); const r = d.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect(); return JSON.stringify([fb.x + r.x, fb.y + r.y, r.width, r.height].map(Math.round)); })()`);
+  out.panel = evalJs(S, PANEL);
+  console.log('panel', JSON.stringify(out.panel));
+  // 1. Button text.
+  const textInput = `() => [...document.querySelectorAll('input')].find((e) => e.getAttribute('aria-label') === 'Text' && e.getBoundingClientRect().width > 0)`;
+  if (tag(textInput) === true) {
+    fill('Learn more now'); press('Tab'); await pause(1500);
+    out.afterText = { html: evalJs(S, BTN), saveDisabled: saveDisabled() };
+    console.log('afterText', JSON.stringify(out.afterText));
+  } else out.afterText = 'no text input found';
+  // 2. Attach link: open the link editor, read it, enter one URL.
+  await click(`() => [...document.querySelectorAll('button, [role=button]')].find((x) => /attach link/i.test(x.getAttribute('aria-label') || x.textContent) && x.getBoundingClientRect().width > 0)`, { wait: 1500 });
+  out.linkEditor = evalJs(S, POP('Enter link, search, or add files'));
+  console.log('linkEditor', JSON.stringify(out.linkEditor));
+  if (tag(`() => [...document.querySelectorAll('input')].find((e) => e.getAttribute('placeholder') === 'Enter link, search, or add files' && e.getBoundingClientRect().width > 0)`) === true) {
+    fill('https://example.com/probe'); await pause(800);
+    out.linkTyped = evalJs(S, POP('Enter link, search, or add files'));
+    press('Enter'); await pause(1500);
+    out.afterLink = { html: evalJs(S, BTN), panel: evalJs(S, PANEL), saveDisabled: saveDisabled() };
+    console.log('afterLink', JSON.stringify(out.afterLink));
+  } else out.afterLink = 'no link input found';
+  await escape(); await escape(); await deselect(i);
+  let n = 0; while (n < 8 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); }
+  out.undoSteps = n; out.htmlAfterUndo = evalJs(S, BTN);
+  out.restored = out.htmlAfterUndo === out.htmlBefore && saveDisabled() === true;
+  write('BUTTONEDIT', { question: 'What does the button Edit panel offer on Content, and what HTML do its text and link write?', ...out });
+  if (!out.restored) throw new Error('The button did not return to its saved state');
 }
 
 if (which === 'EXIT') {
