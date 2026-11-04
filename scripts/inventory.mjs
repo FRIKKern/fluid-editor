@@ -7,9 +7,8 @@
 // docs/MISSING.md from it.
 // Usage: node scripts/inventory.mjs [--shots dir] [--only state,state]
 // The oracle must be open in edit mode on the demo page; nothing is saved (O1).
-import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, waitFor, screenshot, requireWebKit } from './lib/cmux.mjs';
+import { browser, evalJs, goto, viewport, pause, waitFor, screenshot, requireWebKit } from './lib/cmux.mjs';
 import { BUTTON } from './oracle/snippets.mjs';
 import { trackedBy } from './lib/coverage.mjs';
 import { select, click, escape, deselect, hoverSection, blockIds } from './oracle/ui.mjs';
@@ -103,7 +102,7 @@ async function oReset() {
   // Leftover sizes from scripts/box-diff.mjs would put a 1920px canvas in the 1600px window.
   evalJs(O, `(() => { const f = document.getElementById('sqs-site-frame'); if (f) for (const p of ['width', 'max-width', 'min-width', 'height', 'flex']) f.style.removeProperty(p); return 'true'; })()`);
   // Close menus with a real key press, then make sure the editor is editing the demo page.
-  for (let k = 0; k < 2; k++) { try { execFileSync('cmux', ['browser', '--surface', O, 'press', 'Escape']); } catch {} await pause(300); }
+  for (let k = 0; k < 2; k++) { try { browser(O, 'press', 'Escape'); } catch {} await pause(300); }
   // The full-screen preview and the Site Styles panel have their own close buttons.
   for (const label of ['Close full screen preview', 'Toggle preview mode']) {
     if (evalJs(O, `(() => JSON.stringify(!![...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === ${JSON.stringify(label)} && x.getAttribute('aria-pressed') !== 'false' && x.getBoundingClientRect().width > 0 && ${label === 'Close full screen preview'})))()`) === true) await oCmuxClick(oByLabel(label), 1500);
@@ -119,7 +118,7 @@ async function oReset() {
   // Park the pointer on the top bar and end the section hover: left over a section it keeps the
   // section toolbar up, and the next state counts it (idle showed 20 labels instead of 10).
   evalJs(O, `(() => { document.querySelectorAll('#fx-park').forEach((x) => x.removeAttribute('id')); const t = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && /Page · /.test(e.textContent) && e.getBoundingClientRect().top < 55); if (t) t.id = 'fx-park'; return JSON.stringify(!!t); })()`);
-  try { execFileSync('cmux', ['browser', '--surface', O, 'hover', '#fx-park']); } catch {}
+  try { browser(O, 'hover', '#fx-park'); } catch {}
   // The top bar alone does not end the section hover; leave events on the page do (tested by
   // hand: the card went from visible to visibility hidden).
   evalJs(O, `(() => { const f = document.getElementById('sqs-site-frame'); const d = f.contentDocument, W = f.contentWindow; for (const t of [...d.querySelectorAll('main#page .page-section'), d.querySelector('main'), d.body, d.documentElement]) for (const type of ['pointerout', 'pointerleave', 'mouseout', 'mouseleave']) t && t.dispatchEvent(new W.PointerEvent(type, { bubbles: type.endsWith('out'), clientX: -10, clientY: -10 })); return 'true'; })()`);

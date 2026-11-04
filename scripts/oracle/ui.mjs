@@ -1,14 +1,13 @@
 // Acting on the Squarespace editor like a person: hover, click, paste, drag.
-// Clicks that open menus go through cmux's own click; drags and pastes are
+// Clicks that open menus are real clicks, from cmux or over CDP; drags and pastes are
 // pointer and clipboard events inside the site frame. Used by M1 (O1) only.
-import { execFileSync } from 'node:child_process';
-import { evalJs, pause } from '../lib/cmux.mjs';
+import { browser, evalJs, pause } from '../lib/cmux.mjs';
 
 export const SURFACE = process.env.ORACLE_SURFACE || 'surface:40';
-const cmux = (...a) => execFileSync('cmux', ['browser', '--surface', SURFACE, ...a], { encoding: 'utf8', timeout: 60000 }).trim();
+const cmux = (...a) => browser(SURFACE, ...a);
 const FRAME = `const f = document.getElementById('sqs-site-frame'); const d = f.contentDocument; const W = f.contentWindow;`;
 
-// Tag an element found by `find` (JS expression returning an element) and click it with cmux.
+// Tag an element found by `find` (JS expression returning an element) and click it.
 export async function click(find, { inFrame = false, wait = 1200 } = {}) {
   if (inFrame) cmux('frame', '#sqs-site-frame');
   try {
@@ -329,6 +328,28 @@ export async function release({ shift = false, alt = false } = {}) {
     d.dispatchEvent(new W.PointerEvent('pointerup', o)); d.dispatchEvent(new W.MouseEvent('mouseup', o));
     return 'true'; })()`);
   await pause(900);
+}
+
+// ---------- getting in and out of edit mode ----------
+// Open a page by its title in the page list and enter edit mode. Real clicks.
+export async function enterEdit(title = 'How Fluid Engine works') {
+  const titled = `() => [...document.querySelectorAll('*')].filter((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(title)} && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().left < 400)[0]`;
+  const framePath = () => evalJs(SURFACE, `(() => { ${FRAME} return JSON.stringify(d ? d.querySelectorAll('.fluid-engine.is-editing').length : -1); })()`);
+  if (framePath() > 0) return;
+  await click(titled, { wait: 5000 });
+  await click(byText('button', 'Edit'), { wait: 6000 });
+  if (!(framePath() > 0)) throw new Error(`enterEdit: ${title} is not in edit mode`);
+}
+
+// Leave edit mode and throw away unsaved work: Exit, then the Exit inside "Exit Without Saving?".
+// Undo is not a safe way back (8 undos left a page dirty on 2026-11-04). Returns whether there
+// was a dialog, that is, whether the page was dirty.
+export async function exitWithoutSaving() {
+  await click(byText('button', 'Exit'), { wait: 1500 });
+  const dialog = () => evalJs(SURFACE, `(() => { const t = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && /exit without saving/i.test(e.textContent) && e.getBoundingClientRect().width > 0); if (!t) return JSON.stringify(false); let box = t; while (box && ![...box.querySelectorAll('button')].some((b) => b.textContent.trim() === 'Exit')) box = box.parentElement; document.querySelectorAll('#fx-target').forEach((x) => x.removeAttribute('id')); const b = box && [...box.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Exit'); if (b) b.id = 'fx-target'; return JSON.stringify(!!b); })()`);
+  const dirty = dialog() === true;
+  if (dirty) { cmux('click', '#fx-target'); await pause(3000); }
+  return dirty;
 }
 
 export const blockEl = (i, id) => BLOCK(i, id);

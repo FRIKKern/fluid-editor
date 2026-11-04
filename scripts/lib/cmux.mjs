@@ -19,9 +19,36 @@ function run(args, timeout = 60000) {
 // A surface named "cdp:<port>" is a headless Chrome (scripts/headless.mjs), driven over the
 // DevTools protocol by scripts/lib/cdp-run.mjs; everything else is a cmux browser tab.
 const isCdp = (s) => String(s).startsWith('cdp:');
+const frames = new Map(); // the iframe each cdp surface is in, like `cmux browser frame`
 function cdp(surface, cmd, timeout = 120000) {
   const port = Number(String(surface).slice(4));
-  return execFileSync(process.execPath, [new URL('./cdp-run.mjs', import.meta.url).pathname, JSON.stringify({ port, ...cmd })], { encoding: 'utf8', timeout, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+  return execFileSync(process.execPath, [new URL('./cdp-run.mjs', import.meta.url).pathname, JSON.stringify({ port, frame: frames.get(surface), ...cmd })], { encoding: 'utf8', timeout, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+}
+
+// `cmux browser <op> ...` on either kind of surface: click, dblclick, hover, press, fill, frame,
+// screenshot --out, dialog accept. Oracle scripts go through this, never through cmux directly.
+export function browser(surface, op, ...args) {
+  if (!isCdp(surface)) return run(['--surface', surface, op, ...args]);
+  switch (op) {
+    case 'frame': if (args[0] === 'main') frames.delete(surface); else frames.set(surface, args[0]); return '';
+    case 'click': case 'dblclick': case 'hover': return cdp(surface, { op, sel: args[0] });
+    case 'press': return cdp(surface, { op, key: args[0] });
+    case 'fill': return cdp(surface, { op, sel: args[0], text: args[1] });
+    case 'screenshot': return cdp(surface, { op, file: args[args.indexOf('--out') + 1] });
+    case 'dialog': return cdp(surface, { op, accept: args[0] !== 'dismiss' });
+    default: throw new Error(`${op} is not supported on ${surface}`);
+  }
+}
+
+// Real pointer input at x, y, in the current frame's coordinates. Headless Chrome only.
+// mouse: type is move, down or up; pass buttons: 1 on a move while the button is held.
+export function mouse(surface, type, x, y, { buttons = 0, mods = [] } = {}) {
+  if (!isCdp(surface)) throw new Error('mouse needs a cdp surface');
+  return cdp(surface, { op: 'mouse', type, x, y, buttons, mods });
+}
+export function drag(surface, from, to, { steps = 12, holdMs = 150, mods = [] } = {}) {
+  if (!isCdp(surface)) throw new Error('drag needs a cdp surface');
+  return cdp(surface, { op: 'drag', from, to, steps, holdMs, mods });
 }
 
 export function screenshot(surface, file) {
