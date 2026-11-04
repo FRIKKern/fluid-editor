@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 36 changes
+- **Today** · 37 changes
+  - U9: stop section buttons piling up in the corner when a block is selected ([#94](https://github.com/FRIKKern/fluid-editor/pull/94))
   - T4: Fit, Fill and Shape in the image block's Design tab ([#93](https://github.com/FRIKKern/fluid-editor/pull/93))
-  - Top bar: keep the right group in its column, let clicks pass the title ([#92](https://github.com/FRIKKern/fluid-editor/pull/92))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
