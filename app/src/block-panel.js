@@ -86,7 +86,8 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
     body = '<p class="sp-help" data-unbuilt>Animations are not built yet.</p>';
   }
   const tabs = content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
-  return `<div class="sp-tabs" role="tablist">${tabs.map(tabBtn).join('')}</div><div class="sp-body">${body}</div>`;
+  // The header is also the drag handle (U13): the oracle labels it Click and drag to reposition block editor form.
+  return `<div class="bp-drag" role="button" aria-label="Click and drag to reposition block editor form" data-drag-panel></div><div class="sp-tabs" role="tablist">${tabs.map(tabBtn).join('')}</div><div class="sp-body">${body}</div>`;
 }
 
 // 18px right of the block and 3px below its top, in the stage's coordinates; left of the block

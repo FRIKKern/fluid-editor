@@ -2,7 +2,7 @@
 
 [![Parity: one cell per item, done, partial, open or unknown](images/parity.svg)](../README.md)
 
-71 of 118 items done, 42 partial, 5 open, 0 unknown.
+71 of 118 items done, 43 partial, 4 open, 0 unknown.
 Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. Edit the JSON, never this page.
 
 ## Harness and oracle
@@ -173,7 +173,7 @@ Generated from [`parity/items.json`](../parity/items.json) by `npm run parity`. 
 | U11 | Block right-click menu | M5 Chrome and blocks | ◐ partial | Evidence: Found by the gap review (scripts/inventory.mjs, 2026-11-03): right-click on a block opens Copy (Cmd+C), Paste (Cmd+V), Duplicate (Cmd+D), Delete, Copy Properties, Paste Properties, Stack (Shift+S), Arrange, Hide on desktop (Cmd+Shift+H), Hide on mobile. Ours opens the same menu; Duplicate, Delete and Stack work, and Shift+S stacks the selection as the menu shows. Not measured or built: Copy and Paste of blocks, the Properties and Arrange submenus, Hide on desktop and mobile |
 | U7 | Animation timings, `is-transitioning-visibility` | M5 Chrome and blocks | ✓ done | Evidence: Oracle: transition opacity 0.1s cubic-bezier(0.66, 0, 0.34, 1) on .fe-block in the editor. Our editor uses the same transition (app/src/editor-frame.css) |
 | U12 | Site Styles panel from the top bar | M5 Chrome and blocks | ○ open | Evidence: The top bar Site Styles button (Toggle Site Styles editing) opens a side panel at /config/site-styles with style packs for Themes, Fonts, Colors, Buttons and Forms, each with a popover and a disclosure, plus Miscellaneous and Close. Ours has the button but no panel. Labels from the gap review of 2026-11-04 (docs/MISSING.md).. Out of scope (docs/decisions): 0005: Subscribe, the trial account's billing button beside Site Styles |
-| U13 | Move the block Edit panel by dragging | M5 Chrome and blocks | ○ open | Evidence: The oracle block Edit panel has a control labelled Click and drag to reposition block editor form, on text and shape panels. Ours stays where it opens. Not measured: where the handle sits and whether the place is kept. Labels from the gap review of 2026-11-04 (docs/MISSING.md). |
+| U13 | Move the block Edit panel by dragging | M5 Chrome and blocks | ◐ partial | Evidence: The oracle block Edit panel has a control labelled Click and drag to reposition block editor form, on text and shape panels. Ours stays where it opens. Not measured: where the handle sits and whether the place is kept. Labels from the gap review of 2026-11-04 (docs/MISSING.md). Measured 2026-11-04 (parity/findings/BUTTONEDIT.json, SHAPEDESIGN probe read): the handle is the panel's 55px header, 320px wide, the tabs sit on it. Ours: the header is a drag layer with the same label; a drag moves the panel inside the editor area and it stays there until the panel closes; the tabs still switch (headless Chrome). Not measured: whether the oracle keeps the place when the panel reopens |
 
 ## History, save and publish
 
