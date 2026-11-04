@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 14 changes
+- **Today** · 15 changes
+  - Drag the block Edit panel by its header ([#72](https://github.com/FRIKKern/fluid-editor/pull/72))
   - Shape Design tab: Corner radius, Stretch, Drop Shadow, Blend Mode ([#71](https://github.com/FRIKKern/fluid-editor/pull/71))
-  - Blend Mode in the block Edit panel ([#70](https://github.com/FRIKKern/fluid-editor/pull/70))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
