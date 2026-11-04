@@ -118,20 +118,30 @@ const oShift = (i, id) => evalJs(O, `(() => { ${oframe} const b = d.querySelecto
   for (const t of ['pointerdown', 'mousedown']) b.dispatchEvent(new (t.startsWith('pointer') ? W.PointerEvent : W.MouseEvent)(t, { ...o, buttons: 1 }));
   for (const t of ['pointerup', 'mouseup', 'click']) b.dispatchEvent(new (t.startsWith('pointer') ? W.PointerEvent : W.MouseEvent)(t, { ...o, buttons: 0 })); return 'true'; })()`);
 
-// Squarespace's editor ignores hovers and clicks while its tab is hidden: wait for it to be
-// on screen (up to 20 minutes) before each oracle state.
+// Squarespace's editor ignores hovers and clicks while its tab is hidden, and ours does not
+// lay out: wait for both tabs to be on screen (up to 20 minutes) before each oracle state.
 async function oVisible() {
   for (let k = 0; k < 80; k++) {
-    if (evalJs(O, '(() => JSON.stringify(document.visibilityState))()') === 'visible') return;
-    if (k === 0) console.log('  the oracle tab is hidden; waiting for it to be on screen');
+    const hidden = [O, U].filter((t) => evalJs(t, '(() => JSON.stringify(document.visibilityState))()') !== 'visible');
+    if (!hidden.length) return;
+    if (k === 0) console.log(`  ${hidden.join(' and ')} hidden; waiting for them to be on screen`);
     await pause(15000);
   }
-  throw new Error('the oracle tab stayed hidden for 20 minutes');
+  throw new Error('the oracle or our editor tab stayed hidden for 20 minutes');
 }
 // What each state should show on the oracle once reached; a state that does not show it is
 // "not reached" and adds no gaps.
 const seen = (label) => `(() => { const L = ${JSON.stringify(label)}; const f = document.querySelector('#sqs-site-frame'); const docs = [document]; if (f && f.contentDocument) docs.push(f.contentDocument);
-  return JSON.stringify(docs.some((d) => [...d.querySelectorAll('body *')].some((e) => e.getBoundingClientRect().width > 0 && ((e.getAttribute('aria-label') || '') === L || (e.getAttribute('placeholder') || '') === L || (e.childElementCount === 0 && e.textContent.trim() === L))))); })()`;
+  return JSON.stringify(docs.some((d) => [...d.querySelectorAll('body *')].some((e) => e.getBoundingClientRect().width > 0 && ((e.getAttribute('aria-label') || '') === L || (e.getAttribute('placeholder') || '') === L || (e.textContent.trim() === L && [...e.children].every((c) => !c.textContent.trim())))))); })()`;
+// A hover can miss, often the first one after a reset: wait for the section card's Edit Section button, and if it
+// does not come, move to the next section and back.
+async function oHover(i) {
+  for (let k = 0; k < 3; k++) {
+    if (k) await hoverSection(i + 1);
+    await hoverSection(i);
+    for (let t = 0; t < 6; t++) { if (evalJs(O, seen('Open Section Settings')) === true) return; await pause(500); }
+  }
+}
 const EXPECT = {
   'section-hover': 'View Layouts', 'section-design': 'Row Count', 'section-background': 'Background Width', 'section-colors': 'Lightest 1',
   'add-block-menu': 'Essentials', layers: 'Layers', 'text-selected': 'Write', 'text-writing': 'Text Style', 'text-edit-design': 'Opacity',
@@ -153,6 +163,10 @@ async function uReset() {
   evalJs(U, `(() => { localStorage.clear(); return 'true'; })()`);
   goto(U, ours); await pause(2200);
   waitFor(U, '(() => !!window.fe)()', 20);
+  // A goto to the same URL can leave the page as it was, phone layout included (gap review
+  // 2026-11-04: every state after the phone states drew ours at phone width).
+  evalJs(U, `(() => { fe.setBp('desktop'); return 'true'; })()`);
+  await pause(300);
 }
 
 // ---------- states ----------
@@ -160,12 +174,12 @@ async function uReset() {
 const S2 = 2; // the demo section with a heading, a paragraph and a shape
 const STATES = [
   ['idle', 'Edit mode, nothing selected', async () => {}, ''],
-  ['section-hover', 'Pointer over a section', async () => { await hoverSection(S2); }, `await hover(${S2})`],
-  ['section-design', 'Edit Section, Design tab', async () => { await hoverSection(S2); await oCmuxClick(oSectionButton(S2, '/edit section|open section settings/i'), 1800); }, `await hover(${S2}); await press('#section-chrome [data-sc="edit"]')`],
-  ['section-background', 'Edit Section, Background tab', async () => { await hoverSection(S2); await oCmuxClick(oSectionButton(S2, '/edit section|open section settings/i'), 1800); await oCmuxClick(oByLabel('Background'), 1200); }, `await hover(${S2}); await press('#section-chrome [data-sc="edit"]'); await press('#section-panel [data-sact="tab"][data-v="Background"]')`],
-  ['section-colors', 'Edit Section, Colors tab', async () => { await hoverSection(S2); await oCmuxClick(oSectionButton(S2, '/edit section|open section settings/i'), 1800); await oCmuxClick(oByLabel('Colors'), 1200); }, `await hover(${S2}); await press('#section-chrome [data-sc="edit"]'); await press('#section-panel [data-sact="tab"][data-v="Colors"]')`],
-  ['add-block-menu', 'Add Block menu of a section', async () => { await hoverSection(S2); await oCmuxClick(oSectionButton(S2, '/^\\s*add block\\s*$/i'), 1500); }, `await hover(${S2}); await press('#section-chrome [data-sc="add-block"]')`],
-  ['layers', 'Layers panel of a section', async () => { await hoverSection(S2); await oCmuxClick(oSectionButton(S2, '/open layers panel/i'), 1500); }, `await hover(${S2}); await press('#section-chrome [data-sc="layers"]')`],
+  ['section-hover', 'Pointer over a section', async () => { await oHover(S2); }, `await hover(${S2})`],
+  ['section-design', 'Edit Section, Design tab', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/edit section|open section settings/i'), 1800); }, `await hover(${S2}); await press('#section-chrome [data-sc="edit"]')`],
+  ['section-background', 'Edit Section, Background tab', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/edit section|open section settings/i'), 1800); await oCmuxClick(oByLabel('Background'), 1200); }, `await hover(${S2}); await press('#section-chrome [data-sc="edit"]'); await press('#section-panel [data-sact="tab"][data-v="Background"]')`],
+  ['section-colors', 'Edit Section, Colors tab', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/edit section|open section settings/i'), 1800); await oCmuxClick(oByLabel('Colors'), 1200); }, `await hover(${S2}); await press('#section-chrome [data-sc="edit"]'); await press('#section-panel [data-sact="tab"][data-v="Colors"]')`],
+  ['add-block-menu', 'Add Block menu of a section', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/^\\s*add block\\s*$/i'), 1500); }, `await hover(${S2}); await press('#section-chrome [data-sc="add-block"]')`],
+  ['layers', 'Layers panel of a section', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/open layers panel/i'), 1500); }, `await hover(${S2}); await press('#section-chrome [data-sc="layers"]')`],
   ['text-selected', 'A text block selected', async () => { await select(S2, blockIds(S2)[1]); }, `await pick(${S2}, 1)`],
   ['text-writing', 'Writing in a text block, a word selected', async () => {
     const id = blockIds(S2)[1]; await select(S2, id); await oCmuxClick(oByLabel('Write', 80), 1500);
@@ -183,10 +197,10 @@ const STATES = [
   ['phone-idle', 'Phone layout, nothing selected', async () => { await oCmuxClick(oByLabel('Mobile View'), 2500); }, `fe.setBp('mobile'); await sleep(300)`],
   ['phone-text-selected', 'Phone layout, a text block selected', async () => { await oCmuxClick(oByLabel('Mobile View'), 2500); await select(S2, blockIds(S2)[1]); }, `fe.setBp('mobile'); await sleep(300); await pick(${S2}, 1)`],
   ['preview', 'Preview mode (top bar)', async () => { await oCmuxClick(oByLabel('Toggle preview mode'), 2000); }, `await press('#preview')`],
-  ['add-section-menu', 'Add Section on a section edge', async () => { await hoverSection(S2); await oCmuxClick(oSectionButton(S2, '/^\s*add section\s*$/i'), 1800); }, `await hover(${S2}); await press('#section-chrome [data-sc="add-section-below"]')`],
-  ['view-layouts', 'View Layouts of a section', async () => { await hoverSection(S2); await oCmuxClick(oSectionButton(S2, '/view layouts/i'), 1800); }, `await hover(${S2}); await press('#section-chrome [data-sc="layouts"]')`],
+  ['add-section-menu', 'Add Section on a section edge', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/^\s*add section\s*$/i'), 1800); }, `await hover(${S2}); await press('#section-chrome [data-sc="add-section-below"]')`],
+  ['view-layouts', 'View Layouts of a section', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/view layouts/i'), 1800); }, `await hover(${S2}); await press('#section-chrome [data-sc="layouts"]')`],
   ['button-link', 'Link popover of a button block', async () => { await select(0, blockIds(0)[2]); await oCmuxClick(oByLabel('Open link editor popover', 80), 1500); }, `await pick(0, 2)`],
-  ['phone-section-hover', 'Phone layout, pointer over a section', async () => { await oCmuxClick(oByLabel('Mobile View'), 2500); await hoverSection(S2); }, `fe.setBp('mobile'); await sleep(300); await hover(${S2})`],
+  ['phone-section-hover', 'Phone layout, pointer over a section', async () => { await oCmuxClick(oByLabel('Mobile View'), 2500); await oHover(S2); }, `fe.setBp('mobile'); await sleep(300); await hover(${S2})`],
   ['text-style-menu', 'Writing, the Text Style menu open', async () => { const id = blockIds(S2)[1]; await select(S2, id); await oCmuxClick(oByLabel('Write', 80), 1500); await oCmuxClick(oByLabel('Text Style'), 1200); },
     `await pick(${S2}, 1); await press('#block-toolbar [data-tb="write"]'); await press('#text-bar [data-fmt="style-menu"]')`],
   ['text-align-menu', 'Writing, the Text Alignment menu open', async () => { const id = blockIds(S2)[1]; await select(S2, id); await oCmuxClick(oByLabel('Write', 80), 1500); await oCmuxClick(oByLabel('Text Alignment'), 1200); },
