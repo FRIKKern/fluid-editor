@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 20 changes
+- **Today** · 21 changes
+  - Scaled Text ([#78](https://github.com/FRIKKern/fluid-editor/pull/78))
   - Hide the inspector side panel by default ([#77](https://github.com/FRIKKern/fluid-editor/pull/77))
-  - Text Color and Text Highlight ([#76](https://github.com/FRIKKern/fluid-editor/pull/76))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
