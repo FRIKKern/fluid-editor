@@ -4,8 +4,10 @@
 // Buttons and Forms cards (226 by 104, each with a 44px disclosure, 11px apart) and Miscellaneous.
 // A card opens a 342px popover 22px left of the editor's right edge, level with the card and never
 // lower than 38px above the window's bottom: a heading, the pack tiles and Customize. The cards draw
-// the site's current styles. Disclosures, Customize and Miscellaneous are not built (data-unbuilt).
-import { PALETTES, FONT_PACKS, BUTTON_PACKS, FORM_PACKS, THEMES, VARS, resolveSiteStyles, fontLink } from './site-style-packs.js';
+// the site's current styles. A 44px disclosure swaps the panel for that pack's view, with a back
+// button. Works: Base Size and Reset in Fonts and Buttons. Faded and not built (data-unbuilt): the
+// list panels behind All ... Packs, every other row of a view, Customize.
+import { PALETTES, FONT_PACKS, BUTTON_PACKS, FORM_PACKS, THEMES, VARS, resolveSiteStyles, fontLink, baseSize } from './site-style-packs.js';
 
 const svg = (d, s = 16) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const CHEV = '<path d="M9 6l6 6-6 6"/>';
@@ -16,7 +18,9 @@ const hsl = (v) => `hsl(${v})`;
 const swatches = (vars) => { const v = Object.fromEntries(VARS.map((k, i) => [k, vars[i]])); return [v.white, v.lightAccent, v.accent, v.darkAccent, v.black].map(hsl); };
 const q = (s) => s.replace(/"/g, '&quot;');
 
-export function siteStylesHtml(styles) {
+// The panel. view is null for the cards, or Fonts, Colors, Buttons, Forms or Miscellaneous; rows are
+// the section color themes for Colors: { name, bg, ink, used }.
+export function siteStylesHtml(styles, view = null, rows = []) {
   const { vars, font, button } = resolveSiteStyles(styles);
   const colors = vars ? swatches(vars) : ['white', 'lightAccent', 'accent', 'darkAccent', 'black'].map((k) => hsl(BASE_VARS[{ white: 0, black: 1, accent: 2, lightAccent: 3, darkAccent: 4 }[k]]));
   const strip = (cls) => `<span class="ss-strip ${cls}">${colors.map((c) => `<span style="background:${c}"></span>`).join('')}</span>`;
@@ -29,8 +33,13 @@ export function siteStylesHtml(styles) {
   const btnBg = v ? v.safeDarkAccent : '#000';
   const btnInk = v ? v.safeInverseDarkAccent : '#fff';
   const btnStyle = `background:${btnBg};color:${btnInk};${button ? `border-radius:${button.radius};border:${button.border}px solid ${btnBg};` : ''}${font ? `font-family:'${font.p}',sans-serif;font-weight:${font.pw};text-transform:${font.btt};` : ''}`;
-  const pack = (name, sample) => `<div class="ss-row"><button type="button" class="ss-card" aria-label="Toggle ${name} style pack popover" aria-expanded="false" data-ss-pop="${name}"><span class="ss-name">${name}</span>${sample}</button><button type="button" class="ss-more" aria-label="Open ${name} style disclosure" data-unbuilt>${svg(CHEV)}</button></div>`;
-  return `<button type="button" class="ss-close" data-ss="close" aria-label="Close">${svg('<path d="M6 6l12 12M18 6L6 18"/>', 22)}</button>
+  const pack = (name, sample) => `<div class="ss-row"><button type="button" class="ss-card" aria-label="Toggle ${name} style pack popover" aria-expanded="false" data-ss-pop="${name}"><span class="ss-name">${name}</span>${sample}</button><button type="button" class="ss-more" aria-label="Open ${name} style disclosure" data-ss-view="${name}">${svg(CHEV)}</button></div>`;
+  const close = `<button type="button" class="ss-close" data-ss="close" aria-label="Close">${svg('<path d="M6 6l12 12M18 6L6 18"/>', 22)}</button>`;
+  if (view) {
+    return `${close}<button type="button" class="ss-back" data-ss-back aria-label="Back to Site Styles">${svg('<path d="M15 4l-8 8 8 8"/>', 18)}<span>Site Styles</span></button>
+    <h2 class="ss-title">${view}</h2>${viewHtml(view, { styles, font, colors, bg, ink, btnStyle, rows })}`;
+  }
+  return `${close}
     <h2 class="ss-title">Site Styles</h2>
     <button type="button" class="ss-card ss-themes" aria-label="Toggle Themes style pack popover" aria-expanded="false" data-ss-pop="Themes"><span class="ss-name">Themes</span><span class="ss-theme" style="background:${bg}"><span class="ss-aa" style="${headFont};color:${ink}">Aa</span>${strip('ss-strip-theme')}<span class="ss-btn ss-btn-small" style="${btnStyle}">Button</span></span></button>
     <hr class="ss-sep">
@@ -38,7 +47,55 @@ export function siteStylesHtml(styles) {
     ${pack('Colors', strip('ss-strip-colors'))}
     ${pack('Buttons', `<span class="ss-btn ss-btn-wide" style="${btnStyle}">Button</span>`)}
     ${pack('Forms', `<span class="ss-form" style="background:${bg};color:${ink}"><span class="ss-input">Text</span><span class="ss-check">${svg(CHECK, 16)}</span></span>`)}
-    <button type="button" class="ss-misc" data-unbuilt>Miscellaneous${svg(CHEV)}</button>`;
+    <button type="button" class="ss-misc" data-ss-view="Miscellaneous">Miscellaneous${svg(CHEV)}</button>`;
+}
+
+// The five views (parity/findings/SITESTYLES2.json, disclosures).
+const disRow = (label, value = '') => `<button type="button" class="ss-dis" data-unbuilt><span class="ss-dis-l">${label}</span>${value ? `<span class="ss-dis-v">${value}</span>` : ''}${svg(CHEV)}</button>`;
+const reset = (label, attrs, cls = '') => `<button type="button" class="ss-reset ${cls}" ${attrs}>${label}</button>`;
+const formLine = (label, control) => `<div class="ss-fline" data-unbuilt><span>${label}</span>${control}</div>`;
+
+function viewHtml(view, { styles, font, colors, bg, ink, btnStyle, rows }) {
+  const h = font?.h || 'Poppins';
+  const p = font?.p || 'Poppins';
+  if (view === 'Fonts') {
+    const base = baseSize(styles);
+    const headFont = font ? `font-family:'${h}',sans-serif;font-weight:${font.hw};text-transform:${font.tt}` : '';
+    const paraFont = font ? `font-family:'${p}',sans-serif;font-weight:${font.pw}` : '';
+    return `<div class="ss-preview ss-preview-fonts"><span class="ss-pv-h" style="${headFont};color:${ink}">Heading</span><span class="ss-pv-p" style="${paraFont};color:${ink}">This is your paragraph.</span><span class="ss-pv-n">${h === p ? h : `${h} · ${p}`}</span></div>
+    ${disRow('All Font Packs')}
+    <div class="ss-base"><span>Base Size</span><input class="ss-base-in" type="text" inputmode="numeric" aria-label="Base Size" value="${base}"><span class="ss-base-px">px</span><button type="button" class="ss-step ss-dec" data-ss-base="-1" aria-label="Decrement">${svg('<path d="M5 12h14"/>', 18)}</button><button type="button" class="ss-step ss-inc" data-ss-base="1" aria-label="Increment">${svg('<path d="M12 5v14M5 12h14"/>', 18)}</button></div>
+    ${disRow('Headings', h)}${disRow('Paragraphs', p)}${disRow('Buttons')}${disRow('Miscellaneous', p)}${disRow('Assign Styles')}
+    ${reset('Reset Font Pack', 'data-ss-reset="font"', 'ss-reset-fonts')}`;
+  }
+  if (view === 'Colors') {
+    const tr = (r) => `<div class="ss-tr" data-unbuilt style="background:${r.bg};color:${r.ink}"><span class="ss-tr-aa">Aa</span><span class="ss-tr-n">${r.name}</span></div>`;
+    return `<div class="ss-palette" data-unbuilt><span class="ss-strip ss-strip-palette">${colors.map((c) => `<span style="background:${c}"></span>`).join('')}</span></div>
+    ${disRow('Edit Palette')}
+    <div class="ss-sub"><span>Section color themes</span><button type="button" class="ss-help" aria-label="Colors help" data-unbuilt>${svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/>', 20)}</button></div>
+    <div class="ss-group">Color themes on this page</div>${rows.filter((r) => r.used).map(tr).join('')}
+    <div class="ss-group ss-group-2">Other color themes</div>${rows.filter((r) => !r.used).map(tr).join('')}`;
+  }
+  if (view === 'Buttons') {
+    const card = (name) => `<div class="ss-bcard" data-unbuilt><span class="ss-group ss-bcard-n">${name}</span><span class="ss-btn ss-btn-wide" style="${btnStyle}">Button</span>${svg(CHEV)}</div>`;
+    return `<div class="ss-preview ss-preview-center"><span class="ss-btn ss-btn-wide" style="${btnStyle}">Button</span></div>
+    ${disRow('All Button Packs')}
+    <div class="ss-bcards">${card('Primary')}${card('Secondary')}${card('Tertiary')}</div>
+    ${reset('Reset Button Pack', 'data-ss-reset="button"', 'ss-reset-red')}`;
+  }
+  if (view === 'Forms') {
+    return `<div class="ss-form ss-form-big" style="background:${bg};color:${ink}"><span class="ss-input">Text</span><span class="ss-check">${svg(CHECK, 16)}</span></div>
+    ${disRow('All Form Packs')}
+    <div class="ss-group ss-group-forms">Form Fields</div>
+    ${formLine('Field Shape', `<span class="ss-dis-v">Pill</span>${svg('<path d="M6 9l6 6 6-6"/>')}`)}
+    ${formLine('Field Fill', '<span class="ss-switch"></span>')}
+    ${formLine('Border', '<span class="ss-box"><i></i></span>')}
+    ${formLine('Border Thickness', `<span class="ss-thick">1px</span>${svg('<path d="M5 12h14"/>', 18)}${svg('<path d="M12 5v14M5 12h14"/>', 18)}`)}
+    ${formLine('Padding', '<span class="ss-pads"><b>S</b><b>M</b><b class="on">L</b><b>...</b></span>')}
+    <div class="ss-forms-more">${disRow('Effects')}${disRow('Selection Options')}${disRow('Fonts')}${disRow('Colors')}${disRow('Form Spacing')}</div>
+    <button type="button" class="ss-reset ss-reset-forms" data-unbuilt>Reset Form Pack</button>`;
+  }
+  return `<div class="ss-miscs">${['Animations', 'Spacing', 'Image Blocks'].map((n) => `<button type="button" class="ss-mrow" data-unbuilt>${n}${svg(CHEV)}</button>`).join('')}</div>`;
 }
 
 const customize = '<button type="button" class="ss-customize" data-unbuilt>Customize</button>';
@@ -76,7 +133,7 @@ export function stylePopoverHtml(kind, styles) {
 
 // The fonts every tile draws in, loaded once in the editor's own page when a popover first opens.
 export function packFontLinks() {
-  const seen = new Map();
+  const seen = new Map([['Poppins|400', ['Poppins', 400]], ['Poppins|500', ['Poppins', 500]]]); // The site's own font, in the samples.
   for (const f of [...FONT_PACKS, ...THEMES]) { seen.set(`${f.h}|${f.hw}`, [f.h, f.hw]); seen.set(`${f.p}|${f.pw}`, [f.p, f.pw]); }
   return [...seen.values()].map(([n, w]) => fontLink(n, w)).join('');
 }

@@ -11,7 +11,7 @@ import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, co
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
 import { siteStylesHtml, stylePopoverHtml, stylePopoverPosition, packFontLinks } from './site-styles.js';
-import { siteStylesHead } from './site-style-packs.js';
+import { siteStylesHead, baseSize } from './site-style-packs.js';
 import { demoModel } from './demo.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -123,6 +123,7 @@ function renderHeaderOnce() {
 }
 // Site Styles picks (U12): their fonts and rules sit at the end of the canvas's head.
 let appliedStyles = null;
+let onStylesApplied = null;
 function applySiteStyles() {
   const next = JSON.stringify(model.siteStyles || null);
   if (next === appliedStyles) return;
@@ -130,6 +131,7 @@ function applySiteStyles() {
   for (const el of doc.head.querySelectorAll('[data-fe-site-styles]')) el.remove();
   doc.head.insertAdjacentHTML('beforeend', siteStylesHead(model.siteStyles));
   themeColors = null;
+  onStylesApplied?.();
 }
 function renderAll() {
   dropMissingSelection();
@@ -1890,9 +1892,25 @@ const contextMenu = $('context-menu');
 // Site Styles (U12): the top bar button opens the panel and insets the editor; Close and the
 // button again close it.
 const siteStyles = $('site-styles');
+let ssView = null;
+function renderSsPanel() {
+  let rows = [];
+  if (ssView === 'Colors') {
+    themeColors = themeColors || readThemeColors();
+    const used = new Set(model.sections.map((s) => s.theme || 'light'));
+    rows = THEMES.map(([name, v]) => ({ name, ...themeColors[v], used: used.has(v) }));
+  }
+  siteStyles.innerHTML = siteStylesHtml(model.siteStyles, ssView, rows);
+  if (stylePopKind) siteStyles.querySelector(`[data-ss-pop="${stylePopKind}"]`)?.setAttribute('aria-expanded', 'true');
+}
 function setSiteStyles(on) {
-  if (on) { closeFloating(); closeSectionPanel(); siteStyles.innerHTML = siteStylesHtml(model.siteStyles); }
+  if (on) {
+    closeFloating(); closeSectionPanel(); ssView = null;
+    if (!packFontsLoaded) { document.head.insertAdjacentHTML('beforeend', packFontLinks()); packFontsLoaded = true; }
+    renderSsPanel();
+  }
   closeStylePopover();
+  hideStyleConfirm();
   siteStyles.hidden = !on;
   document.body.classList.toggle('styles-open', on);
   $('site-styles-toggle').setAttribute('aria-pressed', String(on));
@@ -1902,7 +1920,56 @@ $('site-styles-toggle').addEventListener('click', () => setSiteStyles(siteStyles
 siteStyles.addEventListener('click', (e) => {
   if (e.target.closest('[data-ss="close"]')) { setSiteStyles(false); return; }
   const card = e.target.closest('[data-ss-pop]');
-  if (card) openStylePopover(card.dataset.ssPop);
+  if (card) { openStylePopover(card.dataset.ssPop); return; }
+  const open = e.target.closest('[data-ss-view]');
+  if (open || e.target.closest('[data-ss-back]')) {
+    closeStylePopover();
+    ssView = open ? open.dataset.ssView : null;
+    renderSsPanel();
+    siteStyles.scrollTop = 0;
+    return;
+  }
+  const step = e.target.closest('[data-ss-base]');
+  if (step) { setBaseSize(baseSize(model.siteStyles) + Number(step.dataset.ssBase)); return; }
+  const r = e.target.closest('[data-ss-reset]');
+  if (r) showStyleConfirm(r.dataset.ssReset);
+});
+siteStyles.addEventListener('change', (e) => {
+  if (!e.target.matches('.ss-base-in')) return;
+  const n = parseInt(e.target.value, 10);
+  if (Number.isFinite(n)) setBaseSize(n); else renderSsPanel();
+});
+// Base Size: one undo step per press. The limits are ours: the oracle's were not read.
+function setSiteStyleKeys(label, change) {
+  const before = JSON.stringify(model);
+  model.siteStyles = change({ ...(model.siteStyles || {}) });
+  commit(before, `Site Styles: ${label}`);
+  renderAll();
+  fitHeader();
+}
+function setBaseSize(px) {
+  const n = Math.min(32, Math.max(8, px));
+  if (n === baseSize(model.siteStyles)) { renderSsPanel(); return; }
+  setSiteStyleKeys('Base Size', (st) => ({ ...st, base: n }));
+}
+// Reset asks first, as on the oracle. Reset clears the pack picked in that view; the theme stays.
+const styleConfirm = $('ss-confirm');
+let styleConfirmKind = null;
+function hideStyleConfirm() { styleConfirm.hidden = true; styleConfirmKind = null; }
+function showStyleConfirm(kind) {
+  styleConfirmKind = kind;
+  const word = kind === 'font' ? 'font' : 'button';
+  $('ss-confirm-title').textContent = `Reset ${word === 'font' ? 'Font' : 'Button'} Pack`;
+  $('ss-confirm-body').textContent = `Are you sure you want to reset this ${word} pack to its default settings?`;
+  styleConfirm.hidden = false;
+}
+styleConfirm.addEventListener('click', (e) => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  const kind = styleConfirmKind;
+  hideStyleConfirm();
+  if (b.id !== 'ss-confirm-reset') return;
+  setSiteStyleKeys(`Reset ${kind} pack`, (st) => { delete st[kind]; if (kind === 'font') delete st.base; return st; });
 });
 // A style pack popover (parity/findings/SITESTYLES2.json). A tile sets that part of the site's
 // styles in one undo step and the popover stays open, as on the oracle.
@@ -1920,7 +1987,6 @@ function openStylePopover(kind) {
   const again = stylePopKind === kind;
   closeStylePopover();
   if (again) return;
-  if (!packFontsLoaded) { document.head.insertAdjacentHTML('beforeend', packFontLinks()); packFontsLoaded = true; }
   stylePopKind = kind;
   renderStylePopover();
   const card = siteStyles.querySelector(`[data-ss-pop="${kind}"]`);
@@ -1934,17 +2000,19 @@ stylePop.addEventListener('click', (e) => {
   if (!t || t.hasAttribute('data-unbuilt')) return;
   const before = JSON.stringify(model);
   const kind = t.dataset.ssPick;
+  const top = stylePop.scrollTop;
   model.siteStyles = kind === 'theme' ? { theme: t.dataset.v } : { ...(model.siteStyles || {}), [kind]: t.dataset.v };
   commit(before, `Site Styles: ${t.getAttribute('aria-label')}`);
   renderAll();
   fitHeader();
-  const top = stylePop.scrollTop;
-  renderStylePopover();
   stylePop.scrollTop = top;
-  const kept = stylePopKind;
-  siteStyles.innerHTML = siteStylesHtml(model.siteStyles);
-  siteStyles.querySelector(`[data-ss-pop="${kept}"]`).setAttribute('aria-expanded', 'true');
 });
+// A change to the styles, undo included, redraws the panel and an open popover.
+onStylesApplied = () => {
+  if (siteStyles.hidden) return;
+  renderSsPanel();
+  if (stylePopKind) renderStylePopover();
+};
 
 // The row handle (S4, parity/findings/S4.json): dragging it changes the section's row count by
 // the drag distance over one row step (row plus gap), rounded, never below the lowest row the

@@ -72,6 +72,11 @@ export function resolveSiteStyles(styles) {
   };
 }
 
+// The site's root size in px: the Fonts disclosure's Base Size, else what the theme sets, else 16.
+export function baseSize(styles) {
+  return styles?.base ?? resolveSiteStyles(styles).font?.sz?.base ?? 16;
+}
+
 const family = (f) => `"${f}"`;
 const fontUrl = (f, w) => `https://fonts.googleapis.com/css2?family=${f.replace(/ /g, '+')}${w && w !== 400 ? `:wght@${w}` : ''}&display=swap`;
 export const fontLink = (f, w) => `<link rel="stylesheet" data-fe-site-styles href="${fontUrl(f, w)}">`;
@@ -97,15 +102,17 @@ export function siteStylesCss(styles) {
       + `.header-nav-item, .header-action { font-family: ${family(font.p)}, sans-serif; }\n`
       + `.sqs-block-button-element { font-family: ${family(font.p)}, sans-serif; font-weight: ${font.pw}; letter-spacing: normal; text-transform: ${font.btt}; }\n`;
   }
-  // Three themes also set sizes: the values in the page's size formula, read at one window size.
+  // Base Size is the root size: everything in rem follows, a step is 1px (read on the oracle from 15
+  // to 18). Three themes also set sizes, as the values in the page's own size formula.
   const z = font?.sz;
+  const base = baseSize(styles);
+  if (base !== 16) css += `html { font-size: ${base}px; }\n`;
   if (z) {
-    const size = (v) => `calc((${v} - 1) * 1.2vw + ${z.base || 16}px)`;
-    if (z.h1) css += `:root { --heading-1-size-value: ${z.h1}; }\nh1 { font-size: ${size(z.h1)}; }\n`;
-    if (z.p) css += `:root { --normal-text-size-value: ${z.p}; }\nbody { font-size: ${size(z.p)}; }\n`;
+    if (z.h1) css += `:root { --heading-1-size-value: ${z.h1}; }\n`;
+    if (z.p) css += `:root { --normal-text-size-value: ${z.p}; }\n`;
     if (z.plh) css += `:root { --body-font-line-height: ${z.plh}em; }\n`;
-    if (z.title) css += `.header-title { font-size: ${size(z.title)}; }\n`;
-    if (z.btn) css += `.sqs-block-button-element { font-size: ${size(z.btn)}; }\n`;
+    if (z.title) css += `.header-title { --site-title-font-size-value: ${z.title}; }\n`;
+    if (z.btn) css += `.sqs-block-button-element { font-size: calc((${z.btn} - 1) * 1.2vw + 1rem); }\n`;
     if (z.bw) css += `.sqs-block-button-element { font-weight: ${z.bw}; }\n`;
     if (z.bls) css += `.sqs-block-button-element { letter-spacing: ${z.bls}em; }\n`;
   }
