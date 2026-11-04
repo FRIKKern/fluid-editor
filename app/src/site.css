@@ -84,6 +84,8 @@ p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
    (P4, parity/findings/INSET.json) pads the section by 4vw on every side at every
    width, and the background fills the padded box; the body color shows around it. */
 .page-section > .section-background { position: absolute; inset: 0; z-index: -1; background: var(--section-bg, var(--paper)); }
+/* A section's background image fills that layer (P5; the fit is inferred, no image was uploaded on the oracle). */
+.section-background-image { display: block; width: 100%; height: 100%; object-fit: cover; }
 .page-section.background-width--inset { padding: 4vw; }
 .page-section.background-width--inset > .section-background { inset: 4vw; }
 /* Divider (P5, parity/findings/DIVIDER.json): a 6vw band added below the content; the

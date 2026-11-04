@@ -309,7 +309,7 @@ export function renderSection(s, model) {
   ].filter(Boolean).join(' ');
   const themeName = (s.theme || '').replace(/^theme-/, '');
   const style = s.height === 'custom' ? ` style="--custom-height: ${s.customHeight ?? 0};"` : '';
-  return `<section class="${cls}"${s.anchor ? ` id="${escapeHtml(s.anchor)}"` : ''} data-section-id="${s.id}" data-section-theme="${themeName}"${style}><div class="section-background"${s.divider ? ` style="clip-path: ${DIVIDER_CLIP};"` : ''}></div>${s.divider ? dividerSvg(s) : ''}<div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
+  return `<section class="${cls}"${s.anchor ? ` id="${escapeHtml(s.anchor)}"` : ''} data-section-id="${s.id}" data-section-theme="${themeName}"${style}><div class="section-background"${s.divider ? ` style="clip-path: ${DIVIDER_CLIP};"` : ''}>${s.bgImage ? `<img class="section-background-image" alt="" src="${escapeHtml(s.bgImage)}">` : ''}</div>${s.divider ? dividerSvg(s) : ''}<div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
 }
 
 // Site header (P7), measured on the oracle (parity/findings/P7.json): it lies over the

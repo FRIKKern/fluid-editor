@@ -111,6 +111,7 @@ const PI = {
   none: '<circle cx="12" cy="12" r="7"/><path d="M7 17L17 7"/>',
   solid: '<path d="M5 12h14"/>',
   dashed: '<path d="M4 12h3M10.5 12h3M17 12h3"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
 };
 export function sectionPanelHtml(s, o) {
   const tab = (t) => `<button type="button" role="tab" class="sp-tab${t === o.tab ? ' is-on' : ''}" aria-selected="${t === o.tab}" data-sact="tab" data-v="${t}">${t}</button>`;
@@ -138,11 +139,17 @@ export function sectionPanelHtml(s, o) {
       + head('Anchor Link')
       + `<div class="sp-anchor"><span>#</span><input type="text" data-act="anchor" aria-label="Anchor Link" placeholder="Add name" value="${(s.anchor || '').replace(/"/g, '&quot;')}"></div>`;
   } else if (o.tab === 'Background') {
-    body = row('Background Width', seg('bgWidth', 'full-bleed', 'Full Bleed', (s.bgWidth || 'full-bleed') === 'full-bleed') + seg('bgWidth', 'inset', 'Inset', s.bgWidth === 'inset'), 'sp-row-wide')
-      + '<p class="sp-help">Background image, video and art are not built yet.</p>';
+    // Image, Video, Art and Add an Image (20 MB max), labels from parity/findings/PANEL.json; their
+    // sizes are not measured. Add an Image reads a file from this computer. Video and Art are not built.
+    const kind = (n) => `<button type="button" role="radio" class="sp-seg sp-kind${n === 'Image' ? ' is-on' : ''}" aria-checked="${n === 'Image'}" aria-label="${n}"${n === 'Image' ? '' : ' data-unbuilt disabled title="Not built yet"'}>${n}</button>`;
+    const image = s.bgImage
+      ? `<div class="bp-pic"><img class="bp-pic-img" alt="" src="${s.bgImage.replace(/"/g, '&quot;')}"><div class="bp-pic-actions"><button type="button" data-sbg="add">Replace</button><button type="button" class="bp-link-remove" data-sbg="remove">Remove</button></div></div>`
+      : `<button type="button" class="sp-bgadd" data-sbg="add" aria-label="Add an Image">${pi(PI.plus)}<strong>Add an Image</strong><span>20 MB max</span></button>`;
+    body = `<div class="sp-kinds" role="radiogroup" aria-label="Background type">${['Image', 'Video', 'Art'].map(kind).join('')}</div>${image}<input type="file" accept="image/*" hidden data-sbg-file>`
+      + row('Background Width', seg('bgWidth', 'full-bleed', 'Full Bleed', (s.bgWidth || 'full-bleed') === 'full-bleed') + seg('bgWidth', 'inset', 'Inset', s.bgWidth === 'inset'), 'sp-row-wide');
   } else {
     const cur = (s.theme || '').replace(/^theme-/, '');
-    body = `<div class="sp-themes">${o.themes.map(([label, v]) => { const c = o.themeColors[v] || {}; return `<button type="button" class="sp-theme${cur === v ? ' is-on' : ''}" data-sact="theme" data-v="${v}" aria-label="${label}" aria-pressed="${cur === v}" style="background:${c.bg || '#fff'};color:${c.ink || '#000'}"><span class="sp-aa">Aa</span><span class="sp-tname">${label}</span></button>`; }).join('')}</div>`;
+    body = `<a href="#" class="sp-theme-editor" data-sbg="themes">Color Theme Editor</a><div class="sp-themes">${o.themes.map(([label, v]) => { const c = o.themeColors[v] || {}; return `<button type="button" class="sp-theme${cur === v ? ' is-on' : ''}" data-sact="theme" data-v="${v}" aria-label="Aa${label}" aria-pressed="${cur === v}" style="background:${c.bg || '#fff'};color:${c.ink || '#000'}"><span class="sp-aa">Aa</span><span class="sp-tname">${label}</span></button>`; }).join('')}</div>`;
   }
   return `<div class="sp-tabs" role="tablist">${['Design', 'Background', 'Colors'].map(tab).join('')}</div><div class="sp-body">${body}</div>`;
 }
