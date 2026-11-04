@@ -83,6 +83,37 @@ export function toggleMark(doc, root, sel, name) {
   return true;
 }
 
+// Scaled Text (E4, parity/findings/TEXTOPS.json): the paragraph at the selection goes into
+// <div class="sqsrte-scaled-text-container loaded"><span class="sqsrte-scaled-text"
+// style="font-size: Npx;">, N sized so the text fits the block width on one line (8.5px for the
+// probed paragraph). Applying it again inside the container takes the paragraph back out.
+export function toggleScaled(doc, root, sel) {
+  const [el] = selectedBlocks(root, sel);
+  if (!el) return false;
+  const box = el.closest('.sqsrte-scaled-text-container');
+  if (box) { box.replaceWith(...box.querySelector('.sqsrte-scaled-text').childNodes); return true; }
+  const W = doc.defaultView;
+  const width = root.getBoundingClientRect().width;
+  const probe = doc.createElement('span');
+  probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;left:-99999px;top:0';
+  probe.style.font = W.getComputedStyle(el).font;
+  probe.textContent = el.textContent;
+  doc.body.append(probe);
+  const natural = probe.getBoundingClientRect().width;
+  const size = parseFloat(W.getComputedStyle(el).fontSize);
+  probe.remove();
+  const fit = natural ? Math.floor((size * width / natural) * 10) / 10 : size;
+  const div = doc.createElement('div');
+  div.className = 'sqsrte-scaled-text-container loaded';
+  const span = doc.createElement('span');
+  span.className = 'sqsrte-scaled-text';
+  span.setAttribute('style', `font-size: ${fit}px;`);
+  el.replaceWith(div);
+  span.append(el);
+  div.append(span);
+  return true;
+}
+
 // Text Color and Text Highlight (E4, parity/findings/TEXTCOLOR.json). A palette color wraps
 // the selection in <span class="sqsrte-text-color--NAME">; inside such a span the class
 // changes. Highlight wraps it in <span class="sqsrte-text-highlight" data-text-attribute-id>

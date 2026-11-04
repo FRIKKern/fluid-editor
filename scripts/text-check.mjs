@@ -12,7 +12,7 @@ const C = JSON.parse(readFileSync(new URL('../parity/findings/TEXTCOLOR.json', i
 // Our button for each oracle action. Monospace and the styles go through the Text Style select.
 const OURS = { 'Heading 1': ['style', 'h1'], 'Heading 2': ['style', 'h2'], 'Heading 3': ['style', 'h3'], 'Heading 4': ['style', 'h4'], 'Paragraph 1': ['style', 'p.sqsrte-large'],
   'Paragraph 3': ['style', 'p.sqsrte-small'], Monospace: ['style', 'pre'], Bold: ['bold'], Italic: ['italic'], Strike: ['strike'], Quote: ['quote'], 'Bullet List': ['bullet'],
-  'Numbered List': ['numbered'], Indent: ['indent'], 'Align center': ['align:center'], 'Align right': ['align:right'], 'Align justify': ['align:justify'] };
+  'Numbered List': ['numbered'], Indent: ['indent'], 'Scaled Text': ['scaled'], 'Align center': ['align:center'], 'Align right': ['align:right'], 'Align justify': ['align:justify'] };
 // Text Color swatches (TEXTCOLOR.json) and Text Highlight.
 const COLOR_KEYS = { Lightest: 'white', Light: 'lightAccent', Bright: 'accent', Dark: 'darkAccent', Darkest: 'black' };
 const CASES = [...Object.entries(OURS).map(([name, [act, value]]) => [name, act, value, F[name]?.html]),
