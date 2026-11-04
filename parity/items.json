@@ -251,7 +251,19 @@
     "milestone": "M2",
     "status": "partial",
     "title": "Section alignment, color themes, background image and video, dividers",
-    "evidence": "Vertical alignment (parity/findings/VALIGN-TOP.json, 5 frame sizes): top gives the wrapper 4vw on top and twice the height padding below, bottom the reverse. Colors tab: Lightest 1/2 white, white-bold; Light 1/2 light, light-bold; Bright 1/2 bright-inverse, bright; Dark 1/2 dark, dark-bold; Darkest 1/2 black, black-bold (parity/findings/SETTINGS.json); npm run section-check matches them, and scripts/color-diff.mjs matches 81 of 81 colors on the 5 pages. Our Edit Section panel has Alignment and Colors. Divider (parity/findings/DIVIDER.json): the default is a wave in a 6vw band added below the content, the background clipped along it and a 6px black stroke on it; ours matches the section height and the edge within 0.6px at 375, 1280 and 1600px. Divider Stroke is none, solid or dashed (5px dash, 21px gap, square caps) and Thickness S 2px, M 6px, L 15px (parity/findings/DIVOPTS.json); ours matches all six. npm run section-check: 35 of 35. Our panel has Divider, Stroke and Thickness. Missing: background image, video and art; divider Color, custom thickness, and the shape settings behind Edit Settings (Width, Flip, an Alignment slider from -1000 to 1000) and Shuffle"
+    "evidence": "Vertical alignment (parity/findings/VALIGN-TOP.json, 5 frame sizes): top gives the wrapper 4vw on top and twice the height padding below, bottom the reverse. Colors tab: Lightest 1/2 white, white-bold; Light 1/2 light, light-bold; Bright 1/2 bright-inverse, bright; Dark 1/2 dark, dark-bold; Darkest 1/2 black, black-bold (parity/findings/SETTINGS.json); npm run section-check matches them, and scripts/color-diff.mjs matches 81 of 81 colors on the 5 pages. Our Edit Section panel has Alignment and Colors. Divider (parity/findings/DIVIDER.json): the default is a wave in a 6vw band added below the content, the background clipped along it and a 6px black stroke on it; ours matches the section height and the edge within 0.6px at 375, 1280 and 1600px. Divider Stroke is none, solid or dashed (5px dash, 21px gap, square caps) and Thickness S 2px, M 6px, L 15px (parity/findings/DIVOPTS.json); ours matches all six. npm run section-check: 35 of 35. Our panel has Divider, Stroke and Thickness. Missing: background image, video and art; divider Color, custom thickness, and the shape settings behind Edit Settings (Width, Flip, an Alignment slider from -1000 to 1000) and Shuffle. The gap review found on the Background tab an Art option and Add an Image (20 MB max), and on the Colors tab a Color Theme Editor button and an Aa sample on each theme; ours has none of these Labels from the gap review of 2026-11-04 (docs/MISSING.md).",
+    "controls": [
+      "Art",
+      "Add an Image",
+      "Add an Image20 MB max",
+      "Color Theme Editor",
+      "AaLightest 1",
+      "AaLightest 2",
+      "AaLight 1",
+      "AaLight 2",
+      "AaBright 1",
+      "AaBright 2"
+    ]
   },
   {
     "id": "P6",
@@ -322,7 +334,13 @@
     "milestone": "M2",
     "status": "partial",
     "title": "Shape block and the Squarespace shape set",
-    "evidence": "Oracle shape Edit panel: Design tab with shape style picker, square or rounded corners with a px radius, Stretch toggle, Color, Blend Mode, Stroke; Animation tab. Default shape: white square filling its block. Ours renders a filled div"
+    "evidence": "Oracle shape Edit panel: Design tab with shape style picker, square or rounded corners with a px radius, Stretch toggle, Color, Blend Mode, Stroke; Animation tab. Default shape: white square filling its block. Ours renders a filled div. The gap review lists on the shape Edit panel: Uniform and Individual corner radii, a Styling control and Blend Mode Labels from the gap review of 2026-11-04 (docs/MISSING.md).",
+    "controls": [
+      "Uniform corner radii",
+      "Individual corner radii",
+      "Styling",
+      "Blend ModeNormal"
+    ]
   },
   {
     "id": "T7",
@@ -396,12 +414,18 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Block design: background, blur, opacity, transforms (Edit > Design)",
-    "evidence": "parity/findings/DESIGN.json: a block Edit > Design tab has Background and Blur switches, Opacity, Rotate, Scale X/Y, Offset X/Y, Skew X/Y, Stroke and Blend Mode, plus an Animation tab. The values are CSS variables in one rule per block (<style class=\"transform-vars\">); --block-transform stays none until a transform is set; Blur adds backdrop-filter: blur(15px), Background a white block background. Our renderer writes the same rule: npm run check round-trips all 111 rules of the corpus (fixtures/design.json). Our Edit panel (from the toolbar Edit button) is a floating 320 by 500 panel 18px right of the block with Design and Animation tabs, drawn like the oracle's; it gives the oracle styles for all 10 probed values (npm run design-edit-check). Missing: Stroke, Blend Mode, Animation, the background color and padding options, the oracle importer reading these values, and whether they differ per layout",
+    "evidence": "parity/findings/DESIGN.json: a block Edit > Design tab has Background and Blur switches, Opacity, Rotate, Scale X/Y, Offset X/Y, Skew X/Y, Stroke and Blend Mode, plus an Animation tab. The values are CSS variables in one rule per block (<style class=\"transform-vars\">); --block-transform stays none until a transform is set; Blur adds backdrop-filter: blur(15px), Background a white block background. Our renderer writes the same rule: npm run check round-trips all 111 rules of the corpus (fixtures/design.json). Our Edit panel (from the toolbar Edit button) is a floating 320 by 500 panel 18px right of the block with Design and Animation tabs, drawn like the oracle's; it gives the oracle styles for all 10 probed values (npm run design-edit-check). Missing: Stroke, Blend Mode, Animation, the background color and padding options, the oracle importer reading these values, and whether they differ per layout. The gap review lists for the Animation tab: Add a new animation, an empty list that says Press + to get started (use a preset or customize), list actions and Triggers; and on Design a More actions button by Transforms Labels from the gap review of 2026-11-04 (docs/MISSING.md).",
     "controls": [
       "Background",
       "Blur",
       "Opacity",
-      "Rotate"
+      "Rotate",
+      "Blend ModeNormal",
+      "More actions",
+      "Animation list actions",
+      "Add a new animation",
+      "Press + to get startedUse a preset or customize",
+      "Triggers"
     ]
   },
   {
@@ -729,10 +753,11 @@
     "milestone": "M4",
     "status": "done",
     "title": "Selecting a block covered by another",
-    "evidence": "Oracle Layers panel (section toolbar): the blocks front to back, text blocks by their first words, others by type; rows are sortable. Our panel has the same list; a click selects a covered block. The Layers panel now floats under the section's Layers button, as on the oracle, and its rows reorder by drag",
+    "evidence": "Oracle Layers panel (section toolbar): the blocks front to back, text blocks by their first words, others by type; rows are sortable. Our panel has the same list; a click selects a covered block. The Layers panel now floats under the section's Layers button, as on the oracle, and its rows reorder by drag. The oracle Layers list names a text block by its first words Labels from the gap review of 2026-11-04 (docs/MISSING.md).",
     "controls": [
       "Layers",
-      "Open Layers Panel"
+      "Open Layers Panel",
+      "On desktop the smallest a row can be is the cont"
     ]
   },
   {
@@ -880,7 +905,7 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Add block menu and default placement",
-    "evidence": "Oracle menu: search, Essentials (Text, Image, Button, Video, Form, Accordion, Shape, Scrolling, Line), Sell, more. Our panel has the nine Essentials with the oracle default sizes and places (T13). Phone placement of a new block is ours, not measured; the search box and other groups are not built. Code and Embed are now in our list from the menu search (parity/findings/T10.json). Our Add Block menu is a 320 by 500 panel over the section like the oracle's: Search, then Essentials as two columns of tiles with icons; search also finds Code and Embed",
+    "evidence": "Oracle menu: search, Essentials (Text, Image, Button, Video, Form, Accordion, Shape, Scrolling, Line), Sell, more. Our panel has the nine Essentials with the oracle default sizes and places (T13). Phone placement of a new block is ours, not measured; the search box and other groups are not built. Code and Embed are now in our list from the menu search (parity/findings/T10.json). Our Add Block menu is a 320 by 500 panel over the section like the oracle's: Search, then Essentials as two columns of tiles with icons; search also finds Code and Embed. The gap review also found Pricing Plan and Scheduling in the add-block menu; ours has neither Labels from the gap review of 2026-11-04 (docs/MISSING.md).",
     "outOfScope": [
       "0005: the Sell group (product, donation and member blocks)"
     ],
@@ -895,7 +920,9 @@
       "Shape",
       "Scrolling",
       "Line",
-      "Essentials"
+      "Essentials",
+      "Pricing Plan",
+      "Scheduling"
     ]
   },
   {
@@ -904,7 +931,7 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Top bar: Save, Exit, undo, redo, device toggle, preview",
-    "evidence": "Our top bar is laid out like the oracle's (gap review screenshots, 2026-11-03): a dark 56 by 38 Save that greys out when there is nothing to save, a plain Exit, Undo and Redo icons, the page name and Page · Published in the middle, the Desktop View and Mobile View toggle on grey, Site Styles and Preview icons. Preview hides all editor chrome and stops editing; Escape leaves it. Our Export and Reset are behind a developer menu. Not built: Site Styles; the oracle's preview look is not measured",
+    "evidence": "Our top bar is laid out like the oracle's (gap review screenshots, 2026-11-03): a dark 56 by 38 Save that greys out when there is nothing to save, a plain Exit, Undo and Redo icons, the page name and Page · Published in the middle, the Desktop View and Mobile View toggle on grey, Site Styles and Preview icons. Preview hides all editor chrome and stops editing; Escape leaves it. Our Export and Reset are behind a developer menu. Not built: Site Styles; the oracle's preview look is not measured. In preview the oracle shows a Previewing label and a Reload page preview button; ours does not Labels from the gap review of 2026-11-04 (docs/MISSING.md).",
     "controls": [
       "Save",
       "Exit",
@@ -912,7 +939,9 @@
       "Redo",
       "Desktop View",
       "Mobile View",
-      "Toggle preview mode"
+      "Toggle preview mode",
+      "Reload page preview",
+      "Previewing"
     ]
   },
   {
@@ -933,7 +962,8 @@
       "Remove Section",
       "Add Block",
       "Add Section",
-      "Remove"
+      "Remove",
+      "DesignBackgroundColors"
     ]
   },
   {
@@ -1039,5 +1069,60 @@
     "status": "done",
     "title": "Keyboard: Tab order, arrow moves, resize with keys",
     "evidence": "parity/findings/KEYS.json, KEYS2.json: arrows and Alt+arrows move one cell; Cmd+Left/Right change the end column, Cmd+Up/Down the end row; Tab and Shift+Tab do not change the selection. Our editor gives the same areas for Cmd+Right (2/15/12/26), Cmd+Up (2/15/11/25), Alt+Right (2/16/12/26)"
+  },
+  {
+    "id": "U12",
+    "area": "Editor chrome",
+    "milestone": "M5",
+    "status": "open",
+    "title": "Site Styles panel from the top bar",
+    "evidence": "The top bar Site Styles button (Toggle Site Styles editing) opens a side panel at /config/site-styles with style packs for Themes, Fonts, Colors, Buttons and Forms, each with a popover and a disclosure, plus Miscellaneous and Close. Ours has the button but no panel. Labels from the gap review of 2026-11-04 (docs/MISSING.md).",
+    "controls": [
+      "Toggle Site Styles editing",
+      "Close",
+      "Toggle Themes style pack popover",
+      "Toggle Fonts style pack popover",
+      "Open Fonts style disclosure",
+      "Toggle Colors style pack popover",
+      "Open Colors style disclosure",
+      "Toggle Buttons style pack popover",
+      "Open Buttons style disclosure",
+      "Toggle Forms style pack popover",
+      "Open Forms style disclosure",
+      "Miscellaneous"
+    ],
+    "outOfScope": [
+      "0005: Subscribe, the trial account's billing button beside Site Styles"
+    ]
+  },
+  {
+    "id": "U13",
+    "area": "Editor chrome",
+    "milestone": "M5",
+    "status": "open",
+    "title": "Move the block Edit panel by dragging",
+    "evidence": "The oracle block Edit panel has a control labelled Click and drag to reposition block editor form, on text and shape panels. Ours stays where it opens. Not measured: where the handle sits and whether the place is kept. Labels from the gap review of 2026-11-04 (docs/MISSING.md).",
+    "controls": [
+      "Click and drag to reposition block editor form"
+    ]
+  },
+  {
+    "id": "E7",
+    "area": "Text editing",
+    "milestone": "M5",
+    "status": "open",
+    "title": "Link editor for buttons and text",
+    "evidence": "The button link control opens a link editor with a URL field (Enter link, search, or add files) and the site pages grouped under Main Navigation and Hidden Navigation, each shown as name and path, e.g. Services/services. Ours has none. Not measured: what the text toolbar Link opens, and the HTML a chosen link writes. Labels from the gap review of 2026-11-04 (docs/MISSING.md).",
+    "controls": [
+      "URL",
+      "Enter link, search, or add files",
+      "Main Navigation",
+      "Hidden Navigation",
+      "Services/services",
+      "About/about",
+      "Contact/contact",
+      "How Fluid Engine works/how-fluid-engine-works",
+      "Home/home"
+    ]
   }
 ]

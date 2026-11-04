@@ -19,6 +19,7 @@ Out of scope now:
 - **Squarespace AI in the text toolbar (E4).** It is a hosted text service. Our toolbar has no AI button.
 - **What Save does on the live site, drafts, and revision conflicts (Y3).** Measuring them means saving the trial site, or two editors at once. Probes never save (O1). Our editor saves to the browser.
 - **The Sell group of the Add Block menu (U5).** Product, donation and member blocks need a Squarespace store or account.
+- **Subscribe in the Site Styles panel (U12).** It is the trial account's billing button. It is not part of the editor.
 - **Gallery blocks in the corpus (H3).** Fluid Engine offers no Gallery block (parity/findings/T8.json).
 
 ## Considered

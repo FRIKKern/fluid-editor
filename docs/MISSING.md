@@ -14,97 +14,44 @@ For each editor state, the inventory lists every visible control and label of th
 
 | State | What | Oracle labels | Ours has | Untracked | Mentioned | Side panel only | Tracked | Canvas pixels differing |
 |---|---|---|---|---|---|---|---|---|
-| idle | Edit mode, nothing selected | 10 | 9 | 1 | 0 | 0 | 0 | 0.11% |
-| section-hover | Pointer over a section | 20 | 15 | 1 | 0 | 0 | 4 | 0.24% |
-| section-design | Edit Section, Design tab | 23 | 21 | 2 | 0 | 0 | 0 | 1.42% |
-| section-background | Edit Section, Background tab | 22 | 15 | 5 | 0 | 0 | 2 | 1.86% |
-| section-colors | Edit Section, Colors tab | 21 | 12 | 9 | 0 | 0 | 0 | 3.35% |
-| add-block-menu | Add Block menu of a section | 26 | 20 | 3 | 0 | 0 | 0 | 2.37% |
-| layers | Layers panel of a section | 24 | 16 | 2 | 0 | 0 | 6 | 2.72% |
-| text-selected | A text block selected | 19 | 18 | 1 | 0 | 0 | 0 | 0.17% |
-| text-writing | Writing in a text block, a word selected | 27 | 21 | 1 | 4 | 0 | 0 | 0.34% |
-| text-edit-design | Text block Edit panel, Design tab | 23 | 19 | 4 | 0 | 0 | 0 | 0.43% |
-| text-edit-animation | Text block Edit panel, Animation tab | 17 | 11 | 6 | 0 | 0 | 0 | 0.41% |
-| shape-selected | A shape block selected | 17 | 16 | 1 | 0 | 0 | 0 | 0.15% |
-| shape-edit | Shape block Edit panel | 21 | 12 | 6 | 3 | 0 | 0 | 4.07% |
-| button-selected | A button block selected | 17 | 16 | 1 | 0 | 0 | 0 | 0.2% |
+| idle | Edit mode, nothing selected | 10 | 9 | 0 | 0 | 0 | 1 | 0.11% |
+| section-hover | Pointer over a section | 20 | 15 | 0 | 0 | 0 | 5 | 0.24% |
+| section-design | Edit Section, Design tab | 23 | 21 | 0 | 0 | 0 | 2 | 1.42% |
+| section-background | Edit Section, Background tab | 22 | 15 | 0 | 0 | 0 | 7 | 1.86% |
+| section-colors | Edit Section, Colors tab | 21 | 12 | 0 | 0 | 0 | 9 | 3.35% |
+| add-block-menu | Add Block menu of a section | 26 | 20 | 0 | 0 | 0 | 3 | 2.37% |
+| layers | Layers panel of a section | 24 | 16 | 0 | 0 | 0 | 8 | 2.72% |
+| text-selected | A text block selected | 19 | 18 | 0 | 0 | 0 | 1 | 0.17% |
+| text-writing | Writing in a text block, a word selected | 27 | 21 | 0 | 4 | 0 | 1 | 0.34% |
+| text-edit-design | Text block Edit panel, Design tab | 23 | 19 | 0 | 0 | 0 | 4 | 0.43% |
+| text-edit-animation | Text block Edit panel, Animation tab | 17 | 11 | 0 | 0 | 0 | 6 | 0.41% |
+| shape-selected | A shape block selected | 17 | 16 | 0 | 0 | 0 | 1 | 0.15% |
+| shape-edit | Shape block Edit panel | 21 | 12 | 0 | 3 | 0 | 6 | 4.07% |
+| button-selected | A button block selected | 17 | 16 | 0 | 0 | 0 | 1 | 0.2% |
 | button-edit | Button block Edit panel | 0 | 0 | 0 | 0 | 0 | 0 | 11.17% |
-| group-selected | Two blocks selected with Shift | 25 | 15 | 1 | 2 | 0 | 7 | 0.91% |
+| group-selected | Two blocks selected with Shift | 25 | 15 | 0 | 2 | 0 | 8 | 0.91% |
 | block-context-menu | Right-click on a selected block | 10 | 3 | 0 | 0 | 0 | 7 | 0.6% |
-| phone-idle | Phone layout, nothing selected | 18 | 9 | 1 | 0 | 0 | 8 | 3.22% |
-| phone-text-selected | Phone layout, a text block selected | 18 | 17 | 1 | 0 | 0 | 0 | 2.55% |
-| preview | Preview mode (top bar) | 8 | 6 | 2 | 0 | 0 | 0 | 0.16% |
-| add-section-menu | Add Section on a section edge | 20 | 15 | 1 | 0 | 0 | 4 | 0.53% |
-| view-layouts | View Layouts of a section | 11 | 9 | 1 | 1 | 0 | 0 | 1.82% |
-| button-link | Link popover of a button block | 26 | 16 | 10 | 0 | 0 | 0 | 3.19% |
-| phone-section-hover | Phone layout, pointer over a section | 18 | 14 | 1 | 0 | 0 | 3 | 2.31% |
-| text-style-menu | Writing, the Text Style menu open | 35 | 29 | 1 | 4 | 0 | 0 | 1.08% |
-| text-align-menu | Writing, the Text Alignment menu open | 31 | 25 | 1 | 4 | 0 | 0 | 0.43% |
-| text-link | Writing, the Link popover open | 27 | 21 | 1 | 4 | 0 | 0 | 0.38% |
-| text-color | Writing, the Text Color popover open | 29 | 21 | 1 | 6 | 0 | 0 | 0.94% |
-| site-styles | Site Styles panel (top bar) | 21 | 8 | 12 | 1 | 0 | 0 | 12.79% |
+| phone-idle | Phone layout, nothing selected | 18 | 9 | 0 | 0 | 0 | 9 | 3.22% |
+| phone-text-selected | Phone layout, a text block selected | 18 | 17 | 0 | 0 | 0 | 1 | 2.55% |
+| preview | Preview mode (top bar) | 8 | 6 | 0 | 0 | 0 | 2 | 0.16% |
+| add-section-menu | Add Section on a section edge | 20 | 15 | 0 | 0 | 0 | 5 | 0.53% |
+| view-layouts | View Layouts of a section | 11 | 9 | 0 | 1 | 0 | 1 | 1.82% |
+| button-link | Link popover of a button block | 26 | 16 | 0 | 0 | 0 | 10 | 3.19% |
+| phone-section-hover | Phone layout, pointer over a section | 18 | 14 | 0 | 0 | 0 | 4 | 2.31% |
+| text-style-menu | Writing, the Text Style menu open | 35 | 29 | 0 | 4 | 0 | 1 | 1.08% |
+| text-align-menu | Writing, the Text Alignment menu open | 31 | 25 | 0 | 4 | 0 | 1 | 0.43% |
+| text-link | Writing, the Link popover open | 27 | 21 | 0 | 4 | 0 | 1 | 0.38% |
+| text-color | Writing, the Text Color popover open | 29 | 21 | 0 | 6 | 0 | 1 | 0.94% |
+| site-styles | Site Styles panel (top bar) | 21 | 8 | 0 | 0 | 0 | 11 | 12.79% |
 
-## UNTRACKED (48)
-
-| Label | Kind | States | Items |
-|---|---|---|---|
-| Toggle Site Styles editing | button | idle, section-hover, section-design, section-background, section-colors, add-block-menu, layers, text-selected, text-writing, text-edit-design, text-edit-animation, shape-selected, shape-edit, button-selected, group-selected, phone-idle, phone-text-selected, add-section-menu, view-layouts, button-link, phone-section-hover, text-style-menu, text-align-menu, text-link, text-color |  |
-| DesignBackgroundColors | button | section-design, section-background, section-colors |  |
-| Art | radio | section-background |  |
-| Add an Image20 MB max | button | section-background |  |
-| Add an Image | button | section-background |  |
-| Color Theme Editor | a | section-colors |  |
-| AaLightest 1 | button | section-colors |  |
-| AaLightest 2 | button | section-colors |  |
-| AaLight 1 | button | section-colors |  |
-| AaLight 2 | button | section-colors |  |
-| AaBright 1 | button | section-colors |  |
-| AaBright 2 | button | section-colors |  |
-| Pricing Plan | button | add-block-menu |  |
-| Scheduling | button | add-block-menu |  |
-| On desktop the smallest a row can be is the cont | button | layers |  |
-| Click and drag to reposition block editor form | button | text-edit-design, text-edit-animation, shape-edit |  |
-| Blend ModeNormal | button | text-edit-design, shape-edit |  |
-| More actions | combobox | text-edit-design |  |
-| Animation list actions | combobox | text-edit-animation |  |
-| Add a new animation | button | text-edit-animation |  |
-| Press + to get startedUse a preset or customize | button | text-edit-animation |  |
-| Triggers | text | text-edit-animation |  |
-| Uniform corner radii | radio | shape-edit |  |
-| Individual corner radii | radio | shape-edit |  |
-| Styling | text | shape-edit |  |
-| Reload page preview | button | preview |  |
-| Previewing | text | preview |  |
-| URL | button | button-link |  |
-| Enter link, search, or add files | combobox | button-link |  |
-| Services/services | option | button-link |  |
-| About/about | option | button-link |  |
-| Contact/contact | option | button-link |  |
-| How Fluid Engine works/how-fluid-engine-works | option | button-link |  |
-| Home/home | option | button-link |  |
-| Main Navigation | text | button-link |  |
-| Hidden Navigation | text | button-link |  |
-| Close | button | site-styles |  |
-| Toggle Themes style pack popover | button | site-styles |  |
-| Toggle Fonts style pack popover | button | site-styles |  |
-| Open Fonts style disclosure | button | site-styles |  |
-| Toggle Colors style pack popover | button | site-styles |  |
-| Open Colors style disclosure | button | site-styles |  |
-| Toggle Buttons style pack popover | button | site-styles |  |
-| Open Buttons style disclosure | button | site-styles |  |
-| Toggle Forms style pack popover | button | site-styles |  |
-| Open Forms style disclosure | button | site-styles |  |
-| Miscellaneous | button | site-styles |  |
-| Subscribe | button | site-styles |  |
-
-## Mentioned (13)
+## Mentioned (12)
 
 | Label | Kind | States | Items |
 |---|---|---|---|
 | Text Color | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
 | Scaled Text | checkbox | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
 | Text Highlight | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
-| Link | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4, S3, U4 |
+| Link | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4, S3, U4, E7 |
 | Stretch | input:checkbox | shape-edit | T5, T6, R5, L5 |
 | Color | button | shape-edit | P5, T6, T15, E4, L5 |
 | Shape style | text | shape-edit | T6, L5 |
@@ -113,20 +60,44 @@ For each editor state, the inventory lists every visible control and label of th
 | Layouts | button | view-layouts | O2, L4, L5, U9, U10 |
 | Palette | tab | text-color | E4 |
 | Custom | tab | text-color | P3, P5, P7, E4, S2 |
-| Site Styles | text | site-styles | U6 |
 
-## Tracked (19)
+## Tracked (66)
 
 | Label | Kind | States | Items |
 |---|---|---|---|
+| Toggle Site Styles editing | button | idle, section-hover, section-design, section-background, section-colors, add-block-menu, layers, text-selected, text-writing, text-edit-design, text-edit-animation, shape-selected, shape-edit, button-selected, group-selected, phone-idle, phone-text-selected, add-section-menu, view-layouts, button-link, phone-section-hover, text-style-menu, text-align-menu, text-link, text-color | U12 |
 | Add Section | button | section-hover, layers, group-selected, phone-idle, add-section-menu, phone-section-hover | U9 |
 | Open Section Settings | button | section-hover, layers, group-selected, phone-idle, add-section-menu, phone-section-hover | U9 |
 | View Layouts | button | section-hover, layers, group-selected, add-section-menu | U9 |
 | Save Section | button | section-hover, layers, group-selected, phone-idle, add-section-menu, phone-section-hover | U9 |
+| DesignBackgroundColors | button | section-design, section-background, section-colors | U9 |
 | Image | radio | section-background | U5 |
 | Video | radio | section-background | U5 |
+| Art | radio | section-background | P5 |
+| Add an Image20 MB max | button | section-background | P5 |
+| Add an Image | button | section-background | P5 |
+| Color Theme Editor | a | section-colors | P5 |
+| AaLightest 1 | button | section-colors | P5 |
+| AaLightest 2 | button | section-colors | P5 |
+| AaLight 1 | button | section-colors | P5 |
+| AaLight 2 | button | section-colors | P5 |
+| AaBright 1 | button | section-colors | P5 |
+| AaBright 2 | button | section-colors | P5 |
+| Pricing Plan | button | add-block-menu | U5 |
+| Scheduling | button | add-block-menu | U5 |
 | Open Layers Panel | button | layers, phone-idle | Z4 |
 | Add Block | button | layers | U9 |
+| On desktop the smallest a row can be is the cont | button | layers | Z4 |
+| Click and drag to reposition block editor form | button | text-edit-design, text-edit-animation, shape-edit | U13 |
+| Blend ModeNormal | button | text-edit-design, shape-edit | T6, T15 |
+| More actions | combobox | text-edit-design | T15 |
+| Animation list actions | combobox | text-edit-animation | T15 |
+| Add a new animation | button | text-edit-animation | T15 |
+| Press + to get startedUse a preset or customize | button | text-edit-animation | T15 |
+| Triggers | text | text-edit-animation | T15 |
+| Uniform corner radii | radio | shape-edit | T6 |
+| Individual corner radii | radio | shape-edit | T6 |
+| Styling | text | shape-edit | T6 |
 | Duplicate Section | button | group-selected, phone-idle | U9 |
 | Move Section Up | button | group-selected, phone-idle | U9 |
 | Move Section Down | button | group-selected, phone-idle | U9 |
@@ -138,8 +109,30 @@ For each editor state, the inventory lists every visible control and label of th
 | Hide on desktop | text | block-context-menu | U11 |
 | Hide on mobile | text | block-context-menu | U11 |
 | Remove Section | button | phone-idle | U9 |
+| Reload page preview | button | preview | U6 |
+| Previewing | text | preview | U6 |
+| URL | button | button-link | E7 |
+| Enter link, search, or add files | combobox | button-link | E7 |
+| Services/services | option | button-link | E7 |
+| About/about | option | button-link | E7 |
+| Contact/contact | option | button-link | E7 |
+| How Fluid Engine works/how-fluid-engine-works | option | button-link | E7 |
+| Home/home | option | button-link | E7 |
+| Main Navigation | text | button-link | E7 |
+| Hidden Navigation | text | button-link | E7 |
+| Close | button | site-styles | U12 |
+| Toggle Themes style pack popover | button | site-styles | U12 |
+| Toggle Fonts style pack popover | button | site-styles | U12 |
+| Open Fonts style disclosure | button | site-styles | U12 |
+| Toggle Colors style pack popover | button | site-styles | U12 |
+| Open Colors style disclosure | button | site-styles | U12 |
+| Toggle Buttons style pack popover | button | site-styles | U12 |
+| Open Buttons style disclosure | button | site-styles | U12 |
+| Toggle Forms style pack popover | button | site-styles | U12 |
+| Open Forms style disclosure | button | site-styles | U12 |
+| Miscellaneous | button | site-styles | U12 |
 
-## Out of scope (4)
+## Out of scope (6)
 
 | Label | Kind | States | Items |
 |---|---|---|---|
@@ -147,6 +140,8 @@ For each editor state, the inventory lists every visible control and label of th
 | Donation | button | add-block-menu | U5 |
 | Sell | text | add-block-menu | U5, U5 |
 | Squarespace AI | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4, E4 |
+| Subscribe | button | site-styles | U12 |
+| Site Styles | text | site-styles | U6, U12, U12 |
 
 ## States that did not run cleanly
 

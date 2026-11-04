@@ -11,6 +11,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, waitFor, screenshot, requireWebKit } from './lib/cmux.mjs';
 import { BUTTON } from './oracle/snippets.mjs';
+import { trackedBy } from './lib/coverage.mjs';
 import { select, click, escape, deselect, hoverSection, blockIds } from './oracle/ui.mjs';
 
 const args = process.argv.slice(2);
@@ -212,21 +213,7 @@ const STATES = [
   ['site-styles', 'Site Styles panel (top bar)', async () => { await oCmuxClick(oByLabel('Toggle Site Styles editing'), 2000); }, `await press('[aria-label="Toggle Site Styles editing"]')`],
 ];
 
-// ---------- coverage ----------
-const items = JSON.parse(readFileSync(new URL('../parity/items.json', import.meta.url), 'utf8'));
-const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-// Coverage. An item lists the oracle labels it covers in `controls` (exact, case-insensitive):
-// those are "tracked". A label whose whole phrase only appears in an item's text is
-// "mentioned" (probably tracked, worth a look). Anything else is UNTRACKED: a gap nobody wrote
-// down. A label named in an item's outOfScope list is "out of scope".
-function trackedBy(label) {
-  const l = label.toLowerCase();
-  const phrase = new RegExp(`(^|[^a-z0-9])${esc(l)}([^a-z0-9]|$)`);
-  const listed = items.filter((it) => (it.controls || []).some((c) => c.toLowerCase() === l));
-  const out = items.filter((it) => (it.outOfScope || []).some((o) => phrase.test(o.toLowerCase())));
-  const said = l.length >= 4 ? items.filter((it) => phrase.test(`${it.title} ${it.evidence || ''}`.toLowerCase())) : [];
-  return { listed: listed.map((i) => i.id), outOfScope: out.map((i) => i.id), mentioned: said.map((i) => i.id) };
-}
+// ---------- coverage ---------- (scripts/lib/coverage.mjs)
 
 // ---------- run ----------
 const report = { capturedAt: new Date().toISOString().slice(0, 10), oracle: 'halibut-keyboard-jlhd.squarespace.com, demo page, 1600 by 1000 window', ours: 'app/index.html, canvas 1600 wide', states: [] };
