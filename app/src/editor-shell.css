@@ -388,3 +388,34 @@ body.is-preview .pin-popover { display: none !important; }
 .bs-opt[aria-selected="true"], .bs-opt:hover { background: #f2f2f2; }
 .bs-aa { font: 500 18px Poppins, sans-serif; }
 body.is-preview .bs-menu { display: none !important; }
+
+/* Top bar geometry (parity/findings/TOPBAR.json, 1600px window): Save 56 by 38 at 11, Exit 46 by
+   36 at 77.6, Undo and Redo 36 by 36 at 145.4 and 189.4; on the right the device toggle (two 46 by
+   32) ends at 1482, Site Styles 36 at 1495, Preview 36 at 1542, 22px from the edge; the page name
+   and state in 12px/16px. */
+.bar { padding: 0 22px 0 11px; border-bottom: 0; }
+.bar-left { gap: 0; }
+.bar-left .tb-save { width: 55.6px; }
+.bar-left .tb-exit { width: 45.8px; height: 36px; padding: 0; margin-left: 11px; align-self: flex-start; }
+.bar-left .tb-icon { width: 36px; height: 36px; }
+.bar-left #undo { margin-left: 22px; }
+.bar-left #redo { margin-left: 8px; }
+.bar-right { gap: 0; }
+.bar-right .tb-seg { gap: 0; padding: 0; }
+.bar-right .tb-seg-btn { width: 46px; height: 32px; }
+.bar-right .tb-icon { width: 36px; height: 36px; }
+.bar-right #site-styles-toggle, .bar-right #reload-preview { margin-left: 13px; }
+.bar-right #preview { margin-left: 11px; }
+.bar { position: relative; }
+.bar-center { position: absolute; left: 50%; top: 0; transform: translateX(-50%); padding-top: 12.1px; white-space: nowrap; }
+.page-name { font: 500 12px/16px "Helvetica Neue", Helvetica, Arial, sans-serif; color: rgb(49, 49, 49); }
+.page-state { font: 500 12px/16px "Helvetica Neue", Helvetica, Arial, sans-serif; color: rgb(118, 118, 118); margin-top: 2.3px; }
+/* Our developer menu would push the right group left: it is out of the bar until Ctrl+Shift+D. */
+.dev-menu { display: none; position: absolute; right: 4px; top: 60px; z-index: 70; margin: 0; }
+body.dev-tools .dev-menu { display: block; }
+.dev-menu .dev-pop { top: 44px; }
+/* Preview (TOPBAR.json): the state reads Previewing; Undo, Redo and Site Styles go, Reload page
+   preview takes Site Styles' place. */
+#reload-preview { display: none; }
+body.is-preview #undo, body.is-preview #redo, body.is-preview #site-styles-toggle { display: none; }
+body.is-preview #reload-preview { display: inline-flex; }
