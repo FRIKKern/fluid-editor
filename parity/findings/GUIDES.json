@@ -1,0 +1,67 @@
+{
+  "item": "GUIDES",
+  "capturedAt": "2026-11-04",
+  "question": "What does the editor draw while a block is held, what do the center line and the matching flags look like, and is there a center snap?",
+  "section": 2,
+  "window": [1600, 945],
+  "how": "real mouse input in headless Chrome on the demo page; the section's blocks: heading 15917 at 1/2/5/16, paragraph 16145 at 3/2/8/13, shape 16395 at 2/15/12/25. Nothing was saved: every run ended with Exit Without Saving. Earlier probes looked for class names with guide in them and found 0: the class names are hashed.",
+  "held": {
+    "block": "keeps its own z-index and opacity 1: a paragraph (z 2) held over the shape (z 3) stays behind it",
+    "selectionRingAndHandles": "gone while held, for drag and resize",
+    "cursor": "grabbing on the grid and everything inside it, for drag and resize; body stays auto",
+    "originalPosition": "an empty layer, nothing drawn",
+    "grid": { "opacity": 0.65, "fadeIn": "opacity 0.1s ease-in", "cell": "rect rx 3, stroke #B7B7B7 1px, fill #F2F2F240" }
+  },
+  "targetRing": {
+    "z": 99999,
+    "outer": "3px solid rgb(72, 148, 255) on a box 3px outside the target area",
+    "inner": "2px solid rgb(2, 122, 255) on a box 2px outside the target area",
+    "drag": { "area": "3 / 12 / 13 / 22", "box": [684.9, 331.6, 582.8, 405.9] },
+    "group": "one ring around the target areas of all blocks in the group: 1 / 4 / 8 / 18 for the heading and paragraph"
+  },
+  "centerLine": {
+    "where": "a child of the section, full section height, behind the blocks, desktop only: no line on phones (one hold at 428px)",
+    "shown": "while a block is held, for drag, resize and group, only in its own section",
+    "normal": { "borderLeft": "2px dashed rgb(2, 122, 255)", "left": 799, "width": 2, "opacity": 0.65, "zIndex": "auto" },
+    "centered": { "borderLeft": "2px solid rgb(255, 184, 2)", "borderRight": "1px solid rgb(255, 215, 2)", "left": 798.5, "width": 3, "opacity": 1, "zIndex": "999999", "pixels": "799 and 800 are rgb(255, 184, 2), 801 is rgb(255, 215, 2)" }
+  },
+  "centerSnap": {
+    "rule": "desktop, one block: a block of an odd width cannot center on line 14, so while its center is within half a column of the canvas center the target takes one more column, centered. The block shows the wider size, and a drop stores it. An even width centers as it is. A resize only turns the line yellow: it does not stretch.",
+    "paragraphDrag": [
+      { "dx": 340, "area": "3 / 8 / 8 / 19", "ring": [449.8, 331.6, 641.6, 200.5], "line": "normal", "block": [440.1, 635.7] },
+      { "dx": 352, "area": "3 / 8 / 8 / 19", "ring": [449.8, 331.6, 641.6, 200.5], "line": "normal", "block": [452.1, 635.7] },
+      { "dx": 370, "area": "3 / 8 / 8 / 20", "ring": [449.8, 331.6, 700.4, 200.5], "line": "centered", "block": [470.1, 694.5] },
+      { "dx": 400, "area": "3 / 8 / 8 / 20", "ring": [449.8, 331.6, 700.4, 200.5], "line": "centered", "block": [500.1, 694.5] },
+      { "dx": 410, "area": "3 / 8 / 8 / 20", "ring": [449.8, 331.6, 700.4, 200.5], "line": "centered", "block": [510.1, 694.5] },
+      { "dx": 420, "area": "3 / 9 / 8 / 20", "ring": [508.6, 331.6, 641.6, 200.5], "line": "normal", "block": [520.1, 635.7] },
+      { "dx": 470, "area": "3 / 10 / 8 / 21", "ring": [567.4, 331.6, 641.6, 200.5], "line": "normal", "block": [570.1, 635.7] }
+    ],
+    "paragraphDrop": { "dx": 400, "area": "3 / 8 / 8 / 20" },
+    "shapeDrag": { "cols": -6, "area": "2 / 9 / 12 / 19", "ring": [508.6, 290.5, 582.8, 405.9], "line": "centered" },
+    "shapeResizeWest": [
+      { "cols": -11, "area": "2 / 4 / 12 / 25", "line": "normal" },
+      { "cols": -12, "area": "2 / 3 / 12 / 25", "line": "centered" },
+      { "cols": -13, "area": "2 / 2 / 12 / 25", "line": "normal" }
+    ],
+    "groupDrag": [
+      { "dx": 200, "ring": "1 / 5 / 8 / 19", "line": "normal" },
+      { "dx": 300, "ring": "1 / 7 / 8 / 21", "line": "centered" },
+      { "dx": 340, "ring": "1 / 8 / 8 / 22", "line": "normal" }
+    ],
+    "edges": "14 drag holds of the shape over the section (columns -13 to 1, rows -1 to 3): no yellow other than the center line. A drag does not snap to other blocks' edges beyond the grid, and sets no matching flag."
+  },
+  "matching": {
+    "only": "during a resize",
+    "colors": "rgb(255, 184, 2)",
+    "width": { "resize": "shape east handle, one column, to 2 / 15 / 12 / 26, as wide as the paragraph", "bar": "the top border of the layer, 3px and its inner 2px", "ticks": "3 by 16px, at the left and right ends, starting 6px above the layer", "on": "the target ring and the matching block" },
+    "height": { "resize": "shape south handle, 5 rows, to 2 / 15 / 7 / 25, as tall as the paragraph", "bar": "the left border of the layer, 3px and its inner 2px", "ticks": "16 by 3px, at the top and bottom ends, starting 6px left of the layer", "on": "the target ring and the matching block" },
+    "layer": { "target": "the target ring, 3px outside the area, ticks at [855.3, 290.5] and [855.3, 488] for a ring at [861.3, 290.5, 582.8, 200.5]", "other": "a layer exactly on the block, z 100000 + its z, ticks at [94.1, 334.6] and [94.1, 526.1] for a block at [100.1, 334.6, 635.6, 194.5]" }
+  },
+  "nearRing": {
+    "only": "during a resize; a drag sets the flag and draws nothing",
+    "rings": "1px rgba(2, 122, 255, 0.49) just outside the block, 1px rgba(72, 148, 255, 0.7) around that",
+    "self": "the resized block has no ring"
+  },
+  "oddGroup": "all three blocks, 23 columns: 1 / 2 / 12 / 25 up to dx 29, then 1 / 3 / 12 / 26; the line stayed dashed and no block changed width, so a group does not stretch",
+  "notMeasured": "the marks on other block types than text and shape"
+}

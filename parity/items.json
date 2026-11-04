@@ -495,18 +495,18 @@
     "id": "G5",
     "area": "Geometry and snapping",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "Snap to other blocks' edges and centers, `data-is-matching-width` and `data-is-matching-height`",
     "wasUnknown": true,
-    "evidence": "Our editor sets data-is-matching-width and -height during a resize on blocks of the same size, as on the oracle (T0007), with a dashed outline. The oracle look is not measured"
+    "evidence": "parity/findings/GUIDES.json (real input, nothing saved). Center snap: within half a column of the canvas center a block of an odd width takes one more column and centers, and a drop keeps it (paragraph 3/2/8/13 dragged to 3/8/8/20); an even width centers as it is; not for a group or on phones. No other snap: 14 holds across the section, columns -13 to 1 and rows -1 to 3, showed no mark other than the center line. Matching flags as on the oracle (T0007, T0017): during a resize only; the look is a yellow rgb(255, 184, 2) bar with end ticks on the target and on the matching block, along the top for width, along the left for height. Ours is the same: npm run mid-check, parity/mid-check.json, and screenshots side by side"
   },
   {
     "id": "G6",
     "area": "Geometry and snapping",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "Alignment guide lines",
-    "evidence": "During a drag the oracle showed no guide-line elements (class names with guide, alignment-line or snap-line: 0, T0004 to T0010); the equal-size highlight (G5) is the visible alignment aid seen so far"
+    "evidence": "parity/findings/GUIDES.json: the earlier 0 came from searching class names, which are hashed. While a block is held (drag, resize, group), its section shows a center line: 2px dashed rgb(2, 122, 255) at opacity 0.65, behind the blocks, full section height. When the target is centered it is 2px solid rgb(255, 184, 2) plus 1px rgb(255, 215, 2), on top of the blocks. No line on phones (one hold) and no horizontal line. Ours is the same: npm run mid-check, parity/mid-check.json, screenshots side by side"
   },
   {
     "id": "G7",
@@ -539,7 +539,7 @@
     "milestone": "M4",
     "status": "partial",
     "title": "How the block follows the pointer and how the target shows",
-    "evidence": "While held, the block follows the pointer exactly: transform translate equals the pointer distance (T0004 to T0006 mid). The dragged block wrapper gets z-index 999999 and the grid shows only in its own section. Target outline look not measured Flags while held: near, matching and selected on every block equal the mid state of all 13 recorded drags and resizes (npm run mid-check, parity/mid-check.json). The dragged block keeps data-is-selected and is near by the same rule from where it started (T0004 near, T0010 not)."
+    "evidence": "While held, the block follows the pointer exactly: transform translate equals the pointer distance (T0004 to T0006 mid). The dragged block wrapper gets z-index 999999 and the grid shows only in its own section. Target outline look not measured Flags while held: near, matching and selected on every block equal the mid state of all 13 recorded drags and resizes (npm run mid-check, parity/mid-check.json). The dragged block keeps data-is-selected and is near by the same rule from where it started (T0004 near, T0010 not). Look measured in parity/findings/GUIDES.json and built: the target is a 3px ring outside its area (1px rgb(72, 148, 255) around 2px rgb(2, 122, 255)), one ring around a group; the held block keeps its z-index and full opacity; selection ring and handles go; grid at opacity 0.65; grabbing cursor (npm run mid-check, 12 holds). Corrects an earlier note: 999999 is the z-index of an editor layer, the block itself keeps its own. Not built: during a resize the oracle's block follows the pointer and only the ring snaps; ours snaps the block too."
   },
   {
     "id": "X3",

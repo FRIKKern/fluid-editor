@@ -19,6 +19,7 @@ const frame = $('site-frame');
 const panel = $('panel');
 const stage = $('stage');
 
+const CENTER_LINE = (1 + LAST_LINE.desktop) / 2; // grid line 14, the middle of the canvas
 let model = load() ?? demoModel();
 let savedJson = JSON.stringify(model);
 let bp = 'desktop';
@@ -163,8 +164,8 @@ function drawSelection() {
 }
 function drawSelectionLayers() {
   for (const el of doc.querySelectorAll('.fe-indicator')) el.remove();
-  // A dragged block stays selected (traces T0004 to T0006 mid); only its layers go away.
-  if (gesture?.type === 'move') return;
+  // A held block stays selected (traces T0004 to T0006 mid); only its layers go away.
+  if (gesture?.type === 'move' || gesture?.type === 'resize') return;
   for (const el of doc.querySelectorAll('.fe-block[data-is-selected="true"]')) el.dataset.isSelected = 'false';
   if (!sel) return;
   const b = B(sel.sid, sel.bid);
@@ -194,7 +195,7 @@ function drawSelectionLayers() {
   // A group (X8, gap review screenshot): one outline with eight handles around all selected
   // blocks; each block keeps a thin outline. Resizing the group is not built: the handles show
   // and do not respond.
-  if (sel.more?.length && gesture?.type !== 'move') {
+  if (sel.more?.length) {
     for (const el3 of feEl(sel.sid).querySelectorAll('.fe-indicator')) { el3.classList.add('is-member'); el3.replaceChildren(); }
     const areas = [sel.bid, ...sel.more].map((id) => (id === sel.bid ? gesture?.target : gesture?.moreTargets?.[id]) || lay(B(sel.sid, id)).area);
     const box = [Math.min(...areas.map((a) => a[0])), Math.min(...areas.map((a) => a[1])), Math.max(...areas.map((a) => a[2])), Math.max(...areas.map((a) => a[3]))];
@@ -374,8 +375,11 @@ function normalize(sid) {
 // overlapping the target get data-is-near-dragged-block; during a resize, blocks with
 // the same width or height get data-is-matching-width / -height. "Next to" is within
 // 2 tracks, the closest gap seen flagged (T0004).
+// parity/findings/GUIDES.json: during a resize a near block gets a faint ring, a same-size block
+// and the target a yellow bar; a drag draws neither, although the flags are the same.
 function flagNeighbours(g, t) {
   const s = S(g.sid);
+  let anyW = false, anyH = false;
   for (const o of s.blocks) {
     const el = blockEl(o.id);
     if (!el) continue;
@@ -388,7 +392,28 @@ function flagNeighbours(g, t) {
     el.dataset.isNearDraggedBlock = String(gapC <= 1 && gapR <= 1);
     el.dataset.isMatchingWidth = String(!mine && g.type === 'resize' && a[3] - a[1] === t[3] - t[1]);
     el.dataset.isMatchingHeight = String(!mine && g.type === 'resize' && a[2] - a[0] === t[2] - t[0]);
+    const w = el.dataset.isMatchingWidth === 'true', h = el.dataset.isMatchingHeight === 'true';
+    anyW ||= w; anyH ||= h;
+    const marks = g.marks?.[o.id];
+    if (marks) setMarks(marks, { near: !mine && gapC <= 1 && gapR <= 1, w, h });
   }
+  setMarks(g.tind, { w: anyW, h: anyH });
+  // The center line turns solid yellow when the target is centered (GUIDES.json).
+  g.line?.classList.toggle('is-centered', t[1] + t[3] === 2 * CENTER_LINE);
+}
+
+function setMarks(el, { near = false, w = false, h = false }) {
+  if (!el) return;
+  el.classList.toggle('is-near', near);
+  el.classList.toggle('is-match-w', w);
+  el.classList.toggle('is-match-h', h);
+}
+
+// A layer with the marks of GUIDES.json: two nested borders and four end ticks.
+function marksLayer(fe, cls, area, z) {
+  const el = layer(fe, `fe-marks ${cls}`, area, z);
+  el.innerHTML = '<i class="fe-marks-in"></i><i class="fe-tick is-l"></i><i class="fe-tick is-r"></i><i class="fe-tick is-t"></i><i class="fe-tick is-b"></i>';
+  return el;
 }
 
 function clearFlags(sid) {
@@ -439,7 +464,7 @@ function showGrid(sid, rowCount) {
   const frag = doc.createDocumentFragment();
   for (let r = 1; r <= rowCount; r++) {
     const row = doc.createElement('div');
-    row.className = 'fe-grid-row';
+    row.className = gesture?.shownRows ? 'fe-grid-row' : 'fe-grid-row is-fresh';
     row.style.gridArea = `${r} / 2 / ${r + 1} / ${LAST_LINE[bp] - 1}`;
     for (let c = 0; c < COLS[bp]; c++) {
       const cell = doc.createElement('div');
@@ -592,20 +617,32 @@ function prepare(e, type, extra = {}) {
   fe.style.gridAutoRows = `${g.m.rowMin}px`;
   showGrid(g.sid, s.rows[bp]);
   g.original = layer(fe, 'fe-original-position', g.orig);
+  fe.classList.add('is-gesture');
+  // parity/findings/GUIDES.json: the target ring on top of everything, and the center line of the
+  // section behind the blocks. Phones have no center line.
+  g.tind = marksLayer(fe, 'fe-transform-indicator', g.orig);
+  if (bp === 'desktop') {
+    g.line = doc.createElement('div');
+    g.line.className = 'fe-center-line';
+    const section = fe.closest('section');
+    section.insertBefore(g.line, section.querySelector(':scope > .content-wrapper'));
+  }
+  if (type === 'resize') {
+    g.marks = {};
+    for (const o of s.blocks) if (o.id !== g.bid) g.marks[o.id] = marksLayer(fe, 'is-other', lay(o).area, 100000 + lay(o).z);
+  }
   // The flags show from the first move, also on a drag too short to change the target (T0004).
   flagNeighbours(g, g.target);
+  drawSelection();
+  placeChrome();
   return g;
 }
 
 function beginMove(e) {
   const g = prepare(e, 'move');
-  const b = B(g.sid, g.bid);
-  drawSelection();
-  g.tind = layer(feEl(g.sid), 'fe-transform-indicator', g.orig);
   g.more = (sel?.more || []).map((id) => ({ id, orig: [...lay(B(g.sid, id)).area] }));
   const el = blockEl(g.bid);
   el.classList.add('is-dragging');
-  g.z = lay(b).z;
 }
 
 function updateMove(e) {
@@ -624,7 +661,24 @@ function updateMove(e) {
   const nc0 = nearest(1, LAST_LINE[bp] - w, (c) => m.colStart[c - 1] - left);
   // Uniform pitch, also past the last row (traces T0013, T0014).
   const nr0 = Math.max(1, Math.round((y - top) / m.pitch) + 1);
-  const t = [nr0, nc0, nr0 + h, nc0 + w];
+  let t = [nr0, nc0, nr0 + h, nc0 + w];
+  // Center snap (G5, parity/findings/GUIDES.json): a block of an odd width cannot center on the
+  // center line, so within half a column of it the target takes one more column and is centered.
+  // The block shows the wider size, and a drop keeps it. Not for a group or on phones.
+  let wide = false;
+  if (bp === 'desktop' && !g.more.length && w % 2) {
+    const blockWidth = m.colEnd[c1 - 2] - m.colStart[c0 - 1];
+    const q = fe.getBoundingClientRect();
+    if (Math.abs(left + blockWidth / 2 - (q.left + q.right) / 2) <= (m.colStart[2] - m.colStart[1]) / 2) {
+      const cs = CENTER_LINE - (w + 1) / 2;
+      t = [nr0, cs, nr0 + h, cs + w + 1];
+      wide = true;
+    }
+  }
+  if (wide !== !!g.wide) {
+    g.wide = wide;
+    blockEl(g.bid).style.gridColumnEnd = wide ? String(c1 + 1) : '';
+  }
   // Other selected blocks move by the same number of rows and columns.
   for (const o of g.more || []) {
     const dr = nr0 - r0, dc = nc0 - c0;
@@ -634,15 +688,17 @@ function updateMove(e) {
   }
   if (!same(t, g.target)) {
     g.target = t;
-    setArea(g.tind, t);
-    flagNeighbours(g, t);
+    // A group has one ring around all its blocks (GUIDES.json).
+    const all = [t, ...g.more.map((o) => o.target)];
+    const box = [Math.min(...all.map((a) => a[0])), Math.min(...all.map((a) => a[1])), Math.max(...all.map((a) => a[2])), Math.max(...all.map((a) => a[3]))];
+    setArea(g.tind, box);
+    flagNeighbours(g, box);
     if (t[2] - 1 > g.shownRows) showGrid(g.sid, t[2] - 1);
   }
 }
 
 function startResize(e, dir) {
-  const g = prepare(e, 'resize', { dir });
-  g.ind = feEl(g.sid).querySelector('.fe-indicator');
+  prepare(e, 'resize', { dir });
 }
 
 function updateResize(e) {
@@ -672,9 +728,8 @@ function updateResize(e) {
   }
   const t = [r0, c0, r1, c1];
   g.target = t;
+  setArea(g.tind, t);
   flagNeighbours(g, t);
-  const ind = fe.querySelector('.fe-indicator');
-  if (ind) setArea(ind, t);
   if (t[2] - 1 > g.shownRows) showGrid(g.sid, t[2] - 1);
 }
 
@@ -686,7 +741,9 @@ function endGesture() {
   fe.dataset.gridIsVisible = 'false';
   fe.style.gridAutoRows = '';
   clearFlags(g.sid);
-  for (const el of fe.querySelectorAll('.fe-grid-row, .fe-original-position, .fe-transform-indicator')) el.remove();
+  fe.classList.remove('is-gesture');
+  g.line?.remove();
+  for (const el of fe.querySelectorAll('.fe-grid-row, .fe-original-position, .fe-marks')) el.remove();
   for (const o of g.more || []) { const el2 = blockEl(o.id); if (el2) el2.style.transform = ''; }
   const el = blockEl(g.bid);
   if (el) {

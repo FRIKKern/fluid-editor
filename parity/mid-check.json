@@ -1,7 +1,7 @@
 {
-  "check": "mid-gesture flags",
-  "pass": 13,
-  "total": 13,
+  "check": "mid-gesture flags, guides and center snap",
+  "pass": 25,
+  "total": 25,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -65,6 +65,68 @@
     },
     {
       "trace": "T0024-alt-drag",
+      "pass": true,
+      "diffs": []
+    }
+  ],
+  "guides": [
+    {
+      "name": "paragraph dx 340",
+      "pass": true,
+      "diffs": []
+    },
+    {
+      "name": "paragraph dx 352",
+      "pass": true,
+      "diffs": []
+    },
+    {
+      "name": "paragraph dx 370",
+      "pass": true,
+      "diffs": []
+    },
+    {
+      "name": "paragraph dx 400",
+      "pass": true,
+      "diffs": []
+    },
+    {
+      "name": "paragraph dx 410",
+      "pass": true,
+      "diffs": []
+    },
+    {
+      "name": "paragraph dx 420",
+      "pass": true,
+      "diffs": []
+    },
+    {
+      "name": "paragraph dx 470",
+      "pass": true,
+      "diffs": []
+    },
+    {
+      "name": "paragraph drop",
+      "pass": true,
+      "diffs": []
+    },
+    {
+      "name": "shape to the center",
+      "pass": true,
+      "diffs": []
+    },
+    {
+      "name": "shape west -11",
+      "pass": true,
+      "diffs": []
+    },
+    {
+      "name": "shape west -12",
+      "pass": true,
+      "diffs": []
+    },
+    {
+      "name": "shape west -13",
       "pass": true,
       "diffs": []
     }
