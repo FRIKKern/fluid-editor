@@ -224,8 +224,11 @@ function save() {
   writeFileSync(file, JSON.stringify({ ...report, states }, null, 2) + '\n');
 }
 viewport(O, 1600, 1000);
-await oVisible();
-await oEnsureDemo();
+// The tab can go hidden again while the page opens; clicks on a hidden tab do nothing.
+for (let k = 1; ; k++) {
+  await oVisible();
+  try { await oEnsureDemo(); break; } catch (e) { if (k === 3 || /unsaved/.test(e.message)) throw e; console.log(`  ${e.message}; trying again`); }
+}
 viewport(O, 1600, 1000);
 for (const [name, what, oDrive, uDrive] of STATES) {
   if (only.length && !only.includes(name)) continue;
