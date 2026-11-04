@@ -52,6 +52,14 @@ npm run visual-diff -- --shots <dir>  per state, the canvas pixels that differ, 
 npm run publish-review -- --shots <dir>   the same, with screenshot pairs, as a Barkpark paper
 ```
 
+To ask the oracle one question, use one command. It never saves, and it leaves through Exit Without Saving:
+
+```
+ORACLE_SURFACE=cdp:<port> node scripts/oracle-capture.mjs --list     the questions in scripts/oracle/recipes.mjs
+ORACLE_SURFACE=cdp:<port> node scripts/oracle-capture.mjs CAP-LINK   writes parity/findings/CAP-LINK.json
+... --again to replace a finding, SHOTS=<dir> for screenshots, --name X --steps '[...]' for a new question
+```
+
 `npm run review` runs all four in order.
 
 Every gap is matched against `parity/items.json`. An item lists the oracle labels it covers in `controls`; a gap no item lists or names is UNTRACKED, and a new item is due.
