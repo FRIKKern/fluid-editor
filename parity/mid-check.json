@@ -1,11 +1,11 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 55,
+  "pass": 64,
   "known": [
     "group south by 4",
     "group drop n 0,-1"
   ],
-  "total": 57,
+  "total": 66,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -282,6 +282,42 @@
     },
     {
       "name": "group move forward",
+      "diffs": []
+    },
+    {
+      "name": "marquee 29px is no box",
+      "diffs": []
+    },
+    {
+      "name": "marquee 30px is a box",
+      "diffs": []
+    },
+    {
+      "name": "marquee held outlines only, then the toolbar",
+      "diffs": []
+    },
+    {
+      "name": "marquee follows the box while held",
+      "diffs": []
+    },
+    {
+      "name": "marquee starts in the section padding",
+      "diffs": []
+    },
+    {
+      "name": "marquee into the next section stays in this one",
+      "diffs": []
+    },
+    {
+      "name": "marquee over nothing keeps a selection",
+      "diffs": []
+    },
+    {
+      "name": "marquee over a block replaces it on release",
+      "diffs": []
+    },
+    {
+      "name": "marquee a click clears it",
       "diffs": []
     }
   ]

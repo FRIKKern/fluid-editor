@@ -1,7 +1,7 @@
 // X2: hold each recorded drag and resize in our editor and compare what the blocks say while held
 // with the trace's mid state: near, matching width and height, selected, the grid in one section.
 // G5, G6: then hold what parity/findings/GUIDES.json measured and compare the target area, the
-// ring box, the center line and the width of the held block. X8: then the group handles.
+// ring box, the center line and the width of the held block. X8, X13: the group handles, the marquee.
 // Runs on headless Chrome. Writes parity/mid-check.json. Usage: npm run mid-check.
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, waitFor } from './lib/cmux.mjs';
@@ -177,10 +177,45 @@ groupCases.push({ name: 'group move forward', ...(() => {
   const diffs = [JSON.stringify(got.before) !== '[false,true,"1,2,3"]' && `before ${got.before}`, JSON.stringify(got.after) !== '[true,false,"2,3,1"]' && `after ${got.after}`].filter(Boolean);
   return { diffs };
 })() });
+// X13: the marquee, on the same section. Empty space is left of the blocks and below the paragraph.
+const marqueeRun = (startY, moves, withP = false) => evalJs(S, `(async () => { ${FRAME}
+  const clear = () => { for (const t of [document, d]) t.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); };
+  const [h, p, shape] = s.blocks; const block = (b) => d.querySelector('.fe-block[data-block-id="' + b.id + '"]');
+  block(h).scrollIntoView({ block: 'center' }); await sleep(150); clear();
+  if (${withP}) fe.select(s.id, p.id);
+  const R = (b) => block(b).getBoundingClientRect();
+  const sec = block(h).closest('section').getBoundingClientRect(); const x0 = R(h).left - 40;
+  const at = { below: R(p).bottom + 40, padding: sec.top + 10, shape: R(shape).bottom + 20 }, pts = { p: [R(p).left + 60, R(p).bottom - 10], shape: [R(shape).left + 40, R(shape).bottom - 10], next: [x0 + 80, sec.bottom + 200], near: [x0 + 29, null], far: [x0 + 30, null], empty: [x0 + 30, R(p).bottom + 80], h: [R(h).left + 40, R(h).top + 20] };
+  const start = ${JSON.stringify(startY)} === 'shape' ? [R(shape).left - 30, at.shape] : [x0, at[${JSON.stringify(startY)}]];
+  const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 };
+  const box = () => { const e = d.querySelector('.fe-marquee'); return e ? W.getComputedStyle(e).outlineWidth : null; };
+  const ids = () => { const k = (id) => ['heading', 'paragraph', 'shape'][s.blocks.findIndex((b) => b.id === id)] || 'other'; return [...d.querySelectorAll('.fe-block[data-is-selected="true"]')].map((e) => k(e.dataset.blockId)).sort().join(); };
+  const y0 = W.scrollY; const steps = [];
+  const el = d.elementFromPoint(start[0], start[1]);
+  el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, clientX: start[0], clientY: start[1], buttons: 1 }));
+  for (const name of ${JSON.stringify(moves)}) {
+    const q = pts[name]; d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: q[0], clientY: q[1] ?? start[1], buttons: 1 }));
+    await sleep(30);
+    steps.push({ name, box: box(), ids: ids(), toolbar: !document.getElementById('block-toolbar').hidden });
+  }
+  d.dispatchEvent(new W.PointerEvent('pointerup', { ...o, clientX: 0, clientY: 0, buttons: 0 })); await sleep(50);
+  const out = { steps, after: ids(), toolbar: !document.getElementById('block-toolbar').hidden, boxAfter: box(), scrolled: W.scrollY !== y0 };
+  clear();
+  return JSON.stringify(out); })()`);
+const mq = (name, got, want) => groupCases.push({ name: `marquee ${name}`, diffs: Object.entries(want).filter(([k, v]) => JSON.stringify(k.split('.').reduce((a, b) => a?.[b], got)) !== JSON.stringify(v)).map(([k, v]) => `${k}: oracle ${JSON.stringify(v)}, ours ${JSON.stringify(k.split('.').reduce((a, b) => a?.[b], got))}`) });
+mq('29px is no box', marqueeRun('below', ['near']), { 'steps.0.box': null, after: '' });
+mq('30px is a box', marqueeRun('below', ['far']), { 'steps.0.box': '3px', 'steps.0.toolbar': false });
+mq('held outlines only, then the toolbar', marqueeRun('below', ['p']), { 'steps.0.ids': 'paragraph', 'steps.0.toolbar': false, after: 'paragraph', toolbar: true, boxAfter: null });
+mq('follows the box while held', marqueeRun('below', ['p', 'empty', 'h', 'empty']), { 'steps.0.ids': 'paragraph', 'steps.1.ids': '', 'steps.2.ids': 'heading,paragraph', 'steps.3.ids': '', after: '' });
+mq('starts in the section padding', marqueeRun('padding', ['h']), { 'steps.0.box': '3px', after: 'heading' });
+mq('into the next section stays in this one', marqueeRun('below', ['next']), { 'steps.0.box': '3px', 'steps.0.ids': '', after: '', scrolled: false });
+mq('over nothing keeps a selection', marqueeRun('below', ['empty'], true), { 'steps.0.ids': 'paragraph', after: 'paragraph' });
+mq('over a block replaces it on release', marqueeRun('shape', ['shape'], true), { 'steps.0.ids': 'paragraph,shape', after: 'shape' });
+mq('a click clears it', marqueeRun('below', [], true), { after: '' });
 const groupFails = groupCases.filter((c) => c.diffs.length && !c.known);
 const groupKnown = groupCases.filter((c) => c.known);
 for (const c of groupFails) console.log(`DIFF ${c.name}\n  ${c.diffs.join('\n  ')}`);
 for (const c of groupKnown) if (!c.diffs.length) { console.log(`Known miss gone: ${c.name}`); groupFails.push(c); }
-console.log(`Group resize: ${groupCases.length - groupFails.length - groupKnown.length} of ${groupCases.length} match, ${groupKnown.length} named known miss`);
+console.log(`Group resize and marquee: ${groupCases.length - groupFails.length - groupKnown.length} of ${groupCases.length} match, ${groupKnown.length} named known miss`);
 writeFileSync(new URL('../parity/mid-check.json', import.meta.url), JSON.stringify({ check: 'mid-gesture flags, guides, center snap and group resize', pass: pass + guidePass + groupCases.length - groupFails.length - groupKnown.length, known: groupKnown.map((c) => c.name), total: traces.length + groupCases.length + cases.length, results, guides: guideResults, groups: groupCases }, null, 2) + '\n');
 process.exit(pass === traces.length && guidePass === cases.length && !groupFails.length ? 0 : 1);
