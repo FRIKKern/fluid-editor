@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 31 changes
+- **Today** · 32 changes
+  - Stroke, Thickness, Corner and Padding on the text block Design tab ([#89](https://github.com/FRIKKern/fluid-editor/pull/89))
   - Button style menu ([#88](https://github.com/FRIKKern/fluid-editor/pull/88))
-  - U4: record Pin ([#87](https://github.com/FRIKKern/fluid-editor/pull/87))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
