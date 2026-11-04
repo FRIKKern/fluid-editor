@@ -44,7 +44,7 @@ The old readings were WebKit with a 17px scrollbar, so a canvas was 1583px wide.
 | Gate B, contact | 57 of 65: the form block at 375, 767, 768, 1280 (below) |
 | section-check | 35 of 35 |
 | design-edit-check | 10 of 10 |
-| Gate C | 22 of 23: T0005, a real bug (G4) |
+| Gate C | 23 of 23, after fixing a real bug T0005 found (G4) |
 | chrome-check | 86 of 88: section 7 Add Section (U10) |
 
 The first Gate B run in Chrome, 352 of 365, found three real CSS bugs, all fixed here: a button wraps its text (`white-space: normal`, 50 not 41.4 tall at 768), the burger keeps the browser's button padding (37 not 40, so the phone header is 129.16 not 132.16), and `overflow-wrap: break-word` comes from the body ("email@example.com" in a 138.5px block is 67.2 tall, not 44.8). A screenshot then found a fourth that no check saw: at 768 the demo hero button is 158 wide in a 138.5 block, 10px over on each side, and ours was 138.5. Fixed, and Gate B now also compares the button inside each block, so its totals rose by one per button.
