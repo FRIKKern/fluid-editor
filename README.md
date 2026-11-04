@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 25 changes
+- **Today** · 26 changes
+  - Hide on desktop and Hide on mobile ([#83](https://github.com/FRIKKern/fluid-editor/pull/83))
   - Section row handle ([#82](https://github.com/FRIKKern/fluid-editor/pull/82))
-  - Site Styles panel ([#81](https://github.com/FRIKKern/fluid-editor/pull/81))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
