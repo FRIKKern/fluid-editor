@@ -7,16 +7,25 @@
       "name": "idle",
       "what": "Edit mode, nothing selected",
       "oracle": 10,
-      "present": 9,
+      "present": 8,
       "missing": [
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "U12"
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -27,30 +36,8 @@
       "name": "section-hover",
       "what": "Pointer over a section",
       "oracle": 20,
-      "present": 15,
+      "present": 16,
       "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Add Section",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U9"
-          ],
-          "outOfScope": []
-        },
         {
           "kind": "control",
           "role": "button",
@@ -74,13 +61,22 @@
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Save Section",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "U9"
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -90,28 +86,8 @@
     {
       "name": "section-design",
       "what": "Edit Section, Design tab",
-      "oracle": 19,
-      "present": 18,
-      "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "DesignBackgroundColors",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U9"
-          ],
-          "outOfScope": []
-        }
-      ],
-      "error": null
-    },
-    {
-      "name": "section-background",
-      "what": "Edit Section, Background tab",
-      "oracle": 18,
-      "present": 12,
+      "oracle": 23,
+      "present": 20,
       "missing": [
         {
           "kind": "control",
@@ -125,13 +101,42 @@
           "outOfScope": []
         },
         {
+          "kind": "text",
+          "label": "How Fluid Engine works",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "section-background",
+      "what": "Edit Section, Background tab",
+      "oracle": 22,
+      "present": 16,
+      "missing": [
+        {
           "kind": "control",
-          "role": "radio",
-          "label": "Image",
+          "role": "button",
+          "label": "DesignBackgroundColors",
           "where": "top",
           "status": "tracked",
           "items": [
-            "U5"
+            "U9"
           ],
           "outOfScope": []
         },
@@ -169,13 +174,22 @@
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Add an Image",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "P5"
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -185,8 +199,8 @@
     {
       "name": "section-colors",
       "what": "Edit Section, Colors tab",
-      "oracle": 17,
-      "present": 9,
+      "oracle": 21,
+      "present": 18,
       "missing": [
         {
           "kind": "control",
@@ -200,79 +214,22 @@
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "a",
-          "label": "Color Theme Editor",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "P5"
+            "O1"
           ],
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "AaLightest 1",
+          "kind": "text",
+          "label": "Page · Published",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "P5"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "AaLightest 2",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "P5"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "AaLight 1",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "P5"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "AaLight 2",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "P5"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "AaBright 1",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "P5"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "AaBright 2",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "P5"
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -283,16 +240,25 @@
       "name": "add-block-menu",
       "what": "Add Block menu of a section",
       "oracle": 26,
-      "present": 20,
+      "present": 19,
       "missing": [
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "U12"
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
           ],
           "outOfScope": []
         },
@@ -350,6 +316,7 @@
             "U10"
           ],
           "outOfScope": [
+            "T2",
             "U5"
           ]
         }
@@ -359,31 +326,9 @@
     {
       "name": "layers",
       "what": "Layers panel of a section",
-      "oracle": 22,
-      "present": 17,
+      "oracle": 24,
+      "present": 20,
       "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Add Section",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U9"
-          ],
-          "outOfScope": []
-        },
         {
           "kind": "control",
           "role": "button",
@@ -407,13 +352,22 @@
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Save Section",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "U9"
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -424,16 +378,25 @@
       "name": "text-selected",
       "what": "A text block selected",
       "oracle": 19,
-      "present": 18,
+      "present": 17,
       "missing": [
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "U12"
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -444,19 +407,8 @@
       "name": "text-writing",
       "what": "Writing in a text block, a word selected",
       "oracle": 27,
-      "present": 21,
+      "present": 24,
       "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
         {
           "kind": "control",
           "role": "button",
@@ -471,46 +423,22 @@
           ]
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Text Color",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "E4"
+            "O1"
           ],
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "checkbox",
-          "label": "Scaled Text",
+          "kind": "text",
+          "label": "Page · Published",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "E4"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Text Highlight",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "E4"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Link",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "E4"
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -521,19 +449,8 @@
       "name": "text-edit-design",
       "what": "Text block Edit panel, Design tab",
       "oracle": 23,
-      "present": 20,
+      "present": 19,
       "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
         {
           "kind": "control",
           "role": "button",
@@ -555,6 +472,26 @@
             "T15"
           ],
           "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "How Fluid Engine works",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
+          ],
+          "outOfScope": []
         }
       ],
       "error": null
@@ -563,19 +500,8 @@
       "name": "text-edit-animation",
       "what": "Text block Edit panel, Animation tab",
       "oracle": 17,
-      "present": 11,
+      "present": 10,
       "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
         {
           "kind": "control",
           "role": "button",
@@ -622,6 +548,26 @@
         },
         {
           "kind": "text",
+          "label": "How Fluid Engine works",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
           "label": "Triggers",
           "where": "top",
           "status": "tracked",
@@ -637,16 +583,25 @@
       "name": "shape-selected",
       "what": "A shape block selected",
       "oracle": 17,
-      "present": 16,
+      "present": 15,
       "missing": [
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "U12"
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -657,19 +612,8 @@
       "name": "shape-edit",
       "what": "Shape block Edit panel",
       "oracle": 21,
-      "present": 16,
+      "present": 15,
       "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
         {
           "kind": "control",
           "role": "button",
@@ -694,6 +638,26 @@
         },
         {
           "kind": "text",
+          "label": "How Fluid Engine works",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
           "label": "Styling",
           "where": "top",
           "status": "tracked",
@@ -712,7 +676,8 @@
             "T6",
             "T15",
             "L5",
-            "L6"
+            "L6",
+            "U2"
           ],
           "outOfScope": []
         }
@@ -723,16 +688,25 @@
       "name": "button-selected",
       "what": "A button block selected",
       "oracle": 17,
-      "present": 16,
+      "present": 15,
       "missing": [
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "U12"
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -743,19 +717,8 @@
       "name": "button-edit",
       "what": "Button block Edit panel",
       "oracle": 17,
-      "present": 15,
+      "present": 14,
       "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
         {
           "kind": "control",
           "role": "button",
@@ -766,6 +729,26 @@
             "U13"
           ],
           "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "How Fluid Engine works",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
+          ],
+          "outOfScope": []
         }
       ],
       "error": null
@@ -774,38 +757,25 @@
       "name": "group-selected",
       "what": "Two blocks selected with Shift",
       "oracle": 17,
-      "present": 14,
+      "present": 15,
       "missing": [
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "U12"
+            "O1"
           ],
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Move Forward",
+          "kind": "text",
+          "label": "Page · Published",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "Z2"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Move Backward",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "Z2"
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -816,183 +786,33 @@
       "name": "block-context-menu",
       "what": "Right-click on a selected block",
       "oracle": 10,
-      "present": 3,
-      "missing": [
-        {
-          "kind": "text",
-          "label": "Copy",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U11"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Paste",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U11"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Copy Properties",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U11"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Paste Properties",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U11"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Arrange",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U11"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Hide on desktop",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U11"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Hide on mobile",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U11"
-          ],
-          "outOfScope": []
-        }
-      ],
+      "present": 10,
+      "missing": [],
       "error": null
     },
     {
       "name": "phone-idle",
       "what": "Phone layout, nothing selected",
-      "oracle": 18,
-      "present": 9,
+      "oracle": 10,
+      "present": 8,
       "missing": [
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "U12"
+            "O1"
           ],
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Add Section",
+          "kind": "text",
+          "label": "Page · Published",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "U9"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Open Layers Panel",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "Z4"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Open Section Settings",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U9"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Duplicate Section",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U9"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Save Section",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U9"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Move Section Up",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U9"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Move Section Down",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U9"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Remove Section",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U9"
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -1003,16 +823,25 @@
       "name": "phone-text-selected",
       "what": "Phone layout, a text block selected",
       "oracle": 18,
-      "present": 17,
+      "present": 16,
       "missing": [
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "U12"
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -1026,13 +855,12 @@
       "present": 6,
       "missing": [
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Reload page preview",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "U6"
+            "O1"
           ],
           "outOfScope": []
         },
@@ -1053,270 +881,15 @@
       "name": "add-section-menu",
       "what": "Add Section on a section edge",
       "oracle": 25,
-      "present": 0,
-      "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Close",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Add a Section",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Add Blank",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Saved",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Introduce",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Intro",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "About",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Contact",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Team",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "FAQs",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Sell",
-          "where": "top",
-          "status": "out of scope",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": [
-            "U5"
-          ]
-        },
-        {
-          "kind": "text",
-          "label": "Products",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Services",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Group Events",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Content & Memberships",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Scheduling",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U5",
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Donations",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Showcase",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Images",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Portfolio",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Testimonials",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Videos",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Calendar",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Menus",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "text",
-          "label": "Audio",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U10"
-          ],
-          "outOfScope": []
-        }
-      ],
+      "present": 25,
+      "missing": [],
       "error": null
     },
     {
       "name": "view-layouts",
       "what": "View Layouts of a section",
-      "oracle": 7,
-      "present": 6,
+      "oracle": 11,
+      "present": 8,
       "missing": [
         {
           "kind": "control",
@@ -1328,6 +901,26 @@
             "U10"
           ],
           "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "How Fluid Engine works",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
+          ],
+          "outOfScope": []
         }
       ],
       "error": null
@@ -1336,19 +929,8 @@
       "name": "button-link",
       "what": "Link popover of a button block",
       "oracle": 26,
-      "present": 16,
+      "present": 15,
       "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
         {
           "kind": "control",
           "role": "button",
@@ -1407,6 +989,15 @@
         {
           "kind": "control",
           "role": "option",
+          "label": "Blocks Probe/blocks-probe",
+          "where": "top",
+          "status": "UNTRACKED",
+          "items": [],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "option",
           "label": "How Fluid Engine works/how-fluid-engine-works",
           "where": "top",
           "status": "tracked",
@@ -1416,13 +1007,22 @@
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "option",
-          "label": "Home/home",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "E7"
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
           ],
           "outOfScope": []
         },
@@ -1452,20 +1052,9 @@
     {
       "name": "phone-section-hover",
       "what": "Phone layout, pointer over a section",
-      "oracle": 18,
-      "present": 14,
+      "oracle": 19,
+      "present": 15,
       "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
         {
           "kind": "control",
           "role": "button",
@@ -1478,24 +1067,32 @@
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Save Section",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "U9"
+            "O1"
           ],
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Add Section",
+          "kind": "text",
+          "label": "Page · Published",
           "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Text",
+          "where": "frame",
           "status": "tracked",
           "items": [
-            "U9"
+            "U5"
           ],
           "outOfScope": []
         }
@@ -1506,19 +1103,8 @@
       "name": "text-style-menu",
       "what": "Writing, the Text Style menu open",
       "oracle": 35,
-      "present": 29,
+      "present": 32,
       "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
         {
           "kind": "control",
           "role": "button",
@@ -1533,46 +1119,22 @@
           ]
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Text Color",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "E4"
+            "O1"
           ],
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "checkbox",
-          "label": "Scaled Text",
+          "kind": "text",
+          "label": "Page · Published",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "E4"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Text Highlight",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "E4"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Link",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "E4"
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -1583,19 +1145,8 @@
       "name": "text-align-menu",
       "what": "Writing, the Text Alignment menu open",
       "oracle": 31,
-      "present": 25,
+      "present": 28,
       "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
         {
           "kind": "control",
           "role": "button",
@@ -1610,46 +1161,22 @@
           ]
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Text Color",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "E4"
+            "O1"
           ],
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "checkbox",
-          "label": "Scaled Text",
+          "kind": "text",
+          "label": "Page · Published",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "E4"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Text Highlight",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "E4"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Link",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "E4"
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -1660,19 +1187,8 @@
       "name": "text-link",
       "what": "Writing, the Link popover open",
       "oracle": 27,
-      "present": 21,
+      "present": 24,
       "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
         {
           "kind": "control",
           "role": "button",
@@ -1687,46 +1203,22 @@
           ]
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Text Color",
+          "kind": "text",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "E4"
+            "O1"
           ],
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "checkbox",
-          "label": "Scaled Text",
+          "kind": "text",
+          "label": "Page · Published",
           "where": "top",
-          "status": "tracked",
+          "status": "mentioned",
           "items": [
-            "E4"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Text Highlight",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "E4"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Link",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "E4"
+            "Y3"
           ],
           "outOfScope": []
         }
@@ -1737,19 +1229,8 @@
       "name": "text-color",
       "what": "Writing, the Text Color popover open",
       "oracle": 29,
-      "present": 21,
+      "present": 24,
       "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
         {
           "kind": "control",
           "role": "button",
@@ -1762,50 +1243,6 @@
           "outOfScope": [
             "E4"
           ]
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Text Color",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "E4"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "checkbox",
-          "label": "Scaled Text",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "E4"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Text Highlight",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "E4"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Link",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "E4"
-          ],
-          "outOfScope": []
         },
         {
           "kind": "control",
@@ -1828,6 +1265,26 @@
             "E4"
           ],
           "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "How Fluid Engine works",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "O1"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
+          ],
+          "outOfScope": []
         }
       ],
       "error": null
@@ -1836,129 +1293,8 @@
       "name": "site-styles",
       "what": "Site Styles panel (top bar)",
       "oracle": 21,
-      "present": 8,
+      "present": 18,
       "missing": [
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Close",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Themes style pack popover",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Fonts style pack popover",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Open Fonts style disclosure",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Colors style pack popover",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Open Colors style disclosure",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Buttons style pack popover",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Open Buttons style disclosure",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Toggle Forms style pack popover",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Open Forms style disclosure",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Miscellaneous",
-          "where": "top",
-          "status": "tracked",
-          "items": [
-            "U12"
-          ],
-          "outOfScope": []
-        },
         {
           "kind": "control",
           "role": "button",
@@ -1972,16 +1308,23 @@
         },
         {
           "kind": "text",
-          "label": "Site Styles",
+          "label": "How Fluid Engine works",
           "where": "top",
-          "status": "out of scope",
+          "status": "mentioned",
           "items": [
-            "U6",
-            "U12"
+            "O1"
           ],
-          "outOfScope": [
-            "U12"
-          ]
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Page · Published",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "Y3"
+          ],
+          "outOfScope": []
         }
       ],
       "error": null

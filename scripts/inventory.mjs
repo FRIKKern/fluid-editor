@@ -11,7 +11,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { browser, evalJs, goto, viewport, pause, waitFor, screenshot, requireSameEngine } from './lib/cmux.mjs';
 import { BUTTON } from './oracle/snippets.mjs';
 import { trackedBy } from './lib/coverage.mjs';
-import { select, click, escape, deselect, hoverSection, blockIds } from './oracle/ui.mjs';
+import { select, click, escape, deselect, hoverSection, openSectionPanel, blockIds } from './oracle/ui.mjs';
 import { BASE } from './lib/base.mjs';
 
 const args = process.argv.slice(2);
@@ -69,7 +69,8 @@ const oframe = `const f = document.getElementById('sqs-site-frame'); const d = f
 const oSave = () => evalJs(O, `(() => JSON.stringify([...document.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Save')?.disabled))()`);
 const oCmuxClick = async (find, wait = 1500) => { try { await click(find, { wait }); return true; } catch { return false; } };
 const oByLabel = (label, maxW = 2000) => `() => [...document.querySelectorAll('button, [role=button], [role=tab]')].find((x) => [x.getAttribute('aria-label'), x.textContent.trim()].includes(${JSON.stringify(label)}) && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().width < ${maxW})`;
-const oSectionButton = (i, re) => `() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => ${re}.test((x.getAttribute('aria-label') || '') + ' ' + x.textContent) && x.getBoundingClientRect().width > 0).find((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 70 && y <= fr.top + sec.bottom; }); }`;
+// The toolbar of the section above can show too; this section's own button is the lowest in range.
+const oSectionButton = (i, re) => `() => { const f = document.getElementById('sqs-site-frame'); const fr = f.getBoundingClientRect(); const sec = f.contentDocument.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return [...document.querySelectorAll('button')].filter((x) => ${re}.test((x.getAttribute('aria-label') || '') + ' ' + x.textContent) && x.getBoundingClientRect().width > 0).filter((x) => { const y = x.getBoundingClientRect().top; return y >= fr.top + sec.top - 70 && y <= fr.top + sec.bottom; }).at(-1); }`;
 // The editor must be in edit mode on the demo page. If it is on another page, or out of
 // edit mode (a panel or the preview took over), go back the way a person would: Exit (only
 // when nothing is unsaved), the page in the sidebar, then Edit.
@@ -186,9 +187,9 @@ const S2 = 2; // the demo section with a heading, a paragraph and a shape
 const STATES = [
   ['idle', 'Edit mode, nothing selected', async () => {}, ''],
   ['section-hover', 'Pointer over a section', async () => { await oHover(S2); }, `await hover(${S2})`],
-  ['section-design', 'Edit Section, Design tab', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/edit section|open section settings/i'), 1800); }, `await hover(${S2}); await press('#section-chrome [data-sc="edit"]')`],
-  ['section-background', 'Edit Section, Background tab', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/edit section|open section settings/i'), 1800); await oCmuxClick(oByLabel('Background'), 1200); }, `await hover(${S2}); await press('#section-chrome [data-sc="edit"]'); await press('#section-panel [data-sact="tab"][data-v="Background"]')`],
-  ['section-colors', 'Edit Section, Colors tab', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/edit section|open section settings/i'), 1800); await oCmuxClick(oByLabel('Colors'), 1200); }, `await hover(${S2}); await press('#section-chrome [data-sc="edit"]'); await press('#section-panel [data-sact="tab"][data-v="Colors"]')`],
+  ['section-design', 'Edit Section, Design tab', async () => { await openSectionPanel(S2); await pause(600); }, `await hover(${S2}); await press('#section-chrome [data-sc="edit"]')`],
+  ['section-background', 'Edit Section, Background tab', async () => { await openSectionPanel(S2); await pause(600); await oCmuxClick(oByLabel('Background'), 1200); }, `await hover(${S2}); await press('#section-chrome [data-sc="edit"]'); await press('#section-panel [data-sact="tab"][data-v="Background"]')`],
+  ['section-colors', 'Edit Section, Colors tab', async () => { await openSectionPanel(S2); await pause(600); await oCmuxClick(oByLabel('Colors'), 1200); }, `await hover(${S2}); await press('#section-chrome [data-sc="edit"]'); await press('#section-panel [data-sact="tab"][data-v="Colors"]')`],
   ['add-block-menu', 'Add Block menu of a section', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/^\\s*add block\\s*$/i'), 1500); }, `await hover(${S2}); await press('#section-chrome [data-sc="add-block"]')`],
   ['layers', 'Layers panel of a section', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/open layers panel/i'), 1500); }, `await hover(${S2}); await press('#section-chrome [data-sc="layers"]')`],
   ['text-selected', 'A text block selected', async () => { await select(S2, blockIds(S2)[1]); }, `await pick(${S2}, 1)`],
