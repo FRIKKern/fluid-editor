@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 27 changes
+- **Today** · 28 changes
+  - Marquee selection on empty canvas ([#85](https://github.com/FRIKKern/fluid-editor/pull/85))
   - Arrange submenu in the block menu ([#84](https://github.com/FRIKKern/fluid-editor/pull/84))
-  - Hide on desktop and Hide on mobile ([#83](https://github.com/FRIKKern/fluid-editor/pull/83))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
