@@ -856,16 +856,17 @@ function onPaste(e) {
 let designOpen = null;
 let designTab = 'Design';
 let blendOpen = false;
+let animPicker = false;
 const blockPanel = $('block-panel');
 function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
-  if (!b) { blendOpen = false; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!b) { animPicker = false; blendOpen = false; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   const content = b.type === 'button' ? { label: b.label, href: b.href } : null;
   if (!content && designTab === 'Content') designTab = 'Design';
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false } : null;
-  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, blendOpen ? 'blend' : null, shape);
+  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : null), shape);
   placeBlockPanel();
   blockPanel.hidden = false;
 }
@@ -879,6 +880,8 @@ function placeBlockPanel() {
   blockPanel.style.top = `${p.top}px`;
 }
 blockPanel.addEventListener('click', (e) => {
+  const an = e.target.closest('[data-anim]');
+  if (an) { animPicker = an.dataset.anim === 'add'; renderBlockPanel(); return; }
   if (e.target.closest('[data-blend-toggle]')) { blendOpen = !blendOpen; renderBlockPanel(); return; }
   const ds = e.target.closest('[data-dset]');
   if (ds && sel) { setDesign(ds.dataset.dset, ds.dataset.v || null); return; }
