@@ -5,18 +5,20 @@
 html { overflow-anchor: none; }
 .fluid-engine.is-editing { isolation: isolate; }
 .fluid-engine.is-editing .fe-block { cursor: grab; touch-action: none; transition: opacity 0.1s cubic-bezier(0.66, 0, 0.34, 1); }
-/* Same-size blocks during a resize (G5), measured as an attribute on the oracle; the look is ours. */
-.fluid-engine.is-editing .fe-block[data-is-matching-width="true"],
-.fluid-engine.is-editing .fe-block[data-is-matching-height="true"] { outline: 1px dashed rgb(2, 122, 255); }
 .fluid-engine.is-editing .fe-block:hover { outline: 1px solid rgba(17, 105, 247, 0.55); }
 .fluid-engine.is-editing .fe-block.is-text-editing { cursor: text; outline: 2px solid #1169f7; }
-.fluid-engine.is-editing .fe-block.is-dragging { cursor: grabbing; z-index: 100001 !important; opacity: 0.92; }
+/* A held block keeps its z-index and full opacity (parity/findings/GUIDES.json); while held everything shows the grabbing cursor. */
+.fluid-engine.is-editing.is-gesture, .fluid-engine.is-editing.is-gesture * { cursor: grabbing !important; }
+.fluid-engine.is-editing.is-gesture .fe-block:hover { outline: none; }
 .fluid-engine.is-editing [contenteditable="true"] { outline: none; }
 
 .fe-grid-row {
   display: grid; grid-template-columns: subgrid;
   pointer-events: none; z-index: -1;
+  opacity: 0.65;
 }
+.fe-grid-row.is-fresh, .fe-center-line { animation: fe-fade-in 0.1s ease-in; }
+@keyframes fe-fade-in { from { opacity: 0; } }
 .fe-grid-cell {
   border: 1px solid #b7b7b7; border-radius: 3px; background: #f2f2f240;
 }
@@ -38,8 +40,32 @@ html { overflow-anchor: none; }
 .fe-handle[data-dir="sw"] { left: 0; top: 100%; cursor: sw-resize; }
 .fe-handle[data-dir="w"]  { left: 0; top: 50%; cursor: col-resize; }
 
-.fe-original-position { pointer-events: none; outline: 1px dashed #1169f7; }
-.fe-transform-indicator { pointer-events: none; background: rgba(17, 105, 247, 0.16); outline: 1px solid #1169f7; z-index: 100000; }
+.fe-original-position { pointer-events: none; }
+
+/* The marks of a held gesture, parity/findings/GUIDES.json. Two nested borders on a layer in the
+   block's grid area, and four 16 by 3px ticks at the ends of a yellow bar. Width match: yellow along
+   the top, ticks up at both ends. Height match: yellow along the left, ticks out at both ends. */
+.fe-marks { position: relative; box-sizing: border-box; border: 3px solid transparent; pointer-events: none; }
+.fe-marks-in { position: absolute; inset: -2px; border: 2px solid transparent; }
+.fe-tick { position: absolute; display: none; background: rgb(255, 184, 2); }
+.fe-marks.is-match-w, .fe-marks.is-match-w > .fe-marks-in { border-top-color: rgb(255, 184, 2); }
+.fe-marks.is-match-h, .fe-marks.is-match-h > .fe-marks-in { border-left-color: rgb(255, 184, 2); }
+.fe-marks.is-match-w > .is-l, .fe-marks.is-match-w > .is-r { display: block; top: -9px; width: 3px; height: 16px; }
+.fe-marks.is-match-w > .is-l { left: -3px; }
+.fe-marks.is-match-w > .is-r { right: -3px; }
+.fe-marks.is-match-h > .is-t, .fe-marks.is-match-h > .is-b { display: block; left: -9px; width: 16px; height: 3px; }
+.fe-marks.is-match-h > .is-t { top: -3px; }
+.fe-marks.is-match-h > .is-b { bottom: -3px; }
+.fe-marks.is-near { box-shadow: 0 0 0 1px rgba(2, 122, 255, 0.49), 0 0 0 2px rgba(72, 148, 255, 0.7); }
+/* The target: 3px outside the area, 1px rgb(72, 148, 255) around 2px rgb(2, 122, 255). */
+.fe-transform-indicator { margin: -3px; z-index: 99999; border-color: rgb(72, 148, 255); }
+.fe-transform-indicator > .fe-marks-in { border-color: rgb(2, 122, 255); }
+.fe-transform-indicator.is-match-w, .fe-transform-indicator.is-match-w > .fe-marks-in { border-top-color: rgb(255, 184, 2); }
+.fe-transform-indicator.is-match-h, .fe-transform-indicator.is-match-h > .fe-marks-in { border-left-color: rgb(255, 184, 2); }
+
+/* The section's center line while a block is held (G6): behind the blocks; solid yellow and on top when the target is centered. */
+.fe-center-line { position: absolute; top: 0; bottom: 0; left: calc(50% - 1px); border-left: 2px dashed rgb(2, 122, 255); opacity: 0.65; pointer-events: none; }
+.fe-center-line.is-centered { left: calc(50% - 1.5px); border-left: 2px solid rgb(255, 184, 2); border-right: 1px solid rgb(255, 215, 2); opacity: 1; z-index: 999999; }
 
 /* Placeholders of empty embed and video blocks, editor only (parity/findings/T10.json, T7.json). */
 .fluid-engine .sqs-embed-container .sqs-blockStatus { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; height: 100%; background: rgba(0, 0, 0, 0.06); font: 12px/1.4 system-ui, sans-serif; color: #333; text-transform: none; }
