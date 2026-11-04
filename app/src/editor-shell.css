@@ -287,3 +287,15 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 /* The panel header is the drag handle (U13): a layer across the top, under the tabs. */
 .bp-drag { position: absolute; left: 0; top: 0; right: 0; height: 71px; cursor: grab; }
 .block-panel .sp-tabs { position: relative; cursor: grab; }
+
+/* Text Color popover (parity/findings/TEXTCOLOR.json): 254 by 123, two 115 by 55 tabs, five
+   34px swatches 49px apart starting 12px in; placed by the editor under the button. */
+.tx-colors { width: 254px; height: 123px; padding: 0 6px; box-sizing: border-box; }
+.tx-ctabs { display: flex; border-bottom: 1px solid #e7e7e7; }
+.tx-ctab { width: 115px; height: 55px; border: 0; background: none; font: 14px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #6f6f6f; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tx-ctab.is-on { color: #0e0e0e; font-weight: 500; border-bottom-color: #0e0e0e; }
+.tx-swatches { display: flex; gap: 15px; padding: 16px 0 0 6px; }
+.tx-swatch { position: relative; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; }
+.tx-swatch span { position: absolute; inset: 0; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12); }
+.tx-swatch input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.tx-swatch:has(input:checked) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px #0e0e0e; }

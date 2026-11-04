@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | SECTIONBAR [sections json] | UNBUILT [names json] | BUTTONEDIT | TEXTLINK | BLEND [section] [block] [options json] | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | SECTIONBAR [sections json] | UNBUILT [names json] | BUTTONEDIT | TEXTLINK | TEXTCOLOR | BLEND [section] [block] [options json] | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -511,6 +511,64 @@ if (which === 'TEXTBAR') {
   let n = 0; while (n < 5 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(800); }
   if (saveDisabled() !== true) throw new Error('The probe changed the page; it must stay read only');
   write('TEXTBAR', { question: 'Which controls does the text formatting toolbar offer, and what do its menus hold?', block: [i, k], bar, menus });
+}
+
+if (which === 'TEXTCOLOR') {
+  // E4: Text Color and Text Highlight on a selected word. Read the Text Color popover, pick each
+  // palette color, then apply Text Highlight; read the HTML after each and undo until Save is
+  // disabled again (O1).
+  const [i, k] = [2, 1];
+  const id = blockIds(i)[k];
+  const HTML = `(() => { ${FRAME} const blk = d.querySelector('.fe-block[data-block-id="${id}"]'); const c = blk.querySelector('.ProseMirror') || blk.querySelector('.sqs-html-content'); return JSON.stringify(c.innerHTML.replace(/ data-rte-preserve-empty="true"/g, '').replace(/ style="white-space:pre-wrap;"/g, '').replace(/ class="([^"]*)"/g, (m, v) => (/sqsrte|preFade|fade|text-align/.test(v) ? m : '')).slice(0, 700)); })()`;
+  const startWrite = async () => {
+    await select(i, id); await pause(900);
+    await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Write' && x.getBoundingClientRect().width > 0)`, { wait: 1500 });
+    evalJs(S, `(() => { ${FRAME} const pm = d.querySelector('.fe-block[data-block-id="${id}"] .ProseMirror'); pm.focus(); const p = pm.querySelector('p'); const t = p.firstChild; const r = d.createRange(); r.setStart(t, 0); r.setEnd(t, t.textContent.indexOf(' ')); const sel = W.getSelection(); sel.removeAllRanges(); sel.addRange(r); d.dispatchEvent(new W.Event('selectionchange')); return 'true'; })()`);
+    await pause(900);
+  };
+  const undoAll = async () => { await escape(); await escape(); let n = 0; while (n < 6 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); } await deselect(i); return n; };
+  const BTN = (label) => `() => [...document.querySelectorAll('button, [role=button]')].find((e) => e.getAttribute('aria-label') === ${JSON.stringify(label)} && e.getBoundingClientRect().width > 0)`;
+  // The popover: the smallest visible element that holds the Palette tab and swatches.
+  const POP = `(() => { const tab = [...document.querySelectorAll('[role=tab], button')].find((e) => e.textContent.trim() === 'Palette' && e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'));
+    if (!tab) return JSON.stringify(null); let p = tab; while (p.parentElement && p.querySelectorAll('button, [role=radio], [role=option]').length < 6) p = p.parentElement; const r = p.getBoundingClientRect(); const vis = (e) => e.getBoundingClientRect().width > 0;
+    const sw = [...p.querySelectorAll('button, [role=radio], [role=option]')].filter((e) => vis(e) && e !== tab && e.textContent.trim() !== 'Custom');
+    sw.forEach((e, n) => { e.dataset.fxSw = String(n); });
+    return JSON.stringify({ box: [r.x, r.y, r.width, r.height].map(Math.round), text: [...new Set([...p.querySelectorAll('*')].filter((e) => vis(e) && e.childElementCount === 0 && e.textContent.trim()).map((e) => e.textContent.trim()))].slice(0, 30),
+      swatches: sw.map((e) => { const q = e.getBoundingClientRect(); const c = getComputedStyle(e.querySelector('*') || e); return { label: e.getAttribute('aria-label') || e.title || e.textContent.trim(), role: e.getAttribute('role'), checked: e.getAttribute('aria-checked') || e.getAttribute('aria-pressed'), bg: getComputedStyle(e).backgroundColor, inner: c.backgroundColor, box: [q.x, q.y, q.width, q.height].map(Math.round) }; }) }); })()`;
+  if (saveDisabled() !== true) throw new Error('The oracle has unsaved changes; stopping (O1)');
+  const out = { block: [i, k] };
+  await startWrite();
+  out.base = evalJs(S, HTML);
+  await undoAll();
+  const open = async (label) => { await startWrite(); await click(BTN(label), { wait: 1500 }); };
+  // Text Color: a Palette tab of five checkboxes named after the site colors, and Custom.
+  await open('Text Color');
+  out.colorPopover = evalJs(S, `(() => { const tab = [...document.querySelectorAll('[role=tab]')].find((e) => e.textContent.trim() === 'Palette' && e.getBoundingClientRect().width > 0); if (!tab) return JSON.stringify(null);
+    let p = tab; while (p.parentElement && p.getBoundingClientRect().height < 110) p = p.parentElement; const r = p.getBoundingClientRect();
+    return JSON.stringify({ box: [r.x, r.y, r.width, r.height].map(Math.round), tabs: [...p.querySelectorAll('[role=tab]')].map((e) => e.textContent.trim()),
+      swatches: [...p.querySelectorAll('input')].map((e) => { const q = e.getBoundingClientRect(); return { label: e.getAttribute('aria-label'), type: e.type, checked: e.checked, color: getComputedStyle(e.previousElementSibling || e.parentElement).backgroundColor, box: [q.x, q.y, q.width, q.height].map(Math.round) }; }) }); })()`);
+  out.colorButton = evalJs(S, `(() => { const b = (${BTN('Text Color')})(); const r = b.getBoundingClientRect(); return JSON.stringify([r.x, r.y, r.width, r.height].map(Math.round)); })()`);
+  console.log('color popover', JSON.stringify(out.colorPopover).slice(0, 600));
+  await undoAll();
+  out.colors = {};
+  for (const name of (out.colorPopover?.swatches || []).map((x) => x.label)) {
+    try {
+      await open('Text Color');
+      await click(`() => document.querySelector('input[aria-label="${name}"]')`, { wait: 1500 });
+      out.colors[name] = { html: evalJs(S, HTML), color: evalJs(S, `(() => { ${FRAME} const sp = d.querySelector('.fe-block[data-block-id="${id}"] .ProseMirror p span'); return JSON.stringify(sp ? W.getComputedStyle(sp).color : null); })()`), changed: saveDisabled() !== true };
+    } catch (e) { out.colors[name] = { error: String(e.message).slice(0, 100) }; }
+    out.colors[name].undoSteps = await undoAll();
+    console.log(name, JSON.stringify(out.colors[name]).slice(0, 300));
+  }
+  // Text Highlight applies at once; no popover opened in the first run.
+  try {
+    await open('Text Highlight');
+    out.highlight = { html: evalJs(S, HTML), color: evalJs(S, `(() => { ${FRAME} const sp = d.querySelector('.fe-block[data-block-id="${id}"] .ProseMirror .sqsrte-text-highlight'); if (!sp) return JSON.stringify(null); const c = W.getComputedStyle(sp); return JSON.stringify({ color: c.color, background: c.backgroundColor, backgroundImage: c.backgroundImage }); })()`), changed: saveDisabled() !== true };
+  } catch (e) { out.highlight = { error: String(e.message).slice(0, 100) }; }
+  out.highlight.undoSteps = await undoAll();
+  console.log('highlight', JSON.stringify(out.highlight).slice(0, 400));
+  if (saveDisabled() !== true) throw new Error('The probe left unsaved changes');
+  write('TEXTCOLOR', { question: 'What do Text Color and Text Highlight offer, and what HTML does a pick write?', ...out });
 }
 
 if (which === 'TEXTLINK') {
