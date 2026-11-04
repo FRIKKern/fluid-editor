@@ -35,7 +35,7 @@ const READ = `(() => {
       const kind = b.querySelector('[data-sqsp-block]')?.dataset.sqspBlock || 'unknown';
       const out = { id: [...b.classList].find((c) => c.startsWith('fe-block-')).slice(9), kind };
       if (kind === 'text') out.html = b.querySelector('.sqs-html-content')?.innerHTML.trim() || '';
-      if (kind === 'button') { const a = b.querySelector('a, button'); out.label = a?.textContent.trim(); out.href = a?.getAttribute('href') || '#'; out.style = pick(a, ['backgroundColor', 'color', 'borderRadius', 'fontSize', 'fontFamily', 'fontWeight', 'letterSpacing', 'paddingTop', 'paddingLeft', 'height', 'width']); out.align = W.getComputedStyle(b.querySelector('.sqs-block-content') || b).textAlign; }
+      if (kind === 'button') { const a = b.querySelector('a, button'); out.label = a?.textContent.trim(); if (a?.getAttribute('href')) out.href = a.getAttribute('href'); // no link stays absent: the oracle writes href="" (parity/findings/BUTTONEDIT.json) out.style = pick(a, ['backgroundColor', 'color', 'borderRadius', 'fontSize', 'fontFamily', 'fontWeight', 'letterSpacing', 'paddingTop', 'paddingLeft', 'height', 'width']); out.align = W.getComputedStyle(b.querySelector('.sqs-block-content') || b).textAlign; }
       if (kind === 'image') { const img = b.querySelector('img'); out.alt = img?.getAttribute('alt') || ''; const fig = b.querySelector('.sqs-image, .fluid-image-container, figure'); out.radius = fig ? W.getComputedStyle(b.querySelector('.fluid-image-container, .sqs-image-content, figure') || fig).borderRadius : null; }
       if (kind === 'form') {
         out.fields = [...b.querySelectorAll('form .form-item')].map((it) => {

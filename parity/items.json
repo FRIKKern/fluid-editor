@@ -326,7 +326,7 @@
     "milestone": "M2",
     "status": "partial",
     "title": "Button block: sizes, styles, stretch",
-    "evidence": "Button fills its block height (59px at 768, 61.6px at 1280), 56px side padding, Poppins 500 16px. Sizes small and large not measured. Found in the editor screenshot comparison 2026-11-03: the demo hero button fills its block on the oracle (x 92 to 375), ours was narrower and centred (x 130 to 336); the button element and its content box now fill the block (width and height), also when the block centres its content on phones, from that one measured block (283 by 71). Measured 2026-11-04 by hand on the oracle: the button toolbar has Edit, Open link editor popover, Pin, Duplicate and Remove; Edit opens a panel on a Content tab (Text, Link with Attach link) next to Design and Animation. Our Edit opens Design only",
+    "evidence": "Button fills its block height (59px at 768, 61.6px at 1280), 56px side padding, Poppins 500 16px. Sizes small and large not measured. Found in the editor screenshot comparison 2026-11-03: the demo hero button fills its block on the oracle (x 92 to 375), ours was narrower and centred (x 130 to 336); the button element and its content box now fill the block (width and height), also when the block centres its content on phones, from that one measured block (283 by 71). Measured 2026-11-04 by hand on the oracle: the button toolbar has Edit, Open link editor popover, Pin, Duplicate and Remove; Edit opens a panel on a Content tab (Text, Link with Attach link) next to Design and Animation. Our Edit opens Design only. Built 2026-11-04 from parity/findings/BUTTONEDIT.json: our button Edit opens on Content (Text field, Link with Attach link, then the link with Edit, Copy and Remove Link) beside Design and Animation; a new text replaces the text of the link, and a button without a link renders href=\"\" as on the oracle (the importer no longer turns it into #). Tested in headless Chrome: text, attach, remove and undo",
     "controls": [
       "Content",
       "Attach link",
@@ -1158,9 +1158,9 @@
     "id": "E7",
     "area": "Text editing",
     "milestone": "M5",
-    "status": "open",
+    "status": "partial",
     "title": "Link editor for buttons and text",
-    "evidence": "The button link control opens a link editor with a URL field (Enter link, search, or add files) and the site pages grouped under Main Navigation and Hidden Navigation, each shown as name and path, e.g. Services/services. Ours has none. Not measured: what the text toolbar Link opens, and the HTML a chosen link writes. Labels from the gap review of 2026-11-04 (docs/MISSING.md).",
+    "evidence": "The button link control opens a link editor with a URL field (Enter link, search, or add files) and the site pages grouped under Main Navigation and Hidden Navigation, each shown as name and path, e.g. Services/services. Ours has none. Not measured: what the text toolbar Link opens, and the HTML a chosen link writes. Labels from the gap review of 2026-11-04 (docs/MISSING.md). Built for the button Content tab (parity/findings/BUTTONEDIT.json): Attach link and Edit open our popover 342px left of the panel, 61px above the field, with the URL tab, the field, Clear selected page and the header pages as name and path; Enter or a page sets the href, one undo step each. Not built: Open link in new tab (its HTML is not measured), Hidden Navigation pages, file links, the toolbar link button and the text toolbar Link",
     "controls": [
       "URL",
       "Enter link, search, or add files",

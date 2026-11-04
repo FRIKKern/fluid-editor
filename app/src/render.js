@@ -127,7 +127,7 @@ function blockInner(b, model) {
     case 'text':
       return `<div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-html-content">${b.html}</div></div></div>`;
     case 'button':
-      return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-alignment-wrapper"><div class="sqs-block-content"><a class="sqs-block-button-element" href="${escapeHtml(b.href || '#')}">${escapeHtml(b.label)}</a></div></div></div>`;
+      return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-alignment-wrapper"><div class="sqs-block-content"><a class="sqs-block-button-element" href="${escapeHtml(b.href || '')}">${escapeHtml(b.label)}</a></div></div></div>`;
     case 'shape': {
       const style = `--shape-fill:${b.fill || 'var(--accent)'};--shape-radius:${b.radius || '0'};--shape-ink:${b.ink || 'inherit'}`;
       const label = b.label ? `<span class="sqs-shape-label">${escapeHtml(b.label)}</span>` : '';
