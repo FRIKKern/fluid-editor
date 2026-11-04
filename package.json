@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "python3 -m http.server 5178 --bind 127.0.0.1 --directory app",
+    "dev": "node scripts/serve.mjs 5178",
     "check": "node scripts/check-render.mjs && node scripts/check-design.mjs && node scripts/check-items.mjs && node scripts/check-traces.mjs && node scripts/check-docs.mjs",
     "fixtures": "node scripts/extract-fixtures.mjs",
     "parity": "node scripts/generate-parity.mjs",
