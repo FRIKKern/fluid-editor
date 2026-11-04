@@ -193,7 +193,19 @@ function strokeRows(d, stack = false) {
   return html;
 }
 
-export function blockPanelHtml(d, tab, content = null, open = null, shape = null, image = null, stack = null) {
+const BUTTON_STYLES = [['primary', 'Primary Button'], ['secondary', 'Secondary Button'], ['tertiary', 'Tertiary Button']];
+function buttonDesignHtml(c, open) {
+  const aa = '<span class="bp-bs-aa">Aa</span>';
+  const name = BUTTON_STYLES.find(([k]) => k === c.style)[1];
+  const list = !open ? '' : `<div class="bp-bs-list" role="listbox" aria-label="Button style">${BUTTON_STYLES.map(([k, n]) => `<button type="button" role="option" class="bp-bs-opt" aria-selected="${k === c.style}" data-bpstyle="${k}">${aa}<span>${n}</span>${k === c.style ? pi('<path d="M5 12.5l4.5 4.5L19 7.5"/>') : ''}</button>`).join('')}<button type="button" class="bp-bs-edit" data-bpstyle-edit>Edit Button Styles</button></div>`;
+  const seg = (key, v, label, on, inner) => `<button type="button" role="radio" class="sp-seg sp-txt${on ? ' is-on' : ''}" aria-checked="${on}" data-btn-set="${key}" data-v="${v}" aria-label="${label}">${inner}</button>`;
+  const line = (l, body) => `<div class="sp-row bp-btn-row"><span class="sp-label">${l}</span><span class="sp-ctl">${body}</span></div>`;
+  return `<div class="bp-bs-title">Button style</div><div class="bp-bs-wrap"><button type="button" class="bp-bs-cur" data-bpstyle-toggle aria-haspopup="listbox" aria-expanded="${open}">${aa}<span>${name}</span>${pi('<path d="M7 10l5 5 5-5"/>')}</button>${list}</div>`
+    + line('Layout', seg('fit', '1', 'Fit', c.fit, 'Fit') + seg('fit', '', 'Fill', !c.fit, 'Fill'))
+    + (c.fit ? line('Alignment', [['left', 'Align Left', '<path d="M5 5v14M19 12H9M13 8l-4 4 4 4"/>'], ['center', 'Align Center', '<path d="M12 5v14M4 12h5M6.5 9.5L9 12l-2.5 2.5M20 12h-5M17.5 9.5L15 12l2.5 2.5"/>'], ['right', 'Align Right', '<path d="M19 5v14M5 12h10M11 8l4 4-4 4"/>']].map(([v, l, icon]) => seg('align', v, l, c.align === v, pi(icon))).join('')) : '');
+}
+
+export function blockPanelHtml(d, tab, content = null, open = null, shape = null, image = null, stack = null, button = null) {
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
@@ -229,6 +241,9 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       + row('Blur', sw('blur', d.blur, 'Blur'))
       + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
       + pairs.join('');
+    // A button's Design tab (parity/findings/BUTTONDESIGN.json): Button style, Layout, Alignment
+    // on Fit, the transforms.
+    else if (button) body = buttonDesignHtml(button, open === 'bstyle') + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>${pairs.join('')}`;
     // An image's Design tab (parity/findings/IMAGEMODES.json) opens with Fit, Fill and Shape.
     else if (image) {
       const seg = (m, l) => `<button type="button" role="radio" class="bp-mode${image.mode === m ? ' is-on' : ''}" aria-checked="${image.mode === m}" aria-label="${l}" data-image-mode="${m}">${l}</button>`;

@@ -35,7 +35,7 @@ const READ = `(() => {
       const kind = b.querySelector('[data-sqsp-block]')?.dataset.sqspBlock || 'unknown';
       const out = { id: [...b.classList].find((c) => c.startsWith('fe-block-')).slice(9), kind };
       if (kind === 'text') out.html = b.querySelector('.sqs-html-content')?.innerHTML.trim() || '';
-      if (kind === 'button') { const a = b.querySelector('a, button'); out.label = a?.textContent.trim(); if (a?.getAttribute('href')) out.href = a.getAttribute('href'); // no link stays absent: the oracle writes href="" (parity/findings/BUTTONEDIT.json) out.style = pick(a, ['backgroundColor', 'color', 'borderRadius', 'fontSize', 'fontFamily', 'fontWeight', 'letterSpacing', 'paddingTop', 'paddingLeft', 'height', 'width']); out.align = W.getComputedStyle(b.querySelector('.sqs-block-content') || b).textAlign; }
+      if (kind === 'button') { const a = b.querySelector('a, button'); out.label = a?.textContent.trim(); if (a?.getAttribute('href')) out.href = a.getAttribute('href'); // no link stays absent: the oracle writes href="" (parity/findings/BUTTONEDIT.json) out.style = pick(a, ['backgroundColor', 'color', 'borderRadius', 'fontSize', 'fontFamily', 'fontWeight', 'letterSpacing', 'paddingTop', 'paddingLeft', 'height', 'width']); out.align = W.getComputedStyle(b.querySelector('.sqs-block-content') || b).textAlign; const view = (sys) => { const k = b.querySelector('.sqs-button-block-container-system_' + sys); if (!k) return null; const o = {}; if (!k.classList.contains('sqs-stretched')) o.fit = true; const al = [...k.classList].find((c) => /--(left|right)$/.test(c)); if (al) o.align = al.split('--')[1]; return o; }; const dv = view('desktop'), mv = view('mobile'); if (dv) { if (dv.fit) out.fit = true; if (dv.align) out.halign = dv.align; } if (mv) out.btnMobile = mv; }
       if (kind === 'image') { const img = b.querySelector('img'); out.alt = img?.getAttribute('alt') || ''; const fig = b.querySelector('.sqs-image, .fluid-image-container, figure'); out.radius = fig ? W.getComputedStyle(b.querySelector('.fluid-image-container, .sqs-image-content, figure') || fig).borderRadius : null; }
       if (kind === 'form') {
         out.fields = [...b.querySelectorAll('form .form-item')].map((it) => {
@@ -113,7 +113,7 @@ for (const [where, list] of [['sections', snap.sections], ['footer', snap.footer
       const g = byId[b.id];
       if (!g) throw new Error(`block ${b.id}: in the DOM but not in the section CSS`);
       const content = b.kind === 'text' ? { type: 'text', html: b.html }
-        : b.kind === 'button' ? { type: 'button', label: b.label, href: b.href }
+        : b.kind === 'button' ? { type: 'button', label: b.label, href: b.href, ...(b.fit ? { fit: true } : {}), ...(b.halign ? { halign: b.halign } : {}), ...(b.btnMobile ? { btnMobile: b.btnMobile } : {}) }
         : b.kind === 'shape' ? { type: 'shape', fill: b.fill || '#fff', radius: '0' }
         : b.kind === 'social-links' ? { type: 'social', count: b.count, align: b.align }
         : b.kind === 'image' ? { type: 'image', alt: b.alt, radius: b.radius }
