@@ -49,6 +49,21 @@ function blendRow(cur, open) {
   return `<div class="bp-blend-wrap"><div class="sp-row bp-blend" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="${open}" data-blend-toggle><span class="sp-label">Blend Mode</span><span class="bp-blend-value">${name}</span></div>${list}</div>`;
 }
 
+// Stroke (parity/findings/STROKE.json): No, Solid and Dashed Stroke; with a stroke, Stroke Color
+// (not built), Thickness S/M/L, Corner and Padding S/M/L.
+function strokeRows(d) {
+  const seg = (key, val, label, on, icon) => `<button type="button" role="radio" class="sp-seg${on ? ' is-on' : ''}" aria-checked="${on}" data-dset="${key}" data-v="${val}" aria-label="${label}">${icon}</button>`;
+  const cur = d.stroke || '';
+  let html = `<div class="sp-row"><span class="sp-label">Stroke</span><span class="sp-ctl">${seg('stroke', '', 'No Stroke', !cur, pi('<circle cx="12" cy="12" r="7"/><path d="M7 17L17 7"/>'))}${seg('stroke', 'solid', 'Solid Stroke', cur === 'solid', pi('<path d="M5 12h14"/>'))}${seg('stroke', 'dashed', 'Dashed Stroke', cur === 'dashed', pi('<path d="M4 12h3M10.5 12h3M17 12h3"/>'))}</span></div>`;
+  if (!cur) return html;
+  const sml = (key, def, labels) => ['S', 'M', 'L'].map((k, n) => `<button type="button" role="radio" class="sp-seg sp-txt${(d[key] || def) === k ? ' is-on' : ''}" aria-checked="${(d[key] || def) === k}" data-dset="${key}" data-v="${k}" aria-label="${labels ? labels[n] : k}">${k}</button>`).join('');
+  html += `<div class="sp-row"><span class="sp-label">Stroke Color</span><span class="sp-ctl"><button type="button" class="bp-swatch" data-unbuilt disabled aria-label="Stroke Color"></button></span></div>`
+    + `<div class="sp-row"><span class="sp-label">Thickness</span><span class="sp-ctl">${sml('strokeSize', 'S')}</span></div>`
+    + `<div class="sp-row"><span class="sp-label">Corner</span><span class="sp-ctl"><label class="bp-box"><input type="number" data-design="corner" aria-label="Corner" min="0" max="500" value="${d.corner || 0}"><span class="bp-unit">px</span></label></span></div>`
+    + `<div class="sp-row"><span class="sp-label">Padding</span><span class="sp-ctl">${sml('pad', 'M', ['small block background padding', 'medium block background padding', 'large block background padding'])}</span></div>`;
+  return html;
+}
+
 export function blockPanelHtml(d, tab, content = null, open = null, shape = null) {
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
@@ -77,7 +92,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
       + pairs.join('');
     else body = row('Background', sw('background', d.background, 'Background'))
-      + row('Stroke', `<span class="sp-ctl" data-unbuilt title="Not built yet">${['No stroke', 'Solid stroke', 'Dashed stroke'].map((l, k) => `<button type="button" class="sp-seg${k === 0 ? ' is-on' : ''}" disabled aria-label="${l}">${pi(['<circle cx="12" cy="12" r="7"/><path d="M7 17L17 7"/>', '<path d="M5 12h14"/>', '<path d="M4 12h3M10.5 12h3M17 12h3"/>'][k])}</button>`).join('')}</span>`)
+      + strokeRows(d)
       + blendRow(d.blend || 'normal', open === 'blend')
       + row('Blur', sw('blur', d.blur, 'Blur'))
       + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`

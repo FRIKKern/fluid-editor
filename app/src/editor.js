@@ -880,6 +880,8 @@ function placeBlockPanel() {
 }
 blockPanel.addEventListener('click', (e) => {
   if (e.target.closest('[data-blend-toggle]')) { blendOpen = !blendOpen; renderBlockPanel(); return; }
+  const ds = e.target.closest('[data-dset]');
+  if (ds && sel) { setDesign(ds.dataset.dset, ds.dataset.v || null); return; }
   const o = e.target.closest('[data-blend]');
   if (o && sel) { blendOpen = false; setDesign('blend', o.dataset.blend === 'normal' ? null : o.dataset.blend); return; }
   if (blendOpen && !e.target.closest('.bp-listbox')) { blendOpen = false; renderBlockPanel(); }
@@ -1014,11 +1016,11 @@ function onDesignChange(e) {
   const d = { ...(b.design || {}) };
   if (input.type === 'checkbox') { if (input.checked) d[k] = true; else delete d[k]; }
   else {
-    const f = DESIGN_FIELDS.find((x) => x[0] === k);
+    const f = DESIGN_FIELDS.find((x) => x[0] === k) || [k, k, 'px', 0, 500];
     const v = Number(input.value);
     if (!Number.isFinite(v)) return;
     const c = Math.min(f[4], Math.max(f[3], v));
-    if (c === DESIGN_DEFAULTS[k]) delete d[k]; else d[k] = c;
+    if (c === (DESIGN_DEFAULTS[k] ?? 0)) delete d[k]; else d[k] = c;
   }
   if (Object.keys(d).length) b.design = d; else delete b.design;
   renderSectionDom(sel.sid);
