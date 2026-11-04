@@ -157,6 +157,13 @@ body.show-inspector:not(.is-replay) .panel { display: block; }
 .sp-anchor { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 10px; background: #f2f2f2; border-radius: 3px; margin-top: 6px; }
 .sp-anchor span { color: #6f6f6f; }
 .sp-anchor input { flex: 1; border: 0; background: transparent; font: inherit; }
+.sp-kinds { display: flex; gap: 4px; padding-top: 14px; }
+.sp-kind { flex: 1; }
+.sp-bgadd { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 276px; height: 120px; margin-top: 12px; border: 0; border-radius: 3px; background: #f6f6f6; color: #0e0e0e; font: 14px/18px "Helvetica Neue", Helvetica, Arial, sans-serif; cursor: pointer; }
+.sp-bgadd:hover { background: #ececec; }
+.sp-bgadd strong { font-weight: 500; }
+.sp-bgadd span { font-size: 12px; line-height: 16px; color: #6f6f6f; }
+.sp-theme-editor { display: block; padding-top: 14px; font-size: 14px; line-height: 20px; color: #0e0e0e; }
 .sp-themes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 14px; }
 .sp-theme { height: 64px; border: 1px solid #e7e7e7; border-radius: 6px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; padding: 8px 10px; cursor: pointer; font: inherit; }
 .sp-theme.is-on { outline: 2px solid #027aff; outline-offset: 1px; }

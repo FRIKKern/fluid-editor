@@ -1553,6 +1553,36 @@ panel.addEventListener('click', onSectionClick, true);
 panel.addEventListener('change', onSectionChange);
 sectionPanel.addEventListener('click', onSectionClick, true);
 sectionPanel.addEventListener('change', onSectionChange);
+// Background tab: Add an Image and Remove (P5), one undo step each; Colors tab: Color Theme Editor.
+for (const host of [panel, sectionPanel]) {
+  host.addEventListener('click', (e) => {
+    const a = e.target.closest('[data-sbg]');
+    if (!a || !secSid()) return;
+    e.preventDefault();
+    const act = a.dataset.sbg;
+    if (act === 'themes') { setSiteStyles(true); return; }
+    if (act === 'add') { host.querySelector('[data-sbg-file]').click(); return; }
+    const before = JSON.stringify(model);
+    const s = S(secSid());
+    delete s.bgImage;
+    renderSectionDom(s.id);
+    commit(before, 'Section background image removed');
+  });
+  host.addEventListener('change', async (e) => {
+    const f = e.target.closest('input[data-sbg-file]');
+    if (!f || !secSid()) return;
+    const file = f.files[0];
+    if (!file) return;
+    if (file.size > 20 * 1024 * 1024) { note('That picture is over 20 MB'); updateUi(); return; }
+    const pic = await readPicture(file).catch(() => null);
+    if (!pic) { note('That file is not a picture'); updateUi(); return; }
+    const before = JSON.stringify(model);
+    const s = S(secSid());
+    s.bgImage = pic.src;
+    renderSectionDom(s.id);
+    commit(before, 'Section background image added');
+  });
+}
 function chromeSid() { return editSid || sel?.sid || hoverSid; }
 function placeChrome() {
   const sid = chromeSid();
