@@ -1122,9 +1122,9 @@
     "id": "U12",
     "area": "Editor chrome",
     "milestone": "M5",
-    "status": "open",
+    "status": "partial",
     "title": "Site Styles panel from the top bar",
-    "evidence": "The top bar Site Styles button (Toggle Site Styles editing) opens a side panel at /config/site-styles with style packs for Themes, Fonts, Colors, Buttons and Forms, each with a popover and a disclosure, plus Miscellaneous and Close. Ours has the button but no panel. Labels from the gap review of 2026-11-04 (docs/MISSING.md).",
+    "evidence": "The top bar Site Styles button (Toggle Site Styles editing) opens a side panel at /config/site-styles with style packs for Themes, Fonts, Colors, Buttons and Forms, each with a popover and a disclosure, plus Miscellaneous and Close.  Labels from the gap review of 2026-11-04 (docs/MISSING.md). Measured 2026-11-04 (parity/findings/SITESTYLES.json, read only, 1600 by 1000 window): the editor moves into a box at 16, 71 (top bar from 16), 1264 by 923; the panel on the right has a 44px boxed Close at 1538, 22, the title Site Styles, a 276 by 144 Themes card at 1302, 138, then Fonts, Colors, Buttons and Forms cards of 226 by 104 with 44px disclosures at y 317, 432, 547 and 662, and Miscellaneous. Ours: the top bar button opens the same layout with our own fonts, palette and button drawn in the cards; the frame, Close and all five cards land on the oracle's boxes (WebKit). Not built: the style pack popovers, the disclosures and Miscellaneous (shown faded, data-unbuilt)",
     "controls": [
       "Toggle Site Styles editing",
       "Close",

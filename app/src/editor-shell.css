@@ -328,3 +328,34 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 .as-tile-wide { height: 186px; }
 .as-tile-tall { height: 240px; }
 body.is-preview .as-overlay { display: none !important; }
+
+/* Site Styles (parity/findings/SITESTYLES.json): the editor in a box 16px in from the window
+   and 320px from the right; the panel fills the right with 22px padding. */
+body.styles-open { padding: 16px 320px 6px 16px; box-sizing: border-box; background: #fff; }
+body.styles-open .bar { border-radius: 8px 8px 0 0; }
+.site-styles { position: fixed; top: 0; right: 0; bottom: 0; width: 320px; box-sizing: border-box; padding: 0 22px 24px; background: #fff; overflow-y: auto; z-index: 50; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; }
+.site-styles[hidden] { display: none; }
+.ss-close { position: absolute; right: 18px; top: 22px; width: 44px; height: 44px; border: 1px solid #0e0e0e; border-radius: 6px; background: #fff; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.ss-title { margin: 88px 0 22px; font-size: 20px; line-height: 28px; font-weight: 600; }
+.ss-card { position: relative; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 8px; width: 226px; height: 104px; padding: 11px; box-sizing: border-box; border: 0; border-radius: 0; background: #f5f5f5; text-align: left; cursor: default; font: inherit; color: inherit; }
+.ss-themes { width: 276px; height: 144px; }
+.ss-name { font-size: 12px; line-height: 16px; color: #666; }
+.ss-theme { display: flex; align-items: center; gap: 10px; width: 254px; height: 80px; padding: 0 11px; box-sizing: border-box; background: rgb(181, 100, 247); }
+.ss-aa { font: 40.7px/47px Poppins, sans-serif; color: #000; }
+.ss-strip { display: flex; }
+.ss-strip span { flex: 1; }
+.ss-strip-theme { width: 100px; height: 48px; }
+.ss-strip-colors { width: 204px; height: 48px; }
+.ss-btn { display: inline-flex; align-items: center; justify-content: center; background: #000; color: #fff; border-radius: 999px; font: 500 12px Poppins, sans-serif; }
+.ss-btn-small { height: 22px; padding: 0 12px; font-size: 8px; margin-left: auto; }
+.ss-btn-wide { height: 42px; width: 125px; align-self: center; }
+.ss-heading { font: 25px/26px Poppins, sans-serif; color: #000; }
+.ss-para { font: 12px/12px Poppins, sans-serif; color: #000; }
+.ss-form { display: flex; align-items: center; gap: 6px; width: 204px; height: 48px; padding: 0 8px; box-sizing: border-box; background: rgb(181, 100, 247); }
+.ss-input { flex: 1; height: 32px; display: flex; align-items: center; padding: 0 14px; border: 1px solid #000; border-radius: 999px; font: 12px Poppins, sans-serif; }
+.ss-check { width: 32px; height: 32px; border: 1px solid #000; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+.ss-sep { border: 0; border-top: 1px solid #e7e7e7; margin: 17px 0; }
+.ss-row { display: flex; gap: 6px; margin-bottom: 11px; }
+.ss-more { width: 44px; height: 104px; border: 0; background: #f5f5f5; color: #0e0e0e; display: inline-flex; align-items: center; justify-content: center; }
+.ss-misc { display: flex; justify-content: space-between; align-items: center; width: 276px; margin-top: 40px; padding: 0; border: 0; background: none; font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; }
+body.is-preview .site-styles { display: none !important; }
