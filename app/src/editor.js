@@ -9,6 +9,7 @@ import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHt
 import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
+import { addSectionPanelHtml, blankSection } from './add-section.js';
 import { demoModel } from './demo.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -1446,6 +1447,7 @@ chrome.addEventListener('click', (e) => {
     layersPanel.hidden = false;
     return;
   }
+  if (act === 'add-section-above' || act === 'add-section-below') { openAddSection(sid, act.endsWith('below')); return; }
   if (act === 'layouts' || act === 'save' || act.startsWith('add-section')) { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
   const before = JSON.stringify(model);
   if (act === 'up' && k > 0) [model.sections[k - 1], model.sections[k]] = [model.sections[k], model.sections[k - 1]];
@@ -1480,6 +1482,36 @@ addMenu.addEventListener('click', (e) => {
 // ---------- floating menus: Add Block, Layers, the block context menu ----------
 const layersPanel = $('layers-panel');
 const contextMenu = $('context-menu');
+// Add a Section (U10): the panel remembers where the new section goes.
+const addSectionPanel = $('add-section-panel');
+let addSectionAt = null;
+function openAddSection(sid, below) {
+  closeFloating(); closeSectionPanel();
+  addSectionAt = { sid, below };
+  addSectionPanel.innerHTML = addSectionPanelHtml();
+  addSectionPanel.hidden = false;
+  addSectionPanel.querySelector('.as-close').focus();
+}
+function closeAddSection() { addSectionPanel.hidden = true; addSectionAt = null; }
+addSectionPanel.addEventListener('click', (e) => {
+  if (e.target === addSectionPanel) { closeAddSection(); return; }
+  const a = e.target.closest('[data-as], [data-as-cat], .as-item, .as-classic');
+  if (!a) return;
+  e.preventDefault();
+  if (a.dataset.as === 'close') { closeAddSection(); return; }
+  if (a.dataset.as === 'blank' && addSectionAt) {
+    const before = JSON.stringify(model);
+    const i = model.sections.findIndex((x) => x.id === addSectionAt.sid);
+    const s = blankSection(newId());
+    model.sections.splice(i < 0 ? model.sections.length : i + (addSectionAt.below ? 1 : 0), 0, s);
+    closeAddSection();
+    commit(before, 'Added a blank section');
+    renderAll();
+    feEl(s.id)?.closest('section')?.scrollIntoView({ block: 'center' });
+  }
+});
+addSectionPanel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeAddSection(); } });
+
 function closeFloating() { addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('link-popover').hidden = true; }
 addMenu.addEventListener('input', (e) => {
   if (!e.target.matches('[data-am="search"]')) return;

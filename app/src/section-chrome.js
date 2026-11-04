@@ -51,8 +51,8 @@ export function sectionChromeHtml({ first, last, phone = false, blockSelected = 
       <div class="sc-row">${sq('duplicate', 'duplicate', 'Duplicate Section')}${sq('save', 'heart', 'Save Section').replace('class="sc-sq', 'data-unbuilt class="sc-sq')}${sq('up', 'up', 'Move Section Up', first)}${sq('down', 'down', 'Move Section Down', last)}</div>
       ${wide('remove', 'trash', 'Remove Section', 'sc-remove', 'Remove')}
     </div>
-    <button type="button" class="sc-add-section" data-sc="add-section-above" data-sc-part="add-top" aria-label="Add Section" data-unbuilt>Add Section</button>
-    <button type="button" class="sc-add-section" data-sc="add-section-below" data-sc-part="add-bottom" aria-label="Add Section" data-unbuilt>Add Section</button>`
+    <button type="button" class="sc-add-section" data-sc="add-section-above" data-sc-part="add-top" aria-label="Add Section">Add Section</button>
+    <button type="button" class="sc-add-section" data-sc="add-section-below" data-sc-part="add-bottom" aria-label="Add Section">Add Section</button>`
     .split('\n').filter((line) => !(blockSelected && /data-sc-part="(card|add-block|add-top|add-bottom)"/.test(line)) && !(phone && /data-sc-part="add-block"/.test(line))).join('\n')
     .replace('class="sc-card"', `class="sc-card${phone ? ' is-phone' : ''}"`);
 }
