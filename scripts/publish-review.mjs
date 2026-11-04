@@ -15,20 +15,30 @@ const slug = arg('slug', `fluid-editor-gap-review-${inv.capturedAt}`);
 const cfg = JSON.parse(readFileSync(`${process.env.HOME}/.config/barkpark/config.json`, 'utf8'));
 const server = cfg.server;
 
+// Uploaded files are remembered in <shots>/uploads.json, so a second publish uploads nothing
+// twice; a 429 (rate limit) waits and retries.
+const cacheFile = `${shots}/uploads.json`;
+const cache = existsSync(cacheFile) ? JSON.parse(readFileSync(cacheFile, 'utf8')) : {};
 async function upload(file) {
-  const form = new FormData();
-  form.append('file', new Blob([readFileSync(file)], { type: 'image/png' }), file.split('/').pop());
-  const res = await fetch(`${server}/media/upload?dataset=${cfg.dataset || 'production'}`, { method: 'POST', headers: { Authorization: `Bearer ${cfg.token}` }, body: form });
-  if (!res.ok) throw new Error(`upload ${file}: ${res.status}`);
-  const j = await res.json();
-  return server + j.url;
+  if (cache[file]) return cache[file];
+  for (let attempt = 0; ; attempt++) {
+    const form = new FormData();
+    form.append('file', new Blob([readFileSync(file)], { type: 'image/png' }), file.split('/').pop());
+    const res = await fetch(`${server}/media/upload?dataset=${cfg.dataset || 'production'}`, { method: 'POST', headers: { Authorization: `Bearer ${cfg.token}` }, body: form });
+    if (res.status === 429 && attempt < 8) { await new Promise((r) => setTimeout(r, 5000 * (attempt + 1))); continue; }
+    if (!res.ok) throw new Error(`upload ${file}: ${res.status}`);
+    const j = await res.json();
+    cache[file] = server + j.url;
+    writeFileSync(cacheFile, JSON.stringify(cache, null, 2));
+    return cache[file];
+  }
 }
 
 const t = (value) => ({ type: 'text', value: String(value) });
 const p = (id, value) => ({ id, type: 'paragraph', content: [t(value)] });
 const h = (id, level, text) => ({ id, type: 'heading', level, text });
 const table = (id, head, rows) => ({ id, type: 'table', head: head.map((x) => [t(x)]), rows: rows.map((r) => r.map((x) => [t(x)])) });
-const fig = (id, src, alt, caption) => ({ id, type: 'figure', child: { type: 'image', src, alt }, caption: [t(caption)] });
+const fig = (id, src, alt, caption) => ({ id, type: 'figure', child: { type: 'image', src, alt }, caption });
 
 const visual = (() => { try { return JSON.parse(readFileSync(new URL('../parity/visual.json', import.meta.url), 'utf8')); } catch { return null; } })();
 const ORDER = ['UNTRACKED', 'mentioned', 'side panel only', 'tracked', 'out of scope'];
@@ -57,7 +67,18 @@ for (const s of inv.states) {
   if (rows.length) blocks.push(table(id(), ['Missing in ours', 'Status', 'Items'], rows));
   blocks.push(p(id(), `${s.present} of ${s.oracle} oracle labels are also on our canvas; ${n(s, 'tracked')} missing ones are tracked by an item.${s.error ? ` This state did not run cleanly: ${s.error}` : ''}`));
 }
-const payload = { title: `Fluid editor gap review ${inv.capturedAt}`, blocks };
+// Barkpark requires a description and weighted tags on a published document.
+const payload = {
+  title: `Fluid editor gap review ${inv.capturedAt}`,
+  description: `What the Squarespace trial site's editor shows that our fluid editor lacks, state by state, with screenshot pairs and pixel diffs (${inv.states.length} states).`,
+  // Tags must already be registered in the workspace; these are the closest existing ones.
+  tags: [
+    { tag: 'audit', strength: 80, rationale: 'A state-by-state audit of our editor against the Squarespace trial site.' },
+    { tag: 'evidence', strength: 60, rationale: 'Screenshot pairs and pixel diffs for every gap.' },
+    { tag: 'content-ux', strength: 30, rationale: 'The gaps are editor controls and panels people use.' },
+  ],
+  blocks,
+};
 const file = `${shots}/review-payload.json`;
 writeFileSync(file, JSON.stringify(payload, null, 2));
 execFileSync('bp', ['bulldocs', 'publish', slug, '--file', file, '--yes'], { stdio: 'inherit' });

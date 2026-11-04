@@ -82,6 +82,12 @@ async function oEnsureDemo() {
   if (s.save === false) throw new Error('The oracle has unsaved changes; stopping (O1)');
   if (s.editing) await oCmuxClick(oByLabel('Exit'), 3500);
   s = oInfo();
+  // Exit can land on the dashboard: the page list with our page lives at /config/pages.
+  const linkVisible = () => evalJs(O, `(() => JSON.stringify(!![...document.querySelectorAll('*')].find((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(PAGE_TITLE)} && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().left < 400)))()`);
+  if (!s.title.includes(PAGE_TITLE) && linkVisible() !== true) {
+    goto(O, 'https://halibut-keyboard-jlhd.squarespace.com/config/pages');
+    for (let k = 0; k < 20 && linkVisible() !== true; k++) await pause(1000);
+  }
   if (!s.title.includes(PAGE_TITLE)) {
     await oCmuxClick(`() => [...document.querySelectorAll('*')].filter((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(PAGE_TITLE)} && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().left < 400)[0]`, 5000);
   }
@@ -109,6 +115,28 @@ const oShift = (i, id) => evalJs(O, `(() => { ${oframe} const b = d.querySelecto
   const o = { bubbles: true, cancelable: true, composed: true, clientX: q.left + q.width / 2, clientY: q.top + q.height / 2, button: 0, pointerId: 1, isPrimary: true, pointerType: 'mouse', view: W, shiftKey: true };
   for (const t of ['pointerdown', 'mousedown']) b.dispatchEvent(new (t.startsWith('pointer') ? W.PointerEvent : W.MouseEvent)(t, { ...o, buttons: 1 }));
   for (const t of ['pointerup', 'mouseup', 'click']) b.dispatchEvent(new (t.startsWith('pointer') ? W.PointerEvent : W.MouseEvent)(t, { ...o, buttons: 0 })); return 'true'; })()`);
+
+// Squarespace's editor ignores hovers and clicks while its tab is hidden: wait for it to be
+// on screen (up to 20 minutes) before each oracle state.
+async function oVisible() {
+  for (let k = 0; k < 80; k++) {
+    if (evalJs(O, '(() => JSON.stringify(document.visibilityState))()') === 'visible') return;
+    if (k === 0) console.log('  the oracle tab is hidden; waiting for it to be on screen');
+    await pause(15000);
+  }
+  throw new Error('the oracle tab stayed hidden for 20 minutes');
+}
+// What each state should show on the oracle once reached; a state that does not show it is
+// "not reached" and adds no gaps.
+const seen = (label) => `(() => { const L = ${JSON.stringify(label)}; const f = document.querySelector('#sqs-site-frame'); const docs = [document]; if (f && f.contentDocument) docs.push(f.contentDocument);
+  return JSON.stringify(docs.some((d) => [...d.querySelectorAll('body *')].some((e) => e.getBoundingClientRect().width > 0 && ((e.getAttribute('aria-label') || '') === L || (e.getAttribute('placeholder') || '') === L || (e.childElementCount === 0 && e.textContent.trim() === L))))); })()`;
+const EXPECT = {
+  'section-hover': 'View Layouts', 'section-design': 'Row Count', 'section-background': 'Background Width', 'section-colors': 'Lightest 1',
+  'add-block-menu': 'Essentials', layers: 'Layers', 'text-selected': 'Write', 'text-writing': 'Text Style', 'text-edit-design': 'Opacity',
+  'text-edit-animation': 'Animation', 'shape-selected': 'Pin', 'shape-edit': 'Opacity', 'button-selected': 'Pin', 'button-edit': 'Opacity',
+  'group-selected': 'Align Group', 'block-context-menu': 'Hide on desktop', 'phone-text-selected': 'Move Up', 'text-style-menu': 'Heading 1',
+  'text-align-menu': 'Text Alignment',
+};
 
 // ---------- ours ----------
 const run = (js) => evalJs(U, `(async () => { const sleep = (ms) => new Promise((r) => setTimeout(r, ms)); const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow;
@@ -202,9 +230,12 @@ for (const [name, what, oDrive, uDrive] of STATES) {
   if (only.length && !only.includes(name)) continue;
   let oList = [], uList = [], error = null, oScroll = null;
   try {
+    await oVisible();
     await oReset();
+    await oVisible();
     await oDrive();
     await pause(700);
+    if (EXPECT[name] && evalJs(O, seen(EXPECT[name])) !== true) throw new Error(`not reached: "${EXPECT[name]}" is not on screen`);
     oList = evalJs(O, COLLECT);
     oScroll = evalJs(O, `(() => JSON.stringify(document.getElementById('sqs-site-frame').contentWindow.scrollY))()`);
     shot(O, `${name}-oracle`);
