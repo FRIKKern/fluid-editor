@@ -1675,7 +1675,8 @@ chrome.addEventListener('click', (e) => {
     return;
   }
   if (act === 'add-section-above' || act === 'add-section-below') { openAddSection(sid, act.endsWith('below')); return; }
-  if (act === 'layouts' || act === 'save' || act.startsWith('add-section')) { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
+  if (act === 'save') { saveSection(sid); return; }
+  if (act === 'layouts' || act.startsWith('add-section')) { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
   const before = JSON.stringify(model);
   if (act === 'up' && k > 0) [model.sections[k - 1], model.sections[k]] = [model.sections[k], model.sections[k - 1]];
   if (act === 'down' && k < model.sections.length - 1) [model.sections[k + 1], model.sections[k]] = [model.sections[k], model.sections[k + 1]];
@@ -1801,29 +1802,59 @@ pinPop.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.ma
 // Add a Section (U10): the panel remembers where the new section goes.
 const addSectionPanel = $('add-section-panel');
 let addSectionAt = null;
+let addSectionCat = 'Intro';
+// Save Section keeps a copy of the section in this browser; Saved in Add a Section lists them
+// (U10). What the oracle's Save Section stores was not measured: it writes outside the page.
+const SAVED_KEY = 'fe-saved-sections';
+function savedSections() { try { return JSON.parse(localStorage.getItem(SAVED_KEY)) || []; } catch { return []; } }
+function writeSaved(list) { try { localStorage.setItem(SAVED_KEY, JSON.stringify(list)); return true; } catch { return false; } }
+function saveSection(sid) {
+  const s = S(sid);
+  const text = s.blocks.map((b) => b.html || '').join(' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  const name = text ? text.split(' ').slice(0, 5).join(' ') : 'Blank section';
+  note(writeSaved([...savedSections(), { id: newId(), name, section: JSON.parse(JSON.stringify(s)) }]) ? `Saved section: ${name}` : 'This browser has no room to save the section');
+  updateUi();
+}
+function renderAddSection() {
+  const nav = addSectionPanel.querySelector('.as-nav');
+  const top = nav ? nav.scrollTop : 0;
+  addSectionPanel.innerHTML = addSectionPanelHtml(addSectionCat, savedSections());
+  addSectionPanel.querySelector('.as-nav').scrollTop = top;
+}
 function openAddSection(sid, below) {
   closeFloating(); closeSectionPanel();
   addSectionAt = { sid, below };
-  addSectionPanel.innerHTML = addSectionPanelHtml();
+  addSectionCat = 'Intro';
+  addSectionPanel.innerHTML = '';
+  renderAddSection();
   addSectionPanel.hidden = false;
   addSectionPanel.querySelector('.as-close').focus();
 }
 function closeAddSection() { addSectionPanel.hidden = true; addSectionAt = null; }
 addSectionPanel.addEventListener('click', (e) => {
   if (e.target === addSectionPanel) { closeAddSection(); return; }
-  const a = e.target.closest('[data-as], [data-as-cat], .as-item, .as-classic');
+  const a = e.target.closest('[data-as], [data-as-cat], [data-as-saved], [data-as-unsave], .as-item, .as-classic');
   if (!a) return;
   e.preventDefault();
   if (a.dataset.as === 'close') { closeAddSection(); return; }
-  if (a.dataset.as === 'blank' && addSectionAt) {
+  if (a.dataset.asCat) { addSectionCat = a.dataset.asCat; renderAddSection(); return; }
+  if (a.dataset.asUnsave) { writeSaved(savedSections().filter((x) => x.id !== a.dataset.asUnsave)); renderAddSection(); return; }
+  const insert = (s, label) => {
     const before = JSON.stringify(model);
     const i = model.sections.findIndex((x) => x.id === addSectionAt.sid);
-    const s = blankSection(newId());
     model.sections.splice(i < 0 ? model.sections.length : i + (addSectionAt.below ? 1 : 0), 0, s);
     closeAddSection();
-    commit(before, 'Added a blank section');
+    commit(before, label);
     renderAll();
     feEl(s.id)?.closest('section')?.scrollIntoView({ block: 'center' });
+  };
+  if (a.dataset.as === 'blank' && addSectionAt) insert(blankSection(newId()), 'Added a blank section');
+  const saved = a.dataset.asSaved && savedSections().find((x) => x.id === a.dataset.asSaved);
+  if (saved && addSectionAt) {
+    const s = JSON.parse(JSON.stringify(saved.section));
+    s.id = newId();
+    for (const b of s.blocks) b.id = `yui_copy_${newId()}`;
+    insert(s, 'Added a saved section');
   }
 });
 addSectionPanel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeAddSection(); } });
