@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 3 changes
+- **Today** · 4 changes
+  - Inventory retries opening the demo page when the oracle tab hides ([#61](https://github.com/FRIKKern/fluid-editor/pull/61))
   - Correct the E4 undo note and the U9 Layers note ([#60](https://github.com/FRIKKern/fluid-editor/pull/60))
-  - Inventory waits for a visible oracle before opening the demo page ([#59](https://github.com/FRIKKern/fluid-editor/pull/59))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
