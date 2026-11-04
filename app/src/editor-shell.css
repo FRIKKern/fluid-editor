@@ -424,6 +424,70 @@ body.is-preview .site-styles { display: none !important; }
 /* The top bar in Site Styles: no Site Styles or Preview button; the device toggle ends 24px from the editor's right edge. */
 body.styles-open #site-styles-toggle, body.styles-open #preview, body.styles-open #reload-preview { display: none; }
 body.styles-open .bar { padding-right: 24px; }
+/* The disclosure views (parity/findings/SITESTYLES2.json): a row is 44 tall with a line under it. */
+.ss-back { position: absolute; left: 22px; top: 22px; height: 44px; display: inline-flex; align-items: center; gap: 0; padding: 0; border: 0; background: none; cursor: pointer; color: #0e0e0e; font: 500 14px/44px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.ss-back svg { width: 16px; height: 18px; flex: none; }
+.ss-preview { width: 276px; height: 144px; box-sizing: border-box; border-radius: 3px; background: #f2f2f2; display: flex; }
+.ss-preview-fonts { height: 145px; flex-direction: column; padding: 46px 24px 0; }
+.ss-preview-center { align-items: center; justify-content: center; }
+.ss-preview-center .ss-btn, .ss-bcard .ss-btn { width: 126px; }
+.ss-pv-h { font: 30px/30px Poppins, sans-serif; }
+.ss-pv-p { margin-top: 5px; font: 14px/14px Poppins, sans-serif; }
+.ss-pv-n { margin-top: 15px; font-size: 11px; line-height: 11px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; color: #666; }
+.ss-dis { display: flex; align-items: center; width: 276px; height: 44px; margin: 0; padding: 0 2px 0 0; border: 0; background: none; box-shadow: 0 1px 0 #e7e7e7; color: #0e0e0e; font: 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; text-align: left; cursor: pointer; }
+.ss-dis svg { flex: none; }
+.ss-dis-l { flex: 1; }
+.ss-dis-v { margin-right: 21px; color: #666; font-size: 14px; line-height: 22px; }
+.ss-preview + .ss-dis, .ss-form-big + .ss-dis, .ss-palette + .ss-dis { margin-top: 5px; }
+.ss-base { position: relative; width: 276px; height: 43px; margin-top: 34px; font-size: 14px; line-height: 44px; }
+.ss-base::after { content: ""; position: absolute; left: -5px; right: -5px; top: 43px; height: 1px; background: #e7e7e7; z-index: 1; }
+.ss-base-in { position: absolute; left: 176px; top: 11px; width: 20px; height: 22px; padding: 0; border: 0; font: 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; background: none; outline: 0; }
+.ss-base-px { position: absolute; left: 196px; top: 11px; line-height: 22px; color: #313131; }
+.ss-step { position: absolute; top: 0; width: 32px; height: 44px; padding: 0; border: 0; background: none; display: inline-flex; align-items: center; justify-content: center; color: #0e0e0e; cursor: pointer; }
+.ss-dec { left: 218px; } .ss-inc { left: 250px; }
+.ss-reset { display: block; width: 276px; height: 36px; padding: 0; border: 0; background: none; color: #0e0e0e; font: 500 12px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; }
+.ss-reset-fonts { margin-top: 34px; }
+.ss-reset-red { margin-top: 33px; color: rgb(195, 45, 56); }
+.ss-reset-forms { margin-top: 50px; }
+.ss-palette { width: 276px; height: 104px; margin-top: 27px; padding: 16px; box-sizing: border-box; border-radius: 3px; background: #f2f2f2; }
+.ss-strip-palette { width: 244px; height: 72px; overflow: hidden; border-radius: 3px; }
+.ss-palette[data-unbuilt], .ss-tr[data-unbuilt] { opacity: 1; }
+.ss-sub { position: relative; margin-top: 50px; height: 22px; font-size: 16px; line-height: 22px; font-weight: 500; }
+.ss-help { position: absolute; right: 0; top: -6px; width: 22px; height: 35px; padding: 0; border: 0; background: none; color: #0e0e0e; display: inline-flex; align-items: center; justify-content: center; }
+.ss-group { display: block; margin: 32px 0 11px; font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; color: #666; }
+.ss-group-2 { margin-top: 27px; }
+.ss-group-forms { margin: 34px 0 7px; line-height: 14px; }
+.ss-tr { position: relative; width: 276px; height: 44px; margin-bottom: 11px; box-sizing: border-box; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1); }
+.ss-tr:has(+ .ss-group) { margin-bottom: 0; }
+.ss-tr-aa { position: absolute; left: 38px; top: 8px; font-size: 16px; line-height: 28px; }
+.ss-tr-n { position: absolute; left: 0; width: 296px; top: 14px; text-align: center; font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; }
+.ss-bcards { margin-top: 45px; display: flex; flex-direction: column; gap: 11px; }
+.ss-bcard { position: relative; width: 276px; height: 104px; border-radius: 3px; background: #f2f2f2; }
+.ss-bcard-n { position: absolute; left: 11px; top: 11px; margin: 0; }
+.ss-bcard .ss-btn { position: absolute; left: 75px; top: 37px; }
+.ss-bcard svg { position: absolute; right: 14px; top: 44px; }
+.ss-form-big { width: 276px; height: 144px; padding: 0 22px; border-radius: 3px; box-shadow: none; }
+.ss-fline { display: flex; align-items: center; justify-content: space-between; width: 276px; height: 45px; box-sizing: border-box; border-bottom: 1px solid #e7e7e7; font-size: 14px; line-height: 22px; }
+.ss-fline .ss-dis-v { margin: 0 12px 0 auto; }
+.ss-switch { width: 28px; height: 14px; border-radius: 7px; background: #666; }
+.ss-box { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; background: #e7e7e7; }
+.ss-box i { width: 12px; height: 12px; border: 2px solid #0e0e0e; }
+.ss-thick { margin-left: auto; margin-right: 12px; }
+.ss-pads { display: flex; gap: 6px; }
+.ss-pads b { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; font-weight: 500; }
+.ss-pads b.on { background: #e7e7e7; }
+.ss-forms-more { margin-top: 21px; }
+.ss-miscs { margin-top: -1px; }
+.ss-mrow { display: flex; align-items: center; justify-content: space-between; width: 276px; height: 33px; padding: 0 2px 0 0; border: 0; background: none; color: #0e0e0e; font: 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+/* Reset asks first: a 342 by 156 dialog in the middle of the window. */
+.ss-confirm { position: fixed; inset: 0; z-index: 70; background: rgba(255, 255, 255, .5); display: flex; align-items: center; justify-content: center; }
+.ss-confirm[hidden] { display: none; }
+.ss-confirm-box { width: 342px; height: 156px; box-sizing: border-box; padding: 27px 33px 0; background: #fff; box-shadow: rgba(0, 0, 0, 0.12) 0 16px 64px 0, rgba(0, 0, 0, 0.08) 0 0 1px; color: #0e0e0e; font: 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.ss-confirm-box p { margin: 0; }
+.ss-confirm-title { font-weight: 600; }
+.ss-confirm-row { display: flex; justify-content: flex-end; gap: 22px; margin-top: 20px; }
+.ss-confirm-row button { padding: 0; border: 0; background: none; color: #0e0e0e; font: 500 14px/14px "Helvetica Neue", Helvetica, Arial, sans-serif; cursor: pointer; }
+#ss-confirm-reset { color: rgb(195, 45, 56); }
 /* The style pack popovers (parity/findings/SITESTYLES2.json). */
 .ss-pop { position: fixed; z-index: 55; width: 342px; box-sizing: border-box; padding: 0 16px 16px; overflow-y: auto; background: #fff; box-shadow: rgba(0, 0, 0, 0.12) 0 16px 64px 0, rgba(0, 0, 0, 0.08) 0 0 1px 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; }
 .ss-pop[hidden] { display: none; }

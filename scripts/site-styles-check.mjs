@@ -74,6 +74,66 @@ for (const [kind, rows] of Object.entries(F.popovers)) {
   browser(S, 'click', `[data-ss-pop="${kind}"]`); await pause(150);
 }
 
+// The disclosures: every label the oracle showed at the same height (within 3px) and lined up on its
+// left, right or center (within 2px; the editor's own font differs, so widths do not match). Colors
+// rows by name, as the rows on a page differ.
+const openView = async (view) => {
+  goto(S, `${BASE}/index.html`); await pause(800);
+  evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
+  goto(S, `${BASE}/index.html`); await pause(1500);
+  browser(S, 'click', '#site-styles-toggle'); await pause(300);
+  browser(S, 'click', view === 'Misc' ? '.ss-misc' : `[aria-label="Open ${view} style disclosure"]`); await pause(300);
+};
+const LEAVES = `(() => { const out = []; const w = document.createTreeWalker(document.querySelector('#site-styles'), NodeFilter.SHOW_TEXT); const g = document.createRange(); while (w.nextNode()) { const t = w.currentNode.textContent.trim(); if (!t) continue; g.selectNodeContents(w.currentNode); const r = g.getBoundingClientRect(); if (r.width) out.push([t, r.left, r.top + r.height / 2, r.right]); } return JSON.stringify(out); })()`;
+for (const [view, rows] of Object.entries(F.disclosures)) {
+  await openView(view);
+  const ours = evalJs(S, LEAVES);
+  for (const r of rows) {
+    if (!r.t || r.role || r.t === 'Aa' || !r.font) continue;
+    if (view === 'Colors' && (/^(Light|Bright|Dark|Lightest|Darkest) \d$/.test(r.t) || r.t === 'Other color themes')) continue; // Rows differ by page.
+    if (view === 'Buttons' && r.box[1] === 201 && r.t !== 'Button') continue; // The oracle stacks three samples in one place.
+    const [l, t, w, h] = r.box;
+    const hit = ours.find((o) => o[0] === r.t && Math.abs(o[2] - (t + h / 2)) <= 3
+      && (Math.abs(o[1] - l) <= 2 || Math.abs(o[3] - (l + w)) <= 2 || Math.abs((o[1] + o[3]) / 2 - (l + w / 2)) <= 2));
+    add(`${view} view: ${r.t} at ${l}, ${t}`, !!hit, `ours ${JSON.stringify(ours.filter((o) => o[0] === r.t).map((o) => o.slice(1, 4)))}`);
+  }
+}
+await openView('Colors');
+const themeRows = evalJs(S, `(() => JSON.stringify(Object.fromEntries([...document.querySelectorAll('.ss-tr')].map((r) => { const c = getComputedStyle(r); return [r.querySelector('.ss-tr-n').textContent, [c.backgroundColor, c.color]]; }))))()`);
+const colorRows = F.disclosures.Colors;
+colorRows.forEach((r, i) => {
+  if (!/^(Light|Bright|Dark|Lightest|Darkest) \d$/.test(r.t || '')) return;
+  const bg = colorRows.slice(0, i).reverse().find((x) => x.role === 'button' && x.bg)?.bg;
+  add(`Colors row ${r.t} before a pick`, String(themeRows[r.t]) === String([bg, r.color]), `ours ${themeRows[r.t]}, oracle ${bg} ${r.color}`);
+});
+
+// Base Size: the oracle's readings, one press at a time.
+await openView('Fonts');
+const baseRead = `(() => { const f = document.querySelector('iframe'); const d = f.contentDocument, W = f.contentWindow; const c = (q) => W.getComputedStyle(d.querySelector(q)); const h = c('h1'), p = c('.sqs-html-content p'); return JSON.stringify({ value: document.querySelector('.ss-base-in').value, h1: { fs: h.fontSize, lh: h.lineHeight, ls: h.letterSpacing }, p: { fs: p.fontSize, lh: p.lineHeight } }); })()`;
+const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+const keep = (x) => ({ value: x.value, h1: x.h1, p: x.p });
+add('Base Size at the start', same(evalJs(S, baseRead), keep(F.baseSize.start)), JSON.stringify(evalJs(S, baseRead)));
+for (const st of F.baseSize.steps) {
+  browser(S, 'click', `[aria-label="${st.press}"]`); await pause(250);
+  const got = evalJs(S, baseRead);
+  add(`Base Size ${st.press} to ${st.value}`, same(got, keep(st)), `ours ${JSON.stringify(got)}, oracle ${JSON.stringify(keep(st))}`);
+}
+browser(S, 'click', '#undo'); await pause(300);
+add('one undo step for a Base Size press', evalJs(S, baseRead).value === '16');
+
+// Reset asks first, Cancel changes nothing, Reset clears the pick.
+browser(S, 'click', '[data-ss-reset="font"]'); await pause(200);
+const dlg = evalJs(S, `(() => { const r = document.querySelector('.ss-confirm-box').getBoundingClientRect(); return JSON.stringify([r.left, r.top, r.width, r.height, document.querySelector('#ss-confirm-title').textContent, document.querySelector('#ss-confirm-body').textContent]); })()`);
+add('Reset dialog box and words', same(dlg, [...F.resetDialog.box, F.resetDialog.font.title, F.resetDialog.font.body]), JSON.stringify(dlg));
+browser(S, 'click', '.ss-confirm-row button:first-child'); await pause(200);
+add('Cancel keeps the base size', evalJs(S, baseRead).value === '16' && evalJs(S, `(() => JSON.stringify(document.querySelector('#ss-confirm').hidden))()`) === true);
+browser(S, 'click', '[aria-label="Increment"]'); await pause(250);
+browser(S, 'click', '[data-ss-reset="font"]'); await pause(200);
+browser(S, 'click', '#ss-confirm-reset'); await pause(300);
+add('Reset clears the base size', same(evalJs(S, baseRead), keep(F.baseSize.start)));
+browser(S, 'click', '[data-ss-back]'); await pause(200);
+add('back returns to the cards', evalJs(S, `(() => JSON.stringify(!!document.querySelector('[data-ss-pop="Themes"]')))()`) === true);
+
 console.log(`Site Styles: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/site-styles-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
 if (pass !== total) process.exit(1);
