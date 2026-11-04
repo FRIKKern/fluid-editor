@@ -826,7 +826,7 @@
     "status": "partial",
     "title": "Hiding a block on one layout",
     "wasUnknown": true,
-    "evidence": "No hide control found on the oracle: not in the desktop or phone block toolbars, and not in the shape Edit panel (Design: shape style, corner radius, Stretch, Color, Blend Mode, Stroke; Animation). The phone toolbars of text, shape and button blocks have no hide control (parity/findings/TOOLBARS.json), and the text Edit panel is the same on both layouts (EDITPANEL.json). Other block types and help pages not checked. Correction from the gap review (2026-11-03): the oracle does have a hide control, in the block right-click menu: Hide on desktop (Cmd+Shift+H) and Hide on mobile. Not measured yet what they change"
+    "evidence": "No hide control found on the oracle: not in the desktop or phone block toolbars, and not in the shape Edit panel (Design: shape style, corner radius, Stretch, Color, Blend Mode, Stroke; Animation). The phone toolbars of text, shape and button blocks have no hide control (parity/findings/TOOLBARS.json), and the text Edit panel is the same on both layouts (EDITPANEL.json). Other block types and help pages not checked. Correction from the gap review (2026-11-03): the oracle does have a hide control, in the block right-click menu: Hide on desktop (Cmd+Shift+H) and Hide on mobile. Not measured yet what they change. Measured 2026-11-04 (parity/findings/UNBUILT.json, demo section 2, shape): Hide on desktop gives the block is-invisible should-remove and opacity 0 and takes it out of the desktop grid (grid-area 1/1/-1/-1), desktop rows stay 11; Hide on mobile removes its phone rule and the phone grid shrinks from 10 to 4 rows, what the other blocks need; one undo each. In the Layers panel the hidden block's row turns grey with a crossed-out eye on the right. Ours: Hide on desktop and Hide on mobile in the block menu and Cmd+Shift+H, display: none for that layout, the same row rule, the grey Layers row with the eye; clicking the eye shows the block again (headless Chrome). Not measured: what the eye does on the oracle, and the published CSS of a hidden block"
   },
   {
     "id": "L6",
@@ -1028,7 +1028,7 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Block right-click menu",
-    "evidence": "Found by the gap review (scripts/inventory.mjs, 2026-11-03): right-click on a block opens Copy (Cmd+C), Paste (Cmd+V), Duplicate (Cmd+D), Delete, Copy Properties, Paste Properties, Stack (Shift+S), Arrange, Hide on desktop (Cmd+Shift+H), Hide on mobile. Ours opens the same menu; Duplicate, Delete and Stack work, and Shift+S stacks the selection as the menu shows. Not measured or built: Copy and Paste of blocks, the Properties and Arrange submenus, Hide on desktop and mobile",
+    "evidence": "Found by the gap review (scripts/inventory.mjs, 2026-11-03): right-click on a block opens Copy (Cmd+C), Paste (Cmd+V), Duplicate (Cmd+D), Delete, Copy Properties, Paste Properties, Stack (Shift+S), Arrange, Hide on desktop (Cmd+Shift+H), Hide on mobile. Ours opens the same menu; Duplicate, Delete and Stack work, and Shift+S stacks the selection as the menu shows. Not measured or built: Copy and Paste of blocks, the Properties and Arrange submenus,. Hide on desktop and Hide on mobile are built (L5). The submenus read on 2026-11-04: Copy Properties (Transforms, Animations), Paste Properties (Replace Animations), Arrange (Move forward, Move to front, Move backward, Move to back). Copy and Paste of a block made no change in the probe (the clipboard did not reach the page)",
     "controls": [
       "Copy",
       "Paste",
@@ -1039,7 +1039,14 @@
       "Stack",
       "Arrange",
       "Hide on desktop",
-      "Hide on mobile"
+      "Hide on mobile",
+      "Transforms",
+      "Animations",
+      "Replace Animations",
+      "Move forward",
+      "Move to front",
+      "Move backward",
+      "Move to back"
     ]
   },
   {

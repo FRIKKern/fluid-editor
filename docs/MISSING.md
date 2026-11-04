@@ -86,8 +86,8 @@ For each editor state, the inventory lists every visible control and label of th
 | Triggers | text | text-edit-animation | T15 |
 | Individual corner radii | radio | shape-edit | T6 |
 | Styling | text | shape-edit | T6 |
-| Move Forward | button | group-selected | Z2 |
-| Move Backward | button | group-selected | Z2 |
+| Move Forward | button | group-selected | Z2, U11 |
+| Move Backward | button | group-selected | Z2, U11 |
 | Copy | text | block-context-menu | U11 |
 | Paste | text | block-context-menu | U11 |
 | Copy Properties | text | block-context-menu | U11 |

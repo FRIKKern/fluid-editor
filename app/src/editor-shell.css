@@ -362,3 +362,9 @@ body.is-preview .site-styles { display: none !important; }
 
 /* Section row handle (parity/findings/S4.json): 44 by 33, rgb(2, 122, 255), row-resize. */
 .sc-rows { position: absolute; width: 44px; height: 33px; border-radius: 3px; background: rgb(2, 122, 255); color: #fff; display: flex; align-items: center; justify-content: center; cursor: row-resize; pointer-events: auto; }
+
+/* A block hidden on this layout (UNBUILT.json, the oracle Layers screenshot): grey row, a
+   crossed-out eye on the right. */
+.lp-row.is-hidden { color: #a8a8a8; }
+.lp-row.is-hidden .lp-icon { opacity: .45; }
+.lp-eye { margin-left: auto; border: 0; background: none; padding: 0; color: #0e0e0e; cursor: pointer; display: inline-flex; }

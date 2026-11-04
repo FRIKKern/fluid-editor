@@ -79,7 +79,18 @@ export function sectionGridCss(s) {
 `;
 }
 
+// Hide on desktop or mobile (L5, parity/findings/UNBUILT.json): the oracle takes the block out of
+// that layout and the editor shows it at opacity 0; ours adds display: none for that layout.
+function hiddenCss(b) {
+  const id = b.id;
+  return (b.layout.mobile.hidden ? `\n  @media (max-width: 767px) { .fe-block-${id} { display: none; } }` : '')
+    + (b.layout.desktop.hidden ? `\n  @media (min-width: 768px) { .fe-block-${id} { display: none; } }` : '');
+}
+
 export function blockCss(b) {
+  return blockLayoutCss(b) + hiddenCss(b);
+}
+function blockLayoutCss(b) {
   const id = b.id;
   const m = b.layout.mobile;
   const d = b.layout.desktop;

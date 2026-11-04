@@ -675,6 +675,16 @@ function onKey(e) {
     if (mod && !e.altKey && !e.shiftKey && (e.code === 'KeyB' || e.code === 'KeyI')) { e.preventDefault(); applyFormat(e.code === 'KeyB' ? 'bold' : 'italic'); return; }
     return;
   }
+  // Cmd+Shift+H hides the selection on desktop (the oracle's right-click menu shows the shortcut).
+  if (sel && !gesture && mod && e.shiftKey && !e.altKey && e.code === 'KeyH') {
+    e.preventDefault();
+    const before = JSON.stringify(model);
+    const sid = sel.sid;
+    hideBlocks(sid, [sel.bid, ...(sel.more || [])], 'desktop');
+    renderSectionDom(sid);
+    commit(before, 'Hid on desktop with Cmd+Shift+H');
+    return;
+  }
   // Shift+S stacks the selection (the oracle's right-click menu shows the shortcut).
   if (sel && !gesture && e.shiftKey && !mod && !e.altKey && e.code === 'KeyS') {
     e.preventDefault();
@@ -1565,7 +1575,7 @@ addMenu.addEventListener('input', (e) => {
 // A text block is named by its text, cut by CSS (the oracle row label holds at least the
 // first 48 characters, gap review 2026-11-04).
 function layerRows(s) {
-  return [...s.blocks].sort((a, b) => lay(b).z - lay(a).z).map((b) => ({ id: b.id, type: b.type[0].toUpperCase() + b.type.slice(1), on: sel?.bid === b.id,
+  return [...s.blocks].sort((a, b) => lay(b).z - lay(a).z).map((b) => ({ id: b.id, type: b.type[0].toUpperCase() + b.type.slice(1), on: sel?.bid === b.id, hidden: !!lay(b).hidden,
     label: b.type === 'text' ? (b.html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() || 'Text' : b.type[0].toUpperCase() + b.type.slice(1) }));
 }
 function renderLayersPanel() {
@@ -1574,7 +1584,10 @@ function renderLayersPanel() {
   layersPanel.innerHTML = layersPanelHtml(layerRows(s));
 }
 layersPanel.addEventListener('click', (e) => {
+  const eye = e.target.closest('[data-unhide]');
+  if (eye) { e.stopPropagation(); unhideBlock(layersPanel.dataset.sid, eye.dataset.unhide); return; }
   const li = e.target.closest('li[data-layer]');
+  if (li && B(layersPanel.dataset.sid, li.dataset.layer) && lay(B(layersPanel.dataset.sid, li.dataset.layer)).hidden) return;
   if (li) { select({ sid: layersPanel.dataset.sid, bid: li.dataset.layer }); renderLayersPanel(); }
 });
 let dragRow = null;
@@ -1623,9 +1636,30 @@ contextMenu.addEventListener('click', (e) => {
   if (act === 'duplicate') duplicateBlock(sid, sel.bid);
   if (act === 'delete') { const ids = [sel.bid, ...(sel.more || [])]; S(sid).blocks = S(sid).blocks.filter((b) => !ids.includes(b.id)); sel = null; }
   if (act === 'stack') stackBlocks();
+  if (act === 'hide-desktop' || act === 'hide-mobile') hideBlocks(sid, [sel.bid, ...(sel.more || [])], act === 'hide-desktop' ? 'desktop' : 'mobile');
   renderSectionDom(sid);
   commit(before, `${it.getAttribute('aria-label')} from the block menu`);
 });
+
+// Hide on a layout (L5, UNBUILT.json): the block leaves that layout and the selection. Hiding on
+// mobile shrinks the phone rows to what the visible blocks need (the oracle went from 10 to 4 on
+// demo section 2); desktop rows stay (11 stayed 11).
+function hideBlocks(sid, ids, which) {
+  const s = S(sid);
+  for (const b of s.blocks) if (ids.includes(b.id)) b.layout[which].hidden = true;
+  if (which === 'mobile') s.rows.mobile = Math.max(1, ...s.blocks.filter((b) => !b.layout.mobile.hidden).map((b) => b.layout.mobile.area[2] - 1));
+  sel = null;
+}
+function unhideBlock(sid, id) {
+  const b = B(sid, id);
+  if (!b || !lay(b).hidden) return;
+  const before = JSON.stringify(model);
+  delete lay(b).hidden;
+  growRows(S(sid));
+  renderSectionDom(sid);
+  commit(before, `Showed ${id} on ${bp}`);
+  renderLayersPanel();
+}
 
 function onHover(e) {
   if (document.body.classList.contains('is-preview')) return;
