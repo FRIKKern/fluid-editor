@@ -29,7 +29,8 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 1 change
+- **Today** · 2 changes
+  - Inventory waits for a visible oracle before opening the demo page ([#59](https://github.com/FRIKKern/fluid-editor/pull/59))
   - Inventory waits for a visible oracle and marks unreached states ([#58](https://github.com/FRIKKern/fluid-editor/pull/58))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
