@@ -2022,7 +2022,11 @@ function placeChrome() {
   if (chrome.dataset.key !== key) { chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected }); chrome.dataset.key = key; }
   const header = k === 0 ? doc.getElementById('header') : null;
   const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
-  const L = sectionChromeLayout(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), header ? header.getBoundingClientRect().bottom : 0, phone, grid);
+  // The Add Section buttons sit on the sum of the rounded heights above, not on the section's edge
+  // (parity/findings/ADDSECTIONTOP.json), so they drift off it a little further down a long page.
+  const secs = [...el.parentElement.querySelectorAll(':scope > .page-section')];
+  const drift = (n) => secs.slice(0, n).reduce((sum, x) => { const h = x.getBoundingClientRect().height; return sum + Math.round(h) - h; }, 0);
+  const L = sectionChromeLayout(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), header ? header.getBoundingClientRect().bottom : 0, phone, grid, [drift(secs.indexOf(el)), drift(secs.indexOf(el) + 1)]);
   for (const [part, box] of Object.entries(L)) {
     const node = chrome.querySelector(`[data-sc-part="${part}"]`);
     if (!node) continue;

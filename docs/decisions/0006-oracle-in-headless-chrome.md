@@ -45,7 +45,7 @@ The old readings were WebKit with a 17px scrollbar, so a canvas was 1583px wide.
 | section-check | 35 of 35 |
 | design-edit-check | 10 of 10 |
 | Gate C | 23 of 23, after fixing a real bug T0005 found (G4) |
-| chrome-check | 86 of 88: section 7 Add Section (U10) |
+| chrome-check | 88 of 88, after building the measured Add Section rule (U10) |
 
 The first Gate B run in Chrome, 352 of 365, found three real CSS bugs, all fixed here: a button wraps its text (`white-space: normal`, 50 not 41.4 tall at 768), the burger keeps the browser's button padding (37 not 40, so the phone header is 129.16 not 132.16), and `overflow-wrap: break-word` comes from the body ("email@example.com" in a 138.5px block is 67.2 tall, not 44.8). A screenshot then found a fourth that no check saw: at 768 the demo hero button is 158 wide in a 138.5 block, 10px over on each side, and ours was 138.5. Fixed, and Gate B now also compares the button inside each block, so its totals rose by one per button.
 
@@ -55,5 +55,4 @@ WebKit was not run again, so these numbers say nothing about it. Named gaps, non
 
 - **A picture block at 375, home and about.** The oracle block is taller than ours: 66.6 not 59 on home (picture 481 by 274), 245 not 234 on about (picture 1 by 1), and what is below moves down with it. The oracle reads differently on the same page at the same width: about at 375 read 245, then 234 after the frame went through other widths, and home passed in full on one run. So this is the oracle's lazy picture sizing, not a layout rule. Ours has no pictures (O2).
 - **The form block, contact.** Oracle against ours: 1156.8 and 1144.7 at 375, 1055.2 and 1057.4 at 767, 1090.5 and 1095.3 at 768, 1049 and 1053.7 at 1280. Our form is sized from WebKit readings (T9). Not fixed.
-- **Add Section, section 7.** Oracle top -19.5, ours -18. The cause is measured (U10).
 - **In the editor, the frame can go back to its own page** after `src` is set, so box-diff checks that the page stays.

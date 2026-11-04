@@ -1,0 +1,75 @@
+{
+  "item": "ADDSECTIONTOP",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
+  "question": "Where do the Add Section buttons sit against the section edge?",
+  "frame": "1600x1000",
+  "rule": "A top Add Section button sits at the page top - 18 + the sum of the rounded heights of the sections above. Section 0 is held below the site header, so its reading is not on the rule.",
+  "sections": [
+    {
+      "section": 0,
+      "top": 0,
+      "height": 914.141,
+      "addSectionTop": 120.641,
+      "offset": 120.64,
+      "rule": -18
+    },
+    {
+      "section": 1,
+      "top": 914.141,
+      "height": 857.688,
+      "addSectionTop": 896,
+      "offset": -18.14,
+      "rule": 896
+    },
+    {
+      "section": 2,
+      "top": 1771.828,
+      "height": 652.219,
+      "addSectionTop": 1754,
+      "offset": -17.83,
+      "rule": 1754
+    },
+    {
+      "section": 3,
+      "top": 2424.047,
+      "height": 693.313,
+      "addSectionTop": 2406,
+      "offset": -18.05,
+      "rule": 2406
+    },
+    {
+      "section": 4,
+      "top": 3117.359,
+      "height": 734.406,
+      "addSectionTop": 3099,
+      "offset": -18.36,
+      "rule": 3099
+    },
+    {
+      "section": 5,
+      "top": 3851.766,
+      "height": 693.313,
+      "addSectionTop": 3833,
+      "offset": -18.77,
+      "rule": 3833
+    },
+    {
+      "section": 6,
+      "top": 4545.078,
+      "height": 734.406,
+      "addSectionTop": 4526,
+      "offset": -19.08,
+      "rule": 4526
+    },
+    {
+      "section": 7,
+      "top": 5279.484,
+      "height": 623.688,
+      "addSectionTop": 5260,
+      "offset": -19.48,
+      "rule": 5260
+    }
+  ]
+}

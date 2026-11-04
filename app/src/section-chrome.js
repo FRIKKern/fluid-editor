@@ -57,7 +57,7 @@ export function sectionChromeHtml({ first, last, phone = false, blockSelected = 
 // Boxes in the stage's coordinates. `sec` is the section's rect inside the canvas, `frame`
 // and `stage` are rects in the editor window, `headerBottom` the site header's bottom in the
 // canvas on the first section (0 otherwise).
-export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = false, grid = null) {
+export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = false, grid = null, drift = [0, 0]) {
   const ox = frame.left - stage.left, oy = frame.top - stage.top;
   if (phone) {
     // Phone view (oracle screenshot): the canvas is 428 wide in the middle; Layers sits 68px left
@@ -83,8 +83,8 @@ export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = fal
     layers: { left: ox + sec.left + 22, top: oy + leftTop - 4 },
     'add-block': { left: ox + sec.left + 79, top: oy + leftTop - 4 },
     card: { left: ox + sec.right - 22 - 178, top: oy + cardTop },
-    'add-top': { left: ox + midX, top: oy + Math.max(sec.top, headerBottom) - 18 },
-    'add-bottom': { left: ox + midX, top: oy + sec.bottom - 18 },
+    'add-top': { left: ox + midX, top: oy + Math.max(sec.top + drift[0], headerBottom) - 18 },
+    'add-bottom': { left: ox + midX, top: oy + sec.bottom + drift[1] - 18 },
     // The row handle (S4, parity/findings/S4.json): 44 by 33, its left 272px in from the grid's
     // right edge (1311 in a 1583px grid), centred on the grid's bottom edge.
     ...(grid ? { rows: { left: ox + grid.right - 272, top: oy + grid.bottom - 16 } } : {}),
