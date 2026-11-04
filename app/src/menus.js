@@ -62,3 +62,9 @@ export function contextMenuHtml({ canPaste }) {
     item('hide-mobile', 'Hide on mobile', ''),
   ].join('');
 }
+
+// The button style menu (parity/findings/BUTTONSTYLE.json): three 171 by 55 options with an Aa
+// sample, the current one checked.
+export function buttonStyleMenuHtml(cur) {
+  return ['Primary', 'Secondary', 'Tertiary'].map((n) => `<button type="button" role="option" class="bs-opt" aria-selected="${cur === n.toLowerCase()}" data-bstyle="${n.toLowerCase()}" aria-label="Aa${n}"><span class="bs-aa">Aa</span><span>${n}</span></button>`).join('');
+}

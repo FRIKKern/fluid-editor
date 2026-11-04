@@ -138,7 +138,13 @@ function blockInner(b, model) {
     case 'text':
       return `<div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-html-content">${b.html}</div></div></div>`;
     case 'button':
-      return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-alignment-wrapper"><div class="sqs-block-content"><a class="sqs-block-button-element" href="${escapeHtml(b.href || '')}">${escapeHtml(b.label)}</a></div></div></div>`;
+      // Button style (parity/findings/BUTTONSTYLE.json): Primary is medium, Secondary large,
+      // Tertiary small; the oracle writes both on the container and the link.
+      {
+        const type = b.buttonStyle || 'primary';
+        const size = BUTTON_SIZE[type];
+        return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-alignment-wrapper"><div class="sqs-block-content" data-button-size="${size}" data-button-type="${type}"><a class="sqs-block-button-element--${size} sqs-button-element--${type} sqs-block-button-element" href="${escapeHtml(b.href || '')}">${escapeHtml(b.label)}</a></div></div></div>`;
+      }
     case 'shape': {
       const style = `--shape-fill:${b.fill || 'var(--accent)'};--shape-radius:${b.radius || '0'};--shape-ink:${b.ink || 'inherit'}`;
       const label = b.label ? `<span class="sqs-shape-label">${escapeHtml(b.label)}</span>` : '';
@@ -239,6 +245,8 @@ export function designCss(b) {
 // mix-blend-mode: var(--tweak-text-block-blend ) and sets the variable, normal by default.
 // Other block types are not measured; they get mix-blend-mode directly.
 export const BLEND_MODES = ['Normal', 'Multiply', 'Screen', 'Overlay', 'Darken', 'Lighten', 'Color Dodge', 'Color Burn', 'Hard Light', 'Soft Light', 'Difference', 'Exclusion', 'Hue', 'Saturation', 'Color', 'Luminosity'];
+export const BUTTON_SIZE = { primary: 'medium', secondary: 'large', tertiary: 'small' };
+
 export function blendCss(b) {
   // Drop Shadow on a shape (SHAPEDESIGN.json): drop-shadow(2px 2px 3px) on the block contents,
   // in the text color as no color is given.
