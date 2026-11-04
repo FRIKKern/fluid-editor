@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 59 changes
+- **Today** · 60 changes
+  - T2: wrapper on Shape and images with a picture, measured on a new page ([#117](https://github.com/FRIKKern/fluid-editor/pull/117))
   - E4: Custom color tab, and the look of quotes, lists and monospace ([#116](https://github.com/FRIKKern/fluid-editor/pull/116))
-  - U2: draw the grid as one SVG per row, the oracle's way ([#115](https://github.com/FRIKKern/fluid-editor/pull/115))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
