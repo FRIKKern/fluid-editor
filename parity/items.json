@@ -339,7 +339,10 @@
       "Uniform corner radii",
       "Individual corner radii",
       "Styling",
-      "Blend ModeNormal"
+      "Blend ModeNormal",
+      "Stretch",
+      "Color",
+      "Shape style"
     ]
   },
   {
@@ -702,7 +705,13 @@
       "Strike",
       "Outdent",
       "Indent",
-      "Clear Formatting"
+      "Clear Formatting",
+      "Text Color",
+      "Scaled Text",
+      "Text Highlight",
+      "Link",
+      "Palette",
+      "Custom"
     ]
   },
   {
@@ -737,7 +746,11 @@
     "status": "done",
     "title": "How Bring forward and Send backward change z",
     "wasUnknown": true,
-    "evidence": "Move Forward and Move Backward swap z-index with the next block up or down (T0011, T0012); our editor does the same since m3-unknowns and replays both (parity/gate-c.json)"
+    "evidence": "Move Forward and Move Backward swap z-index with the next block up or down (T0011, T0012); our editor does the same since m3-unknowns and replays both (parity/gate-c.json)",
+    "controls": [
+      "Move Forward",
+      "Move Backward"
+    ]
   },
   {
     "id": "Z3",
@@ -972,7 +985,10 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Section actions: Add Section, Duplicate, Move Up and Down, Remove, Save Section, View Layouts",
-    "evidence": "Found in hands-on testing 2026-11-03. The oracle section toolbar has these actions and an ADD SECTION button on each section edge; built in our editor: Duplicate Section (a copy below, new ids), Move Section Up and Down (off on the first and last section, as on the oracle), Remove Section, and Add Block from the section, each one undo step. Not built: Add Section, View Layouts, Save Section. Not measured: what each does to the page model, and the Add Section layout picker"
+    "evidence": "Found in hands-on testing 2026-11-03. The oracle section toolbar has these actions and an ADD SECTION button on each section edge; built in our editor: Duplicate Section (a copy below, new ids), Move Section Up and Down (off on the first and last section, as on the oracle), Remove Section, and Add Block from the section, each one undo step. Not built: Add Section, View Layouts, Save Section. Not measured: what each does to the page model, and the Add Section layout picker",
+    "controls": [
+      "Layouts"
+    ]
   },
   {
     "id": "U11",

@@ -22,46 +22,29 @@ For each editor state, the inventory lists every visible control and label of th
 | add-block-menu | Add Block menu of a section | 26 | 20 | 0 | 0 | 0 | 3 | 2.37% |
 | layers | Layers panel of a section | 24 | 16 | 0 | 0 | 0 | 8 | 2.72% |
 | text-selected | A text block selected | 19 | 18 | 0 | 0 | 0 | 1 | 0.17% |
-| text-writing | Writing in a text block, a word selected | 27 | 21 | 0 | 4 | 0 | 1 | 0.34% |
+| text-writing | Writing in a text block, a word selected | 27 | 21 | 0 | 0 | 0 | 5 | 0.34% |
 | text-edit-design | Text block Edit panel, Design tab | 23 | 19 | 0 | 0 | 0 | 4 | 0.43% |
 | text-edit-animation | Text block Edit panel, Animation tab | 17 | 11 | 0 | 0 | 0 | 6 | 0.41% |
 | shape-selected | A shape block selected | 17 | 16 | 0 | 0 | 0 | 1 | 0.15% |
-| shape-edit | Shape block Edit panel | 21 | 12 | 0 | 3 | 0 | 6 | 4.07% |
+| shape-edit | Shape block Edit panel | 21 | 12 | 0 | 0 | 0 | 9 | 4.07% |
 | button-selected | A button block selected | 17 | 16 | 0 | 0 | 0 | 1 | 0.2% |
 | button-edit | Button block Edit panel | 0 | 0 | 0 | 0 | 0 | 0 | 11.17% |
-| group-selected | Two blocks selected with Shift | 25 | 15 | 0 | 2 | 0 | 8 | 0.91% |
+| group-selected | Two blocks selected with Shift | 25 | 15 | 0 | 0 | 0 | 10 | 0.91% |
 | block-context-menu | Right-click on a selected block | 10 | 3 | 0 | 0 | 0 | 7 | 0.6% |
 | phone-idle | Phone layout, nothing selected | 18 | 9 | 0 | 0 | 0 | 9 | 3.22% |
 | phone-text-selected | Phone layout, a text block selected | 18 | 17 | 0 | 0 | 0 | 1 | 2.55% |
 | preview | Preview mode (top bar) | 8 | 6 | 0 | 0 | 0 | 2 | 0.16% |
 | add-section-menu | Add Section on a section edge | 20 | 15 | 0 | 0 | 0 | 5 | 0.53% |
-| view-layouts | View Layouts of a section | 11 | 9 | 0 | 1 | 0 | 1 | 1.82% |
+| view-layouts | View Layouts of a section | 11 | 9 | 0 | 0 | 0 | 2 | 1.82% |
 | button-link | Link popover of a button block | 26 | 16 | 0 | 0 | 0 | 10 | 3.19% |
 | phone-section-hover | Phone layout, pointer over a section | 18 | 14 | 0 | 0 | 0 | 4 | 2.31% |
-| text-style-menu | Writing, the Text Style menu open | 35 | 29 | 0 | 4 | 0 | 1 | 1.08% |
-| text-align-menu | Writing, the Text Alignment menu open | 31 | 25 | 0 | 4 | 0 | 1 | 0.43% |
-| text-link | Writing, the Link popover open | 27 | 21 | 0 | 4 | 0 | 1 | 0.38% |
-| text-color | Writing, the Text Color popover open | 29 | 21 | 0 | 6 | 0 | 1 | 0.94% |
+| text-style-menu | Writing, the Text Style menu open | 35 | 29 | 0 | 0 | 0 | 5 | 1.08% |
+| text-align-menu | Writing, the Text Alignment menu open | 31 | 25 | 0 | 0 | 0 | 5 | 0.43% |
+| text-link | Writing, the Link popover open | 27 | 21 | 0 | 0 | 0 | 5 | 0.38% |
+| text-color | Writing, the Text Color popover open | 29 | 21 | 0 | 0 | 0 | 7 | 0.94% |
 | site-styles | Site Styles panel (top bar) | 21 | 8 | 0 | 0 | 0 | 11 | 12.79% |
 
-## Mentioned (12)
-
-| Label | Kind | States | Items |
-|---|---|---|---|
-| Text Color | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
-| Scaled Text | checkbox | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
-| Text Highlight | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
-| Link | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4, S3, U4, E7 |
-| Stretch | input:checkbox | shape-edit | T5, T6, R5, L5 |
-| Color | button | shape-edit | P5, T6, T15, E4, L5 |
-| Shape style | text | shape-edit | T6, L5 |
-| Move Forward | button | group-selected | Z2, U4 |
-| Move Backward | button | group-selected | Z2 |
-| Layouts | button | view-layouts | O2, L4, L5, U9, U10 |
-| Palette | tab | text-color | E4 |
-| Custom | tab | text-color | P3, P5, P7, E4, S2 |
-
-## Tracked (66)
+## Tracked (78)
 
 | Label | Kind | States | Items |
 |---|---|---|---|
@@ -88,6 +71,10 @@ For each editor state, the inventory lists every visible control and label of th
 | Open Layers Panel | button | layers, phone-idle | Z4 |
 | Add Block | button | layers | U9 |
 | On desktop the smallest a row can be is the cont | button | layers | Z4 |
+| Text Color | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
+| Scaled Text | checkbox | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
+| Text Highlight | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
+| Link | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
 | Click and drag to reposition block editor form | button | text-edit-design, text-edit-animation, shape-edit | U13 |
 | Blend ModeNormal | button | text-edit-design, shape-edit | T6, T15 |
 | More actions | combobox | text-edit-design | T15 |
@@ -97,10 +84,15 @@ For each editor state, the inventory lists every visible control and label of th
 | Triggers | text | text-edit-animation | T15 |
 | Uniform corner radii | radio | shape-edit | T6 |
 | Individual corner radii | radio | shape-edit | T6 |
+| Stretch | input:checkbox | shape-edit | T6 |
+| Color | button | shape-edit | T6 |
+| Shape style | text | shape-edit | T6 |
 | Styling | text | shape-edit | T6 |
 | Duplicate Section | button | group-selected, phone-idle | U9 |
 | Move Section Up | button | group-selected, phone-idle | U9 |
 | Move Section Down | button | group-selected, phone-idle | U9 |
+| Move Forward | button | group-selected | Z2 |
+| Move Backward | button | group-selected | Z2 |
 | Copy | text | block-context-menu | U11 |
 | Paste | text | block-context-menu | U11 |
 | Copy Properties | text | block-context-menu | U11 |
@@ -111,6 +103,7 @@ For each editor state, the inventory lists every visible control and label of th
 | Remove Section | button | phone-idle | U9 |
 | Reload page preview | button | preview | U6 |
 | Previewing | text | preview | U6 |
+| Layouts | button | view-layouts | U10 |
 | URL | button | button-link | E7 |
 | Enter link, search, or add files | combobox | button-link | E7 |
 | Services/services | option | button-link | E7 |
@@ -120,6 +113,8 @@ For each editor state, the inventory lists every visible control and label of th
 | Home/home | option | button-link | E7 |
 | Main Navigation | text | button-link | E7 |
 | Hidden Navigation | text | button-link | E7 |
+| Palette | tab | text-color | E4 |
+| Custom | tab | text-color | E4 |
 | Close | button | site-styles | U12 |
 | Toggle Themes style pack popover | button | site-styles | U12 |
 | Toggle Fonts style pack popover | button | site-styles | U12 |
