@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 38 changes
+- **Today** · 39 changes
+  - P8: site header content in a centred 1400px box ([#96](https://github.com/FRIKKern/fluid-editor/pull/96))
   - FLUID_PORT: run checks from several checkouts side by side ([#95](https://github.com/FRIKKern/fluid-editor/pull/95))
-  - U9: stop section buttons piling up in the corner when a block is selected ([#94](https://github.com/FRIKKern/fluid-editor/pull/94))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
