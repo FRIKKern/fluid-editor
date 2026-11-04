@@ -5,7 +5,7 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, waitFor, goto, viewport, resetViewport, pause, requireWebKit } from './lib/cmux.mjs';
 import { ensureVisible } from './lib/cmux.mjs';
 import { diffStates } from './lib/trace.mjs';
-import { DEMO } from '../app/src/demo-data.js';
+import { modelFor } from './lib/trace-model.mjs';
 import { BASE } from './lib/base.mjs';
 
 const args = process.argv.slice(2);
@@ -19,29 +19,6 @@ const url = arg('url', `${BASE}/index.html?replay`);
 const only = args.filter((a, i) => !a.startsWith('--') && !args[i - 1]?.startsWith('--'));
 const dir = new URL('../traces/', import.meta.url);
 const traces = readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => JSON.parse(readFileSync(new URL(f, dir), 'utf8'))).filter((t) => !only.length || only.includes(t.id));
-
-// Our model for one trace: the oracle's blocks and areas, with text content kept and
-// every other block drawn as a plain shape. Fonts and type sizes are ours (item P6).
-const published = {};
-for (const sec of DEMO.sections) for (const b of sec.blocks) published[b.id] = b;
-
-function modelFor(t) {
-  const blocks = Object.entries(t.before.blocks).map(([id, s]) => {
-    // Prefer the published content of the same block (clean HTML, real labels).
-    const p = published[id];
-    if (p) {
-      const L = { area: s.area, z: s.z, justify: p.layout.desktop.justify || 'flex-start', align: p.layout.desktop.align || 'flex-start' };
-      const { layout, ...content } = p;
-      return { ...content, layout: { desktop: L, mobile: L } };
-    }
-    const c = t.content[id] || { type: 'shape' };
-    const L = { area: s.area, z: s.z, justify: 'flex-start', align: 'flex-start' };
-    const base = c.type === 'text' ? { type: 'text', html: c.html } : { type: 'shape', fill: '#d9d4ca', radius: '0', label: c.type };
-    return { id, ...base, layout: { desktop: L, mobile: L } };
-  });
-  const rows = { desktop: t.before.rows, mobile: t.before.rows };
-  return { version: 1, title: t.id, sections: [{ id: t.section.id, theme: '', gap: t.section.gap, rowGap: t.section.rowGap, rows, blocks }] };
-}
 
 const READ = (sid) => `(() => {
   const s = fe.model.sections.find((x) => x.id === '${sid}');

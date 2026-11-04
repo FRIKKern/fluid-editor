@@ -37,8 +37,10 @@ for (const run of F.runs) {
     if (!ok) console.log(`DIFF by ${dc},${dr} ${other.id.slice(-5)} gap c${other.colGap} r${other.rowGap}: oracle ${other.near}, ours ${flags[other.id]}`);
   }
   total++;
-  const selfOk = flags[F.dragged] === false;
-  if (selfOk) pass++; else console.log(`DIFF by ${dc},${dr}: the dragged block is flagged near`);
+  // The dragged block follows the same rule from where it started (traces T0004, T0010 mid).
+  const a = F.start[F.dragged], t = run.target;
+  const selfNear = Math.max(a[1] - t[3], t[1] - a[3], 0) <= 1 && Math.max(a[0] - t[2], t[0] - a[2], 0) <= 1;
+  if (flags[F.dragged] === selfNear) pass++; else console.log(`DIFF by ${dc},${dr}: dragged block near ${flags[F.dragged]}, rule says ${selfNear}`);
 }
 console.log(`Near flags: ${pass} of ${total} match`);
 writeFileSync(new URL('../parity/near-check.json', import.meta.url), JSON.stringify({ check: 'data-is-near-dragged-block', pass, total, results }, null, 2) + '\n');

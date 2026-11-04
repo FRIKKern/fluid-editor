@@ -987,5 +987,5 @@
       ]
     }
   ],
-  "rule": "near when the column gap and the row gap to the target area are both at most 1 grid line (0 = touching or overlapping); the dragged block itself is not flagged (T0010 mid). Two runs on 2026-11-03, 18 targets."
+  "rule": "near when the column gap and the row gap to the target area are both at most 1 grid line (0 = touching or overlapping); the dragged block follows the same rule from where it started: flagged on a short drag (T0004, T0024 mid), not on a far one (T0010, T0013 mid). Two runs on 2026-11-03, 18 targets."
 }
