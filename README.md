@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 64 changes
+- **Today** · 65 changes
+  - H4: compare geometry Chrome against Chrome, re-record findings, fix 3 CSS bugs ([#121](https://github.com/FRIKKern/fluid-editor/pull/121))
   - U6: top bar looks, tooltips, keys and exit dialog measured and built, done ([#122](https://github.com/FRIKKern/fluid-editor/pull/122))
-  - T14: block types resize as on the oracle, resize-check, picture adds no rows, new Scrolling block ([#120](https://github.com/FRIKKern/fluid-editor/pull/120))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
