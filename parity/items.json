@@ -326,7 +326,12 @@
     "milestone": "M2",
     "status": "partial",
     "title": "Button block: sizes, styles, stretch",
-    "evidence": "Button fills its block height (59px at 768, 61.6px at 1280), 56px side padding, Poppins 500 16px. Sizes small and large not measured. Found in the editor screenshot comparison 2026-11-03: the demo hero button fills its block on the oracle (x 92 to 375), ours was narrower and centred (x 130 to 336); the button element and its content box now fill the block (width and height), also when the block centres its content on phones, from that one measured block (283 by 71)"
+    "evidence": "Button fills its block height (59px at 768, 61.6px at 1280), 56px side padding, Poppins 500 16px. Sizes small and large not measured. Found in the editor screenshot comparison 2026-11-03: the demo hero button fills its block on the oracle (x 92 to 375), ours was narrower and centred (x 130 to 336); the button element and its content box now fill the block (width and height), also when the block centres its content on phones, from that one measured block (283 by 71). Measured 2026-11-04 by hand on the oracle: the button toolbar has Edit, Open link editor popover, Pin, Duplicate and Remove; Edit opens a panel on a Content tab (Text, Link with Attach link) next to Design and Animation. Our Edit opens Design only",
+    "controls": [
+      "Content",
+      "Attach link",
+      "Open link editor popover"
+    ]
   },
   {
     "id": "T6",
@@ -985,9 +990,13 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Section actions: Add Section, Duplicate, Move Up and Down, Remove, Save Section, View Layouts",
-    "evidence": "Found in hands-on testing 2026-11-03. The oracle section toolbar has these actions and an ADD SECTION button on each section edge; built in our editor: Duplicate Section (a copy below, new ids), Move Section Up and Down (off on the first and last section, as on the oracle), Remove Section, and Add Block from the section, each one undo step. Not built: Add Section, View Layouts, Save Section. Not measured: what each does to the page model, and the Add Section layout picker",
+    "evidence": "Found in hands-on testing 2026-11-03. The oracle section toolbar has these actions and an ADD SECTION button on each section edge; built in our editor: Duplicate Section (a copy below, new ids), Move Section Up and Down (off on the first and last section, as on the oracle), Remove Section, and Add Block from the section, each one undo step. Not built: Add Section, View Layouts, Save Section. Not measured: what each does to the page model, and the Add Section layout picker. Measured 2026-11-04 by hand on the oracle: Add Section on a section edge opens a full-window Add a Section panel with Add Blank, Saved, and section templates grouped under Introduce (Intro, About, Contact, Team, FAQs), Sell (Products, Services, Group Events, Content & Memberships, Scheduling, Donations) and Showcase (Images, Portfolio, Testimonials, Videos, Calendar, Menus, Audio, Charts), plus AI Terms, Made with Classic Editor and Close. Ours has no panel. The templates are not in the inventory: it collects controls, and these entries are not buttons",
     "controls": [
-      "Layouts"
+      "Layouts",
+      "Add a Section",
+      "Add Blank",
+      "Saved",
+      "Made with Classic Editor"
     ]
   },
   {
