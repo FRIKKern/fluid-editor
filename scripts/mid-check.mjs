@@ -251,7 +251,7 @@ layerCase('with a hole', LY.hole.steps, LY.hole.removed);
 // X2, G5: where a held block sits (HOLD.json). Every sweep is one hold in a section of its own.
 const H = JSON.parse(readFileSync(new URL('../parity/findings/HOLD.json', import.meta.url)));
 const area = (x) => x.split(' / ').map(Number);
-const holdModel = (sw) => { const b = (id, a, z) => ({ id, type: 'shape', fill: '#d9d4ca', radius: '0', label: id, layout: { desktop: { area: area(a), z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: area(a), z, justify: 'flex-start', align: 'flex-start' } } }); return { version: 1, title: 'hold', sections: [{ id: 'hold', theme: '', height: 'small', valign: 'top', gap: traces[0].section.gap, rowGap: traces[0].section.rowGap, rows: { desktop: 8, mobile: 6 }, blocks: [b('held', sw.area, 1), ...(sw.other ? [b('other', sw.other, 2)] : [])] }] }; };
+const holdModel = (sw) => { const b = (id, a, z) => ({ id, type: 'shape', fill: '#d9d4ca', radius: '0', label: id, layout: { desktop: { area: area(a), z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: area(a), z, justify: 'flex-start', align: 'flex-start' } } }); return { version: 1, title: 'hold', sections: [{ id: 'hold', theme: '', height: 'small', valign: 'top', gap: traces[0].section.gap, rowGap: traces[0].section.rowGap, rows: { desktop: 8, mobile: sw.rows || 6 }, blocks: [{ ...b('held', sw.area, 1), ...(sw.text ? { type: 'text', html: `<p>${sw.text}</p>` } : {}) }, ...(sw.other ? [b('other', sw.other, 2)] : [])] }] }; };
 const sweep = (sw, moves, release = 'pointercancel', handle = null) => evalJs(S, `(async () => { const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow; const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   fe.load(${JSON.stringify(holdModel(sw))}); fe.setBp('${sw.view || 'desktop'}'); await sleep(120);
   W.scrollTo(0, 0); await sleep(30);
@@ -259,24 +259,24 @@ const sweep = (sw, moves, release = 'pointercancel', handle = null) => evalJs(S,
   const mid = (e) => { const r = e.getBoundingClientRect(); return { clientX: r.left + r.width / 2, clientY: r.top + r.height / 2 }; };
   fe.select('hold', 'held'); await sleep(30);
   ${sw.other ? `{ const c = { ...o, ...mid(block('other')), shiftKey: true }; block('other').dispatchEvent(new W.PointerEvent('pointerdown', { ...c, buttons: 1 })); d.dispatchEvent(new W.PointerEvent('pointerup', { ...c, buttons: 0 })); await sleep(30); }` : ''}
-  const el = ${handle ? `d.querySelector('.fe-handle[data-dir="${handle}"]')` : 'b'}; const c = mid(el); const q0 = b.getBoundingClientRect(), bottom = () => d.querySelector('.fluid-engine').getBoundingClientRect().bottom;
+  const el = ${handle ? `d.querySelector('.fe-handle[data-dir="${handle}"]')` : 'b'}; const c = mid(el); ${sw.pressX !== undefined ? `c.clientX = el.getBoundingClientRect().left + ${sw.pressX};` : ''} const q0 = b.getBoundingClientRect(), bottom = () => d.querySelector('.fluid-engine').getBoundingClientRect().bottom;
   el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, ...c, buttons: 1 }));
   const go = (m) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: c.clientX + m[0], clientY: c.clientY + m[1], buttons: 1 }));
   ${sw.pre ? `go(${JSON.stringify(sw.pre)}); await sleep(15);` : ''}
   const out = [];
   for (const m of ${JSON.stringify(moves)}) { go(m); await sleep(25);
     const ring = d.querySelector('.fe-transform-indicator'), line = d.querySelector('.fe-center-line'), q = b.getBoundingClientRect(), l = line && W.getComputedStyle(line), other = block('other');
-    out.push({ ring: ring ? W.getComputedStyle(ring).gridArea : null, bx: q.left - q0.left, by: q.top - q0.top, w: q.width, gapBelow: bottom() - q.bottom, otherTx: other ? other.getBoundingClientRect().left - ${sw.other ? `(() => { const a = fe.measure('hold'); return a.colStart[${area(sw.other || '0 / 1')[1] - 1}]; })()` : '0'} : null, feH: d.querySelector('.fluid-engine').getBoundingClientRect().height, line: !line || l.display === 'none' ? null : l.borderLeftStyle === 'solid' ? 'centered' : 'normal' }); }
+    out.push({ ring: ring ? W.getComputedStyle(ring).gridArea : null, bx: q.left - q0.left, by: q.top - q0.top, w: q.width, h: q.height, gapBelow: bottom() - q.bottom, otherTx: other ? other.getBoundingClientRect().left - ${sw.other ? `(() => { const a = fe.measure('hold'); return a.colStart[${area(sw.other || '0 / 1')[1] - 1}]; })()` : '0'} : null, feH: d.querySelector('.fluid-engine').getBoundingClientRect().height, line: !line || l.display === 'none' ? null : l.borderLeftStyle === 'solid' ? 'centered' : 'normal' }); }
   d.dispatchEvent(new W.PointerEvent('${release}', { ...o, buttons: 0 })); await sleep(30);
   const after = fe.model.sections[0].blocks[0].layout['${sw.view || 'desktop'}'].area.join(' / ');
   fe.setBp('desktop'); return JSON.stringify({ out, after }); })()`);
 for (const sw of H.sweeps) {
-  const { out } = sweep(sw, sw.moves.map((m) => [m.dx, m.dy]));
+  const { out } = sweep(sw, sw.moves.map((m) => [m.dx, m.dy]), 'pointercancel', sw.handle || null);
   sw.moves.forEach((m, k) => {
     const g = out[k], name = `hold ${sw.name} ${m.dx},${m.dy}`;
     const diffs = [];
     if (g.ring !== m.ring) diffs.push(`ring: oracle ${m.ring}, ours ${g.ring}`);
-    for (const key of ['bx', 'by', 'w', 'gapBelow', 'otherTx', 'feH']) if (m[key] !== undefined && !near(g[key], m[key])) diffs.push(`${key}: oracle ${m[key]}, ours ${g[key]}`);
+    for (const key of ['bx', 'by', 'w', 'h', 'gapBelow', 'otherTx', 'feH']) if (m[key] !== undefined && !near(g[key], m[key])) diffs.push(`${key}: oracle ${m[key]}, ours ${g[key]}`);
     if (m.line !== undefined && g.line !== m.line) diffs.push(`line: oracle ${m.line}, ours ${g.line}`);
     groupCases.push({ name, diffs, known: H.knownMisses.some((x) => x.sweep === sw.name && x.at.includes(m.dx)) });
   });

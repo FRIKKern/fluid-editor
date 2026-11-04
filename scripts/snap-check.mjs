@@ -26,7 +26,7 @@ for (const r of F.readings) {
     const q = el.getBoundingClientRect(); const cx = q.left + q.width / 2, cy = q.top + q.height / 2;
     const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 };
     el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, clientX: cx, clientY: cy, buttons: 1 }));
-    const read = () => { const e = ${r.kind === 'move' ? `d.querySelector('.fe-transform-indicator')` : 'b'}; return e ? W.getComputedStyle(e).gridArea : null; };
+    const read = () => { const e = d.querySelector('.fe-transform-indicator'); return e ? W.getComputedStyle(e).gridArea : null; };
     const move = (x, y) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x, clientY: y, buttons: 1 }));
     move(cx + 14, cy); await sleep(20); move(cx, cy); await sleep(20);
     const walk = async (axis, from, to) => { const seen = []; let last = read(); const step = from < to ? 1 : -1; for (let v = from; v !== to + step; v += step) { move(axis === 'x' ? cx + v : cx, axis === 'y' ? cy + v : cy); await sleep(4); const a = read(); if (a !== last) seen.push([v, a]); last = a; } return seen; };
