@@ -1,0 +1,61 @@
+{
+ "item": "MARKS",
+ "capturedAt": "2026-11-04",
+ "question": "Small marks of the editor chrome: where a dragged block panel can go, and more as items need them.",
+ "window": [
+  1600,
+  1000
+ ],
+ "how": "real mouse input in headless Chrome on the demo page. Nothing in the content changed; every run ended with Exit, and the Save button stayed off.",
+ "panelMove": {
+  "note": "Shape block's Edit panel. A drag follows the pointer inside limits that depend on the window, not on the editor area. Escape closes it; it reopens at its first place.",
+  "panel": [
+   320,
+   502
+  ],
+  "opened": [
+   1260,
+   217,
+   320,
+   502
+  ],
+  "dragBy": [
+   -300,
+   150
+  ],
+  "dragged": [
+   960,
+   367,
+   320,
+   502
+  ],
+  "towardBottomRight": [
+   1286,
+   520,
+   320,
+   502
+  ],
+  "towardTopLeft": [
+   20,
+   22,
+   320,
+   502
+  ],
+  "limits": {
+   "left": [
+    20,
+    "window width + 6 - panel width"
+   ],
+   "top": [
+    22,
+    "window height + 22 - panel height"
+   ]
+  },
+  "reopenedAfterEscape": [
+   1260,
+   217,
+   320,
+   502
+  ]
+ }
+}
