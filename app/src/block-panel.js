@@ -113,7 +113,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       const chip = (l, v) => row(l, `<span class="bp-unbuilt-chip" data-unbuilt title="Not built yet" aria-label="${l}">${v}</span>`);
       const off = (l) => row(l, `<label class="sp-switch" data-unbuilt title="Not built yet"><input type="checkbox" disabled aria-label="${l}"><span aria-hidden="true"></span></label>`);
       body = `<div class="bp-modes" role="radiogroup" aria-label="Image mode">${seg('fit', 'Fit')}${seg('fill', 'Fill')}${seg('shape', 'Shape')}</div>`
-        + (image.mode === 'shape' ? chip('Shape', 'Circle') + off('Stretch') : chip('Corner', '0px'))
+        + (image.mode === 'shape' ? chip('Shape', 'Circle') + off('Stretch') : row('Corner', `<label class="bp-box"><input type="number" data-image-corner aria-label="Corner" min="0" max="1000" value="${image.corner}"><span class="bp-unit">px</span></label>`))
         + chip('Image Effect', '›') + off('Overlay') + off('Lightbox')
         + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
         + pairs.join('');
