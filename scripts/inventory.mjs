@@ -146,7 +146,7 @@ async function oHover(i) {
 const EXPECT = {
   'section-hover': 'View Layouts', 'section-design': 'Row Count', 'section-background': 'Background Width', 'section-colors': 'Lightest 1',
   'add-block-menu': 'Essentials', layers: 'Layers', 'text-selected': 'Write', 'text-writing': 'Text Style', 'text-edit-design': 'Opacity',
-  'text-edit-animation': 'Animation', 'shape-selected': 'Pin', 'shape-edit': 'Opacity', 'button-selected': 'Pin', 'button-edit': 'Opacity',
+  'text-edit-animation': 'Animation', 'shape-selected': 'Pin', 'shape-edit': 'Opacity', 'button-selected': 'Pin', 'button-edit': 'Attach link', 'add-section-menu': 'Add a Section',
   'group-selected': 'Align Group', 'block-context-menu': 'Hide on desktop', 'phone-text-selected': 'Move Up', 'text-style-menu': 'Heading 1',
   'text-align-menu': 'Text Alignment',
 };
@@ -198,7 +198,7 @@ const STATES = [
   ['phone-idle', 'Phone layout, nothing selected', async () => { await oCmuxClick(oByLabel('Mobile View'), 2500); }, `fe.setBp('mobile'); await sleep(300)`],
   ['phone-text-selected', 'Phone layout, a text block selected', async () => { await oCmuxClick(oByLabel('Mobile View'), 2500); await select(S2, blockIds(S2)[1]); }, `fe.setBp('mobile'); await sleep(300); await pick(${S2}, 1)`],
   ['preview', 'Preview mode (top bar)', async () => { await oCmuxClick(oByLabel('Toggle preview mode'), 2000); }, `await press('#preview')`],
-  ['add-section-menu', 'Add Section on a section edge', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/^\s*add section\s*$/i'), 1800); }, `await hover(${S2}); await press('#section-chrome [data-sc="add-section-below"]')`],
+  ['add-section-menu', 'Add Section on a section edge', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/add section/i'), 1800); }, `await hover(${S2}); await press('#section-chrome [data-sc="add-section-below"]')`],
   ['view-layouts', 'View Layouts of a section', async () => { await oHover(S2); await oCmuxClick(oSectionButton(S2, '/view layouts/i'), 1800); }, `await hover(${S2}); await press('#section-chrome [data-sc="layouts"]')`],
   ['button-link', 'Link popover of a button block', async () => { await select(0, blockIds(0)[2]); await oCmuxClick(oByLabel('Open link editor popover', 80), 1500); }, `await pick(0, 2)`],
   ['phone-section-hover', 'Phone layout, pointer over a section', async () => { await oCmuxClick(oByLabel('Mobile View'), 2500); await oHover(S2); }, `fe.setBp('mobile'); await sleep(300); await hover(${S2})`],

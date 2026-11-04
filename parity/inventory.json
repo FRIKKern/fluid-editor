@@ -782,10 +782,76 @@
     {
       "name": "button-edit",
       "what": "Button block Edit panel",
-      "oracle": 0,
-      "present": 0,
-      "missing": [],
-      "error": "oracle: not reached: \"Opacity\" is not on screen"
+      "oracle": 17,
+      "present": 11,
+      "missing": [
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U12"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U13"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "tab",
+          "label": "Content",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "T5"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "input:text",
+          "label": "Text",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U5"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "control",
+          "role": "button",
+          "label": "Attach link",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "T5"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Link",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "E4"
+          ],
+          "outOfScope": []
+        }
+      ],
+      "error": null
     },
     {
       "name": "group-selected",
@@ -1137,59 +1203,274 @@
     {
       "name": "add-section-menu",
       "what": "Add Section on a section edge",
-      "oracle": 20,
-      "present": 15,
+      "oracle": 25,
+      "present": 0,
       "missing": [
         {
           "kind": "control",
           "role": "button",
-          "label": "Toggle Site Styles editing",
-          "where": "top",
-          "status": "UNTRACKED",
-          "items": [],
-          "outOfScope": []
-        },
-        {
-          "kind": "control",
-          "role": "button",
-          "label": "Add Section",
+          "label": "Close",
           "where": "top",
           "status": "tracked",
           "items": [
-            "U9"
+            "U12"
           ],
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Open Section Settings",
+          "kind": "text",
+          "label": "Add a Section",
           "where": "top",
           "status": "tracked",
           "items": [
-            "U9"
+            "U10"
           ],
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "View Layouts",
+          "kind": "text",
+          "label": "Add Blank",
           "where": "top",
           "status": "tracked",
           "items": [
-            "U9"
+            "U10"
           ],
           "outOfScope": []
         },
         {
-          "kind": "control",
-          "role": "button",
-          "label": "Save Section",
+          "kind": "text",
+          "label": "Saved",
           "where": "top",
           "status": "tracked",
           "items": [
-            "U9"
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Introduce",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Intro",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "About",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "T3",
+            "T4",
+            "G7",
+            "Z5",
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Contact",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "T3",
+            "T4",
+            "T9",
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Team",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "FAQs",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Sell",
+          "where": "top",
+          "status": "out of scope",
+          "items": [
+            "U5",
+            "U10"
+          ],
+          "outOfScope": [
+            "U5"
+          ]
+        },
+        {
+          "kind": "text",
+          "label": "Products",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Services",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "T3",
+            "T4",
+            "T12",
+            "U10",
+            "E7"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Group Events",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Content & Memberships",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Scheduling",
+          "where": "top",
+          "status": "tracked",
+          "items": [
+            "U5"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Donations",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Showcase",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Images",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "T4",
+            "T14",
+            "X7",
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Portfolio",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Testimonials",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Videos",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Calendar",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Menus",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
+          ],
+          "outOfScope": []
+        },
+        {
+          "kind": "text",
+          "label": "Audio",
+          "where": "top",
+          "status": "mentioned",
+          "items": [
+            "U10"
           ],
           "outOfScope": []
         }

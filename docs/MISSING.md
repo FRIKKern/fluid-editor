@@ -28,13 +28,13 @@ For each editor state, the inventory lists every visible control and label of th
 | shape-selected | A shape block selected | 17 | 16 | 0 | 0 | 0 | 1 | 0.15% |
 | shape-edit | Shape block Edit panel | 21 | 12 | 0 | 0 | 0 | 9 | 4.07% |
 | button-selected | A button block selected | 17 | 16 | 0 | 0 | 0 | 1 | 0.2% |
-| button-edit | Button block Edit panel | 0 | 0 | 0 | 0 | 0 | 0 | 11.17% |
+| button-edit | Button block Edit panel | 17 | 11 | 0 | 0 | 0 | 6 | 0.44% |
 | group-selected | Two blocks selected with Shift | 25 | 15 | 0 | 0 | 0 | 10 | 0.91% |
 | block-context-menu | Right-click on a selected block | 10 | 3 | 0 | 0 | 0 | 7 | 0.6% |
 | phone-idle | Phone layout, nothing selected | 18 | 9 | 0 | 0 | 0 | 9 | 3.22% |
 | phone-text-selected | Phone layout, a text block selected | 18 | 17 | 0 | 0 | 0 | 1 | 2.55% |
 | preview | Preview mode (top bar) | 8 | 6 | 0 | 0 | 0 | 2 | 0.16% |
-| add-section-menu | Add Section on a section edge | 20 | 15 | 0 | 0 | 0 | 5 | 0.53% |
+| add-section-menu | Add Section on a section edge | 25 | 0 | 0 | 19 | 0 | 5 | 20.55% |
 | view-layouts | View Layouts of a section | 11 | 9 | 0 | 0 | 0 | 2 | 1.82% |
 | button-link | Link popover of a button block | 26 | 16 | 0 | 0 | 0 | 10 | 3.19% |
 | phone-section-hover | Phone layout, pointer over a section | 18 | 14 | 0 | 0 | 0 | 4 | 2.31% |
@@ -44,15 +44,39 @@ For each editor state, the inventory lists every visible control and label of th
 | text-color | Writing, the Text Color popover open | 29 | 21 | 0 | 0 | 0 | 7 | 0.94% |
 | site-styles | Site Styles panel (top bar) | 21 | 8 | 0 | 0 | 0 | 11 | 12.79% |
 
-## Tracked (78)
+## Mentioned (19)
 
 | Label | Kind | States | Items |
 |---|---|---|---|
-| Toggle Site Styles editing | button | idle, section-hover, section-design, section-background, section-colors, add-block-menu, layers, text-selected, text-writing, text-edit-design, text-edit-animation, shape-selected, shape-edit, button-selected, group-selected, phone-idle, phone-text-selected, add-section-menu, view-layouts, button-link, phone-section-hover, text-style-menu, text-align-menu, text-link, text-color | U12 |
-| Add Section | button | section-hover, layers, group-selected, phone-idle, add-section-menu, phone-section-hover | U9 |
-| Open Section Settings | button | section-hover, layers, group-selected, phone-idle, add-section-menu, phone-section-hover | U9 |
-| View Layouts | button | section-hover, layers, group-selected, add-section-menu | U9 |
-| Save Section | button | section-hover, layers, group-selected, phone-idle, add-section-menu, phone-section-hover | U9 |
+| Introduce | text | add-section-menu | U10 |
+| Intro | text | add-section-menu | U10 |
+| About | text | add-section-menu | T3, T4, G7, Z5, U10 |
+| Contact | text | add-section-menu | T3, T4, T9, U10 |
+| Team | text | add-section-menu | U10 |
+| FAQs | text | add-section-menu | U10 |
+| Products | text | add-section-menu | U10 |
+| Services | text | add-section-menu | T3, T4, T12, U10, E7 |
+| Group Events | text | add-section-menu | U10 |
+| Content & Memberships | text | add-section-menu | U10 |
+| Donations | text | add-section-menu | U10 |
+| Showcase | text | add-section-menu | U10 |
+| Images | text | add-section-menu | T4, T14, X7, U10 |
+| Portfolio | text | add-section-menu | U10 |
+| Testimonials | text | add-section-menu | U10 |
+| Videos | text | add-section-menu | U10 |
+| Calendar | text | add-section-menu | U10 |
+| Menus | text | add-section-menu | U10 |
+| Audio | text | add-section-menu | U10 |
+
+## Tracked (84)
+
+| Label | Kind | States | Items |
+|---|---|---|---|
+| Toggle Site Styles editing | button | idle, section-hover, section-design, section-background, section-colors, add-block-menu, layers, text-selected, text-writing, text-edit-design, text-edit-animation, shape-selected, shape-edit, button-selected, button-edit, group-selected, phone-idle, phone-text-selected, view-layouts, button-link, phone-section-hover, text-style-menu, text-align-menu, text-link, text-color | U12 |
+| Add Section | button | section-hover, layers, group-selected, phone-idle, phone-section-hover | U9 |
+| Open Section Settings | button | section-hover, layers, group-selected, phone-idle, phone-section-hover | U9 |
+| View Layouts | button | section-hover, layers, group-selected | U9 |
+| Save Section | button | section-hover, layers, group-selected, phone-idle, phone-section-hover | U9 |
 | DesignBackgroundColors | button | section-design, section-background, section-colors | U9 |
 | Image | radio | section-background | U5 |
 | Video | radio | section-background | U5 |
@@ -67,15 +91,15 @@ For each editor state, the inventory lists every visible control and label of th
 | AaBright 1 | button | section-colors | P5 |
 | AaBright 2 | button | section-colors | P5 |
 | Pricing Plan | button | add-block-menu | U5 |
-| Scheduling | button | add-block-menu | U5 |
+| Scheduling | button | add-block-menu, add-section-menu | U5 |
 | Open Layers Panel | button | layers, phone-idle | Z4 |
 | Add Block | button | layers | U9 |
 | On desktop the smallest a row can be is the cont | button | layers | Z4 |
 | Text Color | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
 | Scaled Text | checkbox | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
 | Text Highlight | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
-| Link | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4 |
-| Click and drag to reposition block editor form | button | text-edit-design, text-edit-animation, shape-edit | U13 |
+| Link | button | text-writing, button-edit, text-style-menu, text-align-menu, text-link, text-color | E4 |
+| Click and drag to reposition block editor form | button | text-edit-design, text-edit-animation, shape-edit, button-edit | U13 |
 | Blend ModeNormal | button | text-edit-design, shape-edit | T6, T15 |
 | More actions | combobox | text-edit-design | T15 |
 | Animation list actions | combobox | text-edit-animation | T15 |
@@ -88,6 +112,9 @@ For each editor state, the inventory lists every visible control and label of th
 | Color | button | shape-edit | T6 |
 | Shape style | text | shape-edit | T6 |
 | Styling | text | shape-edit | T6 |
+| Content | tab | button-edit | T5 |
+| Text | input:text | button-edit | U5 |
+| Attach link | button | button-edit | T5 |
 | Duplicate Section | button | group-selected, phone-idle | U9 |
 | Move Section Up | button | group-selected, phone-idle | U9 |
 | Move Section Down | button | group-selected, phone-idle | U9 |
@@ -103,6 +130,10 @@ For each editor state, the inventory lists every visible control and label of th
 | Remove Section | button | phone-idle | U9 |
 | Reload page preview | button | preview | U6 |
 | Previewing | text | preview | U6 |
+| Close | button | add-section-menu, site-styles | U12 |
+| Add a Section | text | add-section-menu | U10 |
+| Add Blank | text | add-section-menu | U10 |
+| Saved | text | add-section-menu | U10 |
 | Layouts | button | view-layouts | U10 |
 | URL | button | button-link | E7 |
 | Enter link, search, or add files | combobox | button-link | E7 |
@@ -115,7 +146,6 @@ For each editor state, the inventory lists every visible control and label of th
 | Hidden Navigation | text | button-link | E7 |
 | Palette | tab | text-color | E4 |
 | Custom | tab | text-color | E4 |
-| Close | button | site-styles | U12 |
 | Toggle Themes style pack popover | button | site-styles | U12 |
 | Toggle Fonts style pack popover | button | site-styles | U12 |
 | Open Fonts style disclosure | button | site-styles | U12 |
@@ -133,11 +163,7 @@ For each editor state, the inventory lists every visible control and label of th
 |---|---|---|---|
 | Product | button | add-block-menu | U5 |
 | Donation | button | add-block-menu | U5 |
-| Sell | text | add-block-menu | U5, U5 |
+| Sell | text | add-block-menu, add-section-menu | U5, U10, U5 |
 | Squarespace AI | button | text-writing, text-style-menu, text-align-menu, text-link, text-color | E4, E4 |
 | Subscribe | button | site-styles | U12 |
 | Site Styles | text | site-styles | U6, U12, U12 |
-
-## States that did not run cleanly
-
-- button-edit: oracle: not reached: "Opacity" is not on screen
