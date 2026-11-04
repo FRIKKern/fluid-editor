@@ -262,6 +262,9 @@ toolbar.addEventListener('click', (e) => {
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
   if (act === 'edit') { designOpen = bid; designTab = b.type === 'button' ? 'Content' : 'Design'; updateUi(); return; }
+  // The toolbar link button opens the same link editor, centred under the button and 7px
+  // below it (measured 2026-11-04 on the oracle demo button).
+  if (act === 'link' && b.type === 'button') { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
   if (act === 'pin' || act === 'primary' || act === 'link') { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
   const before = JSON.stringify(model);
   if (act === 'align') { const order = ['flex-start', 'center', 'flex-end']; const L = lay(b); L.justify = order[(order.indexOf(L.justify || 'flex-start') + 1) % 3]; }
@@ -799,7 +802,8 @@ let designTab = 'Design';
 const blockPanel = $('block-panel');
 function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
-  if (!b) { closeLinkPopover(); if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
+  if (!b) { if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   const content = b.type === 'button' ? { label: b.label, href: b.href } : null;
   if (!content && designTab === 'Content') designTab = 'Design';
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
@@ -860,8 +864,12 @@ function onLinkAction(act, el) {
   if (act === 'copy') { navigator.clipboard?.writeText(b.href || '').catch(() => {}); note('Link copied'); updateUi(); return; }
   if (act === 'remove') { closeLinkPopover(); setButton((x) => { delete x.href; }, 'Link removed'); return; }
   // open or edit
+  openLinkPopover(b, (st) => linkPopoverPosition(blockPanel.getBoundingClientRect(), el.getBoundingClientRect(), st));
+}
+function openLinkPopover(b, place) {
+  linkPop.dataset.bid = b.id;
   linkPop.innerHTML = linkPopoverHtml(b.href, siteLinkGroups());
-  const p = linkPopoverPosition(blockPanel.getBoundingClientRect(), el.getBoundingClientRect(), stage.getBoundingClientRect());
+  const p = place(stage.getBoundingClientRect());
   linkPop.style.left = `${p.left}px`; linkPop.style.top = `${p.top}px`;
   linkPop.hidden = false;
   linkPop.classList.toggle('has-text', !!b.href);
