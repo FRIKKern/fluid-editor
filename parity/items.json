@@ -502,7 +502,7 @@
     "status": "done",
     "title": "Snap threshold and dead zone",
     "wasUnknown": true,
-    "evidence": "Drags of 0.3 and 0.5 columns stay, 0.7 moves one column (traces T0004, T0005, T0006); our editor replays all three (parity/gate-c.json)"
+    "evidence": "parity/findings/SNAP.json walks a held drag and resize 1px at a time on the oracle (headless Chrome, demo gap 11): a held line moves when the edge in front passes the middle of the next track, so the first step is half a pitch plus half a gap; a side margin counts as its width less the gap; there is no dead zone beyond that and no hysteresis, the same px forward and back. Rows follow the same rule on a uniform pitch. Drags of 0.3, 0.5, 0.52 and 0.55 columns stay and 0.6 moves (T0004, T0005, T0006); our editor replays them (parity/gate-c.json) and npm run snap-check is 24 of 24. Inferred, not measured: phones, other gaps, and a start inside a margin. Group resize keeps its nearest-line rule, not measured against this."
   },
   {
     "id": "G5",

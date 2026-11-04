@@ -582,6 +582,22 @@ function layer(fe, cls, a, z) {
   return el;
 }
 
+// G4 (parity/findings/SNAP.json): a grid line held by the pointer moves when the leading edge
+// passes the middle of the next track, so the first step takes half a pitch plus half a gap.
+// A side margin counts as its width less one gap. d is the pointer's distance from `line`.
+function snapColumn(m, line, d, lo, hi) {
+  const n = m.colStart.length;
+  const at = (l) => (l <= n ? m.colStart[l - 1] : m.colEnd[n - 1] + m.cg);
+  const half = (t) => (m.colEnd[t - 1] - m.colStart[t - 1] - (t === 1 || t === n ? m.cg : 0)) / 2;
+  const p = at(line) + d;
+  let l = line;
+  while (l < hi && p >= at(l) + m.cg + half(l)) l++;
+  while (l > lo && p <= at(l) - m.cg - half(l - 1)) l--;
+  return l;
+}
+// The same rule for rows, on a uniform pitch, also past the last row (traces T0013, T0014).
+const snapRow = (m, line, d) => line + Math.sign(d) * Math.max(0, Math.round((Math.abs(d) - m.rg / 2) / m.pitch));
+
 function nearest(from, to, f) {
   let best = from;
   let bd = Infinity;
@@ -771,9 +787,10 @@ function updateMove(e) {
   const baseLeft = m.colStart[c0 - 1];
   const baseTop = top + (r0 - 1) * m.pitch;
   blockEl(g.bid).style.transform = `translate(${left - baseLeft}px, ${y - baseTop}px)`;
-  const nc0 = nearest(1, LAST_LINE[bp] - w, (c) => m.colStart[c - 1] - left);
-  // Uniform pitch, also past the last row (traces T0013, T0014).
-  const nr0 = Math.max(1, Math.round((y - top) / m.pitch) + 1);
+  // The edge in front decides: the right one going right, the left one going left.
+  const dx = left - baseLeft;
+  const nc0 = dx > 0 ? snapColumn(m, c0 + w, dx, w + 1, LAST_LINE[bp]) - w : snapColumn(m, c0, dx, 1, LAST_LINE[bp] - w);
+  const nr0 = Math.max(1, snapRow(m, r0, y - baseTop));
   let t = [nr0, nc0, nr0 + h, nc0 + w];
   // Center snap (G5, parity/findings/GUIDES.json): a block of an odd width cannot center on the
   // center line, so within half a column of it the target takes one more column and is centered.
@@ -877,10 +894,10 @@ function updateResize(e) {
   let [r0, c0, r1, c1] = g.orig;
   const x = e.clientX;
   const y = e.clientY;
-  if (g.dir.includes('e')) c1 = nearest(c0 + 1, LAST_LINE[bp], (l) => m.colEnd[l - 2] - x);
-  if (g.dir.includes('w')) c0 = nearest(1, c1 - 1, (l) => m.colStart[l - 1] - x);
-  if (g.dir.includes('s')) r1 = Math.max(r0 + 1, Math.round((y - top + m.rg) / m.pitch) + 1);
-  if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, Math.round((y - top) / m.pitch) + 1));
+  if (g.dir.includes('e')) c1 = snapColumn(m, c1, x - m.colEnd[c1 - 2], c0 + 1, LAST_LINE[bp]);
+  if (g.dir.includes('w')) c0 = snapColumn(m, c0, x - m.colStart[c0 - 1], 1, c1 - 1);
+  if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, y - (top + (r1 - 1) * m.pitch - m.rg)));
+  if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, y - (top + (r0 - 1) * m.pitch))));
   const el = blockEl(g.bid);
   setArea(el, [r0, c0, r1, c1]);
   // Guard: a block cannot be shorter than its content.
