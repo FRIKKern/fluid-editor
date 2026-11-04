@@ -368,3 +368,15 @@ body.is-preview .site-styles { display: none !important; }
 .lp-row.is-hidden { color: #a8a8a8; }
 .lp-row.is-hidden .lp-icon { opacity: .45; }
 .lp-eye { margin-left: auto; border: 0; background: none; padding: 0; color: #0e0e0e; cursor: pointer; display: inline-flex; }
+
+/* Pin popover (parity/findings/PIN.json): 248 by 140; radios 42px apart; Offset field 73 by 22,
+   slider 204 wide. */
+.pin-popover { position: absolute; z-index: 40; width: 248px; height: 140px; box-sizing: border-box; padding: 16px 22px; background: #fff; border-radius: 8px; box-shadow: 0 2px 12px rgba(0, 0, 0, .16); font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; }
+.pin-popover[hidden] { display: none; }
+.pin-row { display: flex; align-items: center; justify-content: space-between; height: 44px; }
+.pin-opts { display: flex; gap: 6px; }
+.pin-opt { width: 36px; height: 36px; border: 0; border-radius: 3px; background: transparent; color: #0e0e0e; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.pin-opt.is-on { background: #f2f2f2; }
+.pin-off { width: 73px; height: 22px; border: 0; text-align: right; font: inherit; }
+.pin-range { width: 204px; margin: 8px 0 0; }
+body.is-preview .pin-popover { display: none !important; }

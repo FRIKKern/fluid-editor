@@ -1,0 +1,137 @@
+{
+  "item": "U4",
+  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "question": "What does the block toolbar Pin do, and what does its popover offer?",
+  "block": "demo section 2, the shape",
+  "steps": "select, click Pin, read the block's computed position and its rules, read the popover; undo until Save is disabled",
+  "before": {
+    "position": "relative",
+    "top": "0px",
+    "alignSelf": "auto",
+    "rules": [
+      "#block-yui_3_17_2_1_1793705593367_16395 .sqs-shape-block-container-system_desktop { display: flex;}",
+      "#block-yui_3_17_2_1_1793705593367_16395 .sqs-shape-block-container-system_desktop { \tdisplay: flex;}"
+    ]
+  },
+  "pinButton": [
+    909,
+    356,
+    36,
+    36
+  ],
+  "after": {
+    "position": "sticky",
+    "top": "0px",
+    "alignSelf": "auto",
+    "rules": [
+      "@media (min-width: 768px) { .fe-block-yui_3_17_2_1_1793705593367_16395, .fluid-engine-block-editing-indicator-yui_3_17_2_1_1793705593367_16395, .transform-indicator-yui_3_17_2_1_1793705593367_16395 { grid-area: 2/15/12/25; position: sticky; top: 0px;}",
+      "#block-yui_3_17_2_1_1793705593367_16395 .sqs-shape-block-container-system_desktop { display: flex;}",
+      "#block-yui_3_17_2_1_1793705593367_16395 .sqs-shape-block-container-system_desktop { \tdisplay: flex;}"
+    ]
+  },
+  "changed": true,
+  "popover": {
+    "box": [
+      805,
+      399,
+      248,
+      140
+    ],
+    "text": [
+      {
+        "t": "Pin",
+        "box": [
+          827,
+          426,
+          20,
+          22
+        ]
+      },
+      {
+        "t": "Offset",
+        "box": [
+          827,
+          471,
+          120,
+          22
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "type": "radio",
+        "label": "Pin to Top on Scroll",
+        "value": "on",
+        "checked": true,
+        "box": [
+          887,
+          437,
+          0,
+          0
+        ]
+      },
+      {
+        "type": "radio",
+        "label": "Pin to Center on Scroll",
+        "value": "on",
+        "checked": false,
+        "box": [
+          929,
+          437,
+          0,
+          0
+        ]
+      },
+      {
+        "type": "radio",
+        "label": "Pin to Bottom on Scroll",
+        "value": "on",
+        "checked": false,
+        "box": [
+          971,
+          437,
+          0,
+          0
+        ]
+      },
+      {
+        "type": "radio",
+        "label": "Remove Pin",
+        "value": "on",
+        "checked": false,
+        "box": [
+          1013,
+          437,
+          0,
+          0
+        ]
+      },
+      {
+        "type": "text",
+        "label": "Offset",
+        "value": "0px",
+        "checked": false,
+        "box": [
+          958,
+          471,
+          73,
+          22
+        ]
+      },
+      {
+        "type": "range",
+        "label": "Offset",
+        "value": "0",
+        "checked": false,
+        "box": [
+          827,
+          504,
+          204,
+          8
+        ]
+      }
+    ]
+  },
+  "undo": 1
+}
