@@ -49,7 +49,7 @@ function blendRow(cur, open) {
   return `<div class="bp-blend-wrap"><div class="sp-row bp-blend" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="${open}" data-blend-toggle><span class="sp-label">Blend Mode</span><span class="bp-blend-value">${name}</span></div>${list}</div>`;
 }
 
-export function blockPanelHtml(d, tab, content = null, open = null) {
+export function blockPanelHtml(d, tab, content = null, open = null, shape = null) {
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
@@ -64,7 +64,19 @@ export function blockPanelHtml(d, tab, content = null, open = null) {
       if (f[5] === 'X') { pairs.push(`<div class="bp-trow"><span class="sp-label">${f[1]}</span><span class="bp-pair">${box(f)}${box(DESIGN_FIELDS[i + 1])}</span></div>`); i++; }
       else pairs.push(`<div class="bp-trow"><span class="sp-label">${f[1]}</span>${box(f)}</div>`);
     }
-    body = row('Background', sw('background', d.background, 'Background'))
+    // A shape's Design tab (parity/findings/SHAPEDESIGN.json) has no Background or Stroke row:
+    // shape style, Corner radius with Uniform or Individual radii, Stretch, Color, Blend Mode,
+    // Drop Shadow, Blur, then the transforms.
+    if (shape) body = row('Shape style', '<span class="bp-unbuilt-chip" data-unbuilt title="Not built yet">Rectangle</span>')
+      + `<div class="sp-row"><span class="sp-label">Corner radius</span><span class="sp-ctl"><label class="bp-box bp-radius"><input type="number" data-shape="radius" aria-label="Corner radius" min="0" max="1000" value="${shape.radius}"><span class="bp-unit">px</span></label><span class="bp-radii"><button type="button" role="radio" aria-checked="true" class="sp-seg is-on" aria-label="Uniform corner radii">${pi('<rect x="5" y="5" width="14" height="14" rx="4"/>')}</button><button type="button" role="radio" aria-checked="false" class="sp-seg" disabled data-unbuilt title="Not built yet" aria-label="Individual corner radii">${pi('<path d="M5 9V7a2 2 0 0 1 2-2h2M15 5h2a2 2 0 0 1 2 2v2M19 15v2a2 2 0 0 1-2 2h-2M9 19H7a2 2 0 0 1-2-2v-2"/>')}</button></span></span></div>`
+      + row('Stretch', `<label class="sp-switch"><input type="checkbox" data-shape="stretch" aria-label="Stretch" ${shape.stretch ? 'checked' : ''}><span aria-hidden="true"></span></label>`)
+      + row('Color', '<button type="button" class="bp-swatch" data-unbuilt title="Not built yet" aria-label="Color" disabled></button>')
+      + blendRow(d.blend || 'normal', open === 'blend')
+      + row('Drop Shadow', sw('shadow', d.shadow, 'Drop Shadow'))
+      + row('Blur', sw('blur', d.blur, 'Blur'))
+      + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
+      + pairs.join('');
+    else body = row('Background', sw('background', d.background, 'Background'))
       + row('Stroke', `<span class="sp-ctl" data-unbuilt title="Not built yet">${['No stroke', 'Solid stroke', 'Dashed stroke'].map((l, k) => `<button type="button" class="sp-seg${k === 0 ? ' is-on' : ''}" disabled aria-label="${l}">${pi(['<circle cx="12" cy="12" r="7"/><path d="M7 17L17 7"/>', '<path d="M5 12h14"/>', '<path d="M4 12h3M10.5 12h3M17 12h3"/>'][k])}</button>`).join('')}</span>`)
       + blendRow(d.blend || 'normal', open === 'blend')
       + row('Blur', sw('blur', d.blur, 'Blur'))

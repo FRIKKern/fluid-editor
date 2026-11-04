@@ -131,7 +131,10 @@ function blockInner(b, model) {
     case 'shape': {
       const style = `--shape-fill:${b.fill || 'var(--accent)'};--shape-radius:${b.radius || '0'};--shape-ink:${b.ink || 'inherit'}`;
       const label = b.label ? `<span class="sqs-shape-label">${escapeHtml(b.label)}</span>` : '';
-      return `<div class="sqs-block shape-block sqs-block-shape sqs-stretched" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-shape" style="${style}">${label}</div></div></div>`;
+      // Stretch off (parity/findings/SHAPEDESIGN.json): the oracle drops data-stretched-to-fill
+      // and draws the shape as wide as it is tall.
+      const stretched = b.stretch !== false;
+      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-shape${stretched ? '' : ' is-square'}" style="${style}">${label}</div></div></div>`;
     }
     case 'stack': {
       // A Stack (S3): one grid block whose children flow in a flex column, values
@@ -226,10 +229,13 @@ export function designCss(b) {
 // Other block types are not measured; they get mix-blend-mode directly.
 export const BLEND_MODES = ['Normal', 'Multiply', 'Screen', 'Overlay', 'Darken', 'Lighten', 'Color Dodge', 'Color Burn', 'Hard Light', 'Soft Light', 'Difference', 'Exclusion', 'Hue', 'Saturation', 'Color', 'Luminosity'];
 export function blendCss(b) {
+  // Drop Shadow on a shape (SHAPEDESIGN.json): drop-shadow(2px 2px 3px) on the block contents,
+  // in the text color as no color is given.
+  const shadow = b.design?.shadow ? `.fe-block-${b.id} .sqs-block { filter: drop-shadow(2px 2px 3px); }` : '';
   const m = b.design?.blend;
-  if (!m || m === 'normal') return '';
-  if (b.type === 'text') return `.fe-block-${b.id} { mix-blend-mode: var(--tweak-text-block-blend ); } .fe-block-${b.id} { --tweak-text-block-blend : ${m}; }`;
-  return `.fe-block-${b.id} { mix-blend-mode: ${m}; }`;
+  if (!m || m === 'normal') return shadow;
+  if (b.type === 'text') return `${shadow} .fe-block-${b.id} { mix-blend-mode: var(--tweak-text-block-blend ); } .fe-block-${b.id} { --tweak-text-block-blend : ${m}; }`.trim();
+  return `${shadow} .fe-block-${b.id} { mix-blend-mode: ${m}; }`.trim();
 }
 
 export function renderBlock(b, model) {

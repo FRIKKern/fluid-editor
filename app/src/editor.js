@@ -808,7 +808,8 @@ function renderBlockPanel() {
   const content = b.type === 'button' ? { label: b.label, href: b.href } : null;
   if (!content && designTab === 'Content') designTab = 'Design';
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
-  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, blendOpen ? 'blend' : null);
+  const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false } : null;
+  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, blendOpen ? 'blend' : null, shape);
   placeBlockPanel();
   blockPanel.hidden = false;
 }
@@ -848,6 +849,20 @@ blockPanel.addEventListener('keydown', (e) => {
   const t = e.target.closest('[data-blend-toggle]');
   if (t && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); blendOpen = !blendOpen; renderBlockPanel(); }
 });
+
+// Shape Corner radius and Stretch (parity/findings/SHAPEDESIGN.json), one undo step each.
+blockPanel.addEventListener('change', (e) => {
+  const f = e.target.closest('input[data-shape]');
+  if (!f || !sel) return;
+  e.stopImmediatePropagation();
+  const b = B(sel.sid, sel.bid);
+  if (!b || b.type !== 'shape') return;
+  const before = JSON.stringify(model);
+  if (f.dataset.shape === 'radius') { const v = Math.max(0, Math.min(1000, Number(f.value) || 0)); if (v) b.radius = `${v}px`; else delete b.radius; }
+  if (f.dataset.shape === 'stretch') { if (f.checked) delete b.stretch; else b.stretch = false; }
+  renderSectionDom(sel.sid);
+  commit(before, `${f.dataset.shape} set on ${b.id}`);
+}, true);
 
 // Button Content tab: the text and the link (parity/findings/BUTTONEDIT.json). The text is
 // one undo step when the field is left; each link change is one step.
