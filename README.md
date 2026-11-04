@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 5 changes
-  - Inventory leaves the Site Styles screen before opening the demo page ([#62](https://github.com/FRIKKern/fluid-editor/pull/62))
-  - Inventory retries opening the demo page when the oracle tab hides ([#61](https://github.com/FRIKKern/fluid-editor/pull/61))
+- **Today** · 8 changes
+  - List the 12 mentioned gap labels on their items ([#65](https://github.com/FRIKKern/fluid-editor/pull/65))
+  - Items for every gap the review found; MISSING.md matches against current items ([#64](https://github.com/FRIKKern/fluid-editor/pull/64))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
