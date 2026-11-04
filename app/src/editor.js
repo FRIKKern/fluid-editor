@@ -1084,16 +1084,19 @@ blockPanel.addEventListener('click', (e) => {
   renderBlockPanel();
 });
 
-// Drag the panel by its header (U13). Tabs and other controls in the header still click.
+// Drag the panel by its header (U13). Tabs and other controls in the header still click. The panel
+// holds the pointer: over the canvas iframe the moves would otherwise go to the iframe and the panel stop.
 blockPanel.addEventListener('pointerdown', (e) => {
   const h = e.target.closest('[data-drag-panel], .sp-tabs');
   if (!h || e.target.closest('button') || e.button !== 0) return;
   e.preventDefault();
   const st = stage.getBoundingClientRect(), r = blockPanel.getBoundingClientRect();
   const dx = e.clientX - r.left, dy = e.clientY - r.top;
+  blockPanel.setPointerCapture(e.pointerId);
   const move = (ev) => {
-    blockPanel.style.left = `${Math.max(0, Math.min(ev.clientX - dx - st.left, st.width - r.width))}px`;
-    blockPanel.style.top = `${Math.max(0, Math.min(ev.clientY - dy - st.top, st.height - 55))}px`;
+    // The limits follow the window, not the editor area (parity/findings/MARKS.json).
+    blockPanel.style.left = `${Math.max(20, Math.min(ev.clientX - dx, innerWidth + 6 - r.width)) - st.left}px`;
+    blockPanel.style.top = `${Math.max(22, Math.min(ev.clientY - dy, innerHeight + 22 - r.height)) - st.top}px`;
     panelMoved = designOpen;
   };
   const up = () => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
