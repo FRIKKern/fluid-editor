@@ -660,7 +660,9 @@ function onDown(e) {
   }
   if (handle && sel) {
     e.preventDefault();
-    startResize(e, handle.dataset.dir);
+    if (sel.more?.length) { startResize(e, handle.dataset.dir); return; }
+    // Like a drag: the move past 10px changes nothing, the next one starts it (HOLD.json).
+    gesture = { type: 'pending', resizeDir: handle.dataset.dir, sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, x0: e.clientX, y0: e.clientY, py0: e.clientY - feEl(sel.sid).getBoundingClientRect().top, before: JSON.stringify(model) };
     return;
   }
   if (!blk) {
@@ -700,7 +702,8 @@ function onMove(e) {
       gesture.armed = Math.hypot(e.clientX - gesture.x0, e.clientY - gesture.y0) > 10;
       return;
     }
-    beginMove(e);
+    if (gesture.resizeDir) startResize(e, gesture.resizeDir);
+    else beginMove(e);
   }
   gesture.lastEvent = { clientX: e.clientX, clientY: e.clientY };
   if (gesture.type === 'move') updateMove(e);
@@ -799,11 +802,15 @@ function updateMove(e) {
   // A block on the left margin track goes right by its left edge, as its width is about to change.
   // A group stops when its box reaches the side of the grid (HOLD.json).
   const origs = [g.orig, ...g.more.map((o) => o.orig)];
-  const cMin = c0 + 1 - Math.min(...origs.map((a) => a[1]));
-  const cMax = c0 + LAST_LINE[bp] - Math.max(...origs.map((a) => a[3]));
+  const cLo = Math.min(...origs.map((a) => a[1]));
+  const cHi = Math.max(...origs.map((a) => a[3]));
+  const cMin = c0 + 1 - cLo;
+  // A box that starts on the left margin track goes as far as the last column, not the right margin.
+  const cMax = Math.max(c0, c0 + (cLo === 1 ? LAST_LINE[bp] - 1 : LAST_LINE[bp]) - cHi);
   const dx = left - baseLeft;
   const nc0 = dx > 0 && c0 > 1 ? snapColumn(m, c0 + w, dx, cMin + w, cMax + w) - w : snapColumn(m, c0, dx, cMin, cMax);
-  const nr0 = Math.max(1, snapRow(m, r0, y - baseTop));
+  // A group's ring stops when its box reaches the top (HOLD.json).
+  const nr0 = Math.max(r0 + 1 - Math.min(...origs.map((a) => a[0])), snapRow(m, r0, y - baseTop));
   let t = [nr0, nc0, nr0 + h, nc0 + w];
   // Center snap (G5, parity/findings/GUIDES.json, HOLD.json): within half a column of the center
   // the line is yellow. A block of an odd width cannot center on it, so there the target takes one
@@ -830,21 +837,36 @@ function updateMove(e) {
     const rows = Math.max(g.rows0, box[2] - 1);
     if (rows !== g.shownRows) showGrid(g.sid, rows);
   }
-  g.line.classList.toggle('is-centered', solo ? near : box[1] + box[3] === 2 * centerLine());
-  // The held block follows the pointer but stays inside the grid. A lone block takes the target's
-  // width: narrower it keeps its center, wider it keeps its left edge. A group keeps its widths.
-  // The right limit is 4px short of the grid, on desktop and on phones (HOLD.json).
+  // On phones a group's line goes by where the box is, like a lone block's (HOLD.json).
+  const groupLeft = m.colStart[cLo - 1];
+  const groupNear = Math.abs(left - baseLeft + groupLeft + (m.colEnd[cHi - 2] - groupLeft) / 2 - (q.left + q.right) / 2) <= colPitch / 2;
+  g.line.classList.toggle('is-centered', solo ? near : bp === 'desktop' ? box[1] + box[3] === 2 * centerLine() : groupNear);
+  // The held block follows the pointer but stays inside the grid (HOLD.json): it stops at the top,
+  // the left, 4px short of the right on desktop and on phones, and at the bottom.
   const el = blockEl(g.bid);
-  const width = solo ? m.colEnd[t[3] - 2] - m.colStart[t[1] - 1] : blockWidth;
-  if (solo) el.style.width = `${width}px`;
   const b = fe.getBoundingClientRect();
-  const shown = left + Math.max(0, (blockWidth - width) / 2);
-  const x = Math.max(b.left, Math.min(shown, b.right - 4 - width));
-  const yShown = Math.max(top, Math.min(y, b.bottom - el.getBoundingClientRect().height));
-  el.style.transform = `translate(${x - baseLeft}px, ${yShown - baseTop}px)`;
-  for (const o of g.more) {
-    const el2 = blockEl(o.id);
-    if (el2) el2.style.transform = el.style.transform;
+  const clamp = (v, lo, hi) => Math.max(lo, Math.min(v, hi));
+  if (solo) {
+    // A lone block takes the target's width. Wider, its left edge stays. Narrower, the place it
+    // was pressed stays under the pointer.
+    const width = m.colEnd[t[3] - 2] - m.colStart[t[1] - 1];
+    el.style.width = `${width}px`;
+    const shown = left + Math.max(0, blockWidth - width) * g.grabX / blockWidth;
+    const yShown = clamp(y, top, b.bottom - el.getBoundingClientRect().height);
+    el.style.transform = `translate(${clamp(shown, b.left, b.right - 4 - width) - baseLeft}px, ${yShown - baseTop}px)`;
+    return;
+  }
+  // A group keeps its widths. The top, left and bottom of its box stop at the grid. On the right
+  // each block stops by itself: where it would have the 4px gap if it stood at the box's left.
+  const rows = origs.map((a) => a[0]), ends = origs.map((a) => a[2]);
+  // On phones the block also gets a lone block's shift when its target is narrower; on desktop a
+  // group from the margin track gets none (HOLD.json).
+  const shift = bp === 'desktop' ? 0 : Math.max(0, blockWidth - (m.colEnd[t[3] - 2] - m.colStart[t[1] - 1])) * g.grabX / blockWidth;
+  const ty = clamp(y - baseTop, -(Math.min(...rows) - 1) * m.pitch, b.bottom - top - ((Math.max(...ends) - 1) * m.pitch - m.rg));
+  for (const [id, a] of [[g.bid, g.orig], ...g.more.map((o) => [o.id, o.orig])]) {
+    const el2 = blockEl(id);
+    const wide = m.colEnd[a[3] - 2] - m.colStart[a[1] - 1];
+    if (el2) el2.style.transform = `translate(${clamp(left + shift - baseLeft, b.left - groupLeft, b.right - 4 - wide - groupLeft)}px, ${ty}px)`;
   }
 }
 
@@ -915,13 +937,24 @@ function updateResize(e) {
   let [r0, c0, r1, c1] = g.orig;
   const x = e.clientX;
   const y = e.clientY;
+  const q = fe.getBoundingClientRect();
+  const clamp = (v, lo, hi) => Math.max(lo, Math.min(v, hi));
+  // While held the block's own box follows the pointer and only the ring snaps (HOLD.json). It is
+  // one column wide at the least and stops at the sides of the grid, with no 4px on the right.
+  const dx = x - g.x0, dy = y - top - g.py0;
+  const left0 = m.colStart[c0 - 1];
+  let L = left0, R = m.colEnd[c1 - 2];
+  const oneCol = m.colEnd[1] - m.colStart[1];
+  if (g.dir.includes('e')) R = clamp(R + dx, L + oneCol, q.right);
+  if (g.dir.includes('w')) L = clamp(L + dx, q.left, R - oneCol);
+  const el = blockEl(g.bid);
+  // Out of the flow, so its height does not push the grid's rows. Its area is still its place.
+  Object.assign(el.style, { position: 'absolute', left: '0', top: '0', width: `${R - L}px` });
   if (g.dir.includes('e')) c1 = snapColumn(m, c1, x - m.colEnd[c1 - 2], c0 + 1, LAST_LINE[bp]);
   if (g.dir.includes('w')) c0 = snapColumn(m, c0, x - m.colStart[c0 - 1], 1, c1 - 1);
   if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, y - (top + (r1 - 1) * m.pitch - m.rg)));
   if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, y - (top + (r0 - 1) * m.pitch))));
-  const el = blockEl(g.bid);
-  setArea(el, [r0, c0, r1, c1]);
-  // Guard: a block cannot be shorter than its content.
+  // Guard: a target cannot be shorter than the content at the width the block has now.
   const need = contentRows(B(g.sid, g.bid), m);
   if (r1 - r0 < need) {
     if (g.dir.includes('n')) {
@@ -930,13 +963,22 @@ function updateResize(e) {
     } else {
       r1 = r0 + need;
     }
-    setArea(el, [r0, c0, r1, c1]);
   }
   const t = [r0, c0, r1, c1];
   g.target = t;
   setArea(g.tind, t);
   flagNeighbours(g, t);
-  if (t[2] - 1 > g.shownRows) showGrid(g.sid, t[2] - 1);
+  // The grid follows the target down and back up, never below its own rows.
+  const rows = Math.max(g.rows0, t[2] - 1);
+  if (rows !== g.shownRows) showGrid(g.sid, rows);
+  // The box's height: the content's rows at the least, and it stops at the top and bottom of the grid.
+  const [or0, , or1] = g.orig;
+  const top0 = (or0 - 1) * m.pitch, least = need * m.pitch - m.rg;
+  let T = top0, Bt = (or1 - 1) * m.pitch - m.rg;
+  if (g.dir.includes('s')) Bt = clamp(Bt + dy, T + least, fe.getBoundingClientRect().height);
+  if (g.dir.includes('n')) T = clamp(T + dy, 0, Bt - least);
+  el.style.height = `${Bt - T}px`;
+  el.style.transform = `translate(${L - left0}px, ${T - top0}px)`;
 }
 
 function endGesture() {
@@ -956,7 +998,7 @@ function endGesture() {
     el.classList.remove('is-dragging');
     el.style.transform = '';
     el.style.gridArea = '';
-    el.style.width = '';
+    for (const k of ['width', 'height', 'position', 'left', 'top']) el.style[k] = '';
   }
   try {
     doc.documentElement.releasePointerCapture(g.pointerId);
