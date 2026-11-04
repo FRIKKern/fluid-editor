@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 35 changes
+- **Today** · 36 changes
+  - T4: Fit, Fill and Shape in the image block's Design tab ([#93](https://github.com/FRIKKern/fluid-editor/pull/93))
   - Top bar: keep the right group in its column, let clicks pass the title ([#92](https://github.com/FRIKKern/fluid-editor/pull/92))
-  - Animation tab: empty state and preset picker as on the oracle ([#91](https://github.com/FRIKKern/fluid-editor/pull/91))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
