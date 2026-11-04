@@ -38,6 +38,33 @@ function imageContentHtml(c) {
     + text('alt', 'Image alt text', c.alt);
 }
 
+// Content tab of a code block (parity/findings/CODEEMBED.json): Mode, Display Source Code and the
+// code, in a panel 575 wide. The full-screen button is not built.
+export const CODE_MODES = [['CSS', 'css'], ['HTML', 'html'], ['JavaScript', 'javascript'], ['Markdown', 'markdown'], ['Plain Text', 'plain']];
+export const CODE_PANEL_WIDTH = 575;
+const codeEditor = (key, value, placeholder = '') => `<div class="bp-code"><div class="bp-code-lines" aria-hidden="true">${Array.from({ length: Math.max(1, String(value || '').split('\n').length) }, (_, n) => n + 1).join('<br>')}</div><textarea spellcheck="false" aria-label="Code" data-content="${key}" placeholder="${placeholder}">${esc(value || '')}</textarea></div>`;
+function codeContentHtml(c) {
+  return `<div class="bp-code-top"><label class="bp-field bp-code-mode"><span class="bp-flabel">Mode</span><select aria-label="Mode" data-content="codeMode">${CODE_MODES.map(([l, v]) => `<option value="${v}"${c.mode === v ? ' selected' : ''}>${l}</option>`).join('')}</select></label>`
+    + `<div class="sp-row bp-code-source"><span class="sp-label">Display Source Code</span><label class="sp-switch"><input type="checkbox" aria-label="Display Source Code" data-content="showSource" ${c.showSource ? 'checked' : ''}><span aria-hidden="true"></span></label></div></div>`
+    + codeEditor('code', c.html);
+}
+
+// Content tab of an embed block (CODEEMBED.json): Embed as Link or Code Snippet. A link goes
+// through a lookup service of the host, which we do not have, so every link ends in its error
+// text. A snippet is written in the Embed data view, with Back. Custom thumbnail stays off, as it
+// does on the oracle for anything but a video.
+function embedContentHtml(c, open) {
+  if (open === 'embed-data') return `<div class="bp-sub"><button type="button" class="bp-back" data-embed="back">${pi('<path d="M15 6l-6 6 6 6"/>')}Back</button><span>Embed data</span></div>${codeEditor('embedHtml', c.html, 'Add code…')}`;
+  const seg = (v, l) => `<button type="button" role="radio" class="bp-mode${c.as === v ? ' is-on' : ''}" aria-checked="${c.as === v}" data-embed="${v}">${l}</button>`;
+  const source = c.as === 'code'
+    ? '<button type="button" class="sp-row bp-rowbtn" data-embed="data"><span class="sp-label">Embed data</span><span aria-hidden="true">›</span></button>'
+    : `<input class="bp-text" type="text" placeholder="https://…" aria-label="Embed URL" data-content="embedUrl" value="${esc(c.url || '')}">${c.invalid ? '<p class="bp-note">No embeddable content found</p>' : ''}`;
+  return `<p class="bp-note">Paste the URL of the item you’re embedding, and we’ll attempt to locate the content and format it for your site.</p>`
+    + `<div class="bp-field"><span class="sp-label">Embed as</span><div class="bp-modes bp-modes-2" role="radiogroup" aria-label="Embed as">${seg('link', 'Link')}${seg('code', 'Code Snippet')}</div></div>${source}`
+    + `<div class="sp-row"><span class="sp-label">Custom thumbnail</span><label class="sp-switch" data-unbuilt title="Only available for embedded videos."><input type="checkbox" disabled aria-label="Custom thumbnail"><span aria-hidden="true"></span></label></div><p class="bp-note">Only available for embedded videos.</p>`
+    + `<div class="bp-field"><span class="sp-label">Description</span><textarea class="bp-desc" aria-label="Description" placeholder="Add description here..." data-content="description">${esc(c.description || '')}</textarea></div>`;
+}
+
 // The link editor popover (BUTTONEDIT.json, the gap review's button-link state): a URL tab, the
 // field Enter link, search, or add files, Open link in new tab and Clear selected page; the site
 // pages show under the field while it is empty, as name and path, grouped by navigation.
@@ -87,7 +114,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   const box = ([k, l, u, min, max, axis]) => `<label class="bp-box"><input type="number" data-design="${k}" aria-label="${axis ? `${l} ${axis}` : l}" min="${min}" max="${max}" value="${d[k]}"><span class="bp-unit">${u}${axis ? ` <b>${axis}</b>` : ''}</span></label>`;
   let body;
   if (tab === 'Content' && content) {
-    body = image ? imageContentHtml(content) : buttonContentHtml(content);
+    body = image ? imageContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : buttonContentHtml(content);
   } else if (tab === 'Design') {
     const pairs = [];
     for (let i = 0; i < DESIGN_FIELDS.length; i++) {
@@ -95,10 +122,12 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       if (f[5] === 'X') { pairs.push(`<div class="bp-trow"><span class="sp-label">${f[1]}</span><span class="bp-pair">${box(f)}${box(DESIGN_FIELDS[i + 1])}</span></div>`); i++; }
       else pairs.push(`<div class="bp-trow"><span class="sp-label">${f[1]}</span>${box(f)}</div>`);
     }
+    // Code and embed blocks (CODEEMBED.json) have the transforms alone.
+    if (content?.kind === 'code' || content?.kind === 'embed') body = `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>${pairs.join('')}`;
     // A shape's Design tab (parity/findings/SHAPEDESIGN.json) has no Background or Stroke row:
     // shape style, Corner radius with Uniform or Individual radii, Stretch, Color, Blend Mode,
     // Drop Shadow, Blur, then the transforms.
-    if (shape) body = row('Shape style', '<span class="bp-unbuilt-chip" data-unbuilt title="Not built yet">Rectangle</span>')
+    else if (shape) body = row('Shape style', '<span class="bp-unbuilt-chip" data-unbuilt title="Not built yet">Rectangle</span>')
       + `<div class="sp-row"><span class="sp-label">Corner radius</span><span class="sp-ctl"><label class="bp-box bp-radius"><input type="number" data-shape="radius" aria-label="Corner radius" min="0" max="1000" value="${shape.radius}"><span class="bp-unit">px</span></label><span class="bp-radii"><button type="button" role="radio" aria-checked="true" class="sp-seg is-on" aria-label="Uniform corner radii">${pi('<rect x="5" y="5" width="14" height="14" rx="4"/>')}</button><button type="button" role="radio" aria-checked="false" class="sp-seg" disabled data-unbuilt title="Not built yet" aria-label="Individual corner radii">${pi('<path d="M5 9V7a2 2 0 0 1 2-2h2M15 5h2a2 2 0 0 1 2 2v2M19 15v2a2 2 0 0 1-2 2h-2M9 19H7a2 2 0 0 1-2-2v-2"/>')}</button></span></span></div>`
       + row('Stretch', `<label class="sp-switch"><input type="checkbox" data-shape="stretch" aria-label="Stretch" ${shape.stretch ? 'checked' : ''}><span aria-hidden="true"></span></label>`)
       + row('Color', '<button type="button" class="bp-swatch" data-unbuilt title="Not built yet" aria-label="Color" disabled></button>')
@@ -135,6 +164,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       : `<div class="an-row"><span class="an-title">Triggers</span><span class="an-actions"><button type="button" class="an-icon" aria-label="Animation list actions" data-unbuilt disabled>···</button><button type="button" class="an-icon" data-anim="add" aria-label="Add a new animation">${pi('<path d="M12 5v14M5 12h14"/>')}</button></span></div>`
         + '<button type="button" class="an-empty" data-anim="add" aria-label="Press + to get startedUse a preset or customize"><strong>Press + to get started</strong><span>Use a preset or customize</span></button>';
   }
+  if (tab === 'Content' && open === 'embed-data') return `<div class="sp-body">${body}</div>`;
   const tabs = content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
   // The header is also the drag handle (U13): the oracle labels it Click and drag to reposition block editor form.
   return `<div class="bp-drag" role="button" aria-label="Click and drag to reposition block editor form" data-drag-panel></div><div class="sp-tabs" role="tablist">${tabs.map(tabBtn).join('')}</div><div class="sp-body">${body}</div>`;
@@ -142,10 +172,10 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
 
 // 18px right of the block and 3px below its top, in the stage's coordinates; left of the block
 // when there is no room on the right, and always inside the stage.
-export function blockPanelPosition(block, frame, stage) {
+export function blockPanelPosition(block, frame, stage, width = 320) {
   const ox = frame.left - stage.left, oy = frame.top - stage.top;
   let left = ox + block.right + 18;
-  if (left + 320 > stage.width) left = Math.max(0, ox + block.left - 18 - 320);
+  if (left + width > stage.width) left = Math.max(0, ox + block.left - 18 - width);
   const top = Math.max(oy + 8, Math.min(oy + block.top + 3, stage.height - 500 - 8));
   return { left, top };
 }

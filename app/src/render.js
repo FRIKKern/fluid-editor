@@ -134,6 +134,23 @@ export function sectionCss(s) {
   return sectionGridCss(s) + '\n' + s.blocks.map(blockCss).join('');
 }
 
+// What a code block shows (parity/findings/CODEEMBED.json): HTML as it is, Markdown rendered, and
+// with Display Source Code the text in <pre class="source-code">, which CSS, JavaScript and Plain
+// Text always use. Only headings, paragraphs, emphasis, strong and inline code are read from
+// Markdown here; the oracle's other Markdown is not measured.
+export function markdownHtml(text) {
+  const inline = (t) => escapeHtml(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>').replace(/`(.+?)`/g, '<code>$1</code>');
+  return text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean).map((p) => {
+    const h = p.match(/^(#{1,6})\s+(.*)$/);
+    return h ? `<h${h[1].length}>${inline(h[2])}</h${h[1].length}>` : `<p>${inline(p)}</p>`;
+  }).join(' ');
+}
+function codeOutput(b) {
+  const mode = b.codeMode || 'html';
+  if (b.showSource || (mode !== 'html' && mode !== 'markdown')) return `<pre class="source-code">${escapeHtml(b.html)}</pre>`;
+  return mode === 'markdown' ? markdownHtml(b.html) : b.html;
+}
+
 function blockInner(b, model) {
   switch (b.type) {
     case 'text':
@@ -201,16 +218,17 @@ function blockInner(b, model) {
       const icons = Array.from({ length: b.count || 3 }, () => '<a class="social-icon" href="#" aria-label="Social link"><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"/></svg></a>').join('');
       return `<div class="sqs-block socialaccountlinks-v2-block sqs-block-socialaccountlinks-v2" id="block-${b.id}"><div class="sqs-block-content"><div class="social-icons social-icon-alignment-${b.align || 'left'}">${icons}</div></div></div>`;
     }
-    // Code, Embed and Video (T7, T10; parity/findings/T10.json, T7.json): the published class
-    // strings and block type 1337 of the corpus pages. A code block with HTML shows it as is, like the oracle's default
-    // <p>Hello, World!</p>; our demo's code blocks show source text in <pre>. An empty embed
-    // and an empty video show a placeholder in the editor only.
-    case 'embed':
-      return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-embed embed-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-embed-container">${b.html || '<div class="sqs-blockStatus"><strong>Embed block</strong><span>Add an embed URL or code.</span></div>'}</div></div></div>`;
+    // Code, Embed and Video (T7, T10; parity/findings/CODEEMBED.json, T7.json): the published
+    // class strings and block type 1337 of the corpus pages. An empty embed and an empty video
+    // show a placeholder in the editor only. Our demo's code blocks show source text in <pre>.
+    case 'embed': {
+      const status = `<div class="sqs-blockStatus"${b.embedInvalid ? ' data-state="invalid"' : ''}><div class="sqs-blockStatus-box"><div class="sqs-blockStatus-box-title">Embed Block</div><div class="sqs-blockStatus-box-message">${b.embedInvalid ? 'Enter a valid embed URL or code.' : 'Add an embed URL or code.'}</div></div></div>`;
+      return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-embed embed-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-embed-container">${b.html || status}</div></div></div>`;
+    }
     case 'video':
       return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-video video-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div>${b.html || '<div class="sqs-block-video-placeholder sqs-block-video-placeholder--empty"></div>'}</div></div></div>`;
     case 'code': {
-      if (b.html != null) return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-code code-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-code-container">${b.html}</div></div></div>`;
+      if (b.html != null) return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-code code-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-code-container">${codeOutput(b)}</div></div></div>`;
       const src = b.codeOf ? sectionGridCss(model.sections.find((s) => s.id === b.codeOf)).trim() : b.code;
       return `<div class="sqs-block code-block sqs-block-code" data-block-type="23" id="block-${b.id}"><div class="sqs-block-content"><pre><code>${escapeHtml(src)}</code></pre></div></div>`;
     }
