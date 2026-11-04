@@ -10,7 +10,8 @@ import { blockPanelHtml, blockPanelPosition, DESIGN_FIELDS, linkPopoverHtml, lin
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
-import { siteStylesHtml } from './site-styles.js';
+import { siteStylesHtml, stylePopoverHtml, stylePopoverPosition, packFontLinks } from './site-styles.js';
+import { siteStylesHead } from './site-style-packs.js';
 import { demoModel } from './demo.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -120,8 +121,19 @@ function renderHeaderOnce() {
   old.outerHTML = renderHeader(model.header);
   new win.Function(HEADER_SCRIPT)();
 }
+// Site Styles picks (U12): their fonts and rules sit at the end of the canvas's head.
+let appliedStyles = null;
+function applySiteStyles() {
+  const next = JSON.stringify(model.siteStyles || null);
+  if (next === appliedStyles) return;
+  appliedStyles = next;
+  for (const el of doc.head.querySelectorAll('[data-fe-site-styles]')) el.remove();
+  doc.head.insertAdjacentHTML('beforeend', siteStylesHead(model.siteStyles));
+  themeColors = null;
+}
 function renderAll() {
   dropMissingSelection();
+  applySiteStyles();
   renderHeaderOnce();
   doc.getElementById('page').innerHTML = renderPage(model);
   fitHeader();
@@ -1771,14 +1783,60 @@ const contextMenu = $('context-menu');
 // button again close it.
 const siteStyles = $('site-styles');
 function setSiteStyles(on) {
-  if (on) { closeFloating(); closeSectionPanel(); siteStyles.innerHTML = siteStylesHtml(); }
+  if (on) { closeFloating(); closeSectionPanel(); siteStyles.innerHTML = siteStylesHtml(model.siteStyles); }
+  closeStylePopover();
   siteStyles.hidden = !on;
   document.body.classList.toggle('styles-open', on);
   $('site-styles-toggle').setAttribute('aria-pressed', String(on));
   requestAnimationFrame(() => { placeChrome(); placeToolbar?.(); });
 }
 $('site-styles-toggle').addEventListener('click', () => setSiteStyles(siteStyles.hidden));
-siteStyles.addEventListener('click', (e) => { if (e.target.closest('[data-ss="close"]')) setSiteStyles(false); });
+siteStyles.addEventListener('click', (e) => {
+  if (e.target.closest('[data-ss="close"]')) { setSiteStyles(false); return; }
+  const card = e.target.closest('[data-ss-pop]');
+  if (card) openStylePopover(card.dataset.ssPop);
+});
+// A style pack popover (parity/findings/SITESTYLES2.json). A tile sets that part of the site's
+// styles in one undo step and the popover stays open, as on the oracle.
+const stylePop = $('ss-popover');
+let stylePopKind = null;
+let packFontsLoaded = false;
+function closeStylePopover() {
+  stylePop.hidden = true; stylePopKind = null;
+  for (const c of siteStyles.querySelectorAll('[data-ss-pop]')) c.setAttribute('aria-expanded', 'false');
+}
+function renderStylePopover() {
+  stylePop.innerHTML = stylePopoverHtml(stylePopKind, model.siteStyles);
+}
+function openStylePopover(kind) {
+  const again = stylePopKind === kind;
+  closeStylePopover();
+  if (again) return;
+  if (!packFontsLoaded) { document.head.insertAdjacentHTML('beforeend', packFontLinks()); packFontsLoaded = true; }
+  stylePopKind = kind;
+  renderStylePopover();
+  const card = siteStyles.querySelector(`[data-ss-pop="${kind}"]`);
+  card.setAttribute('aria-expanded', 'true');
+  const p = stylePopoverPosition(kind, card.getBoundingClientRect().top, frame.getBoundingClientRect().right, innerHeight);
+  stylePop.style.left = `${p.left}px`; stylePop.style.top = `${p.top}px`; stylePop.style.height = `${p.height}px`;
+  stylePop.hidden = false;
+}
+stylePop.addEventListener('click', (e) => {
+  const t = e.target.closest('button[data-ss-pick]');
+  if (!t || t.hasAttribute('data-unbuilt')) return;
+  const before = JSON.stringify(model);
+  const kind = t.dataset.ssPick;
+  model.siteStyles = kind === 'theme' ? { theme: t.dataset.v } : { ...(model.siteStyles || {}), [kind]: t.dataset.v };
+  commit(before, `Site Styles: ${t.getAttribute('aria-label')}`);
+  renderAll();
+  fitHeader();
+  const top = stylePop.scrollTop;
+  renderStylePopover();
+  stylePop.scrollTop = top;
+  const kept = stylePopKind;
+  siteStyles.innerHTML = siteStylesHtml(model.siteStyles);
+  siteStyles.querySelector(`[data-ss-pop="${kept}"]`).setAttribute('aria-expanded', 'true');
+});
 
 // The row handle (S4, parity/findings/S4.json): dragging it changes the section's row count by
 // the drag distance over one row step (row plus gap), rounded, never below the lowest row the
