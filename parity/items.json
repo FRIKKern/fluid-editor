@@ -819,8 +819,9 @@
     "id": "Z5",
     "area": "Overlap and layers",
     "milestone": "M5",
-    "status": "partial",
-    "title": "Editor layer z-index of about 10000 + z and 100000 + z"
+    "status": "done",
+    "title": "Editor layer z-index of about 10000 + z and 100000 + z",
+    "evidence": "parity/findings/MARKS.json, layers: marks at 100000 + z, hover and group member rings at 10000 + z, selection and group box at 999999, label 1000000 with tag 1001. Read per block on the oracle at rest, on hover, selected and in a group. Ours uses the same numbers on what it draws (npm run marks-check, parity/marks-check.json). Layers that draw nothing are not in our page; that shows nowhere"
   },
   {
     "id": "L1",
@@ -943,9 +944,9 @@
     "id": "U3",
     "area": "Editor chrome",
     "milestone": "M5",
-    "status": "partial",
+    "status": "done",
     "title": "Hover and selection outlines, handles, label pill",
-    "evidence": "Handles: 10px squares, white, 2px rgb(2,122,255), cursors nw/ne/se/sw-resize, row-resize, col-resize. Selection: two 1px rings outside the block, #027aff inside and #6ca4f4 outside (parity/findings/TOOLBARGEO.json); ours draws the same rings (npm run chrome-check). Blocks carry a label pill with their type, e.g. \"Text\" (sqs-block-label-tag). Hover not measured"
+    "evidence": "parity/findings/MARKS.json, rings, handles, labels. Hover draws the selection's two rings with a pill 22px above; the pill's box stays in the page and takes the pointer at opacity 0. Handles: a 34px hit box with a 10px mark, on all 11 block types read. Selected, hovered, text edited, held, group and phone states all in npm run marks-check (parity/marks-check.json, 52 of 52). Pixels of the selected, group and member lines match. Pill letters use a fallback font: Clarkson is not in the repo (O2), widths within 2px. Not read: a stack's pill"
   },
   {
     "id": "U4",

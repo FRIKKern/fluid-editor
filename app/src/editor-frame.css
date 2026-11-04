@@ -5,11 +5,9 @@
 html { overflow-anchor: none; }
 .fluid-engine.is-editing { isolation: isolate; }
 .fluid-engine.is-editing .fe-block { cursor: grab; touch-action: none; transition: opacity 0.1s cubic-bezier(0.66, 0, 0.34, 1); }
-.fluid-engine.is-editing .fe-block:hover { outline: 1px solid rgba(17, 105, 247, 0.55); }
-.fluid-engine.is-editing .fe-block.is-text-editing { cursor: text; outline: 2px solid #1169f7; }
+.fluid-engine.is-editing .fe-block.is-text-editing { cursor: text; }
 /* A held block keeps its z-index and full opacity (parity/findings/GUIDES.json); while held everything shows the grabbing cursor. */
 .fluid-engine.is-editing.is-gesture, .fluid-engine.is-editing.is-gesture * { cursor: grabbing !important; }
-.fluid-engine.is-editing.is-gesture .fe-block:hover { outline: none; }
 .fluid-engine.is-editing [contenteditable="true"] { outline: none; }
 
 .fe-grid-row { position: absolute; inset: 0; pointer-events: none; opacity: 0.65; }
@@ -17,21 +15,21 @@ html { overflow-anchor: none; }
 @keyframes fe-fade-in { from { opacity: 0; } }
 
 /* Selection (U3, parity/findings/TOOLBARGEO.json): two 1px rings outside the block, #027aff inside and #6ca4f4 outside. */
-.fe-indicator { pointer-events: none; position: relative; box-shadow: 0 0 0 1px rgb(2, 122, 255), 0 0 0 2px rgb(108, 164, 244); }
-/* Handles measured on the oracle 2026-11-03: 10px squares, white, 2px rgb(2, 122, 255) border. */
-.fe-handle {
-  position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; box-sizing: border-box;
-  background: #fff; border: 2px solid rgb(2, 122, 255); border-radius: 0;
-  pointer-events: auto; touch-action: none;
-}
-.fe-handle[data-dir="nw"] { left: 0; top: 0; cursor: nw-resize; }
-.fe-handle[data-dir="n"]  { left: 50%; top: 0; cursor: row-resize; }
-.fe-handle[data-dir="ne"] { left: 100%; top: 0; cursor: ne-resize; }
-.fe-handle[data-dir="e"]  { left: 100%; top: 50%; cursor: col-resize; }
-.fe-handle[data-dir="se"] { left: 100%; top: 100%; cursor: se-resize; }
-.fe-handle[data-dir="s"]  { left: 50%; top: 100%; cursor: row-resize; }
-.fe-handle[data-dir="sw"] { left: 0; top: 100%; cursor: sw-resize; }
-.fe-handle[data-dir="w"]  { left: 0; top: 50%; cursor: col-resize; }
+.fe-indicator { pointer-events: none; position: relative; }
+.fe-indicator:not(.is-member, .is-group)::before, .fe-indicator:not(.is-member, .is-group)::after { content: ""; position: absolute; border: 1px solid rgb(2, 122, 255); }
+.fe-indicator:not(.is-member, .is-group)::before { inset: -1px; }
+.fe-indicator:not(.is-member, .is-group)::after { inset: -2px; border-color: rgb(108, 164, 244); }
+/* Handles (parity/findings/MARKS.json, handles): a 34px box takes the pointer, with a 10px white square, 2px rgb(2, 122, 255), in its middle. */
+.fe-handle { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; pointer-events: auto; touch-action: none; z-index: 2; }
+.fe-handle::before { content: ""; position: absolute; left: 12px; top: 12px; width: 10px; height: 10px; box-sizing: border-box; background: #fff; border: 2px solid rgb(2, 122, 255); }
+.fe-handle[data-dir="nw"] { left: -1px; top: -1px; cursor: nw-resize; }
+.fe-handle[data-dir="n"]  { left: 50%; top: -1px; cursor: row-resize; }
+.fe-handle[data-dir="ne"] { left: calc(100% + 1px); top: -1px; cursor: ne-resize; }
+.fe-handle[data-dir="e"]  { left: calc(100% + 1px); top: 50%; cursor: col-resize; }
+.fe-handle[data-dir="se"] { left: calc(100% + 1px); top: calc(100% + 1px); cursor: se-resize; }
+.fe-handle[data-dir="s"]  { left: 50%; top: calc(100% + 1px); cursor: row-resize; }
+.fe-handle[data-dir="sw"] { left: -1px; top: calc(100% + 1px); cursor: sw-resize; }
+.fe-handle[data-dir="w"]  { left: -1px; top: 50%; cursor: col-resize; }
 
 .fe-original-position { pointer-events: none; }
 
@@ -80,17 +78,27 @@ html { overflow-anchor: none; }
 
 /* Preview mode: no editor outlines, handles or grab cursors in the canvas. */
 body.is-preview .fluid-engine.is-editing .fe-block { cursor: default; }
-body.is-preview .fluid-engine.is-editing .fe-block:hover { outline: none; }
-body.is-preview .fe-indicator, body.is-preview .fe-grid-row { display: none; }
+body.is-preview .fe-indicator, body.is-preview .fe-grid-row, body.is-preview .fe-label { display: none; }
 
 /* A group selection (X8): thin outlines on the members, one outline with handles around all. */
-.fe-indicator.is-member { box-shadow: 0 0 0 1px rgb(108, 164, 244); }
-.fe-indicator.is-group { box-shadow: 0 0 0 1px rgb(2, 122, 255), 0 0 0 2px rgb(2, 122, 255); }
+/* The label pill (U3). The box takes the pointer even when it does not show. */
+.fe-label { position: absolute; top: -22px; left: 0; z-index: 1000000; display: flex; height: 16px; border-radius: 3px; overflow: hidden; opacity: 0; pointer-events: auto; }
+.fe-label.is-on { opacity: 1; }
+.fe-label-tag {
+  z-index: 1001; display: block; height: 16px; padding: 0 8px; background: rgb(2, 122, 255); color: #fff; pointer-events: none; white-space: nowrap;
+  font: 500 9.75px/16px Clarkson, "Proxima Nova", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: 0.75px; text-transform: uppercase;
+}
+.fe-indicator.is-member::before, .fe-indicator.is-member::after { content: ""; position: absolute; border: 1px solid rgba(2, 122, 255, 0.49); }
+.fe-indicator.is-member::before { inset: -1px; }
+.fe-indicator.is-member::after { inset: -2px; border-color: rgba(72, 148, 255, 0.7); }
+.fe-indicator.is-group::before, .fe-indicator.is-group::after { content: ""; position: absolute; }
+.fe-indicator.is-group::before { inset: -3px; border: 1px solid rgb(72, 148, 255); }
+.fe-indicator.is-group::after { inset: -2px; border: 2px solid rgb(2, 122, 255); }
 /* parity/findings/GROUPRESIZE.json: a group's handles sit 2px outside its box. */
-.is-group > .fe-handle[data-dir*="w"] { margin-left: -7px; }
-.is-group > .fe-handle[data-dir*="e"] { margin-left: -3px; }
-.is-group > .fe-handle[data-dir*="n"] { margin-top: -7px; }
-.is-group > .fe-handle[data-dir*="s"] { margin-top: -3px; }
+.is-group > .fe-handle[data-dir*="w"] { margin-left: -18px; }
+.is-group > .fe-handle[data-dir*="e"] { margin-left: -16px; }
+.is-group > .fe-handle[data-dir*="n"] { margin-top: -18px; }
+.is-group > .fe-handle[data-dir*="s"] { margin-top: -16px; }
 
 /* Marquee box (parity/findings/X13.json). */
 .fe-marquee { position: fixed; z-index: 2147483000; outline: 3px solid rgb(0, 114, 240); pointer-events: none; }

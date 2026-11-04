@@ -1,7 +1,7 @@
 {
   "item": "MARKS",
   "capturedAt": "2026-11-04",
-  "question": "Small marks of the editor chrome: where a dragged block panel can go, how the grid is drawn, and more as items need them.",
+  "question": "Small marks of the editor chrome: where a dragged block panel can go, how the grid is drawn, the layers of a block, hover, handles and the label pill, and more as items need them.",
   "window": [
     1600,
     1000
@@ -118,5 +118,120 @@
     },
     "pixels": "Same demo section, same scroll, 14px hold at 1600 by 1000: in the box x 100 to 860, y 400 to 700 of the window (empty cells only) ours and the oracle differ by 0 in every color channel. Phone: one row across the cells, x 586 to 1014, the same but for the 3 pixels of the oracle's center line (x 799 to 801), which ours does not draw on phones",
     "phoneRows": "How many rows a phone hold shows is not settled: 14 after two desktop holds in the same session, 20 on the first hold of a fresh session. Ours shows 14. The look of a cell is the same in both"
-  }
+  },
+  "layers": {
+    "item": "Z5",
+    "outer": "100000 + z at the block's box, border 3px transparent. Holds the near and matching marks (parity/findings/NEAR.json). Always in the page, draws nothing at rest",
+    "inner": "10000 + z at the block's box, inset 3px; 999999 when it is the one selected block. Holds the two rings and the handles. Transition on width, height, transform 0.15s linear, but no glide seen: at the drop its top changes in one step (rAF samples)",
+    "groupMember": "a block in a group stays at 10000 + z",
+    "groupBox": 999999,
+    "label": "group 1000000, tag 1001",
+    "demo": {
+      "heading z 1": [
+        100001,
+        10001
+      ],
+      "paragraph z 2": [
+        100002,
+        10002
+      ],
+      "shape z 3": [
+        100003,
+        10003
+      ]
+    },
+    "ours": "Ours keeps these numbers on what it draws: the marks at 100000 + z, the hover and group member rings at 10000 + z, the selection and group box at 999999, the label at 1000000. Layers that draw nothing are not in the page"
+  },
+  "rings": {
+    "item": "U3",
+    "hover": "the same as selected: 1px rgb(2, 122, 255) 1px outside the block, 1px rgb(108, 164, 244) 2px outside. Pixels read on the shape's left and right edges",
+    "selected": "the same rings, unchanged by hovering it or by text editing (entered with the toolbar's Write button)",
+    "groupMember": "1px rgba(2, 122, 255, 0.49) 1px outside, 1px rgba(72, 148, 255, 0.7) 2px outside; no change on hover",
+    "groupBox": "2px rgb(2, 122, 255) touching the group box, then 1px rgb(72, 148, 255) outside it",
+    "whileHeld": "none (parity/findings/GUIDES.json, held)"
+  },
+  "handles": {
+    "item": "U3",
+    "hit": "34 by 34, takes the pointer, z 2 in the layer, cursors nw, ne, se, sw-resize, row-resize, col-resize. The 11px edge bars do not take the pointer",
+    "mark": "10 by 10 in the middle of the hit box, white, 2px solid rgb(2, 122, 255), radius 0",
+    "center": "on the 1px-outside ring: corners at the block's corner 1px out, sides at the middle",
+    "shape": {
+      "block": [
+        864.3,
+        191.5,
+        576.8,
+        399.9
+      ],
+      "hit": [
+        [
+          846.3,
+          173.5
+        ],
+        [
+          1135.7,
+          173.5
+        ],
+        [
+          1425.1,
+          173.5
+        ],
+        [
+          1425.1,
+          374.5
+        ],
+        [
+          1425.1,
+          575.5
+        ],
+        [
+          1135.7,
+          575.5
+        ],
+        [
+          846.3,
+          575.5
+        ],
+        [
+          846.3,
+          374.5
+        ]
+      ]
+    },
+    "perType": "all eight on text, shape, button, line, scrolling, image, video, accordion, form, code and embed; they stay while a text block is edited",
+    "group": "eight, hit 34 by 34, centers 2px outside the group box",
+    "phone": "In Mobile View the same 34px boxes at the same offsets from the block"
+  },
+  "labels": {
+    "item": "U3",
+    "box": "22px above the block's top, at its left. Tag height 16, padding 0 8px, 500 9.75px/16px Clarkson, letter-spacing 0.75px, uppercase, rgb(2, 122, 255) on white text; group radius 3",
+    "shows": "opacity 1 on hover with no fade (samples go 0 to 1 and back in one step), 0 when the block is selected or in a group, also on hover",
+    "otherBlockHovered": "a hovered block shows its ring and pill also while another block is selected or being text edited",
+    "strip": "The group box is in the page at opacity 0 and takes the pointer: over it a block underneath gets no hover and the cursor is auto. A click there selects nothing and deselects",
+    "nearTheTop": "The pill keeps its place above the block when the block's top is near or past the top of the frame; there it is cut off. A floated pill exists in the page but stayed display none in every read",
+    "width": {
+      "Text": 42.5,
+      "Button": 60.4,
+      "Shape": 52.1,
+      "Image": 52.3,
+      "Scrolling": 78.9,
+      "Social Links": 91.2,
+      "Form": 47.8,
+      "Video": 50,
+      "Accordion": 83.5,
+      "Line": 40.6,
+      "Code": 47,
+      "Embed": 54.2
+    },
+    "lab": "Video, Accordion, Line, Code and Embed read on a block added to an empty page with a new section, nothing saved",
+    "phone": "In Mobile View the same: pill 0, -22 from the block, 52.1 by 16 on the shape; rings the same; layers 10003, then 999999 when selected"
+  },
+  "pixels": {
+    "selected": "Shape selected at the same scroll, ours against the oracle: both ring columns and the handles are the same pixels. x 1440 differs because the shape's own right edge is drawn with another blend",
+    "group": "Marquee on heading and paragraph: left, right and member lines the same pixels",
+    "pill": "box the same but for the letters: Clarkson is not in the repo (O2), so ours falls back to Helvetica"
+  },
+  "notMeasured": [
+    "the group's handle hit box beyond the top left corner",
+    "the pill label of a stack: ours says Stack"
+  ]
 }
