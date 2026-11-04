@@ -1,6 +1,6 @@
 {
   "item": "TOOLBARS",
-  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
+  "oracle": "/how-fluid-engine-works",
   "capturedAt": "2026-11-03",
   "question": "Which controls does each block type offer when selected, on desktop and on phones?",
   "blocks": {
@@ -1595,6 +1595,176 @@
         }
       ],
       "locked": "false"
+    }
+  },
+  "alignMenu": {
+    "capturedAt": "2026-11-05",
+    "block": "demo section 2, text, bar at 104.125, 114.6, button at 189.125, 117.6",
+    "box": [
+      41,
+      46,
+      124,
+      44
+    ],
+    "bg": "rgb(255, 255, 255)",
+    "radius": "6px",
+    "shadow": "rgba(0, 0, 0, 0.12) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px",
+    "buttons": {
+      "Align Top": [
+        45,
+        50,
+        36,
+        36
+      ],
+      "Align Center": [
+        85,
+        50,
+        36,
+        36
+      ],
+      "Align Bottom": [
+        125,
+        50,
+        36,
+        36
+      ]
+    },
+    "current": "rgb(231, 231, 231)",
+    "openButton": "rgb(231, 231, 231)",
+    "hover": "no change",
+    "effect": {
+      "flex-start": "Align Top",
+      "center": "Align Center",
+      "flex-end": "Align Bottom",
+      "rules": ".sqs-block justify-content and .sqs-block-alignment-wrapper align-items both get it, in the layout on screen; the other layout keeps its own: desktop in the 768px media rule, phones in the base rule"
+    },
+    "pick": "the menu stays open, one undo each; the toolbar button shows the current one",
+    "closes": {
+      "secondClick": true,
+      "pin": "the menu closes and the popover opens",
+      "otherBlock": true,
+      "escape": "the block stays selected"
+    }
+  },
+  "phoneBars": {
+    "capturedAt": "2026-11-05",
+    "note": "left edges from the bar, 1px by 20px separators 11px down",
+    "shape": {
+      "bar": [
+        214,
+        42
+      ],
+      "buttons": {
+        "Edit": 4,
+        "Pin": 49,
+        "Move Up": 89,
+        "Move Down": 129,
+        "Remove": 174
+      },
+      "seps": [
+        44,
+        169
+      ]
+    },
+    "text": {
+      "buttons": {
+        "Write": 4,
+        "Edit": 44,
+        "Align Vertically": 85,
+        "Pin": 125,
+        "Move Up": 165,
+        "Move Down": 205,
+        "Remove": 250
+      }
+    },
+    "textOverlapping": {
+      "buttons": {
+        "Write": 4,
+        "Edit": 44,
+        "Align Vertically": 85,
+        "Pin": 125,
+        "Move Forward": 165,
+        "Move Backward": 205,
+        "Move Up": 245,
+        "Move Down": 285,
+        "Remove": 330
+      }
+    },
+    "stack": {
+      "capturedAt": "2026-11-05",
+      "note": "demo section 2 on phones, three blocks stacked",
+      "top": "Move Up is disabled",
+      "middle": "both work",
+      "bottom": "Move Down is disabled"
+    }
+  },
+  "tips": {
+    "capturedAt": "2026-11-05",
+    "look": "#0e0e0e, 3px radius, 44px tall, 11px 16px padding",
+    "place": "11px below the button, centred on it",
+    "delay": "none at 100 ms, there at 400 ms",
+    "offButton": "no tip",
+    "words": {
+      "Write": [
+        "Write",
+        66.8
+      ],
+      "Edit": [
+        "Edit",
+        57.5
+      ],
+      "Align Vertically": [
+        "Align Vertically",
+        130.0
+      ],
+      "Pin": [
+        "Pin",
+        52.5
+      ],
+      "Move Forward": [
+        "Move Forward SHIFT ↑",
+        211.5
+      ],
+      "Move Backward": [
+        "Move Backward SHIFT ↓",
+        222.2
+      ],
+      "Duplicate": [
+        "Duplicate ⌘ D",
+        159.6
+      ],
+      "Remove": [
+        "Remove DELETE",
+        150.1
+      ],
+      "Move Up": [
+        "Move Up OPTION ↑",
+        187.7
+      ],
+      "Move Down": [
+        "Move Down OPTION ↓",
+        207.1
+      ],
+      "Primary": [
+        "Button Type",
+        108.9
+      ],
+      "Open link editor popover": [
+        "Edit Link",
+        87.8
+      ],
+      "Align Top": [
+        "Align Top",
+        93.8
+      ],
+      "Align Center": [
+        "Align Center",
+        114.8
+      ],
+      "Align Bottom": [
+        "Align Bottom",
+        118.3
+      ]
     }
   }
 }

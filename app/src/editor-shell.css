@@ -95,7 +95,7 @@ body.show-inspector:not(.is-replay) .panel { display: block; }
 .btn.danger { color: #d0021b; }
 
 /* The floating block toolbar (U4), measured on the oracle (parity/findings/TOOLBARGEO.json). */
-.block-toolbar { position: absolute; z-index: 10; display: flex; align-items: center; gap: 4px; height: 42px; padding: 0 4px; box-sizing: border-box; background: #fff; border-radius: 6px; }
+.block-toolbar { position: absolute; z-index: 10; display: flex; align-items: center; gap: 4px; height: 42px; padding: 0 4px; box-sizing: border-box; background: #fff; border-radius: 6px; box-shadow: 0 0 0 1px #fff, 0 6px 24px 1px rgba(0, 0, 0, .12), 0 0 1px 1px rgba(0, 0, 0, .08); }
 .block-toolbar[hidden] { display: none; }
 .block-toolbar.is-group { height: 44px; padding: 0 5px; }
 .tb-btn { width: 36px; height: 36px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 3px; background: transparent; color: #0e0e0e; cursor: pointer; }
@@ -104,6 +104,9 @@ body.show-inspector:not(.is-replay) .panel { display: block; }
 .tb-btn.is-off:hover { background: transparent; }
 .tb-btn.tb-remove { color: #db3642; }
 .tb-btn.tb-flush { margin-left: -4px; }
+.tb-btn.tb-open, .tb-btn.tb-open:hover { background: #e7e7e7; }
+.tb-vmenu { position: absolute; top: 46px; display: flex; gap: 4px; padding: 4px; box-sizing: border-box; width: 124px; height: 44px; background: #fff; border-radius: 6px; box-shadow: 0 6px 24px rgba(0, 0, 0, .12), 0 0 1px rgba(0, 0, 0, .08); }
+.tb-vmenu .tb-btn:not(.tb-open):hover { background: transparent; }
 .tb-btn.tb-wide { width: 96.7px; gap: 2px; }
 .tb-text { font: 12px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; }
 .tb-write { font: 500 14px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; }

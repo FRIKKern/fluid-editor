@@ -237,14 +237,17 @@ export function blockPanelPosition(block, frame, stage, width = 320) {
   return { left, top };
 }
 
+export const pinRangeValue = (off) => Math.max(0, Math.min(250, Math.round(off)));
 // The Pin popover (parity/findings/PIN.json): 248 by 140, centred under the toolbar Pin button and
 // 7px below it. Pin: four icon radios (Pin to Top, Center, Bottom on Scroll, Remove Pin); Offset: a
-// text field and a 204px slider. The slider's range was not measured: ours runs 0 to 500.
+// text field and a 204px slider running 0 to 250. The field goes past the slider and keeps its unit;
+// the slider shows the number, rounded and held to its range.
 export function pinPopoverHtml(st) {
   const ic = { top: '<path d="M5 5h14M12 9v10M8 13l4-4 4 4"/>', center: '<path d="M5 12h14M12 4v4M12 16v4M9 6l3 2 3-2M9 18l3-2 3 2"/>', bottom: '<path d="M5 19h14M12 5v10M8 11l4 4 4-4"/>', remove: '<path d="M6 6l12 12M18 6L6 18"/>' };
   const radio = (k, label) => `<button type="button" role="radio" class="pin-opt${(st ? st.anchor : 'remove') === k ? ' is-on' : ''}" aria-checked="${(st ? st.anchor : 'remove') === k}" data-pin="${k}" aria-label="${label}">${pi(ic[k])}</button>`;
   const off = st ? st.offset : 0;
+  const unit = st?.unit || 'px';
   return `<div class="pin-row"><span class="pin-label">Pin</span><span class="pin-opts">${radio('top', 'Pin to Top on Scroll')}${radio('center', 'Pin to Center on Scroll')}${radio('bottom', 'Pin to Bottom on Scroll')}${radio('remove', 'Remove Pin')}</span></div>`
-    + `<div class="pin-row"><span class="pin-label">Offset</span><input class="pin-off" type="text" aria-label="Offset" data-pin-offset value="${off}px"${st ? '' : ' disabled'}></div>`
-    + `<input class="pin-range" type="range" aria-label="Offset" data-pin-range min="0" max="500" value="${off}"${st ? '' : ' disabled'}>`;
+    + `<div class="pin-row"><span class="pin-label">Offset</span><input class="pin-off" type="text" aria-label="Offset" data-pin-offset value="${off}${unit}"${st ? '' : ' disabled'}></div>`
+    + `<input class="pin-range" type="range" aria-label="Offset" data-pin-range min="0" max="250" step="1" value="${pinRangeValue(off)}"${st ? '' : ' disabled'}>`;
 }

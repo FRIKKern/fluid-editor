@@ -23,14 +23,25 @@ export function escapeHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
-// Sticky blocks, desktop only in all 278 captured sections. Three forms seen.
+// Sticky blocks, desktop only in all 278 captured sections, but Pin works in Mobile View too
+// (parity/findings/PIN.json phones): that pin goes in the base rule. Three forms seen. The offset
+// keeps the unit it was typed with.
 export function stickyCss(st) {
   if (!st) return '';
-  const o = `${st.offset}px`;
+  const o = `${st.offset}${st.unit || 'px'}`;
   if (st.anchor === 'top') return `position: sticky; top: calc(${o} + var(--header-fixed-top-offset, 0px));`;
   if (st.anchor === 'center') return `position: sticky; top: calc(50% + ${o} + (var(--header-fixed-top-offset, 0px) / 2) - (var(--block-height, 0px) / 2));`;
   if (st.anchor === 'bottom') return `position: sticky; bottom: ${o};`;
   throw new Error(`unknown sticky anchor ${st.anchor}`);
+}
+
+// A phone pin sits in the base rule, so the desktop rule has to undo what would leak.
+function stickyReset(m, d) {
+  if (!m) return '';
+  if (!d) return 'position: relative; top: auto; bottom: auto;';
+  if (m.anchor === 'bottom' && d.anchor !== 'bottom') return 'bottom: auto;';
+  if (m.anchor !== 'bottom' && d.anchor === 'bottom') return 'top: auto;';
+  return '';
 }
 
 // Column gap sets the gutter and cell width; row gap can differ.
@@ -98,7 +109,7 @@ function blockLayoutCss(b) {
   return `
   .fe-block-${id} {
     grid-area: ${areaText(m.area)};
-    z-index: ${m.z};
+    z-index: ${m.z};${m.sticky ? `\n    ${stickyCss(m.sticky)}` : ''}
 
     @media (max-width: 767px) {
     }
@@ -116,7 +127,7 @@ function blockLayoutCss(b) {
     .fe-block-${id} {
       grid-area: ${areaText(d.area)};
       z-index: ${d.z};
-      ${stickyCss(d.sticky)}
+      ${stickyCss(d.sticky)}${m.sticky ? `\n      ${stickyReset(m.sticky, d.sticky)}` : ''}
     }
 
     .fe-block-${id} .sqs-block {
