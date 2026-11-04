@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 23 changes
+- **Today** · 24 changes
+  - Site Styles panel ([#81](https://github.com/FRIKKern/fluid-editor/pull/81))
   - Add a Section panel and Add Blank ([#80](https://github.com/FRIKKern/fluid-editor/pull/80))
-  - Gap review: reset the oracle frame, end the section hover, sync scroll by section ([#79](https://github.com/FRIKKern/fluid-editor/pull/79))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
