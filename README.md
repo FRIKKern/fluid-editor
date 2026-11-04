@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 61 changes
+- **Today** · 62 changes
+  - Z5, U3: block layers, hover rings, label pill and handle hit boxes as on the oracle ([#119](https://github.com/FRIKKern/fluid-editor/pull/119))
   - Z3: Layers rows drag as on the oracle, a drop numbers blocks 1 to n ([#118](https://github.com/FRIKKern/fluid-editor/pull/118))
-  - T2: wrapper on Shape and images with a picture, measured on a new page ([#117](https://github.com/FRIKKern/fluid-editor/pull/117))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
