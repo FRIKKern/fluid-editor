@@ -1014,6 +1014,7 @@ function applyFormat(act, value) {
   if (kind === 'clear') fmt.clearFormatting(ed.ce, sel);
   if (kind === 'color') fmt.setTextColor(doc, ed.ce, sel, value);
   if (kind === 'highlight') fmt.addHighlight(doc, ed.ce, sel);
+  if (kind === 'scaled') fmt.toggleScaled(doc, ed.ce, sel);
   ed.ce.focus();
   onTextInput();
 }

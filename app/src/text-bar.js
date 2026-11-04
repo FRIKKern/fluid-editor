@@ -3,7 +3,7 @@
 // Text Style dropdown, Bold, Italic, Text Color, Scaled Text, Text Highlight, Link | Text
 // Alignment (a menu of four) | Quote, Bullet List, Numbered List | Strike | Outdent, Indent |
 // Clear Formatting, on a 40px pitch. Our icons are our own (O2). AI is out of scope
-// (docs/decisions/0005); Scaled Text is shown but not built. Link opens the link editor (E7);
+// (docs/decisions/0005). Link opens the link editor (E7);
 // Text Color opens the palette, Text Highlight applies at once.
 import { STYLES, TEXT_COLORS } from './text-format.js';
 
@@ -39,7 +39,7 @@ export function textBarHtml(style, open, color = null) {
     sep,
     `<button type="button" class="tx-style" data-fmt="style-menu" aria-label="Text Style" aria-expanded="${open === 'style'}">${styleLabel}${svg(I.chevron)}</button>`,
     sep,
-    btn('bold', 'Bold'), btn('italic', 'Italic'), `<button type="button" class="tx-btn" data-fmt="color-menu" aria-label="Text Color" title="Text Color" aria-expanded="${open === 'color'}">${svg(I.color)}</button>`, btn('scaled', 'Scaled Text', { unbuilt: true }), btn('highlight', 'Text Highlight'), btn('link', 'Link'),
+    btn('bold', 'Bold'), btn('italic', 'Italic'), `<button type="button" class="tx-btn" data-fmt="color-menu" aria-label="Text Color" title="Text Color" aria-expanded="${open === 'color'}">${svg(I.color)}</button>`, btn('scaled', 'Scaled Text'), btn('highlight', 'Text Highlight'), btn('link', 'Link'),
     sep,
     `<button type="button" class="tx-btn" data-fmt="align-menu" aria-label="Text Alignment" aria-expanded="${open === 'align'}">${svg(I['align:left'])}</button>`,
     sep,

@@ -289,3 +289,8 @@ body { position: relative; }
 .sqsrte-text-color--accent { color: rgb(242, 184, 180); }
 .sqsrte-text-color--darkAccent { color: rgb(181, 100, 247); }
 .sqsrte-text-color--black { color: rgb(0, 0, 0); }
+
+/* Scaled Text (parity/findings/TEXTOPS.json, measured 2026-11-04): one line, the span inline-block
+   and no wrapping; the paragraph's line is as tall as its font. */
+.sqsrte-scaled-text { display: inline-block; white-space: nowrap; }
+.sqsrte-scaled-text p { white-space: nowrap; line-height: 1; margin: 0; }
