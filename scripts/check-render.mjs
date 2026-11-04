@@ -61,10 +61,12 @@ const prev = (() => { try { return readFileSync(out, 'utf8'); } catch { return '
 const next = JSON.stringify(report, null, 2) + '\n';
 if (prev !== next) writeFileSync(out, next);
 
-// T2 (parity/findings/WRAPPER.json): of the types measured, only a shape carries the alignment wrapper.
+// T2 (parity/findings/BLOCKTYPES.json): only a shape, and an image that is not empty, carry the wrapper.
 const base = demoModel().sections[0], layout = base.blocks[0].layout;
 const wrapped = (block) => /class="[^"]*sqs-block-alignment-wrapper/.test(renderSection({ ...base, blocks: [{ id: 'b', layout, ...block }] }, { sections: [] }));
-const wrapperOk = wrapped({ type: 'shape' }) && !wrapped({ type: 'button', label: 'x' }) && !wrapped({ type: 'text', html: '<p>x</p>' }) && !wrapped({ type: 'image', alt: '' }) && !wrapped({ type: 'video' });
+const WITH = [{ type: 'shape' }, { type: 'image', alt: '' }, { type: 'image', alt: '', src: 'x.png' }];
+const WITHOUT = [{ type: 'image', alt: '', empty: true }, { type: 'button', label: 'x' }, { type: 'text', html: '<p>x</p>' }, { type: 'video' }, { type: 'line' }, { type: 'code', html: 'x' }, { type: 'embed' }, { type: 'scrolling', text: 'x', size: 5 }, { type: 'accordion', items: [] }];
+const wrapperOk = WITH.every(wrapped) && !WITHOUT.some(wrapped);
 console.log(`Alignment wrapper on the right types: ${wrapperOk ? 'yes' : 'NO'}`);
 if (!wrapperOk) process.exitCode = 1;
 

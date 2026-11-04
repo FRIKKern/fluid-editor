@@ -210,6 +210,8 @@ body { position: relative; }
 .social-icon svg { display: block; }
 
 /* Image blocks (T4): fill the block; placeholder picture */
+.fluid-image-component-root { width: 100%; height: 100%; }
+.sqs-block-image .sqs-image.sqs-block-alignment-wrapper { flex-direction: row; align-items: center; justify-content: center; width: 100%; }
 .sqs-block-image .fluid-image-container { width: 100%; height: 100%; overflow: hidden; background: linear-gradient(135deg, #d9d4ca, #bfb8aa); }
 /* Fit and Shape keep the picture inside the block, centred, and never stretch a row. Shape is a circle (IMAGEMODES.json) */
 .image-mode-fit .sqs-block-content, .image-mode-shape .sqs-block-content { display: flex; align-items: center; justify-content: center; container-type: size; }
