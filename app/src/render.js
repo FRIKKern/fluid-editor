@@ -231,7 +231,7 @@ function blockInner(b, model) {
     case 'scrolling': {
       // Scrolling text (T12): the oracle draws the line along a wave path; its height is
       // the line height (1.4em, heading formula with size value 5) plus 120px.
-      return `<div class="sqs-block scrolling-block sqs-block-scrolling" id="block-${b.id}"><div class="sqs-block-content"><div class="marquee" style="--marquee-font-size-value:${b.size || 5}"><span class="marquee-text">${escapeHtml(b.text || '')}</span></div></div></div>`;
+      return `<div class="sqs-block scrolling-block sqs-block-scrolling${b.wave === 0 ? ' scrolling-block--flat' : ''}" id="block-${b.id}"><div class="sqs-block-content"><div class="marquee" style="--marquee-font-size-value:${b.size || 5}${b.wave === 0 ? ';--marquee-wave:0px' : ''}"><span class="marquee-text">${escapeHtml(b.text || '')}</span></div></div></div>`;
     }
     case 'line': {
       // Line block (T11): a horizontal rule centered in its area.
