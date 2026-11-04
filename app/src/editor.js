@@ -1151,7 +1151,7 @@ function updateUi() {
   $('save').disabled = !dirty;
   // The oracle's status line stays "Page · Published" with unsaved changes; only Save
   // turns on (parity/findings/EXIT.json).
-  $('page-state').textContent = 'Page · Published';
+  $('page-state').textContent = document.body.classList.contains('is-preview') ? 'Previewing' : 'Page · Published';
   renderPanel();
   if (editSid) renderSectionPanel();
   renderBlockPanel();
@@ -1870,10 +1870,16 @@ function setBp(next) {
 }
 // Preview (oracle "Toggle preview mode"): the page without editor chrome; Escape or the
 // button again leaves it. Our developer tools sit behind the menu next to it.
+// Reload page preview (TOPBAR.json): ours draws the canvas again from the model.
+document.getElementById('reload-preview').addEventListener('click', () => { renderAll(); });
+// Ctrl+Shift+D shows our developer menu, which stays out of the bar otherwise.
+document.addEventListener('keydown', (e) => { if (e.ctrlKey && e.shiftKey && e.code === 'KeyD') { e.preventDefault(); document.body.classList.toggle('dev-tools'); } });
+
 function setPreview(on) {
   document.body.classList.toggle('is-preview', on);
   doc?.body.classList.toggle('is-preview', on);
   $('preview').setAttribute('aria-pressed', String(on));
+  $('page-state').textContent = on ? 'Previewing' : 'Page · Published';
   if (on) { closeFloating(); closeSectionPanel(); designOpen = null; if (editing) finishTextEdit(); select(null); }
 }
 $('preview').addEventListener('click', () => setPreview(!document.body.classList.contains('is-preview')));
