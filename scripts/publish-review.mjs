@@ -1,8 +1,8 @@
 // Publish the gap review to Barkpark: for each state in parity/inventory.json, the oracle and
 // our screenshots (uploaded to the Barkpark media library) and what ours lacks, untracked
 // first. The screenshots stay out of the repo (O2); they live in the private workspace.
-// Usage: node scripts/publish-review.mjs --shots <dir> [--slug fluid-editor-gap-review-YYYY-MM-DD]
-// Needs `bp` and ~/.config/barkpark/config.json (server and token of the gyl workspace).
+// Usage: node scripts/publish-review.mjs --shots <dir> [--slug fluid-editor-gap-review-YYYY-MM-DD] [--server gyl]
+// Needs `bp` and a saved server in ~/.config/barkpark/config.json (default: gyl, the workspace reviews live in).
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 
@@ -12,7 +12,11 @@ const shots = arg('shots');
 if (!shots) throw new Error('--shots <dir> is required (the folder scripts/inventory.mjs wrote)');
 const inv = JSON.parse(readFileSync(new URL('../parity/inventory.json', import.meta.url), 'utf8'));
 const slug = arg('slug', `fluid-editor-gap-review-${inv.capturedAt}`);
-const cfg = JSON.parse(readFileSync(`${process.env.HOME}/.config/barkpark/config.json`, 'utf8'));
+// A saved server, not the current one: bp's current server is often another workspace.
+const serverName = arg('server', 'gyl');
+const saved = JSON.parse(readFileSync(`${process.env.HOME}/.config/barkpark/config.json`, 'utf8')).known_servers ?? [];
+const cfg = saved.find((s) => s.name === serverName);
+if (!cfg) throw new Error(`no saved bp server named ${serverName} (see: bp servers)`);
 const server = cfg.server;
 
 // Uploaded files are remembered in <shots>/uploads.json, so a second publish uploads nothing
@@ -81,5 +85,5 @@ const payload = {
 };
 const file = `${shots}/review-payload.json`;
 writeFileSync(file, JSON.stringify(payload, null, 2));
-execFileSync('bp', ['bulldocs', 'publish', slug, '--file', file, '--yes'], { stdio: 'inherit' });
+execFileSync('bp', ['-s', serverName, 'bulldocs', 'publish', slug, '--file', file, '--yes'], { stdio: 'inherit' });
 console.log(`${server}/papers/${slug}`);
