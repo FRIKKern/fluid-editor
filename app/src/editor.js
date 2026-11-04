@@ -1369,7 +1369,8 @@ function placeChrome() {
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}`;
   if (chrome.dataset.key !== key) { chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected }); chrome.dataset.key = key; }
   const header = k === 0 ? doc.getElementById('header') : null;
-  const L = sectionChromeLayout(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), header ? header.getBoundingClientRect().bottom : 0, phone);
+  const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
+  const L = sectionChromeLayout(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), header ? header.getBoundingClientRect().bottom : 0, phone, grid);
   for (const [part, box] of Object.entries(L)) {
     const node = chrome.querySelector(`[data-sc-part="${part}"]`);
     if (!node) continue;
@@ -1495,6 +1496,34 @@ function setSiteStyles(on) {
 }
 $('site-styles-toggle').addEventListener('click', () => setSiteStyles(siteStyles.hidden));
 siteStyles.addEventListener('click', (e) => { if (e.target.closest('[data-ss="close"]')) setSiteStyles(false); });
+
+// The row handle (S4, parity/findings/S4.json): dragging it changes the section's row count by
+// the drag distance over one row step (row plus gap), rounded, never below the lowest row the
+// blocks need; one undo step per drag.
+chrome.addEventListener('pointerdown', (e) => {
+  const h = e.target.closest('.sc-rows');
+  if (!h || e.button !== 0) return;
+  e.preventDefault(); e.stopPropagation();
+  const sid = chromeSid();
+  const s = S(sid);
+  const fe = feEl(sid);
+  if (!s || !fe) return;
+  const before = JSON.stringify(model);
+  const step = measure(fe).pitch;
+  const start = s.rows[bp];
+  const need = Math.max(1, ...s.blocks.map((b) => lay(b).area[2] - 1));
+  const y0 = e.clientY;
+  const move = (ev) => {
+    const n = Math.max(need, start + Math.round((ev.clientY - y0) / step));
+    if (n !== s.rows[bp]) { s.rows[bp] = n; renderSectionDom(sid); placeChrome(); }
+  };
+  const up = () => {
+    window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up);
+    commit(before, `Rows of ${sid}: ${s.rows[bp]}`);
+  };
+  window.addEventListener('pointermove', move);
+  window.addEventListener('pointerup', up);
+});
 
 // Add a Section (U10): the panel remembers where the new section goes.
 const addSectionPanel = $('add-section-panel');

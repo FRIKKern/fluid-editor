@@ -44,6 +44,7 @@ export function sectionChromeHtml({ first, last, phone = false, blockSelected = 
   const sq = (act, icon, label, off) => `<button type="button" class="sc-sq${off ? ' is-off' : ''}" data-sc="${act}" aria-label="${label}" title="${label}">${svg(ICON[icon])}</button>`;
   return `<div class="sc-outline" data-sc-part="outline"></div>
     <div class="sc-pill" data-sc-part="layers"><button type="button" class="sc-left sc-layers" data-sc="layers" aria-label="Open Layers Panel">${svg(ICON.layers)}</button></div>
+    ${phone || blockSelected ? '' : '<div class="sc-rows" data-sc-part="rows" role="button" aria-label="Drag to change the row count" title="Drag to add or remove rows"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M8 8l4-4 4 4M8 16l4 4 4-4"/></svg></div>'}
     <div class="sc-pill" data-sc-part="add-block"><button type="button" class="sc-left sc-add-block" data-sc="add-block" aria-label="Add Block">${svg(ICON.plus)}<span>Add Block</span></button></div>
     <div class="sc-card" data-sc-part="card">
       ${wide('edit', 'pencil', 'Edit Section')}
@@ -60,7 +61,7 @@ export function sectionChromeHtml({ first, last, phone = false, blockSelected = 
 // Boxes in the stage's coordinates. `sec` is the section's rect inside the canvas, `frame`
 // and `stage` are rects in the editor window, `headerBottom` the site header's bottom in the
 // canvas on the first section (0 otherwise).
-export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = false) {
+export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = false, grid = null) {
   const ox = frame.left - stage.left, oy = frame.top - stage.top;
   if (phone) {
     // Phone view (oracle screenshot): the canvas is 428 wide in the middle; Layers sits 68px left
@@ -88,6 +89,9 @@ export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = fal
     card: { left: ox + sec.right - 22 - 178, top: oy + cardTop },
     'add-top': { left: ox + midX, top: oy + Math.max(sec.top, headerBottom) - 18 },
     'add-bottom': { left: ox + midX, top: oy + sec.bottom - 18 },
+    // The row handle (S4, parity/findings/S4.json): 44 by 33, its left 272px in from the grid's
+    // right edge (1311 in a 1583px grid), centred on the grid's bottom edge.
+    ...(grid ? { rows: { left: ox + grid.right - 272, top: oy + grid.bottom - 16 } } : {}),
   };
 }
 
