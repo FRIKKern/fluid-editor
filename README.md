@@ -29,9 +29,9 @@ gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 55 changes
+- **Today** · 56 changes
+  - Review publishing: pick the saved server, default gyl ([#113](https://github.com/FRIKKern/fluid-editor/pull/113))
   - U13: panel drag limits as on the oracle, and it no longer stalls over the canvas ([#112](https://github.com/FRIKKern/fluid-editor/pull/112))
-  - T2: alignment wrapper on Shape, not Button (S3, T5 evidence) ([#111](https://github.com/FRIKKern/fluid-editor/pull/111))
 - **Yesterday** · 39 changes, 3 milestones closed
   - U9: section edge lines in the phone view; overlays follow the canvas reflow ([#57](https://github.com/FRIKKern/fluid-editor/pull/57))
 <!-- timeline:end -->
