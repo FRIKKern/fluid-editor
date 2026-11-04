@@ -1,8 +1,11 @@
 // Render docs/MISSING.md from parity/inventory.json (scripts/inventory.mjs): per editor state,
 // what the oracle shows that our editor does not, untracked gaps first. Never edit the output.
 import { readFileSync, writeFileSync } from 'node:fs';
+import { coverage } from './lib/coverage.mjs';
 
 const inv = JSON.parse(readFileSync(new URL('../parity/inventory.json', import.meta.url), 'utf8'));
+// Match the gaps against the current items, so a new item counts without a new oracle run.
+for (const s of inv.states) s.missing = s.missing.map(coverage);
 const visual = (() => { try { return JSON.parse(readFileSync(new URL('../parity/visual.json', import.meta.url), 'utf8')); } catch { return null; } })();
 const pct = (name) => { const v = visual?.states.find((x) => x.name === name); return v ? `${v.percent}%` : ''; };
 const ORDER = ['UNTRACKED', 'mentioned', 'side panel only', 'tracked', 'out of scope'];
