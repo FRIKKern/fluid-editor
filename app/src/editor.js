@@ -919,18 +919,22 @@ function onLinkAction(act, el) {
   // open or edit
   openLinkPopover(b, (st) => linkPopoverPosition(blockPanel.getBoundingClientRect(), el.getBoundingClientRect(), st));
 }
-function openLinkPopover(b, place) {
+// What Enter or a page applies to: the selected button (default) or a saved text range.
+let linkTarget = null;
+function openLinkPopover(b, place, target = null) {
+  linkTarget = target;
   linkPop.dataset.bid = b.id;
-  linkPop.innerHTML = linkPopoverHtml(b.href, siteLinkGroups());
+  linkPop.innerHTML = linkPopoverHtml(target ? target.href : b.href, siteLinkGroups());
   const p = place(stage.getBoundingClientRect());
   linkPop.style.left = `${p.left}px`; linkPop.style.top = `${p.top}px`;
   linkPop.hidden = false;
-  linkPop.classList.toggle('has-text', !!b.href);
+  linkPop.classList.toggle('has-text', !!(target ? target.href : b.href));
   linkPop.querySelector('.lk-input').focus();
 }
 function applyLink(href) {
   closeLinkPopover();
   const v = href.trim();
+  if (linkTarget) { const t = linkTarget; linkTarget = null; t.apply(v); return; }
   setButton((b) => { if (v) b.href = v; else delete b.href; }, v ? 'Link set' : 'Link removed');
 }
 linkPop.addEventListener('input', (e) => { if (e.target.matches('.lk-input')) linkPop.classList.toggle('has-text', !!e.target.value); });
@@ -1003,11 +1007,32 @@ textBar.addEventListener('click', (e) => {
   const b = e.target.closest('button[data-fmt]');
   if (!b || !editing || b.disabled) return;
   const act = b.dataset.fmt;
+  if (act === 'link') { openTextLink(b); return; }
   if (act === 'style-menu' || act === 'align-menu') { const m = act === 'style-menu' ? 'style' : 'align'; textMenu = textMenu === m ? null : m; renderTextBar(); return; }
   textMenu = null;
   if (act === 'style') applyFormat('style', b.dataset.v); else applyFormat(act);
   renderTextBar();
 });
+
+// Text Link (E7, parity/findings/TEXTLINK.json): the popover opens centred under the Link
+// button, 10px below it, for the selected text; Enter or a page wraps it in <a href>.
+function openTextLink(btnEl) {
+  const ed = editing;
+  const s0 = win.getSelection();
+  if (!ed || !s0.rangeCount) return;
+  const range = s0.getRangeAt(0).cloneRange();
+  const a = fmt.linkAt(ed.ce, range);
+  openLinkPopover(B(ed.sid, ed.bid), (st) => { const r = btnEl.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 10 - st.top }; }, {
+    href: a ? a.getAttribute('href') : '',
+    apply: (href) => {
+      if (editing !== ed) return;
+      ed.ce.focus();
+      const sel2 = win.getSelection(); sel2.removeAllRanges(); sel2.addRange(range);
+      if (fmt.setLink(doc, ed.ce, sel2, range, href)) onTextInput();
+      renderTextBar();
+    },
+  });
+}
 
 // When an edit makes the text taller, move the block's end row instead of
 // letting the row stretch.

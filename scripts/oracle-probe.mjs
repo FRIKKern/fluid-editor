@@ -1,7 +1,7 @@
 // Multi-step experiments on the oracle demo page that one trace cannot hold.
 // Each probe writes parity/findings/<item>.json. Every probe starts from a saved,
 // clean page, undoes its steps, reloads, and checks the saved state came back (O1).
-// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | SECTIONBAR [sections json] | UNBUILT [names json] | BUTTONEDIT | BLEND [section] [block] [options json] | BATCH | KEYS
+// Usage: node scripts/oracle-probe.mjs L4 | E3E6 | PANEL | INSET | SETTINGS [options json] | OPTION <[tab,label]> <name> | DIVIDER | DIVSHAPES | DIVOPTS | TOOLBARS | EDITPANEL | TEXTBAR | TEXTOPS [actions json] | PASTE | T13 [types json] [name] | EXIT | AUTOSCROLL [distances json] | NEAR [section] [offsets json] | TOOLBARGEO [cases json] | DESIGN [section] [block] [tests json] | SECTIONBAR [sections json] | UNBUILT [names json] | BUTTONEDIT | TEXTLINK | BLEND [section] [block] [options json] | BATCH | KEYS
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { evalJs, waitFor, reload, pause } from './lib/cmux.mjs';
@@ -511,6 +511,63 @@ if (which === 'TEXTBAR') {
   let n = 0; while (n < 5 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(800); }
   if (saveDisabled() !== true) throw new Error('The probe changed the page; it must stay read only');
   write('TEXTBAR', { question: 'Which controls does the text formatting toolbar offer, and what do its menus hold?', block: [i, k], bar, menus });
+}
+
+if (which === 'TEXTLINK') {
+  // E7 for text: the text toolbar Link on a selected word. Read the popover and where it opens,
+  // then set a URL, a URL with Open link in new tab, and a site page, reading the HTML after
+  // each and undoing until Save is disabled again (O1).
+  const [i, k] = [2, 1];
+  const id = blockIds(i)[k];
+  const HTML = `(() => { ${FRAME} const blk = d.querySelector('.fe-block[data-block-id="${id}"]'); const c = blk.querySelector('.ProseMirror') || blk.querySelector('.sqs-html-content'); return JSON.stringify(c.innerHTML.replace(/ data-rte-preserve-empty="true"/g, '').replace(/ style="white-space:pre-wrap;"/g, '').replace(/ class="([^"]*)"/g, (m, v) => (/sqsrte|preFade|fade|text-align/.test(v) ? m : '')).slice(0, 700)); })()`;
+  const startWrite = async () => {
+    await select(i, id); await pause(900);
+    await click(`() => [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Write' && x.getBoundingClientRect().width > 0)`, { wait: 1500 });
+    evalJs(S, `(() => { ${FRAME} const pm = d.querySelector('.fe-block[data-block-id="${id}"] .ProseMirror'); pm.focus(); const p = pm.querySelector('p'); const t = p.firstChild; const r = d.createRange(); r.setStart(t, 0); r.setEnd(t, t.textContent.indexOf(' ')); const sel = W.getSelection(); sel.removeAllRanges(); sel.addRange(r); d.dispatchEvent(new W.Event('selectionchange')); return 'true'; })()`);
+    await pause(900);
+  };
+  const undoAll = async () => { await escape(); await escape(); let n = 0; while (n < 6 && saveDisabled() !== true && evalJs(S, BUTTON('Undo')) === true) { n++; await pause(900); } await deselect(i); return n; };
+  const POP = `(() => { const h = [...document.querySelectorAll('input')].find((e) => e.getAttribute('placeholder') === 'Enter link, search, or add files' && e.getBoundingClientRect().width > 0);
+    if (!h) return JSON.stringify(null); let p = h; while (p.parentElement && p.getBoundingClientRect().height < 150) p = p.parentElement; const r = p.getBoundingClientRect(); const vis = (e) => e.getBoundingClientRect().width > 0;
+    return JSON.stringify({ box: [r.x, r.y, r.width, r.height].map(Math.round), focused: document.activeElement === h, text: [...new Set([...p.querySelectorAll('*')].filter((e) => vis(e) && e.childElementCount === 0 && e.textContent.trim()).map((e) => e.textContent.trim()))].slice(0, 30),
+      checkbox: [...p.querySelectorAll('input[type=checkbox]')].filter(vis).map((e) => ({ label: e.getAttribute('aria-label'), checked: e.checked })) }); })()`;
+  const SELBOX = `(() => { ${FRAME} const r = W.getSelection().getRangeAt(0).getBoundingClientRect(); const f2 = f.getBoundingClientRect(); return JSON.stringify([f2.x + r.x, f2.y + r.y, r.width, r.height].map(Math.round)); })()`;
+  const LINKBTN = `() => [...document.querySelectorAll('button, [role=button]')].find((e) => /^link$/i.test(e.getAttribute('aria-label') || '') && e.getBoundingClientRect().width > 0)`;
+  const tagInput = () => evalJs(S, `(() => { document.querySelectorAll('#fx-target').forEach((x) => x.removeAttribute('id')); const h = [...document.querySelectorAll('input')].find((e) => e.getAttribute('placeholder') === 'Enter link, search, or add files' && e.getBoundingClientRect().width > 0); if (!h) return JSON.stringify(false); h.id = 'fx-target'; return JSON.stringify(true); })()`);
+  const cm = (...a) => execFileSync('cmux', ['browser', '--surface', S, ...a]);
+  if (saveDisabled() !== true) throw new Error('The oracle has unsaved changes; stopping (O1)');
+  const out = { block: [i, k] };
+  await startWrite();
+  out.base = evalJs(S, HTML);
+  out.selection = evalJs(S, SELBOX);
+  out.linkButton = evalJs(S, `(() => { const b = (${LINKBTN})(); if (!b) return JSON.stringify(null); const r = b.getBoundingClientRect(); return JSON.stringify([r.x, r.y, r.width, r.height].map(Math.round)); })()`);
+  await click(LINKBTN, { wait: 1200 });
+  out.popover = evalJs(S, POP);
+  console.log('popover', JSON.stringify(out.popover), 'button', JSON.stringify(out.linkButton), 'selection', JSON.stringify(out.selection));
+  // Focus the field and let the page list show, then read it.
+  if (tagInput() === true) { cm('click', '#fx-target'); await pause(900); out.popoverFocused = evalJs(S, POP); }
+  await undoAll();
+  for (const [name, how] of [['url', { url: 'https://example.com/probe' }], ['url new tab', { url: 'https://example.com/probe', newTab: true }], ['page', { page: true }]]) {
+    try {
+      await startWrite();
+      await click(LINKBTN, { wait: 1200 });
+      if (how.url) {
+        if (tagInput() !== true) throw new Error('no link field');
+        cm('fill', '#fx-target', how.url); await pause(500);
+        if (how.newTab) { await click(`() => [...document.querySelectorAll('input[type=checkbox], [role=checkbox], [role=switch]')].find((e) => e.getBoundingClientRect().width > 0 && /new tab/i.test((e.getAttribute('aria-label') || '') + (e.closest('label')?.textContent || '') + (e.parentElement?.parentElement?.textContent || '')))`, { wait: 600 }); }
+        if (tagInput() === true) cm('press', 'Enter');
+      } else {
+        if (tagInput() === true) { cm('click', '#fx-target'); await pause(900); }
+        await click(`() => [...document.querySelectorAll('[role=option], li, button')].find((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame') && /^Services/.test(e.textContent.trim()) && /\/services/.test(e.textContent))`, { wait: 1200 });
+      }
+      await pause(1200);
+      out[name] = { html: evalJs(S, HTML), popoverAfter: evalJs(S, POP), changed: saveDisabled() !== true };
+    } catch (e) { out[name] = { error: String(e.message).slice(0, 100) }; }
+    out[name].undoSteps = await undoAll();
+    console.log(name, JSON.stringify(out[name]).slice(0, 500));
+  }
+  if (saveDisabled() !== true) throw new Error('The probe left unsaved changes');
+  write('TEXTLINK', { question: 'What does the text toolbar Link open, where, and what HTML does a link write?', ...out });
 }
 
 if (which === 'TEXTOPS') {
