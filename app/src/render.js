@@ -221,8 +221,20 @@ export function designCss(b) {
   `;
 }
 
+// Blend Mode (T15, parity/findings/BLEND.json): on a text block the oracle keeps
+// mix-blend-mode: var(--tweak-text-block-blend ) and sets the variable, normal by default.
+// Other block types are not measured; they get mix-blend-mode directly.
+export const BLEND_MODES = ['Normal', 'Multiply', 'Screen', 'Overlay', 'Darken', 'Lighten', 'Color Dodge', 'Color Burn', 'Hard Light', 'Soft Light', 'Difference', 'Exclusion', 'Hue', 'Saturation', 'Color', 'Luminosity'];
+export function blendCss(b) {
+  const m = b.design?.blend;
+  if (!m || m === 'normal') return '';
+  if (b.type === 'text') return `.fe-block-${b.id} { mix-blend-mode: var(--tweak-text-block-blend ); } .fe-block-${b.id} { --tweak-text-block-blend : ${m}; }`;
+  return `.fe-block-${b.id} { mix-blend-mode: ${m}; }`;
+}
+
 export function renderBlock(b, model) {
-  const design = b.design ? `<style class="transform-vars">${designCss(b)}</style>` : '';
+  const blend = blendCss(b);
+  const design = (b.design ? `<style class="transform-vars">${designCss(b)}</style>` : '') + (blend ? `<style class="fe-blend">${blend}</style>` : '');
   return `<div class="fe-block fe-block-${b.id}" data-block-id="${b.id}">${blockInner(b, model)}${design}</div>`;
 }
 
