@@ -2029,7 +2029,7 @@ chrome.addEventListener('click', (e) => {
     closeFloating();
     layersPanel.dataset.sid = sid;
     renderLayersPanel();
-    layersPanel.style.left = `${pill.left - st.left}px`; layersPanel.style.top = `${pill.bottom - st.top - 9}px`;
+    layersPanel.style.left = `${pill.left - st.left}px`; layersPanel.style.top = `${pill.bottom - st.top + 11}px`;
     layersPanel.hidden = false;
     return;
   }
@@ -2349,31 +2349,64 @@ function renderLayersPanel() {
   layersPanel.innerHTML = layersPanelHtml(layerRows(s));
 }
 layersPanel.addEventListener('click', (e) => {
+  if (rowDragged) return;
   const eye = e.target.closest('[data-unhide]');
   if (eye) { e.stopPropagation(); unhideBlock(layersPanel.dataset.sid, eye.dataset.unhide); return; }
   const li = e.target.closest('li[data-layer]');
   if (li && B(layersPanel.dataset.sid, li.dataset.layer) && lay(B(layersPanel.dataset.sid, li.dataset.layer)).hidden) return;
   if (li) { select({ sid: layersPanel.dataset.sid, bid: li.dataset.layer }); renderLayersPanel(); }
 });
-let dragRow = null;
-layersPanel.addEventListener('dragstart', (e) => { dragRow = e.target.closest('li[data-layer]')?.dataset.layer || null; });
-layersPanel.addEventListener('dragover', (e) => { if (dragRow && e.target.closest('li[data-layer]')) e.preventDefault(); });
-layersPanel.addEventListener('drop', (e) => {
+// Dragging a row (Z3, parity/findings/LAYERS.json): it follows the pointer over a blue slot, the other
+// rows make way when its edge crosses their center, and the drop numbers the blocks 1 to n, the front
+// row highest. One undo step.
+let rowDragged = false; // the click that ends a drag selects nothing
+layersPanel.addEventListener('pointerdown', (e) => {
+  rowDragged = false;
   const li = e.target.closest('li[data-layer]');
+  if (!li || e.button !== 0 || e.target.closest('[data-unhide]')) return;
   const sid = layersPanel.dataset.sid;
-  if (!li || !dragRow || !sid) return;
-  e.preventDefault();
-  const before = JSON.stringify(model);
-  const s = S(sid);
-  const order = [...s.blocks].sort((a, b) => lay(b).z - lay(a).z).map((b) => b.id).filter((id) => id !== dragRow);
-  order.splice(order.indexOf(li.dataset.layer), 0, dragRow);
-  // The oracle reorders by dragging rows (Z3): keep the section's z values, hand them out front to back.
-  const zs = s.blocks.map((b) => lay(b).z).sort((a, b) => b - a);
-  order.forEach((id, k) => { lay(B(sid, id)).z = zs[k]; });
-  dragRow = null;
-  renderSectionDom(sid);
-  commit(before, 'Reordered layers');
-  renderLayersPanel();
+  const list = li.parentElement;
+  const rows = [...list.children];
+  const from = rows.indexOf(li);
+  const box = li.getBoundingClientRect();
+  const pitch = rows.length > 1 ? rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().top : box.height;
+  const y0 = e.clientY;
+  let ghost = null;
+  const move = (ev) => {
+    const d = ev.clientY - y0;
+    if (!ghost && Math.abs(d) < 4) return;
+    if (!ghost) {
+      ghost = li.cloneNode(true);
+      ghost.classList.add('lp-ghost');
+      Object.assign(ghost.style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px` });
+      document.body.append(ghost);
+      li.classList.add('is-slot');
+    }
+    ghost.style.transform = `translateY(${d}px)`;
+    const passed = Math.floor((Math.abs(d) + box.height / 2) / pitch);
+    const to = Math.max(0, Math.min(rows.length - 1, from + Math.sign(d) * passed));
+    const others = rows.filter((r) => r !== li);
+    list.insertBefore(li, others[to] || null);
+  };
+  const up = () => {
+    document.removeEventListener('pointermove', move);
+    document.removeEventListener('pointerup', up);
+    document.removeEventListener('pointercancel', up);
+    if (!ghost) return;
+    ghost.remove();
+    li.classList.remove('is-slot');
+    rowDragged = true;
+    const before = JSON.stringify(model);
+    const order = [...list.children].map((r) => r.dataset.layer);
+    order.forEach((id, k) => { lay(B(sid, id)).z = order.length - k; });
+    const moved = list.children[from] !== li;
+    if (moved) { renderSectionDom(sid); commit(before, 'Reordered layers'); }
+    else model = JSON.parse(before);
+    renderLayersPanel();
+  };
+  document.addEventListener('pointermove', move);
+  document.addEventListener('pointerup', up);
+  document.addEventListener('pointercancel', up);
 });
 function onContextMenu(e) {
   if (document.body.classList.contains('is-preview')) return;
