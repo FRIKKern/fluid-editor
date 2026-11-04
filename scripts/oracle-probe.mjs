@@ -966,6 +966,24 @@ if (which === 'TOOLBARGEO') {
   write('TOOLBARGEO', { question: 'Where is the block toolbar relative to the selected block, how does it look, and how is the selection drawn?', frame: '1600x945', cases: Object.fromEntries(cases.map(([i, k, label]) => [label, [i, k]])), ...out });
 }
 
+if (which === 'ADDSECTIONTOP') {
+  // U10: where each section's Add Section buttons sit, against the section's real edge. Hover only.
+  const { hoverSection } = await import('./oracle/ui.mjs');
+  const n = evalJs(S, `(() => { ${FRAME} return JSON.stringify(d.querySelectorAll('main#page .page-section').length); })()`);
+  const sections = [];
+  for (let i = 0; i < n; i++) {
+    await hoverSection(i); await pause(600);
+    sections.push(evalJs(S, `(() => { ${FRAME} const fr = f.getBoundingClientRect(); const q = d.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect();
+      const tops = [...document.querySelectorAll('button')].filter((x) => /^add section$/i.test(x.textContent.trim()) && x.getBoundingClientRect().width > 0).map((x) => x.getBoundingClientRect().top - fr.top + W.scrollY);
+      const edge = q.top + W.scrollY; const own = tops.reduce((a, b) => (Math.abs(b - edge + 18) < Math.abs(a - edge + 18) ? b : a));
+      return JSON.stringify({ section: ${i}, top: Math.round(edge * 1000) / 1000, height: Math.round(q.height * 1000) / 1000, addSectionTop: Math.round(own * 1000) / 1000, offset: Math.round((own - edge) * 100) / 100 }); })()`));
+    console.log(JSON.stringify(sections.at(-1)));
+  }
+  let sum = sections[0].top - 18;
+  for (const x of sections) { x.rule = Math.round(sum * 1000) / 1000; sum += Math.round(x.height); }
+  write('ADDSECTIONTOP', { question: 'Where do the Add Section buttons sit against the section edge?', frame: '1600x1000', rule: 'A top Add Section button sits at the page top - 18 + the sum of the rounded heights of the sections above. Section 0 is held below the site header, so its reading is not on the rule.', sections });
+}
+
 if (which === 'SNAP') {
   // G4: at which pointer distance a held drag or resize takes the next grid line. Holds one real
   // pointer (cdp surface only), walks it 1px at a time out, back through zero and home, and
