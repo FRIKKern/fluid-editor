@@ -224,6 +224,7 @@ function save() {
   writeFileSync(file, JSON.stringify({ ...report, states }, null, 2) + '\n');
 }
 viewport(O, 1600, 1000);
+await oVisible();
 await oEnsureDemo();
 viewport(O, 1600, 1000);
 for (const [name, what, oDrive, uDrive] of STATES) {
