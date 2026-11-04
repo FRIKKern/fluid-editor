@@ -4,7 +4,8 @@
 // Usage: node scripts/check-render.mjs [--verbose]
 import { readFileSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
-import { sectionCss } from '../app/src/render.js';
+import { sectionCss, renderSection } from '../app/src/render.js';
+import { demoModel } from '../app/src/demo.js';
 import { parseSectionCss } from './lib/parse.mjs';
 
 const verbose = process.argv.includes('--verbose');
@@ -59,6 +60,13 @@ const out = new URL('../parity/gate-a.json', import.meta.url);
 const prev = (() => { try { return readFileSync(out, 'utf8'); } catch { return ''; } })();
 const next = JSON.stringify(report, null, 2) + '\n';
 if (prev !== next) writeFileSync(out, next);
+
+// T2 (parity/findings/WRAPPER.json): of the types measured, only a shape carries the alignment wrapper.
+const base = demoModel().sections[0], layout = base.blocks[0].layout;
+const wrapped = (block) => /class="[^"]*sqs-block-alignment-wrapper/.test(renderSection({ ...base, blocks: [{ id: 'b', layout, ...block }] }, { sections: [] }));
+const wrapperOk = wrapped({ type: 'shape' }) && !wrapped({ type: 'button', label: 'x' }) && !wrapped({ type: 'text', html: '<p>x</p>' }) && !wrapped({ type: 'image', alt: '' }) && !wrapped({ type: 'video' });
+console.log(`Alignment wrapper on the right types: ${wrapperOk ? 'yes' : 'NO'}`);
+if (!wrapperOk) process.exitCode = 1;
 
 if (total === 0) {
   console.error('Gate A: empty corpus fails');
