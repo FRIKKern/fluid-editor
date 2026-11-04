@@ -12,16 +12,9 @@ html { overflow-anchor: none; }
 .fluid-engine.is-editing.is-gesture .fe-block:hover { outline: none; }
 .fluid-engine.is-editing [contenteditable="true"] { outline: none; }
 
-.fe-grid-row {
-  display: grid; grid-template-columns: subgrid;
-  pointer-events: none; z-index: -1;
-  opacity: 0.65;
-}
+.fe-grid-row { position: absolute; inset: 0; pointer-events: none; opacity: 0.65; }
 .fe-grid-row.is-fresh, .fe-center-line { animation: fe-fade-in 0.1s ease-in; }
 @keyframes fe-fade-in { from { opacity: 0; } }
-.fe-grid-cell {
-  border: 1px solid #b7b7b7; border-radius: 3px; background: #f2f2f240;
-}
 
 /* Selection (U3, parity/findings/TOOLBARGEO.json): two 1px rings outside the block, #027aff inside and #6ca4f4 outside. */
 .fe-indicator { pointer-events: none; position: relative; box-shadow: 0 0 0 1px rgb(2, 122, 255), 0 0 0 2px rgb(108, 164, 244); }

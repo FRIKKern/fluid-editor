@@ -499,20 +499,25 @@ function autoScroll(g) {
   win.setTimeout(tick, SCROLL_EVERY);
 }
 
+// One SVG per row, drawn the oracle's way (parity/findings/MARKS.json, grid): a pattern one cell wide
+// and one row tall, its rect 1px under the tile so the stroke fits on all four sides.
 function showGrid(sid, rowCount) {
   const fe = feEl(sid);
   fe.dataset.gridIsVisible = 'true';
   for (const el of fe.querySelectorAll('.fe-grid-row')) el.remove();
+  const cs = win.getComputedStyle(fe);
+  const gap = parseFloat(cs.columnGap);
+  const margin = Math.round(parseFloat(cs.gridTemplateColumns) + gap);
+  const inset = 2 * margin - 1;
+  const tile = (fe.clientWidth - inset + gap - 1) / COLS[bp];
+  const cellH = measure(fe).rowMin - 1;
   const frag = doc.createDocumentFragment();
   for (let r = 1; r <= rowCount; r++) {
     const row = doc.createElement('div');
     row.className = gesture?.shownRows ? 'fe-grid-row' : 'fe-grid-row is-fresh';
-    row.style.gridArea = `${r} / 2 / ${r + 1} / ${LAST_LINE[bp] - 1}`;
-    for (let c = 0; c < COLS[bp]; c++) {
-      const cell = doc.createElement('div');
-      cell.className = 'fe-grid-cell';
-      row.append(cell);
-    }
+    row.style.gridArea = `${r} / 1 / ${r} / -1`;
+    const id = `fe-grid-${sid}-${r}`;
+    row.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" style="height:100%;width:calc(100% - ${inset}px);position:absolute;left:${margin}px"><defs><pattern id="${id}" height="100%" width="${tile}px" patternUnits="userSpaceOnUse"><rect height="${cellH}px" width="${tile - gap - 1}px" x="0.5" y="0.5" rx="3" stroke-width="1" stroke="#B7B7B7" fill="#F2F2F240"></rect></pattern></defs><rect width="100%" height="100%" fill="url(#${id})"></rect></svg>`;
     frag.append(row);
   }
   fe.prepend(frag);

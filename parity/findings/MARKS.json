@@ -1,61 +1,122 @@
 {
- "item": "MARKS",
- "capturedAt": "2026-11-04",
- "question": "Small marks of the editor chrome: where a dragged block panel can go, and more as items need them.",
- "window": [
-  1600,
-  1000
- ],
- "how": "real mouse input in headless Chrome on the demo page. Nothing in the content changed; every run ended with Exit, and the Save button stayed off.",
- "panelMove": {
-  "note": "Shape block's Edit panel. A drag follows the pointer inside limits that depend on the window, not on the editor area. Escape closes it; it reopens at its first place.",
-  "panel": [
-   320,
-   502
+  "item": "MARKS",
+  "capturedAt": "2026-11-04",
+  "question": "Small marks of the editor chrome: where a dragged block panel can go, how the grid is drawn, and more as items need them.",
+  "window": [
+    1600,
+    1000
   ],
-  "opened": [
-   1260,
-   217,
-   320,
-   502
-  ],
-  "dragBy": [
-   -300,
-   150
-  ],
-  "dragged": [
-   960,
-   367,
-   320,
-   502
-  ],
-  "towardBottomRight": [
-   1286,
-   520,
-   320,
-   502
-  ],
-  "towardTopLeft": [
-   20,
-   22,
-   320,
-   502
-  ],
-  "limits": {
-   "left": [
-    20,
-    "window width + 6 - panel width"
-   ],
-   "top": [
-    22,
-    "window height + 22 - panel height"
-   ]
+  "how": "real mouse input in headless Chrome on the demo page, plus DOM reads and screenshots. Nothing was saved: every run ended with Exit, and when the holds had changed the page, with Exit in the Exit Without Saving dialog.",
+  "panelMove": {
+    "note": "Shape block's Edit panel. A drag follows the pointer inside limits that depend on the window, not on the editor area. Escape closes it; it reopens at its first place.",
+    "panel": [
+      320,
+      502
+    ],
+    "opened": [
+      1260,
+      217,
+      320,
+      502
+    ],
+    "dragBy": [
+      -300,
+      150
+    ],
+    "dragged": [
+      960,
+      367,
+      320,
+      502
+    ],
+    "towardBottomRight": [
+      1286,
+      520,
+      320,
+      502
+    ],
+    "towardTopLeft": [
+      20,
+      22,
+      320,
+      502
+    ],
+    "limits": {
+      "left": [
+        20,
+        "window width + 6 - panel width"
+      ],
+      "top": [
+        22,
+        "window height + 22 - panel height"
+      ]
+    },
+    "reopenedAfterEscape": [
+      1260,
+      217,
+      320,
+      502
+    ]
   },
-  "reopenedAfterEscape": [
-   1260,
-   217,
-   320,
-   502
-  ]
- }
+  "grid": {
+    "item": "U2",
+    "drawn": "one absolute div per grid row (grid-area r / 1 / r / -1, as wide as the section), z-index auto, holding one absolute svg with a pattern and a rect filled by it",
+    "svg": "height 100%, left L, width calc(100% - (2L - 1)px), where L is the first track plus the column gap, rounded",
+    "pattern": "width (svg width + gap - 1) / columns, height 100%, patternUnits userSpaceOnUse",
+    "cell": "rect x 0.5, y 0.5, rx 3, stroke-width 1, stroke #B7B7B7, fill #F2F2F240, width tile - gap - 1, height row height - 1",
+    "row": {
+      "opacity": 0.65,
+      "zIndex": "auto",
+      "pointerEvents": "none"
+    },
+    "fade": "in: opacity 0 to 0.65, transition opacity 0.1s ease-in, sampled at 0.33, 0.48, 0.65 over about 100 ms. Out: the first sample after the drop already reads 0, 46 ms later (one sample)",
+    "startsAt": "Below the 10px drag start the rows are in the page at opacity 0, on every section and with height 31 on the rect; nothing shows. The drag sets the height above and shows them",
+    "readings": {
+      "1600": {
+        "section": 1600,
+        "firstTrack": 89.125,
+        "left": 100,
+        "inset": 199,
+        "tile": 58.7917,
+        "cellW": 46.7917,
+        "rowH": 30.09375,
+        "cellH": 29.09375
+      },
+      "1280": {
+        "section": 1280,
+        "firstTrack": 40.1875,
+        "left": 51,
+        "inset": 101,
+        "tile": 49.5417,
+        "cellW": 37.5417,
+        "rowH": 25.3125,
+        "cellH": 24.3125
+      },
+      "phone": {
+        "section": 428,
+        "firstTrack": 14.6719,
+        "left": 26,
+        "inset": 51,
+        "tile": 48.375,
+        "cellW": 36.375,
+        "rowH": 24,
+        "cellH": 23
+      }
+    },
+    "boxOnlyAlso": {
+      "1440": {
+        "left": 58,
+        "inset": 115,
+        "tile": 55.625
+      },
+      "1120": {
+        "left": 45,
+        "inset": 89,
+        "tile": 43.375
+      },
+      "note": "read before the drag starts, so with no cell height"
+    },
+    "pixels": "Same demo section, same scroll, 14px hold at 1600 by 1000: in the box x 100 to 860, y 400 to 700 of the window (empty cells only) ours and the oracle differ by 0 in every color channel. Phone: one row across the cells, x 586 to 1014, the same but for the 3 pixels of the oracle's center line (x 799 to 801), which ours does not draw on phones",
+    "phoneRows": "How many rows a phone hold shows is not settled: 14 after two desktop holds in the same session, 20 on the first hold of a fresh session. Ours shows 14. The look of a cell is the same in both"
+  }
 }

@@ -932,8 +932,9 @@
     "id": "U2",
     "area": "Editor chrome",
     "milestone": "M5",
-    "status": "partial",
-    "title": "Grid look: SVG pattern, `#B7B7B7`, `#F2F2F240`, radius 3"
+    "status": "done",
+    "title": "Grid look: SVG pattern, `#B7B7B7`, `#F2F2F240`, radius 3",
+    "evidence": "parity/findings/MARKS.json, grid: one SVG per row with a pattern one cell wide, rect rx 3, stroke #B7B7B7, fill #F2F2F240, row opacity 0.65, fade in 0.1s ease-in. Box, tile and cell read at 1600, 1280 and on phones; the rule also fits the boxes at 1440 and 1120. Ours draws the same (npm run marks-check, parity/marks-check.json, 14 of 14). Pixels of empty cells at 1600 by 1000: 0 difference in a 760 by 300 box. One row across the phone cells: the same but for the oracle's center line"
   },
   {
     "id": "U3",
