@@ -169,17 +169,29 @@ export const ACCORDION_ICON = { S: 14, M: 24, L: 30 };
 export const ACCORDION_LINE = { S: 1, M: 3, L: 6 };
 export const ACCORDION_PAD = { S: 15, M: 30, L: 50 };
 export const ACCORDION_DESCRIPTION = 'Description text goes here';
+// Title and Description styles, widths and dividers (parity/findings/ACCORDIONSTYLES.json). A custom
+// value is a number, or four numbers for padding.
+export const ACCORDION_STYLES = { h1: 'Heading 1', h2: 'Heading 2', h3: 'Heading 3', h4: 'Heading 4', p1: 'Paragraph 1', p2: 'Paragraph 2', p3: 'Paragraph 3' };
+const ACCORDION_TAG = { h1: ['h1', ''], h2: ['h2', ''], h3: ['h3', ''], h4: ['h4', ''], p1: ['p', ' sqsrte-large'], p2: ['p', ''], p3: ['p', ' sqsrte-small'] };
+export const ACCORDION_WIDTH = { S: 40, M: 70, L: 100 };
+const px4 = (v) => v.map((n) => `${n}px`).join(' ');
 function accordionHtml(b) {
   const flag = (v) => (v ? 'true' : 'false');
   const on = b.dividers !== false;
+  const [tag, titleCls] = ACCORDION_TAG[b.titleStyle || 'h4'];
+  const descCls = ACCORDION_TAG[b.descStyle || 'p2'][1];
+  const icon = b.icon === 'arrow' ? '<div class="arrow-container"><div class="arrow"></div></div>' : '<div class="plus"><div class="plus__horizontal-line"></div><div class="plus__vertical-line"></div></div>';
   const items = (b.items || []).map((it, n) => {
     const id = `${b.id}-${n + 1}`;
     const top = n === 0 ? '<div data-sqsp-accordion-block-divider="" class="accordion-divider accordion-divider--top" aria-hidden="true"></div>' : '';
     const open = n === 0 && b.expandFirst;
-    return `<li class="accordion-item"${open ? ' data-is-open="true"' : ''}>${top}<h4 class="accordion-item__title-wrapper" data-sqsp-accordion-block-item-title=""><button id="button-${id}" class="accordion-item__click-target" aria-expanded="${flag(open)}" aria-controls="dropdown-${id}"><span class="accordion-item__title">${escapeHtml(it.title)}</span><div class="accordion-icon-container" aria-hidden="true"><div class="plus"><div class="plus__horizontal-line"></div><div class="plus__vertical-line"></div></div></div></button></h4><div class="accordion-item__dropdown" id="dropdown-${id}" role="region" aria-labelledby="button-${id}"><div class="accordion-item__description" data-sqsp-accordion-block-item-description="">${escapeHtml(it.description ?? '')}</div></div><div data-sqsp-accordion-block-divider="" class="accordion-divider" aria-hidden="true"></div></li>`;
+    return `<li class="accordion-item"${open ? ' data-is-open="true"' : ''}>${top}<${tag} class="accordion-item__title-wrapper${titleCls}" data-sqsp-accordion-block-item-title=""><button id="button-${id}" class="accordion-item__click-target" aria-expanded="${flag(open)}" aria-controls="dropdown-${id}"><span class="accordion-item__title">${escapeHtml(it.title)}</span><div class="accordion-icon-container" aria-hidden="true">${icon}</div></button></${tag}><div class="accordion-item__dropdown" id="dropdown-${id}" role="region" aria-labelledby="button-${id}"><div class="accordion-item__description${descCls}" data-sqsp-accordion-block-item-description="">${escapeHtml(it.description ?? '')}</div></div><div data-sqsp-accordion-block-divider="" class="accordion-divider" aria-hidden="true"></div></li>`;
   }).join('');
-  const style = `--accordion-icon:${ACCORDION_ICON[b.iconSize || 'S']}px;--accordion-line:${ACCORDION_LINE[b.iconThickness || 'S']}px;--accordion-pad:${ACCORDION_PAD[b.rowPadding || 'M']}px`;
-  return `<ul class="accordion-items-container" style="${style}" data-should-allow-multiple-open-items="${flag(b.multiple)}" data-is-divider-enabled="${flag(on)}" data-is-first-divider-visible="${flag(b.showFirst !== false)}" data-is-last-divider-visible="${flag(b.showLast !== false)}" data-is-expanded-first-item="${flag(b.expandFirst)}" data-accordion-title-alignment="left" data-accordion-description-alignment="left" data-accordion-description-placement="left" data-accordion-icon-placement="${b.iconLeft ? 'left' : 'right'}">${items}</ul>`;
+  const row = Array.isArray(b.rowPadding) ? b.rowPadding : [ACCORDION_PAD[b.rowPadding || 'M'], 0, ACCORDION_PAD[b.rowPadding || 'M'], 0];
+  const dPad = Array.isArray(b.descPad) ? b.descPad : [0, 0, ACCORDION_PAD[b.descPad || 'M'], 0];
+  const width = b.descWidth === 'S' ? '300px' : typeof b.descWidth === 'number' ? `max(300px, ${b.descWidth}%)` : `${ACCORDION_WIDTH[b.descWidth || 'M']}%`;
+  const style = `--accordion-icon:${ACCORDION_ICON[b.iconSize] ?? (b.iconSize || 14)}px;--accordion-line:${ACCORDION_LINE[b.iconThickness || 'S']}px;--accordion-pad:${px4(row)};--accordion-desc-pad:${px4(dPad)};--accordion-desc-width:${width};--accordion-divider:${ACCORDION_LINE[b.dividerSize] ?? (b.dividerSize ?? 1)}px;--accordion-divider-opacity:${b.dividerOpacity ?? 1}`;
+  return `<ul class="accordion-items-container" style="${style}" data-should-allow-multiple-open-items="${flag(b.multiple)}" data-is-divider-enabled="${flag(on)}" data-is-first-divider-visible="${flag(b.showFirst !== false)}" data-is-last-divider-visible="${flag(b.showLast !== false)}" data-is-expanded-first-item="${flag(b.expandFirst)}" data-accordion-title-alignment="${b.titleAlign || 'left'}" data-accordion-description-alignment="${b.descAlign || 'left'}" data-accordion-description-placement="${b.descPlace || 'left'}" data-accordion-icon-placement="${b.iconLeft ? 'left' : 'right'}">${items}</ul>`;
 }
 
 // Social links (T11.json): one list for the whole site, each block chooses how it looks. Glyphs
