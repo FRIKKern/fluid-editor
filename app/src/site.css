@@ -97,12 +97,15 @@ p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
 .page-section > .section-background { position: absolute; inset: 0; z-index: -1; background: var(--section-bg, var(--paper)); }
 /* A section's background image fills that layer (P5; the fit is inferred, no image was uploaded on the oracle). */
 .section-background-image { display: block; width: 100%; height: 100%; object-fit: cover; }
+.section-background-art { width: 100%; height: 100%; }
+.section-background-fallback { display: none; }
+@media (max-width: 767px) { .section-background-fallback { display: block; } .section-background-fallback ~ .section-background-video, .section-background-video:has(+ .section-background-fallback) { display: none; } }
 .page-section.background-width--inset { padding: 4vw; }
 .page-section.background-width--inset > .section-background { inset: 4vw; }
 /* Divider (P5, parity/findings/DIVIDER.json): a 6vw band added below the content; the
    background is clipped along the wave and a 6px stroke, not scaled with the band, follows it. */
-.page-section.has-section-divider { padding-bottom: 6vw; }
-.page-section > .section-divider-stroke { position: absolute; left: 0; bottom: 0; width: 100%; height: 6vw; overflow: visible; z-index: -1; pointer-events: none; }
+.page-section.has-section-divider { padding-bottom: var(--divider-h, 6vw); }
+.page-section > .section-divider-stroke { position: absolute; left: 0; bottom: 0; width: 100%; height: var(--divider-h, 6vw); min-height: 1px; overflow: visible; z-index: -1; pointer-events: none; }
 .section-divider-stroke path { fill: none; stroke: #000; stroke-width: 6px; stroke-linecap: square; vector-effect: non-scaling-stroke; }
 .page-section.section-height--small { min-height: 33vh; }
 .page-section.section-height--medium { min-height: 66vh; }

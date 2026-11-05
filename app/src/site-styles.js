@@ -35,6 +35,11 @@ export function siteStylesHtml(styles, view = null, rows = []) {
   const btnStyle = `background:${btnBg};color:${btnInk};${button ? `border-radius:${button.radius};border:${button.border}px solid ${btnBg};` : ''}${font ? `font-family:'${font.p}',sans-serif;font-weight:${font.pw};text-transform:${font.btt};` : ''}`;
   const pack = (name, sample) => `<div class="ss-row"><button type="button" class="ss-card" aria-label="Toggle ${name} style pack popover" aria-expanded="false" data-ss-pop="${name}"><span class="ss-name">${name}</span>${sample}</button><button type="button" class="ss-more" aria-label="Open ${name} style disclosure" data-ss-view="${name}">${svg(CHEV)}</button></div>`;
   const close = `<button type="button" class="ss-close" data-ss="close" aria-label="Close">${svg('<path d="M6 6l12 12M18 6L6 18"/>', 22)}</button>`;
+  // Edit Color Theme (P5, parity/findings/CAP-DIVSHAPES.json): reached from the section panel's Colors tab.
+  if (view === 'ColorTheme') {
+    return `${close}<button type="button" class="ss-back" data-ss-back aria-label="Back to Colors">${svg('<path d="M15 4l-8 8 8 8"/>', 18)}<span>Colors</span></button>
+    <h1 class="ss-title">Edit Color Theme</h1><p class="ss-theme-help">Changes you make will affect all sections that use this color theme.</p><button type="button" class="ss-theme-reset" data-ss-theme-reset>Reset Color Theme</button>`;
+  }
   if (view) {
     return `${close}<button type="button" class="ss-back" data-ss-back aria-label="Back to Site Styles">${svg('<path d="M15 4l-8 8 8 8"/>', 18)}<span>Site Styles</span></button>
     <h2 class="ss-title">${view}</h2>${viewHtml(view, { styles, font, colors, bg, ink, btnStyle, rows })}`;

@@ -183,8 +183,54 @@ body:has(#layers-panel:not([hidden])) .sc-layers { background: #e7e7e7; }
 .sp-anchor { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 10px; background: #f2f2f2; border-radius: 3px; margin-top: 6px; }
 .sp-anchor span { color: #6f6f6f; }
 .sp-anchor input { flex: 1; border: 0; background: transparent; font: inherit; }
-.sp-kinds { display: flex; gap: 4px; padding-top: 14px; }
+.sp-kinds { display: flex; gap: 0; margin: 14px -4px 0; padding: 0; background: #f2f2f2; border-radius: 3px; }
+.sp-kinds .sp-seg { flex: 1; height: 32px; border-radius: 0; }
+.sp-kinds .sp-seg.is-on { background: #fff; box-shadow: inset 0 0 0 1px #e7e7e7; }
 .sp-kind { flex: 1; }
+.sp-shape-label { padding: 12px 0 8px; }
+.sp-shape-box { display: flex; align-items: center; justify-content: space-between; height: 110px; padding: 0 16px; background: #f2f2f2; border-radius: 3px; margin-bottom: 6px; }
+.sp-shape-now { display: block; width: 96px; height: 80px; background: #f8f8f8; box-shadow: 0 2px 8px rgba(0, 0, 0, .12); }
+.sp-shape-now svg, .sp-shape-tile svg { display: block; width: 100%; height: 100%; }
+.sp-color-row { width: 100%; padding: 0; border: 0; border-bottom: 1px solid #e7e7e7; background: none; font: inherit; color: inherit; cursor: pointer; text-align: left; }
+.sp-dot { display: block; flex: none; width: 22px; height: 22px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1); }
+.sp-slide { gap: 11px; }
+.sp-slide input[type="range"], .sp-align-slide { flex: 1; min-width: 0; height: 44px; margin: 0; background: transparent; appearance: none; -webkit-appearance: none; cursor: pointer; }
+.sp-slide input[type="range"]::-webkit-slider-runnable-track, .sp-align-slide::-webkit-slider-runnable-track { height: 2px; background: #e7e7e7; }
+.sp-slide input[type="range"]::-webkit-slider-thumb, .sp-align-slide::-webkit-slider-thumb { -webkit-appearance: none; width: 8px; height: 8px; margin-top: -3px; border-radius: 50%; background: #0e0e0e; }
+.sp-slide input[type="text"], .sp-align-row input { width: 52px; border: 0; background: none; font: inherit; color: inherit; text-align: right; }
+.sp-align-slide { display: block; width: 100%; }
+.sp-sub { display: flex; align-items: center; height: 55px; padding: 0 11px; position: relative; }
+.sp-subback { display: inline-flex; align-items: center; gap: 2px; padding: 0 8px; height: 36px; border: 0; background: none; font: inherit; font-weight: 500; color: inherit; cursor: pointer; }
+.sp-subback svg { width: 16px; height: 16px; }
+.sp-subtitle { position: absolute; left: 0; right: 0; text-align: center; pointer-events: none; font-weight: 500; }
+.sp-shapes { display: grid; grid-template-columns: repeat(4, 60px); justify-content: space-between; row-gap: 8px; padding: 22px 22px; margin-top: 22px; background: #f2f2f2; }
+.sp-shape-tile { width: 60px; height: 50px; padding: 2px; border: 2px solid #fff; border-radius: 3px; background: #fff; cursor: pointer; box-sizing: border-box; }
+.sp-shape-tile.is-on { border-color: #0e0e0e; }
+.sp-shuffle { display: block; width: 100%; height: 36px; margin: 11px 0 4px; border: 1px solid #e7e7e7; border-radius: 0; background: #fff; font: 500 12px/34px inherit; letter-spacing: .5px; text-transform: uppercase; cursor: pointer; }
+.sp-shuffle:hover { background: #ececec; }
+.sp-flip { width: 36px; }
+.sp-invert { display: block; margin: 16px auto; padding: 0; border: 0; border-bottom: 1px solid currentColor; background: none; font-size: 12px; letter-spacing: .5px; text-transform: uppercase; cursor: pointer; }
+.sp-art-more { width: 100%; padding: 0; border: 0; border-bottom: 1px solid #e7e7e7; background: none; font: inherit; text-align: left; }
+.sp-art-grid { display: grid; grid-template-columns: 127px 127px; justify-content: space-between; row-gap: 13px; margin-top: 16px; padding: 0 3px; }
+.sp-art-tile { height: 110px; border: 1px solid #e7e7e7; border-radius: 3px; overflow: hidden; display: flex; flex-direction: column; box-sizing: border-box; }
+.sp-art-tile.is-on { border-color: #0e0e0e; }
+.sp-art-pick { flex: 1; width: 100%; padding: 0; border: 0; cursor: pointer; background-size: cover; font: 500 12px/1 inherit; letter-spacing: .5px; text-transform: uppercase; color: #6f6f6f; }
+.sp-art-tools { display: flex; justify-content: space-evenly; align-items: center; height: 50px; background: #fff; }
+.sp-art-note { margin-top: 14px; }
+.sp-storage { position: relative; display: flex; align-items: center; gap: 4px; height: 78px; margin: 11px -4px 0; padding: 0 22px 16px; background: #f2f2f2; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #6f6f6f; box-sizing: border-box; }
+.sp-storage-label { flex: 1; }
+.sp-storage i { position: absolute; left: 22px; right: 22px; bottom: 22px; height: 2px; background: #cfcfcf; }
+.sp-tip { position: relative; margin: 6px -18px; padding: 12px 16px; background: #0e0e0e; color: #fff; font-size: 14px; line-height: 22px; }
+.sp-select-wrap { position: relative; margin: 0 -11px; }
+.sp-select { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 46px; padding: 0 11px; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; }
+.sp-select:hover, .sp-select[aria-expanded="true"] { background: #f2f2f2; }
+.sp-options { position: absolute; left: 0; right: 0; z-index: 2; background: #fff; box-shadow: 0 8px 40px rgba(0, 0, 0, .18); }
+.sp-option { display: block; width: 100%; height: 45px; padding: 0 11px; border: 0; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+.sp-option:hover, .sp-option.is-on { background: #f2f2f2; }
+.sp-speed { margin-right: 6px; }
+.sp-fallback-help { margin: 0 0 6px; }
+.ss-theme-help { margin: 1px 0 61px; width: 258px; font-size: 16px; line-height: 21px; color: #6f6f6f; }
+.ss-theme-reset { display: block; width: 276px; height: 36px; padding: 0; border: 0; background: none; font: 500 12px/36px inherit; letter-spacing: .5px; text-transform: uppercase; color: inherit; cursor: pointer; }
 .sp-bgadd { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 276px; height: 120px; margin-top: 12px; border: 0; border-radius: 3px; background: #f6f6f6; color: #0e0e0e; font: 14px/18px "Helvetica Neue", Helvetica, Arial, sans-serif; cursor: pointer; }
 .sp-bgadd:hover { background: #ececec; }
 .sp-bgadd strong { font-weight: 500; }

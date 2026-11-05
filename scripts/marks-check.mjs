@@ -1,4 +1,4 @@
-// Small marks of the editor chrome against parity/findings/MARKS.json, TOPBAR.json, SECTIONBAR.json, P3.json, PIN.json, TOOLBARS.json, CAP-HEADER.json, S3.json, U5.json and CAP-ADDSECTIONVIEWS.json, with real input in our editor.
+// Small marks of the editor chrome against parity/findings/MARKS.json, TOPBAR.json, SECTIONBAR.json, P3.json, PIN.json, TOOLBARS.json, CAP-HEADER.json, S3.json, U5.json, CAP-DIVSHAPES.json and CAP-ADDSECTIONVIEWS.json, with real input in our editor.
 // Writes parity/marks-check.json. Usage: npm run marks-check (FLUID_SURFACE=cdp:<port> FLUID_PORT=<port>).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, browser, drag, mouse } from './lib/cmux.mjs';
@@ -1060,6 +1060,93 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const labels = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-chrome [aria-label]')].filter((x) => x.getBoundingClientRect().width > 0).map((x) => x.getAttribute('aria-label'))))()`);
   add('Phone section: no Add Block, no View Layouts', !labels.includes('Add Block') && !labels.includes('View Layouts'), labels.join());
   evalJs(S, `(() => { fe.setBp('desktop'); localStorage.clear(); return 'true'; })()`);
+}
+
+// P5: divider shapes and sizes, color, custom thickness, Video, Art and Edit Color Theme.
+{
+  const near = (got, want, tol = 1) => Array.isArray(got) && got.length === want.length && got.every((v, n) => Math.abs(v - want[n]) <= tol);
+  const D = JSON.parse(readFileSync(new URL('../parity/findings/CAP-DIVSHAPES.json', import.meta.url)));
+  goto(S, `${BASE}/index.html`); await pause(1500);
+  const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), d = f.contentDocument, sec = d.querySelectorAll('.page-section')[2]; sec.scrollIntoView(); const r = sec.getBoundingClientRect(), o = f.getBoundingClientRect(); return JSON.stringify([o.left + r.left + r.width / 2, o.top + r.top + 60]); })()`);
+  mouse(S, 'move', p[0], p[1]); await pause(400);
+  evalJs(S, `(() => { document.querySelector('[data-sc="edit"]').click(); return 'true'; })()`); await pause(300);
+  const press = async (sel) => { const ok = evalJs(S, `(() => { const e = document.querySelector(${JSON.stringify(`#section-panel ${sel}`)}); if (!e) return 'false'; e.click(); return 'true'; })()`); await pause(120); return ok; };
+  const setVal = async (sel, v) => { evalJs(S, `(() => { const e = document.querySelector(${JSON.stringify(`#section-panel ${sel}`)}); e.value = ${JSON.stringify(String(v))}; e.dispatchEvent(new Event('change', { bubbles: true })); return 'true'; })()`); await pause(120); };
+  // Our edge, as drawn: the stroke's points plus its shift, against the oracle's heights along the section.
+  const drawn = () => evalJs(S, `(() => { const f = document.getElementById('site-frame'), sec = f.contentDocument.querySelectorAll('.page-section')[2], v = sec.querySelector('.section-divider-stroke'), a = v.querySelector('path'), W = sec.getBoundingClientRect().width; const m = /translateX\\((-?[0-9.]+)px\\)/.exec(v.getAttribute('style') || ''); return JSON.stringify({ pts: a.getAttribute('d').slice(1).split(' L').map((q) => q.split(' ').map(Number)), shift: m ? Number(m[1]) / W : 0, band: parseFloat(f.contentWindow.getComputedStyle(sec).paddingBottom), sw: a.style.strokeWidth, stroke: f.contentWindow.getComputedStyle(a).stroke }); })()`);
+  const at = (g, t) => { for (let i = 0; i < g.pts.length - 1; i++) { const a = g.pts[i][0] + g.shift, b = g.pts[i + 1][0] + g.shift; if (a <= t && t <= b && b > a) return g.pts[i][1] + ((g.pts[i + 1][1] - g.pts[i][1]) * (t - a)) / (b - a); } return null; };
+  // Worst difference in px; near a corner or a jump a reading may be a step to either side.
+  const worst = (g, ys) => { let w = 0; ys.forEach((y, n) => { if (y == null) return; const here = [0, -0.002, -0.001, 0.001, 0.002].map((d) => at(g, n / 80 + d)).filter((v) => v != null); if (here.length) w = Math.max(w, Math.min(...here.map((v) => Math.abs(v - y))) * g.band); }); return +w.toFixed(2); };
+  await press('input[data-act="divider"]');
+  await press('[data-sact="view"][data-v="shape"]');
+  const labels = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-panel .sp-shape-tile')].map((e) => { const r = e.getBoundingClientRect(); return [e.getAttribute('aria-label'), r.width, r.height]; })))()`);
+  add('Divider: eight shape tiles of 60 by 50', JSON.stringify(labels.map((v) => v[0])) === JSON.stringify(D.shapes.names) && labels.every((v) => v[1] === 60 && v[2] === 50), JSON.stringify(labels));
+  const rows = () => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-panel .sp-label')].map((e) => e.textContent)))()`);
+  const flips = () => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-panel .sp-flip')].map((e) => e.getAttribute('aria-label'))))()`);
+  for (const name of D.shapes.names) {
+    await press(`[aria-label="${name}"]`);
+    add(`Divider: ${name} rows`, JSON.stringify(rows()) === JSON.stringify(D.shapes.rows[name].labels) && JSON.stringify(flips()) === JSON.stringify(D.shapes.rows[name].btn), JSON.stringify([rows(), flips()]));
+  }
+  await press('[aria-label="Wavy Shape"]');
+  for (const k of ['S', 'M', 'L']) { await press(`[data-sact="dividerHeight"][data-v="${k}"]`); add(`Divider: Height ${k} band`, Math.abs(drawn().band - D.sizes.bands1600[k]) <= 0.5, String(drawn().band)); }
+  await press('[data-sact="dividerHeight"][data-v="M"]');
+  for (const k of ['S', 'M', 'L']) { await press(`[data-sact="dividerWidth"][data-v="${k}"]`); const w = worst(drawn(), D.widthEdges[k]); add(`Divider: Width ${k} edge within 2px`, w <= 2, String(w)); }
+  await press('[data-sact="dividerFlip"]');
+  { const w = worst(drawn(), D.flipX.wavy); add('Divider: Flip X edge within 2px', w <= 2, String(w)); }
+  await press('[data-sact="dividerFlip"]');
+  // The case read on every flip: width 40vw, height 10vw, alignment 300px.
+  await press('[data-sact="dividerWidth"][data-v="more"]'); await setVal('input[type="range"][data-act="dividerWidth"]', 40);
+  await press('[data-sact="dividerHeight"][data-v="more"]'); await setVal('input[type="range"][data-act="dividerHeight"]', 10);
+  await setVal('.sp-align-slide', 300);
+  for (const [name, key, flipsOn] of [['Slanted Shape', 'slanted', []], ['Slanted Shape', 'slantedY', ['dividerFlipY']], ['Scalloped Shape', 'scalloped', []], ['Scalloped Shape', 'scallopedY', ['dividerFlipY']], ['Scalloped Shape', 'scallopedYX', ['dividerFlipY', 'dividerFlip']], ['Jagged Shape', 'jagged', []], ['Jagged Shape', 'jaggedY', ['dividerFlipY']], ['Jagged Shape', 'jaggedYX', ['dividerFlipY', 'dividerFlip']], ['Rounded Shape', 'rounded', []]]) {
+    await press(`[aria-label="${name}"]`);
+    for (const f of flipsOn) await press(`[data-sact="${f}"]`);
+    const w = worst(drawn(), D.cases[key].ys);
+    add(`Divider: ${key} at 40vw, 10vw, 300px within 2px`, w <= 2, String(w));
+    for (const f of flipsOn) await press(`[data-sact="${f}"]`);
+  }
+  await press('[aria-label="Wavy Shape"]');
+  await press('.sp-subback');
+  await press('[data-sact="dividerThickness"][data-v="more"]'); await setVal('input[type="range"][data-act="dividerThickness"]', 22);
+  add('Divider: custom thickness 22px', drawn().sw === D.thickness.at22, drawn().sw);
+  await press('[data-sact="dividerThickness"][data-v="M"]');
+  await press('[data-sp-color="divider"]');
+  const swatches = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#shape-pop input[aria-label^="Color "]')].map((e) => e.getAttribute('aria-label').slice(6))))()`);
+  add('Divider: Color has the five swatches', JSON.stringify(swatches) === JSON.stringify(D.color.swatches), JSON.stringify(swatches));
+  evalJs(S, `(() => { document.querySelector('#shape-pop input[aria-label="Color #FFCF5A"]').click(); return 'true'; })()`); await pause(150);
+  add('Divider: Color picks the stroke', drawn().stroke === D.color.pick, drawn().stroke);
+  evalJs(S, `(() => { document.querySelector('#shape-pop [data-color-reset]').click(); return 'true'; })()`); await pause(150);
+  add('Divider: Reset to theme', drawn().stroke === D.color.reset, drawn().stroke);
+  evalJs(S, `(() => { document.querySelector('[data-sp-color="divider"]').click(); return 'true'; })()`); await pause(100);
+  await press('[data-sact="tab"][data-v="Background"]');
+  await press('[data-sact="bgKind"][data-v="Video"]');
+  add('Video: Add a Video card', evalJs(S, `(() => JSON.stringify(document.querySelector('#section-panel [data-sbg="addVideo"]')?.textContent || ''))()`) === 'Add a Video1 minute max');
+  await press('[data-sact="filterOpen"]');
+  const opts = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-panel [role="option"]')].map((e) => e.textContent)))()`);
+  add('Video: the eight filters', JSON.stringify(opts) === JSON.stringify(D.video.filters), JSON.stringify(opts));
+  await press('[data-sact="bgFilter"][data-v="Blur"]');
+  const str = evalJs(S, `(() => { const e = document.querySelector('#section-panel input[aria-label="Filter strength"]'); return JSON.stringify(e ? [Number(e.min), Number(e.max)] : []); })()`);
+  add('Video: a filter shows strength 0 to 100', JSON.stringify(str) === JSON.stringify(D.video.strength), JSON.stringify(str));
+  const speed = () => evalJs(S, `(() => JSON.stringify(document.querySelector('#section-panel .sp-speed').textContent))()`);
+  const seen = [speed()];
+  for (let k = 0; k < 2; k++) { await press('[aria-label="Increment"]'); seen.push(speed()); }
+  for (let k = 0; k < 4; k++) await press('[aria-label="Decrement"]');
+  seen.push(speed());
+  add('Video: speed steps .5 up to 2, down to .5', seen.join() === '1 x,1.5 x,2 x,0.5 x', seen.join());
+  await press('[data-sact="bgKind"][data-v="Art"]');
+  const tiles = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-panel .sp-art-pick')].map((e) => e.getAttribute('aria-label'))))()`);
+  add('Art: ten tiles', tiles.length === 10 && tiles[1] === 'Surface' && tiles[9] === 'Isometric' && tiles.filter((n) => n === 'Gradient').length === 2, JSON.stringify(tiles));
+  const artRows = async (id, want) => { await press(`[data-sact="art"][data-v="${id}"]`); await press('[data-sact="view"][data-v="art"]'); const got = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-panel .sp-art-color')].map((e) => e.getAttribute('aria-label'))))()`); await press('.sp-subback'); return got.every((n) => want.includes(n)) && got.length > 0; };
+  add('Art: Surface color rows', await artRows('surface', D.art.tiles.Surface.rows));
+  add('Art: Shapes color rows', await artRows('shapes', D.art.tiles.Shapes.rows));
+  add('Art: a pick fills the background', evalJs(S, `(() => JSON.stringify(!!document.getElementById('site-frame').contentDocument.querySelectorAll('.page-section')[2].querySelector('.section-background-art')))()`) === true);
+  await press('[data-sact="tab"][data-v="Colors"]');
+  await press('.sp-theme-editor'); await pause(300);
+  const te = evalJs(S, `(() => { const box = (s) => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; }; return JSON.stringify({ title: document.querySelector('#site-styles h1')?.textContent, h1: box('#site-styles h1'), reset: box('#site-styles [data-ss-theme-reset]'), back: document.querySelector('#site-styles .ss-back')?.textContent.trim() }); })()`);
+  add('Edit Color Theme: title and back', te.title === 'Edit Color Theme' && te.back === 'Colors', JSON.stringify(te));
+  add('Edit Color Theme: boxes', near(te.h1, [1302, 88, 276, 28]) && near(te.reset, D.colorThemeEditor.reset[0].slice(3)), JSON.stringify(te));
+  evalJs(S, `(() => { document.querySelector('#site-styles .ss-back').click(); return 'true'; })()`); await pause(200);
+  add('Edit Color Theme: back to the Colors tab', evalJs(S, `(() => JSON.stringify(document.querySelector('#section-panel .sp-tab.is-on')?.textContent))()`) === 'Colors');
 }
 
 console.log(`Marks: ${pass} of ${total} checks match`);

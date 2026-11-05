@@ -1,3 +1,5 @@
+import { ART, DIVIDER_FLIPS, DIVIDER_SHAPES, DIVIDER_SHAPE_NAMES, DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artCss, artDefaults } from './render.js';
+
 // Section chrome (U9, U10), measured on the oracle at a 1600 by 1000 window
 // (parity/findings/SECTIONBAR.json). Positions are relative to the section's top left in the
 // page, in px:
@@ -128,14 +130,54 @@ const PI = {
   solid: '<path d="M5 12h14"/>',
   dashed: '<path d="M4 12h3M10.5 12h3M17 12h3"/>',
   plus: '<path d="M12 5v14M5 12h14"/>',
+  shuffle: '<path d="M4 7h3l10 10h3M4 17h3l3-3M14 10l3-3h3M18 5l2 2-2 2M18 15l2 2-2 2"/>',
+  sliders: '<path d="M4 7h10M18 7h2M4 12h2M10 12h10M4 17h8M16 17h4"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="14" cy="17" r="2"/>',
+  flip: '<path d="M12 3v6l6-3zM12 21v-6l6 3zM4 12h2M9 12h2M14 12h2M19 12h2"/>',
+  flipY: '<path d="M3 12h6l-3 6zM21 12h-6l3 6zM12 4v2M12 9v2M12 14v2M12 19v2"/>',
+  help: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.7"/><circle cx="12" cy="17" r=".6" fill="currentColor"/>',
+  chevron: '<path d="M6 9l6 6 6-6"/>',
+  back: '<path d="M15 5l-7 7 7 7"/>',
 };
+// A small picture of a shape: the section over it in dark, drawn from our measured edge.
+const shapeThumb = (id) => {
+  const pts = DIVIDER_SHAPES[id];
+  const line = pts ? pts.map(([x, y]) => `${+(x * 60).toFixed(1)},${+(20 + y * 12).toFixed(1)}`).join(' ') : '0,32 60,32';
+  return `<svg viewBox="0 0 60 50" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,0 60,0 ${line.split(' ').reverse().join(' ')}" fill="#2e2e2e"/></svg>`;
+};
+const VIDEO_FILTERS = ['None', 'Blur', 'Brightness', 'Contrast', 'Invert', 'Opacity', 'Saturate', 'Sepia'];
 export function sectionPanelHtml(s, o) {
   const tab = (t) => `<button type="button" role="tab" class="sp-tab${t === o.tab ? ' is-on' : ''}" aria-selected="${t === o.tab}" data-sact="tab" data-v="${t}">${t}</button>`;
   const seg = (act, v, label, on, html = label) => `<button type="button" class="sp-seg${on ? ' is-on' : ''}" data-sact="${act}" data-v="${v}" aria-label="${label}" aria-pressed="${on}" title="${label}">${html}</button>`;
   const row = (label, control, cls = '') => `<div class="sp-row ${cls}"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (act, on, label) => `<label class="sp-switch"><input type="checkbox" data-act="${act}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
   const head = (t) => `<div class="sp-head">${t}</div>`;
+  // A row with S, M, L and a more button; more shows a slider with the value and its unit.
+  const sizeRow = (label, act, presets, now, value, max, unit) => {
+    const more = o.more?.[act];
+    return row(label, ['S', 'M', 'L'].map((k) => seg(act, k, k, !more && now === presets[k])).join('') + seg(act, 'more', `Custom ${label.toLowerCase()}`, !!more, pi(PI.more)))
+      + (more ? `<div class="sp-row sp-slide"><input type="range" data-act="${act}" data-unit="${unit}" aria-label="${label} slider" min="1" max="${max}" step="1" value="${value}"><input type="text" data-act="${act}" aria-label="${label}" value="${value}${unit}"></div>` : '');
+  };
   let body = '';
+  if (o.view === 'shape') {
+    const cur = s.dividerShape || 'wavy', w = s.dividerWidth ?? 100, h = s.dividerHeight ?? 6, A = s.dividerAlign || 0;
+    const flips = DIVIDER_FLIPS[cur] || [];
+    const flip = (k) => { const act = k === 'Y' ? 'dividerFlipY' : 'dividerFlip', on = !!s[act]; return `<button type="button" class="sp-seg sp-flip${on ? ' is-on' : ''}" data-sact="${act}" aria-label="Flip ${k} Axis" aria-pressed="${on}">${pi(k === 'Y' ? PI.flipY : PI.flip)}</button>`; };
+    const free = cur !== 'none' && cur !== 'soft';
+    return `<div class="sp-sub"><button type="button" class="sp-subback" data-sact="view" data-v="">${pi(PI.back)}<span>Back</span></button><span class="sp-subtitle">Shape</span></div><div class="sp-shapes">${DIVIDER_SHAPE_NAMES.map(([id, name]) => `<button type="button" class="sp-shape-tile${id === cur ? ' is-on' : ''}" data-sact="dividerShape" data-v="${id}" aria-label="${name}" title="${name}" aria-pressed="${id === cur}">${shapeThumb(id)}</button>`).join('')}</div><div class="sp-body">`
+      + (cur !== 'none' ? `<button type="button" class="sp-shuffle" data-sact="shuffle">Shuffle Settings</button>` : '')
+      + (free ? sizeRow('Width', 'dividerWidth', DIVIDER_WIDTHS, w, w, 150, 'vw') : '')
+      + (cur !== 'none' ? sizeRow('Height', 'dividerHeight', DIVIDER_HEIGHTS, h, h, 150, 'vw') : '')
+      + (flips.length ? row('Flip', flips.map(flip).join('')) : '')
+      + (free ? `<div class="sp-row sp-align-row"><span class="sp-label">Alignment</span><input type="text" data-act="dividerAlign" aria-label="Alignment" value="${A}px"></div><input class="sp-align-slide" type="range" data-act="dividerAlign" data-unit="px" aria-label="Alignment" min="-1000" max="1000" step="1" value="${A}">` : '')
+      + '</div>';
+  }
+  if (o.view === 'art' && s.bgArt) {
+    const art = ART.find((a) => a[0] === s.bgArt.name);
+    const colors = art[2].map((label, k) => `<button type="button" class="sp-row sp-color-row sp-art-color" data-sp-color="art:${k}" aria-label="${label}"><span class="sp-label">${label}</span><i class="sp-dot" style="background:${s.bgArt.colors[k]}"></i></button>`).join('');
+    const invert = art[2][0] === 'Start color' ? `<button type="button" class="sp-invert" data-sact="artInvert">Invert colors</button>` : '';
+    const later = (s.bgArt.name === 'images' ? ['Presets', 'Custom image', 'Scale', 'Number of images', 'Wave'] : ['Shape and size', 'Motion', 'Texture']).map((n) => `<button type="button" class="sp-row sp-art-more" data-unbuilt disabled title="Not built yet"><span>${n}</span></button>`).join('');
+    return `<div class="sp-sub"><button type="button" class="sp-subback" data-sact="view" data-v="">${pi(PI.back)}<span>Back</span></button></div><div class="sp-body">${colors}${invert}${later}<button type="button" class="sp-shuffle" data-sact="artShuffle">Shuffle Settings</button></div>`;
+  }
   if (o.tab === 'Design') {
     const gk = o.gapKind;
     body = head('Grid')
@@ -150,19 +192,47 @@ export function sectionPanelHtml(s, o) {
       + '<p class="sp-help">Fill screen will expand the background height to fill a portion of the user’s screen.</p>'
       + head('Styling')
       + row('Divider', sw('divider', !!s.divider, 'Divider'))
-      + (s.divider ? row('Stroke', seg('dividerStroke', 'none', 'No stroke', s.dividerStroke === 'none', pi(PI.none)) + seg('dividerStroke', 'solid', 'Solid stroke', (s.dividerStroke || 'solid') === 'solid', pi(PI.solid)) + seg('dividerStroke', 'dashed', 'Dashed stroke', s.dividerStroke === 'dashed', pi(PI.dashed)))
-        + row('Thickness', seg('dividerThickness', 'S', 'S', s.dividerThickness === 'S') + seg('dividerThickness', 'M', 'M', (s.dividerThickness || 'M') === 'M') + seg('dividerThickness', 'L', 'L', s.dividerThickness === 'L')) : '')
+      + (s.divider ? `<div class="sp-shape-label">Shape</div><div class="sp-shape-box"><button type="button" class="sp-seg" data-sact="shuffle" aria-label="Shuffle Settings" title="Shuffle Settings">${pi(PI.shuffle)}</button><span class="sp-shape-now">${shapeThumb(s.dividerShape || 'wavy')}</span><button type="button" class="sp-seg" data-sact="view" data-v="shape" aria-label="Edit Settings" title="Edit Settings">${pi(PI.sliders)}</button></div>`
+        + row('Stroke', seg('dividerStroke', 'none', 'No stroke', s.dividerStroke === 'none', pi(PI.none)) + seg('dividerStroke', 'solid', 'Solid stroke', (s.dividerStroke || 'solid') === 'solid', pi(PI.solid)) + seg('dividerStroke', 'dashed', 'Dashed stroke', s.dividerStroke === 'dashed', pi(PI.dashed)))
+        + `<button type="button" class="sp-row sp-color-row" data-sp-color="divider" aria-label="Color"><span class="sp-label">Color</span><i class="sp-dot" style="background:${s.dividerColor || '#000'}"></i></button>`
+        + sizeRow('Thickness', 'dividerThickness', { S: 'S', M: 'M', L: 'L' }, typeof s.dividerThickness === 'number' ? s.dividerThickness : s.dividerThickness || 'M', typeof s.dividerThickness === 'number' ? s.dividerThickness : { S: 2, M: 6, L: 15 }[s.dividerThickness || 'M'], 50, 'px') : '')
       + head('Anchor Link')
       + `<div class="sp-anchor"><span>#</span><input type="text" data-act="anchor" aria-label="Anchor Link" placeholder="Add name" value="${(s.anchor || '').replace(/"/g, '&quot;')}"></div>`;
   } else if (o.tab === 'Background') {
-    // Image, Video, Art and Add an Image (20 MB max), labels from parity/findings/PANEL.json; their
-    // sizes are not measured. Add an Image reads a file from this computer. Video and Art are not built.
-    const kind = (n) => `<button type="button" role="radio" class="sp-seg sp-kind${n === 'Image' ? ' is-on' : ''}" aria-checked="${n === 'Image'}" aria-label="${n}"${n === 'Image' ? '' : ' data-unbuilt disabled title="Not built yet"'}>${n}</button>`;
-    const image = s.bgImage
-      ? `<div class="bp-pic"><img class="bp-pic-img" alt="" src="${s.bgImage.replace(/"/g, '&quot;')}"><div class="bp-pic-actions"><button type="button" data-sbg="add">Replace</button><button type="button" class="bp-link-remove" data-sbg="remove">Remove</button></div></div>`
-      : `<button type="button" class="sp-bgadd" data-sbg="add" aria-label="Add an Image">${pi(PI.plus)}<strong>Add an Image</strong><span>20 MB max</span></button>`;
-    body = `<div class="sp-kinds" role="radiogroup" aria-label="Background type">${['Image', 'Video', 'Art'].map(kind).join('')}</div>${image}<input type="file" accept="image/*" hidden data-sbg-file>`
-      + row('Background Width', seg('bgWidth', 'full-bleed', 'Full Bleed', (s.bgWidth || 'full-bleed') === 'full-bleed') + seg('bgWidth', 'inset', 'Inset', s.bgWidth === 'inset'), 'sp-row-wide');
+    // Image, Video and Art (parity/findings/CAP-BACKGROUND.json, CAP-DIVSHAPES.json). Add an Image and
+    // Add a Video read a file from this computer; the oracle's upload is not probed (0005).
+    const kindNow = s.bgKind || 'Image';
+    const kind = (n) => `<button type="button" role="radio" class="sp-seg sp-kind${n === kindNow ? ' is-on' : ''}" aria-checked="${n === kindNow}" aria-label="${n}" data-sact="bgKind" data-v="${n}">${n}</button>`;
+    const widthRow = head('Background Width') + `<div class="sp-kinds sp-widths">${seg('bgWidth', 'full-bleed', 'Full Bleed', (s.bgWidth || 'full-bleed') === 'full-bleed')}${seg('bgWidth', 'inset', 'Inset', s.bgWidth === 'inset')}</div>`;
+    const card = (act, label, sub) => `<button type="button" class="sp-bgadd" data-sbg="${act}" aria-label="${label}">${pi(PI.plus)}<strong>${label}</strong><span>${sub}</span></button>`;
+    let pane = '';
+    if (kindNow === 'Image') {
+      const image = s.bgImage
+        ? `<div class="bp-pic"><img class="bp-pic-img" alt="" src="${s.bgImage.replace(/"/g, '&quot;')}"><div class="bp-pic-actions"><button type="button" data-sbg="add">Replace</button><button type="button" class="bp-link-remove" data-sbg="remove">Remove</button></div></div>`
+        : card('add', 'Add an Image', '20 MB max');
+      pane = `${image}<input type="file" accept="image/*" hidden data-sbg-file>${widthRow}`;
+    } else if (kindNow === 'Video') {
+      const video = s.bgVideo
+        ? `<div class="bp-pic"><video class="bp-pic-img" muted src="${s.bgVideo.replace(/"/g, '&quot;')}"></video><div class="bp-pic-actions"><button type="button" data-sbg="addVideo">Replace</button><button type="button" class="bp-link-remove" data-sbg="removeVideo">Remove</button></div></div>`
+        : card('addVideo', 'Add a Video', '1 minute max');
+      const f = s.bgFilter || 'None', sp = s.bgSpeed ?? 1;
+      const list = o.filterOpen ? `<div class="sp-options" role="listbox" style="top:${-45 * VIDEO_FILTERS.indexOf(f)}px">${VIDEO_FILTERS.map((n) => `<button type="button" role="option" class="sp-option${n === f ? ' is-on' : ''}" aria-selected="${n === f}" data-sact="bgFilter" data-v="${n}">${n}</button>`).join('')}</div>` : '';
+      pane = `${video}<input type="file" accept="video/*" hidden data-sbg-video>`
+        + `<div class="sp-storage"><span class="sp-storage-label">Video Storage</span><span class="sp-storage-left">30 min left</span><button type="button" class="sp-seg" data-sact="storageTip" aria-label="Open storage dialog">${pi(PI.help)}</button><i></i></div>`
+        + (o.tipOpen ? '<div class="sp-tip" role="dialog">Your plan includes 30 minutes of free uploaded video storage.</div>' : '')
+        + widthRow + head('Filter') + `<div class="sp-select-wrap"><button type="button" class="sp-select" data-sact="filterOpen" aria-label="Filter" aria-expanded="${!!o.filterOpen}"><span>${f}</span>${pi(PI.chevron)}</button>${list}</div>`
+        + (f !== 'None' ? `<div class="sp-row sp-slide"><input type="range" data-act="bgFilterStrength" data-unit="" aria-label="Filter strength" min="0" max="100" step="1" value="${s.bgFilterStrength || 0}"><input type="text" data-act="bgFilterStrength" aria-label="Filter strength value" value="${s.bgFilterStrength || 0}"></div>` : '')
+        + row('Playback Speed', `<span class="sp-speed">${sp} x</span><button type="button" class="sp-seg" data-sact="bgSpeed" data-v="-0.5" aria-label="Decrement"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14" stroke="currentColor" fill="none"/></svg></button><button type="button" class="sp-seg" data-sact="bgSpeed" data-v="0.5" aria-label="Increment">${pi(PI.plus)}</button>`)
+        + head('Mobile Fallback Image') + '<p class="sp-help sp-fallback-help">Add an image to replace your video in mobile browsers. If left blank a background color will display. You can change this color in the Style panel.</p>'
+        + (s.bgFallback ? `<div class="bp-pic"><img class="bp-pic-img" alt="" src="${s.bgFallback.replace(/"/g, '&quot;')}"><div class="bp-pic-actions"><button type="button" data-sbg="addFallback">Replace</button><button type="button" class="bp-link-remove" data-sbg="removeFallback">Remove</button></div></div>` : card('addFallback', 'Add an Image', '20 MB max'))
+        + '<input type="file" accept="image/*" hidden data-sbg-fallback>';
+    } else {
+      const cur = s.bgArt?.name || 'none';
+      const tile = (id, name, css) => `<div class="sp-art-tile${id === cur ? ' is-on' : ''}"><button type="button" class="sp-art-pick" data-sact="art" data-v="${id}" aria-label="${name}" aria-pressed="${id === cur}" style="background:${css}">${id === 'none' ? '<span>None</span>' : ''}</button>${id === cur && id !== 'none' ? `<div class="sp-art-tools"><button type="button" class="sp-seg" data-sact="artShuffle" aria-label="Shuffle Settings">${pi(PI.shuffle)}</button><button type="button" class="sp-seg" data-sact="view" data-v="art" aria-label="Edit Settings">${pi(PI.sliders)}</button></div>` : ''}</div>`;
+      pane = `<div class="sp-art-grid">${tile('none', 'None', '#f6f6f6')}${ART.map(([id, name]) => tile(id, name, artCss(id, s.bgArt?.name === id ? s.bgArt.colors : artDefaults(id)))).join('')}</div>`
+        + '<p class="sp-help sp-art-note">Background art will only appear in browsers that support WebGL.</p>' + widthRow;
+    }
+    body = `<div class="sp-kinds" role="radiogroup" aria-label="Background type">${['Image', 'Video', 'Art'].map(kind).join('')}</div>${pane}`;
   } else {
     const cur = (s.theme || '').replace(/^theme-/, '');
     body = `<a href="#" class="sp-theme-editor" data-sbg="themes">Color Theme Editor</a><div class="sp-themes">${o.themes.map(([label, v]) => { const c = o.themeColors[v] || {}; return `<button type="button" class="sp-theme${cur === v ? ' is-on' : ''}" data-sact="theme" data-v="${v}" aria-label="Aa${label}" aria-pressed="${cur === v}" style="background:${c.bg || '#fff'};color:${c.ink || '#000'}"><span class="sp-aa">Aa</span><span class="sp-tname">${label}</span></button>`; }).join('')}</div>`;
