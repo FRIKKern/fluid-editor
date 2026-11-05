@@ -5,7 +5,7 @@
 // transform-vars rule (render.js designCss). Controls marked data-unbuilt are shown where the
 // oracle shows them but do nothing yet; the inventory counts them as missing.
 import { SHAPES, shapeById } from './shapes.js';
-import { escapeHtml as esc, DESIGN_DEFAULTS, BLEND_MODES, STROKE_PX, MAP_STYLES, MAP_ZOOMS, mapArt, mapVars, socialGlyph, socialKind, SOCIAL_SIZES, SOCIAL_STYLES } from './render.js';
+import { ACCORDION_STYLES, escapeHtml as esc, DESIGN_DEFAULTS, BLEND_MODES, STROKE_PX, MAP_STYLES, MAP_ZOOMS, mapArt, mapVars, socialGlyph, socialKind, SOCIAL_SIZES, SOCIAL_STYLES } from './render.js';
 import { linkKind, linkSummary, parseMail, parsePhone } from './link-kinds.js';
 import { HITS, resetBtn } from './anim-panel.js';
 
@@ -115,28 +115,52 @@ function accordionContentHtml(c, open) {
       + `<div class="bp-field"><span class="bp-cap">Description</span><textarea class="bp-desc bp-desc-tall" aria-label="Description" data-content="accDescription" data-n="${n}">${esc(it.description ?? '')}</textarea></div>`
       + `<div class="bp-item-actions"><button type="button" data-acc="dup:${n}">Duplicate</button><button type="button" class="bp-link-remove" data-acc="del:${n}">Delete</button></div>`;
   }
-  return c.items.map((it, n) => `<div class="bp-acc-row"><span class="bp-acc-grip" data-unbuilt title="Not built yet" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="bp-acc-t" aria-hidden="true">T</span><button type="button" class="bp-acc-name" data-acc="open:${n}" aria-label="${esc(it.title)}">${esc(it.title)}</button><button type="button" class="bp-acc-trash" data-acc="del:${n}" aria-label="Delete ${esc(it.title)}">${pi('<path d="M5 7h14M10 7V4h4v3M7 7v13h10V7M10.5 11v5M13.5 11v5"/>')}</button><button type="button" class="bp-acc-go" data-acc="open:${n}" aria-hidden="true" tabindex="-1">${pi('<path d="M9 6l6 6-6 6"/>')}</button></div>`).join('')
+  return c.items.map((it, n) => `<div class="bp-acc-row"><span class="bp-acc-grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="bp-acc-t" aria-hidden="true">T</span><button type="button" class="bp-acc-name" data-acc="open:${n}" aria-label="${esc(it.title)}">${esc(it.title)}</button><button type="button" class="bp-acc-trash" data-acc="del:${n}" aria-label="Delete ${esc(it.title)}">${pi('<path d="M5 7h14M10 7V4h4v3M7 7v13h10V7M10.5 11v5M13.5 11v5"/>')}</button><button type="button" class="bp-acc-go" data-acc="open:${n}" aria-hidden="true" tabindex="-1">${pi('<path d="M9 6l6 6-6 6"/>')}</button></div>`).join('')
     + '<button type="button" class="bp-acc-add" data-acc="add">Add Item</button>';
 }
-// Design tab of an accordion, in the oracle's order. The style pickers and the Icon picker are
-// shown where the oracle shows them but are not built; Background, Stroke, Blend Mode and Blur
-// are the rows every block has.
-const smlRow = (cap, key, cur) => `<div class="bp-cap bp-cap-seg">${cap}</div><div class="bp-sml" role="radiogroup" aria-label="${cap}">${['S', 'M', 'L'].map((k) => `<button type="button" role="radio" class="bp-mode${cur === k ? ' is-on' : ''}" aria-checked="${cur === k}" data-acc-set="${key}" data-v="${k}">${k}</button>`).join('')}<button type="button" class="bp-mode" disabled data-unbuilt title="Not built yet" aria-label="More ${cap}">···</button></div>`;
+// Design tab of an accordion, in the oracle's order (parity/findings/ACCORDIONSTYLES.json). Icon
+// Thickness's more button stays dim; Background, Stroke, Blend Mode and Blur are the rows every block has.
+const smlRow = (cap, key, cur, more = true) => `<div class="bp-cap bp-cap-seg">${cap}</div><div class="bp-sml" role="radiogroup" aria-label="${cap}">${['S', 'M', 'L'].map((k) => `<button type="button" role="radio" class="bp-mode${cur === k ? ' is-on' : ''}" aria-checked="${cur === k}" data-acc-set="${key}" data-v="${k}">${k}</button>`).join('')}${more ? `<button type="button" role="radio" class="bp-mode${cur === 'custom' ? ' is-on' : ''}" aria-checked="${cur === 'custom'}" aria-label="More ${cap}" data-acc-set="${key}" data-v="custom">···</button>` : `<button type="button" class="bp-mode" disabled data-unbuilt title="Not built yet" aria-label="More ${cap}">···</button>`}</div>`;
+const smlOf = (v, def) => (typeof v === 'number' || Array.isArray(v) ? 'custom' : v || def);
+// A value with a range beside it (a more button's row), or a label and field over the range.
+const accInline = (key, v, unit, min, max) => `<div class="bp-acc-inline"><input type="range" aria-label="${key} range" data-acc-range="${key}" data-unit="${unit}" min="${min}" max="${max}" step="1" value="${v}"><input type="text" aria-label="${key}" data-acc-field="${key}" data-unit="${unit}" data-min="${min}" data-max="${max}" value="${v}${unit}"></div>`;
+const accLabelled = (label, key, v, unit, min, max, step = 1) => `<div class="bp-acc-labelled"><div class="bp-acc-labelled-head"><span class="sp-label">${label}</span><input type="text" aria-label="${label}" data-acc-field="${key}" data-unit="${unit}" data-min="${min}" data-max="${max}" value="${v}${unit}"></div><input type="range" aria-label="${label}" data-acc-range="${key}" data-unit="${unit}" min="${min}" max="${max}" step="${step}" value="${v}"></div>`;
+const accPads = (key, v, prefix = '') => ['Top', 'Right', 'Bottom', 'Left'].map((n, i) => accLabelled(`${prefix}Padding ${n}`, `${key}:${i}`, v[i], 'px', 0, 50)).join('');
+const ALIGN_ICON = { left: '<path d="M4 6h16M4 12h10M4 18h13"/>', center: '<path d="M4 6h16M7 12h10M5.5 18h13"/>', right: '<path d="M4 6h16M10 12h10M7 18h13"/>' };
+const alignSeg = (cap, key, cur) => `<div class="bp-cap bp-cap-seg">${cap}</div><div class="bp-modes bp-acc-3" role="radiogroup" aria-label="${cap}">${['left', 'center', 'right'].map((k) => `<button type="button" role="radio" class="bp-mode${cur === k ? ' is-on' : ''}" aria-checked="${cur === k}" aria-label="${k}" data-acc-set="${key}" data-v="${k}">${pi(ALIGN_ICON[k])}</button>`).join('')}</div>`;
+const CHEV_R = pi('<path d="M9 6l6 6-6 6"/>');
 function accordionDesignHtml(c, open, d) {
   const sw = (key, on, label) => `<div class="sp-row"><span class="sp-label">${label}</span><label class="sp-switch"><input type="checkbox" aria-label="${label}" data-acc-set="${key}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label></div>`;
-  if (open === 'acc-dividers') return `${backRow('design', 'Dividers')}${sw('dividers', c.dividers !== false, 'Dividers')}${sw('showFirst', c.showFirst !== false, 'Show first')}${sw('showLast', c.showLast !== false, 'Show last')}`
-    + `<div class="bp-cap bp-cap-seg" data-unbuilt>Thickness</div><div class="bp-sml" data-unbuilt>${['S', 'M', 'L', '···'].map((k) => `<button type="button" class="bp-mode" disabled title="Not built yet">${k}</button>`).join('')}</div><div class="sp-row" data-unbuilt title="Not built yet"><span class="sp-label">Opacity</span><span>1</span></div>`;
-  const chip = (label, v) => `<div class="sp-row" data-unbuilt title="Not built yet"><span class="sp-label">${label}</span><span class="bp-chip-v">${v}</span></div>`;
-  return `<div class="bp-cap bp-cap-seg">Text</div>${chip('Title', 'Heading 4 ›')}${chip('Description', 'Paragraph 2 ›')}<div class="bp-cap bp-cap-seg">Design</div>`
+  const pick = (key, value, cap) => `<div class="bp-cap bp-cap-seg">${cap}</div><button type="button" class="bp-acc-pick" data-acc-menu="${key}" aria-haspopup="listbox" aria-label="${value}"><span>${value}</span>${pi('<path d="M7 10l5 5 5-5"/>')}</button>`;
+  if (open === 'acc-title') return `<div class="bp-acc-view">${backRow('design', 'Title')}${pick('titleStyle', ACCORDION_STYLES[c.titleStyle || 'h4'], 'Style')}${alignSeg('Alignment', 'titleAlign', c.titleAlign || 'left')}</div>`;
+  if (open === 'acc-desc') {
+    const w = smlOf(c.descWidth, 'M'), p = smlOf(c.descPad, 'M');
+    return `<div class="bp-acc-view">${backRow('design', 'Description')}${pick('descStyle', ACCORDION_STYLES[c.descStyle || 'p2'], 'Style')}`
+      + smlRow('Width', 'descWidth', w) + (w === 'custom' ? accInline('descWidth', c.descWidth, '%', 25, 100) : '')
+      + smlRow('Padding', 'descPad', p) + (p === 'custom' ? accPads('descPad', c.descPad) : '')
+      + alignSeg('Alignment', 'descAlign', c.descAlign || 'left')
+      // Width L fills the block, so there is nothing to place (ACCORDIONSTYLES.json).
+      + (c.descWidth === 'L' ? '' : alignSeg('Placement', 'descPlace', c.descPlace || 'left')) + '</div>';
+  }
+  if (open === 'acc-dividers') {
+    const t = smlOf(c.dividerSize, 'S');
+    return `<div class="bp-acc-view">${backRow('design', 'Dividers')}${sw('dividers', c.dividers !== false, 'Dividers')}${sw('showFirst', c.showFirst !== false, 'Show first')}${sw('showLast', c.showLast !== false, 'Show last')}`
+      + smlRow('Thickness', 'dividerSize', t).replace('bp-cap-seg', 'bp-cap-seg bp-cap-after') + (t === 'custom' ? accInline('dividerSize', c.dividerSize, 'px', 0, 10) : '')
+      + accLabelled('Opacity', 'dividerOpacity', c.dividerOpacity ?? 1, '', 0, 1, 0.01) + '</div>';
+  }
+  const nav = (act, label, v) => `<button type="button" class="sp-row bp-rowbtn" data-acc="${act}" aria-label="Navigate to ${label}"><span class="sp-label">${label}</span><span class="bp-chip-v">${v}${CHEV_R}</span></button>`;
+  const iconSz = smlOf(c.iconSize, 'S'), rowPad = smlOf(c.rowPadding, 'M');
+  return `<div class="bp-acc-view"><div class="bp-cap bp-cap-seg">Text</div>${nav('title', 'Title', ACCORDION_STYLES[c.titleStyle || 'h4'])}${nav('desc', 'Description', ACCORDION_STYLES[c.descStyle || 'p2'])}<div class="bp-cap bp-cap-seg bp-cap-after">Design</div>`
     + sw('expandFirst', c.expandFirst, 'Expand first item') + sw('multiple', c.multiple, 'Allow multiple open items')
-    + `<button type="button" class="sp-row bp-rowbtn" data-acc="dividers" aria-label="Navigate to Dividers"><span class="sp-label">Dividers</span><span class="bp-chip-v">${c.dividers !== false ? 'On' : 'Off'} ›</span></button>`
-    + chip('Icon', 'Plus')
-    + smlRow('Icon Size', 'iconSize', c.iconSize || 'S') + smlRow('Icon Thickness', 'iconThickness', c.iconThickness || 'S')
+    + nav('dividers', 'Dividers', c.dividers !== false ? 'On' : 'Off')
+    + `<button type="button" class="sp-row bp-rowbtn bp-acc-iconrow" data-acc-menu="icon" aria-haspopup="listbox" aria-label="Icon"><span class="sp-label">Icon</span><span class="bp-chip-v">${c.icon === 'arrow' ? 'Arrow' : 'Plus'}</span></button>`
+    + smlRow('Icon Size', 'iconSize', iconSz) + (iconSz === 'custom' ? accInline('iconSize', c.iconSize, 'px', 10, 40) : '')
+    + smlRow('Icon Thickness', 'iconThickness', c.iconThickness || 'S', false)
     + `<div class="bp-cap bp-cap-seg">Icon Placement</div><div class="bp-modes bp-modes-2" role="radiogroup" aria-label="Icon Placement">${[['left', c.iconLeft], ['right', !c.iconLeft]].map(([k, on]) => `<button type="button" role="radio" class="bp-mode${on ? ' is-on' : ''}" aria-checked="${!!on}" aria-label="${k}" data-acc-set="iconLeft" data-v="${k}">${k === 'left' ? '←' : '→'}</button>`).join('')}</div>`
-    + smlRow('Row Padding', 'rowPadding', c.rowPadding || 'M')
+    + smlRow('Row Padding', 'rowPadding', rowPad) + (rowPad === 'custom' ? accPads('rowPadding', c.rowPadding, 'Accordion Item ') : '')
     + row2('Background', `<label class="sp-switch"><input type="checkbox" data-design="background" aria-label="Background" ${d.background ? 'checked' : ''}><span aria-hidden="true"></span></label>`)
     + strokeRows(d) + blendRow(d.blend || 'normal', open === 'blend')
-    + row2('Blur', `<label class="sp-switch"><input type="checkbox" data-design="blur" aria-label="Blur" ${d.blur ? 'checked' : ''}><span aria-hidden="true"></span></label>`);
+    + row2('Blur', `<label class="sp-switch"><input type="checkbox" data-design="blur" aria-label="Blur" ${d.blur ? 'checked' : ''}><span aria-hidden="true"></span></label>`) + '</div>';
 }
 const row2 = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
 
@@ -464,7 +488,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
     body = open;
   }
   if (kid && tab === 'Design') body = kidSizeHtml(kid) + body;
-  if ((tab === 'Content' && (open === 'embed-data' || open?.startsWith('acc-item:') || open?.startsWith('soc-row:'))) || open === 'acc-dividers') return `<div class="sp-body">${body}</div>`;
+  if ((tab === 'Content' && (open === 'embed-data' || open?.startsWith('acc-item:') || open?.startsWith('soc-row:'))) || open === 'acc-dividers' || open === 'acc-title' || open === 'acc-desc') return `<div class="sp-body">${body}</div>`;
   const tabs = content?.kind === 'accordion' ? ['Content', 'Design'] : content?.kind === 'line' ? ['Design', 'Animation'] : content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
   // The header is also the drag handle (U13): the oracle labels it Click and drag to reposition block editor form.
   return `<div class="bp-drag" role="button" aria-label="Click and drag to reposition block editor form" data-drag-panel></div><div class="sp-tabs" role="tablist">${tabs.map(tabBtn).join('')}</div><div class="sp-body">${body}</div>`;
