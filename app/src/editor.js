@@ -1,6 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults } from './render.js';
 import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
@@ -1349,7 +1350,7 @@ let accView = null; // 'acc-item:<n>' or 'acc-dividers'
 const blockPanel = $('block-panel');
 let shapeUi = null; // the open popup of a shape's Design tab: { kind, bid, custom }
 function renderBlockPanel() {
-  if (shapeUi && (!sel || shapeUi.bid !== sel.bid || designOpen !== sel.bid)) closeShapePop();
+  if (shapeUi && !shapeUi.section && (!sel || shapeUi.bid !== sel.bid || designOpen !== sel.bid)) closeShapePop();
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
@@ -1619,7 +1620,35 @@ function writeShapeColor(b, key, css) {
   b.design = { ...(b.design || {}) };
   if (css) b.design.strokeColor = css; else delete b.design.strokeColor;
 }
+// The section panel's color rows: the divider stroke, or an Art color. Null writes the default back.
+const secColorOf = (u) => { const s = S(u.sid); if (u.section === 'divider') return s.dividerColor || 'rgb(0, 0, 0)'; return s.bgArt?.colors[Number(u.section.slice(4))] || '#000000'; };
+function writeSecColor(u, css) {
+  const s = S(u.sid);
+  if (u.section === 'divider') { if (css) s.dividerColor = css; else delete s.dividerColor; return; }
+  const k = Number(u.section.slice(4)), colors = [...s.bgArt.colors];
+  colors[k] = css || artDefaults(s.bgArt.name)[k];
+  s.bgArt = { ...s.bgArt, colors };
+}
+const secColorSet = (u) => { const s = S(u.sid); if (u.section === 'divider') return !!s.dividerColor; const k = Number(u.section.slice(4)); return s.bgArt?.colors[k] !== artDefaults(s.bgArt?.name)[k]; };
+function setSecColor(css) {
+  const u = shapeUi, before = JSON.stringify(model);
+  writeSecColor(u, css);
+  renderSectionDom(u.sid);
+  commit(before, `Section ${u.section} color ${css ? 'changed' : 'reset'}`);
+  if (editSid) renderSectionPanel();
+}
+function renderSectionPop() {
+  const u = shapeUi, P = sectionPanel.getBoundingClientRect(), c = colorParts(secColorOf(u));
+  const custom = u.custom && (u.custom.hex === toHex(c.rgb) ? u.custom : { ...u.custom, ...hexToHsv(toHex(c.rgb)), hex: toHex(c.rgb) });
+  if (custom) u.custom = custom;
+  shapePop.className = 'is-color';
+  shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: secColorSet(u), opacity: secColorSet(u) });
+  shapePop.hidden = false;
+  const a = sectionPanel.querySelector(`[data-sp-color="${u.section}"]`)?.getBoundingClientRect(), h = shapePop.offsetHeight;
+  shapePop.style.cssText = `left:${P.left - 311}px;top:${Math.max(60, Math.min((a ? a.top + a.height / 2 : P.top) - h / 2 - 12, innerHeight - h - 8))}px`;
+}
 function renderShapePop() {
+  if (shapeUi.section) { renderSectionPop(); return; }
   const b = B(sel.sid, sel.bid), P = blockPanel.getBoundingClientRect(), { kind } = shapeUi;
   shapePop.className = kind === 'style' ? 'is-style' : 'is-color';
   if (kind === 'style') {
@@ -1648,6 +1677,11 @@ blockPanel.addEventListener('click', (e) => {
   renderShapePop();
 });
 shapePop.addEventListener('click', (e) => {
+  if (shapeUi?.section) {
+    if (e.target.closest('[data-color-custom]')) { const hex = toHex(colorParts(secColorOf(shapeUi)).rgb); shapeUi.custom = { ...hexToHsv(hex), hex, format: 'rgb' }; renderShapePop(); return; }
+    if (e.target.closest('[data-color-reset]')) { setSecColor(null); renderShapePop(); }
+    return;
+  }
   if (!sel || !shapeUi) return;
   const pick = e.target.closest('[data-shape-pick]');
   if (pick) { const id = pick.dataset.shapePick; closeShapePop(); setShape((b) => { if (id === 'rectangle') delete b.shape; else b.shape = id; }, `Shape ${id}`); return; }
@@ -1656,9 +1690,9 @@ shapePop.addEventListener('click', (e) => {
   if (e.target.closest('[data-color-reset]')) { setShape((b) => writeShapeColor(b, key, null), `${key} reset`); renderShapePop(); }
 });
 shapePop.addEventListener('change', (e) => {
-  if (!sel || !shapeUi) return;
-  const key = shapeUi.kind, t = e.target, b0 = B(sel.sid, sel.bid), c = colorParts(shapeColorOf(b0, key));
-  const write = (next) => { setShape((b) => writeShapeColor(b, key, colorCss(next)), `${key} changed`); renderShapePop(); };
+  if (!shapeUi || (!sel && !shapeUi.section)) return;
+  const key = shapeUi.kind, t = e.target, c = colorParts(shapeUi.section ? secColorOf(shapeUi) : shapeColorOf(B(sel.sid, sel.bid), key));
+  const write = (next) => { if (shapeUi.section) setSecColor(colorCss(next)); else setShape((b) => writeShapeColor(b, key, colorCss(next)), `${key} changed`); renderShapePop(); };
   if (t.matches('[data-color-pick]')) { const v = t.dataset.colorPick; write(v.startsWith('#') ? { rgb: rgbOf(v), a: 1 } : colorParts(v)); return; }
   if (t.matches('[data-color-alpha]')) { write({ rgb: c.rgb, a: Number(t.value) / 100 }); return; }
   if (t.matches('[data-color-format]')) { shapeUi.custom.format = t.value; renderShapePop(); return; }
@@ -1673,6 +1707,23 @@ shapePop.addEventListener('change', (e) => {
   }
 });
 shapePop.addEventListener('pointerdown', (e) => {
+  if (shapeUi?.section && shapeUi.custom) {
+    const map = e.target.closest('.sh-map'), hue = e.target.closest('.sh-hue'), area = map || hue;
+    if (!area) return;
+    e.preventDefault();
+    const u = shapeUi, before = JSON.stringify(model), r = area.getBoundingClientRect();
+    const step = (ev) => {
+      const x = Math.max(0, Math.min(1, (ev.clientX - r.left) / r.width)), y = Math.max(0, Math.min(1, (ev.clientY - r.top) / r.height)), k = u.custom;
+      if (map) { k.s = x; k.v = 1 - y; } else k.h = x * 360;
+      k.hex = hsvToHex(k);
+      writeSecColor(u, colorCss({ rgb: rgbOf(k.hex), a: colorParts(secColorOf(u)).a }));
+      renderSectionDom(u.sid);
+      renderShapePop();
+    };
+    const up = () => { removeEventListener('pointermove', step); removeEventListener('pointerup', up); commit(before, 'Section color changed'); if (editSid) renderSectionPanel(); };
+    addEventListener('pointermove', step); addEventListener('pointerup', up); step(e);
+    return;
+  }
   if (!sel || !shapeUi?.custom) return;
   const map = e.target.closest('.sh-map'), hue = e.target.closest('.sh-hue'), area = map || hue;
   if (!area) return;
@@ -1694,7 +1745,7 @@ shapePop.addEventListener('pointerdown', (e) => {
 });
 for (const t of ['mousedown']) shapePop.addEventListener(t, (e) => e.stopPropagation());
 shapePop.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Escape') closeShapePop(); });
-document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act]')) closeShapePop(); }, true);
+document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-sp-color]')) closeShapePop(); }, true);
 // Button and image Content tabs: the text and the link (parity/findings/BUTTONEDIT.json). The
 // text is one undo step when the field is left; each link change is one step.
 function setButton(change, label) {
@@ -2641,13 +2692,16 @@ function unstack(sid, b) {
 // Edit Section (P3, P4, P5, S1, S2), the oracle's three tabs (parity/findings/PANEL.json,
 // SETTINGS.json): Design has Row Count, Gap (Zero 0px, Medium 11px, Custom column and row
 // gaps 0 to 50px), Fill Screen, Height S/M/L/Custom and vertical Alignment; Background has
-// Background Width; Colors has ten themes. Divider adds the default wave with Stroke and Thickness (shape settings and Color not built). Unchecking Fill Screen makes the section fit its
+// Background Width; Colors has ten themes. Divider adds the default wave with Shape, Stroke, Color and Thickness (parity/findings/CAP-DIVSHAPES.json). Unchecking Fill Screen makes the section fit its
 // content and hides Height and Alignment, as on the oracle.
 const THEMES = [['Lightest 1', 'white'], ['Lightest 2', 'white-bold'], ['Light 1', 'light'], ['Light 2', 'light-bold'], ['Bright 1', 'bright-inverse'],
   ['Bright 2', 'bright'], ['Dark 1', 'dark'], ['Dark 2', 'dark-bold'], ['Darkest 1', 'black'], ['Darkest 2', 'black-bold']];
 const MEDIUM_GAP = 11;
 let sectionTab = 'Design';
 let customGap = false;
+let secView = null; // 'shape' or 'art': the panel behind Edit Settings
+let secMore = {}; // which size rows show their slider
+let filterOpen = false, tipOpen = false;
 const fillScreen = (s) => !(s.height === 'custom' && s.customHeight == null);
 const gapKind = (s) => (customGap ? 'custom' : s.gap === 0 && (s.rowGap ?? 0) === 0 ? 'zero' : s.gap === MEDIUM_GAP && (s.rowGap ?? MEDIUM_GAP) === MEDIUM_GAP ? 'medium' : 'custom');
 function onSectionClick(e) {
@@ -2656,7 +2710,12 @@ function onSectionClick(e) {
   e.stopImmediatePropagation();
   const s = S(secSid());
   const { sact: act, v } = btn.dataset;
-  if (act === 'tab') { sectionTab = v; customGap = false; renderPanel(); if (editSid) renderSectionPanel(); return; }
+  if (act === 'tab') { sectionTab = v; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; renderPanel(); if (editSid) renderSectionPanel(); return; }
+  const redraw = () => { renderPanel(); if (editSid) renderSectionPanel(); };
+  if (act === 'view') { secView = v || null; secMore = {}; const n = sectionPanel; n.scrollTop = 0; redraw(); n.scrollTop = 0; return; }
+  if (act === 'filterOpen') { filterOpen = !filterOpen; redraw(); return; }
+  if (act === 'storageTip') { tipOpen = !tipOpen; redraw(); return; }
+  if (v === 'more') { secMore = { ...secMore, [act]: !secMore[act] }; redraw(); return; }
   if (act === 'gap' && v === 'custom') { customGap = true; renderPanel(); if (editSid) renderSectionPanel(); return; }
   const before = JSON.stringify(model);
   if (act === 'gap') { customGap = false; s.gap = v === 'zero' ? 0 : MEDIUM_GAP; s.rowGap = s.gap; }
@@ -2665,8 +2724,29 @@ function onSectionClick(e) {
   if (act === 'bgWidth') s.bgWidth = v;
   if (act === 'theme') s.theme = v;
   if (act === 'dividerStroke') { if (v === 'solid') delete s.dividerStroke; else s.dividerStroke = v; }
-  if (act === 'dividerThickness') { if (v === 'M') delete s.dividerThickness; else s.dividerThickness = v; }
-  if (JSON.stringify(model) === before) return;
+  if (act === 'dividerThickness') { secMore = { ...secMore, dividerThickness: false }; if (v === 'M') delete s.dividerThickness; else s.dividerThickness = v; }
+  if (act === 'dividerShape') { if (v === 'wavy') delete s.dividerShape; else s.dividerShape = v; }
+  if (act === 'dividerWidth') { secMore = { ...secMore, dividerWidth: false }; s.dividerWidth = DIVIDER_WIDTHS[v]; if (s.dividerWidth === 100) delete s.dividerWidth; }
+  if (act === 'dividerHeight') { secMore = { ...secMore, dividerHeight: false }; s.dividerHeight = DIVIDER_HEIGHTS[v]; if (s.dividerHeight === 6) delete s.dividerHeight; }
+  if (act === 'dividerFlip' || act === 'dividerFlipY') { if (s[act]) delete s[act]; else s[act] = true; }
+  // Shuffle Settings picks another pair from the S, M, L sizes (read three presses on the oracle).
+  if (act === 'shuffle') {
+    const now = `${s.dividerWidth ?? 100}/${s.dividerHeight ?? 6}`, W = Object.values(DIVIDER_WIDTHS), H = Object.values(DIVIDER_HEIGHTS);
+    let w, h;
+    do { w = W[Math.floor(Math.random() * 3)]; h = H[Math.floor(Math.random() * 3)]; } while (`${w}/${h}` === now);
+    s.dividerWidth = w; s.dividerHeight = h;
+    if (w === 100) delete s.dividerWidth;
+    if (h === 6) delete s.dividerHeight;
+  }
+  if (act === 'bgKind') { filterOpen = tipOpen = false; if (v === 'Image') delete s.bgKind; else s.bgKind = v; if (JSON.stringify(model) === before) { redraw(); return; } }
+  if (act === 'art') {
+    if (v === 'none') delete s.bgArt; else if (s.bgArt?.name !== v) s.bgArt = { name: v, colors: artDefaults(v) };
+  }
+  if (act === 'artShuffle' && s.bgArt) { const c = [...s.bgArt.colors]; do { c.sort(() => Math.random() - 0.5); } while (c.length > 1 && c.join() === s.bgArt.colors.join()); s.bgArt = { ...s.bgArt, colors: c }; }
+  if (act === 'artInvert' && s.bgArt) s.bgArt = { ...s.bgArt, colors: [...s.bgArt.colors].reverse() };
+  if (act === 'bgFilter') { filterOpen = false; if (v === 'None') { delete s.bgFilter; delete s.bgFilterStrength; } else s.bgFilter = v; if (JSON.stringify(model) === before) { redraw(); return; } }
+  if (act === 'bgSpeed') { const n = Math.min(2, Math.max(0.5, (s.bgSpeed ?? 1) + Number(v))); if (n === 1) delete s.bgSpeed; else s.bgSpeed = n; }
+  if (JSON.stringify(model) === before) { redraw(); return; }
   renderSectionDom(s.id);
   commit(before, `Section ${s.id} ${act} set to ${v}`);
 }
@@ -2697,12 +2777,17 @@ function onSectionChange(e) {
     const v = input.value.trim().replace(/[^A-Za-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '');
     if (v) s.anchor = v; else delete s.anchor;
   } else if (act === 'divider') {
-    if (input.checked) s.divider = true; else { delete s.divider; delete s.dividerStroke; delete s.dividerThickness; }
+    if (input.checked) s.divider = true; else { delete s.divider; for (const k of ['dividerStroke', 'dividerThickness', 'dividerShape', 'dividerWidth', 'dividerHeight', 'dividerFlip', 'dividerFlipY', 'dividerAlign', 'dividerColor']) delete s[k]; }
   } else if (act === 'fill') {
     if (input.checked) { s.height = 'medium'; delete s.customHeight; } else { s.height = 'custom'; delete s.customHeight; }
   } else {
-    const v = Math.round(Number(input.value));
+    const v = Math.round(input.type === 'text' ? parseFloat(input.value) : Number(input.value));
     if (!Number.isFinite(v)) return;
+    if (act === 'dividerWidth') { s.dividerWidth = Math.min(150, Math.max(1, v)); if (s.dividerWidth === 100) delete s.dividerWidth; }
+    if (act === 'dividerHeight') { s.dividerHeight = Math.min(150, Math.max(1, v)); if (s.dividerHeight === 6) delete s.dividerHeight; }
+    if (act === 'dividerThickness') s.dividerThickness = Math.min(50, Math.max(1, v));
+    if (act === 'dividerAlign') { s.dividerAlign = Math.min(1000, Math.max(-1000, v)); if (!s.dividerAlign) delete s.dividerAlign; }
+    if (act === 'bgFilterStrength') s.bgFilterStrength = Math.min(100, Math.max(0, v));
     if (act === 'rows') s.rows[bp] = Math.min(10000, Math.max(Number(input.min), v));
     if (act === 'gap') { s.rowGap = s.rowGap ?? s.gap; s.gap = Math.min(50, Math.max(0, v)); }
     if (act === 'rowGap') s.rowGap = Math.min(50, Math.max(0, v));
@@ -2731,6 +2816,16 @@ sectionPanel.addEventListener('change', onSectionChange);
 // The slider's number follows the drag; the section itself changes on release.
 sectionPanel.addEventListener('input', (e) => {
   if (e.target.matches('.sp-custom-height input[type="range"]')) e.target.nextElementSibling.value = e.target.value;
+  if (e.target.matches('.sp-slide input[type="range"]')) e.target.nextElementSibling.value = e.target.value + (e.target.dataset.unit || '');
+  if (e.target.matches('.sp-align-slide')) sectionPanel.querySelector('.sp-align-row input').value = `${e.target.value}px`;
+});
+// Color rows of the section panel use the same picker as blocks (Reset to theme, five swatches, Custom color).
+sectionPanel.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-sp-color]');
+  if (!a || !secSid()) return;
+  if (shapeUi?.section === a.dataset.spColor) { closeShapePop(); return; }
+  shapeUi = { kind: 'section', section: a.dataset.spColor, sid: secSid(), custom: null };
+  renderShapePop();
 });
 // Background tab: Add an Image and Remove (P5), one undo step each; Colors tab: Color Theme Editor.
 for (const host of [panel, sectionPanel]) {
@@ -2739,15 +2834,37 @@ for (const host of [panel, sectionPanel]) {
     if (!a || !secSid()) return;
     e.preventDefault();
     const act = a.dataset.sbg;
-    if (act === 'themes') { setSiteStyles(true); return; }
+    if (act === 'themes') { themeFrom = secSid(); setSiteStyles(true); ssView = 'ColorTheme'; renderSsPanel(); return; }
     if (act === 'add') { host.querySelector('[data-sbg-file]').click(); return; }
+    if (act === 'addVideo') { host.querySelector('[data-sbg-video]').click(); return; }
+    if (act === 'addFallback') { host.querySelector('[data-sbg-fallback]').click(); return; }
     const before = JSON.stringify(model);
     const s = S(secSid());
-    delete s.bgImage;
+    if (act === 'removeVideo') delete s.bgVideo;
+    else if (act === 'removeFallback') delete s.bgFallback;
+    else delete s.bgImage;
     renderSectionDom(s.id);
     commit(before, 'Section background image removed');
   });
   host.addEventListener('change', async (e) => {
+    const fv = e.target.closest('input[data-sbg-video]');
+    const fb = e.target.closest('input[data-sbg-fallback]');
+    if (fv && fv.files[0] && secSid()) {
+      const src = await new Promise((ok) => { const r = new FileReader(); r.onload = () => ok(r.result); r.onerror = () => ok(null); r.readAsDataURL(fv.files[0]); });
+      const secs = src && await new Promise((ok) => { const v = document.createElement('video'); v.onloadedmetadata = () => ok(v.duration); v.onerror = () => ok(null); v.src = src; });
+      if (!secs) { note('That file is not a video'); updateUi(); return; }
+      if (secs > 60) { note('That video is over 1 minute'); updateUi(); return; }
+      const before = JSON.stringify(model), s = S(secSid());
+      s.bgVideo = src; renderSectionDom(s.id); commit(before, 'Section background video set');
+      return;
+    }
+    if (fb && fb.files[0] && secSid()) {
+      const pic = await readPicture(fb.files[0]).catch(() => null);
+      if (!pic) { note('That file is not a picture'); updateUi(); return; }
+      const before = JSON.stringify(model), s = S(secSid());
+      s.bgFallback = pic.src; renderSectionDom(s.id); commit(before, 'Section mobile fallback image set');
+      return;
+    }
     const f = e.target.closest('input[data-sbg-file]');
     if (!f || !secSid()) return;
     const file = f.files[0];
@@ -2841,8 +2958,10 @@ function renderSectionPanel() {
   if (!editSid || !S(editSid)) { editSid = null; sectionPanel.hidden = true; return; }
   const s = S(editSid);
   themeColors = themeColors || readThemeColors();
-  sectionPanel.innerHTML = sectionPanelHtml(s, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors });
+  const top = sectionPanel.scrollTop;
+  sectionPanel.innerHTML = sectionPanelHtml(s, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
   sectionPanel.hidden = false;
+  sectionPanel.scrollTop = top;
 }
 function closeSectionPanel() { if (!editSid) return; editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
 const newId = () => Math.random().toString(16).slice(2, 14).padEnd(12, '0') + Date.now().toString(16).slice(-12);
@@ -2853,7 +2972,7 @@ chrome.addEventListener('click', (e) => {
   if (!btn || !sid || btn.classList.contains('is-off')) return;
   const act = btn.dataset.sc;
   const k = model.sections.findIndex((x) => x.id === sid);
-  if (act === 'edit') { editSid = sid; panelPlace = null; sectionTab = 'Design'; customGap = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
+  if (act === 'edit') { editSid = sid; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
   // Add Block and Layers open over the section's top left (oracle screenshots: the Add Block
   // panel at the Layers box plus 5px, the Layers panel under the Layers button).
   const pill = chrome.querySelector('[data-sc-part="layers"]').getBoundingClientRect(), st = stage.getBoundingClientRect();
@@ -2919,6 +3038,7 @@ const contextMenu = $('context-menu');
 // button again close it.
 const siteStyles = $('site-styles');
 let ssView = null;
+let themeFrom = null; // the section whose Colors tab opened Edit Color Theme
 function renderSsPanel() {
   let rows = [];
   if (ssView === 'Colors') {
@@ -2948,6 +3068,11 @@ siteStyles.addEventListener('click', (e) => {
   const card = e.target.closest('[data-ss-pop]');
   if (card) { openStylePopover(card.dataset.ssPop); return; }
   const open = e.target.closest('[data-ss-view]');
+  if (ssView === 'ColorTheme' && e.target.closest('[data-ss-back]')) {
+    setSiteStyles(false);
+    if (themeFrom && S(themeFrom)) { editSid = themeFrom; panelPlace = null; sectionTab = 'Colors'; renderSectionPanel(); placeChrome(); }
+    return;
+  }
   if (open || e.target.closest('[data-ss-back]')) {
     closeStylePopover();
     ssView = open ? open.dataset.ssView : null;

@@ -431,23 +431,91 @@ export function renderBlock(b, model) {
   return `<div class="fe-block fe-block-${b.id}" data-block-id="${b.id}">${blockInner(b, model)}${design}</div>`;
 }
 
-// Section divider (P5), measured on the oracle (parity/findings/DIVIDER.json): the default
-// shape is a wave across the full width in a 6vw band at the section bottom. These are the
-// band-relative heights of its edge at 41 even steps, sampled at 1600px and the same at 375
-// and 1280px. The background is clipped along the edge and a 6px stroke follows it.
+// Section divider (P5), measured on the oracle (parity/findings/DIVIDER.json, CAP-DIVSHAPES.json):
+// the default shape is a wave across the full width in a 6vw band at the section bottom. These
+// are the band-relative heights of its edge at 41 even steps, sampled at 1600px and the same at
+// 375 and 1280px. The background is clipped along the edge and a 6px stroke follows it.
 export const DIVIDER_EDGE = [0.5, 0.438, 0.375, 0.313, 0.253, 0.196, 0.143, 0.097, 0.061, 0.037, 0.03, 0.04, 0.064, 0.1, 0.147, 0.2, 0.257, 0.318, 0.379, 0.443,
   0.505, 0.569, 0.631, 0.693, 0.753, 0.81, 0.864, 0.91, 0.947, 0.972, 0.98, 0.973, 0.95, 0.914, 0.868, 0.815, 0.757, 0.698, 0.636, 0.573, 0.51];
-const pct = (k) => +(k * 100 / (DIVIDER_EDGE.length - 1)).toFixed(3);
-const DIVIDER_CLIP = `polygon(0 0, 100% 0, ${DIVIDER_EDGE.map((r, k) => `${pct(k)}% calc(100% - ${+(6 * (1 - r)).toFixed(3)}vw)`).reverse().join(', ')})`;
-const DIVIDER_PATH = `M${DIVIDER_EDGE.map((r, k) => `${+(k / (DIVIDER_EDGE.length - 1)).toFixed(4)} ${r}`).join(' L')}`;
+// The other shapes (parity/findings/CAP-DIVSHAPES.json): the edge of one period as [phase, height],
+// read along the oracle's stroke at a 96px band. Each repeats at its width.
+export const DIVIDER_SHAPES = { ...{ rounded: [[0.0001,0.022],[0.049,0.194],[0.1052,0.37],[0.1634,0.53],[0.2199,0.666],[0.2744,0.777],[0.3287,0.867],[0.3822,0.935],[0.4312,0.978],[0.4634,0.994],[0.4956,1],[0.5278,0.996],[0.56,0.981],[0.5948,0.955],[0.6288,0.92],[0.6633,0.875],[0.6989,0.819],[0.7768,0.666],[0.8514,0.483],[0.9274,0.261],[0.9991,0.014]], soft: [[0,0.014],[0,0.364],[0.0049,0.645],[0.0147,0.836],[0.0295,0.95],[0.0393,0.982],[0.0503,0.998],[0.9497,0.998],[0.9607,0.982],[0.9705,0.95],[0.9853,0.836],[0.9951,0.645],[1,0.364],[1,0.014]], slanted: [[0,0.998],[0.999,0.014]], scalloped: [[0.001,0.999],[0.0838,0.999],[0.1623,0.991],[0.2301,0.974],[0.2957,0.948],[0.3785,0.899],[0.4595,0.832],[0.5396,0.75],[0.6246,0.646],[0.716,0.516],[0.8048,0.374],[0.8998,0.208],[1,0.017]], jagged: [[0,0.016],[0.7484,1],[0.9994,0.014]], pointed: [[0,0.997],[0.4986,0.014],[0.9991,1]] }, wavy: DIVIDER_EDGE.map((r, k) => [k / (DIVIDER_EDGE.length - 1), r]) };
+export const DIVIDER_SHAPE_NAMES = [['none', 'No Shape'], ['rounded', 'Rounded Shape'], ['soft', 'Soft Corners Shape'], ['slanted', 'Slanted Shape'], ['scalloped', 'Scalloped Shape'], ['wavy', 'Wavy Shape'], ['jagged', 'Jagged Shape'], ['pointed', 'Pointed Shape']];
+// Width S 5vw, M 20vw, L 100vw (custom 1 to 150); Height S 2vw, M 6vw, L 12vw (custom 1 to 150).
+export const DIVIDER_WIDTHS = { S: 5, M: 20, L: 100 };
+export const DIVIDER_HEIGHTS = { S: 2, M: 6, L: 12 };
 // Stroke (parity/findings/DIVOPTS.json): none, solid or dashed (5px dash, 21px gap, square
-// caps, measured at 6px); thickness S 2px, M 6px (default), L 15px.
+// caps, measured at 6px); thickness S 2px, M 6px (default), L 15px, or custom 1 to 50.
 export const DIVIDER_THICKNESS = { S: 2, M: 6, L: 15 };
+export const dividerBand = (s) => ((s.dividerShape || 'wavy') === 'none' ? 0 : s.dividerHeight ?? 6);
+// Which Flip buttons a shape shows, and how it mirrors: Scalloped is drawn mirrored until Flip Y Axis is pressed.
+export const DIVIDER_FLIPS = { rounded: ['X'], soft: ['X'], slanted: ['Y'], scalloped: ['Y', 'X'], wavy: ['X'], jagged: ['Y', 'X'], pointed: ['X'] };
+const dividerMirrored = (s) => !!s.dividerFlipY !== (s.dividerShape === 'scalloped');
+// Soft Corners is one piece across the section: no Width or Alignment, and its corners grow with the Height.
+const fixedWidth = (s) => s.dividerShape === 'soft';
+// Alignment moves the edge A/2 px left at any window size; a mirrored shape moves right.
+export const dividerShift = (s) => (fixedWidth(s) ? 0 : ((dividerMirrored(s) ? 1 : -1) * (s.dividerAlign || 0)) / 2);
+// The edge across the section, left to right, as [share of the width, height in the band]. Phase
+// .5 sits at the middle and a period is dividerWidth vw wide. Flip X mirrors the height over the
+// shape's own middle, Flip Y the whole edge over the section's middle. It reaches past the sides
+// by what the narrowest window would show of the alignment.
+export function dividerEdge(s) {
+  const pts = DIVIDER_SHAPES[s.dividerShape || 'wavy'];
+  if (!pts) return null;
+  const ys = pts.map((q) => q[1]), mirror = s.dividerFlip ? Math.min(...ys) + Math.max(...ys) : null;
+  const height = (r) => (mirror == null ? r : +(mirror - r).toFixed(3));
+  if (fixedWidth(s)) {
+    const k = dividerBand(s) / 6;
+    return pts.map(([x, r]) => [x < 0.5 ? Math.min(0.5, x * k) : Math.max(0.5, 1 - (1 - x) * k), height(r)]);
+  }
+  const p = (s.dividerWidth ?? 100) / 100, m = s.dividerAlign ? Math.abs(s.dividerAlign) / 640 : 0;
+  const out = [];
+  for (let k = Math.floor((-m - 0.5) / p); k <= Math.ceil((1 + m - 0.5) / p); k++) {
+    if (0.5 + (k + 0.5) * p <= -m || 0.5 + (k - 0.5) * p >= 1 + m) continue;
+    for (const [ph, r] of pts) out.push([0.5 + (k + ph - 0.5) * p, height(r)]);
+  }
+  return dividerMirrored(s) ? out.map(([x, r]) => [1 - x, r]).reverse() : out;
+}
+const dividerClip = (s) => {
+  const edge = dividerEdge(s);
+  if (!edge) return '';
+  const h = dividerBand(s), shift = dividerShift(s);
+  const x = (v) => (shift ? `calc(${+(v * 100).toFixed(3)}% + ${shift}px)` : `${+(v * 100).toFixed(3)}%`);
+  return `polygon(0 0, 100% 0, ${edge.map(([v, r]) => `${x(v)} calc(100% - ${+(h * (1 - r)).toFixed(3)}vw)`).reverse().join(', ')})`;
+};
 const dividerSvg = (s) => {
   const style = s.dividerStroke || 'solid';
   if (style === 'none') return '';
-  const w = DIVIDER_THICKNESS[s.dividerThickness || 'M'];
-  return `<svg class="section-divider-stroke" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true"><path d="${DIVIDER_PATH}" style="stroke-width: ${w}px;${style === 'dashed' ? ' stroke-dasharray: 5px 21px;' : ''}" /></svg>`;
+  const t = s.dividerThickness, w = typeof t === 'number' ? t : DIVIDER_THICKNESS[t || 'M'];
+  const edge = dividerEdge(s), shift = dividerShift(s);
+  const d = edge ? `M${edge.map(([v, r]) => `${+v.toFixed(4)} ${r}`).join(' L')}` : 'M0 1 L1 1';
+  return `<svg class="section-divider-stroke" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true"${shift ? ` style="transform: translateX(${shift}px);"` : ''}><path d="${d}" style="stroke-width: ${w}px;${style === 'dashed' ? ' stroke-dasharray: 5px 21px;' : ''}${s.dividerColor ? ` stroke: ${s.dividerColor};` : ''}" /></svg>`;
+};
+// Art tiles (P5, parity/findings/CAP-DIVSHAPES.json, art): the oracle draws these with WebGL.
+// Ours are stand-ins in CSS from the same color rows, not its pictures.
+export const ART = [
+  ['surface', 'Surface', ['First color', 'Second color', 'Third color', 'Fourth color'], (c) => `linear-gradient(170deg, ${c[0]}, ${c[2]} 40%, ${c[1]} 70%, ${c[3]})`],
+  ['conic', 'Conic', ['First color', 'Second color', 'Fog color'], (c) => `radial-gradient(circle at 42% 66%, ${c[1]} 0 12%, transparent 30%), ${c[2]}`],
+  ['bokeh', 'Bokeh', ['First color', 'Second color', 'Background color', 'Light color'], (c) => `radial-gradient(circle at 30% 30%, ${c[3]} 0 2%, transparent 3%), radial-gradient(circle at 70% 60%, ${c[0]} 0 3%, transparent 4%), radial-gradient(circle at 55% 20%, ${c[1]} 0 2%, transparent 3%), ${c[2]}`],
+  ['images', 'Images', ['Image tint', 'Background color'], (c) => `radial-gradient(circle at 25% 35%, ${c[0]} 0 8%, transparent 8%), radial-gradient(circle at 70% 65%, ${c[0]} 0 6%, transparent 6%), ${c[1]}`],
+  ['contours', 'Contours', ['Start color', 'End color'], (c) => `repeating-radial-gradient(circle at 0 100%, ${c[1]} 0 8%, ${c[0]} 8% 16%)`],
+  ['gradient', 'Gradient', ['Start color', 'End color'], (c) => `linear-gradient(135deg, ${c[0]}, ${c[1]})`],
+  ['gradient2', 'Gradient', ['Start color', 'End color'], (c) => `radial-gradient(circle, ${c[1]}, ${c[0]})`],
+  ['shapes', 'Shapes', ['Shape color', 'Background color'], (c) => `repeating-linear-gradient(45deg, ${c[0]} 0 6px, transparent 6px 60px), ${c[1]}`],
+  ['isometric', 'Isometric', ['Start color', 'End color'], (c) => `repeating-linear-gradient(60deg, ${c[0]} 0 40px, ${c[1]} 40px 80px)`],
+];
+const ART_PALETTE = ['#F2B8B4', '#FFCF5A', '#FFFFFF', '#B564F7'];
+export const artDefaults = (name) => (ART.find((a) => a[0] === name)?.[2] || []).map((_, k) => ART_PALETTE[k]);
+export const artCss = (name, colors) => ART.find((a) => a[0] === name)?.[3](colors) ?? '';
+// Video filter: the strength is 0 to 100; what it does to a video needs an upload on the oracle (0005), so this mapping is ours.
+const FILTERS = { Blur: (v) => `blur(${v / 5}px)`, Brightness: (v) => `brightness(${100 + v}%)`, Contrast: (v) => `contrast(${100 + v}%)`, Invert: (v) => `invert(${v}%)`, Opacity: (v) => `opacity(${100 - v}%)`, Saturate: (v) => `saturate(${100 + v}%)`, Sepia: (v) => `sepia(${v}%)` };
+const bgMedia = (s) => {
+  if (s.bgKind === 'Art' && s.bgArt) return `<div class="section-background-art" data-art="${s.bgArt.name}" style="background: ${escapeHtml(artCss(s.bgArt.name, s.bgArt.colors))};"></div>`;
+  if (s.bgKind === 'Video' && s.bgVideo) {
+    const filter = s.bgFilter && FILTERS[s.bgFilter] ? FILTERS[s.bgFilter](s.bgFilterStrength || 0) : '';
+    return `<video class="section-background-image section-background-video" muted loop autoplay playsinline src="${escapeHtml(s.bgVideo)}"${filter ? ` style="filter: ${filter};"` : ''}${s.bgSpeed && s.bgSpeed !== 1 ? ` onloadedmetadata="this.playbackRate=${+s.bgSpeed}"` : ''}></video>${s.bgFallback ? `<img class="section-background-image section-background-fallback" alt="" src="${escapeHtml(s.bgFallback)}">` : ''}`;
+  }
+  return s.bgKind !== 'Video' && s.bgKind !== 'Art' && s.bgImage ? `<img class="section-background-image" alt="" src="${escapeHtml(s.bgImage)}">` : '';
 };
 
 export function renderSection(s, model) {
@@ -462,8 +530,9 @@ export function renderSection(s, model) {
     s.divider ? 'has-section-divider' : '',
   ].filter(Boolean).join(' ');
   const themeName = (s.theme || '').replace(/^theme-/, '');
-  const style = s.height === 'custom' ? ` style="--custom-height: ${s.customHeight ?? 0};"` : '';
-  return `<section class="${cls}"${s.anchor ? ` id="${escapeHtml(s.anchor)}"` : ''} data-section-id="${s.id}" data-section-theme="${themeName}"${style}><div class="section-background"${s.divider ? ` style="clip-path: ${DIVIDER_CLIP};"` : ''}>${s.bgImage ? `<img class="section-background-image" alt="" src="${escapeHtml(s.bgImage)}">` : ''}</div>${s.divider ? dividerSvg(s) : ''}<div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
+  const vars = [s.height === 'custom' ? `--custom-height: ${s.customHeight ?? 0};` : '', s.divider && dividerBand(s) !== 6 ? `--divider-h: ${dividerBand(s)}vw;` : ''].filter(Boolean).join(' ');
+  const style = vars ? ` style="${vars}"` : '';
+  return `<section class="${cls}"${s.anchor ? ` id="${escapeHtml(s.anchor)}"` : ''} data-section-id="${s.id}" data-section-theme="${themeName}"${style}><div class="section-background"${s.divider && dividerClip(s) ? ` style="clip-path: ${dividerClip(s)};"` : ''}>${bgMedia(s)}</div>${s.divider ? dividerSvg(s) : ''}<div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
 }
 
 // Site header (P7), measured on the oracle (parity/findings/P7.json): it lies over the
