@@ -24,7 +24,9 @@ if (!all.length) errors.push('parity/items.json is empty');
 // A failed rebase can commit conflict markers into a finding, and nothing else reads them all.
 const findings = new URL('../parity/findings/', import.meta.url);
 for (const f of readdirSync(findings).filter((n) => n.endsWith('.json'))) {
-  try { JSON.parse(readFileSync(new URL(f, findings), 'utf8')); } catch (e) { errors.push(`parity/findings/${f}: ${e.message}`); }
+  const text = readFileSync(new URL(f, findings), 'utf8');
+  try { JSON.parse(text); } catch (e) { errors.push(`parity/findings/${f}: ${e.message}`); }
+  if (text.includes('squarespace.com')) errors.push(`parity/findings/${f}: names the trial site; findings hold a path, no URL`);
 }
 if (errors.length) {
   console.error(errors.join('\n'));

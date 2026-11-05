@@ -70,8 +70,9 @@ function note(text) {
   notes.length = Math.min(notes.length, 6);
 }
 
-function commit(before, label) {
-  if (JSON.stringify(model) === before) return;
+// force: a drop that moves nothing is still an undo step on the oracle (GROUPRESIZE.json, TEXTUNDO.json).
+function commit(before, label, force = false) {
+  if (!force && JSON.stringify(model) === before) return;
   undoStack.push(before);
   redoStack.length = 0;
   note(label);
@@ -80,10 +81,21 @@ function commit(before, label) {
 
 function undo() {
   if (!undoStack.length) return;
+  // The Undo button during an edit: what was typed goes, the step before it goes, and the edit stays
+  // open (parity/findings/TEXTUNDO.json).
+  const ed = editing;
+  if (ed) {
+    editing = null;
+    doc.removeEventListener('selectionchange', onTextSelection);
+    renderTextBar();
+    feEl(ed.sid).style.gridAutoRows = '';
+    model = JSON.parse(ed.before);
+  }
   redoStack.push(JSON.stringify(model));
   model = JSON.parse(undoStack.pop());
   note('Undo');
   renderAll();
+  if (ed && B(ed.sid, ed.bid)?.type === 'text') startTextEdit(ed.sid, ed.bid);
 }
 function redo() {
   if (!redoStack.length) return;
@@ -698,9 +710,8 @@ function onDown(e) {
   }
   if (handle && sel) {
     e.preventDefault();
-    if (sel.more?.length) { startResize(e, handle.dataset.dir); return; }
-    // Like a drag: the move past 10px changes nothing, the next one starts it (HOLD.json).
-    gesture = { type: 'pending', resizeDir: handle.dataset.dir, sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, x0: e.clientX, y0: e.clientY, py0: e.clientY - feEl(sel.sid).getBoundingClientRect().top, before: JSON.stringify(model) };
+    // Like a drag, a group too: the move past 10px changes nothing, the next one starts it (HOLD.json).
+    gesture = { type: 'pending', resizeDir: handle.dataset.dir, sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, t0: e.timeStamp, x0: e.clientX, y0: e.clientY, py0: e.clientY - feEl(sel.sid).getBoundingClientRect().top, before: JSON.stringify(model) };
     return;
   }
   if (!blk) {
@@ -724,7 +735,7 @@ function onDown(e) {
   select(keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid });
   const r = blk.getBoundingClientRect();
   gesture = {
-    type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, wasSelected,
+    type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected,
     x0: e.clientX, y0: e.clientY, grabX: e.clientX - r.left, grabY: e.clientY - r.top,
     before: JSON.stringify(model),
   };
@@ -767,7 +778,15 @@ function onUp(e) {
   growRows(s);
   endGesture();
   renderSectionDom(g.sid);
-  commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`);
+  commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
+}
+
+// A touch drags like a mouse unless the browser pans first (TOUCHHOLD.json): it takes the pointer
+// when a first move goes past its pan distance after a short press. A drag that has started, or a
+// press held this long, keeps the pointer. Measured between 60 and 100 ms.
+const TOUCH_HOLD = 100;
+function onTouchMove(e) {
+  if (gesture && (gesture.type !== 'pending' || e.timeStamp - gesture.t0 >= TOUCH_HOLD)) e.preventDefault();
 }
 
 function onCancel(e) {
@@ -1200,7 +1219,7 @@ function startTextEdit(sid, bid) {
   const fe = feEl(sid);
   const m = measure(fe);
   fe.style.gridAutoRows = `${m.rowMin}px`;
-  editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area] };
+  editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], marks: [before], prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
   ce.addEventListener('input', onTextInput);
   ce.addEventListener('paste', onPaste);
   doc.addEventListener('selectionchange', onTextSelection);
@@ -1668,6 +1687,7 @@ function applyFormat(act, value) {
   if (!ed) return;
   const sel = win.getSelection();
   const [kind, arg] = act.split(':');
+  textStep(ed, ed.ce.innerHTML, ed.area);
   if (kind === 'style') fmt.setStyle(doc, ed.ce, sel, value);
   if (kind === 'bold' || kind === 'italic' || kind === 'strike') fmt.toggleMark(doc, ed.ce, sel, kind);
   if (kind === 'quote' || kind === 'bullet' || kind === 'numbered') fmt.toggleWrap(doc, ed.ce, sel, kind);
@@ -1680,6 +1700,7 @@ function applyFormat(act, value) {
   if (kind === 'scaled') fmt.toggleScaled(doc, ed.ce, sel);
   ed.ce.focus();
   onTextInput();
+  textStep(ed, ed.ce.innerHTML, ed.area);
 }
 // The Custom tab of Text Color (parity/findings/TEXTCOLOR.json, custom). A color map, a hue bar and a
 // Hex field. Each pick is written at once and the popover stays open. null is the Palette tab.
@@ -1780,7 +1801,9 @@ function openTextLink(btnEl) {
       if (editing !== ed) return;
       ed.ce.focus();
       const sel2 = win.getSelection(); sel2.removeAllRanges(); sel2.addRange(range);
+      textStep(ed, ed.ce.innerHTML, ed.area);
       if (fmt.setLink(doc, ed.ce, sel2, range, href)) onTextInput();
+      textStep(ed, ed.ce.innerHTML, ed.area);
       renderTextBar();
     },
   });
@@ -1788,9 +1811,59 @@ function openTextLink(btnEl) {
 
 // When an edit makes the text taller, move the block's end row instead of
 // letting the row stretch.
-function onTextInput() {
+// Undo steps inside one edit (parity/findings/TEXTUNDO.json): a toolbar action is a step of its own,
+// and so is typing after a pause of about a second. Enter and Backspace do not split a burst.
+const TYPING_PAUSE = 1000;
+function textStep(ed, html, area) {
+  const b = B(ed.sid, ed.bid), keep = [b.html, lay(b).area];
+  b.html = html;
+  lay(b).area = [...area];
+  growRows(S(ed.sid));
+  const snap = JSON.stringify(model);
+  [b.html, lay(b).area] = keep;
+  if (snap !== ed.marks.at(-1)) ed.marks.push(snap);
+}
+// A word that reads as a domain or a mail address links when a space or Enter follows it
+// (TEXTUNDO.json, links), with the http scheme. No path and no end mark. The list of endings is ours.
+const LINK_ENDS = /\.(com|org|net|edu|gov|mil|int|info|biz|name|pro|io|co|ai|app|dev|me|tv|cc|ws|xyz|site|online|store|shop|blog|tech|cloud|world|one|bar|art|club|live|news|page|link|space|website|design|agency|studio|no|se|dk|fi|is|uk|ie|de|fr|es|it|nl|be|ch|at|pl|pt|cz|gr|ru|ua|tr|us|ca|mx|br|ar|cl|au|nz|jp|kr|cn|in|sg|za|eu)$/i;
+const linkFor = (w) => (/^[^\s@]+@[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(w) && LINK_ENDS.test(w) ? `mailto:${w}` : /^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(w) && LINK_ENDS.test(w) ? `http://${w}` : null);
+function autoLink(ed, inputType, data) {
+  const s = win.getSelection();
+  if (!s.isCollapsed || !s.focusNode) return;
+  let node = s.focusNode, end = s.focusOffset;
+  if (inputType === 'insertText' && data === ' ') end -= 1;
+  else if (inputType === 'insertParagraph') {
+    const p = (node.nodeType === 1 ? node : node.parentElement).closest('p, h1, h2, h3, h4, li, pre, blockquote')?.previousElementSibling;
+    node = p;
+    while (node?.lastChild) node = node.lastChild;
+    end = node?.length ?? 0;
+  } else return;
+  if (node?.nodeType !== 3 || node.parentElement.closest('a')) return;
+  const raw = node.data.slice(0, end).match(/\S+$/)?.[0];
+  // Brackets or quotes around it stay outside the link.
+  const word = raw?.match(/^\((.+)\)$/)?.[1] ?? raw?.match(/^"(.+)"$/)?.[1] ?? raw;
+  const href = word && linkFor(word);
+  if (!href) return;
+  const stop = end - (raw.length - word.length) / 2;
+  const r = doc.createRange();
+  r.setStart(node, stop - word.length);
+  r.setEnd(node, stop);
+  const a = doc.createElement('a');
+  a.setAttribute('href', href);
+  r.surroundContents(a);
+  if (inputType === 'insertText') { const c = doc.createRange(); c.setStart(a.nextSibling, end - stop + 1); c.collapse(true); s.removeAllRanges(); s.addRange(c); }
+}
+function onTextInput(e) {
   const ed = editing;
   const b = B(ed.sid, ed.bid);
+  // Cmd+Z in an edit is the browser's. After it the edit is one step again (TEXTUNDO.json).
+  if (e?.inputType?.startsWith('history')) ed.marks.length = 1;
+  else if (e?.inputType) {
+    const now = performance.now();
+    if (ed.lastInput && now - ed.lastInput >= TYPING_PAUSE) textStep(ed, ed.prevHtml, ed.prevArea);
+    ed.lastInput = now;
+    autoLink(ed, e.inputType, e.data);
+  }
   // The end row follows the text both ways, but not below 2 rows
   // (parity/findings/E3.json: a one-line paragraph ended at 2 rows).
   const need = Math.max(2, contentRows(b, ed.m));
@@ -1800,6 +1873,8 @@ function onTextInput() {
     const ind = feEl(ed.sid).querySelector('.fe-indicator');
     if (ind) setArea(ind, ed.area);
   }
+  ed.prevHtml = ed.ce.innerHTML;
+  ed.prevArea = [...ed.area];
 }
 
 function onTextSelection() { if (editing && !textMenu) renderTextBar(); }
@@ -1815,7 +1890,10 @@ function finishTextEdit() {
   growRows(S(ed.sid));
   feEl(ed.sid).style.gridAutoRows = '';
   renderSectionDom(ed.sid);
-  commit(ed.before, `Edited text in ${ed.bid}`);
+  const now = JSON.stringify(model);
+  const steps = ed.marks.filter((m) => m !== now);
+  for (const m of steps.slice(0, -1)) undoStack.push(m);
+  commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`);
 }
 
 // ---------- panel ----------
@@ -2495,6 +2573,8 @@ chrome.addEventListener('pointerdown', (e) => {
   const start = s.rows[bp];
   const need = Math.max(1, ...s.blocks.map((b) => lay(b).area[2] - 1));
   const y0 = e.clientY;
+  // Over the canvas the pointer would otherwise go to the frame.
+  chrome.setPointerCapture(e.pointerId);
   const move = (ev) => {
     const n = Math.max(need, start + Math.round((ev.clientY - y0) / step));
     if (n !== s.rows[bp]) { s.rows[bp] = n; renderSectionDom(sid); placeChrome(); }
@@ -3005,8 +3085,11 @@ function boot() {
   doc.addEventListener('pointermove', onMove);
   doc.addEventListener('pointerup', onUp);
   doc.addEventListener('pointercancel', onCancel);
+  doc.addEventListener('touchmove', onTouchMove, { passive: false });
+  // A touch holds its pointer on the block it landed on, and taking that over fires this event on
+  // the block too. Only losing our own capture on the root ends a gesture (X11).
   doc.addEventListener('lostpointercapture', (e) => {
-    if (gesture && gesture.type !== 'pending' && e.pointerId === gesture.pointerId) onUp(e);
+    if (e.target === doc.documentElement && gesture && gesture.type !== 'pending' && e.pointerId === gesture.pointerId) onUp(e);
   });
   doc.addEventListener('dblclick', onDblClick);
   doc.addEventListener('keydown', onKey);

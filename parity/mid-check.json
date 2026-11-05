@@ -1,9 +1,8 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 463,
+  "pass": 498,
   "known": [
     "group south by 4",
-    "group drop n 0,-1",
     "hold phone, full width -24,12",
     "hold resize w to the far side -50,0",
     "hold from the margin track, far right 1150,12",
@@ -14,7 +13,7 @@
     "hold from the right margin track -80,12",
     "hold from the right margin track -90,12"
   ],
-  "total": 474,
+  "total": 508,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -279,10 +278,8 @@
     },
     {
       "name": "group drop n 0,-1",
-      "diffs": [
-        "no undo step"
-      ],
-      "known": true
+      "diffs": [],
+      "known": false
     },
     {
       "name": "group drop s 0,-3",
@@ -2375,6 +2372,142 @@
     },
     {
       "name": "hold phone resize east -48",
+      "diffs": []
+    },
+    {
+      "name": "plain on a shape resize",
+      "diffs": []
+    },
+    {
+      "name": "Alt on a shape resize",
+      "diffs": []
+    },
+    {
+      "name": "Shift on a shape resize",
+      "diffs": []
+    },
+    {
+      "name": "plain on a image resize",
+      "diffs": []
+    },
+    {
+      "name": "Alt on a image resize",
+      "diffs": []
+    },
+    {
+      "name": "Shift on a image resize",
+      "diffs": []
+    },
+    {
+      "name": "handles on line",
+      "diffs": []
+    },
+    {
+      "name": "handles on shape",
+      "diffs": []
+    },
+    {
+      "name": "handles on image",
+      "diffs": []
+    },
+    {
+      "name": "handles on form",
+      "diffs": []
+    },
+    {
+      "name": "handles on scrolling",
+      "diffs": []
+    },
+    {
+      "name": "handles on map",
+      "diffs": []
+    },
+    {
+      "name": "handles on social",
+      "diffs": []
+    },
+    {
+      "name": "handles on quote",
+      "diffs": []
+    },
+    {
+      "name": "handles on button",
+      "diffs": []
+    },
+    {
+      "name": "a selected Line: moved, grown, clicked",
+      "diffs": []
+    },
+    {
+      "name": "touch 70,0 after 0 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch 125,0 after 0 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch 150,0 after 0 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch 200,0 after 0 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch 200,0 after 30 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch 200,0 after 60 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch 200,0 after 100 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch 200,0 after 800 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch 0,125 after 0 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch 0,200 after 0 ms",
+      "diffs": []
+    },
+    {
+      "name": "a tap selects",
+      "diffs": []
+    },
+    {
+      "name": "a touch on a handle resizes",
+      "diffs": []
+    },
+    {
+      "name": "a touch on the empty grid",
+      "diffs": []
+    },
+    {
+      "name": "a pen drags",
+      "diffs": []
+    },
+    {
+      "name": "a pen on a handle resizes",
+      "diffs": []
+    },
+    {
+      "name": "phone section handle",
+      "diffs": []
+    },
+    {
+      "name": "phone section handle drags",
+      "diffs": []
+    },
+    {
+      "name": "a click on the section handle",
       "diffs": []
     }
   ]

@@ -1,0 +1,60 @@
+{
+ "item": "E5",
+ "capturedAt": "2026-11-05",
+ "question": "What does a paste into a paragraph make, and where does the caret end?",
+ "how": "a new Text block on the empty not-linked page, content set by a paste to AAAA BBBB, the caret before BBBB, a paste event, 600 to 800 ms waits, the selection read back, nothing saved. Style and data attributes taken off the html. beforeCaret is the last 12 characters before the caret",
+ "rule": "the first block loses its type and joins the text before the caret; for a list that is its first item. The last block keeps its type and takes the text after the caret. Blocks between stay whole. The caret ends right after the pasted text",
+ "notRead": "the first pastes after entering a text block read the caret at offset 0, and one landed in the wrong place, even with waits of 600 ms. Those reads are left out: inline, one paragraph and two paragraphs were read again later in the same edit, three paragraphs comes from a run where it was fourth",
+ "reads": {
+  "inline": {
+   "paste": "<b>PASTED</b>",
+   "html": "<p>AAAA <strong>PASTED</strong>BBBB</p>",
+   "beforeCaret": "AAAA PASTED"
+  },
+  "one paragraph": {
+   "paste": "<p>ONE</p>",
+   "html": "<p>AAAA ONEBBBB</p>",
+   "beforeCaret": "AAAA ONE"
+  },
+  "two paragraphs": {
+   "paste": "<p>ONE</p><p>TWO</p>",
+   "html": "<p>AAAA ONE</p><p>TWOBBBB</p>",
+   "beforeCaret": "AAAA ONETWO"
+  },
+  "three paragraphs": {
+   "paste": "<p>ONE</p><p>TWO</p><p>THREE</p>",
+   "html": "<p>AAAA ONE</p><p>TWO</p><p>THREEBBBB</p>",
+   "beforeCaret": " ONETWOTHREE"
+  },
+  "heading and paragraph": {
+   "paste": "<h2>HEAD</h2><p>TAIL</p>",
+   "html": "<p>AAAA HEAD</p><p>TAILBBBB</p>",
+   "beforeCaret": "AAA HEADTAIL"
+  },
+  "paragraph and heading": {
+   "paste": "<p>ONE</p><h2>HEAD</h2>",
+   "html": "<p>AAAA ONE</p><h2>HEADBBBB</h2>",
+   "beforeCaret": "AAAA ONEHEAD"
+  },
+  "lone heading": {
+   "paste": "<h2>HEAD</h2>",
+   "html": "<p>AAAA HEADBBBB</p>",
+   "beforeCaret": "AAAA HEAD"
+  },
+  "list": {
+   "paste": "<ul><li>ONE</li><li>TWO</li></ul>",
+   "html": "<p>AAAA ONE</p><ul><li><p>TWOBBBB</p></li></ul>",
+   "beforeCaret": "AAAA ONETWO"
+  },
+  "paragraph and list": {
+   "paste": "<p>ONE</p><ul><li>TWO</li></ul>",
+   "html": "<p>AAAA ONE</p><ul><li><p>TWOBBBB</p></li></ul>",
+   "beforeCaret": "AAAA ONETWO"
+  },
+  "one item list": {
+   "paste": "<ul><li>ONE</li></ul>",
+   "html": "<p>AAAA ONEBBBB</p>",
+   "beforeCaret": "AAAA ONE"
+  }
+ }
+}
