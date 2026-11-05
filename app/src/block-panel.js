@@ -133,12 +133,13 @@ const row2 = (label, control) => `<div class="sp-row"><span class="sp-label">${l
 
 // The link editor popover (BUTTONEDIT.json, the gap review's button-link state): a URL tab, the
 // field Enter link, search, or add files, Open link in new tab and Clear selected page; the site
-// pages show under the field while it is empty, as name and path, grouped by navigation.
-export function linkPopoverHtml(href, groups) {
-  const pages = groups.filter((g) => g.pages.length).map((g) => `<div class="lk-group">${esc(g.name)}</div>${g.pages.map((pg) => `<button type="button" class="lk-page" data-href="${esc(pg.href)}" aria-label="${esc(`${pg.label}${pg.href}`)}"><span>${esc(pg.label)}</span><span class="lk-path">${esc(pg.href)}</span></button>`).join('')}`).join('');
+// pages lie over the box while the field is in use, as name and path, grouped by navigation
+// (parity/findings/LINKBOX.json), so a click reaches the box only once a link is entered.
+export function linkPopoverHtml(href, groups, newTab = false) {
+  const pages = groups.filter((g) => g.pages.length).map((g) => `<div class="lk-set"><div class="lk-group">${esc(g.name)}</div>${g.pages.map((pg) => `<button type="button" class="lk-page" data-href="${esc(pg.href)}" aria-label="${esc(`${pg.label}${pg.href}`)}"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 5.5 6.5 1H14v16H2z"/></svg><span>${esc(pg.label)}</span><span class="lk-path">${esc(pg.href)}</span></button>`).join('')}</div>`).join('');
   return `<div class="lk-tabs"><button type="button" class="lk-tab is-on">URL</button></div>`
     + `<div class="lk-row"><input class="lk-input" type="text" placeholder="Enter link, search, or add files" value="${esc(href || '')}"><button type="button" class="lk-clear" aria-label="Clear selected page">×</button></div>`
-    + `<label class="lk-newtab" data-unbuilt title="Not built yet"><input type="checkbox" disabled> Open link in new tab</label>`
+    + `<label class="lk-newtab"><input type="checkbox" class="lk-box"${newTab ? ' checked' : ''}> Open link in new tab</label>`
     + `<div class="lk-pages">${pages}</div>`;
 }
 

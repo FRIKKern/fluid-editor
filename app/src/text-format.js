@@ -179,15 +179,42 @@ export function setLink(doc, root, sel, range, href) {
     return true;
   }
   if (!href || range.collapsed) return false;
-  const wrap = doc.createElement('a');
-  wrap.setAttribute('href', href);
-  wrap.append(range.extractContents());
-  range.insertNode(wrap);
+  // A selection across paragraphs gets one link per paragraph (parity/findings/CAP-LINK.json).
+  const blocks = [...root.querySelectorAll(TEXT_BLOCK)].filter((e) => range.intersectsNode(e) && !e.querySelector(TEXT_BLOCK));
+  const parts = blocks.length > 1 ? blocks.map((e) => {
+    const r = doc.createRange();
+    r.selectNodeContents(e);
+    if (e.contains(range.startContainer)) r.setStart(range.startContainer, range.startOffset);
+    if (e.contains(range.endContainer)) r.setEnd(range.endContainer, range.endOffset);
+    return r;
+  }) : [range];
+  const wraps = parts.filter((r) => !r.collapsed).map((r) => {
+    const wrap = doc.createElement('a');
+    wrap.setAttribute('href', href);
+    wrap.append(r.extractContents());
+    r.insertNode(wrap);
+    return wrap;
+  });
+  range.setStart(wraps[0], 0);
+  range.setEnd(wraps[wraps.length - 1], wraps[wraps.length - 1].childNodes.length);
   sel.removeAllRanges();
-  const r = doc.createRange();
-  r.selectNodeContents(wrap);
-  sel.addRange(r);
+  sel.addRange(range.cloneRange());
   return true;
+}
+
+// Open link in new tab (parity/findings/CAP-LINK.json, LINKBOX.json): <a target="_blank" href="...">,
+// target first and no rel. Returns whether any link changed.
+export function setLinkTarget(root, range, on) {
+  let changed = false;
+  for (const a of root.querySelectorAll('a')) {
+    if (!range.intersectsNode(a) || (a.getAttribute('target') === '_blank') === on) continue;
+    const href = a.getAttribute('href');
+    a.removeAttribute('href');
+    if (on) a.setAttribute('target', '_blank'); else a.removeAttribute('target');
+    a.setAttribute('href', href);
+    changed = true;
+  }
+  return changed;
 }
 
 // Quote and lists wrap each selected block; applying the same again unwraps it.
