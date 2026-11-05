@@ -6,15 +6,15 @@
 // lower than 38px above the window's bottom: a heading, the pack tiles and Customize. The cards draw
 // the site's current styles. A 44px disclosure swaps the panel for that pack's view, with a back
 // button. Works: Base Size and Reset in Fonts and Buttons, Headings, Paragraphs, Animations, Spacing and
-// the packs we hold in each list panel (parity/findings/CAP-SITESTYLEROWS.json). Faded and not built
-// (data-unbuilt): the other rows of a view, Customize.
-import { PALETTES, FONT_PACKS, BUTTON_PACKS, FORM_PACKS, THEMES, VARS, TYPE_DEFAULTS, SPACE_DEFAULTS, resolveSiteStyles, fontLink, baseSize } from './site-style-packs.js';
+// the packs we hold in each list panel (parity/findings/CAP-SITESTYLEROWS.json), Edit Palette and Edit
+// Color Theme's rows (CAP-THEMEROWS.json). Faded and not built (data-unbuilt): the other rows of a view, Customize.
+import { PALETTES, FONT_PACKS, BUTTON_PACKS, FORM_PACKS, THEMES, VARS, TYPE_DEFAULTS, SPACE_DEFAULTS, BASE_VARS, resolveSiteStyles, fontLink, baseSize } from './site-style-packs.js';
+import { paletteHtml } from './site-palette.js';
+import { ROW_GROUPS, rowValue, rowCss } from './theme-rows.js';
 
 const svg = (d, s = 16) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const CHEV = '<path d="M9 6l6 6-6 6"/>';
 const CHECK = '<path d="M6 12l4 4 8-8"/>';
-// The site's own values on the oracle, before any pack is picked.
-const BASE_VARS = ['0,0%,100%', '0,0%,0%', '3.87,70.45%,82.75%', '42.55,100%,67.65%', '273.06,90.18%,68.04%'];
 const hsl = (v) => `hsl(${v})`;
 const swatches = (vars) => { const v = Object.fromEntries(VARS.map((k, i) => [k, vars[i]])); return [v.white, v.lightAccent, v.accent, v.darkAccent, v.black].map(hsl); };
 const q = (s) => s.replace(/"/g, '&quot;');
@@ -24,11 +24,6 @@ const q = (s) => s.replace(/"/g, '&quot;');
 // The views a level down (parity/findings/CAP-SITESTYLEROWS.json): the view, its parent and its title.
 export const SUB = { FontPacks: ['Fonts', 'Font Packs'], Headings: ['Fonts', 'Headings'], Paragraphs: ['Fonts', 'Paragraphs'], ButtonPacks: ['Buttons', 'Button Packs'], FormPacks: ['Forms', 'Form Packs'], EditPalette: ['Colors', 'Edit Palette'], ThemeRows: ['Colors', 'Edit Color Theme'], Animations: ['Miscellaneous', 'Animations'], Spacing: ['Miscellaneous', 'Spacing'] };
 const CHEV_DOWN = '<path d="M6 9l6 6 6-6"/>';
-const hexOf = (hslValue) => {
-  const [h, sat, l] = hslValue.split(',').map(parseFloat), a = (sat / 100) * Math.min(l, 100 - l) / 100;
-  const part = (n) => { const k = (n + h / 30) % 12; return Math.round(255 * (l / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))).toString(16).padStart(2, '0'); };
-  return `#${part(0)}${part(8)}${part(4)}`.toUpperCase();
-};
 // What a font pack sets, shown in its rows: the readings in site-style-packs.js.
 function packValue(font, k, n) {
   if (!font) return undefined;
@@ -65,28 +60,30 @@ function subHtml(view, styles, font, opts) {
     ${now !== 'None' ? `<div class="ss-group ss-group-speed">Speed</div><div class="ss-speeds">${['Slow', 'Medium', 'Fast'].map((n) => `<button type="button" class="ss-speed${n === (a.speed || 'Medium') ? ' is-on' : ''}" data-ss-set="anim.speed" data-v="${n}">${n}</button>`).join('')}</div>` : ''}`;
   }
   if (view === 'ThemeRows') {
-    const r = opts.theme || { name: '', bg: '#fff', ink: '#000' };
-    const rows = (t, names) => `<h3 class="ss-group ss-theme-h">${t}</h3>${names.map((n) => `<button type="button" class="ss-dis ss-theme-row" data-unbuilt aria-label="${n}"><span class="ss-dis-l">${n}</span></button>`).join('')}`;
-    return `<p class="ss-theme-help ss-theme-help-rows">Changes you make will affect all sections that use this color theme.</p><div class="ss-tr ss-tr-now" style="background:${r.bg};color:${r.ink}" data-unbuilt><span class="ss-tr-aa">Aa</span><span class="ss-tr-n">${r.name}</span>${svg(CHEV_DOWN)}</div>
-    ${rows('Header', ['Site Title', 'Navigation Links'])}${rows('Sitewide', ['Section Background', 'Background Overlay', 'Inset Border', 'Section Divider Stroke'])}${rows('Text', ['Heading 1', 'Heading 2', 'Heading 3', 'Heading 4', 'Paragraph 1', 'Paragraph 2', 'Paragraph 3'])}`;
+    const r = opts.theme || { name: '', bg: '#fff', ink: '#000' }, { vars, picked } = resolveSiteStyles(styles);
+    const v = Object.fromEntries(VARS.map((k, i) => [k, (vars || BASE_VARS)[i]]));
+    // A row's dot draws its own color, so the variables can't be used here: the panel isn't in the canvas.
+    const dot = (val) => (val.rgb ? `rgba(${val.rgb.join(',')},${val.a ?? 1})` : `hsla(${v[val.role]},${val.a ?? 1})`);
+    let n = 0;
+    const rows = ROW_GROUPS.map(([t, names]) => `<h3 class="ss-group ss-theme-h">${t}</h3>${names.map((name) => { const i = n++; return `<button type="button" class="ss-dis ss-theme-row" data-ss-row="${i}" aria-label="${name}"><span class="ss-dis-l">${name}</span><i class="ss-dot" style="background:${dot(rowValue(styles, picked, r.name, i))}"></i></button>`; }).join('')}`).join('');
+    const tr = (t) => `<button type="button" class="ss-tr${t.name === r.name ? ' is-now' : ''}" data-ss-theme="${t.name}" style="background:${t.bg};color:${t.ink}"><span class="ss-tr-aa">Aa</span><span class="ss-tr-n">${t.name}</span></button>`;
+    const list = opts.themeList ? `<div class="ss-tr-list"><div class="ss-group">Color themes on this page</div>${opts.themeRows.filter((t) => t.used).map(tr).join('')}<div class="ss-group ss-group-2">Other color themes</div>${opts.themeRows.filter((t) => !t.used).map(tr).join('')}</div>` : '';
+    return `<p class="ss-theme-help ss-theme-help-rows">Changes you make will affect all sections that use this color theme.</p><button type="button" class="ss-tr ss-tr-now" data-ss-theme-list aria-expanded="${!!opts.themeList}" style="background:${r.bg};color:${r.ink}"><span class="ss-tr-aa">Aa</span><span class="ss-tr-n">${r.name}</span>${svg(CHEV_DOWN)}</button>${list}
+    ${rows}<button type="button" class="ss-theme-reset ss-theme-reset-rows" data-ss-theme-reset>Reset Color Theme</button>`;
   }
   const cur = styles || {};
   if (view === 'FontPacks') return `<div class="ss-tabs"><button type="button" class="ss-tab is-on">Sans-serif</button><button type="button" class="ss-tab" data-unbuilt>Serif</button><button type="button" class="ss-tab" data-unbuilt>Mixed</button></div>${FONT_PACKS.map((f) => `<button type="button" class="ss-pack ss-pack-font${cur.font === f.id ? ' is-on' : ''}" data-ss-pick="font" data-v="${f.id}" aria-label="${f.id} font pack" aria-pressed="${cur.font === f.id}"><span class="ss-pv-h" style="font-family:'${f.h}',sans-serif;font-weight:${f.hw};text-transform:${f.tt}">Heading</span><span class="ss-pv-p" style="font-family:'${f.p}',sans-serif;font-weight:${f.pw}">This is your paragraph.</span><span class="ss-pv-n">${f.h === f.p ? f.h : `${f.h} · ${f.p}`}</span></button>`).join('')}`;
   if (view === 'ButtonPacks') return BUTTON_PACKS.map((b) => `<button type="button" class="ss-pack${cur.button === b.id ? ' is-on' : ''}" data-ss-pick="button" data-v="${b.id}" aria-label="Button style pack ${b.id}" aria-pressed="${cur.button === b.id}">${buttonSample(b)}</button>`).join('');
   if (view === 'FormPacks') return FORM_PACKS.map((f) => `<button type="button" class="ss-pack ss-pack-form" data-unbuilt aria-label="Form pack ${f.id}" style="background:${hsl((resolveSiteStyles(styles).vars || BASE_VARS)[4])}">${formSample(f)}</button>`).join('');
   if (view === 'EditPalette') {
-    const v = resolveSiteStyles(styles).vars || BASE_VARS;
-    const [hue] = v[VARS.indexOf('accent')].split(',');
-    const now = swatches(v), keys = ['white', 'lightAccent', 'accent', 'darkAccent', 'black'];
-    return `<div class="ss-swatches">${['Light', 'Light accent', 'Accent', 'Dark accent', 'Dark'].map((n, i) => `<button type="button" class="ss-swatch${i === 2 ? ' is-on' : ''}" data-unbuilt aria-label="${n} ${hexOf(v[VARS.indexOf(keys[i])])}" style="background:${now[i]}"></button>`).join('')}</div>
-    <div class="ss-map" data-unbuilt style="background:linear-gradient(to top,#000,transparent),linear-gradient(to right,#fff,hsl(${hue},100%,50%))"></div><div class="ss-hue" data-unbuilt></div><div class="ss-hex" data-unbuilt><span>Hex${svg(CHEV_DOWN)}</span><span>${hexOf(v[VARS.indexOf('accent')])}</span></div>
-    <div class="ss-tabs"><button type="button" class="ss-tab is-on">Presets</button><button type="button" class="ss-tab" data-unbuilt>From Image</button><button type="button" class="ss-tab" data-unbuilt>From Color</button></div>${PALETTES.map((pal) => `<button type="button" class="ss-pal-row${cur.palette === pal.id ? ' is-on' : ''}" data-ss-pick="palette" data-v="${pal.id}" aria-label="Palette ${pal.id}" aria-pressed="${cur.palette === pal.id}"><span class="ss-strip">${swatches(pal.vars).map((c) => `<span style="background:${c}"></span>`).join('')}</span></button>`).join('')}`;
+    const v = Object.fromEntries(VARS.map((k, i) => [k, (resolveSiteStyles(styles).vars || BASE_VARS)[i]]));
+    return paletteHtml(v, opts.pal, Object.fromEntries(Object.entries(v).map(([k, c]) => [k, hsl(c)])));
   }
   return '';
 }
 export function siteStylesHtml(styles, view = null, rows = [], opts = {}) {
   const { vars, font, button } = resolveSiteStyles(styles);
-  const colors = vars ? swatches(vars) : ['white', 'lightAccent', 'accent', 'darkAccent', 'black'].map((k) => hsl(BASE_VARS[{ white: 0, black: 1, accent: 2, lightAccent: 3, darkAccent: 4 }[k]]));
+  const colors = swatches(vars || BASE_VARS);
   const strip = (cls) => `<span class="ss-strip ${cls}">${colors.map((c) => `<span style="background:${c}"></span>`).join('')}</span>`;
   const headFont = font ? `font-family:'${font.h}',sans-serif;font-weight:${font.hw};text-transform:${font.tt}` : '';
   const paraFont = font ? `font-family:'${font.p}',sans-serif;font-weight:${font.pw}` : '';

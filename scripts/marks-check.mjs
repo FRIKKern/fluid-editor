@@ -1214,19 +1214,18 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   await start(); await go('Colors'); await click('[data-ss-help]');
   add('Colors help: the words and box', near(boxes('.ss-tip')[0], R.tip.box) && evalJs(S, `(() => document.querySelector('.ss-tip').textContent)()`) === R.tip.text, JSON.stringify(boxes('.ss-tip')));
   await click('[data-ss-help]'); await click('[data-ss-theme="Lightest 1"]');
-  const ct = R.colorTheme, wantRows = Object.values(ct.groups).flatMap((g) => g[1]);
+  const ct = R.colorTheme, TR = JSON.parse(readFileSync(new URL('../parity/findings/CAP-THEMEROWS.json', import.meta.url))), wantRows = TR.rowGroups.flatMap((g) => g[1]);
   add('Edit Color Theme: Aa row and named rows', near(boxes('.ss-tr-now')[0], ct.aa) && evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('.ss-theme-row')].map((e) => e.textContent)))()`).join() === wantRows.join() && near(boxes('.ss-theme-row')[0].slice(1, 2), [ct.firstRow]), JSON.stringify(boxes('.ss-tr-now')));
-  add('Edit Color Theme: group heads', near(boxes('.ss-theme-h').map((b) => b[1]), Object.values(ct.groups).map((g) => g[0])), JSON.stringify(boxes('.ss-theme-h')));
+  add('Edit Color Theme: group heads', near(boxes('.ss-theme-h').map((b) => b[1]), TR.tops.heads), JSON.stringify(boxes('.ss-theme-h').map((b) => b[1]).slice(0, 8)));
+  add('Edit Color Theme: rows on the measured tops', near(boxes('.ss-theme-row').map((b) => b[1]), TR.tops.rows), JSON.stringify(boxes('.ss-theme-row').map((b) => b[1]).slice(-3)));
   await click('.ss-back');
   add('back goes to Colors', evalJs(S, `(() => document.querySelector('#site-styles .ss-title').textContent)()`) === 'Colors');
 
   // The list panels.
   const L = R.lists;
   await go('EditPalette');
-  add('Edit Palette: swatches, map and tabs', near(boxes('.ss-swatch').flat(), L.EditPalette.swatches.map((s) => s.slice(1)).flat()) && near(boxes('.ss-map')[0], L.EditPalette.map) && near(boxes('.ss-tab').map((b) => b[1]), L.EditPalette.tabs.map((t) => t[2])) && near(boxes('.ss-pal-row')[0], L.EditPalette.row), JSON.stringify(boxes('.ss-swatch')));
+  add('Edit Palette: swatches, map and tabs', near(boxes('.ss-swatch').flat(), L.EditPalette.swatches.map((s) => s.slice(1)).flat()) && near(boxes('.ss-map')[0], L.EditPalette.map) && near(boxes('.ss-tab').map((b) => b[1]), L.EditPalette.tabs.map((t) => t[2])) && near(boxes('.ss-pal-row')[0], TR.presets.first), JSON.stringify(boxes('.ss-pal-row')[0]));
   add('Edit Palette: colors named', evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('.ss-swatch')].map((e) => e.getAttribute('aria-label'))))()`).join() === L.EditPalette.swatches.map((s) => s[0]).join());
-  const palId = evalJs(S, `(() => { const e = document.querySelectorAll('.ss-pal-row')[1]; e.click(); return e.dataset.v; })()`); await pause(150);
-  add('Edit Palette: a preset is a pick', evalJs(S, `(() => fe.model.siteStyles?.palette)()`) === palId, palId);
   await start(); await go('Fonts', 'FontPacks');
   const fp = boxes('.ss-pack');
   add('Font Packs: tiles', near(fp[0], L.FontPacks.tile) && Math.abs(fp[1][1] - fp[0][1] - L.FontPacks.pitch) <= 1, JSON.stringify(fp[0]));
@@ -1382,10 +1381,205 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Aa chip: the first box', first && first[4] === 44 && Math.abs(first[1] + first[3] - (A.chip[0] + A.chip[2])) <= 1 && Math.abs(first[2] - A.chip[1]) <= 3 && Math.abs(first[3] - A.chip[2]) <= 2, JSON.stringify(first));
   add('Aa chip: Aa inside it', first && Math.abs(first[5] - first[1] - 16) <= 1, JSON.stringify(first));
   evalJs(S, `(() => { window.__chipModel = JSON.stringify(fe.model); document.querySelector('.theme-chip').click(); return 'true'; })()`); await pause(250);
-  add('Aa chip: a press opens that theme\'s rows', evalJs(S, `(() => JSON.stringify([document.querySelector('.ss-tr-now .ss-tr-n')?.textContent, document.querySelectorAll('.ss-theme-row').length]))()`).join() === `${first[0]},13`, JSON.stringify(first));
+  add('Aa chip: a press opens that theme\'s rows', evalJs(S, `(() => JSON.stringify([document.querySelector('.ss-tr-now .ss-tr-n')?.textContent, document.querySelectorAll('.ss-theme-row').length]))()`).join() === `${first[0]},313`, JSON.stringify(first));
   add('Aa chip: changes nothing on the page', evalJs(S, `(() => JSON.stringify(window.__chipModel === JSON.stringify(fe.model)))()`) === true);
   evalJs(S, `(() => { document.querySelector('.ss-close').click(); return 'true'; })()`); await pause(250);
   add('Aa chips: gone when the panel closes', evalJs(S, `(() => JSON.stringify(document.querySelectorAll('.theme-chip').length))()`) === 0);
+}
+
+// U12: Edit Palette and Edit Color Theme's rows, against parity/findings/CAP-THEMEROWS.json.
+{
+  const near = (got, want, tol = 1) => Array.isArray(got) && got.length === want.length && got.every((v, n) => Math.abs(v - want[n]) <= tol);
+  const C = JSON.parse(readFileSync(new URL('../parity/findings/CAP-THEMEROWS.json', import.meta.url))), P = C.palette;
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const hit = async (sel, wait = 120) => { js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true';`); await pause(wait); };
+  const box = (sel) => js(`return JSON.stringify([...document.querySelectorAll(${JSON.stringify(sel)})].map((e) => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; }));`);
+  const pressAt = async (x, y) => { mouse(S, 'move', x, y); await pause(40); mouse(S, 'down', x, y, { buttons: 1 }); await pause(30); mouse(S, 'up', x, y); await pause(200); };
+  const start = async () => { viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1200); await hit('#site-styles-toggle', 300); await hit('[data-ss-view="Colors"]', 200); };
+  const setBox = async (label, v) => { js(`const e = document.querySelector('#site-styles input[aria-label=${JSON.stringify(label)}], #ss-dot-pop input[aria-label=${JSON.stringify(label)}]'); e.value = ${JSON.stringify(String(v))}; e.dispatchEvent(new Event('change', { bubbles: true })); return 'true';`); await pause(200); };
+  const typeHex = (v) => setBox('Hex', v);
+  const undoN = () => js(`return JSON.stringify(fe.canUndo?.() ?? null);`);
+  const num = (v) => String(v).split(',').map(parseFloat);
+  // The page's own variables, as the frame computes them, against a reading.
+  const vars = () => js(`const f = document.getElementById('site-frame'), W = f.contentWindow, c = W.getComputedStyle(f.contentDocument.documentElement), o = {}; for (const k of ${JSON.stringify(Object.keys(P.vars0))}) o[k] = c.getPropertyValue('--' + k + '-hsl').trim(); return JSON.stringify(o);`);
+  const sameVars = (got, want) => Object.keys(want).every((k) => near(num(got[k]), num(want[k]), 0.6));
+  const wrong = (got, want) => Object.keys(want).filter((k) => !near(num(got[k]), num(want[k]), 0.6)).join();
+  const labels = () => js(`return JSON.stringify([...document.querySelectorAll('.ss-swatch')].map((e) => e.getAttribute('aria-label')));`);
+  const page = () => js(`const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, c = (e, p = 'color') => e ? W.getComputedStyle(e)[p] : null, secs = [...d.querySelectorAll('.page-section')], th = (t) => secs.find((s) => (s.dataset.sectionTheme || 'light') === t), inner = (t, q) => { const s = th(t); return s ? s.querySelector(q) : null; }; return JSON.stringify({ title: c(d.querySelector('.header-title')), nav: c(d.querySelector('.header-nav-item')), bg: (t) => 0, lightBg: c(inner('light', '.section-background'), 'backgroundColor') });`);
+
+  await start(); await hit('[data-ss-view="EditPalette"]', 200);
+  add('Edit Palette: handles where the color is', near(box('.ss-map .ss-handle')[0], P.handles[0].slice(1), 1.5) && near(box('.ss-hue .ss-handle')[0], P.handles[1].slice(1), 1.5), JSON.stringify([box('.ss-map .ss-handle')[0], box('.ss-hue .ss-handle')[0]]));
+  add('Edit Palette: hex box and format', near(box('.ss-format')[0], P.format) && near(box('input[aria-label="Hex"]')[0], P.hexInput, 1.5), JSON.stringify([box('.ss-format')[0], box('input[aria-label="Hex"]')[0]]));
+  add('Edit Palette: tabs on the measured boxes', near(box('.ss-tab').flat(), P.tabs.flatMap((t) => t.slice(1))), JSON.stringify(box('.ss-tab')));
+  add('Edit Palette: 63 presets, first box and pitch', box('.ss-pal-row').length === C.presets.count && near(box('.ss-pal-row')[0], C.presets.first) && Math.abs(box('.ss-pal-row')[1][1] - box('.ss-pal-row')[0][1] - C.presets.pitch) <= 0.5, JSON.stringify(box('.ss-pal-row').slice(0, 2)));
+  add('Edit Palette: preset names', js(`return JSON.stringify([...document.querySelectorAll('.ss-pal-row')].map((e) => e.getAttribute('aria-label')));`).join() === C.presets.list.join());
+  // A swatch: the check moves, no undo step.
+  js(`window.__u = document.getElementById('undo').disabled; return 'true';`);
+  await hit('[data-pal-swatch="black"]');
+  add('Swatch: the check and hex move, no change', js(`return JSON.stringify([document.querySelector('.ss-swatch.is-on').getAttribute('aria-label'), document.querySelector('input[aria-label="Hex"]').value, document.getElementById('undo').disabled]);`).join() === 'Dark #000000,#000000,true');
+  await hit('[data-pal-swatch="accent"]');
+  // Typed hex: every reading, with the five safe colors.
+  for (const [hex, r] of Object.entries(P.safe)) {
+    await typeHex(hex);
+    const v = vars();
+    add(`Hex ${hex}: all ten colors`, sameVars(v, r.vars), wrong(v, r.vars));
+    add(`Hex ${hex}: handles`, near(box('.ss-map .ss-handle')[0].slice(0, 2), r.handles[0].slice(1, 3), 1.5) && near(box('.ss-hue .ss-handle')[0].slice(0, 2), r.handles[1].slice(1, 3), 1.5), JSON.stringify([box('.ss-map .ss-handle')[0], box('.ss-hue .ss-handle')[0]]));
+    js(`fe.undo(); return 'true';`); await pause(80);
+  }
+  add('Hex: undo goes back in one step', sameVars(vars(), P.vars0) && (js(`return JSON.stringify(document.getElementById('undo').disabled);`) === true), JSON.stringify(vars()));
+  for (const [text, r] of Object.entries(P.bad)) {
+    await typeHex(text);
+    add(`Hex ${text}: as on the oracle`, labels()[2] === r.sw[0], labels()[2]);
+    if (labels()[2] !== 'Accent #F2B8B4') { js(`fe.undo(); return 'true';`); await pause(80); }
+  }
+  // Map and hue presses.
+  for (const [k, [x, y, want, r]] of Object.entries(P.press)) {
+    await pressAt(x, y);
+    // A hue press reads half a pixel off in places: within one step of each channel.
+    const hexes = (t) => [1, 3, 5].map((n) => parseInt(t.slice(n, n + 2), 16));
+    add(`${k} press: the color`, near(hexes(labels()[2].slice(7)), hexes(want)) && near(num(vars().accent), num(r.accent), 1), `${labels()[2]} ${vars().accent}`);
+    js(`fe.undo(); return 'true';`); await pause(80);
+    add(`${k} press: one undo`, labels()[2] === 'Accent #F2B8B4', labels()[2]);
+  }
+  // Another swatch's color moves only that part.
+  await hit('[data-pal-swatch="black"]'); await typeHex('#123456');
+  add('Dark edit: all ten colors', sameVars(vars(), P.darkEdit.vars), wrong(vars(), P.darkEdit.vars)); js(`fe.undo(); return 'true';`); await pause(80);
+  await hit('[data-pal-swatch="white"]'); await typeHex('#102030');
+  add('Light edit: all ten colors', sameVars(vars(), P.lightEdit.vars), wrong(vars(), P.lightEdit.vars)); js(`fe.undo(); return 'true';`); await pause(80);
+  await hit('[data-pal-swatch="accent"]');
+  // Format list and boxes.
+  await hit('[data-cformat-open]');
+  add('Format list: three rows on their boxes', near(box('.ss-format-list button').flat(), P.formatOptions.flatMap((o) => o.slice(2))), JSON.stringify(box('.ss-format-list button')));
+  await hit('[data-cformat-pick="RGB"]');
+  add('RGB: boxes and values', near(box('.ss-hex input').flat(), P.rgb.flatMap((o) => o.slice(3)), 1.5) && js(`return JSON.stringify([...document.querySelectorAll('.ss-hex input')].map((e) => e.value));`).join() === P.rgb.map((o) => o[2]).join(), JSON.stringify(box('.ss-hex input')));
+  add('RGB: format box', near(box('.ss-format')[0], P.formatBoxes.RGB), JSON.stringify(box('.ss-format')[0]));
+  await hit('[data-cformat-open]'); await hit('[data-cformat-pick="HSL"]');
+  add('HSL: boxes and values', near(box('.ss-hex input').flat(), P.hsl.flatMap((o) => o.slice(3)), 1.5) && js(`return JSON.stringify([...document.querySelectorAll('.ss-hex input')].map((e) => e.value));`).join() === P.hsl.map((o) => o[2]).join(), JSON.stringify(box('.ss-hex input')));
+  await hit('[data-cformat-open]'); await hit('[data-cformat-pick="Hex"]');
+  // Presets keep the demo's mapping of Light 1: only a popover's pick ends it.
+  const rgbOf = () => js(`return JSON.stringify([...document.querySelectorAll('.ss-pal-row')[1].querySelectorAll('.ss-strip span')].map((e) => getComputedStyle(e).backgroundColor));`);
+  add('Preset: its five colors', rgbOf().join() === C.presets.colors.join(), JSON.stringify(rgbOf()));
+  await hit('.ss-pal-row:nth-of-type(2)');
+  js(`document.querySelectorAll('.ss-pal-row')[1].click(); return 'true';`); await pause(150);
+  add('Preset: sets all ten colors', sameVars(vars(), C.presets.pressed.vars), wrong(vars(), C.presets.pressed.vars));
+  add('Preset: Light 1 stays on dark accent', page().lightBg === C.presets.pressed.page.hdrBg, JSON.stringify(page()));
+  add('Preset: no pack is picked', js(`return JSON.stringify(fe.model.siteStyles.palette ?? null);`) === null);
+  await start(); await hit('[data-ss-view="EditPalette"]', 200);
+  // From Color and From Image.
+  await hit('[data-pal-tab="From Color"]');
+  add('From Color: labels and rows', near(box('.ss-from-l').map((b) => b[1]), C.fromColor.labels.map((l) => l[1])) && near(box('.ss-pal-row')[0], C.fromColor.button) && Math.abs(box('.ss-pal-row')[1][1] - box('.ss-pal-row')[0][1] - C.fromColor.pitch) <= 0.5, JSON.stringify(box('.ss-pal-row').slice(0, 2)));
+  const strips = () => { const names = js(`return JSON.stringify([...document.querySelectorAll('.ss-from-l')].map((e) => e.textContent));`), cols = js(`return JSON.stringify([...document.querySelectorAll('.ss-pal-row')].map((r) => [...r.querySelectorAll('.ss-strip span')].map((e) => getComputedStyle(e).backgroundColor)));`); return Object.fromEntries(names.map((n, i) => [n, cols[i]])); };
+  const rgbNear = (a, b) => a.every((c, i) => near(c.match(/[\d.]+/g).map(Number), b[i].match(/[\d.]+/g).map(Number), 2));
+  for (const [hex, s] of Object.entries(C.fromColor.strips)) {
+    if (hex !== '#F2B8B4') await typeHex(hex);
+    const got = strips();
+    add(`From Color ${hex}: strips`, Object.keys(s).every((n) => rgbNear(got[n], s[n])), JSON.stringify(got));
+    if (hex !== '#F2B8B4') { js(`fe.undo(); return 'true';`); await pause(80); }
+  }
+  for (const [name, r] of Object.entries(C.fromColor.picks)) {
+    js(`document.querySelector('[aria-label=${JSON.stringify(name)}]').click(); return 'true';`); await pause(150);
+    const v = vars(), f = (o) => ({ lightAccent: o.lightAccent, darkAccent: o.darkAccent, accent: o.accent });
+    add(`From Color ${name}: the colors`, sameVars(f(v), f(r.vars)) && labels().join() === r.sw.map((x) => x[0]).join(), `${wrong(f(v), f(r.vars))} ${labels()}`);
+    js(`fe.undo(); return 'true';`); await pause(80);
+  }
+  await hit('[data-pal-tab="From Image"]');
+  add('From Image: the drop box, nothing else', near(box('.ss-drop')[0], C.fromImage.box, 1.5) && near(box('.ss-drop-t')[0].slice(1, 2), [C.fromImage.textBox[1]], 1.5) && js(`return document.querySelector('.ss-drop-t').textContent;`) === C.fromImage.text, JSON.stringify(box('.ss-drop')));
+
+  // Edit Color Theme's rows.
+  const dots = () => js(`return JSON.stringify([...document.querySelectorAll('.ss-dot')].map((e) => getComputedStyle(e).backgroundColor));`);
+  const decode = (s) => s.split(',').map((i) => C.rows.colors[Number(i)]);
+  const rgba = (c) => { if (!c) return [0, 0, 0, 0]; const v = c.match(/[\d.]+/g).map(Number); return v.length > 3 ? v : [...v, 1]; };
+  const dotsOk = (got, want) => got.length === want.length && got.every((c, i) => { const a = rgba(c), b = rgba(want[i]); return a[3] === b[3] && (a[3] === 0 || near(a.slice(0, 3), b.slice(0, 3), 2)); });
+  const firstDiff = (got, want) => { const i = got.findIndex((c, n) => !dotsOk([c], [want[n]])); return i < 0 ? '' : `${C.rowGroups.flatMap((g) => g[1])[i]} ${got[i]} oracle ${want[i]}`; };
+  const openTheme = async (name) => { await hit(`[data-ss-theme="${name}"]`, 120); };
+  const title = (n) => n.toLowerCase().replace(/\b[a-z]/g, (c) => c.toUpperCase());
+  const sweep = async (key, tol) => {
+    for (const [n, s] of Object.entries(C.rows[key])) {
+      await openTheme(title(n));
+      const want = decode(s), got = dots();
+      add(`${title(n)} rows: dots, ${key}`, dotsOk(got, want), firstDiff(got, want));
+      await hit('.ss-back', 60);
+    }
+  };
+  await start();
+  await sweep('A');
+  await hit('[data-ss-view="EditPalette"]', 120); await typeHex(C.rows.accentB); await hit('.ss-back', 60); await sweep('B');
+  await hit('[data-ss-view="EditPalette"]', 120); js(`fe.undo(); return 'true';`); await pause(80); await typeHex(C.rows.accentC); await hit('.ss-back', 60); await sweep('C');
+  await start();
+  await hit('.ss-back', 60); await hit('[data-ss-pop="Colors"]', 200); js(`document.querySelector('#ss-popover [data-v="#209D50"]').click(); return 'true';`); await pause(200); await hit('[data-ss-pop="Colors"]', 120); await hit('[data-ss-view="Colors"]', 120);
+  await sweep('Q');
+  await start(); await openTheme('Light 1');
+  add('Reset Color Theme: at the end of the rows', near(box('.ss-theme-reset')[0], C.reset), JSON.stringify(box('.ss-theme-reset')[0]));
+  // The Aa list.
+  await hit('[data-ss-theme-list]', 150);
+  add('Aa list: the themes, first box and pitch', near(box('.ss-tr-list .ss-tr')[0], C.aaList.first) && box('.ss-tr-list .ss-tr').length === 10, JSON.stringify(box('.ss-tr-list .ss-tr').slice(0, 2)));
+  await hit('.ss-tr-list [data-ss-theme="Darkest 1"]', 150);
+  add('Aa list: a press opens that theme', js(`return document.querySelector('.ss-tr-now .ss-tr-n').textContent;`) === 'Darkest 1');
+  await hit('.ss-back', 80); await openTheme('Light 1');
+  // A row's popover: the Site Title row, as read with that row's center at 336.
+  const center = js(`const e = document.querySelector('[data-ss-row="0"]'); return JSON.stringify(e.getBoundingClientRect().top + 22);`);
+  await hit('[data-ss-row="0"]', 150);
+  const DP = C.dotPopover, shift = center - DP.rowCenter, moved = (b) => [b[0], b[1] + shift, b[2], b[3]];
+  add('Row popover: box, centered on its row', near(box('#ss-dot-pop')[0], moved(DP.box)), JSON.stringify(box('#ss-dot-pop')[0]));
+  add('Row popover: five circles', near(box('#ss-dot-pop .ss-circle').flat(), DP.circles.flatMap((c) => moved(c.slice(1)))) && js(`return JSON.stringify([...document.querySelectorAll('#ss-dot-pop .ss-circle input')].map((e) => e.getAttribute('aria-label')));`).join() === DP.circles.map((c) => c[0]).join(), JSON.stringify(box('#ss-dot-pop .ss-circle')));
+  add('Row popover: Custom color and track', near(box('#ss-dot-pop .ss-plus')[0], moved(DP.plus.slice(1))) && near(box('#ss-dot-pop .ss-alpha')[0], moved(DP.track)), JSON.stringify([box('#ss-dot-pop .ss-plus')[0], box('#ss-dot-pop .ss-alpha')[0]]));
+  add('Row popover: opacity handle at 100%', near(box('#ss-dot-pop .ss-alpha .ss-handle')[0], moved(DP.handle.slice(3))), JSON.stringify(box('#ss-dot-pop .ss-alpha .ss-handle')[0]));
+  add('Row popover: opening changes nothing', (js(`return JSON.stringify(document.getElementById('undo').disabled);`) === true));
+  // Effects on the page.
+  const framePage = () => js(`const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, c = (e, p = 'color') => e ? W.getComputedStyle(e)[p] : null; const sec = [...d.querySelectorAll('.page-section')].find((s) => (s.dataset.sectionTheme || 'light') === 'light'); const blk = [...d.querySelectorAll('.page-section')].find((s) => s.dataset.sectionTheme === 'black'); return JSON.stringify({ title: c(d.querySelector('.header-title')), nav: c(d.querySelector('.header-nav-item')), bg: c(sec?.querySelector('.section-background'), 'backgroundColor'), blackBg: c(blk?.querySelector('.section-background'), 'backgroundColor'), h2: c(blk?.querySelector('h2')), p: c(blk?.querySelector('p:not(.sqsrte-large):not(.sqsrte-small)')) });`);
+  const circle = async (label) => { js(`document.querySelector('#ss-dot-pop input[aria-label=${JSON.stringify(label)}]').click(); return 'true';`); await pause(180); };
+  await circle('Color #FFCF5A');
+  add('Site Title row: moves the title, not the nav', framePage().title === C.effects['Site Title'].titleA[1] && framePage().nav === C.effects['Site Title'].nav, JSON.stringify(framePage()));
+  add('Site Title row: its dot', dots()[0] === 'rgb(255, 207, 90)', dots()[0]);
+  add('Site Title row: one undo', js(`fe.undo(); return JSON.stringify(document.getElementById('undo').disabled);`) === true);
+  await pause(150);
+  add('Popover stays over undo', !js(`return JSON.stringify(document.getElementById('ss-dot-pop').hidden);`));
+  // Opacity: a press in the middle is 0.5.
+  const tr = box('#ss-dot-pop .ss-alpha')[0];
+  await pressAt(tr[0] + tr[2] / 2, tr[1] + tr[3] / 2);
+  add('Opacity: middle press is 0.5', dots()[0] === C.dotPopover.handle50.dot && near(box('#ss-dot-pop .ss-alpha .ss-handle')[0].slice(0, 1), [C.dotPopover.handle50.slider[0][1]]), `${dots()[0]} ${JSON.stringify(box('#ss-dot-pop .ss-alpha .ss-handle')[0])}`);
+  js(`fe.undo(); return 'true';`); await pause(150);
+  // Custom color: opens the big view, changes the row to a color of its own.
+  js(`document.querySelector('#ss-dot-pop [data-dot-custom]').click(); return 'true';`); await pause(200);
+  const CU = C.custom, sh2 = center - CU.rowCenter, mv = (b) => [b[0], b[1] + sh2, b[2], b[3]];
+  add('Custom color: box and parts', near(box('#ss-dot-pop')[0], mv(CU.box)) && near(box('#ss-dot-pop .ss-map')[0], mv(CU.map)) && near(box('#ss-dot-pop .ss-hue')[0], mv(CU.hue)) && near(box('#ss-dot-pop .ss-alpha')[0], mv(CU.alpha)), JSON.stringify([box('#ss-dot-pop')[0], box('#ss-dot-pop .ss-map')[0], box('#ss-dot-pop .ss-hue')[0], box('#ss-dot-pop .ss-alpha')[0]]));
+  add('Custom color: six circles', near(box('#ss-dot-pop .ss-circle').map((b) => b[0]), CU.circlesX) && near(box('#ss-dot-pop .ss-circle').map((b) => b[1]), CU.circlesX.map(() => CU.circleY + sh2)) && js(`return document.querySelectorAll('#ss-dot-pop .ss-circle input')[5].getAttribute('aria-label');`) === CU.sixth, JSON.stringify(box('#ss-dot-pop .ss-circle')));
+  add('Custom color: map handle at the color', near(box('#ss-dot-pop .ss-map .ss-handle')[0], mv(CU.mapHandle)), JSON.stringify(box('#ss-dot-pop .ss-map .ss-handle')[0]));
+  add('Custom color: format and boxes', near(box('#ss-dot-pop .ss-format')[0], mv(CU.format)) && near(box('#ss-dot-pop .ss-hex input').flatMap((b) => [b[0], b[1]]), CU.inputs.flatMap((o) => [o[3], o[4] + sh2]), 1.5) && js(`return JSON.stringify([...document.querySelectorAll('#ss-dot-pop .ss-hex input')].map((e) => e.value));`).join() === CU.inputs.map((o) => o[2]).join(), JSON.stringify(box('#ss-dot-pop .ss-hex input')));
+  add('Custom color: on, with Undo on', js(`return JSON.stringify(document.getElementById('undo').disabled);`) === !CU.undoOn);
+  await setBox('Red', 200);
+  add('Custom color: a typed box sets the row', dots()[0] === 'rgb(200, 0, 0)', dots()[0]);
+  js(`fe.undo(); fe.undo(); return 'true';`); await pause(150);
+  js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(100);
+  add('Escape closes the popover only', js(`return JSON.stringify([document.getElementById('ss-dot-pop').hidden, document.getElementById('site-styles').hidden]);`).join() === 'true,false');
+  // A role stays tied to the palette.
+  await hit('[data-ss-row="0"]', 120); await circle('Color #FFCF5A'); await hit('.ss-back', 80); await hit('[data-ss-view="EditPalette"]', 120); await hit('[data-pal-swatch="lightAccent"]'); await typeHex('#00FF00');
+  add('A row follows its palette color', framePage().title === C.effects.followsPalette.titleA[1], JSON.stringify(framePage()));
+  // Reset Color Theme is ours: the row's change goes back in one undo step.
+  await hit('.ss-back', 80); await openTheme('Light 1');
+  await hit('.ss-theme-reset', 120);
+  add('Reset Color Theme: asks first', !js(`return JSON.stringify(document.getElementById('ss-confirm').hidden);`) && js(`return document.getElementById('ss-confirm-title').textContent;`) === 'Reset Color Theme');
+  js(`document.getElementById('ss-confirm-reset').click(); return 'true';`); await pause(200);
+  add('Reset Color Theme: clears the theme', js(`return JSON.stringify(fe.model.siteStyles.themeRows ?? null);`) === null && framePage().title === C.effects.page0.titleA[1], JSON.stringify(framePage()));
+  add('Reset Color Theme: keeps the palette', js(`return JSON.stringify(!!fe.model.siteStyles.colors);`) === true);
+  js(`fe.undo(); return 'true';`); await pause(150);
+  add('Reset Color Theme: undo brings it back', framePage().title === 'rgb(0, 255, 0)', JSON.stringify(framePage()));
+  // From a section's Colors tab no one theme is open, so its Reset takes all of them back.
+  js(`const m = JSON.parse(JSON.stringify(fe.model)); m.sections[1].theme = 'black'; fe.load(m); return 'true';`); await pause(300);
+  await hit('.ss-close', 150);
+  mouse(S, 'move', 800, 300); await pause(200); await hit('[data-sc="edit"]', 250); await hit('#section-panel [data-sact="tab"][data-v="Colors"]', 150); await hit('#section-panel [data-sbg="themes"]', 400);
+  await hit('.ss-theme-reset', 120); js(`document.getElementById('ss-confirm-reset').click(); return 'true';`); await pause(200);
+  add('Reset Color Theme, from a section: all rows', js(`return JSON.stringify(fe.model.siteStyles.themeRows ?? null);`) === null, JSON.stringify(framePage()));
+  // Other themes' rows reach their sections.
+  await start();
+  js(`const m = JSON.parse(JSON.stringify(fe.model)); m.sections[1].theme = 'black'; fe.load(m); return 'true';`); await pause(300);
+  await openTheme('Darkest 1');
+  const row = (name) => C.rowGroups.flatMap((g) => g[1]).indexOf(name);
+  for (const [name, part, want] of [['Section Background', 'blackBg', 'rgb(255, 207, 90)'], ['Heading 2', 'h2', 'rgb(255, 207, 90)'], ['Paragraph 2', 'p', C.effects['Paragraph 2'].footP]]) {
+    await hit(`[data-ss-row="${row(name)}"]`, 120); await circle('Color #FFCF5A');
+    add(`Darkest 1 ${name}: reaches its section`, framePage()[part] === want, JSON.stringify(framePage()));
+    js(`fe.undo(); return 'true';`); await pause(100); js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(60);
+  }
 }
 
 console.log(`Marks: ${pass} of ${total} checks match`);
