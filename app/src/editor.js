@@ -549,6 +549,7 @@ function measure(fe) {
 // Rows a block needs so its content fits without stretching a row.
 function contentRows(b, m, normalizing = false) {
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
+  if (b.type === 'embed' && !b.html) return 3; // an empty embed's box fills its block: the 3 rows it needs (CODEMODAL.json)
   const root = blockEl(b.id);
   // A Fit button in the view on screen: its height is its own (BUTTONDESIGN.json).
   const fit = b.type === 'button' ? [...(root?.querySelectorAll('.sqs-block-button-container:not(.sqs-stretched)') || [])].find((e) => e.offsetHeight) : null;
