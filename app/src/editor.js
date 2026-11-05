@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, ACCORDION_DESCRIPTION, stackAxes } from './render.js';
+import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
@@ -496,14 +496,16 @@ function normalize(sid) {
     const br = blockEl(b.id).getBoundingClientRect();
     const a = lay(b).area;
     const r0 = Math.max(1, Math.round((br.top - top) / m.pitch) + 1);
-    const n = Math.max(1, Math.ceil((br.height + m.rg) / m.pitch - 0.02));
+    // A block keeps its rows and grows only if its content needs more (CAP-NORMALIZE.json): a heading
+    // or a shape in stretched rows does not take their height.
+    const n = Math.max(a[2] - a[0], contentRows(b, m));
     return [r0, a[1], r0 + n, a[3]];
   });
   s.blocks.forEach((b, i) => {
     if (!same(lay(b).area, next[i])) moved++;
     lay(b).area = next[i];
   });
-  s.rows[bp] = Math.max(Math.round((m.r.height + m.rg) / m.pitch), ...next.map((a) => a[2] - 1));
+  s.rows[bp] = Math.max(Math.ceil((m.r.height + m.rg) / m.pitch - 0.02), ...next.map((a) => a[2] - 1));
   if (wasClean) savedJson = JSON.stringify(model);
   renderSectionDom(sid);
   note(`Normalized ${stretched} stretched rows, ${moved} blocks remapped`);
@@ -1203,7 +1205,6 @@ function startTextEdit(sid, bid) {
   const b = B(sid, bid);
   if (!b || b.type !== 'text' || editing) return;
   select({ sid, bid: b.id });
-  normalize(sid);
   const before = JSON.stringify(model);
   const el = blockEl(b.id);
   el.classList.add('is-text-editing');
@@ -1263,7 +1264,7 @@ function renderBlockPanel() {
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', corner: parseFloat(b.radius) || 0, empty: !!b.empty } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
-  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, b.type === 'accordion' && accView ? accView : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : null), shape, image, stack);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'accordion' && accView ? accView : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : null), shape, image, stack);
   blockPanel.style.width = b.type === 'code' && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
   // An item's view holds that item open on the canvas (ACCORDION.json).
   if (b.type === 'accordion') showAccordionItem(b);
@@ -1374,9 +1375,13 @@ blockPanel.addEventListener('change', (e) => {
 function setDesign(k, v) {
   const b = B(sel.sid, sel.bid);
   const before = JSON.stringify(model);
-  const d = { ...(b.design || {}) };
-  if (v == null) delete d[k]; else d[k] = v;
-  if (Object.keys(d).length) b.design = d; else delete b.design;
+  const bag = designBag(bp);
+  const d = { ...(b[bag] || {}) };
+  // Removing a value on the phone is a value too: desktop's would flow back in (PERLAYOUT.json).
+  if (v == null && bag === 'designMobile') d[k] = k === 'blend' ? 'normal' : '';
+  else if (v == null) delete d[k];
+  else d[k] = v;
+  if (Object.keys(d).length) b[bag] = d; else delete b[bag];
   renderSectionDom(sel.sid);
   commit(before, `${k} set on ${b.id}`);
 }
@@ -1636,8 +1641,15 @@ function onDesignChange(e) {
   const before = JSON.stringify(model);
   const b = B(sel.sid, sel.bid);
   const k = input.dataset.design;
-  const d = { ...(b.design || {}) };
-  if (input.type === 'checkbox') { if (input.checked) d[k] = true; else delete d[k]; }
+  const bag = designBag(bp);
+  const d = { ...(b[bag] || {}) };
+  // A value set on the phone stays the phone's, even at the default (PERLAYOUT.json).
+  if (bag === 'designMobile') {
+    const f = DESIGN_FIELDS.find((x) => x[0] === k);
+    if (input.type === 'checkbox') d[k] = input.checked;
+    else if (!Number.isFinite(Number(input.value))) return;
+    else d[k] = f ? Math.min(f[4], Math.max(f[3], Number(input.value))) : Number(input.value);
+  } else if (input.type === 'checkbox') { if (input.checked) d[k] = true; else delete d[k]; }
   else {
     const f = DESIGN_FIELDS.find((x) => x[0] === k) || [k, k, 'px', 0, 500];
     const v = Number(input.value);
@@ -1645,7 +1657,7 @@ function onDesignChange(e) {
     const c = Math.min(f[4], Math.max(f[3], v));
     if (c === (DESIGN_DEFAULTS[k] ?? 0)) delete d[k]; else d[k] = c;
   }
-  if (Object.keys(d).length) b.design = d; else delete b.design;
+  if (Object.keys(d).length) b[bag] = d; else delete b[bag];
   renderSectionDom(sel.sid);
   commit(before, `${k} set on ${b.id}`);
 }
