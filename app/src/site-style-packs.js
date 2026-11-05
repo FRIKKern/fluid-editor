@@ -1,6 +1,9 @@
 // The style packs of the Site Styles popovers, measured on the oracle (parity/findings/SITESTYLES2.json):
 // the values each pack gave the site's page, and how its tile draws. Colors are the palette's ten
 // hsl values in the order of VARS. Fonts load from Google Fonts by name, as Poppins does (O2).
+import { brightness } from './color-math.js';
+import { themeRowsCss } from './theme-rows.js';
+
 export const PALETTES = [
   {"id":"#D9D9D9","vars":["0,0%,100%","0,0%,0%","0,0%,85.1%","0,0%,96.08%","0,0%,47.45%","0,0%,85.1%","0,0%,0%","0,0%,0%","0,0%,0%","0,0%,100%"]},
   {"id":"#209D50","vars":["0,0%,100%","0,0%,0%","143.04,66.14%,37.06%","45,11.76%,86.67%","111.43,11.11%,12.35%","143.04,66.14%,37.06%","143.04,66.14%,37.06%","0,0%,100%","0,0%,100%","0,0%,100%"]},
@@ -58,15 +61,27 @@ export const THEMES = [
 
 export const VARS = ['white', 'black', 'accent', 'lightAccent', 'darkAccent', 'safeLightAccent', 'safeDarkAccent', 'safeInverseAccent', 'safeInverseLightAccent', 'safeInverseDarkAccent'];
 
+// The site's own colors on the oracle, before any pick.
+export const BASE_VARS = ['0,0%,100%', '0,0%,0%', '3.87,70.45%,82.75%', '42.55,100%,67.65%', '273.06,90.18%,68.04%', '3.87,70.45%,82.75%', '0,0%,0%', '0,0%,0%', '0,0%,0%', '0,0%,100%'];
+// The five colors the palette edits make the other five (fits every reading, parity/findings/CAP-THEMEROWS.json).
+export function paletteVars(c) {
+  const far = (a, b) => Math.abs(brightness(a) - brightness(b)) >= 0.34, on = (x) => (far(x, c.white) ? c.white : c.black);
+  const light = far(c.accent, c.black) ? c.accent : c.white, dark = far(c.accent, c.white) ? c.accent : c.black;
+  return [c.white, c.black, c.accent, c.lightAccent, c.darkAccent, light, dark, on(c.accent), on(light), on(dark)];
+}
 const byId = (list, id) => list.find((x) => x.id === id);
 
 // What the site's picks come to. A theme sets colors, fonts and buttons at once; a later pack of
-// one kind replaces that part. `styles` is { theme, palette, font, button }, ids from the tables.
+// one kind replaces that part. `styles` is { theme, palette, font, button, colors, themeRows }, ids from
+// the tables, colors the palette's own edits. `picked`: a popover's palette or theme has been chosen.
 export function resolveSiteStyles(styles) {
-  if (!styles) return { vars: null, font: null, button: null };
+  if (!styles) return { vars: null, font: null, button: null, picked: false };
   const t = styles.theme ? byId(THEMES, styles.theme) : null;
+  const packed = (styles.palette && byId(PALETTES, styles.palette)?.vars) || t?.vars || null;
+  const vars = styles.colors ? paletteVars({ ...Object.fromEntries(VARS.slice(0, 5).map((k, i) => [k, (packed || BASE_VARS)[i]])), ...styles.colors }) : packed;
   return {
-    vars: (styles.palette && byId(PALETTES, styles.palette)?.vars) || t?.vars || null,
+    vars,
+    picked: !!packed,
     font: (styles.font && byId(FONT_PACKS, styles.font)) || t || null,
     button: (styles.button && byId(BUTTON_PACKS, styles.button)) || t || null,
   };
@@ -117,14 +132,15 @@ function typeCss(styles) {
 // The rules a pick adds after site.css. From the readings: a font pack gives headings line height
 // 1.2em and its letter spacing, paragraphs line height 1.5em, the site title value 1.5.
 export function siteStylesCss(styles) {
-  const { vars, font, button } = resolveSiteStyles(styles);
+  const { vars, font, button, picked } = resolveSiteStyles(styles);
   let css = '';
   if (vars) {
     const v = Object.fromEntries(VARS.map((k, i) => [k, vars[i]]));
-    css += `:root { ${VARS.map((k) => `--${k}-hsl: ${v[k]};`).join(' ')} --paper: hsl(${v.lightAccent}); --accent: hsl(${v.darkAccent}); --accent-2: hsl(${v.lightAccent}); }\n`
-      + `.sqsrte-text-color--accent { color: hsl(${v.accent}); }\n`
-      // A pick also ends the demo site's own mapping of Light 1 and Dark 2 (measured after a pick).
-      + `.page-section[data-section-theme=""], .page-section[data-section-theme="light"] { --section-bg: hsla(var(--lightAccent-hsl), 1); --heading-color: hsla(var(--black-hsl), 1); --section-ink: hsla(var(--black-hsl), 1); --button-bg: hsla(var(--safeDarkAccent-hsl), 1); --button-ink: hsla(var(--safeInverseDarkAccent-hsl), 1); }\n`
+    css += `:root { ${VARS.map((k) => `--${k}-hsl: ${v[k]};`).join(' ')} --paper: hsl(${picked ? v.lightAccent : v.darkAccent}); --accent: hsl(${v.darkAccent}); --accent-2: hsl(${v.lightAccent}); }\n`
+      + `.sqsrte-text-color--accent { color: hsl(${v.accent}); }\n`;
+    // A popover's pick also ends the demo site's own mapping of Light 1 and Dark 2 (measured after a
+    // pick). An edit in Edit Palette, a preset among them, leaves that mapping as it is.
+    if (picked) css += `.page-section[data-section-theme=""], .page-section[data-section-theme="light"] { --section-bg: hsla(var(--lightAccent-hsl), 1); --heading-color: hsla(var(--black-hsl), 1); --section-ink: hsla(var(--black-hsl), 1); --button-bg: hsla(var(--safeDarkAccent-hsl), 1); --button-ink: hsla(var(--safeInverseDarkAccent-hsl), 1); }\n`
       + `.page-section[data-section-theme="dark-bold"] { --heading-color: hsla(var(--safeLightAccent-hsl), 1); }\n`;
   }
   if (font) {
@@ -153,7 +169,7 @@ export function siteStylesCss(styles) {
   if (button) {
     css += `.sqs-block-button-element { border-radius: ${button.radius}; border: ${button.border}px solid var(--button-bg, #000); padding: ${button.pad}; }\n`;
   }
-  return css;
+  return css + themeRowsCss(styles);
 }
 
 // What goes in the page head for the picks: the two fonts and the rules.

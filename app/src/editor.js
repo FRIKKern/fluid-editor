@@ -16,7 +16,11 @@ import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, co
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
 import { SUB as SS_SUB, siteStylesHtml, stylePopoverHtml, stylePopoverPosition, packFontLinks } from './site-styles.js';
-import { siteStylesHead, baseSize } from './site-style-packs.js';
+import { siteStylesHead, baseSize, resolveSiteStyles, VARS as PALETTE_VARS, BASE_VARS } from './site-style-packs.js';
+import { hslToRgb, rgbToHsl, rgbToHsv, hsvToRgb, hexToRgb, hueToRgb, clampByte, rgbToHslParts } from './color-math.js';
+import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette.js';
+import { rowValue } from './theme-rows.js';
+import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
 import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
@@ -2012,7 +2016,7 @@ function renderSectionPop() {
   const custom = u.custom && (u.custom.hex === toHex(c.rgb) ? u.custom : { ...u.custom, ...hexToHsv(toHex(c.rgb)), hex: toHex(c.rgb) });
   if (custom) u.custom = custom;
   shapePop.className = 'is-color';
-  shapePop.innerHTML = shapeColorHtml({ keepAlpha: kind === 'overlay', swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: secColorSet(u), opacity: secColorSet(u) });
+  shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: secColorSet(u), opacity: secColorSet(u) });
   shapePop.hidden = false;
   const a = sectionPanel.querySelector(`[data-sp-color="${u.section}"]`)?.getBoundingClientRect(), h = shapePop.offsetHeight;
   shapePop.style.cssText = `left:${P.left - 311}px;top:${Math.max(60, Math.min((a ? a.top + a.height / 2 : P.top) - h / 2 - 12, innerHeight - h - 8))}px`;
@@ -3660,19 +3664,22 @@ const contextMenu = $('context-menu');
 const siteStyles = $('site-styles');
 let ssView = null;
 let themeFrom = null; // the section whose Colors tab opened Edit Color Theme
-let ssSelect = null, ssHelp = false, ssTheme = null;
+let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false;
+const pal = { swatch: 'accent', tab: 'Presets', format: 'Hex', list: false }; // Edit Palette's own view state
+let dot = null; // the open color popover: { row, custom, format, list }
+function themeRows() {
+  themeColors = themeColors || readThemeColors();
+  const used = new Set(model.sections.map((s) => s.theme || 'light'));
+  return THEMES.map(([name, v]) => ({ name, ...themeColors[v], used: used.has(v) }));
+}
 function renderSsPanel() {
   let rows = [];
-  if (ssView === 'Colors') {
-    themeColors = themeColors || readThemeColors();
-    const used = new Set(model.sections.map((s) => s.theme || 'light'));
-    rows = THEMES.map(([name, v]) => ({ name, ...themeColors[v], used: used.has(v) }));
-  }
-  let opts = { select: ssSelect, help: ssHelp };
+  if (ssView === 'Colors') rows = themeRows();
+  let opts = { select: ssSelect, help: ssHelp, pal };
   if (ssView === 'ThemeRows') {
     themeColors = themeColors || readThemeColors();
     const hit = THEMES.find(([name]) => name === ssTheme);
-    opts = { ...opts, theme: { name: ssTheme, ...(hit ? themeColors[hit[1]] : {}) } };
+    opts = { ...opts, theme: { name: ssTheme, ...(hit ? themeColors[hit[1]] : {}) }, themeList: ssThemeList, themeRows: ssThemeList ? themeRows() : [] };
   }
   const top = siteStyles.scrollTop;
   siteStyles.innerHTML = siteStylesHtml(model.siteStyles, ssView, rows, opts);
@@ -3710,6 +3717,7 @@ function setSiteStyles(on) {
     renderSsPanel();
   }
   closeStylePopover();
+  closeDotPop();
   hideStyleConfirm();
   if (!on) ssView = null;
   placeThemeChips();
@@ -3724,14 +3732,28 @@ siteStyles.addEventListener('click', (e) => {
   const card = e.target.closest('[data-ss-pop]');
   if (card) { openStylePopover(card.dataset.ssPop); return; }
   const open = e.target.closest('[data-ss-view]');
+  if (open || e.target.closest('[data-ss-back]')) { ssThemeList = false; closeDotPop(); pal.list = false; }
   if (ssView === 'ColorTheme' && e.target.closest('[data-ss-back]')) {
     setSiteStyles(false);
     if (themeFrom && S(themeFrom)) { editSid = themeFrom; panelPlace = null; sectionTab = 'Colors'; renderSectionPanel(); placeChrome(); }
     return;
   }
   if (e.target.closest('[data-ss-help]')) { ssHelp = !ssHelp; renderSsPanel(); return; }
+  if (e.target.closest('[data-ss-theme-list]')) { ssThemeList = !ssThemeList; renderSsPanel(); return; }
   const row = e.target.closest('[data-ss-theme]');
-  if (row) { closeStylePopover(); ssTheme = row.dataset.ssTheme; ssView = 'ThemeRows'; ssSelect = null; renderSsPanel(); siteStyles.scrollTop = 0; return; }
+  if (row) { closeStylePopover(); ssTheme = row.dataset.ssTheme; ssView = 'ThemeRows'; ssSelect = null; ssThemeList = false; renderSsPanel(); siteStyles.scrollTop = 0; return; }
+  const rowBtn = e.target.closest('[data-ss-row]');
+  if (rowBtn) { openDotPop(Number(rowBtn.dataset.ssRow), rowBtn); return; }
+  if (e.target.closest('[data-ss-theme-reset]')) { showStyleConfirm('theme'); return; }
+  const sw = e.target.closest('[data-pal-swatch]');
+  if (sw) { pal.swatch = sw.dataset.palSwatch; renderSsPanel(); return; }
+  const tab = e.target.closest('[data-pal-tab]');
+  if (tab) { pal.tab = tab.dataset.palTab; renderSsPanel(); return; }
+  const preset = e.target.closest('[data-pal-preset]');
+  if (preset) { const p = PALETTE_PRESETS[Number(preset.dataset.palPreset)]; setPalette(Object.fromEntries(['white', 'lightAccent', 'accent', 'darkAccent', 'black'].map((k, i) => [k, rgbToHsl(hexToRgb(p[i]))])), preset.getAttribute('aria-label')); return; }
+  const from = e.target.closest('[data-pal-from]');
+  if (from) { setPalette(fromColor(palette().accent, Number(from.dataset.palFrom)), from.getAttribute('aria-label')); return; }
+  if (colorFormatPress(e, pal)) { renderSsPanel(); return; }
   const sel0 = e.target.closest('[data-ss-select]');
   if (sel0) { ssSelect = ssSelect === sel0.dataset.ssSelect ? null : sel0.dataset.ssSelect; renderSsPanel(); return; }
   const set0 = e.target.closest('button[data-ss-set]');
@@ -3751,6 +3773,112 @@ siteStyles.addEventListener('click', (e) => {
   const r = e.target.closest('[data-ss-reset]');
   if (r) showStyleConfirm(r.dataset.ssReset);
 });
+// Edit Palette (parity/findings/CAP-THEMEROWS.json): the selected swatch's color. Each change is one undo
+// step and a press on the map or hue moves it; a drag stays one step.
+function palette() {
+  const v = resolveSiteStyles(model.siteStyles).vars || BASE_VARS;
+  return Object.fromEntries(PALETTE_VARS.map((k, i) => [k, v[i]]));
+}
+function withColors(colors) { model.siteStyles = { ...(model.siteStyles || {}), colors: { ...(model.siteStyles?.colors || {}), ...colors } }; }
+function setPalette(colors, label) {
+  const before = JSON.stringify(model);
+  withColors(colors);
+  commit(before, `Site Styles: ${label}`);
+  renderAll();
+  fitHeader();
+}
+// The format list and its choice, shared by the palette and the popover's custom view.
+function colorFormatPress(e, state) {
+  if (e.target.closest('[data-cformat-open]')) { state.list = !state.list; return true; }
+  const f = e.target.closest('[data-cformat-pick]');
+  if (f) { state.format = f.dataset.cformatPick; state.list = false; return true; }
+  return false;
+}
+// Read the number or hex boxes of a format. A wrong entry changes nothing, as on the oracle.
+function typedColor(input) {
+  const boxes = [...input.closest('.ss-hex').querySelectorAll('input[data-cformat]')].map((b) => b.value);
+  const fmt = input.dataset.cformat;
+  if (fmt === 'Hex') return hexToRgb(boxes[0]);
+  if (boxes.some((b) => !Number.isFinite(Number(b)))) return null;
+  if (fmt === 'RGB') return boxes.map(clampByte);
+  return hueToRgb(Number(boxes[0]), Math.min(100, Math.max(0, Number(boxes[1]))), Math.min(100, Math.max(0, Number(boxes[2]))));
+}
+// A press and drag on a map or track: changes apply as it moves and undo as one step.
+function colorDrag(e, apply) {
+  e.preventDefault();
+  const before = JSON.stringify(model), r = e.target.closest('[data-cmap],[data-chue],[data-calpha]').getBoundingClientRect();
+  const run = (ev) => { apply(Math.min(1, Math.max(0, (ev.clientX - r.left) / r.width)), Math.min(1, Math.max(0, (ev.clientY - r.top) / r.height)), ev.clientX - r.left, r); applySiteStyles(); };
+  const up = () => { window.removeEventListener('pointermove', run); window.removeEventListener('pointerup', up); commit(before, 'Site Styles: color'); renderAll(); fitHeader(); };
+  window.addEventListener('pointermove', run);
+  window.addEventListener('pointerup', up);
+  run(e);
+}
+function mapOrHue(kind, x, y, rgb, set) {
+  if (kind === 'map') { const [h] = rgbToHsv(rgb); set(hsvToRgb(h, x, 1 - y)); return; }
+  const [, s, l] = rgbToHslParts(rgb); set(hueToRgb(x * 360, s, l));
+}
+siteStyles.addEventListener('pointerdown', (e) => {
+  const kind = e.target.closest('[data-cmap]') ? 'map' : e.target.closest('[data-chue]') ? 'hue' : null;
+  if (!kind || ssView !== 'EditPalette') return;
+  const key = pal.swatch;
+  colorDrag(e, (x, y) => mapOrHue(kind, x, y, hslToRgb(palette()[key]), (rgb) => withColors({ [key]: rgbToHsl(rgb) })));
+});
+// A row's color popover (U12): five palette circles, Custom color, the opacity track. Centered on its row.
+const dotPop = $('ss-dot-pop');
+function closeDotPop() { dot = null; dotPop.hidden = true; dotPop.innerHTML = ''; }
+function rowNow(i) { const st = model.siteStyles; return rowValue(st, resolveSiteStyles(st).picked, ssTheme, i); }
+function setRow(i, value) {
+  const st = model.siteStyles || {};
+  model.siteStyles = { ...st, themeRows: { ...(st.themeRows || {}), [ssTheme]: { ...(st.themeRows?.[ssTheme] || {}), [i]: value } } };
+}
+function renderDotPop() {
+  if (!dot) return;
+  dotPop.innerHTML = dotPopHtml(rowNow(dot.row), dot, palette());
+  dotPop.classList.toggle('is-custom', dot.custom);
+  const h = dot.custom ? DOT_POP_HEIGHT.custom : DOT_POP_HEIGHT.small;
+  dotPop.style.height = `${h}px`;
+  dotPop.style.top = `${dotPopTop(dot.center, dot.custom, innerHeight)}px`;
+  dotPop.hidden = false;
+}
+function openDotPop(i, rowEl) {
+  const r = rowEl.getBoundingClientRect();
+  dot = { row: i, custom: false, format: 'RGB', list: false, center: r.top + r.height / 2 };
+  renderDotPop();
+}
+function changeRow(label, change) {
+  const before = JSON.stringify(model);
+  change();
+  commit(before, `Site Styles: ${label}`);
+  renderAll();
+}
+dotPop.addEventListener('click', (e) => {
+  const role = e.target.closest('input[data-dot-role]');
+  if (role) { const v = rowNow(dot.row); changeRow('row color', () => setRow(dot.row, { role: role.dataset.dotRole, a: v.a ?? 1 })); return; }
+  if (e.target.closest('[data-dot-custom]')) {
+    if (!dot.custom) { const v = rowNow(dot.row); dot.custom = true; changeRow('row color', () => setRow(dot.row, { rgb: v.rgb || hslToRgb(palette()[v.role]), a: v.a ?? 1 })); renderDotPop(); }
+    return;
+  }
+  if (colorFormatPress(e, dot)) renderDotPop();
+});
+dotPop.addEventListener('pointerdown', (e) => {
+  const kind = e.target.closest('[data-cmap]') ? 'map' : e.target.closest('[data-chue]') ? 'hue' : e.target.closest('[data-calpha]') ? 'alpha' : null;
+  if (!kind) return;
+  const i = dot.row;
+  colorDrag(e, (x, y, px, r) => {
+    const v = rowNow(i), rgb = v.rgb || hslToRgb(palette()[v.role]);
+    if (kind === 'alpha') { setRow(i, { ...v, a: Math.round(100 * Math.min(1, Math.max(0, (px - 11) / (r.width - 22)))) / 100 }); return; }
+    mapOrHue(kind, x, y, rgb, (out) => setRow(i, { rgb: out, a: v.a ?? 1 }));
+  });
+});
+dotPop.addEventListener('change', (e) => {
+  const v = rowNow(dot.row);
+  if (e.target.matches('[data-calpha-in]')) { const a = parseFloat(e.target.value); if (Number.isFinite(a)) changeRow('row opacity', () => setRow(dot.row, { ...v, a: Math.min(100, Math.max(0, a)) / 100 })); else renderDotPop(); return; }
+  if (!e.target.matches('[data-cformat]')) return;
+  const rgb = typedColor(e.target);
+  if (rgb) changeRow('row color', () => setRow(dot.row, { rgb, a: v.a ?? 1 }));
+});
+document.addEventListener('pointerdown', (e) => { if (dot && !dotPop.contains(e.target) && !e.target.closest?.('[data-ss-row]')) closeDotPop(); }, true);
+document.addEventListener('keydown', (e) => { if (dot && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeDotPop(); } }, true);
 siteStyles.addEventListener('input', (e) => {
   if (!e.target.matches('.ss-slide input[type="range"]')) return;
   const r = e.target;
@@ -3768,6 +3896,7 @@ function setSsValue(path, raw) {
   });
 }
 siteStyles.addEventListener('change', (e) => {
+  if (e.target.matches('[data-cformat]')) { const rgb = typedColor(e.target); if (rgb) setPalette({ [pal.swatch]: rgbToHsl(rgb) }, 'palette color'); return; }
   const set1 = e.target.closest('input[data-ss-set]');
   if (set1) {
     let raw = set1.type === 'radio' ? set1.dataset.v : set1.type === 'text' ? parseFloat(set1.value) : Number(set1.value);
@@ -3801,8 +3930,9 @@ function showStyleConfirm(kind) {
   styleConfirmKind = kind;
   const word = kind === 'font' ? 'font' : 'button';
   $('ss-confirm-reset').textContent = 'Reset';
-  $('ss-confirm-title').textContent = `Reset ${word === 'font' ? 'Font' : 'Button'} Pack`;
-  $('ss-confirm-body').textContent = `Are you sure you want to reset this ${word} pack to its default settings?`;
+  // Reset Color Theme is ours: the oracle's was not pressed (decision 0005), so these words are our own.
+  $('ss-confirm-title').textContent = kind === 'theme' ? 'Reset Color Theme' : `Reset ${word === 'font' ? 'Font' : 'Button'} Pack`;
+  $('ss-confirm-body').textContent = kind === 'theme' ? 'Are you sure you want to reset this color theme to its default settings?' : `Are you sure you want to reset this ${word} pack to its default settings?`;
   styleConfirm.hidden = false;
 }
 styleConfirm.addEventListener('click', (e) => {
@@ -3812,6 +3942,11 @@ styleConfirm.addEventListener('click', (e) => {
   const kind = styleConfirmKind;
   hideStyleConfirm();
   if (b.id !== 'ss-confirm-reset') return;
+  if (kind === 'theme') {
+    // From a section's Colors tab no one theme is open, so all of them go back.
+    setSiteStyleKeys('Reset Color Theme', (st) => { const rows = { ...(st.themeRows || {}) }; if (ssView === 'ThemeRows') delete rows[ssTheme]; st.themeRows = ssView === 'ThemeRows' && Object.keys(rows).length ? rows : undefined; if (!st.themeRows) delete st.themeRows; return st; });
+    return;
+  }
   setSiteStyleKeys(`Reset ${kind} pack`, (st) => { delete st[kind]; if (kind === 'font') { delete st.base; delete st.type; } return st; });
 });
 // A style pack popover (parity/findings/SITESTYLES2.json). A tile sets that part of the site's
@@ -3841,7 +3976,10 @@ function openStylePopover(kind) {
 function applyStylePick(t) {
   const before = JSON.stringify(model);
   const kind = t.dataset.ssPick;
-  model.siteStyles = kind === 'theme' ? { theme: t.dataset.v } : { ...(model.siteStyles || {}), [kind]: t.dataset.v };
+  const st = { ...(model.siteStyles || {}) };
+  // A popover's palette replaces the palette's own edits.
+  if (kind === 'palette') delete st.colors;
+  model.siteStyles = kind === 'theme' ? { theme: t.dataset.v } : { ...st, [kind]: t.dataset.v };
   commit(before, `Site Styles: ${t.getAttribute('aria-label')}`);
   renderAll();
   fitHeader();
@@ -3857,6 +3995,7 @@ stylePop.addEventListener('click', (e) => {
 onStylesApplied = () => {
   if (siteStyles.hidden) return;
   renderSsPanel();
+  renderDotPop();
   if (stylePopKind) renderStylePopover();
 };
 
