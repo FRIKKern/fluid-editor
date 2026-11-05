@@ -8,6 +8,7 @@ import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
+import { phoneOrder } from './phone-order.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
@@ -79,8 +80,30 @@ function commit(before, label, force = false) {
   if (!force && JSON.stringify(model) === before) return;
   undoStack.push(before);
   redoStack.length = 0;
+  followPhoneRows(before);
   note(label);
   updateUi();
+}
+
+// A2: only a section whose blocks an edit changed. A saved page stays as it loads, and undo brings
+// the order back with the model. Not while its text is being edited: the close commits again.
+function followPhoneRows(before) {
+  const old = JSON.parse(before);
+  for (const s of model.sections) {
+    const was = old.sections.find((o) => o.id === s.id);
+    if (!was || editing?.sid === s.id || JSON.stringify(was.blocks) === JSON.stringify(s.blocks)) continue;
+    const next = phoneOrder(s.blocks);
+    if (next.every((b, k) => b === s.blocks[k])) continue;
+    s.blocks.splice(0, s.blocks.length, ...next);
+    const fe = sectionEl(s.id) && feEl(s.id);
+    if (!fe) continue;
+    const els = next.map((b) => fe.querySelector(`:scope > .fe-block[data-block-id="${b.id}"]`));
+    if (els.some((e) => !e)) continue;
+    let at = fe.querySelector(':scope > .fe-block');
+    for (const el of els) {
+      if (el === at) { do at = at.nextElementSibling; while (at && !at.matches('.fe-block')); } else fe.insertBefore(el, at);
+    }
+  }
 }
 
 function undo() {

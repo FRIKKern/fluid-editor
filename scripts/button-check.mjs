@@ -21,7 +21,7 @@ goto(S, `${BASE}/index.html`); await pause(1800);
 const sid = evalJs(S, `(() => JSON.stringify(fe.model.sections[1].id))()`);
 const spot = evalJs(S, `(async () => { ${sleep} const next = JSON.parse(JSON.stringify(fe.model)); next.sections[1].blocks = []; fe.load(next); await sleep(350); const f = document.getElementById('site-frame'), sec = f.contentDocument.querySelectorAll('.page-section')[1]; sec.scrollIntoView(); await sleep(200); const r = sec.getBoundingClientRect(), o = f.getBoundingClientRect(); return JSON.stringify([o.left + r.left + 40, Math.max(o.top + r.top + 30, 120)]); })()`);
 mouse(S, 'move', spot[0], spot[1]); await pause(350);
-const id = evalJs(S, `(async () => { ${sleep} document.querySelector('[data-sc="add-block"]').click(); await sleep(200); document.querySelector('button[data-add="Button"]').click(); await sleep(350); return JSON.stringify(fe.model.sections[1].blocks.at(-1).id); })()`);
+const id = evalJs(S, `(async () => { ${sleep} const had = new Set(fe.model.sections[1].blocks.map((x) => x.id)); document.querySelector('[data-sc="add-block"]').click(); await sleep(200); document.querySelector('button[data-add="Button"]').click(); await sleep(350); return JSON.stringify(fe.model.sections[1].blocks.find((x) => !had.has(x.id)).id); })()`);
 const J = JSON.stringify(id);
 const openDesign = async () => evalJs(S, `(async () => { ${sleep} fe.select(${JSON.stringify(sid)}, ${J}); await sleep(150); const tb = document.querySelector('#block-toolbar [data-tb="edit"]'); const p = document.getElementById('block-panel'); if (p.hidden) tb.click(); await sleep(200); document.querySelector('[data-btab="Design"]').click(); await sleep(200); return 'true'; })()`);
 const rows = () => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#block-panel .bp-bs-title, #block-panel .bp-btn-row .sp-label, #block-panel .bp-thead span:first-child')].map((e) => e.textContent.trim())))()`);
@@ -33,7 +33,7 @@ const pull = async (dir, cols, rowsBy) => {
   drag(S, [p.x, p.y], [p.x + cols * p.col, p.y + rowsBy * p.row]); await pause(350);
   return read();
 };
-const setArea = async (area) => { evalJs(S, `(async () => { ${sleep} const next = JSON.parse(JSON.stringify(fe.model)); next.sections[1].blocks[0].layout.desktop.area = ${JSON.stringify(area)}; fe.load(next); await sleep(250); return 'true'; })()`); await pause(100); };
+const setArea = async (area) => { evalJs(S, `(async () => { ${sleep} const next = JSON.parse(JSON.stringify(fe.model)); next.sections[1].blocks.find((x) => x.id === '${id}').layout.desktop.area = ${JSON.stringify(area)}; fe.load(next); await sleep(250); return 'true'; })()`); await pause(100); };
 
 // Design tab.
 await openDesign();
@@ -85,7 +85,7 @@ x = await pull('s', 0, -1);
 add('Fill then allows 1 row', x.area.join() === F.fillPulls.steps[5][0].join() && near(x.a, F.fillPulls.at1Row, 1), JSON.stringify(x));
 
 // A long word does not break and sticks out on both sides.
-evalJs(S, `(async () => { ${sleep} const next = JSON.parse(window.__start); next.sections[1].blocks[0].label = ${JSON.stringify(F.longWord.text)}; next.sections[1].blocks[0].layout.desktop.area = [1, 2, 3, 5]; fe.load(next); await sleep(300); return 'true'; })()`); await pause(100);
+evalJs(S, `(async () => { ${sleep} const next = JSON.parse(window.__start); const one = next.sections[1].blocks.find((x) => x.id === '${id}'); one.label = ${JSON.stringify(F.longWord.text)}; one.layout.desktop.area = [1, 2, 3, 5]; fe.load(next); await sleep(300); return 'true'; })()`); await pause(100);
 x = read(); const wide = x.a[2];
 add('Long word sticks out on both sides', wide > x.block[0] && Math.abs(x.a[0] + (wide - x.block[0]) / 2) < 1, JSON.stringify(x));
 
