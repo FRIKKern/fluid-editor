@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 531,
+  "pass": 551,
   "known": [
     "group south by 4",
     "hold phone, full width -24,12",
@@ -13,7 +13,7 @@
     "hold from the right margin track -80,12",
     "hold from the right margin track -90,12"
   ],
-  "total": 541,
+  "total": 561,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -2628,6 +2628,86 @@
     },
     {
       "name": "the eye in Layers",
+      "diffs": []
+    },
+    {
+      "name": "Y4 copy changes nothing",
+      "diffs": []
+    },
+    {
+      "name": "Y4 pasted on the source",
+      "diffs": []
+    },
+    {
+      "name": "Y4 pasted again",
+      "diffs": []
+    },
+    {
+      "name": "Y4 one undo",
+      "diffs": []
+    },
+    {
+      "name": "Y4 pasted in another section",
+      "diffs": []
+    },
+    {
+      "name": "Y4 Cmd+V on a selected block",
+      "diffs": []
+    },
+    {
+      "name": "E7 the list groups",
+      "diffs": []
+    },
+    {
+      "name": "E7 the list covers the box, field focused",
+      "diffs": []
+    },
+    {
+      "name": "E7 typing narrows the list",
+      "diffs": []
+    },
+    {
+      "name": "E7 Enter sets the link and stays open",
+      "diffs": []
+    },
+    {
+      "name": "E7 the box on a button",
+      "diffs": []
+    },
+    {
+      "name": "E7 reopened: ticked, list over the box",
+      "diffs": []
+    },
+    {
+      "name": "E7 unticking",
+      "diffs": []
+    },
+    {
+      "name": "E7 a page sets the link and stays open",
+      "diffs": []
+    },
+    {
+      "name": "E7 a click elsewhere closes",
+      "diffs": []
+    },
+    {
+      "name": "E7 text: one link per paragraph, href only until the close",
+      "diffs": []
+    },
+    {
+      "name": "E7 text: the close writes target first, no rel",
+      "diffs": []
+    },
+    {
+      "name": "E7 text: reopened ticked, unticking removes it",
+      "diffs": []
+    },
+    {
+      "name": "L6 Copy Properties only on desktop",
+      "diffs": []
+    },
+    {
+      "name": "L6 a stack Corner per layout",
       "diffs": []
     },
     {

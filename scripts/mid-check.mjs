@@ -408,6 +408,68 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   groupCases.push({ name: 'the eye in Layers', diffs: [e0 !== 'Display Block' && `hidden: oracle Display Block, ours ${e0}`, !grey && 'row not grey', e1 !== 'Hide Block' && `shown: oracle Hide Block, ours ${e1}`, back.w === 0 && 'not back', back.handles && 'selected after'].filter(Boolean) });
   evalJs(S, `(() => { document.querySelector('[data-sc="layers"]').click(); return 1; })()`); await pause(100);
 }
+// Y4: Copy and Paste keep the oracle's places (CAP-COPYPASTE.json, CAP-SYNTHCLIP.json): one row down and one column right, on top.
+{ const bl = (id, type, d, m) => ({ id, type, label: id, layout: { desktop: { area: d, z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: m, z: 1, justify: 'flex-start', align: 'flex-start' } } });
+  const sec = (id, blocks) => ({ id, theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks });
+  evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [${JSON.stringify(sec('s', [bl('b', 'button', [1, 2, 3, 8], [1, 2, 3, 10]), bl('l', 'line', [1, 2, 2, 6], [3, 2, 4, 10])]))}, ${JSON.stringify(sec('t', [bl('m', 'line', [1, 2, 2, 6], [1, 2, 2, 10])]))}] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60);
+  const menu = (id, act) => evalJs(S, `(async () => { const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow; const e = d.querySelector('.fe-block[data-block-id="${id}"]'), q = e.getBoundingClientRect(); e.querySelector('*').dispatchEvent(new W.MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: q.left + 5, clientY: q.top + 5, button: 2 })); await new Promise((r) => setTimeout(r, 60)); [...document.querySelectorAll('#context-menu button')].find((x) => x.textContent.trim().startsWith('${act}')).click(); await new Promise((r) => setTimeout(r, 120)); return 1; })()`);
+  const last = (i) => evalJs(S, `(() => { const b = fe.model.sections[${i}].blocks.at(-1); return JSON.stringify([b.layout.desktop.area.join('/'), b.layout.mobile.area.join('/'), fe.model.sections[${i}].blocks.length]); })()`);
+  const keys = (code) => evalJs(S, `(() => { document.getElementById('site-frame').contentDocument.dispatchEvent(new KeyboardEvent('keydown', { code: '${code}', key: '${code.slice(-1).toLowerCase()}', metaKey: true, bubbles: true, cancelable: true })); return 1; })()`);
+  const want = (name, got, wa) => groupCases.push({ name: `Y4 ${name}`, diffs: JSON.stringify(got) === JSON.stringify(wa) ? [] : [`oracle ${JSON.stringify(wa)}, ours ${JSON.stringify(got)}`] });
+  menu('b', 'Copy'); want('copy changes nothing', last(0), ['1/2/2/6', '3/2/4/10', 2]);
+  menu('b', 'Paste'); want('pasted on the source', last(0), ['2/3/4/9', '4/2/6/10', 3]);
+  menu('b', 'Paste'); want('pasted again', last(0), ['3/4/5/10', '6/2/8/10', 4]);
+  evalJs(S, 'fe.undo()'); await pause(150); want('one undo', last(0), ['2/3/4/9', '4/2/6/10', 3]);
+  menu('m', 'Paste'); want('pasted in another section', last(1), ['1/2/3/8', '2/2/4/10', 2]);
+  evalJs(S, `(() => { fe.select(null); fe.select('s', 'b'); return 1; })()`); await pause(80); keys('KeyC'); evalJs(S, `fe.select('t', 'm')`); await pause(80); keys('KeyV'); await pause(150); want('Cmd+V on a selected block', last(1), ['2/3/4/9', '4/2/6/10', 3]);
+}
+// E7: the link editor's list, Hidden Navigation and Open link in new tab (LINKBOX.json, CAP-LINK.json).
+{ const bl = (id, type, extra) => ({ id, type, label: id, ...extra, layout: { desktop: { area: [1, 2, 3, 8], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } });
+  evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', header: { nav: [{ label: 'Services' }, { label: 'About' }, { label: 'Contact' }] }, sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [${JSON.stringify(bl('b', 'button'))}] }] }); await new Promise((r) => setTimeout(r, 120)); fe.select('s', 'b'); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60);
+  const r = evalJs(S, `(async () => { const sleep = (t) => new Promise((x) => setTimeout(x, t)); const P = document.getElementById('link-popover'), a = () => document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="b"] a'), B = () => fe.model.sections[0].blocks[0]; const out = {};
+    const open = async () => { document.querySelector('#block-toolbar button[data-tb="link"]').click(); await sleep(120); }; const inp = () => P.querySelector('.lk-input'); const list = () => P.querySelector('.lk-pages'); const showing = () => [...P.querySelectorAll('.lk-page:not([hidden])')].map((x) => x.getAttribute('aria-label')); const onBox = () => { const q = P.querySelector('.lk-newtab').getBoundingClientRect(); return !!document.elementFromPoint(q.left + 10, q.top + q.height / 2)?.closest('.lk-newtab'); };
+    const key = (k) => inp().dispatchEvent(new KeyboardEvent('keydown', { key: k, bubbles: true, cancelable: true }));
+    await open(); out.groups = [...P.querySelectorAll('.lk-set:not([hidden]) .lk-group')].map((x) => x.textContent); out.pages = showing(); out.coveredOpen = !onBox(); out.focus = document.activeElement === inp(); out.size = [P.getBoundingClientRect().width, Math.round(P.getBoundingClientRect().height)];
+    inp().value = '/about'; inp().dispatchEvent(new Event('input', { bubbles: true })); await sleep(50); out.typed = showing(); out.typedGroups = [...P.querySelectorAll('.lk-set:not([hidden]) .lk-group')].map((x) => x.textContent);
+    key('Enter'); await sleep(150); out.enter = { href: B().href, open: !P.hidden, list: list().hidden, focus: document.activeElement === inp(), box: onBox(), attr: a().hasAttribute('target') };
+    P.querySelector('.lk-box').click(); await sleep(150); out.tick = { model: B().newTab, target: a().getAttribute('target'), open: !P.hidden };
+    key('Escape'); await sleep(80); out.escape = P.hidden;
+    await open(); out.reopen = { checked: P.querySelector('.lk-box').checked, value: inp().value, covered: !onBox(), pages: showing() };
+    [...P.querySelectorAll('.lk-page')].find((x) => x.getAttribute('aria-label') === 'About/about').click(); await sleep(120); P.querySelector('.lk-box').click(); await sleep(120); out.untick = { model: B().newTab ?? false, target: a().hasAttribute('target') };
+    inp().value = ''; inp().dispatchEvent(new Event('input', { bubbles: true })); await sleep(40); [...P.querySelectorAll('.lk-page')].find((x) => x.getAttribute('aria-label') === 'Home/home').click(); await sleep(120); out.page = { href: B().href, open: !P.hidden, value: inp().value, list: list().hidden };
+    document.body.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })); await sleep(50); out.outside = P.hidden;
+    return JSON.stringify(out); })()`);
+  const lk = (name, ok, got) => groupCases.push({ name: `E7 ${name}`, diffs: ok ? [] : [JSON.stringify(got)] });
+  lk('the list groups', r.groups.join() === 'Main Navigation,Hidden Navigation' && r.pages.join() === 'Services/services,About/about,Contact/contact,Home/home', [r.groups, r.pages]);
+  lk('the list covers the box, field focused', r.coveredOpen && r.focus && r.size[0] === 320 && r.size[1] === 167, r);
+  lk('typing narrows the list', r.typed.join() === 'About/about' && r.typedGroups.join() === 'Main Navigation', [r.typed, r.typedGroups]);
+  lk('Enter sets the link and stays open', r.enter.href === '/about' && r.enter.open && r.enter.list && r.enter.focus && r.enter.box && !r.enter.attr, r.enter);
+  lk('the box on a button', r.tick.model === true && r.tick.target === '_blank' && r.tick.open && r.escape, [r.tick, r.escape]);
+  lk('reopened: ticked, list over the box', r.reopen.checked && r.reopen.value === '/about' && r.reopen.covered && r.reopen.pages.join() === 'About/about', r.reopen);
+  lk('unticking', r.untick.model === false && !r.untick.target, r.untick);
+  lk('a page sets the link and stays open', r.page.href === '/home' && r.page.open && r.page.value === '/home' && r.page.list, r.page);
+  lk('a click elsewhere closes', r.outside === true, r.outside);
+  // On text: the target waits for the close, target first, no rel; two paragraphs get a link each.
+  evalJs(S, `(async () => { fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [${JSON.stringify(bl('t', 'text', { html: '<p>one</p><p>two</p>' }))}] }] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60);
+  const t = evalJs(S, `(async () => { const sleep = (x) => new Promise((r) => setTimeout(r, x)); const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, P = document.getElementById('link-popover'), fb = d.querySelector('.fe-block[data-block-id="t"]'); fe.edit('s', 't'); await sleep(250);
+    const ce = d.querySelector('[contenteditable="true"]'); const out = { editing: !!ce }; if (!ce) return JSON.stringify(out); const inner = () => ce.innerHTML.replace(/ style="[^"]*"/g, ''); const pick = async (a) => { const r = d.createRange(); r.selectNodeContents(a); const s = W.getSelection(); s.removeAllRanges(); s.addRange(r); d.dispatchEvent(new W.Event('selectionchange')); await sleep(120); document.querySelector('button[data-fmt="link"]').click(); await sleep(120); };
+    const inp = () => P.querySelector('.lk-input'); const key = (k) => inp().dispatchEvent(new KeyboardEvent('keydown', { key: k, bubbles: true, cancelable: true }));
+    await pick(ce); inp().value = '/about'; key('Enter'); await sleep(120); out.two = inner(); out.open = !P.hidden; P.querySelector('.lk-box').click(); await sleep(80); out.ticked = inner(); key('Escape'); await sleep(120); out.closed = inner();
+    await pick(ce.querySelector('a')); out.reopen = P.querySelector('.lk-box').checked; P.querySelector('.lk-box').click(); key('Escape'); await sleep(120); out.unticked = inner(); d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(120);
+    return JSON.stringify(out); })()`);
+  lk('text: one link per paragraph, href only until the close', t.two === '<p><a href="/about">one</a></p><p><a href="/about">two</a></p>' && t.open && t.ticked === t.two, t);
+  lk('text: the close writes target first, no rel', t.closed === '<p><a target="_blank" href="/about">one</a></p><p><a target="_blank" href="/about">two</a></p>', t);
+  lk('text: reopened ticked, unticking removes it', t.reopen === true && t.unticked && !t.unticked.split('</p>')[0].includes('target'), t);
+}
+// L6: on a phone the block menu has no Copy Properties or Paste Properties; a stack's Corner is per layout (LINKBOX.json).
+{ const k = { id: 'k', label: 'k', layout: { desktop: { area: [1, 2, 7, 8], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } };
+  evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [${JSON.stringify({ ...k, type: 'stack', gap: 20, design: { corner: 10 }, designMobile: { corner: 30 }, children: [] })}] }] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60);
+  const items = (bp) => evalJs(S, `(async () => { fe.setBp('${bp}'); await new Promise((r) => setTimeout(r, 200)); const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow; const e = d.querySelector('.fe-block[data-block-id="k"]'), q = e.getBoundingClientRect(); e.querySelector('*').dispatchEvent(new W.MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: q.left + 5, clientY: q.top + 5, button: 2 })); await new Promise((r) => setTimeout(r, 60)); const m = [...document.querySelectorAll('#context-menu button')].map((x) => x.getAttribute('aria-label')); document.getElementById('context-menu').hidden = true; return JSON.stringify({ m, r: W.getComputedStyle(d.getElementById('block-k')).borderTopLeftRadius }); })()`);
+  const de = items('desktop'), ph = items('mobile');
+  groupCases.push({ name: 'L6 Copy Properties only on desktop', diffs: [!de.m.includes('Copy Properties') && 'desktop lost it', ph.m.includes('Copy Properties') && 'phone has Copy Properties', ph.m.includes('Paste Properties') && 'phone has Paste Properties'].filter(Boolean) });
+  groupCases.push({ name: 'L6 a stack Corner per layout', diffs: [de.r !== '10px' && `desktop ${de.r}`, ph.r !== '30px' && `phone ${ph.r}`].filter(Boolean) });
+  evalJs(S, `fe.setBp('desktop')`); await pause(100);
+}
 // S4 on phones (CAP-S4PHONE.json), with the real mouse: the handle, 90 down, 150 up, desktop stays, a click does nothing.
 { const T = JSON.parse(readFileSync(new URL('../parity/findings/CAP-S4PHONE.json', import.meta.url))).reads;
   viewport(S, 1600, 1000); goto(S, `${BASE}/index.html?replay`); waitFor(S, '(() => !!window.fe)()', 20); await pause(400);

@@ -1,0 +1,160 @@
+{
+  "item": "E7, L6",
+  "oracle": "the trial site",
+  "capturedAt": "2026-11-05",
+  "question": "E7: how does the link editor's list and Open link in new tab behave on a button and on text? L6: does a phone offer Copy Properties?",
+  "page": "Gestures Probe, new blocks, never saved",
+  "list": {
+    "openEmpty": {
+      "groups": [
+        "Main Navigation",
+        "Hidden Navigation"
+      ],
+      "main": [
+        "Services/services",
+        "About/about",
+        "Contact/contact"
+      ],
+      "hidden": [
+        "Gestures Probe/gestures-probe",
+        "Blocks Probe/blocks-probe",
+        "How Fluid Engine works/how-fluid-engine-works",
+        "Home/home"
+      ],
+      "popover": [
+        119,
+        422,
+        320,
+        167
+      ],
+      "box": [
+        141,
+        533.5,
+        170.375,
+        44
+      ],
+      "topAtBox": "the list heading Main Navigation",
+      "rowPitch": 61,
+      "headingHeights": [
+        38,
+        49
+      ],
+      "listHeightInShot": 400,
+      "note": "name over path, a page icon on the left, a line between rows, capital headings; the list scrolls"
+    },
+    "typed /about": {
+      "options": [
+        "About/about"
+      ],
+      "groups": [
+        "Main Navigation"
+      ]
+    },
+    "afterEnter": {
+      "options": [],
+      "topAtBox": "Open link in new tab"
+    }
+  },
+  "button": {
+    "enter": {
+      "html": "<a href=\"/about\" data-sqsp-button=\"\"> Learn more </a>",
+      "open": true,
+      "focusInField": true,
+      "reads": 3
+    },
+    "pageClick": {
+      "html": "<a href=\"/contact\" data-sqsp-button=\"\"> Learn more </a>",
+      "open": true,
+      "value": "/contact",
+      "focusInField": true,
+      "reads": 1
+    },
+    "tick": {
+      "checked": true,
+      "focusInField": false,
+      "htmlChanged": false,
+      "reads": 2
+    },
+    "escapeFocusInField": {
+      "open": true,
+      "reads": 1
+    },
+    "escapeAfterTick": {
+      "open": false,
+      "htmlChanged": false,
+      "reads": 1
+    },
+    "tabClick": {
+      "open": false,
+      "htmlChanged": false,
+      "reads": 1
+    },
+    "notRead": "the box on reopening a button, and a saved button's target: that takes Save"
+  },
+  "text": {
+    "enterOnNewText": {
+      "htmlHasLink": false,
+      "open": true,
+      "waited": [
+        800,
+        2000
+      ],
+      "reads": 2,
+      "note": "CAP-LINK.json read the link right after Enter on an existing block, 1 of 1"
+    },
+    "tickThenEscape": {
+      "html": "<a target=\"_blank\" href=\"/about\">hello</a>",
+      "open": false,
+      "reads": 2
+    },
+    "reopen": {
+      "checked": true,
+      "value": "/about",
+      "options": [
+        "About/about"
+      ],
+      "reads": 1
+    },
+    "untickThenEscape": {
+      "html": "<a href=\"/about\">hello</a>",
+      "reads": 1
+    }
+  },
+  "blockMenu": {
+    "desktop": {
+      "labels": [
+        "Copy",
+        "Paste",
+        "Duplicate",
+        "Delete",
+        "Copy Properties",
+        "Paste Properties",
+        "Stack",
+        "Arrange",
+        "Hide on desktop",
+        "Hide on mobile"
+      ],
+      "reads": 5,
+      "frame": 1600
+    },
+    "phone": {
+      "labels": [
+        "Copy",
+        "Paste",
+        "Duplicate",
+        "Delete",
+        "Stack",
+        "Arrange",
+        "Hide on desktop",
+        "Hide on mobile"
+      ],
+      "reads": 2,
+      "blocks": [
+        "a Shape with its own phone Opacity",
+        "a Shape without"
+      ],
+      "frame": 428
+    }
+  },
+  "restored": "Left by Exit, then Exit in Exit Without Saving?; the page read empty after a reload. Save was never pressed."
+}

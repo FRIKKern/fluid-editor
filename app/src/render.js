@@ -210,7 +210,7 @@ function blockInner(b, model) {
         // Fit, Fill and Alignment per view (parity/findings/BUTTONDESIGN.json): a phone follows the
         // desktop until it is changed; then it has a container of its own. A button stacked once
         // stops filling its block (parity/findings/S3.json fitButton).
-        const box = (sys, o = {}) => `<div class="sqs-block-button-container sqs-button-block-container-system_${sys} sqs-block-button-container--${o.align || 'center'}${o.fit ? '' : ' sqs-stretched'}" data-button-size="${size}" data-button-type="${type}"><a class="sqs-block-button-element--${size} sqs-button-element--${type} sqs-block-button-element" href="${escapeHtml(b.href || '')}">${escapeHtml(b.label)}</a></div>`;
+        const box = (sys, o = {}) => `<div class="sqs-block-button-container sqs-button-block-container-system_${sys} sqs-block-button-container--${o.align || 'center'}${o.fit ? '' : ' sqs-stretched'}" data-button-size="${size}" data-button-type="${type}"><a class="sqs-block-button-element--${size} sqs-button-element--${type} sqs-block-button-element" href="${escapeHtml(b.href || '')}"${b.newTab && b.href ? ' target="_blank"' : ''}>${escapeHtml(b.label)}</a></div>`;
         return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-content">${box('desktop', { fit: b.fit, align: b.halign })}${b.btnMobile ? box('mobile', b.btnMobile) : ''}</div></div>`;
       }
     case 'shape': {
@@ -239,7 +239,7 @@ function blockInner(b, model) {
         : `<div class="fluid-image-container" style="${r}${aspect}" role="img" aria-label="${alt}"></div>`;
       // A new block has no picture yet (MEDIAEMPTY.json): the editor shows a white box with a +.
       if (b.empty) return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-image image-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-component-empty-state-node"><span class="fluid-image-add" aria-hidden="true"></span></div></div></div>`;
-      const pic = b.href ? `<a class="sqs-block-image-link" href="${escapeHtml(b.href)}">${inner}</a>` : inner;
+      const pic = b.href ? `<a class="sqs-block-image-link" href="${escapeHtml(b.href)}"${b.newTab ? ' target="_blank"' : ''}>${inner}</a>` : inner;
       // The measured chain (parity/findings/BLOCKTYPES.json): an image holds the alignment wrapper.
       return `<div class="sqs-block image-block sqs-block-image sqs-stretched${mode}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-component-root image-block-outer-wrapper design-layout-fluid image-position-center"><div class="fluid-image-animation-wrapper sqs-image sqs-block-alignment-wrapper">${pic}</div></div></div></div>`;
     }
@@ -358,10 +358,13 @@ export function stackCss(b) {
   const sel = `.sqs-stack-container[data-component-id="${b.id}"]`;
   const p = b.padding;
   const padding = !p ? '' : b.padFour ? `${p.t} ${p.r} ${p.b} ${p.l}` : `${p.t} ${p.l}`;
-  const g = b.design || {};
-  const corner = g.corners ? g.corners.map((v) => `${v}px`).join(' ') : g.corner ? `${g.corner}px` : '';
+  const cornerOf = (g) => (g.corners ? g.corners.map((v) => `${v}px`).join(' ') : g.corner ? `${g.corner}px` : '');
+  const corner = cornerOf(designFor(b, 'desktop'));
   const own = `${padding ? `padding: ${padding};` : ''}${corner ? `border-radius: ${corner};` : ''}`;
-  return `${sel} { ${vars('desktop', fill)} --stack-gap: ${fill ? 'normal' : `${b.gap ?? 20}px`}; } @media screen and (max-width: 767px) { ${sel} { ${vars('mobile', false)} } }${own ? ` #block-${b.id} { ${own} }` : ''}`;
+  // A corner set on the phone stays the phone's, like every Design value (PERLAYOUT.json).
+  const phoneCorner = cornerOf(designFor(b, 'mobile'));
+  const phone = phoneCorner !== corner ? ` #block-${b.id} { border-radius: ${phoneCorner || '0'}; }` : '';
+  return `${own ? `#block-${b.id} { ${own} } ` : ''}${sel} { ${vars('desktop', fill)} --stack-gap: ${fill ? 'normal' : `${b.gap ?? 20}px`}; } @media screen and (max-width: 767px) { ${sel} { ${vars('mobile', false)} }${phone} }`;
 }
 
 export const STROKE_PX = { S: 2, M: 6, L: 15 };
