@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 625,
+  "pass": 645,
   "known": [
     "group south by 4",
     "hold phone, full width -24,12",
@@ -12,7 +12,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 634,
+  "total": 654,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -2783,6 +2783,86 @@
     },
     {
       "name": "E7 text: typed without Enter counts at the close",
+      "diffs": []
+    },
+    {
+      "name": "A2 first in DOM moved down on the phone",
+      "diffs": []
+    },
+    {
+      "name": "A2 a saved page stays as it loads",
+      "diffs": []
+    },
+    {
+      "name": "A2 an edit sorts its section",
+      "diffs": []
+    },
+    {
+      "name": "A2 the section next door stays as it loaded",
+      "diffs": []
+    },
+    {
+      "name": "A2 undo brings the order back",
+      "diffs": []
+    },
+    {
+      "name": "A2 redo sorts again",
+      "diffs": []
+    },
+    {
+      "name": "A2 the same phone row goes left to right",
+      "diffs": []
+    },
+    {
+      "name": "A2 held on desktop: a stays before b, c sorts ahead of a",
+      "diffs": []
+    },
+    {
+      "name": "A2 held on desktop: the same block on top after an edit",
+      "diffs": []
+    },
+    {
+      "name": "A2 held on desktop: the same block on top after moving one of them",
+      "diffs": []
+    },
+    {
+      "name": "A2 held from the other layout: order kept",
+      "diffs": []
+    },
+    {
+      "name": "A2 held from the other layout: the same block on top on the phone",
+      "diffs": []
+    },
+    {
+      "name": "A2 different z: sorted, the same block on top",
+      "diffs": []
+    },
+    {
+      "name": "A2 a chain of three stays in order, a free block goes first",
+      "diffs": []
+    },
+    {
+      "name": "A2 a chain of three paints the same",
+      "diffs": []
+    },
+    {
+      "name": "A2 a chain of three: a free block last stays last",
+      "diffs": []
+    },
+    {
+      "name": "A2 a chain of three: a free block above its first block goes ahead of it",
+      "diffs": []
+    },
+    {
+      "name": "A2 text keeps its place while edited, the close sorts",
+      "diffs": []
+    },
+    {
+      "name": "A2 z writes leave no same-z overlap",
+      "diffs": []
+    },
+    {
+      "name": "A2 z writes: the stack, the paste and the unstack happened",
       "diffs": []
     },
     {
