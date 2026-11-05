@@ -1,0 +1,316 @@
+{
+  "item": "CAP-SYNTHCLIP",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "U11, Y4: does the editor take copy and paste events carrying our own DataTransfer? No key presses, nothing reaches the machine clipboard",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      1,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "stubClipboard"
+    ],
+    [
+      "read",
+      "before",
+      {
+        "areas": 0,
+        "clip": true
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "synthClip",
+      "copy"
+    ],
+    [
+      "read",
+      "copy in the frame",
+      {
+        "clip": true,
+        "areas": 0
+      }
+    ],
+    [
+      "synthClip",
+      "copy",
+      "top"
+    ],
+    [
+      "read",
+      "copy in the top window",
+      {
+        "clip": true,
+        "areas": 0
+      }
+    ],
+    [
+      "synthClip",
+      "paste"
+    ],
+    [
+      "read",
+      "paste in the frame",
+      {
+        "clip": true,
+        "areas": 0
+      }
+    ],
+    [
+      "synthClip",
+      "paste",
+      "top"
+    ],
+    [
+      "read",
+      "paste in the top window",
+      {
+        "clip": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      1,
+      0
+    ],
+    [
+      "synthClip",
+      "paste"
+    ],
+    [
+      "read",
+      "paste in another section",
+      {
+        "clip": true,
+        "areas": 1
+      }
+    ],
+    [
+      "synthClip",
+      "paste",
+      "top"
+    ],
+    [
+      "read",
+      "paste in another section, top",
+      {
+        "clip": true,
+        "areas": 1
+      }
+    ]
+  ],
+  "reads": {
+    "before": {
+      "clip": {
+        "top": [],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/3/8",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "copy in the frame": {
+      "clip": {
+        "top": [],
+        "frame": [
+          "copy:frame:taken:text/plain"
+        ],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/3/8",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "copy in the top window": {
+      "clip": {
+        "top": [],
+        "frame": [
+          "copy:frame:taken:text/plain",
+          "copy:top:not taken:text/plain"
+        ],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/3/8",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "paste in the frame": {
+      "clip": {
+        "top": [],
+        "frame": [
+          "copy:frame:taken:text/plain",
+          "copy:top:not taken:text/plain",
+          "paste:frame:not taken:text/plain"
+        ],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/3/8",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "paste in the top window": {
+      "clip": {
+        "top": [],
+        "frame": [
+          "copy:frame:taken:text/plain",
+          "copy:top:not taken:text/plain",
+          "paste:frame:not taken:text/plain",
+          "paste:top:not taken:text/plain"
+        ],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/3/8",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ],
+        [
+          "2/3/4/9",
+          "4/2/6/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "paste in another section": {
+      "clip": {
+        "top": [],
+        "frame": [
+          "copy:frame:taken:text/plain",
+          "copy:top:not taken:text/plain",
+          "paste:frame:not taken:text/plain",
+          "paste:top:not taken:text/plain",
+          "paste:frame:not taken:text/plain"
+        ],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "paste in another section, top": {
+      "clip": {
+        "top": [],
+        "frame": [
+          "copy:frame:taken:text/plain",
+          "copy:top:not taken:text/plain",
+          "paste:frame:not taken:text/plain",
+          "paste:top:not taken:text/plain",
+          "paste:frame:not taken:text/plain",
+          "paste:top:not taken:text/plain"
+        ],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ],
+        [
+          "1/2/3/8",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
