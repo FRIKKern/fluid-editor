@@ -13,9 +13,9 @@ const F = JSON.parse(readFileSync(new URL('../parity/findings/BLOCKTYPES.json', 
 // partway down a long run. In an empty section they land at row 1, and a pull changes the same rows.
 const LANDING = JSON.parse(readFileSync(new URL('../parity/findings/CAP-LANDING.json', import.meta.url)));
 const FRESH = (name) => LANDING.fromU5[name] ?? LANDING.fresh[name]?.area;
-// Named misses: on the oracle these types hold live content that sets a minimum or follows the width
-// (T14's finding). Ours are stand-ins of the right size with no such content; T12 owns the contents.
-const CONTENT = { Quote: ['s', 'e'], Chart: ['s', 'e'], Summary: ['se', 's', 'e'], Instagram: ['s', 'e'], SoundCloud: ['se', 's', 'e'], Flickr: ['se', 's', 'e'], Zola: ['s', 'e'], Bandsintown: ['se', 's', 'e'] };
+// Named misses: on the oracle these types hold live content whose reads change from run to run
+// (STANDINS.json). Ours are stand-ins of the right size with no such content.
+const CONTENT = { Summary: ['se', 's', 'e'], Zola: ['s', 'e'], Bandsintown: ['se', 's', 'e'] };
 const named = [];
 let pass = 0, total = 0;
 const results = [];
