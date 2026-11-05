@@ -320,12 +320,12 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 
 /* Accordion block (T12, parity/findings/ACCORDION.json) */
 .accordion-items-container { list-style: none; margin: 0; padding: 0; }
-.accordion-divider { height: 1px; background: currentColor; }
+.accordion-divider { height: var(--accordion-divider, 1px); opacity: var(--accordion-divider-opacity, 1); background: currentColor; }
 .accordion-items-container[data-is-divider-enabled="false"] .accordion-divider,
 .accordion-items-container[data-is-first-divider-visible="false"] .accordion-divider--top,
 .accordion-items-container[data-is-last-divider-visible="false"] .accordion-item:last-child > .accordion-divider:last-child { visibility: hidden; }
 .accordion-item__title-wrapper { margin: 0; }
-.accordion-item__click-target { display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; width: 100%; padding: var(--accordion-pad, 30px) 0; border: 0; background: none; color: inherit; font: inherit; line-height: normal; letter-spacing: inherit; text-align: left; cursor: pointer; }
+.accordion-item__click-target { display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; width: 100%; padding: var(--accordion-pad, 30px 0); border: 0; background: none; color: inherit; font: inherit; line-height: normal; letter-spacing: inherit; text-align: left; cursor: pointer; }
 [data-accordion-icon-placement="left"] .accordion-item__click-target { flex-direction: row-reverse; }
 .accordion-item__title { flex: 1 1 0; min-width: 0; padding-right: 14px; }
 .accordion-icon-container { flex: none; width: var(--accordion-icon, 14px); height: var(--accordion-icon, 14px); }
@@ -333,9 +333,23 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .plus__horizontal-line, .plus__vertical-line { position: absolute; left: 0; top: calc(50% - var(--accordion-line, 1px) / 2); width: 100%; height: var(--accordion-line, 1px); background: currentColor; }
 .plus__vertical-line { transform: rotate(90deg); }
 [data-is-open] .plus__vertical-line { transform: none; }
+/* Arrow, Title and Description choices (ACCORDIONSTYLES.json) */
+.accordion-icon-container { position: relative; }
+.arrow-container { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transition: transform 0.25s; }
+.arrow { box-sizing: border-box; width: calc(var(--accordion-icon, 14px) * 0.7071); height: calc(var(--accordion-icon, 14px) * 0.7071); border-right: var(--accordion-line, 1px) solid currentColor; border-bottom: var(--accordion-line, 1px) solid currentColor; transform: translateY(-25%) rotate(45deg); }
+[data-is-open] .arrow-container { transform: rotate(180deg); }
+[data-accordion-title-alignment="center"] .accordion-item__title { text-align: center; padding-left: 28px; }
+[data-accordion-title-alignment="right"] .accordion-item__title { text-align: right; }
+[data-accordion-description-alignment="center"] .accordion-item__description { text-align: center; }
+[data-accordion-description-alignment="right"] .accordion-item__description { text-align: right; }
+[data-accordion-description-placement="center"] .accordion-item__description { margin-inline: auto; }
+[data-accordion-description-placement="right"] .accordion-item__description { margin-left: auto; }
+.accordion-item__description.sqsrte-large, .accordion-item__description.sqsrte-small { margin-block: 16px; }
 .accordion-item__dropdown { display: none; }
 [data-is-open] > .accordion-item__dropdown { display: block; }
-.accordion-item__description { padding: 0 0 30px; font-size: 16px; line-height: 22.4px; }
+.accordion-item__description { box-sizing: border-box; width: var(--accordion-desc-width, 70%); max-width: 100%; padding: var(--accordion-desc-pad, 0 0 30px); }
+:where(.accordion-item__description) { font-size: 16px; line-height: 22.4px; }
+.accordion-item__description.sqsrte-large, .accordion-item__description.sqsrte-small { line-height: 1.4; }
 
 /* Scrolling block (T12), measured on the oracle Home page. A new one has no wave: one line, centred. */
 .scrolling-block--flat > .sqs-block-content { margin-block: auto; }

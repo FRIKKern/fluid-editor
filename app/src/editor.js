@@ -2,7 +2,7 @@
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
 import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults } from './render.js';
-import { BLEND_MODES, renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
+import { ACCORDION_STYLES, ACCORDION_ICON, ACCORDION_LINE, ACCORDION_PAD, ACCORDION_WIDTH, BLEND_MODES, renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
@@ -1401,7 +1401,7 @@ function renderBlockPanel() {
   const content = b.type === 'button' ? { label: b.label, href: b.href, pages: siteLinkGroups() } : b.type === 'image' ? { src: b.src, href: b.href, pages: siteLinkGroups(), alt: b.alt, filename: b.filename, empty: !!b.empty, focal: b.focal, aspect: b.aspect, lightbox: !!b.lightbox }
     : b.type === 'video' && !b.html ? { kind: 'video', description: b.description, video: b.video }
     : b.type === 'code' && b.html != null ? { kind: 'code', html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource }
-    : b.type === 'accordion' ? { kind: 'accordion', items: b.items, expandFirst: b.expandFirst, multiple: b.multiple, dividers: b.dividers, showFirst: b.showFirst, showLast: b.showLast, iconSize: b.iconSize, iconThickness: b.iconThickness, iconLeft: b.iconLeft, rowPadding: b.rowPadding }
+    : b.type === 'accordion' ? { kind: 'accordion', items: b.items, expandFirst: b.expandFirst, multiple: b.multiple, dividers: b.dividers, showFirst: b.showFirst, showLast: b.showLast, iconSize: b.iconSize, iconThickness: b.iconThickness, iconLeft: b.iconLeft, rowPadding: b.rowPadding, icon: b.icon, titleStyle: b.titleStyle, titleAlign: b.titleAlign, descStyle: b.descStyle, descWidth: b.descWidth, descPad: b.descPad, descAlign: b.descAlign, descPlace: b.descPlace, dividerSize: b.dividerSize, dividerOpacity: b.dividerOpacity }
     : b.type === 'line' ? { kind: 'line' }
     : b.type === 'social' ? { kind: 'social', links: socialList(), err: socErr, iconBorder: b.iconBorder, iconStyle: b.iconStyle, iconThick: b.iconThick, iconSize: b.iconSize, align: b.align }
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
@@ -2024,7 +2024,7 @@ function renderSectionPop() {
 function renderShapePop() {
   if (shapeUi.section) { renderSectionPop(); return; }
   const b = B(sel.sid, sel.bid), P = blockPanel.getBoundingClientRect(), { kind } = shapeUi;
-  shapePop.className = kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
+  shapePop.className = kind === 'accmenu' ? 'is-accmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
   if (kind === 'animopts') {
     const u = shapeUi, one = u.mode === 'row' ? ' animation' : ' animations', a = animRows()[anim.i];
     if (u.mode === 'sel') { shapePop.innerHTML = animOptionsHtml(u.key, a?.[u.key]); shapePop.style.cssText = `left:${u.rect.left - 9}px;top:${u.rect.top}px`; }
@@ -2035,6 +2035,13 @@ function renderShapePop() {
     const cur = blend ? BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')) : b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay';
     shapePop.innerHTML = list.map((o) => `<button type="button" role="option" class="${o === cur ? 'is-cur' : ''}" data-image-opt="${o}">${o}</button>`).join('');
     shapePop.style.cssText = `left:${shapeUi.rect.left - 9}px;top:${shapeUi.rect.top}px;max-height:${innerHeight - shapeUi.rect.top - 8}px;overflow:auto`;
+  } else if (kind === 'accmenu') {
+    const key = shapeUi.key, list = key === 'icon' ? [['plus', 'Plus'], ['arrow', 'Arrow']] : Object.entries(ACCORDION_STYLES).filter(([k]) => key === 'titleStyle' || k[0] === 'p');
+    const cur = key === 'icon' ? b.icon || 'plus' : b[key] || (key === 'titleStyle' ? 'h4' : 'p2'), at = list.findIndex(([k]) => k === cur);
+    const icon = (d) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${d}</svg>`;
+    const glyph = { plus: '<path d="M4 12h16M12 4v16"/>', arrow: '<path d="M6 9l6 6 6-6"/>' };
+    shapePop.innerHTML = list.map(([k, l]) => `<button type="button" role="option" class="${k === cur ? 'is-cur' : ''}" data-acc-opt="${k}" aria-selected="${k === cur}">${key === 'icon' ? `<i>${icon(glyph[k])}</i>` : ''}<span>${l}</span>${k === cur ? icon('<path d="M5 12l5 5 9-10"/>') : ''}</button>`).join('');
+    shapePop.style.cssText = `left:${shapeUi.rect.left}px;top:${Math.max(60, shapeUi.rect.top - at * 45)}px`;
   } else if (kind === 'more') {
     shapePop.innerHTML = '<button type="button" role="option" data-more="copy">Copy transforms</button><button type="button" role="option" data-more="paste">Paste transforms</button>';
     const r = blockPanel.querySelector('.bp-more').getBoundingClientRect();
@@ -2084,6 +2091,13 @@ shapePop.addEventListener('click', (e) => {
       if (key === 'blend') { if (v === 'Normal') delete b.overlayBlend; else b.overlayBlend = blendValue(v); }
       else if (v === 'Light Overlay') b.lightboxTheme = 'light'; else delete b.lightboxTheme;
     }, `${key} ${v}`);
+    return;
+  }
+  const accOpt = e.target.closest('[data-acc-opt]');
+  if (accOpt) {
+    const { key } = shapeUi, v = accOpt.dataset.accOpt;
+    closeShapePop();
+    setAccordion((b) => { const def = { icon: 'plus', titleStyle: 'h4', descStyle: 'p2' }[key]; if (v === def) delete b[key]; else b[key] = v; }, `${key} ${v}`);
     return;
   }
   const ao = e.target.closest('[data-an-opt]');
@@ -2164,7 +2178,7 @@ shapePop.addEventListener('pointerdown', (e) => {
 });
 for (const t of ['mousedown']) shapePop.addEventListener(t, (e) => e.stopPropagation());
 shapePop.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Escape') closeShapePop(); });
-document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-sp-color], [data-image-sel]')) closeShapePop(); }, true);
+document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-acc-menu], [data-sp-color], [data-image-sel]')) closeShapePop(); }, true);
 // Button and image Content tabs: the text and the link (parity/findings/BUTTONEDIT.json). The
 // text is one undo step when the field is left; each link change is one step.
 function setButton(change, label) {
@@ -2308,8 +2322,8 @@ function showAccordionItem(b) {
   const n = accView?.startsWith('acc-item:') ? Number(accView.slice(9)) : -1;
   lis?.forEach((li, k) => { const on = k === n || (k === 0 && !!b.expandFirst); if (on) li.setAttribute('data-is-open', 'true'); else li.removeAttribute('data-is-open'); li.querySelector('button').setAttribute('aria-expanded', String(on)); });
 }
-function setAccordion(change, label) {
-  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+function setAccordion(change, label, before = JSON.stringify(model)) {
+  const b = B(sel.sid, sel.bid);
   change(b);
   renderSectionDom(sel.sid);
   showAccordionItem(b);
@@ -2324,13 +2338,19 @@ blockPanel.addEventListener('click', (e) => {
   if ((!a && !s) || !sel) return;
   if (s) {
     const k = s.dataset.accSet, v = s.dataset.v;
-    setAccordion((b) => { if (k === 'iconLeft') { if (v === 'left') b.iconLeft = true; else delete b.iconLeft; } else b[k] = v; }, `${k} ${v}`);
+    setAccordion((b) => {
+      if (k === 'iconLeft') { if (v === 'left') b.iconLeft = true; else delete b.iconLeft; }
+      else if (v === 'custom') b[k] = accCustomFrom(b, k);
+      else if (v === 'left') delete b[k];
+      else b[k] = v;
+    }, `${k} ${v}`);
     return;
   }
   const [act, arg] = a.dataset.acc.split(':'), n = Number(arg);
   if (act === 'open') { accView = `acc-item:${n}`; renderBlockPanel(); return; }
   if (act === 'back') { accView = null; renderBlockPanel(); return; }
   if (act === 'dividers') { accView = 'acc-dividers'; renderBlockPanel(); return; }
+  if (act === 'title' || act === 'desc') { accView = `acc-${act}`; renderBlockPanel(); return; }
   if (act === 'design') { accView = null; renderBlockPanel(); return; }
   accView = null;
   if (act === 'add') setAccordion((b) => { b.items.push({ title: 'New Item', description: ACCORDION_DESCRIPTION }); }, 'Item added');
@@ -2344,6 +2364,69 @@ blockPanel.addEventListener('change', (e) => {
   if (!c || !sel) return;
   const k = c.dataset.accSet, keepOn = ['dividers', 'showFirst', 'showLast'].includes(k), on = c.checked;
   setAccordion((b) => { if (keepOn) { if (on) delete b[k]; else b[k] = false; } else if (on) b[k] = true; else delete b[k]; }, `${k} ${on ? 'on' : 'off'}`);
+});
+
+// A more button takes the value the choice stood for (parity/findings/ACCORDIONSTYLES.json), then
+// its range writes the block and the row count follows; one undo step when the range is let go.
+function accCustomFrom(b, k) {
+  const pad = (v, t) => (Array.isArray(v) ? v : t(ACCORDION_PAD[v || 'M']));
+  if (k === 'iconSize') return typeof b.iconSize === 'number' ? b.iconSize : ACCORDION_ICON[b.iconSize || 'S'];
+  if (k === 'descWidth') return typeof b.descWidth === 'number' ? b.descWidth : ACCORDION_WIDTH[b.descWidth || 'M'];
+  if (k === 'dividerSize') return typeof b.dividerSize === 'number' ? b.dividerSize : ACCORDION_LINE[b.dividerSize || 'S'];
+  if (k === 'descPad') return pad(b.descPad, (n) => [0, 0, n, 0]);
+  return pad(b.rowPadding, (n) => [n, 0, n, 0]);
+}
+function writeAccValue(b, key, v) {
+  const [k, i] = key.split(':');
+  if (i == null) b[k] = v; else { b[k] = [...b[k]]; b[k][Number(i)] = v; }
+}
+let accRangeBefore = null;
+blockPanel.addEventListener('input', (e) => {
+  const r = e.target.closest('[data-acc-range]');
+  if (!r || !sel) return;
+  e.stopImmediatePropagation();
+  accRangeBefore ??= JSON.stringify(model);
+  const b = B(sel.sid, sel.bid);
+  writeAccValue(b, r.dataset.accRange, Number(r.value));
+  renderSectionDom(sel.sid);
+  showAccordionItem(b);
+  const f = blockPanel.querySelector(`[data-acc-field="${r.dataset.accRange}"]`);
+  if (f) f.value = `${r.value}${r.dataset.unit}`;
+}, true);
+blockPanel.addEventListener('change', (e) => {
+  const r = e.target.closest('[data-acc-range]'), f = e.target.closest('[data-acc-field]');
+  if ((!r && !f) || !sel) return;
+  e.stopImmediatePropagation();
+  const before = accRangeBefore ?? JSON.stringify(model);
+  accRangeBefore = null;
+  const key = (r || f).dataset.accRange || f.dataset.accField;
+  const v = r ? Number(r.value) : Math.max(Number(f.dataset.min), Math.min(Number(f.dataset.max), parseFloat(f.value) || 0));
+  setAccordion((b) => writeAccValue(b, key, v), `${key} ${v}`, before);
+}, true);
+// The reorder grip (CAP-ACCORDION2.json): a drag moves the item, the canvas follows, one undo step.
+blockPanel.addEventListener('pointerdown', (e) => {
+  const g = e.target.closest('.bp-acc-grip');
+  if (!g || !sel || e.button) return;
+  e.preventDefault();
+  const row = g.closest('.bp-acc-row'), rows = [...blockPanel.querySelectorAll('.bp-acc-row')], from = rows.indexOf(row), h = row.offsetHeight, y0 = e.clientY;
+  let to = from;
+  row.classList.add('is-moving');
+  g.setPointerCapture(e.pointerId);
+  const move = (ev) => { const dy = ev.clientY - y0; to = Math.max(0, Math.min(rows.length - 1, from + Math.round(dy / h))); row.style.transform = `translateY(${dy}px)`; };
+  const up = () => {
+    g.removeEventListener('pointermove', move); g.removeEventListener('pointerup', up); g.removeEventListener('pointercancel', up);
+    if (to === from) { renderBlockPanel(); return; }
+    setAccordion((b) => { const [it] = b.items.splice(from, 1); b.items.splice(to, 0, it); }, `Item moved to ${to + 1}`);
+  };
+  g.addEventListener('pointermove', move); g.addEventListener('pointerup', up); g.addEventListener('pointercancel', up);
+});
+// Icon, Title style and Description style (ACCORDIONSTYLES.json): the chosen row lies over the button.
+blockPanel.addEventListener('click', (e) => {
+  const m = e.target.closest('[data-acc-menu]');
+  if (!m || !sel) return;
+  if (shapeUi?.kind === 'accmenu' && shapeUi.key === m.dataset.accMenu) { closeShapePop(); return; }
+  shapeUi = { kind: 'accmenu', key: m.dataset.accMenu, bid: sel.bid, custom: null, rect: m.getBoundingClientRect() };
+  renderShapePop();
 });
 
 // Image Alternate Filename and alt text, one undo step when the field is left; empty removes it.
