@@ -263,6 +263,9 @@
       "AaLight 2",
       "AaBright 1",
       "AaBright 2"
+    ],
+    "outOfScope": [
+      "0005: how an uploaded section picture fits, which needs an upload on the trial site"
     ]
   },
   {
@@ -370,7 +373,10 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Video block",
-    "evidence": "parity/findings/T7.json and T13.json: Add Block > Video lands at 1/2/9/10 (8 columns, 8 rows) with an empty placeholder (.sqs-block-video-placeholder--empty, no text). Our Video block has the same area, the published class string (website-component-block sqs-block-video, type 1337, from the corpus) and an editor-only placeholder. A new video (parity/findings/MEDIAEMPTY.json, npm run image-check): Edit opens on Content; dark placeholder 0.65 of its width tall with a centred icon; Content rows (Add a Video, Video Storage, Custom thumbnail, Lazy Loading, Elements, Description) and Design rows (Appearance, Transforms, Effects) in the oracle's order; the block's rows follow the width as on the oracle (e, s and se handles). Description is kept on the block. Missing: adding a video, the player, its settings; Add a Video, storage, thumbnail, Lazy Loading and Corner are dim. An uploaded video was not tried on the oracle (no uploads)"
+    "evidence": "parity/findings/T7.json and T13.json: Add Block > Video lands at 1/2/9/10 (8 columns, 8 rows) with an empty placeholder (.sqs-block-video-placeholder--empty, no text). Our Video block has the same area, the published class string (website-component-block sqs-block-video, type 1337, from the corpus) and an editor-only placeholder. A new video (parity/findings/MEDIAEMPTY.json, npm run image-check): Edit opens on Content; dark placeholder 0.65 of its width tall with a centred icon; Content rows (Add a Video, Video Storage, Custom thumbnail, Lazy Loading, Elements, Description) and Design rows (Appearance, Transforms, Effects) in the oracle's order; the block's rows follow the width as on the oracle (e, s and se handles). Description is kept on the block. Missing: adding a video, the player, its settings; Add a Video, storage, thumbnail, Lazy Loading and Corner are dim. An uploaded video was not tried on the oracle (no uploads)",
+    "outOfScope": [
+      "0005: an uploaded video, which needs an upload on the trial site"
+    ]
   },
   {
     "id": "T8",
@@ -419,7 +425,10 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Remaining block types from the add-block menu",
-    "evidence": "Scrolling block: heading formula with size value 5, height = 1.4em + 120px (measured at 375, 768, 1280, 1920); rendered as a static line, boxes match on Home and Services. The moving wave text is not built. Accordion block (parity/findings/ACCORDION.json): default three items, measured markup and sizes, icon and row padding choices, placement, Expand first, Allow multiple, Dividers switches, rows that follow the list both ways, Content list, item view and Dividers view, Backspace safe, one undo step; npm run accordion-check 44 of 44. Dim because not built or not measured: style pickers, Icon picker, more buttons, reorder grip, divider Thickness and Opacity. Opening a title on the published page is inferred, not measured. Other block types in the menu not built Measured (parity/findings/CAP-ACCORDION.json, CAP-ACCORDION2.json): Title and Description open a view with Back; Title has a style menu, Heading 1 to 4 and Paragraph 1 to 3, and left, center, right. Description opens on Paragraph 2 with S, M, L and left, center, right, each listed twice in the read. Dividers has Dividers, Show first, Show last, S, M, L and Opacity 1. Icon is Plus or Arrow. Dragging the grip reorders the items and the canvas follows: 1, 2, 3 to 2, 3, 1. The fourth Icon Size button takes the selection; what it shows is under the panel fold, not read."
+    "evidence": "Scrolling block: heading formula with size value 5, height = 1.4em + 120px (measured at 375, 768, 1280, 1920); rendered as a static line, boxes match on Home and Services. The moving wave text is not built. Accordion block (parity/findings/ACCORDION.json): default three items, measured markup and sizes, icon and row padding choices, placement, Expand first, Allow multiple, Dividers switches, rows that follow the list both ways, Content list, item view and Dividers view, Backspace safe, one undo step; npm run accordion-check 44 of 44. Dim because not built or not measured: style pickers, Icon picker, more buttons, reorder grip, divider Thickness and Opacity. Opening a title on the published page is inferred, not measured. Other block types in the menu not built Measured (parity/findings/CAP-ACCORDION.json, CAP-ACCORDION2.json): Title and Description open a view with Back; Title has a style menu, Heading 1 to 4 and Paragraph 1 to 3, and left, center, right. Description opens on Paragraph 2 with S, M, L and left, center, right, each listed twice in the read. Dividers has Dividers, Show first, Show last, S, M, L and Opacity 1. Icon is Plus or Arrow. Dragging the grip reorders the items and the canvas follows: 1, 2, 3 to 2, 3, 1. The fourth Icon Size button takes the selection; what it shows is under the panel fold, not read.",
+    "outOfScope": [
+      "0005: the published accordion, which needs a Save on the trial site"
+    ]
   },
   {
     "id": "T13",
@@ -865,7 +874,10 @@
     "status": "partial",
     "title": "Hiding a block on one layout",
     "wasUnknown": true,
-    "evidence": "No hide control found on the oracle: not in the desktop or phone block toolbars, and not in the shape Edit panel (Design: shape style, corner radius, Stretch, Color, Blend Mode, Stroke; Animation). The phone toolbars of text, shape and button blocks have no hide control (parity/findings/TOOLBARS.json), and the text Edit panel is the same on both layouts (EDITPANEL.json). Other block types and help pages not checked. Correction from the gap review (2026-11-03): the oracle does have a hide control, in the block right-click menu: Hide on desktop (Cmd+Shift+H) and Hide on mobile. Not measured yet what they change. Measured 2026-11-04 (parity/findings/UNBUILT.json, demo section 2, shape): Hide on desktop gives the block is-invisible should-remove and opacity 0 and takes it out of the desktop grid (grid-area 1/1/-1/-1), desktop rows stay 11; Hide on mobile removes its phone rule and the phone grid shrinks from 10 to 4 rows, what the other blocks need; one undo each. In the Layers panel the hidden block's row turns grey with a crossed-out eye on the right. Ours: Hide on desktop and Hide on mobile in the block menu and Cmd+Shift+H, display: none for that layout, the same row rule, the grey Layers row with the eye; clicking the eye shows the block again (headless Chrome). On the oracle the eye is a button labelled Display Block on a hidden row; a click puts the block back (2/15/12/25, opacity 1) and the button becomes Hide Block (parity/findings/CAP-HIDDENEYE.json). Not measured: the published CSS of a hidden block, which would need a Save Hide on Image, Button, Line and Form behaves the same (parity/findings/CAP-HIDETYPES.json): is-invisible should-remove, opacity 0 in that view only, and phone rows shrink to what the other blocks need."
+    "evidence": "No hide control found on the oracle: not in the desktop or phone block toolbars, and not in the shape Edit panel (Design: shape style, corner radius, Stretch, Color, Blend Mode, Stroke; Animation). The phone toolbars of text, shape and button blocks have no hide control (parity/findings/TOOLBARS.json), and the text Edit panel is the same on both layouts (EDITPANEL.json). Other block types and help pages not checked. Correction from the gap review (2026-11-03): the oracle does have a hide control, in the block right-click menu: Hide on desktop (Cmd+Shift+H) and Hide on mobile. Not measured yet what they change. Measured 2026-11-04 (parity/findings/UNBUILT.json, demo section 2, shape): Hide on desktop gives the block is-invisible should-remove and opacity 0 and takes it out of the desktop grid (grid-area 1/1/-1/-1), desktop rows stay 11; Hide on mobile removes its phone rule and the phone grid shrinks from 10 to 4 rows, what the other blocks need; one undo each. In the Layers panel the hidden block's row turns grey with a crossed-out eye on the right. Ours: Hide on desktop and Hide on mobile in the block menu and Cmd+Shift+H, display: none for that layout, the same row rule, the grey Layers row with the eye; clicking the eye shows the block again (headless Chrome). On the oracle the eye is a button labelled Display Block on a hidden row; a click puts the block back (2/15/12/25, opacity 1) and the button becomes Hide Block (parity/findings/CAP-HIDDENEYE.json). Not measured: the published CSS of a hidden block, which would need a Save Hide on Image, Button, Line and Form behaves the same (parity/findings/CAP-HIDETYPES.json): is-invisible should-remove, opacity 0 in that view only, and phone rows shrink to what the other blocks need.",
+    "outOfScope": [
+      "0005: the published CSS of a hidden block, which needs a Save on the trial site"
+    ]
   },
   {
     "id": "L6",
@@ -1071,6 +1083,9 @@
       "Audio",
       "Charts",
       "AI Terms"
+    ],
+    "outOfScope": [
+      "0005: what Save Section stores on the trial site, a probe does not press it"
     ]
   },
   {
@@ -1199,7 +1214,8 @@
       "Miscellaneous"
     ],
     "outOfScope": [
-      "0005: Subscribe, the trial account's billing button beside Site Styles"
+      "0005: Subscribe, the trial account's billing button beside Site Styles",
+      "0005: what Reset and Reset Color Theme do on the trial site, a probe does not press them"
     ]
   },
   {
