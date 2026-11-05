@@ -1106,3 +1106,51 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .lo-h1 { font-size: 11px; line-height: 1.15; }
 .lo-h2 { font-size: 9.5px; line-height: 1.17; }
 .lo-h3 { font-size: 7px; line-height: 1.2; }
+
+/* Art's rows behind Edit Settings (parity/findings/CAP-ARTROWS.json). */
+.ar-fold-b { display: flex; align-items: center; gap: 8px; width: 276px; height: 44px; margin: 0; padding: 0; border: 0; border-bottom: 1px solid #e7e7e7; background: transparent; color: #0e0e0e; font: 500 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; text-align: left; cursor: pointer; }
+.ar-fold { margin-bottom: 1px; }
+.ar-fold-body { margin: 0 -22px; }
+.sp-art-body { padding-top: 22px; }
+.sp-art-body .sp-art-color { display: flex; align-items: center; justify-content: space-between; width: 298px; height: 67px; margin: 0 -11px; padding: 0 11px; box-sizing: border-box; }
+.ar-group { padding-bottom: 22px; }
+.ar-group:has(+ .ar-range), .ar-group:has(+ .ar-check) { padding-bottom: 0; }
+.ar-group:last-child { padding-bottom: 0; }
+.ar-segs + .ar-range { margin-top: -1px; }
+.ar-img-rows { margin: 22px -22px 0; }
+.sp-art-body > .sp-art-color + .ar-fold { margin-top: 22px; }
+.sp-art-body > .ar-fold + .sp-shuffle { margin-top: 0; }
+.sp-art-body .sp-invert { width: 320px; height: 55px; margin: 0 0 0 -22px; border: 0; text-decoration: underline; }
+.ar-img-rows .sp-art-color { margin: 0 11px; width: 298px; }
+.ar-head { height: 16px; padding: 0 22px; color: #6e6e6e; font: 400 12px/16px "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: .5px; text-transform: uppercase; }
+.ar-head-only { padding: 0 0 0; margin-bottom: -1px; }
+.ar-segs { display: flex; width: 284px; height: 32px; margin: 6px 18px; background: #f6f6f6; border-radius: 3px; }
+.ar-seg { flex: none; height: 32px; padding: 0; border: 0; border-radius: 3px; background: transparent; color: #6e6e6e; font: 500 14px/32px "Helvetica Neue", Helvetica, Arial, sans-serif; cursor: pointer; }
+.ar-seg.is-on { background: #fff; color: #0e0e0e; box-shadow: inset 0 0 0 1px #e7e7e7; }
+.ar-range { position: relative; height: 78px; margin: 0 11px -1px; padding: 0 11px; box-sizing: border-box; }
+.ar-range-l { display: flex; justify-content: space-between; height: 34px; padding-top: 12px; color: #0e0e0e; font: 400 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.ar-range input[type="range"], .ar-inline input[type="range"] { display: block; height: 44px; margin: 0; background: transparent; appearance: none; -webkit-appearance: none; cursor: pointer; }
+.ar-range input[type="range"] { width: 276px; margin-top: -.5px; }
+.ar-inline { display: flex; align-items: center; justify-content: space-between; height: 44px; margin: 0 22px; }
+.ar-inline input[type="range"] { width: 212px; }
+.ar-range input[type="range"]::-webkit-slider-runnable-track, .ar-inline input[type="range"]::-webkit-slider-runnable-track { height: 2px; background: linear-gradient(to right, #0e0e0e var(--p, 0%), #e7e7e7 var(--p, 0%)); }
+.ar-range input[type="range"]::-webkit-slider-thumb, .ar-inline input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 8px; height: 8px; margin-top: -3px; border-radius: 50%; background: #0e0e0e; }
+.ar-range input[type="text"], .ar-inline input[type="text"] { width: 40px; height: 22px; padding: 0; border: 0; background: transparent; color: #0e0e0e; text-align: right; font: 400 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.ar-check { display: flex; align-items: center; justify-content: space-between; height: 46px; margin: 0 22px -1px; color: #0e0e0e; font: 400 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.ar-box { margin: 0 0 0; padding: 0 16px 16px; background: #f6f6f6; }
+.ar-tabs { display: flex; gap: 16px; height: 55px; align-items: stretch; margin-bottom: 17px; border-bottom: 1px solid #e7e7e7; }
+.ar-tab { padding: 0; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #6e6e6e; font: 500 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; cursor: pointer; }
+.ar-tab.is-on { color: #0e0e0e; border-bottom-color: #0e0e0e; }
+.ar-presets { display: grid; grid-template-columns: repeat(4, 52px); gap: 12px; }
+.ar-preset { width: 52px; height: 52px; padding: 0; border: 1px solid #e7e7e7; border-radius: 3px; background: #fff; cursor: pointer; }
+.ar-preset.is-on { border-color: #0e0e0e; }
+.ar-preset i { display: block; width: 100%; height: 100%; background: #0e0e0e; }
+.ar-add { display: block; width: 100%; height: 116px; border: 1px dashed #c8c8c8; background: #fff; color: #0e0e0e; font: 500 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; cursor: pointer; }
+.ar-filter { display: flex; align-items: center; justify-content: space-between; height: 45px; margin: 0 22px; color: #0e0e0e; font: 400 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+/* Aa chips over the frame in Edit Color Theme. */
+.theme-chips[hidden] { display: none; }
+.theme-chip { position: fixed; z-index: 30; display: inline-flex; align-items: center; gap: 11px; height: 44px; padding: 0 16px; border: 0; border-radius: 6px; background: transparent; font: 500 11px/16px "Helvetica Neue", Helvetica, Arial, sans-serif; cursor: pointer; }
+.theme-chip:hover { background: var(--chip-bg); box-shadow: 0 4px 16px rgba(0, 0, 0, .12); }
+.theme-chip-aa { width: 31.5px; font: 400 20px/28px Poppins, sans-serif; text-align: left; }
+.theme-chip-n { letter-spacing: .05em; text-transform: uppercase; }

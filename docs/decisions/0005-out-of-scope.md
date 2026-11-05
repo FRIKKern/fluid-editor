@@ -27,6 +27,7 @@ Out of scope now:
 - **What an embed's Description publishes (T10).** Reading it needs a Save.
 - **File links (E7).** Choosing a file means an upload on the trial site, and we have no file store. Ours shows File in the link menu, turned off.
 - **Section templates and Made with Classic Editor (U10).** They are Squarespace's pictures and words (O2). Ours lists them with empty tiles. View Layouts is not part of this: it lays out the section's own blocks, and it is built.
+- **The WebGL art pictures (P5).** They are Squarespace's pictures. Ours are named CSS stand-ins from the same colors and do not follow the rows. Art's rows and the Aa chips are controls, and they are built.
 - **Pressing buttons that write outside the page (U10, U12).** Save Section, Reset and Reset Color Theme on the trial site. A probe does not press them, so what they do there stays unread. Ours keeps its own behaviour.
 
 ## Considered

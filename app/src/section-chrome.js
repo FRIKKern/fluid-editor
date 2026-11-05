@@ -1,3 +1,4 @@
+import { artRowsHtml, artImagesTop, artImagesRows } from './section-art-rows.js';
 import { ART, DIVIDER_FLIPS, DIVIDER_SHAPES, DIVIDER_SHAPE_NAMES, DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artCss, artDefaults } from './render.js';
 
 // Section chrome (U9, U10), measured on the oracle at a 1600 by 1000 window
@@ -175,8 +176,10 @@ export function sectionPanelHtml(s, o) {
     const art = ART.find((a) => a[0] === s.bgArt.name);
     const colors = art[2].map((label, k) => `<button type="button" class="sp-row sp-color-row sp-art-color" data-sp-color="art:${k}" aria-label="${label}"><span class="sp-label">${label}</span><i class="sp-dot" style="background:${s.bgArt.colors[k]}"></i></button>`).join('');
     const invert = art[2][0] === 'Start color' ? `<button type="button" class="sp-invert" data-sact="artInvert">Invert colors</button>` : '';
-    const later = (s.bgArt.name === 'images' ? ['Presets', 'Custom image', 'Scale', 'Number of images', 'Wave'] : ['Shape and size', 'Motion', 'Texture']).map((n) => `<button type="button" class="sp-row sp-art-more" data-unbuilt disabled title="Not built yet"><span>${n}</span></button>`).join('');
-    return `<div class="sp-sub"><button type="button" class="sp-subback" data-sact="view" data-v="">${pi(PI.back)}<span>Back</span></button></div><div class="sp-body">${colors}${invert}${later}<button type="button" class="sp-shuffle" data-sact="artShuffle">Shuffle Settings</button></div>`;
+    const set = s.bgArt.set, more = o.more || {}, images = s.bgArt.name === 'images';
+    const pattern = images ? `<button type="button" class="sp-row sp-color-row sp-art-color" data-sp-color="art:2" aria-label="Pattern color"><span class="sp-label">Pattern color</span><i class="sp-dot" style="background:${s.bgArt.colors[2] || '#000000'}"></i></button>` : '';
+    const rows = images ? artImagesRows(set, more, pattern) : artRowsHtml(s.bgArt.name, set, more);
+    return `<div class="sp-sub"><button type="button" class="sp-subback" data-sact="view" data-v="">${pi(PI.back)}<span>Back</span></button></div><div class="sp-body sp-art-body">${images ? artImagesTop(set, more) : ''}${colors}${invert}${rows}<button type="button" class="sp-shuffle" data-sact="artShuffle">Shuffle Settings</button></div>`;
   }
   if (o.tab === 'Design') {
     const gk = o.gapKind;
