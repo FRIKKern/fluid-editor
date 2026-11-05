@@ -1,0 +1,506 @@
+{
+  "item": "CAP-S4PHONE",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
+  "question": "S4: the section bottom handle in the phone view, a drag on it, and a click on it",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "hover",
+      2
+    ],
+    [
+      "read",
+      "phone hovered",
+      {
+        "sectionHandle": 2,
+        "section": 2
+      }
+    ],
+    [
+      "shot",
+      "hovered"
+    ],
+    [
+      "sectionDrag",
+      2,
+      90
+    ],
+    [
+      "read",
+      "phone 90 down",
+      {
+        "section": 2
+      }
+    ],
+    [
+      "hover",
+      2
+    ],
+    [
+      "sectionDrag",
+      2,
+      -150
+    ],
+    [
+      "read",
+      "phone 150 up",
+      {
+        "section": 2
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "read",
+      "desktop after",
+      {
+        "section": 2
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "hover",
+      2
+    ],
+    [
+      "read",
+      "desktop before click",
+      {
+        "sectionHandle": 2,
+        "section": 2
+      }
+    ],
+    [
+      "sectionDrag",
+      2,
+      0
+    ],
+    [
+      "read",
+      "desktop after click",
+      {
+        "sectionHandle": 2,
+        "section": 2,
+        "controls": true
+      }
+    ]
+  ],
+  "reads": {
+    "phone hovered": {
+      "sectionHandle": {
+        "box": [
+          340,
+          611,
+          44,
+          33
+        ],
+        "section": [
+          0,
+          79.6,
+          428,
+          623.7
+        ],
+        "css": {
+          "display": "flex",
+          "position": "absolute",
+          "zIndex": "999999",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "backgroundColor": "rgb(2, 122, 255)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "borderRadius": "3px",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        }
+      },
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          79.6,
+          428,
+          623.7
+        ],
+        "rows": 10,
+        "rowSizes": "44.8x2 69.7x2 24x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 6478,
+        "blocks": 3
+      },
+      "save": "clean"
+    },
+    "phone 90 down": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          79.6,
+          428,
+          701.8
+        ],
+        "rows": 13,
+        "rowSizes": "44.8x2 69.7x2 24x9",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 6478,
+        "blocks": 3
+      },
+      "save": "changed"
+    },
+    "phone 150 up": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          79.6,
+          428,
+          623.7
+        ],
+        "rows": 10,
+        "rowSizes": "44.8x2 69.7x2 24x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 6478,
+        "blocks": 3
+      },
+      "save": "changed"
+    },
+    "desktop after": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -0.2,
+          1600,
+          652.2
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1772,
+        "blocks": 3
+      },
+      "save": "changed"
+    },
+    "desktop before click": {
+      "sectionHandle": {
+        "box": [
+          1328,
+          610,
+          44,
+          33
+        ],
+        "section": [
+          0,
+          79.8,
+          1600,
+          652.2
+        ],
+        "css": {
+          "display": "flex",
+          "position": "absolute",
+          "zIndex": "999999",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "backgroundColor": "rgb(2, 122, 255)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "borderRadius": "3px",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          79.8,
+          1600,
+          652.2
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1692,
+        "blocks": 3
+      },
+      "save": "clean"
+    },
+    "desktop after click": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            117,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            161,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            161,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            164,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            214,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            269,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            269,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            269,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            269,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            316,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            769,
+            111.1,
+            36
+          ]
+        }
+      ],
+      "sectionHandle": {
+        "box": [
+          1328,
+          610,
+          44,
+          33
+        ],
+        "section": [
+          0,
+          79.8,
+          1600,
+          652.2
+        ],
+        "css": {
+          "display": "flex",
+          "position": "absolute",
+          "zIndex": "999999",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "backgroundColor": "rgb(2, 122, 255)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "borderRadius": "3px",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px"
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          79.8,
+          1600,
+          652.2
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1692,
+        "blocks": 3
+      },
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

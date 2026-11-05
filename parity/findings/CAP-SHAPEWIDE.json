@@ -1,0 +1,852 @@
+{
+  "item": "CAP-SHAPEWIDE",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
+  "question": "T6: where does the square sit when a shape block is wider, with Stretch off?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "select",
+      2,
+      2
+    ],
+    [
+      "click",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "panel",
+      {
+        "controls": true,
+        "checks": true,
+        "inside": [
+          2,
+          2
+        ],
+        "block": [
+          2,
+          2
+        ]
+      }
+    ],
+    [
+      "shot",
+      "panel"
+    ],
+    [
+      "clickIf",
+      "Stretch"
+    ],
+    [
+      "read",
+      "stretch off",
+      {
+        "inside": [
+          2,
+          2
+        ],
+        "block": [
+          2,
+          2
+        ],
+        "checks": true
+      }
+    ],
+    [
+      "shot",
+      "off"
+    ]
+  ],
+  "reads": {
+    "panel": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            1260,
+            257,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1282,
+            257,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            1344,
+            257,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1260,
+            361,
+            320,
+            103
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            1387,
+            470,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            470,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            503,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            470,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            1285,
+            473,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            1326,
+            473,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Stretch",
+          "value": true,
+          "box": [
+            1544,
+            546.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            1271,
+            636,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            1271,
+            684,
+            298,
+            46
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "2/15/12/25",
+        "mobile": "5/2/11/10",
+        "box": [
+          864.3,
+          199.5,
+          576.8,
+          399.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16395",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 15 / 12 / 25"
+        },
+        "handles": [
+          "col 10x10 at -6,195",
+          "col 10x10 at 572.8,195",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,395.9",
+          "se 10x10 at 572.8,395.9",
+          "sw 10x10 at -6,395.9"
+        ]
+      },
+      "checks": [
+        {
+          "box": [
+            1544,
+            547,
+            12,
+            12
+          ],
+          "checked": true,
+          "text": ""
+        },
+        {
+          "box": [
+            1532,
+            791,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            1532,
+            836,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            864.3,
+            199.5,
+            576.8,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "4",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-edit",
+          "box": [
+            864.3,
+            199.5,
+            576.8,
+            399.9
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            864.3,
+            199.5,
+            576.8,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-shape-block-outer-container",
+          "box": [
+            864.3,
+            199.5,
+            576.8,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-shape-block-container sqs-block-alignment-wrapper sqs-shape-block-container-system_des",
+          "box": [
+            864.3,
+            199.5,
+            576.8,
+            399.9
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(255, 255, 255)",
+            "borderTopColor": "rgb(255, 255, 255)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 255, 255)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "svg",
+          "cls": "sqs-shape sqs-shape-rectangle",
+          "box": [
+            864.3,
+            199.5,
+            576.8,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(255, 255, 255)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 255, 255)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "",
+          "box": [
+            864.3,
+            199.5,
+            576.8,
+            399.9
+          ],
+          "css": {
+            "display": "inline",
+            "opacity": "1",
+            "color": "rgb(255, 255, 255)",
+            "borderTopColor": "rgb(255, 255, 255)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 255, 255)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "box": [
+            864.3,
+            199.5,
+            576.8,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "1000",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-outline",
+          "box": [
+            864.3,
+            199.5,
+            6,
+            6
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "3px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-inner",
+          "box": [
+            865.3,
+            200.5,
+            4,
+            4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "2px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        }
+      ],
+      "save": "clean"
+    },
+    "stretch off": {
+      "block": {
+        "desktop": "2/15/12/25",
+        "mobile": "5/2/11/10",
+        "box": [
+          864.3,
+          199.5,
+          576.8,
+          399.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16395",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 15 / 12 / 25"
+        },
+        "handles": [
+          "col 10x10 at -6,195",
+          "col 10x10 at 572.8,195",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,395.9",
+          "se 10x10 at 572.8,395.9",
+          "sw 10x10 at -6,395.9"
+        ]
+      },
+      "checks": [
+        {
+          "box": [
+            1532,
+            547,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            1532,
+            791,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            1532,
+            836,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            864.3,
+            199.5,
+            576.8,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "4",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-edit",
+          "box": [
+            864.3,
+            199.5,
+            576.8,
+            399.9
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            864.3,
+            199.5,
+            576.8,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-shape-block-outer-container",
+          "box": [
+            864.3,
+            199.5,
+            576.8,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-shape-block-container sqs-block-alignment-wrapper sqs-shape-block-container-system_des",
+          "box": [
+            864.3,
+            199.5,
+            576.8,
+            399.9
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(255, 255, 255)",
+            "borderTopColor": "rgb(255, 255, 255)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 255, 255)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "svg",
+          "cls": "sqs-shape sqs-shape-rectangle",
+          "box": [
+            952.7,
+            199.5,
+            400,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(255, 255, 255)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 255, 255)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "",
+          "box": [
+            952.7,
+            199.5,
+            400,
+            399.9
+          ],
+          "css": {
+            "display": "inline",
+            "opacity": "1",
+            "color": "rgb(255, 255, 255)",
+            "borderTopColor": "rgb(255, 255, 255)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 255, 255)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "box": [
+            864.3,
+            199.5,
+            576.8,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "1000",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-outline",
+          "box": [
+            864.3,
+            199.5,
+            6,
+            6
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "3px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-inner",
+          "box": [
+            865.3,
+            200.5,
+            4,
+            4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "2px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        }
+      ],
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

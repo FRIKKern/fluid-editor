@@ -1,0 +1,114 @@
+{
+  "item": "CAP-UNDOSHORT",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
+  "question": "Y2: does a pause under 300 ms split typing into two undo steps?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "editText",
+      2,
+      1
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keys",
+      "one two"
+    ],
+    [
+      "pause",
+      100
+    ],
+    [
+      "keys",
+      " three four"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "two bursts 100ms apart",
+      2,
+      1
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "editText",
+      2,
+      1
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keys",
+      "one two"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "keys",
+      " three four"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "two bursts 200ms apart",
+      2,
+      1
+    ]
+  ],
+  "reads": {
+    "two bursts 100ms apart": {
+      "undo": [
+        [
+          "start",
+          "s its proportions when the window changes.one two three four"
+        ],
+        [
+          1,
+          ", so a layout keeps its proportions when the window changes."
+        ]
+      ],
+      "stillCan": false
+    },
+    "two bursts 200ms apart": {
+      "undo": [
+        [
+          "start",
+          "s its proportions when the window changes.one two three four"
+        ],
+        [
+          1,
+          "layout keeps its proportions when the window changes.one two"
+        ],
+        [
+          2,
+          ", so a layout keeps its proportions when the window changes."
+        ]
+      ],
+      "stillCan": false
+    }
+  },
+  "errors": [],
+  "leftDirty": false
+}

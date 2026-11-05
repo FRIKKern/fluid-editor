@@ -1,0 +1,712 @@
+{
+  "item": "CAP-NORMALIZE",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "R2, R3: which actions turn stretched rows back into uniform rows, and do start rows move?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "frame",
+      800,
+      900
+    ],
+    [
+      "read",
+      "select 1 before",
+      {
+        "section": 3,
+        "areas": 3
+      }
+    ],
+    [
+      "select",
+      3,
+      1
+    ],
+    [
+      "read",
+      "select 1 after",
+      {
+        "section": 3,
+        "areas": 3
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "frame",
+      800,
+      900
+    ],
+    [
+      "read",
+      "select 2 before",
+      {
+        "section": 3,
+        "areas": 3
+      }
+    ],
+    [
+      "select",
+      3,
+      1
+    ],
+    [
+      "read",
+      "select 2 after",
+      {
+        "section": 3,
+        "areas": 3
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "frame",
+      800,
+      900
+    ],
+    [
+      "read",
+      "select 3 before",
+      {
+        "section": 3,
+        "areas": 3
+      }
+    ],
+    [
+      "select",
+      3,
+      1
+    ],
+    [
+      "read",
+      "select 3 after",
+      {
+        "section": 3,
+        "areas": 3
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "frame",
+      800,
+      900
+    ],
+    [
+      "drag",
+      3,
+      1,
+      "middle",
+      60,
+      0
+    ],
+    [
+      "read",
+      "dragged 60 right",
+      {
+        "section": 3,
+        "areas": 3
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "frame",
+      800,
+      900
+    ],
+    [
+      "select",
+      3,
+      1
+    ],
+    [
+      "hold",
+      3,
+      1,
+      "se",
+      2,
+      2
+    ],
+    [
+      "read",
+      "resize after",
+      {
+        "section": 3,
+        "areas": 3
+      }
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "read",
+      "resize dropped home",
+      {
+        "section": 3,
+        "areas": 3
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "frame",
+      800,
+      900
+    ],
+    [
+      "editText",
+      3,
+      1
+    ],
+    [
+      "read",
+      "edit start after",
+      {
+        "section": 3,
+        "areas": 3
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "edit left",
+      {
+        "section": 3,
+        "areas": 3
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "frame",
+      800,
+      900
+    ],
+    [
+      "select",
+      3,
+      1
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "read",
+      "arrow key after",
+      {
+        "section": 3,
+        "areas": 3
+      }
+    ],
+    [
+      "unframe"
+    ]
+  ],
+  "reads": {
+    "select 1 before": {
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          1847.7,
+          800,
+          594
+        ],
+        "rows": 12,
+        "rowSizes": "15.8x3 67.3 67.4x2 15.8x2 19.5x2 15.8x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "9/2/11/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "clean"
+    },
+    "select 1 after": {
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          58.7,
+          800,
+          594
+        ],
+        "rows": 12,
+        "rowSizes": "15.8x3 67.3 67.4x2 15.8x2 19.5x2 15.8x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1789,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "9/2/11/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "clean"
+    },
+    "select 2 before": {
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          1847.7,
+          800,
+          594
+        ],
+        "rows": 12,
+        "rowSizes": "15.8x3 67.3 67.4x2 15.8x2 19.5x2 15.8x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "9/2/11/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "clean"
+    },
+    "select 2 after": {
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          58.7,
+          800,
+          594
+        ],
+        "rows": 12,
+        "rowSizes": "15.8x3 67.3 67.4x2 15.8x2 19.5x2 15.8x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1789,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "9/2/11/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "clean"
+    },
+    "select 3 before": {
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          1847.7,
+          800,
+          594
+        ],
+        "rows": 12,
+        "rowSizes": "15.8x3 67.3 67.4x2 15.8x2 19.5x2 15.8x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "9/2/11/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "clean"
+    },
+    "select 3 after": {
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          58.7,
+          800,
+          594
+        ],
+        "rows": 12,
+        "rowSizes": "15.8x3 67.3 67.4x2 15.8x2 19.5x2 15.8x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1789,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "9/2/11/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "clean"
+    },
+    "dragged 60 right": {
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          58.7,
+          800,
+          617.2
+        ],
+        "rows": 19,
+        "rowSizes": "15.8x19",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1789,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/4/13/14",
+          "3/2/5/10"
+        ],
+        [
+          "15/2/18/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "changed"
+    },
+    "resize after": {
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          58.7,
+          800,
+          617.2
+        ],
+        "rows": 19,
+        "rowSizes": "15.8x19",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1789,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/13/12",
+          "3/2/5/10"
+        ],
+        [
+          "15/2/18/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "clean"
+    },
+    "resize dropped home": {
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          58.7,
+          800,
+          617.2
+        ],
+        "rows": 19,
+        "rowSizes": "15.8x19",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1789,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/13/12",
+          "3/2/5/10"
+        ],
+        [
+          "15/2/18/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "changed"
+    },
+    "edit start after": {
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          58.7,
+          800,
+          594
+        ],
+        "rows": 12,
+        "rowSizes": "15.8x3 67.3 67.4x2 15.8x2 19.5x2 15.8x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1789,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "9/2/11/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "clean"
+    },
+    "edit left": {
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          58.7,
+          800,
+          594
+        ],
+        "rows": 12,
+        "rowSizes": "15.8x3 67.3 67.4x2 15.8x2 19.5x2 15.8x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1789,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "9/2/11/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "clean"
+    },
+    "arrow key after": {
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          58.7,
+          800,
+          617.2
+        ],
+        "rows": 19,
+        "rowSizes": "15.8x19",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1789,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/3/13/13",
+          "3/2/5/10"
+        ],
+        [
+          "15/2/18/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
