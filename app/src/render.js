@@ -182,6 +182,59 @@ function accordionHtml(b) {
   return `<ul class="accordion-items-container" style="${style}" data-should-allow-multiple-open-items="${flag(b.multiple)}" data-is-divider-enabled="${flag(on)}" data-is-first-divider-visible="${flag(b.showFirst !== false)}" data-is-last-divider-visible="${flag(b.showLast !== false)}" data-is-expanded-first-item="${flag(b.expandFirst)}" data-accordion-title-alignment="left" data-accordion-description-alignment="left" data-accordion-description-placement="left" data-accordion-icon-placement="${b.iconLeft ? 'left' : 'right'}">${items}</ul>`;
 }
 
+// Social links (T11.json): one list for the whole site, each block chooses how it looks. Glyphs
+// are our own drawings, 24 across, placed in a box of 64 so they are 30 across it (0.47).
+export const DEFAULT_SOCIAL = [{ url: 'http://instagram.com/squarespace' }, { url: 'http://facebook.com/squarespace' }, { url: 'http://twitter.com/squarespace' }];
+export const SOCIAL_SIZES = { XS: ['extra-small', 16, 10, 24, 6], S: ['small', 20, 12, 28, 8], M: ['medium', 24, 14, 32, 8], L: ['large', 28, 16, 36, 10], XL: ['extra-large', 32, 18, 48, 12] };
+export const SOCIAL_STYLES = { Knockout: 'knockout', Outline: 'border', Solid: 'solid' };
+const GLYPHS = {
+  instagram: 'M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.5-3.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z',
+  facebook: 'M14 8V6.2c0-.8.4-1.2 1.2-1.2H17V2h-2.8C11.5 2 10 3.6 10 6v2H7.5v3H10v11h4V11h2.7l.5-3H14z',
+  twitter: 'M22 5.6c-.7.3-1.5.5-2.3.6.8-.5 1.5-1.3 1.8-2.2-.8.5-1.7.8-2.6 1A4 4 0 0 0 12 8.7c0 .3 0 .6.1.9A11.4 11.4 0 0 1 3.8 5.4a4 4 0 0 0 1.2 5.4c-.6 0-1.3-.2-1.8-.5v.1c0 1.9 1.4 3.5 3.2 3.9-.6.2-1.2.2-1.8.1.5 1.6 2 2.7 3.8 2.8A8 8 0 0 1 2 19.3 11.3 11.3 0 0 0 8.2 21c7.4 0 11.5-6.2 11.5-11.5v-.5c.8-.6 1.5-1.3 2-2z',
+  youtube: 'M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4a2.6 2.6 0 0 0-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8a2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3L10 15z',
+  facebookRound: 'M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm1.6 6.6V7.4c0-.5.3-.8.8-.8H16V4.4h-2.2C11.9 4.4 10.8 5.6 10.8 7.4v1.2H9v2.4h1.8V20h2.8v-9H16l.4-2.4h-2.8z',
+  url: 'M8 7h3v2H8a3 3 0 0 0 0 6h3v2H8A5 5 0 0 1 8 7zm5 0h3a5 5 0 0 1 0 10h-3v-2h3a3 3 0 0 0 0-6h-3V7zM8 11h8v2H8z',
+};
+const NAMED = { instagram: 'Instagram', facebook: 'Facebook', twitter: 'Twitter', youtube: 'YouTube' };
+// What the list shows for a link: a site we know gets its icon and only the path as its name.
+export function socialKind(url) {
+  let u = null;
+  try { u = new URL(url); } catch { return null; }
+  const net = /^https?:$/.test(u.protocol) ? Object.keys(NAMED).find((n) => u.hostname.replace(/^www\./, '') === `${n}.com`) : null;
+  return net ? { net, aria: NAMED[net], name: u.pathname } : { net: 'url', aria: 'URL', name: url };
+}
+export const socialGlyph = (net, size = 20) => `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="${GLYPHS[net]}"/></svg>`;
+export function socialHtml(b, model) {
+  const style = b.iconBorder ? b.iconStyle || 'knockout' : 'regular';
+  const [word, none, gap, boxed, boxedGap] = SOCIAL_SIZES[b.iconSize || 'S'];
+  const vars = `--si-size:${b.iconBorder ? boxed : none}px;--si-gap:${b.iconBorder ? boxedGap : gap}px${style === 'border' ? `;--si-thick:${b.iconThick ?? 2}px` : ''}`;
+  const links = (model?.socialLinks || DEFAULT_SOCIAL).filter((l) => !l.hidden).map((l, i) => {
+    const k = socialKind(l.url) || { net: 'url', aria: 'URL' };
+    const glyph = `<path fill-rule="evenodd" transform="translate(17 17) scale(1.25)" d="${GLYPHS[k.net]}"/>`;
+    const art = style === 'knockout'
+      ? `<mask id="si-${b.id}-${i}"><rect width="64" height="64" fill="#fff"/><g fill="#000">${glyph}</g></mask><rect class="sqs-use--mask" width="64" height="64" mask="url(#si-${b.id}-${i})"/>`
+      : `<g class="sqs-use--icon">${glyph}</g>`;
+    return `<a class="sqs-svg-icon--wrapper ${k.net}-unauth" href="${escapeHtml(l.url)}" target="_blank" aria-label="${k.aria}"><div><svg class="sqs-svg-icon--social" viewBox="0 0 64 64">${art}</svg></div></a>`;
+  }).join('');
+  return `<div class="sqs-block socialaccountlinks-v2-block sqs-block-socialaccountlinks-v2" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-svg-icon--outer social-icon-alignment-${b.align || 'left'} social-icons-color-black social-icons-size-${word}${b.iconBorder ? ` social-icons-shape-${b.iconBorder}` : ''} social-icons-style-${style}" style="${vars}"><nav class="sqs-svg-icon--list">${links}</nav></div></div></div>`;
+}
+
+// Map (T11.json): the block's values are the oracle's; the map itself is our own drawing, as the
+// tiles and the address lookup are a hosted service. The Zoom field reads a ladder over map zooms 0 to 22.
+export const MAP_STYLES = [['Original', 1], ['Grayscale', 2], ['Satellite', 3], ['Dark', 5], ['Light', 4], ['Blue', 6]];
+export const MAP_ZOOMS = [0, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.2, 1.4, 1.6, 1.8, 2, 3, 4, 5, 6, 7];
+// Our own palettes: land, water, park, hill, road, ink.
+export const MAP_PALETTES = { 1: ['#f2efe6', '#a6d3ea', '#c8e3b4', '#d7cdb2', '#fff', '#444'], 2: ['#f8f8f8', '#6e6e6e', '#e4e4e4', '#cfcfcf', '#d0d0d0', '#333'], 3: ['#4d5a3c', '#16302f', '#33482d', '#6a6647', '#a59a7c', '#fff'], 4: ['#fbfbfb', '#ececec', '#f3f3f3', '#e6e6e6', '#f0f0f0', '#8a8a8a'], 5: ['#2a2a2a', '#121212', '#333', '#3d3d3d', '#3f3f3f', '#bbb'], 6: ['#f7f9fb', '#c6dff0', '#e8f0f5', '#dbe6ed', '#fff', '#54687a'] };
+export const mapVars = (style) => ['land', 'water', 'park', 'hill', 'road', 'ink'].map((k, i) => `--m-${k}:${MAP_PALETTES[style][i]}`).join(';');
+export const mapOf = (b) => ({ style: b.mapStyle ?? 2, labels: b.mapLabels !== false, terrain: !!b.mapTerrain, controls: !!b.mapControls, zoom: b.mapZoom ?? 12 });
+export const mapArt = (labels = true, terrain = false) => `<rect class="m-land" x="-400" y="-400" width="1200" height="1200"/>${terrain ? '<g class="m-hill"><ellipse cx="90" cy="110" rx="90" ry="60"/><ellipse cx="320" cy="310" rx="110" ry="70"/><ellipse cx="310" cy="70" rx="70" ry="45"/></g>' : ''}<path class="m-park" d="M250 150l60-14 22 58-58 20zM60 300l58-10 14 50-60 14z"/><path class="m-water" d="M-400 330C40 300 90 240 150 170S210 30 250-400H330C300 40 260 130 210 200S120 340-400 480z"/><g class="m-road"><path d="M-400 90L800 40M-400 250L800 210M-400 370L800 330M60-400L110 800M300-400L340 800"/><path class="m-thin" d="M-400 150L800 110M-400 310L800 270M-400 30L800-10M10-400L50 800M180-400L220 800M250-400L290 800M370-400L410 800"/></g>${labels ? '<g class="m-label"><text x="262" y="122">Harbor</text><text x="42" y="214">Old Town</text><text x="238" y="286">Riverside</text><text x="120" y="368">South Park</text></g>' : ''}`;
+function mapHtml(b) {
+  const m = mapOf(b);
+  const scale = 2 ** ((m.zoom - 12) / 2);
+  const ctx = escapeHtml(JSON.stringify({ style: m.style, labels: m.labels, terrain: m.terrain, controls: m.controls, location: { mapZoom: m.zoom } }));
+  return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-map map-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="page-map" style="${mapVars(m.style)}" data-context="${ctx}"><svg class="fe-map" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g transform="translate(200 200) scale(${scale}) translate(-200 -200)">${mapArt(m.labels, m.terrain)}</g></svg><svg class="fe-map-pin" viewBox="0 0 24 32" width="24" height="32" aria-hidden="true"><path d="M12 0a12 12 0 0 1 12 12c0 8-12 20-12 20S0 20 0 12A12 12 0 0 1 12 0z"/><circle cx="12" cy="12" r="4" fill="#fff"/></svg>${m.controls ? '<div class="fe-map-controls"><span aria-label="Zoom in">+</span><span aria-label="Zoom out">−</span></div>' : ''}</div></div></div>`;
+}
+
 const VIDEO_PLACEHOLDER = '<div class="sqs-block-video-placeholder sqs-block-video-placeholder--empty"><div class="sqs-block-video-placeholder__ui"><div class="sqs-block-video-placeholder__icon"><svg viewBox="0 0 26 21" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 2" aria-hidden="true"><rect x="1" y="1" width="24" height="19"/><path d="M10.5 7v7l6-3.5z" fill="currentColor" stroke="none"/></svg></div></div></div>';
 // A video with a file (parity/findings/VIDEOPLAYER.json). Autoplay, Loop and Mute start on, as the
 // oracle's only reachable video has them; a video added by upload there is out of scope (0005).
@@ -275,14 +328,11 @@ function blockInner(b, model) {
       return `<div class="sqs-block scrolling-block sqs-block-scrolling${b.wave === 0 ? ' scrolling-block--flat' : ''}" id="block-${b.id}"><div class="sqs-block-content"><div class="marquee" style="--marquee-font-size-value:${b.size || 5}${b.wave === 0 ? ';--marquee-wave:0px' : ''}"><span class="marquee-text">${escapeHtml(b.text || '')}</span></div></div></div>`;
     }
     case 'line': {
-      // Line block (T11): a horizontal rule centered in its area.
-      return `<div class="sqs-block horizontalrule-block sqs-block-horizontalrule" id="block-${b.id}"><div class="sqs-block-content"><hr></div></div>`;
+      // Line block (T11.json): a 17px content box in the middle of the block, a 1px rule in the middle of that.
+      return `<div class="sqs-block horizontalrule-block sqs-block-horizontalrule" id="block-${b.id}"><div class="sqs-block-content"><div><hr></div></div></div>`;
     }
-    case 'social': {
-      // Social links (T11): icons of 20px, 12px apart, as on the oracle footer.
-      const icons = Array.from({ length: b.count || 3 }, () => '<a class="social-icon" href="#" aria-label="Social link"><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"/></svg></a>').join('');
-      return `<div class="sqs-block socialaccountlinks-v2-block sqs-block-socialaccountlinks-v2" id="block-${b.id}"><div class="sqs-block-content"><div class="social-icons social-icon-alignment-${b.align || 'left'}">${icons}</div></div></div>`;
-    }
+    case 'social': return socialHtml(b, model);
+    case 'map': return mapHtml(b);
     // Code, Embed and Video (T7, T10; parity/findings/CODEEMBED.json, T7.json): the published
     // class strings and block type 1337 of the corpus pages. An empty embed and an empty video
     // show a placeholder in the editor only. Our demo's code blocks show source text in <pre>.
@@ -406,10 +456,11 @@ function blendRule(b, g, phone) {
   const w = g.strokeSize === 'custom' ? g.strokePx ?? 2 : STROKE_PX[g.strokeSize || 'S'];
   const radius = g.corners ? g.corners.map((v) => `${v}px`).join(' ') : `${g.corner || 0}px`;
   const pad = g.pad === 'custom' ? `${g.padY ?? 6}% ${g.padX ?? 6}%` : STROKE_PAD[g.pad || 'M'];
+  const inner = b.type === 'social' ? '.sqs-block-content' : '.sqs-html-content'; // what the padding goes on
   // Stroke, Corner and Padding (STROKE.json, BLOCKDESIGN.json). A background has the same corner and padding.
   const stroke = b.type === 'shape' ? '' : (g.stroke ? `${on} { border: ${w}px ${g.stroke} ${g.strokeColor || 'rgb(0, 0, 0)'}; border-radius: ${b.type === 'stack' ? `${g.corner || 0}px` : radius}; }` : phone && base.stroke ? `${on} { border: 0; }` : '')
-    + (boxed ? `${g.stroke ? '' : ` ${on} { border-radius: ${radius}; }`} .fe-block-${b.id} { border-radius: ${radius}; } .fe-block-${b.id} .sqs-html-content { padding: ${pad}; }`
-      : phone && b.type !== 'shape' && b.type !== 'stack' && (base.stroke || base.background) ? ` .fe-block-${b.id} .sqs-html-content { padding: 0; } ${on} { border-radius: 0; } .fe-block-${b.id} { border-radius: 0; }` : '');
+    + (boxed ? `${g.stroke ? '' : ` ${on} { border-radius: ${radius}; }`} .fe-block-${b.id} { border-radius: ${radius}; } .fe-block-${b.id} ${inner} { padding: ${pad}; }`
+      : phone && b.type !== 'shape' && b.type !== 'stack' && (base.stroke || base.background) ? ` .fe-block-${b.id} ${inner} { padding: 0; } ${on} { border-radius: 0; } .fe-block-${b.id} { border-radius: 0; }` : '');
   const drop = g.shadow ? `.fe-block-${b.id} .sqs-block { filter: drop-shadow(2px 2px 3px); }` : phone && base.shadow ? `.fe-block-${b.id} .sqs-block { filter: none; }` : '';
   const shadow = drop + (stroke ? ` ${stroke}` : '');
   const m = g.blend && g.blend !== 'normal' ? g.blend : phone && base.blend && base.blend !== 'normal' ? 'normal' : null;

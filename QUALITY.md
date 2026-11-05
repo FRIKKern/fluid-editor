@@ -31,6 +31,7 @@ Two narrower checks run beside the gates:
 | `npm run button-check` | A new button through the menu: Design tab rows, Fit, Fill and Alignment boxes, the style list, pulls with the mouse, the phone's own container, against `parity/findings/BUTTONDESIGN.json` | Boxes within 1px, same classes and grid areas |
 | `npm run shape-check` | A new shape through the menu: the rows, all 29 Shape styles, Stretch off boxes, Individual corners, Color with its custom picker, Stroke, against `parity/findings/SHAPESTYLES.json` and `CAP-SHAPEWIDE.json`. Curves are ours (O2) and not compared | Boxes within 1px, same names, proportions and values, one undo step |
 | `npm run block-design-check` | A new text block through the menu: Stroke, Stroke Color, Thickness, Background, Background Color, Corner, Padding, Blur and More actions in the oracle's order, with the rows they add, against `parity/findings/BLOCKDESIGN.json` | Heights and paddings within 0.6px, same rows, areas and values, one undo step |
+| `npm run t11-check` | A new Line, Map and Social Links through the menu: boxes, classes, sizes, borders, styles, rows, the list and its dialog, the Map fields, styles, Zoom ladder and switches, against `parity/findings/T11.json` | Boxes within 1px, same words and values, 88 of 88 |
 | `npm run video-check` | A video from a real file picked in the panel (nothing uploaded): the markup, Content rows, Aspect ratio, Lazy Loading, the three buttons, Player controls, Align Vertically, Corner, Remove and the published player against `parity/findings/VIDEOPLAYER.json` |
 | `npm run resize-check` | Each block type we build, added through the menu and pulled by three handles with the mouse, and a picture in Fit, Fill and Shape, against `parity/findings/BLOCKTYPES.json` | Equal grid areas |
 | `npm run code-check` | What each code mode, Display Source Code and Embed data wrote on the oracle (`parity/findings/CODEEMBED.json`) against the same input in our editor, with real keys | Equal HTML, same rows and panel size, one undo step |
@@ -84,7 +85,7 @@ Every gap is matched against `parity/items.json`. An item lists the oracle label
 
 | # | Rule |
 |---|---|
-| O1 | Read state, do one gesture, read state, then leave with `exitWithoutSaving()` in `scripts/oracle/ui.mjs`, because undo can leave a page dirty. Never press Save on the trial site unless the milestone step says so. New experiments go on a new page, never an old one (docs/decisions/0006) |
+| O1 | Read state, do one gesture, read state, then leave with `exitWithoutSaving()` in `scripts/oracle/ui.mjs`, because undo can leave a page dirty. Social Links rows (Add, the Display Social Icon switch, Delete) are not page state: they write the live site with no Save, so a probe does not press them (`parity/findings/T11.json`). Never press Save on the trial site unless the milestone step says so. New experiments go on a new page, never an old one (docs/decisions/0006) |
 | O2 | Black box only. No Squarespace JavaScript, CSS files, fonts or images are copied into this repo |
 | O3 | Fixtures in git hold CSS only: ids and grid numbers. Raw pages with other people's content stay in `fixtures/raw/`, which git ignores |
 | O4 | A Squarespace change that breaks a gate is a finding, not a failure to hide. Recapture and record it |

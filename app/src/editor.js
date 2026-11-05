@@ -2,14 +2,14 @@
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
 import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults } from './render.js';
-import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey } from './render.js';
+import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder } from './phone-order.js';
-import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue } from './block-panel.js';
+import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -214,7 +214,7 @@ function decorate(sid) {
 
 // The label pill of every block (U3, parity/findings/MARKS.json, labels): 22px above the block, seen
 // only on hover. Its box is in the page all the time and takes the pointer, even at opacity 0.
-const LABELS = { text: 'Text', button: 'Button', shape: 'Shape', image: 'Image', video: 'Video', form: 'Form', accordion: 'Accordion', scrolling: 'Scrolling', line: 'Line', code: 'Code', embed: 'Embed', social: 'Social Links', stack: 'Stack' };
+const LABELS = { text: 'Text', button: 'Button', shape: 'Shape', image: 'Image', video: 'Video', form: 'Form', accordion: 'Accordion', scrolling: 'Scrolling', line: 'Line', map: 'Map', code: 'Code', embed: 'Embed', social: 'Social Links', stack: 'Stack' };
 function drawLabels(sid) {
   const fe = feEl(sid);
   for (const el of fe.querySelectorAll(':scope > .fe-label')) el.remove();
@@ -462,7 +462,7 @@ toolbar.addEventListener('click', (e) => {
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
-  if (act === 'edit') { designOpen = bid; designTab = b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { designOpen = bid; designTab = b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && (b.type === 'button' || b.type === 'stack')) { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
@@ -548,7 +548,7 @@ function measure(fe) {
 
 // Rows a block needs so its content fits without stretching a row.
 function contentRows(b, m, normalizing = false) {
-  if (b.type === 'shape' || b.type === 'image' || b.type === 'line') return 1; // free down to 1 row (BLOCKTYPES.json)
+  if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
   const root = blockEl(b.id);
   // A Fit button in the view on screen: its height is its own (BUTTONDESIGN.json).
   const fit = b.type === 'button' ? [...(root?.querySelectorAll('.sqs-block-button-container:not(.sqs-stretched)') || [])].find((e) => e.offsetHeight) : null;
@@ -1386,8 +1386,12 @@ function renderBlockPanel() {
     : b.type === 'video' && !b.html ? { kind: 'video', description: b.description, video: b.video }
     : b.type === 'code' && b.html != null ? { kind: 'code', html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource }
     : b.type === 'accordion' ? { kind: 'accordion', items: b.items, expandFirst: b.expandFirst, multiple: b.multiple, dividers: b.dividers, showFirst: b.showFirst, showLast: b.showLast, iconSize: b.iconSize, iconThickness: b.iconThickness, iconLeft: b.iconLeft, rowPadding: b.rowPadding }
+    : b.type === 'line' ? { kind: 'line' }
+    : b.type === 'social' ? { kind: 'social', links: socialList(), err: socErr, iconBorder: b.iconBorder, iconStyle: b.iconStyle, iconThick: b.iconThick, iconSize: b.iconSize, align: b.align }
+    : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
-  if (!content && designTab === 'Content') designTab = 'Design';
+  if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
+  if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || '#ffffff' } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', corner: parseFloat(b.radius) || 0, empty: !!b.empty } : null;
@@ -1396,7 +1400,7 @@ function renderBlockPanel() {
   const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
   const buttonView = b.type !== 'button' ? null : bp === 'mobile' && b.btnMobile ? b.btnMobile : { fit: b.fit, align: b.halign };
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
-  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'accordion' && accView ? accView : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   blockPanel.style.width = b.type === 'code' && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
   // An item's view holds that item open on the canvas (ACCORDION.json).
   if (b.type === 'accordion') showAccordionItem(b);
@@ -1546,7 +1550,7 @@ function setButtonView(key, v) {
 // fall by what the fit fell. A block made taller by hand keeps the rest: 8 rows, fit 3 to 2, gives 7.
 const FIT_KEYS = new Set(['background', 'stroke', 'strokeSize', 'strokePx', 'pad', 'padY', 'padX']);
 function designChange(b, keys, change, fitBefore = null) {
-  const s = S(sel.sid), fits = b.type === 'text' && keys.some((k) => FIT_KEYS.has(k));
+  const s = S(sel.sid), fits = (b.type === 'text' || b.type === 'social') && keys.some((k) => FIT_KEYS.has(k));
   const was = fitBefore ?? (fits ? contentRows(b, measure(feEl(sel.sid))) : 0);
   change();
   renderSectionDom(sel.sid);
@@ -1631,6 +1635,101 @@ blockPanel.addEventListener('change', (e) => {
   renderBlockPanel();
 }, true);
 
+// Social Links and Map (parity/findings/T11.json). The rows are one list for the whole site.
+let socView = null, socErr = '';
+function socialList() { return model.socialLinks || DEFAULT_SOCIAL; }
+function changeSocialList(change, label) {
+  const before = JSON.stringify(model);
+  model.socialLinks = structuredClone(socialList());
+  change(model.socialLinks);
+  for (const s of model.sections) if (JSON.stringify(s.blocks).includes('"type":"social"')) renderSectionDom(s.id);
+  commit(before, label);
+  renderBlockPanel();
+}
+// A press that makes the icons shorter sets the rows to the fit; one that makes them taller only grows them to fit.
+function setSocial(change, label) {
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), s = S(sel.sid);
+  const tall = () => blockEl(b.id)?.querySelector('.sqs-svg-icon--outer')?.offsetHeight || 0;
+  const was = tall();
+  change(b);
+  renderSectionDom(sel.sid);
+  const now = tall(), need = contentRows(b, measure(feEl(sel.sid))), a = lay(b).area, rows = a[2] - a[0], next = now < was ? need : Math.max(rows, need);
+  if (next !== rows) {
+    const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), low = lowest();
+    a[2] = a[0] + next;
+    if (next < rows) s.rows[bp] -= low - lowest(); else growRows(s);
+    renderSectionDom(sel.sid);
+  }
+  commit(before, label);
+  renderBlockPanel();
+}
+function setMap(change, label) {
+  const before = JSON.stringify(model);
+  change(B(sel.sid, sel.bid));
+  renderSectionDom(sel.sid);
+  commit(before, label);
+  renderBlockPanel();
+}
+function addSocialLink(field) {
+  if (!socialKind(field.value.trim())) { socErr = 'URL not found'; const v = field.value; renderBlockPanel(); const f = blockPanel.querySelector('[data-soc-add]'); if (f) { f.value = v; f.focus(); } return; }
+  socView = null; socErr = '';
+  changeSocialList((l) => l.push({ url: field.value.trim() }), 'Social link added');
+}
+blockPanel.addEventListener('click', (e) => {
+  if (!sel) return;
+  const set = e.target.closest('[data-soc-set]');
+  if (set) { const { socSet: k, v } = set.dataset; setSocial((b) => { if (v) b[k] = v; else delete b[k]; }, `${k} ${v}`); return; }
+  const z = e.target.closest('[data-map-zoom]');
+  if (z) { const d = Number(z.dataset.mapZoom); setMap((b) => { b.mapZoom = Math.max(0, Math.min(MAP_ZOOMS.length - 1, mapOf(b).zoom + d)); }, 'Map zoom'); return; }
+  const a = e.target.closest('[data-social]');
+  if (!a) return;
+  const [act, arg] = a.dataset.social.split(':');
+  if (act === 'open') { socView = `soc-row:${arg}`; socErr = ''; renderBlockPanel(); }
+  else if (act === 'back') { socView = null; socErr = ''; renderBlockPanel(); }
+  else if (act === 'add') { socView = 'soc-add'; socErr = ''; renderBlockPanel(); blockPanel.querySelector('[data-soc-add]')?.focus(); }
+  else if (act === 'delete') showSocialConfirm(Number(arg));
+});
+blockPanel.addEventListener('keydown', (e) => {
+  const f = e.target.closest?.('[data-soc-add]');
+  if (!f) return;
+  if (e.key === 'Enter') { e.preventDefault(); addSocialLink(f); }
+  if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); socView = null; socErr = ''; renderBlockPanel(); }
+});
+blockPanel.addEventListener('input', (e) => {
+  const t = e.target.closest('[data-soc-thick]');
+  if (t) { const v = blockPanel.querySelector('.bp-soc-tv'); if (v) v.textContent = `${t.value}px`; blockEl(sel.bid)?.querySelector('.sqs-svg-icon--outer')?.style.setProperty('--si-thick', `${t.value}px`); }
+});
+blockPanel.addEventListener('change', (e) => {
+  if (!sel) return;
+  const t = e.target.closest('[data-soc-thick]');
+  if (t) { const v = Number(t.value); setSocial((b) => { b.iconThick = v; }, `Thickness ${v}`); return; }
+  const show = e.target.closest('[data-soc-show]');
+  if (show) { const n = Number(show.dataset.socShow), on = show.checked; changeSocialList((l) => { if (on) delete l[n].hidden; else l[n].hidden = true; }, 'Social icon shown or hidden'); return; }
+  const url = e.target.closest('[data-soc-url]');
+  if (url) {
+    const n = Number(url.dataset.socUrl), v = url.value.trim();
+    if (!socialKind(v)) { socErr = 'URL not found'; renderBlockPanel(); return; }
+    socErr = ''; changeSocialList((l) => { l[n].url = v; }, 'Social link changed');
+    return;
+  }
+  const m = e.target.closest('[data-map-set]');
+  if (m) { const k = m.dataset.mapSet, on = m.checked; setMap((b) => { b[k] = on; }, `${k} ${on}`); return; }
+  const zf = e.target.closest('[data-map-zoomfield]');
+  if (zf) { const v = parseFloat(zf.value); if (Number.isFinite(v)) setMap((b) => { b.mapZoom = MAP_ZOOMS.reduce((best, x, i) => (Math.abs(x - v) < Math.abs(MAP_ZOOMS[best] - v) ? i : best), 0); }, 'Map zoom'); else renderBlockPanel(); return; }
+  const c = e.target.closest('input[data-content^="map"]');
+  if (c) { const k = c.dataset.content, v = c.value; c.blur(); setMap((b) => { if (v) b[k] = v; else delete b[k]; }, `${k} changed`); }
+});
+function closeSocialConfirm() { styleConfirm.hidden = true; styleConfirm.classList.remove('is-social'); socConfirmRow = null; }
+let socConfirmRow = null;
+function showSocialConfirm(n) {
+  socConfirmRow = n;
+  $('ss-confirm-title').textContent = 'Remove social link?';
+  $('ss-confirm-body').textContent = 'Removing a social link will remove it from all social link areas.';
+  $('ss-confirm-reset').textContent = 'Delete';
+  styleConfirm.classList.add('is-social');
+  styleConfirm.hidden = false;
+}
+
 // A shape's Shape style, corners, Color and Stroke Color (parity/findings/SHAPESTYLES.json). Each
 // change is one undo step; a drag on the map or the bars is one step when it ends.
 const shapePop = document.createElement('div');
@@ -1638,6 +1737,7 @@ shapePop.id = 'shape-pop';
 shapePop.hidden = true;
 document.body.append(shapePop);
 function closeShapePop() { shapeUi = null; shapePop.hidden = true; }
+const MAP_ORDER = [1, 2, 3, 5, 4, 6]; // Original, Grayscale, Satellite, Dark, Light, Blue
 function setShape(change, label) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   change(b);
@@ -1699,11 +1799,16 @@ function renderSectionPop() {
 function renderShapePop() {
   if (shapeUi.section) { renderSectionPop(); return; }
   const b = B(sel.sid, sel.bid), P = blockPanel.getBoundingClientRect(), { kind } = shapeUi;
-  shapePop.className = kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : 'is-color';
+  shapePop.className = kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
   if (kind === 'more') {
     shapePop.innerHTML = '<button type="button" role="option" data-more="copy">Copy transforms</button><button type="button" role="option" data-more="paste">Paste transforms</button>';
     const r = blockPanel.querySelector('.bp-more').getBoundingClientRect();
     shapePop.style.cssText = `left:${r.left - 54}px;top:${r.top - 6}px`;
+  } else if (kind === 'mapstyle') {
+    // The chosen row sits over the picker (T11.json): rows of 88 and 6px above the first.
+    const cur = mapOf(b).style, at = [...MAP_ORDER].indexOf(cur), r = blockPanel.querySelector('.bp-map-style').getBoundingClientRect();
+    shapePop.innerHTML = mapStylesHtml(cur);
+    shapePop.style.cssText = `left:${r.left}px;top:${Math.max(60, r.top - at * 88 - 6)}px`;
   } else if (kind === 'style') {
     shapePop.innerHTML = shapePickerHtml(b.shape);
     const top = Math.max(60, P.top - 85);
@@ -1736,6 +1841,8 @@ shapePop.addEventListener('click', (e) => {
     return;
   }
   if (!sel || !shapeUi) return;
+  const mp = e.target.closest('[data-map-pick]');
+  if (mp) { const v = Number(mp.dataset.mapPick); closeShapePop(); setMap((b) => { b.mapStyle = v; }, `Map style ${v}`); return; }
   const more = e.target.closest('[data-more]');
   if (more) { closeShapePop(); if (more.dataset.more === 'copy') copyTransforms(); else if (transformClip) setShape(() => pasteTransforms(sel.sid, [sel.bid]), 'Paste transforms'); return; }
   const pick = e.target.closest('[data-shape-pick]');
@@ -2626,11 +2733,13 @@ const ADD_TYPES = [
   ['Shape', 6, 6, () => ({ type: 'shape', fill: '#ffffff', radius: '0' })],
   ['Scrolling', 24, 2, () => ({ type: 'scrolling', text: 'Dream it 〰️', size: 1.5, wave: 0 })],
   ['Line', 4, 1, () => ({ type: 'line' })],
+  ['Map', 8, 12, () => ({ type: 'map' })],
+  ['Social Links', 4, 2, () => ({ type: 'social', align: 'center' })],
   // From the menu search (parity/findings/T10.json): Code 4 by 6, Embed 8 by 8.
   ['Code', 4, 6, () => ({ type: 'code', html: '<p>Hello, World!</p>' })],
   ['Embed', 8, 8, () => ({ type: 'embed' })],
   // Not built yet (T11, T12): a stand-in of the size the oracle gives (parity/findings/U5.json sizes).
-  ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Map: [8, 12], Menu: [12, 28], Chart: [8, 8], Markdown: [4, 6], 'Social Links': [4, 2], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
+  ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Menu: [12, 28], Chart: [8, 8], Markdown: [4, 6], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
     .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name })]),
 ];
 function addBlock(sid, name) {
@@ -3340,6 +3449,7 @@ function hideStyleConfirm() { styleConfirm.hidden = true; styleConfirmKind = nul
 function showStyleConfirm(kind) {
   styleConfirmKind = kind;
   const word = kind === 'font' ? 'font' : 'button';
+  $('ss-confirm-reset').textContent = 'Reset';
   $('ss-confirm-title').textContent = `Reset ${word === 'font' ? 'Font' : 'Button'} Pack`;
   $('ss-confirm-body').textContent = `Are you sure you want to reset this ${word} pack to its default settings?`;
   styleConfirm.hidden = false;
@@ -3347,6 +3457,7 @@ function showStyleConfirm(kind) {
 styleConfirm.addEventListener('click', (e) => {
   const b = e.target.closest('button');
   if (!b) return;
+  if (socConfirmRow != null) { const n = socConfirmRow, yes = b.id === 'ss-confirm-reset'; closeSocialConfirm(); if (yes) { socView = null; changeSocialList((l) => l.splice(n, 1), 'Social link deleted'); } return; }
   const kind = styleConfirmKind;
   hideStyleConfirm();
   if (b.id !== 'ss-confirm-reset') return;
