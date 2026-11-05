@@ -7,11 +7,12 @@
 // the site's current styles. A 44px disclosure swaps the panel for that pack's view, with a back
 // button. Works: Base Size and Reset in Fonts and Buttons, Headings, Paragraphs, Animations, Spacing and
 // the packs we hold in each list panel (parity/findings/CAP-SITESTYLEROWS.json), Edit Palette and Edit
-// Color Theme's rows (CAP-THEMEROWS.json), each button type's rows (CAP-BUTTONROWS.json). Faded and not built (data-unbuilt): the other rows of a view, Customize.
+// Color Theme's rows (CAP-THEMEROWS.json), each button type's rows (CAP-BUTTONROWS.json), the Forms rows, Form Spacing and pack picks (CAP-FORMROWS.json). Faded and not built (data-unbuilt): the other rows of a view, Customize.
 import { PALETTES, FONT_PACKS, BUTTON_PACKS, FORM_PACKS, THEMES, VARS, TYPE_DEFAULTS, SPACE_DEFAULTS, BASE_VARS, resolveSiteStyles, fontLink, baseSize } from './site-style-packs.js';
 import { paletteHtml } from './site-palette.js';
 import { ROW_GROUPS, rowValue, rowCss } from './theme-rows.js';
 import { TIERS, TIER_NAMES, SHAPES, tierValues, sameTier, tierSample } from './button-tiers.js';
+import { FORM_SHAPES, formValues, formRadius, formFill } from './form-rows.js';
 
 const svg = (d, s = 16) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const CHEV = '<path d="M9 6l6 6-6 6"/>';
@@ -23,7 +24,7 @@ const q = (s) => s.replace(/"/g, '&quot;');
 // The panel. view is null for the cards, or Fonts, Colors, Buttons, Forms or Miscellaneous; rows are
 // the section color themes for Colors: { name, bg, ink, used }.
 // The views a level down (parity/findings/CAP-SITESTYLEROWS.json): the view, its parent and its title.
-export const SUB = { ButtonTier: ['Buttons', 'Buttons'], FontPacks: ['Fonts', 'Font Packs'], Headings: ['Fonts', 'Headings'], Paragraphs: ['Fonts', 'Paragraphs'], ButtonPacks: ['Buttons', 'Button Packs'], FormPacks: ['Forms', 'Form Packs'], EditPalette: ['Colors', 'Edit Palette'], ThemeRows: ['Colors', 'Edit Color Theme'], Animations: ['Miscellaneous', 'Animations'], Spacing: ['Miscellaneous', 'Spacing'] };
+export const SUB = { ButtonTier: ['Buttons', 'Buttons'], FontPacks: ['Fonts', 'Font Packs'], Headings: ['Fonts', 'Headings'], Paragraphs: ['Fonts', 'Paragraphs'], ButtonPacks: ['Buttons', 'Button Packs'], FormPacks: ['Forms', 'Form Packs'], FormSpacing: ['Forms', 'Form Spacing'], EditPalette: ['Colors', 'Edit Palette'], ThemeRows: ['Colors', 'Edit Color Theme'], Animations: ['Miscellaneous', 'Animations'], Spacing: ['Miscellaneous', 'Spacing'] };
 const CHEV_DOWN = '<path d="M6 9l6 6 6-6"/>';
 // What a font pack sets, shown in its rows: the readings in site-style-packs.js.
 function packValue(font, k, n) {
@@ -64,6 +65,7 @@ function subHtml(view, styles, font, opts) {
   const select = (key, label, now, options) => `<div class="ss-sel-row"><span>${label}</span><button type="button" class="ss-sel" data-ss-select="${key}" aria-label="${label}" aria-expanded="${open === key}"><span>${now}</span>${svg(CHEV_DOWN)}</button>${open === key ? `<div class="ss-options" role="listbox" style="top:${1 - 44 * options.indexOf(now)}px">${options.map((o) => `<button type="button" role="option" class="ss-option${o === now ? ' is-on' : ''}" aria-selected="${o === now}" data-ss-set="${key}" data-v="${o}">${o}</button>`).join('')}</div>` : ''}</div>`;
   const slide = (key, label, now, min, max, step, unit) => `<div class="ss-slide"><span>${label}</span><input type="text" data-ss-set="${key}" aria-label="${label} value" value="${now}${unit}"><input type="range" data-ss-set="${key}" data-unit="${unit}" aria-label="${label}" min="${min}" max="${max}" step="${step}" value="${now}" style="--p:${(100 * (now - min)) / (max - min)}%"></div>`;
   if (view === 'ButtonTier') return tierHtml(styles, font, slide, opts);
+  if (view === 'FormSpacing') { const f = formValues(styles); return `<div class="ss-spacing">${[['label', 'Space Below Label'], ['desc', 'Space Below Description'], ['cap', 'Space Below Caption'], ['fields', 'Space Between Fields'], ['cols', 'Space Between Columns']].map(([k, l]) => slide(`forms.${k}`, l, f[k], 1, 40, 1, 'px')).join('')}</div>`; }
   if (view === 'Headings' || view === 'Paragraphs') {
     const k = view === 'Headings' ? 'h' : 'p', d = TYPE_DEFAULTS[k], t = styles?.type?.[k] || {}, v = (n) => t[n] ?? packValue(font, k, n) ?? d[n];
     const family = (k === 'h' ? font?.h : font?.p) || 'Poppins';
@@ -99,7 +101,7 @@ function subHtml(view, styles, font, opts) {
   const cur = styles || {};
   if (view === 'FontPacks') return `<div class="ss-tabs"><button type="button" class="ss-tab is-on">Sans-serif</button><button type="button" class="ss-tab" data-unbuilt>Serif</button><button type="button" class="ss-tab" data-unbuilt>Mixed</button></div>${FONT_PACKS.map((f) => `<button type="button" class="ss-pack ss-pack-font${cur.font === f.id ? ' is-on' : ''}" data-ss-pick="font" data-v="${f.id}" aria-label="${f.id} font pack" aria-pressed="${cur.font === f.id}"><span class="ss-pv-h" style="font-family:'${f.h}',sans-serif;font-weight:${f.hw};text-transform:${f.tt}">Heading</span><span class="ss-pv-p" style="font-family:'${f.p}',sans-serif;font-weight:${f.pw}">This is your paragraph.</span><span class="ss-pv-n">${f.h === f.p ? f.h : `${f.h} · ${f.p}`}</span></button>`).join('')}`;
   if (view === 'ButtonPacks') return BUTTON_PACKS.map((b) => `<button type="button" class="ss-pack${cur.button === b.id ? ' is-on' : ''}" data-ss-pick="button" data-v="${b.id}" aria-label="Button style pack ${b.id}" aria-pressed="${cur.button === b.id}">${buttonSample(b)}</button>`).join('');
-  if (view === 'FormPacks') return FORM_PACKS.map((f) => `<button type="button" class="ss-pack ss-pack-form" data-unbuilt aria-label="Form pack ${f.id}" style="background:${hsl((resolveSiteStyles(styles).vars || BASE_VARS)[4])}">${formSample(f)}</button>`).join('');
+  if (view === 'FormPacks') return FORM_PACKS.map((f) => `<button type="button" class="ss-pack ss-pack-form" data-ss-pick="form" data-v="${f.id}" aria-label="Form pack ${f.id}" aria-pressed="${styles?.form === f.id}" style="background:${hsl((resolveSiteStyles(styles).vars || BASE_VARS)[4])}">${formSample(f)}</button>`).join('');
   if (view === 'EditPalette') {
     const v = Object.fromEntries(VARS.map((k, i) => [k, (resolveSiteStyles(styles).vars || BASE_VARS)[i]]));
     return paletteHtml(v, opts.pal, Object.fromEntries(Object.entries(v).map(([k, c]) => [k, hsl(c)])));
@@ -149,7 +151,6 @@ export function siteStylesHtml(styles, view = null, rows = [], opts = {}) {
 // The five views (parity/findings/SITESTYLES2.json, disclosures).
 const disRow = (label, value = '', to = '') => `<button type="button" class="ss-dis"${to ? ` data-ss-view="${to}"` : ' data-unbuilt'}><span class="ss-dis-l">${label}</span>${value ? `<span class="ss-dis-v">${value}</span>` : ''}${svg(CHEV)}</button>`;
 const reset = (label, attrs, cls = '') => `<button type="button" class="ss-reset ${cls}" ${attrs}>${label}</button>`;
-const formLine = (label, control) => `<div class="ss-fline" data-unbuilt><span>${label}</span>${control}</div>`;
 
 function viewHtml(view, { styles, font, colors, bg, ink, btnStyle, rows, opts }) {
   const h = font?.h || 'Poppins';
@@ -182,16 +183,22 @@ function viewHtml(view, { styles, font, colors, bg, ink, btnStyle, rows, opts })
     ${reset('Reset Button Pack', 'data-ss-reset="button"', 'ss-reset-red')}`;
   }
   if (view === 'Forms') {
-    return `<div class="ss-form ss-form-big" style="background:${bg};color:${ink}"><span class="ss-input">Text</span><span class="ss-check">${svg(CHECK, 16)}</span></div>
+    const f = formValues(styles), open = opts.select === 'form-shape', ico = '<path d="M5 9V7a2 2 0 0 1 2-2h2M15 5h2a2 2 0 0 1 2 2v2M19 15v2a2 2 0 0 1-2 2h-2M9 19H7a2 2 0 0 1-2-2v-2"/>';
+    const tiles = FORM_SHAPES.map(([n]) => `<button type="button" class="ss-shape${f.shape === n ? ' is-on' : ''}${f.fill ? '' : ' is-line'}" aria-label="${n}" aria-pressed="${f.shape === n}" data-ss-fshape="${n}"><i class="ss-sh-${n.split(' ')[0].toLowerCase()}"></i></button>`).join('');
+    const corners = f.shape !== 'Custom' ? '' : `<div class="ss-corners"><div class="ss-seg ss-seg-c" role="radiogroup"><button type="button" role="radio" aria-label="Use single border radius" aria-checked="${!f.multi}" class="${f.multi ? '' : 'is-on'}" data-ss-fradii="single">${svg('<rect x="5" y="5" width="14" height="14" rx="3"/>', 18)}</button><button type="button" role="radio" aria-label="Use multiple border radii" aria-checked="${f.multi}" class="${f.multi ? 'is-on' : ''}" data-ss-fradii="multi">${svg(ico, 18)}</button></div>${(f.multi ? ['Top left', 'Top right', 'Bottom right', 'Bottom left'] : ['Single']).map((c, i) => `<input type="number" class="ss-radius${f.multi ? ' is-four' : ''}" aria-label="${c} border radius value" data-ss-fradius="${i}" min="0" value="${f.radii[i]}">`).join('')}</div>`;
+    const pop = !open ? '' : `<div class="ss-shape-pop ss-form-pop"><div class="ss-shapes">${tiles}</div><button type="button" class="ss-custom${f.shape === 'Custom' ? ' is-on' : ''}" data-ss-fshape="Custom">${svg(ico, 18)}<span>Custom Corners</span></button>${corners}</div>`;
+    const pad = (n, label, text) => `<button type="button" role="radio" aria-label="${label}" aria-checked="${f.pad === n}" class="ss-pad${f.pad === n ? ' is-on' : ''}" data-ss-set="forms.pad" data-v="${n}">${text}</button>`;
+    const sides = f.pad === 'custom' ? `<div class="ss-form-sides">${[['t', 'Top'], ['r', 'Right'], ['b', 'Bottom'], ['l', 'Left']].map(([k, l]) => `<div class="ss-slide"><span>${l}</span><input type="text" data-ss-set="forms.${k}" aria-label="${l} value" value="${f[k]}px"><input type="range" data-ss-set="forms.${k}" data-unit="px" aria-label="${l}" min="1" max="40" step="1" value="${f[k]}" style="--p:${(100 * (f[k] - 1)) / 39}%"></div>`).join('')}</div>` : '';
+    return `<div class="ss-form ss-form-big" style="background:${bg};color:${ink}"><span class="ss-input" style="border-radius:${f.shape === 'Pill' ? '999px' : formRadius(f)};background:${f.fill ? '#fff' : 'transparent'};${f.border ? '' : 'border-color:transparent;'}">Text</span><span class="ss-check">${svg(CHECK, 16)}</span></div>
     ${disRow('All Form Packs', '', 'FormPacks')}
     <div class="ss-group ss-group-forms">Form Fields</div>
-    ${formLine('Field Shape', `<span class="ss-dis-v">Pill</span>${svg('<path d="M6 9l6 6 6-6"/>')}`)}
-    ${formLine('Field Fill', '<span class="ss-switch"></span>')}
-    ${formLine('Border', '<span class="ss-box"><i></i></span>')}
-    ${formLine('Border Thickness', `<span class="ss-thick">1px</span>${svg('<path d="M5 12h14"/>', 18)}${svg('<path d="M12 5v14M5 12h14"/>', 18)}`)}
-    ${formLine('Padding', '<span class="ss-pads"><b>S</b><b>M</b><b class="on">L</b><b>...</b></span>')}
-    <div class="ss-forms-more">${disRow('Effects')}${disRow('Selection Options')}${disRow('Fonts')}${disRow('Colors')}${disRow('Form Spacing')}</div>
-    <button type="button" class="ss-reset ss-reset-forms" data-unbuilt>Reset Form Pack</button>`;
+    <div class="ss-sel-row ss-form-shape"><span>Field Shape</span><button type="button" class="ss-sel" data-ss-select="form-shape" aria-label="Field Shape" aria-expanded="${open}"><span>${f.shape}</span>${svg(CHEV_DOWN)}</button>${pop}</div>
+    <div class="ss-fline"><span>Field Fill</span><button type="button" role="switch" class="ss-toggle${f.fill ? ' is-on' : ''}" aria-label="Field Fill" aria-checked="${!!f.fill}" data-ss-ffill><i></i></button></div>
+    <div class="ss-fline"><span>Border</span><span class="ss-border-set" role="radiogroup"><button type="button" role="radio" aria-label="No border" aria-checked="${!f.border}" class="ss-pad${f.border ? '' : ' is-on'}" data-ss-fborder="0">${svg('<circle cx="12" cy="12" r="8"/><path d="M6.5 6.5l11 11"/>', 20)}</button><button type="button" role="radio" aria-label="Border" aria-checked="${f.border}" class="ss-pad${f.border ? ' is-on' : ''}" data-ss-fborder="1">${svg('<rect x="6" y="6" width="12" height="12"/>', 20)}</button></span></div>
+    <div class="ss-fline ss-fline-thick"><span>Border Thickness</span><input type="text" class="ss-thick-in" aria-label="Border Thickness" data-ss-fthickin value="${f.thick}px"><button type="button" class="ss-fstep" aria-label="decrement" data-ss-fthick="-1">${svg('<path d="M5 12h14"/>', 18)}</button><button type="button" class="ss-fstep" aria-label="increment" data-ss-fthick="1">${svg('<path d="M12 5v14M5 12h14"/>', 18)}</button></div>
+    <div class="ss-fline ss-form-pads"><span>Padding</span><span class="ss-pad-set" role="radiogroup">${pad('S', 'Small', 'S')}${pad('M', 'Medium', 'M')}${pad('L', 'Large', 'L')}${pad('custom', 'Custom', '<b>...</b>')}</span></div>${sides}
+    <div class="ss-forms-more">${disRow('Effects')}${disRow('Selection Options')}${disRow('Fonts')}${disRow('Colors')}${disRow('Form Spacing', '', 'FormSpacing')}</div>
+    ${reset('Reset Form Pack', 'data-ss-reset="form"', 'ss-reset-forms')}`;
   }
   return `<div class="ss-miscs">${['Animations', 'Spacing', 'Image Blocks'].map((n) => `<button type="button" class="ss-mrow"${n === 'Image Blocks' ? ' data-unbuilt' : ` data-ss-view="${n}"`}>${n}${svg(CHEV)}</button>`).join('')}</div>`;
 }
@@ -215,8 +222,8 @@ function buttonsPop(cur) {
   return `<div class="ss-pop-head">Recommended Button Packs</div><div class="ss-pop-grid">${BUTTON_PACKS.map((b) => tile('button', b.id, `Button style pack ${b.id}`, cur.button === b.id, buttonSample(b))).join('')}</div>${customize}`;
 }
 const formSample = (f) => `<span class="ss-fm${f.field ? '' : ' is-line'}" style="width:${f.w}px;background:${f.field?.bg || 'transparent'};border:${f.field?.border || '0'};border-radius:${f.field?.radius || 0}">Text</span><span class="ss-fm-c" style="width:${f.chk.w}px;background:${f.chk.bg || 'transparent'};border:${f.chk.border || '0'};border-radius:${f.chk.radius};color:${f.chk.bg === 'rgba(255, 255, 255, 0)' || !f.chk.bg ? '#000' : '#fff'}">${f.option ? 'Option' : svg(CHECK, 16)}</span>`;
-function formsPop(accent) {
-  return `<div class="ss-pop-head">Recommended Form Packs</div><div class="ss-pop-grid ss-pop-forms">${FORM_PACKS.map((f) => tile('form', f.id, `Form pack ${f.id}`, false, formSample(f), ` style="background:${accent}" data-unbuilt`)).join('')}</div>${customize}`;
+function formsPop(accent, cur) {
+  return `<div class="ss-pop-head">Recommended Form Packs</div><div class="ss-pop-grid ss-pop-forms">${FORM_PACKS.map((f) => tile('form', f.id, `Form pack ${f.id}`, cur?.form === f.id, formSample(f), ` style="background:${accent}"`)).join('')}</div>${customize}`;
 }
 
 export function stylePopoverHtml(kind, styles) {
@@ -226,7 +233,7 @@ export function stylePopoverHtml(kind, styles) {
   if (kind === 'Fonts') return fontsPop(cur);
   if (kind === 'Colors') return colorsPop(cur);
   if (kind === 'Buttons') return buttonsPop(cur);
-  return formsPop(hsl(vars ? vars[4] : BASE_VARS[4]));
+  return formsPop(hsl(vars ? vars[4] : BASE_VARS[4]), cur);
 }
 
 // The fonts every tile draws in, loaded once in the editor's own page when a popover first opens.
