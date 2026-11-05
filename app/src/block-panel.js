@@ -166,6 +166,11 @@ function blendRow(cur, open) {
 // The Stack's Layout group (parity/findings/S3.json panel): Direction, Position, Gap and Padding.
 const POS_Y = [['flex-start', 'Top'], ['center', 'Center'], ['flex-end', 'Bottom']];
 const POS_X = [['flex-start', 'Left'], ['center', 'Center'], ['flex-end', 'Right']];
+// A child's Size (S3.json children): W and H, each a field with Fixed, Hug and Fill under it.
+function kidSizeHtml(k) {
+  const one = (axis, v) => `<span class="st-size-f"><b aria-hidden="true">${axis.toUpperCase()}</b><input type="text" aria-label="${axis.toUpperCase()}" data-stack-field="k${axis}" value="${esc(v)}"><button type="button" class="st-gap-toggle" aria-label="${axis.toUpperCase()} options" data-stack="kidopen:${axis}">${pi('<path d="M8 10l4 4 4-4"/>')}</button>${k.open === axis ? `<span class="st-gap-menu st-size-menu"><button type="button" data-stack="kid:${axis}:${k.fixed[axis]}">Fixed · ${k.fixed[axis]}</button><button type="button" data-stack="kid:${axis}:Hug">Hug</button><button type="button" data-stack="kid:${axis}:Fill">Fill</button></span>` : ''}</span>`;
+  return `<div class="st-head">Layout</div><div class="st-size"><span class="sp-label">Size</span><span class="st-size-col">${one('w', k.w)}${one('h', k.h)}</span></div>`;
+}
 function stackLayoutHtml(st) {
   const dir = (v, label, icon) => `<button type="button" role="radio" class="st-dir-btn${st.direction === v ? ' is-on' : ''}" aria-checked="${st.direction === v}" aria-label="${label}" data-stack="dir:${v}">${pi(icon)}</button>`;
   const tabs = POS_Y.flatMap(([y, yn]) => POS_X.map(([x, xn]) => {
@@ -224,7 +229,7 @@ function buttonDesignHtml(c, open) {
     + (c.fit ? line('Alignment', [['left', 'Align Left', '<path d="M5 5v14M19 12H9M13 8l-4 4 4 4"/>'], ['center', 'Align Center', '<path d="M12 5v14M4 12h5M6.5 9.5L9 12l-2.5 2.5M20 12h-5M17.5 9.5L15 12l2.5 2.5"/>'], ['right', 'Align Right', '<path d="M19 5v14M5 12h10M11 8l4 4-4 4"/>']].map(([v, l, icon]) => seg('align', v, l, c.align === v, pi(icon))).join('')) : '');
 }
 
-export function blockPanelHtml(d, tab, content = null, open = null, shape = null, image = null, stack = null, button = null) {
+export function blockPanelHtml(d, tab, content = null, open = null, shape = null, image = null, stack = null, button = null, kid = null) {
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
@@ -297,6 +302,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       : `<div class="an-row"><span class="an-title">Triggers</span><span class="an-actions"><button type="button" class="an-icon" aria-label="Animation list actions" data-unbuilt disabled>···</button><button type="button" class="an-icon" data-anim="add" aria-label="Add a new animation">${pi('<path d="M12 5v14M5 12h14"/>')}</button></span></div>`
         + '<button type="button" class="an-empty" data-anim="add" aria-label="Press + to get startedUse a preset or customize"><strong>Press + to get started</strong><span>Use a preset or customize</span></button>';
   }
+  if (kid && tab === 'Design') body = kidSizeHtml(kid) + body;
   if ((tab === 'Content' && (open === 'embed-data' || open?.startsWith('acc-item:'))) || open === 'acc-dividers') return `<div class="sp-body">${body}</div>`;
   const tabs = content?.kind === 'accordion' ? ['Content', 'Design'] : content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
   // The header is also the drag handle (U13): the oracle labels it Click and drag to reposition block editor form.

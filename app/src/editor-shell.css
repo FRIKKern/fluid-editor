@@ -104,7 +104,7 @@ body.show-inspector:not(.is-replay) .panel { display: block; }
 .tb-btn.is-off:hover { background: transparent; }
 .tb-btn.tb-remove { color: #db3642; }
 .tb-btn.tb-flush { margin-left: -4px; }
-.tb-sep + .tb-btn[data-tb="link"], .tb-btn[data-tb="halign"] + .tb-btn.tb-flush { margin-left: 0; } /* A stack's link, a fit button's Align Vertically (S3.json). */
+.tb-sep + .tb-btn[data-tb="link"], .tb-btn[data-tb="halign"] + .tb-btn.tb-flush, .tb-btn[data-tb="align"]:has(+ .tb-sep) { margin-left: 0; } /* A stack's link, a fit button's Align Vertically (S3.json). */
 .tb-btn.tb-open, .tb-btn.tb-open:hover { background: #e7e7e7; }
 .tb-vmenu { position: absolute; top: 46px; display: flex; gap: 4px; padding: 4px; box-sizing: border-box; width: 124px; height: 44px; background: #fff; border-radius: 6px; box-shadow: 0 6px 24px rgba(0, 0, 0, .12), 0 0 1px rgba(0, 0, 0, .08); }
 .tb-vmenu .tb-btn:not(.tb-open):hover { background: transparent; }
@@ -714,6 +714,18 @@ body.is-preview #reload-preview { display: inline-flex; }
 .st-corners { position: absolute; left: 94px; top: 51px; display: grid; grid-template-columns: repeat(4, 44px); gap: 2px; width: 182px; }
 .st-corners input { width: 44px; height: 44px; box-sizing: border-box; padding: 0 6px; border: 0; border-radius: 4px; background: #f2f2f2; font: inherit; text-align: center; }
 
+/* A child picked from Layers (S3.json children). */
+.st-size { display: flex; justify-content: space-between; height: 106px; border-bottom: 1px solid #e7e7e7; box-sizing: border-box; margin: 0 -22px 11px; padding: 0 22px; }
+.st-size .sp-label { padding-top: 11px; }
+.st-size-col { display: flex; flex-direction: column; gap: 6px; width: 182px; }
+.st-size-f { position: relative; display: block; height: 42px; background: #f2f2f2; border-radius: 4px; }
+.st-size-f b { position: absolute; left: 11px; top: 11px; font-weight: 500; color: #6e6e6e; }
+.st-size-f input { position: absolute; left: 31px; top: 10px; width: 106px; height: 22px; padding: 0; border: 0; background: transparent; font: inherit; box-sizing: border-box; }
+.st-size-f + .st-size-f input { left: 28px; width: 109px; }
+.st-size-f .st-gap-toggle { top: 3px; }
+.st-size-f .st-size-menu { top: 54px; }
+.lp-kid .lp-icon { margin-left: 22px; }
+.lp-list > .lp-kid { margin-top: -3px; }
 /* A button's Design tab (parity/findings/BUTTONDESIGN.json): a 276 by 87 current style, a list of
    55 tall options opening 16px below its top, Fit and Fill 36px with 6px between. */
 .bp-bs-title { margin: 16px 0 19px; font-weight: 500; }

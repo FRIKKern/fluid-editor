@@ -238,7 +238,548 @@
       "drag": "A drag on a child moves the whole stack; the order stays.",
       "escape": "One Escape deselects.",
       "phoneArea": "Phones use the column rule whatever the direction (1 / 2 / 10 / 10).",
-      "phoneRule": "@media (max-width: 767px): column, flex-start, flex-start."
+      "phoneRule": "@media (max-width: 767px): column, flex-start, flex-start.",
+      "fromLayers": {
+        "toolbars": {
+          "shape": [
+            "Edit",
+            "Align Vertically",
+            "Duplicate",
+            "Remove"
+          ],
+          "button": [
+            "Edit",
+            "Primary",
+            "Open link editor popover",
+            "Align Horizontally",
+            "Duplicate",
+            "Remove"
+          ],
+          "text": [
+            "Write",
+            "Edit",
+            "Duplicate",
+            "Remove"
+          ]
+        },
+        "shapeBar": {
+          "box": [
+            176,
+            44
+          ],
+          "lefts": {
+            "Edit": 5,
+            "separator": 45,
+            "Align Vertically": 50,
+            "separator2": 90,
+            "Duplicate": 95,
+            "Remove": 135
+          }
+        },
+        "marks": "Eight handles on the child, a thin line around the stack.",
+        "panels": {
+          "shape": {
+            "tabs": [
+              "Design",
+              "Animation"
+            ],
+            "W": "Fill",
+            "H": "Fill"
+          },
+          "text": {
+            "tabs": [
+              "Design",
+              "Animation"
+            ],
+            "W": "Fill",
+            "H": "Hug"
+          },
+          "button": {
+            "tabs": [
+              "Content",
+              "Design",
+              "Animation"
+            ],
+            "W": "Fill",
+            "H": "Hug"
+          }
+        },
+        "sizeBoxesInPanel": {
+          "wInput": [
+            147,
+            127,
+            106,
+            22
+          ],
+          "wToggle": [
+            259,
+            120,
+            36,
+            36
+          ],
+          "hInput": [
+            144,
+            175,
+            109,
+            22
+          ],
+          "hToggle": [
+            259,
+            168,
+            36,
+            36
+          ],
+          "rows": [
+            [
+              116,
+              171,
+              182,
+              44
+            ],
+            [
+              116,
+              215,
+              182,
+              44
+            ],
+            [
+              116,
+              259,
+              182,
+              44
+            ]
+          ]
+        },
+        "sizeOptions": [
+          "Fixed · 375px",
+          "Hug",
+          "Fill"
+        ],
+        "size": {
+          "threeInARow": {
+            "start": [
+              [
+                0,
+                0,
+                374.9,
+                22.4
+              ],
+              [
+                394.9,
+                0,
+                374.9,
+                66.6
+              ],
+              [
+                789.8,
+                0,
+                374.9,
+                235.6
+              ]
+            ],
+            "w200": [
+              [
+                0,
+                0,
+                462.3,
+                22.4
+              ],
+              [
+                482.3,
+                0,
+                462.3,
+                66.6
+              ],
+              [
+                964.6,
+                0,
+                200,
+                235.6
+              ]
+            ],
+            "h100": [
+              964.6,
+              0,
+              200,
+              100
+            ],
+            "w50pct": [
+              [
+                0,
+                0,
+                271.2,
+                22.4
+              ],
+              [
+                291.2,
+                0,
+                271.2,
+                66.6
+              ],
+              [
+                582.3,
+                0,
+                582.3,
+                100
+              ]
+            ],
+            "wHug": [
+              864.6,
+              0,
+              300,
+              100
+            ],
+            "hHug": [
+              864.6,
+              0,
+              300,
+              150
+            ],
+            "back": [
+              789.8,
+              0,
+              374.9,
+              235.6
+            ],
+            "buttonWHug": [
+              [
+                0,
+                0,
+                459,
+                22.4
+              ],
+              [
+                479,
+                0,
+                206.6,
+                66.6
+              ],
+              [
+                705.6,
+                0,
+                459,
+                100
+              ]
+            ]
+          }
+        },
+        "handle": {
+          "dragged": [
+            -100,
+            -60
+          ],
+          "before": [
+            [
+              0,
+              0,
+              396,
+              22.4
+            ],
+            [
+              416,
+              0,
+              396,
+              235.6
+            ]
+          ],
+          "after": [
+            [
+              0,
+              0,
+              495.9,
+              22.4
+            ],
+            [
+              515.9,
+              0,
+              296,
+              176
+            ]
+          ],
+          "fields": [
+            "296px",
+            "176px"
+          ],
+          "stackBox": "unchanged"
+        },
+        "alignVertically": {
+          "menu": [
+            "Align Top",
+            "Align Center",
+            "Align Bottom"
+          ],
+          "effect": "The child's box did not move (H 100px, in a row)."
+        },
+        "duplicate": {
+          "after": [
+            [
+              0,
+              0,
+              276.2,
+              22.4
+            ],
+            [
+              296.2,
+              0,
+              276.2,
+              66.6
+            ],
+            [
+              592.3,
+              0,
+              276.2,
+              235.6
+            ],
+            [
+              888.5,
+              0,
+              276.2,
+              235.6
+            ]
+          ],
+          "area": "unchanged",
+          "selected": "the copy"
+        },
+        "remove": {
+          "twoLeft": [
+            [
+              0,
+              0,
+              572.3,
+              22.4
+            ],
+            [
+              592.3,
+              0,
+              572.3,
+              235.6
+            ]
+          ],
+          "oneLeft": [
+            [
+              0,
+              0,
+              1164.6,
+              22.4
+            ]
+          ],
+          "none": "the stack goes",
+          "selected": "none"
+        },
+        "hide": {
+          "after": [
+            [
+              0,
+              0,
+              938.1,
+              22.4
+            ],
+            [
+              958.1,
+              0,
+              206.6,
+              66.6
+            ]
+          ],
+          "row": "stays in Layers"
+        },
+        "canvasClick": "A click on the selected child keeps it; a drag on it moves the whole stack, which ends up selected.",
+        "write": "Write on a Text child edits it in place, with the text toolbar.",
+        "escape": "First Escape closes Layers, the next deselects.",
+        "arrowKeys": "ArrowRight and ArrowDown on a child picked from Layers change nothing: same stack area, same children, same bar.",
+        "edgeHandles": {
+          "start": [
+            416,
+            0,
+            396,
+            235.6
+          ],
+          "east60left": [
+            475.9,
+            0,
+            336,
+            235.6
+          ],
+          "west60right": [
+            475.9,
+            0,
+            336,
+            235.6
+          ],
+          "north50down": [
+            416,
+            0,
+            396,
+            186
+          ],
+          "south50up": [
+            416,
+            0,
+            396,
+            186
+          ],
+          "northwest": [
+            475.9,
+            0,
+            336,
+            186
+          ],
+          "values": {
+            "e": [
+              "336px",
+              "Fill"
+            ],
+            "w": [
+              "336px",
+              "Fill"
+            ],
+            "n": [
+              "Fill",
+              "186px"
+            ],
+            "s": [
+              "Fill",
+              "186px"
+            ],
+            "nw": [
+              "336px",
+              "186px"
+            ]
+          }
+        },
+        "phone": {
+          "bars": {
+            "text": [
+              "Write",
+              "Edit",
+              "Remove"
+            ],
+            "button": [
+              "Edit",
+              "Remove"
+            ],
+            "shape": [
+              "Edit",
+              "Align Vertically",
+              "Remove"
+            ]
+          },
+          "barWidths": {
+            "text": 127,
+            "button": 91,
+            "shape": 136
+          },
+          "setOnPhone": {
+            "w50": [
+              [
+                0,
+                0,
+                376.7,
+                22.4
+              ],
+              [
+                0,
+                42.4,
+                188.3,
+                226.6
+              ]
+            ],
+            "h100": [
+              [
+                0,
+                0,
+                376.7,
+                22.4
+              ],
+              [
+                0,
+                42.4,
+                188.3,
+                100
+              ]
+            ],
+            "desktopAfter": [
+              [
+                0,
+                0,
+                396,
+                22.4
+              ],
+              [
+                416,
+                0,
+                396,
+                235.6
+              ]
+            ]
+          },
+          "setOnDesktop": {
+            "desktop": [
+              [
+                0,
+                0,
+                462.3,
+                22.4
+              ],
+              [
+                482.3,
+                0,
+                462.3,
+                66.6
+              ],
+              [
+                964.6,
+                0,
+                200,
+                100
+              ]
+            ],
+            "phone": [
+              [
+                0,
+                0,
+                376.7,
+                22.4
+              ],
+              [
+                0,
+                42.4,
+                376.7,
+                66.6
+              ],
+              [
+                0,
+                129,
+                376.7,
+                100
+              ]
+            ],
+            "phoneValues": [
+              "Fill",
+              "100px"
+            ]
+          },
+          "rule": "Size set on a phone stays on phones. Set on desktop, W stays on desktop and H reaches phones."
+        },
+        "transforms": {
+          "rows": [
+            "Opacity",
+            "Rotate",
+            "Scale",
+            "Offset",
+            "Skew",
+            "Anchor"
+          ],
+          "opacity50": {
+            "op": "0.5"
+          },
+          "rotate30": {
+            "op": "0.5",
+            "tr": "matrix(0.866025, 0.5, -0.5, 0.866025, 0, 0)"
+          },
+          "note": "On the block inside the child, not the container: the handles stay square. Blur on: the shape reads frosted as a block does."
+        }
+      }
     },
     "panel": {
       "tabs": [
@@ -512,6 +1053,40 @@
       "click": "A row selects its child inside the stack: Shape shows Edit, Align Vertically, Duplicate, Remove, with no Pin.",
       "drag": "A row dragged above another reorders the children: Text, Shape became Shape, Text.",
       "hide": "Each row has Hide Block."
+    },
+    "gapHandle": {
+      "row": {
+        "band": [
+          20,
+          236
+        ],
+        "grip": [
+          5,
+          24
+        ],
+        "cursor": "col-resize",
+        "hoverOpacity": 1,
+        "restOpacity": 0,
+        "color": "rgb(223, 130, 203)",
+        "bandColor": "rgba(223, 130, 203, 0.2)"
+      },
+      "column": {
+        "band": [
+          694,
+          20
+        ],
+        "grip": [
+          24,
+          5
+        ],
+        "cursor": "row-resize"
+      },
+      "drag": {
+        "right40": "40px",
+        "left40": "0px",
+        "down60InARow": "20px",
+        "columnDown40": "40px"
+      }
     }
   }
 }

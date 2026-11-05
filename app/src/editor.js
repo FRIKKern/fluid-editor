@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes } from './render.js';
+import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
@@ -53,11 +53,13 @@ function persist() {
 
 // ---------- model helpers ----------
 const S = (sid) => model.sections.find((s) => s.id === sid);
-const B = (sid, bid) => S(sid).blocks.find((b) => b.id === bid);
+// A block in the section, or a child of a stack there (picked from Layers, S3).
+const B = (sid, bid) => { for (const b of S(sid).blocks) { if (b.id === bid) return b; const k = b.children?.find((c) => c.id === bid); if (k) return k; } return undefined; };
+const parentStack = (sid, bid) => S(sid)?.blocks.find((b) => b.children?.some((c) => c.id === bid));
 const lay = (b) => b.layout[bp];
 const sectionEl = (sid) => doc.querySelector(`section[data-section-id="${sid}"]`);
 const feEl = (sid) => sectionEl(sid).querySelector('.fluid-engine');
-const blockEl = (bid) => doc.querySelector(`.fe-block[data-block-id="${bid}"]`);
+const blockEl = (bid) => doc.querySelector(`.fe-block[data-block-id="${bid}"], .stack-child-container[data-kid="${bid}"]`);
 const setArea = (el, a) => { el.style.gridArea = a.join(' / '); };
 const same = (a, b) => a.every((v, i) => v === b[i]);
 
@@ -231,22 +233,66 @@ function setHover(bid) {
   drawHover();
 }
 
+// The band in each gap of a selected stack, seen on hover (S3.json gapHandle): as wide as the gap
+// and as long as the stack, with a 5 by 24 grip in its middle. A drag changes the gap by half its way.
+function drawGapHandles(b, el) {
+  if (b.gap === 'fill' || !el) return;
+  const kids = [...el.querySelectorAll(':scope .sqs-stack-container > .stack-child-container')].filter((k) => k.offsetParent);
+  const row = win.getComputedStyle(el.querySelector('.sqs-stack-container')).flexDirection === 'row';
+  const host = el.querySelector('.sqs-block-stack'), q = host.getBoundingClientRect();
+  const ox = q.left + host.clientLeft, oy = q.top + host.clientTop;
+  kids.slice(0, -1).forEach((k, n) => {
+    const a = k.getBoundingClientRect(), c = kids[n + 1].getBoundingClientRect();
+    const h = doc.createElement('div');
+    h.className = `stack-gap-handle${row ? ' is-row' : ''}`;
+    h.style.cssText = row ? `left:${a.right - ox}px;top:0;width:${c.left - a.right}px;height:100%` : `left:0;top:${a.bottom - oy}px;width:100%;height:${c.top - a.bottom}px`;
+    h.append(doc.createElement('i'));
+    host.append(h);
+  });
+}
+function startGapDrag(e, row) {
+  const { sid, bid } = sel, b = B(sid, bid), before = JSON.stringify(model);
+  const g0 = b.gap ?? 20, p0 = row ? e.clientX : e.clientY;
+  const move = (ev) => { b.gap = Math.max(0, g0 + Math.round(((row ? ev.clientX : ev.clientY) - p0) / 2)); renderSectionDom(sid); };
+  const up = () => { win.removeEventListener('pointermove', move); win.removeEventListener('pointerup', up); commit(before, `Gap set on ${bid}`); };
+  win.addEventListener('pointermove', move); win.addEventListener('pointerup', up);
+}
+
 function drawSelection() {
   drawSelectionLayers();
   drawHover();
   placeToolbar();
 }
 function drawSelectionLayers() {
-  for (const el of doc.querySelectorAll('.fe-indicator')) el.remove();
+  for (const el of doc.querySelectorAll('.fe-indicator, .stack-gap-handle')) el.remove();
   // A held block stays selected (traces T0004 to T0006 mid); only its layers go away.
   if (gesture?.type === 'move' || gesture?.type === 'resize' || gesture?.type === 'gresize') return;
-  for (const el of doc.querySelectorAll('.fe-block[data-is-selected="true"]')) el.dataset.isSelected = 'false';
+  for (const el of doc.querySelectorAll('[data-is-selected="true"]')) el.dataset.isSelected = 'false';
   if (!sel) return;
   const b = B(sel.sid, sel.bid);
   const el = blockEl(sel.bid);
   if (el) el.dataset.isSelected = 'true';
   const ind = doc.createElement('div');
   ind.className = 'fe-indicator';
+  const stack = parentStack(sel.sid, sel.bid);
+  // A child: its eight handles on its own box, and a thin line around the stack.
+  if (stack) {
+    const line = doc.createElement('div');
+    line.className = 'fe-indicator is-member';
+    setArea(line, lay(stack).area);
+    line.dataset.z = lay(stack).z;
+    feEl(sel.sid).append(line);
+    ind.classList.add('is-kid');
+    for (const dir of ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w']) {
+      const h = doc.createElement('div');
+      h.className = 'fe-handle';
+      h.dataset.dir = dir;
+      ind.append(h);
+    }
+    el?.append(ind);
+    return;
+  }
+  if (b.type === 'stack' && !gesture && !sel.more?.length) drawGapHandles(b, el);
   setArea(ind, gesture?.target || lay(b).area);
   ind.style.zIndex = '999999';
   ind.dataset.z = lay(b).z;
@@ -346,7 +392,8 @@ function placeToolbar() {
   const align = { current: lay(b).justify || 'flex-start', open: vAlignOpen === sel.bid, menu: barMenu, stackDir: stackAxes(b, bp).direction, hAlign: b.halign || 'center' };
   const key = `${sel.bid}|${bp}|${JSON.stringify(z)}|${b.buttonStyle || ""}|${b.fit || ''}|${b.video?.src ? 1 : ''}|${JSON.stringify(align)}`;
   if (toolbar.dataset.key !== key) {
-    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z, !!b.fit || !!b.video?.src), z, align);
+    const inStack = !!parentStack(sel.sid, sel.bid);
+    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z, !!b.fit || !!b.video?.src, inStack), z, align);
     toolbar.dataset.key = key;
     // The menu sits 4px under the bar, centred on the button.
     const vm = toolbar.querySelector('.tb-vmenu');
@@ -439,7 +486,7 @@ toolbar.addEventListener('click', (e) => {
   if (act === 'z+' || act === 'z-') zSwap(sid, b, act === 'z+');
   if (act === 'up' || act === 'down') moveInStack(sid, b, act === 'up');
   if (act === 'duplicate') duplicateBlock(sid, bid);
-  if (act === 'remove') { S(sid).blocks = S(sid).blocks.filter((o) => o.id !== bid); sel = null; }
+  if (act === 'remove') { removeOne(sid, bid); sel = null; }
   renderSectionDom(sid);
   commit(before, `${btn.getAttribute('aria-label')} on ${bid}`);
 });
@@ -714,6 +761,9 @@ function onDown(e) {
     if (blk && blk.dataset.blockId === editing.bid) return;
     finishTextEdit();
   }
+  const gapBand = e.target.closest('.stack-gap-handle');
+  if (gapBand && sel) { e.preventDefault(); startGapDrag(e, gapBand.classList.contains('is-row')); return; }
+  if (handle && sel && parentStack(sel.sid, sel.bid)) { e.preventDefault(); startKidResize(e, handle.dataset.dir); return; }
   if (handle && sel) {
     e.preventDefault();
     // Like a drag, a group too: the move past 10px changes nothing, the next one starts it (HOLD.json).
@@ -738,7 +788,9 @@ function onDown(e) {
   }
   const wasSelected = sel && sel.sid === sid && sel.bid === bid && !sel.more?.length;
   const keep = sel && sel.sid === sid && [sel.bid, ...(sel.more || [])].includes(bid) && sel.more?.length;
-  select(keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid });
+  // A click on the selected child keeps it; a drag from there moves the whole stack (S3.json children).
+  const onKid = sel && sel.sid === sid && parentStack(sid, sel.bid)?.id === bid && e.target.closest(`[data-kid="${sel.bid}"]`);
+  if (!onKid) select(keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid });
   const r = blk.getBoundingClientRect();
   gesture = {
     type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected,
@@ -838,6 +890,7 @@ function prepare(e, type, extra = {}) {
 }
 
 function beginMove(e) {
+  if (sel?.bid !== gesture.bid && !sel?.more?.length) select({ sid: gesture.sid, bid: gesture.bid });
   const g = prepare(e, 'move');
   g.more = (sel?.more || []).map((id) => ({ id, orig: [...lay(B(g.sid, id)).area] }));
   // A group's ring is around all its blocks from the start.
@@ -1151,9 +1204,8 @@ function onKey(e) {
     e.preventDefault();
     const before = JSON.stringify(model);
     const ids = [sel.bid, ...(sel.more || [])];
-    const s = S(sel.sid);
-    s.blocks = s.blocks.filter((b) => !ids.includes(b.id));
     const sid = sel.sid;
+    for (const id of ids) removeOne(sid, id);
     sel = null;
     renderSectionDom(sid);
     commit(before, `Removed ${ids.length} block${ids.length > 1 ? 's' : ''}`);
@@ -1167,6 +1219,8 @@ function onKey(e) {
     commit(before, 'Duplicated a block');
     return;
   }
+  // A child picked from Layers lives in its stack: arrow keys do nothing (S3.json fromLayers.arrowKeys).
+  if (ARROWS[e.key] && sel && !gesture && parentStack(sel.sid, sel.bid)) { e.preventDefault(); return; }
   if (ARROWS[e.key] && sel && !gesture && mod) {
     // Cmd+Arrow moves the block's end edges: Left and Right the end column, Up and Down the end row.
     e.preventDefault();
@@ -1271,14 +1325,17 @@ function renderBlockPanel() {
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', corner: parseFloat(b.radius) || 0, empty: !!b.empty } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
+  const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
+  const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
   const buttonView = b.type !== 'button' ? null : bp === 'mobile' && b.btnMobile ? b.btnMobile : { fit: b.fit, align: b.halign };
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
-  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'accordion' && accView ? accView : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'accordion' && accView ? accView : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   blockPanel.style.width = b.type === 'code' && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
   // An item's view holds that item open on the canvas (ACCORDION.json).
   if (b.type === 'accordion') showAccordionItem(b);
   placeBlockPanel();
   blockPanel.hidden = false;
+  if (blockPanel.dataset.bid !== b.id) { blockPanel.dataset.bid = b.id; blockPanel.scrollTop = 0; } // another block starts at the top
 }
 let panelMoved = null; // the block whose panel was dragged; it stays where it was dropped
 function placeBlockPanel() {
@@ -1286,6 +1343,8 @@ function placeBlockPanel() {
   const el = blockEl(sel.bid);
   if (!el) return;
   const p = blockPanelPosition(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), blockPanel.offsetWidth || 320);
+  // A child stays on its right and overlaps it at the window's edge (S3.json children panels).
+  if (parentStack(sel.sid, sel.bid)) p.left = Math.min(el.getBoundingClientRect().right + frame.getBoundingClientRect().left - stage.getBoundingClientRect().left + 18, stage.getBoundingClientRect().width - 340);
   blockPanel.style.left = `${p.left}px`;
   blockPanel.style.top = `${p.top}px`;
 }
@@ -1338,12 +1397,14 @@ blockPanel.addEventListener('pointerdown', (e) => {
 
 // The Stack's Design panel (S3.json panel), one undo step each. Direction and Position belong to
 // the layout on screen; Gap, Padding, Background, Stroke and Corner to both.
-let stackGapOpen = false;
+let stackGapOpen = false, kidSizeOpen = null;
 function stackAct(act) {
   const i = act.indexOf(':'), k = i < 0 ? act : act.slice(0, i), v = act.slice(i + 1);
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   const here = bp === 'mobile' ? (b.phone ||= {}) : b;
   if (k === 'gapopen') { stackGapOpen = !stackGapOpen; renderBlockPanel(); return; }
+  if (k === 'kidopen') { kidSizeOpen = kidSizeOpen === v ? null : v; renderBlockPanel(); return; }
+  if (k === 'kid') { const [axis, val] = v.split(':'); kidSizeOpen = null; b[kidSizeKey(bp)] = { ...b[kidSizeKey(bp)], [axis]: val }; }
   if (k === 'dir') here.direction = v;
   if (k === 'pos') [here.posX, here.posY] = v.split(',');
   if (k === 'gap') { stackGapOpen = false; b.gap = v === 'fill' ? 'fill' : Number(v); }
@@ -1371,6 +1432,9 @@ blockPanel.addEventListener('change', (e) => {
   if (k === 'gap') {
     if (/^fill$/i.test(raw)) b.gap = 'fill';
     else if (Number.isFinite(parseFloat(raw))) b.gap = Math.max(0, parseFloat(raw));
+  } else if (k === 'kw' || k === 'kh') {
+    const val = /^fill$/i.test(raw) ? 'Fill' : /^hug$/i.test(raw) ? 'Hug' : /^[\d.]+$/.test(raw) ? `${raw}px` : /^[\d.]+(px|%)$/.test(raw) ? raw : null;
+    if (val) b[kidSizeKey(bp)] = { ...b[kidSizeKey(bp)], [k[1]]: val };
   } else if (k === 'corner' || /^c\d$/.test(k)) {
     const n = Math.max(0, parseFloat(raw));
     if (Number.isFinite(n)) {
@@ -2108,6 +2172,7 @@ function finishTextEdit() {
 
 // ---------- panel ----------
 function updateUi() {
+  if (!layersPanel.hidden && S(layersPanel.dataset.sid)) renderLayersPanel(); // it follows a Remove or an undo
   $('undo').disabled = !undoStack.length;
   $('redo').disabled = !redoStack.length;
   const dirty = JSON.stringify(model) !== savedJson;
@@ -2194,11 +2259,25 @@ function addBlock(sid, name) {
 
 // Cmd+D (KEYS2): the copy is one row down and one column right on desktop, the same
 // size, on top; on phones it goes right below the original and later blocks move down.
+// A child goes from its stack; the stack keeps its area and goes with its last child (S3.json children).
+function removeOne(sid, bid) {
+  const s = S(sid), stack = parentStack(sid, bid);
+  if (!stack) { s.blocks = s.blocks.filter((o) => o.id !== bid); return; }
+  stack.children = stack.children.filter((c) => c.id !== bid);
+  if (!stack.children.length) s.blocks = s.blocks.filter((o) => o !== stack);
+}
 function duplicateBlock(sid, bid) {
   const s = S(sid);
   const orig = B(sid, bid);
   const copy = JSON.parse(JSON.stringify(orig));
   copy.id = `${orig.type}-${Date.now().toString(36)}`;
+  // A child's copy lands right after it, selected (S3.json children).
+  const stack = parentStack(sid, bid);
+  if (stack) {
+    stack.children.splice(stack.children.indexOf(orig) + 1, 0, copy);
+    sel = { sid, bid: copy.id };
+    return;
+  }
   const d = copy.layout.desktop.area;
   const w = d[3] - d[1];
   const c0 = Math.min(d[1] + 1, LAST_LINE.desktop - w);
@@ -2313,6 +2392,29 @@ function alignGroup(kind) {
     if (kind === 'vcenter') r = Math.round((r0 + r1) / 2 - h / 2);
     l.area = [r, c, r + h, c + w];
   }
+}
+
+// A child's handles (S3.json children): a drag fixes W, H or both, one undo step.
+function startKidResize(e, dir) {
+  const { sid, bid } = sel, b = B(sid, bid), el = blockEl(bid);
+  const q = el.getBoundingClientRect(), before = JSON.stringify(model);
+  const x0 = e.clientX, y0 = e.clientY, axisW = /[ew]/.test(dir), axisH = /[ns]/.test(dir);
+  const size = (ev) => ({ w: Math.max(20, q.width + (dir.includes('w') ? x0 - ev.clientX : ev.clientX - x0)), h: Math.max(20, q.height + (dir.includes('n') ? y0 - ev.clientY : ev.clientY - y0)) });
+  const apply = (ev) => {
+    const z = size(ev);
+    const m = bp === 'mobile' ? 'm' : '';
+    if (axisW) { el.dataset[`${m}w`] = 'fixed'; el.style.setProperty(`--kid-${m}w`, `${z.w}px`); }
+    if (axisH) { el.dataset[`${m}h`] = 'fixed'; el.style.setProperty(`--kid-${m}h`, `${z.h}px`); }
+  };
+  const up = (ev) => {
+    win.removeEventListener('pointermove', apply); win.removeEventListener('pointerup', up);
+    const z = size(ev);
+    if (ev.clientX === x0 && ev.clientY === y0) return;
+    b[kidSizeKey(bp)] = { ...b[kidSizeKey(bp)], ...(axisW ? { w: `${Math.round(z.w)}px` } : {}), ...(axisH ? { h: `${Math.round(z.h)}px` } : {}) };
+    renderSectionDom(sid);
+    commit(before, `Resized ${bid} in its stack`);
+  };
+  win.addEventListener('pointermove', apply); win.addEventListener('pointerup', up);
 }
 
 // Stack Blocks (S3, parity/findings/S3.json). A row when the blocks' centres spread wider than
@@ -2940,8 +3042,10 @@ addMenu.addEventListener('input', (e) => {
 // A text block is named by its text, cut by CSS (the oracle row label holds at least the
 // first 48 characters, gap review 2026-11-04).
 function layerRows(s) {
-  return [...s.blocks].sort((a, b) => lay(b).z - lay(a).z).map((b) => ({ id: b.id, type: b.type[0].toUpperCase() + b.type.slice(1), on: sel?.bid === b.id, hidden: !!lay(b).hidden,
-    label: b.type === 'text' ? (b.html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() || 'Text' : b.type[0].toUpperCase() + b.type.slice(1) }));
+  const row = (b, kidOf) => ({ id: b.id, kidOf, type: b.type[0].toUpperCase() + b.type.slice(1), on: sel?.bid === b.id, hidden: !!lay(b).hidden,
+    label: b.type === 'text' ? (b.html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() || 'Text' : b.type[0].toUpperCase() + b.type.slice(1) });
+  // A stack's children follow it, one step in (S3.json children).
+  return [...s.blocks].sort((a, b) => lay(b).z - lay(a).z).flatMap((b) => [row(b), ...(b.children || []).map((c) => row(c, b.id))]);
 }
 function renderLayersPanel() {
   const s = S(layersPanel.dataset.sid);
@@ -2976,7 +3080,8 @@ layersPanel.addEventListener('pointerdown', (e) => {
   if (!li || e.button !== 0 || e.target.closest('[data-unhide]')) return;
   const sid = layersPanel.dataset.sid;
   const list = li.parentElement;
-  const rows = [...list.children];
+  // A row moves among its own: the section's blocks, or one stack's children.
+  const rows = [...list.children].filter((r) => r.dataset.kidOf === li.dataset.kidOf);
   const from = rows.indexOf(li);
   const box = li.getBoundingClientRect();
   const pitch = rows.length > 1 ? rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().top : box.height;
@@ -2996,7 +3101,7 @@ layersPanel.addEventListener('pointerdown', (e) => {
     const passed = Math.floor((Math.abs(d) + box.height / 2) / pitch);
     const to = Math.max(0, Math.min(rows.length - 1, from + Math.sign(d) * passed));
     const others = rows.filter((r) => r !== li);
-    list.insertBefore(li, others[to] || null);
+    list.insertBefore(li, others[to] || (li.dataset.kidOf ? others[others.length - 1].nextSibling : null));
   };
   const up = () => {
     document.removeEventListener('pointermove', move);
@@ -3007,9 +3112,10 @@ layersPanel.addEventListener('pointerdown', (e) => {
     li.classList.remove('is-slot');
     rowDragged = true;
     const before = JSON.stringify(model);
-    const order = [...list.children].map((r) => r.dataset.layer);
-    order.forEach((id, k) => { lay(B(sid, id)).z = order.length - k; });
-    const moved = list.children[from] !== li;
+    const order = [...list.children].filter((r) => r.dataset.kidOf === li.dataset.kidOf).map((r) => r.dataset.layer);
+    if (li.dataset.kidOf) { const st = B(sid, li.dataset.kidOf); st.children.sort((p, q) => order.indexOf(p.id) - order.indexOf(q.id)); }
+    else order.forEach((id, k) => { lay(B(sid, id)).z = order.length - k; });
+    const moved = order[from] !== li.dataset.layer;
     if (moved) { renderSectionDom(sid); commit(before, 'Reordered layers'); }
     else model = JSON.parse(before);
     renderLayersPanel();
@@ -3060,7 +3166,7 @@ contextMenu.addEventListener('click', (e) => {
 // demo section 2); desktop rows stay (11 stayed 11).
 function hideBlocks(sid, ids, which) {
   const s = S(sid);
-  for (const b of s.blocks) if (ids.includes(b.id)) b.layout[which].hidden = true;
+  for (const b of s.blocks.flatMap((o) => [o, ...(o.children || [])])) if (ids.includes(b.id)) b.layout[which].hidden = true;
   if (which === 'mobile') s.rows.mobile = Math.max(1, ...s.blocks.filter((b) => !b.layout.mobile.hidden).map((b) => b.layout.mobile.area[2] - 1));
   sel = null;
 }

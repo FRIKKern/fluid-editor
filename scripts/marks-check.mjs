@@ -632,7 +632,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
 {
   viewport(S, 1600, 1000); goto(S, `${BASE}/`); await pause(1500);
   const area = (a, z) => ({ area: a, z, justify: 'flex-start', align: 'flex-start' });
-  const load = (cs) => evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)); const s = m.sections[0]; const pad = (t, a, z, extra) => ({ id: t + a[0] + a[1], type: t, ...extra, layout: { desktop: { area: a, z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: a[3] > 10 ? [a[0], 2, a[2], 10] : a, z, justify: 'flex-start', align: 'flex-start' } } }); s.blocks = ${JSON.stringify(cs)}.map(([t, a, z]) => pad(t, a, z, t === 'button' ? { label: 'Learn more' } : {})); s.rows = { desktop: 12, mobile: 12 }; m.sections = [s]; fe.load(m); return 'true'; })()`);
+  const load = (cs) => evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)); const s = m.sections[0]; const pad = (t, a, z, extra) => ({ id: t + a[0] + a[1], type: t, ...extra, layout: { desktop: { area: a, z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: a[3] > 10 ? [a[0], 2, a[2], 10] : a, z, justify: 'flex-start', align: 'flex-start' } } }); s.blocks = ${JSON.stringify(cs)}.map(([t, a, z]) => pad(t, a, z, t === 'button' ? { label: 'Learn more' } : t === 'text' ? { html: '<p></p>' } : {})); s.rows = { desktop: 12, mobile: 12 }; m.sections = [s]; fe.load(m); return 'true'; })()`);
   const blockBox = (id) => evalJs(S, `(() => { const f = document.querySelector('iframe').getBoundingClientRect(); const q = document.querySelector('iframe').contentDocument.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect(); return JSON.stringify([q.left + f.left, q.top + f.top, q.width, q.height]); })()`);
   const clickAt = async (x, y, mods) => { mouse(S, 'move', x, y); await pause(40); mouse(S, 'down', x, y, { buttons: 1, mods }); await pause(30); mouse(S, 'up', x, y, { mods }); await pause(220); };
   const stackOf = () => evalJs(S, `(() => { const d = document.querySelector('iframe').contentDocument; const W = d.defaultView; const c = d.querySelector('.sqs-stack-container'); if (!c) return JSON.stringify(null); const fe = c.closest('.fe-block'); const q = fe.getBoundingClientRect(); const s = W.getComputedStyle(c), b = W.getComputedStyle(fe.querySelector('.sqs-block')); return JSON.stringify({ id: fe.dataset.blockId, area: W.getComputedStyle(fe).gridArea, z: W.getComputedStyle(fe).zIndex, box: [q.width, q.height], dir: s.flexDirection, jc: s.justifyContent, ai: s.alignItems, gap: s.columnGap, pad: b.padding, bg: b.backgroundColor, radius: [b.borderTopLeftRadius, b.borderTopRightRadius, b.borderBottomRightRadius, b.borderBottomLeftRadius], border: b.borderTopWidth + ' ' + b.borderTopStyle + ' ' + b.borderTopColor, kids: [...c.children].map((k) => { const r = k.getBoundingClientRect(); return [r.left - q.left, r.top - q.top, r.width, r.height]; }) }); })()`);
@@ -801,6 +801,174 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Align Left', near([toLeft()], [0], 1), String(toLeft()));
   evalJs(S, `(() => { fe.select(null); return 'true'; })()`);
   await pause(100);
+
+  // S3, children from Layers.
+  const FL = ST.children.fromLayers, SZ = FL.size.threeInARow;
+  const three = [['text', [1, 2, 3, 10], 1], ['button', [1, 9, 3, 15], 2], ['shape', [1, 16, 7, 22], 3]];
+  const openLayers = async () => { if (evalJs(S, `(() => JSON.stringify(!document.getElementById('layers-panel').hidden))()`)) return; evalJs(S, `(() => { fe.select(null); return 'true'; })()`); mouse(S, 'move', 800, 700); await pause(200); const q = evalJs(S, `(() => { const b = [...document.querySelectorAll('#section-chrome button')].find((x) => x.getAttribute('aria-label') === 'Open Layers Panel' && x.getBoundingClientRect().width > 0); if (!b) return JSON.stringify(null); const r = b.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]); })()`); if (q) { await clickAt(q[0], q[1]); await pause(200); } };
+  const layerList = () => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#layers-panel li[data-layer]')].map((l) => [l.querySelector('.lp-name').textContent, l.querySelector('.lp-name').getBoundingClientRect().left - l.getBoundingClientRect().left, !!l.dataset.kidOf])))()`);
+  const pickRow = async (name) => { await openLayers(); const q = evalJs(S, `(() => { const l = [...document.querySelectorAll('#layers-panel li[data-layer]')].find((x) => x.querySelector('.lp-name').textContent === ${JSON.stringify(name)}); if (!l) return JSON.stringify(null); const r = l.getBoundingClientRect(); return JSON.stringify([r.left + 80, r.top + 22]); })()`); if (!q) throw new Error(`No row ${name}: ${JSON.stringify(layerList())}`); await clickAt(q[0], q[1]); await pause(150); };
+  const closeUp = async () => { evalJs(S, `(() => { fe.select(null); return 'true'; })()`); await pause(150); };
+  await make(three);
+  add('Three in a row: children', nearRows(stackOf()?.kids, SZ.start, 3), JSON.stringify(stackOf()?.kids));
+  await closeUp(); await openLayers();
+  const lr = layerList();
+  add('Layers: the stack, then its children', lr.map((x) => x[0]).join() === 'Stack,Text,Button,Shape' && lr.slice(1).every((x) => x[2]), JSON.stringify(lr));
+  add('Layers: children sit one step in', Math.abs(lr[1][1] - lr[0][1] - 22) <= 1, JSON.stringify(lr.map((x) => x[1])));
+  for (const [row, key] of [['Shape', 'shape'], ['Button', 'button'], ['Text', 'text']]) {
+    await pickRow(row);
+    add(`${row} child: its toolbar`, JSON.stringify(tbLabels()) === JSON.stringify(FL.toolbars[key]), String(tbLabels()));
+  }
+  await pickRow('Shape');
+  const kidBar = evalJs(S, `(() => { const t = document.getElementById('block-toolbar').getBoundingClientRect(); return JSON.stringify([t.width, ...[...document.querySelectorAll('#block-toolbar > .tb-btn')].map((b) => b.getBoundingClientRect().left - t.left)]); })()`);
+  add('Shape child: the bar', near(kidBar, [FL.shapeBar.box[0] - 2, 4, 49, 94, 134], 1), String(kidBar));
+  const marks = evalJs(S, `(() => { const d = document.querySelector('iframe').contentDocument; const k = d.querySelector('.stack-child-container[data-is-selected="true"]'); const q = k.getBoundingClientRect(); return JSON.stringify({ handles: k.querySelectorAll('.fe-handle').length, nw: (() => { const r = k.querySelector('.fe-handle[data-dir="nw"]').getBoundingClientRect(); return [r.left + 17 - q.left, r.top + 17 - q.top]; })(), line: d.querySelectorAll('.fe-indicator.is-member').length }); })()`);
+  add('Shape child: eight handles, a line around the stack', marks.handles === 8 && marks.line === 1 && near(marks.nw, [0, 0], 2), JSON.stringify(marks));
+  await tbPress('edit'); await pause(300);
+  const fieldVal = (a) => value(a);
+  const SB = FL.sizeBoxesInPanel;
+  add('Size: W field', near(inPanel('W'), SB.wInput, 1), String(inPanel('W')));
+  add('Size: W options', near(inPanel('W options'), SB.wToggle, 1), String(inPanel('W options')));
+  add('Size: H field', near(inPanel('H'), SB.hInput, 1), String(inPanel('H')));
+  add('Size: H options', near(inPanel('H options'), SB.hToggle, 1), String(inPanel('H options')));
+  add('Shape child: Fill, Fill', fieldVal('W') === 'Fill' && fieldVal('H') === 'Fill', `${fieldVal('W')} ${fieldVal('H')}`);
+  await pPress('W options');
+  const opts = evalJs(S, `(() => { const p = document.querySelector('#block-panel').getBoundingClientRect(); return JSON.stringify([...document.querySelectorAll('.st-size-menu button')].map((b) => { const r = b.getBoundingClientRect(); return [b.textContent, r.left - p.left, r.top - p.top, r.width, r.height]; })); })()`);
+  add('Size: the options', opts.map((o) => o[0]).join() === FL.sizeOptions.join() && opts.every((o, n) => near(o.slice(1), SB.rows[n], 1)), JSON.stringify(opts));
+  await pPress('W options');
+  await typeIn('W', '200px');
+  add('W 200px: the others share the rest', nearRows(stackOf().kids, SZ.w200, 3), JSON.stringify(stackOf().kids));
+  await typeIn('H', '100px');
+  add('H 100px', near(stackOf().kids[2], SZ.h100, 1), JSON.stringify(stackOf().kids[2]));
+  await typeIn('W', '50%');
+  add('W 50%: of the stack', nearRows(stackOf().kids, SZ.w50pct, 3), JSON.stringify(stackOf().kids));
+  await typeIn('W', 'Hug');
+  add('W Hug on a Shape', near(stackOf().kids[2], SZ.wHug, 1), JSON.stringify(stackOf().kids[2]));
+  await typeIn('H', 'Hug');
+  add('H Hug on a Shape', near(stackOf().kids[2], SZ.hHug, 1), JSON.stringify(stackOf().kids[2]));
+  await typeIn('W', 'Fill'); await typeIn('H', 'Fill');
+  add('Back to Fill', near(stackOf().kids[2], SZ.back, 1), JSON.stringify(stackOf().kids[2]));
+  await closeUp();
+  await pickRow('Text'); await tbPress('edit'); await pause(250);
+  add('Text child: Fill, Hug', fieldVal('W') === 'Fill' && fieldVal('H') === 'Hug', `${fieldVal('W')} ${fieldVal('H')}`);
+  await closeUp();
+  await pickRow('Text'); await tbPress('write'); await pause(250);
+  add('Write on a Text child edits it', evalJs(S, `(() => JSON.stringify(document.querySelector('iframe').contentDocument.querySelector('.stack-child-container [contenteditable="true"]') !== null))()`) === true);
+  evalJs(S, `(() => { fe.finishEdit(); fe.select(null); return 'true'; })()`); await pause(200);
+  await pickRow('Shape');
+  const sb = blockBox(stackOf().id), kid2 = stackOf().kids[2];
+  await clickAt(sb[0] + kid2[0] + 50, sb[1] + 50);
+  add('A click on the selected child keeps it', JSON.stringify(tbLabels()) === JSON.stringify(FL.toolbars.shape), String(tbLabels()));
+  await pickRow('Shape');
+  await tbPress('duplicate'); await pause(200);
+  add('Duplicate: the copy after it, sharing the row', nearRows(stackOf().kids, FL.duplicate.after, 3), JSON.stringify(stackOf().kids));
+  add('Duplicate: the stack keeps its area', stackOf().area === '1 / 2 / 7 / 22', stackOf().area);
+  evalJs(S, `(() => { fe.undo(); fe.select(null); return 'true'; })()`); await pause(200);
+  await pickRow('Shape');
+  await tbPress('remove'); await pause(200);
+  add('Remove a child: the rest share the row', stackOf().kids.length === 2 && near([stackOf().kids[0][2]], [FL.remove.twoLeft[0][2]], 2), JSON.stringify(stackOf().kids));
+  await pickRow('Button'); await tbPress('remove'); await pause(200);
+  add('Remove: one left, full width', stackOf().kids.length === 1 && near([stackOf().kids[0][2]], [FL.remove.oneLeft[0][2]], 2), JSON.stringify(stackOf().kids));
+  await pickRow('Text'); await tbPress('remove'); await pause(200);
+  add('Remove the last child: the stack goes', stackOf() === null);
+  for (let k = 0; k < 3; k++) evalJs(S, `(() => { fe.undo(); return 'true'; })()`);
+  await pause(300);
+  add('Each Remove is one undo', stackOf()?.kids.length === 3, String(stackOf()?.kids.length));
+  evalJs(S, `(() => { fe.select(null); return 'true'; })()`); await pause(150);
+  // Reorder in Layers, hide, and the handles.
+  await openLayers();
+  const rowAt = (n) => evalJs(S, `(() => { const l = [...document.querySelectorAll('#layers-panel li[data-layer]')].find((x) => x.querySelector('.lp-name').textContent === '${n}'); const r = l.getBoundingClientRect(); return JSON.stringify([r.left + 80, r.top + 22]); })()`);
+  const [rx, ry] = rowAt('Shape'), [, ty] = rowAt('Text');
+  mouse(S, 'move', rx, ry); await pause(40); mouse(S, 'down', rx, ry, { buttons: 1 });
+  for (let k = 1; k <= 8; k++) { mouse(S, 'move', rx, ry + (ty - 14 - ry) * k / 8, { buttons: 1 }); await pause(30); }
+  mouse(S, 'up', rx, ty - 14); await pause(250);
+  add('A row dragged up reorders the children', layerList().map((x) => x[0]).join() === 'Stack,Shape,Text,Button', String(layerList().map((x) => x[0])));
+  add('The canvas follows', evalJs(S, `(() => JSON.stringify(document.querySelector('iframe').contentDocument.querySelector('.stack-child-container').querySelector('.sqs-block-shape') !== null))()`) === true);
+  evalJs(S, `(() => { fe.undo(); fe.select(null); return 'true'; })()`); await pause(200);
+  await openLayers();
+  const [ex, ey] = rowAt('Shape');
+  mouse(S, 'move', ex, ey); await pause(150);
+  const eye = evalJs(S, `(() => { const l = [...document.querySelectorAll('#layers-panel li[data-layer]')].find((x) => x.querySelector('.lp-name').textContent === 'Shape'); const r = l.querySelector('[data-hide]').getBoundingClientRect(); return JSON.stringify([r.left + 18, r.top + 18]); })()`);
+  await clickAt(eye[0], eye[1]); await pause(250);
+  add('Hide a child: the others share the row, its row stays', stackOf().kids.filter((k) => k[2] > 0).length === 2 && near(stackOf().kids.filter((k) => k[2] > 0).map((k) => k[2]), [572.3, 572.3], 1) && layerList().length === 4, JSON.stringify([stackOf().kids, layerList().length]));
+  evalJs(S, `(() => { fe.undo(); fe.select(null); return 'true'; })()`); await pause(200);
+  await make([['text', [1, 2, 3, 10], 1], ['shape', [1, 12, 7, 18], 2]]);
+  await closeUp();
+  await pickRow('Shape');
+  const before = stackOf(), sq2 = blockBox(before.id), k1 = before.kids[1];
+  const hx = sq2[0] + k1[0] + k1[2], hy = sq2[1] + k1[1] + k1[3];
+  mouse(S, 'move', hx, hy); await pause(40); mouse(S, 'down', hx, hy, { buttons: 1 });
+  for (let k = 1; k <= 8; k++) { mouse(S, 'move', hx - 100 * k / 8, hy - 60 * k / 8, { buttons: 1 }); await pause(30); }
+  mouse(S, 'up', hx - 100, hy - 60); await pause(250);
+  add('A child\'s corner handle: fixed W and H', nearRows(stackOf().kids, FL.handle.after, 12) && near(stackOf().kids[1].slice(2), [before.kids[1][2] - 100, before.kids[1][3] - 60], 1), JSON.stringify(stackOf().kids));
+  evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(200);
+  add('One undo sizes it back', near(stackOf().kids[1], before.kids[1], 1), JSON.stringify(stackOf().kids[1]));
+  await closeUp();
+  // The other handles, one edge at a time, and arrow keys.
+  await pickRow('Shape');
+  for (const [dir, fx, fy, dx, dy, key] of [['e', 1, 0.5, -60, 0, 'east60left'], ['w', 0, 0.5, 60, 0, 'west60right'], ['n', 0.5, 0, 0, 50, 'north50down'], ['s', 0.5, 1, 0, -50, 'south50up'], ['nw', 0, 0, 60, 50, 'northwest']]) {
+    const x = sq2[0] + k1[0] + k1[2] * fx, y = sq2[1] + k1[1] + k1[3] * fy;
+    mouse(S, 'move', x, y); await pause(40); mouse(S, 'down', x, y, { buttons: 1 });
+    for (let k = 1; k <= 6; k++) { mouse(S, 'move', x + dx * k / 6, y + dy * k / 6, { buttons: 1 }); await pause(25); }
+    mouse(S, 'up', x + dx, y + dy); await pause(200);
+    add(`A child's ${dir} handle`, near(stackOf().kids[1].slice(2), FL.edgeHandles[key].slice(2), 2), JSON.stringify(stackOf().kids[1]));
+    evalJs(S, `(() => { fe.undo(); fe.select(fe.model.sections[0].id, ${JSON.stringify(before.id)}); return 'true'; })()`); await pause(150);
+    await closeUp(); await pickRow('Shape');
+  }
+  const areaBefore = stackOf().area;
+  browser(S, 'press', 'ArrowRight'); await pause(150); browser(S, 'press', 'ArrowDown'); await pause(150);
+  add('Arrow keys on a child do nothing', stackOf().area === areaBefore && near(stackOf().kids[1], before.kids[1], 1), JSON.stringify(stackOf()));
+  await closeUp();
+  // The gap handle.
+  evalJs(S, `(() => { fe.select(fe.model.sections[0].id, ${JSON.stringify(before.id)}); return 'true'; })()`); await pause(250);
+  const GH = ST.gapHandle;
+  const band = () => evalJs(S, `(() => { const d = document.querySelector('iframe').contentDocument; const b = d.querySelector('.stack-gap-handle'); if (!b) return JSON.stringify(null); const f = document.querySelector('iframe').getBoundingClientRect(); const r = b.getBoundingClientRect(), g = b.querySelector('i').getBoundingClientRect(); return JSON.stringify({ box: [r.left + f.left, r.top + f.top, r.width, r.height], grip: [g.width, g.height], o: getComputedStyle(b).opacity, c: getComputedStyle(b).cursor }); })()`);
+  let gb = band();
+  add('Gap handle: the band, the grip, hidden at rest', near(gb.box.slice(2), GH.row.band, 1) && near(gb.grip, GH.row.grip) && gb.o === '0' && gb.c === GH.row.cursor, JSON.stringify(gb));
+  const gx = gb.box[0] + gb.box[2] / 2, gy = gb.box[1] + gb.box[3] / 2;
+  mouse(S, 'move', gx, gy); await pause(120);
+  add('Gap handle: shows on hover', band().o === '1', band().o);
+  mouse(S, 'down', gx, gy, { buttons: 1 }); for (let k = 1; k <= 6; k++) { mouse(S, 'move', gx + 40 * k / 6, gy, { buttons: 1 }); await pause(30); } mouse(S, 'up', gx + 40, gy); await pause(250);
+  add('Gap handle: 40px right gives 40px', stackOf().gap === GH.drag.right40, stackOf().gap);
+  evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(200);
+  add('Gap handle: one undo', stackOf().gap === '20px', stackOf().gap);
+  mouse(S, 'move', gx, gy); await pause(60); mouse(S, 'down', gx, gy, { buttons: 1 }); for (let k = 1; k <= 6; k++) { mouse(S, 'move', gx - 40 * k / 6, gy, { buttons: 1 }); await pause(30); } mouse(S, 'up', gx - 40, gy); await pause(250);
+  add('Gap handle: 40px left gives 0px', stackOf().gap === GH.drag.left40, stackOf().gap);
+  evalJs(S, `(() => { fe.select(null); return 'true'; })()`); await pause(100);
+  // Phones keep their own Size.
+  const FP = FL.phone;
+  await make(three);
+  await closeUp(); await pickRow('Shape'); await tbPress('edit'); await pause(250);
+  await typeIn('W', '200px'); await typeIn('H', '100px');
+  add('Set on desktop: W 200, H 100', nearRows(stackOf().kids, FP.setOnDesktop.desktop, 3), JSON.stringify(stackOf().kids));
+  evalJs(S, `(() => { fe.select(null); fe.setBp('mobile'); return 'true'; })()`); await pause(300);
+  add('On a phone: W stays Fill, H comes along', nearRows(stackOf().kids, FP.setOnDesktop.phone, 3), JSON.stringify(stackOf().kids));
+  for (const [row, key] of [['Text', 'text'], ['Button', 'button'], ['Shape', 'shape']]) {
+    await pickRow(row);
+    add(`${row} child on a phone: its toolbar`, JSON.stringify(tbLabels()) === JSON.stringify(FP.bars[key]), String(tbLabels()));
+  }
+  await tbPress('edit'); await pause(250);
+  add('On a phone the panel reads Fill, 100px', fieldVal('W') === 'Fill' && fieldVal('H') === '100px', `${fieldVal('W')} ${fieldVal('H')}`);
+  await typeIn('W', '50%');
+  add('W 50% on a phone', near(stackOf().kids[2].slice(2), [188.3, 100], 1), JSON.stringify(stackOf().kids[2]));
+  evalJs(S, `(() => { fe.select(null); fe.setBp('desktop'); return 'true'; })()`); await pause(300);
+  add('Set on a phone: desktop keeps its own', near(stackOf().kids[2], FP.setOnDesktop.desktop[2], 1), JSON.stringify(stackOf().kids[2]));
+  await closeUp();
+  // Transforms on a child.
+  await make(three);
+  await closeUp(); await pickRow('Shape'); await tbPress('edit'); await pause(250);
+  const kidCss = () => evalJs(S, `(() => { const d = document.querySelector('iframe').contentDocument, W = d.defaultView; const k = d.querySelectorAll('.stack-child-container')[2], c = W.getComputedStyle(k), b = W.getComputedStyle(k.querySelector('.sqs-block')); return JSON.stringify({ op: b.opacity, tr: b.transform, kidTr: c.transform }); })()`);
+  await typeIn('Opacity', '50'); await typeIn('Rotate', '30');
+  const kc = kidCss(), FT = FL.transforms;
+  add('Opacity and Rotate on a child: on the block inside', kc.op === FT.rotate30.op && kc.kidTr === 'none' && near(kc.tr.match(/-?[\d.]+/g).map(Number), FT.rotate30.tr.match(/-?[\d.]+/g).map(Number), 0.01), JSON.stringify(kc));
+  await closeUp();
+  // A Button child that hugs: W Hug.
+  await make(three);
+  await closeUp(); await pickRow('Button'); await tbPress('edit'); await pause(250);
+  evalJs(S, `(() => { document.querySelector('#block-panel [data-btab="Design"]').click(); return 'true'; })()`); await pause(150);
+  await typeIn('W', 'Hug');
+  add('W Hug on a Button: its own width, the others share', nearRows(stackOf().kids.map((k) => k.slice(0, 3)), FL.size.threeInARow.buttonWHug.map((k) => k.slice(0, 3)), 3), JSON.stringify(stackOf().kids));
+  await closeUp();
 }
 
 console.log(`Marks: ${pass} of ${total} checks match`);

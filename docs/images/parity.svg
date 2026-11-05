@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="914" viewBox="0 0 1200 914" role="img" aria-labelledby="t d">
 <title id="t">Fluid editor parity</title>
-<desc id="d">101 of 118 items done, 17 partial, 0 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 7 of 8 done. Block types: 10 of 15 done. Geometry and snapping: 8 of 8 done. Gestures: 11 of 13 done. Row stretch: 4 of 5 done. Text editing: 6 of 7 done. Overlap and layers: 5 of 5 done. Phone layout: 8 of 8 done. Section settings and Stacks: 3 of 4 done. Editor chrome: 8 of 12 done. History, save and publish: 5 of 5 done. Accessibility and order: 2 of 3 done.</desc>
+<desc id="d">102 of 118 items done, 16 partial, 0 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 7 of 8 done. Block types: 10 of 15 done. Geometry and snapping: 8 of 8 done. Gestures: 11 of 13 done. Row stretch: 4 of 5 done. Text editing: 6 of 7 done. Overlap and layers: 5 of 5 done. Phone layout: 8 of 8 done. Section settings and Stacks: 4 of 4 done. Editor chrome: 8 of 12 done. History, save and publish: 5 of 5 done. Accessibility and order: 2 of 3 done.</desc>
 <style>
   svg { --bg:#fbfaf7; --card:#ffffff; --line:#e3e0d6; --ink:#1f1e1b; --muted:#6c6a63; --done:#2c7a4b; --now:#b26b00; --todo:#a3a097; --nowbg:#fff6e5; --partbg:#fdf0d8; --unk:#8a6fb0; }
   @media (prefers-color-scheme: dark) {
@@ -21,11 +21,11 @@
 <rect class="bg" width="1200" height="914" rx="16"/>
 <text x="40" y="70" font-size="36" font-weight="700" letter-spacing="-0.8">Parity</text>
 <text x="40" y="102" font-size="19" class="muted">Everything that has to match Fluid Engine, one cell per item.</text>
-<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">101<tspan class="muted" font-weight="400"> / 118</tspan></text>
+<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">102<tspan class="muted" font-weight="400"> / 118</tspan></text>
 <text x="1160" y="102" font-size="16" text-anchor="end" class="muted">items done</text>
-<rect x="40" y="124" width="958.6440677966102" height="10" class="s-done"/>
-<rect x="998.6440677966102" y="124" width="161.35593220338984" height="10" class="s-partial"/>
-<text x="40" y="172" font-size="16"><tspan class="done">✓ 101 done</tspan><tspan class="now" dx="24">◐ 17 partial</tspan><tspan class="todo" dx="24">○ 0 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
+<rect x="40" y="124" width="968.1355932203389" height="10" class="s-done"/>
+<rect x="1008.1355932203389" y="124" width="151.864406779661" height="10" class="s-partial"/>
+<text x="40" y="172" font-size="16"><tspan class="done">✓ 102 done</tspan><tspan class="now" dx="24">◐ 16 partial</tspan><tspan class="todo" dx="24">○ 0 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
 <text x="1160" y="172" font-size="16" text-anchor="end" class="muted">unknown: needs a trace on the oracle before it can be built</text>
 <path d="M40 190H1160" class="rule"/>
 <g data-area="Harness and oracle">
@@ -258,13 +258,13 @@
 </g>
 <g data-area="Section settings and Stacks">
 <text x="40" y="694" font-size="15" font-weight="600">Section settings and Stacks</text>
-<text x="324" y="694" font-size="14" text-anchor="end" class="muted">3/4</text>
+<text x="324" y="694" font-size="14" text-anchor="end" class="done">4/4</text>
 <rect x="340" y="674" width="50" height="30" rx="6" class="c-done"><title>S1 Row count per layout, and whether it is the only per-layout section setting: done</title></rect>
 <text x="365" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-done">S1</text>
 <rect x="396" y="674" width="50" height="30" rx="6" class="c-done"><title>S2 Spacing values allowed: done</title></rect>
 <text x="421" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-done">S2</text>
-<rect x="452" y="674" width="50" height="30" rx="6" class="c-partial"><title>S3 Stacks: grouped blocks with their own order and spacing: partial</title></rect>
-<text x="477" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">S3</text>
+<rect x="452" y="674" width="50" height="30" rx="6" class="c-done"><title>S3 Stacks: grouped blocks with their own order and spacing: done</title></rect>
+<text x="477" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-done">S3</text>
 <rect x="508" y="674" width="50" height="30" rx="6" class="c-done"><title>S4 Section bottom handle: remove empty rows after a block moves back up: done</title></rect>
 <text x="533" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-done">S4</text>
 </g>
