@@ -1766,5 +1766,88 @@
         118.3
       ]
     }
+  },
+  "zButtons": {
+    "capturedAt": "2026-11-05",
+    "rule": "Move Forward and Move Backward show when the block overlaps another, or when a block in its section is pinned in the layout on screen",
+    "desktopAlone": {
+      "block": "section 0, overlapping nothing",
+      "before": [
+        "Write",
+        "Edit",
+        "Align Vertically",
+        "Pin",
+        "Duplicate",
+        "Remove"
+      ],
+      "afterPin": [
+        "Write",
+        "Edit",
+        "Align Vertically",
+        "Pin",
+        "Move Forward",
+        "Move Backward (off)",
+        "Duplicate",
+        "Remove"
+      ]
+    },
+    "phonePin": {
+      "block": "demo section 2, top of the stack, overlapping nothing",
+      "before": [
+        "Write",
+        "Edit",
+        "Align Vertically",
+        "Pin",
+        "Move Up (off)",
+        "Move Down",
+        "Remove"
+      ],
+      "afterPin": [
+        "Write",
+        "Edit",
+        "Align Vertically",
+        "Pin",
+        "Move Forward",
+        "Move Backward (off)",
+        "Move Up (off)",
+        "Move Down",
+        "Remove"
+      ],
+      "nextBlock": [
+        "Write",
+        "Edit",
+        "Align Vertically",
+        "Pin",
+        "Move Forward",
+        "Move Backward",
+        "Move Up",
+        "Move Down",
+        "Remove"
+      ]
+    },
+    "phoneOverlap": {
+      "how": "the shape dragged up onto the text, nothing pinned",
+      "shape": [
+        "Edit",
+        "Pin",
+        "Move Forward (off)",
+        "Move Backward",
+        "Move Up",
+        "Move Down",
+        "Remove"
+      ],
+      "text": [
+        "Write",
+        "Edit",
+        "Align Vertically",
+        "Pin",
+        "Move Forward",
+        "Move Backward",
+        "Move Up",
+        "Move Down",
+        "Remove"
+      ]
+    },
+    "perLayout": "a desktop pin in the section brings no Move Forward or Backward on phones"
   }
 }

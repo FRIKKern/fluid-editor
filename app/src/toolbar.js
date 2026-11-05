@@ -8,10 +8,11 @@
 //   per type   text: Write, Edit | Align Vertically, Pin, [Move Forward, Move Backward] | Duplicate, Remove
 //              button: Edit | Primary, Link, Pin, Duplicate, Remove
 //              others: Edit | Pin, [Move Forward, Move Backward] | Duplicate, Remove
-//              Move Forward and Backward show only when the block overlaps another block.
+//              Move Forward and Backward show when the block overlaps another block, or when a
+//              block in its section is pinned in that layout.
 //   phones     Duplicate gives way to Move Up and Move Down, off at the top and the bottom of the
-//              stack; the button style and link go. Move Forward and Backward still show when the
-//              block overlaps another. Separators as on desktop, measured on the shape and on text.
+//              stack; the button style and link go. Move Forward and Backward follow the same rule.
+//              Separators as on desktop, measured on the shape and on text.
 //   tips       under each usable button, 11px below it (TOOLBARS.json tips), with its keys in chips
 // The icons are ours (O2: no Squarespace assets).
 

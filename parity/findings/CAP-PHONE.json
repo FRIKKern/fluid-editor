@@ -1,0 +1,1166 @@
+{
+  "item": "CAP-PHONE",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
+  "question": "U4, U5, S4, U10: toolbar separators, Pin, new block placement and section controls in the phone view",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "select",
+      2,
+      2
+    ],
+    [
+      "click",
+      "Pin"
+    ],
+    [
+      "read",
+      "pin desktop",
+      {
+        "controls": true,
+        "thin": true,
+        "block": [
+          2,
+          2
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "read",
+      "before add",
+      {
+        "areas": 2
+      }
+    ],
+    [
+      "add",
+      2,
+      "Line"
+    ],
+    [
+      "read",
+      "new line desktop",
+      {
+        "block": [
+          2,
+          "new"
+        ],
+        "areas": 2
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "new line phone",
+      {
+        "block": [
+          2,
+          "new"
+        ],
+        "section": 2,
+        "areas": 2
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "hover",
+      2
+    ],
+    [
+      "read",
+      "phone hovered section",
+      {
+        "controls": true,
+        "thin": true,
+        "section": 2
+      }
+    ],
+    [
+      "select",
+      2,
+      2
+    ],
+    [
+      "read",
+      "phone selected shape",
+      {
+        "controls": true,
+        "thin": true,
+        "block": [
+          2,
+          2
+        ]
+      }
+    ],
+    [
+      "clickIf",
+      "Pin"
+    ],
+    [
+      "read",
+      "pin phone",
+      {
+        "controls": true,
+        "block": [
+          2,
+          2
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "pin desktop": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            134,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            872.3,
+            197.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            917.3,
+            197.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Forward",
+          "box": [
+            957.3,
+            197.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Backward",
+          "box": [
+            997.3,
+            197.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            1042.3,
+            197.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            1082.3,
+            197.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Offset",
+          "value": "0px",
+          "box": [
+            981.5,
+            312.5,
+            58,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Offset",
+          "value": "0",
+          "min": "0",
+          "max": "250",
+          "step": "1",
+          "box": [
+            835,
+            345.5,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "thin": [
+        {
+          "box": [
+            912.3,
+            205.5,
+            1,
+            20
+          ],
+          "bg": "rgb(231, 231, 231)"
+        },
+        {
+          "box": [
+            1037.3,
+            205.5,
+            1,
+            20
+          ],
+          "bg": "rgb(231, 231, 231)"
+        }
+      ],
+      "block": {
+        "desktop": "2/15/12/25",
+        "mobile": "5/2/11/10",
+        "box": [
+          864.3,
+          199.5,
+          576.8,
+          399.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16395",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "sticky",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 15 / 12 / 25"
+        },
+        "handles": [
+          "col 10x10 at -6,195",
+          "col 10x10 at 572.8,195",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,395.9",
+          "se 10x10 at 572.8,395.9",
+          "sw 10x10 at -6,395.9"
+        ]
+      },
+      "save": "changed"
+    },
+    "before add": {
+      "areas": [
+        [
+          "1/2/5/16",
+          "1/2/3/10"
+        ],
+        [
+          "3/2/8/13",
+          "3/2/5/10"
+        ],
+        [
+          "2/15/12/25",
+          "5/2/11/10"
+        ]
+      ],
+      "save": "clean"
+    },
+    "new line desktop": {
+      "block": {
+        "desktop": "1/2/2/6",
+        "mobile": "3/2/4/10",
+        "box": [
+          100.1,
+          185.4,
+          224.1,
+          30.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793835089813_10312",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "4",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 2 / 6"
+        },
+        "handles": [
+          "col 10x10 at -6,10",
+          "col 10x10 at 220.1,10",
+          "ne 10x10 at 220.1,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 107.1,-6",
+          "row 10x10 at 107.1,26.1",
+          "se 10x10 at 220.1,26.1",
+          "sw 10x10 at -6,26.1"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/5/16",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ],
+        [
+          "3/2/8/13",
+          "4/2/6/10"
+        ],
+        [
+          "2/15/12/25",
+          "6/2/12/10"
+        ]
+      ],
+      "save": "changed"
+    },
+    "new line phone": {
+      "block": {
+        "desktop": "1/2/2/6",
+        "mobile": "3/2/4/10",
+        "box": [
+          25.7,
+          5039.6,
+          376.7,
+          24
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793835089813_10312",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "4",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "3 / 2 / 4 / 10"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          715.6,
+          428,
+          631.8
+        ],
+        "rows": 11,
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 5842,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/16",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ],
+        [
+          "3/2/8/13",
+          "4/2/6/10"
+        ],
+        [
+          "2/15/12/25",
+          "6/2/12/10"
+        ]
+      ],
+      "save": "changed"
+    },
+    "phone hovered section": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            117,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            522,
+            161,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1043,
+            164,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1048,
+            219,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1088,
+            219,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1128,
+            219,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1168,
+            219,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1043,
+            266,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            741,
+            111.1,
+            36
+          ]
+        }
+      ],
+      "thin": [],
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          79.6,
+          428,
+          623.7
+        ],
+        "rows": 10,
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 6478,
+        "blocks": 3
+      },
+      "save": "clean"
+    },
+    "phone selected shape": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            522,
+            161,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            1041,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            1086,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Up",
+          "box": [
+            1126,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Down",
+          "box": [
+            1166,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            1211,
+            490.5,
+            36,
+            36
+          ]
+        }
+      ],
+      "thin": [
+        {
+          "box": [
+            1081,
+            498.5,
+            1,
+            20
+          ],
+          "bg": "rgb(231, 231, 231)"
+        },
+        {
+          "box": [
+            1206,
+            498.5,
+            1,
+            20
+          ],
+          "bg": "rgb(231, 231, 231)"
+        }
+      ],
+      "block": {
+        "desktop": "2/15/12/25",
+        "mobile": "5/2/11/10",
+        "box": [
+          25.7,
+          428.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16395",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "5 / 2 / 11 / 10"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "save": "clean"
+    },
+    "pin phone": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            522,
+            161,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            1041,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            1086,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Forward",
+          "box": [
+            1126,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Backward",
+          "box": [
+            1166,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Up",
+          "box": [
+            1206,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Down",
+          "box": [
+            1246,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            1291,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Offset",
+          "value": "0px",
+          "box": [
+            1150.2,
+            605.5,
+            58,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Offset",
+          "value": "0",
+          "min": "0",
+          "max": "250",
+          "step": "1",
+          "box": [
+            1003.8,
+            638.5,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "2/15/12/25",
+        "mobile": "5/2/11/10",
+        "box": [
+          25.7,
+          428.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16395",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "sticky",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "5 / 2 / 11 / 10"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

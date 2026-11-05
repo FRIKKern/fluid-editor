@@ -3,7 +3,7 @@
 // argv[2] is JSON: { port, op, frame?, ... }
 //   eval js | wait js timeoutSec | goto url | reload | viewport w h | screenshot file
 //   click sel | dblclick sel | hover sel | press key | fill sel text | dialog accept
-//   mouse type x y buttons mods | drag from to steps holdMs mods
+//   mouse type x y buttons mods | drag from to steps holdMs mods pointerType | touch from to steps holdMs
 // `frame` is a selector for a same-origin iframe: js and selectors run inside it, and x, y are
 // in its coordinates. Input events always go to the top page, so they are shifted by the frame's box.
 import { spawn } from 'node:child_process';
@@ -67,7 +67,7 @@ async function toPage(x, y) {
   const o = await frameOrigin();
   return { x: o.x + x * o.k, y: o.y + y * o.k };
 }
-const mouseEvent = (type, p, { button = 'none', buttons = 0, clickCount = 0, mods } = {}) => send('Input.dispatchMouseEvent', { type, x: p.x, y: p.y, button, buttons, clickCount, modifiers: modBits(mods) });
+const mouseEvent = (type, p, { button = 'none', buttons = 0, clickCount = 0, mods } = {}) => send('Input.dispatchMouseEvent', { type, x: p.x, y: p.y, button, buttons, clickCount, ...(cmd.pointerType && { pointerType: cmd.pointerType }), modifiers: modBits(mods) });
 // The middle of an element, scrolled into view first if the middle is off screen. On the oracle the toolbar
 // buttons named below are refused: no script may press them by accident (QUALITY.md, O1).
 async function centerOf(sel, { guard = false } = {}) {
@@ -176,6 +176,18 @@ try {
     const p = await toPage(cmd.x, cmd.y);
     const pressed = cmd.type === 'down' || cmd.type === 'up';
     await mouseEvent({ move: 'mouseMoved', down: 'mousePressed', up: 'mouseReleased' }[cmd.type], p, { button: pressed ? 'left' : cmd.buttons ? 'left' : 'none', buttons: cmd.type === 'down' || (cmd.type === 'move' && cmd.buttons) ? 1 : 0, clickCount: pressed ? 1 : 0, mods: cmd.mods });
+  }
+  if (cmd.op === 'touch') {
+    // No Emulation.setTouchEmulationEnabled: turning it on throws the oracle out of edit mode.
+    const a = await toPage(...cmd.from), b = await toPage(...cmd.to);
+    const at = (p) => [{ x: p.x, y: p.y, id: 1 }];
+    await send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: at(a) });
+    if (cmd.holdMs) await sleep(cmd.holdMs);
+    const steps = cmd.steps ?? 12;
+    for (let k = 1; k <= steps; k++) { await send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: at({ x: a.x + (b.x - a.x) * k / steps, y: a.y + (b.y - a.y) * k / steps }) }); await sleep(25); }
+    if (steps) await sleep(200);
+    await send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await sleep(300);
   }
   if (cmd.op === 'drag') {
     const a = await toPage(...cmd.from), b = await toPage(...cmd.to);

@@ -1,0 +1,853 @@
+{
+  "item": "CAP-TOUCH",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
+  "question": "X11: what do touch and pen do on a block: tap, drag, a long press, a handle?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "listen"
+    ],
+    [
+      "touch",
+      2,
+      2,
+      "middle",
+      0,
+      0
+    ],
+    [
+      "read",
+      "after tap",
+      {
+        "block": [
+          2,
+          2
+        ],
+        "section": 2,
+        "controls": true
+      }
+    ],
+    [
+      "touch",
+      2,
+      2,
+      "middle",
+      125,
+      0
+    ],
+    [
+      "read",
+      "after touch drag 125 right",
+      {
+        "block": [
+          2,
+          2
+        ],
+        "section": 2
+      }
+    ],
+    [
+      "touch",
+      2,
+      2,
+      "middle",
+      125,
+      0,
+      {
+        "holdMs": 800
+      }
+    ],
+    [
+      "read",
+      "after long press then drag",
+      {
+        "block": [
+          2,
+          2
+        ],
+        "section": 2,
+        "controls": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "listen"
+    ],
+    [
+      "select",
+      2,
+      2
+    ],
+    [
+      "touch",
+      2,
+      2,
+      "se",
+      125,
+      75
+    ],
+    [
+      "read",
+      "after touch on a handle",
+      {
+        "block": [
+          2,
+          2
+        ],
+        "section": 2
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "listen"
+    ],
+    [
+      "drag",
+      2,
+      2,
+      "middle",
+      125,
+      0,
+      {
+        "pointerType": "pen"
+      }
+    ],
+    [
+      "read",
+      "after pen drag 125 right",
+      {
+        "block": [
+          2,
+          2
+        ],
+        "section": 2
+      }
+    ]
+  ],
+  "reads": {
+    "after tap": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            134,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            872.3,
+            197.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            917.3,
+            197.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Forward",
+          "box": [
+            957.3,
+            197.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Backward",
+          "box": [
+            997.3,
+            197.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            1042.3,
+            197.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            1082.3,
+            197.5,
+            36,
+            36
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "2/15/12/25",
+        "mobile": "5/2/11/10",
+        "box": [
+          864.3,
+          199.5,
+          576.8,
+          399.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16395",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 15 / 12 / 25"
+        },
+        "handles": [
+          "col 10x10 at -6,195",
+          "col 10x10 at 572.8,195",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,395.9",
+          "se 10x10 at 572.8,395.9",
+          "sw 10x10 at -6,395.9"
+        ]
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          52.8,
+          1600,
+          652.2
+        ],
+        "rows": 11,
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1719,
+        "blocks": 3
+      },
+      "save": "clean",
+      "events": [
+        [
+          "pointerdown:touch",
+          1
+        ],
+        [
+          "touchstart",
+          1
+        ],
+        [
+          "pointerup:touch",
+          1
+        ],
+        [
+          "touchend",
+          1
+        ]
+      ]
+    },
+    "after touch drag 125 right": {
+      "block": {
+        "desktop": "2/15/12/25",
+        "mobile": "5/2/11/10",
+        "box": [
+          864.3,
+          199.5,
+          576.8,
+          399.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16395",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 15 / 12 / 25"
+        },
+        "handles": [
+          "col 10x10 at -6,195",
+          "col 10x10 at 572.8,195",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,395.9",
+          "se 10x10 at 572.8,395.9",
+          "sw 10x10 at -6,395.9"
+        ]
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          52.8,
+          1600,
+          652.2
+        ],
+        "rows": 11,
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1719,
+        "blocks": 3
+      },
+      "save": "clean",
+      "events": [
+        [
+          "pointerdown:touch",
+          1
+        ],
+        [
+          "touchstart",
+          1
+        ],
+        [
+          "pointermove:touch",
+          2
+        ],
+        [
+          "pointercancel:touch",
+          1
+        ],
+        [
+          "touchend",
+          1
+        ]
+      ]
+    },
+    "after long press then drag": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            134,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            989.8,
+            197.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            1034.8,
+            197.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            1074.8,
+            197.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            1114.8,
+            197.5,
+            36,
+            36
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "2/17/12/27",
+        "mobile": "5/2/11/10",
+        "box": [
+          981.8,
+          199.5,
+          618.2,
+          399.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16395",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 17 / 12 / 27"
+        },
+        "handles": [
+          "col 10x10 at -6,195",
+          "col 10x10 at 612.2,195",
+          "ne 10x10 at 612.2,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 304.1,-6",
+          "row 10x10 at 304.1,395.9",
+          "se 10x10 at 612.2,395.9",
+          "sw 10x10 at -6,395.9"
+        ]
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          52.8,
+          1600,
+          652.2
+        ],
+        "rows": 11,
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1719,
+        "blocks": 3
+      },
+      "save": "changed",
+      "events": [
+        [
+          "pointerdown:touch",
+          1
+        ],
+        [
+          "touchstart",
+          1
+        ],
+        [
+          "pointermove:touch",
+          12
+        ],
+        [
+          "pointerup:touch",
+          1
+        ],
+        [
+          "touchend",
+          1
+        ]
+      ]
+    },
+    "after touch on a handle": {
+      "block": {
+        "desktop": "2/15/12/25",
+        "mobile": "5/2/11/10",
+        "box": [
+          864.3,
+          199.5,
+          576.8,
+          399.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16395",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 15 / 12 / 25"
+        },
+        "handles": [
+          "col 10x10 at -6,195",
+          "col 10x10 at 572.8,195",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,395.9",
+          "se 10x10 at 572.8,395.9",
+          "sw 10x10 at -6,395.9"
+        ]
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          52.8,
+          1600,
+          652.2
+        ],
+        "rows": 11,
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1719,
+        "blocks": 3
+      },
+      "save": "clean",
+      "events": [
+        [
+          "pointermove:mouse",
+          1
+        ],
+        [
+          "pointerdown:mouse",
+          1
+        ],
+        [
+          "pointerup:mouse",
+          1
+        ],
+        [
+          "pointerdown:touch",
+          1
+        ],
+        [
+          "touchstart",
+          1
+        ],
+        [
+          "pointermove:touch",
+          12
+        ],
+        [
+          "pointerup:touch",
+          1
+        ],
+        [
+          "touchend",
+          1
+        ]
+      ]
+    },
+    "after pen drag 125 right": {
+      "block": {
+        "desktop": "2/17/12/27",
+        "mobile": "5/2/11/10",
+        "box": [
+          981.8,
+          199.5,
+          618.2,
+          399.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16395",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 17 / 12 / 27"
+        },
+        "handles": [
+          "col 10x10 at -6,195",
+          "col 10x10 at 612.2,195",
+          "ne 10x10 at 612.2,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 304.1,-6",
+          "row 10x10 at 304.1,395.9",
+          "se 10x10 at 612.2,395.9",
+          "sw 10x10 at -6,395.9"
+        ]
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          52.8,
+          1600,
+          652.2
+        ],
+        "rows": 11,
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1719,
+        "blocks": 3
+      },
+      "save": "changed",
+      "events": [
+        [
+          "pointermove:pen",
+          1
+        ],
+        [
+          "pointerdown:pen",
+          1
+        ],
+        [
+          "pointermove:pen",
+          12
+        ],
+        [
+          "pointerup:pen",
+          1
+        ]
+      ]
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
