@@ -116,7 +116,7 @@ for (const k of ['S', 'L', 'M']) { dset('strokeSize', k); add(`Thickness ${k}: $
 dset('stroke', 'dashed');
 for (const k of ['S', 'L', 'M']) { dset('strokeSize', k); const got = inkOf(); add(`Dashed ${k}: ${F.stroke.dash[k]}`, got.dash === F.stroke.dash[k], got.dash); }
 dset('strokeSize', 'custom');
-add('Three dots open a range, 6px', q(`const r = panel.querySelector('input[type="range"][data-design="strokePx"]'); return JSON.stringify(!!r && r.value === '6' && panel.querySelector('.sh-range span').textContent === '6px');`));
+add('Three dots open a range, 6px', q(`const r = panel.querySelector('input[type="range"][data-design="strokePx"]'); return JSON.stringify(!!r && r.value === '6' && panel.querySelector('.sh-range input[type="text"]').value === '6px');`));
 dset('strokeSize', 'M'); dset('stroke', 'solid');
 act('strokeColor');
 const sp = q(`return JSON.stringify({ n: pop.querySelectorAll('.sh-swatch').length, bar: !!pop.querySelector('[aria-label="Opacity slider"]'), plus: !!pop.querySelector('[aria-label="Custom color"]') });`);
