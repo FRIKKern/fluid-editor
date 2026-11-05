@@ -44,7 +44,18 @@
    "Offset",
    "Skew",
    "Anchor"
-  ]
+  ],
+  "phone": {
+   "box": [
+    376.7,
+    24
+   ],
+   "columns": [
+    2,
+    10
+   ],
+   "rows": 1
+  }
  },
  "social": {
   "area": [
@@ -270,6 +281,89 @@
   "hidden": {
    "state": "hidden",
    "effect": "the icon goes and the others close up"
+  },
+  "labels": {
+   "untouched": [
+    "instagram-unauth",
+    "facebook-unauth",
+    "twitter-unauth"
+   ],
+   "note": "Read before the probe's writes on 2026-11-05. At 07:07 that day a toggle of Display Social Icon on the Instagram row rewrote its label from instagram-unauth to Instagram, and it stays so on the trial site. Any social aria-label read after that time is touched by it. A toggle rewriting a label was seen once.",
+   "afterToggle": "Instagram",
+   "added": {
+    "YouTube link": "YouTube",
+    "other links": "URL"
+   }
+  },
+  "phone": {
+   "read": "new blocks on a new page, never saved, with no press on the list",
+   "frame": 428,
+   "box": [
+    376.7,
+    59
+   ],
+   "columns": [
+    2,
+    10
+   ],
+   "rows": 2,
+   "links": [
+    [
+     146.3,
+     0,
+     20,
+     20
+    ],
+    [
+     178.3,
+     0,
+     20,
+     20
+    ],
+    [
+     210.3,
+     0,
+     20,
+     20
+    ]
+   ],
+   "panel": "The same Content and Design rows as on a desktop.",
+   "sizes": {
+    "L": {
+     "first": [
+      130.3,
+      28
+     ],
+     "gap": "16px"
+    },
+    "LRounded": {
+     "first": [
+      124.3,
+      36
+     ],
+     "gap": "10px",
+     "radius": "15%"
+    }
+   },
+   "style": {
+    "Solid": {
+     "bg": "the ink"
+    },
+    "Outline": {
+     "shadow": "rgb(0, 0, 0) 0px 0px 0px 2px inset"
+    },
+    "Square": {
+     "radius": "0px"
+    }
+   },
+   "left": {
+    "first": 0,
+    "jc": "flex-start"
+   },
+   "follows": "A phone with no pressed rows follows the desktop: desktop L and Circle read 36 and 10 with radius 50% on the phone.",
+   "keeps": "A row pressed on the phone keeps its value, the desktop does not change, and a later desktop press of that row does not reach the phone: Size, Alignment and Border read.",
+   "classes": "The block's classes stay the desktop's whatever the phone shows.",
+   "rowsAfter": "S from L: 2 rows to 1, 24 high."
   }
  },
  "map": {
@@ -458,16 +552,47 @@
    "Offset",
    "Skew",
    "Anchor"
-  ]
+  ],
+  "phone": {
+   "box": [
+    376.7,
+    409
+   ],
+   "columns": [
+    2,
+    10
+   ],
+   "rows": 12
+  },
+  "zoomTyped": {
+   "typed": "5",
+   "field": "0.3",
+   "zoom": 5,
+   "note": "The number typed is the map zoom. One read."
+  }
  },
  "inferred": [
   "the rows of a social block other than through Size and Border",
   "what Undo does to the site-wide list",
   "editing a Profile Link: the same check as Add",
-  "the order grip on a row: not dragged, because it writes the list",
-  "Size, Border and Alignment on a phone",
+  "the order grip on a social row: never dragged, because it writes the list; ours moves like the accordion's grip (CAP-ACCORDION2.json)",
   "other hosts than these for a named icon",
-  "typing in Zoom",
-  "what Terrain and Labels draw: ours draws its own map"
- ]
+  "typing anything but a whole number in Zoom",
+  "what Terrain and Labels draw: ours draws its own map",
+  "a phone's Style and Thickness keeping their values against a later desktop press: Size, Alignment and Border were read",
+  "a toggle rewriting a label, as above: seen once"
+ ],
+ "stackOrder": {
+  "added": [
+   "Line",
+   "Map",
+   "Social Links"
+  ],
+  "phoneTopToBottom": [
+   "Map",
+   "Social Links",
+   "Line"
+  ],
+  "note": "Three new blocks at the top of a new section. Read once; the rule behind the order was not read."
+ }
 }

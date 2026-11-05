@@ -3,6 +3,7 @@
 // Runs in the browser and in Node.
 import { siteStylesHead } from './site-style-packs.js';
 import { shapeById } from './shapes.js';
+import { imageShapeById } from './image-shapes.js';
 
 export const BPS = ['mobile', 'desktop'];
 export const COLS = { mobile: 8, desktop: 24 };
@@ -196,7 +197,8 @@ function accordionHtml(b) {
 
 // Social links (T11.json): one list for the whole site, each block chooses how it looks. Glyphs
 // are our own drawings, 24 across, placed in a box of 64 so they are 30 across it (0.47).
-export const DEFAULT_SOCIAL = [{ url: 'http://instagram.com/squarespace' }, { url: 'http://facebook.com/squarespace' }, { url: 'http://twitter.com/squarespace' }];
+// The labels are the oracle's for rows nobody touched; Display Social Icon rewrites one to the named form (T11.json).
+export const DEFAULT_SOCIAL = [{ url: 'http://instagram.com/squarespace', aria: 'instagram-unauth' }, { url: 'http://facebook.com/squarespace', aria: 'facebook-unauth' }, { url: 'http://twitter.com/squarespace', aria: 'twitter-unauth' }];
 export const SOCIAL_SIZES = { XS: ['extra-small', 16, 10, 24, 6], S: ['small', 20, 12, 28, 8], M: ['medium', 24, 14, 32, 8], L: ['large', 28, 16, 36, 10], XL: ['extra-large', 32, 18, 48, 12] };
 export const SOCIAL_STYLES = { Knockout: 'knockout', Outline: 'border', Solid: 'solid' };
 const GLYPHS = {
@@ -216,19 +218,29 @@ export function socialKind(url) {
   return net ? { net, aria: NAMED[net], name: u.pathname } : { net: 'url', aria: 'URL', name: url };
 }
 export const socialGlyph = (net, size = 20) => `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="${GLYPHS[net]}"/></svg>`;
+// On a phone a block follows the desktop until a row is pressed there, then keeps that row's value
+// (T11.json, phone). The classes stay the desktop's, so the phone's values go in variables and attributes.
+export const socialLook = (b, phone) => (phone && b.socialMobile ? { ...b, ...b.socialMobile } : b);
 export function socialHtml(b, model) {
   const style = b.iconBorder ? b.iconStyle || 'knockout' : 'regular';
   const [word, none, gap, boxed, boxedGap] = SOCIAL_SIZES[b.iconSize || 'S'];
-  const vars = `--si-size:${b.iconBorder ? boxed : none}px;--si-gap:${b.iconBorder ? boxedGap : gap}px${style === 'border' ? `;--si-thick:${b.iconThick ?? 2}px` : ''}`;
+  const m = socialLook(b, true), mStyle = m.iconBorder ? m.iconStyle || 'knockout' : 'regular';
+  const [, mNone, mGap, mBoxed, mBoxedGap] = SOCIAL_SIZES[m.iconSize || 'S'];
+  const phoneVars = b.socialMobile ? `;--si-size-m:${m.iconBorder ? mBoxed : mNone}px;--si-gap-m:${m.iconBorder ? mBoxedGap : mGap}px;--si-thick-m:${m.iconThick ?? 2}px` : '';
+  const phoneAttrs = b.socialMobile ? ` data-m-style="${mStyle}" data-m-shape="${m.iconBorder || 'none'}" data-m-align="${m.align || 'left'}"` : '';
+  const vars = `--si-size:${b.iconBorder ? boxed : none}px;--si-gap:${b.iconBorder ? boxedGap : gap}px${style === 'border' ? `;--si-thick:${b.iconThick ?? 2}px` : ''}${phoneVars}`;
   const links = (model?.socialLinks || DEFAULT_SOCIAL).filter((l) => !l.hidden).map((l, i) => {
     const k = socialKind(l.url) || { net: 'url', aria: 'URL' };
     const glyph = `<path fill-rule="evenodd" transform="translate(17 17) scale(1.25)" d="${GLYPHS[k.net]}"/>`;
-    const art = style === 'knockout'
-      ? `<mask id="si-${b.id}-${i}"><rect width="64" height="64" fill="#fff"/><g fill="#000">${glyph}</g></mask><rect class="sqs-use--mask" width="64" height="64" mask="url(#si-${b.id}-${i})"/>`
-      : `<g class="sqs-use--icon">${glyph}</g>`;
-    return `<a class="sqs-svg-icon--wrapper ${k.net}-unauth" href="${escapeHtml(l.url)}" target="_blank" aria-label="${k.aria}"><div><svg class="sqs-svg-icon--social" viewBox="0 0 64 64">${art}</svg></div></a>`;
+    const art = (st, tag = '') => (st === 'knockout'
+      ? `<mask id="si-${b.id}-${i}${tag}"><rect width="64" height="64" fill="#fff"/><g fill="#000">${glyph}</g></mask><rect class="sqs-use--mask" width="64" height="64" mask="url(#si-${b.id}-${i}${tag})"/>`
+      : `<g class="sqs-use--icon">${glyph}</g>`);
+    // Knockout draws differently, so a phone that differs from the desktop on it carries its own picture.
+    const twoArts = (style === 'knockout') !== (mStyle === 'knockout');
+    const svgs = twoArts ? `<svg class="sqs-svg-icon--social si-desk" viewBox="0 0 64 64">${art(style)}</svg><svg class="sqs-svg-icon--social si-phone" viewBox="0 0 64 64">${art(mStyle, '-m')}</svg>` : `<svg class="sqs-svg-icon--social" viewBox="0 0 64 64">${art(style)}</svg>`;
+    return `<a class="sqs-svg-icon--wrapper ${k.net}-unauth" href="${escapeHtml(l.url)}" target="_blank" aria-label="${escapeHtml(l.aria || k.aria)}"><div>${svgs}</div></a>`;
   }).join('');
-  return `<div class="sqs-block socialaccountlinks-v2-block sqs-block-socialaccountlinks-v2" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-svg-icon--outer social-icon-alignment-${b.align || 'left'} social-icons-color-black social-icons-size-${word}${b.iconBorder ? ` social-icons-shape-${b.iconBorder}` : ''} social-icons-style-${style}" style="${vars}"><nav class="sqs-svg-icon--list">${links}</nav></div></div></div>`;
+  return `<div class="sqs-block socialaccountlinks-v2-block sqs-block-socialaccountlinks-v2" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-svg-icon--outer social-icon-alignment-${b.align || 'left'} social-icons-color-black social-icons-size-${word}${b.iconBorder ? ` social-icons-shape-${b.iconBorder}` : ''} social-icons-style-${style}"${phoneAttrs} style="${vars}"><nav class="sqs-svg-icon--list">${links}</nav></div></div></div>`;
 }
 
 // Map (T11.json): the block's values are the oracle's; the map itself is our own drawing, as the
@@ -314,8 +326,12 @@ function blockInner(b, model) {
       // Focal point and Overlay (parity/findings/IMAGEDESIGN.json): off, the overlay keeps its color and blend at opacity 0.
       const focal = b.focal ? ` style="object-position:${b.focal[0] * 100}% ${b.focal[1] * 100}%"` : '';
       const overlay = b.overlay || b.overlayColor || b.overlayBlend ? `<div class="fluidImageOverlay" style="opacity:${b.overlay ? 1 : 0};background-color:${escapeHtml(b.overlayColor || 'rgba(0, 0, 0, 0.5)')};mix-blend-mode:${b.overlayBlend || 'normal'}"></div>` : '';
-      const inner = b.src ? `<div class="fluid-image-container has-picture" style="${r}${aspect}"><img src="${escapeHtml(b.src)}" alt="${alt}"${focal}>${overlay}</div>`
-        : `<div class="fluid-image-container" style="${r}${aspect}" role="img" aria-label="${alt}">${overlay}</div>`;
+      // The chosen shape clips the picture's box and stretches with it (IMAGESHAPES.json). Circle is the CSS default.
+      const shape = b.mode === 'shape' && b.imageShape ? imageShapeById(b.imageShape) : null;
+      const clip = shape ? `clip-path:url(#fe-image-clip-${b.id});` : '';
+      const clipDef = shape ? `<svg class="fe-image-clip" width="0" height="0" aria-hidden="true"><clipPath id="fe-image-clip-${b.id}" clipPathUnits="objectBoundingBox"><path d="${shape.d}"/></clipPath></svg>` : '';
+      const inner = b.src ? `<div class="fluid-image-container has-picture" style="${r}${aspect}${clip}"><img src="${escapeHtml(b.src)}" alt="${alt}"${focal}>${overlay}</div>${clipDef}`
+        : `<div class="fluid-image-container" style="${r}${aspect}${clip}" role="img" aria-label="${alt}">${overlay}</div>${clipDef}`;
       // A new block has no picture yet (MEDIAEMPTY.json): the editor shows a white box with a +.
       if (b.empty) return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-image image-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-component-empty-state-node"><span class="fluid-image-add" aria-hidden="true"></span></div></div></div>`;
       const pic = b.href && !b.lightbox ? `<a class="sqs-block-image-link" href="${escapeHtml(b.href)}"${b.newTab ? ' target="_blank"' : ''}>${inner}</a>` : inner;

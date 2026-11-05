@@ -462,7 +462,7 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 
 /* Accordion panels (ACCORDION.json): 59px item rows with a 36px T tile, then Add Item. */
 .bp-acc-row { display: flex; align-items: center; height: 59px; border-bottom: 1px solid #e7e7e7; margin: 0 -5px; }
-.bp-acc-row.is-moving { position: relative; z-index: 2; background: #fff; }
+.bp-acc-row.is-moving, .bp-soc-row.is-moving { position: relative; z-index: 2; background: #fff; }
 .bp-acc-grip { cursor: grab; touch-action: none; flex: none; display: grid; grid-template-columns: 2px 2px; gap: 2px 3px; width: 7px; margin-right: 9px; }
 .bp-acc-grip i { width: 2px; height: 2px; border-radius: 50%; background: #3a3a3a; }
 .bp-acc-t { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 3px; background: #f2f2f2; font-size: 18px; }
@@ -1301,3 +1301,19 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .theme-chip:hover { background: var(--chip-bg); box-shadow: 0 4px 16px rgba(0, 0, 0, .12); }
 .theme-chip-aa { width: 31.5px; font: 400 20px/28px Poppins, sans-serif; text-align: left; }
 .theme-chip-n { letter-spacing: .05em; text-transform: uppercase; }
+/* An image's Shape picker (IMAGESHAPES.json) */
+.bp-ishape-head { position: sticky; top: 0; z-index: 2; display: flex; justify-content: center; align-items: center; height: 55px; background: #fff; font-weight: 500; color: #0e0e0e; }
+.bp-ishape-head .bp-back { left: 11px; height: 46px; top: 5px; gap: 0; }
+.bp-ishape-head .bp-back svg { width: 16px; height: 16px; }
+.bp-ishape-tabs { display: grid; grid-template-columns: repeat(3, 95px); justify-content: space-between; height: 55px; padding: 0 6px; border-bottom: 1px solid #e7e7e7; box-sizing: border-box; }
+.bp-ishape-tab { position: relative; height: 55px; border: 0; background: none; padding: 0; font: inherit; font-size: 14px; color: #666; cursor: pointer; }
+.bp-ishape-tab.is-on { color: #0e0e0e; }
+.bp-ishape-tab.is-on::after { content: ''; position: absolute; left: -6px; right: -6px; bottom: 0; height: 2px; background: #0e0e0e; }
+.bp-ishape-grid { display: grid; grid-template-columns: repeat(3, 96px); grid-auto-rows: 88px; justify-content: space-between; row-gap: 6px; padding-bottom: 12px; }
+.bp-ishape-tile { display: grid; place-items: center; width: 96px; height: 88px; border: 0; background: none; padding: 0; cursor: pointer; }
+.bp-ishape-tab, .bp-ishape-tile { scroll-margin-top: 55px; }
+.bp-ishape-tile svg { display: block; overflow: visible; }
+.bp-ishape-fill { fill: #767676; stroke: transparent; stroke-width: 2px; }
+.bp-ishape-ring { fill: none; stroke: transparent; stroke-width: 1px; }
+.bp-ishape-tile.is-on .bp-ishape-fill { stroke: #fff; }
+.bp-ishape-tile.is-on .bp-ishape-ring { stroke: #0072f0; }

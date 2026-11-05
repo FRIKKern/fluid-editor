@@ -281,6 +281,26 @@ body { position: relative; }
 .social-icons-style-border .sqs-svg-icon--wrapper { box-shadow: inset 0 0 0 var(--si-thick, 2px) currentColor; }
 .social-icons-style-solid .sqs-svg-icon--wrapper { background: currentColor; }
 .social-icons-style-solid .sqs-use--icon { fill: hsla(var(--lightAccent-hsl), 1); }
+.si-phone { display: none !important; }
+/* A phone's own Size, Border and Alignment (T11.json, phone): the classes stay the desktop's. */
+@media (max-width: 767px) {
+  .si-desk { display: none !important; }
+  .si-phone { display: block !important; }
+  [data-m-style] .sqs-svg-icon--list { gap: var(--si-gap-m); }
+  [data-m-style] .sqs-svg-icon--wrapper { width: var(--si-size-m); height: var(--si-size-m); overflow: hidden; border-radius: 0; box-shadow: none; background: none; }
+  [data-m-style] .sqs-svg-icon--wrapper > div { width: 100%; height: 100%; margin: 0; }
+  [data-m-style="regular"] .sqs-svg-icon--wrapper { overflow: visible; }
+  [data-m-style="regular"] .sqs-svg-icon--wrapper > div { width: 200%; height: 200%; margin: -50%; }
+  [data-m-shape="circle"] .sqs-svg-icon--wrapper { border-radius: 50%; }
+  [data-m-shape="rounded"] .sqs-svg-icon--wrapper { border-radius: 15%; }
+  [data-m-style="border"] .sqs-svg-icon--wrapper { box-shadow: inset 0 0 0 var(--si-thick-m, 2px) currentColor; }
+  [data-m-style="solid"] .sqs-svg-icon--wrapper { background: currentColor; }
+  [data-m-style] .sqs-use--icon { fill: currentColor; }
+  [data-m-style="solid"] .sqs-use--icon { fill: hsla(var(--lightAccent-hsl), 1); }
+  [data-m-align="left"] .sqs-svg-icon--list { justify-content: flex-start; }
+  [data-m-align="center"] .sqs-svg-icon--list { justify-content: center; }
+  [data-m-align="right"] .sqs-svg-icon--list { justify-content: flex-end; }
+}
 /* Map (T11.json): our own drawing, in six palettes */
 .sqs-block-map, .sqs-block-map .sqs-block-content, .page-map { height: 100%; }
 .page-map { position: relative; overflow: hidden; }
@@ -296,10 +316,11 @@ body { position: relative; }
 .fluid-image-component-root { width: 100%; height: 100%; }
 .sqs-block-image .sqs-image.sqs-block-alignment-wrapper { flex-direction: row; align-items: center; justify-content: center; width: 100%; }
 .sqs-block-image .fluid-image-container { width: 100%; height: 100%; overflow: hidden; background: linear-gradient(135deg, #d9d4ca, #bfb8aa); }
-/* Fit and Shape keep the picture inside the block, centred, and never stretch a row. Shape is a circle (IMAGEMODES.json) */
+/* Fit and Shape keep the picture inside the block, centred, and never stretch a row. Shape starts as a circle (IMAGEMODES.json) */
 .image-mode-fit .sqs-block-content, .image-mode-shape .sqs-block-content { display: flex; align-items: center; justify-content: center; container-type: size; }
 .sqs-block-image.image-mode-fit .fluid-image-container, .sqs-block-image.image-mode-shape .fluid-image-container { width: min(100cqw, calc(100cqh * var(--image-aspect, 1))); height: auto; aspect-ratio: var(--image-aspect, 1); }
 .sqs-block-image.image-mode-shape .fluid-image-container { clip-path: circle(50%); }
+.fe-image-clip { position: absolute; }
 /* Stretch, Overlay and the Lightbox in preview (IMAGEDESIGN.json) */
 .sqs-block-image.image-mode-shape.image-stretch .fluid-image-container { width: 100%; height: 100%; aspect-ratio: auto; }
 .fluidImageOverlay { position: absolute; inset: 0; pointer-events: none; }
