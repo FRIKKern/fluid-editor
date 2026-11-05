@@ -1582,6 +1582,158 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   }
 }
 
+// U12: a button type's rows, against parity/findings/CAP-BUTTONROWS.json.
+{
+  const near = (got, want, tol = 1) => Array.isArray(got) && got.length === want.length && got.every((v, n) => Math.abs(v - want[n]) <= tol);
+  const C = JSON.parse(readFileSync(new URL('../parity/findings/CAP-BUTTONROWS.json', import.meta.url))), B = C.boxes;
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const hit = async (sel, wait = 120) => { js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true';`); await pause(wait); };
+  const box = (sel) => js(`return JSON.stringify([...document.querySelectorAll(${JSON.stringify(sel)})].map((e) => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; }));`);
+  const set = async (label, v) => { js(`const e = document.querySelector('#site-styles input[aria-label=${JSON.stringify(label)}]'); e.value = ${JSON.stringify(String(v))}; e.dispatchEvent(new Event('change', { bubbles: true })); return 'true';`); await pause(120); };
+  const start = async () => { viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1200); await hit('#site-styles-toggle', 300); await hit('[data-ss-view="Buttons"]', 200); };
+  const tab = (name) => hit(`.ss-tab[aria-label="${name}"]`, 150);
+  const page = () => js(`const d = document.getElementById('site-frame').contentDocument, e = d.querySelector('main#page .sqs-button-element--primary.sqs-block-button-element') || d.querySelector('.sqs-button-element--primary.sqs-block-button-element'), c = e.ownerDocument.defaultView.getComputedStyle(e); return JSON.stringify({ radius: [c.borderTopLeftRadius, c.borderTopRightRadius, c.borderBottomRightRadius, c.borderBottomLeftRadius], top: c.borderTopWidth, topStyle: c.borderTopStyle, bottom: c.borderBottomWidth, bottomStyle: c.borderBottomStyle, edge: c.borderLeftColor, bg: c.backgroundColor, ink: c.color, pad: [c.paddingTop, c.paddingRight, c.paddingBottom, c.paddingLeft] });`);
+  // A test button of each type in the page, as the oracle's types were read; it goes again at once.
+  const tiers = (fit = false) => js(`const fit = ${fit}, d = document.getElementById('site-frame').contentDocument, W = d.defaultView, h = d.querySelector('.sqs-block-button-container'), out = {}; for (const k of ['primary', 'secondary', 'tertiary']) { const w = d.createElement('div'); w.className = 'sqs-block-button-container' + (fit ? '' : ' sqs-stretched'); const a = d.createElement('a'); a.className = 'sqs-block-button-element--medium sqs-button-element--' + k + ' sqs-block-button-element'; a.textContent = 'x'; w.appendChild(a); h.parentElement.appendChild(w); const c = W.getComputedStyle(a); out[k] = fit ? [c.paddingTop, c.paddingRight, c.paddingBottom, c.paddingLeft] : c.borderTopWidth; w.remove(); } return JSON.stringify(out);`);
+  await start();
+  add('Button cards land', near(box('.ss-bcard').flat(), B.cards.flat()), JSON.stringify(box('.ss-bcard')));
+  await hit('.ss-bcard[data-ss-tier="primary"]', 200);
+  add('Button type: title and back', js(`return JSON.stringify([document.querySelector('.ss-title').textContent, document.querySelector('.ss-back span').textContent]);`).join() === 'Buttons,Buttons');
+  add('Button type: tabs land', near(box('.ss-tier-tabs .ss-tab').flat(), B.tabs.flat()), JSON.stringify(box('.ss-tier-tabs .ss-tab')));
+  add('Button type: preview lands', near(box('.ss-tier-preview')[0], B.preview));
+  add('Button type: sample lands', near(box('.ss-tier-preview .ss-btn')[0], B.sample, 2), JSON.stringify(box('.ss-tier-preview .ss-btn')));
+  add('Button type: Font row lands', near(box('.ss-tier-font')[0], B.font));
+  add('Button type: Font row reads', js(`return JSON.stringify(document.querySelector('.ss-tier-font .ss-sel').textContent.trim());`) === C.defaultsEachType.font);
+  add('Button type: Shape row lands', near(box('.ss-tier-shape')[0], B.shape));
+  add('Button type: Padding radios land', near(box('.ss-pad').flat(), B.pads.flat()));
+  for (const [n, at] of Object.entries(B.ranges)) add(`Button type: ${n} slider lands`, near(box(`.ss-slide input[type="range"][aria-label="${n}"]`)[0].slice(0, 2), at, 1.5));
+  for (const [n, [min, max, step]] of Object.entries(C.ranges)) add(`Button type: ${n} range`, js(`const e = document.querySelector('.ss-slide input[type="range"][aria-label="${n}"]'); return JSON.stringify([Number(e.min), Number(e.max), Number(e.step)]);`).join() === [min, max, step].join());
+  add('Button type: no Apply while the types match', js(`return JSON.stringify(!document.querySelector('.ss-tier-act'));`) === true);
+  add('Button type: Reset lands', near(box('.ss-tier-end .ss-reset-red')[0], B.reset), JSON.stringify(box('.ss-tier-end .ss-reset-red')));
+  await hit('[data-ss-select="tier-shape"]', 150);
+  add('Shape list: Fill and No fill land', near(box('.ss-seg:not(.ss-seg-c) button').flat(), B.popFill.flat()));
+  add('Shape list: tiles land', near(box('.ss-shape').flat(), B.tiles.flat()));
+  add('Shape list: tile names', js(`return JSON.stringify([...document.querySelectorAll('.ss-shape')].map((e) => e.getAttribute('aria-label')));`).join() === C.labels.tileNames.join());
+  add('Shape list: Custom Corners lands', near(box('.ss-custom')[0], B.custom));
+  for (const [n, radius] of Object.entries(C.shapes)) {
+    await hit(`[data-ss-shape="${n}"]`, 150);
+    const p = page();
+    add(`Shape ${n}: page corners`, p.radius.join() === radius.join(), JSON.stringify(p.radius));
+    add(`Shape ${n}: row and list stay`, js(`return JSON.stringify([document.querySelector('.ss-tier-shape .ss-sel span').textContent, !!document.querySelector('.ss-shape-pop')]);`).join() === `${n},true`);
+    const sr = js(`return JSON.stringify(getComputedStyle(document.querySelector('.ss-tier-preview .ss-btn')).borderTopLeftRadius);`);
+    add(`Shape ${n}: sample corner`, sr === C.sampleRadius[n], sr);
+  }
+  await hit('[data-ss-shape="Underline"]', 120);
+  let p = page();
+  add('Underline, Fill: colors swap', p.bg === C.fill.underlineOn.bg && p.ink === C.fill.underlineOn.ink, JSON.stringify(p));
+  add('Underline: no top line', p.topStyle === C.underline.outline0.topStyle && p.bottom === '0px');
+  await hit('[data-ss-fill="0"]', 120); p = page();
+  add('Underline, No fill: colors', p.bg === C.fill.underlineOff.bg && p.ink === C.fill.underlineOff.ink, JSON.stringify(p));
+  await hit('[data-ss-fill="1"]', 120);
+  js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(120);
+  add('Escape closes the Shape list', js(`return JSON.stringify(!document.querySelector('.ss-shape-pop'));`) === true);
+  await set('Outline', 3); p = page();
+  add('Underline, Outline 3: bottom line only', p.topStyle === C.underline.outline3.topStyle && p.top === '0px' && p.bottom === C.underline.outline3.bottomWidth && p.bottomStyle === 'solid', JSON.stringify(p));
+  await hit('[data-ss-select="tier-shape"]', 120); await hit('[data-ss-shape="Pill"]', 120);
+  for (const [v, want] of Object.entries(C.outline)) { await set('Outline', v); p = page(); add(`Outline ${v}: page`, p.top === want, p.top); add(`Outline ${v}: on Fill the edge is the ink`, p.edge === C.fill.on.edge, p.edge); }
+  await set('Outline', 4);
+  add('Outline: the sample draws 2px', near(box('.ss-tier-preview .ss-btn')[0].slice(2), B.sampleOutlined.slice(2), 2), JSON.stringify(box('.ss-tier-preview .ss-btn')));
+  await hit('[data-ss-fill="0"]', 120); p = page();
+  add('No fill: colors', p.bg === C.fill.off.bg && p.ink === C.fill.off.ink && p.edge === C.fill.off.edge, JSON.stringify(p));
+  await hit('[data-ss-fill="1"]', 120); p = page();
+  add('Fill: colors', p.bg === C.fill.on.bg && p.ink === C.fill.on.ink, JSON.stringify(p));
+  await set('Outline', 0);
+  for (const n of ['S', 'M', 'L']) {
+    await hit(`.ss-pad[data-v="${n}"]`, 120);
+    add(`Padding ${n}: a stretched button`, page().pad.join() === C.padding.stretched[n].join(), JSON.stringify(page().pad));
+    add(`Padding ${n}: no side rows`, js(`return JSON.stringify(!document.querySelector('.ss-slide input[aria-label="Top"]'));`) === true);
+    const q = tiers(true).primary, base = n === 'S' ? [16, 20.8] : n === 'M' ? [24, 35.2] : [32, 48];
+    add(`Padding ${n}: a fit button`, near(q.map(parseFloat), [base[0], base[1], base[0], base[1]], 0.01), JSON.stringify(q));
+    add(`Padding ${n}: sample`, Math.abs(parseFloat(js(`return JSON.stringify(getComputedStyle(document.querySelector('.ss-tier-preview .ss-btn')).paddingLeft);`)) - C.padding.sampleLeft[n]) < 0.1);
+  }
+  await hit('.ss-pad[data-v="custom"]', 120);
+  add('Padding ...: a stretched button', page().pad.join() === C.padding.stretched.custom.join(), JSON.stringify(page().pad));
+  await set('Right', 5);
+  add('Right 5em: page', page().pad.join() === C.padding.sides.Right5.join(), JSON.stringify(page().pad));
+  await set('Left', 1);
+  add('Left 1em: page', page().pad.join() === C.padding.sides.Left1.join(), JSON.stringify(page().pad));
+  await set('Top', 2);
+  add('Top on a stretched button stays 0', page().pad[0] === '0px');
+  add('Top 2em, Right 5em: a fit button (read at 14.4px, here 16px)', near(tiers(true).primary.map(parseFloat), [2 * 16, 5 * 16, 1.3 * 16, 1 * 16], 0.01), JSON.stringify(tiers(true).primary));
+  js(`const r = document.querySelector('#site-styles .ss-slide input[type="range"][aria-label="Top"]'); r.value = '4'; r.dispatchEvent(new Event('input', { bubbles: true })); return 'true';`);
+  add('A slider shows its value as it moves', js(`return JSON.stringify(document.querySelector('.ss-slide input[aria-label="Top value"]').value);`) === '4em');
+  await hit('[data-ss-select="tier-shape"]', 120); await hit('.ss-custom', 150);
+  add('Custom Corners: opens at 6.4', page().radius.join() === Array(4).fill(`${C.customCorners.opensAt}px`).join(), JSON.stringify(page().radius));
+  add('Custom Corners: the row reads Custom', js(`return JSON.stringify(document.querySelector('.ss-tier-shape .ss-sel span').textContent);`) === C.customCorners.shapeRow);
+  add('Custom Corners: radios land', near(box('.ss-seg-c button').flat(), B.radios.flat()));
+  add('Custom Corners: one value', js(`return JSON.stringify([...document.querySelectorAll('.ss-radius')].map((e) => e.getAttribute('aria-label')));`).join() === C.labels.cornerInputs[0]);
+  add('Custom Corners: one value lands', near(box('.ss-radius')[0].slice(0, 1).concat(box('.ss-radius')[0].slice(2, 3)), [B.radiusOne[0], B.radiusOne[2]]));
+  await hit('[data-ss-radii="multi"]', 150);
+  add('Custom Corners: four values', js(`return JSON.stringify([...document.querySelectorAll('.ss-radius')].map((e) => e.getAttribute('aria-label')));`).join() === C.labels.cornerInputs.slice(1).join());
+  add('Custom Corners: four values land', near(box('.ss-radius').map((b) => b[0]), B.radiusFour.map((b) => b[0]), 3), JSON.stringify(box('.ss-radius')));
+  add('Custom Corners: four stay 6.4', page().radius.join() === Array(4).fill('6.4px').join());
+  await hit('[data-ss-shape="Pill"]', 120);
+  js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(120);
+  // Types apart, Match and Apply to all.
+  await start(); await hit('.ss-bcard[data-ss-tier="primary"]', 200);
+  await set('Outline', 3);
+  add('A type on its own: Primary', JSON.stringify(tiers()) === JSON.stringify(C.tiers.editPrimary), JSON.stringify(tiers()));
+  add('Apply shows once the types differ', js(`return JSON.stringify(document.querySelector('.ss-tier-act')?.textContent ?? null);`) === 'Apply to all button types');
+  add('Apply lands', near(box('.ss-tier-act')[0], B.applyOpen), JSON.stringify(box('.ss-tier-act')));
+  add('Reset after Apply lands', near(box('.ss-tier-end .ss-reset-red')[0], B.resetAfterApply), JSON.stringify(box('.ss-tier-end .ss-reset-red')));
+  await tab('Secondary');
+  add('The Secondary warning', js(`return JSON.stringify(document.querySelector('.ss-tier-warn')?.textContent ?? null);`) === C.warn.secondary);
+  add('Match lands, ... on', near(box('.ss-tier-act')[0], B.secondaryCustom.match), JSON.stringify(box('.ss-tier-act')));
+  add('Reset Secondary lands, ... on', near(box('.ss-tier-end .ss-reset-red')[0], B.secondaryCustom.reset), JSON.stringify(box('.ss-tier-end .ss-reset-red')));
+  add('Reset Secondary reads', js(`return JSON.stringify(document.querySelector('.ss-tier-end .ss-reset-red').textContent);`) === C.resetLabels[1]);
+  await set('Outline', 6);
+  add('A type on its own: Secondary', JSON.stringify(tiers()) === JSON.stringify(C.tiers.editSecondary), JSON.stringify(tiers()));
+  await hit('.ss-tier-act', 150);
+  const dialog = () => js(`return JSON.stringify([document.getElementById('ss-confirm-title').textContent, document.getElementById('ss-confirm-body').textContent, document.getElementById('ss-confirm-reset').textContent]);`);
+  add('Match asks first, in the oracle\'s words', dialog().join() === [C.match.title, C.match.body, C.match.yes].join(), JSON.stringify(dialog()));
+  add('Match dialog: title lands', near(box('#ss-confirm-title')[0].slice(0, 2), C.match.titleBox.slice(0, 2), 1.5), JSON.stringify(box('#ss-confirm-title')));
+  add('Match dialog: Cancel and Continue land', near(box('.ss-confirm-row button').map((b) => b[1]), [C.match.cancel[1], C.match.yesBox[1]], 3), JSON.stringify(box('.ss-confirm-row button')));
+  js(`document.querySelector('.ss-confirm-row button:not(#ss-confirm-reset)').click(); return 'true';`); await pause(120);
+  add('Match: Cancel changes nothing', JSON.stringify(tiers()) === JSON.stringify(C.tiers.editSecondary));
+  await hit('.ss-tier-act', 120); js(`document.getElementById('ss-confirm-reset').click(); return 'true';`); await pause(200);
+  add('Match: copies Primary', JSON.stringify(tiers()) === JSON.stringify(C.tiers.afterMatch), JSON.stringify(tiers()));
+  add('Match: goes away', js(`return JSON.stringify(!document.querySelector('.ss-tier-act'));`) === true);
+  js(`fe.undo(); return 'true';`); await pause(150);
+  add('Match: one undo step', JSON.stringify(tiers()) === JSON.stringify(C.tiers.editSecondary), JSON.stringify(tiers()));
+  await hit('.ss-tier-act', 120); js(`document.getElementById('ss-confirm-reset').click(); return 'true';`); await pause(200);
+  await tab('Tertiary');
+  add('The Tertiary warning', js(`return JSON.stringify(document.querySelector('.ss-tier-warn')?.textContent ?? null);`) === C.warn.tertiary);
+  await set('Outline', 9);
+  await hit('.ss-pad[data-v="S"]', 120);
+  add('Tertiary Match lands, S on', near(box('.ss-tier-act')[0], B.tertiaryPreset.match), JSON.stringify(box('.ss-tier-act')));
+  add('Tertiary Reset lands, S on', near(box('.ss-tier-end .ss-reset-red')[0], B.tertiaryPreset.reset), JSON.stringify(box('.ss-tier-end .ss-reset-red')));
+  await hit('.ss-pad[data-v="custom"]', 120);
+  await tab('Primary'); await set('Outline', 8);
+  add('Before Apply', JSON.stringify(tiers()) === JSON.stringify({ primary: '8px', secondary: '3px', tertiary: '9px' }), JSON.stringify(tiers()));
+  await hit('.ss-tier-act', 150);
+  add('Apply asks first, in the oracle\'s words', dialog().join() === [C.apply.title, C.apply.body, C.apply.yes].join(), JSON.stringify(dialog()));
+  add('Apply dialog: title lands', near(box('#ss-confirm-title')[0].slice(0, 2), C.apply.titleBox.slice(0, 2), 1.5), JSON.stringify(box('#ss-confirm-title')));
+  js(`document.getElementById('ss-confirm-reset').click(); return 'true';`); await pause(200);
+  add('Apply: copies Primary to both', JSON.stringify(tiers()) === JSON.stringify(C.tiers.afterApply), JSON.stringify(tiers()));
+  add('Apply: goes away', js(`return JSON.stringify(!document.querySelector('.ss-tier-act'));`) === true);
+  // Our Reset of one type, and a pack starting them over.
+  await set('Outline', 5);
+  await hit('.ss-tier-end .ss-reset-red', 150);
+  add('Reset Primary asks first', dialog()[0] === C.resetLabels[0], JSON.stringify(dialog()));
+  js(`document.getElementById('ss-confirm-reset').click(); return 'true';`); await pause(200);
+  add('Reset Primary: Primary only', js(`return JSON.stringify(fe.model.siteStyles.buttons.primary ?? null);`) === null && tiers().secondary === '8px', JSON.stringify(tiers()));
+  await hit('[data-ss-back]', 200);
+  await hit('.ss-reset-red', 150); js(`document.getElementById('ss-confirm-reset').click(); return 'true';`); await pause(200);
+  add('Reset Button Pack: every type goes back', js(`return JSON.stringify(fe.model.siteStyles.buttons ?? null);`) === null, JSON.stringify(tiers()));
+  await hit('.ss-bcard[data-ss-tier="primary"]', 200); await set('Outline', 2); await hit('[data-ss-back]', 200); await hit('[data-ss-back]', 200);
+  await hit('[data-ss-pop="Buttons"]', 250); await hit('[data-ss-pick="button"][data-v="button-pack-23"]', 200);
+  add('A pack pick starts the types over', js(`return JSON.stringify(fe.model.siteStyles.buttons ?? null);`) === null);
+  add('A pack still sets the page', page().radius[0] === '0px', JSON.stringify(page().radius));
+  js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(100);
+  await hit('[data-ss-view="Buttons"]', 200); await hit('.ss-bcard[data-ss-tier="primary"]', 200);
+  add('A pack fills the rows', js(`return JSON.stringify(document.querySelector('.ss-tier-shape .ss-sel span').textContent);`) === 'Square', js(`return JSON.stringify(document.querySelector('.ss-tier-shape .ss-sel span').textContent);`));
+}
+
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
 if (pass !== total) process.exit(1);

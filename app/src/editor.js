@@ -17,6 +17,7 @@ import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, co
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
 import { SUB as SS_SUB, siteStylesHtml, stylePopoverHtml, stylePopoverPosition, packFontLinks } from './site-styles.js';
+import { TIERS, TIER_NAMES, CUSTOM_RADIUS, tierValues } from './button-tiers.js';
 import { siteStylesHead, baseSize, resolveSiteStyles, VARS as PALETTE_VARS, BASE_VARS } from './site-style-packs.js';
 import { hslToRgb, rgbToHsl, rgbToHsv, hsvToRgb, hexToRgb, hueToRgb, clampByte, rgbToHslParts } from './color-math.js';
 import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette.js';
@@ -3765,7 +3766,7 @@ const contextMenu = $('context-menu');
 const siteStyles = $('site-styles');
 let ssView = null;
 let themeFrom = null; // the section whose Colors tab opened Edit Color Theme
-let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false;
+let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary';
 const pal = { swatch: 'accent', tab: 'Presets', format: 'Hex', list: false }; // Edit Palette's own view state
 let dot = null; // the open color popover: { row, custom, format, list }
 function themeRows() {
@@ -3773,10 +3774,17 @@ function themeRows() {
   const used = new Set(model.sections.map((s) => s.theme || 'light'));
   return THEMES.map(([name, v]) => ({ name, ...themeColors[v], used: used.has(v) }));
 }
+function pageButtonTiers() {
+  const out = new Set();
+  const walk = (b) => { if (b.type === 'button') out.add(b.buttonStyle || 'primary'); (b.children || []).forEach(walk); };
+  for (const s of model.sections) (s.blocks || []).forEach(walk);
+  return out;
+}
 function renderSsPanel() {
   let rows = [];
   if (ssView === 'Colors') rows = themeRows();
   let opts = { select: ssSelect, help: ssHelp, pal };
+  if (ssView === 'ButtonTier') opts = { ...opts, tier: ssTier, pageTiers: pageButtonTiers() };
   if (ssView === 'ThemeRows') {
     themeColors = themeColors || readThemeColors();
     const hit = THEMES.find(([name]) => name === ssTheme);
@@ -3832,6 +3840,12 @@ siteStyles.addEventListener('click', (e) => {
   if (e.target.closest('[data-ss="close"]')) { setSiteStyles(false); return; }
   const card = e.target.closest('[data-ss-pop]');
   if (card) { openStylePopover(card.dataset.ssPop); return; }
+  const tierBtn = e.target.closest('[data-ss-tier]');
+  if (tierBtn) {
+    ssTier = tierBtn.dataset.ssTier;
+    if (tierBtn.getAttribute('role') === 'tab') { ssSelect = null; renderSsPanel(); return; }
+  }
+  if (tierPress(e)) return;
   const open = e.target.closest('[data-ss-view]');
   if (open || e.target.closest('[data-ss-back]')) { ssThemeList = false; closeDotPop(); pal.list = false; }
   if (ssView === 'ColorTheme' && e.target.closest('[data-ss-back]')) {
@@ -3980,12 +3994,30 @@ dotPop.addEventListener('change', (e) => {
 });
 document.addEventListener('pointerdown', (e) => { if (dot && !dotPop.contains(e.target) && !e.target.closest?.('[data-ss-row]')) closeDotPop(); }, true);
 document.addEventListener('keydown', (e) => { if (dot && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeDotPop(); } }, true);
+document.addEventListener('keydown', (e) => { if (ssSelect === 'tier-shape' && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); ssSelect = null; renderSsPanel(); } }, true);
 siteStyles.addEventListener('input', (e) => {
   if (!e.target.matches('.ss-slide input[type="range"]')) return;
   const r = e.target;
   r.parentElement.querySelector('input[type="text"]').value = r.value + (r.dataset.unit || '');
   r.style.setProperty('--p', `${(100 * (r.value - r.min)) / (r.max - r.min)}%`);
 });
+// A button type's Shape list (parity/findings/CAP-BUTTONROWS.json): it stays open, and each press is one undo step.
+function setTier(label, change) {
+  setSiteStyleKeys(`${TIER_NAMES[ssTier]} button ${label}`, (st) => { st.buttons = { ...(st.buttons || {}), [ssTier]: { ...(st.buttons?.[ssTier] || {}), ...change } }; return st; });
+}
+function tierPress(e) {
+  const fill = e.target.closest('[data-ss-fill]');
+  if (fill) { setTier('fill', { fill: fill.dataset.ssFill === '1' }); return true; }
+  const shape = e.target.closest('[data-ss-shape]');
+  if (shape) {
+    const n = shape.dataset.ssShape;
+    setTier(n, n === 'Custom' ? { shape: n, multi: false, radii: [CUSTOM_RADIUS, CUSTOM_RADIUS, CUSTOM_RADIUS, CUSTOM_RADIUS] } : { shape: n });
+    return true;
+  }
+  const radii = e.target.closest('[data-ss-radii]');
+  if (radii) { setTier('corners', { multi: radii.dataset.ssRadii === 'multi' }); return true; }
+  return false;
+}
 // A row of Headings, Paragraphs, Spacing or Animations: one value in the site's styles, one undo step.
 function setSsValue(path, raw) {
   const [a, b, c] = path.split('.');
@@ -3998,6 +4030,12 @@ function setSsValue(path, raw) {
 }
 siteStyles.addEventListener('change', (e) => {
   if (e.target.matches('[data-cformat]')) { const rgb = typedColor(e.target); if (rgb) setPalette({ [pal.swatch]: rgbToHsl(rgb) }, 'palette color'); return; }
+  if (e.target.matches('[data-ss-radius]')) {
+    const n = Number(e.target.value), v = tierValues(model.siteStyles, resolveSiteStyles(model.siteStyles).button, ssTier), i = Number(e.target.dataset.ssRadius);
+    if (!Number.isFinite(n) || n < 0) { renderSsPanel(); return; }
+    setTier('corner', { radii: v.multi ? v.radii.map((r, k) => (k === i ? n : r)) : v.radii.map(() => n) });
+    return;
+  }
   const set1 = e.target.closest('input[data-ss-set]');
   if (set1) {
     let raw = set1.type === 'radio' ? set1.dataset.v : set1.type === 'text' ? parseFloat(set1.value) : Number(set1.value);
@@ -4029,8 +4067,17 @@ let styleConfirmKind = null;
 function hideStyleConfirm() { styleConfirm.hidden = true; styleConfirmKind = null; }
 function showStyleConfirm(kind) {
   styleConfirmKind = kind;
-  const word = kind === 'font' ? 'font' : 'button';
-  $('ss-confirm-reset').textContent = 'Reset';
+  const word = kind === 'font' ? 'font' : 'button', box = styleConfirm.querySelector('.ss-confirm-box');
+  box.classList.toggle('is-tall', kind === 'match');
+  $('ss-confirm-reset').classList.toggle('is-plain', kind === 'match' || kind === 'apply');
+  $('ss-confirm-reset').textContent = kind === 'match' ? 'Continue' : kind === 'apply' ? 'Apply to all' : 'Reset';
+  if (kind === 'match' || kind === 'apply' || kind === 'tier') {
+    // The first two are the oracle's words. Reset of one type is ours: the oracle's was not pressed (decision 0005).
+    $('ss-confirm-title').textContent = kind === 'match' ? 'Match style of primary button?' : kind === 'apply' ? 'Apply to all buttons?' : `Reset ${TIER_NAMES[ssTier]} Button`;
+    $('ss-confirm-body').textContent = kind === 'match' ? `Your ${ssTier} button settings will be replaced to match the primary button style.` : kind === 'apply' ? 'Secondary and tertiary buttons will match new primary button styles.' : 'Are you sure you want to reset this button to its default settings?';
+    styleConfirm.hidden = false;
+    return;
+  }
   // Reset Color Theme is ours: the oracle's was not pressed (decision 0005), so these words are our own.
   $('ss-confirm-title').textContent = kind === 'theme' ? 'Reset Color Theme' : `Reset ${word === 'font' ? 'Font' : 'Button'} Pack`;
   $('ss-confirm-body').textContent = kind === 'theme' ? 'Are you sure you want to reset this color theme to its default settings?' : `Are you sure you want to reset this ${word} pack to its default settings?`;
@@ -4048,7 +4095,20 @@ styleConfirm.addEventListener('click', (e) => {
     setSiteStyleKeys('Reset Color Theme', (st) => { const rows = { ...(st.themeRows || {}) }; if (ssView === 'ThemeRows') delete rows[ssTheme]; st.themeRows = ssView === 'ThemeRows' && Object.keys(rows).length ? rows : undefined; if (!st.themeRows) delete st.themeRows; return st; });
     return;
   }
-  setSiteStyleKeys(`Reset ${kind} pack`, (st) => { delete st[kind]; if (kind === 'font') { delete st.base; delete st.type; } return st; });
+  if (kind === 'match' || kind === 'apply' || kind === 'tier') {
+    const pack = resolveSiteStyles(model.siteStyles).button, first = tierValues(model.siteStyles, pack, 'primary');
+    setSiteStyleKeys(kind === 'tier' ? `Reset ${ssTier} button` : kind === 'apply' ? 'Apply to all button types' : `Match ${ssTier} button`, (st) => {
+      const all = { ...(st.buttons || {}) };
+      if (kind === 'tier') delete all[ssTier];
+      else if (kind === 'match') all[ssTier] = { ...first };
+      else for (const t of TIERS) all[t] = { ...first };
+      st.buttons = all;
+      if (!Object.keys(all).length) delete st.buttons;
+      return st;
+    });
+    return;
+  }
+  setSiteStyleKeys(`Reset ${kind} pack`, (st) => { delete st[kind]; if (kind === 'button') delete st.buttons; if (kind === 'font') { delete st.base; delete st.type; } return st; });
 });
 // A style pack popover (parity/findings/SITESTYLES2.json). A tile sets that part of the site's
 // styles in one undo step and the popover stays open, as on the oracle.
@@ -4080,6 +4140,7 @@ function applyStylePick(t) {
   const st = { ...(model.siteStyles || {}) };
   // A popover's palette replaces the palette's own edits.
   if (kind === 'palette') delete st.colors;
+  if (kind === 'button') delete st.buttons;
   model.siteStyles = kind === 'theme' ? { theme: t.dataset.v } : { ...st, [kind]: t.dataset.v };
   commit(before, `Site Styles: ${t.getAttribute('aria-label')}`);
   renderAll();
