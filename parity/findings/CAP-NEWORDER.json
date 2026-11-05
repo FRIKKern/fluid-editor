@@ -1,0 +1,610 @@
+{
+  "item": "CAP-NEWORDER",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "Phone order of new blocks: which order do blocks added at the same place take on a phone?",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "a1 Line",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Map"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "a2 Map",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "a3 Code",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "b1 Code",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Map"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "b2 Map",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "b3 Line",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "c1 Line",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "c2 Button",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "c3 Text",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Scrolling"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "e1 Scrolling",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "e2 Code",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Image"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "e3 Image",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Image"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "f1 Image",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "f2 Shape",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Video"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "f3 Video",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "g1 Shape",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Image"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "g2 Image",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "g3 Code",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "a1 Line": {
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "a2 Map": {
+      "areas": [
+        [
+          "1/2/13/10",
+          "1/2/13/10"
+        ],
+        [
+          "1/2/2/6",
+          "13/2/14/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "a3 Code": {
+      "areas": [
+        [
+          "1/2/13/10",
+          "1/2/13/10"
+        ],
+        [
+          "1/2/7/6",
+          "13/2/19/10"
+        ],
+        [
+          "1/2/2/6",
+          "19/2/20/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "b1 Code": {
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "b2 Map": {
+      "areas": [
+        [
+          "1/2/13/10",
+          "1/2/13/10"
+        ],
+        [
+          "1/2/7/6",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "b3 Line": {
+      "areas": [
+        [
+          "1/2/13/10",
+          "1/2/13/10"
+        ],
+        [
+          "1/2/7/6",
+          "13/2/19/10"
+        ],
+        [
+          "1/2/2/6",
+          "19/2/20/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "c1 Line": {
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "c2 Button": {
+      "areas": [
+        [
+          "1/2/3/8",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "c3 Text": {
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/3/8",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/2/6",
+          "5/2/6/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "e1 Scrolling": {
+      "areas": [
+        [
+          "1/2/3/26",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "e2 Code": {
+      "areas": [
+        [
+          "1/2/3/26",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/6",
+          "3/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "e3 Image": {
+      "areas": [
+        [
+          "1/2/3/26",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/8",
+          "3/2/9/10"
+        ],
+        [
+          "1/2/7/6",
+          "9/2/15/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f1 Image": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f2 Shape": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/2/7/8",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f3 Video": {
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/9/10"
+        ],
+        [
+          "1/2/7/8",
+          "9/2/15/10"
+        ],
+        [
+          "1/2/7/8",
+          "15/2/21/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "g1 Shape": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "g2 Image": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/2/7/8",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "g3 Code": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/2/7/6",
+          "7/2/13/10"
+        ],
+        [
+          "1/2/7/8",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": "exit failed: click: nothing found for () => [...document.querySelectorAll('button')].filter((x) => x.getBoundingClientRect().width > 0).find((x) => [x.getAttr",
+  "note": "left dirty says exit failed because the steps' own last exit had already left edit mode; the page read clean after: Edit showing, no Save, no sections on the probe page."
+}

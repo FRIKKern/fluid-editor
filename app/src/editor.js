@@ -11,7 +11,7 @@ import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHt
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPanelTop, sectionLook } from './section-layouts.js';
 import { artSeg, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
-import { phoneOrder } from './phone-order.js';
+import { phoneOrder, newBlockSlot } from './phone-order.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
@@ -3081,8 +3081,8 @@ function renderPanel() {
 }
 
 // Add Block (U5, T13): each type lands at the top left of the section with the size
-// the oracle gives it (parity/findings/T13.json). The phone placement is ours: the
-// bottom of the phone stack, full content width (not measured yet).
+// the oracle gives it (parity/findings/T13.json). On phones it is full content width, and its
+// place in the stack goes by size (CAP-NEWORDER*.json).
 const ADD_TYPES = [
   ['Text', 8, 2, () => ({ type: 'text', html: '<p data-rte-preserve-empty="true"></p>' })],
   ['Image', 6, 6, () => ({ type: 'image', alt: '', empty: true, mode: 'fit' })],
@@ -3106,20 +3106,19 @@ function addBlock(sid, name) {
   const [, w, h, make] = ADD_TYPES.find((t) => t[0] === name);
   const s = S(sid);
   const id = `${name.toLowerCase().replace(/ /g, '-')}-${Date.now().toString(36)}`;
-  // Phone (L3, parity/findings/L3.json): the new block joins the phone stack in desktop
-  // reading order (row, then column; after blocks that start at the same place) and the
-  // blocks after it move down by its height.
-  const key = (a) => a[0] * 100 + a[1];
-  const before = s.blocks.filter((b) => key(b.layout.desktop.area) <= key([1, 2]));
-  const mobileEnd = before.length ? Math.max(...before.map((b) => b.layout.mobile.area[2])) : 1;
+  // Phone (L3.json, CAP-NEWORDER*.json): the new block takes its place in the phone stack by
+  // size, and the blocks after it move down by its height.
+  const stack = [...s.blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
+  const slot = newBlockSlot(stack, w, h);
+  const mobileEnd = slot ? Math.max(...stack.slice(0, slot).map((b) => b.layout.mobile.area[2])) : 1;
   const zTop = (bpName) => Math.max(0, ...s.blocks.map((b) => b.layout[bpName].z)) + 1;
   const block = { id, ...make(), layout: {
     desktop: { area: [1, 2, 1 + h, 2 + w], z: zTop('desktop'), justify: 'flex-start', align: 'flex-start' },
     mobile: { area: [mobileEnd, 2, mobileEnd + h, 10], z: zTop('mobile'), justify: 'flex-start', align: 'flex-start' },
   } };
-  for (const b of s.blocks) {
+  for (const b of stack.slice(slot)) {
     const a = b.layout.mobile.area;
-    if (!before.includes(b) && a[0] >= mobileEnd) b.layout.mobile.area = [a[0] + h, a[1], a[2] + h, a[3]];
+    b.layout.mobile.area = [a[0] + h, a[1], a[2] + h, a[3]];
   }
   s.blocks.push(block);
   // The blocks that moved down can grow the phone section too (CAP-PHONE.json: 10 to 11 rows).
