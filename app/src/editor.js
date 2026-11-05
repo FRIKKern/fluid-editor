@@ -352,7 +352,9 @@ let barMenu = 'align'; // align, stackopts or halign (toolbar.js BAR_MENUS).
 function groupZ(sid, ids) {
   const inside = S(sid).blocks.filter((o) => ids.includes(o.id)).map((o) => lay(o).z);
   const outside = S(sid).blocks.filter((o) => !ids.includes(o.id)).map((o) => lay(o).z);
-  return { above: outside.some((z) => z > Math.max(...inside)), below: outside.some((z) => z < Math.min(...inside)) };
+  // A block between the members counts both ways (CAP-GROUPFORWARD.json).
+  const between = outside.some((z) => z > Math.min(...inside) && z < Math.max(...inside));
+  return { above: between || outside.some((z) => z > Math.max(...inside)), below: between || outside.some((z) => z < Math.min(...inside)) };
 }
 // The next block outside the group crosses it, and the z values stay the same set: 1, 2, 3 with
 // the group on 1 and 2 becomes group 2, 3 and the other block 1.
@@ -361,7 +363,10 @@ function groupZSwap(sid, ids, up) {
   const members = S(sid).blocks.filter((o) => ids.includes(o.id)).map((o) => lay(o));
   const zs = all.map((L) => L.z);
   const top = Math.max(...members.map((L) => L.z)), bottom = Math.min(...members.map((L) => L.z));
-  const other = up ? all.find((L) => L.z > top && !members.includes(L)) : [...all].reverse().find((L) => L.z < bottom && !members.includes(L));
+  const out = (L) => !members.includes(L);
+  // With none beyond the group, a block between the members crosses: the lower member passes it
+  // going forward (CAP-GROUPFORWARD.json). Backward from there is inferred.
+  const other = up ? all.find((L) => L.z > top && out(L)) || all.find((L) => L.z > bottom && out(L)) : [...all].reverse().find((L) => L.z < bottom && out(L)) || [...all].reverse().find((L) => L.z < top && out(L));
   if (!other) return;
   const rest = all.filter((L) => L !== other);
   const at = rest.findIndex((L) => members.includes(L));
@@ -926,6 +931,7 @@ function beginMove(e) {
   el.classList.add('is-dragging');
 }
 
+const LAST_STEP_LATE = 32;
 function updateMove(e) {
   const g = gesture;
   const fe = feEl(g.sid);
@@ -951,7 +957,9 @@ function updateMove(e) {
   // A box that starts on the left margin track goes as far as the last column, not the right margin.
   const cMax = Math.max(c0, c0 + (cLo === 1 ? LAST_LINE[bp] - 1 : LAST_LINE[bp]) - cHi);
   const dx = left - baseLeft;
-  const nc0 = dx > 0 && c0 > 1 ? snapColumn(m, c0 + w, dx, cMin + w, cMax + w) - w : snapColumn(m, c0, dx, cMin, cMax);
+  let nc0 = dx > 0 && c0 > 1 ? snapColumn(m, c0 + w, dx, cMin + w, cMax + w) - w : snapColumn(m, c0, dx, cMin, cMax);
+  // From the left margin track the last step comes later (MARGINSTEPS.json: 30 to 40px on six wide, 25 to 35 on four).
+  if (solo && c0 === 1 && nc0 === cMax && cMax > c0 && snapColumn(m, c0, dx - LAST_STEP_LATE, cMin, cMax) < cMax) nc0 = cMax - 1;
   // A group's ring stops when its box reaches the top (HOLD.json).
   const nr0 = Math.max(r0 + 1 - Math.min(...origs.map((a) => a[0])), snapRow(m, r0, y - baseTop));
   let t = [nr0, nc0, nr0 + h, nc0 + w];
