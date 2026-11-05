@@ -1,4 +1,4 @@
-// Small marks of the editor chrome against parity/findings/MARKS.json, TOPBAR.json, SECTIONBAR.json, P3.json, PIN.json, TOOLBARS.json, CAP-HEADER.json and S3.json, with real input in our editor.
+// Small marks of the editor chrome against parity/findings/MARKS.json, TOPBAR.json, SECTIONBAR.json, P3.json, PIN.json, TOOLBARS.json, CAP-HEADER.json, S3.json and U5.json, with real input in our editor.
 // Writes parity/marks-check.json. Usage: npm run marks-check (FLUID_SURFACE=cdp:<port> FLUID_PORT=<port>).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, browser, drag, mouse } from './lib/cmux.mjs';
@@ -969,6 +969,42 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   await typeIn('W', 'Hug');
   add('W Hug on a Button: its own width, the others share', nearRows(stackOf().kids.map((k) => k.slice(0, 3)), FL.size.threeInARow.buttonWHug.map((k) => k.slice(0, 3)), 3), JSON.stringify(stackOf().kids));
   await closeUp();
+}
+
+// U5: the Add Block menu against parity/findings/U5.json.
+{
+  const U = JSON.parse(readFileSync(new URL('../parity/findings/U5.json', import.meta.url))), UM = U.menu;
+  const near = (got, want, tol = 0.5) => Array.isArray(got) && got.length === want.length && got.every((v, n) => Math.abs(v - want[n]) <= tol);
+  goto(S, `${BASE}/index.html`); await pause(1500);
+  const openMenu = async () => { const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), sec = f.contentDocument.querySelectorAll('.page-section')[1]; sec.scrollIntoView(); const r = sec.getBoundingClientRect(), o = f.getBoundingClientRect(); return JSON.stringify([o.left + r.left + 300, o.top + r.top + 120]); })()`); mouse(S, 'move', p[0], p[1]); await pause(400); evalJs(S, `(() => { document.querySelector('[data-sc="add-block"]').click(); return 'true'; })()`); await pause(200); };
+  await openMenu();
+  const m = evalJs(S, `(() => { const M = document.getElementById('add-block-menu'), q = M.getBoundingClientRect(), rel = (e) => { const r = e.getBoundingClientRect(); return [r.left - q.left, r.top - q.top + M.scrollTop, r.width, r.height]; }, cs = getComputedStyle(M); const t = M.querySelector('.am-tile'), ts = getComputedStyle(t), h = getComputedStyle(M.querySelector('.am-head')); return JSON.stringify({ box: [q.width, q.height], radius: cs.borderTopLeftRadius, sh: M.scrollHeight, input: rel(M.querySelector('.am-search')), heads: [...M.querySelectorAll('.am-head')].map((e) => [e.textContent, ...rel(e)]), tiles: [...M.querySelectorAll('.am-tile')].map((e) => [e.textContent, ...rel(e)]), textLeft: t.querySelector('span').getBoundingClientRect().left - t.getBoundingClientRect().left, tile: [ts.backgroundColor, ts.borderTopLeftRadius, ts.fontSize], head: [h.fontSize, h.fontWeight, h.height], focus: document.activeElement === M.querySelector('input') }); })()`);
+  add('Add Block: the panel', near(m.box, UM.panel) && m.radius === UM.radius && near([m.sh], [UM.scrollHeight], 1), JSON.stringify([m.box, m.radius, m.sh]));
+  add('Add Block: the search box, focused', near(m.input, UM.input, 1) && m.focus, JSON.stringify(m.input));
+  add('Add Block: group names and tops', JSON.stringify(m.heads.map((h) => h[0])) === JSON.stringify(UM.groups.map((g) => g.name)) && m.heads.every((h, n) => near([h[2], h[4]], [UM.groups[n].top, UM.headHeight], 1)), JSON.stringify(m.heads.map((h) => [h[0], h[2]])));
+  const wantTiles = UM.groups.flatMap((g) => g.tiles);
+  add('Add Block: every tile in place', m.tiles.length === wantTiles.length && m.tiles.every((t, n) => t[0] === wantTiles[n].name && near(t.slice(1), [wantTiles[n].left, wantTiles[n].top, ...UM.tile.box], 1)), `${m.tiles.length} of ${wantTiles.length}: ${JSON.stringify(m.tiles.find((t, n) => t[0] !== wantTiles[n]?.name || !near(t.slice(1), [wantTiles[n].left, wantTiles[n].top, ...UM.tile.box], 1)))}`);
+  add('Add Block: tile and head styles', near([m.textLeft], [UM.tile.textLeft], 1) && m.tile.join() === [UM.tile.background, UM.tile.radius, UM.tile.font].join() && m.head.join() === [...UM.headFont, `${UM.headHeight}px`].join(), JSON.stringify([m.textLeft, m.tile, m.head]));
+  const searchFor = async (q) => { evalJs(S, `(() => { const i = document.querySelector('[data-am="search"]'); i.value = ${JSON.stringify(q)}; i.dispatchEvent(new Event('input', { bubbles: true })); return 'true'; })()`); await pause(120); };
+  const shown = () => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('.am-tile')].map((t) => t.textContent)))()`);
+  await searchFor('co');
+  add('Search: the tiles for co, in menu order', shown().join() === U.search.co.join(), shown().join());
+  const cl = evalJs(S, `(() => { const r = document.querySelector('[data-am="clear"]').getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]); })()`);
+  await searchFor('zzzz');
+  add('Search: No Results', evalJs(S, `(() => JSON.stringify(document.querySelector('.am-none')?.textContent))()`) === U.search.none && shown().length === 0, String(shown().length));
+  mouse(S, 'move', cl[0], cl[1]); await pause(40); mouse(S, 'down', cl[0], cl[1], { buttons: 1 }); await pause(30); mouse(S, 'up', cl[0], cl[1]); await pause(150);
+  add('Search: the X clears it, all groups back', shown().length === wantTiles.length && evalJs(S, `(() => JSON.stringify(document.querySelector('[data-am="search"]').value))()`) === '', String(shown().length));
+  // A click on a tile: its default place, one undo.
+  const added = evalJs(S, `(() => { const s = fe.model.sections[1], n = s.blocks.length; document.querySelector('button[data-add="Quote"]').click(); const b = fe.model.sections[1].blocks.at(-1); const r = [fe.model.sections[1].blocks.length - n, b.layout.desktop.area.join('/'), b.label]; fe.undo(); return JSON.stringify([...r, fe.model.sections[1].blocks.length - n]); })()`);
+  add('A tile adds its block, one undo', added.join() === '1,1/2/7/8,Quote,0', added.join());
+  // Every type's default size, on an empty section.
+  const sizes = evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)); m.sections = [{ ...m.sections[0], blocks: [] }]; fe.load(m); const sid = fe.model.sections[0].id, out = {}; for (const n of ${JSON.stringify(Object.keys(U.sizes))}) { fe.addBlock(sid, n); const b = fe.model.sections[0].blocks.at(-1), a = b.layout.desktop.area; out[n] = [a[3] - a[1], a[2] - a[0], a[0], a[1]]; fe.model.sections[0].blocks = []; } return JSON.stringify(out); })()`);
+  add('Every type lands at its size, row 1, column 2', Object.entries(U.sizes).every(([n, wh]) => near(sizes[n], [...wh, 1, 2])), JSON.stringify(Object.entries(U.sizes).filter(([n, wh]) => !near(sizes[n], [...wh, 1, 2])).map(([n]) => [n, sizes[n]])));
+  // A new block on phones (CAP-PHONE.json, new line): after the block in the same row, the rest move down.
+  const CP = JSON.parse(readFileSync(new URL('../parity/findings/CAP-PHONE.json', import.meta.url))).reads;
+  const ph = evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)); const pad = (id, d, p) => ({ id, type: 'shape', fill: '#fff', radius: '0', layout: { desktop: { area: d.split('/').map(Number), z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: p.split('/').map(Number), z: 1, justify: 'flex-start', align: 'flex-start' } } }); m.sections = [{ ...m.sections[0], rows: { desktop: 11, mobile: 10 }, blocks: ${JSON.stringify(CP['before add'].areas)}.map(([d, p], n) => pad('b' + n, d, p)) }]; fe.load(m); const sid = fe.model.sections[0].id; fe.addBlock(sid, 'Line'); const s = fe.model.sections[0]; return JSON.stringify({ line: s.blocks.at(-1).layout, rest: s.blocks.slice(0, 3).map((b) => b.layout.mobile.area.join('/')), rows: s.rows.mobile }); })()`);
+  add('A new Line on phones', ph.line.desktop.area.join('/') === CP['new line desktop'].block.desktop && ph.line.mobile.area.join('/') === CP['new line phone'].block.mobile && ph.rows === 11 && ph.rest.join() === '1/2/3/10,4/2/6/10,6/2/12/10', JSON.stringify(ph));
+  evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
 }
 
 console.log(`Marks: ${pass} of ${total} checks match`);
