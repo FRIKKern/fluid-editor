@@ -1,0 +1,948 @@
+{
+  "item": "CAP-BACKGROUND",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "P5: controls and sizes of the section Background tab, and where Color Theme Editor goes. Never uploads.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "panel",
+      2
+    ],
+    [
+      "click",
+      "Background"
+    ],
+    [
+      "read",
+      "background",
+      {
+        "controls": true,
+        "thin": true
+      }
+    ],
+    [
+      "shot",
+      "image"
+    ],
+    [
+      "clickIf",
+      "Video"
+    ],
+    [
+      "read",
+      "video",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "video"
+    ],
+    [
+      "clickIf",
+      "Art"
+    ],
+    [
+      "read",
+      "art",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "art"
+    ],
+    [
+      "click",
+      "Colors"
+    ],
+    [
+      "read",
+      "colors",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "clickIf",
+      "Color Theme Editor"
+    ],
+    [
+      "read",
+      "theme editor",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "theme"
+    ]
+  ],
+  "reads": {
+    "background": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1258,
+            213,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1280,
+            213,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1342,
+            213,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1437.7,
+            213,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Image",
+          "box": [
+            1276,
+            296,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Video",
+          "box": [
+            1370.7,
+            296,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Art",
+          "box": [
+            1465.3,
+            296,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add an Image20 MB max",
+          "box": [
+            1258,
+            340,
+            320,
+            129
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add an Image",
+          "box": [
+            1400,
+            362,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Full Bleed",
+          "box": [
+            1276,
+            513,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Inset",
+          "box": [
+            1418,
+            513,
+            142,
+            32
+          ]
+        }
+      ],
+      "thin": [],
+      "save": "clean"
+    },
+    "video": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1258,
+            213,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1280,
+            213,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1342,
+            213,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1437.7,
+            213,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Image",
+          "box": [
+            1276,
+            296,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Video",
+          "box": [
+            1370.7,
+            296,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Art",
+          "box": [
+            1465.3,
+            296,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add a Video1 minute maxVideo Storage30 min left",
+          "box": [
+            1258,
+            340,
+            320,
+            218
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add a Video",
+          "box": [
+            1400,
+            362,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open storage dialog",
+          "box": [
+            1511,
+            489,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Full Bleed",
+          "box": [
+            1276,
+            602,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Inset",
+          "box": [
+            1418,
+            602,
+            142,
+            32
+          ]
+        }
+      ],
+      "save": "changed"
+    },
+    "art": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1258,
+            213,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1280,
+            213,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1342,
+            213,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1437.7,
+            213,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Image",
+          "box": [
+            1276,
+            296,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Video",
+          "box": [
+            1370.7,
+            296,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Art",
+          "box": [
+            1465.3,
+            296,
+            94.7,
+            32
+          ]
+        }
+      ],
+      "save": "changed"
+    },
+    "colors": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1258,
+            213,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1280,
+            213,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1342,
+            213,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1437.7,
+            213,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Color Theme Editor",
+          "box": [
+            1424.6,
+            306,
+            108.8,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "AaLightest 1",
+          "box": [
+            1280,
+            339,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "AaLightest 2",
+          "box": [
+            1280,
+            394,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "AaLight 1",
+          "box": [
+            1280,
+            449,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "AaLight 2",
+          "box": [
+            1280,
+            504,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "AaBright 1",
+          "box": [
+            1280,
+            559,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "AaBright 2",
+          "box": [
+            1280,
+            614,
+            276,
+            44
+          ]
+        }
+      ],
+      "save": "changed"
+    },
+    "theme editor": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Colors",
+          "box": [
+            1280,
+            22,
+            102.9,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Close",
+          "box": [
+            1542,
+            26,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset Color Theme",
+          "box": [
+            1302,
+            242,
+            276,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            27,
+            24.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            93.6,
+            24.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            161.4,
+            17.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            205.4,
+            25.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1164,
+            27.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1210,
+            27.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Subscribe",
+          "box": [
+            996,
+            954.5,
+            93.3,
+            36
+          ]
+        }
+      ],
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

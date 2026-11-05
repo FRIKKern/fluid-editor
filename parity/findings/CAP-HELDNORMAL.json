@@ -1,0 +1,219 @@
+{
+  "item": "CAP-HELDNORMAL",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "R2: do stretched rows normalize while a block is held, before the drop?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "frame",
+      800,
+      900
+    ],
+    [
+      "read",
+      "before",
+      {
+        "section": 3,
+        "areas": 3
+      }
+    ],
+    [
+      "holdRaw",
+      3,
+      1,
+      "middle",
+      60,
+      0
+    ],
+    [
+      "read",
+      "held 60 right",
+      {
+        "section": 3,
+        "areas": 3,
+        "block": [
+          3,
+          1
+        ]
+      }
+    ],
+    [
+      "shot",
+      "held"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "read",
+      "dropped home",
+      {
+        "section": 3,
+        "areas": 3
+      }
+    ],
+    [
+      "unframe"
+    ]
+  ],
+  "reads": {
+    "before": {
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          1847.7,
+          800,
+          594
+        ],
+        "rows": 12,
+        "rowSizes": "15.8x3 67.3 67.4x2 15.8x2 19.5x2 15.8x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "9/2/11/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "clean"
+    },
+    "held 60 right": {
+      "block": {
+        "desktop": "4/2/13/12",
+        "mobile": "3/2/5/10",
+        "box": [
+          92,
+          199.7,
+          300.3,
+          230.3
+        ],
+        "cls": "fe-block undefined is-being-dragged is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16898",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "true"
+        },
+        "css": {
+          "display": "block",
+          "position": "absolute",
+          "zIndex": "2",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 60, 0)",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "4 / 2 / 13 / 12"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          58.7,
+          800,
+          619.7
+        ],
+        "rows": 19,
+        "rowSizes": "15.8x19",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1789,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/13/12",
+          "3/2/5/10"
+        ],
+        [
+          "15/2/18/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "clean"
+    },
+    "dropped home": {
+      "section": {
+        "frame": [
+          800,
+          900
+        ],
+        "box": [
+          0,
+          58.7,
+          800,
+          617.2
+        ],
+        "rows": 19,
+        "rowSizes": "15.8x19",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1789,
+        "blocks": 4
+      },
+      "areas": [
+        [
+          "1/2/5/18",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/13/12",
+          "3/2/5/10"
+        ],
+        [
+          "15/2/18/7",
+          "5/2/7/10"
+        ],
+        [
+          "4/15/8/25",
+          "7/2/9/10"
+        ]
+      ],
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
