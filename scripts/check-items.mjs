@@ -1,6 +1,6 @@
 // Rules for parity/items.json from QUALITY.md: unique ids, known statuses and
 // milestones, and every done item names its evidence.
-import { readdirSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { items, milestones } from './lib/board.mjs';
 
 const all = items();
@@ -21,6 +21,11 @@ for (const it of all) {
   if (!it.title || !it.area) errors.push(`${it.id}: needs a title and an area`);
 }
 if (!all.length) errors.push('parity/items.json is empty');
+// A failed rebase can commit conflict markers into a finding, and nothing else reads them all.
+const findings = new URL('../parity/findings/', import.meta.url);
+for (const f of readdirSync(findings).filter((n) => n.endsWith('.json'))) {
+  try { JSON.parse(readFileSync(new URL(f, findings), 'utf8')); } catch (e) { errors.push(`parity/findings/${f}: ${e.message}`); }
+}
 if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
