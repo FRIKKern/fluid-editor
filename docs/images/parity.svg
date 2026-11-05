@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="914" viewBox="0 0 1200 914" role="img" aria-labelledby="t d">
 <title id="t">Fluid editor parity</title>
-<desc id="d">85 of 118 items done, 33 partial, 0 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 6 of 8 done. Block types: 7 of 15 done. Geometry and snapping: 8 of 8 done. Gestures: 8 of 13 done. Row stretch: 3 of 5 done. Text editing: 4 of 7 done. Overlap and layers: 5 of 5 done. Phone layout: 6 of 8 done. Section settings and Stacks: 1 of 4 done. Editor chrome: 8 of 12 done. History, save and publish: 3 of 5 done. Accessibility and order: 2 of 3 done.</desc>
+<desc id="d">87 of 118 items done, 31 partial, 0 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 6 of 8 done. Block types: 7 of 15 done. Geometry and snapping: 8 of 8 done. Gestures: 8 of 13 done. Row stretch: 3 of 5 done. Text editing: 5 of 7 done. Overlap and layers: 5 of 5 done. Phone layout: 6 of 8 done. Section settings and Stacks: 1 of 4 done. Editor chrome: 8 of 12 done. History, save and publish: 4 of 5 done. Accessibility and order: 2 of 3 done.</desc>
 <style>
   svg { --bg:#fbfaf7; --card:#ffffff; --line:#e3e0d6; --ink:#1f1e1b; --muted:#6c6a63; --done:#2c7a4b; --now:#b26b00; --todo:#a3a097; --nowbg:#fff6e5; --partbg:#fdf0d8; --unk:#8a6fb0; }
   @media (prefers-color-scheme: dark) {
@@ -21,11 +21,11 @@
 <rect class="bg" width="1200" height="914" rx="16"/>
 <text x="40" y="70" font-size="36" font-weight="700" letter-spacing="-0.8">Parity</text>
 <text x="40" y="102" font-size="19" class="muted">Everything that has to match Fluid Engine, one cell per item.</text>
-<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">85<tspan class="muted" font-weight="400"> / 118</tspan></text>
+<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">87<tspan class="muted" font-weight="400"> / 118</tspan></text>
 <text x="1160" y="102" font-size="16" text-anchor="end" class="muted">items done</text>
-<rect x="40" y="124" width="806.7796610169491" height="10" class="s-done"/>
-<rect x="846.7796610169491" y="124" width="313.22033898305085" height="10" class="s-partial"/>
-<text x="40" y="172" font-size="16"><tspan class="done">✓ 85 done</tspan><tspan class="now" dx="24">◐ 33 partial</tspan><tspan class="todo" dx="24">○ 0 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
+<rect x="40" y="124" width="825.7627118644068" height="10" class="s-done"/>
+<rect x="865.7627118644068" y="124" width="294.23728813559325" height="10" class="s-partial"/>
+<text x="40" y="172" font-size="16"><tspan class="done">✓ 87 done</tspan><tspan class="now" dx="24">◐ 31 partial</tspan><tspan class="todo" dx="24">○ 0 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
 <text x="1160" y="172" font-size="16" text-anchor="end" class="muted">unknown: needs a trace on the oracle before it can be built</text>
 <path d="M40 190H1160" class="rule"/>
 <g data-area="Harness and oracle">
@@ -206,15 +206,15 @@
 </g>
 <g data-area="Text editing">
 <text x="40" y="556" font-size="15" font-weight="600">Text editing</text>
-<text x="324" y="556" font-size="14" text-anchor="end" class="muted">4/7</text>
+<text x="324" y="556" font-size="14" text-anchor="end" class="muted">5/7</text>
 <rect x="340" y="536" width="50" height="30" rx="6" class="c-done"><title>E1 How editing starts: double-click or click on a selected block: done</title></rect>
 <text x="365" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E1</text>
 <rect x="396" y="536" width="50" height="30" rx="6" class="c-done"><title>E2 End row grows while typing: done</title></rect>
 <text x="421" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E2</text>
 <rect x="452" y="536" width="50" height="30" rx="6" class="c-done"><title>E3 Whether the block shrinks when text is deleted: done</title></rect>
 <text x="477" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E3</text>
-<rect x="508" y="536" width="50" height="30" rx="6" class="c-partial"><title>E4 Text toolbar: styles, bold, italic, links, alignment, color, size: partial</title></rect>
-<text x="533" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">E4</text>
+<rect x="508" y="536" width="50" height="30" rx="6" class="c-done"><title>E4 Text toolbar: styles, bold, italic, links, alignment, color, size: done</title></rect>
+<text x="533" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E4</text>
 <rect x="564" y="536" width="50" height="30" rx="6" class="c-partial"><title>E5 Paste handling and HTML cleanup: partial</title></rect>
 <text x="589" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">E5</text>
 <rect x="620" y="536" width="50" height="30" rx="6" class="c-done"><title>E6 Whether a desktop text edit changes the phone layout's height: done</title></rect>
@@ -298,11 +298,11 @@
 </g>
 <g data-area="History, save and publish">
 <text x="40" y="786" font-size="15" font-weight="600">History, save and publish</text>
-<text x="324" y="786" font-size="14" text-anchor="end" class="muted">3/5</text>
+<text x="324" y="786" font-size="14" text-anchor="end" class="muted">4/5</text>
 <rect x="340" y="766" width="50" height="30" rx="6" class="c-done"><title>Y1 One undo step per gesture; normalization is not undone and does not mark the page changed: done</title></rect>
 <text x="365" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Y1</text>
-<rect x="396" y="766" width="50" height="30" rx="6" class="c-partial"><title>Y2 Undo grouping while typing: partial</title></rect>
-<text x="421" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">Y2</text>
+<rect x="396" y="766" width="50" height="30" rx="6" class="c-done"><title>Y2 Undo grouping while typing: done</title></rect>
+<text x="421" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Y2</text>
 <rect x="452" y="766" width="50" height="30" rx="6" class="c-done"><title>Y3 Save versus publish, drafts, revision conflicts: done</title></rect>
 <text x="477" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Y3</text>
 <rect x="508" y="766" width="50" height="30" rx="6" class="c-partial"><title>Y4 Copy and paste between sections and pages: partial</title></rect>
