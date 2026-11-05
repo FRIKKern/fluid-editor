@@ -1,0 +1,664 @@
+{
+  "item": "CAP-BLANKSECTION",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "U10: rows and gap of a blank section on desktop and phones",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "read",
+      "before",
+      {
+        "sel": "main#page .page-section"
+      }
+    ],
+    [
+      "hover",
+      2
+    ],
+    [
+      "click",
+      "Add Section"
+    ],
+    [
+      "read",
+      "picker",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "click",
+      "Add Blank"
+    ],
+    [
+      "read",
+      "added",
+      {
+        "sel": "main#page .page-section",
+        "section": 3
+      }
+    ],
+    [
+      "shot",
+      "desktop"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "phone",
+      {
+        "sel": "main#page .page-section",
+        "section": 3
+      }
+    ],
+    [
+      "shot",
+      "phone"
+    ]
+  ],
+  "reads": {
+    "before": {
+      "sel": [
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            0,
+            1600,
+            914.1
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            914.1,
+            1600,
+            857.7
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            1771.8,
+            1600,
+            652.2
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            2424,
+            1600,
+            693.3
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            3117.4,
+            1600,
+            734.4
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            3851.8,
+            1600,
+            693.3
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            4545.1,
+            1600,
+            734.4
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            5279.5,
+            1600,
+            623.7
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        }
+      ],
+      "save": "clean"
+    },
+    "picker": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Close",
+          "box": [
+            1358,
+            66,
+            36,
+            36
+          ]
+        }
+      ],
+      "save": "clean"
+    },
+    "added": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          131,
+          1600,
+          623.7
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 2293,
+        "blocks": 0
+      },
+      "sel": [
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            -2341,
+            1600,
+            914.1
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            -1426.9,
+            1600,
+            857.7
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            -569.2,
+            1600,
+            652.2
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            83,
+            1600,
+            623.7
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "0.936422",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            706.7,
+            1600,
+            693.3
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            1400,
+            1600,
+            734.4
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            2134.5,
+            1600,
+            693.3
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            2827.8,
+            1600,
+            734.4
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            3562.2,
+            1600,
+            623.7
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        }
+      ],
+      "save": "changed"
+    },
+    "phone": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0.3,
+          428,
+          623.7
+        ],
+        "rows": 2,
+        "rowSizes": "24x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 7181,
+        "blocks": 0
+      },
+      "sel": [
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            -7181,
+            428,
+            936.8
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            -6244.2,
+            428,
+            5620.8
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            -623.4,
+            428,
+            623.7
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            0.3,
+            428,
+            623.7
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            624,
+            428,
+            623.7
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            1247.7,
+            428,
+            723.6
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            1971.3,
+            428,
+            805
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            2776.2,
+            428,
+            978.4
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "tag": "section",
+          "cls": "page-section full-bleed-section layout-engine-section background-width--full-bleed section",
+          "box": [
+            0,
+            3754.6,
+            428,
+            623.7
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px"
+          }
+        }
+      ],
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

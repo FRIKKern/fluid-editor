@@ -8,9 +8,9 @@
 //   hover i | hoverBlock i k | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
 //   click label | clickIf label | press key | keys text | fill label value | fillValue shown value | rightClick i k
-//   hold i k part dx dy [mods] | move dx dy | release [home] | drag i k part dx dy {pointerType}
+//   hold i k part dx dy [mods] | holdRaw i k part dx dy | shiftClick i k | move dx dy | release [home] | drag i k part dx dy {pointerType}
 //   touch i k part dx dy {holdMs} | pasteMid i k html | undoWalk name [n] | shot name
-//   read name { block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, checks: true, sel: selector, layers: i, controls: true, thin: true }
+//   read name { block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, zs: i, checks: true, sel: selector, layers: i, controls: true, thin: true }
 // k is a block's place in its section, or "new" for the block `add` made. part is "middle" or a handle.
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { browser, evalJs, mouse, cdp, pause, reload, waitFor, engine } from './lib/cmux.mjs';
@@ -72,6 +72,9 @@ function read(what) {
   if (what.sectionHandle !== undefined) {
     out.sectionHandle = evalJs(S, `(() => { ${FRAME} ${round} ${CSS} ${cls} const h = ${SECTION_HANDLE(what.sectionHandle)}; return JSON.stringify(h ? { box: box(h), section: box(d.querySelectorAll('main#page .page-section')[${what.sectionHandle}]), css: css(W.getComputedStyle(h)) } : null); })()`);
   }
+  if (what.zs !== undefined) {
+    out.zs = evalJs(S, `(() => { ${FRAME} const fe = d.querySelectorAll('main#page .fluid-engine')[${what.zs}]; return JSON.stringify([...fe.querySelectorAll(':scope > .fe-block')].map((b) => W.getComputedStyle(b).zIndex)); })()`);
+  }
   if (what.inside) {
     const [i, k] = what.inside; const id = blockId(i, k);
     out.inside = evalJs(S, `(() => { ${FRAME} ${round} ${CSS} ${cls} const b = ${BLOCK(i, id)}; return JSON.stringify([...b.querySelectorAll('*')].filter((e) => !['STYLE', 'SCRIPT', 'NOSCRIPT', 'DEFS', 'CLIPPATH'].includes(e.tagName.toUpperCase()) && e.getBoundingClientRect().width > 0).slice(0, 24).map((e) => ({ tag: e.tagName.toLowerCase(), cls: cls(e), box: box(e), css: css(W.getComputedStyle(e)) }))); })()`);
@@ -132,6 +135,9 @@ const STEPS = {
   },
   fillValue: async (now, value) => { if (!tag(`() => [...document.querySelectorAll('input')].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame') && e.value === ${JSON.stringify(now)})[0]`)) throw new Error(`no input holding ${now}`); browser(S, 'click', '#fx-target'); browser(S, 'press', 'Meta+a'); for (const c of String(value)) browser(S, 'press', c); browser(S, 'press', 'Enter'); await pause(800); },
   rightClick: async (i, k) => { const id = blockId(i, k); evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; const q = b.getBoundingClientRect(); b.dispatchEvent(new W.MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: q.left + q.width / 2, clientY: q.top + q.height / 2, button: 2, view: W })); return 'true'; })()`); await pause(1000); },
+  // hold clicks first, and a second click on a selected text block starts editing it: holdRaw does not.
+  holdRaw: async (i, k, part, dx, dy) => { const [x, y] = point(i, k, part); held = { x, y, mods: [] }; await inFrame(async () => { mouse(S, 'move', x, y); mouse(S, 'down', x, y); await pause(200); for (let n = 1; n <= 6; n++) { mouse(S, 'move', x + (dx * n) / 6, y + (dy * n) / 6, { buttons: 1 }); await pause(40); } }); await pause(300); },
+  shiftClick: async (i, k) => { const [x, y] = point(i, k); await inFrame(() => { mouse(S, 'move', x, y, { mods: ['Shift'] }); mouse(S, 'down', x, y, { mods: ['Shift'] }); mouse(S, 'up', x, y, { mods: ['Shift'] }); }); await pause(800); },
   hold: async (i, k, part, dx, dy, mods = []) => {
     await STEPS.select(i, k);
     const [x, y] = point(i, k, part); held = { x, y, mods };
