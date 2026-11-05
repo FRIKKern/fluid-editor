@@ -1,0 +1,576 @@
+{
+  "item": "CAP-LINEMIDDLE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "X6: what is under the pointer on a selected one-row Line, and which presses move it or grow it?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "read",
+      "selected",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "hit": [
+          0,
+          "new",
+          [
+            [
+              0.5,
+              0.5
+            ],
+            [
+              0.25,
+              0.5
+            ],
+            [
+              0.75,
+              0.5
+            ],
+            [
+              0.5,
+              0.1
+            ],
+            [
+              0.5,
+              0.9
+            ],
+            [
+              0.45,
+              0.5
+            ],
+            [
+              0.55,
+              0.5
+            ]
+          ]
+        ]
+      }
+    ],
+    [
+      "shot",
+      "selected"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.25,
+        0.5
+      ],
+      0,
+      120
+    ],
+    [
+      "read",
+      "quarter across, 120 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "read",
+      "undone",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "hit": [
+          0,
+          "new",
+          [
+            [
+              0.5,
+              0.5
+            ],
+            [
+              0.25,
+              0.5
+            ]
+          ]
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      120
+    ],
+    [
+      "read",
+      "middle, 120 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "not selected",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "hit": [
+          0,
+          "new",
+          [
+            [
+              0.5,
+              0.5
+            ],
+            [
+              0.25,
+              0.5
+            ]
+          ]
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      120
+    ],
+    [
+      "read",
+      "unselected middle, 120 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "selected": {
+      "block": {
+        "desktop": "1/2/2/6",
+        "mobile": "1/2/2/10",
+        "box": [
+          100.1,
+          244.2,
+          224.1,
+          30.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838390644_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 2 / 6"
+        },
+        "handles": [
+          "col 10x10 at -6,10",
+          "col 10x10 at 220.1,10",
+          "ne 10x10 at 220.1,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 107.1,-6",
+          "row 10x10 at 107.1,26.1",
+          "se 10x10 at 220.1,26.1",
+          "sw 10x10 at -6,26.1"
+        ]
+      },
+      "hit": [
+        {
+          "at": [
+            0.5,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "",
+          "cursor": "row-resize",
+          "inBlock": false
+        },
+        {
+          "at": [
+            0.25,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.75,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.5,
+            0.1
+          ],
+          "tag": "div",
+          "cls": "",
+          "cursor": "row-resize",
+          "inBlock": false
+        },
+        {
+          "at": [
+            0.5,
+            0.9
+          ],
+          "tag": "div",
+          "cls": "",
+          "cursor": "row-resize",
+          "inBlock": false
+        },
+        {
+          "at": [
+            0.45,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "",
+          "cursor": "row-resize",
+          "inBlock": false
+        },
+        {
+          "at": [
+            0.55,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "",
+          "cursor": "row-resize",
+          "inBlock": false
+        }
+      ],
+      "save": "changed"
+    },
+    "quarter across, 120 down": {
+      "block": {
+        "desktop": "4/2/5/6",
+        "mobile": "1/2/2/10",
+        "box": [
+          100.1,
+          367.5,
+          224.1,
+          30.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838390644_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "4 / 2 / 5 / 6"
+        },
+        "handles": [
+          "col 10x10 at -6,10",
+          "col 10x10 at 220.1,10",
+          "ne 10x10 at 220.1,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 107.1,-6",
+          "row 10x10 at 107.1,26.1",
+          "se 10x10 at 220.1,26.1",
+          "sw 10x10 at -6,26.1"
+        ]
+      },
+      "save": "changed"
+    },
+    "undone": {
+      "block": {
+        "desktop": "1/2/2/6",
+        "mobile": "1/2/2/10",
+        "box": [
+          100.1,
+          244.2,
+          224.1,
+          30.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838390644_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 2 / 6"
+        },
+        "handles": [
+          "col 10x10 at -6,10",
+          "col 10x10 at 220.1,10",
+          "ne 10x10 at 220.1,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 107.1,-6",
+          "row 10x10 at 107.1,26.1",
+          "se 10x10 at 220.1,26.1",
+          "sw 10x10 at -6,26.1"
+        ]
+      },
+      "hit": [
+        {
+          "at": [
+            0.5,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "",
+          "cursor": "row-resize",
+          "inBlock": false
+        },
+        {
+          "at": [
+            0.25,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        }
+      ],
+      "save": "changed"
+    },
+    "middle, 120 down": {
+      "block": {
+        "desktop": "1/2/5/6",
+        "mobile": "1/2/2/10",
+        "box": [
+          100.1,
+          244.2,
+          224.1,
+          153.4
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838390644_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 5 / 6"
+        },
+        "handles": [
+          "col 10x10 at -6,71.7",
+          "col 10x10 at 220.1,71.7",
+          "ne 10x10 at 220.1,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 107.1,-6",
+          "row 10x10 at 107.1,149.4",
+          "se 10x10 at 220.1,149.4",
+          "sw 10x10 at -6,149.4"
+        ]
+      },
+      "save": "changed"
+    },
+    "not selected": {
+      "block": {
+        "desktop": "1/2/2/6",
+        "mobile": "1/2/2/10",
+        "box": [
+          100.1,
+          244.2,
+          224.1,
+          30.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838430651_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 2 / 6"
+        },
+        "handles": []
+      },
+      "hit": [
+        {
+          "at": [
+            0.5,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.25,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        }
+      ],
+      "save": "changed"
+    },
+    "unselected middle, 120 down": {
+      "block": {
+        "desktop": "4/2/5/6",
+        "mobile": "1/2/2/10",
+        "box": [
+          100.1,
+          367.5,
+          224.1,
+          30.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838430651_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "4 / 2 / 5 / 6"
+        },
+        "handles": [
+          "col 10x10 at -6,10",
+          "col 10x10 at 220.1,10",
+          "ne 10x10 at 220.1,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 107.1,-6",
+          "row 10x10 at 107.1,26.1",
+          "se 10x10 at 220.1,26.1",
+          "sw 10x10 at -6,26.1"
+        ]
+      },
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

@@ -1,0 +1,221 @@
+{
+  "item": "CAP-GROUP3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "X8: a second group, of three blocks, for the scale rule",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "added",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      700,
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      200,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "spread",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "group",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "groupDrag",
+      0,
+      240,
+      120
+    ],
+    [
+      "read",
+      "corner out",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "out"
+    ],
+    [
+      "groupDrag",
+      0,
+      -360,
+      -160
+    ],
+    [
+      "read",
+      "corner in",
+      {
+        "areas": 0
+      }
+    ]
+  ],
+  "reads": {
+    "added": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/2/2/6",
+          "7/2/8/10"
+        ],
+        [
+          "1/2/7/8",
+          "8/2/14/10"
+        ]
+      ],
+      "save": "changed"
+    },
+    "spread": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/5/2/9",
+          "7/2/8/10"
+        ],
+        [
+          "6/14/12/20",
+          "8/2/14/10"
+        ]
+      ],
+      "save": "changed"
+    },
+    "group": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/5/2/9",
+          "7/2/8/10"
+        ],
+        [
+          "6/14/12/20",
+          "8/2/14/10"
+        ]
+      ],
+      "save": "changed"
+    },
+    "corner out": {
+      "areas": [
+        [
+          "1/2/8/9",
+          "1/2/7/10"
+        ],
+        [
+          "1/6/2/10",
+          "7/2/8/10"
+        ],
+        [
+          "7/17/15/24",
+          "8/2/14/10"
+        ]
+      ],
+      "save": "changed"
+    },
+    "corner in": {
+      "areas": [
+        [
+          "1/2/6/7",
+          "1/2/7/10"
+        ],
+        [
+          "1/5/2/8",
+          "7/2/8/10"
+        ],
+        [
+          "5/13/11/18",
+          "8/2/14/10"
+        ]
+      ],
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
