@@ -1,0 +1,768 @@
+{
+  "item": "CAP-SECTIONVIEWS",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
+  "question": "S1: what does Edit Section offer on each layout?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "panel",
+      2
+    ],
+    [
+      "read",
+      "desktop first tab",
+      {
+        "controls": true,
+        "checks": true
+      }
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "desktop design",
+      {
+        "controls": true,
+        "checks": true
+      }
+    ],
+    [
+      "shot",
+      "desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "panel",
+      2
+    ],
+    [
+      "read",
+      "phone first tab",
+      {
+        "controls": true,
+        "checks": true
+      }
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "phone design",
+      {
+        "controls": true,
+        "checks": true
+      }
+    ],
+    [
+      "shot",
+      "phone"
+    ]
+  ],
+  "reads": {
+    "desktop first tab": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1258,
+            213,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1280,
+            213,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1342,
+            213,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1437.7,
+            213,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "input:number",
+          "label": "Row Count",
+          "value": "11",
+          "min": "11",
+          "max": "10000",
+          "step": "1",
+          "box": [
+            1479,
+            310,
+            77,
+            36
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Divider",
+          "value": false,
+          "box": [
+            1530,
+            658.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "box": [
+            1279,
+            433,
+            1,
+            1
+          ],
+          "checked": true,
+          "text": "Fill Screen"
+        },
+        {
+          "box": [
+            1530,
+            659,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "save": "clean"
+    },
+    "desktop design": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1258,
+            213,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1280,
+            213,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1342,
+            213,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1437.7,
+            213,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "input:number",
+          "label": "Row Count",
+          "value": "11",
+          "min": "11",
+          "max": "10000",
+          "step": "1",
+          "box": [
+            1479,
+            310,
+            77,
+            36
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Divider",
+          "value": false,
+          "box": [
+            1530,
+            658.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "box": [
+            1279,
+            433,
+            1,
+            1
+          ],
+          "checked": true,
+          "text": "Fill Screen"
+        },
+        {
+          "box": [
+            1530,
+            659,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "save": "clean"
+    },
+    "phone first tab": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1209,
+            213,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1231,
+            213,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1293,
+            213,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1388.7,
+            213,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "input:number",
+          "label": "Row Count",
+          "value": "10",
+          "min": "10",
+          "max": "10000",
+          "step": "1",
+          "box": [
+            1430,
+            310,
+            77,
+            36
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Divider",
+          "value": false,
+          "box": [
+            1481,
+            658.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "box": [
+            1230,
+            433,
+            1,
+            1
+          ],
+          "checked": true,
+          "text": "Fill Screen"
+        },
+        {
+          "box": [
+            1481,
+            659,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "save": "clean"
+    },
+    "phone design": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1209,
+            213,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1231,
+            213,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1293,
+            213,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1388.7,
+            213,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "input:number",
+          "label": "Row Count",
+          "value": "10",
+          "min": "10",
+          "max": "10000",
+          "step": "1",
+          "box": [
+            1430,
+            310,
+            77,
+            36
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Divider",
+          "value": false,
+          "box": [
+            1481,
+            658.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "box": [
+            1230,
+            433,
+            1,
+            1
+          ],
+          "checked": true,
+          "text": "Fill Screen"
+        },
+        {
+          "box": [
+            1481,
+            659,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "save": "clean"
+    }
+  },
+  "errors": [],
+  "leftDirty": false
+}

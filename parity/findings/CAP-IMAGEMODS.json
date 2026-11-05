@@ -1,0 +1,252 @@
+{
+  "item": "CAP-IMAGEMODS",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-04",
+  "engine": "chrome",
+  "question": "X7: an image resize with no modifier and with Shift",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "add",
+      2,
+      "Image"
+    ],
+    [
+      "hold",
+      2,
+      "new",
+      "se",
+      125,
+      75
+    ],
+    [
+      "read",
+      "plain held",
+      {
+        "block": [
+          2,
+          "new"
+        ]
+      }
+    ],
+    [
+      "release"
+    ],
+    [
+      "read",
+      "plain dropped",
+      {
+        "block": [
+          2,
+          "new"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "add",
+      2,
+      "Image"
+    ],
+    [
+      "hold",
+      2,
+      "new",
+      "se",
+      125,
+      75,
+      [
+        "Shift"
+      ]
+    ],
+    [
+      "read",
+      "shift held",
+      {
+        "block": [
+          2,
+          "new"
+        ]
+      }
+    ],
+    [
+      "release"
+    ],
+    [
+      "read",
+      "shift dropped",
+      {
+        "block": [
+          2,
+          "new"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "plain held": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "3/2/9/10",
+        "box": [
+          100.1,
+          185.4,
+          466.8,
+          310.6
+        ],
+        "cls": "fe-block undefined is-being-dragged is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793836206019_10312",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "true"
+        },
+        "css": {
+          "display": "block",
+          "position": "absolute",
+          "zIndex": "4",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8"
+        },
+        "handles": []
+      },
+      "save": "changed"
+    },
+    "plain dropped": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "3/2/9/10",
+        "box": [
+          100.1,
+          185.4,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793836206019_10312",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "4",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10"
+        },
+        "handles": []
+      },
+      "save": "changed"
+    },
+    "shift held": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "3/2/9/10",
+        "box": [
+          100.1,
+          185.4,
+          466.8,
+          310.6
+        ],
+        "cls": "fe-block undefined is-being-dragged is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793836234787_10312",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "true"
+        },
+        "css": {
+          "display": "block",
+          "position": "absolute",
+          "zIndex": "4",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8"
+        },
+        "handles": []
+      },
+      "save": "changed"
+    },
+    "shift dropped": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "3/2/9/10",
+        "box": [
+          100.1,
+          185.4,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793836234787_10312",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "4",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
