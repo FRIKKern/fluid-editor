@@ -25,8 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 1 change
-  - G6, X13, Z3: correct G6's phone note, close X13's stale label gap, Layers rows as measured ([#128](https://github.com/FRIKKern/fluid-editor/pull/128))
+- **Today** · 52 changes
+  - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
+  - 0005: From Image's drop and an uploaded video's fit need an upload ([#177](https://github.com/FRIKKern/fluid-editor/pull/177))
 - **Yesterday** · 69 changes
   - X2, G5: a held block stays inside the grid, phones have the center line ([#126](https://github.com/FRIKKern/fluid-editor/pull/126))
 - **This week** · 39 changes, 3 milestones closed
