@@ -649,9 +649,9 @@
     "id": "X11",
     "area": "Gestures",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "Touch and pen input",
-    "evidence": "parity/findings/TOUCHHOLD.json, on a new page that scrolls: a tap selects; a touch drags like a mouse; the browser cancels it, nothing moved, only if the first move passes its 15px pan distance after a press under about 100 ms (60 is cancelled, 100 moves, inferred between); a touch on a handle resizes; a touch on the empty grid draws no box; a pen does what a mouse does. This corrects CAP-TOUCH.json's quick drag and handle reads, one each on the demo page; why they differed is not known. Ours matches with real touch events and a pen (npm run mid-check, 15 cases); before this a touch drag ended at once and a block could never pan. Touch events were sent without emulation, so a real device may differ. Not read: a touch on a handle faster than 15px a move."
+    "evidence": "parity/findings/TOUCHHOLD.json, on a new page that scrolls: a tap selects; a touch drags like a mouse; the browser cancels it, nothing moved, only if the first move passes its 15px pan distance after a press under about 100 ms (60 is cancelled, 100 moves; the 100 ms hold in ours is a pick between them); a touch on a handle resizes; a touch on the empty grid draws no box; a pen does what a mouse does. This corrects CAP-TOUCH.json's quick drag and handle reads, one each on the demo page; why they differed is not known. Ours matches with real touch events and a pen (npm run mid-check, 15 cases); before this a touch drag ended at once and a block could never pan. Touch events were sent over the debug protocol without touch emulation, and no real device was tried, so a real device may differ. Not read: a touch on a handle faster than 15px a move."
   },
   {
     "id": "X13",
