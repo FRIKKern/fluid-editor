@@ -1,0 +1,849 @@
+{
+  "item": "CAP-HIDDENEYE",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "L5: what does the eye in the Layers panel do on a hidden block?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "rightClick",
+      2,
+      2
+    ],
+    [
+      "read",
+      "menu",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "click",
+      "Hide on desktop"
+    ],
+    [
+      "read",
+      "hidden",
+      {
+        "block": [
+          2,
+          2
+        ],
+        "section": 2
+      }
+    ],
+    [
+      "hover",
+      3
+    ],
+    [
+      "hover",
+      2
+    ],
+    [
+      "read",
+      "section hovered",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "click",
+      "Open Layers Panel"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "layers",
+      {
+        "controls": true,
+        "block": [
+          2,
+          2
+        ],
+        "section": 2
+      }
+    ],
+    [
+      "shot",
+      "layers"
+    ],
+    [
+      "click",
+      "Display Block"
+    ],
+    [
+      "read",
+      "eye clicked",
+      {
+        "controls": true,
+        "block": [
+          2,
+          2
+        ],
+        "section": 2
+      }
+    ],
+    [
+      "shot",
+      "eye"
+    ]
+  ],
+  "reads": {
+    "menu": {
+      "controls": [],
+      "save": "clean"
+    },
+    "hidden": {
+      "block": {
+        "desktop": "2/15/12/25",
+        "mobile": "5/2/11/10",
+        "box": [
+          0,
+          231.4,
+          0,
+          0
+        ],
+        "cls": "fe-block is-invisible should-remove",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16395",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "0",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 1 / -1 / -1"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          125.8,
+          1600,
+          652.2
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1646,
+        "blocks": 3
+      },
+      "save": "changed"
+    },
+    "section hovered": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            117,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            161,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            161,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            164,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            214,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            269,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            269,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            269,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            269,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            316,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            769,
+            111.1,
+            36
+          ]
+        }
+      ],
+      "save": "changed"
+    },
+    "layers": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            117,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            161,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            161,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            164,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            214,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            269,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            269,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            269,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            269,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            316,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            769,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Layers",
+          "box": [
+            22,
+            228,
+            240,
+            22
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Shape",
+          "box": [
+            33,
+            266,
+            218,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Display Block",
+          "box": [
+            211,
+            270,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "On desktop the smallest a row can be is the cont",
+          "box": [
+            33,
+            313,
+            218,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Rows scale with the width",
+          "box": [
+            33,
+            360,
+            218,
+            44
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "2/15/12/25",
+        "mobile": "5/2/11/10",
+        "box": [
+          0,
+          185.4,
+          0,
+          0
+        ],
+        "cls": "fe-block is-invisible should-remove",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16395",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "0",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 1 / -1 / -1"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          79.8,
+          1600,
+          652.2
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1692,
+        "blocks": 3
+      },
+      "save": "changed"
+    },
+    "eye clicked": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            161,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Layers",
+          "box": [
+            22,
+            228,
+            240,
+            22
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Shape",
+          "box": [
+            33,
+            266,
+            218,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Hide Block",
+          "box": [
+            211,
+            270,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "On desktop the smallest a row can be is the cont",
+          "box": [
+            33,
+            313,
+            218,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Rows scale with the width",
+          "box": [
+            33,
+            360,
+            218,
+            44
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "2/15/12/25",
+        "mobile": "5/2/11/10",
+        "box": [
+          864.3,
+          226.5,
+          576.8,
+          399.9
+        ],
+        "cls": "fe-block",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793705593367_16395",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 15 / 12 / 25"
+        },
+        "handles": [
+          "row 22x22 at 473.7,388.9"
+        ]
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          79.8,
+          1600,
+          652.2
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1692,
+        "blocks": 3
+      },
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

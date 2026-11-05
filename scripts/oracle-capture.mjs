@@ -6,11 +6,11 @@
 //   ... node scripts/oracle-capture.mjs --name WHAT --question '...' --steps '[["enter"],["select",2,2],["read","a",{"block":[2,2],"controls":true}]]'
 // Steps: enter | exit | view Mobile|Desktop | frame w h | unframe | pause ms | listen
 //   hover i | hoverBlock i k | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
-//   add i type | panel i | editText i k
-//   click label | clickIf label | press key | keys text | fill label value | rightClick i k
+//   add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
+//   click label | clickIf label | press key | keys text | fill label value | fillValue shown value | rightClick i k
 //   hold i k part dx dy [mods] | move dx dy | release [home] | drag i k part dx dy {pointerType}
 //   touch i k part dx dy {holdMs} | pasteMid i k html | undoWalk name [n] | shot name
-//   read name { block: [i,k], inside: [i,k], html: [i,k], section: i, areas: i, sel: selector, layers: i, controls: true, thin: true }
+//   read name { block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, checks: true, sel: selector, layers: i, controls: true, thin: true }
 // k is a block's place in its section, or "new" for the block `add` made. part is "middle" or a handle.
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { browser, evalJs, mouse, cdp, pause, reload, waitFor, engine } from './lib/cmux.mjs';
@@ -37,6 +37,8 @@ const cls = `const cls = (e) => [...e.classList].filter((c) => !/^[A-Za-z0-9_]{1
 const BLOCK = (i, id) => `d.querySelectorAll('main#page .fluid-engine')[${i}].querySelector('.fe-block[data-block-id="${id}"]')`;
 
 let added = null;
+// The section's bottom handle: a row-resize box, wider than a block's 10px handle.
+const SECTION_HANDLE = (i) => `[...d.querySelectorAll('main#page .page-section')[${i}].querySelectorAll('*')].find((e) => { const q = e.getBoundingClientRect(); return q.width >= 20 && q.width <= 60 && q.height >= 20 && q.height <= 40 && W.getComputedStyle(e).cursor === 'row-resize'; })`;
 const blockId = (i, k) => (k === 'new' ? added : blockIds(i)[k]);
 // Puts block i, k in the middle of the frame, tags it, and gives the point of `part` in frame coordinates.
 function point(i, k, part = 'middle') {
@@ -67,6 +69,9 @@ function read(what) {
   if (what.checks) {
     out.checks = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('input[type=checkbox]')].filter((e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.left >= 0; }).map((e) => { const q = e.getBoundingClientRect(); return { box: [q.left, q.top, q.width, q.height].map(Math.round), checked: e.checked ?? e.getAttribute('aria-checked'), text: (e.closest('label')?.textContent || e.parentElement?.parentElement?.textContent || '').trim().slice(0, 40) }; })))()`);
   }
+  if (what.sectionHandle !== undefined) {
+    out.sectionHandle = evalJs(S, `(() => { ${FRAME} ${round} ${CSS} ${cls} const h = ${SECTION_HANDLE(what.sectionHandle)}; return JSON.stringify(h ? { box: box(h), section: box(d.querySelectorAll('main#page .page-section')[${what.sectionHandle}]), css: css(W.getComputedStyle(h)) } : null); })()`);
+  }
   if (what.inside) {
     const [i, k] = what.inside; const id = blockId(i, k);
     out.inside = evalJs(S, `(() => { ${FRAME} ${round} ${CSS} ${cls} const b = ${BLOCK(i, id)}; return JSON.stringify([...b.querySelectorAll('*')].filter((e) => !['STYLE', 'SCRIPT', 'NOSCRIPT', 'DEFS', 'CLIPPATH'].includes(e.tagName.toUpperCase()) && e.getBoundingClientRect().width > 0).slice(0, 24).map((e) => ({ tag: e.tagName.toLowerCase(), cls: cls(e), box: box(e), css: css(W.getComputedStyle(e)) }))); })()`);
@@ -76,7 +81,7 @@ function read(what) {
     out.html = evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; const t = b.querySelector('.ProseMirror') || b.querySelector('.sqs-html-content') || b; return JSON.stringify(t.innerHTML.replace(/https?:\\/\\/[^"' )]+/g, '<url>').slice(0, 1600)); })()`);
   }
   if (what.section !== undefined) {
-    out.section = evalJs(S, `(() => { ${FRAME} ${round} const s = d.querySelectorAll('main#page .page-section')[${what.section}]; const fe = s.querySelector('.fluid-engine'); const c = W.getComputedStyle(fe); return JSON.stringify({ frame: [W.innerWidth, W.innerHeight], box: box(s), rows: c.gridTemplateRows.split(' ').length, rowGap: c.rowGap, columnGap: c.columnGap, scrollY: W.scrollY, blocks: fe.querySelectorAll(':scope > .fe-block').length }); })()`);
+    out.section = evalJs(S, `(() => { ${FRAME} ${round} const s = d.querySelectorAll('main#page .page-section')[${what.section}]; const fe = s.querySelector('.fluid-engine'); const c = W.getComputedStyle(fe); return JSON.stringify({ frame: [W.innerWidth, W.innerHeight], box: box(s), rows: c.gridTemplateRows.split(' ').length, rowSizes: c.gridTemplateRows.split(' ').map((v) => rnd(parseFloat(v))).reduce((a, v) => { const l = a.at(-1); if (l && l[0] === v) l[1]++; else a.push([v, 1]); return a; }, []).map(([v, n]) => (n > 1 ? v + 'x' + n : String(v))).join(' '), rowGap: c.rowGap, columnGap: c.columnGap, scrollY: W.scrollY, blocks: fe.querySelectorAll(':scope > .fe-block').length }); })()`);
   }
   if (what.areas !== undefined) {
     out.areas = evalJs(S, `(() => { ${FRAME} const fe = d.querySelectorAll('main#page .fluid-engine')[${what.areas}]; return JSON.stringify([...fe.querySelectorAll(':scope > .fe-block')].map((b) => { const st = b.querySelector('style[data-test="fluid-engine-grid-css"]'); const [m, dk] = st ? st.textContent.split('@media (min-width: 768px)') : ['', '']; const a = (t) => (t.match(/grid-area:\\s*([\\d/ -]+)/) || [])[1]?.trim(); return [a(dk), a(m)]; })); })()`);
@@ -94,7 +99,7 @@ function read(what) {
 }
 
 const finding = { item: name, oracle: '/how-fluid-engine-works', capturedAt: new Date().toISOString().slice(0, 10), engine: engine(S), question: recipe.question, steps: recipe.steps, reads: {}, errors: [] };
-const LABEL = (label) => `() => { const L = ${JSON.stringify(label)}; const hit = [...document.querySelectorAll('[aria-label], [title], body *')].filter((e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && !e.closest('#sqs-site-frame') && (e.getAttribute('aria-label') === L || e.getAttribute('title') === L || (e.childElementCount === 0 && e.textContent.trim() === L)); }).pop(); return hit && (hit.closest('button, a, label, [role=radio], [role=button], [role=switch], [role=tab], [role=option], [role=menuitem]') || hit); }`;
+const LABEL = (label) => `() => { const L = ${JSON.stringify(label)}; const hits = [...document.querySelectorAll('[aria-label], [title], body *')].filter((e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && !e.closest('#sqs-site-frame') && (e.getAttribute('aria-label') === L || e.getAttribute('title') === L || (e.childElementCount === 0 && e.textContent.trim() === L)); }); const onTop = (e) => { const q = e.getBoundingClientRect(); const t = document.elementFromPoint(q.left + q.width / 2, q.top + q.height / 2); return t && (e === t || e.contains(t) || t.contains(e)); }; const hit = hits.filter(onTop).pop() || hits.pop(); return hit && (hit.closest('button, a, label, [role=radio], [role=button], [role=switch], [role=tab], [role=option], [role=menuitem]') || hit); }`;
 const tag = (find) => evalJs(S, `(() => { const el = (${find})(); document.querySelectorAll('#fx-target').forEach((x) => x.removeAttribute('id')); if (!el) return JSON.stringify(false); el.id = 'fx-target'; return JSON.stringify(true); })()`) === true;
 let held = null;
 const booted = () => waitFor(S, `(() => { const f = document.getElementById('sqs-site-frame'); return !!(f && f.contentDocument && f.contentDocument.querySelector('.fluid-engine .fe-block')); })()`, 60);
@@ -109,6 +114,7 @@ const STEPS = {
   listen: () => evalJs(S, `(() => { ${FRAME} W.__fxEvents = []; if (!W.__fxListen) { W.__fxListen = true; for (const t of ['pointerdown', 'pointermove', 'pointerup', 'pointercancel', 'touchstart', 'touchend', 'contextmenu', 'dragstart']) d.addEventListener(t, (e) => { const last = W.__fxEvents.at(-1); const name = t + (e.pointerType ? ':' + e.pointerType : ''); if (last && last[0] === name) last[1]++; else W.__fxEvents.push([name, 1]); }, true); } return 'true'; })()`),
   hover: (i) => hoverSection(i),
   hoverBlock: async (i, k) => { const [x, y] = point(i, k); await inFrame(() => mouse(S, 'move', x, y)); await pause(600); },
+  sectionDrag: async (i, dy) => { const at = evalJs(S, `(() => { ${FRAME} const h = ${SECTION_HANDLE(i)}; if (!h) return JSON.stringify(null); const q = h.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); if (!at) throw new Error('no section handle'); const [x, y] = at; await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x, y + dy], steps: 12, holdMs: 200, mods: [] })); await pause(800); },
   select: async (i, k) => { const [x, y] = point(i, k); await inFrame(() => { mouse(S, 'move', x, y); mouse(S, 'down', x, y); mouse(S, 'up', x, y); }); await pause(800); },
   deselect: async () => { await escape(); },
   pick: (i, k) => select(i, blockId(i, k)),
@@ -124,6 +130,7 @@ const STEPS = {
     if (!ok) throw new Error(`no field ${label}`);
     browser(S, 'fill', '#fx-target', String(value)); browser(S, 'press', 'Enter'); await pause(1200);
   },
+  fillValue: async (now, value) => { if (!tag(`() => [...document.querySelectorAll('input')].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame') && e.value === ${JSON.stringify(now)})[0]`)) throw new Error(`no input holding ${now}`); browser(S, 'click', '#fx-target'); browser(S, 'press', 'Meta+a'); for (const c of String(value)) browser(S, 'press', c); browser(S, 'press', 'Enter'); await pause(800); },
   rightClick: async (i, k) => { const id = blockId(i, k); evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; const q = b.getBoundingClientRect(); b.dispatchEvent(new W.MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: q.left + q.width / 2, clientY: q.top + q.height / 2, button: 2, view: W })); return 'true'; })()`); await pause(1000); },
   hold: async (i, k, part, dx, dy, mods = []) => {
     await STEPS.select(i, k);
