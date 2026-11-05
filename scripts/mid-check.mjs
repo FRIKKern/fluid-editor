@@ -1,11 +1,11 @@
 // X2: hold each recorded drag and resize in our editor and compare what the blocks say while held
 // with the trace's mid state: near, matching width and height, selected, the grid in one section.
 // G5, G6: then hold what parity/findings/GUIDES.json measured and compare the target area, the
-// ring box, the center line and the width of the held block. X8, X13, Z3: the group handles, the marquee, the Layers rows.
+// ring box, the center line and the width of the held block. X8, X13, Z3: the group handles, the marquee, the Layers rows. X6, X7, S4: handles by type, modifiers, the phone section handle.
 // X2: where a held block sits and the center line on phones (HOLD.json).
 // Runs on headless Chrome. Writes parity/mid-check.json. Usage: npm run mid-check.
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, waitFor } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, waitFor, mouse } from './lib/cmux.mjs';
 import { modelFor } from './lib/trace-model.mjs';
 import { BASE } from './lib/base.mjs';
 
@@ -251,11 +251,11 @@ layerCase('with a hole', LY.hole.steps, LY.hole.removed);
 // X2, G5: where a held block sits (HOLD.json). Every sweep is one hold in a section of its own.
 const H = JSON.parse(readFileSync(new URL('../parity/findings/HOLD.json', import.meta.url)));
 const area = (x) => x.split(' / ').map(Number);
-const holdModel = (sw) => { const b = (id, a, z) => ({ id, type: 'shape', fill: '#d9d4ca', radius: '0', label: id, layout: { desktop: { area: area(a), z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: area(a), z, justify: 'flex-start', align: 'flex-start' } } }); return { version: 1, title: 'hold', sections: [{ id: 'hold', theme: '', height: 'small', valign: 'top', gap: traces[0].section.gap, rowGap: traces[0].section.rowGap, rows: { desktop: 8, mobile: sw.rows || 6 }, blocks: [{ ...b('held', sw.area, 1), ...(sw.text ? { type: 'text', html: `<p>${sw.text}</p>` } : {}) }, ...(sw.other ? [b('other', sw.other, 2)] : [])] }] }; };
+const holdModel = (sw) => { const b = (id, a, z) => ({ id, type: 'shape', fill: '#d9d4ca', radius: '0', label: id, layout: { desktop: { area: area(a), z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: area(a), z, justify: 'flex-start', align: 'flex-start' } } }); return { version: 1, title: 'hold', sections: [{ id: 'hold', theme: '', height: 'small', valign: 'top', gap: traces[0].section.gap, rowGap: traces[0].section.rowGap, rows: { desktop: sw.rowsD || 8, mobile: sw.rows || 6 }, blocks: [{ ...b('held', sw.area, 1), ...(sw.text ? { type: 'text', html: `<p>${sw.text}</p>` } : {}), ...(sw.image ? { type: 'image', src: '', empty: true } : {}) }, ...(sw.other ? [b('other', sw.other, 2)] : [])] }] }; };
 const sweep = (sw, moves, release = 'pointercancel', handle = null) => evalJs(S, `(async () => { const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow; const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   fe.load(${JSON.stringify(holdModel(sw))}); fe.setBp('${sw.view || 'desktop'}'); await sleep(120);
   W.scrollTo(0, 0); await sleep(30);
-  const block = (id) => d.querySelector('.fe-block[data-block-id="' + id + '"]'); const b = block('held'), o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 };
+  const block = (id) => d.querySelector('.fe-block[data-block-id="' + id + '"]'); const b = block('held'), o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0, ...${JSON.stringify(sw.mods || {})} };
   const mid = (e) => { const r = e.getBoundingClientRect(); return { clientX: r.left + r.width / 2, clientY: r.top + r.height / 2 }; };
   fe.select('hold', 'held'); await sleep(30);
   ${sw.other ? `{ const c = { ...o, ...mid(block('other')), shiftKey: true }; block('other').dispatchEvent(new W.PointerEvent('pointerdown', { ...c, buttons: 1 })); d.dispatchEvent(new W.PointerEvent('pointerup', { ...c, buttons: 0 })); await sleep(30); }` : ''}
@@ -283,6 +283,51 @@ for (const sw of H.sweeps) {
 }
 { const r = sweep({ area: H.oneMove.before }, [H.oneMove.move], 'pointerup'); groupCases.push({ name: 'hold one move and a release', diffs: [r.out[0].ring !== null && 'a ring on the first move', r.after !== H.oneMove.after && `drop: ${r.after}`].filter(Boolean) }); }
 { const sw = { view: 'mobile', area: '1 / 2 / 7 / 10', pre: [-12, 0] }; for (const c of H.phoneResize) { const { out } = sweep(sw, [[c.dx, 0]], 'pointercancel', 'e'); groupCases.push({ name: `hold phone resize east ${c.dx}`, diffs: [out[0].ring !== c.ring && `ring: oracle ${c.ring}, ours ${out[0].ring}`, out[0].line !== c.line && `line: oracle ${c.line}, ours ${out[0].line}`].filter(Boolean) }); } }
+// X7: Alt and Shift change nothing on a resize, shape or image (CAP-ALT.json, CAP-IMAGEMODS.json).
+for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15 / 14 / 27', { rowsD: 11 }], ['image', '1 / 2 / 7 / 8', '1 / 2 / 9 / 10', { image: true }]]) for (const [mod, mods] of [['plain', {}], ['Alt', { altKey: true }], ['Shift', { shiftKey: true }]]) {
+  const r = sweep({ area: area0, mods, pre: [12, 8], ...extra }, [[60, 40], [125, 75]], 'pointerup', 'se');
+  groupCases.push({ name: `${mod} on a ${what} resize`, diffs: [r.after !== after && `drop: oracle ${after}, ours ${r.after}`].filter(Boolean) });
+}
+// X6: 8 handles with the same cursors on every block type (CAP-HANDLES.json), a 34px hit box, and so
+// a press at the middle of a selected one-row Line is on a handle and 30 percent along is not (LINEHIT.json).
+{ const got = evalJs(S, `(async () => { const sleep = (m) => new Promise((r) => setTimeout(r, m)); const out = {}; const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow;
+    for (const [type, area, extra] of [['line', [1, 2, 2, 6], {}], ['shape', [1, 2, 7, 8], { fill: '#ccc' }], ['image', [1, 2, 7, 8], { src: '', empty: true }], ['form', [1, 2, 7, 8], {}], ['scrolling', [1, 2, 7, 8], {}], ['map', [1, 2, 7, 8], {}], ['social', [1, 2, 7, 8], {}], ['quote', [1, 2, 7, 8], {}], ['button', [1, 2, 3, 8], {}]]) {
+      fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [{ id: 'k', type, label: 'k', layout: { desktop: { area, z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } }, ...extra }] }] }); await sleep(80); fe.select('s', 'k'); await sleep(60);
+      const hs = [...d.querySelectorAll('.fe-handle')]; const q = d.querySelector('.fe-block').getBoundingClientRect(); const on = (fx) => !!d.elementFromPoint(q.left + q.width * fx, q.top + q.height / 2)?.closest('.fe-handle');
+      out[type] = { cursors: hs.map((h) => W.getComputedStyle(h).cursor).join(), size: hs[0] && hs[0].getBoundingClientRect().width, middle: on(0.5), along: on(0.3) }; }
+    return JSON.stringify(out); })()`);
+  const CUR = 'nw-resize,row-resize,ne-resize,col-resize,se-resize,row-resize,sw-resize,col-resize';
+  for (const [type, g] of Object.entries(got)) groupCases.push({ name: `handles on ${type}`, diffs: [g.cursors !== CUR && `cursors ${g.cursors}`, g.size !== 34 && `hit box ${g.size}`, type === 'line' && !g.middle && 'the middle of a Line is not on a handle', g.along && 'a press 30 percent along is on a handle'].filter(Boolean) });
+}
+// X6 with the real mouse (LINEHIT.json): 30 percent along moves a selected one-row Line, the middle grows it, a click keeps it selected.
+{ const load = async (area) => evalJs(S, `(async () => { fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [{ id: 'k', type: 'line', label: 'k', layout: { desktop: { area: ${JSON.stringify(area)}, z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }] }] }); await new Promise((r) => setTimeout(r, 80)); fe.select('s', 'k'); await new Promise((r) => setTimeout(r, 60)); return JSON.stringify(1); })()`);
+  const at = (fx) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), b = f.contentDocument.querySelector('.fe-block').getBoundingClientRect(); return JSON.stringify({ x: q.left + b.left + b.width * ${fx}, y: q.top + b.top + b.height / 2 }); })()`);
+  const area = () => evalJs(S, `JSON.stringify(fe.model.sections[0].blocks[0].layout.desktop.area.join('/'))`);
+  const selected = () => evalJs(S, `JSON.stringify(document.getElementById('site-frame').contentDocument.querySelectorAll('.fe-handle').length === 8)`);
+  const press = async (fx, dx, dy) => { const p = at(fx); mouse(S, 'move', p.x, p.y); await pause(40); mouse(S, 'down', p.x, p.y, { buttons: 1 }); await pause(40); if (dx || dy) { mouse(S, 'move', p.x + dx / 2, p.y + dy / 2, { buttons: 1 }); await pause(40); mouse(S, 'move', p.x + dx, p.y + dy, { buttons: 1 }); await pause(60); } mouse(S, 'up', p.x + dx, p.y + dy); await pause(120); };
+  await load([3, 4, 4, 8]); await press(0.3, 60, 50); const moved = area();
+  await load([4, 5, 5, 9]); await press(0.5, 60, 50); const grown = area();
+  await load([1, 2, 2, 6]); await press(0.3, 0, 0); const one = selected(); await pause(500); await press(0.3, 0, 0); const two = selected();
+  groupCases.push({ name: 'a selected Line: moved, grown, clicked', diffs: [moved !== '4/5/5/9' && `30 percent along: oracle 4/5/5/9, ours ${moved}`, grown !== '4/5/6/9' && `the middle: oracle 4/5/6/9, ours ${grown}`, !one && 'a click deselected it', !two && 'a second click deselected it'].filter(Boolean) });
+}
+// S4 on phones (CAP-S4PHONE.json), with the real mouse: the handle, 90 down, 150 up, desktop stays, a click does nothing.
+{ const T = JSON.parse(readFileSync(new URL('../parity/findings/CAP-S4PHONE.json', import.meta.url))).reads;
+  viewport(S, 1600, 1000); goto(S, `${BASE}/index.html?replay`); waitFor(S, '(() => !!window.fe)()', 20); await pause(400);
+  const secId = evalJs(S, `(() => JSON.stringify(fe.model.sections[2].id))()`);
+  const read = (bp) => evalJs(S, `(async () => { fe.select(null); fe.setBp('${bp}'); await new Promise((r) => setTimeout(r, 120)); const f = document.getElementById('site-frame'), d = f.contentDocument; const sec = d.querySelector('[data-section-id="${secId}"]'); sec.scrollIntoView({ block: 'center' }); await new Promise((r) => setTimeout(r, 150)); const q = f.getBoundingClientRect(), b = sec.getBoundingClientRect(); return JSON.stringify({ x: q.left + b.left + b.width / 2, y: q.top + b.top + b.height / 2, q: q.left }); })()`);
+  const handle = () => evalJs(S, `(() => { const h = document.querySelector('.sc-rows'); if (!h) return JSON.stringify(null); const r = h.getBoundingClientRect(), f = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify({ left: r.left - f.left, w: r.width, h: r.height, cx: r.left + r.width / 2, cy: r.top + r.height / 2 }); })()`);
+  const rows = (bp) => evalJs(S, `JSON.stringify(fe.model.sections[2].rows.${bp})`);
+  const drag = async (by) => { const h = handle(); mouse(S, 'move', h.cx, h.cy); await pause(60); mouse(S, 'down', h.cx, h.cy); await pause(40); if (by) { mouse(S, 'move', h.cx, h.cy + by, { buttons: 1 }); await pause(80); } mouse(S, 'up', h.cx, h.cy + by); await pause(120); };
+  const at = read('mobile'); mouse(S, 'move', at.x, at.y); await pause(200);
+  const h = handle(); const want = T['phone hovered'].sectionHandle.box;
+  groupCases.push({ name: 'phone section handle', diffs: [!h && 'no handle', h && !near(h.left, want[0]) && `left: oracle ${want[0]}, ours ${h.left}`, h && h.w !== want[2] && `width ${h.w}`, h && h.h !== want[3] && `height ${h.h}`].filter(Boolean) });
+  const r0 = rows('mobile'), d0 = rows('desktop');
+  await drag(90); const down = rows('mobile'); await pause(60); const at2 = read('mobile'); mouse(S, 'move', at2.x, at2.y); await pause(200); await drag(-150); const up = rows('mobile');
+  groupCases.push({ name: 'phone section handle drags', diffs: [r0 !== T['phone hovered'].section.rows && `start ${r0}`, down !== T['phone 90 down'].section.rows && `90 down: oracle ${T['phone 90 down'].section.rows}, ours ${down}`, up !== T['phone 150 up'].section.rows && `150 up: oracle ${T['phone 150 up'].section.rows}, ours ${up}`, rows('desktop') !== d0 && 'desktop changed'].filter(Boolean) });
+  const at3 = read('desktop'); mouse(S, 'move', at3.x, at3.y); await pause(200); const d1 = rows('desktop'); await drag(0);
+  groupCases.push({ name: 'a click on the section handle', diffs: [rows('desktop') !== d1 && 'rows changed'].filter(Boolean) });
+  evalJs(S, `fe.setBp('desktop')`);
+}
 const groupFails = groupCases.filter((c) => c.diffs.length && !c.known);
 const groupKnown = groupCases.filter((c) => c.known);
 for (const c of groupFails) console.log(`DIFF ${c.name}\n  ${c.diffs.join('\n  ')}`);

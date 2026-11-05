@@ -102,8 +102,45 @@ export function cleanPaste(doc, html, text) {
   return String(text || '').split(/\r?\n/).filter((line) => line.trim()).map((line) => block(doc, 'p', [doc.createTextNode(line.replace(/\s+/g, ' '))]));
 }
 
-// Insert the cleaned blocks at the selection. Measured on the oracle only for a paste over
-// the whole content; ours puts a single paragraph inline and other content after the block.
+// Insert the cleaned blocks at the selection. Measured on the oracle for a paste over the whole
+// content and into a paragraph; other content goes after the block.
+const insideParagraph = (range, root) => {
+  const at = range.startContainer.nodeType === 1 ? range.startContainer : range.startContainer.parentElement;
+  const p = at.closest('p');
+  return p && root.contains(p) ? p : null;
+};
+// A paste into a paragraph (PASTESPLIT.json): the first block loses its type and joins the text
+// before the caret, for a list that is its first item. The last block keeps its type and takes the
+// text after the caret. Blocks between stay whole. The caret ends right after the pasted text.
+const textHome = (block) => {
+  if (!block.matches('ul, ol')) return block;
+  const li = block.lastElementChild;
+  return li.querySelector(':scope > p') || li;
+};
+function splitInto(doc, para, range, nodes, sel) {
+  const tail = doc.createRange();
+  tail.selectNodeContents(para);
+  tail.setStart(range.startContainer, range.startOffset);
+  const rest = [...tail.extractContents().childNodes];
+  const blocks = [...nodes];
+  const first = blocks[0];
+  let joins;
+  if (first.matches('ul, ol')) {
+    const li = first.firstElementChild;
+    joins = [...(li.querySelector(':scope > p') || li).childNodes];
+    li.remove();
+    if (!first.childElementCount) blocks.shift();
+  } else {
+    joins = [...first.childNodes];
+    blocks.shift();
+  }
+  para.append(...joins);
+  para.after(...blocks);
+  const home = blocks.length ? textHome(blocks.at(-1)) : para;
+  const at = home.childNodes.length;
+  home.append(...rest);
+  sel.collapse(home, at);
+}
 export function insertPaste(doc, root, sel, nodes) {
   if (!sel.rangeCount || !nodes.length) return;
   const range = sel.getRangeAt(0);
@@ -113,10 +150,21 @@ export function insertPaste(doc, root, sel, nodes) {
   range.deleteContents();
   if (whole || !root.textContent.trim()) {
     root.replaceChildren(...nodes);
+  } else if (insideParagraph(range, root) && nodes.every((n) => n.matches('p, h1, h2, h3, h4, ul, ol'))) {
+    splitInto(doc, insideParagraph(range, root), range, nodes, sel);
+    return;
   } else if (nodes.length === 1 && nodes[0].tagName === 'P') {
+    const kids = [...nodes[0].childNodes];
     const frag = doc.createDocumentFragment();
-    frag.append(...nodes[0].childNodes);
+    frag.append(...kids);
     range.insertNode(frag);
+    if (kids.length) {
+      range.setStartAfter(kids.at(-1));
+      range.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(range);
+      return;
+    }
   } else {
     let at = range.startContainer.nodeType === 1 ? range.startContainer : range.startContainer.parentElement;
     while (at.parentElement && at.parentElement !== root) at = at.parentElement;

@@ -1,0 +1,9 @@
+{
+ "item": "LINEHIT",
+ "capturedAt": "2026-11-05",
+ "question": "Why does a drag from the middle of a one-row Line grow it?",
+ "how": "a new Line and a new Shape on the empty not-linked page, the cursor read with elementFromPoint in 1px steps across each handle and a real mouse, nothing saved",
+ "handleHit": "each of the 8 handles takes the pointer in a 34px box around its 10px square: on a Shape, from 16 to 18px either side of the edge's point, on all sides",
+ "cause": "a one-row Line is 30.09 high, so the south and north handles' boxes meet over its whole height. On a selected Line, a press at the middle of its width is on the south handle and resizes: 4/5/5/9 becomes 4/5/6/9, 80 high. A press 30 percent along is on the block and moves it, selected or not: 3/4/4/8 becomes 4/5/5/9, tx 60, ty 50. An unselected Line moves from anywhere: 2/3/3/7 becomes 3/4/4/8 from the middle. All drags 60 right, 50 down",
+ "clicks": "a click on a selected Line, Shape or Button keeps it selected, four times over. This corrects CAP-LINEHANDLE.json's note that a second click deselects a Line, one reading on another page"
+}

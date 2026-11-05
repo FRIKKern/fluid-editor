@@ -44,7 +44,7 @@ export function sectionChromeHtml({ first, last, phone = false, blockSelected = 
   // Parts are dropped line by line below, so each part stays on one line.
   return `<div class="sc-outline" data-sc-part="outline"></div>
     <div class="sc-pill" data-sc-part="layers"><button type="button" class="sc-left sc-layers" data-sc="layers" aria-label="Open Layers Panel">${svg(ICON.layers)}</button></div>
-    ${phone || blockSelected ? '' : '<div class="sc-rows" data-sc-part="rows" role="button" aria-label="Drag to change the row count" title="Drag to add or remove rows"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M8 8l4-4 4 4M8 16l4 4 4-4"/></svg></div>'}
+    ${blockSelected ? '' : '<div class="sc-rows" data-sc-part="rows" role="button" aria-label="Drag to change the row count" title="Drag to add or remove rows"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M8 8l4-4 4 4M8 16l4 4 4-4"/></svg></div>'}
     <div class="sc-pill" data-sc-part="add-block"><button type="button" class="sc-left sc-add-block" data-sc="add-block" aria-label="Add Block">${svg(ICON.plus)}<span>Add Block</span></button></div>
     <div class="sc-card" data-sc-part="card">${wide('edit', 'pencil', 'Edit Section')}${phone ? '' : wide('layouts', 'layouts', 'View Layouts', 'sc-unbuilt')}<div class="sc-row">${sq('duplicate', 'duplicate', 'Duplicate Section')}${sq('save', 'heart', 'Save Section')}${sq('up', 'up', 'Move Section Up', first)}${sq('down', 'down', 'Move Section Down', last)}</div>${wide('remove', 'trash', 'Remove Section', 'sc-remove', 'Remove')}</div>
     <button type="button" class="sc-add-section" data-sc="add-section-above" data-sc-part="add-top" aria-label="Add Section">Add Section</button>
@@ -70,6 +70,8 @@ export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = fal
       card: { left: ox + frame.width + 22, top: oy + cardTop },
       'add-top': { left: ox + midX, top: oy + Math.max(sec.top, headerBottom) - 18 },
       'add-bottom': { left: ox + midX, top: oy + sec.bottom - 18 },
+      // The row handle on phones (CAP-S4PHONE.json): 340 from the left of the 428 canvas.
+      ...(grid ? { rows: { left: ox + grid.right - 88, top: oy + grid.bottom - 16 } } : {}),
     };
   }
   const top = Math.max(sec.top, headerBottom);
