@@ -39,7 +39,7 @@ const ICON = {
 // mode 'phone': no Add Block and no View Layouts (the oracle's phone view). blockSelected: only
 // the outline and Layers stay, as on the oracle while a block of the section is selected.
 export function sectionChromeHtml({ first, last, phone = false, blockSelected = false }) {
-  const wide = (act, icon, label, cls = '', text = label) => `<button type="button" class="sc-wide ${cls}" data-sc="${act}" aria-label="${label}"${cls.includes('sc-unbuilt') ? ' data-unbuilt' : ''}>${svg(ICON[icon])}<span>${text}</span></button>`;
+  const wide = (act, icon, label, cls = '', text = label) => `<button type="button" class="sc-wide ${cls}" data-sc="${act}" aria-label="${label}"${cls.includes('sc-unbuilt') ? ' data-unbuilt aria-disabled="true"' : ''}>${svg(ICON[icon])}<span>${text}</span></button>`;
   const sq = (act, icon, label, off) => `<button type="button" class="sc-sq${off ? ' is-off' : ''}" data-sc="${act}" aria-label="${label}" title="${label}">${svg(ICON[icon])}</button>`;
   // Parts are dropped line by line below, so each part stays on one line.
   return `<div class="sc-outline" data-sc-part="outline"></div>

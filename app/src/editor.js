@@ -3147,6 +3147,7 @@ pinPop.addEventListener('keydown', (e) => {
 const addSectionPanel = $('add-section-panel');
 let addSectionAt = null;
 let addSectionCat = 'Intro';
+let addSectionSize = 'medium';
 // Save Section keeps a copy of the section in this browser; Saved in Add a Section lists them
 // (U10). What the oracle's Save Section stores was not measured: it writes outside the page.
 const SAVED_KEY = 'fe-saved-sections';
@@ -3162,13 +3163,14 @@ function saveSection(sid) {
 function renderAddSection() {
   const nav = addSectionPanel.querySelector('.as-nav');
   const top = nav ? nav.scrollTop : 0;
-  addSectionPanel.innerHTML = addSectionPanelHtml(addSectionCat, savedSections());
+  addSectionPanel.innerHTML = addSectionPanelHtml(addSectionCat, savedSections(), addSectionSize);
   addSectionPanel.querySelector('.as-nav').scrollTop = top;
 }
 function openAddSection(sid, below) {
   closeFloating(); closeSectionPanel();
   addSectionAt = { sid, below };
   addSectionCat = 'Intro';
+  addSectionSize = 'medium';
   addSectionPanel.innerHTML = '';
   renderAddSection();
   addSectionPanel.hidden = false;
@@ -3177,10 +3179,11 @@ function openAddSection(sid, below) {
 function closeAddSection() { addSectionPanel.hidden = true; addSectionAt = null; }
 addSectionPanel.addEventListener('click', (e) => {
   if (e.target === addSectionPanel) { closeAddSection(); return; }
-  const a = e.target.closest('[data-as], [data-as-cat], [data-as-saved], [data-as-unsave], .as-item, .as-classic');
+  const a = e.target.closest('[data-as], [data-as-cat], [data-as-view], [data-as-saved], [data-as-unsave], .as-item, .as-classic');
   if (!a) return;
   e.preventDefault();
   if (a.dataset.as === 'close') { closeAddSection(); return; }
+  if (a.dataset.asView) { addSectionSize = a.dataset.asView; renderAddSection(); return; }
   if (a.dataset.asCat) { addSectionCat = a.dataset.asCat; renderAddSection(); return; }
   if (a.dataset.asUnsave) { writeSaved(savedSections().filter((x) => x.id !== a.dataset.asUnsave)); renderAddSection(); return; }
   const insert = (s, label) => {

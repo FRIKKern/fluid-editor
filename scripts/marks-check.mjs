@@ -1,4 +1,4 @@
-// Small marks of the editor chrome against parity/findings/MARKS.json, TOPBAR.json, SECTIONBAR.json, P3.json, PIN.json, TOOLBARS.json, CAP-HEADER.json, S3.json and U5.json, with real input in our editor.
+// Small marks of the editor chrome against parity/findings/MARKS.json, TOPBAR.json, SECTIONBAR.json, P3.json, PIN.json, TOOLBARS.json, CAP-HEADER.json, S3.json, U5.json and CAP-ADDSECTIONVIEWS.json, with real input in our editor.
 // Writes parity/marks-check.json. Usage: npm run marks-check (FLUID_SURFACE=cdp:<port> FLUID_PORT=<port>).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, browser, drag, mouse } from './lib/cmux.mjs';
@@ -1005,6 +1005,61 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const ph = evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)); const pad = (id, d, p) => ({ id, type: 'shape', fill: '#fff', radius: '0', layout: { desktop: { area: d.split('/').map(Number), z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: p.split('/').map(Number), z: 1, justify: 'flex-start', align: 'flex-start' } } }); m.sections = [{ ...m.sections[0], rows: { desktop: 11, mobile: 10 }, blocks: ${JSON.stringify(CP['before add'].areas)}.map(([d, p], n) => pad('b' + n, d, p)) }]; fe.load(m); const sid = fe.model.sections[0].id; fe.addBlock(sid, 'Line'); const s = fe.model.sections[0]; return JSON.stringify({ line: s.blocks.at(-1).layout, rest: s.blocks.slice(0, 3).map((b) => b.layout.mobile.area.join('/')), rows: s.rows.mobile }); })()`);
   add('A new Line on phones', ph.line.desktop.area.join('/') === CP['new line desktop'].block.desktop && ph.line.mobile.area.join('/') === CP['new line phone'].block.mobile && ph.rows === 11 && ph.rest.join() === '1/2/3/10,4/2/6/10,6/2/12/10', JSON.stringify(ph));
   evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
+}
+
+// U10: a blank section, phones, and the picker's views.
+{
+  const near = (got, want, tol = 1) => Array.isArray(got) && got.length === want.length && got.every((v, n) => Math.abs(v - want[n]) <= tol);
+  const AV = JSON.parse(readFileSync(new URL('../parity/findings/CAP-ADDSECTIONVIEWS.json', import.meta.url))), BS = JSON.parse(readFileSync(new URL('../parity/findings/CAP-BLANKSECTION.json', import.meta.url))).reads, PH = JSON.parse(readFileSync(new URL('../parity/findings/CAP-PHONE.json', import.meta.url))).reads['phone hovered section'];
+  goto(S, `${BASE}/index.html`); await pause(1500);
+  const hoverSec = async (n, setTop) => { const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), d = f.contentDocument, sec = d.querySelectorAll('.page-section')[${n}]; ${setTop === undefined ? 'sec.scrollIntoView();' : `d.documentElement.scrollTop += sec.getBoundingClientRect().top - ${setTop};`} const r = sec.getBoundingClientRect(), o = f.getBoundingClientRect(); return JSON.stringify([o.left + r.left + r.width / 2, o.top + Math.max(r.top, 0) + 200]); })()`); mouse(S, 'move', p[0] + 3, p[1] + 3); await pause(80); mouse(S, 'move', p[0], p[1]); await pause(400); };
+  const clickAt = async (x, y) => { mouse(S, 'move', x, y); await pause(40); mouse(S, 'down', x, y, { buttons: 1 }); await pause(30); mouse(S, 'up', x, y); await pause(200); };
+  await hoverSec(2);
+  const below = evalJs(S, `(() => { const r = document.querySelector('[data-sc="add-section-below"]').getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]); })()`);
+  await clickAt(below[0], below[1]);
+  const views = () => evalJs(S, `(() => { const D = document.querySelector('.as-dialog').getBoundingClientRect(), rel = (e) => { const r = e.getBoundingClientRect(); return [r.left - D.left, r.top - D.top, r.width, r.height]; }; return JSON.stringify({ btn: [...document.querySelectorAll('.as-view')].map(rel), on: [...document.querySelectorAll('.as-view')].map((b) => [b.getAttribute('aria-checked'), getComputedStyle(b).backgroundColor]), tile: [...document.querySelectorAll('.as-tile')].map(rel), terms: document.querySelector('.as-terms').textContent }); })()`);
+  let v = views();
+  const VW = AV.views, onAt = (k) => v.on.map((x, n) => (n === k ? x[0] === 'true' && x[1] === VW.onBackground : x[0] === 'false' && x[1] === 'rgba(0, 0, 0, 0)')).every(Boolean);
+  add('Add a Section: three view buttons, Medium on', near(v.btn.flat(), VW.boxes.flat()) && onAt(1), JSON.stringify(v.btn));
+  add('Add a Section: AI Terms apply', v.terms === AV.aiTerms.text, v.terms);
+  const left = (name) => VW.grid[name].lefts.map((x) => x + VW.grid.frameInDialog[0]);
+  const colsRead = () => [...new Set(v.tile.map((t) => t[0]))].sort((a, b) => a - b);
+  add('View Medium: two columns of 414', near(colsRead(), left('medium')) && near([v.tile[0][2], v.tile[0][1]], [VW.grid.medium.width, VW.grid.frameInDialog[1]]), JSON.stringify(v.tile[0]));
+  for (const [name, k] of [['small', 0], ['large', 2], ['medium', 1]]) {
+    const b = evalJs(S, `(() => { const r = document.querySelector('[data-as-view="${name}"]').getBoundingClientRect(); return JSON.stringify([r.left + 18, r.top + 18]); })()`);
+    await clickAt(b[0], b[1]); v = views();
+    add(`View ${name}: its button, its columns`, onAt(k) && near(v.tile[0].slice(2, 3), [VW.grid[name].width]) && near(colsRead().slice(0, VW.grid[name].lefts.length), left(name)), JSON.stringify([colsRead(), v.tile[0]]));
+  }
+  // Add Blank, then both layouts.
+  evalJs(S, `(() => { document.querySelector('[data-as="blank"]').click(); return 'true'; })()`); await pause(400);
+  const grid = (n) => evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument, sec = d.querySelectorAll('.page-section')[${n}], fe = sec.querySelector('.fluid-engine'), c = fe.ownerDocument.defaultView.getComputedStyle(fe); return JSON.stringify({ rows: c.gridTemplateRows.split(' ').map(parseFloat), gap: c.rowGap, h: sec.getBoundingClientRect().height }); })()`);
+  let g = grid(3);
+  add('Blank on desktop: 8 rows of 30.1', g.rows.length === 8 && Math.abs(g.rows[0] - 30.1) < 0.2 && g.gap === BS.added.section.rowGap && near([g.h], [BS.added.section.box[3]]), JSON.stringify(g));
+  evalJs(S, `(() => { fe.select(null); fe.setBp('mobile'); return 'true'; })()`); await pause(400);
+  g = grid(3);
+  add('Blank on phones: 2 rows of 24', g.rows.length === 2 && near(g.rows, [24, 24], 0.2) && g.gap === BS.phone.section.rowGap && near([g.h], [BS.phone.section.box[3]]), JSON.stringify(g));
+  // Every section on phones, the section 0 bottom among them (ours 995 against 992 in an older reading).
+  const phoneH = evalJs(S, `(() => JSON.stringify([...document.getElementById('site-frame').contentDocument.querySelectorAll('.page-section')].map((e) => e.getBoundingClientRect().height)))()`);
+  add('Phone: all nine section heights', near(phoneH, BS.phone.sel.map((x) => x.box[3])), JSON.stringify(phoneH));
+  // The hovered section on phones, relative to its top (CAP-PHONE.json).
+  await hoverSec(2, PH.section.box[1]);
+  const box = (sel) => evalJs(S, `(() => { const e = [...document.querySelectorAll(${JSON.stringify(sel)})].find((x) => x.getBoundingClientRect().width > 0); if (!e) return JSON.stringify(null); const r = e.getBoundingClientRect(); return JSON.stringify([r.left, r.top, r.width, r.height]); })()`);
+  const controls = PH.controls.filter((c) => c.box[1] > 55), secTop = 55 + PH.section.box[1];
+  const want = (label, nth = 0) => controls.filter((c) => c.label === label)[nth].box;
+  const secNow = evalJs(S, `(() => { const f = document.getElementById('site-frame'), r = f.contentDocument.querySelectorAll('.page-section')[2].getBoundingClientRect(); return JSON.stringify(f.getBoundingClientRect().top + r.top); })()`);
+  const same = (name, sel, w, tol = 2) => { const b = box(sel); add(`Phone section: ${name}`, !!b && near([b[0], b[1] - secNow, b[2], b[3]], [w[0], w[1] - secTop, w[2], w[3]], tol), JSON.stringify([b, secNow, w, secTop])); };
+  same('Add Section at the top', '[data-sc="add-section-above"]', want('Add Section', 0));
+  same('Add Section at the bottom', '[data-sc="add-section-below"]', want('Add Section', 1));
+  same('Layers', '[data-sc="layers"]', want('Open Layers Panel'));
+  same('Edit Section', '[data-sc="edit"]', want('Open Section Settings'));
+  same('Duplicate', '[data-sc="duplicate"]', want('Duplicate Section'));
+  same('Save', '[data-sc="save"]', want('Save Section'));
+  same('Move Up', '[data-sc="up"]', want('Move Section Up'));
+  same('Move Down', '[data-sc="down"]', want('Move Section Down'));
+  same('Remove', '[data-sc="remove"]', want('Remove Section'));
+  const labels = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-chrome [aria-label]')].filter((x) => x.getBoundingClientRect().width > 0).map((x) => x.getAttribute('aria-label'))))()`);
+  add('Phone section: no Add Block, no View Layouts', !labels.includes('Add Block') && !labels.includes('View Layouts'), labels.join());
+  evalJs(S, `(() => { fe.setBp('desktop'); localStorage.clear(); return 'true'; })()`);
 }
 
 console.log(`Marks: ${pass} of ${total} checks match`);
