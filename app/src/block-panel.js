@@ -6,6 +6,7 @@
 // oracle shows them but do nothing yet; the inventory counts them as missing.
 import { SHAPES, shapeById } from './shapes.js';
 import { escapeHtml as esc, BLEND_MODES } from './render.js';
+import { linkKind, linkSummary, parseMail, parsePhone } from './link-kinds.js';
 
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
 
@@ -15,15 +16,16 @@ export const DESIGN_FIELDS = [['opacity', 'Opacity', '%', 0, 100], ['rotate', 'R
 // Content tab of a button block (parity/findings/BUTTONEDIT.json): Text, a 276 by 44 field
 // with the placeholder Learn More, and Link, an Attach link button that turns into the link
 // with Edit, Copy and Remove Link once one is set.
-function linkField(href) {
+function linkField(href, pages) {
+  const sum = href ? linkSummary(href, pages) : null;
   const link = href
-    ? `<div class="bp-link"><button type="button" class="bp-link-url" data-link="edit" aria-label="${esc(href)}">${esc(href)}</button><div class="bp-link-actions"><button type="button" data-link="edit">Edit</button><button type="button" data-link="copy">Copy</button><button type="button" class="bp-link-remove" data-link="remove">Remove Link</button></div></div>`
+    ? `<div class="bp-link"><button type="button" class="bp-link-url" data-link="edit" aria-label="${esc(href)}">${LINK_ICONS[sum.icon]}<span class="bp-link-name">${esc(sum.title)}</span>${sum.sub ? `<span class="bp-link-sub">${esc(sum.sub)}</span>` : ''}</button><div class="bp-link-actions"><button type="button" data-link="edit">Edit</button><button type="button" data-link="copy">Copy</button><button type="button" class="bp-link-remove" data-link="remove">Remove Link</button></div></div>`
     : '<button type="button" class="bp-attach" data-link="open">Attach link</button>';
   return `<div class="bp-field"><span class="bp-flabel">Link</span>${link}</div>`;
 }
 function buttonContentHtml(c) {
   return `<div class="bp-field"><span class="bp-flabel">Text</span><input class="bp-text" type="text" aria-label="Text" placeholder="Learn More" data-content="label" value="${esc(c.label || '')}"></div>`
-    + linkField(c.href);
+    + linkField(c.href, c.pages);
 }
 
 // Content tab of an image block, in the oracle's order (parity/findings/IMAGEMODES.json): the
@@ -33,11 +35,11 @@ function buttonContentHtml(c) {
 const addBox = (title, note, act) => `<button type="button" class="bp-add-box"${act ? ` data-image-act="${act}"` : ' disabled data-unbuilt title="Not built yet"'} aria-label="${title}"><span class="bp-add-plus" aria-hidden="true">${pi('<path d="M12 5v14M5 12h14"/>')}</span><strong>${title}</strong><small>${note}</small></button>`;
 function imageContentHtml(c) {
   // A new image (MEDIAEMPTY.json): Add an Image takes a picture from this computer, nothing is uploaded.
-  if (c.empty) return `${addBox('Add an Image', '20 MB max', 'replace')}<input class="bp-pic-file" type="file" accept="image/*" hidden data-image-file>${linkField(c.href)}`;
+  if (c.empty) return `${addBox('Add an Image', '20 MB max', 'replace')}<input class="bp-pic-file" type="file" accept="image/*" hidden data-image-file>${linkField(c.href, c.pages)}`;
   const text = (key, label, value) => `<div class="bp-field"><span class="bp-flabel">${label}</span><input class="bp-text" type="text" aria-label="${label}" data-content="${key}" value="${esc(value || '')}"></div>`;
   const pic = c.src ? `<img class="bp-pic-img" alt="" src="${esc(c.src)}">` : '';
   return `<div class="bp-pic">${pic}<div class="bp-pic-actions"><button type="button" data-image-act="replace">Replace</button><button type="button" data-unbuilt disabled title="Not built yet">Edit</button><button type="button" class="bp-link-remove" data-image-act="remove"${c.src ? '' : ' disabled'}>Remove</button></div><input class="bp-pic-file" type="file" accept="image/*" hidden data-image-file></div>`
-    + linkField(c.href)
+    + linkField(c.href, c.pages)
     + text('filename', 'Alternate Filename', c.filename)
     + text('alt', 'Image alt text', c.alt);
 }
@@ -134,22 +136,63 @@ function accordionDesignHtml(c, open, d) {
 }
 const row2 = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
 
-// The link editor popover (BUTTONEDIT.json, the gap review's button-link state): a URL tab, the
-// field Enter link, search, or add files, Open link in new tab and Clear selected page; the site
-// pages lie over the box while the field is in use, as name and path, grouped by navigation
-// (parity/findings/LINKBOX.json), so a click reaches the box only once a link is entered.
-export function linkPopoverHtml(href, groups, newTab = false) {
-  const pages = groups.filter((g) => g.pages.length).map((g) => `<div class="lk-set"><div class="lk-group">${esc(g.name)}</div>${g.pages.map((pg) => `<button type="button" class="lk-page" data-href="${esc(pg.href)}" aria-label="${esc(`${pg.label}${pg.href}`)}"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 5.5 6.5 1H14v16H2z"/></svg><span>${esc(pg.label)}</span><span class="lk-path">${esc(pg.href)}</span></button>`).join('')}</div>`).join('');
-  return `<div class="lk-tabs"><button type="button" class="lk-tab is-on">URL</button></div>`
-    + `<div class="lk-row"><input class="lk-input" type="text" placeholder="Enter link, search, or add files" value="${esc(href || '')}"><button type="button" class="lk-clear" aria-label="Clear selected page">×</button></div>`
-    + `<label class="lk-newtab"><input type="checkbox" class="lk-box"${newTab ? ' checked' : ''}> Open link in new tab</label>`
+// The link editor popover (BUTTONEDIT.json, the gap review's button-link state). A pill names the
+// kind of link and opens its menu: URL, File, Email, Phone, Learn more (parity/findings/LINKMENU.json).
+// File stays off: file links need an upload (decision 0005). URL has the field Enter link, search,
+// or add files, Open link in new tab and Clear selected page; the site pages lie over the box while
+// the field is in use, as name and path, grouped by navigation (parity/findings/LINKBOX.json), so a
+// click reaches the box only once a link is entered.
+const svgIcon = (d) => `<svg class="lk-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const LINK_ICONS = {
+  url: svgIcon('<circle cx="10" cy="10" r="7.5"/><path d="M2.5 10h15M10 2.5c2.2 2.2 3.2 4.7 3.2 7.5s-1 5.3-3.2 7.5c-2.2-2.2-3.2-4.7-3.2-7.5s1-5.3 3.2-7.5z"/>'),
+  file: svgIcon('<rect x="2" y="4" width="12" height="9"/><path d="M5 15.5h13v-9M2 11l3.5-3 3 2.5 2-1.5 3.5 3"/>'),
+  email: svgIcon('<rect x="2.5" y="4.5" width="15" height="11"/><path d="M3 5l7 6 7-6"/>'),
+  phone: svgIcon('<path d="M4 3l3 .5L8.500 7l-2 1.500c.8 2 2.500 3.700 4.500 4.500l1.500-2 3.500 1.500.5 3c-.3 1-1.200 1.500-2 1.500C8.500 17 3 11.500 2.500 5c0-.8.5-1.700 1.500-2z"/>'),
+  page: svgIcon('<path d="M8 4h5v12H7V6.5zM8 4v2.5H5.5"/>'),
+  info: '<svg class="lk-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><circle cx="7" cy="7" r="6"/><path d="M7 6v4M7 4v1"/></svg>',
+};
+const PAGE_ROW_ICON = '<svg width="16" height="18" viewBox="0 0 16 18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 5.5 6.5 1H14v16H2z"/></svg>';
+const LINK_KINDS = [['url', 'URL'], ['file', 'File'], ['email', 'Email'], ['phone', 'Phone']];
+const CHEVRON = '<svg class="lk-chevron" width="12" height="8" viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M1 1.5l5 5 5-5"/></svg>';
+const CHECK = '<svg class="lk-check" width="14" height="12" viewBox="0 0 14 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M1 6.5l4 4 8-9"/></svg>';
+function linkHeadHtml(kind) {
+  const name = LINK_KINDS.find(([k]) => k === kind)[1];
+  const rows = LINK_KINDS.map(([k, label]) => `<button type="button" class="lk-kind" data-kind="${k}"${k === 'file' ? ' disabled data-unbuilt' : ''}>${LINK_ICONS[k]}<span>${label}</span>${k === kind ? CHECK : ''}</button>`).join('');
+  return `<div class="lk-head"><button type="button" class="lk-pill" aria-expanded="false">${LINK_ICONS[kind]}<span>${name}</span>${CHEVRON}</button>`
+    + `<div class="lk-menu" hidden>${rows}<div class="lk-sep" role="separator"></div><button type="button" class="lk-learn">${LINK_ICONS.info}<span>Learn more</span></button></div></div>`;
+}
+function urlBodyHtml(href, groups, newTab) {
+  const pages = groups.filter((g) => g.pages.length).map((g) => `<div class="lk-set"><div class="lk-group">${esc(g.name)}</div>${g.pages.map((pg) => `<button type="button" class="lk-page" data-href="${esc(pg.href)}" aria-label="${esc(`${pg.label}${pg.href}`)}">${PAGE_ROW_ICON}<span>${esc(pg.label)}</span><span class="lk-path">${esc(pg.href)}</span></button>`).join('')}</div>`).join('');
+  return `<div class="lk-row"><input class="lk-input" type="text" placeholder="Enter link, search, or add files" value="${esc(href || '')}"><button type="button" class="lk-clear" aria-label="Clear selected page">×</button></div>`
+    + `<label class="lk-newtab">Open link in new tab<input type="checkbox" class="lk-box"${newTab ? ' checked' : ''}></label>`
     + `<div class="lk-pages">${pages}</div>`;
 }
+function emailBodyHtml(href) {
+  const m = parseMail(href);
+  const field = (f, label, ph = '') => `<div class="lk-g" data-g="${f}"${(f === 'cc' || f === 'bcc') && !m[f] ? ' hidden' : ''}><div class="lk-flabel">${label}</div><div class="lk-row"><input data-f="${f}" type="text" aria-label="${label}"${ph ? ` placeholder="${ph}"` : ''} value="${esc(m[f])}"><button type="button" class="lk-clear" aria-label="Clear"${m[f] ? '' : ' hidden'}>×</button></div></div>`;
+  const adds = ['cc', 'bcc'].filter((f) => !m[f]);
+  return `<div class="lk-mail">${field('to', 'To', 'Enter email address')}`
+    + `<div class="lk-adds"${adds.length ? '' : ' hidden'}>${adds.map((f) => `<button type="button" data-add="${f}">${f.toUpperCase()}</button>`).join('')}</div>`
+    + `${field('cc', 'CC')}${field('bcc', 'BCC')}`
+    + `<div class="lk-g" data-g="subject"><div class="lk-flabel">Subject</div><div class="lk-row"><input data-f="subject" type="text" aria-label="Subject" value="${esc(m.subject)}"></div></div>`
+    + `<div class="lk-g" data-g="body"><div class="lk-flabel">Body</div><div class="lk-row lk-area"><textarea data-f="body" aria-label="Body">${esc(m.body)}</textarea></div></div></div>`;
+}
+function phoneBodyHtml(href) {
+  const p = parsePhone(href);
+  const radio = (mode, label) => `<button type="button" role="radio" class="lk-radio" data-mode="${mode}" aria-checked="${p.mode === mode}">${label}</button>`;
+  return `<div class="lk-row"><input data-f="phone" type="text" placeholder="Enter phone number" value="${esc(p.number)}"><button type="button" class="lk-clear" aria-label="Clear">×</button></div>`
+    + `<div class="lk-seg" role="radiogroup">${radio('call', 'Call')}${radio('text', 'Text')}</div>`;
+}
+export function linkPopoverHtml(href, groups, newTab = false, kind = linkKind(href)) {
+  const body = kind === 'email' ? emailBodyHtml(href) : kind === 'phone' ? phoneBodyHtml(href) : urlBodyHtml(href, groups, newTab);
+  return linkHeadHtml(kind) + body;
+}
 
-// One measurement: the popover sat 342px left of the panel and 61px above the Attach link button.
-export function linkPopoverPosition(panel, attach, stage) {
+// The popover is centred on the control it opened from, whatever its height: URL 61px above the
+// Attach link button, Phone 65, Email 217 (parity/findings/LINKMENU.json), and 342px left of the panel.
+export function linkPopoverPosition(panel, attach, stage, height = 167) {
   const left = Math.max(8, panel.left - stage.left - 342);
-  const top = Math.max(8, Math.min(attach.top - stage.top - 61, stage.height - 175));
+  const top = Math.max(8, Math.min(attach.top - stage.top - Math.floor((height - attach.height) / 2), stage.height - height - 8));
   return { left, top };
 }
 

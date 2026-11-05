@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 603,
+  "pass": 625,
   "known": [
     "group south by 4",
     "hold phone, full width -24,12",
@@ -12,7 +12,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 612,
+  "total": 634,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -2694,7 +2694,95 @@
       "diffs": []
     },
     {
-      "name": "E7 text: reopened ticked, unticking removes it",
+      "name": "E7 text: reopened ticked, the first Escape takes the list, unticking removes it",
+      "diffs": []
+    },
+    {
+      "name": "E7 the pill opens the menu, File off",
+      "diffs": []
+    },
+    {
+      "name": "E7 the URL form stays centred on Attach link",
+      "diffs": []
+    },
+    {
+      "name": "E7 Email: 320 by 479, 217 above, focus on the pill",
+      "diffs": []
+    },
+    {
+      "name": "E7 Email: the href as the oracle writes it",
+      "diffs": []
+    },
+    {
+      "name": "E7 Email: CC and BCC go first, CC takes the focus",
+      "diffs": []
+    },
+    {
+      "name": "E7 Email: the panel row",
+      "diffs": []
+    },
+    {
+      "name": "E7 Email: three undo steps",
+      "diffs": []
+    },
+    {
+      "name": "E7 Email: reopened with the fields filled",
+      "diffs": []
+    },
+    {
+      "name": "E7 Email: no To still writes",
+      "diffs": []
+    },
+    {
+      "name": "E7 Phone: another kind starts empty, Call on",
+      "diffs": []
+    },
+    {
+      "name": "E7 Phone: digits and a leading plus",
+      "diffs": []
+    },
+    {
+      "name": "E7 Phone: Enter closes, the row, reopened",
+      "diffs": []
+    },
+    {
+      "name": "E7 back on URL: empty, box on, target from the old link",
+      "diffs": []
+    },
+    {
+      "name": "E7 an empty Phone and Enter goes to URL",
+      "diffs": []
+    },
+    {
+      "name": "E7 a typed domain gets https, the row shows it alone",
+      "diffs": []
+    },
+    {
+      "name": "E7 typed without Enter counts at the close, after the list goes",
+      "diffs": []
+    },
+    {
+      "name": "E7 Learn more closes the editor",
+      "diffs": []
+    },
+    {
+      "name": "E7 a page in the panel row",
+      "diffs": []
+    },
+    {
+      "name": "E7 text: Email waits for the close",
+      "diffs": []
+    },
+    {
+      "name": "E7 text: reopened as Email; a number and Enter writes tel",
+      "diffs": []
+    },
+    {
+      "name": "E7 text: another kind and a close takes the link",
+      "diffs": []
+    },
+    {
+      "name": "E7 text: typed without Enter counts at the close",
       "diffs": []
     },
     {
