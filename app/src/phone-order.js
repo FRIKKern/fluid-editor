@@ -25,3 +25,26 @@ export function phoneOrder(blocks) {
   }
   return out;
 }
+
+// A new block on a phone (parity/findings/CAP-NEWORDER*.json). `blocks` are in phone order; returns
+// the place the new block takes. It lands at the top left on desktop, so only blocks that start
+// there compare by size: same size, it goes after that block and what sits inside it; inside bigger
+// ones, right after the smallest; around smaller ones, before the first. Anything else goes after
+// the blocks at or above its place. Two Lines of the same size are not ruled: they flip on the oracle.
+export function newBlockSlot(blocks, w, h, place = [1, 2]) {
+  const key = (a) => a[0] * 100 + a[1];
+  const size = (b) => { const a = b.layout.desktop.area; return [a[3] - a[1], a[2] - a[0]]; };
+  const here = (b) => key(b.layout.desktop.area) === key(place);
+  const fits = (b, W, H) => { const [x, y] = size(b); return x <= W && y <= H && (x < W || y < H); };
+  const same = blocks.flatMap((b, k) => { const [x, y] = size(b); return here(b) && x === w && y === h ? [k] : []; });
+  if (same.length) {
+    let k = same.at(-1) + 1;
+    while (k < blocks.length && here(blocks[k]) && fits(blocks[k], w, h)) k++;
+    return k;
+  }
+  const bigger = blocks.flatMap((b, k) => { const [x, y] = size(b); return here(b) && x >= w && y >= h ? [[x * y, k]] : []; });
+  if (bigger.length) return bigger.reduce((best, c) => (c[0] < best[0] ? c : best))[1] + 1;
+  const inside = blocks.findIndex((b) => here(b) && fits(b, w, h));
+  if (inside >= 0) return inside;
+  return blocks.reduce((last, b, k) => (key(b.layout.desktop.area) <= key(place) ? k + 1 : last), 0);
+}

@@ -11,7 +11,7 @@
 //   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clickAt x y | dragAt x y x2 y2 (window pixels) |
 //   hold i k part dx dy [mods] | holdRaw i k part dx dy | shiftClick i k | move dx dy | release [home] | drag i k part dx dy {pointerType}
 //   touch i k part dx dy {holdMs} | pasteMid i k html | undoWalk name [n] | shot name
-//   read name { block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], textH: [i,k], checks: true, sel: selector, layers: i, controls: true, thin: true }
+//   read name { block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], textH: [i,k], checks: true, sel: selector, layers: i, controls: true, thin: true }
 // k is a block's place in its section, or "new" for the block `add` made. part is "middle", a handle, or fractions [x, y] of the block.
 // A recipe that changes content names its page ({ page: 'Gestures Probe' }, 0006). Nothing is saved on any page.
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
@@ -100,6 +100,9 @@ function read(what) {
   }
   if (what.areas !== undefined) {
     out.areas = evalJs(S, `(() => { ${FRAME} const fe = d.querySelectorAll('main#page .fluid-engine')[${what.areas}]; return JSON.stringify([...fe.querySelectorAll(':scope > .fe-block')].map((b) => { const st = b.querySelector('style[data-test="fluid-engine-grid-css"]'); const [m, dk] = st ? st.textContent.split('@media (min-width: 768px)') : ['', '']; const a = (t) => (t.match(/grid-area:\\s*([\\d/ -]+)/) || [])[1]?.trim(); return [a(dk), a(m)]; })); })()`);
+  }
+  if (what.stack !== undefined) {
+    out.stack = evalJs(S, `(() => { ${FRAME} const fe = d.querySelectorAll('main#page .fluid-engine')[${what.stack}]; return JSON.stringify([...fe.querySelectorAll(':scope > .fe-block')].map((b) => { const st = b.querySelector('style[data-test="fluid-engine-grid-css"]'); const [m, dk] = st ? st.textContent.split('@media (min-width: 768px)') : ['', '']; const a = (t) => (t.match(/grid-area:\\s*([\\d/ -]+)/) || [])[1]?.trim(); const z = (t) => (t.match(/z-index:\\s*(\\d+)/) || [])[1]; return { id: b.dataset.blockId?.slice(-5), type: (b.querySelector('.sqs-block')?.className.match(/sqs-block-(?!alignment|content|html-)([a-z-]+)/) || [])[1], desktop: a(dk), phone: a(m), z: [z(dk), z(m)] }; })); })()`);
   }
   if (what.sel) {
     out.sel = evalJs(S, `(() => { ${FRAME} ${round} ${CSS} ${cls} return JSON.stringify([...d.querySelectorAll(${JSON.stringify(what.sel)})].filter((e) => e.getBoundingClientRect().width > 0).slice(0, 30).map((e) => ({ tag: e.tagName.toLowerCase(), cls: cls(e), box: box(e), css: css(W.getComputedStyle(e)) }))); })()`);
