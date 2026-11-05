@@ -16,6 +16,8 @@ import { addSectionPanelHtml, blankSection } from './add-section.js';
 import { SUB as SS_SUB, siteStylesHtml, stylePopoverHtml, stylePopoverPosition, packFontLinks } from './site-styles.js';
 import { siteStylesHead, baseSize } from './site-style-packs.js';
 import { demoModel } from './demo.js';
+import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
+import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
 
 const KEY = 'fluid-editor:model:v2';
 const $ = (id) => document.getElementById(id);
@@ -1371,7 +1373,14 @@ let designOpen = null;
 let designTab = 'Design';
 let blendOpen = false;
 let bstyleOpen = false;
-let animPicker = false;
+// The Animation tab (T15): which view, for which row of b.animations. i is null while a new row
+// has no preset yet: nothing is added until a tile or Start blank is pressed.
+const ANIM_LIST = { view: 'list', i: null, trigger: 'hover', tab: null, menu: false };
+let anim = { ...ANIM_LIST };
+let animClip = null; // copied rows
+let animPosed = null; // the block held in the pose of the End, Start or Range tab
+let animPlaying = false;
+let animPlay = null; // after the next draw: 'tiles' or 'square'
 let embedData = false;
 let accView = null; // 'acc-item:<n>' or 'acc-dividers'
 const blockPanel = $('block-panel');
@@ -1381,7 +1390,7 @@ function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
-  if (!b) { animPicker = false; blendOpen = false; bstyleOpen = false; embedData = false; accView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; embedData = false; accView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'accordion' || (accView?.startsWith('acc-item:') && !b.items[Number(accView.slice(9))])) accView = null; // undo can take the item away
   const content = b.type === 'button' ? { label: b.label, href: b.href, pages: siteLinkGroups() } : b.type === 'image' ? { src: b.src, href: b.href, pages: siteLinkGroups(), alt: b.alt, filename: b.filename, empty: !!b.empty }
     : b.type === 'video' && !b.html ? { kind: 'video', description: b.description, video: b.video }
@@ -1393,7 +1402,7 @@ function renderBlockPanel() {
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
-  if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
+  if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || '#ffffff' } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', corner: parseFloat(b.radius) || 0, empty: !!b.empty } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
@@ -1401,8 +1410,11 @@ function renderBlockPanel() {
   const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
   const buttonView = b.type !== 'button' ? null : bp === 'mobile' && b.btnMobile ? b.btnMobile : { fit: b.fit, align: b.halign };
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
-  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
+  if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, b.animations?.[anim.i], anim.menu) : animEditorHtml(b.animations[anim.i], anim.tab);
   blockPanel.style.width = b.type === 'code' && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
+  syncAnimView(b);
   // An item's view holds that item open on the canvas (ACCORDION.json).
   if (b.type === 'accordion') showAccordionItem(b);
   placeBlockPanel();
@@ -1410,9 +1422,152 @@ function renderBlockPanel() {
   if (blockPanel.dataset.bid !== b.id) { blockPanel.dataset.bid = b.id; blockPanel.scrollTop = 0; } // another block starts at the top
   if (shapeUi) renderShapePop(); // undo can change what an open popup shows
 }
+function syncAnimView(b) {
+  const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' ? b.animations?.[anim.i] : null, key = a && poseKey(anim.tab);
+  if (animPosed && (animPosed !== el || !key)) { releasePose(animPosed); animPosed = null; }
+  if (key && el && !animPlaying) { holdPose(el, a[key]); animPosed = el; }
+  const play = animPlay;
+  animPlay = null;
+  if (play === 'tiles' && b) blockPanel.querySelectorAll('.an-tile[data-anim-tile]').forEach((t) => { const p = PRESETS[anim.trigger].find((x) => x.id === t.dataset.animTile); if (p) playTile(t.querySelector('.an-sq'), newAnimation(anim.trigger, p.id)); });
+  if (play === 'square' && a) { const q = blockPanel.querySelector('.an-stage .an-sq'); if (q) playTile(q, a); }
+}
+function animRows() { return B(sel.sid, sel.bid).animations || []; }
+function animEdit(label, change) {
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  b.animations = [...(b.animations || [])];
+  change(b.animations);
+  if (!b.animations.length) delete b.animations;
+  renderSectionDom(sel.sid);
+  commit(before, label);
+  renderBlockPanel();
+}
+// Preview plays on the block itself. The tab's pose comes back when it ends.
+function animPreview(a) {
+  const el = blockEl(sel.bid);
+  if (!el || !a) return;
+  animPlaying = true;
+  playPreview(el, a, () => { animPlaying = false; if (sel && designOpen === sel.bid) syncAnimView(B(sel.sid, sel.bid)); });
+}
+function openAnimOptions(mode, target, extra = {}) {
+  shapeUi = { kind: 'animopts', bid: sel.bid, custom: null, mode, rect: target.getBoundingClientRect(), ...extra };
+  renderShapePop();
+  shapePop.hidden = false;
+}
+// A press on anything else in the tab ends a preview that is playing.
+function animStopPreview() {
+  if (!animPlaying) return;
+  animPlaying = false;
+  const el = sel && blockEl(sel.bid);
+  if (el) releasePose(el);
+}
+function animAction(el) {
+  if (el.dataset.anim !== 'play') animStopPreview();
+  const act = el.dataset.anim, i = el.dataset.i == null ? null : Number(el.dataset.i), rows = animRows();
+  if (act === 'add') { anim = { ...ANIM_LIST, view: 'picker' }; animPlay = 'tiles'; }
+  else if (act === 'back') {
+    if (anim.view === 'editor') { anim = { ...anim, view: 'picker', tab: anim.tab }; animPlay = 'tiles'; }
+    else anim = { ...ANIM_LIST, tab: anim.tab };
+  } else if (act === 'open') {
+    // A row that left its preset opens on its values, one on a preset opens the picker.
+    const a = rows[i];
+    anim = { ...ANIM_LIST, view: a.preset === 'custom' ? 'editor' : 'picker', i, trigger: a.trigger, tab: TABS[a.trigger].includes(anim.tab) ? anim.tab : TABS[a.trigger][0] };
+    if (anim.view === 'picker') animPlay = 'tiles';
+  } else if (act === 'remove') { animEdit('Remove animation', (l) => { l.splice(i, 1); }); return; }
+  else if (act === 'play') { animPreview(rows[i ?? anim.i]); return; }
+  else if (act === 'menu') anim.menu = !anim.menu;
+  else if (act === 'trigger') { anim = { ...anim, trigger: el.dataset.v, menu: false }; animPlay = 'tiles'; }
+  else if (act === 'gear') { anim = { ...anim, view: 'editor', tab: TABS[anim.trigger].includes(anim.tab) ? anim.tab : TABS[anim.trigger][0] }; }
+  else if (act === 'blank') {
+    const a = newAnimation(anim.trigger);
+    const at = anim.i ?? rows.length;
+    animEdit('Start blank', (l) => { l[at] = a; });
+    anim = { ...anim, view: 'editor', i: at, menu: false, tab: TABS[a.trigger].includes(anim.tab) ? anim.tab : TABS[a.trigger][0] };
+  } else if (act === 'tab') anim.tab = el.dataset.v;
+  else if (act === 'sel') { openAnimOptions('sel', el, { key: el.dataset.key }); return; }
+  else if (act === 'listacts' || act === 'rowacts') { openAnimOptions(act === 'listacts' ? 'list' : 'row', el, { i }); return; }
+  else if (act === 'edge') { animSet(el.dataset.key, el.dataset.v); return; }
+  else if (act === 'reset') { const k = el.dataset.key; animSet(k, k.includes(':') ? REST[parseInt(k.split(':')[1], 10)] : defaultOf(animRows()[anim.i], k)); return; }
+  renderBlockPanel();
+}
+// A tile: a new row, or this row takes the preset. It plays at once and the tile stays chosen.
+function animPick(id) {
+  if (id === 'custom') return;
+  const a = newAnimation(anim.trigger, id), at = anim.i ?? animRows().length;
+  anim = { ...anim, i: at, menu: false };
+  animEdit(`Animation ${id}`, (l) => { l[at] = a; });
+  animPreview(a);
+}
+function animWrite(a, key, v) {
+  a.preset = 'custom';
+  if (key.includes(':')) { const [k, n] = key.split(':'); a[k] = [...a[k]]; a[k][parseInt(n, 10)] = v; return; }
+  a[key] = v;
+  if (key === 'ease' && v === 'Spring') a.bounce ??= '0.3';
+  if (key === 'ease' && v === 'Custom') a.custom ??= '0, 0, 1, 1';
+}
+function animSet(key, v) {
+  animPlay = 'square';
+  animEdit(`Animation ${key}`, (l) => { l[anim.i] = { ...l[anim.i] }; animWrite(l[anim.i], key, v); });
+}
+blockPanel.addEventListener('change', (e) => {
+  const input = e.target.closest('[data-afield]');
+  if (!input || !sel || anim.i == null) return;
+  const a = animRows()[anim.i], key = input.dataset.afield;
+  if (key === 'snap') { animSet(key, input.checked); return; }
+  if (key === 'custom') { const c = input.value.split(',').map(Number); if (c.length === 4 && c.every(Number.isFinite)) animSet(key, c.join(', ')); else { input.blur(); renderBlockPanel(); } return; }
+  const cur = key.includes(':') ? a[key.split(':')[0]][parseInt(key.split(':')[1], 10)] : a[key];
+  const v = typed(input.value, cur);
+  input.blur();
+  if (v == null || v === cur) { renderBlockPanel(); return; }
+  animSet(key, v);
+});
+blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('[data-afield]')) e.target.blur(); });
+// A drag on a field's edge moves its value, one undo step when let go. A click does nothing.
+blockPanel.addEventListener('pointerdown', (e) => {
+  const hit = e.target.closest('.sc-hit');
+  if (!hit || !sel) return;
+  e.preventDefault();
+  const box = hit.closest('.sc-box'), input = box.querySelector('input'), x0 = e.clientX, start = input.value, before = JSON.stringify(model), b = B(sel.sid, sel.bid);
+  const key = input.dataset.afield, dk = input.dataset.design;
+  let moved = false;
+  const move = (ev) => {
+    const dx = ev.clientX - x0;
+    if (!moved && !dx) return;
+    moved = true;
+    if (key) {
+      const v = scrubbed(start, dx, key);
+      input.value = v;
+      b.animations[anim.i] = { ...b.animations[anim.i] };
+      animWrite(b.animations[anim.i], key, v);
+      syncAnimView(b);
+    } else {
+      const f = DESIGN_FIELDS.find((x) => x[0] === dk), v = Math.min(f[4], Math.max(f[3], Math.round((parseFloat(start) + dx * 0.4) * 10) / 10)), bag = designBag(bp);
+      input.value = v;
+      b[bag] = { ...(b[bag] || {}), [dk]: v };
+      renderSectionDom(sel.sid);
+    }
+  };
+  const up = () => {
+    removeEventListener('pointermove', move);
+    removeEventListener('pointerup', up);
+    if (!moved) return;
+    if (dk) { input.dispatchEvent(new Event('change', { bubbles: true })); return; }
+    commit(before, `Animation ${key}`);
+    animPlay = 'square';
+    renderBlockPanel();
+  };
+  addEventListener('pointermove', move);
+  addEventListener('pointerup', up);
+});
+blockPanel.addEventListener('mouseover', (e) => {
+  const t = e.target.closest?.('.an-tile[data-anim-tile]');
+  if (!t || t.contains(e.relatedTarget)) return;
+  const p = PRESETS[anim.trigger].find((x) => x.id === t.dataset.animTile);
+  if (p) playTile(t.querySelector('.an-sq'), newAnimation(anim.trigger, p.id));
+});
 let panelMoved = null; // the block whose panel was dragged; it stays where it was dropped
 function placeBlockPanel() {
   if (!designOpen || !sel || panelMoved === designOpen) return;
+  if (animPlaying || animPosed) return; // an animation moves the block, not its panel
   const el = blockEl(sel.bid);
   if (!el) return;
   const p = blockPanelPosition(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), blockPanel.offsetWidth || 320);
@@ -1422,8 +1577,13 @@ function placeBlockPanel() {
   blockPanel.style.top = `${p.top}px`;
 }
 blockPanel.addEventListener('click', (e) => {
+  if (shapeUi?.kind === 'animopts') closeShapePop();
+  const rd = e.target.closest('[data-design-reset]');
+  if (rd && sel) { e.preventDefault(); const input = rd.parentElement.querySelector('input[data-design]'); input.value = DESIGN_DEFAULTS[rd.dataset.designReset]; input.dispatchEvent(new Event('change', { bubbles: true })); return; }
   const an = e.target.closest('[data-anim]');
-  if (an) { animPicker = an.dataset.anim === 'add'; renderBlockPanel(); return; }
+  if (an && sel) { e.preventDefault(); animAction(an); return; }
+  const tile = e.target.closest('[data-anim-tile]');
+  if (tile && sel) { e.preventDefault(); animPick(tile.dataset.animTile); return; }
   if (e.target.closest('[data-blend-toggle]')) { blendOpen = !blendOpen; renderBlockPanel(); return; }
   const ds = e.target.closest('[data-dset]');
   if (ds && sel) { setDesign(ds.dataset.dset, ds.dataset.v || null); return; }
@@ -1800,8 +1960,12 @@ function renderSectionPop() {
 function renderShapePop() {
   if (shapeUi.section) { renderSectionPop(); return; }
   const b = B(sel.sid, sel.bid), P = blockPanel.getBoundingClientRect(), { kind } = shapeUi;
-  shapePop.className = kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
-  if (kind === 'more') {
+  shapePop.className = kind === 'animopts' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
+  if (kind === 'animopts') {
+    const u = shapeUi, one = u.mode === 'row' ? ' animation' : ' animations', a = animRows()[anim.i];
+    if (u.mode === 'sel') { shapePop.innerHTML = animOptionsHtml(u.key, a?.[u.key]); shapePop.style.cssText = `left:${u.rect.left - 9}px;top:${u.rect.top}px`; }
+    else { shapePop.innerHTML = `<button type="button" role="option" data-an-clip="copy">Copy${one}</button><button type="button" role="option" data-an-clip="paste"${animClip ? '' : ' disabled'}>Paste${one}</button>`; shapePop.style.cssText = `left:${u.rect.left - 54}px;top:${u.rect.top - 6}px`; }
+  } else if (kind === 'more') {
     shapePop.innerHTML = '<button type="button" role="option" data-more="copy">Copy transforms</button><button type="button" role="option" data-more="paste">Paste transforms</button>';
     const r = blockPanel.querySelector('.bp-more').getBoundingClientRect();
     shapePop.style.cssText = `left:${r.left - 54}px;top:${r.top - 6}px`;
@@ -1842,6 +2006,18 @@ shapePop.addEventListener('click', (e) => {
     return;
   }
   if (!sel || !shapeUi) return;
+  const ao = e.target.closest('[data-an-opt]');
+  if (ao) { const k = shapeUi.key; closeShapePop(); animSet(k, ao.dataset.anOpt); return; }
+  const ac = e.target.closest('[data-an-clip]');
+  if (ac) {
+    const u = shapeUi;
+    closeShapePop();
+    if (ac.dataset.anClip === 'copy') { const rows = animRows(); animClip = JSON.parse(JSON.stringify(u.mode === 'row' ? [rows[u.i]] : rows)); renderBlockPanel(); return; }
+    // Paste on the list adds the copied rows; on a row it takes that row's place.
+    const clip = JSON.parse(JSON.stringify(animClip));
+    animEdit('Paste animation', (l) => { if (u.mode === 'row') l.splice(u.i, 1, ...clip); else l.push(...clip); });
+    return;
+  }
   const mp = e.target.closest('[data-map-pick]');
   if (mp) { const v = Number(mp.dataset.mapPick); closeShapePop(); setMap((b) => { b.mapStyle = v; }, `Map style ${v}`); return; }
   const more = e.target.closest('[data-more]');
@@ -4038,6 +4214,7 @@ function boot() {
   doc = frame.contentDocument;
   win = frame.contentWindow;
   doc.addEventListener('pointerdown', closeLinkOutside, true);
+  bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations; } return null; });
   doc.addEventListener('pointerdown', onDown);
   doc.addEventListener('pointermove', onMove);
   doc.addEventListener('pointerup', onUp);
