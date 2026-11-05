@@ -1,0 +1,473 @@
+{
+ "item": "T11",
+ "capturedAt": "2026-11-05",
+ "engine": "chrome",
+ "viewport": [
+  1600,
+  1000
+ ],
+ "how": "A new blank page, a new section, new blocks through the Add Block menu, real clicks, Exit Without Saving each time. Save was never pressed. Map and Social Links design values stay on the block: a new block after them had the defaults again.",
+ "warning": "The rows of Social Links are a list for the whole site. Add, the Display Social Icon switch and Delete write it at once, with no Save, and Exit Without Saving does not undo it. This probe added three rows and hid one, read the results below, and then deleted those rows and turned the switch back on. One trace stayed: that row's aria-label reads Instagram where it read instagram-unauth. Do not press these on the oracle again.",
+ "line": {
+  "area": [
+   1,
+   2,
+   2,
+   6
+  ],
+  "box": [
+   224.1,
+   30.1
+  ],
+  "content": [
+   0,
+   6.5,
+   224.1,
+   17
+  ],
+  "hr": [
+   0,
+   14.5,
+   224.1,
+   1
+  ],
+  "hrBackground": "the section ink: rgb(0, 0, 0) on the probed section",
+  "tabs": [
+   "Design",
+   "Animation"
+  ],
+  "designRows": [
+   "Transforms",
+   "Opacity",
+   "Rotate",
+   "Scale",
+   "Offset",
+   "Skew",
+   "Anchor"
+  ]
+ },
+ "social": {
+  "area": [
+   1,
+   2,
+   3,
+   6
+  ],
+  "box": [
+   224.1,
+   71.2
+  ],
+  "rows": [
+   "/squarespace",
+   "/squarespace",
+   "/squarespace"
+  ],
+  "links": [
+   "instagram.com/squarespace",
+   "facebook.com/squarespace",
+   "twitter.com/squarespace"
+  ],
+  "tabs": [
+   "Content",
+   "Design",
+   "Animation"
+  ],
+  "align": "center",
+  "classes": "sqs-svg-icon--outer social-icon-alignment-center social-icons-color-black social-icons-size-small social-icons-style-regular",
+  "none": {
+   "XS": [
+    16,
+    10
+   ],
+   "S": [
+    20,
+    12
+   ],
+   "M": [
+    24,
+    14
+   ],
+   "L": [
+    28,
+    16
+   ],
+   "XL": [
+    32,
+    18
+   ]
+  },
+  "border": {
+   "XS": [
+    24,
+    6
+   ],
+   "S": [
+    28,
+    8
+   ],
+   "M": [
+    32,
+    8
+   ],
+   "L": [
+    36,
+    10
+   ],
+   "XL": [
+    48,
+    12
+   ]
+  },
+  "noneSvg": "the svg is twice the link and sits at -50% of it (40 by 40 at -10, -10 for a 20px link); the glyph is 18.8 across",
+  "borderSvg": "the svg fills the link; the glyph is 13.1 across a 28px link",
+  "radius": {
+   "Square": "0px",
+   "Circle": "50%",
+   "Rounded": "15%"
+  },
+  "styles": {
+   "Knockout": {
+    "class": "knockout",
+    "note": "the mask fills the box in the ink, the glyph is cut out"
+   },
+   "Outline": {
+    "class": "border",
+    "shadow": "inset 0 0 0 2px of the ink",
+    "thickness": [
+     1,
+     5,
+     1,
+     2
+    ]
+   },
+   "Solid": {
+    "class": "solid",
+    "background": "the ink",
+    "glyph": "the lightAccent color, rgb(255, 207, 90) here"
+   }
+  },
+  "alignFirstX": {
+   "Left": 0,
+   "Center": 70.1,
+   "Right": 140.1
+  },
+  "rowsRule": "a press that makes the icons taller keeps the rows unless they no longer fit; a press that makes them shorter sets the rows to the fit. S to XS: 2 rows to 1. 1 row to XL: 2. XL to S: 1. From 2 rows, S to L: stays 2; L to Square: stays 2; Square M to None M: 1.",
+  "sequences": [
+   [
+    "XS",
+    1
+   ],
+   [
+    "M",
+    1
+   ],
+   [
+    "L",
+    1
+   ],
+   [
+    "XL",
+    2
+   ],
+   [
+    "S",
+    1
+   ]
+  ],
+  "background": {
+   "rows": [
+    "Background",
+    "Background Color",
+    "Stroke",
+    "Corner",
+    "Padding",
+    "S",
+    "M",
+    "L",
+    "Blend Mode",
+    "Normal",
+    "Blur"
+   ],
+   "content": [
+    0,
+    46.875
+   ],
+   "firstY": 13.4,
+   "blockBg": "rgb(255, 255, 255)"
+  },
+  "content": {
+   "row": {
+    "height": 56,
+    "label": [
+     60,
+     64,
+     92,
+     22
+    ],
+    "state": [
+     60,
+     86,
+     227,
+     16
+    ],
+    "chevron": [
+     293,
+     75,
+     16,
+     16
+    ]
+   },
+   "add": [
+    22,
+    228,
+    276,
+    36
+   ]
+  },
+  "detail": {
+   "title": "/squarespace",
+   "field": "Profile Link",
+   "value": "instagram.com/squarespace",
+   "switch": "Display Social Icon",
+   "delete": "Delete Social Link"
+  },
+  "dialog": {
+   "box": [
+    629,
+    417,
+    342,
+    167
+   ],
+   "title": "Remove social link?",
+   "body": "Removing a social link will remove it from all social link areas.",
+   "buttons": [
+    "Cancel",
+    "Delete"
+   ]
+  },
+  "typed": [
+   {
+    "typed": "a youtube.com link",
+    "label": "/abc",
+    "aria": "YouTube"
+   },
+   {
+    "typed": "an other https link",
+    "label": "the whole text",
+    "aria": "URL"
+   },
+   {
+    "typed": "a mailto link",
+    "label": "the whole text",
+    "aria": "URL"
+   },
+   {
+    "typed": "hello",
+    "error": "URL not found",
+    "added": false
+   }
+  ],
+  "hidden": {
+   "state": "hidden",
+   "effect": "the icon goes and the others close up"
+  }
+ },
+ "map": {
+  "area": [
+   1,
+   2,
+   13,
+   10
+  ],
+  "box": [
+   459.25,
+   482.125
+  ],
+  "tabs": [
+   "Content",
+   "Design",
+   "Animation"
+  ],
+  "fields": [
+   {
+    "label": "Business Name",
+    "placeholder": "Squarespace",
+    "box": [
+     22,
+     104,
+     276,
+     44
+    ]
+   },
+   {
+    "label": "Address",
+    "placeholder": "8 Clarkson St",
+    "box": [
+     22,
+     198,
+     276,
+     44
+    ]
+   },
+   {
+    "label": "City, State, Zip Code",
+    "placeholder": "New York, NY, 10014",
+    "box": [
+     22,
+     292,
+     276,
+     44
+    ]
+   },
+   {
+    "label": "Country",
+    "placeholder": "United States",
+    "box": [
+     22,
+     386,
+     276,
+     44
+    ]
+   }
+  ],
+  "defaults": {
+   "style": 2,
+   "labels": true,
+   "terrain": false,
+   "controls": false,
+   "zoom": 12
+  },
+  "styles": [
+   [
+    "Original",
+    1
+   ],
+   [
+    "Grayscale",
+    2
+   ],
+   [
+    "Satellite",
+    3
+   ],
+   [
+    "Dark",
+    5
+   ],
+   [
+    "Light",
+    4
+   ],
+   [
+    "Blue",
+    6
+   ]
+  ],
+  "stylePopup": {
+   "box": [
+    600,
+    278,
+    276,
+    540
+   ],
+   "row": 88,
+   "selectedOver": "the picker: the chosen row sits over it",
+   "check": true
+  },
+  "picker": [
+   22,
+   71,
+   276,
+   88
+  ],
+  "zoomField": [
+   166,
+   216,
+   66,
+   44
+  ],
+  "decrement": [
+   243,
+   220,
+   36,
+   36
+  ],
+  "increment": [
+   274,
+   220,
+   36,
+   36
+  ],
+  "zoomLadder": {
+   "0": "0",
+   "1": "0.01",
+   "2": "0.05",
+   "3": "0.1",
+   "4": "0.2",
+   "5": "0.3",
+   "6": "0.4",
+   "7": "0.5",
+   "8": "0.6",
+   "9": "0.7",
+   "10": "0.8",
+   "11": "0.9",
+   "12": "1",
+   "13": "1.2",
+   "14": "1.4",
+   "15": "1.6",
+   "16": "1.8",
+   "17": "2",
+   "18": "3",
+   "19": "4",
+   "20": "5",
+   "21": "6",
+   "22": "7"
+  },
+  "zoomEnds": "decrement is disabled at 0 and increment at 7",
+  "switches": [
+   "Labels",
+   "Terrain",
+   "Controls"
+  ],
+  "controls": {
+   "zoomButtons": [
+    "Zoom in",
+    "Zoom out"
+   ],
+   "box": [
+    509,
+    677,
+    40,
+    80
+   ],
+   "note": "read from a screenshot, so within 3px: in the block, right 11 and bottom 25 inside it"
+  },
+  "pin": "a dark pin with its tip at the middle of the block",
+  "designOrder": [
+   "Grayscale",
+   "Elements",
+   "Zoom",
+   "x",
+   "Labels",
+   "Terrain",
+   "Controls",
+   "Transforms",
+   "Opacity",
+   "Rotate",
+   "Scale",
+   "Offset",
+   "Skew",
+   "Anchor"
+  ]
+ },
+ "inferred": [
+  "the rows of a social block other than through Size and Border",
+  "what Undo does to the site-wide list",
+  "editing a Profile Link: the same check as Add",
+  "the order grip on a row: not dragged, because it writes the list",
+  "Size, Border and Alignment on a phone",
+  "other hosts than these for a named icon",
+  "typing in Zoom",
+  "what Terrain and Labels draw: ours draws its own map"
+ ]
+}
