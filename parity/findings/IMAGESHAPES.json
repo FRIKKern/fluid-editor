@@ -200,9 +200,13 @@
  "unexplained": "One earlier read on a new page gave Hourglass a box of 694 by 1041, native aspect 2/3, without the shapeMask data the later reads carry. Thirteen later picks kept the square: four of them Hourglass, one of those with Overlay on, and one pick right after Stretch on and off as in that read. Not repeated, not explained, so not built.",
  "notMeasured": [
   "The drawings are ours: only names, order and the size in the tile come from the oracle.",
-  "Whether an empty image, with no picture, offers the same list: ours does, inferred.",
+  "Whether an empty image, with no picture, offers the whole list: Shape, the 2:3 tab and Hourglass were pressed on one, the other tiles inferred.",
   "Phones.",
   "A published page: that needs a Save."
  ],
- "leak": "Not read: the new-block step failed in this probe, so whether a pick reaches a new image is inferred. A shape is written on the block in the unsaved page, like the rows IMAGEDESIGN.json did check."
+ "leak": {
+  "first": "Shape",
+  "next": "Fit",
+  "note": "Read on the probe page, unsaved, with two new images and no pictures: Shape and Hourglass on the first, then the first read Shape with a Stretch row and a new image read Fit with a Corner row. A pick does not reach a new image. Read once. An image with a picture was not tried. Seen once in a screenshot: an empty image stays a plain box after the pick."
+ }
 }

@@ -126,6 +126,13 @@ add('One undo step back to Hourglass', R(`${M}.imageShape`) === 'hourglass', R(`
 add('The picker stays open through undo', R(`!!P.querySelector('.bp-ishape-grid')`) === true);
 await press(tile('Circle'));
 add('Circle writes nothing on the block', R(`${M}.imageShape ?? null`) === null && clip().clip.startsWith('circle'), clip().clip);
+// A pick stays on its image: the next new image opens on Fit (IMAGESHAPES.leak).
+await press(tile('Gear'));
+const off = evalJs(S, `(() => { const f = document.getElementById('site-frame'), r = f.contentDocument.querySelectorAll('.page-section')[1].getBoundingClientRect(), o = f.getBoundingClientRect(); return JSON.stringify([o.left + r.left + r.width - 60, 500]); })()`);
+mouse(S, 'move', off[0], off[1]); await pause(60); mouse(S, 'down', off[0], off[1], { buttons: 1 }); await pause(40); mouse(S, 'up', off[0], off[1]); await pause(350);
+const next = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); document.querySelector('[data-sc="add-block"]').click(); await sleep(200); document.querySelector('button[data-add="Image"]').click(); await sleep(450); const b = fe.model.sections[1].blocks.at(-1); document.querySelector('#block-toolbar [data-tb="edit"]')?.click(); await sleep(300); const P = document.getElementById('block-panel'); P.querySelector('[data-btab="Design"]')?.click(); await sleep(250); return JSON.stringify({ id: b.id, shape: b.imageShape ?? null, on: [...P.querySelectorAll('[data-image-mode][aria-checked="true"]')].map((e) => e.textContent) }); })()`);
+add('After a pick: a new image opens on Fit', next.id !== bid && next.shape === null && next.on.join() === F.leak.next, JSON.stringify(next));
+add('After a pick: the first image keeps its shape', R(`${M}.imageShape`) === 'gear', R(`${M}.imageShape`));
 writeFileSync(new URL('../parity/image-shape-check.json', import.meta.url), `${JSON.stringify({ check: 'an image Shape picker', pass, total, results }, null, 1)}\n`);
 console.log(`Image shapes: ${pass} of ${total} checks match`);
 process.exit(pass === total ? 0 : 1);
