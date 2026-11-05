@@ -5,8 +5,9 @@
 // transform-vars rule (render.js designCss). Controls marked data-unbuilt are shown where the
 // oracle shows them but do nothing yet; the inventory counts them as missing.
 import { SHAPES, shapeById } from './shapes.js';
-import { escapeHtml as esc, BLEND_MODES, STROKE_PX, MAP_STYLES, MAP_ZOOMS, mapArt, mapVars, socialGlyph, socialKind, SOCIAL_SIZES, SOCIAL_STYLES } from './render.js';
+import { escapeHtml as esc, DESIGN_DEFAULTS, BLEND_MODES, STROKE_PX, MAP_STYLES, MAP_ZOOMS, mapArt, mapVars, socialGlyph, socialKind, SOCIAL_SIZES, SOCIAL_STYLES } from './render.js';
 import { linkKind, linkSummary, parseMail, parsePhone } from './link-kinds.js';
+import { HITS, resetBtn } from './anim-panel.js';
 
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
 
@@ -380,7 +381,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
-  const box = ([k, l, u, min, max, axis]) => `<label class="bp-box"><input type="number" data-design="${k}" aria-label="${axis ? `${l} ${axis}` : l}" min="${min}" max="${max}" value="${d[k]}"><span class="bp-unit">${u}${axis ? ` <b>${axis}</b>` : ''}</span></label>`;
+  const box = ([k, l, u, min, max, axis]) => `<label class="bp-box sc-box"><input type="number" data-design="${k}" aria-label="${axis ? `${l} ${axis}` : l}" min="${min}" max="${max}" value="${d[k]}"><span class="bp-unit">${u}${axis ? ` <b>${axis}</b>` : ''}</span>${HITS}${resetBtn(`data-design-reset="${k}"`, Number(d[k]) !== DESIGN_DEFAULTS[k])}</label>`;
   let body;
   if (tab === 'Content' && content) {
     body = image ? imageContentHtml(content) : content.kind === 'social' ? socialContentHtml(content, open) : content.kind === 'map' ? mapContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
@@ -448,15 +449,8 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`
       + pairs.join('');
   } else {
-    // Animation (parity/findings/ANIMATION.json): the empty state and the preset picker as on
-    // the oracle; the animations themselves are not built (data-unbuilt).
-    body = open === 'anim-picker'
-      ? `<div class="an-head"><button type="button" class="an-back" data-anim="back" aria-label="Back">${pi('<path d="M15 6l-6 6 6 6"/>')}</button><span>Trigger</span></div>`
-        + `<label class="an-trigger" data-unbuilt><select aria-label="Trigger" disabled>${['On Hover', 'On Press', 'Loop', 'On Scroll', 'On Appear', 'Follow'].map((t) => `<option>${t}</option>`).join('')}</select></label>`
-        + `<div class="an-presets">${['Grow', 'Lift', 'Look', 'Jump', 'Squish', 'Jitter'].map((n) => `<button type="button" class="an-preset" data-unbuilt disabled><span class="an-sq"></span>${n}</button>`).join('')}</div>`
-        + '<button type="button" class="an-blank" data-unbuilt disabled>Start blank</button>'
-      : `<div class="an-row"><span class="an-title">Triggers</span><span class="an-actions"><button type="button" class="an-icon" aria-label="Animation list actions" data-unbuilt disabled>···</button><button type="button" class="an-icon" data-anim="add" aria-label="Add a new animation">${pi('<path d="M12 5v14M5 12h14"/>')}</button></span></div>`
-        + '<button type="button" class="an-empty" data-anim="add" aria-label="Press + to get startedUse a preset or customize"><strong>Press + to get started</strong><span>Use a preset or customize</span></button>';
+    // The Animation tab's list (anim-panel.js); its picker and editor replace the whole panel.
+    body = open;
   }
   if (kid && tab === 'Design') body = kidSizeHtml(kid) + body;
   if ((tab === 'Content' && (open === 'embed-data' || open?.startsWith('acc-item:') || open?.startsWith('soc-row:'))) || open === 'acc-dividers') return `<div class="sp-body">${body}</div>`;

@@ -1,0 +1,4109 @@
+{
+ "item": "T15",
+ "capturedAt": "2026-11-05",
+ "engine": "chrome",
+ "oracle": "Blocks Probe, a new page, new Text blocks, nothing saved",
+ "question": "The Animation tab: list, picker, editor, what each trigger holds, how Preview plays, and what the page does in preview mode.",
+ "panelBoxes": "x, y, w, h from the panel top left; the panel is 320 by 500",
+ "empty": {
+  "view": {
+   "box": "0,0,320,500",
+   "text": [
+    "Design @22,19,46,18",
+    "Animation @84,19,67,18",
+    "Triggers @22,66,182,44",
+    "Press + to get started @87,188,147,22",
+    "Use a preset or customize @87,213,147,15"
+   ],
+   "c": [
+    "button|Design|Design||22,0,46,55",
+    "button|Animation|Animation||84,0,67,55",
+    "button|Animation list actions|||213,70,36,36",
+    "button|Add a new animation|||260,70,36,36",
+    "button||Press + to get startedUs||87,188,147,44"
+   ]
+  },
+  "listActions": [
+   "Copy animations @737,365,144,44",
+   "Paste animations @737,409,144,44"
+  ]
+ },
+ "picker": {
+  "box": "0,0,320,500",
+  "text": [
+   "Trigger @136,17,48,22",
+   "On Hover @62,66,197,22",
+   "Grow @74,183,31,16",
+   "Lift @222,183,17,16",
+   "Look @76,295,28,16",
+   "Jump @214,295,32,16",
+   "Squish @70,407,38,16",
+   "Jitter @216,407,29,16",
+   "Start blank @125,468,70,14"
+  ],
+  "c": [
+   "button||||11,5,16,46",
+   "div||On Hover||22,55,276,44",
+   "input:radio|||hover-1|21,107,1,1",
+   "input:radio|||hover-2|162,107,1,1",
+   "input:radio|||hover-3|21,219,1,1",
+   "input:radio|||hover-4|162,219,1,1",
+   "input:radio|||hover-5|21,331,1,1",
+   "input:radio|||hover-6|162,331,1,1",
+   "button||Start blank||0,447,320,55"
+  ]
+ },
+ "editor": {},
+ "list": {
+  "oneRow": {
+   "box": "0,0,320,500",
+   "text": [
+    "Design @22,19,46,18",
+    "Animation @84,19,67,18",
+    "Triggers @22,66,182,44",
+    "On Hover @83,119,76,22"
+   ],
+   "c": [
+    "button|Design|Design||22,0,46,55",
+    "button|Animation|Animation||84,0,67,55",
+    "button|Animation list actions|||213,70,36,36",
+    "button|Add a new animation|||260,70,36,36",
+    "button||On Hover0.5s||72,119,87,38",
+    "button|Remove animation|||165,120,36,36",
+    "button|Animation actions|||211,120,36,36",
+    "button|Preview animation|||258,120,36,36"
+   ]
+  },
+  "twoRows": {
+   "box": "0,0,320,500",
+   "text": [
+    "Design @22,19,46,18",
+    "Animation @84,19,67,18",
+    "Triggers @22,66,182,44",
+    "On Hover @83,119,76,22",
+    "On Hover @83,175,76,22"
+   ],
+   "c": [
+    "button|Design|Design||22,0,46,55",
+    "button|Animation|Animation||84,0,67,55",
+    "button|Animation list actions|||213,70,36,36",
+    "button|Add a new animation|||260,70,36,36",
+    "button||On Hover0.4s||72,119,87,38",
+    "button|Remove animation|||165,120,36,36",
+    "button|Animation actions|||211,120,36,36",
+    "button|Preview animation|||258,120,36,36",
+    "button||On Hover0.5s||72,175,87,38",
+    "button|Remove animation|||165,176,36,36",
+    "button|Animation actions|||211,176,36,36",
+    "button|Preview animation|||258,176,36,36"
+   ]
+  },
+  "phone": {
+   "box": "0,0,320,500",
+   "text": [
+    "Design @22,19,46,18",
+    "Animation @84,19,67,18",
+    "Triggers @22,66,182,44",
+    "On Hover @83,119,122,22"
+   ],
+   "c": [
+    "button|Design|Design||22,0,46,55",
+    "button|Animation|Animation||84,0,67,55",
+    "button|Add a new animation|||260,70,36,36",
+    "button||On Hover0.3s||72,119,133,38",
+    "button|Remove animation|||211,120,36,36",
+    "button|Preview animation|||258,120,36,36"
+   ]
+  },
+  "desktopAgain": {
+   "box": "0,0,320,500",
+   "text": [
+    "Design @22,19,46,18",
+    "Animation @84,19,67,18",
+    "Triggers @22,66,182,44",
+    "On Hover @83,119,76,22"
+   ],
+   "c": [
+    "button|Design|Design||22,0,46,55",
+    "button|Animation|Animation||84,0,67,55",
+    "button|Animation list actions|||213,70,36,36",
+    "button|Add a new animation|||260,70,36,36",
+    "button||On Hover0.3s||72,119,87,38",
+    "button|Remove animation|||165,120,36,36",
+    "button|Animation actions|||211,120,36,36",
+    "button|Preview animation|||258,120,36,36"
+   ]
+  },
+  "rowActions": [
+   "Copy animation @735,415,144,44",
+   "Paste animation @735,459,144,44"
+  ],
+  "listActions": [
+   "Copy animations @737,365,144,44",
+   "Paste animations @737,409,144,44"
+  ],
+  "rowActionsNote": "Paste animation is grey while nothing is copied. Remove and Animation actions show when the mouse is on the row.",
+  "details": {
+   "On Hover": "0.5s",
+   "On Press": "0.3s",
+   "Loop": [
+    "Loop2s"
+   ],
+   "On Appear": [
+    "On Appear0.7s"
+   ],
+   "On Scroll": [
+    "On ScrollPasses"
+   ],
+   "Follow": [
+    "FollowAttract"
+   ]
+  }
+ },
+ "triggerMenu": [
+  "On Hover @599,367,89,92",
+  "On Press @694,367,89,92",
+  "Loop @789,367,89,92",
+  "On Scroll @599,465,89,92",
+  "On Appear @694,465,89,92",
+  "Follow @789,465,89,92"
+ ],
+ "picks": {
+  "tileThenBack": "A real click on a tile adds the row (or changes this row), plays it on the block, marks the tile and shows the 36 by 36 Edit button at 115,114. One back from the editor is the picker, one more the list.",
+  "addThenBack": [
+   "Design @22,19,46,18",
+   "Animation @84,19,67,18",
+   "Triggers @22,66,182,44",
+   "Press + to get started @87,188,147,22",
+   "Use a preset or customize @87,213,147,15"
+  ],
+  "undo": [
+   "Design @22,19,46,18",
+   "Animation @84,19,67,18",
+   "Triggers @22,66,182,44",
+   "Press + to get started @87,188,147,22",
+   "Use a preset or customize @87,213,147,15"
+  ],
+  "redo": [
+   "Design @22,19,46,18",
+   "Animation @84,19,67,18",
+   "Triggers @22,66,182,44",
+   "On Hover @83,119,76,22"
+  ],
+  "rowOpens": {
+   "preset": [
+    "Trigger @136,17,48,22",
+    "On Hover @62,66,197,22",
+    "Grow @74,183,31,16"
+   ],
+   "edited": [
+    "On Hover @129,17,63,22",
+    "End @78,145,25,18",
+    "Timing @207,145,45,18"
+   ]
+  },
+  "tileAfterEdit": [
+   [
+    "custom",
+    true
+   ],
+   [
+    "hover-1",
+    false
+   ],
+   [
+    "hover-2",
+    false
+   ],
+   [
+    "hover-3",
+    false
+   ],
+   [
+    "hover-4",
+    false
+   ],
+   [
+    "hover-5",
+    false
+   ],
+   [
+    "hover-6",
+    false
+   ]
+  ],
+  "afterBlank": {
+   "box": "0,0,320,500",
+   "text": [
+    "Trigger @136,17,48,22",
+    "On Hover @62,66,197,22",
+    "Custom @138,169,45,16",
+    "Grow @74,282,31,16",
+    "Lift @222,282,17,16",
+    "Look @76,394,28,16",
+    "Jump @214,394,32,16",
+    "Squish @70,506,38,16",
+    "Jitter @216,506,29,16",
+    "Start blank @125,468,70,14"
+   ],
+   "c": [
+    "button||||11,5,16,46",
+    "div||On Hover||22,55,276,44",
+    "input:radio|||custom|21,104,1,1",
+    "button||||256,111,36,36",
+    "button||||256,147,36,36",
+    "input:radio|||hover-1|21,206,1,1",
+    "input:radio|||hover-2|162,206,1,1",
+    "input:radio|||hover-3|21,318,1,1",
+    "input:radio|||hover-4|162,318,1,1",
+    "input:radio|||hover-5|21,430,1,1",
+    "input:radio|||hover-6|162,430,1,1",
+    "button||Start blank||0,447,320,55"
+   ]
+  },
+  "removeAsksNothing": [
+   "Design @22,19,46,18",
+   "Animation @84,19,67,18",
+   "Triggers @22,66,182,44",
+   "On Hover @83,119,76,22"
+  ]
+ },
+ "presets": {
+  "hover": [
+   {
+    "id": "hover-1",
+    "name": "Grow",
+    "end": [
+     "100%",
+     "0°",
+     "110%",
+     "110%",
+     "0px",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "0.3",
+    "duration": "0.5s",
+    "delay": "0s"
+   },
+   {
+    "id": "hover-2",
+    "name": "Lift",
+    "end": [
+     "100%",
+     "-5°",
+     "110%",
+     "110%",
+     "0px",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "0.3",
+    "duration": "0.35s",
+    "delay": "0s"
+   },
+   {
+    "id": "hover-3",
+    "name": "Look",
+    "end": [
+     "100%",
+     "0°",
+     "85%",
+     "85%",
+     "0px",
+     "0px",
+     "10°",
+     "-5°"
+    ],
+    "ease": "Out",
+    "duration": "0.3s",
+    "delay": "0s"
+   },
+   {
+    "id": "hover-4",
+    "name": "Jump",
+    "end": [
+     "100%",
+     "-5°",
+     "100%",
+     "100%",
+     "0px",
+     "-10%",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "0.5",
+    "duration": "0.5s",
+    "delay": "0s"
+   },
+   {
+    "id": "hover-5",
+    "name": "Squish",
+    "end": [
+     "100%",
+     "0°",
+     "90%",
+     "100%",
+     "0px",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "0.2",
+    "duration": "0.3s",
+    "delay": "0s"
+   },
+   {
+    "id": "hover-6",
+    "name": "Jitter",
+    "end": [
+     "100%",
+     "0°",
+     "100%",
+     "100%",
+     "-4px",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "1",
+    "duration": "0.2s",
+    "delay": "0s"
+   }
+  ],
+  "press": [
+   {
+    "id": "press-1",
+    "name": "Grow",
+    "end": [
+     "100%",
+     "0°",
+     "110%",
+     "110%",
+     "0px",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "0.2",
+    "duration": "0.3s",
+    "delay": "0s"
+   },
+   {
+    "id": "press-2",
+    "name": "Lift",
+    "end": [
+     "100%",
+     "-5°",
+     "110%",
+     "110%",
+     "0px",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "0.2",
+    "duration": "0.5s",
+    "delay": "0s"
+   },
+   {
+    "id": "press-3",
+    "name": "Look",
+    "end": [
+     "100%",
+     "0°",
+     "85%",
+     "85%",
+     "0px",
+     "0px",
+     "-10°",
+     "5°"
+    ],
+    "ease": "Spring",
+    "bounce": "0.2",
+    "duration": "0.35s",
+    "delay": "0s"
+   },
+   {
+    "id": "press-4",
+    "name": "Jump",
+    "end": [
+     "100%",
+     "-5°",
+     "100%",
+     "100%",
+     "0px",
+     "-15%",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "0.3",
+    "duration": "0.5s",
+    "delay": "0s"
+   },
+   {
+    "id": "press-5",
+    "name": "Squish",
+    "end": [
+     "100%",
+     "0°",
+     "90%",
+     "100%",
+     "0px",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "0.2",
+    "duration": "0.3s",
+    "delay": "0s"
+   },
+   {
+    "id": "press-6",
+    "name": "Jitter",
+    "end": [
+     "100%",
+     "0°",
+     "100%",
+     "100%",
+     "-3px",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "1",
+    "duration": "0.3s",
+    "delay": "0s"
+   }
+  ],
+  "loop": [
+   {
+    "id": "loop-1",
+    "name": "Spin",
+    "end": [
+     "100%",
+     "360°",
+     "100%",
+     "100%",
+     "0px",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "type": "Continuous",
+    "ease": "Linear",
+    "duration": "10s",
+    "delay": "0s"
+   },
+   {
+    "id": "loop-2",
+    "name": "Float",
+    "end": [
+     "100%",
+     "0°",
+     "95%",
+     "95%",
+     "0px",
+     "20%",
+     "0°",
+     "0°"
+    ],
+    "type": "Ping Pong",
+    "ease": "In Out",
+    "duration": "2s",
+    "delay": "0s"
+   },
+   {
+    "id": "loop-3",
+    "name": "Hop",
+    "end": [
+     "100%",
+     "0°",
+     "100%",
+     "100%",
+     "0px",
+     "-1%",
+     "0°",
+     "0°"
+    ],
+    "type": "Continuous",
+    "ease": "Custom",
+    "custom": "0.1, 40, 0.8, 30",
+    "duration": "1.5s",
+    "delay": "0s"
+   },
+   {
+    "id": "loop-4",
+    "name": "Look",
+    "end": [
+     "100%",
+     "0°",
+     "85%",
+     "85%",
+     "10%",
+     "0%",
+     "5°",
+     "5°"
+    ],
+    "type": "Ping Pong",
+    "ease": "In Out",
+    "duration": "1.5s",
+    "delay": "0s"
+   },
+   {
+    "id": "loop-5",
+    "name": "Roll",
+    "end": [
+     "100%",
+     "-90°",
+     "100%",
+     "100%",
+     "-100%",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "type": "Ping Pong",
+    "ease": "In Out",
+    "duration": "2s",
+    "delay": "0s"
+   },
+   {
+    "id": "loop-6",
+    "name": "Breathe",
+    "end": [
+     "100%",
+     "0°",
+     "90%",
+     "90%",
+     "0%",
+     "5%",
+     "0°",
+     "0°"
+    ],
+    "type": "Ping Pong",
+    "ease": "In Out",
+    "duration": "2s",
+    "delay": "0s"
+   }
+  ],
+  "scroll": [
+   {
+    "id": "scroll-1",
+    "name": "Parallax",
+    "start": [
+     "100%",
+     "15°",
+     "100%",
+     "100%",
+     "-25%",
+     "25%",
+     "0°",
+     "0°"
+    ],
+    "end": [
+     "100%",
+     "0°",
+     "100%",
+     "100%",
+     "0%",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "when": "Block",
+    "action": "Passes",
+    "startPasses": "0%",
+    "endPasses": "100%",
+    "ease": "In Out",
+    "iterations": "1"
+   },
+   {
+    "id": "scroll-2",
+    "name": "Twirl",
+    "start": [
+     "0%",
+     "90°",
+     "80%",
+     "80%",
+     "0%",
+     "0%",
+     "0°",
+     "0°"
+    ],
+    "end": [
+     "100%",
+     "0°",
+     "100%",
+     "100%",
+     "0%",
+     "0%",
+     "0°",
+     "0°"
+    ],
+    "when": "Block",
+    "action": "Passes",
+    "startPasses": "0%",
+    "endPasses": "50%",
+    "ease": "Out",
+    "iterations": "1"
+   },
+   {
+    "id": "scroll-3",
+    "name": "Move",
+    "start": [
+     "100%",
+     "0°",
+     "100%",
+     "100%",
+     "-200%",
+     "0%",
+     "0°",
+     "0°"
+    ],
+    "end": [
+     "100%",
+     "0°",
+     "100%",
+     "100%",
+     "0%",
+     "0%",
+     "0°",
+     "0°"
+    ],
+    "when": "Block",
+    "action": "Passes",
+    "startPasses": "0%",
+    "endPasses": "100%",
+    "ease": "Ease",
+    "iterations": "1"
+   },
+   {
+    "id": "scroll-4",
+    "name": "Roll",
+    "start": [
+     "100%",
+     "180°",
+     "95%",
+     "95%",
+     "200%",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "end": [
+     "100%",
+     "0°",
+     "100%",
+     "100%",
+     "0%",
+     "0%",
+     "0°",
+     "0°"
+    ],
+    "when": "Block",
+    "action": "Passes",
+    "startPasses": "0%",
+    "endPasses": "50%",
+    "ease": "Out",
+    "iterations": "1"
+   },
+   {
+    "id": "scroll-5",
+    "name": "Drop",
+    "start": [
+     "0%",
+     "30°",
+     "100%",
+     "100%",
+     "0%",
+     "-200%",
+     "0°",
+     "0°"
+    ],
+    "end": [
+     "100%",
+     "0°",
+     "100%",
+     "100%",
+     "0%",
+     "0%",
+     "0°",
+     "0°"
+    ],
+    "when": "Block",
+    "action": "Passes",
+    "startPasses": "0%",
+    "endPasses": "100%",
+    "ease": "In Out",
+    "iterations": "1"
+   },
+   {
+    "id": "scroll-6",
+    "name": "Zoom",
+    "start": [
+     "100%",
+     "0°",
+     "400%",
+     "400%",
+     "0%",
+     "200%",
+     "0°",
+     "0°"
+    ],
+    "end": [
+     "100%",
+     "0°",
+     "100%",
+     "100%",
+     "0%",
+     "0%",
+     "0°",
+     "0°"
+    ],
+    "when": "Block",
+    "action": "Passes",
+    "startPasses": "0%",
+    "endPasses": "100%",
+    "ease": "Ease",
+    "iterations": "1"
+   }
+  ],
+  "appear": [
+   {
+    "id": "appear-1",
+    "name": "Pop",
+    "start": [
+     "100%",
+     "0°",
+     "0%",
+     "0%",
+     "0px",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "0.1",
+    "duration": "0.7s",
+    "delay": "0s",
+    "when": "Block",
+    "screen": "0%"
+   },
+   {
+    "id": "appear-2",
+    "name": "Slide",
+    "start": [
+     "100%",
+     "-10°",
+     "100%",
+     "100%",
+     "0px",
+     "100%",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "0.1",
+    "duration": "0.8s",
+    "delay": "0s",
+    "when": "Block",
+    "screen": "0%"
+   },
+   {
+    "id": "appear-3",
+    "name": "Drop",
+    "start": [
+     "0%",
+     "-15°",
+     "80%",
+     "80%",
+     "0px",
+     "-200%",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "0.2",
+    "duration": "0.7s",
+    "delay": "0s",
+    "when": "Block",
+    "screen": "50%"
+   },
+   {
+    "id": "appear-4",
+    "name": "Reveal",
+    "start": [
+     "0%",
+     "0°",
+     "20%",
+     "20%",
+     "0px",
+     "100%",
+     "15°",
+     "-40°"
+    ],
+    "ease": "Spring",
+    "bounce": "0.1",
+    "duration": "0.9s",
+    "delay": "0s",
+    "when": "Block",
+    "screen": "0%"
+   },
+   {
+    "id": "appear-5",
+    "name": "Stamp",
+    "start": [
+     "0%",
+     "-15°",
+     "125%",
+     "125%",
+     "0px",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "0.3",
+    "duration": "0.6s",
+    "delay": "0s",
+    "when": "Block",
+    "screen": "33%"
+   },
+   {
+    "id": "appear-6",
+    "name": "Zoom",
+    "start": [
+     "100%",
+     "0°",
+     "200%",
+     "200%",
+     "0px",
+     "200%",
+     "0°",
+     "0°"
+    ],
+    "ease": "Spring",
+    "bounce": "0",
+    "duration": "0.9s",
+    "delay": "0s",
+    "when": "Block",
+    "screen": "-100%"
+   }
+  ],
+  "follow": [
+   {
+    "id": "follow-1",
+    "name": "Follow",
+    "end": [
+     "100%",
+     "0°",
+     "100%",
+     "100%",
+     "150px",
+     "150px",
+     "0°",
+     "0°"
+    ],
+    "motion": "Attract",
+    "on": "Block",
+    "smoothing": "0.75",
+    "radius": "200%",
+    "bounce": "0.3",
+    "snap": true
+   },
+   {
+    "id": "follow-2",
+    "name": "Repel",
+    "end": [
+     "100%",
+     "0°",
+     "100%",
+     "100%",
+     "150px",
+     "150px",
+     "0°",
+     "0°"
+    ],
+    "motion": "Repel",
+    "on": "Block",
+    "smoothing": "0.75",
+    "radius": "200%",
+    "bounce": "0.3",
+    "snap": true
+   },
+   {
+    "id": "follow-3",
+    "name": "Slide",
+    "end": [
+     "100%",
+     "360°",
+     "110%",
+     "110%",
+     "100%",
+     "100%",
+     "0°",
+     "0°"
+    ],
+    "motion": "Attract",
+    "on": "Block",
+    "smoothing": "0.75",
+    "radius": "500%",
+    "bounce": "0.3",
+    "snap": true
+   },
+   {
+    "id": "follow-4",
+    "name": "Squish",
+    "end": [
+     "100%",
+     "0°",
+     "75%",
+     "75%",
+     "0px",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    "motion": "Repel",
+    "on": "Block",
+    "smoothing": "0.25",
+    "radius": "100%",
+    "bounce": "0.2",
+    "snap": true
+   },
+   {
+    "id": "follow-5",
+    "name": "Look",
+    "end": [
+     "100%",
+     "10°",
+     "80%",
+     "80%",
+     "150px",
+     "150px",
+     "10°",
+     "-5°"
+    ],
+    "motion": "Attract",
+    "on": "Block",
+    "smoothing": "0.75",
+    "radius": "100%",
+    "bounce": "0.15",
+    "snap": true
+   },
+   {
+    "id": "follow-6",
+    "name": "Inflate",
+    "end": [
+     "100%",
+     "20°",
+     "125%",
+     "125%",
+     "150px",
+     "150px",
+     "0°",
+     "0°"
+    ],
+    "motion": "Attract",
+    "on": "Block",
+    "smoothing": "0.75",
+    "radius": "100%",
+    "bounce": "0.15",
+    "snap": true
+   }
+  ]
+ },
+ "blank": {
+  "hover": {
+   "ease": "Out",
+   "duration": "0.4s",
+   "delay": "0s"
+  },
+  "press": {
+   "ease": "Out",
+   "duration": "0.4s",
+   "delay": "0s"
+  },
+  "loop": {
+   "type": "Continuous",
+   "ease": "Out",
+   "duration": "0.4s",
+   "delay": "0s"
+  },
+  "scroll": {
+   "when": "Block",
+   "action": "Scrolls",
+   "startPasses": "0%",
+   "endPasses": "50%",
+   "ease": "Out",
+   "iterations": "1"
+  },
+  "appear": {
+   "ease": "Out",
+   "duration": "0.4s",
+   "delay": "0s",
+   "when": "Block",
+   "screen": "0%"
+  },
+  "follow": {
+   "motion": "Attract",
+   "on": "Block",
+   "smoothing": "1",
+   "radius": "100%",
+   "bounce": "0.5",
+   "snap": true
+  }
+ },
+ "options": {
+  "ease": [
+   "Spring @732,535,144,44",
+   "Ease @732,579,144,44",
+   "In Out @732,623,144,44",
+   "In Back @732,667,144,44",
+   "Out Back @732,711,144,44",
+   "In Out Back @732,755,144,44",
+   "In @732,799,144,44",
+   "Out @732,843,144,44",
+   "Linear @732,887,144,44",
+   "Custom @732,932,144,44"
+  ],
+  "type": [
+   "Ping Pong @732,484,144,44",
+   "Continuous @732,528,144,44"
+  ],
+  "when": [
+   "Block @732,484,144,44",
+   "Section @732,528,144,44"
+  ],
+  "action": [
+   "Enters @732,535,144,44",
+   "Leaves @732,579,144,44",
+   "Scrolls @732,623,144,44",
+   "Passes @732,667,144,44",
+   "Custom @732,711,144,44"
+  ],
+  "motion": [
+   "Repel @732,484,144,44",
+   "Attract @732,528,144,44"
+  ],
+  "on": [
+   "Block @732,535,144,44",
+   "Section @732,579,144,44"
+  ],
+  "crossing": [
+   "Cover @732,686,144,44",
+   "Contain @732,730,144,44",
+   "Entry @732,774,144,44",
+   "Exit @732,818,144,44",
+   "Entry Crossing @732,862,144,44",
+   "Exit Crossing @732,906,144,44"
+  ]
+ },
+ "views": {
+  "Spring": null,
+  "Linear": {
+   "box": "0,0,320,500",
+   "text": [
+    "On Hover @129,17,63,22",
+    "End @78,145,25,18",
+    "Timing @207,145,45,18",
+    "Ease @22,183,32,44",
+    "Linear @203,194,61,22",
+    "Duration @22,234,57,44",
+    "Delay @22,285,37,44",
+    "Preview @134,468,52,14"
+   ],
+   "c": [
+    "button||||11,5,16,46",
+    "button|End|End||22,136,138,36",
+    "button|Timing|Timing||160,136,138,36",
+    "input:text|||linear|162,182,1,1",
+    "button||Linear||163,183,135,44",
+    "input:text|||0.5s|174,234,113,44",
+    "button||||163,234,135,11",
+    "button||||163,267,135,11",
+    "button||||163,234,11,44",
+    "button||||254,234,44,44",
+    "button|Reset to default value|||291,248,16,16",
+    "input:text|||0s|174,285,113,44",
+    "button||||163,285,135,11",
+    "button||||163,318,135,11",
+    "button||||163,285,11,44",
+    "button||||254,285,44,44",
+    "button|Reset to default value|||291,299,16,16",
+    "button||Preview||0,447,320,55"
+   ]
+  },
+  "Custom": {
+   "box": "0,0,320,500",
+   "text": [
+    "On Hover @129,17,63,22",
+    "End @78,145,25,18",
+    "Timing @207,145,45,18",
+    "Ease @22,183,32,44",
+    "Custom @175,194,88,22",
+    "Custom Ease @-1,256,1,1",
+    "Duration @22,285,57,44",
+    "Delay @22,336,37,44",
+    "Preview @134,468,52,14"
+   ],
+   "c": [
+    "button||||11,5,16,46",
+    "button|End|End||22,136,138,36",
+    "button|Timing|Timing||160,136,138,36",
+    "input:text|||custom|162,182,1,1",
+    "button||Custom||163,183,135,44",
+    "input:text|||0, 0, 1, 1|37,245,52,22",
+    "input:text|||0.5s|174,285,113,44",
+    "button||||163,285,135,11",
+    "button||||163,318,135,11",
+    "button||||163,285,11,44",
+    "button||||254,285,44,44",
+    "button|Reset to default value|||291,299,16,16",
+    "input:text|||0s|174,336,113,44",
+    "button||||163,336,135,11",
+    "button||||163,369,135,11",
+    "button||||163,336,11,44",
+    "button||||254,336,44,44",
+    "button|Reset to default value|||291,350,16,16",
+    "button||Preview||0,447,320,55"
+   ]
+  },
+  "InOut": {
+   "box": "0,0,320,500",
+   "text": [
+    "On Hover @129,17,63,22",
+    "End @78,145,25,18",
+    "Timing @207,145,45,18",
+    "Ease @22,183,32,44",
+    "In Out @203,194,61,22",
+    "Duration @22,234,57,44",
+    "Delay @22,285,37,44",
+    "Preview @134,468,52,14"
+   ],
+   "c": [
+    "button||||11,5,16,46",
+    "button|End|End||22,136,138,36",
+    "button|Timing|Timing||160,136,138,36",
+    "input:text|||ease-in-out|162,182,1,1",
+    "button||In Out||163,183,135,44",
+    "input:text|||0.5s|174,234,113,44",
+    "button||||163,234,135,11",
+    "button||||163,267,135,11",
+    "button||||163,234,11,44",
+    "button||||254,234,44,44",
+    "button|Reset to default value|||291,248,16,16",
+    "input:text|||0s|174,285,113,44",
+    "button||||163,285,135,11",
+    "button||||163,318,135,11",
+    "button||||163,285,11,44",
+    "button||||254,285,44,44",
+    "button|Reset to default value|||291,299,16,16",
+    "button||Preview||0,447,320,55"
+   ]
+  },
+  "scrollPasses": {
+   "box": "0,0,320,500",
+   "text": [
+    "On Scroll @130,17,61,22",
+    "Start @52,145,31,18",
+    "End @147,145,25,18",
+    "Timing @230,145,45,18",
+    "When @22,183,39,44",
+    "Block @175,194,88,22",
+    "Action @22,234,44,44",
+    "Passes @175,245,88,22",
+    "Start @22,285,32,44",
+    "Passes @22,336,46,44",
+    "End @22,387,26,44",
+    "Passes @22,438,46,44",
+    "Ease @22,489,32,44",
+    "In Out @203,500,61,22",
+    "Iterations @22,540,62,44",
+    "Scroll to preview @106,468,109,14"
+   ],
+   "c": [
+    "button||||11,5,16,46",
+    "button|Start|Start||22,136,92,36",
+    "button|End|End||114,136,92,36",
+    "button|Timing|Timing||206,136,92,36",
+    "input:text|||self|162,182,1,1",
+    "button||Block||163,183,135,44",
+    "input:text|||passes|162,233,1,1",
+    "button||Passes||163,234,135,44",
+    "button|Top|||166,288,41,38",
+    "button|Middle|||210,288,41,38",
+    "button|Bottom|||254,288,41,38",
+    "input:text|||0%|174,336,113,44",
+    "button||||163,336,135,11",
+    "button||||163,369,135,11",
+    "button||||163,336,11,44",
+    "button||||254,336,44,44",
+    "button|Reset to default value|||291,350,16,16",
+    "button|Top|||166,390,41,38",
+    "button|Middle|||210,390,41,38",
+    "button|Bottom|||254,390,41,38",
+    "input:text|||100%|174,438,113,44",
+    "button||||163,438,135,11",
+    "button||||163,471,135,11",
+    "button||||163,438,11,44",
+    "button||||254,438,44,44",
+    "button|Reset to default value|||291,452,16,16",
+    "input:text|||ease-in-out|162,488,1,1",
+    "button||In Out||163,489,135,44",
+    "input:text|||1|174,540,113,44",
+    "button||||163,540,135,11",
+    "button||||163,573,135,11",
+    "button||||163,540,11,44",
+    "button||||254,540,44,44",
+    "button|Reset to default value|||291,554,16,16",
+    "button||Scroll to preview||0,447,320,55"
+   ]
+  },
+  "scrollEnters": {
+   "box": "0,0,320,500",
+   "text": [
+    "On Scroll @130,17,61,22",
+    "Start @52,145,31,18",
+    "End @147,145,25,18",
+    "Timing @230,145,45,18",
+    "When @22,183,39,44",
+    "Block @175,194,88,22",
+    "Action @22,234,44,44",
+    "Enters @175,245,88,22",
+    "Start @22,285,31,44",
+    "End @22,336,26,44",
+    "Ease @22,387,32,44",
+    "In Out @203,398,61,22",
+    "Iterations @22,438,62,44",
+    "Scroll to preview @106,468,109,14"
+   ],
+   "c": [
+    "button||||11,5,16,46",
+    "button|Start|Start||22,136,92,36",
+    "button|End|End||114,136,92,36",
+    "button|Timing|Timing||206,136,92,36",
+    "input:text|||self|162,182,1,1",
+    "button||Block||163,183,135,44",
+    "input:text|||enters|162,233,1,1",
+    "button||Enters||163,234,135,44",
+    "input:text|||0%|174,285,113,44",
+    "button||||163,285,135,11",
+    "button||||163,318,135,11",
+    "button||||163,285,11,44",
+    "button||||254,285,44,44",
+    "button|Reset to default value|||291,299,16,16",
+    "input:text|||100%|174,336,113,44",
+    "button||||163,336,135,11",
+    "button||||163,369,135,11",
+    "button||||163,336,11,44",
+    "button||||254,336,44,44",
+    "button|Reset to default value|||291,350,16,16",
+    "input:text|||ease-in-out|162,386,1,1",
+    "button||In Out||163,387,135,44",
+    "input:text|||1|174,438,113,44",
+    "button||||163,438,135,11",
+    "button||||163,471,135,11",
+    "button||||163,438,11,44",
+    "button||||254,438,44,44",
+    "button|Reset to default value|||291,452,16,16",
+    "button||Scroll to preview||0,447,320,55"
+   ]
+  },
+  "scrollCustom": {
+   "box": "0,0,320,500",
+   "text": [
+    "On Scroll @130,17,61,22",
+    "Start @52,145,31,18",
+    "End @147,145,25,18",
+    "Timing @230,145,45,18",
+    "When @22,183,39,44",
+    "Block @175,194,88,22",
+    "Action @22,234,44,44",
+    "Custom @175,245,88,22",
+    "Top Inset @22,285,60,44",
+    "Bottom Inset @22,336,84,44",
+    "Start @22,387,32,44",
+    "Entry Crossing @175,398,88,22",
+    "Passes @22,438,46,44",
+    "End @22,489,26,44",
+    "Exit Crossing @175,500,88,22",
+    "Passes @22,540,46,44",
+    "Ease @22,591,32,44",
+    "In Out @203,602,61,22",
+    "Iterations @22,642,62,44",
+    "Scroll to preview @106,468,109,14"
+   ],
+   "c": [
+    "button||||11,5,16,46",
+    "button|Start|Start||22,136,92,36",
+    "button|End|End||114,136,92,36",
+    "button|Timing|Timing||206,136,92,36",
+    "input:text|||self|162,182,1,1",
+    "button||Block||163,183,135,44",
+    "input:text|||custom|162,233,1,1",
+    "button||Custom||163,234,135,44",
+    "input:text|||0%|174,285,113,44",
+    "button||||163,285,135,11",
+    "button||||163,318,135,11",
+    "button||||163,285,11,44",
+    "button||||254,285,44,44",
+    "button|Reset to default value|||291,299,16,16",
+    "input:text|||0%|174,336,113,44",
+    "button||||163,336,135,11",
+    "button||||163,369,135,11",
+    "button||||163,336,11,44",
+    "button||||254,336,44,44",
+    "button|Reset to default value|||291,350,16,16",
+    "input:text|||entry-crossing|162,386,1,1",
+    "button||Entry Crossing||163,387,135,44",
+    "input:text|||0%|174,438,113,44",
+    "button||||163,438,135,11",
+    "button||||163,471,135,11",
+    "button||||163,438,11,44",
+    "button||||254,438,44,44",
+    "button|Reset to default value|||291,452,16,16",
+    "input:text|||exit-crossing|162,488,1,1",
+    "button||Exit Crossing||163,489,135,44",
+    "input:text|||100%|174,540,113,44",
+    "button||||163,540,135,11",
+    "button||||163,573,135,11",
+    "button||||163,540,11,44",
+    "button||||254,540,44,44",
+    "button|Reset to default value|||291,554,16,16",
+    "input:text|||ease-in-out|162,590,1,1",
+    "button||In Out||163,591,135,44",
+    "input:text|||1|174,642,113,44",
+    "button||||163,642,135,11",
+    "button||||163,675,135,11",
+    "button||||163,642,11,44",
+    "button||||254,642,44,44",
+    "button|Reset to default value|||291,656,16,16",
+    "button||Scroll to preview||0,447,320,55"
+   ]
+  },
+  "appear": {
+   "box": "0,0,320,500",
+   "text": [
+    "On Appear @124,17,73,22",
+    "Start @75,145,31,18",
+    "Timing @207,145,45,18",
+    "Ease @22,183,32,44",
+    "Spring @203,194,61,22",
+    "Bounce @22,234,51,44",
+    "Duration @22,285,57,44",
+    "Delay @22,336,37,44",
+    "When @22,387,39,44",
+    "Block @175,398,88,22",
+    "Edge @22,438,35,44",
+    "Passes Screen @22,489,96,44",
+    "Preview @134,468,52,14"
+   ],
+   "c": [
+    "button||||11,5,16,46",
+    "button|Start|Start||22,136,138,36",
+    "button|Timing|Timing||160,136,138,36",
+    "input:text|||spring|162,182,1,1",
+    "button||Spring||163,183,135,44",
+    "input:text|||0.1|174,234,113,44",
+    "button||||163,234,135,11",
+    "button||||163,267,135,11",
+    "button||||163,234,11,44",
+    "button||||254,234,44,44",
+    "button|Reset to default value|||291,248,16,16",
+    "input:text|||0.7s|174,285,113,44",
+    "button||||163,285,135,11",
+    "button||||163,318,135,11",
+    "button||||163,285,11,44",
+    "button||||254,285,44,44",
+    "button|Reset to default value|||291,299,16,16",
+    "input:text|||0s|174,336,113,44",
+    "button||||163,336,135,11",
+    "button||||163,369,135,11",
+    "button||||163,336,11,44",
+    "button||||254,336,44,44",
+    "button|Reset to default value|||291,350,16,16",
+    "input:text|||self|162,386,1,1",
+    "button||Block||163,387,135,44",
+    "button|Top|||166,441,41,38",
+    "button|Middle|||210,441,41,38",
+    "button|Bottom|||254,441,41,38",
+    "input:text|||0%|174,489,113,44",
+    "button||||163,489,135,11",
+    "button||||163,522,135,11",
+    "button||||163,489,11,44",
+    "button||||254,489,44,44",
+    "button|Reset to default value|||291,503,16,16",
+    "button||Preview||0,447,320,55"
+   ]
+  },
+  "follow": {
+   "box": "0,0,320,500",
+   "text": [
+    "Follow @138,17,43,22",
+    "Range @70,145,42,18",
+    "Timing @207,145,45,18",
+    "Motion @22,183,46,44",
+    "Attract @175,194,88,22",
+    "On @22,234,20,44",
+    "Block @175,245,88,22",
+    "Smoothing @22,285,73,44",
+    "Radius @22,336,45,44",
+    "Bounce @22,387,51,44",
+    "Snap Back @22,438,70,44",
+    "Preview @134,468,52,14"
+   ],
+   "c": [
+    "button||||11,5,16,46",
+    "button|Range|Range||22,136,138,36",
+    "button|Timing|Timing||160,136,138,36",
+    "input:text|||false|162,182,1,1",
+    "button||Attract||163,183,135,44",
+    "input:text|||self|162,233,1,1",
+    "button||Block||163,234,135,44",
+    "input:text|||0.75|174,285,113,44",
+    "button||||163,285,135,11",
+    "button||||163,318,135,11",
+    "button||||163,285,11,44",
+    "button||||254,285,44,44",
+    "button|Reset to default value|||291,299,16,16",
+    "input:text|||200%|174,336,113,44",
+    "button||||163,336,135,11",
+    "button||||163,369,135,11",
+    "button||||163,336,11,44",
+    "button||||254,336,44,44",
+    "button|Reset to default value|||291,350,16,16",
+    "input:text|||0.3|174,387,113,44",
+    "button||||163,387,135,11",
+    "button||||163,420,135,11",
+    "button||||163,387,11,44",
+    "button||||254,387,44,44",
+    "button|Reset to default value|||291,401,16,16",
+    "input:checkbox||||284,454,12,12",
+    "button||Preview||0,447,320,55"
+   ]
+  },
+  "range": {
+   "box": "0,0,320,500",
+   "text": [
+    "Follow @138,17,43,22",
+    "Range @70,145,42,18",
+    "Timing @207,145,45,18",
+    "Opacity @22,183,52,44",
+    "Rotate @22,234,43,44",
+    "Scale @22,285,88,44",
+    "Offset @22,336,88,44",
+    "Skew @22,387,88,44",
+    "Values are relative to design settings @22,437,276,48",
+    "Preview @134,468,52,14"
+   ],
+   "c": [
+    "button||||11,5,16,46",
+    "button|Range|Range||22,136,138,36",
+    "button|Timing|Timing||160,136,138,36",
+    "input:text|||100%|127,183,160,44",
+    "button||||116,183,182,11",
+    "button||||116,216,182,11",
+    "button||||116,183,11,44",
+    "button||||254,183,44,44",
+    "button|Reset to default value|||291,197,16,16",
+    "input:text|||0°|127,234,160,44",
+    "button||||116,234,182,11",
+    "button||||116,267,182,11",
+    "button||||116,234,11,44",
+    "button||||254,234,44,44",
+    "button|Reset to default value|||291,248,16,16",
+    "input:text|||100%|127,285,66,44",
+    "button||||116,285,88,11",
+    "button||||116,318,88,11",
+    "button||||116,285,11,44",
+    "button||||160,285,44,44",
+    "button|Reset to default value|||197,299,16,16",
+    "input:text|||100%|221,285,66,44",
+    "button||||210,285,88,11",
+    "button||||210,318,88,11",
+    "button||||210,285,11,44",
+    "button||||254,285,44,44",
+    "button|Reset to default value|||291,299,16,16",
+    "input:text|||150px|127,336,66,44",
+    "button||||116,336,88,11",
+    "button||||116,369,88,11",
+    "button||||116,336,11,44",
+    "button||||160,336,44,44",
+    "button|Reset to default value|||197,350,16,16",
+    "input:text|||150px|221,336,66,44",
+    "button||||210,336,88,11",
+    "button||||210,369,88,11",
+    "button||||210,336,11,44",
+    "button||||254,336,44,44",
+    "button|Reset to default value|||291,350,16,16",
+    "input:text|||0°|127,387,66,44",
+    "button||||116,387,88,11",
+    "button||||116,420,88,11",
+    "button||||116,387,11,44",
+    "button||||160,387,44,44",
+    "button|Reset to default value|||197,401,16,16",
+    "input:text|||0°|221,387,66,44",
+    "button||||210,387,88,11",
+    "button||||210,420,88,11",
+    "button||||210,387,11,44",
+    "button||||254,387,44,44",
+    "button|Reset to default value|||291,401,16,16",
+    "button||Preview||0,447,320,55"
+   ]
+  },
+  "loopEnd": {
+   "box": "0,0,320,500",
+   "text": [
+    "Loop @143,17,34,22",
+    "End @78,145,25,18",
+    "Timing @207,145,45,18",
+    "Opacity @22,183,52,44",
+    "Rotate @22,234,43,44",
+    "Scale @22,285,88,44",
+    "Offset @22,336,88,44",
+    "Skew @22,387,88,44",
+    "Values are relative to design settings @22,437,276,48",
+    "Preview @134,468,52,14"
+   ],
+   "c": [
+    "button||||11,5,16,46",
+    "button|End|End||22,136,138,36",
+    "button|Timing|Timing||160,136,138,36",
+    "input:text|||100%|127,183,160,44",
+    "button||||116,183,182,11",
+    "button||||116,216,182,11",
+    "button||||116,183,11,44",
+    "button||||254,183,44,44",
+    "button|Reset to default value|||291,197,16,16",
+    "input:text|||360°|127,234,160,44",
+    "button||||116,234,182,11",
+    "button||||116,267,182,11",
+    "button||||116,234,11,44",
+    "button||||254,234,44,44",
+    "button|Reset to default value|||291,248,16,16",
+    "input:text|||100%|127,285,66,44",
+    "button||||116,285,88,11",
+    "button||||116,318,88,11",
+    "button||||116,285,11,44",
+    "button||||160,285,44,44",
+    "button|Reset to default value|||197,299,16,16",
+    "input:text|||100%|221,285,66,44",
+    "button||||210,285,88,11",
+    "button||||210,318,88,11",
+    "button||||210,285,11,44",
+    "button||||254,285,44,44",
+    "button|Reset to default value|||291,299,16,16",
+    "input:text|||0px|127,336,66,44",
+    "button||||116,336,88,11",
+    "button||||116,369,88,11",
+    "button||||116,336,11,44",
+    "button||||160,336,44,44",
+    "button|Reset to default value|||197,350,16,16",
+    "input:text|||0px|221,336,66,44",
+    "button||||210,336,88,11",
+    "button||||210,369,88,11",
+    "button||||210,336,11,44",
+    "button||||254,336,44,44",
+    "button|Reset to default value|||291,350,16,16",
+    "input:text|||0°|127,387,66,44",
+    "button||||116,387,88,11",
+    "button||||116,420,88,11",
+    "button||||116,387,11,44",
+    "button||||160,387,44,44",
+    "button|Reset to default value|||197,401,16,16",
+    "input:text|||0°|221,387,66,44",
+    "button||||210,387,88,11",
+    "button||||210,420,88,11",
+    "button||||210,387,11,44",
+    "button||||254,387,44,44",
+    "button|Reset to default value|||291,401,16,16",
+    "button||Preview||0,447,320,55"
+   ]
+  },
+  "loopTiming": {
+   "box": "0,0,320,500",
+   "text": [
+    "Loop @143,17,34,22",
+    "End @78,145,25,18",
+    "Timing @207,145,45,18",
+    "Type @22,183,32,44",
+    "Continuous @175,194,88,22",
+    "Ease @22,234,32,44",
+    "Linear @203,245,61,22",
+    "Duration @22,285,57,44",
+    "Delay @22,336,37,44",
+    "Preview @134,468,52,14"
+   ],
+   "c": [
+    "button||||11,5,16,46",
+    "button|End|End||22,136,138,36",
+    "button|Timing|Timing||160,136,138,36",
+    "input:text|||false|162,182,1,1",
+    "button||Continuous||163,183,135,44",
+    "input:text|||linear|162,233,1,1",
+    "button||Linear||163,234,135,44",
+    "input:text|||10s|174,285,113,44",
+    "button||||163,285,135,11",
+    "button||||163,318,135,11",
+    "button||||163,285,11,44",
+    "button||||254,285,44,44",
+    "button|Reset to default value|||291,299,16,16",
+    "input:text|||0s|174,336,113,44",
+    "button||||163,336,135,11",
+    "button||||163,369,135,11",
+    "button||||163,336,11,44",
+    "button||||254,336,44,44",
+    "button|Reset to default value|||291,350,16,16",
+    "button||Preview||0,447,320,55"
+   ]
+  },
+  "hoverEnd": {
+   "box": "0,0,320,500",
+   "text": [
+    "On Hover @129,17,63,22",
+    "End @78,145,25,18",
+    "Timing @207,145,45,18",
+    "Opacity @22,183,52,44",
+    "Rotate @22,234,43,44",
+    "Scale @22,285,88,44",
+    "Offset @22,336,88,44",
+    "Skew @22,387,88,44",
+    "Preview @134,468,52,14"
+   ],
+   "c": [
+    "button||||11,5,16,46",
+    "button|End|End||22,136,138,36",
+    "button|Timing|Timing||160,136,138,36",
+    "input:text|||100%|127,183,160,44",
+    "button||||116,183,182,11",
+    "button||||116,216,182,11",
+    "button||||116,183,11,44",
+    "button||||254,183,44,44",
+    "button|Reset to default value|||291,197,16,16",
+    "input:text|||0°|127,234,160,44",
+    "button||||116,234,182,11",
+    "button||||116,267,182,11",
+    "button||||116,234,11,44",
+    "button||||254,234,44,44",
+    "button|Reset to default value|||291,248,16,16",
+    "input:text|||110%|127,285,66,44",
+    "button||||116,285,88,11",
+    "button||||116,318,88,11",
+    "button||||116,285,11,44",
+    "button||||160,285,44,44",
+    "button|Reset to default value|||197,299,16,16",
+    "input:text|||110%|221,285,66,44",
+    "button||||210,285,88,11",
+    "button||||210,318,88,11",
+    "button||||210,285,11,44",
+    "button||||254,285,44,44",
+    "button|Reset to default value|||291,299,16,16",
+    "input:text|||0px|127,336,66,44",
+    "button||||116,336,88,11",
+    "button||||116,369,88,11",
+    "button||||116,336,11,44",
+    "button||||160,336,44,44",
+    "button|Reset to default value|||197,350,16,16",
+    "input:text|||0px|221,336,66,44",
+    "button||||210,336,88,11",
+    "button||||210,369,88,11",
+    "button||||210,336,11,44",
+    "button||||254,336,44,44",
+    "button|Reset to default value|||291,350,16,16",
+    "input:text|||0°|127,387,66,44",
+    "button||||116,387,88,11",
+    "button||||116,420,88,11",
+    "button||||116,387,11,44",
+    "button||||160,387,44,44",
+    "button|Reset to default value|||197,401,16,16",
+    "input:text|||0°|221,387,66,44",
+    "button||||210,387,88,11",
+    "button||||210,420,88,11",
+    "button||||210,387,11,44",
+    "button||||254,387,44,44",
+    "button|Reset to default value|||291,401,16,16",
+    "button||Preview||0,447,320,55"
+   ]
+  },
+  "blank": {
+   "box": "0,0,320,500",
+   "text": [
+    "On Hover @129,17,63,22",
+    "End @78,145,25,18",
+    "Timing @207,145,45,18",
+    "Ease @22,183,32,44",
+    "Out @203,194,61,22",
+    "Duration @22,234,57,44",
+    "Delay @22,285,37,44",
+    "Preview @134,468,52,14"
+   ],
+   "c": [
+    "button||||11,5,16,46",
+    "button|End|End||22,136,138,36",
+    "button|Timing|Timing||160,136,138,36",
+    "input:text|||ease-out|162,182,1,1",
+    "button||Out||163,183,135,44",
+    "input:text|||0.4s|174,234,113,44",
+    "button||||163,234,135,11",
+    "button||||163,267,135,11",
+    "button||||163,234,11,44",
+    "button||||254,234,44,44",
+    "button|Reset to default value|||291,248,16,16",
+    "input:text|||0s|174,285,113,44",
+    "button||||163,285,135,11",
+    "button||||163,318,135,11",
+    "button||||163,285,11,44",
+    "button||||254,285,44,44",
+    "button|Reset to default value|||291,299,16,16",
+    "button||Preview||0,447,320,55"
+   ]
+  }
+ },
+ "poses": {
+  "loop2": {
+   "End": [
+    [
+     "matrix(0.95, 0, 0, 0.95, 0, 0)",
+     "1",
+     "0px 20%",
+     "--block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --s",
+     false
+    ],
+    [
+     "100%",
+     "0°",
+     "95%",
+     "95%",
+     "0px",
+     "20%",
+     "0°",
+     "0°"
+    ],
+    [
+     "Values are relative to design settings"
+    ]
+   ],
+   "Timing": [
+    [
+     "none",
+     "1",
+     "none",
+     "--block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --s",
+     false
+    ],
+    [
+     "Ping Pong",
+     "In Out",
+     "2s",
+     "0s"
+    ],
+    []
+   ]
+  },
+  "scroll1": {
+   "Start": [
+    [
+     "matrix(0.965926, 0.258819, -0.258819, 0.965926, 0, 0)",
+     "1",
+     "-25% 25%",
+     "--block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --s",
+     false
+    ],
+    [
+     "100%",
+     "15°",
+     "100%",
+     "100%",
+     "-25%",
+     "25%",
+     "0°",
+     "0°"
+    ],
+    [
+     "Values are relative to design settings"
+    ]
+   ],
+   "End": [
+    [
+     "matrix(1, 0, 0, 1, 0, 0)",
+     "1",
+     "0%",
+     "--block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --s",
+     false
+    ],
+    [
+     "100%",
+     "0°",
+     "100%",
+     "100%",
+     "0%",
+     "0px",
+     "0°",
+     "0°"
+    ],
+    [
+     "Values are relative to design settings"
+    ]
+   ],
+   "Timing": [
+    [
+     "matrix(0.999731, 0.0231728, -0.0231728, 0.999731, -10.1633, 2.21303)",
+     "1",
+     "none",
+     "--block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --s",
+     true
+    ],
+    [
+     "Block",
+     "Passes",
+     "0%",
+     "100%",
+     "In Out",
+     "1"
+    ],
+    []
+   ]
+  },
+  "appear3": {
+   "Start": [
+    [
+     "matrix(0.772741, -0.207055, 0.207055, 0.772741, 0, 0)",
+     "0",
+     "0px -200%",
+     "--block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --s",
+     false
+    ],
+    [
+     "0%",
+     "-15°",
+     "80%",
+     "80%",
+     "0px",
+     "-200%",
+     "0°",
+     "0°"
+    ],
+    [
+     "Values are relative to design settings"
+    ]
+   ],
+   "Timing": [
+    [
+     "none",
+     "1",
+     "none",
+     "--block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --s",
+     false
+    ],
+    [
+     "Spring",
+     "0.2",
+     "0.7s",
+     "0s",
+     "Block",
+     "50%"
+    ],
+    []
+   ]
+  },
+  "follow1": {
+   "Range": [
+    [
+     "matrix(1, 0, 0, 1, 0, 0)",
+     "1",
+     "150px 150px",
+     "--block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --s",
+     false
+    ],
+    [
+     "100%",
+     "0°",
+     "100%",
+     "100%",
+     "150px",
+     "150px",
+     "0°",
+     "0°"
+    ],
+    [
+     "Values are relative to design settings"
+    ]
+   ],
+   "Timing": [
+    [
+     "none",
+     "1",
+     "none",
+     "--block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --s",
+     false
+    ],
+    [
+     "Attract",
+     "Block",
+     "0.75",
+     "200%",
+     "0.3",
+     true
+    ],
+    []
+   ]
+  }
+ },
+ "hoverPoses": {
+  "hoverEnd": [
+   "matrix(1.1, 0, 0, 1.1, 0, 0)",
+   "1",
+   "0px",
+   "translate: calc(0px); transform: rotate(0deg) scale(1.1, 1.1) skewX(0deg) skewY(0deg); opacity: 1;",
+   false
+  ],
+  "hoverTiming": [
+   "none",
+   "1",
+   "none",
+   "",
+   false
+  ]
+ },
+ "scrub": {
+  "clicks": [
+   [
+    "r",
+    [
+     "0.3",
+     "0.5s",
+     "0s"
+    ]
+   ],
+   [
+    "r",
+    [
+     "0.3",
+     "0.5s",
+     "0s"
+    ]
+   ],
+   [
+    "l",
+    [
+     "0.3",
+     "0.5s",
+     "0s"
+    ]
+   ],
+   [
+    "t",
+    [
+     "0.3",
+     "0.5s",
+     "0s"
+    ]
+   ],
+   [
+    "b",
+    [
+     "0.3",
+     "0.5s",
+     "0s"
+    ]
+   ]
+  ],
+  "duration40px": [
+   "0.5s",
+   "2.1s"
+  ],
+  "undo": "0.5s",
+  "design20px": {
+   "Opacity": [
+    "100%",
+    "100%",
+    true,
+    "100%"
+   ],
+   "Rotate": [
+    "0°",
+    "8°",
+    true,
+    "0°"
+   ],
+   "ScaleX": [
+    "100%",
+    "108%",
+    true,
+    "100%"
+   ],
+   "OffsetX": [
+    "0px",
+    "8px",
+    true,
+    "0px"
+   ]
+  },
+  "note": "A click on an edge does nothing. A drag right of 40px took Duration from 0.5s to 2.1s; 20px took Rotate 0 to 8, Scale 100 to 108, Offset 0 to 8; Opacity stays at its top of 100. One undo. Reset shows at 16 by 16 on a field whose value left the default."
+ },
+ "resets": [
+  [
+   869,
+   498,
+   16,
+   "1",
+   "visible"
+  ],
+  [
+   869,
+   549,
+   16,
+   "0",
+   "visible"
+  ],
+  [
+   775,
+   600,
+   16,
+   "1",
+   "visible"
+  ],
+  [
+   869,
+   600,
+   16,
+   "1",
+   "visible"
+  ],
+  [
+   775,
+   651,
+   16,
+   "0",
+   "visible"
+  ],
+  [
+   869,
+   651,
+   16,
+   "0",
+   "visible"
+  ],
+  [
+   775,
+   702,
+   16,
+   "0",
+   "visible"
+  ],
+  [
+   869,
+   702,
+   16,
+   "0",
+   "visible"
+  ]
+ ],
+ "typed": {
+  "opacity": [
+   "Opacity",
+   null,
+   "text",
+   "50%"
+  ],
+  "blockStyle": "translate: calc(0px); transform: rotate(0deg) scale(1.1, 1.1) skewX(0deg) skewY(0deg); opacity: 0.5;",
+  "undo": [
+   "Opacity",
+   null,
+   "text",
+   "100%"
+  ],
+  "rotate12": "12°"
+ },
+ "tilePreview": {
+  "hoverEnd": {
+   "hover-1": [
+    "matrix(1.21, 0, 0, 1.21, 0, 0)",
+    "1",
+    "36px",
+    "36px",
+    "rgb(14, 14, 14)"
+   ],
+   "hover-2": [
+    "matrix(1.06678, -0.0297974, 0.0297974, 1.06678, 0, 0)",
+    "1",
+    "36px",
+    "36px",
+    "rgb(14, 14, 14)"
+   ],
+   "hover-3": [
+    "matrix(0.919358, -0.0230154, 0.0460596, 0.92051, 0, 0)",
+    "1",
+    "36px",
+    "36px",
+    "rgb(14, 14, 14)"
+   ],
+   "hover-4": [
+    "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 0, -3.6)",
+    "1",
+    "36px",
+    "36px",
+    "rgb(14, 14, 14)"
+   ],
+   "hover-5": [
+    "matrix(0.983612, 0, 0, 1, 0, 0)",
+    "1",
+    "36px",
+    "36px",
+    "rgb(14, 14, 14)"
+   ],
+   "hover-6": [
+    "matrix(1, 0, 0, 1, -1.57846, 0)",
+    "1",
+    "36px",
+    "36px",
+    "rgb(14, 14, 14)"
+   ]
+  },
+  "rest": [
+   "none",
+   "1",
+   "36px",
+   "36px",
+   "rgb(14, 14, 14)"
+  ],
+  "firstOpen": [
+   [
+    "hover-1",
+    [
+     [
+      "INPUT",
+      21,
+      107,
+      1,
+      1,
+      "none",
+      "rgba(0, 0, 0, 0)",
+      "0"
+     ],
+     [
+      "DIV",
+      68,
+      132,
+      43.6,
+      43.6,
+      "matrix(1.21, 0, 0, 1.21, 0, 0)",
+      "rgb(14, 14, 14)",
+      "1"
+     ]
+    ]
+   ],
+   [
+    "hover-2",
+    [
+     [
+      "INPUT",
+      162,
+      107,
+      1,
+      1,
+      "none",
+      "rgba(0, 0, 0, 0)",
+      "0"
+     ],
+     [
+      "DIV",
+      212,
+      135,
+      37.1,
+      37.1,
+      "matrix(1.02172, -0.00924046, 0.00924046, 1.02172, 0, 0)",
+      "rgb(14, 14, 14)",
+      "1"
+     ]
+    ]
+   ],
+   [
+    "hover-3",
+    [
+     [
+      "INPUT",
+      21,
+      219,
+      1,
+      1,
+      "none",
+      "rgba(0, 0, 0, 0)",
+      "0"
+     ],
+     [
+      "DIV",
+      72,
+      248,
+      35.3,
+      34.8,
+      "matrix(0.952102, -0.0142213, 0.0284489, 0.952527, 0, 0)",
+      "rgb(14, 14, 14)",
+      "1"
+     ]
+    ]
+   ],
+   [
+    "hover-4",
+    [
+     [
+      "INPUT",
+      162,
+      219,
+      1,
+      1,
+      "none",
+      "rgba(0, 0, 0, 0)",
+      "0"
+     ],
+     [
+      "DIV",
+      211,
+      242,
+      39,
+      39,
+      "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 0, -3.6)",
+      "rgb(14, 14, 14)",
+      "1"
+     ]
+    ]
+   ],
+   [
+    "hover-5",
+    [
+     [
+      "INPUT",
+      21,
+      331,
+      1,
+      1,
+      "none",
+      "rgba(0, 0, 0, 0)",
+      "0"
+     ],
+     [
+      "DIV",
+      72,
+      360,
+      36,
+      36,
+      "matrix(0.999479, 0, 0, 1, 0, 0)",
+      "rgb(14, 14, 14)",
+      "1"
+     ]
+    ]
+   ],
+   [
+    "hover-6",
+    [
+     [
+      "INPUT",
+      162,
+      331,
+      1,
+      1,
+      "none",
+      "rgba(0, 0, 0, 0)",
+      "0"
+     ],
+     [
+      "DIV",
+      213,
+      360,
+      36,
+      36,
+      "matrix(1, 0, 0, 1, 0, 0)",
+      "rgb(14, 14, 14)",
+      "1"
+     ]
+    ]
+   ]
+  ]
+ },
+ "curves": {
+  "Ease": [
+   [
+    12,
+    0.0188
+   ],
+   [
+    62,
+    0.1107
+   ],
+   [
+    112,
+    0.2861
+   ],
+   [
+    162,
+    0.5364
+   ],
+   [
+    212,
+    0.7303
+   ],
+   [
+    262,
+    0.8474
+   ],
+   [
+    313,
+    0.9186
+   ],
+   [
+    363,
+    0.9619
+   ],
+   [
+    412,
+    0.9866
+   ],
+   [
+    462,
+    0.998
+   ]
+  ],
+  "In Back": [
+   [
+    8,
+    -0.0015
+   ],
+   [
+    57,
+    -0.0213
+   ],
+   [
+    107,
+    -0.0539
+   ],
+   [
+    157,
+    -0.0849
+   ],
+   [
+    207,
+    -0.0977
+   ],
+   [
+    257,
+    -0.0746
+   ],
+   [
+    307,
+    0.0025
+   ],
+   [
+    357,
+    0.1507
+   ],
+   [
+    407,
+    0.3852
+   ],
+   [
+    457,
+    0.7174
+   ],
+   [
+    507,
+    1.0
+   ]
+  ],
+  "Out Back": [
+   [
+    10,
+    0.147
+   ],
+   [
+    60,
+    0.5157
+   ],
+   [
+    110,
+    0.7812
+   ],
+   [
+    160,
+    0.9567
+   ],
+   [
+    210,
+    1.0557
+   ],
+   [
+    260,
+    1.0949
+   ],
+   [
+    310,
+    1.0921
+   ],
+   [
+    360,
+    1.0652
+   ],
+   [
+    410,
+    1.0314
+   ],
+   [
+    460,
+    1.0059
+   ]
+  ],
+  "In Out Back": [
+   [
+    2,
+    -0.0279
+   ],
+   [
+    46,
+    -0.0889
+   ],
+   [
+    96,
+    -0.1022
+   ],
+   [
+    145,
+    -0.0327
+   ],
+   [
+    195,
+    0.2009
+   ],
+   [
+    245,
+    0.6619
+   ],
+   [
+    295,
+    0.9791
+   ],
+   [
+    346,
+    1.0908
+   ],
+   [
+    395,
+    1.0998
+   ],
+   [
+    446,
+    1.0522
+   ],
+   [
+    496,
+    1.0
+   ]
+  ],
+  "In": [
+   [
+    4,
+    0.0001
+   ],
+   [
+    54,
+    0.0047
+   ],
+   [
+    104,
+    0.0198
+   ],
+   [
+    154,
+    0.0486
+   ],
+   [
+    204,
+    0.0938
+   ],
+   [
+    254,
+    0.1596
+   ],
+   [
+    304,
+    0.2505
+   ],
+   [
+    354,
+    0.3739
+   ],
+   [
+    404,
+    0.543
+   ],
+   [
+    454,
+    0.7801
+   ]
+  ],
+  "Out": [
+   [
+    4,
+    0.0904
+   ],
+   [
+    54,
+    0.3497
+   ],
+   [
+    104,
+    0.5603
+   ],
+   [
+    154,
+    0.7136
+   ],
+   [
+    204,
+    0.8195
+   ],
+   [
+    254,
+    0.8917
+   ],
+   [
+    304,
+    0.94
+   ],
+   [
+    354,
+    0.9712
+   ],
+   [
+    404,
+    0.9897
+   ],
+   [
+    454,
+    0.9985
+   ]
+  ],
+  "Linear": [
+   [
+    2,
+    0.0334
+   ],
+   [
+    53,
+    0.1334
+   ],
+   [
+    103,
+    0.2334
+   ],
+   [
+    153,
+    0.3334
+   ],
+   [
+    203,
+    0.4334
+   ],
+   [
+    253,
+    0.5334
+   ],
+   [
+    303,
+    0.6334
+   ],
+   [
+    353,
+    0.7334
+   ],
+   [
+    403,
+    0.8334
+   ],
+   [
+    453,
+    0.9334
+   ]
+  ],
+  "In Out": [
+   [
+    2,
+    0.0006
+   ],
+   [
+    47,
+    0.0116
+   ],
+   [
+    97,
+    0.0422
+   ],
+   [
+    147,
+    0.1082
+   ],
+   [
+    197,
+    0.2612
+   ],
+   [
+    246,
+    0.6399
+   ],
+   [
+    297,
+    0.8552
+   ],
+   [
+    348,
+    0.9409
+   ],
+   [
+    396,
+    0.9809
+   ],
+   [
+    446,
+    0.9973
+   ]
+  ],
+  "Spring .3": [
+   [
+    13,
+    0.0549
+   ],
+   [
+    63,
+    0.4828
+   ],
+   [
+    113,
+    0.85
+   ],
+   [
+    163,
+    1.0153
+   ],
+   [
+    213,
+    1.0455
+   ],
+   [
+    263,
+    1.0271
+   ],
+   [
+    313,
+    1.0096
+   ],
+   [
+    363,
+    1.0016
+   ],
+   [
+    413,
+    1.0007
+   ],
+   [
+    463,
+    0.9998
+   ]
+  ]
+ },
+ "preview": {
+  "startMs": 181,
+  "backStartsMs": 1194,
+  "forwardMs": 500,
+  "holdMs": 500,
+  "note": "Grow (.5s) and In Out (.5s) turn back 1000 ms after the start, Look (.3s) about 830 ms. So a hold of 500 ms. data-m-id is m-preview-sequence while it plays.",
+  "samples": {
+   "grow": [
+    [
+     11,
+     "none",
+     "1",
+     0
+    ],
+    [
+     194,
+     "matrix(1.00549, 0, 0, 1.00549, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     227,
+     "matrix(1.033, 0, 0, 1.033, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     261,
+     "matrix(1.06296, 0, 0, 1.06296, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     294,
+     "matrix(1.085, 0, 0, 1.085, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     327,
+     "matrix(1.09836, 0, 0, 1.09836, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     361,
+     "matrix(1.1034, 0, 0, 1.1034, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     394,
+     "matrix(1.10455, 0, 0, 1.10455, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     427,
+     "matrix(1.10332, 0, 0, 1.10332, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     461,
+     "matrix(1.1021, 0, 0, 1.1021, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     494,
+     "matrix(1.10096, 0, 0, 1.10096, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     527,
+     "matrix(1.10022, 0, 0, 1.10022, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     561,
+     "matrix(1.10013, 0, 0, 1.10013, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     594,
+     "matrix(1.10007, 0, 0, 1.10007, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     627,
+     "matrix(1.10001, 0, 0, 1.10001, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     661,
+     "matrix(1.09995, 0, 0, 1.09995, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1194,
+     "matrix(1.09445, 0, 0, 1.09445, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1227,
+     "matrix(1.06691, 0, 0, 1.06691, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1261,
+     "matrix(1.03704, 0, 0, 1.03704, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1294,
+     "matrix(1.01505, 0, 0, 1.01505, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1327,
+     "matrix(1.00164, 0, 0, 1.00164, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1361,
+     "matrix(0.996608, 0, 0, 0.996608, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1394,
+     "matrix(0.995451, 0, 0, 0.995451, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1427,
+     "matrix(0.996676, 0, 0, 0.996676, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1461,
+     "matrix(0.997898, 0, 0, 0.997898, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1494,
+     "matrix(0.999036, 0, 0, 0.999036, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1527,
+     "matrix(0.999783, 0, 0, 0.999783, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1561,
+     "matrix(0.999871, 0, 0, 0.999871, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1594,
+     "matrix(0.999932, 0, 0, 0.999932, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1627,
+     "matrix(0.999993, 0, 0, 0.999993, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1661,
+     "matrix(1.00005, 0, 0, 1.00005, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1694,
+     "matrix(1, 0, 0, 1, 0, 0)",
+     "1",
+     1
+    ]
+   ],
+   "look": [
+    [
+     3,
+     "none",
+     "1",
+     0
+    ],
+    [
+     186,
+     "matrix(0.977137, -0.0128112, 0.0256268, 0.977473, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     219,
+     "matrix(0.933449, -0.0348429, 0.0697826, 0.936047, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     253,
+     "matrix(0.899238, -0.0501564, 0.100622, 0.904816, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     286,
+     "matrix(0.875312, -0.059976, 0.120507, 0.883493, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     319,
+     "matrix(0.85931, -0.0661671, 0.133105, 0.86944, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     353,
+     "matrix(0.848914, -0.0700358, 0.141006, 0.860392, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     386,
+     "matrix(0.842389, -0.0724039, 0.145855, 0.854744, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     419,
+     "matrix(0.838688, -0.0737266, 0.148567, 0.851551, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     453,
+     "matrix(0.837071, -0.0743005, 0.149745, 0.850158, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1019,
+     "matrix(0.862994, -0.0647677, 0.130253, 0.872661, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1053,
+     "matrix(0.909353, -0.045791, 0.0918122, 0.913953, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1085,
+     "matrix(0.943342, -0.0301123, 0.0602858, 0.945262, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1119,
+     "matrix(0.96588, -0.0187791, 0.0375725, 0.96661, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1153,
+     "matrix(0.980344, -0.0110716, 0.0221459, 0.980594, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1186,
+     "matrix(0.989558, -0.00597068, 0.0119418, 0.98963, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1219,
+     "matrix(0.995241, -0.00274675, 0.00549353, 0.995256, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1253,
+     "matrix(0.998453, -0.00089736, 0.00179472, 0.998455, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1286,
+     "matrix(0.999844, -9.06161e-05, 0.000181233, 0.999844, 0, 0)",
+     "1",
+     1
+    ],
+    [
+     1419,
+     "none",
+     "1",
+     0
+    ]
+   ]
+  },
+  "appearPop": [
+   [
+    5,
+    "none",
+    "1",
+    0
+   ],
+   [
+    206,
+    "matrix(0.0731202, 0, 0, 0.0731202, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    255,
+    "matrix(0.304273, 0, 0, 0.304273, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    305,
+    "matrix(0.541157, 0, 0, 0.541157, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    356,
+    "matrix(0.720679, 0, 0, 0.720679, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    405,
+    "matrix(0.845484, 0, 0, 0.845484, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    455,
+    "matrix(0.917634, 0, 0, 0.917634, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    505,
+    "matrix(0.962765, 0, 0, 0.962765, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    555,
+    "matrix(0.984847, 0, 0, 0.984847, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    605,
+    "matrix(0.993598, 0, 0, 0.993598, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    655,
+    "matrix(0.999444, 0, 0, 0.999444, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    705,
+    "matrix(1.0005, 0, 0, 1.0005, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    755,
+    "matrix(1.00055, 0, 0, 1.00055, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    805,
+    "matrix(1.0006, 0, 0, 1.0006, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    856,
+    "matrix(1.00065, 0, 0, 1.00065, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1005,
+    "none",
+    "1",
+    0
+   ]
+  ],
+  "scrollParallax": [
+   [
+    5,
+    "none",
+    "1",
+    0
+   ],
+   [
+    205,
+    "matrix(0.965969, 0.258659, -0.258659, 0.965969, -114.739, 17.7856)",
+    "1",
+    1
+   ],
+   [
+    255,
+    "matrix(0.966213, 0.257747, -0.257747, 0.966213, -114.326, 17.7215)",
+    "1",
+    1
+   ],
+   [
+    306,
+    "matrix(0.96671, 0.255873, -0.255873, 0.96671, -113.475, 17.5896)",
+    "1",
+    1
+   ],
+   [
+    355,
+    "matrix(0.967521, 0.25279, -0.25279, 0.967521, -112.077, 17.3729)",
+    "1",
+    1
+   ],
+   [
+    405,
+    "matrix(0.968729, 0.24812, -0.24812, 0.968729, -109.962, 17.0451)",
+    "1",
+    1
+   ],
+   [
+    455,
+    "matrix(0.970456, 0.241277, -0.241277, 0.970456, -106.867, 16.5652)",
+    "1",
+    1
+   ],
+   [
+    506,
+    "matrix(0.972877, 0.231325, -0.231325, 0.972877, -102.376, 15.869)",
+    "1",
+    1
+   ],
+   [
+    555,
+    "matrix(0.976323, 0.216319, -0.216319, 0.976323, -95.6232, 14.8224)",
+    "1",
+    1
+   ],
+   [
+    605,
+    "matrix(0.981342, 0.192272, -0.192272, 0.981342, -84.8497, 13.1524)",
+    "1",
+    1
+   ],
+   [
+    655,
+    "matrix(0.98874, 0.149644, -0.149644, 0.98874, -65.8739, 10.211)",
+    "1",
+    1
+   ],
+   [
+    705,
+    "matrix(0.99555, 0.0942298, -0.0942298, 0.99555, -41.386, 6.41518)",
+    "1",
+    1
+   ],
+   [
+    755,
+    "matrix(0.998278, 0.0586574, -0.0586574, 0.998278, -25.739, 3.98976)",
+    "1",
+    1
+   ],
+   [
+    805,
+    "matrix(0.999284, 0.0378292, -0.0378292, 0.999284, -16.594, 2.57221)",
+    "1",
+    1
+   ],
+   [
+    855,
+    "matrix(0.9997, 0.0245058, -0.0245058, 0.9997, -10.7481, 1.66605)",
+    "1",
+    1
+   ],
+   [
+    905,
+    "matrix(0.999881, 0.0154525, -0.0154525, 0.999881, -6.77701, 1.05049)",
+    "1",
+    1
+   ],
+   [
+    955,
+    "matrix(0.999957, 0.00923667, -0.00923667, 0.999957, -4.05081, 0.627909)",
+    "1",
+    1
+   ],
+   [
+    1005,
+    "matrix(0.999987, 0.00501775, -0.00501775, 0.999987, -2.20055, 0.341103)",
+    "1",
+    1
+   ],
+   [
+    1055,
+    "matrix(0.999997, 0.00227661, -0.00227661, 0.999997, -0.99841, 0.154762)",
+    "1",
+    1
+   ],
+   [
+    1105,
+    "matrix(1, 0.000693712, -0.000693712, 1, -0.304228, 0.0471579)",
+    "1",
+    1
+   ],
+   [
+    1155,
+    "matrix(1, 4.08123e-05, -4.08123e-05, 1, -0.0178983, 0.00277438)",
+    "1",
+    1
+   ]
+  ],
+  "loopFloat": [
+   [
+    15,
+    "none",
+    "1",
+    0
+   ],
+   [
+    215,
+    "matrix(0.999982, 0, 0, 0.999982, 0, 0.00502478)",
+    "1",
+    1
+   ],
+   [
+    281,
+    "matrix(0.9999, 0, 0, 0.9999, 0, 0.0285562)",
+    "1",
+    1
+   ],
+   [
+    348,
+    "matrix(0.999741, 0, 0, 0.999741, 0, 0.073684)",
+    "1",
+    1
+   ],
+   [
+    414,
+    "matrix(0.999495, 0, 0, 0.999495, 0, 0.143796)",
+    "1",
+    1
+   ],
+   [
+    481,
+    "matrix(0.999147, 0, 0, 0.999147, 0, 0.242933)",
+    "1",
+    1
+   ],
+   [
+    548,
+    "matrix(0.998679, 0, 0, 0.998679, 0, 0.376114)",
+    "1",
+    1
+   ],
+   [
+    614,
+    "matrix(0.998066, 0, 0, 0.998066, 0, 0.550616)",
+    "1",
+    1
+   ],
+   [
+    681,
+    "matrix(0.997276, 0, 0, 0.997276, 0, 0.775566)",
+    "1",
+    1
+   ],
+   [
+    748,
+    "matrix(0.996265, 0, 0, 0.996265, 0, 1.06348)",
+    "1",
+    1
+   ],
+   [
+    814,
+    "matrix(0.994966, 0, 0, 0.994966, 0, 1.43352)",
+    "1",
+    1
+   ],
+   [
+    881,
+    "matrix(0.993273, 0, 0, 0.993273, 0, 1.91552)",
+    "1",
+    1
+   ],
+   [
+    948,
+    "matrix(0.991021, 0, 0, 0.991021, 0, 2.55678)",
+    "1",
+    1
+   ],
+   [
+    1014,
+    "matrix(0.987919, 0, 0, 0.987919, 0, 3.44005)",
+    "1",
+    1
+   ],
+   [
+    1081,
+    "matrix(0.98342, 0, 0, 0.98342, 0, 4.72123)",
+    "1",
+    1
+   ],
+   [
+    1148,
+    "matrix(0.976886, 0, 0, 0.976886, 0, 6.58159)",
+    "1",
+    1
+   ],
+   [
+    1214,
+    "matrix(0.96959, 0, 0, 0.96959, 0, 8.65925)",
+    "1",
+    1
+   ],
+   [
+    1281,
+    "matrix(0.96412, 0, 0, 0.96412, 0, 10.2168)",
+    "1",
+    1
+   ],
+   [
+    1348,
+    "matrix(0.960402, 0, 0, 0.960402, 0, 11.2756)",
+    "1",
+    1
+   ],
+   [
+    1415,
+    "matrix(0.95777, 0, 0, 0.95777, 0, 12.0248)",
+    "1",
+    1
+   ]
+  ],
+  "pressJitter": [
+   [
+    3,
+    "none",
+    "1",
+    0
+   ],
+   [
+    171,
+    "matrix(1, 0, 0, 1, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    186,
+    "matrix(1, 0, 0, 1, -0.503982, 0)",
+    "1",
+    1
+   ],
+   [
+    203,
+    "matrix(1, 0, 0, 1, -0.953123, 0)",
+    "1",
+    1
+   ],
+   [
+    219,
+    "matrix(1, 0, 0, 1, -1.44741, 0)",
+    "1",
+    1
+   ],
+   [
+    236,
+    "matrix(1, 0, 0, 1, -1.8925, 0)",
+    "1",
+    1
+   ],
+   [
+    253,
+    "matrix(1, 0, 0, 1, -2.23213, 0)",
+    "1",
+    1
+   ],
+   [
+    269,
+    "matrix(1, 0, 0, 1, -2.536, 0)",
+    "1",
+    1
+   ],
+   [
+    286,
+    "matrix(1, 0, 0, 1, -2.75117, 0)",
+    "1",
+    1
+   ],
+   [
+    303,
+    "matrix(1, 0, 0, 1, -2.86786, 0)",
+    "1",
+    1
+   ],
+   [
+    319,
+    "matrix(1, 0, 0, 1, -2.91605, 0)",
+    "1",
+    1
+   ],
+   [
+    336,
+    "matrix(1, 0, 0, 1, -2.88628, 0)",
+    "1",
+    1
+   ],
+   [
+    353,
+    "matrix(1, 0, 0, 1, -2.80549, 0)",
+    "1",
+    1
+   ],
+   [
+    370,
+    "matrix(1, 0, 0, 1, -2.6645, 0)",
+    "1",
+    1
+   ],
+   [
+    386,
+    "matrix(1, 0, 0, 1, -2.51302, 0)",
+    "1",
+    1
+   ],
+   [
+    403,
+    "matrix(1, 0, 0, 1, -2.32044, 0)",
+    "1",
+    1
+   ],
+   [
+    419,
+    "matrix(1, 0, 0, 1, -2.12431, 0)",
+    "1",
+    1
+   ],
+   [
+    436,
+    "matrix(1, 0, 0, 1, -1.94042, 0)",
+    "1",
+    1
+   ],
+   [
+    453,
+    "matrix(1, 0, 0, 1, -1.81615, 0)",
+    "1",
+    1
+   ],
+   [
+    469,
+    "matrix(1, 0, 0, 1, -3, 0)",
+    "1",
+    1
+   ],
+   [
+    1003,
+    "matrix(1, 0, 0, 1, -2.49602, 0)",
+    "1",
+    1
+   ],
+   [
+    1019,
+    "matrix(1, 0, 0, 1, -1.98488, 0)",
+    "1",
+    1
+   ],
+   [
+    1036,
+    "matrix(1, 0, 0, 1, -1.55259, 0)",
+    "1",
+    1
+   ],
+   [
+    1053,
+    "matrix(1, 0, 0, 1, -1.1075, 0)",
+    "1",
+    1
+   ],
+   [
+    1069,
+    "matrix(1, 0, 0, 1, -0.731206, 0)",
+    "1",
+    1
+   ],
+   [
+    1086,
+    "matrix(1, 0, 0, 1, -0.464, 0)",
+    "1",
+    1
+   ],
+   [
+    1103,
+    "matrix(1, 0, 0, 1, -0.248831, 0)",
+    "1",
+    1
+   ],
+   [
+    1119,
+    "matrix(1, 0, 0, 1, -0.132137, 0)",
+    "1",
+    1
+   ],
+   [
+    1136,
+    "matrix(1, 0, 0, 1, -0.08397, 0)",
+    "1",
+    1
+   ],
+   [
+    1153,
+    "matrix(1, 0, 0, 1, -0.113719, 0)",
+    "1",
+    1
+   ],
+   [
+    1169,
+    "matrix(1, 0, 0, 1, -0.20938, 0)",
+    "1",
+    1
+   ],
+   [
+    1186,
+    "matrix(1, 0, 0, 1, -0.3355, 0)",
+    "1",
+    1
+   ],
+   [
+    1203,
+    "matrix(1, 0, 0, 1, -0.512578, 0)",
+    "1",
+    1
+   ],
+   [
+    1219,
+    "matrix(1, 0, 0, 1, -0.708793, 0)",
+    "1",
+    1
+   ],
+   [
+    1236,
+    "matrix(1, 0, 0, 1, -0.87569, 0)",
+    "1",
+    1
+   ],
+   [
+    1253,
+    "matrix(1, 0, 0, 1, -1.05958, 0)",
+    "1",
+    1
+   ],
+   [
+    1269,
+    "matrix(1, 0, 0, 1, -1.18385, 0)",
+    "1",
+    1
+   ],
+   [
+    1287,
+    "matrix(1, 0, 0, 1, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1403,
+    "none",
+    "1",
+    0
+   ]
+  ],
+  "hoverJump": [
+   [
+    3,
+    "none",
+    "1",
+    0
+   ],
+   [
+    220,
+    "matrix(0.999588, -0.0287025, 0.0287025, 0.999588, 0, -2.34173)",
+    "1",
+    1
+   ],
+   [
+    270,
+    "matrix(0.996165, -0.0874948, 0.0874948, 0.996165, 0, -7.14651)",
+    "1",
+    1
+   ],
+   [
+    319,
+    "matrix(0.994917, -0.100702, 0.100702, 0.994917, 0, -8.22863)",
+    "1",
+    1
+   ],
+   [
+    369,
+    "matrix(0.995848, -0.0910367, 0.0910367, 0.995848, 0, -7.4366)",
+    "1",
+    1
+   ],
+   [
+    419,
+    "matrix(0.996366, -0.0851714, 0.0851714, 0.996366, 0, -6.95626)",
+    "1",
+    1
+   ],
+   [
+    470,
+    "matrix(0.996327, -0.0856341, 0.0856341, 0.996327, 0, -6.99415)",
+    "1",
+    1
+   ],
+   [
+    520,
+    "matrix(0.99621, -0.0869758, 0.0869758, 0.99621, 0, -7.10402)",
+    "1",
+    1
+   ],
+   [
+    569,
+    "matrix(0.996175, -0.0873788, 0.0873788, 0.996175, 0, -7.13704)",
+    "1",
+    1
+   ],
+   [
+    620,
+    "matrix(0.996186, -0.0872569, 0.0872569, 0.996186, 0, -7.12701)",
+    "1",
+    1
+   ],
+   [
+    670,
+    "matrix(0.996196, -0.0871356, 0.0871356, 0.996196, 0, -7.11709)",
+    "1",
+    1
+   ],
+   [
+    1236,
+    "matrix(0.998278, -0.0586572, 0.0586572, 0.998278, 0, -4.78769)",
+    "1",
+    1
+   ],
+   [
+    1286,
+    "matrix(1, 0.00034039, -0.00034039, 1, 0, 0.0277673)",
+    "1",
+    1
+   ],
+   [
+    1337,
+    "matrix(0.999907, 0.0136107, -0.0136107, 0.999907, 0, 1.11032)",
+    "1",
+    1
+   ],
+   [
+    1386,
+    "matrix(0.999992, 0.00391797, -0.00391797, 0.999992, 0, 0.319609)",
+    "1",
+    1
+   ],
+   [
+    1436,
+    "matrix(0.999998, -0.00199182, 0.00199182, 0.999998, 0, -0.162483)",
+    "1",
+    1
+   ],
+   [
+    1486,
+    "matrix(0.999999, -0.00152741, 0.00152741, 0.999999, 0, -0.124598)",
+    "1",
+    1
+   ],
+   [
+    1536,
+    "matrix(1, -0.000185974, 0.000185974, 1, 0, -0.0151708)",
+    "1",
+    1
+   ],
+   [
+    1586,
+    "matrix(1, 0.000223915, -0.000223915, 1, 0, 0.0182658)",
+    "1",
+    1
+   ],
+   [
+    1637,
+    "matrix(1, 0.00010205, -0.00010205, 1, 0, 0.00832474)",
+    "1",
+    1
+   ],
+   [
+    1686,
+    "matrix(1, -2.03024e-05, 2.03024e-05, 1, 0, -0.00165616)",
+    "1",
+    1
+   ],
+   [
+    1837,
+    "none",
+    "1",
+    0
+   ]
+  ],
+  "follow": [
+   [
+    7,
+    "none",
+    "1",
+    0
+   ],
+   [
+    757,
+    "matrix(1, 0, 0, 1, 2.60542, 0.27283)",
+    "1",
+    1
+   ],
+   [
+    824,
+    "matrix(1, 0, 0, 1, 6.50143, 1.6811)",
+    "1",
+    1
+   ],
+   [
+    891,
+    "matrix(1, 0, 0, 1, 8.90043, 4.26687)",
+    "1",
+    1
+   ],
+   [
+    957,
+    "matrix(1, 0, 0, 1, 9.41463, 7.465)",
+    "1",
+    1
+   ],
+   [
+    1024,
+    "matrix(1, 0, 0, 1, 7.78619, 10.6798)",
+    "1",
+    1
+   ],
+   [
+    1091,
+    "matrix(1, 0, 0, 1, 4.60879, 13.3787)",
+    "1",
+    1
+   ],
+   [
+    1157,
+    "matrix(1, 0, 0, 1, 0.0428718, 15.0413)",
+    "1",
+    1
+   ],
+   [
+    1224,
+    "matrix(1, 0, 0, 1, -5.52552, 15.2457)",
+    "1",
+    1
+   ],
+   [
+    1291,
+    "matrix(1, 0, 0, 1, -11.6571, 13.6835)",
+    "1",
+    1
+   ],
+   [
+    1357,
+    "matrix(1, 0, 0, 1, -17.7691, 9.5186)",
+    "1",
+    1
+   ],
+   [
+    1424,
+    "matrix(1, 0, 0, 1, -23.0306, 2.86467)",
+    "1",
+    1
+   ],
+   [
+    1491,
+    "matrix(1, 0, 0, 1, -26.252, -6.47534)",
+    "1",
+    1
+   ],
+   [
+    1557,
+    "matrix(1, 0, 0, 1, -26.0727, -17.7611)",
+    "1",
+    1
+   ],
+   [
+    1624,
+    "matrix(1, 0, 0, 1, -21.5852, -29.5063)",
+    "1",
+    1
+   ],
+   [
+    1691,
+    "matrix(1, 0, 0, 1, -11.7151, -39.187)",
+    "1",
+    1
+   ],
+   [
+    1757,
+    "matrix(1, 0, 0, 1, 1.90631, -44.9553)",
+    "1",
+    1
+   ],
+   [
+    1824,
+    "matrix(1, 0, 0, 1, 17.6803, -44.9616)",
+    "1",
+    1
+   ]
+  ]
+ },
+ "previewMode": {
+  "block": [
+   329.75,
+   334.828125,
+   459.25,
+   71.1875
+  ],
+  "hover": [
+   [
+    13,
+    "matrix(1, 0, 0, 1, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    179,
+    "matrix(0.899152, -0.0501931, 0.100696, 0.904738, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    229,
+    "matrix(0.866384, -0.0634661, 0.127602, 0.875633, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    279,
+    "matrix(0.848865, -0.0700539, 0.141043, 0.860349, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    329,
+    "matrix(0.840224, -0.0731797, 0.147445, 0.852875, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    379,
+    "matrix(0.837069, -0.0743014, 0.149746, 0.850156, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1579,
+    "matrix(0.887422, -0.0550927, 0.110605, 0.894236, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1629,
+    "matrix(0.943342, -0.0301123, 0.0602858, 0.945262, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1679,
+    "matrix(0.97389, -0.0145546, 0.0291157, 0.974325, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1729,
+    "matrix(0.989558, -0.00597068, 0.0119418, 0.98963, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1779,
+    "matrix(0.99711, -0.00167318, 0.00334636, 0.997116, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1829,
+    "matrix(0.999842, -9.17341e-05, 0.000183468, 0.999842, 0, 0)",
+    "1",
+    1
+   ]
+  ],
+  "press": [
+   [
+    4,
+    "matrix(1, 0, 0, 1, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    137,
+    "matrix(0.933569, -0.0347868, 0.0696696, 0.936158, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    187,
+    "matrix(0.886069, -0.0556468, 0.111728, 0.893031, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    237,
+    "matrix(0.85931, -0.0661671, 0.133105, 0.86944, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    287,
+    "matrix(0.845241, -0.0713742, 0.143745, 0.85721, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    337,
+    "matrix(0.838688, -0.0737266, 0.148567, 0.851551, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    387,
+    "matrix(0.836887, -0.0743654, 0.149878, 0.85, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1087,
+    "matrix(0.994505, -0.0358351, 0.0717629, 0.997084, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1137,
+    "matrix(1.08943, -0.00400869, 0.00801749, 1.08946, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1187,
+    "matrix(1.10311, 0.00119688, -0.00239377, 1.10311, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1237,
+    "matrix(1.10205, 0.000789782, -0.00157956, 1.10205, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1287,
+    "matrix(1.101, 0.000383464, -0.000766931, 1.101, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1337,
+    "matrix(1.1, 0, 0, 1.1, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1637,
+    "matrix(0.948164, -0.0488898, 0.0980373, 0.953192, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1687,
+    "matrix(0.848442, -0.0720843, 0.145187, 0.860603, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1737,
+    "matrix(0.833494, -0.0750199, 0.151226, 0.84689, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1787,
+    "matrix(0.834648, -0.0747981, 0.150769, 0.847947, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1837,
+    "matrix(0.835796, -0.0745765, 0.150313, 0.849, 0, 0)",
+    "1",
+    1
+   ],
+   [
+    1887,
+    "matrix(0.836887, -0.0743654, 0.149878, 0.85, 0, 0)",
+    "1",
+    1
+   ]
+  ],
+  "note": "Look on Hover with Grow on Press. Enter goes to 0.85, down goes on to 1.1, up comes back to 0.85."
+ },
+ "copyPaste": {
+  "target": [
+   "Design @22,19,46,18",
+   "Animation @84,19,67,18",
+   "Triggers @22,66,182,44",
+   "On Hover @83,119,76,22"
+  ],
+  "targetList": [
+   "Copy animations @737,365,144,44",
+   "Paste animations @737,409,144,44"
+  ]
+ },
+ "siteWide": "Fresh Text blocks show an empty list after each probe, so a row stays on its block.",
+ "inferred": [
+  "The tile plays the square at scale squared (Grow and Lift read 1.21; Look, Squish were mid-run).",
+  "Clamping of typed values.",
+  "Bounce and Smoothing drag steps.",
+  "The default Edge on On Appear.",
+  "Paste on a row and Paste on a list that already has rows.",
+  "Which tab the editor opens on first.",
+  "The editor stage square plays after a value changes: read once from a screenshot.",
+  "Spring at Bounce between .5 and .95.",
+  "Add and Remove on a phone."
+ ],
+ "notRead": [
+  "Published page: needs a Save.",
+  "On Scroll, On Appear, Loop and Follow on the page in preview mode.",
+  "Follow preview path.",
+  "Scroll position on the On Scroll Timing tab.",
+  "Design values mixed with an animation.",
+  "Copy Properties, Animations from the block menu."
+ ]
+}
