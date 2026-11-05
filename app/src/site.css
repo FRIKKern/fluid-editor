@@ -170,10 +170,30 @@ p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
 }
 
 /* Stacks (S3), values from the oracle (parity/findings/S3.json) */
+.sqs-block-stack { box-sizing: border-box; }
 .sqs-block-stack .sqs-block-content { height: 100%; }
-.sqs-stack-container { height: 100%; display: flex; flex-direction: column; gap: var(--stack-gap, 20px); justify-content: flex-start; align-items: flex-start; }
-.sqs-stack-container.direction-row { flex-direction: row; }
+.sqs-stack-container {
+  height: 100%; display: flex; flex-direction: var(--stack-flex-direction, column); gap: var(--stack-gap, 20px);
+  justify-content: var(--stack-justify-content, flex-start); align-items: var(--stack-align-items, flex-start);
+}
+/* In a column every child is as wide as the stack; a Shape takes the height left, at least 150px. In a row the children
+   share the width evenly and take their own height, and a Shape fills the stack's height
+   (parity/findings/S3.json). */
 .stack-child-container { align-self: stretch; min-height: 20px; min-width: 20px; display: flex; flex-direction: column; }
+.stack-child-container > .sqs-block { flex: 1 1 auto; }
+.stack-child-container:has(> .sqs-block-shape) { flex: 1 1 auto; min-height: 150px; }
+@media (min-width: 768px) {
+  .stack-d-row > .stack-child-container { flex: 1 1 0; align-self: auto; }
+  .stack-d-row > .stack-child-container:has(> .sqs-block-shape) { align-self: stretch; }
+}
+@media (max-width: 767px) {
+  .stack-m-row > .stack-child-container { flex: 1 1 0; align-self: auto; }
+  .stack-m-row > .stack-child-container:has(> .sqs-block-shape) { align-self: stretch; }
+}
+/* A button that does not fill its block (S3.json fitButton): its own size, 20.8px and 56px of padding. */
+.btn-fit .sqs-block-button-element { display: block; width: auto; height: auto; min-width: 0; padding: 20.8px 56px; line-height: normal; align-self: center; }
+.sqs-block-button-container--left.btn-fit { justify-content: flex-start; text-align: left; }
+.sqs-block-button-container--right.btn-fit { justify-content: flex-end; text-align: right; }
 
 /* Site header (P7), see renderHeader in render.js */
 body { position: relative; }
@@ -187,9 +207,9 @@ body { position: relative; }
   line-height: 1.3em; letter-spacing: .01rem;
   font-size: min(calc((var(--site-title-font-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--site-title-font-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--site-title-font-size-value) * 1rem)));
 }
-.header-nav { flex: 1; display: flex; justify-content: flex-end; gap: 1.3vw; white-space: nowrap; }
+.header-nav { flex: 1; display: flex; justify-content: flex-end; gap: 1.3vw; white-space: nowrap; line-height: 1.6; }
 .header-nav-item, .header-action { color: inherit; text-decoration: none; font-size: 16px; letter-spacing: .01rem; }
-.header-actions { display: flex; gap: 1.3vw; white-space: nowrap; padding-left: 2vw; }
+.header-actions { display: flex; gap: 1.3vw; white-space: nowrap; padding-left: 2vw; line-height: 1.4; }
 /* The button keeps the browser's own padding, as on the oracle: 35px + 1px + 1px in Chrome. */
 .header-burger { display: none; box-sizing: content-box; width: 35px; height: 35px; margin-left: auto; padding: revert; border: 0; background: none; cursor: pointer; flex-direction: column; justify-content: center; gap: 8px; }
 .header-burger span { display: block; height: 1px; width: 35px; background: currentColor; }

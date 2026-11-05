@@ -30,6 +30,13 @@ const ICON = {
   up: '<path d="M12 19V5"/><path d="M6 11l6-6 6 6"/>',
   down: '<path d="M12 5v14"/><path d="M6 13l6 6 6-6"/>',
   chevron: '<path d="M8 10l4 4 4-4"/>',
+  stackOptions: '<rect x="4" y="4" width="7" height="10" fill="currentColor"/><rect x="13" y="4" width="7" height="6" fill="currentColor"/><rect x="4" y="16" width="7" height="4" fill="currentColor"/><rect x="13" y="12" width="7" height="8" fill="currentColor"/>',
+  stackV: '<rect x="4" y="4" width="8" height="6"/><rect x="4" y="14" width="8" height="6"/><path d="M18 5v14"/><path d="M15 16l3 3 3-3"/>',
+  stackH: '<rect x="4" y="5" width="6" height="6"/><rect x="14" y="5" width="6" height="6"/><path d="M5 17h14"/><path d="M16 14l3 3-3 3"/>',
+  unstack: '<rect x="4" y="4" width="6" height="6" stroke-dasharray="2 2"/><rect x="14" y="14" width="6" height="6" stroke-dasharray="2 2"/>',
+  alignL: '<path d="M4 5v14"/><path d="M8 12h12"/><path d="M12 8l-4 4 4 4"/>',
+  alignC: '<path d="M12 5v14"/><path d="M3 12h6"/><path d="M6 9l3 3-3 3"/><path d="M21 12h-6"/><path d="M18 9l-3 3 3 3"/>',
+  alignR: '<path d="M20 5v14"/><path d="M4 12h12"/><path d="M12 8l4 4-4 4"/>',
 };
 const svg = (name, size = 22) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[name] ?? name}</svg>`;
 
@@ -37,6 +44,8 @@ const B = {
   write: { label: 'Write', html: '<span class="tb-write">Aa</span>' },
   edit: { label: 'Edit', html: svg('edit') },
   align: { label: 'Align Vertically', html: svg('align'), cls: 'tb-flush' },
+  halign: { label: 'Align Horizontally', html: svg('alignC') },
+  stackopts: { label: 'Stack Options', html: svg('stackOptions') },
   pin: { label: 'Pin', html: svg('pin', 20) },
   'z+': { label: 'Move Forward', html: svg('forward'), keys: 'SHIFT ↑' },
   'z-': { label: 'Move Backward', html: svg('backward'), keys: 'SHIFT ↓' },
@@ -49,12 +58,17 @@ const B = {
 };
 
 // The groups of buttons for a block, with '|' for a separator.
-export function toolbarItems(type, bp, z) {
+// fit: a Button that does not fill its block (parity/findings/S3.json fitButton) gains Align
+// Horizontally and Align Vertically. Alone in its section on a phone, a block has no Move Up or Down (S3.json aloneBar).
+export function toolbarItems(type, bp, z, fit = false) {
   const zs = z.overlaps ? ['z+', 'z-'] : [];
   if (bp === 'mobile') {
-    if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', ...zs, 'up', 'down', '|', 'remove'];
-    return ['edit', '|', 'pin', ...zs, 'up', 'down', '|', 'remove'];
+    const moves = z.first && z.last ? [] : ['up', 'down'];
+    if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', ...zs, ...moves, '|', 'remove'];
+    return ['edit', '|', 'pin', ...zs, ...moves, '|', 'remove'];
   }
+  if (type === 'stack') return ['edit', '|', 'link', 'stackopts', 'pin', ...zs, 'duplicate', 'remove'];
+  if (type === 'button' && fit) return ['edit', '|', 'primary', 'link', 'halign', 'align', 'pin', '|', 'duplicate', 'remove'];
   if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove'];
   if (type === 'button') return ['edit', '|', 'primary', 'link', 'pin', 'duplicate', 'remove'];
   return ['edit', '|', 'pin', ...zs, '|', 'duplicate', 'remove'];
@@ -63,8 +77,15 @@ export function toolbarItems(type, bp, z) {
 // Align Vertically's menu (parity/findings/TOOLBARS.json alignMenu): Top, Center, Bottom. The
 // toolbar button shows the current one and is grey while the menu is open.
 const VALIGN = [['flex-start', 'Align Top', 'align'], ['center', 'Align Center', 'alignCenter'], ['flex-end', 'Align Bottom', 'alignBottom']];
-export function alignMenuHtml(current) {
-  return `<div class="tb-vmenu">${VALIGN.map(([v, label, icon]) => `<button type="button" class="tb-btn${v === current ? ' tb-open' : ''}" data-tb="valign:${v}" aria-label="${label}" data-tip="${label}">${svg(icon)}</button>`).join('')}</div>`;
+// Stack Options and Align Horizontally have the same menu (S3.json stackOptions, fitButton).
+const BAR_MENUS = {
+  align: ['valign', VALIGN],
+  stackopts: ['sopt', [['column', 'Stack Vertically', 'stackV'], ['row', 'Stack Horizontally', 'stackH'], ['unstack', 'Unstack', 'unstack']]],
+  halign: ['halign', [['left', 'Align Left', 'alignL'], ['center', 'Align Center', 'alignC'], ['right', 'Align Right', 'alignR']]],
+};
+export function alignMenuHtml(current, menu = 'align') {
+  const [prefix, items] = BAR_MENUS[menu];
+  return `<div class="tb-vmenu" data-for="${menu}">${items.map(([v, label, icon]) => `<button type="button" class="tb-btn${v === current ? ' tb-open' : ''}" data-tb="${prefix}:${v}" aria-label="${label}" data-tip="${label}">${svg(icon)}</button>`).join('')}</div>`;
 }
 
 export function toolbarHtml(items, z, align = {}) {
@@ -72,10 +93,10 @@ export function toolbarHtml(items, z, align = {}) {
     if (k === '|') return '<span class="tb-sep" aria-hidden="true"></span>';
     const b = B[k];
     const off = (k === 'z+' && !z.above) || (k === 'z-' && !z.below) || (k === 'up' && z.first) || (k === 'down' && z.last);
-    const open = k === 'align' && align.open;
+    const open = align.open && k === (align.menu || 'align');
     const html = k === 'align' ? svg(VALIGN.find(([v]) => v === align.current)?.[2] || 'align') : b.html;
     return `<button type="button" class="tb-btn ${b.cls || ''}${off ? ' is-off' : ''}${open ? ' tb-open' : ''}" data-tb="${k}" aria-label="${b.label}" data-tip="${b.tip || b.label}"${b.keys ? ` data-tip-keys="${b.keys}"` : ''}>${html}</button>`;
-  }).join('') + (align.open ? alignMenuHtml(align.current) : '');
+  }).join('') + (align.open ? alignMenuHtml(align.menu === 'stackopts' ? align.stackDir : align.menu === 'halign' ? align.hAlign : align.current, align.menu) : '');
 }
 
 // Where the toolbar goes, in the stage's coordinates.

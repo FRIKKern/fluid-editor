@@ -191,7 +191,10 @@ function blockInner(b, model) {
       {
         const type = b.buttonStyle || 'primary';
         const size = BUTTON_SIZE[type];
-        return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-block-button-container sqs-button-block-container-system_desktop sqs-block-button-container--center sqs-stretched" data-button-size="${size}" data-button-type="${type}"><a class="sqs-block-button-element--${size} sqs-button-element--${type} sqs-block-button-element" href="${escapeHtml(b.href || '')}">${escapeHtml(b.label)}</a></div></div></div>`;
+        // A button stacked once stops filling its block (parity/findings/S3.json fitButton): it takes
+        // its own width and Align Horizontally places it.
+        const place = b.fit ? `sqs-block-button-container--${b.halign || 'center'} btn-fit` : 'sqs-block-button-container--center sqs-stretched';
+        return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-block-button-container sqs-button-block-container-system_desktop ${place}" data-button-size="${size}" data-button-type="${type}"><a class="sqs-block-button-element--${size} sqs-button-element--${type} sqs-block-button-element" href="${escapeHtml(b.href || '')}">${escapeHtml(b.label)}</a></div></div></div>`;
       }
     case 'shape': {
       const style = `--shape-fill:${b.fill || 'var(--accent)'};--shape-radius:${b.radius || '0'};--shape-ink:${b.ink || 'inherit'}`;
@@ -202,11 +205,10 @@ function blockInner(b, model) {
       return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-shape-block-outer-container"><div class="sqs-shape-block-container sqs-block-alignment-wrapper sqs-shape-block-container-system_desktop"><div class="sqs-shape${stretched ? '' : ' is-square'}" style="${style}">${label}</div></div></div></div></div>`;
     }
     case 'stack': {
-      // A Stack (S3): one grid block whose children flow in a flex column, values
-      // seen on the oracle (parity/findings/S3.json): gap 20px, start-aligned,
-      // children stretch to the full width with a 20px minimum.
-      const kids = (b.children || []).map((c) => `<div class="stack-child-container">${blockInner({ ...c, id: `${b.id}-${c.id}` }, model)}</div>`).join('');
-      return `<div class="sqs-block stack-block sqs-block-stack" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-stack-container direction-${b.direction || 'column'}" style="--stack-gap:${b.gap ?? 20}px">${kids}</div></div></div>`;
+      // A Stack (S3): one grid block whose children flow in a flex box, measured on the oracle
+      // (parity/findings/S3.json). stackCss holds its values, once per layout.
+      const kids = (b.children || []).map((c) => `<div class="stack-child-container">${blockInner({ ...c, id: `${b.id}-${c.id}`, fit: c.type === 'button' || c.fit }, model)}</div>`).join('');
+      return `<div class="sqs-block stack-block sqs-block-stack" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-stack-container stack-d-${stackAxes(b, 'desktop').direction} stack-m-${stackAxes(b, 'mobile').direction}" data-component-id="${b.id}">${kids}</div></div></div><style class="stack-vars">${stackCss(b)}</style>`;
     }
     case 'image': {
       // Image blocks (T4): Fill, the default here, covers the block. Fit and Shape are measured
@@ -298,7 +300,7 @@ export function designCss(b) {
       opacity: var(--opacity, 1);
       transform: var(--block-transform);
       transform-origin: var(--origin-x) var(--origin-y);${d.blur ? '\n      backdrop-filter: blur(15px);' : ''}
-    }${d.background ? `\n    .fe-block-${b.id} .sqs-block { background-color: rgb(255, 255, 255); }` : ''}
+    }${d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: rgb(255, 255, 255); }` : ''}
   `;
 }
 
@@ -307,6 +309,30 @@ export function designCss(b) {
 // Other block types are not measured; they get mix-blend-mode directly.
 export const BLEND_MODES = ['Normal', 'Multiply', 'Screen', 'Overlay', 'Darken', 'Lighten', 'Color Dodge', 'Color Burn', 'Hard Light', 'Soft Light', 'Difference', 'Exclusion', 'Hue', 'Saturation', 'Color', 'Luminosity'];
 export const BUTTON_SIZE = { primary: 'medium', secondary: 'large', tertiary: 'small' };
+
+// A stack's direction and position in one layout (parity/findings/S3.json): phones start as a
+// column at the top left and keep their own values. Position is stored as left-right and
+// top-bottom, so the same tab stays on when the direction changes.
+export function stackAxes(b, bp) {
+  const s = bp === 'mobile' ? (b.phone || {}) : b;
+  return { direction: s.direction || 'column', x: s.posX || 'flex-start', y: s.posY || 'flex-start' };
+}
+// The oracle's rule for a stack (S3.json): in a row left-right is justify-content and top-bottom
+// align-items, in a column the reverse. Fill spreads the children and drops the gap.
+export function stackCss(b) {
+  const fill = b.gap === 'fill';
+  const vars = (bp, spread) => {
+    const { direction, x, y } = stackAxes(b, bp), row = direction === 'row';
+    return `--stack-flex-direction: ${direction}; --stack-justify-content: ${spread ? 'space-between' : row ? x : y}; --stack-align-items: ${row ? y : x};`;
+  };
+  const sel = `.sqs-stack-container[data-component-id="${b.id}"]`;
+  const p = b.padding;
+  const padding = !p ? '' : b.padFour ? `${p.t} ${p.r} ${p.b} ${p.l}` : `${p.t} ${p.l}`;
+  const g = b.design || {};
+  const corner = g.corners ? g.corners.map((v) => `${v}px`).join(' ') : g.corner ? `${g.corner}px` : '';
+  const own = `${padding ? `padding: ${padding};` : ''}${corner ? `border-radius: ${corner};` : ''}`;
+  return `${sel} { ${vars('desktop', fill)} --stack-gap: ${fill ? 'normal' : `${b.gap ?? 20}px`}; } @media screen and (max-width: 767px) { ${sel} { ${vars('mobile', false)} } }${own ? ` #block-${b.id} { ${own} }` : ''}`;
+}
 
 export const STROKE_PX = { S: 2, M: 6, L: 15 };
 export const STROKE_PAD = { S: '3%', M: '6%', L: '12%' };
@@ -317,7 +343,7 @@ export function blendCss(b) {
   // Stroke on a text block (parity/findings/STROKE.json): a solid or dashed black border on
   // .sqs-block, 2, 6 or 15px, and padding inside it of 3, 6 or 12% (6% unless set). Corner is
   // ours: the block's corner radius (not measured).
-  const stroke = g.stroke ? `.fe-block-${b.id} .sqs-block { border: ${STROKE_PX[g.strokeSize || 'S']}px ${g.stroke} rgb(0, 0, 0); border-radius: ${g.corner || 0}px; } .fe-block-${b.id} .sqs-html-content { padding: ${STROKE_PAD[g.pad || 'M']}; }` : '';
+  const stroke = g.stroke ? `.fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { border: ${STROKE_PX[g.strokeSize || 'S']}px ${g.stroke} rgb(0, 0, 0); border-radius: ${g.corner || 0}px; } .fe-block-${b.id} .sqs-html-content { padding: ${STROKE_PAD[g.pad || 'M']}; }` : '';
   const shadow = (g.shadow ? `.fe-block-${b.id} .sqs-block { filter: drop-shadow(2px 2px 3px); }` : '') + (stroke ? ` ${stroke}` : '');
   const m = b.design?.blend;
   if (!m || m === 'normal') return shadow;

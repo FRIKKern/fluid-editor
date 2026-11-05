@@ -144,20 +144,56 @@ function blendRow(cur, open) {
 
 // Stroke (parity/findings/STROKE.json): No, Solid and Dashed Stroke; with a stroke, Stroke Color
 // (not built), Thickness S/M/L, Corner and Padding S/M/L.
-function strokeRows(d) {
+// The Stack's Layout group (parity/findings/S3.json panel): Direction, Position, Gap and Padding.
+const POS_Y = [['flex-start', 'Top'], ['center', 'Center'], ['flex-end', 'Bottom']];
+const POS_X = [['flex-start', 'Left'], ['center', 'Center'], ['flex-end', 'Right']];
+function stackLayoutHtml(st) {
+  const dir = (v, label, icon) => `<button type="button" role="radio" class="st-dir-btn${st.direction === v ? ' is-on' : ''}" aria-checked="${st.direction === v}" aria-label="${label}" data-stack="dir:${v}">${pi(icon)}</button>`;
+  const tabs = POS_Y.flatMap(([y, yn]) => POS_X.map(([x, xn]) => {
+    const on = st.x === x && st.y === y, label = yn === 'Center' && xn === 'Center' ? 'Center' : `${yn} ${xn}`;
+    return `<button type="button" role="tab" class="st-pos-tab${on ? ' is-on' : ''}" aria-selected="${on}" aria-label="${label}" data-stack="pos:${x},${y}"><i></i></button>`;
+  })).join('');
+  const field = (key, label, value) => `<label class="st-pad"><span class="st-pad-icon" aria-hidden="true"></span><input type="text" aria-label="${label}" data-stack-field="${key}" value="${esc(value)}"></label>`;
+  const p = st.pad || { t: '0px', r: '0px', b: '0px', l: '0px' };
+  const pads = st.four
+    ? `<span class="st-pads st-pads-four">${field('t', 'Padding top', p.t)}${field('l', 'Padding left', p.l)}${field('b', 'Padding bottom', p.b)}${field('r', 'Padding right', p.r)}</span>`
+    : `<span class="st-pads">${field('y', 'Padding vertical', p.t)}${field('x', 'Padding horizontal', p.l)}</span>`;
+  const gap = st.gap === 'fill' ? 'Fill' : `${st.gap}px`;
+  return '<div class="st-head">Layout</div>'
+    + `<div class="st-row"><span class="sp-label">Direction</span><span class="st-dir" role="radiogroup" aria-label="Direction">${dir('column', 'Column', '<rect x="4" y="4" width="7" height="6"/><rect x="4" y="14" width="7" height="6"/><path d="M17 5v14"/><path d="M14 16l3 3 3-3"/>')}${dir('row', 'Row', '<rect x="4" y="5" width="6" height="6"/><rect x="14" y="5" width="6" height="6"/><path d="M5 17h14"/><path d="M16 14l3 3-3 3"/>')}</span></div>`
+    + `<div class="st-row st-row-pos"><span class="sp-label">Position</span><span class="st-pos" role="tablist" aria-label="Position">${tabs}</span></div>`
+    + `<div class="st-row"><span class="sp-label">Gap</span><span class="st-gap"><span class="st-pad-icon" aria-hidden="true"></span><input type="text" aria-label="Gap" data-stack-field="gap" value="${gap}"><button type="button" class="st-gap-toggle" aria-label="${st.gapOpen ? 'Collapse' : 'Expand'} gap options" aria-expanded="${!!st.gapOpen}" data-stack="gapopen">${pi('<path d="M8 10l4 4 4-4"/>')}</button>${st.gapOpen ? '<span class="st-gap-menu"><button type="button" data-stack="gap:20">20px</button><button type="button" data-stack="gap:fill">Fill</button></span>' : ''}</span></div>`
+    + `<div class="st-row st-row-pad${st.four ? ' is-four' : ''}"><span class="sp-label">Padding</span><button type="button" class="st-pad-toggle" aria-label="${st.four ? 'Only show vertical and horizontal padding controls' : 'Show top, bottom, left, and right padding controls'}" data-stack="four:${st.four ? 0 : 1}">${pi('<rect x="8" y="8" width="8" height="8"/>')}</button>${pads}</div>`;
+}
+// Add fill, the Color it brings (T15), and Corner, which shows once there is a fill or a stroke.
+function stackFillRow(d) {
+  const add = '<button type="button" class="st-add" aria-label="Add fill" data-stack="fill">+</button>';
+  if (!d.background) return `<div class="sp-row"><span class="sp-label">Background</span><span class="sp-ctl">${add}</span></div>`;
+  return `<div class="sp-row"><span class="sp-label">Background</span><span class="sp-ctl">${add}<span class="st-color"><button type="button" class="bp-swatch" data-unbuilt disabled aria-label="Color"></button><button type="button" class="st-color-x" aria-label="Remove color" data-stack="nofill">×</button></span></span></div>`;
+}
+function stackCornerRow(d) {
+  if (!d.background && !d.stroke) return '';
+  const each = d.corners;
+  const seg = (v, label, on, icon) => `<button type="button" role="radio" class="st-corner-btn${on ? ' is-on' : ''}" aria-checked="${on}" aria-label="${label}" data-stack="corners:${v}">${pi(icon)}</button>`;
+  const four = each ? `<span class="st-corners">${[['Top left', 0], ['Top right', 1], ['Bottom right', 2], ['Bottom left', 3]].map(([n, k]) => `<input type="text" aria-label="${n} corner radius" data-stack-field="c${k}" value="${each[k]}">`).join('')}</span>` : '';
+  return `<div class="sp-row st-row-corner${each ? ' is-four' : ''}"><span class="sp-label">Corner</span><span class="st-corner-seg" role="radiogroup" aria-label="Corner">${seg(0, 'Uniform corner radii', !each, '<rect x="6" y="6" width="12" height="12" rx="3"/>')}${seg(1, 'Individual corner radii', !!each, '<path d="M6 10V6h4M14 6h4v4M18 14v4h-4M10 18H6v-4"/>')}</span><label class="st-corner-field"><input type="text" aria-label="Corner" data-stack-field="corner" value="${each ? each[0] : d.corner || 0}px"></label>${four}</div>`;
+}
+
+function strokeRows(d, stack = false) {
   const seg = (key, val, label, on, icon) => `<button type="button" role="radio" class="sp-seg${on ? ' is-on' : ''}" aria-checked="${on}" data-dset="${key}" data-v="${val}" aria-label="${label}">${icon}</button>`;
   const cur = d.stroke || '';
   let html = `<div class="sp-row"><span class="sp-label">Stroke</span><span class="sp-ctl">${seg('stroke', '', 'No Stroke', !cur, pi('<circle cx="12" cy="12" r="7"/><path d="M7 17L17 7"/>'))}${seg('stroke', 'solid', 'Solid Stroke', cur === 'solid', pi('<path d="M5 12h14"/>'))}${seg('stroke', 'dashed', 'Dashed Stroke', cur === 'dashed', pi('<path d="M4 12h3M10.5 12h3M17 12h3"/>'))}</span></div>`;
   if (!cur) return html;
   const sml = (key, def, labels) => ['S', 'M', 'L'].map((k, n) => `<button type="button" role="radio" class="sp-seg sp-txt${(d[key] || def) === k ? ' is-on' : ''}" aria-checked="${(d[key] || def) === k}" data-dset="${key}" data-v="${k}" aria-label="${labels ? labels[n] : k}">${k}</button>`).join('');
   html += `<div class="sp-row"><span class="sp-label">Stroke Color</span><span class="sp-ctl"><button type="button" class="bp-swatch" data-unbuilt disabled aria-label="Stroke Color"></button></span></div>`
-    + `<div class="sp-row"><span class="sp-label">Thickness</span><span class="sp-ctl">${sml('strokeSize', 'S')}</span></div>`
-    + `<div class="sp-row"><span class="sp-label">Corner</span><span class="sp-ctl"><label class="bp-box"><input type="number" data-design="corner" aria-label="Corner" min="0" max="500" value="${d.corner || 0}"><span class="bp-unit">px</span></label></span></div>`
+    + `<div class="sp-row"><span class="sp-label">Thickness</span><span class="sp-ctl">${sml('strokeSize', 'S')}</span></div>`;
+  if (stack) return html;
+  html += `<div class="sp-row"><span class="sp-label">Corner</span><span class="sp-ctl"><label class="bp-box"><input type="number" data-design="corner" aria-label="Corner" min="0" max="500" value="${d.corner || 0}"><span class="bp-unit">px</span></label></span></div>`
     + `<div class="sp-row"><span class="sp-label">Padding</span><span class="sp-ctl">${sml('pad', 'M', ['small block background padding', 'medium block background padding', 'large block background padding'])}</span></div>`;
   return html;
 }
 
-export function blockPanelHtml(d, tab, content = null, open = null, shape = null, image = null) {
+export function blockPanelHtml(d, tab, content = null, open = null, shape = null, image = null, stack = null) {
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
@@ -204,6 +240,12 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
         + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
         + pairs.join('');
     }
+    else if (stack) body = stackLayoutHtml(stack) + '<div class="bp-thead st-appearance"><span>Appearance</span></div>' + stackFillRow(d)
+      + strokeRows(d, true) + stackCornerRow(d)
+      + blendRow(d.blend || 'normal', open === 'blend')
+      + row('Blur', sw('blur', d.blur, 'Blur'))
+      + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
+      + pairs.join('');
     else body = row('Background', sw('background', d.background, 'Background'))
       + strokeRows(d)
       + blendRow(d.blend || 'normal', open === 'blend')
