@@ -2463,6 +2463,8 @@ chrome.addEventListener('pointerdown', (e) => {
   const start = s.rows[bp];
   const need = Math.max(1, ...s.blocks.map((b) => lay(b).area[2] - 1));
   const y0 = e.clientY;
+  // Over the canvas the pointer would otherwise go to the frame.
+  chrome.setPointerCapture(e.pointerId);
   const move = (ev) => {
     const n = Math.max(need, start + Math.round((ev.clientY - y0) / step));
     if (n !== s.rows[bp]) { s.rows[bp] = n; renderSectionDom(sid); placeChrome(); }
