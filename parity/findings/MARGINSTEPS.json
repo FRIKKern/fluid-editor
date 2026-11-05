@@ -1,0 +1,82 @@
+{
+  "item": "X2",
+  "oracle": "the trial site",
+  "capturedAt": "2026-11-05",
+  "page": "Gestures Probe, new Shape blocks, never saved",
+  "question": "X2: where are the steps of a block moved from the left or right margin track, across widths? Pointer sampled every 5px, press 50px in from the block's left and 40px up from its bottom.",
+  "fromLeftMargin": {
+    "six wide, 1/1/7/7": {
+      "oracle": {
+        "1020": "18/24",
+        "1080": "19/25",
+        "1170": "20/26"
+      },
+      "ours": {
+        "1020": "18/24",
+        "1080": "19/25",
+        "1135": "20/26"
+      }
+    },
+    "four wide, 1/1/7/5": {
+      "oracle": {
+        "1020": "18/22",
+        "1080": "19/23",
+        "1135": "20/24",
+        "1195": "21/25",
+        "1285": "22/26"
+      },
+      "ours": {
+        "1020": "18/22",
+        "1080": "19/23",
+        "1135": "20/24",
+        "1195": "21/25",
+        "1255": "22/26"
+      }
+    },
+    "rule": "Only the last step comes later: 30 to 40px on six wide, 25 to 35 on four. Ours adds 32, for a single block. Inferred: other widths, and a group is not read."
+  },
+  "fromRightMargin": {
+    "two wide": {
+      "firstStep": -55,
+      "nextPast": -125
+    },
+    "four wide": {
+      "steps": {
+        "-55": "22/26",
+        "-135": "21/25",
+        "-195": "20/24",
+        "-255": "19/23"
+      },
+      "ours": {
+        "-35": "22/26",
+        "-95": "21/25",
+        "-155": "20/24",
+        "-215": "19/23"
+      }
+    },
+    "eight wide": {
+      "firstStep": -55,
+      "nextPast": -125
+    },
+    "ten wide": {
+      "firstStep": -55,
+      "nextPast": -125
+    },
+    "six wide, 2 of 2": {
+      "steps": {
+        "-20": "18/24",
+        "-50": "19/25",
+        "-155": "18/24",
+        "-215": "17/23"
+      },
+      "ours": {
+        "-35": "20/26",
+        "-95": "19/25",
+        "-155": "18/24",
+        "-215": "17/23"
+      }
+    },
+    "verdict": "No rule fits. Widths 2, 4, 8 and 10 take their first step at -55, 20px after ours, and four wide stays 40 behind from then on. Six wide is different and repeats: it jumps 3 columns at -20, comes back one at -50, and from -155 is where ours is. Odd widths are not read. Ours keeps the step rule."
+  },
+  "restored": "Left by Exit, then Exit in Exit Without Saving?; the page read empty after a reload. Save was never pressed."
+}
