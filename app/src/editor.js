@@ -6,7 +6,7 @@ import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
-import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue } from './block-panel.js';
+import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -1553,23 +1553,89 @@ blockPanel.addEventListener('change', (e) => {
   f.blur();
   setButton((b) => { b.label = v; }, 'Button text changed');
 }, true);
-// Code and embed (parity/findings/CODEEMBED.json). The canvas follows the typing; a text is one
-// undo step when the field is left. A block grows to hold its code and does not shrink back.
+// Code and embed (parity/findings/CODEEMBED.json, CODEMODAL.json). The canvas follows the typing; a
+// text is one undo step when the field is left. A block its content outgrows takes the rows the
+// content needs; when the content needs fewer, the block gives up that many and keeps the rest.
 let codeBefore = null;
-function growToFit(b) {
-  const m = measure(feEl(sel.sid)), L = lay(b);
-  const need = contentRows(b, m);
-  if (L.area[2] - L.area[0] < need) { L.area = [L.area[0], L.area[1], L.area[0] + need, L.area[3]]; renderSectionDom(sel.sid); }
+// An empty embed's box needs 3 rows, and gives up 4 when code replaces it: both read off the steps
+// in CODEMODAL.json. An embed's height is that of what is in it, margins included.
+function codeRows(b, m, leaving = false) {
+  if (b.type === 'embed' && !b.html) return leaving ? 4 : 3;
+  const c = blockEl(b.id)?.querySelector(b.type === 'code' ? '.sqs-code-container' : '.sqs-embed-container');
+  if (!c) return 1;
+  let h = c.offsetHeight;
+  if (b.type === 'embed') {
+    const range = doc.createRange();
+    range.selectNodeContents(c);
+    const margin = (e, side) => (e ? parseFloat(getComputedStyle(e)[side]) || 0 : 0);
+    h = range.getBoundingClientRect().height + margin(c.firstElementChild, 'marginTop') + margin(c.lastElementChild, 'marginBottom');
+  }
+  return Math.max(1, Math.ceil((h + m.rg) / m.pitch - 0.02));
 }
+const rowsNow = (b) => codeRows(b, measure(feEl(sel.sid)), true);
+function fitRows(b, was) {
+  if (b.type === 'code' && !String(b.html || '').trim()) return;
+  const m = measure(feEl(sel.sid)), L = lay(b), rows = L.area[2] - L.area[0], now = codeRows(b, m);
+  const next = now > rows ? now : Math.max(now, rows - Math.max(0, was - now));
+  if (next === rows) return;
+  L.area = [L.area[0], L.area[1], L.area[0] + next, L.area[3]];
+  const s = S(sel.sid);
+  s.rows[bp] = Math.max(s.rows[bp], L.area[2] - 1); // or the rows past the section's end collapse
+  renderSectionDom(sel.sid);
+}
+// The code editor's full-screen view: its own copy of the code, which reaches the block on closing.
+const codeModal = document.createElement('div');
+codeModal.id = 'code-modal';
+codeModal.hidden = true;
+document.body.append(codeModal);
+let codeDraft = null;
+function openCodeModal(b) {
+  codeDraft = { html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource };
+  codeModal.innerHTML = codeModalHtml(codeDraft);
+  codeModal.hidden = false;
+  codeModal.querySelector('textarea').focus();
+}
+function closeCodeModal() {
+  const d = codeDraft, b = sel && B(sel.sid, sel.bid);
+  codeModal.hidden = true;
+  codeDraft = null;
+  if (!b || b.type !== 'code') return;
+  if (d.html !== b.html || d.mode !== (b.codeMode || 'html') || d.showSource !== !!b.showSource) {
+    const before = JSON.stringify(model), was = rowsNow(b);
+    b.html = d.html;
+    if (d.mode === 'html') delete b.codeMode; else b.codeMode = d.mode;
+    if (d.showSource) b.showSource = true; else delete b.showSource;
+    renderSectionDom(sel.sid);
+    fitRows(b, was);
+    commit(before, 'Code changed');
+  }
+  renderBlockPanel();
+}
+for (const t of ['pointerdown', 'mousedown']) codeModal.addEventListener(t, (e) => e.stopPropagation());
+codeModal.addEventListener('click', (e) => { e.stopPropagation(); if (e.target.closest('[data-code-modal="close"]')) closeCodeModal(); });
+codeModal.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Escape') { e.preventDefault(); closeCodeModal(); } });
+codeModal.addEventListener('input', (e) => {
+  if (!e.target.matches('textarea')) return;
+  codeDraft.html = e.target.value;
+  e.target.parentElement.querySelector('.bp-code-lines').innerHTML = Array.from({ length: e.target.value.split('\n').length }, (_, n) => n + 1).join('<br>');
+});
+codeModal.addEventListener('change', (e) => {
+  const c = e.target.dataset.content;
+  if (c === 'codeMode') { codeDraft.mode = e.target.value; if (!['html', 'markdown'].includes(e.target.value)) codeDraft.showSource = true; }
+  if (c === 'showSource') codeDraft.showSource = e.target.checked;
+  if (c === 'codeMode') codeModal.innerHTML = codeModalHtml(codeDraft);
+});
+blockPanel.addEventListener('click', (e) => { if (sel && e.target.closest('[data-code-expand]')) openCodeModal(B(sel.sid, sel.bid)); });
 blockPanel.addEventListener('input', (e) => {
   const f = e.target.closest('textarea[data-content="code"], textarea[data-content="embedHtml"]');
   if (!f || !sel) return;
   const b = B(sel.sid, sel.bid);
   codeBefore ??= JSON.stringify(model);
+  const was = rowsNow(b);
   if (f.dataset.content === 'code') b.html = f.value;
   else if (f.value) { b.html = f.value; delete b.embedInvalid; } else delete b.html;
   renderSectionDom(sel.sid);
-  if (b.type === 'code') growToFit(b);
+  fitRows(b, was);
   const lines = f.parentElement.querySelector('.bp-code-lines');
   lines.innerHTML = Array.from({ length: f.value.split('\n').length }, (_, n) => n + 1).join('<br>');
   placeBlockPanel();
@@ -1589,7 +1655,7 @@ blockPanel.addEventListener('change', (e) => {
   if (c.dataset.content === 'embedUrl') { c.blur(); if (c.value) { b.embedUrl = c.value; b.embedInvalid = true; } else { delete b.embedUrl; delete b.embedInvalid; } }
   if (c.dataset.content === 'description') { if (c.value) b.description = c.value; else delete b.description; }
   renderSectionDom(sel.sid);
-  if (b.type === 'code') growToFit(b);
+  if (b.type === 'code') fitRows(b, 0); // a mode or the switch only ever adds rows: giving them up was read for typing
   commit(before, `${c.dataset.content} changed on ${b.id}`);
   renderBlockPanel();
 });

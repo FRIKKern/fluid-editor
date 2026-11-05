@@ -69,19 +69,21 @@ function videoContentHtml(c) {
 }
 
 // Content tab of a code block (parity/findings/CODEEMBED.json): Mode, Display Source Code and the
-// code, in a panel 575 wide. The full-screen button is not built.
+// code, in a panel 575 wide. Expand opens the same rows in a full-screen view (CODEMODAL.json).
 export const CODE_MODES = [['CSS', 'css'], ['HTML', 'html'], ['JavaScript', 'javascript'], ['Markdown', 'markdown'], ['Plain Text', 'plain']];
 export const CODE_PANEL_WIDTH = 575;
-const codeEditor = (key, value, placeholder = '') => `<div class="bp-code"><div class="bp-code-lines" aria-hidden="true">${Array.from({ length: Math.max(1, String(value || '').split('\n').length) }, (_, n) => n + 1).join('<br>')}</div><textarea spellcheck="false" aria-label="Code" data-content="${key}" placeholder="${placeholder}">${esc(value || '')}</textarea></div>`;
-function codeContentHtml(c) {
+const EXPAND = `<button type="button" class="bp-code-expand" data-code-expand aria-label="Expand">${pi('<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>')}</button>`;
+const codeEditor = (key, value, placeholder = '', expand = false) => `<div class="bp-code">${expand ? EXPAND : ''}<div class="bp-code-lines" aria-hidden="true">${Array.from({ length: Math.max(1, String(value || '').split('\n').length) }, (_, n) => n + 1).join('<br>')}</div><textarea spellcheck="false" aria-label="Code" data-content="${key}" placeholder="${placeholder}">${esc(value || '')}</textarea></div>`;
+function codeContentHtml(c, expand = true) {
   return `<div class="bp-code-top"><label class="bp-field bp-code-mode"><span class="bp-flabel">Mode</span><select aria-label="Mode" data-content="codeMode">${CODE_MODES.map(([l, v]) => `<option value="${v}"${c.mode === v ? ' selected' : ''}>${l}</option>`).join('')}</select></label>`
     + `<div class="sp-row bp-code-source"><span class="sp-label">Display Source Code</span><label class="sp-switch"><input type="checkbox" aria-label="Display Source Code" data-content="showSource" ${c.showSource ? 'checked' : ''}><span aria-hidden="true"></span></label></div></div>`
-    + codeEditor('code', c.html);
+    + codeEditor('code', c.html, '', expand);
 }
+export const codeModalHtml = (c) => `<div class="code-modal-scrim" data-code-modal="close"></div><div class="code-modal-box" role="dialog" aria-label="Code Editor"><div class="code-modal-head"><button type="button" class="code-modal-close" data-code-modal="close">Close</button><span>Code Editor</span></div>${codeContentHtml(c, false)}</div>`;
 
 // Content tab of an embed block (CODEEMBED.json): Embed as Link or Code Snippet. A link goes
 // through a lookup service of the host, which we do not have, so every link ends in its error
-// text. A snippet is written in the Embed data view, with Back. Custom thumbnail stays off, as it
+// text, and Learn More opens our own note, not the host's help page. A snippet is written in the Embed data view, with Back. Custom thumbnail stays off, as it
 // does on the oracle for anything but a video.
 function embedContentHtml(c, open) {
   if (open === 'embed-data') return `<div class="bp-sub"><button type="button" class="bp-back" data-embed="back">${pi('<path d="M15 6l-6 6 6 6"/>')}Back</button><span>Embed data</span></div>${codeEditor('embedHtml', c.html, 'Add code…')}`;
@@ -89,7 +91,7 @@ function embedContentHtml(c, open) {
   const source = c.as === 'code'
     ? '<button type="button" class="sp-row bp-rowbtn" data-embed="data"><span class="sp-label">Embed data</span><span aria-hidden="true">›</span></button>'
     : `<input class="bp-text" type="text" placeholder="https://…" aria-label="Embed URL" data-content="embedUrl" value="${esc(c.url || '')}">${c.invalid ? '<p class="bp-note">No embeddable content found</p>' : ''}`;
-  return `<p class="bp-note">Paste the URL of the item you’re embedding, and we’ll attempt to locate the content and format it for your site.</p>`
+  return `<p class="bp-note">Paste the URL of the item you’re embedding, and we’ll attempt to locate the content and format it for your site. <a class="bp-learn" href="help-embed.html" target="_blank" rel="noopener">Learn More</a></p>`
     + `<div class="bp-field"><span class="sp-label">Embed as</span><div class="bp-modes bp-modes-2" role="radiogroup" aria-label="Embed as">${seg('link', 'Link')}${seg('code', 'Code Snippet')}</div></div>${source}`
     + `<div class="sp-row"><span class="sp-label">Custom thumbnail</span><label class="sp-switch" data-unbuilt title="Only available for embedded videos."><input type="checkbox" disabled aria-label="Custom thumbnail"><span aria-hidden="true"></span></label></div><p class="bp-note">Only available for embedded videos.</p>`
     + `<div class="bp-field"><span class="sp-label">Description</span><textarea class="bp-desc" aria-label="Description" placeholder="Add description here..." data-content="description">${esc(c.description || '')}</textarea></div>`;
