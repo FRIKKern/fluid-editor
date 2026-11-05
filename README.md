@@ -4,13 +4,9 @@
 
 ## Vision
 
-A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same
-published CSS, same feel when you drag, resize and type. We copy behaviour by
-watching it, never by copying Squarespace code ([0001](docs/decisions/0001-black-box-oracle.md)).
+A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same published CSS, same feel when you drag, resize and type. We copy behaviour by watching it, never by copying Squarespace code ([0001](docs/decisions/0001-black-box-oracle.md)).
 
-"1:1" is a number here. A real Squarespace trial site is the oracle, and three
-gates compare against it: CSS round trip, block boxes at 5 widths, and recorded
-gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
+"1:1" is a number here. A real Squarespace trial site is the oracle, and three gates compare against it: CSS round trip, block boxes at 5 widths, and recorded gestures replayed in both editors ([0002](docs/decisions/0002-three-gates.md)).
 
 ![The editor during a drag: the grid shows, a dashed outline marks where the block was, the blue area shows where it will land](docs/images/editor/drag-desktop.png)
 
@@ -60,7 +56,6 @@ app/          the editor: index.html shell, site.html canvas, src/ renderer + ed
 fixtures/     oracle CSS per section (css/, index.json); raw pages stay local
 parity/       items.json (one home for item status), gate results
 scripts/      gates, generators for the pictures and the timeline, doc checks
-docs/         roadmap, parity list, decisions, images
 ```
 
 ## Run it
@@ -74,7 +69,6 @@ node scripts/box-diff.mjs --oracle <url> --swap      # Gate B in a cmux tab
 node scripts/oracle-record.mjs --id T0002-… --keys ArrowDown   # H6, on the oracle
 node scripts/replay.mjs           # Gate C: replay every trace in our editor
 eval "$(npm run -s surfaces)"; npm run review   # gap inventory, pixel diff, Barkpark paper
-npm run parity && npm run roadmap   # redraw the pictures
 ```
 
 The oracle is the page "How Fluid Engine works" on `halibut-keyboard-jlhd.squarespace.com`, driven through cmux ([0004](docs/decisions/0004-oracle-page-and-preview-frame.md)). `app/page.html` is our published version of it.
