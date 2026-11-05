@@ -1089,3 +1089,20 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .bp-map-opt { display: flex; align-items: center; gap: 12px; width: 100%; height: 88px; padding: 0 16px; border: 0; background: #fff; color: #0e0e0e; font: inherit; text-align: left; cursor: pointer; }
 .bp-map-opt:hover, .bp-map-opt.is-on { background: #f2f2f2; }
 .bp-map-opt > span { flex: 1; }
+
+/* View Layouts (parity/findings/CAP-VIEWLAYOUTS.json). */
+.layouts-panel { position: fixed; left: 1258px; width: 320px; height: 476px; z-index: 40; display: flex; flex-direction: column; background: #fff; border-radius: 8px; box-shadow: 0 8px 40px rgba(0, 0, 0, .18); }
+.layouts-panel[hidden] { display: none; }
+.lo-head { flex: none; height: 50px; font: 500 14px/50px "Helvetica Neue", Helvetica, Arial, sans-serif; text-align: center; color: #0e0e0e; }
+.lo-list { flex: 1; margin: 0; padding: 6px 0 16px 18.5px; list-style: none; overflow-y: auto; }
+.lo-list li { width: 283px; margin-bottom: 16px; }
+.lo-tile { position: relative; display: block; width: 283px; padding: 0; border: 0; border-radius: 6px; box-shadow: 0 0 0 1px #e7e7e7; overflow: hidden; cursor: pointer; }
+.lo-tile.is-on { box-shadow: 0 0 0 1px #0e0e0e; }
+.lo-i, .lo-b, .lo-t { position: absolute; display: block; }
+.lo-i { background: #fff; }
+.lo-b { display: flex; align-items: center; }
+.lo-b i { display: block; width: 100%; height: 12px; border-radius: 6px; background: #000; }
+.lo-t { font: 3px/1.3 Poppins, sans-serif; text-align: left; }
+.lo-h1 { font-size: 11px; line-height: 1.15; }
+.lo-h2 { font-size: 9.5px; line-height: 1.17; }
+.lo-h3 { font-size: 7px; line-height: 1.2; }

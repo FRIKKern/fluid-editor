@@ -1248,6 +1248,75 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   viewport(S, 1600, 1000);
 }
 
+// U10: View Layouts against parity/findings/CAP-VIEWLAYOUTS.json: every pick of every mix.
+{
+  const VL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-VIEWLAYOUTS.json', import.meta.url)));
+  const start = async () => { goto(S, `${BASE}/index.html`); await pause(800); evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`); goto(S, `${BASE}/index.html`); await pause(1300); };
+  const build = (key) => evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Image');
+    const pool = fe.model.sections[0].blocks, of = (t) => JSON.parse(JSON.stringify(pool.find((b) => b.type === t)));
+    const T = { h: { ...of('text'), html: '<h2>Heading words here</h2>' }, p: { ...of('text'), html: '<p>Paragraph words go here so the block has real text in it to lay out across lines.</p>' }, i: of('image'), b: of('button') };
+    const out = []; for (const [, r, n] of '${key}'.matchAll(/([hpib])(\\d)/g)) for (let k = 0; k < +n; k++) out.push({ ...JSON.parse(JSON.stringify(T[r])), id: r + k + 'aaaaaaaaaaaaaaaaaaaaaa' });
+    const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = out; fe.load(m); return 'true'; })()`);
+  const chromeBtn = async (y = 200) => { const f = evalJs(S, `(() => { const r = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + ${y}]); })()`); mouse(S, 'move', f[0], f[1]); await pause(150); mouse(S, 'move', f[0] + 3, f[1] + 2); await pause(250); return evalJs(S, `(() => { const b = document.querySelector('[data-sc="layouts"]'); if (!b) return 'null'; const r = b.getBoundingClientRect(); return JSON.stringify({ x: r.left + r.width / 2, y: r.top + r.height / 2, off: b.hasAttribute('data-unbuilt') }); })()`); };
+  const realClick = async (x, y) => { mouse(S, 'move', x, y); await pause(50); mouse(S, 'down', x, y, { buttons: 1 }); await pause(30); mouse(S, 'up', x, y); await pause(250); };
+  for (const [key, mix] of Object.entries(VL.mixes)) {
+    await start(); build(key); await pause(450);
+    const b = await chromeBtn();
+    add(`View Layouts ${key}: on`, b && !b.off, JSON.stringify(b));
+    await realClick(b.x, b.y);
+    const roles = [...key.matchAll(/([hpib])(\d)/g)].flatMap(([, r, n]) => Array.from({ length: +n }, (_, k) => r + k));
+    const errs = [];
+    mix.layouts.forEach((L, n) => {
+      const g = evalJs(S, `(() => { const t = document.querySelector('[data-layout="${n}"]'); if (!t) return 'null'; t.click(); const s = fe.model.sections[0], d = document.getElementById('site-frame').contentDocument, sec = d.querySelector('section[data-section-id="' + s.id + '"]'), li = document.querySelectorAll('.lo-list li')[${n}].getBoundingClientRect(); return JSON.stringify({ rows: s.rows, h: sec.getBoundingClientRect().height, look: [s.theme || '', s.height, s.divider ? s.dividerShape : ''], b: s.blocks.map((x) => [x.id.slice(0, 2), x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/'), x.html ? x.html.slice(1, 3) : '']), tile: li.height, x: li.left }); })()`);
+      if (!g) { errs.push(`${n} no tile`); return; }
+      if (g.rows.desktop !== L.rows || g.rows.mobile !== L.phoneRows) errs.push(`${n} rows ${g.rows.desktop},${g.rows.mobile}`);
+      if (Math.abs(g.h - L.h) > 2) errs.push(`${n} height ${g.h}`);
+      const st = L.style || {};
+      if (g.look.join() !== [st.theme || '', st.height || 'medium', st.divider || ''].join()) errs.push(`${n} look ${g.look}`);
+      if (Math.abs(g.tile - L.tile) > 1 || Math.abs(g.x - mix.listX) > 1) errs.push(`${n} tile ${g.tile},${g.x}`);
+      for (const r of roles) { const x = g.b.find((v) => v[0] === r), w = L.places[r]; if (!x || x[1] !== w[0] || x[2] !== w[1] || (r[0] === 'h' && x[3] !== L.tag)) errs.push(`${n} ${r} ${x}`); }
+    });
+    add(`View Layouts ${key}: ${mix.layouts.length} picks`, errs.length === 0, errs.slice(0, 3).join(' | '));
+  }
+  // One mix in full: the panel, one undo a pick, the tile marked, a Shape and an empty text dropped, Escape.
+  await start(); build('h1p1b1'); await pause(450);
+  evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)), s = m.sections[0], T = s.blocks[0]; s.blocks.push({ ...JSON.parse(JSON.stringify(T)), id: 'emptyaaaaaaaaaaaaaaaaaaaaa', html: '<p data-rte-preserve-empty="true"></p>' }); fe.load(m); fe.addBlock(fe.model.sections[0].id, 'Shape'); fe.select(null); return 'true'; })()`); await pause(500);
+  const btn = await chromeBtn(); if (!btn) console.log('no chrome', JSON.stringify(evalJs(S, `(() => JSON.stringify(document.querySelectorAll('[data-sc]').length))()`))); await realClick(btn.x, btn.y);
+  const P = () => evalJs(S, `(() => { const p = document.getElementById('layouts-panel'), q = p.getBoundingClientRect(), h = p.querySelector('.lo-head').getBoundingClientRect(), ti = p.querySelector('.lo-list li').getBoundingClientRect(); return JSON.stringify({ hidden: p.hidden, box: [q.left, q.width, q.height], head: h.height, tile: [ti.left, ti.top - q.top, ti.width], on: [...p.querySelectorAll('.lo-tile')].map((t) => t.classList.contains('is-on')).indexOf(true), n: fe.model.sections[0].blocks.length }); })()`);
+  const P0 = P(), A = VL.answers.panel;
+  add('Layouts panel box', P0.box[0] === A.box[0] && P0.box[1] === A.box[2] && P0.box[2] === A.box[3], JSON.stringify(P0.box));
+  add('Layouts panel head and first tile', P0.head === A.head && Math.abs(P0.tile[0] - A.tile[0]) <= 1 && Math.abs(P0.tile[1] - A.firstTileBelowPanelTop) <= 1 && P0.tile[2] === A.tile[1], JSON.stringify(P0));
+  add('Shape and empty text still there before a pick', P0.n === 5, String(P0.n));
+  const pick = (n) => evalJs(S, `(() => { document.querySelector('[data-layout="${n}"]').click(); return 'true'; })()`);
+  const rows = () => evalJs(S, `(() => JSON.stringify(fe.model.sections[0].rows.desktop))()`);
+  const r0 = rows(); pick(2); await pause(150);
+  const P1 = P();
+  add('a pick keeps the panel open and marks the tile', !P1.hidden && P1.on === 2, JSON.stringify(P1));
+  add('a pick drops the Shape and the empty text', P1.n === 3, String(P1.n));
+  add('a pick sets the rows', rows() === VL.mixes.h1p1b1.layouts[2].rows, String(rows()));
+  pick(0); await pause(150);
+  add('the next pick from there', rows() === VL.mixes.h1p1b1.layouts[0].rows, String(rows()));
+  evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(150);
+  add('one undo goes back one pick', rows() === VL.mixes.h1p1b1.layouts[2].rows, String(rows()));
+  evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(150);
+  add('a second undo goes back to the start', rows() === r0 && P().n === 5, `${rows()} ${P().n}`);
+  browser(S, 'press', 'Escape'); await pause(200);
+  add('Escape closes the Layouts panel', P().hidden);
+  // Off: blank, Shapes alone. On: all 8 demo sections, as read on the oracle's demo page. Phones: no such button.
+  await start();
+  const on = evalJs(S, `(async () => { return JSON.stringify(fe.model.sections.length); })()`);
+  add('demo page has 8 sections', on === 8, String(on));
+  const demo = []; for (let k = 0; k < 8; k++) { const y = evalJs(S, `(() => { const f = document.getElementById('site-frame'), sec = f.contentDocument.querySelectorAll('.page-section')[${k}]; sec.scrollIntoView(); const r = sec.getBoundingClientRect(); return JSON.stringify(f.getBoundingClientRect().top + Math.min(r.height / 2, 300)); })()`); await pause(150); const x = await chromeBtn(y - 55); demo.push(x && !x.off); }
+  add('View Layouts on for all 8 demo sections', demo.every(Boolean), JSON.stringify(demo));
+  await start();
+  evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = m.sections[0].blocks.filter((b) => b.type === 'shape'); fe.load(m); return 'true'; })()`); await pause(400);
+  const shapes = await chromeBtn();
+  add('View Layouts off with Shapes alone', shapes && shapes.off, JSON.stringify(shapes));
+  evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = []; fe.load(m); return 'true'; })()`); await pause(400);
+  const blank = await chromeBtn();
+  add('View Layouts off on a blank section', blank && blank.off, JSON.stringify(blank));
+}
+
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
 if (pass !== total) process.exit(1);
