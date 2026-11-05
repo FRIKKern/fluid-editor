@@ -1,6 +1,6 @@
 {
   "item": "U4",
-  "oracle": "https://halibut-keyboard-jlhd.squarespace.com/how-fluid-engine-works",
+  "oracle": "/how-fluid-engine-works",
   "capturedAt": "2026-11-04",
   "question": "What does the block toolbar Pin do, and what does its popover offer?",
   "block": "demo section 2, the shape",
@@ -133,5 +133,122 @@
       }
     ]
   },
-  "undo": 1
+  "undo": 1,
+  "range": {
+    "capturedAt": "2026-11-05",
+    "min": 0,
+    "max": 250,
+    "step": 1,
+    "box": [
+      204.47,
+      8
+    ],
+    "keys": {
+      "ArrowRight": "+1",
+      "End": 250,
+      "Home": 0,
+      "PageUp": "+25"
+    },
+    "drag": {
+      "live": "the block, the field and the slider follow every move",
+      "pastTheEnd": 250,
+      "backAgain": "follows back",
+      "undo": "each value is one undo step: a drag with five values took five undos"
+    }
+  },
+  "field": {
+    "capturedAt": "2026-11-05",
+    "units": [
+      "px",
+      "em",
+      "rem",
+      "vh",
+      "vw",
+      "%"
+    ],
+    "kept": "the field keeps the text as typed; the CSS gets that value and unit; the slider shows the number rounded and held to 0 to 250",
+    "read": {
+      "40px": [
+        "40px",
+        40
+      ],
+      "250px": [
+        "250px",
+        250
+      ],
+      "300px": [
+        "300px",
+        250
+      ],
+      "1000px": [
+        "1000px",
+        250
+      ],
+      "0px": [
+        "0px",
+        0
+      ],
+      "-20px": [
+        "-20px",
+        0
+      ],
+      "12.5px": [
+        "12.5px",
+        13
+      ],
+      "2em": [
+        "32px",
+        2
+      ],
+      "1.5em": [
+        "24px",
+        2
+      ],
+      "1rem": [
+        "16px",
+        1
+      ],
+      "5vh": [
+        "47.25px",
+        5
+      ],
+      "5vw": [
+        "80px",
+        5
+      ],
+      "10%": [
+        "94.5px",
+        10
+      ]
+    },
+    "notApplied": [
+      "100",
+      "0",
+      "-20",
+      "abc",
+      "2in",
+      "2foo",
+      "+30px",
+      " 45px ",
+      "40 px",
+      "30PX"
+    ],
+    "notAppliedEnter": "Enter leaves the text as typed and changes nothing",
+    "notAppliedTab": "leaving the field puts the last good value back (60 then Tab went back to 40px)",
+    "tab": "70px then Tab applies"
+  },
+  "phones": {
+    "capturedAt": "2026-11-05",
+    "pin": "the same button pins in Mobile View: position sticky, top 0px, in the base rule, no media query",
+    "desktop": "Desktop View stays position relative, top 0px, and can be pinned on its own",
+    "popover": "the same popover and slider, 7px below the button"
+  },
+  "openClose": {
+    "capturedAt": "2026-11-05",
+    "mouse": "real mouse",
+    "pinTwice": "the first click pins and opens; the second closes the popover and keeps the pin; the third opens it",
+    "alignOnOpenPopover": "the popover closes and the Align menu opens",
+    "pinOnOpenMenu": "the menu closes and the popover opens",
+    "escape": "closes the popover, the block stays selected; the next Escape deselects"
+  }
 }

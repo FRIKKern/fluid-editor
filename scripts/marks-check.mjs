@@ -1,4 +1,4 @@
-// Small marks of the editor chrome against parity/findings/MARKS.json, TOPBAR.json, SECTIONBAR.json and P3.json, with real input in our editor.
+// Small marks of the editor chrome against parity/findings/MARKS.json, TOPBAR.json, SECTIONBAR.json, P3.json, PIN.json and TOOLBARS.json, with real input in our editor.
 // Writes parity/marks-check.json. Usage: npm run marks-check (FLUID_SURFACE=cdp:<port> FLUID_PORT=<port>).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, browser, drag, mouse } from './lib/cmux.mjs';
@@ -412,6 +412,206 @@ for (const v of ['0', '1', '50', '100', '150', '300', '1000']) {
   const r = await typeHeight(v);
   add(`Custom height ${v}`, r.min === P3.range.field.typed[v][0] && r.t === v && r.r === String(Math.max(1, Math.min(100, Number(v)))), JSON.stringify(r));
 }
+
+// U4: the toolbar's halo, Align Vertically's menu, Pin's field and slider, phones, tips.
+const TB = JSON.parse(readFileSync(new URL('../parity/findings/TOOLBARS.json', import.meta.url)));
+const PN = JSON.parse(readFileSync(new URL('../parity/findings/PIN.json', import.meta.url)));
+const GEO = JSON.parse(readFileSync(new URL('../parity/findings/TOOLBARGEO.json', import.meta.url)));
+await fresh();
+const u4sid = evalJs(S, `(() => JSON.stringify(fe.model.sections[${SEC}].id))()`);
+const pick = async (id) => { evalJs(S, `(() => { ${FR} fe.select(${JSON.stringify(u4sid)}, '${id}'); W.scrollTo({ left: 0, top: W.scrollY + d.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect().top - 300, behavior: 'instant' }); return 'true'; })()`); await pause(350); };
+const tbBox = (sel) => evalJs(S, `(() => { const e = document.querySelector('${sel}'); if (!e) return 'null'; const q = e.getBoundingClientRect(), t = document.getElementById('block-toolbar').getBoundingClientRect(); return JSON.stringify([q.left - t.left, q.top - t.top, q.width, q.height]); })()`);
+const tbClick = async (tb) => { const q = evalJs(S, `(() => { const q = document.querySelector('#block-toolbar [data-tb="${tb}"]').getBoundingClientRect(); return JSON.stringify([q.left + 18, q.top + 18]); })()`); mouse(S, 'move', q[0], q[1]); await pause(60); mouse(S, 'down', q[0], q[1], { buttons: 1 }); await pause(30); mouse(S, 'up', q[0], q[1]); await pause(220); };
+const open4 = () => evalJs(S, `(() => JSON.stringify({ menu: !!document.querySelector('.tb-vmenu'), pop: !document.getElementById('pin-popover').hidden, sel: !document.getElementById('block-toolbar').hidden }))()`);
+const u4near = (a, b, n = 1) => a && a.every((v, i) => Math.abs(v - b[i]) <= n);
+await pick(BIDS.text);
+const tbs = css('#block-toolbar', 'boxShadow', 'width', 'height');
+add('Toolbar keeps 42px, carries the shadow', tbs[2] === '42px' && /0px 6px 24px 1px/.test(tbs[0]) && /0px 0px 1px 1px/.test(tbs[0]) && /0px 0px 0px 1px/.test(tbs[0]), tbs[0]);
+await tbClick('align');
+const am = TB.alignMenu;
+add('Align menu opens', open4().menu === true);
+add('Align menu box', u4near(tbBox('.tb-vmenu'), am.box.map((v, i) => v + (i === 0 ? tbBox('[data-tb="align"]')[0] - 85 : 0))), String(tbBox('.tb-vmenu')));
+const vm = css('.tb-vmenu', 'backgroundColor', 'borderRadius', 'boxShadow');
+add('Align menu look', vm[0] === am.bg && vm[1] === am.radius && vm[2] === am.shadow, vm.join(' | '));
+const avOff = tbBox('[data-tb="align"]')[0] - 85;
+for (const [v, label] of [['flex-start', 'Align Top'], ['center', 'Align Center'], ['flex-end', 'Align Bottom']]) {
+  const q = tbBox(`[data-tb="valign:${v}"]`);
+  add(`${label} box`, u4near(q, am.buttons[label].map((x, i) => x + (i === 0 ? avOff : 0))), String(q));
+  add(`${label} label`, evalJs(S, `(() => JSON.stringify(document.querySelector('[data-tb="valign:${v}"]').getAttribute('aria-label')))()`) === label);
+}
+add('Align button grey while open, current grey', css('[data-tb="align"]', 'backgroundColor')[0] === am.openButton && css('[data-tb="valign:flex-start"]', 'backgroundColor')[0] === am.current);
+const alignRead = () => evalJs(S, `(() => { ${FR} const rule = (sel, prop) => { const q = [...d.styleSheets].flatMap((x) => { try { return [...x.cssRules]; } catch { return []; } }); const on = W.matchMedia('(min-width: 768px)').matches; const look = (rs) => rs.flatMap((r) => (r.selectorText === sel ? [r.style[prop]] : r.media ? (r.media.mediaText.includes('768') && on ? look([...r.cssRules]) : []) : [])); return look(q).pop(); }; return JSON.stringify({ j: rule('.fe-block-${BIDS.text} .sqs-block', 'justifyContent'), a: rule('.fe-block-${BIDS.text} .sqs-block-alignment-wrapper', 'alignItems') }); })()`);
+await tbClick('valign:center');
+add('Align Center sets both rules', alignRead().j === 'center' && alignRead().a === 'center', JSON.stringify(alignRead()));
+add('A pick keeps the menu open', open4().menu === true);
+add('The toolbar button shows the current one', css('[data-tb="valign:center"]', 'backgroundColor')[0] === am.current);
+await tbClick('valign:flex-end');
+add('Align Bottom sets both rules', alignRead().j === 'flex-end' && alignRead().a === 'flex-end', JSON.stringify(alignRead()));
+evalJs(S, `document.getElementById('undo').click()`); await pause(200);
+add('One undo per pick', alignRead().j === 'center', JSON.stringify(alignRead()));
+evalJs(S, `document.getElementById('undo').click()`); await pause(200);
+add('Second undo is back at the top', alignRead().j === 'flex-start', JSON.stringify(alignRead()));
+await tbClick('align'); add('Second click closes the menu', open4().menu === false && open4().sel === true);
+await tbClick('align'); await tbClick('pin');
+add('Pin on the open menu: menu closes, popover opens', open4().menu === false && open4().pop === true, JSON.stringify(open4()));
+await tbClick('align');
+add('Align on the open popover: popover closes, menu opens', open4().menu === true && open4().pop === false, JSON.stringify(open4()));
+browser(S, 'press', 'Escape'); await pause(200);
+add('Escape closes the menu, block stays selected', open4().menu === false && open4().sel === true, JSON.stringify(open4()));
+await tbClick('pin'); await pause(100); await tbClick('pin');
+add('Second Pin click closes the popover, keeps the pin', open4().pop === false && evalJs(S, `(() => { ${FR} return JSON.stringify(W.getComputedStyle(d.querySelector('.fe-block[data-block-id="${BIDS.text}"]')).position); })()`) === 'sticky');
+await tbClick('pin');
+browser(S, 'press', 'Escape'); await pause(200);
+add('Escape closes the popover, block stays selected', open4().pop === false && open4().sel === true, JSON.stringify(open4()));
+browser(S, 'press', 'Escape'); await pause(200);
+add('The next Escape deselects', open4().sel === false, JSON.stringify(open4()));
+await pick(BIDS.text); await tbClick('align');
+const os = at(boxOf(BIDS.shape)); mouse(S, 'move', os[0], os[1]); await pause(60); mouse(S, 'down', os[0], os[1], { buttons: 1 }); await pause(30); mouse(S, 'up', os[0], os[1]); await pause(300);
+add('Another block closes the menu', open4().menu === false);
+
+// Pin's field and slider, on the shape.
+await fresh();
+await pick(BIDS.shape);
+await tbClick('pin');
+const pinState = () => evalJs(S, `(() => { ${FR} const c = W.getComputedStyle(d.querySelector('.fe-block[data-block-id="${BIDS.shape}"]')); const r = document.querySelector('[data-pin-range]'), t = document.querySelector('[data-pin-offset]'); return JSON.stringify({ top: c.top, pos: c.position, field: t.value, range: r.value, min: r.min, max: r.max, step: r.step, w: r.getBoundingClientRect().width }); })()`);
+const pin0 = pinState();
+add('Slider 0 to 250, step 1', pin0.min === String(PN.range.min) && pin0.max === String(PN.range.max) && pin0.step === String(PN.range.step), JSON.stringify(pin0));
+add('Slider width', Math.abs(pin0.w - PN.range.box[0]) <= 1, String(pin0.w));
+const typePin = async (v, key = 'Enter') => { browser(S, 'fill', '[data-pin-offset]', v); browser(S, 'press', key); await pause(180); return pinState(); };
+for (const [v, [top, range]] of Object.entries(PN.field.read)) {
+  const r = await typePin(v);
+  add(`Pin field ${v}`, Math.abs(parseFloat(r.top) - parseFloat(top)) <= 1 && r.field === v && r.range === String(range), JSON.stringify(r));
+}
+await typePin('40px');
+for (const v of PN.field.notApplied) {
+  const r = await typePin(v);
+  add(`Pin field "${v}" not applied, stays`, r.top === '40px' && r.field === v && r.range === '40', JSON.stringify(r));
+}
+await typePin('40px');
+browser(S, 'fill', '[data-pin-offset]', '60'); browser(S, 'press', 'Tab'); await pause(200);
+add('Bare number then Tab goes back', pinState().field === '40px' && pinState().top === '40px', JSON.stringify(pinState()));
+browser(S, 'fill', '[data-pin-offset]', '70px'); browser(S, 'press', 'Tab'); await pause(200);
+add('70px then Tab applies', pinState().top === '70px', JSON.stringify(pinState()));
+const focusRange = () => evalJs(S, `(() => { document.querySelector('[data-pin-range]').focus(); return 'true'; })()`);
+await typePin('50px');
+const shapeArea = () => evalJs(S, `(() => JSON.stringify(fe.model.sections[${SEC}].blocks.find((b) => b.id === '${BIDS.shape}').layout.desktop.area))()`);
+const area0 = shapeArea();
+for (const [k, want] of [['ArrowRight', '51px'], ['End', '250px'], ['Home', '0px'], ['PageUp', '25px']]) {
+  focusRange(); browser(S, 'press', k); await pause(200);
+  const r = pinState(); add(`Slider key ${k}`, r.top === want && r.field === want, JSON.stringify(r));
+}
+add('Slider keys leave the block where it is', JSON.stringify(shapeArea()) === JSON.stringify(area0));
+const rb = evalJs(S, `(() => { const q = document.querySelector('[data-pin-range]').getBoundingClientRect(); return JSON.stringify([q.left, q.top, q.width, q.height]); })()`);
+const ry = rb[1] + rb[3] / 2, rx = (f) => rb[0] + rb[2] * f;
+mouse(S, 'move', rx(0.2), ry); await pause(60); mouse(S, 'down', rx(0.2), ry, { buttons: 1 }); await pause(120);
+const seen = [pinState().top];
+for (const f of [0.4, 0.6]) { mouse(S, 'move', rx(f), ry, { buttons: 1 }); await pause(120); seen.push(pinState().top); }
+mouse(S, 'move', rx(1) + 14, ry, { buttons: 1 }); await pause(120);
+add('Slider stops at 250', pinState().top === '250px', JSON.stringify(pinState()));
+mouse(S, 'move', rx(0.6), ry, { buttons: 1 }); await pause(120);
+add('Slider follows the drag live, field too', new Set(seen).size === 3 && pinState().field === pinState().top, seen.join());
+mouse(S, 'up', rx(0.6), ry); await pause(200);
+const afterDrag = pinState().top;
+evalJs(S, `document.getElementById('undo').click()`); await pause(200);
+const oneBack = evalJs(S, `(() => { ${FR} return JSON.stringify(W.getComputedStyle(d.querySelector('.fe-block[data-block-id="${BIDS.shape}"]')).top); })()`);
+add('Each slider value is one undo', oneBack === '250px', `${afterDrag} then ${oneBack}`);
+
+// Phones: Pin and Align in the layout on screen.
+await fresh();
+evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(600);
+await pick(BIDS.shape);
+const phoneBar = TB.phoneBars.shape;
+const stackOff = () => evalJs(S, `(() => JSON.stringify(['up', 'down'].map((k) => document.querySelector('#block-toolbar [data-tb="' + k + '"]').classList.contains('is-off'))))()`);
+add('Bottom of the stack: Move Down off', stackOff().join() === 'false,true', String(stackOff()));
+const barItems = () => evalJs(S, `(() => { const t = document.getElementById('block-toolbar'), o = t.getBoundingClientRect(); return JSON.stringify({ w: o.width, b: [...t.querySelectorAll('.tb-btn')].map((x) => [x.getAttribute('aria-label'), x.getBoundingClientRect().left - o.left]), s: [...t.querySelectorAll('.tb-sep')].map((x) => { const q = x.getBoundingClientRect(); return [q.left - o.left, q.top - o.top, q.width, q.height]; }) }); })()`);
+const pbar = barItems();
+add('Phone shape toolbar width', Math.abs(pbar.w - phoneBar.bar[0]) <= 1, String(pbar.w));
+add('Phone shape buttons', pbar.b.every(([l, x]) => Math.abs(phoneBar.buttons[l] - x) <= 1) && pbar.b.length === 5, JSON.stringify(pbar.b));
+add('Phone separators', pbar.s.length === 2 && pbar.s.every((q, i) => Math.abs(q[0] - phoneBar.seps[i]) <= 1 && q[2] === 1 && q[3] === 20 && Math.abs(q[1] - 11) <= 1), JSON.stringify(pbar.s));
+await tbClick('pin');
+const stickyAt = () => evalJs(S, `(() => { ${FR} const c = W.getComputedStyle(d.querySelector('.fe-block[data-block-id="${BIDS.shape}"]')); return JSON.stringify([c.position, c.top]); })()`);
+add('Pin works in Mobile View', stickyAt()[0] === 'sticky' && stickyAt()[1] === '0px' && open4().pop === true, JSON.stringify(stickyAt()));
+const baseRule = evalJs(S, `(() => { ${FR} const sheet = [...d.querySelectorAll('style')].map((e) => e.textContent).join('\\n'); const i = sheet.indexOf('.fe-block-${BIDS.shape} {'); return JSON.stringify(sheet.slice(i, i + 200)); })()`);
+add('A phone pin goes in the base rule', /position: sticky/.test(baseRule), baseRule);
+browser(S, 'fill', '[data-pin-offset]', '30px'); browser(S, 'press', 'Enter'); await pause(200);
+add('Phone offset applies', stickyAt()[1] === '30px', JSON.stringify(stickyAt()));
+browser(S, 'press', 'Escape'); await pause(200);
+await pick(BIDS.head);
+add('Top of the stack: Move Up off', stackOff().join() === 'true,false', String(stackOff()));
+await pick(BIDS.text);
+add('Middle of the stack: both on', stackOff().join() === 'false,false', String(stackOff()));
+let tBar = barItems(), tWant = TB.phoneBars.text.buttons;
+if (tBar.b.length === 9) tWant = TB.phoneBars.textOverlapping.buttons;
+add('Phone text buttons', tBar.b.every(([l, x]) => Math.abs(tWant[l] - x) <= 1), JSON.stringify(tBar.b));
+const overlapOn = evalJs(S, `(() => { const s = fe.model.sections[${SEC}], t = s.blocks.find((b) => b.id === '${BIDS.text}'), o = s.blocks.find((b) => b.id === '${BIDS.shape}'); o.layout.mobile.area = [...t.layout.mobile.area]; fe.select(null); fe.select(s.id, t.id); return JSON.stringify(true); })()`);
+await pause(250);
+tBar = barItems(); tWant = TB.phoneBars.textOverlapping.buttons;
+add('Phone text overlapping shows Move Forward and Backward', overlapOn && tBar.b.length === 9 && tBar.b.every(([l, x]) => Math.abs(tWant[l] - x) <= 1), JSON.stringify(tBar.b));
+await fresh();
+evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(600);
+const zb = TB.zButtons;
+const barWords = () => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#block-toolbar .tb-btn')].map((x) => x.getAttribute('aria-label') + (x.classList.contains('is-off') ? ' (off)' : ''))))()`);
+await pick(BIDS.head);
+add('Phone top of the stack, nothing pinned', barWords().join() === zb.phonePin.before.join(), String(barWords()));
+await tbClick('pin'); browser(S, 'press', 'Escape'); await pause(200);
+add('Phone pin brings Move Forward and Backward', barWords().join() === zb.phonePin.afterPin.join(), String(barWords()));
+await pick(BIDS.text);
+add('The next block too', barWords().join() === zb.phonePin.nextBlock.join(), String(barWords()));
+await fresh();
+const lone = 'yui_3_17_2_1_1793705139153_437';
+const loneSid = evalJs(S, `(() => JSON.stringify(fe.model.sections[0].id))()`);
+evalJs(S, `(() => { fe.select(${JSON.stringify(loneSid)}, '${lone}'); return 'true'; })()`); await pause(350);
+add('Desktop, overlapping nothing', barWords().join() === zb.desktopAlone.before.join(), String(barWords()));
+await tbClick('pin'); browser(S, 'press', 'Escape'); await pause(200);
+add('Desktop pin brings Move Forward and Backward', barWords().join() === zb.desktopAlone.afterPin.join(), String(barWords()));
+evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(600);
+evalJs(S, `(() => { fe.select(${JSON.stringify(loneSid)}, '${lone}'); return 'true'; })()`); await pause(350);
+add('A desktop pin brings none on phones', !barWords().some((x) => x.startsWith('Move Forward')), String(barWords()));
+await fresh();
+evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(600);
+await pick(BIDS.text);
+await tbClick('align');
+await tbClick('valign:flex-end');
+const phoneJ = alignRead();
+add('Phone align applies', phoneJ.j === 'flex-end' && phoneJ.a === 'flex-end', JSON.stringify(phoneJ));
+await tbClick('pin'); browser(S, 'press', 'Escape'); await pause(200);
+const pinnedPhone = evalJs(S, `(() => { ${FR} const c = W.getComputedStyle(d.querySelector('.fe-block[data-block-id="${BIDS.text}"]')); return JSON.stringify(c.position); })()`);
+evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(600);
+const deskC = evalJs(S, `(() => { ${FR} const c = W.getComputedStyle(d.querySelector('.fe-block[data-block-id="${BIDS.text}"]')); return JSON.stringify({ pos: c.position, top: c.top }); })()`);
+add('Phone pin and align stay out of desktop', pinnedPhone === 'sticky' && deskC.pos === 'relative' && deskC.top === '0px' && alignRead().j !== 'flex-end', `${pinnedPhone} ${JSON.stringify(deskC)}`);
+await pick(BIDS.text); await tbClick('pin');
+add('Desktop pins on its own', evalJs(S, `(() => { ${FR} return JSON.stringify(W.getComputedStyle(d.querySelector('.fe-block[data-block-id="${BIDS.text}"]')).position); })()`) === 'sticky');
+browser(S, 'press', 'Escape'); await pause(150);
+const saved = evalJs(S, `(() => { const b = fe.model.sections[${SEC}].blocks.find((x) => x.id === '${BIDS.text}'); return JSON.stringify([b.layout.mobile.sticky, b.layout.desktop.sticky, b.layout.mobile.justify]); })()`);
+add('Both pins kept in the model', saved[0] && saved[1] && saved[2] === 'flex-end', JSON.stringify(saved));
+
+// Tips: 11px under the button, centred, keys in chips, none on an unavailable button.
+await fresh();
+await pick(BIDS.text);
+const tipOf = async (tb) => { const q = evalJs(S, `(() => { const q = document.querySelector('#block-toolbar [data-tb="${tb}"]').getBoundingClientRect(); return JSON.stringify([q.left, q.top, q.width, q.height]); })()`); moveTo([q[0] + q[2] / 2, q[1] + q[3] / 2]); await moveTo([q[0] + q[2] / 2, q[1] + q[3] / 2 + 1]); await pause(400); const t = evalJs(S, `(() => { const e = document.getElementById('bar-tip'); if (e.hidden) return 'null'; const q = e.getBoundingClientRect(); return JSON.stringify({ text: e.innerText.replace(/\\s+/g, ' ').trim(), box: [q.left, q.top, q.width, q.height] }); })()`); await moveTo([20, 996]); await pause(100); return [q, t]; };
+const tipCheck = async (tb, label) => {
+  const [q, t] = await tipOf(tb);
+  const want = TB.tips.words[label];
+  const ok = t && t.text === want[0] && Math.abs(t.box[1] - (q[1] + q[3] + 11)) <= 1 && t.box[3] === 44 && Math.abs(t.box[2] - want[1]) <= 12 && Math.abs(t.box[0] + t.box[2] / 2 - (q[0] + q[2] / 2)) <= 1;
+  add(`Tip ${label}`, ok, JSON.stringify(t));
+};
+for (const [tb, label] of [['write', 'Write'], ['edit', 'Edit'], ['align', 'Align Vertically'], ['pin', 'Pin'], ['duplicate', 'Duplicate'], ['remove', 'Remove']]) await tipCheck(tb, label);
+const zOverlap = evalJs(S, `(() => { const s = fe.model.sections[${SEC}], t = s.blocks.find((b) => b.id === '${BIDS.text}'), o = s.blocks.find((b) => b.id === '${BIDS.shape}'); o.layout.desktop.area = [...t.layout.desktop.area]; t.layout.desktop.z = Math.min(...s.blocks.map((x) => x.layout.desktop.z)) - 1; fe.select(null); fe.select(s.id, t.id); return JSON.stringify(true); })()`);
+await pause(250);
+await tipCheck('z+', 'Move Forward');
+const [, offTip] = await tipOf('z-');
+add('No tip on an unavailable button', zOverlap && offTip === null, JSON.stringify(offTip));
+await tbClick('align'); await moveTo([20, 996]);
+for (const [v, label] of [['flex-start', 'Align Top'], ['center', 'Align Center'], ['flex-end', 'Align Bottom']]) await tipCheck(`valign:${v}`, label);
+browser(S, 'press', 'Escape'); await pause(150);
+await fresh();
+evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(600);
+await pick(BIDS.text);
+for (const [tb, label] of [['up', 'Move Up'], ['down', 'Move Down']]) await tipCheck(tb, label);
+const rq = evalJs(S, `(() => { const q = document.querySelector('#block-toolbar [data-tb="remove"]').getBoundingClientRect(); return JSON.stringify([q.left + 18, q.top + 18]); })()`);
+moveTo(rq); await pause(350);
+await tbClick('remove'); await pause(250);
+add('A removed block takes its tip with it', evalJs(S, `(() => JSON.stringify(document.getElementById('bar-tip').hidden))()`) === true);
 
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);

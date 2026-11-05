@@ -1,21 +1,26 @@
 // The floating block toolbar (U3, U4), measured on the oracle at a 1600px window
 // (parity/findings/TOOLBARGEO.json, TOOLBARS.json):
-//   box        white, 42px tall, 6px radius, no shadow, 4px padding; its left edge 4px right of
-//              the block, its top 60px above the block, never closer than 23.5px to the
-//              canvas top
+//   box        white, 42px tall, 6px radius, 4px padding, in a white 1px halo with the soft shadow;
+//              its left edge 4px right of the block, its top 60px above the block, never closer
+//              than 23.5px to the canvas top
 //   buttons    36px squares 4px apart, 3px radius; icons 22px (Pin 20px) in #0e0e0e, Remove
 //              #db3642, unavailable #b7b7b7; separators 1 by 20px #e7e7e7
 //   per type   text: Write, Edit | Align Vertically, Pin, [Move Forward, Move Backward] | Duplicate, Remove
 //              button: Edit | Primary, Link, Pin, Duplicate, Remove
 //              others: Edit | Pin, [Move Forward, Move Backward] | Duplicate, Remove
-//              Move Forward and Backward show only when the block overlaps another block.
-//   phones     Duplicate and the z buttons give way to Move Up and Move Down; the button style
-//              and link go. Separators on phones are not measured; ours keep the desktop groups.
+//              Move Forward and Backward show when the block overlaps another block, or when a
+//              block in its section is pinned in that layout.
+//   phones     Duplicate gives way to Move Up and Move Down, off at the top and the bottom of the
+//              stack; the button style and link go. Move Forward and Backward follow the same rule.
+//              Separators as on desktop, measured on the shape and on text.
+//   tips       under each usable button, 11px below it (TOOLBARS.json tips), with its keys in chips
 // The icons are ours (O2: no Squarespace assets).
 
 const ICON = {
   edit: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/>',
   align: '<path d="M5 4h14"/><path d="M12 8v12"/><path d="M8 12l4-4 4 4"/>',
+  alignCenter: '<path d="M5 12h14"/><path d="M12 3v6"/><path d="M9 6.5l3 3 3-3"/><path d="M12 21v-6"/><path d="M9 17.5l3-3 3 3"/>',
+  alignBottom: '<path d="M5 20h14"/><path d="M12 4v12"/><path d="M8 12l4 4 4-4"/>',
   pin: '<path d="M14 3l7 7-3 1-4 4 1 5-2 1-4-4-5 5-1-1 5-5-4-4 1-2 5 1 4-4z"/>',
   forward: '<rect x="8" y="8" width="12" height="12" rx="1"/><path d="M4 16V5a1 1 0 0 1 1-1h11" stroke-dasharray="2 2"/>',
   backward: '<rect x="4" y="4" width="12" height="12" rx="1" stroke-dasharray="2 2"/><path d="M20 8v11a1 1 0 0 1-1 1H8"/>',
@@ -33,35 +38,44 @@ const B = {
   edit: { label: 'Edit', html: svg('edit') },
   align: { label: 'Align Vertically', html: svg('align'), cls: 'tb-flush' },
   pin: { label: 'Pin', html: svg('pin', 20) },
-  'z+': { label: 'Move Forward', html: svg('forward') },
-  'z-': { label: 'Move Backward', html: svg('backward') },
-  duplicate: { label: 'Duplicate', html: svg('duplicate') },
-  remove: { label: 'Remove', html: svg('remove'), cls: 'tb-remove' },
-  primary: { label: 'Primary', html: `<span class="tb-text">Primary</span>${svg('chevron')}`, cls: 'tb-wide' },
-  link: { label: 'Open link editor popover', html: svg('link'), cls: 'tb-flush' },
-  up: { label: 'Move Up', html: svg('up') },
-  down: { label: 'Move Down', html: svg('down') },
+  'z+': { label: 'Move Forward', html: svg('forward'), keys: 'SHIFT ↑' },
+  'z-': { label: 'Move Backward', html: svg('backward'), keys: 'SHIFT ↓' },
+  duplicate: { label: 'Duplicate', html: svg('duplicate'), keys: '⌘ D' },
+  remove: { label: 'Remove', html: svg('remove'), cls: 'tb-remove', keys: 'DELETE' },
+  primary: { label: 'Primary', html: `<span class="tb-text">Primary</span>${svg('chevron')}`, cls: 'tb-wide', tip: 'Button Type' },
+  link: { label: 'Open link editor popover', html: svg('link'), cls: 'tb-flush', tip: 'Edit Link' },
+  up: { label: 'Move Up', html: svg('up'), keys: 'OPTION ↑' },
+  down: { label: 'Move Down', html: svg('down'), keys: 'OPTION ↓' },
 };
 
 // The groups of buttons for a block, with '|' for a separator.
 export function toolbarItems(type, bp, z) {
   const zs = z.overlaps ? ['z+', 'z-'] : [];
   if (bp === 'mobile') {
-    if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', 'up', 'down', '|', 'remove'];
-    return ['edit', '|', 'pin', 'up', 'down', '|', 'remove'];
+    if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', ...zs, 'up', 'down', '|', 'remove'];
+    return ['edit', '|', 'pin', ...zs, 'up', 'down', '|', 'remove'];
   }
   if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove'];
   if (type === 'button') return ['edit', '|', 'primary', 'link', 'pin', 'duplicate', 'remove'];
   return ['edit', '|', 'pin', ...zs, '|', 'duplicate', 'remove'];
 }
 
-export function toolbarHtml(items, z) {
+// Align Vertically's menu (parity/findings/TOOLBARS.json alignMenu): Top, Center, Bottom. The
+// toolbar button shows the current one and is grey while the menu is open.
+const VALIGN = [['flex-start', 'Align Top', 'align'], ['center', 'Align Center', 'alignCenter'], ['flex-end', 'Align Bottom', 'alignBottom']];
+export function alignMenuHtml(current) {
+  return `<div class="tb-vmenu">${VALIGN.map(([v, label, icon]) => `<button type="button" class="tb-btn${v === current ? ' tb-open' : ''}" data-tb="valign:${v}" aria-label="${label}" data-tip="${label}">${svg(icon)}</button>`).join('')}</div>`;
+}
+
+export function toolbarHtml(items, z, align = {}) {
   return items.map((k) => {
     if (k === '|') return '<span class="tb-sep" aria-hidden="true"></span>';
     const b = B[k];
-    const off = (k === 'z+' && !z.above) || (k === 'z-' && !z.below);
-    return `<button type="button" class="tb-btn ${b.cls || ''}${off ? ' is-off' : ''}" data-tb="${k}" aria-label="${b.label}" title="${b.label}">${b.html}</button>`;
-  }).join('');
+    const off = (k === 'z+' && !z.above) || (k === 'z-' && !z.below) || (k === 'up' && z.first) || (k === 'down' && z.last);
+    const open = k === 'align' && align.open;
+    const html = k === 'align' ? svg(VALIGN.find(([v]) => v === align.current)?.[2] || 'align') : b.html;
+    return `<button type="button" class="tb-btn ${b.cls || ''}${off ? ' is-off' : ''}${open ? ' tb-open' : ''}" data-tb="${k}" aria-label="${b.label}" data-tip="${b.tip || b.label}"${b.keys ? ` data-tip-keys="${b.keys}"` : ''}>${html}</button>`;
+  }).join('') + (align.open ? alignMenuHtml(align.current) : '');
 }
 
 // Where the toolbar goes, in the stage's coordinates.

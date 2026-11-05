@@ -6,7 +6,7 @@ import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
-import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml } from './block-panel.js';
+import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -280,10 +280,14 @@ const toolbar = $('block-toolbar');
 function zInfo(sid, b) {
   const L = lay(b);
   const hit = (a, o) => a[0] < o[2] && o[0] < a[2] && a[1] < o[3] && o[1] < a[3];
-  const over = S(sid).blocks.filter((o) => o !== b && o.layout[bp] && hit(L.area, o.layout[bp].area));
-  return { overlaps: over.length > 0, above: over.some((o) => o.layout[bp].z > L.z), below: over.some((o) => o.layout[bp].z < L.z) };
+  // A pin in the section, in this layout, counts every block as if it overlapped (TOOLBARS.json zButtons).
+  const pinned = S(sid).blocks.some((o) => o.layout[bp]?.sticky);
+  const over = S(sid).blocks.filter((o) => o !== b && o.layout[bp] && (pinned || hit(L.area, o.layout[bp].area)));
+  const stack = phoneStack(sid);
+  return { overlaps: over.length > 0, above: over.some((o) => o.layout[bp].z > L.z), below: over.some((o) => o.layout[bp].z < L.z), first: stack[0] === b, last: stack[stack.length - 1] === b };
 }
 let groupAlignOpen = false;
+let vAlignOpen = null; // The block whose Align Vertically menu is open.
 // Group Move Forward and Backward (parity/findings/GROUPRESIZE.json): is a block outside the group
 // above its top one or below its bottom one? The oracle's case is one block above a group of two.
 function groupZ(sid, ids) {
@@ -326,13 +330,17 @@ function placeToolbar() {
   const el = blockEl(sel.bid);
   if (!b || !el) { toolbar.hidden = true; return; }
   const z = zInfo(sel.sid, b);
-  const key = `${sel.bid}|${bp}|${JSON.stringify(z)}|${b.buttonStyle || ""}`;
+  const align = { current: lay(b).justify || 'flex-start', open: vAlignOpen === sel.bid };
+  const key = `${sel.bid}|${bp}|${JSON.stringify(z)}|${b.buttonStyle || ""}|${align.current}|${align.open}`;
   if (toolbar.dataset.key !== key) {
-    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z), z);
+    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z), z, align);
     toolbar.dataset.key = key;
+    // The menu sits 4px under the bar, centred on the button.
+    const vm = toolbar.querySelector('.tb-vmenu');
+    if (vm) vm.style.left = `${toolbar.querySelector('[data-tb="align"]').offsetLeft + 18 - 62}px`;
     // The style button names the current style (BUTTONSTYLE.json).
     const sb = toolbar.querySelector('[data-tb="primary"]');
-    if (sb && b.buttonStyle) { const n = b.buttonStyle[0].toUpperCase() + b.buttonStyle.slice(1); sb.setAttribute('aria-label', n); sb.title = n; sb.querySelector('.tb-text').textContent = n; }
+    if (sb && b.buttonStyle) { const n = b.buttonStyle[0].toUpperCase() + b.buttonStyle.slice(1); sb.setAttribute('aria-label', n); sb.querySelector('.tb-text').textContent = n; }
   }
   const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), el.getBoundingClientRect());
   toolbar.style.left = `${p.left}px`;
@@ -345,6 +353,7 @@ toolbar.addEventListener('click', (e) => {
   if (!btn || !sel || btn.classList.contains('is-off')) return;
   const act = btn.dataset.tb;
   const { sid, bid } = sel;
+  if (act !== 'align' && !act.startsWith('valign:') && vAlignOpen) { vAlignOpen = null; placeToolbar(); }
   if (sel.more?.length) {
     // The group toolbar.
     if (act === 'align-menu') { groupAlignOpen = !groupAlignOpen; placeToolbar(); return; }
@@ -367,11 +376,24 @@ toolbar.addEventListener('click', (e) => {
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && b.type === 'button') { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
-  // Pin (parity/findings/PIN.json): the first click pins to the top with no offset (desktop) and
-  // opens the popover; one undo step.
-  if (act === 'pin' && bp === 'desktop') {
-    if (!b.layout.desktop.sticky) { const before = JSON.stringify(model); b.layout.desktop.sticky = { anchor: 'top', offset: 0 }; renderSectionDom(sid); commit(before, `Pinned ${bid}`); }
+  // Pin (parity/findings/PIN.json): the first click pins to the top with no offset, in the layout
+  // on screen, and opens the popover; one undo step.
+  if (act === 'pin') {
+    if (!pinPop.hidden) { pinPop.hidden = true; return; } // A second click closes it and leaves the pin.
+    if (!lay(b).sticky) { const before = JSON.stringify(model); lay(b).sticky = { anchor: 'top', offset: 0 }; renderSectionDom(sid); commit(before, `Pinned ${bid}`); }
     openPin(sid, bid);
+    return;
+  }
+  // Align Vertically (parity/findings/TOOLBARS.json alignMenu): a menu of three that stays open
+  // after a pick, one undo step each, in the layout on screen.
+  if (act === 'align') { pinPop.hidden = true; vAlignOpen = vAlignOpen === bid ? null : bid; placeToolbar(); return; }
+  if (act.startsWith('valign:')) {
+    const v = act.slice(7), L = lay(b);
+    if (L.justify === v && L.align === v) return;
+    const before = JSON.stringify(model);
+    L.justify = v; L.align = v;
+    renderSectionDom(sid);
+    commit(before, `${btn.getAttribute('aria-label')} on ${bid}`);
     return;
   }
   if (act === 'primary' && b.type === 'button') {
@@ -383,9 +405,8 @@ toolbar.addEventListener('click', (e) => {
     m.dataset.sid = sid; m.dataset.bid = bid; m.hidden = false;
     return;
   }
-  if (act === 'pin' || act === 'primary' || act === 'link') { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
+  if (act === 'primary' || act === 'link') { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
   const before = JSON.stringify(model);
-  if (act === 'align') { const order = ['flex-start', 'center', 'flex-end']; const L = lay(b); L.justify = order[(order.indexOf(L.justify || 'flex-start') + 1) % 3]; }
   if (act === 'z+' || act === 'z-') zSwap(sid, b, act === 'z+');
   if (act === 'up' || act === 'down') moveInStack(sid, b, act === 'up');
   if (act === 'duplicate') duplicateBlock(sid, bid);
@@ -1075,6 +1096,8 @@ function onKey(e) {
   }
   if (e.key === 'Escape') {
     if (marquee) return;
+    // An open menu or popover goes first; the block stays selected until the next Escape.
+    if (vAlignOpen || !pinPop.hidden) { closeFloating(); return; }
     if (gesture && gesture.type !== 'pending') cancelGesture();
     else select(null);
     return;
@@ -1898,8 +1921,11 @@ function zSwap(sid, b, up) {
 // Move Forward, Move Backward and Duplicate. The block trades places with the previous or
 // next block in the phone stack (by start row): the lower one takes the upper one's start
 // row, the upper one follows it. Heights, columns and z-index stay.
+function phoneStack(sid) {
+  return S(sid).blocks.filter((o) => o.layout.mobile).sort((x, y) => x.layout.mobile.area[0] - y.layout.mobile.area[0] || x.layout.mobile.area[1] - y.layout.mobile.area[1]);
+}
 function moveInStack(sid, b, up) {
-  const stack = S(sid).blocks.filter((o) => o.layout.mobile).sort((x, y) => x.layout.mobile.area[0] - y.layout.mobile.area[0] || x.layout.mobile.area[1] - y.layout.mobile.area[1]);
+  const stack = phoneStack(sid);
   const k = stack.indexOf(b);
   const other = stack[up ? k - 1 : k + 1];
   if (!other) return;
@@ -2397,7 +2423,7 @@ const pinPop = $('pin-popover');
 function openPin(sid, bid) {
   const b = B(sid, bid);
   pinPop.dataset.sid = sid; pinPop.dataset.bid = bid;
-  pinPop.innerHTML = pinPopoverHtml(b.layout.desktop.sticky);
+  pinPop.innerHTML = pinPopoverHtml(lay(b).sticky);
   const btn = document.querySelector('#block-toolbar [data-tb="pin"]');
   const st = stage.getBoundingClientRect();
   if (btn) { const r = btn.getBoundingClientRect(); pinPop.style.left = `${Math.max(8, r.left + r.width / 2 - 124 - st.left)}px`; pinPop.style.top = `${r.bottom + 7 - st.top}px`; }
@@ -2407,7 +2433,7 @@ function setPin(change, label) {
   const b = B(pinPop.dataset.sid, pinPop.dataset.bid);
   if (!b) return;
   const before = JSON.stringify(model);
-  change(b.layout.desktop);
+  change(lay(b));
   renderSectionDom(pinPop.dataset.sid);
   commit(before, label);
   openPin(pinPop.dataset.sid, pinPop.dataset.bid);
@@ -2419,13 +2445,43 @@ pinPop.addEventListener('click', (e) => {
   const k = o.dataset.pin;
   setPin((L) => { if (k === 'remove') delete L.sticky; else L.sticky = { anchor: k, offset: L.sticky?.offset || 0 }; }, k === 'remove' ? 'Removed the pin' : `Pinned to ${k}`);
 });
-pinPop.addEventListener('change', (e) => {
-  const f = e.target.closest('[data-pin-offset], [data-pin-range]');
-  if (!f) return;
-  const v = Math.max(0, Math.min(500, parseFloat(f.value) || 0));
-  setPin((L) => { if (L.sticky) L.sticky = { ...L.sticky, offset: v }; }, `Pin offset ${v}px`);
+// The field wants a number and a unit, exactly so: anything else stays as typed until the field is
+// left, then goes back. No limit on the number; the slider only shows what fits its range.
+const PIN_VALUE = /^(-?\d*\.?\d+)(px|em|rem|vh|vw|%)$/;
+function applyPinField(f, revert) {
+  const L = lay(B(pinPop.dataset.sid, pinPop.dataset.bid));
+  const m = f.value.match(PIN_VALUE);
+  if (!L?.sticky) return;
+  if (!m) { if (revert) f.value = `${L.sticky.offset}${L.sticky.unit || 'px'}`; return; }
+  const offset = parseFloat(m[1]), unit = m[2];
+  if (offset === L.sticky.offset && unit === (L.sticky.unit || 'px')) return;
+  const before = JSON.stringify(model);
+  L.sticky = { anchor: L.sticky.anchor, offset, ...(unit === 'px' ? {} : { unit }) };
+  renderSectionDom(pinPop.dataset.sid);
+  commit(before, `Pin offset ${f.value}`);
+  pinPop.querySelector('[data-pin-range]').value = pinRangeValue(offset);
+}
+// The slider moves the block as it goes, and each new value is its own undo step (r42 on the
+// oracle: five values in one drag took five undos).
+pinPop.addEventListener('input', (e) => {
+  if (!e.target.matches('[data-pin-range]')) return;
+  const L = lay(B(pinPop.dataset.sid, pinPop.dataset.bid));
+  if (!L?.sticky) return;
+  const before = JSON.stringify(model);
+  const offset = Number(e.target.value);
+  L.sticky = { anchor: L.sticky.anchor, offset };
+  renderSectionDom(pinPop.dataset.sid);
+  commit(before, `Pin offset ${offset}px`);
+  pinPop.querySelector('[data-pin-offset]').value = `${offset}px`;
 });
-pinPop.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('[data-pin-offset]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); if (e.key === 'Escape') pinPop.hidden = true; });
+pinPop.addEventListener('focusout', (e) => { if (e.target.matches('[data-pin-offset]')) applyPinField(e.target, true); });
+// Keys typed here stay here: an arrow on the slider must not nudge the block.
+pinPop.addEventListener('keydown', (e) => {
+  if (!e.metaKey && !e.ctrlKey) e.stopPropagation();
+  if (e.key === 'Enter' && e.target.matches('[data-pin-offset]')) applyPinField(e.target, false);
+  if (e.key === 'Escape') pinPop.hidden = true;
+});
+
 
 // Add a Section (U10): the panel remembers where the new section goes.
 const addSectionPanel = $('add-section-panel');
@@ -2487,7 +2543,7 @@ addSectionPanel.addEventListener('click', (e) => {
 });
 addSectionPanel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeAddSection(); } });
 
-function closeFloating() { $('button-style-menu').hidden = true; $('pin-popover').hidden = true; addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('arrange-menu').hidden = true; $('link-popover').hidden = true; }
+function closeFloating() { if (vAlignOpen) { vAlignOpen = null; placeToolbar(); } $('button-style-menu').hidden = true; $('pin-popover').hidden = true; addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('arrange-menu').hidden = true; $('link-popover').hidden = true; }
 addMenu.addEventListener('input', (e) => {
   if (!e.target.matches('[data-am="search"]')) return;
   const q = e.target.value;
@@ -2735,8 +2791,25 @@ function showBarTip(btn) {
   const q = btn.getBoundingClientRect();
   const w = barTip.getBoundingClientRect().width;
   barTip.style.left = `${Math.max(11, Math.min(q.left + q.width / 2 - w / 2, window.innerWidth - 22 - w))}px`;
-  barTip.style.top = `${q.bottom + (btn.classList.contains('tb-icon') ? 11.5 : 6.5)}px`;
+  barTip.style.top = `${q.bottom + (btn.closest('#block-toolbar') ? 11 : btn.classList.contains('tb-icon') ? 11.5 : 6.5)}px`;
 }
+// The block toolbar's tips (parity/findings/TOOLBARS.json tips): not on an unavailable button. They
+// appear between 100 and 400 ms after the hover on the oracle; ours at 200.
+let tbTipBtn = null, tbTipTimer = 0;
+function setTbTip(btn) {
+  clearTimeout(tbTipTimer);
+  barTip.hidden = true;
+  tbTipBtn = btn;
+  if (btn && !btn.classList.contains('is-off')) tbTipTimer = setTimeout(() => showBarTip(btn), 200);
+}
+toolbar.addEventListener('pointerover', (e) => { const btn = e.target.closest('button[data-tip]'); if (btn !== tbTipBtn) setTbTip(btn); });
+toolbar.addEventListener('pointerleave', () => setTbTip(null));
+// A pick redraws the toolbar and keeps the tip; a block that goes takes the tip with it.
+new MutationObserver(() => {
+  if (!tbTipBtn) return;
+  const same = toolbar.hidden ? null : toolbar.querySelector(`[data-tb="${tbTipBtn.dataset.tb}"]`);
+  if (same) tbTipBtn = same; else setTbTip(null);
+}).observe(toolbar, { childList: true, attributes: true, attributeFilter: ['hidden'] });
 for (const btn of document.querySelectorAll('.bar [data-tip]')) {
   btn.addEventListener('pointerenter', () => showBarTip(btn));
   btn.addEventListener('pointerleave', () => { barTip.hidden = true; });
