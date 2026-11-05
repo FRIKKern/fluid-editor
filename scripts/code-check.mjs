@@ -9,6 +9,7 @@ import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/CODEEMBED.json', import.meta.url)));
+const M = JSON.parse(readFileSync(new URL('../parity/findings/CODEMODAL.json', import.meta.url)));
 let pass = 0, total = 0;
 const results = [];
 const add = (what, ok, detail) => { total++; if (ok) pass++; results.push({ what, ok }); console.log(`${what.padEnd(34)} ${ok ? 'match' : `DIFF ${detail}`}`); };
@@ -61,10 +62,9 @@ await setMode('html');
 await typeInto('textarea[data-content="code"]', '<b>x</b>'); blur(); await pause(200);
 add('Source stays on back on HTML', norm(htmlOf(code, '.sqs-code-container')) === norm(want('HTML after Plain Text')), htmlOf(code, '.sqs-code-container'));
 
-// Growth: short code keeps the block's rows, long code adds rows, as on the oracle.
+// Growth: long code adds rows; the steps below read the rest.
 const rows = () => evalJs(S, `(() => { const b = fe.model.sections[1].blocks.find((x) => x.id === '${code}'); return JSON.stringify(b.layout.desktop.area); })()`);
 evalJs(S, `(() => { const c = document.querySelector('#block-panel input[aria-label="Display Source Code"]'); c.click(); return 'true'; })()`); await pause(250);
-add('Short code keeps the rows', rows().join('/') === F.code.growth['<b>x</b>'][0].join('/'), rows());
 await typeInto('textarea[data-content="code"]', '<p>a</p>'.repeat(30)); blur(); await pause(300);
 add('Long code adds rows', rows()[2] > 7, rows());
 
@@ -89,6 +89,67 @@ const backed = evalJs(S, `(() => { document.querySelector('#block-panel [data-em
 add('Back returns to the tab', backed === true, backed);
 const design = evalJs(S, `(() => { const P = document.getElementById('block-panel'); P.querySelector('[data-btab="Design"]').click(); const t = P.textContent; return JSON.stringify({ transforms: t.includes('Transforms'), stroke: t.includes('Stroke'), background: t.includes('Background') }); })()`);
 add('Design is the transforms alone', design.transforms && !design.stroke && !design.background, JSON.stringify(design));
+
+// Learn More ends the embed's note and opens a new tab (CODEMODAL.json).
+const embed2 = start('embed', '');
+const learn = evalJs(S, `(() => { const a = [...document.querySelectorAll('#block-panel a')].find((x) => x.textContent === 'Learn More'); if (!a) return JSON.stringify(null); const c = getComputedStyle(a); return JSON.stringify({ target: a.target, last: a === a.parentElement.lastElementChild && a.parentElement.textContent.startsWith('Paste the URL'), font: [c.fontSize, c.fontWeight, c.textDecorationLine] }); })()`);
+add('Learn More ends the note, new tab', learn?.target === '_blank' && learn.last && learn.font[0] === M.learnMore.font[0] && learn.font[1] === M.learnMore.font[1] && learn.font[2] === M.learnMore.font[3], JSON.stringify(learn));
+add('Embed data has no Expand', evalJs(S, `(() => { document.querySelector('#block-panel [data-embed="code"]').click(); document.querySelector('#block-panel [data-embed="data"]').click(); return JSON.stringify(!document.querySelector('#block-panel [data-code-expand]')); })()`));
+
+// The rows of a block as its content changes, step by step as the oracle's did.
+const LINES = (n) => Array.from({ length: n }, (_, k) => `<p>row ${k}</p>`).join('\n');
+const STEP = { thirty: LINES(30), twelve: LINES(12), eight: LINES(8), three: LINES(3), tall: '<p style="height:300px">d</p>' };
+const rowsOf = (id) => evalJs(S, `(() => { const a = fe.model.sections[1].blocks.find((x) => x.id === '${id}').layout.desktop.area; return JSON.stringify(a[2] - a[0]); })()`);
+const setText = async (sel, text, through) => { evalJs(S, `(() => { const t = document.querySelector('#block-panel ${sel}'); t.focus(); t.select(); if (${!!through} || !${JSON.stringify(text)}) document.execCommand('delete'); if (${JSON.stringify(text)}) { t.select(); document.execCommand('insertText', false, ${JSON.stringify(text)}); } return 'true'; })()`); await pause(120); };
+const walk = async (name, id, sel, list, through) => {
+  for (const [key, want] of list) {
+    await setText(sel, STEP[key] ?? key, through);
+    const got = rowsOf(id);
+    add(`${name} ${key || 'empty'}: ${want} rows`, got === want, got);
+  }
+  blur(); await pause(150);
+};
+const code2 = start('code', `html: '<p>Hello, World!</p>',`);
+await walk('Code', code2, 'textarea[data-content="code"]', M.rows.code.steps);
+for (const [name, seq] of [['Embed', M.rows.embed], ['Embed again', M.rows.embedAgain]]) {
+  const id = start('embed', '');
+  evalJs(S, `(() => { document.querySelector('#block-panel [data-embed="code"]').click(); document.querySelector('#block-panel [data-embed="data"]').click(); return 'true'; })()`); await pause(200);
+  await walk(name, id, 'textarea[data-content="embedHtml"]', seq.steps, true);
+}
+
+// Expand: a full-screen view with its own copy of the code. Real keys and clicks.
+const code3 = start('code', `html: '<p>Hello, World!</p>',`);
+const blockText = () => htmlOf(code3, '.sqs-code-container');
+add('Expand sits where the oracle\'s does', (() => { const r = evalJs(S, `(() => { const P = document.querySelector('#block-panel .bp-code').getBoundingClientRect(), r = document.querySelector('#block-panel [data-code-expand]').getBoundingClientRect(); return JSON.stringify([P.right - r.right, P.bottom - r.bottom, r.width, r.height]); })()`); return r.join() === '4,4,36,36'; })());
+const open = () => evalJs(S, `(() => { document.querySelector('#block-panel [data-code-expand]').click(); return JSON.stringify(!document.getElementById('code-modal').hidden); })()`);
+add('Expand opens the view', open() === true);
+const box = (sel) => `(() => { const r = document.querySelector('#code-modal ${sel}').getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; })()`;
+const near = (a, b) => a.every((v, i) => Math.abs(v - b[i]) <= 1);
+const geo = evalJs(S, `(() => JSON.stringify({ box: ${box('.code-modal-box')}, close: ${box('.code-modal-close')}, mode: ${box('select')}, editor: ${box('.bp-code')}, scrim: ${box('.code-modal-scrim')}, c: (() => { const s = getComputedStyle(document.querySelector('.code-modal-scrim')); return [s.backgroundColor, s.opacity]; })() }))()`);
+add('View 900 by 675, centred', near(geo.box, M.expand.modal.box), geo.box);
+add('Close in its place', Math.abs(geo.close[0] - M.expand.modal.close.box[0]) <= 1 && Math.abs(geo.close[1] - M.expand.modal.close.box[1]) <= 1 && geo.close[3] === 44, geo.close);
+add('Mode 406 wide, in its place', near(geo.mode, M.expand.modal.mode), geo.mode);
+add('Editor 834 by 471, in its place', near(geo.editor, M.expand.modal.editor), geo.editor);
+add('Scrim colour and opacity', geo.c[0] === M.expand.modal.scrim.color && geo.c[1] === M.expand.modal.scrim.opacity, geo.c);
+const typeModal = (text) => evalJs(S, `(() => { const t = document.querySelector('#code-modal textarea'); t.focus(); t.select(); document.execCommand('insertText', false, ${JSON.stringify(text)}); return 'true'; })()`);
+typeModal('<p>one</p>'); await pause(200);
+add('The block waits while it is open', blockText() === '<p>Hello, World!</p>', blockText());
+browser(S, 'press', 'Backspace'); await pause(150);
+add('Backspace stays in the code', evalJs(S, `(() => JSON.stringify(document.querySelector('#code-modal textarea').value === '<p>one</p'))()`) && !!fe_block(code3));
+function fe_block(id) { return evalJs(S, `(() => JSON.stringify(!!fe.model.sections[1].blocks.find((x) => x.id === '${id}')))()`); }
+typeModal('<p>one</p>');
+evalJs(S, `(() => { document.querySelector('#code-modal .code-modal-close').click(); return 'true'; })()`); await pause(250);
+add('Close writes the block and the panel', blockText() === '<p>one</p>' && evalJs(S, `(() => JSON.stringify(document.querySelector('#block-panel textarea[data-content="code"]').value))()`) === '<p>one</p>', blockText());
+const undoneModal = evalJs(S, `(async () => { fe.undo(); await new Promise((r) => setTimeout(r, 300)); return JSON.stringify(fe.model.sections[1].blocks.find((x) => x.id === '${code3}').html); })()`);
+add('One undo takes it all back', undoneModal === '<p>Hello, World!</p>', undoneModal);
+const reselected = evalJs(S, `(async () => { fe.select(fe.model.sections[1].id, '${code3}'); await new Promise((r) => setTimeout(r, 150)); if (document.getElementById('block-panel').hidden) document.querySelector('#block-toolbar [data-tb="edit"]').click(); await new Promise((r) => setTimeout(r, 200)); return JSON.stringify(!!document.querySelector('#block-panel [data-code-expand]')); })()`);
+open(); await pause(100);
+browser(S, 'press', 'Escape'); await pause(200);
+const afterEsc = evalJs(S, `(() => JSON.stringify({ gone: document.getElementById('code-modal').hidden, panel: !document.getElementById('block-panel').hidden }))()`);
+add('Escape closes it, the panel stays', reselected && afterEsc.gone && afterEsc.panel, JSON.stringify(afterEsc));
+open(); await pause(100);
+const r0 = evalJs(S, `(() => { document.querySelector('.code-modal-scrim').click(); return JSON.stringify({ gone: document.getElementById('code-modal').hidden, panel: !document.getElementById('block-panel').hidden }); })()`);
+add('A scrim click closes it, the panel stays', r0.gone && r0.panel, JSON.stringify(r0));
 
 console.log(`Code and embed: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/code-check.json', import.meta.url), JSON.stringify({ check: 'code and embed panels', pass, total, results }, null, 2) + '\n');
