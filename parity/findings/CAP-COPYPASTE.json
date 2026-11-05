@@ -1,0 +1,463 @@
+{
+  "item": "CAP-COPYPASTE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "U11, Y4: Copy and Paste of a block, inside a section, between sections and between pages, with the clipboard calls kept in memory",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      1,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "stubClipboard"
+    ],
+    [
+      "read",
+      "before",
+      {
+        "areas": 0,
+        "clip": true
+      }
+    ],
+    [
+      "rightClick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Copy"
+    ],
+    [
+      "read",
+      "after copy",
+      {
+        "clip": true,
+        "areas": 0
+      }
+    ],
+    [
+      "rightClick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Paste"
+    ],
+    [
+      "read",
+      "pasted on the source",
+      {
+        "clip": true,
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "pasted"
+    ],
+    [
+      "rightClick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Paste"
+    ],
+    [
+      "read",
+      "pasted again",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "read",
+      "one undo",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "rightClick",
+      1,
+      0
+    ],
+    [
+      "click",
+      "Paste"
+    ],
+    [
+      "read",
+      "pasted in another section",
+      {
+        "areas": 1
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "press",
+      "Meta+c"
+    ],
+    [
+      "read",
+      "Meta+c",
+      {
+        "clip": true,
+        "areas": 1
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      1,
+      0
+    ],
+    [
+      "press",
+      "Meta+v"
+    ],
+    [
+      "read",
+      "Meta+v in another section",
+      {
+        "clip": true,
+        "areas": 1
+      }
+    ],
+    [
+      "rightClick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Copy"
+    ],
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "read",
+      "another page",
+      {
+        "sections": true
+      }
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "line on another page",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "rightClick",
+      0,
+      0
+    ],
+    [
+      "shot",
+      "menu"
+    ],
+    [
+      "clickIf",
+      "Paste"
+    ],
+    [
+      "read",
+      "pasted on another page",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "read",
+      "left",
+      {
+        "sections": true
+      }
+    ]
+  ],
+  "reads": {
+    "before": {
+      "clip": {
+        "top": [],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/3/8",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after copy": {
+      "clip": {
+        "top": [],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/3/8",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "pasted on the source": {
+      "clip": {
+        "top": [],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/3/8",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ],
+        [
+          "2/3/4/9",
+          "4/2/6/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "pasted again": {
+      "areas": [
+        [
+          "1/2/3/8",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ],
+        [
+          "2/3/4/9",
+          "4/2/6/10"
+        ],
+        [
+          "3/4/5/10",
+          "6/2/8/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "one undo": {
+      "areas": [
+        [
+          "1/2/3/8",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ],
+        [
+          "2/3/4/9",
+          "4/2/6/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "pasted in another section": {
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ],
+        [
+          "1/2/3/8",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Meta+c": {
+      "clip": {
+        "top": [],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ],
+        [
+          "1/2/3/8",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Meta+v in another section": {
+      "clip": {
+        "top": [],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ],
+        [
+          "1/2/3/8",
+          "2/2/4/10"
+        ],
+        [
+          "2/3/4/9",
+          "4/2/6/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "another page": {
+      "sections": [
+        {
+          "id": "a7e41c",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "line on another page": {
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pasted on another page": {
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "left": {
+      "sections": [
+        {
+          "id": "a7e41c",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "27_420"
+          ],
+          "h": 667.6
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": true
+}

@@ -8,7 +8,7 @@
 //   hover i | hoverBlock i k | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
 //   click label | clickIf label | press key | keys text | fill label value | fillValue shown value | rightClick i k
-//   groupDrag i dx dy | stubClipboard |
+//   groupDrag i dx dy | stubClipboard | clickAt x y | dragAt x y x2 y2 (window pixels) |
 //   hold i k part dx dy [mods] | holdRaw i k part dx dy | shiftClick i k | move dx dy | release [home] | drag i k part dx dy {pointerType}
 //   touch i k part dx dy {holdMs} | pasteMid i k html | undoWalk name [n] | shot name
 //   read name { block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], textH: [i,k], checks: true, sel: selector, layers: i, controls: true, thin: true }
@@ -172,6 +172,9 @@ const STEPS = {
   },
   move: async (dx, dy) => { await inFrame(() => mouse(S, 'move', held.x + dx, held.y + dy, { buttons: 1, mods: held.mods })); held.dx = dx; held.dy = dy; await pause(300); },
   release: async (where) => { await inFrame(async () => { if (where === 'home') { mouse(S, 'move', held.x, held.y, { buttons: 1, mods: held.mods }); await pause(200); } mouse(S, 'up', where === 'home' ? held.x : held.x + held.dx, where === 'home' ? held.y : held.y + held.dy, { mods: held.mods }); }); held = null; await pause(700); },
+  // In window pixels, for the editor's own panels.
+  clickAt: async (x, y) => { cdp(S, { op: 'drag', from: [x, y], to: [x, y], steps: 1, holdMs: 50, mods: [] }); await pause(1000); },
+  dragAt: async (x, y, x2, y2) => { cdp(S, { op: 'drag', from: [x, y], to: [x2, y2], steps: 12, holdMs: 200, mods: [] }); await pause(1000); },
   drag: async (i, k, part, dx, dy, o = {}) => { const [x, y] = point(i, k, part); await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x + dx, y + dy], steps: 12, holdMs: 200, mods: [], pointerType: o.pointerType })); await pause(800); },
   touch: async (i, k, part, dx, dy, o = {}) => { const [x, y] = point(i, k, part); await inFrame(() => cdp(S, { op: 'touch', from: [x, y], to: [x + dx, y + dy], steps: dx || dy ? 12 : 0, holdMs: o.holdMs || 0 })); await pause(1000); },
   pasteMid: async (i, k, html) => { const id = blockId(i, k); evalJs(S, `(async () => { ${FRAME} const pm = ${BLOCK(i, id)}.querySelector('.ProseMirror[contenteditable=true]'); if (!pm) return JSON.stringify('no editor'); pm.focus(); const w = d.createTreeWalker(pm, 4); const t = w.nextNode(); const r = d.createRange(); r.setStart(t, Math.floor(t.length / 2)); r.collapse(true); const s = W.getSelection(); s.removeAllRanges(); s.addRange(r); await new Promise((res) => setTimeout(res, 300)); const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(html)}); dt.setData('text/plain', ${JSON.stringify(html.replace(/<[^>]+>/g, ' '))}); pm.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); await new Promise((res) => setTimeout(res, 400)); return 'true'; })()`); await pause(500); },
