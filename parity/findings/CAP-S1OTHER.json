@@ -1,0 +1,311 @@
+{
+  "item": "CAP-S1OTHER",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "S1: is any other section setting per layout? Change each on the phone and read desktop",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "start",
+      {
+        "sections": true
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "phone panel",
+      {
+        "controls": true,
+        "sections": true
+      }
+    ],
+    [
+      "shot",
+      "panel"
+    ],
+    [
+      "clickIf",
+      "L"
+    ],
+    [
+      "read",
+      "phone section L",
+      {
+        "sections": true
+      }
+    ],
+    [
+      "clickIf",
+      "Top"
+    ],
+    [
+      "read",
+      "phone top",
+      {
+        "sections": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "read",
+      "desktop after",
+      {
+        "sections": true
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "sections": [
+        {
+          "id": "90cc8b",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "87_420"
+          ],
+          "h": 667.6
+        }
+      ],
+      "save": "changed"
+    },
+    "phone panel": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1209,
+            221,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1231,
+            221,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1293,
+            221,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1388.7,
+            221,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "input:number",
+          "label": "Row Count",
+          "value": "2",
+          "min": "1",
+          "max": "10000",
+          "step": "1",
+          "box": [
+            1430,
+            318,
+            77,
+            36
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Divider",
+          "value": false,
+          "box": [
+            1481,
+            666.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "90cc8b",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 2,
+          "blocks": [
+            "87_420"
+          ],
+          "h": 623.7
+        }
+      ],
+      "save": "changed"
+    },
+    "phone section L": {
+      "sections": [
+        {
+          "id": "90cc8b",
+          "classes": "background-width--full-bleed section-height--large content-width--wide vertical-alignment--middle",
+          "rows": 2,
+          "blocks": [
+            "87_420"
+          ],
+          "h": 945
+        }
+      ],
+      "save": "changed"
+    },
+    "phone top": {
+      "sections": [
+        {
+          "id": "90cc8b",
+          "classes": "background-width--full-bleed section-height--large content-width--wide vertical-alignment--middle",
+          "rows": 2,
+          "blocks": [
+            "87_420"
+          ],
+          "h": 945
+        }
+      ],
+      "save": "changed"
+    },
+    "desktop after": {
+      "sections": [
+        {
+          "id": "90cc8b",
+          "classes": "background-width--full-bleed section-height--large content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "87_420"
+          ],
+          "h": 945
+        }
+      ],
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "no Top"
+  ],
+  "leftDirty": true
+}

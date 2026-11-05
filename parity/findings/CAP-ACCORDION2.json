@@ -1,0 +1,733 @@
+{
+  "item": "CAP-ACCORDION2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "T12: the reorder grip and the more button of Icon Size",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Accordion"
+    ],
+    [
+      "click",
+      "Edit"
+    ],
+    [
+      "read",
+      "before",
+      {
+        "controls": true,
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "dragAt",
+      595,
+      391,
+      595,
+      520
+    ],
+    [
+      "read",
+      "first dragged below third",
+      {
+        "controls": true,
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "grip"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "clickAt",
+      845,
+      784
+    ],
+    [
+      "read",
+      "more",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "more"
+    ]
+  ],
+  "reads": {
+    "before": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            600,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            668.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 1",
+          "box": [
+            578,
+            362,
+            320,
+            59
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 1",
+          "box": [
+            578,
+            362,
+            320,
+            58
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Delete Accordion Item 1",
+          "box": [
+            819,
+            373,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 2",
+          "box": [
+            578,
+            421,
+            320,
+            59
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 2",
+          "box": [
+            578,
+            421,
+            320,
+            58
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Delete Accordion Item 2",
+          "box": [
+            819,
+            432,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 3",
+          "box": [
+            578,
+            480,
+            320,
+            59
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 3",
+          "box": [
+            578,
+            480,
+            320,
+            58
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Delete Accordion Item 3",
+          "box": [
+            819,
+            491,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Item",
+          "box": [
+            600,
+            539,
+            276,
+            44
+          ]
+        }
+      ],
+      "html": "<style data-test=\"fluid-engine-grid-css\">\n  .fe-block-yui_3_17_2_1_1793842735642_420, .fluid-engine-block-editing-indicator-yui_3_17_2_1_1793842735642_420, .transform-indicator-yui_3_17_2_1_1793842735642_420 {\n    grid-area: 1/2/6/10;\n\n    \n  }\n\n  .sqs-align-with-block-placement-yui_3_17_2_1_1793842735642_420 {\n    grid-area: 1/2/6/10;\n  }\n\n  .fe-block-yui_3_17_2_1_1793842735642_420, .transform-indicator-yui_3_17_2_1_1793842735642_420 {\n    z-index: 1;\n  }\n\n  .fe-block-yui_3_17_2_1_1793842735642_420 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-yui_3_17_2_1_1793842735642_420 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) { \n    .fe-block-yui_3_17_2_1_1793842735642_420, .fluid-engine-block-editing-indicator-yui_3_17_2_1_1793842735642_420, .transform-indicator-yui_3_17_2_1_1793842735642_420 {\n      grid-area: 1/2/9/10;\n\n      \n    }\n\n    .sqs-align-with-block-placement-yui_3_17_2_1_1793842735642_420 {\n      grid-area: 1/2/9/10;\n    }\n\n    .fe-block-yui_3_17_2_1_1793842735642_420, .transform-indicator-yui_3_17_2_1_1793842735642_420 {\n      z-index: 1;\n    }\n\n    .fe-block-yui_3_17_2_1_1793842735642_420 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-yui_3_17_2_1_1793842735642_420 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n   }\n  </style><div class=\"fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-events\" style=\"z-index: 2; position: relative; height: 100%; pointer-events: auto;\" id=\"yui_3_17_2_1_1793842735642_643\"><div id=\"block-yui_3_17_2_1_1793842735642_420",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "first dragged below third": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            600,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            668.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 2",
+          "box": [
+            578,
+            362,
+            320,
+            59
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 2",
+          "box": [
+            578,
+            362,
+            320,
+            58
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Delete Accordion Item 2",
+          "box": [
+            819,
+            373,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 3",
+          "box": [
+            578,
+            421,
+            320,
+            59
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 3",
+          "box": [
+            578,
+            421,
+            320,
+            58
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Delete Accordion Item 3",
+          "box": [
+            819,
+            432,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 1",
+          "box": [
+            578,
+            480,
+            320,
+            59
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 1",
+          "box": [
+            578,
+            480,
+            320,
+            58
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Delete Accordion Item 1",
+          "box": [
+            819,
+            491,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Item",
+          "box": [
+            600,
+            539,
+            276,
+            44
+          ]
+        }
+      ],
+      "html": "<style data-test=\"fluid-engine-grid-css\">\n  .fe-block-yui_3_17_2_1_1793842735642_420, .fluid-engine-block-editing-indicator-yui_3_17_2_1_1793842735642_420, .transform-indicator-yui_3_17_2_1_1793842735642_420 {\n    grid-area: 1/2/6/10;\n\n    \n  }\n\n  .sqs-align-with-block-placement-yui_3_17_2_1_1793842735642_420 {\n    grid-area: 1/2/6/10;\n  }\n\n  .fe-block-yui_3_17_2_1_1793842735642_420, .transform-indicator-yui_3_17_2_1_1793842735642_420 {\n    z-index: 1;\n  }\n\n  .fe-block-yui_3_17_2_1_1793842735642_420 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-yui_3_17_2_1_1793842735642_420 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) { \n    .fe-block-yui_3_17_2_1_1793842735642_420, .fluid-engine-block-editing-indicator-yui_3_17_2_1_1793842735642_420, .transform-indicator-yui_3_17_2_1_1793842735642_420 {\n      grid-area: 1/2/9/10;\n\n      \n    }\n\n    .sqs-align-with-block-placement-yui_3_17_2_1_1793842735642_420 {\n      grid-area: 1/2/9/10;\n    }\n\n    .fe-block-yui_3_17_2_1_1793842735642_420, .transform-indicator-yui_3_17_2_1_1793842735642_420 {\n      z-index: 1;\n    }\n\n    .fe-block-yui_3_17_2_1_1793842735642_420 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-yui_3_17_2_1_1793842735642_420 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n   }\n  </style><div class=\"fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-events\" style=\"z-index: 2; position: relative; height: 100%; pointer-events: auto;\" id=\"yui_3_17_2_1_1793842735642_643\"><div id=\"block-yui_3_17_2_1_1793842735642_420",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "more": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            600,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            668.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Navigate to Title",
+          "box": [
+            860,
+            408,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Navigate to Description",
+          "box": [
+            860,
+            453,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Expand first item",
+          "value": false,
+          "box": [
+            850,
+            559.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Allow multiple open items",
+          "value": false,
+          "box": [
+            850,
+            604.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Navigate to Dividers",
+          "box": [
+            860,
+            648,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "IconPlus",
+          "box": [
+            589,
+            678,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "S",
+          "box": [
+            596,
+            768,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "M",
+          "box": [
+            667,
+            768,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "L",
+          "box": [
+            738,
+            768,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "",
+          "box": [
+            809,
+            768,
+            71,
+            32
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

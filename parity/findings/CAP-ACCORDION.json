@@ -1,0 +1,1337 @@
+{
+  "item": "CAP-ACCORDION",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "T12: the accordion controls still dim in ours",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Accordion"
+    ],
+    [
+      "click",
+      "Edit"
+    ],
+    [
+      "read",
+      "content",
+      {
+        "controls": true,
+        "checks": true
+      }
+    ],
+    [
+      "shot",
+      "content"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "design",
+      {
+        "controls": true,
+        "checks": true
+      }
+    ],
+    [
+      "shot",
+      "design"
+    ],
+    [
+      "clickIf",
+      "Navigate to Title"
+    ],
+    [
+      "read",
+      "title view",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "title"
+    ],
+    [
+      "clickIf",
+      "Heading 4"
+    ],
+    [
+      "read",
+      "style menu",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "style"
+    ],
+    [
+      "clickIf",
+      "Heading 4"
+    ],
+    [
+      "clickIf",
+      "Back"
+    ],
+    [
+      "clickIf",
+      "Navigate to Description"
+    ],
+    [
+      "read",
+      "description view",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "clickIf",
+      "Back"
+    ],
+    [
+      "clickIf",
+      "Navigate to Dividers"
+    ],
+    [
+      "read",
+      "dividers view",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "dividers"
+    ],
+    [
+      "clickIf",
+      "Back"
+    ],
+    [
+      "clickIf",
+      "Plus"
+    ],
+    [
+      "read",
+      "icon menu",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "icon"
+    ]
+  ],
+  "reads": {
+    "content": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            600,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            668.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 1",
+          "box": [
+            578,
+            362,
+            320,
+            59
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 1",
+          "box": [
+            578,
+            362,
+            320,
+            58
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Delete Accordion Item 1",
+          "box": [
+            819,
+            373,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 2",
+          "box": [
+            578,
+            421,
+            320,
+            59
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 2",
+          "box": [
+            578,
+            421,
+            320,
+            58
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Delete Accordion Item 2",
+          "box": [
+            819,
+            432,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 3",
+          "box": [
+            578,
+            480,
+            320,
+            59
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 3",
+          "box": [
+            578,
+            480,
+            320,
+            58
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Delete Accordion Item 3",
+          "box": [
+            819,
+            491,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Item",
+          "box": [
+            600,
+            539,
+            276,
+            44
+          ]
+        }
+      ],
+      "checks": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "design": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            600,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            668.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Navigate to Title",
+          "box": [
+            860,
+            408,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Navigate to Description",
+          "box": [
+            860,
+            453,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Expand first item",
+          "value": false,
+          "box": [
+            850,
+            559.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Allow multiple open items",
+          "value": false,
+          "box": [
+            850,
+            604.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Navigate to Dividers",
+          "box": [
+            860,
+            648,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "IconPlus",
+          "box": [
+            589,
+            678,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "S",
+          "box": [
+            596,
+            768,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "M",
+          "box": [
+            667,
+            768,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "L",
+          "box": [
+            738,
+            768,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "",
+          "box": [
+            809,
+            768,
+            71,
+            32
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "box": [
+            850,
+            560,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            850,
+            605,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            850,
+            1068,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            850,
+            1203,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "title view": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Back",
+          "box": [
+            589,
+            305.5,
+            48.2,
+            46
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading 4",
+          "box": [
+            589,
+            393,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "left",
+          "box": [
+            596,
+            483,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "center",
+          "box": [
+            690.7,
+            483,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "right",
+          "box": [
+            785.3,
+            483,
+            94.7,
+            32
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "style menu": {
+      "controls": [
+        {
+          "role": "option",
+          "label": "Heading 1",
+          "value": 0,
+          "box": [
+            589,
+            258,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Heading 2",
+          "value": 0,
+          "box": [
+            589,
+            303,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Heading 3",
+          "value": 0,
+          "box": [
+            589,
+            348,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Heading 4",
+          "value": 0,
+          "box": [
+            589,
+            393,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Paragraph 1",
+          "value": 0,
+          "box": [
+            589,
+            438,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Paragraph 2",
+          "value": 0,
+          "box": [
+            589,
+            483,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Paragraph 3",
+          "value": 0,
+          "box": [
+            589,
+            528,
+            298,
+            46
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "description view": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Back",
+          "box": [
+            589,
+            305.5,
+            48.2,
+            46
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Paragraph 2",
+          "box": [
+            589,
+            393,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "S",
+          "box": [
+            596,
+            483,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "M",
+          "box": [
+            667,
+            483,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "L",
+          "box": [
+            738,
+            483,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "",
+          "box": [
+            809,
+            483,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "S",
+          "box": [
+            596,
+            565,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "M",
+          "box": [
+            667,
+            565,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "L",
+          "box": [
+            738,
+            565,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "",
+          "box": [
+            809,
+            565,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "left",
+          "box": [
+            596,
+            647,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "center",
+          "box": [
+            690.7,
+            647,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "right",
+          "box": [
+            785.3,
+            647,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "left",
+          "box": [
+            596,
+            729,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "center",
+          "box": [
+            690.7,
+            729,
+            94.7,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "right",
+          "box": [
+            785.3,
+            729,
+            94.7,
+            32
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "dividers view": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Back",
+          "box": [
+            589,
+            305.5,
+            48.2,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Dividers",
+          "value": true,
+          "box": [
+            862,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Show first",
+          "value": true,
+          "box": [
+            862,
+            417.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Show last",
+          "value": true,
+          "box": [
+            862,
+            462.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "S",
+          "box": [
+            596,
+            558,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "M",
+          "box": [
+            667,
+            558,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "L",
+          "box": [
+            738,
+            558,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "",
+          "box": [
+            809,
+            558,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Opacity",
+          "value": "1",
+          "box": [
+            860,
+            607,
+            10,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Opacity",
+          "value": "1",
+          "min": "0",
+          "max": "1",
+          "step": "0.01",
+          "box": [
+            600,
+            628.5,
+            276,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "icon menu": {
+      "controls": [
+        {
+          "role": "option",
+          "label": "Plus",
+          "value": 0,
+          "box": [
+            589,
+            678,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Arrow",
+          "value": 0,
+          "box": [
+            589,
+            723,
+            298,
+            46
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": false
+}

@@ -1,0 +1,974 @@
+{
+  "item": "CAP-HIDETYPES",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "L5: Hide on desktop and on mobile on other block types",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Image"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Hide on desktop"
+    ],
+    [
+      "read",
+      "Image hidden on desktop",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Hide on mobile"
+    ],
+    [
+      "read",
+      "Image hidden on mobile",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "section": 0
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "Image phone view",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "section": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Hide on desktop"
+    ],
+    [
+      "read",
+      "Button hidden on desktop",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Hide on mobile"
+    ],
+    [
+      "read",
+      "Button hidden on mobile",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "section": 0
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "Button phone view",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "section": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Hide on desktop"
+    ],
+    [
+      "read",
+      "Line hidden on desktop",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Hide on mobile"
+    ],
+    [
+      "read",
+      "Line hidden on mobile",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "section": 0
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "Line phone view",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "section": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "add",
+      0,
+      "Form"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Hide on desktop"
+    ],
+    [
+      "read",
+      "Form hidden on desktop",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Hide on mobile"
+    ],
+    [
+      "read",
+      "Form hidden on mobile",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "section": 0
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "Form phone view",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "section": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Meta+z"
+    ]
+  ],
+  "reads": {
+    "Image hidden on desktop": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          0,
+          244.2,
+          0,
+          0
+        ],
+        "cls": "fe-block is-invisible should-remove",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838640685_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "0",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 1 / -1 / -1"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "save": "changed"
+    },
+    "Image hidden on mobile": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838640685_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "save": "changed"
+    },
+    "Image phone view": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          0,
+          344,
+          0,
+          0
+        ],
+        "cls": "fe-block is-invisible should-remove",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838640685_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "0",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 1 / -1 / -1"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          623.7
+        ],
+        "rows": 1,
+        "rowSizes": "24",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "save": "changed"
+    },
+    "Button hidden on desktop": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "7/2/9/10",
+        "box": [
+          0,
+          244.2,
+          0,
+          0
+        ],
+        "cls": "fe-block is-invisible should-remove",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838640685_736",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "0",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 1 / -1 / -1"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "save": "changed"
+    },
+    "Button hidden on mobile": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "7/2/9/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838640685_736",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "save": "changed"
+    },
+    "Button phone view": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "7/2/9/10",
+        "box": [
+          0,
+          256.5,
+          0,
+          0
+        ],
+        "cls": "fe-block is-invisible should-remove",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838640685_736",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "0",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 1 / -1 / -1"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          623.7
+        ],
+        "rows": 6,
+        "rowSizes": "24x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "save": "changed"
+    },
+    "Line hidden on desktop": {
+      "block": {
+        "desktop": "1/2/2/6",
+        "mobile": "9/2/10/10",
+        "box": [
+          0,
+          244.2,
+          0,
+          0
+        ],
+        "cls": "fe-block is-invisible should-remove",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838640685_1052",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "0",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 1 / -1 / -1"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 3
+      },
+      "save": "changed"
+    },
+    "Line hidden on mobile": {
+      "block": {
+        "desktop": "1/2/2/6",
+        "mobile": "9/2/10/10",
+        "box": [
+          100.1,
+          244.2,
+          224.1,
+          30.1
+        ],
+        "cls": "fe-block",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838640685_1052",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 2 / 6"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 3
+      },
+      "save": "changed"
+    },
+    "Line phone view": {
+      "block": {
+        "desktop": "1/2/2/6",
+        "mobile": "9/2/10/10",
+        "box": [
+          0,
+          221.5,
+          0,
+          0
+        ],
+        "cls": "fe-block is-invisible should-remove",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838640685_1052",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "0",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 1 / -1 / -1"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          623.7
+        ],
+        "rows": 8,
+        "rowSizes": "24x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 3
+      },
+      "save": "changed"
+    },
+    "Form hidden on desktop": {
+      "block": {
+        "desktop": "1/2/17/11",
+        "mobile": "1/2/17/10",
+        "box": [
+          0,
+          244.2,
+          0,
+          0
+        ],
+        "cls": "fe-block is-invisible should-remove",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838640685_1378",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "4",
+          "opacity": "0",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "borderRadius": "20px",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 1 / -1 / -1"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          996.3
+        ],
+        "rows": 16,
+        "rowSizes": "30.1x16",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 4
+      },
+      "save": "changed"
+    },
+    "Form hidden on mobile": {
+      "block": {
+        "desktop": "1/2/17/11",
+        "mobile": "1/2/17/10",
+        "box": [
+          100.1,
+          244.2,
+          518,
+          646.5
+        ],
+        "cls": "fe-block",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838640685_1378",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "4",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "borderRadius": "20px",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 17 / 11"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          996.3
+        ],
+        "rows": 16,
+        "rowSizes": "30.1x16",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 4
+      },
+      "save": "changed"
+    },
+    "Form phone view": {
+      "block": {
+        "desktop": "1/2/17/11",
+        "mobile": "1/2/17/10",
+        "box": [
+          0,
+          150.7,
+          0,
+          0
+        ],
+        "cls": "fe-block is-invisible should-remove",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793838640685_1378",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "4",
+          "opacity": "0",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "borderRadius": "20px",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 1 / -1 / -1"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          1077.1
+        ],
+        "rows": 25,
+        "rowSizes": "24x25",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 4
+      },
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

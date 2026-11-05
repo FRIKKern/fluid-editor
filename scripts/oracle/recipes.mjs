@@ -119,4 +119,66 @@ export const RECIPES = {
   'CAP-GROUPFORWARD': { question: 'X8: Move Forward on a group with a block between its members', steps: [
     ['enter'], ['read', 'before', { zs: 2 }], ['select', 2, 0], ['shiftClick', 2, 2], ['read', 'group', { zs: 2, controls: true }], ['shot', 'group'], ['click', 'Move Forward'], ['read', 'forward once', { zs: 2 }], ['clickIf', 'Move Forward'], ['read', 'forward twice', { zs: 2 }], ['clickIf', 'Move Backward'], ['read', 'backward once', { zs: 2 }],
   ] },
+  'CAP-PHONELINES': { question: 'U9: the thin lines of the toolbars in the phone view. Reads only.', steps: [
+    ['enter'], ['view', 'Mobile'], ['hover', 2], ['read', 'section hovered', { thin: true, controls: true, section: 2 }], ['shot', 'hovered'], ['select', 2, 2], ['read', 'shape selected', { thin: true, controls: true }], ['shot', 'selected'],
+  ] },
+  'CAP-LINEMIDDLE': { page: 'Gestures Probe', question: 'X6: what is under the pointer on a selected one-row Line, and which presses move it or grow it?', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Line'], ['read', 'selected', { block: [0, 'new'], hit: [0, 'new', [[0.5, 0.5], [0.25, 0.5], [0.75, 0.5], [0.5, 0.1], [0.5, 0.9], [0.45, 0.5], [0.55, 0.5]]] }], ['shot', 'selected'],
+    ['drag', 0, 'new', [0.25, 0.5], 0, 120], ['read', 'quarter across, 120 down', { block: [0, 'new'] }],
+    ['press', 'Meta+z'], ['read', 'undone', { block: [0, 'new'], hit: [0, 'new', [[0.5, 0.5], [0.25, 0.5]]] }],
+    ['drag', 0, 'new', 'middle', 0, 120], ['read', 'middle, 120 down', { block: [0, 'new'] }],
+    ['exit'], ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['read', 'not selected', { block: [0, 'new'], hit: [0, 'new', [[0.5, 0.5], [0.25, 0.5]]] }], ['drag', 0, 'new', 'middle', 0, 120], ['read', 'unselected middle, 120 down', { block: [0, 'new'] }],
+  ] },
+  'CAP-ORDER': { page: 'Gestures Probe', question: 'A2: how does DOM order follow a move on desktop and on phones?', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Text'], ['add', 0, 'Line'], ['add', 0, 'Button'], ['read', 'three added', { areas: 0 }],
+    ['drag', 0, 2, 'middle', 700, 300], ['read', 'third block far right and lower', { areas: 0 }], ['drag', 0, 0, 'middle', 0, 400], ['read', 'first block moved below', { areas: 0 }],
+    ['view', 'Mobile'], ['read', 'phone view', { areas: 0 }], ['drag', 0, 0, 'middle', 0, 200], ['read', 'first in DOM moved down on phone', { areas: 0 }],
+    ['view', 'Desktop'], ['read', 'back on desktop', { areas: 0 }],
+  ] },
+  'CAP-HIDETYPES': { page: 'Gestures Probe', question: 'L5: Hide on desktop and on mobile on other block types', steps: [
+    ['enter'], ['blank'], ...['Image', 'Button', 'Line', 'Form'].flatMap((t) => [['add', 0, t], ['press', 'Escape'], ['rightClick', 0, 'new'], ['click', 'Hide on desktop'], ['read', `${t} hidden on desktop`, { block: [0, 'new'], section: 0 }], ['press', 'Meta+z'], ['rightClick', 0, 'new'], ['click', 'Hide on mobile'], ['read', `${t} hidden on mobile`, { block: [0, 'new'], section: 0 }], ['view', 'Mobile'], ['read', `${t} phone view`, { block: [0, 'new'], section: 0 }], ['view', 'Desktop'], ['press', 'Meta+z']]),
+  ] },
+  'CAP-S1OTHER': { page: 'Gestures Probe', question: 'S1: is any other section setting per layout? Change each on the phone and read desktop', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['read', 'start', { sections: true }], ['view', 'Mobile'], ['panel', 0], ['read', 'phone panel', { controls: true, sections: true }], ['shot', 'panel'],
+    ['clickIf', 'L'], ['read', 'phone section L', { sections: true }], ['clickIf', 'Top'], ['read', 'phone top', { sections: true }], ['press', 'Escape'], ['view', 'Desktop'], ['read', 'desktop after', { sections: true }],
+  ] },
+  'CAP-STACK': { page: 'Gestures Probe', question: 'S3: Stack Blocks and what Stack Options offers', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Text'], ['add', 0, 'Button'], ['press', 'Escape'], ['drag', 0, 1, 'middle', 0, 200], ['press', 'Escape'], ['select', 0, 0], ['shiftClick', 0, 1], ['read', 'group', { controls: true, areas: 0 }], ['click', 'Stack Blocks'], ['read', 'stacked', { controls: true, areas: 0 }], ['shot', 'stacked'], ['click', 'Stack Options'], ['read', 'options', { controls: true, checks: true }], ['shot', 'options'], ['read', 'vertical', { block: [0, 0], inside: [0, 0] }], ['click', 'Stack Horizontally'], ['read', 'horizontal', { block: [0, 0], inside: [0, 0], controls: true }], ['shot', 'horizontal'], ['click', 'Stack Vertically'], ['read', 'vertical again', { inside: [0, 0] }], ['click', 'Unstack'], ['read', 'unstacked', { areas: 0, controls: true }], ['shot', 'unstacked'],
+  ] },
+  'CAP-BLEND': { page: 'Gestures Probe', question: 'T15: Blend Mode and Corner on other block types', steps: [
+    ['enter'], ['blank'], ...['Image', 'Button', 'Shape', 'Line', 'Form', 'Quote', 'Map', 'Social Links', 'Scrolling', 'Accordion', 'Video', 'Code'].flatMap((t) => [['add', 0, t], ['clickIf', 'Edit'], ['clickIf', 'Design'], ['read', `${t} design`, { controls: true, checks: true, has: ['Blend Mode', 'Uniform corner radii', 'Background', 'Stroke', 'Blur'] }], ['shot', `${t}-design`], ['clickIf', 'Blend Mode'], ['read', `${t} blend menu`, { controls: true }], ['clickIf', 'Multiply'], ['read', `${t} multiply`, { block: [0, 'new'], inside: [0, 'new'] }], ['press', 'Escape'], ['press', 'Escape']]),
+  ] },
+  'CAP-ACCORDION': { page: 'Gestures Probe', question: 'T12: the accordion controls still dim in ours', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Accordion'], ['click', 'Edit'], ['read', 'content', { controls: true, checks: true }], ['shot', 'content'], ['clickIf', 'Design'], ['read', 'design', { controls: true, checks: true }], ['shot', 'design'], ['clickIf', 'Navigate to Title'], ['read', 'title view', { controls: true }], ['shot', 'title'], ['clickIf', 'Heading 4'], ['read', 'style menu', { controls: true }], ['shot', 'style'], ['clickIf', 'Heading 4'], ['clickIf', 'Back'], ['clickIf', 'Navigate to Description'], ['read', 'description view', { controls: true }], ['clickIf', 'Back'], ['clickIf', 'Navigate to Dividers'], ['read', 'dividers view', { controls: true }], ['shot', 'dividers'], ['clickIf', 'Back'], ['clickIf', 'Plus'], ['read', 'icon menu', { controls: true }], ['shot', 'icon'],
+  ] },
+  'CAP-ACCORDION2': { page: 'Gestures Probe', question: 'T12: the reorder grip and the more button of Icon Size', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Accordion'], ['click', 'Edit'], ['read', 'before', { controls: true, html: [0, 'new'] }], ['dragAt', 595, 391, 595, 520], ['read', 'first dragged below third', { controls: true, html: [0, 'new'] }], ['shot', 'grip'],
+    ['clickIf', 'Design'], ['clickAt', 845, 784], ['read', 'more', { controls: true }], ['shot', 'more'],
+  ] },
+  'CAP-SECTIONMODEL': { page: 'Gestures Probe', question: 'U10: what Duplicate, Move, Remove and the Add Section picker do to the page', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['blank'], ['read', 'two sections', { sections: true }],
+    ['hover', 0], ['click', 'Duplicate Section'], ['read', 'first duplicated', { sections: true }], ['hover', 0], ['click', 'Move Section Down'], ['read', 'first moved down', { sections: true }], ['hover', 1], ['click', 'Remove Section'], ['read', 'remove asks', { sections: true, controls: true }], ['shot', 'asks'], ['click', 'Remove'], ['read', 'second removed', { sections: true }],
+    ['hover', 0], ['click', 'Add Section'], ['read', 'picker', { controls: true }], ['shot', 'picker'], ['clickIf', 'Team'], ['read', 'Team', { controls: true }], ['shot', 'team'],
+  ] },
+  'CAP-BASESIZE': { page: 'Gestures Probe', question: 'U12: Base Size limits. Reset is not pressed.', steps: [
+    ['enter'], ['click', 'Toggle Site Styles editing'], ['read', 'panel', { controls: true }], ['click', 'Open Fonts style disclosure'], ['read', 'fonts', { controls: true }], ['shot', 'fonts'], ['fillValue', '16', '1'], ['read', 'typed 1', { controls: true, sel: 'h1' }], ['shot', 'one'], ['press', 'Tab'], ['read', 'after tab', { controls: true }], ['fillValue', '12', '999'], ['read', 'typed 999', { controls: true, sel: 'h1' }], ['shot', 'big'],
+  ] },
+  'CAP-GROUP3': { page: 'Gestures Probe', question: 'X8: a second group, of three blocks, for the scale rule', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Shape'], ['press', 'Escape'], ['add', 0, 'Shape'], ['press', 'Escape'], ['add', 0, 'Line'], ['press', 'Escape'], ['read', 'added', { areas: 0 }], ['drag', 0, 0, 'middle', 700, 200], ['press', 'Escape'], ['drag', 0, 1, 'middle', 200, 0], ['press', 'Escape'], ['read', 'spread', { areas: 0 }], ['select', 0, 0], ['shiftClick', 0, 1], ['shiftClick', 0, 2], ['read', 'group', { areas: 0 }], ['groupDrag', 0, 240, 120], ['read', 'corner out', { areas: 0 }], ['shot', 'out'], ['groupDrag', 0, -360, -160], ['read', 'corner in', { areas: 0 }],
+  ] },
+  'CAP-TEXTWIDTH': { page: 'Gestures Probe', question: 'X8, R2: rows of a long text block as it widens and narrows, and select with stretched rows', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], ['pick', 0, 'new'], ['click', 'Write'], ['keys', 'Start of a long text here'], ['pasteMid', 0, 'new', "<p>Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines.</p>"], ['press', 'Escape'], ['press', 'Escape'], ['read', 'pasted', { areas: 0, section: 0 }], ['shot', 'pasted'],
+    // One column at a time out to 24 and back, so a row taken off shows where it happens.
+    ...Array.from({ length: 16 }, (_, n) => [['press', 'Escape'], ['pick', 0, 0], ['drag', 0, 0, 'e', 58.78, 0], ['read', `wider ${n + 1}`, { areas: 0, section: 0, textH: [0, 0] }]]).flat(), ...Array.from({ length: 20 }, (_, n) => [['press', 'Escape'], ['pick', 0, 0], ['drag', 0, 0, 'e', -58.78, 0], ['read', `narrower ${n + 1}`, { areas: 0, section: 0, textH: [0, 0] }]]).flat(),
+    ['press', 'Escape'], ['frame', 800, 900], ['read', 'frame 800', { areas: 0, section: 0 }], ['shot', 'stretched'], ...[1, 2, 3].flatMap((n) => [['select', 0, 0], ['read', `select ${n}`, { areas: 0, section: 0 }], ['press', 'Escape'], ['press', 'Escape']]), ['pick', 0, 0], ['drag', 0, 0, 'e', 60, 0], ['read', 'widened at 800', { areas: 0, section: 0 }], ['unframe'],
+  ] },
+
+  'CAP-COPYPASTE': { page: 'Gestures Probe', question: 'U11, Y4: Copy and Paste of a block, inside a section, between sections and between pages, with the clipboard calls kept in memory', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['add', 0, 'Button'], ['press', 'Escape'], ['blank'], ['add', 1, 'Line'], ['press', 'Escape'], ['stubClipboard'], ['read', 'before', { areas: 0, clip: true }],
+    ['rightClick', 0, 0], ['click', 'Copy'], ['read', 'after copy', { clip: true, areas: 0 }], ['rightClick', 0, 0], ['click', 'Paste'], ['read', 'pasted on the source', { clip: true, areas: 0 }], ['shot', 'pasted'], ['rightClick', 0, 0], ['click', 'Paste'], ['read', 'pasted again', { areas: 0 }], ['press', 'Meta+z'], ['read', 'one undo', { areas: 0 }],
+    ['rightClick', 1, 0], ['click', 'Paste'], ['read', 'pasted in another section', { areas: 1 }],
+    ['press', 'Escape'], ['select', 0, 0], ['press', 'Meta+c'], ['read', 'Meta+c', { clip: true, areas: 1 }], ['press', 'Escape'], ['select', 1, 0], ['press', 'Meta+v'], ['read', 'Meta+v in another section', { clip: true, areas: 1 }],
+    ['rightClick', 0, 0], ['click', 'Copy'], ['toPage', 'Blocks Probe'], ['blank'], ['read', 'another page', { sections: true }], ['add', 0, 'Line'], ['press', 'Escape'], ['read', 'line on another page', { areas: 0 }], ['rightClick', 0, 0], ['shot', 'menu'], ['clickIf', 'Paste'], ['read', 'pasted on another page', { areas: 0 }], ['exit'], ['read', 'left', { sections: true }],
+  ] },
+
 };
