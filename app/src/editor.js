@@ -6,6 +6,7 @@ import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
+import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
@@ -1355,7 +1356,7 @@ function renderBlockPanel() {
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
   if (!b) { animPicker = false; blendOpen = false; bstyleOpen = false; embedData = false; accView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'accordion' || (accView?.startsWith('acc-item:') && !b.items[Number(accView.slice(9))])) accView = null; // undo can take the item away
-  const content = b.type === 'button' ? { label: b.label, href: b.href } : b.type === 'image' ? { src: b.src, href: b.href, alt: b.alt, filename: b.filename, empty: !!b.empty }
+  const content = b.type === 'button' ? { label: b.label, href: b.href, pages: siteLinkGroups() } : b.type === 'image' ? { src: b.src, href: b.href, pages: siteLinkGroups(), alt: b.alt, filename: b.filename, empty: !!b.empty }
     : b.type === 'video' && !b.html ? { kind: 'video', description: b.description, video: b.video }
     : b.type === 'code' && b.html != null ? { kind: 'code', html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource }
     : b.type === 'accordion' ? { kind: 'accordion', items: b.items, expandFirst: b.expandFirst, multiple: b.multiple, dividers: b.dividers, showFirst: b.showFirst, showLast: b.showLast, iconSize: b.iconSize, iconThickness: b.iconThickness, iconLeft: b.iconLeft, rowPadding: b.rowPadding }
@@ -1972,13 +1973,34 @@ blockPanel.addEventListener('keydown', (e) => { if (e.key !== 'Escape' && e.targ
 blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input[data-content]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); });
 
 const linkPop = $('link-popover');
+// A run of typing in an Email or Phone field on a button is one undo step, up to CC, BCC or the
+// close (parity/findings/LINKMENU.json).
+let linkStep = null;
+function flushLinkStep() {
+  if (linkStep === null) return;
+  const was = linkStep;
+  linkStep = null;
+  commit(was, 'Link set');
+}
 function closeLinkPopover() {
   if (linkPop.hidden) return;
   linkPop.hidden = true;
-  // The box reaches a text link only now (parity/findings/CAP-LINK.json, LINKBOX.json).
+  // The box, an Email and a Phone reach a text link only now (parity/findings/CAP-LINK.json, LINKBOX.json, LINKMENU.json).
   const t = linkTarget;
   linkTarget = null;
-  if (t) t.setNewTab(linkPop.querySelector('.lk-box').checked);
+  flushLinkStep();
+  if (!t) {
+    // What is typed counts without Enter too (LINKMENU.json).
+    const v = linkPop.dataset.kind === 'url' ? linkValue(linkPop.querySelector('.lk-input').value) : '';
+    if (v && sel?.bid === linkPop.dataset.bid && v !== B(sel.sid, sel.bid)?.href) setLinkOnButton(v, linkPop.querySelector('.lk-box').checked);
+    return;
+  }
+  if (linkPop.dataset.kind !== 'url') t.apply(linkFormHref());
+  else {
+    const v = linkValue(linkPop.querySelector('.lk-input').value);
+    if (v ? v !== t.href : t.switched) t.apply(v);
+    t.setNewTab(linkPop.querySelector('.lk-box').checked);
+  }
 }
 const SITE_PAGES = ['Services', 'About', 'Contact', 'Home'];
 function siteLinkGroups() {
@@ -1994,53 +2016,145 @@ function onLinkAction(act, el) {
   const b = B(sel.sid, sel.bid);
   if (act === 'copy') { navigator.clipboard?.writeText(b.href || '').catch(() => {}); note('Link copied'); updateUi(); return; }
   if (act === 'remove') { closeLinkPopover(); setButton((x) => { delete x.href; delete x.newTab; }, 'Link removed'); return; }
-  // open or edit
-  openLinkPopover(b, (st) => linkPopoverPosition(blockPanel.getBoundingClientRect(), el.getBoundingClientRect(), st));
+  // open or edit: the panel is redrawn while the editor is open, so the place is read once.
+  const panelBox = blockPanel.getBoundingClientRect(), box = el.getBoundingClientRect();
+  openLinkPopover(b, (st, height) => linkPopoverPosition(panelBox, box, st, height));
 }
 // What Enter or a page applies to: the selected button (default) or a saved text range.
 let linkTarget = null;
+let linkPlace = null;
+function placeLinkPop() {
+  const p = linkPlace(stage.getBoundingClientRect(), linkPop.offsetHeight);
+  linkPop.style.left = `${p.left}px`; linkPop.style.top = `${p.top}px`;
+}
+// The field holds the focus on URL, the pill on Email and Phone (LINKMENU.json).
+function drawLinkPop(kind, href, newTab) {
+  linkPop.dataset.kind = kind;
+  linkPop.innerHTML = linkPopoverHtml(href, siteLinkGroups(), newTab, kind);
+  placeLinkPop();
+  if (kind === 'url') { showLinkList(true); linkPop.querySelector('.lk-input').focus(); }
+  else linkPop.querySelector('.lk-pill').focus();
+}
 function openLinkPopover(b, place, target = null) {
   closeLinkPopover();
   linkTarget = target;
+  linkPlace = place;
   linkPop.dataset.bid = b.id;
-  linkPop.innerHTML = linkPopoverHtml(target ? target.href : b.href, siteLinkGroups(), target ? target.newTab : !!b.newTab);
-  const p = place(stage.getBoundingClientRect());
-  linkPop.style.left = `${p.left}px`; linkPop.style.top = `${p.top}px`;
   linkPop.hidden = false;
-  showLinkList(true);
-  linkPop.querySelector('.lk-input').focus();
+  const href = target ? target.href : b.href;
+  drawLinkPop(linkKind(href), href, target ? target.newTab : !!b.newTab);
 }
 // The list follows the field: the pages whose name or path holds what is typed. One read, for
 // /about; that a name matches too is inferred from the field's "search".
 function showLinkList(on) {
+  if (!linkPop.querySelector('.lk-input')) return;
   const v = linkPop.querySelector('.lk-input').value.trim().toLowerCase();
   for (const pg of linkPop.querySelectorAll('.lk-page')) pg.hidden = !!v && !pg.getAttribute('aria-label').toLowerCase().includes(v);
   for (const set of linkPop.querySelectorAll('.lk-set')) set.hidden = !set.querySelector('.lk-page:not([hidden])');
   linkPop.querySelector('.lk-pages').hidden = !on || !linkPop.querySelector('.lk-set:not([hidden])');
 }
 // Enter or a page sets the link; the editor stays open, field focused, list gone (LINKBOX.json).
+function setLinkOnButton(v, newTab) {
+  setButton((b) => { if (v) { b.href = v; if (newTab) b.newTab = true; } else { delete b.href; delete b.newTab; } }, v ? 'Link set' : 'Link removed');
+}
 function applyLink(href) {
-  const v = href.trim();
+  const v = linkValue(href);
   const input = linkPop.querySelector('.lk-input');
   input.value = v;
   showLinkList(false);
-  if (linkTarget) linkTarget.apply(v);
-  else setButton((b) => { if (v) b.href = v; else { delete b.href; delete b.newTab; } }, v ? 'Link set' : 'Link removed');
+  if (linkTarget) { linkTarget.apply(v); linkTarget.href = v; }
+  else setLinkOnButton(v, linkPop.querySelector('.lk-box').checked);
   input.focus();
 }
-linkPop.addEventListener('input', (e) => { if (e.target.matches('.lk-input')) showLinkList(true); });
+// The form's link, as the oracle writes it on every key (LINKMENU.json).
+function linkFormHref() {
+  const v = (f) => linkPop.querySelector(`[data-f="${f}"]`).value;
+  if (linkPop.dataset.kind === 'email') return mailHref({ to: v('to'), cc: v('cc'), bcc: v('bcc'), subject: v('subject'), body: v('body') });
+  return phoneHref(v('phone'), linkPop.querySelector('.lk-radio[aria-checked="true"]').dataset.mode);
+}
+// On a button the link follows the form; on text it waits for the close.
+function liveLink(change) {
+  if (linkTarget || !sel) return;
+  const b = B(sel.sid, sel.bid);
+  if (!b) return;
+  if (linkStep === null) linkStep = JSON.stringify(model);
+  change(b);
+  renderSectionDom(sel.sid);
+  renderBlockPanel();
+}
+function writeLinkForm() {
+  const v = linkFormHref();
+  liveLink((b) => { if (v) b.href = v; else delete b.href; delete b.newTab; });
+}
+// Another kind starts empty. Back on URL the box is on, and a link that was there leaves target
+// behind it (LINKMENU.json).
+function switchLinkKind(kind) {
+  linkPop.querySelector('.lk-menu').hidden = true;
+  if (kind === linkPop.dataset.kind) return;
+  const hadLink = !linkTarget && !!B(sel.sid, sel.bid)?.href;
+  drawLinkPop(kind, '', kind === 'url');
+  if (linkTarget) linkTarget.switched = true;
+  liveLink((b) => { delete b.href; if (kind === 'url' && hadLink) b.newTab = true; else delete b.newTab; });
+}
+linkPop.addEventListener('input', (e) => {
+  if (e.target.matches('.lk-input')) showLinkList(true);
+  const f = e.target.closest('[data-f]');
+  if (!f) return;
+  if (f.dataset.f === 'phone') f.value = phoneDigits(f.value);
+  else { const x = f.parentElement.querySelector('.lk-clear'); if (x) x.hidden = !f.value; }
+  writeLinkForm();
+});
 linkPop.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && e.target.matches('.lk-input')) { e.preventDefault(); applyLink(e.target.value); }
-  if (e.key === 'Escape') { e.stopPropagation(); closeLinkPopover(); }
+  // Enter stays in the form on Email, closes on a number, and an empty Phone goes back to URL.
+  if (e.key === 'Enter' && e.target.matches('input[data-f]')) {
+    e.preventDefault();
+    if (e.target.dataset.f === 'phone') { if (e.target.value) closeLinkPopover(); else switchLinkKind('url'); }
+  }
+  // With the list showing, Escape takes the list; the next one closes the editor (LINKMENU.json).
+  if (e.key === 'Escape') {
+    e.stopPropagation();
+    if (linkPop.querySelector('.lk-pages:not([hidden])')) showLinkList(false);
+    else closeLinkPopover();
+  }
 });
 linkPop.addEventListener('mousedown', (e) => {
   if (e.target.closest('button')) e.preventDefault();
   if (e.target.matches('.lk-input')) showLinkList(true);
 });
 linkPop.addEventListener('click', (e) => {
+  const menu = linkPop.querySelector('.lk-menu');
+  const pill = e.target.closest('.lk-pill');
+  menu.hidden = pill ? !menu.hidden : true;
+  linkPop.querySelector('.lk-pill').setAttribute('aria-expanded', String(!menu.hidden));
+  if (pill) { if (!menu.hidden) showLinkList(false); return; }
+  // Learn more opens the oracle's help article in a new tab, and the editor closes. Ours has no such page.
+  if (e.target.closest('.lk-learn')) { closeLinkPopover(); return; }
+  const kind = e.target.closest('.lk-kind');
+  if (kind) { if (!kind.disabled) switchLinkKind(kind.dataset.kind); return; }
   const pg = e.target.closest('.lk-page');
   if (pg) { applyLink(pg.dataset.href); return; }
-  if (e.target.closest('.lk-clear')) { const i = linkPop.querySelector('.lk-input'); i.value = ''; showLinkList(true); i.focus(); }
+  const add = e.target.closest('[data-add]');
+  if (add) {
+    flushLinkStep();
+    linkPop.querySelector(`[data-g="${add.dataset.add}"]`).hidden = false;
+    const row = add.parentElement;
+    add.remove();
+    row.hidden = !row.childElementCount;
+    linkPop.querySelector(`[data-f="${add.dataset.add}"]`).focus();
+    placeLinkPop();
+    return;
+  }
+  const radio = e.target.closest('.lk-radio');
+  if (radio) { for (const r of linkPop.querySelectorAll('.lk-radio')) r.setAttribute('aria-checked', String(r === radio)); writeLinkForm(); return; }
+  const clear = e.target.closest('.lk-clear');
+  if (!clear) return;
+  const f = clear.parentElement.querySelector('[data-f]');
+  if (!f) { const i = linkPop.querySelector('.lk-input'); i.value = ''; showLinkList(true); i.focus(); return; }
+  f.value = '';
+  if (f.dataset.f !== 'phone') clear.hidden = true;
+  writeLinkForm();
+  f.focus();
 });
 linkPop.addEventListener('change', (e) => {
   if (!e.target.matches('.lk-box') || linkTarget) return;
