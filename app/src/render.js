@@ -191,10 +191,11 @@ function blockInner(b, model) {
       {
         const type = b.buttonStyle || 'primary';
         const size = BUTTON_SIZE[type];
-        // A button stacked once stops filling its block (parity/findings/S3.json fitButton): it takes
-        // its own width and Align Horizontally places it.
-        const place = b.fit ? `sqs-block-button-container--${b.halign || 'center'} btn-fit` : 'sqs-block-button-container--center sqs-stretched';
-        return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-block-button-container sqs-button-block-container-system_desktop ${place}" data-button-size="${size}" data-button-type="${type}"><a class="sqs-block-button-element--${size} sqs-button-element--${type} sqs-block-button-element" href="${escapeHtml(b.href || '')}">${escapeHtml(b.label)}</a></div></div></div>`;
+        // Fit, Fill and Alignment per view (parity/findings/BUTTONDESIGN.json): a phone follows the
+        // desktop until it is changed; then it has a container of its own. A button stacked once
+        // stops filling its block (parity/findings/S3.json fitButton).
+        const box = (sys, o = {}) => `<div class="sqs-block-button-container sqs-button-block-container-system_${sys} sqs-block-button-container--${o.align || 'center'}${o.fit ? '' : ' sqs-stretched'}" data-button-size="${size}" data-button-type="${type}"><a class="sqs-block-button-element--${size} sqs-button-element--${type} sqs-block-button-element" href="${escapeHtml(b.href || '')}">${escapeHtml(b.label)}</a></div>`;
+        return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-content">${box('desktop', { fit: b.fit, align: b.halign })}${b.btnMobile ? box('mobile', b.btnMobile) : ''}</div></div>`;
       }
     case 'shape': {
       const style = `--shape-fill:${b.fill || 'var(--accent)'};--shape-radius:${b.radius || '0'};--shape-ink:${b.ink || 'inherit'}`;

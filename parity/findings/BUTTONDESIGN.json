@@ -1,0 +1,412 @@
+{
+ "item": "T5",
+ "capturedAt": "2026-11-04",
+ "question": "What does a button's Design tab hold, and what do Fit, Fill and Alignment write?",
+ "page": "a new blank page, a new Button block, nothing saved; a 1600 wide window",
+ "designRows": {
+  "fill": [
+   "Button style",
+   "Layout",
+   "Transforms"
+  ],
+  "fit": [
+   "Button style",
+   "Layout",
+   "Alignment",
+   "Transforms"
+  ],
+  "note": "Anchor follows the transforms on every block type: T15."
+ },
+ "styleList": {
+  "current": [
+   483,
+   417,
+   276,
+   87
+  ],
+  "options": [
+   [
+    "Primary Button",
+    483,
+    449,
+    276,
+    55
+   ],
+   [
+    "Secondary Button",
+    483,
+    504,
+    276,
+    55
+   ],
+   [
+    "Tertiary Button",
+    483,
+    559,
+    276,
+    55
+   ]
+  ],
+  "edit": {
+   "text": "EDIT BUTTON STYLES",
+   "box": [
+    483,
+    614,
+    276,
+    55
+   ],
+   "font": "12px, 0.5px spacing, uppercase",
+   "opens": "Site Styles > Buttons"
+  },
+  "note": "The picks write what the toolbar's list writes: BUTTONSTYLE.json. Secondary and Tertiary give the same box in this theme."
+ },
+ "layoutControls": {
+  "Fit": [
+   681,
+   519,
+   36,
+   36
+  ],
+  "Fill": [
+   723,
+   519,
+   36,
+   36
+  ],
+  "Align Left": [
+   657,
+   581
+  ],
+  "Align Center": [
+   699,
+   581
+  ],
+  "Align Right": [
+   741,
+   581
+  ],
+  "default": "Fill, Align Center"
+ },
+ "box": {
+  "blockArea": [
+   1,
+   2,
+   3,
+   8
+  ],
+  "block": [
+   341.7,
+   71.2
+  ],
+  "fill": {
+   "container": "sqs-block-button-container--center sqs-stretched",
+   "a": [
+    0,
+    0,
+    341.7,
+    71.2
+   ],
+   "padding": "0px 56px"
+  },
+  "fit": {
+   "container": "sqs-block-button-container--center",
+   "a": [
+    67.6,
+    2.3,
+    206.6,
+    66.6
+   ],
+   "padding": "20.8px 56px"
+  },
+  "fitLeft": {
+   "container": "sqs-block-button-container--left",
+   "a": [
+    0,
+    2.3,
+    206.6,
+    66.6
+   ]
+  },
+  "fitRight": {
+   "container": "sqs-block-button-container--right",
+   "a": [
+    135.1,
+    2.3,
+    206.6,
+    66.6
+   ]
+  },
+  "fillAfterRight": {
+   "container": "sqs-block-button-container--right sqs-stretched",
+   "a": [
+    0,
+    0,
+    341.7,
+    71.2
+   ]
+  }
+ },
+ "undo": "One step each for Fit, Align Right. Undo of Fit hides Alignment again.",
+ "fitPulls": {
+  "note": "Real mouse. Rows go where pulled down to 2, the button stays centred in its block.",
+  "steps": [
+   [
+    "s, pulled down",
+    [
+     1,
+     2,
+     5,
+     8
+    ],
+    [
+     67.6,
+     43.4,
+     206.6,
+     66.6
+    ]
+   ],
+   [
+    "s",
+    [
+     1,
+     2,
+     7,
+     8
+    ],
+    [
+     67.6,
+     84.5,
+     206.6,
+     66.6
+    ]
+   ],
+   [
+    "s to minimum",
+    [
+     1,
+     2,
+     3,
+     8
+    ],
+    [
+     67.6,
+     2.3,
+     206.6,
+     66.6
+    ]
+   ],
+   [
+    "e -1",
+    [
+     1,
+     2,
+     3,
+     7
+    ],
+    [
+     38.2,
+     2.3,
+     206.6,
+     66.6
+    ]
+   ],
+   [
+    "e -1",
+    [
+     1,
+     2,
+     3,
+     6
+    ],
+    [
+     8.8,
+     2.3,
+     206.6,
+     66.6
+    ]
+   ],
+   [
+    "e -1, text wraps, one more row",
+    [
+     1,
+     2,
+     4,
+     5
+    ],
+    [
+     0,
+     10.3,
+     165.3,
+     91.6
+    ]
+   ],
+   [
+    "e -1 stays: 3 columns is the least",
+    [
+     1,
+     2,
+     4,
+     5
+    ],
+    [
+     0,
+     10.3,
+     165.3,
+     91.6
+    ]
+   ],
+   [
+    "s -2 stays",
+    [
+     1,
+     2,
+     4,
+     5
+    ],
+    [
+     0,
+     10.3,
+     165.3,
+     91.6
+    ]
+   ]
+  ]
+ },
+ "fillPulls": {
+  "note": "Fill stops at 3 columns too, then 1 row is allowed.",
+  "steps": [
+   [
+    [
+     1,
+     2,
+     3,
+     7
+    ]
+   ],
+   [
+    [
+     1,
+     2,
+     3,
+     6
+    ]
+   ],
+   [
+    [
+     1,
+     2,
+     3,
+     5
+    ]
+   ],
+   [
+    [
+     1,
+     2,
+     3,
+     5
+    ]
+   ],
+   [
+    [
+     1,
+     2,
+     3,
+     5
+    ]
+   ],
+   [
+    [
+     1,
+     2,
+     2,
+     5
+    ]
+   ]
+  ],
+  "at1Row": [
+   0,
+   0,
+   165.3,
+   50
+  ]
+ },
+ "longWord": {
+  "text": "internationalization",
+  "fill": {
+   "note": "Stops at 3 columns as well, so the least is not set by the text. The word does not break: the link is 275.4 wide and sticks out on both sides.",
+   "block": [
+    165.3,
+    71.2
+   ],
+   "a": [
+    -55,
+    0,
+    275.4,
+    71.2
+   ]
+  },
+  "fit": {
+   "a": [
+    -55,
+    2.3,
+    275.4,
+    66.6
+   ]
+  }
+ },
+ "phone": {
+  "window": 428,
+  "note": "Layout and Alignment belong to each view. A phone that was not changed follows the desktop. The first change on the phone adds a second container, system_mobile, with a copy of the link; each view shows its own and hides the other with display none. After that a desktop change leaves the phone alone.",
+  "desktopFit": {
+   "block": [
+    376.7,
+    66.6
+   ],
+   "a": [
+    85,
+    0,
+    206.6,
+    66.6
+   ]
+  },
+  "mobileFill": {
+   "desktop": "display none",
+   "mobile": "sqs-block-button-container--center sqs-stretched",
+   "block": [
+    376.7,
+    59
+   ],
+   "a": [
+    0,
+    0,
+    376.7,
+    59
+   ]
+  },
+  "mobileFitLeft": {
+   "mobile": "sqs-block-button-container--left",
+   "a": [
+    0,
+    0,
+    206.6,
+    66.6
+   ],
+   "block": [
+    376.7,
+    66.6
+   ]
+  },
+  "desktopRightAfter": {
+   "desktop": "sqs-block-button-container--right",
+   "mobile": "sqs-block-button-container--left"
+  }
+ },
+ "notMeasured": [
+  "the phone's least width or rows",
+  "the w and n handles on a Fit button",
+  "what the published page writes (never saved)",
+  "other button packs: the padding is this site's pack",
+  "a text size other than 16px"
+ ]
+}
