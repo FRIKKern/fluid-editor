@@ -470,6 +470,29 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   groupCases.push({ name: 'L6 a stack Corner per layout', diffs: [de.r !== '10px' && `desktop ${de.r}`, ph.r !== '30px' && `phone ${ph.r}`].filter(Boolean) });
   evalJs(S, `fe.setBp('desktop')`); await pause(100);
 }
+// R2: widening and narrowing a text block one column at a time (CAP-TEXTWIDTH.json), with the real mouse.
+{ const F = JSON.parse(readFileSync(new URL('../parity/findings/CAP-TEXTWIDTH.json', import.meta.url))); const para = F.steps.find((x) => x[0] === 'pasteMid')[3].replace(/<\/?p>/g, '');
+  viewport(S, 1600, 945); await pause(120);
+  evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 12, mobile: 6 }, blocks: [{ id: 't', type: 'text', label: 't', html: ${JSON.stringify(`<p>Start of a l${para}ong text here</p>`)}, layout: { desktop: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }] }] }); await new Promise((r) => setTimeout(r, 150)); fe.select('s', 't'); await new Promise((r) => setTimeout(r, 150)); return 1; })()`); await pause(60);
+  const read = () => evalJs(S, `JSON.stringify({ a: fe.model.sections[0].blocks[0].layout.desktop.area.join('/'), rows: fe.model.sections[0].rows.desktop })`);
+  const handle = () => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), h = f.contentDocument.querySelector('.fe-handle[data-dir="e"]').getBoundingClientRect(); return JSON.stringify([q.left + h.left + h.width / 2, q.top + h.top + h.height / 2]); })()`);
+  const step = async (dx) => { const p = handle(); mouse(S, 'move', p[0], p[1]); await pause(30); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(30); for (const f of [1 / 3, 2 / 3, 1]) { mouse(S, 'move', p[0] + dx * f, p[1], { buttons: 1 }); await pause(30); } mouse(S, 'up', p[0] + dx, p[1]); await pause(60); evalJs(S, `fe.select('s', 't')`); await pause(40); };
+  const known = { 'wider 5': 'the oracle keeps 5 rows for a text of 134.4 and takes the row off one drop later, 2 of 2 runs; no width offset explains it' };
+  const test = (name) => { const r = read(), w = F.reads[name]; const diffs = [r.a !== w.areas[0][0] && `area: oracle ${w.areas[0][0]}, ours ${r.a}`, r.rows !== w.section.rows && `rows: oracle ${w.section.rows}, ours ${r.rows}`].filter(Boolean); groupCases.push({ name: `R2 ${name}`, diffs, ...(known[name] ? { known: known[name] } : {}) }); };
+  for (let i = 1; i <= 16; i++) { await step(58.78); test(`wider ${i}`); }
+  for (let i = 1; i <= 20; i++) { await step(-58.78); test(`narrower ${i}`); }
+  viewport(S, 1600, 1000); await pause(120);
+}
+// X2: which handle drags leave a block selected (HANDLEUP.json), with the real mouse, a pen and touch.
+{ const load = async (type, html = '') => { evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'large', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 24, mobile: 6 }, blocks: [{ id: 'k', type: '${type}', label: 'k', fill: '#ccc', html: '${html}', layout: { desktop: { area: [1, 5, 7, 11], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }] }] }); await new Promise((r) => setTimeout(r, 120)); fe.select('s', 'k'); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(40); };
+  const at = (dir) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), h = f.contentDocument.querySelector('.fe-handle[data-dir="${dir}"]').getBoundingClientRect(); return JSON.stringify([q.left + h.left + h.width / 2, q.top + h.top + h.height / 2]); })()`);
+  const onSel = () => evalJs(S, `JSON.stringify(document.getElementById('site-frame').contentDocument.querySelectorAll('.fe-handle').length > 0)`);
+  for (const [name, type, dir, dx, dy, how, want] of [['Shape south 35 down', 'shape', 's', 0, 35, 'mouse', false], ['Shape south 65 down', 'shape', 's', 0, 65, 'mouse', false], ['Shape corner 70, 70', 'shape', 'se', 70, 70, 'mouse', false], ['Shape corner 30, 30', 'shape', 'se', 30, 30, 'mouse', true], ['Shape east 120', 'shape', 'e', 120, 0, 'mouse', true], ['Shape south 35 up', 'shape', 's', 0, -35, 'mouse', true], ['Shape north 80 down', 'shape', 'n', 0, 80, 'mouse', true], ['Shape west 70 left', 'shape', 'w', -70, 0, 'mouse', true], ['Line south 80 down', 'line', 's', 0, 80, 'mouse', false], ['Text south 160 down', 'text', 's', 0, 160, 'mouse', true], ['Shape corner 70, 70 by pen', 'shape', 'se', 70, 70, 'pen', false], ['Shape corner 70, 70 by touch', 'shape', 'se', 70, 70, 'touch', true]]) {
+    await load(type, type === 'text' ? '<p>Some text</p>' : ''); const p = at(dir), to = [p[0] + dx, p[1] + dy];
+    if (how === 'touch') cdp(S, { op: 'touch', from: p, to, steps: 10, holdMs: 120 }); else cdp(S, { op: 'drag', from: p, to, steps: 10, holdMs: 80, ...(how === 'pen' ? { pointerType: 'pen' } : {}) });
+    await pause(150); const got = onSel(); groupCases.push({ name: `X2 ${name}`, diffs: got === want ? [] : [`oracle selected ${want}, ours ${got}`] });
+  }
+}
 // S4 on phones (CAP-S4PHONE.json), with the real mouse: the handle, 90 down, 150 up, desktop stays, a click does nothing.
 { const T = JSON.parse(readFileSync(new URL('../parity/findings/CAP-S4PHONE.json', import.meta.url))).reads;
   viewport(S, 1600, 1000); goto(S, `${BASE}/index.html?replay`); waitFor(S, '(() => !!window.fe)()', 20); await pause(400);

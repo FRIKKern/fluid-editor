@@ -836,7 +836,34 @@ function onUp(e) {
   growRows(s);
   endGesture();
   renderSectionDom(g.sid);
+  if (g.fits && !/[ns]/.test(g.dir)) fitTextRows(s, b, g);
+  // A mouse or pen let go well below the block's old bottom lands on the grid, not on the block's
+  // overlay, and the block ends up not selected; touch keeps it, and so does text (HANDLEUP.json).
+  if (g.type === 'resize' && e.pointerType !== 'touch' && b.type !== 'text' && !g.members && e.clientY - g.bottom0 > LET_GO_BELOW) select(null);
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
+}
+const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
+
+// Widening or narrowing a text block that fits its text keeps it fitted: its rows follow the text
+// (CAP-TEXTWIDTH.json, CAP-TEXTWIDTH2.json). One made taller by hand keeps its rows (HANDLEUP.json).
+const NARROWED_BY = 5.5;
+function fitTextRows(s, b, g) {
+  const a = lay(b).area, narrowing = g.target[3] - g.target[1] < g.orig[3] - g.orig[1];
+  // Narrowing, the oracle takes the text's height a little before the final width: 5 to 6px wider
+  // fits 20 of 20 drops. Text that then runs over stretches the rows until the next gesture.
+  const c = narrowing ? blockEl(b.id)?.querySelector('.sqs-block-content') : null;
+  if (c) c.style.width = `${c.getBoundingClientRect().width + NARROWED_BY}px`;
+  const lost = a[2] - a[0] - Math.max(2, contentRows(b, measure(feEl(s.id))));
+  if (c) c.style.width = '';
+  if (!lost) return;
+  const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2]));
+  const before = lowest();
+  a[2] -= lost;
+  // The section gives up rows only as its lowest block rises (CAP-TEXTWIDTH2.json: 18 rows stay
+  // with other blocks lower down; alone, 12 go to 8).
+  if (lost > 0 && !narrowing) s.rows[bp] -= before - lowest();
+  else { s.rows[bp] = g.rows0; growRows(s); }
+  renderSectionDom(s.id);
 }
 
 // A touch drags like a mouse unless the browser pans first (TOUCHHOLD.json): it takes the pointer
@@ -998,6 +1025,9 @@ function startResize(e, dir) {
     return;
   }
   prepare(e, 'resize', { dir });
+  const held = B(gesture.sid, gesture.bid), span = lay(held).area[2] - lay(held).area[0];
+  gesture.fits = held.type === 'text' && !gesture.members && span === Math.max(2, contentRows(held, gesture.m));
+  gesture.bottom0 = blockEl(held.id).getBoundingClientRect().bottom;
 }
 
 const boxOf = (areas) => [Math.min(...areas.map((a) => a[0])), Math.min(...areas.map((a) => a[1])), Math.max(...areas.map((a) => a[2])), Math.max(...areas.map((a) => a[3]))];
