@@ -295,15 +295,18 @@ function blockInner(b, model) {
       // Image blocks (T4): Fill, the default here, covers the block. Fit and Shape are measured
       // in parity/findings/IMAGEMODES.json. Without a picture of the user's own (b.src, Content >
       // Replace) it is a neutral placeholder (QUALITY.md O2), and Fit uses b.aspect, or 3:2.
-      const r = b.radius ? `border-radius:${b.radius};` : '';
-      const mode = b.mode === 'fit' || b.mode === 'shape' ? ` image-mode-${b.mode}` : '';
+      const r = b.corners ? `border-radius:${b.corners.map((v) => `${v}px`).join(' ')};` : b.radius ? `border-radius:${b.radius};` : '';
+      const mode = (b.mode === 'fit' || b.mode === 'shape' ? ` image-mode-${b.mode}` : '') + (b.mode === 'shape' && b.stretch ? ' image-stretch' : '') + (b.lightbox ? ' image-lightbox' : '');
       const aspect = b.mode === 'fit' ? `--image-aspect:${Number(b.aspect) || 1.5};` : '';
       const alt = escapeHtml(b.alt || '');
-      const inner = b.src ? `<div class="fluid-image-container has-picture" style="${r}${aspect}"><img src="${escapeHtml(b.src)}" alt="${alt}"></div>`
-        : `<div class="fluid-image-container" style="${r}${aspect}" role="img" aria-label="${alt}"></div>`;
+      // Focal point and Overlay (parity/findings/IMAGEDESIGN.json): off, the overlay keeps its color and blend at opacity 0.
+      const focal = b.focal ? ` style="object-position:${b.focal[0] * 100}% ${b.focal[1] * 100}%"` : '';
+      const overlay = b.overlay || b.overlayColor || b.overlayBlend ? `<div class="fluidImageOverlay" style="opacity:${b.overlay ? 1 : 0};background-color:${escapeHtml(b.overlayColor || 'rgba(0, 0, 0, 0.5)')};mix-blend-mode:${b.overlayBlend || 'normal'}"></div>` : '';
+      const inner = b.src ? `<div class="fluid-image-container has-picture" style="${r}${aspect}"><img src="${escapeHtml(b.src)}" alt="${alt}"${focal}>${overlay}</div>`
+        : `<div class="fluid-image-container" style="${r}${aspect}" role="img" aria-label="${alt}">${overlay}</div>`;
       // A new block has no picture yet (MEDIAEMPTY.json): the editor shows a white box with a +.
       if (b.empty) return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-image image-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-component-empty-state-node"><span class="fluid-image-add" aria-hidden="true"></span></div></div></div>`;
-      const pic = b.href ? `<a class="sqs-block-image-link" href="${escapeHtml(b.href)}"${b.newTab ? ' target="_blank"' : ''}>${inner}</a>` : inner;
+      const pic = b.href && !b.lightbox ? `<a class="sqs-block-image-link" href="${escapeHtml(b.href)}"${b.newTab ? ' target="_blank"' : ''}>${inner}</a>` : inner;
       // The measured chain (parity/findings/BLOCKTYPES.json): an image holds the alignment wrapper.
       return `<div class="sqs-block image-block sqs-block-image sqs-stretched${mode}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-component-root image-block-outer-wrapper design-layout-fluid image-position-center"><div class="fluid-image-animation-wrapper sqs-image sqs-block-alignment-wrapper">${pic}</div></div></div></div>`;
     }
