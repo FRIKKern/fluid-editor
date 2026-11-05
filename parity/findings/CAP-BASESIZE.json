@@ -1,0 +1,1103 @@
+{
+  "item": "CAP-BASESIZE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "U12: Base Size limits. Reset is not pressed.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "click",
+      "Toggle Site Styles editing"
+    ],
+    [
+      "read",
+      "panel",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "click",
+      "Open Fonts style disclosure"
+    ],
+    [
+      "read",
+      "fonts",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "fonts"
+    ],
+    [
+      "fillValue",
+      "16",
+      "1"
+    ],
+    [
+      "read",
+      "typed 1",
+      {
+        "controls": true,
+        "sel": "h1"
+      }
+    ],
+    [
+      "shot",
+      "one"
+    ],
+    [
+      "press",
+      "Tab"
+    ],
+    [
+      "read",
+      "after tab",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "fillValue",
+      "12",
+      "999"
+    ],
+    [
+      "read",
+      "typed 999",
+      {
+        "controls": true,
+        "sel": "h1"
+      }
+    ],
+    [
+      "shot",
+      "big"
+    ]
+  ],
+  "reads": {
+    "panel": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Close",
+          "box": [
+            1542,
+            26,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Themes style pack popover",
+          "box": [
+            1302,
+            138,
+            276,
+            144
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Fonts style pack popover",
+          "box": [
+            1302,
+            317,
+            226,
+            104
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Fonts style disclosure",
+          "box": [
+            1534,
+            317,
+            44,
+            104
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Colors style pack popover",
+          "box": [
+            1302,
+            432,
+            226,
+            104
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Colors style disclosure",
+          "box": [
+            1534,
+            432,
+            44,
+            104
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Buttons style pack popover",
+          "box": [
+            1302,
+            547,
+            226,
+            104
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Buttons style disclosure",
+          "box": [
+            1534,
+            547,
+            44,
+            104
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Forms style pack popover",
+          "box": [
+            1302,
+            662,
+            226,
+            104
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Forms style disclosure",
+          "box": [
+            1534,
+            662,
+            44,
+            104
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Miscellaneous",
+          "box": [
+            1291,
+            798,
+            287,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            27,
+            24.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            93.6,
+            24.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            161.4,
+            17.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            205.4,
+            25.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1164,
+            27.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1210,
+            27.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Subscribe",
+          "box": [
+            996,
+            954.5,
+            93.3,
+            36
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "clean"
+    },
+    "fonts": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Site Styles",
+          "box": [
+            1280,
+            22,
+            127.5,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Close",
+          "box": [
+            1542,
+            26,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "HeadingThis is your paragraph. Poppins",
+          "box": [
+            1302,
+            138,
+            276,
+            145
+          ]
+        },
+        {
+          "role": "button",
+          "label": "All Font Packs",
+          "box": [
+            1291,
+            282,
+            298,
+            51
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "16",
+          "box": [
+            1478,
+            377,
+            20,
+            22
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Decrement",
+          "box": [
+            1520,
+            366,
+            32,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Increment",
+          "box": [
+            1552,
+            366,
+            32,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "HeadingsPoppins",
+          "box": [
+            1291,
+            409,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "ParagraphsPoppins",
+          "box": [
+            1291,
+            453,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Buttons",
+          "box": [
+            1291,
+            497,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "MiscellaneousPoppins",
+          "box": [
+            1291,
+            541,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Assign Styles",
+          "box": [
+            1291,
+            585,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset Font Pack",
+          "box": [
+            1280,
+            663,
+            320,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            27,
+            24.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            93.6,
+            24.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            161.4,
+            17.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            205.4,
+            25.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1164,
+            27.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1210,
+            27.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Subscribe",
+          "box": [
+            996,
+            954.5,
+            93.3,
+            36
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "clean"
+    },
+    "typed 1": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Site Styles",
+          "box": [
+            1280,
+            22,
+            127.5,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Close",
+          "box": [
+            1542,
+            26,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "HeadingThis is your paragraph. Poppins",
+          "box": [
+            1302,
+            138,
+            276,
+            145
+          ]
+        },
+        {
+          "role": "button",
+          "label": "All Font Packs",
+          "box": [
+            1291,
+            282,
+            298,
+            51
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "12",
+          "box": [
+            1478,
+            377,
+            20,
+            22
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Decrement",
+          "box": [
+            1520,
+            366,
+            32,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Increment",
+          "box": [
+            1552,
+            366,
+            32,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "HeadingsPoppins",
+          "box": [
+            1291,
+            409,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "ParagraphsPoppins",
+          "box": [
+            1291,
+            453,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Buttons",
+          "box": [
+            1291,
+            497,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "MiscellaneousPoppins",
+          "box": [
+            1291,
+            541,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Assign Styles",
+          "box": [
+            1291,
+            585,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset Font Pack",
+          "box": [
+            1280,
+            663,
+            320,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            27,
+            24.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            93.6,
+            24.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            161.4,
+            17.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            205.4,
+            25.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1164,
+            27.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1210,
+            27.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Subscribe",
+          "box": [
+            996,
+            954.5,
+            93.3,
+            36
+          ]
+        }
+      ],
+      "sel": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after tab": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Site Styles",
+          "box": [
+            1280,
+            22,
+            127.5,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Close",
+          "box": [
+            1542,
+            26,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "HeadingThis is your paragraph. Poppins",
+          "box": [
+            1302,
+            138,
+            276,
+            145
+          ]
+        },
+        {
+          "role": "button",
+          "label": "All Font Packs",
+          "box": [
+            1291,
+            282,
+            298,
+            51
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "12",
+          "box": [
+            1478,
+            377,
+            20,
+            22
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Decrement",
+          "box": [
+            1520,
+            366,
+            32,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Increment",
+          "box": [
+            1552,
+            366,
+            32,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "HeadingsPoppins",
+          "box": [
+            1291,
+            409,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "ParagraphsPoppins",
+          "box": [
+            1291,
+            453,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Buttons",
+          "box": [
+            1291,
+            497,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "MiscellaneousPoppins",
+          "box": [
+            1291,
+            541,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Assign Styles",
+          "box": [
+            1291,
+            585,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset Font Pack",
+          "box": [
+            1280,
+            663,
+            320,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            27,
+            24.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            93.6,
+            24.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            161.4,
+            17.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            205.4,
+            25.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1164,
+            27.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1210,
+            27.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Subscribe",
+          "box": [
+            996,
+            954.5,
+            93.3,
+            36
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed 999": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Site Styles",
+          "box": [
+            1280,
+            22,
+            127.5,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Close",
+          "box": [
+            1542,
+            26,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "HeadingThis is your paragraph. Poppins",
+          "box": [
+            1302,
+            138,
+            276,
+            145
+          ]
+        },
+        {
+          "role": "button",
+          "label": "All Font Packs",
+          "box": [
+            1291,
+            282,
+            298,
+            51
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "24",
+          "box": [
+            1478,
+            377,
+            20,
+            22
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Decrement",
+          "box": [
+            1520,
+            366,
+            32,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Increment",
+          "box": [
+            1552,
+            366,
+            32,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "HeadingsPoppins",
+          "box": [
+            1291,
+            409,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "ParagraphsPoppins",
+          "box": [
+            1291,
+            453,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Buttons",
+          "box": [
+            1291,
+            497,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "MiscellaneousPoppins",
+          "box": [
+            1291,
+            541,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Assign Styles",
+          "box": [
+            1291,
+            585,
+            298,
+            45
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset Font Pack",
+          "box": [
+            1280,
+            663,
+            320,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            27,
+            24.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            93.6,
+            24.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            161.4,
+            17.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            205.4,
+            25.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1164,
+            27.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1210,
+            27.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Subscribe",
+          "box": [
+            996,
+            954.5,
+            93.3,
+            36
+          ]
+        }
+      ],
+      "sel": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

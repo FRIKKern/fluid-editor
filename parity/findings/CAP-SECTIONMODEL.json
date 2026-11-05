@@ -1,0 +1,324 @@
+{
+  "item": "CAP-SECTIONMODEL",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "U10: what Duplicate, Move, Remove and the Add Section picker do to the page",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "read",
+      "two sections",
+      {
+        "sections": true
+      }
+    ],
+    [
+      "hover",
+      0
+    ],
+    [
+      "click",
+      "Duplicate Section"
+    ],
+    [
+      "read",
+      "first duplicated",
+      {
+        "sections": true
+      }
+    ],
+    [
+      "hover",
+      0
+    ],
+    [
+      "click",
+      "Move Section Down"
+    ],
+    [
+      "read",
+      "first moved down",
+      {
+        "sections": true
+      }
+    ],
+    [
+      "hover",
+      1
+    ],
+    [
+      "click",
+      "Remove Section"
+    ],
+    [
+      "read",
+      "remove asks",
+      {
+        "sections": true,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "asks"
+    ],
+    [
+      "click",
+      "Remove"
+    ],
+    [
+      "read",
+      "second removed",
+      {
+        "sections": true
+      }
+    ],
+    [
+      "hover",
+      0
+    ],
+    [
+      "click",
+      "Add Section"
+    ],
+    [
+      "read",
+      "picker",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "picker"
+    ],
+    [
+      "clickIf",
+      "Team"
+    ],
+    [
+      "read",
+      "Team",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "team"
+    ]
+  ],
+  "reads": {
+    "two sections": {
+      "sections": [
+        {
+          "id": "86ec19",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "97_438"
+          ],
+          "h": 667.6
+        },
+        {
+          "id": "f39b96",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "first duplicated": {
+      "sections": [
+        {
+          "id": "86ec19",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "97_438"
+          ],
+          "h": 667.6
+        },
+        {
+          "id": "680785",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "bd7b9a"
+          ],
+          "h": 623.7
+        },
+        {
+          "id": "f39b96",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "first moved down": {
+      "sections": [
+        {
+          "id": "680785",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "bd7b9a"
+          ],
+          "h": 667.6
+        },
+        {
+          "id": "86ec19",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "97_438"
+          ],
+          "h": 623.7
+        },
+        {
+          "id": "f39b96",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "remove asks": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Cancel",
+          "box": [
+            816.5,
+            526,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            884.3,
+            526,
+            53.7,
+            36
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "680785",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "bd7b9a"
+          ],
+          "h": 667.6
+        },
+        {
+          "id": "86ec19",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "97_438"
+          ],
+          "h": 623.7
+        },
+        {
+          "id": "f39b96",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "second removed": {
+      "sections": [
+        {
+          "id": "680785",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "bd7b9a"
+          ],
+          "h": 667.6
+        },
+        {
+          "id": "f39b96",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "picker": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Close",
+          "box": [
+            1358,
+            66,
+            36,
+            36
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Team": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Close",
+          "box": [
+            1358,
+            66,
+            36,
+            36
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": false
+}
