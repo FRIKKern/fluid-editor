@@ -1,0 +1,413 @@
+{
+  "item": "CAP-PHONELINES",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "U9: the thin lines of the toolbars in the phone view. Reads only.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "hover",
+      2
+    ],
+    [
+      "read",
+      "section hovered",
+      {
+        "thin": true,
+        "controls": true,
+        "section": 2
+      }
+    ],
+    [
+      "shot",
+      "hovered"
+    ],
+    [
+      "select",
+      2,
+      2
+    ],
+    [
+      "read",
+      "shape selected",
+      {
+        "thin": true,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "selected"
+    ]
+  ],
+  "reads": {
+    "section hovered": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            117,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            522,
+            161,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1043,
+            164,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1048,
+            219,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1088,
+            219,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1128,
+            219,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1168,
+            219,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1043,
+            266,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            741,
+            111.1,
+            36
+          ]
+        }
+      ],
+      "thin": [],
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          79.6,
+          428,
+          623.7
+        ],
+        "rows": 10,
+        "rowSizes": "44.8x2 69.7x2 24x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 6478,
+        "blocks": 3
+      },
+      "save": "clean"
+    },
+    "shape selected": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            522,
+            161,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            1041,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            1086,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Up",
+          "box": [
+            1126,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Down",
+          "box": [
+            1166,
+            490.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            1211,
+            490.5,
+            36,
+            36
+          ]
+        }
+      ],
+      "thin": [
+        {
+          "box": [
+            1081,
+            498.5,
+            1,
+            20
+          ],
+          "bg": "rgb(231, 231, 231)"
+        },
+        {
+          "box": [
+            1206,
+            498.5,
+            1,
+            20
+          ],
+          "bg": "rgb(231, 231, 231)"
+        }
+      ],
+      "save": "clean"
+    }
+  },
+  "errors": [],
+  "leftDirty": false
+}

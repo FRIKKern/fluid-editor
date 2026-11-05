@@ -1,0 +1,210 @@
+{
+  "item": "CAP-ORDER",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-05",
+  "engine": "chrome",
+  "question": "A2: how does DOM order follow a move on desktop and on phones?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "read",
+      "three added",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      2,
+      "middle",
+      700,
+      300
+    ],
+    [
+      "read",
+      "third block far right and lower",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      0,
+      400
+    ],
+    [
+      "read",
+      "first block moved below",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "phone view",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      0,
+      200
+    ],
+    [
+      "read",
+      "first in DOM moved down on phone",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "read",
+      "back on desktop",
+      {
+        "areas": 0
+      }
+    ]
+  ],
+  "reads": {
+    "three added": {
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/3/8",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/2/6",
+          "5/2/6/10"
+        ]
+      ],
+      "save": "changed"
+    },
+    "third block far right and lower": {
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ],
+        [
+          "8/14/10/20",
+          "4/2/6/10"
+        ]
+      ],
+      "save": "changed"
+    },
+    "first block moved below": {
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ],
+        [
+          "11/2/13/10",
+          "2/2/4/10"
+        ],
+        [
+          "8/14/10/20",
+          "4/2/6/10"
+        ]
+      ],
+      "save": "changed"
+    },
+    "phone view": {
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ],
+        [
+          "11/2/13/10",
+          "2/2/4/10"
+        ],
+        [
+          "8/14/10/20",
+          "4/2/6/10"
+        ]
+      ],
+      "save": "changed"
+    },
+    "first in DOM moved down on phone": {
+      "areas": [
+        [
+          "11/2/13/10",
+          "2/2/4/10"
+        ],
+        [
+          "8/14/10/20",
+          "4/2/6/10"
+        ],
+        [
+          "1/2/2/6",
+          "7/2/8/10"
+        ]
+      ],
+      "save": "changed"
+    },
+    "back on desktop": {
+      "areas": [
+        [
+          "11/2/13/10",
+          "2/2/4/10"
+        ],
+        [
+          "8/14/10/20",
+          "4/2/6/10"
+        ],
+        [
+          "1/2/2/6",
+          "7/2/8/10"
+        ]
+      ],
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
