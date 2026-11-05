@@ -1,7 +1,7 @@
 {
  "check": "an image Shape picker",
- "pass": 45,
- "total": 45,
+ "pass": 47,
+ "total": 47,
  "results": [
   {
    "what": "The Shape row is a button with no value",
@@ -181,6 +181,14 @@
   },
   {
    "what": "Circle writes nothing on the block",
+   "ok": true
+  },
+  {
+   "what": "After a pick: a new image opens on Fit",
+   "ok": true
+  },
+  {
+   "what": "After a pick: the first image keeps its shape",
    "ok": true
   }
  ]

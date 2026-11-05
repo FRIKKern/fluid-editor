@@ -341,6 +341,21 @@ q(`document.querySelector('[data-bp="desktop"], #view-desktop, [aria-label="Desk
 await fresh();
 add('A new block starts empty', q(`return JSON.stringify(!!byText('Press + to get started'));`));
 
+// The same session, no reload: a pick stays on its block (ANIMFLOW.carry).
+await fresh();
+await clickSel(act('add'));
+await clickRadio('hover-1', 120);
+const picked = id;
+add('After a pick: the first block has its row', (await model()).length === 1);
+for (const name of ['Text', 'Image']) {
+  const off = q(`const r = d.querySelectorAll('.page-section')[1].getBoundingClientRect(), o = fr.getBoundingClientRect(); return JSON.stringify([o.left + r.left + r.width - 60, 500]);`);
+  mouse(S, 'move', off[0], off[1]); await pause(60); mouse(S, 'down', off[0], off[1], { buttons: 1 }); await pause(40); mouse(S, 'up', off[0], off[1]); await pause(350);
+  id = q(`document.querySelector('[data-sc="add-block"]').click(); await sleep(200); document.querySelector('button[data-add="${name}"]').click(); await sleep(450); const b = fe.model.sections[1].blocks.at(-1); document.querySelector('#block-toolbar [data-tb="edit"]')?.click(); await sleep(250); panel.querySelector('[data-btab="Animation"]').click(); await sleep(200); return JSON.stringify(b.id);`);
+  add(`After a pick: a new ${name} has no row`, id !== picked && (await model()).length === 0 && q(`return JSON.stringify(!!byText('Press + to get started'));`), JSON.stringify(model()));
+}
+id = picked;
+add('After a pick: the first block keeps its row', (await model()).length === 1);
+
 writeFileSync(new URL('../parity/anim-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nAnimation: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);
