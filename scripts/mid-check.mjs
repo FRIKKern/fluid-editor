@@ -493,6 +493,14 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     await pause(150); const got = onSel(); groupCases.push({ name: `X2 ${name}`, diffs: got === want ? [] : [`oracle selected ${want}, ours ${got}`] });
   }
 }
+// X8: Move Forward with a block between the members (CAP-GROUPFORWARD.json): 1, 2, 3 with the first and last selected.
+{ const F = JSON.parse(readFileSync(new URL('../parity/findings/CAP-GROUPFORWARD.json', import.meta.url))).reads; const bl = (id, c, z) => ({ id, type: 'shape', label: id, fill: '#ccc', layout: { desktop: { area: [1 + z * 4, c, 4 + z * 4, c + 5], z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1 + z * 4, 2, 4 + z * 4, 8], z, justify: 'flex-start', align: 'flex-start' } } });
+  evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 24, mobile: 24 }, blocks: ${JSON.stringify([bl('a', 2, 1), bl('m', 8, 2), bl('c', 14, 3)])} }] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(40);
+  const got = evalJs(S, `(async () => { const sleep = (x) => new Promise((r) => setTimeout(r, x)); const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow; const block = (id) => d.querySelector('.fe-block[data-block-id="' + id + '"]'); const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 }; const click = (id, shiftKey) => { const r = block(id).getBoundingClientRect(); const c = { ...o, shiftKey, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2 }; block(id).dispatchEvent(new W.PointerEvent('pointerdown', { ...c, buttons: 1 })); d.dispatchEvent(new W.PointerEvent('pointerup', { ...c, buttons: 0 })); };
+    fe.select('s', 'a'); click('c', true); await sleep(60); const zs = () => fe.model.sections[0].blocks.map((b) => b.layout.desktop.z).join(); const press = async (a) => { document.querySelector('[data-tb="' + a + '"]').click(); await sleep(80); }; const out = {};
+    await press('z+'); out.once = zs(); await press('z+'); out.twice = zs(); await press('z-'); out.back = zs(); return JSON.stringify(out); })()`);
+  for (const [name, read, k] of [['forward once', 'forward once', 'once'], ['forward twice', 'forward twice', 'twice'], ['backward once', 'backward once', 'back']]) groupCases.push({ name: `X8 ${name}`, diffs: got[k] === F[read].zs.join() ? [] : [`oracle ${F[read].zs.join()}, ours ${got[k]}`] });
+}
 // S4 on phones (CAP-S4PHONE.json), with the real mouse: the handle, 90 down, 150 up, desktop stays, a click does nothing.
 { const T = JSON.parse(readFileSync(new URL('../parity/findings/CAP-S4PHONE.json', import.meta.url))).reads;
   viewport(S, 1600, 1000); goto(S, `${BASE}/index.html?replay`); waitFor(S, '(() => !!window.fe)()', 20); await pause(400);
