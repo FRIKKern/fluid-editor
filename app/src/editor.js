@@ -7,6 +7,7 @@ import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
+import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPanelTop, sectionLook } from './section-layouts.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder } from './phone-order.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue } from './block-panel.js';
@@ -3192,10 +3193,11 @@ function placeChrome() {
   const phone = bp === 'mobile';
   // A group leaves the section's chrome on screen (GROUPRESIZE.json); one selected block does not.
   const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length && !marquee;
-  const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}`;
+  const hasLayouts = !phone && !!sectionMix(S(sid));
+  const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}|${hasLayouts}`;
   const appears = chrome.hidden || !!chromeOut || chrome.dataset.key?.split('|')[0] !== sid;
   if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); }
-  if (chrome.dataset.key !== key) { chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected }); chrome.dataset.key = key; }
+  if (chrome.dataset.key !== key) { chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
   const header = k === 0 ? doc.getElementById('header') : null;
   const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
@@ -3259,6 +3261,49 @@ function renderSectionPanel() {
   sectionPanel.scrollTop = top;
 }
 function closeSectionPanel() { if (!editSid) return; editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
+// View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
+const layoutsPanel = $('layouts-panel');
+let layoutsSid = null, layoutsMix = null, layoutsPicked = null, layoutsOrder = [], layoutsBase = null;
+// Roles stay with the blocks as they were on opening: a pick puts them in phone order.
+const openedMix = () => sectionMix({ blocks: [...S(layoutsSid).blocks].sort((a, b) => layoutsOrder.indexOf(a.id) - layoutsOrder.indexOf(b.id)) });
+function renderLayouts() {
+  const el = sectionEl(layoutsSid), css = (e) => doc.defaultView.getComputedStyle(e);
+  let bg = el; // the tile's background: the nearest painted one
+  while (bg.parentElement && css(bg).backgroundColor === 'rgba(0, 0, 0, 0)') bg = bg.parentElement;
+  const own = { bg: css(bg).backgroundColor, ink: css(el).color };
+  const look = (theme) => {
+    if (!theme) return own;
+    const t = doc.createElement('section'); t.className = 'page-section'; t.dataset.sectionTheme = theme; doc.body.append(t);
+    const c = css(t), out = { bg: c.getPropertyValue('--section-bg').trim() || own.bg, ink: c.getPropertyValue('--heading-color').trim() || own.ink };
+    t.remove();
+    return out;
+  };
+  layoutsPanel.innerHTML = layoutsPanelHtml(layoutsMix, layoutsPicked, look);
+}
+function openLayouts(sid) {
+  closeFloating();
+  layoutsSid = sid; layoutsOrder = S(sid).blocks.map((b) => b.id); layoutsBase = sectionLook(S(sid)); layoutsMix = openedMix(); layoutsPicked = null;
+  layoutsPanel.hidden = false;
+  layoutsPanel.style.top = `${layoutsPanelTop(sectionEl(sid).getBoundingClientRect().height)}px`;
+  renderLayouts();
+}
+function closeLayouts() { layoutsSid = null; layoutsPanel.hidden = true; }
+layoutsPanel.addEventListener('click', (e) => {
+  const t = e.target.closest('[data-layout]');
+  const mix = t && S(layoutsSid) && openedMix();
+  if (!mix) return;
+  const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
+  layoutsPicked = Number(t.dataset.layout);
+  applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase);
+  if (sel?.sid === layoutsSid) select(null);
+  commit(before, `Layout ${layoutsPicked + 1}`);
+  renderAll();
+  layoutsMix = openedMix();
+  renderLayouts();
+  layoutsPanel.querySelector('.lo-list').scrollTop = top;
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && layoutsSid) { e.preventDefault(); closeLayouts(); } });
+document.addEventListener('mousedown', (e) => { if (layoutsSid && !layoutsPanel.contains(e.target) && !e.target.closest('[data-sc="layouts"]')) closeLayouts(); });
 const newId = () => Math.random().toString(16).slice(2, 14).padEnd(12, '0') + Date.now().toString(16).slice(-12);
 chrome.addEventListener('mousedown', (e) => e.preventDefault());
 chrome.addEventListener('click', (e) => {
@@ -3289,7 +3334,8 @@ chrome.addEventListener('click', (e) => {
   }
   if (act === 'add-section-above' || act === 'add-section-below') { openAddSection(sid, act.endsWith('below')); return; }
   if (act === 'save') { saveSection(sid); return; }
-  if (act === 'layouts' || act.startsWith('add-section')) { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
+  if (act === 'layouts') { if (!btn.hasAttribute('data-unbuilt')) openLayouts(sid); else { note('View Layouts: not built for these blocks'); updateUi(); } return; }
+  if (act.startsWith('add-section')) { note(`${btn.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
   const before = JSON.stringify(model);
   if (act === 'up' && k > 0) [model.sections[k - 1], model.sections[k]] = [model.sections[k], model.sections[k - 1]];
   if (act === 'down' && k < model.sections.length - 1) [model.sections[k + 1], model.sections[k]] = [model.sections[k], model.sections[k + 1]];
@@ -3676,7 +3722,7 @@ addSectionPanel.addEventListener('click', (e) => {
 });
 addSectionPanel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeAddSection(); } });
 
-function closeFloating() { if (vAlignOpen) { vAlignOpen = null; placeToolbar(); } $('button-style-menu').hidden = true; $('pin-popover').hidden = true; addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('arrange-menu').hidden = true; $('link-popover').hidden = true; }
+function closeFloating() { if (vAlignOpen) { vAlignOpen = null; placeToolbar(); } $('button-style-menu').hidden = true; $('pin-popover').hidden = true; addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('arrange-menu').hidden = true; $('link-popover').hidden = true; closeLayouts(); }
 addMenu.addEventListener('input', (e) => {
   if (!e.target.matches('[data-am="search"]')) return;
   const q = e.target.value;
