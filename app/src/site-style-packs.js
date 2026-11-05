@@ -81,6 +81,39 @@ const family = (f) => `"${f}"`;
 const fontUrl = (f, w) => `https://fonts.googleapis.com/css2?family=${f.replace(/ /g, '+')}${w && w !== 400 ? `:wght@${w}` : ''}&display=swap`;
 export const fontLink = (f, w) => `<link rel="stylesheet" data-fe-site-styles href="${fontUrl(f, w)}">`;
 
+// Headings, Paragraphs and Spacing rows (parity/findings/CAP-SITESTYLEROWS.json): each is one of the
+// page's own values. Line Height in em, Letter Spacing in rem for headings and em for paragraphs, sizes as the value in the size formula.
+export const TYPE_DEFAULTS = { h: { lh: 1.3, ls: 0.01, style: 'Normal', weight: 400, tt: 'None', s1: 4, s2: 3.5, s3: 2.5, s4: 1.6 }, p: { lh: 1.4, ls: 0, style: 'Normal', weight: 400, tt: 'None', s1: 1.5, s2: 1, s3: 0.9 } };
+export const SPACE_DEFAULTS = { width: 1400, margin: 4 };
+const TT = { Uppercase: 'uppercase', Lowercase: 'lowercase', Capitalize: 'capitalize', None: 'none' };
+function typeCss(styles) {
+  const h = styles?.type?.h, p = styles?.type?.p, sp = styles?.space;
+  let vars = '', out = '';
+  if (h) {
+    if (h.lh != null) vars += ` --heading-font-line-height: ${h.lh}em;`;
+    if (h.ls != null) vars += ` --heading-font-letter-spacing: ${h.ls}rem;`;
+    for (const n of [1, 2, 3, 4]) if (h[`s${n}`] != null) vars += ` --heading-${n}-size-value: ${h[`s${n}`]};`;
+    const rule = [h.weight ? `font-weight: ${h.weight};` : '', h.style ? `font-style: ${h.style.toLowerCase()};` : '', h.tt ? `text-transform: ${TT[h.tt]};` : ''].join(' ').trim();
+    if (rule) out += `h1, h2, h3, h4, .header-title { ${rule} }\n`;
+    if (h.lh != null || h.ls != null) out += `.header-title { ${h.lh != null ? `line-height: ${h.lh}em;` : ''} ${h.ls != null ? `letter-spacing: ${h.ls}rem;` : ''} }\n`;
+  }
+  if (p) {
+    if (p.lh != null) vars += ` --body-font-line-height: ${p.lh}em;`;
+    if (p.ls != null) vars += ` --body-font-letter-spacing: ${p.ls}em;`;
+    if (p.s1 != null) vars += ` --large-text-size-value: ${p.s1};`;
+    if (p.s2 != null) vars += ` --normal-text-size-value: ${p.s2};`;
+    if (p.s3 != null) vars += ` --small-text-size-value: ${p.s3};`;
+    const rule = [p.weight ? `font-weight: ${p.weight};` : '', p.style ? `font-style: ${p.style.toLowerCase()};` : '', p.tt ? `text-transform: ${TT[p.tt]};` : ''].join(' ').trim();
+    if (rule) out += `body { ${rule} }\n`;
+    // The header links follow Paragraphs on the oracle: the same line height, letter spacing and size.
+    if (p.lh != null || p.ls != null) out += `.header-nav-item, .header-action { ${p.lh != null ? `line-height: ${p.lh}em;` : ''} ${p.ls != null ? `letter-spacing: ${p.ls}em;` : ''} }\n`;
+    if (p.s2 != null) out += `.header-nav-item, .header-action { font-size: inherit; }\n`;
+  }
+  if (sp?.width != null) vars += ` --sqs-site-max-width: ${sp.width}px; --maxPageWidth: ${sp.width}px;`;
+  if (sp?.margin != null) vars += ` --sqs-site-gutter: ${sp.margin}vw;`;
+  return (vars ? `:root {${vars} }\n` : '') + out;
+}
+
 // The rules a pick adds after site.css. From the readings: a font pack gives headings line height
 // 1.2em and its letter spacing, paragraphs line height 1.5em, the site title value 1.5.
 export function siteStylesCss(styles) {
@@ -116,6 +149,7 @@ export function siteStylesCss(styles) {
     if (z.bw) css += `.sqs-block-button-element { font-weight: ${z.bw}; }\n`;
     if (z.bls) css += `.sqs-block-button-element { letter-spacing: ${z.bls}em; }\n`;
   }
+  css += typeCss(styles);
   if (button) {
     css += `.sqs-block-button-element { border-radius: ${button.radius}; border: ${button.border}px solid var(--button-bg, #000); padding: ${button.pad}; }\n`;
   }
