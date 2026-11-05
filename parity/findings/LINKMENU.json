@@ -1,0 +1,86 @@
+{
+  "item": "E7",
+  "oracle": "the trial site",
+  "capturedAt": "2026-11-05",
+  "question": "What does the menu on the URL tab of the link editor show, and what does each entry write?",
+  "page": "Gestures Probe, new blocks, never saved",
+  "menu": {
+    "pill": "URL 96 by 28 at 22,22 in the popover; Email 105 wide, Phone 111 wide; the chevron turns up while the menu is open; a click on the pill opens and closes it",
+    "box": "142 wide, 56 below the popover's top, left with the pill",
+    "rows": [["URL", 55, "a check on the current kind"], ["File", 49], ["Email", 49], ["Phone", 49], ["separator", 1], ["Learn more", 34, "small caps with an info icon"]],
+    "onText": "the same four kinds and Learn more from the text toolbar's Link",
+    "escape": "1 read: Escape with the menu open closes the whole editor"
+  },
+  "file": {
+    "shows": "Search files, an upload button, Open link in new tab on; popover 320 by 150",
+    "notUsed": "no file chosen and nothing uploaded (decision 0005)"
+  },
+  "popover": {
+    "button": { "URL": [119, 422, 320, 167], "Phone": [119, 418, 320, 175], "Email": [119, 266, 320, 479], "EmailCcBcc": [119, 255, 320, 500] },
+    "centredOn": "the control it opened from: Attach link's centre is 505. Reopened from Edit, centre 544.5: URL top 461, Phone 457, Email 305, Email with CC and BCC 295",
+    "text": "the top stays at 289 for URL, Email and Phone; left 337",
+    "height": "500 is the most; with CC and BCC the fields scroll inside"
+  },
+  "email": {
+    "fields": "To (placeholder Enter email address), CC, BCC, Subject, Body. CC and BCC are buttons; a press adds that field above Subject and focuses it. A field with a value has Clear on To, CC and BCC; Subject and Body have none",
+    "writes": [
+      ["To a@example.com", "mailto:a@example.com?"],
+      ["Subject Hi there", "mailto:a@example.com?subject=Hi%20there"],
+      ["Body Line one & two", "mailto:a@example.com?subject=Hi%20there&body=Line%20one%20%26%20two"],
+      ["CC c@example.com", "mailto:a@example.com?cc=c%40example.com&subject=Hi%20there&body=Line%20one%20%26%20two"],
+      ["BCC d@example.com", "mailto:a@example.com?cc=c%40example.com&bcc=d%40example.com&subject=Hi%20there&body=Line%20one%20%26%20two"],
+      ["To cleared, Subject Hi", "mailto:?subject=Hi"],
+      ["To bad", "mailto:bad?"]
+    ],
+    "button": "the href follows every change. Enter in To leaves the editor open",
+    "text": "no link until the close; Enter in Subject left the editor open; the close wrote <a href=\"mailto:a@example.com?subject=Hi%20there\">, reopened with the fields filled",
+    "undo": "after To, Subject, Body, CC, BCC and a close: undo 1 took BCC, undo 2 took CC, undo 3 took the whole link. So a run of typing is one step, up to a press of CC or BCC or the close",
+    "reopen": "the pill says Email, the fields are filled, CC and BCC shown when they hold a value, focus on the pill"
+  },
+  "phone": {
+    "fields": "Enter phone number with Clear, radios Call and Text, Call on by default",
+    "writes": [
+      ["+47 123 45 678", "tel:+4712345678", "the field shows +4712345678"],
+      ["Text", "sms:+4712345678"],
+      ["Call", "tel:+4712345678"],
+      ["12a3 b-4(5)", "tel:12345", "the field shows 12345"],
+      ["abc", "", "the field stays empty"],
+      ["Clear", "", "the panel goes back to Attach link"]
+    ],
+    "enter": "on a number: the link stands and the editor closes, on a button and on text (<a href=\"tel:12345\">). On an empty field the editor goes to the URL kind"
+  },
+  "switching": {
+    "reads": [
+      ["URL /about, then Email", "href empty"],
+      ["Email set, then Phone", "href empty"],
+      ["Email or Phone set, then URL", "href empty, target=_blank, box on, field focused"],
+      ["nothing set, Email then URL", "href empty, no target, box on"],
+      ["nothing set, File then URL", "href empty, no target, box on"],
+      ["after Phone then URL, /about and Enter", "href /about, target=_blank kept, box read off (1 read)"]
+    ],
+    "focus": "the pill on File, Email and Phone; the field on URL"
+  },
+  "panelRow": {
+    "look": "a grey box 276 wide, icon, name, a smaller second line, then Edit, Copy and Remove Link in capitals",
+    "reads": [["/about", "About", "/about"], ["email with CC and BCC", "a@example.com, +2", "Email"], ["email To only", "d@example.com", "Email"], ["tel:", "777", "Call"], ["sms:", "+4712345678", "Text"]]
+  },
+  "newTabControl": "Open link in new tab is a switch, 28 by 14, at 164 in the popover, green when on",
+  "url": {
+    "typedDomain": "example.com/x and Enter writes the same with https in front; the panel row shows it alone, no second line",
+    "typedNoEnter": "typed and closed without Enter: the link is written, on a button (https, read as typed) and on text (/about)",
+    "escape": "with the list showing, the first Escape takes the list and the editor stays; the next closes it. 2 of 2 on text; this explains the button read in LINKBOX.json"
+  },
+  "learnMore": "pressed once: Squarespace's help article on links opens in a new tab and the editor closes",
+  "emptyTo": "Enter in an empty To leaves the editor open",
+  "boxOnButton": {
+    "reads": [
+      ["/about and Enter", "no target, box off"],
+      ["tick", "no target, box on"],
+      ["close and reopen", "no target, box on"],
+      ["/contact and Enter", "target=_blank, box off"],
+      ["tick, close", "target=_blank"]
+    ],
+    "meaning": "the canvas takes target from the box at the next link change, and the box reads off after Enter, 3 of 3 with the read after Phone then URL. What is saved needs a Save"
+  },
+  "textSwitch": "a text link, then Email and a close with nothing filled: the link is gone, reopening shows URL, empty, box off"
+}

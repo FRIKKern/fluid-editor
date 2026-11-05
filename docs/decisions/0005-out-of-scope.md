@@ -24,6 +24,7 @@ Out of scope now:
 - **Answers that need a Save or an upload on the trial site (T7, P5, L5, T12).** Uploaded video, how an uploaded section picture fits, the published CSS of a hidden block, the published accordion. Probes never save or upload (O1). Ours is built from what the editor shows.
 - **A link that finds real content in an embed block (T10).** It goes through a lookup service of the host. Ours ends every link in the error text, and Custom thumbnail, which only an embedded video enables, stays off.
 - **What an embed's Description publishes (T10).** Reading it needs a Save.
+- **File links (E7).** Choosing a file means an upload on the trial site, and we have no file store. Ours shows File in the link menu, turned off.
 - **Pressing buttons that write outside the page (U10, U12).** Save Section, Reset and Reset Color Theme on the trial site. A probe does not press them, so what they do there stays unread. Ours keeps its own behaviour.
 
 ## Considered
