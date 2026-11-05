@@ -4,6 +4,7 @@
 import { brightness } from './color-math.js';
 import { themeRowsCss } from './theme-rows.js';
 import { tierCss } from './button-tiers.js';
+import { formCss } from './form-rows.js';
 
 export const PALETTES = [
   {"id":"#D9D9D9","vars":["0,0%,100%","0,0%,0%","0,0%,85.1%","0,0%,96.08%","0,0%,47.45%","0,0%,85.1%","0,0%,0%","0,0%,0%","0,0%,0%","0,0%,100%"]},
@@ -170,7 +171,7 @@ export function siteStylesCss(styles) {
   if (button) {
     css += `.sqs-block-button-element { border-radius: ${button.radius}; border: ${button.border}px solid var(--button-bg, #000); padding: ${button.pad}; }\n`;
   }
-  return css + tierCss(styles, button) + themeRowsCss(styles);
+  return css + tierCss(styles, button) + formCss(styles) + themeRowsCss(styles);
 }
 
 // What goes in the page head for the picks: the two fonts and the rules.

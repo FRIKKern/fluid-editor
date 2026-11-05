@@ -18,6 +18,7 @@ import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
 import { SUB as SS_SUB, siteStylesHtml, stylePopoverHtml, stylePopoverPosition, packFontLinks } from './site-styles.js';
 import { TIERS, TIER_NAMES, CUSTOM_RADIUS, tierValues } from './button-tiers.js';
+import { FORM_CUSTOM_RADIUS, formValues } from './form-rows.js';
 import { siteStylesHead, baseSize, resolveSiteStyles, VARS as PALETTE_VARS, BASE_VARS } from './site-style-packs.js';
 import { hslToRgb, rgbToHsl, rgbToHsv, hsvToRgb, hexToRgb, hueToRgb, clampByte, rgbToHslParts } from './color-math.js';
 import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette.js';
@@ -3845,7 +3846,7 @@ siteStyles.addEventListener('click', (e) => {
     ssTier = tierBtn.dataset.ssTier;
     if (tierBtn.getAttribute('role') === 'tab') { ssSelect = null; renderSsPanel(); return; }
   }
-  if (tierPress(e)) return;
+  if (tierPress(e) || formPress(e)) return;
   const open = e.target.closest('[data-ss-view]');
   if (open || e.target.closest('[data-ss-back]')) { ssThemeList = false; closeDotPop(); pal.list = false; }
   if (ssView === 'ColorTheme' && e.target.closest('[data-ss-back]')) {
@@ -3994,7 +3995,7 @@ dotPop.addEventListener('change', (e) => {
 });
 document.addEventListener('pointerdown', (e) => { if (dot && !dotPop.contains(e.target) && !e.target.closest?.('[data-ss-row]')) closeDotPop(); }, true);
 document.addEventListener('keydown', (e) => { if (dot && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeDotPop(); } }, true);
-document.addEventListener('keydown', (e) => { if (ssSelect === 'tier-shape' && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); ssSelect = null; renderSsPanel(); } }, true);
+document.addEventListener('keydown', (e) => { if ((ssSelect === 'tier-shape' || ssSelect === 'form-shape') && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); ssSelect = null; renderSsPanel(); } }, true);
 siteStyles.addEventListener('input', (e) => {
   if (!e.target.matches('.ss-slide input[type="range"]')) return;
   const r = e.target;
@@ -4004,6 +4005,27 @@ siteStyles.addEventListener('input', (e) => {
 // A button type's Shape list (parity/findings/CAP-BUTTONROWS.json): it stays open, and each press is one undo step.
 function setTier(label, change) {
   setSiteStyleKeys(`${TIER_NAMES[ssTier]} button ${label}`, (st) => { st.buttons = { ...(st.buttons || {}), [ssTier]: { ...(st.buttons?.[ssTier] || {}), ...change } }; return st; });
+}
+function setForms(label, change) {
+  setSiteStyleKeys(`Forms ${label}`, (st) => { st.forms = { ...(st.forms || {}), ...change }; return st; });
+}
+// The Forms view's rows (parity/findings/CAP-FORMROWS.json). Field Shape's list stays open, as Shape's does.
+function formPress(e) {
+  const f = formValues(model.siteStyles);
+  const shape = e.target.closest('[data-ss-fshape]');
+  if (shape) { const n = shape.dataset.ssFshape; const r = FORM_CUSTOM_RADIUS; setForms(n, n === 'Custom' ? { shape: n, multi: false, radii: [r, r, r, r] } : { shape: n }); return true; }
+  const radii = e.target.closest('[data-ss-fradii]');
+  if (radii) { setForms('corners', { multi: radii.dataset.ssFradii === 'multi' }); return true; }
+  if (e.target.closest('[data-ss-ffill]')) { setForms('fill', { fill: !f.fill }); return true; }
+  const border = e.target.closest('[data-ss-fborder]');
+  if (border) { setForms('border', { border: border.dataset.ssFborder === '1' }); return true; }
+  const thick = e.target.closest('[data-ss-fthick]');
+  if (thick) {
+    const n = Math.max(1, f.thick + Number(thick.dataset.ssFthick));
+    if (n !== f.thick) setForms('border thickness', { thick: n }); else renderSsPanel();
+    return true;
+  }
+  return false;
 }
 function tierPress(e) {
   const fill = e.target.closest('[data-ss-fill]');
@@ -4030,6 +4052,17 @@ function setSsValue(path, raw) {
 }
 siteStyles.addEventListener('change', (e) => {
   if (e.target.matches('[data-cformat]')) { const rgb = typedColor(e.target); if (rgb) setPalette({ [pal.swatch]: rgbToHsl(rgb) }, 'palette color'); return; }
+  if (e.target.matches('[data-ss-fthickin]')) {
+    const n = parseInt(e.target.value, 10);
+    if (Number.isFinite(n) && n >= 1) setForms('border thickness', { thick: n }); else renderSsPanel();
+    return;
+  }
+  if (e.target.matches('[data-ss-fradius]')) {
+    const n = Number(e.target.value), f = formValues(model.siteStyles), i = Number(e.target.dataset.ssFradius);
+    if (!Number.isFinite(n) || n < 0) { renderSsPanel(); return; }
+    setForms('corner', { radii: f.multi ? f.radii.map((r, k) => (k === i ? n : r)) : f.radii.map(() => n) });
+    return;
+  }
   if (e.target.matches('[data-ss-radius]')) {
     const n = Number(e.target.value), v = tierValues(model.siteStyles, resolveSiteStyles(model.siteStyles).button, ssTier), i = Number(e.target.dataset.ssRadius);
     if (!Number.isFinite(n) || n < 0) { renderSsPanel(); return; }
@@ -4067,7 +4100,7 @@ let styleConfirmKind = null;
 function hideStyleConfirm() { styleConfirm.hidden = true; styleConfirmKind = null; }
 function showStyleConfirm(kind) {
   styleConfirmKind = kind;
-  const word = kind === 'font' ? 'font' : 'button', box = styleConfirm.querySelector('.ss-confirm-box');
+  const word = kind === 'font' ? 'font' : kind === 'form' ? 'form' : 'button', box = styleConfirm.querySelector('.ss-confirm-box');
   box.classList.toggle('is-tall', kind === 'match');
   $('ss-confirm-reset').classList.toggle('is-plain', kind === 'match' || kind === 'apply');
   $('ss-confirm-reset').textContent = kind === 'match' ? 'Continue' : kind === 'apply' ? 'Apply to all' : 'Reset';
@@ -4079,7 +4112,7 @@ function showStyleConfirm(kind) {
     return;
   }
   // Reset Color Theme is ours: the oracle's was not pressed (decision 0005), so these words are our own.
-  $('ss-confirm-title').textContent = kind === 'theme' ? 'Reset Color Theme' : `Reset ${word === 'font' ? 'Font' : 'Button'} Pack`;
+  $('ss-confirm-title').textContent = kind === 'theme' ? 'Reset Color Theme' : `Reset ${word === 'font' ? 'Font' : word === 'form' ? 'Form' : 'Button'} Pack`;
   $('ss-confirm-body').textContent = kind === 'theme' ? 'Are you sure you want to reset this color theme to its default settings?' : `Are you sure you want to reset this ${word} pack to its default settings?`;
   styleConfirm.hidden = false;
 }
@@ -4108,7 +4141,7 @@ styleConfirm.addEventListener('click', (e) => {
     });
     return;
   }
-  setSiteStyleKeys(`Reset ${kind} pack`, (st) => { delete st[kind]; if (kind === 'button') delete st.buttons; if (kind === 'font') { delete st.base; delete st.type; } return st; });
+  setSiteStyleKeys(`Reset ${kind} pack`, (st) => { delete st[kind]; if (kind === 'button') delete st.buttons; if (kind === 'form') delete st.forms; if (kind === 'font') { delete st.base; delete st.type; } return st; });
 });
 // A style pack popover (parity/findings/SITESTYLES2.json). A tile sets that part of the site's
 // styles in one undo step and the popover stays open, as on the oracle.
@@ -4141,6 +4174,7 @@ function applyStylePick(t) {
   // A popover's palette replaces the palette's own edits.
   if (kind === 'palette') delete st.colors;
   if (kind === 'button') delete st.buttons;
+  if (kind === 'form') delete st.forms;
   model.siteStyles = kind === 'theme' ? { theme: t.dataset.v } : { ...st, [kind]: t.dataset.v };
   commit(before, `Site Styles: ${t.getAttribute('aria-label')}`);
   renderAll();

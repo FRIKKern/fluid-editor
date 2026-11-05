@@ -815,6 +815,20 @@ body.styles-open .bar { padding-right: 24px; }
 .ss-seg { display: flex; box-sizing: border-box; width: 256px; height: 36px; padding: 2px; border-radius: 6px; background: #f2f2f2; }
 .ss-seg button { flex: 0 0 126px; height: 32px; padding: 0; border: 0; border-radius: 4px; background: none; color: #6f6f6f; font: 500 13px/32px inherit; cursor: pointer; }
 .ss-seg button.is-on { background: #fff; color: #0e0e0e; }
+.ss-form-pop .ss-shapes { margin-top: 0; }
+.ss-toggle { position: relative; width: 28px; height: 16px; padding: 0; border: 0; border-radius: 8px; background: #bdbdbd; cursor: pointer; }
+.ss-toggle i { position: absolute; left: 2px; top: 2px; width: 12px; height: 12px; border-radius: 50%; background: #fff; }
+.ss-toggle.is-on { background: #3aa17e; }
+.ss-toggle.is-on i { left: 14px; }
+.ss-border-set { display: flex; gap: 6px; margin-right: 0; }
+.ss-fline-thick { position: relative; }
+.ss-thick-in { position: absolute; left: 146px; top: 0; width: 66px; height: 44px; padding: 0 6px 0 0; border: 0; background: none; font: inherit; color: inherit; text-align: right; box-sizing: border-box; }
+.ss-fstep { position: absolute; top: 4px; width: 36px; height: 36px; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; }
+.ss-fstep[aria-label="decrement"] { left: 216px; }
+.ss-fstep[aria-label="increment"] { left: 247px; }
+.ss-group-forms { padding-bottom: 1px; }
+.ss-form-pads { position: relative; }
+.ss-form-pads .ss-pad-set { top: 4px; }
 .ss-shapes { display: grid; grid-template-columns: repeat(3, 82px); gap: 11px 5px; margin-top: 16px; }
 .ss-shape { display: flex; align-items: center; justify-content: center; width: 82px; height: 90px; padding: 0; border: 0; border-radius: 4px; background: none; cursor: pointer; }
 .ss-shape i { display: block; box-sizing: border-box; width: 62px; height: 34px; background: #d8d8d8; color: #6f6f6f; font: 500 14px/34px "Helvetica Neue", Helvetica, Arial, sans-serif; font-style: normal; text-align: center; }

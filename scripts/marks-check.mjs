@@ -1734,6 +1734,89 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('A pack fills the rows', js(`return JSON.stringify(document.querySelector('.ss-tier-shape .ss-sel span').textContent);`) === 'Square', js(`return JSON.stringify(document.querySelector('.ss-tier-shape .ss-sel span').textContent);`));
 }
 
+// U12: the Forms rows, against parity/findings/CAP-FORMROWS.json.
+{
+  const near = (got, want, tol = 1) => Array.isArray(got) && got.length === want.length && got.every((v, n) => Math.abs(v - want[n]) <= tol);
+  const C = JSON.parse(readFileSync(new URL('../parity/findings/CAP-FORMROWS.json', import.meta.url))), B = C.boxes;
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const hit = async (sel, wait = 120) => { js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true';`); await pause(wait); };
+  const box = (sel) => js(`return JSON.stringify([...document.querySelectorAll(${JSON.stringify(sel)})].map((e) => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; }));`);
+  const set = async (label, v) => { js(`const e = document.querySelector('#site-styles .ss-slide input[type="range"][aria-label=${JSON.stringify(label)}]'); e.value = ${JSON.stringify(String(v))}; e.dispatchEvent(new Event('change', { bubbles: true })); return 'true';`); await pause(120); };
+  const start = async () => { viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1200); js(`const m = JSON.parse(JSON.stringify(fe.model)), b = m.sections[0].blocks[0]; m.sections[0].blocks.push({ id: 'marks-form', type: 'form', layout: JSON.parse(JSON.stringify(b.layout)), fields: [{ kind: 'name', label: 'Name', parts: ['First Name', 'Last Name'] }, { kind: 'text', label: 'Email (required)', type: 'email' }, { kind: 'text', label: 'Subject' }], submit: 'Submit' }); fe.load(m); return 'true';`); await pause(400); await hit('#site-styles-toggle', 300); await hit('[data-ss-view="Forms"]', 200); };
+  const field = () => js(`const d = document.getElementById('site-frame').contentDocument, e = d.querySelector('.fe-form input[type=email]') || d.querySelector('.fe-form input[type=text]'), c = d.defaultView.getComputedStyle(e), r = e.getBoundingClientRect(); return JSON.stringify({ radius: c.borderTopLeftRadius, w: c.borderTopWidth, edge: c.borderTopColor, bg: c.backgroundColor, pad: [c.paddingTop, c.paddingRight, c.paddingBottom, c.paddingLeft], h: Math.round(r.height * 10) / 10 });`);
+  const form = () => js(`const d = document.getElementById('site-frame').contentDocument, W = d.defaultView, q = (s) => d.querySelector('.fe-form ' + s), cs = (e) => W.getComputedStyle(e); return JSON.stringify({ label: cs(q('legend, label.title')).paddingBottom, cap: cs(q('label.caption, .caption-row')).paddingBottom, item: cs(q('.form-item')).marginBottom, gap: cs(q('.name-parts')).columnGap });`);
+  await start();
+  add('Forms: a Form block to read', js(`return JSON.stringify(!!document.getElementById('site-frame').contentDocument.querySelector('.fe-form'));`) === true);
+  add('Forms: Field Shape row lands', near(box('.ss-form-shape')[0], B.shapeRow));
+  add('Forms: Field Fill lands', near(box('.ss-toggle')[0], B.fill));
+  add('Forms: Border radios land', near(box('.ss-border-set button').flat(), B.borderRadios.flat()));
+  add('Forms: Border Thickness lands', near(box('.ss-thick-in')[0], B.thickInput));
+  add('Forms: decrement lands', near(box('.ss-fstep[aria-label="decrement"]')[0], B.decrement));
+  add('Forms: increment lands', near(box('.ss-fstep[aria-label="increment"]')[0], B.increment));
+  add('Forms: Padding radios land', near(box('.ss-form-pads .ss-pad').flat(), B.pads.flat()));
+  add('Forms: Reset lands', near(box('.ss-reset-forms')[0], B.reset));
+  add('Forms: rows read as the oracle\'s', js(`return JSON.stringify([document.querySelector('.ss-form-shape .ss-sel span').textContent, document.querySelector('.ss-toggle').getAttribute('aria-checked'), document.querySelector('[data-ss-fborder="1"]').getAttribute('aria-checked'), document.querySelector('.ss-thick-in').value, document.querySelector('.ss-form-pads .is-on').textContent]);`).join() === [C.defaults.shape, String(C.defaults.fill), String(C.defaults.border), C.defaults.thick, C.defaults.pad].join());
+  await hit('[data-ss-select="form-shape"]', 150);
+  add('Field Shape list: tiles land', near(box('.ss-form-pop .ss-shape').flat(), B.popTiles.flat()));
+  add('Field Shape list: Custom Corners lands', near(box('.ss-form-pop .ss-custom')[0], B.popCustom));
+  for (const n of ['Square', 'Rounded Rectangle', 'Pill']) { await hit(`[data-ss-fshape="${n}"]`, 120); add(`Field Shape ${n}: page`, field().radius === C.fieldShape[n], field().radius); add(`Field Shape ${n}: list stays`, js(`return JSON.stringify(!!document.querySelector('.ss-form-pop'));`) === true); }
+  await hit('[data-ss-fshape="Custom"]', 120);
+  add('Field Shape Custom: opens at 5', field().radius === C.fieldShape.customOpensAt, field().radius);
+  js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(100);
+  add('Escape closes the Field Shape list', js(`return JSON.stringify(!document.querySelector('.ss-form-pop'));`) === true);
+  await hit('[data-ss-select="form-shape"]', 120); await hit('[data-ss-fshape="Pill"]', 120); js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(100);
+  let f = field();
+  add('Field Fill off: clear', f.bg === 'rgba(0, 0, 0, 0)', f.bg);
+  await hit('[data-ss-ffill]', 120); f = field();
+  add('Field Fill on: white', f.bg === C.fill.on, f.bg);
+  add('Field Fill: one undo step', js(`fe.undo(); return JSON.stringify(fe.model.siteStyles.forms.fill ?? false);`) === false);
+  await hit('[data-ss-ffill]', 120);
+  await hit('[data-ss-fborder="0"]', 120); f = field();
+  add('Border off: clear, same height', f.edge === C.border.none[2] && f.h === C.border.noneKeepsHeight, JSON.stringify(f));
+  await hit('[data-ss-fborder="1"]', 120); f = field();
+  add('Border on', f.w === C.border.box[0] && f.edge === C.border.box[2], JSON.stringify(f));
+  await hit('[data-ss-fthick="-1"]', 120);
+  add('Border Thickness stops at 1', field().w === `${C.thickness.min}px`, field().w);
+  for (const n of [2, 3]) { await hit('[data-ss-fthick="1"]', 120); f = field(); add(`Border Thickness ${n}`, f.w === `${n}px` && f.h === C.thickness.heightByThick[n], JSON.stringify(f)); add(`Border Thickness ${n}: the row reads`, js(`return JSON.stringify(document.querySelector('.ss-thick-in').value);`) === `${n}px`); }
+  await hit('[data-ss-fthick="-1"]', 100); await hit('[data-ss-fthick="-1"]', 100);
+  for (const n of ['S', 'M', 'L']) { await hit(`.ss-form-pads .ss-pad[data-v="${n}"]`, 120); f = field(); add(`Field padding ${n}`, f.pad.join() === C.padding[n].join(), JSON.stringify(f.pad)); }
+  await hit('.ss-form-pads .ss-pad[data-v="custom"]', 120);
+  for (const [n, want] of [['Top', 10], ['Right', 20], ['Bottom', 10], ['Left', 20]]) add(`Field padding ${n}: starts`, js(`return JSON.stringify(Number(document.querySelector('.ss-slide input[type="range"][aria-label="${n}"]').value));`) === want);
+  for (const [n, v] of [['Top', 12], ['Right', 25], ['Bottom', 14], ['Left', 18]]) await set(n, v);
+  add('Field padding: its own sides', field().pad.join() === C.padding.custom.T12R25B14L18.join(), JSON.stringify(field().pad));
+  await hit('.ss-form-pads .ss-pad[data-v="L"]', 120);
+  await hit('[data-ss-view="FormSpacing"]', 200);
+  add('Form Spacing: title', js(`return JSON.stringify(document.querySelector('.ss-title').textContent);`) === 'Form Spacing');
+  for (const [n, y] of Object.entries(B.spacingSliders)) add(`${n}: lands`, Math.abs(box(`.ss-slide input[type="range"][aria-label="${n}"]`)[0][1] - y) <= 1.5, JSON.stringify(box(`.ss-slide input[type="range"][aria-label="${n}"]`)));
+  for (const [n, v] of Object.entries(C.spacing.defaults)) add(`${n}: starts`, js(`return JSON.stringify(Number(document.querySelector('.ss-slide input[type="range"][aria-label="${n}"]').value));`) === v);
+  await set('Space Below Label', 30); add('Space Below Label: page', form().label === '30px', form().label);
+  await set('Space Below Caption', 25); add('Space Below Caption: page', form().cap === '25px', form().cap);
+  await set('Space Between Fields', 35); add('Space Between Fields: page', form().item === '35px', form().item);
+  await set('Space Between Columns', 32); add('Space Between Columns: page', form().gap === '32px', form().gap);
+  // A pack sets the rows, a row then changes one, and Reset, ours, clears both.
+  await start();
+  await hit('[data-ss-view="FormPacks"]', 200);
+  for (const id of Object.keys(C.packs).filter((k) => k.startsWith('form-pack'))) {
+    await hit(`[data-ss-pick="form"][data-v="${id}"]`, 150); f = field();
+    add(`${id}: padding`, f.pad.join() === C.packs[id].p.join(), JSON.stringify(f.pad));
+    add(`${id}: border width`, f.w === C.packs[id].bw, f.w);
+    add(`${id}: corner`, f.radius === C.packs[id].radius, f.radius);
+    add(`${id}: tight labels`, form().label === '4px' && form().cap === '2px', JSON.stringify(form()));
+  }
+  await hit('[data-ss-back]', 200);
+  add('A pack fills the rows', js(`return JSON.stringify([document.querySelector('.ss-form-shape .ss-sel span').textContent, document.querySelector('.ss-toggle').getAttribute('aria-checked')]);`).join() === 'Pill,true');
+  await hit('[data-ss-fthick="1"]', 120);
+  add('A row on top of a pack', field().w === '2px' && field().radius === C.packs['form-pack-06'].radius, JSON.stringify(field()));
+  await hit('.ss-reset-forms', 150);
+  add('Reset Form Pack asks first', js(`return JSON.stringify(document.getElementById('ss-confirm-title').textContent);`) === 'Reset Form Pack');
+  js(`document.getElementById('ss-confirm-reset').click(); return 'true';`); await pause(200);
+  add('Reset Form Pack: clears the pack and the rows', js(`return JSON.stringify([fe.model.siteStyles.form ?? null, fe.model.siteStyles.forms ?? null]);`).join() === ',', JSON.stringify(field()));
+  await hit('[data-ss-back]', 200);
+  await hit('[data-ss-pop="Forms"]', 250); await hit('#ss-popover [data-ss-pick="form"][data-v="form-pack-03"]', 200);
+  add('A pack from the popover', field().radius === C.packs['form-pack-03'].radius, field().radius);
+  js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(100);
+}
+
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
 if (pass !== total) process.exit(1);
