@@ -8,6 +8,7 @@ import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPanelTop, sectionLook } from './section-layouts.js';
+import { artSeg, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder } from './phone-order.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
@@ -1995,7 +1996,7 @@ function writeSecColor(u, css) {
   const s = S(u.sid);
   if (u.section === 'divider') { if (css) s.dividerColor = css; else delete s.dividerColor; return; }
   const k = Number(u.section.slice(4)), colors = [...s.bgArt.colors];
-  colors[k] = css || artDefaults(s.bgArt.name)[k];
+  colors[k] = css || artDefaults(s.bgArt.name)[k] || '#000000';
   s.bgArt = { ...s.bgArt, colors };
 }
 const secColorSet = (u) => { const s = S(u.sid); if (u.section === 'divider') return !!s.dividerColor; const k = Number(u.section.slice(4)); return s.bgArt?.colors[k] !== artDefaults(s.bgArt?.name)[k]; };
@@ -3260,6 +3261,11 @@ function onSectionClick(e) {
   const redraw = () => { renderPanel(); if (editSid) renderSectionPanel(); };
   if (act === 'view') { secView = v || null; secMore = {}; const n = sectionPanel; n.scrollTop = 0; redraw(); n.scrollTop = 0; return; }
   if (act === 'filterOpen') { filterOpen = !filterOpen; redraw(); return; }
+  // Art's rows (parity/findings/CAP-ARTROWS.json): folds and tabs are not page changes, each value is one undo step.
+  if (act === 'artFold') { const k = `artFold:${v}`; secMore = { ...secMore, [k]: !secMore[k] }; redraw(); return; }
+  if (act === 'artTab') { secMore = { ...secMore, artCustom: v === 'custom' }; redraw(); return; }
+  if (act === 'artFilterOpen') { secMore = { ...secMore, artFilterOpen: !secMore.artFilterOpen }; redraw(); return; }
+  if (act === 'artAddImage') { sectionPanel.querySelector('[data-art-image]').click(); return; }
   if (act === 'storageTip') { tipOpen = !tipOpen; redraw(); return; }
   if (v === 'more') { secMore = { ...secMore, [act]: !secMore[act] }; redraw(); return; }
   if (act === 'gap' && v === 'custom') { customGap = true; renderPanel(); if (editSid) renderSectionPanel(); return; }
@@ -3289,6 +3295,9 @@ function onSectionClick(e) {
     if (v === 'none') delete s.bgArt; else if (s.bgArt?.name !== v) s.bgArt = { name: v, colors: artDefaults(v) };
   }
   if (act === 'artShuffle' && s.bgArt) { const c = [...s.bgArt.colors]; do { c.sort(() => Math.random() - 0.5); } while (c.length > 1 && c.join() === s.bgArt.colors.join()); s.bgArt = { ...s.bgArt, colors: c }; }
+  if (act === 'artSeg' && s.bgArt) s.bgArt = { ...s.bgArt, set: artSeg(s.bgArt.name, s.bgArt.set || {}, btn.dataset.k, v) };
+  if (act === 'artPreset' && s.bgArt) s.bgArt = { ...s.bgArt, set: { ...s.bgArt.set, preset: v } };
+  if (act === 'artFilter' && s.bgArt) { secMore = { ...secMore, artFilterOpen: false }; s.bgArt = { ...s.bgArt, set: { ...s.bgArt.set, filter: v } }; if (JSON.stringify(model) === before) { redraw(); return; } }
   if (act === 'artInvert' && s.bgArt) s.bgArt = { ...s.bgArt, colors: [...s.bgArt.colors].reverse() };
   if (act === 'bgFilter') { filterOpen = false; if (v === 'None') { delete s.bgFilter; delete s.bgFilterStrength; } else s.bgFilter = v; if (JSON.stringify(model) === before) { redraw(); return; } }
   if (act === 'bgSpeed') { const n = Math.min(2, Math.max(0.5, (s.bgSpeed ?? 1) + Number(v))); if (n === 1) delete s.bgSpeed; else s.bgSpeed = n; }
@@ -3319,6 +3328,14 @@ function onSectionChange(e) {
   const before = JSON.stringify(model);
   const s = S(secSid());
   const act = input.dataset.act;
+  if (act === 'artRange' || act === 'artCheck') {
+    if (!s.bgArt) return;
+    s.bgArt = { ...s.bgArt, set: { ...s.bgArt.set, [input.dataset.k]: act === 'artCheck' ? input.checked : clampArt(input) } };
+    if (JSON.stringify(model) === before) return;
+    commit(before, `Art ${input.getAttribute('aria-label')} changed`);
+    renderPanel(); if (editSid) renderSectionPanel();
+    return;
+  }
   if (act === 'anchor') {
     const v = input.value.trim().replace(/[^A-Za-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '');
     if (v) s.anchor = v; else delete s.anchor;
@@ -3359,10 +3376,23 @@ panel.addEventListener('click', onSectionClick, true);
 panel.addEventListener('change', onSectionChange);
 sectionPanel.addEventListener('click', onSectionClick, true);
 sectionPanel.addEventListener('change', onSectionChange);
+sectionPanel.addEventListener('change', async (e) => {
+  const input = e.target.closest('input[data-art-image]');
+  if (!input?.files[0] || !S(secSid())?.bgArt) return;
+  const s = S(secSid()), before = JSON.stringify(model);
+  const src = await new Promise((ok) => { const r = new FileReader(); r.onload = () => ok(r.result); r.onerror = () => ok(null); r.readAsDataURL(input.files[0]); });
+  if (!src) return;
+  s.bgArt = { ...s.bgArt, set: { ...s.bgArt.set, custom: src } };
+  commit(before, 'Art image set');
+  renderPanel(); if (editSid) renderSectionPanel();
+});
 // The slider's number follows the drag; the section itself changes on release.
 sectionPanel.addEventListener('input', (e) => {
   if (e.target.matches('.sp-custom-height input[type="range"]')) e.target.nextElementSibling.value = e.target.value;
   if (e.target.matches('.sp-slide input[type="range"]')) e.target.nextElementSibling.value = e.target.value + (e.target.dataset.unit || '');
+  if (e.target.matches('.ar-range input[type="range"], .ar-inline input[type="range"]')) e.target.style.setProperty('--p', `${((e.target.value - e.target.min) / (e.target.max - e.target.min)) * 100}%`);
+  if (e.target.matches('.ar-range input[type="range"]')) e.target.parentElement.querySelector('input[type="text"]').value = String(+(+e.target.value).toFixed(2));
+  if (e.target.matches('.ar-inline input[type="range"]')) e.target.nextElementSibling.value = String(+(+e.target.value).toFixed(2));
   if (e.target.matches('.sp-align-slide')) sectionPanel.querySelector('.sp-align-row input').value = `${e.target.value}px`;
 });
 // Color rows of the section panel use the same picker as blocks (Reset to theme, five swatches, Custom color).
@@ -3647,10 +3677,32 @@ function renderSsPanel() {
   const top = siteStyles.scrollTop;
   siteStyles.innerHTML = siteStylesHtml(model.siteStyles, ssView, rows, opts);
   siteStyles.scrollTop = top;
+  placeThemeChips();
   const tip = siteStyles.querySelector('.ss-tip');
   if (tip) tip.style.top = `${siteStyles.querySelector('.ss-help').getBoundingClientRect().top - 16}px`;
   if (stylePopKind) siteStyles.querySelector(`[data-ss-pop="${stylePopKind}"]`)?.setAttribute('aria-expanded', 'true');
 }
+// The Aa chips Edit Color Theme shows on each section (parity/findings/CAP-ARTROWS.json): a press opens that
+// theme's rows. They sit over the frame, so the site's own DOM stays as it is.
+function placeThemeChips() {
+  const host = $('theme-chips'), on = ssView === 'ColorTheme' || ssView === 'ThemeRows';
+  host.hidden = !on;
+  if (!on) { host.innerHTML = ''; return; }
+  const f = frame.getBoundingClientRect(), css = (e) => doc.defaultView.getComputedStyle(e);
+  const head = doc.querySelector('header')?.getBoundingClientRect().bottom ?? 0;
+  host.innerHTML = [...doc.querySelectorAll('.page-section')].map((el) => {
+    const r = el.getBoundingClientRect(), v = (el.dataset.sectionTheme || 'light').replace(/^theme-/, '');
+    const name = THEMES.find(([, t]) => t === v)?.[0] || 'Light 1', top = Math.max(r.top, head) + 11;
+    if (top + 44 < 0 || top > r.bottom || top > f.height) return '';
+    let bg = el; while (bg.parentElement && css(bg).backgroundColor === 'rgba(0, 0, 0, 0)') bg = bg.parentElement;
+    return `<button type="button" class="theme-chip" data-chip-theme="${name}" aria-label="Edit ${name}" style="top:${f.top + top}px;right:${innerWidth - f.right + 6}px;--chip-bg:${css(bg).backgroundColor};color:${css(el).color}"><span class="theme-chip-aa">Aa</span><span class="theme-chip-n">${name}</span></button>`;
+  }).join('');
+}
+$('theme-chips').addEventListener('click', (e) => {
+  const c = e.target.closest('[data-chip-theme]');
+  if (!c) return;
+  closeStylePopover(); ssTheme = c.dataset.chipTheme; ssView = 'ThemeRows'; ssSelect = null; renderSsPanel(); siteStyles.scrollTop = 0;
+});
 function setSiteStyles(on) {
   if (on) {
     closeFloating(); closeSectionPanel(); ssView = null;
@@ -3659,6 +3711,8 @@ function setSiteStyles(on) {
   }
   closeStylePopover();
   hideStyleConfirm();
+  if (!on) ssView = null;
+  placeThemeChips();
   siteStyles.hidden = !on;
   document.body.classList.toggle('styles-open', on);
   $('site-styles-toggle').setAttribute('aria-pressed', String(on));
@@ -4321,7 +4375,7 @@ document.addEventListener('keydown', onKey);
 
 // ---------- boot ----------
 function boot() {
-  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); if (editing) renderTextBar(); }, { passive: true });
+  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
   // The canvas changes width when the layout switches; place the overlays again once it has.
   // Watch the canvas page itself: it reflows after the canvas element changes width.
   new frame.contentWindow.ResizeObserver(() => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); }).observe(frame.contentDocument.body);

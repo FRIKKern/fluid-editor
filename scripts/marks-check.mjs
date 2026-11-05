@@ -1317,6 +1317,77 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('View Layouts off on a blank section', blank && blank.off, JSON.stringify(blank));
 }
 
+// P5: Art's rows on each tile and the Aa chips, against parity/findings/CAP-ARTROWS.json.
+{
+  const AR = JSON.parse(readFileSync(new URL('../parity/findings/CAP-ARTROWS.json', import.meta.url)));
+  const startup = async () => { goto(S, `${BASE}/index.html`); await pause(800); evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`); goto(S, `${BASE}/index.html`); await pause(1300); mouse(S, 'move', 800, 300); await pause(150); mouse(S, 'move', 803, 302); await pause(250); };
+  const hit = (sel) => evalJs(S, `(() => { const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true'; })()`);
+  const undos = () => evalJs(S, `(() => { fe.undo(); return 'true'; })()`);
+  await startup();
+  hit('[data-sc="edit"]'); await pause(250);
+  hit('#section-panel [data-sact="tab"][data-v="Background"]'); await pause(150);
+  hit('#section-panel [data-sact="bgKind"][data-v="Art"]'); await pause(150);
+  const tileOpen = async (id) => { hit(`#section-panel [data-sact="art"][data-v="${id}"]`); await pause(200); evalJs(S, `(() => { document.querySelector('#section-panel .sp-art-tile.is-on [data-sact="view"]').click(); return 'true'; })()`); await pause(150); };
+  const back = async () => { hit('#section-panel .sp-subback'); await pause(120); };
+  for (const [id, T] of Object.entries(AR.tiles)) {
+    await tileOpen(id);
+    const folds = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-panel .ar-fold-b')].map((b) => b.textContent.trim())))()`);
+    for (const n of folds) { evalJs(S, `(() => { [...document.querySelectorAll('#section-panel .ar-fold-b')].find((b) => b.textContent.trim() === ${JSON.stringify(n)}).click(); return 'true'; })()`); await pause(50); }
+    const got = evalJs(S, `(() => { const p = document.getElementById('section-panel'), q = p.getBoundingClientRect(); return JSON.stringify([...p.querySelectorAll('.ar-fold-b,.ar-seg,input[type=range],input[type=checkbox],.sp-art-color,.sp-shuffle,.sp-invert,.ar-tab,.ar-preset')].map((e) => { const r = e.getBoundingClientRect(); return [e.tagName, e.classList.contains('ar-seg') && e.dataset.v === 'more' ? e.getAttribute('aria-label') : e.textContent.trim().slice(0, 24) || e.getAttribute('aria-label') || '', r.left - q.left, r.top - q.top + p.scrollTop, r.width, r.height]; })); })()`);
+    const errs = [];
+    for (const b of T.boxes) {
+      if (b[1] === 'Back') continue;
+      const h = got.find((x) => !x.used && Math.abs(x[3] - b[3]) <= 3 && Math.abs(x[2] - b[2]) <= 3 && (x[1] === b[1] || !b[1] || (b[0] === 'BUTTON' && x[0] === 'BUTTON' && b[4] < 100))) || got.find((x) => !x.used && x[0] === 'INPUT' && b[0] === 'INPUT' && x[1] === b[1] && b[5] < 14 && Math.abs(x[3] - b[3]) <= 3);
+      if (!h) errs.push(`${b[1]} at ${b[3]}`); else h.used = true;
+    }
+    add(`Art ${id}: every row at the oracle's place`, errs.length === 0, errs.slice(0, 4).join(' | '));
+    const starts = T.folds.flatMap((f) => f.rows).concat(T.root).flatMap((r) => (r.range !== undefined ? [[r.range, r.v]] : r.on === 'more' ? r.sliders.filter((x) => x.label).map((x) => [x.label, x.v]) : []));
+    const vals = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-panel input[type=range]')].map((e) => [e.getAttribute('aria-label'), Number(e.value)])))()`);
+    const miss = starts.filter(([l, v]) => !vals.some((x) => x[0] === l && x[1] === v));
+    add(`Art ${id}: starting values`, miss.length === 0, JSON.stringify(miss.slice(0, 4)));
+    await back();
+  }
+  // Isometric Speed: a preset's value goes to its slider, one undo each; a fold is no page change.
+  await tileOpen('isometric');
+  const steps = () => evalJs(S, `(() => JSON.stringify(fe.canUndo))()`);
+  evalJs(S, `(() => { [...document.querySelectorAll('#section-panel .ar-fold-b')].find((b) => b.textContent.trim() === 'Motion').click(); return 'true'; })()`); await pause(80);
+  const speed = () => evalJs(S, `(() => JSON.stringify(fe.model.sections[0].bgArt.set || {}))()`);
+  const k = evalJs(S, `(() => { const b = [...document.querySelectorAll('#section-panel .ar-seg')].find((x) => x.textContent.trim() === '.5x' && x.closest('.ar-fold').querySelector('.ar-fold-b').textContent.trim() === 'Motion'); b.click(); return JSON.stringify(b.dataset.k); })()`); await pause(100);
+  add('Art: a preset writes its value', speed()[k] === 0 && speed()[`${k}.0`] === 10, JSON.stringify(speed()));
+  evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(100);
+  add('Art: one undo a press', speed()[k] === undefined, JSON.stringify(speed()));
+  await back();
+  // Images: presets, Filter, Wave.
+  await tileOpen('images');
+  const imgRead = () => evalJs(S, `(() => { const p = document.getElementById('section-panel'); return JSON.stringify({ presets: [...p.querySelectorAll('.ar-preset')].map((e) => e.getAttribute('aria-label')), on: p.querySelector('.ar-preset.is-on')?.getAttribute('aria-label'), filter: p.querySelector('.ar-filter .sp-select span')?.textContent, wave: !!p.querySelector('input[aria-label="Wave speed"]'), set: fe.model.sections[0].bgArt.set || {} }); })()`);
+  const i0 = imgRead();
+  add('Images: presets and the one on', JSON.stringify(i0.presets) === JSON.stringify(AR.images.presets) && i0.on === AR.images.presetOn, JSON.stringify(i0));
+  hit('#section-panel .ar-preset[aria-label="Blob 1"]'); await pause(100);
+  add('Images: a preset press', imgRead().on === 'Blob 1');
+  hit('#section-panel .ar-filter .sp-select'); await pause(100);
+  add('Images: Filter list', JSON.stringify(evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-panel .ar-filter .sp-option')].map((e) => e.textContent)))()`)) === JSON.stringify(AR.images.filter));
+  hit('#section-panel .ar-filter .sp-option[data-v="Cube"]'); await pause(100);
+  add('Images: Filter pick', imgRead().filter === 'Cube');
+  add('Images: Wave on shows its sliders', i0.wave);
+  hit('#section-panel input[aria-label="Wave"]'); await pause(120);
+  add('Images: Wave off hides them', imgRead().wave === false);
+  hit('#section-panel .ar-tab[data-v="custom"]'); await pause(100);
+  add('Images: Custom image tab', evalJs(S, `(() => JSON.stringify(document.querySelector('#section-panel .ar-add')?.textContent))()`) === 'Add an Image');
+  await back();
+  // Aa chips: over the frame in Edit Color Theme, a press opens that theme's rows, none outside it.
+  hit('#section-panel [data-sact="tab"][data-v="Colors"]'); await pause(150);
+  hit('#section-panel [data-sbg="themes"]'); await pause(500);
+  const chips = () => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('.theme-chip')].map((e) => { const r = e.getBoundingClientRect(), a = e.querySelector('.theme-chip-aa').getBoundingClientRect(); return [e.dataset.chipTheme, r.left, r.top, r.width, r.height, a.left]; })))()`);
+  const c0 = chips(), first = c0[0], A = AR.chips;
+  add('Aa chip: the first box', first && first[4] === 44 && Math.abs(first[1] + first[3] - (A.chip[0] + A.chip[2])) <= 1 && Math.abs(first[2] - A.chip[1]) <= 3 && Math.abs(first[3] - A.chip[2]) <= 2, JSON.stringify(first));
+  add('Aa chip: Aa inside it', first && Math.abs(first[5] - first[1] - 16) <= 1, JSON.stringify(first));
+  evalJs(S, `(() => { window.__chipModel = JSON.stringify(fe.model); document.querySelector('.theme-chip').click(); return 'true'; })()`); await pause(250);
+  add('Aa chip: a press opens that theme\'s rows', evalJs(S, `(() => JSON.stringify([document.querySelector('.ss-tr-now .ss-tr-n')?.textContent, document.querySelectorAll('.ss-theme-row').length]))()`).join() === `${first[0]},13`, JSON.stringify(first));
+  add('Aa chip: changes nothing on the page', evalJs(S, `(() => JSON.stringify(window.__chipModel === JSON.stringify(fe.model)))()`) === true);
+  evalJs(S, `(() => { document.querySelector('.ss-close').click(); return 'true'; })()`); await pause(250);
+  add('Aa chips: gone when the panel closes', evalJs(S, `(() => JSON.stringify(document.querySelectorAll('.theme-chip').length))()`) === 0);
+}
+
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
 if (pass !== total) process.exit(1);
