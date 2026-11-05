@@ -76,10 +76,11 @@ goto(S, `${BASE}/index.html?replay`);
 waitFor(S, '(() => !!window.fe)()', 20);
 await pause(800);
 // Press on the block or a handle, move by dx, dy, read, then cancel and undo.
+const HOLD_IDS = evalJs(S, `JSON.stringify(fe.model.sections[${F.section}].blocks.map((b) => b.id))`);
 const hold = (block, dir, dx, dy, drop = false) => evalJs(S, `(async () => { ${FRAME}
-  const b = d.querySelector('.fe-block[data-block-id="' + s.blocks[${block}].id + '"]');
+  const b = d.querySelector('.fe-block[data-block-id="${HOLD_IDS[block]}"]');
   b.scrollIntoView({ block: 'center' }); await sleep(150);
-  fe.select(s.id, s.blocks[${block}].id); await sleep(50);
+  fe.select(s.id, '${HOLD_IDS[block]}'); await sleep(50);
   const el = ${dir ? `d.querySelector('.fe-handle[data-dir="${dir}"]')` : 'b'};
   const q = el.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2;
   const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 };
@@ -240,9 +241,9 @@ const layerCase = (name, steps, remove) => {
   const got = layerRun(steps, remove);
   steps.forEach((st, k) => groupCases.push({ name: `layers ${name} ${k + 1}`, diffs: [JSON.stringify(got[k].rows) !== JSON.stringify(st.rows) && `rows: oracle ${st.rows}, ours ${got[k].rows}`, JSON.stringify(got[k].z) !== JSON.stringify(st.z) && `z: oracle ${st.z}, ours ${got[k].z}`, !got[k].held && 'no ghost and slot while held'].filter(Boolean) }));
 };
-{ const r = evalJs(S, `(async () => { ${FRAME} const b = d.querySelector('.fe-block[data-block-id="' + s.blocks[2].id + '"]'); b.scrollIntoView({ block: 'center' }); await sleep(150); fe.select(s.id, s.blocks[2].id); await sleep(30);
+{ const r = evalJs(S, `(async () => { ${FRAME} const b = d.querySelector('.fe-block[data-block-id="${HOLD_IDS[2]}"]'); b.scrollIntoView({ block: 'center' }); await sleep(150); fe.select(s.id, '${HOLD_IDS[2]}'); await sleep(30);
     document.querySelector('button[data-sc="layers"]').click(); await sleep(50);
-    const p = document.getElementById('layers-panel').getBoundingClientRect(), li = document.querySelector('#layers-panel li[data-layer="' + s.blocks[2].id + '"]'), q = li.getBoundingClientRect(), st = getComputedStyle(li), ic = li.querySelector('.lp-icon svg').getBoundingClientRect(), n = li.querySelector('.lp-name').getBoundingClientRect();
+    const p = document.getElementById('layers-panel').getBoundingClientRect(), li = document.querySelector('#layers-panel li[data-layer="${HOLD_IDS[2]}"]'), q = li.getBoundingClientRect(), st = getComputedStyle(li), ic = li.querySelector('.lp-icon svg').getBoundingClientRect(), n = li.querySelector('.lp-name').getBoundingClientRect();
     const out = { row: [q.left - p.left, q.width, q.height], bg: getComputedStyle(document.querySelector('#layers-panel li:not(.is-on)')).backgroundColor, radius: st.borderRadius, icon: [ic.left - q.left, ic.top - q.top, ic.width, ic.height], name: n.left - q.left, font: st.fontSize, fill: !!li.querySelector('.lp-icon rect[fill="currentColor"]') };
     document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return JSON.stringify(out); })()`);
   groupCases.push({ name: 'layers row look', diffs: [JSON.stringify(r.row) !== '[11,218,44]' && `row ${r.row}`, r.bg !== 'rgb(249, 249, 249)' && r.bg, r.radius !== '6px' && r.radius, JSON.stringify(r.icon) !== '[17,11,22,22]' && `icon ${r.icon}`, r.name !== 50 && `name ${r.name}`, r.font !== '14px' && r.font, !r.fill && 'shape icon not filled'].filter(Boolean) }); }
@@ -268,7 +269,7 @@ const sweep = (sw, moves, release = 'pointercancel', handle = null) => evalJs(S,
     const ring = d.querySelector('.fe-transform-indicator'), line = d.querySelector('.fe-center-line'), q = b.getBoundingClientRect(), l = line && W.getComputedStyle(line), other = block('other');
     out.push({ ring: ring ? W.getComputedStyle(ring).gridArea : null, bx: q.left - q0.left, by: q.top - q0.top, w: q.width, h: q.height, gapBelow: bottom() - q.bottom, otherTx: other ? other.getBoundingClientRect().left - ${sw.other ? `(() => { const a = fe.measure('hold'); return a.colStart[${area(sw.other || '0 / 1')[1] - 1}]; })()` : '0'} : null, feH: d.querySelector('.fluid-engine').getBoundingClientRect().height, line: !line || l.display === 'none' ? null : l.borderLeftStyle === 'solid' ? 'centered' : 'normal' }); }
   d.dispatchEvent(new W.PointerEvent('${release}', { ...o, buttons: 0 })); await sleep(30);
-  const after = fe.model.sections[0].blocks[0].layout['${sw.view || 'desktop'}'].area.join(' / ');
+  const after = fe.model.sections[0].blocks.find((x) => x.id === 'held').layout['${sw.view || 'desktop'}'].area.join(' / ');
   fe.setBp('desktop'); return JSON.stringify({ out, after }); })()`);
 for (const sw of H.sweeps) {
   const { out } = sweep(sw, sw.moves.map((m) => [m.dx, m.dy]), 'pointercancel', sw.handle || null);
@@ -293,7 +294,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
 { const got = evalJs(S, `(async () => { const sleep = (m) => new Promise((r) => setTimeout(r, m)); const out = {}; const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow;
     for (const [type, area, extra] of [['line', [1, 2, 2, 6], {}], ['shape', [1, 2, 7, 8], { fill: '#ccc' }], ['image', [1, 2, 7, 8], { src: '', empty: true }], ['form', [1, 2, 7, 8], {}], ['scrolling', [1, 2, 7, 8], {}], ['map', [1, 2, 7, 8], {}], ['social', [1, 2, 7, 8], {}], ['quote', [1, 2, 7, 8], {}], ['button', [1, 2, 3, 8], {}]]) {
       fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [{ id: 'k', type, label: 'k', layout: { desktop: { area, z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } }, ...extra }] }] }); await sleep(80); fe.select('s', 'k'); await sleep(60);
-      const hs = [...d.querySelectorAll('.fe-handle')]; const q = d.querySelector('.fe-block').getBoundingClientRect(); const on = (fx) => !!d.elementFromPoint(q.left + q.width * fx, q.top + q.height / 2)?.closest('.fe-handle');
+      const hs = [...d.querySelectorAll('.fe-handle')]; const q = d.querySelector('.fe-block[data-block-id="k"]').getBoundingClientRect(); const on = (fx) => !!d.elementFromPoint(q.left + q.width * fx, q.top + q.height / 2)?.closest('.fe-handle');
       out[type] = { cursors: hs.map((h) => W.getComputedStyle(h).cursor).join(), size: hs[0] && hs[0].getBoundingClientRect().width, middle: on(0.5), along: on(0.3) }; }
     return JSON.stringify(out); })()`);
   const CUR = 'nw-resize,row-resize,ne-resize,col-resize,se-resize,row-resize,sw-resize,col-resize';
@@ -301,8 +302,8 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
 }
 // X6 with the real mouse (LINEHIT.json): 30 percent along moves a selected one-row Line, the middle grows it, a click keeps it selected.
 { const load = async (area) => evalJs(S, `(async () => { fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [{ id: 'k', type: 'line', label: 'k', layout: { desktop: { area: ${JSON.stringify(area)}, z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }] }] }); await new Promise((r) => setTimeout(r, 80)); fe.select('s', 'k'); await new Promise((r) => setTimeout(r, 60)); return JSON.stringify(1); })()`);
-  const at = (fx) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), b = f.contentDocument.querySelector('.fe-block').getBoundingClientRect(); return JSON.stringify({ x: q.left + b.left + b.width * ${fx}, y: q.top + b.top + b.height / 2 }); })()`);
-  const area = () => evalJs(S, `JSON.stringify(fe.model.sections[0].blocks[0].layout.desktop.area.join('/'))`);
+  const at = (fx) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), b = f.contentDocument.querySelector('.fe-block[data-block-id="k"]').getBoundingClientRect(); return JSON.stringify({ x: q.left + b.left + b.width * ${fx}, y: q.top + b.top + b.height / 2 }); })()`);
+  const area = () => evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.find((x) => x.id === 'k').layout.desktop.area.join('/'))`);
   const selected = () => evalJs(S, `JSON.stringify(document.getElementById('site-frame').contentDocument.querySelectorAll('.fe-handle').length === 8)`);
   const press = async (fx, dx, dy) => { const p = at(fx); mouse(S, 'move', p.x, p.y); await pause(40); mouse(S, 'down', p.x, p.y, { buttons: 1 }); await pause(40); if (dx || dy) { mouse(S, 'move', p.x + dx / 2, p.y + dy / 2, { buttons: 1 }); await pause(40); mouse(S, 'move', p.x + dx, p.y + dy, { buttons: 1 }); await pause(60); } mouse(S, 'up', p.x + dx, p.y + dy); await pause(120); };
   await load([3, 4, 4, 8]); await press(0.3, 60, 50); const moved = area();
@@ -313,8 +314,8 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
 // X11 with real touch events and a pen (TOUCHHOLD.json), on a page that scrolls.
 { const area0 = [1, 2, 7, 8];
   const load = async () => { evalJs(S, `(async () => { const sec = (id, blocks) => ({ id, theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 24, mobile: 6 }, blocks }); fe.load({ version: 1, title: 't', sections: [sec('s', [{ id: 'k', type: 'shape', label: 'k', fill: '#ccc', layout: { desktop: { area: ${JSON.stringify(area0)}, z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }]), sec('t', []), sec('u', [])] }); fe.select(null); await new Promise((r) => setTimeout(r, 80)); document.getElementById('site-frame').contentWindow.scrollTo(0, 0); window.__c = 0; const d = document.getElementById('site-frame').contentDocument; if (!d.__x11) { d.__x11 = true; d.addEventListener('pointercancel', () => { window.__c++; }, true); } return JSON.stringify(1); })()`); await pause(100); };
-  const at = (fx, fy) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), b = f.contentDocument.querySelector('.fe-block').getBoundingClientRect(); return JSON.stringify([q.left + b.left + b.width * ${fx}, q.top + b.top + b.height * ${fy}]); })()`);
-  const area = () => evalJs(S, `JSON.stringify(fe.model.sections[0].blocks[0].layout.desktop.area.join('/'))`);
+  const at = (fx, fy) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), b = f.contentDocument.querySelector('.fe-block[data-block-id="k"]').getBoundingClientRect(); return JSON.stringify([q.left + b.left + b.width * ${fx}, q.top + b.top + b.height * ${fy}]); })()`);
+  const area = () => evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.find((x) => x.id === 'k').layout.desktop.area.join('/'))`);
   const handles = () => evalJs(S, `JSON.stringify(document.getElementById('site-frame').contentDocument.querySelectorAll('.fe-handle').length)`);
   const cancels = () => evalJs(S, `JSON.stringify(window.__c)`);
   const touch = (p, dx, dy, holdMs = 0) => cdp(S, { op: 'touch', from: p, to: [p[0] + dx, p[1] + dy], steps: 12, holdMs });
@@ -362,7 +363,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
 { const load = async (type) => { evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'middle', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [{ id: 'k', type: '${type}', label: 'k', fill: '#ccc', html: '<p>Some text</p>', layout: { desktop: { area: [1, 2, 7, 8], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }] }] }); return 1; })()`); await pause(120); };
   const view = async (bp) => { evalJs(S, `(async () => { fe.setBp('${bp}'); await new Promise((r) => setTimeout(r, 120)); fe.select('s', 'k'); await new Promise((r) => setTimeout(r, 80)); if (document.getElementById('block-panel').hidden) document.querySelector('#block-toolbar button[data-tb="edit"]').click(); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60); };
   const set = async (k, v) => { evalJs(S, `(() => { const i = document.querySelector('#block-panel input[data-design="${k}"]'); if (i.type === 'checkbox') i.checked = ${JSON.stringify(v)}; else i.value = ${JSON.stringify(v)}; i.dispatchEvent(new Event('change', { bubbles: true })); return 1; })()`); await pause(120); };
-  const look = () => evalJs(S, `(() => { const f = document.getElementById('site-frame'), W = f.contentWindow, e = f.contentDocument.querySelector('.fe-block'), c = W.getComputedStyle(e), q = W.getComputedStyle(e.querySelector('.sqs-block')); const v = (k) => document.querySelector('#block-panel input[data-design="' + k + '"]'); return JSON.stringify({ op: c.opacity, tf: c.transform.slice(0, 16), bd: c.backdropFilter, bg: q.backgroundColor, bw: q.borderTopWidth + ' ' + q.borderTopStyle, blend: c.mixBlendMode, panel: [v('opacity')?.value, v('rotate')?.value, !!v('background')?.checked, !!v('blur')?.checked].join() }); })()`);
+  const look = () => evalJs(S, `(() => { const f = document.getElementById('site-frame'), W = f.contentWindow, e = f.contentDocument.querySelector('.fe-block[data-block-id="k"]'), c = W.getComputedStyle(e), q = W.getComputedStyle(e.querySelector('.sqs-block')); const v = (k) => document.querySelector('#block-panel input[data-design="' + k + '"]'); return JSON.stringify({ op: c.opacity, tf: c.transform.slice(0, 16), bd: c.backdropFilter, bg: q.backgroundColor, bw: q.borderTopWidth + ' ' + q.borderTopStyle, blend: c.mixBlendMode, panel: [v('opacity')?.value, v('rotate')?.value, !!v('background')?.checked, !!v('blur')?.checked].join() }); })()`);
   const M = { r20: 'matrix(0.939693,', r5: 'matrix(0.996195,', r30: 'matrix(0.866025,', r40: 'matrix(0.766044,' };
   const check = (name, got, want) => groupCases.push({ name: `per layout: ${name}`, diffs: Object.entries(want).filter(([k, v]) => got[k] !== v).map(([k, v]) => `${k}: oracle ${v}, ours ${got[k]}`) });
   await load('text'); await view('mobile'); await set('opacity', '50'); await set('rotate', '20'); await set('background', true); await set('blur', true);
@@ -413,7 +414,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   const sec = (id, blocks) => ({ id, theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks });
   evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [${JSON.stringify(sec('s', [bl('b', 'button', [1, 2, 3, 8], [1, 2, 3, 10]), bl('l', 'line', [1, 2, 2, 6], [3, 2, 4, 10])]))}, ${JSON.stringify(sec('t', [bl('m', 'line', [1, 2, 2, 6], [1, 2, 2, 10])]))}] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60);
   const menu = (id, act) => evalJs(S, `(async () => { const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow; const e = d.querySelector('.fe-block[data-block-id="${id}"]'), q = e.getBoundingClientRect(); e.querySelector('*').dispatchEvent(new W.MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: q.left + 5, clientY: q.top + 5, button: 2 })); await new Promise((r) => setTimeout(r, 60)); [...document.querySelectorAll('#context-menu button')].find((x) => x.textContent.trim().startsWith('${act}')).click(); await new Promise((r) => setTimeout(r, 120)); return 1; })()`);
-  const last = (i) => evalJs(S, `(() => { const b = fe.model.sections[${i}].blocks.at(-1); return JSON.stringify([b.layout.desktop.area.join('/'), b.layout.mobile.area.join('/'), fe.model.sections[${i}].blocks.length]); })()`);
+  const last = (i) => evalJs(S, `(() => { const b = [...fe.model.sections[${i}].blocks].sort((x, y) => y.layout.mobile.area[0] - x.layout.mobile.area[0])[0]; return JSON.stringify([b.layout.desktop.area.join('/'), b.layout.mobile.area.join('/'), fe.model.sections[${i}].blocks.length]); })()`);
   const keys = (code) => evalJs(S, `(() => { document.getElementById('site-frame').contentDocument.dispatchEvent(new KeyboardEvent('keydown', { code: '${code}', key: '${code.slice(-1).toLowerCase()}', metaKey: true, bubbles: true, cancelable: true })); return 1; })()`);
   const want = (name, got, wa) => groupCases.push({ name: `Y4 ${name}`, diffs: JSON.stringify(got) === JSON.stringify(wa) ? [] : [`oracle ${JSON.stringify(wa)}, ours ${JSON.stringify(got)}`] });
   menu('b', 'Copy'); want('copy changes nothing', last(0), ['1/2/2/6', '3/2/4/10', 2]);
@@ -426,7 +427,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
 // E7: the link editor's list, Hidden Navigation and Open link in new tab (LINKBOX.json, CAP-LINK.json).
 { const bl = (id, type, extra) => ({ id, type, label: id, ...extra, layout: { desktop: { area: [1, 2, 3, 8], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } });
   evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', header: { nav: [{ label: 'Services' }, { label: 'About' }, { label: 'Contact' }] }, sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [${JSON.stringify(bl('b', 'button'))}] }] }); await new Promise((r) => setTimeout(r, 120)); fe.select('s', 'b'); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60);
-  const r = evalJs(S, `(async () => { const sleep = (t) => new Promise((x) => setTimeout(x, t)); const P = document.getElementById('link-popover'), a = () => document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="b"] a'), B = () => fe.model.sections[0].blocks[0]; const out = {};
+  const r = evalJs(S, `(async () => { const sleep = (t) => new Promise((x) => setTimeout(x, t)); const P = document.getElementById('link-popover'), a = () => document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="b"] a'), B = () => fe.model.sections[0].blocks.find((x) => x.id === 'b'); const out = {};
     const open = async () => { document.querySelector('#block-toolbar button[data-tb="link"]').click(); await sleep(120); }; const inp = () => P.querySelector('.lk-input'); const list = () => P.querySelector('.lk-pages'); const showing = () => [...P.querySelectorAll('.lk-page:not([hidden])')].map((x) => x.getAttribute('aria-label')); const onBox = () => { const q = P.querySelector('.lk-newtab').getBoundingClientRect(); return !!document.elementFromPoint(q.left + 10, q.top + q.height / 2)?.closest('.lk-newtab'); };
     const key = (k) => inp().dispatchEvent(new KeyboardEvent('keydown', { key: k, bubbles: true, cancelable: true }));
     await open(); out.groups = [...P.querySelectorAll('.lk-set:not([hidden]) .lk-group')].map((x) => x.textContent); out.pages = showing(); out.coveredOpen = !onBox(); out.focus = document.activeElement === inp(); out.size = [P.getBoundingClientRect().width, Math.round(P.getBoundingClientRect().height)];
@@ -465,7 +466,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
 { const bl = (id, type, extra) => ({ id, type, label: id, ...extra, layout: { desktop: { area: [1, 2, 3, 8], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } });
   evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', header: { nav: [{ label: 'About' }] }, sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [${JSON.stringify(bl('b', 'button'))}] }] }); await new Promise((r) => setTimeout(r, 120)); fe.select('s', 'b'); return 1; })()`); await pause(60);
   const r = evalJs(S, `(async () => { const sleep = (t) => new Promise((x) => setTimeout(x, t)); const P = document.getElementById('link-popover'), Q = document.getElementById('block-panel'), q = (x) => P.querySelector(x), out = {};
-    const a = () => document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="b"] a'); const B = () => fe.model.sections[0].blocks[0]; const href = () => B().href || '';
+    const a = () => document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="b"] a'); const B = () => fe.model.sections[0].blocks.find((x) => x.id === 'b'); const href = () => B().href || '';
     const put = async (f, v) => { const e = q('[data-f="' + f + '"]'); e.value = v; e.dispatchEvent(new Event('input', { bubbles: true })); await sleep(40); return e; };
     const key = (e, k) => e.dispatchEvent(new KeyboardEvent('keydown', { key: k, bubbles: true, cancelable: true }));
     const menu = async (kind) => { q('.lk-pill').click(); await sleep(40); q('.lk-kind[data-kind="' + kind + '"]').click(); await sleep(60); };
@@ -532,6 +533,70 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   lm('text: another kind and a close takes the link', t.backUrl[0] === true && t.backUrl[1] === '<p><a href="tel:12345">one</a></p>' && t.switched === '<p>one</p>' && t.switchClosed, t);
   lm('text: typed without Enter counts at the close', t.typedOpen && t.typed === '<p><a href="/about">one</a></p>', t);
 }
+// A2: after an edit the block DOM follows the phone rows (CAP-ORDER.json). A saved page stays as it
+// loads. A pair that overlaps with the same z, on desktop or on the phone, keeps its order so nothing
+// repaints (held pairs are ours, not measured on the oracle).
+{ const bl = (id, d, m, z = 1, zm = z) => ({ id, type: 'shape', label: id, fill: '#ccc', radius: '0', layout: { desktop: { area: d, z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: m, z: zm, justify: 'flex-start', align: 'flex-start' } } });
+  const sec = (id, blocks) => ({ id, theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 14, mobile: 20 }, blocks });
+  const load = async (...sections) => { evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: ${JSON.stringify(sections)} }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60); };
+  const dom = (sid = 's') => evalJs(S, `JSON.stringify([...document.getElementById('site-frame').contentDocument.querySelectorAll('section[data-section-id="${sid}"] .fe-block')].map((b) => b.dataset.blockId).join(''))`);
+  const modelOrder = (k = 0) => evalJs(S, `JSON.stringify(fe.model.sections[${k}].blocks.map((b) => b.id).join(''))`);
+  const view = async (bp) => { evalJs(S, `(async () => { fe.setBp('${bp}'); await new Promise((r) => setTimeout(r, 150)); return 1; })()`); await pause(60); };
+  const mid = (id) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), b = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect(); return JSON.stringify([q.left + b.left + b.width / 2, q.top + b.top + b.height / 2]); })()`);
+  const drag = async (id, dx, dy) => { const p = mid(id); mouse(S, 'move', p[0], p[1]); await pause(40); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(40); for (const f of [1 / 3, 2 / 3, 1]) { mouse(S, 'move', p[0] + dx * f, p[1] + dy * f, { buttons: 1 }); await pause(40); } mouse(S, 'up', p[0] + dx, p[1] + dy); await pause(160); evalJs(S, 'fe.select(null)'); await pause(60); };
+  // What paints on top where two blocks overlap: the real hit test, and the z the browser computes.
+  const top = (x, y) => evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument; const A = d.querySelector('.fe-block[data-block-id="${x}"]').getBoundingClientRect(), B = d.querySelector('.fe-block[data-block-id="${y}"]').getBoundingClientRect(); return JSON.stringify(d.elementFromPoint((Math.max(A.left, B.left) + Math.min(A.right, B.right)) / 2, (Math.max(A.top, B.top) + Math.min(A.bottom, B.bottom)) / 2)?.closest('.fe-block')?.dataset.blockId ?? null); })()`);
+  const ord = (name, got, want) => groupCases.push({ name: `A2 ${name}`, diffs: JSON.stringify(got) === JSON.stringify(want) ? [] : [`want ${JSON.stringify(want)}, got ${JSON.stringify(got)}`] });
+  const undoBtn = () => evalJs(S, `(async () => { document.getElementById('undo').click(); await new Promise((r) => setTimeout(r, 120)); return 1; })()`), redoBtn = () => evalJs(S, `(async () => { document.getElementById('redo').click(); await new Promise((r) => setTimeout(r, 120)); return 1; })()`);
+  // The live read: three added, the first in DOM moved down on the phone.
+  const rows3 = [bl('a', [1, 2, 3, 10], [1, 2, 3, 10], 1), bl('b', [4, 2, 6, 8], [3, 2, 5, 10], 2), bl('c', [7, 2, 9, 6], [5, 2, 6, 10], 3)];
+  await load(sec('s', rows3)); await view('mobile'); await drag('a', 0, 210); ord('first in DOM moved down on the phone', [dom(), modelOrder()], ['bca', 'bca']); await view('desktop');
+  // A saved page in another order: untouched on load and by an edit next door; an edit in it sorts, undo brings it back, redo sorts again.
+  const saved = [bl('a', [1, 2, 3, 8], [7, 2, 9, 10], 1), bl('b', [1, 10, 3, 16], [1, 2, 3, 10], 2), bl('c', [5, 2, 7, 8], [4, 2, 6, 10], 3)];
+  await load(sec('s', saved), sec('t', [bl('x', [1, 2, 3, 8], [5, 2, 7, 10], 1), bl('y', [5, 2, 7, 8], [1, 2, 3, 10], 2)]));
+  ord('a saved page stays as it loads', [dom(), modelOrder()], ['abc', 'abc']);
+  await drag('c', 120, 0); ord('an edit sorts its section', [dom(), modelOrder()], ['bca', 'bca']); ord('the section next door stays as it loaded', [dom('t'), modelOrder(1)], ['xy', 'xy']);
+  await undoBtn(); ord('undo brings the order back', [dom(), modelOrder()], ['abc', 'abc']); await redoBtn(); ord('redo sorts again', [dom(), modelOrder()], ['bca', 'bca']);
+  // Same row on the phone: left to right.
+  await load(sec('s', [bl('a', [1, 2, 3, 8], [3, 6, 5, 10], 1), bl('b', [1, 10, 3, 16], [3, 2, 5, 6], 2), bl('c', [5, 2, 7, 8], [1, 2, 3, 10], 3)])); await drag('c', 120, 0); ord('the same phone row goes left to right', dom(), 'cba');
+  // Overlapping on desktop with the same z, the phone wants them flipped: held, same paint.
+  await load(sec('s', [bl('a', [1, 2, 6, 8], [7, 2, 9, 10]), bl('b', [3, 5, 8, 12], [1, 2, 3, 10]), bl('c', [10, 2, 12, 8], [4, 2, 6, 10], 2)]));
+  const before1 = top('a', 'b'); await drag('c', 120, 0); ord('held on desktop: a stays before b, c sorts ahead of a', dom(), 'cab'); ord('held on desktop: the same block on top after an edit', [before1, top('a', 'b')], ['b', 'b']);
+  await drag('a', 60, 0); ord('held on desktop: the same block on top after moving one of them', [dom(), top('a', 'b')], ['cab', 'b']);
+  // Overlapping only on the phone with the same z: held, so a width switch shows no flip.
+  await load(sec('s', [bl('a', [1, 2, 3, 8], [3, 2, 7, 10]), bl('b', [1, 10, 3, 16], [1, 2, 5, 10]), bl('c', [5, 2, 7, 8], [8, 2, 10, 10], 2)]));
+  await view('mobile'); const before2 = top('a', 'b'); await view('desktop'); await drag('c', 120, 0); ord('held from the other layout: order kept', dom(), 'abc'); await view('mobile'); ord('held from the other layout: the same block on top on the phone', [before2, top('a', 'b')], ['b', 'b']); await view('desktop');
+  // Overlapping with different z: free to sort, z decides the paint.
+  await load(sec('s', [bl('a', [1, 2, 6, 8], [7, 2, 9, 10], 2), bl('b', [3, 5, 8, 12], [1, 2, 3, 10], 1), bl('c', [10, 2, 12, 8], [4, 2, 6, 10], 3)]));
+  const before3 = top('a', 'b'); await drag('c', 120, 0); ord('different z: sorted, the same block on top', [dom(), before3, top('a', 'b')], ['bca', 'a', 'a']);
+  // A chain of three held blocks: a-b and b-c overlap, a and c do not. The phone wants c b a.
+  const chain = (d) => [bl('a', [1, 2, 6, 8], [7, 2, 9, 10]), bl('b', [3, 5, 8, 12], [5, 2, 7, 10]), bl('c', [5, 10, 10, 16], [3, 2, 5, 10]), bl('d', [12, 2, 14, 8], d, 2)];
+  await load(sec('s', chain([1, 2, 3, 10]))); const ab = top('a', 'b'), bc = top('b', 'c'); await drag('d', 120, 0);
+  ord('a chain of three stays in order, a free block goes first', dom(), 'dabc'); ord('a chain of three paints the same', [ab, bc, top('a', 'b'), top('b', 'c')], ['b', 'c', 'b', 'c']);
+  await load(sec('s', chain([9, 2, 11, 10]))); await drag('d', 120, 0); ord('a chain of three: a free block last stays last', dom(), 'abcd');
+  await load(sec('s', chain([6, 2, 7, 10]))); await drag('d', 120, 0); ord('a chain of three: a free block above its first block goes ahead of it', dom(), 'dabc');
+  // Text being edited does not move; the close sorts.
+  await load(sec('s', [{ ...bl('t', [1, 2, 3, 8], [5, 2, 7, 10]), type: 'text', html: '<p>one</p>' }, bl('x', [5, 2, 7, 8], [1, 2, 3, 10], 2)]));
+  const tx = evalJs(S, `(async () => { const sleep = (m) => new Promise((r) => setTimeout(r, m)); const d = document.getElementById('site-frame').contentDocument; const order = () => [...d.querySelectorAll('section[data-section-id="s"] .fe-block')].map((b) => b.dataset.blockId).join(''); fe.edit('s', 't'); await sleep(200); const ce = d.querySelector('[contenteditable="true"]'); ce.focus(); ce.innerHTML = '<p>two</p>'; ce.dispatchEvent(new Event('input', { bubbles: true })); await sleep(80); const during = order(), focus = d.activeElement === ce; fe.finishEdit(); await sleep(150); return JSON.stringify([during, focus, order()]); })()`);
+  ord('text keeps its place while edited, the close sorts', tx, ['tx', true, 'xt']);
+  // Run, not only read in the code: every way our editor writes z leaves no new overlapping pair with the same z.
+  const sameZ = () => evalJs(S, `(() => { const over = (a, b) => a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3]; const out = []; for (const s of fe.model.sections) s.blocks.forEach((x, n) => s.blocks.slice(n + 1).forEach((y) => { for (const v of ['desktop', 'mobile']) if (x.layout[v].z === y.layout[v].z && over(x.layout[v].area, y.layout[v].area)) out.push(x.id + '-' + y.id + ' ' + v); })); return JSON.stringify(out); })()`);
+  await load(sec('s', [bl('a', [1, 2, 6, 8], [1, 2, 6, 10], 1, 3), bl('b', [3, 5, 8, 12], [3, 2, 8, 10], 2, 2), bl('c', [4, 7, 9, 14], [5, 2, 10, 10], 3, 1)]));
+  const zs = {}; const act = async (name, js) => { evalJs(S, `(async () => { const sleep = (m) => new Promise((r) => setTimeout(r, m)); const tb = (k) => document.querySelector('#block-toolbar button[data-tb="' + k + '"]'); const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow; const shift = (id) => { const r = d.querySelector('.fe-block[data-block-id="' + id + '"]').getBoundingClientRect(); const o = { bubbles: true, cancelable: true, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2, button: 0, pointerId: 1, isPrimary: true, shiftKey: true }; const e = d.querySelector('.fe-block[data-block-id="' + id + '"]'); e.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, buttons: 1 })); d.dispatchEvent(new W.PointerEvent('pointerup', { ...o, buttons: 0 })); }; ${js} await sleep(150); return 1; })()`); await pause(50); zs[name] = sameZ(); };
+  await act('add a block', `fe.addBlock('s', 'Shape');`);
+  await act('duplicate', `fe.select('s', 'b'); await sleep(80); tb('duplicate').click();`);
+  await act('Move Forward', `fe.select('s', 'a'); await sleep(80); tb('z+').click();`);
+  await act('Move Backward', `fe.select('s', 'c'); await sleep(80); tb('z-').click();`);
+  await act('stack', `fe.select(null); await sleep(40); fe.select('s', 'a'); await sleep(60); shift('b'); await sleep(80); document.getElementById('site-frame').contentDocument.dispatchEvent(new KeyboardEvent('keydown', { key: 'S', code: 'KeyS', shiftKey: true, bubbles: true, cancelable: true }));`);
+  const stacked = evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.some((b) => b.type === 'stack'))`);
+  const metaKey = (code) => `document.getElementById('site-frame').contentDocument.dispatchEvent(new KeyboardEvent('keydown', { code: '${code}', key: '${code.slice(-1).toLowerCase()}', metaKey: true, bubbles: true, cancelable: true })); await sleep(60);`;
+  await act('copy and paste', `fe.select('s', 'c'); await sleep(80); ${metaKey('KeyC')} ${metaKey('KeyV')}`);
+  const pasted = evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.length)`);
+  await act('unstack', `const st = fe.model.sections[0].blocks.find((b) => b.type === 'stack'); fe.select('s', st.id); await sleep(100); tb('stackopts').click(); await sleep(60); tb('sopt:unstack').click();`);
+  const unstacked = evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.some((b) => b.type === 'stack'))`);
+  await view('mobile'); await act('Move Forward on the phone', `fe.select('s', 'c'); await sleep(80); tb('z+')?.click();`); await view('desktop');
+  ord('z writes leave no same-z overlap', Object.fromEntries(Object.entries(zs).filter(([, v]) => v.length)), {}); ord('z writes: the stack, the paste and the unstack happened', [stacked, pasted, unstacked], [true, 5, false]);
+}
 // L6: on a phone the block menu has no Copy Properties or Paste Properties; a stack's Corner is per layout (LINKBOX.json).
 { const k = { id: 'k', label: 'k', layout: { desktop: { area: [1, 2, 7, 8], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } };
   evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [${JSON.stringify({ ...k, type: 'stack', gap: 20, design: { corner: 10 }, designMobile: { corner: 30 }, children: [] })}] }] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60);
@@ -545,7 +610,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
 { const F = JSON.parse(readFileSync(new URL('../parity/findings/CAP-TEXTWIDTH.json', import.meta.url))); const para = F.steps.find((x) => x[0] === 'pasteMid')[3].replace(/<\/?p>/g, '');
   viewport(S, 1600, 945); await pause(120);
   evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 12, mobile: 6 }, blocks: [{ id: 't', type: 'text', label: 't', html: ${JSON.stringify(`<p>Start of a l${para}ong text here</p>`)}, layout: { desktop: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }] }] }); await new Promise((r) => setTimeout(r, 150)); fe.select('s', 't'); await new Promise((r) => setTimeout(r, 150)); return 1; })()`); await pause(60);
-  const read = () => evalJs(S, `JSON.stringify({ a: fe.model.sections[0].blocks[0].layout.desktop.area.join('/'), rows: fe.model.sections[0].rows.desktop })`);
+  const read = () => evalJs(S, `JSON.stringify({ a: fe.model.sections[0].blocks.find((x) => x.id === 't').layout.desktop.area.join('/'), rows: fe.model.sections[0].rows.desktop })`);
   const handle = () => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), h = f.contentDocument.querySelector('.fe-handle[data-dir="e"]').getBoundingClientRect(); return JSON.stringify([q.left + h.left + h.width / 2, q.top + h.top + h.height / 2]); })()`);
   const step = async (dx) => { const p = handle(); mouse(S, 'move', p[0], p[1]); await pause(30); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(30); for (const f of [1 / 3, 2 / 3, 1]) { mouse(S, 'move', p[0] + dx * f, p[1], { buttons: 1 }); await pause(30); } mouse(S, 'up', p[0] + dx, p[1]); await pause(60); evalJs(S, `fe.select('s', 't')`); await pause(40); };
   const known = { 'wider 5': 'the oracle keeps 5 rows for a text of 134.4 and takes the row off one drop later, 2 of 2 runs; no width offset explains it' };

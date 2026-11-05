@@ -32,7 +32,7 @@ const pull = async (id, dir, cols, rows) => {
 for (const [name, want] of Object.entries(F.types)) {
   const spot = empty();
   mouse(S, 'move', spot[0], spot[1]); await pause(350);
-  const id = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); document.querySelector('[data-sc="add-block"]').click(); await sleep(200); const t = document.querySelector('button[data-add="${name}"]'); if (!t) { document.getElementById('add-block-menu').hidden = true; return JSON.stringify(null); } t.click(); await sleep(350); return JSON.stringify(fe.model.sections[1].blocks.at(-1).id); })()`);
+  const id = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const had = new Set(fe.model.sections[1].blocks.map((x) => x.id)); document.querySelector('[data-sc="add-block"]').click(); await sleep(200); const t = document.querySelector('button[data-add="${name}"]'); if (!t) { document.getElementById('add-block-menu').hidden = true; return JSON.stringify(null); } t.click(); await sleep(350); return JSON.stringify(fe.model.sections[1].blocks.find((x) => !had.has(x.id)).id); })()`);
   if (!id) continue; // not built here
   add(`${name} lands where the oracle's does`, same(areaOf(id), want.area), `${areaOf(id).join('/')} want ${want.area.join('/')}`);
   for (const [dir, cols, rows, from, to] of want.drags) {
@@ -54,7 +54,7 @@ for (const [mode, label] of [['fill', 'Fill'], ['shape', 'Shape'], ['fit', 'Fit'
     // the finding, not built), so those compare rows only.
     const mine = to[1] === 1 ? [got[0], got[1], got[2]] : got, theirs = to[1] === 1 ? to.slice(0, 3) : to;
     add(`${label} picture ${k}`, same(mine, theirs), `${got.join('/')}, oracle ${to.join('/')}`);
-    if (to[1] === 1) evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); const b = next.sections[1].blocks[0]; b.layout.desktop.area = ${JSON.stringify(to)}; fe.load(next); await new Promise((res) => setTimeout(res, 200)); return 'true'; })()`);
+    if (to[1] === 1) evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); const b = next.sections[1].blocks.find((x) => x.id === 'pic'); b.layout.desktop.area = ${JSON.stringify(to)}; fe.load(next); await new Promise((res) => setTimeout(res, 200)); return 'true'; })()`);
   }
 }
 
