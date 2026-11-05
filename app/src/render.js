@@ -201,7 +201,7 @@ function videoPlayerHtml(b) {
 function blockInner(b, model) {
   switch (b.type) {
     case 'text':
-      return `<div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-html-content">${b.html}</div></div></div>`;
+      return `<div class="sqs-block html-block sqs-block-html${b.design?.background ? ' sqs-background-enabled' : ''}" data-block-type="2" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-html-content">${b.html}</div></div></div>`;
     case 'button':
       // Button style (parity/findings/BUTTONSTYLE.json): Primary is medium, Secondary large,
       // Tertiary small; the oracle writes both on the container and the link.
@@ -336,8 +336,8 @@ function designRule(b, d, phone) {
 
       opacity: var(--opacity, 1);
       transform: var(--block-transform);
-      transform-origin: var(--origin-x) var(--origin-y);${d.blur ? '\n      backdrop-filter: blur(15px);' : off ? '\n      backdrop-filter: none;' : ''}
-    }${d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: rgb(255, 255, 255); }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
+      transform-origin: var(--origin-x) var(--origin-y);${d.blur ? `\n      ${d.blurKind === 'element' ? 'filter' : 'backdrop-filter'}: blur(${d.blurPx ?? 15}px);${phone && off ? ` ${d.blurKind === 'element' ? 'backdrop-filter' : 'filter'}: none;` : ''}` : off ? '\n      backdrop-filter: none; filter: none;' : ''}
+    }${d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgColor || 'rgb(255, 255, 255)'}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
   `;
 }
 export function designCss(b) {
@@ -402,8 +402,14 @@ function blendRule(b, g, phone) {
   // Stroke on a text block (parity/findings/STROKE.json): a solid or dashed black border on
   // .sqs-block, 2, 6 or 15px, and padding inside it of 3, 6 or 12% (6% unless set). Corner is
   // ours: the block's corner radius (not measured).
-  const stroke = b.type === 'shape' ? '' : g.stroke ? `.fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { border: ${STROKE_PX[g.strokeSize || 'S']}px ${g.stroke} rgb(0, 0, 0); border-radius: ${g.corner || 0}px; } .fe-block-${b.id} .sqs-html-content { padding: ${STROKE_PAD[g.pad || 'M']}; }`
-    : phone && base.stroke ? `.fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { border: 0; } .fe-block-${b.id} .sqs-html-content { padding: 0; }` : '';
+  const on = `.fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block`, boxed = b.type !== 'shape' && b.type !== 'stack' && (g.stroke || g.background);
+  const w = g.strokeSize === 'custom' ? g.strokePx ?? 2 : STROKE_PX[g.strokeSize || 'S'];
+  const radius = g.corners ? g.corners.map((v) => `${v}px`).join(' ') : `${g.corner || 0}px`;
+  const pad = g.pad === 'custom' ? `${g.padY ?? 6}% ${g.padX ?? 6}%` : STROKE_PAD[g.pad || 'M'];
+  // Stroke, Corner and Padding (STROKE.json, BLOCKDESIGN.json). A background has the same corner and padding.
+  const stroke = b.type === 'shape' ? '' : (g.stroke ? `${on} { border: ${w}px ${g.stroke} ${g.strokeColor || 'rgb(0, 0, 0)'}; border-radius: ${b.type === 'stack' ? `${g.corner || 0}px` : radius}; }` : phone && base.stroke ? `${on} { border: 0; }` : '')
+    + (boxed ? `${g.stroke ? '' : ` ${on} { border-radius: ${radius}; }`} .fe-block-${b.id} { border-radius: ${radius}; } .fe-block-${b.id} .sqs-html-content { padding: ${pad}; }`
+      : phone && b.type !== 'shape' && b.type !== 'stack' && (base.stroke || base.background) ? ` .fe-block-${b.id} .sqs-html-content { padding: 0; } ${on} { border-radius: 0; } .fe-block-${b.id} { border-radius: 0; }` : '');
   const drop = g.shadow ? `.fe-block-${b.id} .sqs-block { filter: drop-shadow(2px 2px 3px); }` : phone && base.shadow ? `.fe-block-${b.id} .sqs-block { filter: none; }` : '';
   const shadow = drop + (stroke ? ` ${stroke}` : '');
   const m = g.blend && g.blend !== 'normal' ? g.blend : phone && base.blend && base.blend !== 'normal' ? 'normal' : null;

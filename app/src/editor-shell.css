@@ -878,8 +878,24 @@ body.is-preview #reload-preview { display: inline-flex; }
 .sh-corner { width: 44px; height: 44px; box-sizing: border-box; padding: 0; border: 0; border-radius: 3px; background: #f2f2f2; text-align: center; font: inherit; }
 .sh-swatch-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 3px; background: #f2f2f2; cursor: pointer; }
 .sh-swatch-btn i { width: 20px; height: 20px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
-.sh-range input { flex: 1; }
-.sh-range span { margin-left: 12px; }
+.sh-range input[type="range"] { flex: 0 0 212px; }
+.sh-range input[type="text"] { width: 40px; border: 0; background: none; font: inherit; text-align: right; }
+/* The rows only a background or stroke opens (parity/findings/BLOCKDESIGN.json). */
+.bp-subhead { margin-top: 22px; color: #666; font-size: 11px; line-height: 16px; letter-spacing: .08em; text-transform: uppercase; }
+.bp-seg4, .bp-seg2 { display: grid; gap: 0; margin: 6px -6px 0; padding: 2px; border-radius: 4px; background: #f2f2f2; }
+.bp-seg4 { grid-template-columns: repeat(4, 1fr); }
+.bp-seg2 { grid-template-columns: repeat(2, 1fr); margin-bottom: 6px; }
+.bp-seg4 .sp-seg, .bp-seg2 .sp-seg { height: 32px; min-width: 0; }
+.bp-seg4 .sp-seg.is-on, .bp-seg2 .sp-seg.is-on { background: #fff; }
+.bp-blur-note { margin: 6px 0; color: #666; font-size: 12px; line-height: 18px; }
+.bp-range { padding: 8px 0; border-bottom: 1px solid #e7e7e7; }
+.bp-range-head { display: flex; align-items: center; justify-content: space-between; }
+.bp-range-head input { width: 44px; height: 22px; padding: 0; border: 0; background: none; font: inherit; text-align: right; }
+.bp-range input[type="range"] { display: block; width: 100%; height: 44px; margin: 0; }
+button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: none; cursor: pointer; }
+#shape-pop.is-more { width: 144px; padding: 0; border-radius: 3px; }
+#shape-pop.is-more button { display: block; width: 100%; height: 44px; padding: 0 12px; border: 0; background: #fff; color: #3e3e3e; font: inherit; text-align: left; cursor: pointer; }
+#shape-pop.is-more button:hover { background: #f6f6f6; }
 #shape-pop { position: fixed; z-index: 90000; box-sizing: border-box; background: #fff; border-radius: 11px; box-shadow: 0 8px 40px rgba(0, 0, 0, .18); font: 14px/22px Poppins, sans-serif; color: #0e0e0e; }
 #shape-pop[hidden] { display: none; }
 #shape-pop.is-style { width: 276px; overflow-y: auto; border-radius: 3px; }

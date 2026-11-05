@@ -5,7 +5,7 @@
 // transform-vars rule (render.js designCss). Controls marked data-unbuilt are shown where the
 // oracle shows them but do nothing yet; the inventory counts them as missing.
 import { SHAPES, shapeById } from './shapes.js';
-import { escapeHtml as esc, BLEND_MODES } from './render.js';
+import { escapeHtml as esc, BLEND_MODES, STROKE_PX } from './render.js';
 import { linkKind, linkSummary, parseMail, parsePhone } from './link-kinds.js';
 
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
@@ -244,29 +244,52 @@ function stackCornerRow(d) {
   const each = d.corners;
   const seg = (v, label, on, icon) => `<button type="button" role="radio" class="st-corner-btn${on ? ' is-on' : ''}" aria-checked="${on}" aria-label="${label}" data-stack="corners:${v}">${pi(icon)}</button>`;
   const four = each ? `<span class="st-corners">${[['Top left', 0], ['Top right', 1], ['Bottom right', 2], ['Bottom left', 3]].map(([n, k]) => `<input type="text" aria-label="${n} corner radius" data-stack-field="c${k}" value="${each[k]}">`).join('')}</span>` : '';
-  return `<div class="sp-row st-row-corner${each ? ' is-four' : ''}"><span class="sp-label">Corner</span><span class="st-corner-seg" role="radiogroup" aria-label="Corner">${seg(0, 'Uniform corner radii', !each, '<rect x="6" y="6" width="12" height="12" rx="3"/>')}${seg(1, 'Individual corner radii', !!each, '<path d="M6 10V6h4M14 6h4v4M18 14v4h-4M10 18H6v-4"/>')}</span><label class="st-corner-field"><input type="text" aria-label="Corner" data-stack-field="corner" value="${each ? each[0] : d.corner || 0}px"></label>${four}</div>`;
+  return `<div class="sp-row st-row-corner${each ? ' is-four' : ''}"><span class="sp-label">Corner</span><span class="st-corner-seg" role="radiogroup" aria-label="Corner">${seg(0, 'Uniform corner radii', !each, '<rect x="6" y="6" width="12" height="12" rx="3"/>')}${seg(1, 'Individual corner radii', !!each, '<path d="M6 10V6h4M14 6h4v4M18 14v4h-4M10 18H6v-4"/>')}</span><label class="st-corner-field"><input type="text" aria-label="Corner" data-stack-field="corner" value="${each ? (each.every((v) => v === each[0]) ? `${each[0]}px` : 'Mixed') : `${d.corner || 0}px`}"></label>${four}</div>`;
 }
+
+// A value with a range under it (BLOCKDESIGN.json): Blur Amount and custom Padding.
+const rangeRow = (label, key, v, unit, max) => `<div class="bp-range"><div class="bp-range-head"><span class="sp-label">${label}</span><input type="text" aria-label="${label}" data-design="${key}" value="${v}${unit}"></div><input type="range" aria-label="${label}" data-design="${key}" min="0" max="${max}" step="1" value="${v}"></div>`;
+const colorRow = (label, act, color) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl"><button type="button" class="bp-swatch sh-swatch-btn" data-shape-act="${act}" aria-label="${label}"><i style="background:${esc(color)}"></i></button></span></div>`;
+const sml = (d, key, def, labels) => ['S', 'M', 'L'].map((k, n) => `<button type="button" role="radio" class="sp-seg sp-txt${(d[key] || def) === k ? ' is-on' : ''}" aria-checked="${(d[key] || def) === k}" data-dset="${key}" data-v="${k}" aria-label="${labels ? labels[n] : k}">${k}</button>`).join('');
+const dots = (d, key, label) => `<button type="button" role="radio" class="sp-seg sp-txt${d[key] === 'custom' ? ' is-on' : ''}" aria-checked="${d[key] === 'custom'}" data-dset="${key}" data-v="custom" aria-label="${label}">···</button>`;
+const thickness = (d, def) => `<div class="sp-row"><span class="sp-label">Thickness</span><span class="sp-ctl">${sml(d, 'strokeSize', def)}${dots(d, 'strokeSize', 'Custom thickness')}</span></div>`
+  + (d.strokeSize === 'custom' ? `<div class="sp-row sh-range"><input type="range" min="0" max="50" step="1" data-design="strokePx" aria-label="Thickness" value="${d.strokePx ?? STROKE_PX[def]}"><input type="text" data-design="strokePx" aria-label="Thickness value" value="${d.strokePx ?? STROKE_PX[def]}px"></div>` : '');
+export const PAD_PCT = { S: 3, M: 6, L: 12 };
 
 function strokeRows(d, stack = false, shape = false) {
   const seg = (key, val, label, on, icon) => `<button type="button" role="radio" class="sp-seg${on ? ' is-on' : ''}" aria-checked="${on}" data-dset="${key}" data-v="${val}" aria-label="${label}">${icon}</button>`;
   const cur = d.stroke || '';
-  let html = `<div class="sp-row"><span class="sp-label">Stroke</span><span class="sp-ctl">${seg('stroke', '', 'No Stroke', !cur, pi('<circle cx="12" cy="12" r="7"/><path d="M7 17L17 7"/>'))}${seg('stroke', 'solid', 'Solid Stroke', cur === 'solid', pi('<path d="M5 12h14"/>'))}${seg('stroke', 'dashed', 'Dashed Stroke', cur === 'dashed', pi('<path d="M4 12h3M10.5 12h3M17 12h3"/>'))}</span></div>`;
+  const html = `<div class="sp-row"><span class="sp-label">Stroke</span><span class="sp-ctl">${seg('stroke', '', 'No Stroke', !cur, pi('<circle cx="12" cy="12" r="7"/><path d="M7 17L17 7"/>'))}${seg('stroke', 'solid', 'Solid Stroke', cur === 'solid', pi('<path d="M5 12h14"/>'))}${seg('stroke', 'dashed', 'Dashed Stroke', cur === 'dashed', pi('<path d="M4 12h3M10.5 12h3M17 12h3"/>'))}</span></div>`;
   if (!cur) return html;
-  const sml = (key, def, labels) => ['S', 'M', 'L'].map((k, n) => `<button type="button" role="radio" class="sp-seg sp-txt${(d[key] || def) === k ? ' is-on' : ''}" aria-checked="${(d[key] || def) === k}" data-dset="${key}" data-v="${k}" aria-label="${labels ? labels[n] : k}">${k}</button>`).join('');
-  // A shape's stroke (SHAPESTYLES.json): its color opens a popup, M to start, three dots for a range.
-  if (shape) {
-    const custom = d.strokeSize === 'custom';
-    return html + `<div class="sp-row"><span class="sp-label">Stroke Color</span><span class="sp-ctl"><button type="button" class="bp-swatch sh-swatch-btn" data-shape-act="strokeColor" aria-label="Stroke Color"><i style="background:${esc(d.strokeColor || 'rgb(0, 0, 0)')}"></i></button></span></div>`
-      + `<div class="sp-row"><span class="sp-label">Thickness</span><span class="sp-ctl">${sml('strokeSize', 'M')}<button type="button" role="radio" class="sp-seg sp-txt${custom ? ' is-on' : ''}" aria-checked="${custom}" data-dset="strokeSize" data-v="custom" aria-label="Custom thickness">···</button></span></div>`
-      + (custom ? `<div class="sp-row sh-range"><input type="range" min="1" max="50" data-design="strokePx" aria-label="Thickness" value="${d.strokePx ?? 6}"><span>${d.strokePx ?? 6}px</span></div>` : '');
-  }
-  html += `<div class="sp-row"><span class="sp-label">Stroke Color</span><span class="sp-ctl"><button type="button" class="bp-swatch" data-unbuilt disabled aria-label="Stroke Color"></button></span></div>`
-    + `<div class="sp-row"><span class="sp-label">Thickness</span><span class="sp-ctl">${sml('strokeSize', 'S')}</span></div>`;
-  if (stack) return html;
-  html += `<div class="sp-row"><span class="sp-label">Corner</span><span class="sp-ctl"><label class="bp-box"><input type="number" data-design="corner" aria-label="Corner" min="0" max="500" value="${d.corner || 0}"><span class="bp-unit">px</span></label></span></div>`
-    + `<div class="sp-row"><span class="sp-label">Padding</span><span class="sp-ctl">${sml('pad', 'M', ['small block background padding', 'medium block background padding', 'large block background padding'])}</span></div>`;
-  return html;
+  // Stroke Color opens a popup, and three dots a range (SHAPESTYLES.json, BLOCKDESIGN.json). A new shape starts at M, the rest at S.
+  if (stack) return html + `<div class="sp-row"><span class="sp-label">Stroke Color</span><span class="sp-ctl"><button type="button" class="bp-swatch" data-unbuilt disabled aria-label="Stroke Color"></button></span></div><div class="sp-row"><span class="sp-label">Thickness</span><span class="sp-ctl">${sml(d, 'strokeSize', 'S')}</span></div>`;
+  return html + colorRow('Stroke Color', 'strokeColor', d.strokeColor || 'rgb(0, 0, 0)') + thickness(d, shape ? 'M' : 'S');
 }
+// With a background or a stroke (BLOCKDESIGN.json): Corner, then Padding S, M, L or two ranges from 0 to 20.
+function padRows(d) {
+  const custom = d.pad === 'custom';
+  return `<div class="bp-subhead">Padding</div><div class="bp-seg4" role="radiogroup" aria-label="Padding">${sml(d, 'pad', custom ? '' : 'M', ['small block background padding', 'medium block background padding', 'large block background padding'])}${dots(d, 'pad', 'Custom block background padding')}</div>`
+    + (custom ? rangeRow('Top &amp; Bottom', 'padY', d.padY ?? 6, '%', 20) + rangeRow('Left &amp; Right', 'padX', d.padX ?? 6, '%', 20) : '');
+}
+// Blur (BLOCKDESIGN.json): Backdrop to start, or Element, with an amount from 0 to 100.
+function blurRows(d) {
+  const sw = `<label class="sp-switch"><input type="checkbox" data-design="blur" aria-label="Blur" ${d.blur ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
+  const row = `<div class="sp-row"><span class="sp-label">Blur</span><span class="sp-ctl">${sw}</span></div>`;
+  if (!d.blur) return row;
+  const el = d.blurKind === 'element', seg = (v, label, on) => `<button type="button" role="radio" class="sp-seg sp-txt${on ? ' is-on' : ''}" aria-checked="${on}" data-dset="blurKind" data-v="${v}" aria-label="${label}">${label}</button>`;
+  return row + `<div class="bp-seg2" role="radiogroup" aria-label="Blur type">${seg('element', 'Element', el)}${seg('', 'Backdrop', !el)}</div>`
+    + (el ? '' : '<p class="bp-note bp-blur-note">Blurred backgrounds are more noticeable when the opacity is lower.</p>')
+    + rangeRow('Blur Amount', 'blurPx', d.blurPx ?? 15, 'px', 100);
+}
+// The Design tab of a text block, and for now of the types not yet read (BLOCKDESIGN.json).
+function appearanceRows(d) {
+  const boxed = d.background || d.stroke;
+  return `<div class="sp-row"><span class="sp-label">Background</span><span class="sp-ctl"><label class="sp-switch"><input type="checkbox" data-design="background" aria-label="Background" ${d.background ? 'checked' : ''}><span aria-hidden="true"></span></label></span></div>`
+    + (d.background ? colorRow('Background Color', 'bgColor', d.bgColor || 'rgb(255, 255, 255)') : '')
+    + strokeRows(d)
+    + (boxed ? stackCornerRow(d) + padRows(d) : '');
+}
+const MORE = '<button type="button" class="bp-more" data-shape-act="more" aria-label="More actions" aria-haspopup="listbox">···</button>';
 
 const BUTTON_STYLES = [['primary', 'Primary Button'], ['secondary', 'Secondary Button'], ['tertiary', 'Tertiary Button']];
 function buttonDesignHtml(c, open) {
@@ -322,13 +345,13 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       else pairs.push(`<div class="bp-trow"><span class="sp-label">${f[1]}</span>${box(f)}</div>`);
     }
     // A new video (MEDIAEMPTY.json): Appearance, Transforms, Effects. Its Corner is not built.
-    if (content?.kind === 'video') body = '<div class="bp-thead"><span>Appearance</span></div>' + row('Background', sw('background', d.background, 'Background')) + strokeRows(d)
+    if (content?.kind === 'video') body = '<div class="bp-thead"><span>Appearance</span></div>' + appearanceRows(d)
       + row('Corner', `<label class="bp-box bp-vcorner"><input type="number" data-design="corner" aria-label="Corner" min="0" max="500" value="${d.corner || 0}"><span class="bp-unit">px</span></label>`)
-      + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>${pairs.join('')}`
-      + '<div class="bp-thead"><span>Effects</span></div>' + blendRow(d.blend || 'normal', open === 'blend') + row('Blur', sw('blur', d.blur, 'Blur'));
+      + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`
+      + '<div class="bp-thead"><span>Effects</span></div>' + blendRow(d.blend || 'normal', open === 'blend') + blurRows(d);
     // Code and embed blocks (CODEEMBED.json) have the transforms alone.
-    else if (content?.kind === 'code' || content?.kind === 'embed') body = `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>${pairs.join('')}`;
-    // A shape's Design tab (parity/findings/SHAPEDESIGN.json) has no Background or Stroke row:
+    else if (content?.kind === 'code' || content?.kind === 'embed') body = `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`;
+    // A shape's Design tab (parity/findings/SHAPESTYLES.json):
     // shape style, Corner radius with Uniform or Individual radii, Stretch, Color, Blend Mode,
     // Drop Shadow, Blur, then the transforms.
     else if (shape) {
@@ -344,13 +367,13 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
         + blendRow(d.blend || 'normal', open === 'blend')
         + strokeRows(d, false, true)
         + row('Drop Shadow', sw('shadow', d.shadow, 'Drop Shadow'))
-        + row('Blur', sw('blur', d.blur, 'Blur'))
-        + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
+        + blurRows(d)
+        + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`
         + pairs.join('');
     }
     // A button's Design tab (parity/findings/BUTTONDESIGN.json): Button style, Layout, Alignment
     // on Fit, the transforms.
-    else if (button) body = buttonDesignHtml(button, open === 'bstyle') + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>${pairs.join('')}`;
+    else if (button) body = buttonDesignHtml(button, open === 'bstyle') + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`;
     // An image's Design tab (parity/findings/IMAGEMODES.json) opens with Fit, Fill and Shape.
     else if (image) {
       const seg = (m, l) => `<button type="button" role="radio" class="bp-mode${image.mode === m ? ' is-on' : ''}" aria-checked="${image.mode === m}" aria-label="${l}" data-image-mode="${m}">${l}</button>`;
@@ -359,20 +382,19 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       body = `<div class="bp-modes" role="radiogroup" aria-label="Image mode">${seg('fit', 'Fit')}${seg('fill', 'Fill')}${seg('shape', 'Shape')}</div>`
         + (image.mode === 'shape' ? chip('Shape', 'Circle') + off('Stretch') : row('Corner', `<label class="bp-box"><input type="number" data-image-corner aria-label="Corner" min="0" max="1000" value="${image.corner}"><span class="bp-unit">px</span></label>`))
         + (image.empty ? '' : chip('Image Effect', '›') + off('Overlay') + off('Lightbox'))
-        + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
+        + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`
         + pairs.join('');
     }
     else if (stack) body = stackLayoutHtml(stack) + '<div class="bp-thead st-appearance"><span>Appearance</span></div>' + stackFillRow(d)
       + strokeRows(d, true) + stackCornerRow(d)
       + blendRow(d.blend || 'normal', open === 'blend')
-      + row('Blur', sw('blur', d.blur, 'Blur'))
-      + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
+      + blurRows(d)
+      + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`
       + pairs.join('');
-    else body = row('Background', sw('background', d.background, 'Background'))
-      + strokeRows(d)
+    else body = appearanceRows(d)
       + blendRow(d.blend || 'normal', open === 'blend')
-      + row('Blur', sw('blur', d.blur, 'Blur'))
-      + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
+      + blurRows(d)
+      + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`
       + pairs.join('');
   } else {
     // Animation (parity/findings/ANIMATION.json): the empty state and the preset picker as on

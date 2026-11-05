@@ -2,13 +2,13 @@
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
 import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults } from './render.js';
-import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey } from './render.js';
+import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
-import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue } from './block-panel.js';
+import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -533,7 +533,9 @@ function contentRows(b, m, normalizing = false) {
   if (b.type === 'button' && !fit && !normalizing) return 1;
   const c = fit || root?.querySelector('.accordion-items-container, .sqs-block-video-placeholder--empty, .native-video-player') || root?.querySelector('.sqs-block-content');
   if (!c) return 1;
-  return Math.max(1, Math.ceil((c.offsetHeight + m.rg) / m.pitch - 0.02));
+  // A text block's stroke counts: it sits outside the text (BLOCKDESIGN.json).
+  const outer = b.type === 'text' ? root.querySelector('.sqs-block') : null, edge = outer ? outer.offsetHeight - outer.clientHeight : 0;
+  return Math.max(1, Math.ceil((c.offsetHeight + edge + m.rg) / m.pitch - 0.02));
 }
 
 // Remove row stretch: measure every block in pixels and convert back to
@@ -1458,9 +1460,9 @@ function stackAct(act) {
   if (k === 'fill') b.design = { ...b.design, background: true };
   if (k === 'nofill' && b.design) delete b.design.background;
   if (k === 'corners') {
-    const d = (b.design ||= {});
+    const bag = designBag(bp), cur = designFor(b, bp), d = (b[bag] ||= {});
     // Back to one value: the top left one for all four.
-    if (v === '1') { d.corners = Array(4).fill(d.corner || 0); delete d.corner; } else { d.corner = d.corners?.[0] || 0; delete d.corners; }
+    if (v === '1') { d.corners = Array(4).fill(cur.corner || 0); d.corner = 0; } else { d.corner = cur.corners?.[0] || 0; d.corners = null; if (bag === 'design') delete d.corners; }
   }
   renderSectionDom(sel.sid);
   commit(before, `${k} set on ${b.id}`);
@@ -1481,8 +1483,8 @@ blockPanel.addEventListener('change', (e) => {
   } else if (k === 'corner' || /^c\d$/.test(k)) {
     const n = Math.max(0, parseFloat(raw));
     if (Number.isFinite(n)) {
-      const d = (b.design ||= {});
-      if (k === 'corner') { if (d.corners) d.corners = Array(4).fill(n); else d.corner = n; } else d.corners[Number(k[1])] = n;
+      const bag = designBag(bp), cur = designFor(b, bp), d = (b[bag] ||= {});
+      if (k === 'corner') { if (cur.corners) d.corners = Array(4).fill(n); else d.corner = n; } else { d.corners = [...cur.corners]; d.corners[Number(k[1])] = n; }
     }
   } else if (/^[\d.]+([a-z%]+)?$/i.test(raw)) {
     const val = /^[\d.]+$/.test(raw) ? `${raw}px` : raw;
@@ -1517,17 +1519,39 @@ function setButtonView(key, v) {
   renderSectionDom(sel.sid);
   commit(before, `Button ${key} set on ${b.id}`);
 }
+// A text block's rows follow its box (BLOCKDESIGN.json): they grow when the text no longer fits, and
+// fall by what the fit fell. A block made taller by hand keeps the rest: 8 rows, fit 3 to 2, gives 7.
+const FIT_KEYS = new Set(['background', 'stroke', 'strokeSize', 'strokePx', 'pad', 'padY', 'padX']);
+function designChange(b, keys, change, fitBefore = null) {
+  const s = S(sel.sid), fits = b.type === 'text' && keys.some((k) => FIT_KEYS.has(k));
+  const was = fitBefore ?? (fits ? contentRows(b, measure(feEl(sel.sid))) : 0);
+  change();
+  renderSectionDom(sel.sid);
+  if (!fits) return;
+  const now = contentRows(b, measure(feEl(sel.sid))), a = lay(b).area, rows = a[2] - a[0];
+  const next = Math.max(now, now < was ? rows - (was - now) : rows);
+  if (next === rows) return;
+  const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), before = lowest();
+  a[2] = a[0] + next;
+  if (next < rows) s.rows[bp] -= before - lowest(); else growRows(s);
+  renderSectionDom(sel.sid);
+}
 function setDesign(k, v) {
   const b = B(sel.sid, sel.bid);
   const before = JSON.stringify(model);
   const bag = designBag(bp);
-  const d = { ...(b[bag] || {}) };
-  // Removing a value on the phone is a value too: desktop's would flow back in (PERLAYOUT.json).
-  if (v == null && bag === 'designMobile') d[k] = k === 'blend' ? 'normal' : '';
-  else if (v == null) delete d[k];
-  else d[k] = v;
-  if (Object.keys(d).length) b[bag] = d; else delete b[bag];
-  renderSectionDom(sel.sid);
+  designChange(b, [k], () => {
+    const d = { ...(b[bag] || {}) };
+    // Removing a value on the phone is a value too: desktop's would flow back in (PERLAYOUT.json).
+    if (v == null && bag === 'designMobile') d[k] = k === 'blend' ? 'normal' : '';
+    else if (v == null) delete d[k];
+    else d[k] = v;
+    // Custom starts from the size it leaves (BLOCKDESIGN.json).
+    const cur = designFor(b, bp);
+    if (k === 'pad' && v === 'custom') { d.padY = cur.padY ?? PAD_PCT[cur.pad] ?? 6; d.padX = cur.padX ?? PAD_PCT[cur.pad] ?? 6; }
+    if (k === 'strokeSize' && v === 'custom') d.strokePx = cur.strokePx ?? STROKE_PX[cur.strokeSize || (b.type === 'shape' ? 'M' : 'S')];
+    if (Object.keys(d).length) b[bag] = d; else delete b[bag];
+  });
   commit(before, `${k} set on ${b.id}`);
 }
 blockPanel.addEventListener('keydown', (e) => {
@@ -1615,11 +1639,12 @@ function hslOf([r0, g0, b0]) {
   return [h * 60, (d / (1 - Math.abs(2 * l - 1))) * 100, l * 100];
 }
 const rgbFromHsl = (h, s, l) => { const a = (s / 100) * Math.min(l / 100, 1 - l / 100), f = (n) => { const k = (n + h / 30) % 12; return Math.round(255 * (l / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))); }; return [f(0), f(8), f(4)]; };
-const shapeColorOf = (b, key) => (key === 'color' ? b.color || b.fill || '#ffffff' : b.design?.strokeColor || 'rgb(0, 0, 0)');
+const shapeColorOf = (b, key) => (key === 'color' ? b.color || b.fill || '#ffffff' : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || 'rgb(0, 0, 0)');
 function writeShapeColor(b, key, css) {
   if (key === 'color') { if (css) b.color = css; else delete b.color; return; }
-  b.design = { ...(b.design || {}) };
-  if (css) b.design.strokeColor = css; else delete b.design.strokeColor;
+  const bag = designBag(bp), d = { ...(b[bag] || {}) };
+  if (css) d[key] = css; else if (bag === 'designMobile') d[key] = ''; else delete d[key];
+  if (Object.keys(d).length) b[bag] = d; else delete b[bag];
 }
 // The section panel's color rows: the divider stroke, or an Art color. Null writes the default back.
 const secColorOf = (u) => { const s = S(u.sid); if (u.section === 'divider') return s.dividerColor || 'rgb(0, 0, 0)'; return s.bgArt?.colors[Number(u.section.slice(4))] || '#000000'; };
@@ -1651,8 +1676,12 @@ function renderSectionPop() {
 function renderShapePop() {
   if (shapeUi.section) { renderSectionPop(); return; }
   const b = B(sel.sid, sel.bid), P = blockPanel.getBoundingClientRect(), { kind } = shapeUi;
-  shapePop.className = kind === 'style' ? 'is-style' : 'is-color';
-  if (kind === 'style') {
+  shapePop.className = kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : 'is-color';
+  if (kind === 'more') {
+    shapePop.innerHTML = '<button type="button" role="option" data-more="copy">Copy transforms</button><button type="button" role="option" data-more="paste">Paste transforms</button>';
+    const r = blockPanel.querySelector('.bp-more').getBoundingClientRect();
+    shapePop.style.cssText = `left:${r.left - 54}px;top:${r.top - 6}px`;
+  } else if (kind === 'style') {
     shapePop.innerHTML = shapePickerHtml(b.shape);
     const top = Math.max(60, P.top - 85);
     shapePop.style.cssText = `left:${P.left + 22}px;top:${top}px;max-height:${innerHeight - top - 8}px`;
@@ -1660,8 +1689,8 @@ function renderShapePop() {
     const c = colorParts(shapeColorOf(b, kind));
     const custom = shapeUi.custom && (shapeUi.custom.hex === toHex(c.rgb) ? shapeUi.custom : { ...shapeUi.custom, ...hexToHsv(toHex(c.rgb)), hex: toHex(c.rgb) });
     if (custom) shapeUi.custom = custom;
-    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'color' ? !!b.color : !!b.design?.strokeColor, opacity: kind === 'color' });
-    const anchor = blockPanel.querySelector(`[data-shape-act="${kind === 'color' ? 'color' : 'strokeColor'}"]`)?.getBoundingClientRect();
+    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'color' ? !!b.color : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? !!designFor(b, bp).strokeColor : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') });
+    const anchor = blockPanel.querySelector(`[data-shape-act="${kind}"]`)?.getBoundingClientRect();
     const h = shapePop.hidden ? 200 : shapePop.offsetHeight;
     shapePop.style.cssText = `left:${P.right + 11}px;top:${Math.max(60, Math.min((anchor?.top ?? P.top) - 60, innerHeight - h - 8))}px`;
   }
@@ -1684,6 +1713,8 @@ shapePop.addEventListener('click', (e) => {
     return;
   }
   if (!sel || !shapeUi) return;
+  const more = e.target.closest('[data-more]');
+  if (more) { closeShapePop(); if (more.dataset.more === 'copy') copyTransforms(); else if (transformClip) setShape(() => pasteTransforms(sel.sid, [sel.bid]), 'Paste transforms'); return; }
   const pick = e.target.closest('[data-shape-pick]');
   if (pick) { const id = pick.dataset.shapePick; closeShapePop(); setShape((b) => { if (id === 'rectangle') delete b.shape; else b.shape = id; }, `Shape ${id}`); return; }
   const key = shapeUi.kind;
@@ -2214,32 +2245,49 @@ linkPop.addEventListener('change', (e) => {
 // A click anywhere else closes the editor (read for the panel's tabs).
 const closeLinkOutside = (e) => { if (!linkPop.contains(e.target)) closeLinkPopover(); };
 document.addEventListener('pointerdown', closeLinkOutside, true);
+// The values with a range of their own (BLOCKDESIGN.json); the others are a field of DESIGN_FIELDS.
+const RANGE_LIMITS = { strokePx: 50, padY: 20, padX: 20, blurPx: 100 };
+let rangeDrag = null; // a range being dragged: its block moves with it, one undo step when let go
+blockPanel.addEventListener('input', (e) => {
+  const r = e.target.closest('input[type="range"][data-design]');
+  if (!r || !sel) return;
+  const b = B(sel.sid, sel.bid), bag = designBag(bp), k = r.dataset.design;
+  rangeDrag ??= { before: JSON.stringify(model), fit: b.type === 'text' && FIT_KEYS.has(k) ? contentRows(b, measure(feEl(sel.sid))) : null };
+  b[bag] = { ...(b[bag] || {}), [k]: Number(r.value) };
+  renderSectionDom(sel.sid);
+  const t = r.parentElement.querySelector('input[type="text"]');
+  if (t) t.value = t.value.replace(/^[\d.]+/, r.value);
+});
 function onDesignChange(e) {
   const input = e.target.closest('input[data-design]');
   if (!input || !sel) return;
   e.stopImmediatePropagation();
-  const before = JSON.stringify(model);
+  const before = rangeDrag?.before ?? JSON.stringify(model), fit = rangeDrag?.fit ?? null;
+  rangeDrag = null;
   const b = B(sel.sid, sel.bid);
   const k = input.dataset.design;
   const bag = designBag(bp);
-  const d = { ...(b[bag] || {}) };
-  // A value set on the phone stays the phone's, even at the default (PERLAYOUT.json).
-  if (bag === 'designMobile') {
-    const f = DESIGN_FIELDS.find((x) => x[0] === k);
-    if (input.type === 'checkbox') d[k] = input.checked;
-    else if (!Number.isFinite(Number(input.value))) return;
-    else d[k] = f ? Math.min(f[4], Math.max(f[3], Number(input.value))) : Number(input.value);
-  } else if (input.type === 'checkbox') { if (input.checked) d[k] = true; else delete d[k]; }
-  else {
-    const f = DESIGN_FIELDS.find((x) => x[0] === k) || [k, k, 'px', 0, 500];
-    const v = Number(input.value);
-    if (!Number.isFinite(v)) return;
-    const c = Math.min(f[4], Math.max(f[3], v));
-    if (c === (DESIGN_DEFAULTS[k] ?? 0)) delete d[k]; else d[k] = c;
-  }
-  if (Object.keys(d).length) b[bag] = d; else delete b[bag];
-  renderSectionDom(sel.sid);
+  designChange(b, [k], () => {
+    const d = { ...(b[bag] || {}) };
+    const val = parseFloat(input.value);
+    if (k in RANGE_LIMITS) { if (!Number.isFinite(val)) return; d[k] = Math.max(0, Math.min(RANGE_LIMITS[k], val)); }
+    // A value set on the phone stays the phone's, even at the default (PERLAYOUT.json).
+    else if (bag === 'designMobile') {
+      const f = DESIGN_FIELDS.find((x) => x[0] === k);
+      if (input.type === 'checkbox') d[k] = input.checked;
+      else if (!Number.isFinite(val)) return;
+      else d[k] = f ? Math.min(f[4], Math.max(f[3], val)) : val;
+    } else if (input.type === 'checkbox') { if (input.checked) d[k] = true; else delete d[k]; }
+    else {
+      const f = DESIGN_FIELDS.find((x) => x[0] === k) || [k, k, 'px', 0, 500];
+      if (!Number.isFinite(val)) return;
+      const c = Math.min(f[4], Math.max(f[3], val));
+      if (c === (DESIGN_DEFAULTS[k] ?? 0)) delete d[k]; else d[k] = c;
+    }
+    if (Object.keys(d).length) b[bag] = d; else delete b[bag];
+  }, fit);
   commit(before, `${k} set on ${b.id}`);
+  renderBlockPanel();
 }
 panel.addEventListener('change', onDesignChange, true);
 blockPanel.addEventListener('change', onDesignChange, true);
