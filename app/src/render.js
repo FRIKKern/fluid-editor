@@ -191,10 +191,11 @@ function blockInner(b, model) {
       {
         const type = b.buttonStyle || 'primary';
         const size = BUTTON_SIZE[type];
-        // A button stacked once stops filling its block (parity/findings/S3.json fitButton): it takes
-        // its own width and Align Horizontally places it.
-        const place = b.fit ? `sqs-block-button-container--${b.halign || 'center'} btn-fit` : 'sqs-block-button-container--center sqs-stretched';
-        return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-block-button-container sqs-button-block-container-system_desktop ${place}" data-button-size="${size}" data-button-type="${type}"><a class="sqs-block-button-element--${size} sqs-button-element--${type} sqs-block-button-element" href="${escapeHtml(b.href || '')}">${escapeHtml(b.label)}</a></div></div></div>`;
+        // Fit, Fill and Alignment per view (parity/findings/BUTTONDESIGN.json): a phone follows the
+        // desktop until it is changed; then it has a container of its own. A button stacked once
+        // stops filling its block (parity/findings/S3.json fitButton).
+        const box = (sys, o = {}) => `<div class="sqs-block-button-container sqs-button-block-container-system_${sys} sqs-block-button-container--${o.align || 'center'}${o.fit ? '' : ' sqs-stretched'}" data-button-size="${size}" data-button-type="${type}"><a class="sqs-block-button-element--${size} sqs-button-element--${type} sqs-block-button-element" href="${escapeHtml(b.href || '')}">${escapeHtml(b.label)}</a></div>`;
+        return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-content">${box('desktop', { fit: b.fit, align: b.halign })}${b.btnMobile ? box('mobile', b.btnMobile) : ''}</div></div>`;
       }
     case 'shape': {
       const style = `--shape-fill:${b.fill || 'var(--accent)'};--shape-radius:${b.radius || '0'};--shape-ink:${b.ink || 'inherit'}`;
@@ -280,9 +281,14 @@ function blockInner(b, model) {
 // blur(15px) and Background a white block background on this site.
 export const DESIGN_DEFAULTS = { opacity: 100, tx: 0, ty: 0, rotate: 0, sx: 100, sy: 100, kx: 0, ky: 0, ox: 50, oy: 50 };
 const TRANSFORM = 'translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y))';
-export function designCss(b) {
-  const d = { ...DESIGN_DEFAULTS, ...b.design };
+// Each layout has its own Design values (PERLAYOUT.json): desktop's flow to the phone, value by
+// value, unless the phone set that value itself. Phone values never reach desktop.
+export const designBag = (bp) => (bp === 'mobile' ? 'designMobile' : 'design');
+export const designFor = (b, bp) => ({ ...DESIGN_DEFAULTS, ...b.design, ...(bp === 'mobile' ? b.designMobile : null) });
+function designRule(b, d, phone) {
   const moved = d.tx || d.ty || d.rotate || d.sx !== 100 || d.sy !== 100 || d.kx || d.ky;
+  const off = phone && b.design?.blur;
+  const clear = phone && b.design?.background;
   return `
     .fe-block-${b.id} {
       --opacity: ${d.opacity}%;
@@ -299,9 +305,13 @@ export function designCss(b) {
 
       opacity: var(--opacity, 1);
       transform: var(--block-transform);
-      transform-origin: var(--origin-x) var(--origin-y);${d.blur ? '\n      backdrop-filter: blur(15px);' : ''}
-    }${d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: rgb(255, 255, 255); }` : ''}
+      transform-origin: var(--origin-x) var(--origin-y);${d.blur ? '\n      backdrop-filter: blur(15px);' : off ? '\n      backdrop-filter: none;' : ''}
+    }${d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: rgb(255, 255, 255); }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
   `;
+}
+export function designCss(b) {
+  const base = designRule(b, designFor(b, 'desktop'), false);
+  return b.designMobile ? `${base}\n    @media (max-width: 767px) {${designRule(b, designFor(b, 'mobile'), true)}}\n  ` : base;
 }
 
 // Blend Mode (T15, parity/findings/BLEND.json): on a text block the oracle keeps
@@ -351,24 +361,31 @@ export function stackCss(b) {
 
 export const STROKE_PX = { S: 2, M: 6, L: 15 };
 export const STROKE_PAD = { S: '3%', M: '6%', L: '12%' };
-export function blendCss(b) {
+function blendRule(b, g, phone) {
+  const base = b.design || {};
   // Drop Shadow on a shape (SHAPEDESIGN.json): drop-shadow(2px 2px 3px) on the block contents,
   // in the text color as no color is given.
-  const g = b.design || {};
   // Stroke on a text block (parity/findings/STROKE.json): a solid or dashed black border on
   // .sqs-block, 2, 6 or 15px, and padding inside it of 3, 6 or 12% (6% unless set). Corner is
   // ours: the block's corner radius (not measured).
-  const stroke = g.stroke ? `.fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { border: ${STROKE_PX[g.strokeSize || 'S']}px ${g.stroke} rgb(0, 0, 0); border-radius: ${g.corner || 0}px; } .fe-block-${b.id} .sqs-html-content { padding: ${STROKE_PAD[g.pad || 'M']}; }` : '';
-  const shadow = (g.shadow ? `.fe-block-${b.id} .sqs-block { filter: drop-shadow(2px 2px 3px); }` : '') + (stroke ? ` ${stroke}` : '');
-  const m = b.design?.blend;
-  if (!m || m === 'normal') return shadow;
+  const stroke = g.stroke ? `.fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { border: ${STROKE_PX[g.strokeSize || 'S']}px ${g.stroke} rgb(0, 0, 0); border-radius: ${g.corner || 0}px; } .fe-block-${b.id} .sqs-html-content { padding: ${STROKE_PAD[g.pad || 'M']}; }`
+    : phone && base.stroke ? `.fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { border: 0; } .fe-block-${b.id} .sqs-html-content { padding: 0; }` : '';
+  const drop = g.shadow ? `.fe-block-${b.id} .sqs-block { filter: drop-shadow(2px 2px 3px); }` : phone && base.shadow ? `.fe-block-${b.id} .sqs-block { filter: none; }` : '';
+  const shadow = drop + (stroke ? ` ${stroke}` : '');
+  const m = g.blend && g.blend !== 'normal' ? g.blend : phone && base.blend && base.blend !== 'normal' ? 'normal' : null;
+  if (!m) return shadow;
   if (b.type === 'text') return `${shadow} .fe-block-${b.id} { mix-blend-mode: var(--tweak-text-block-blend ); } .fe-block-${b.id} { --tweak-text-block-blend : ${m}; }`.trim();
   return `${shadow} .fe-block-${b.id} { mix-blend-mode: ${m}; }`.trim();
+}
+export function blendCss(b) {
+  const base = blendRule(b, b.design || {}, false);
+  const phone = b.designMobile ? blendRule(b, { ...b.design, ...b.designMobile }, true) : '';
+  return phone ? `${base} @media (max-width: 767px) { ${phone} }`.trim() : base;
 }
 
 // A child's design goes on the block inside its container, so the marks stay square when it turns (S3.json fromLayers.transforms).
 function kidDesign(b, c) {
-  const css = `${c.design ? designCss(c) : ''}${blendCss(c)}`;
+  const css = `${c.design || c.designMobile ? designCss(c) : ''}${blendCss(c)}`;
   if (!css) return '';
   const on = `#block-${b.id}-${c.id}`;
   return `<style class="transform-vars">${css.replaceAll(`.fe-block-${c.id} .sqs-block`, on).replaceAll(`.fe-block-${c.id}`, on)}</style>`;
@@ -376,7 +393,7 @@ function kidDesign(b, c) {
 
 export function renderBlock(b, model) {
   const blend = blendCss(b);
-  const design = (b.design ? `<style class="transform-vars">${designCss(b)}</style>` : '') + (blend ? `<style class="fe-blend">${blend}</style>` : '');
+  const design = (b.design || b.designMobile ? `<style class="transform-vars">${designCss(b)}</style>` : '') + (blend ? `<style class="fe-blend">${blend}</style>` : '');
   return `<div class="fe-block fe-block-${b.id}" data-block-id="${b.id}">${blockInner(b, model)}${design}</div>`;
 }
 

@@ -155,6 +155,12 @@ export const RECIPES = {
     ['enter'], ['blank'], ['add', 0, 'Accordion'], ['click', 'Edit'], ['read', 'before', { controls: true, html: [0, 'new'] }], ['dragAt', 595, 391, 595, 520], ['read', 'first dragged below third', { controls: true, html: [0, 'new'] }], ['shot', 'grip'],
     ['clickIf', 'Design'], ['clickAt', 845, 784], ['read', 'more', { controls: true }], ['shot', 'more'],
   ] },
+  'CAP-SYNTHCLIP': { page: 'Gestures Probe', question: 'U11, Y4: does the editor take copy and paste events carrying our own DataTransfer? No key presses, nothing reaches the machine clipboard', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['add', 0, 'Button'], ['press', 'Escape'], ['blank'], ['add', 1, 'Line'], ['press', 'Escape'], ['stubClipboard'], ['read', 'before', { areas: 0, clip: true }],
+    ['select', 0, 0], ['synthClip', 'copy'], ['read', 'copy in the frame', { clip: true, areas: 0 }], ['synthClip', 'copy', 'top'], ['read', 'copy in the top window', { clip: true, areas: 0 }],
+    ['synthClip', 'paste'], ['read', 'paste in the frame', { clip: true, areas: 0 }], ['synthClip', 'paste', 'top'], ['read', 'paste in the top window', { clip: true, areas: 0 }],
+    ['press', 'Escape'], ['select', 1, 0], ['synthClip', 'paste'], ['read', 'paste in another section', { clip: true, areas: 1 }], ['synthClip', 'paste', 'top'], ['read', 'paste in another section, top', { clip: true, areas: 1 }],
+  ] },
   'CAP-SECTIONMODEL': { page: 'Gestures Probe', question: 'U10: what Duplicate, Move, Remove and the Add Section picker do to the page', steps: [
     ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['blank'], ['read', 'two sections', { sections: true }],
     ['hover', 0], ['click', 'Duplicate Section'], ['read', 'first duplicated', { sections: true }], ['hover', 0], ['click', 'Move Section Down'], ['read', 'first moved down', { sections: true }], ['hover', 1], ['click', 'Remove Section'], ['read', 'remove asks', { sections: true, controls: true }], ['shot', 'asks'], ['click', 'Remove'], ['read', 'second removed', { sections: true }],
@@ -173,11 +179,11 @@ export const RECIPES = {
     ['press', 'Escape'], ['frame', 800, 900], ['read', 'frame 800', { areas: 0, section: 0 }], ['shot', 'stretched'], ...[1, 2, 3].flatMap((n) => [['select', 0, 0], ['read', `select ${n}`, { areas: 0, section: 0 }], ['press', 'Escape'], ['press', 'Escape']]), ['pick', 0, 0], ['drag', 0, 0, 'e', 60, 0], ['read', 'widened at 800', { areas: 0, section: 0 }], ['unframe'],
   ] },
 
+  // The stored finding also pressed real Cmd+C and Cmd+V, before the ruling against them. Those steps are gone from this recipe: never press them.
   'CAP-COPYPASTE': { page: 'Gestures Probe', question: 'U11, Y4: Copy and Paste of a block, inside a section, between sections and between pages, with the clipboard calls kept in memory', steps: [
     ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['add', 0, 'Button'], ['press', 'Escape'], ['blank'], ['add', 1, 'Line'], ['press', 'Escape'], ['stubClipboard'], ['read', 'before', { areas: 0, clip: true }],
     ['rightClick', 0, 0], ['click', 'Copy'], ['read', 'after copy', { clip: true, areas: 0 }], ['rightClick', 0, 0], ['click', 'Paste'], ['read', 'pasted on the source', { clip: true, areas: 0 }], ['shot', 'pasted'], ['rightClick', 0, 0], ['click', 'Paste'], ['read', 'pasted again', { areas: 0 }], ['press', 'Meta+z'], ['read', 'one undo', { areas: 0 }],
     ['rightClick', 1, 0], ['click', 'Paste'], ['read', 'pasted in another section', { areas: 1 }],
-    ['press', 'Escape'], ['select', 0, 0], ['press', 'Meta+c'], ['read', 'Meta+c', { clip: true, areas: 1 }], ['press', 'Escape'], ['select', 1, 0], ['press', 'Meta+v'], ['read', 'Meta+v in another section', { clip: true, areas: 1 }],
     ['rightClick', 0, 0], ['click', 'Copy'], ['toPage', 'Blocks Probe'], ['blank'], ['read', 'another page', { sections: true }], ['add', 0, 'Line'], ['press', 'Escape'], ['read', 'line on another page', { areas: 0 }], ['rightClick', 0, 0], ['shot', 'menu'], ['clickIf', 'Paste'], ['read', 'pasted on another page', { areas: 0 }], ['exit'], ['read', 'left', { sections: true }],
   ] },
 

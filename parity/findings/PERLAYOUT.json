@@ -1,0 +1,435 @@
+{
+ "item": "L6, S1",
+ "capturedAt": "2026-11-05",
+ "question": "Which block Design values and section settings are stored per layout?",
+ "how": "a new Text or Shape in a new section of the empty not-linked page. A value set in one view, then the panel and computed styles read in both. Nothing saved",
+ "blockRule": "each layout has its own Design values. Desktop values flow to the phone, value by value, unless the phone set that value itself: rotate 30 on desktop shows on the phone, opacity 50 on the phone keeps rotate 30, then rotate 40 and Background on desktop show on the phone with its opacity still 50. Phone values never reach desktop. Read for Opacity, Rotate, Background, Blur, Stroke and Blend Mode",
+ "sectionRule": "on a section only Row Count is per layout. Gap, Height, Alignment, Divider and Colors set on the phone all read the same on desktop",
+ "corrects": "CAP-PERLAYOUT.json's note that block Opacity is not per layout: it read a desktop value on a phone that had none of its own",
+ "quirk": "just after the view changes, the desktop block once read backdrop-filter blur(15px) from the phone while its Blur switch read off. The next edit read none. Ours reads none throughout",
+ "notRead": "Reset to default value, on either layout: the click changed nothing, 3 of 3, and why is not known. Scale, Offset, Skew, Anchor, Stroke thickness and Corner were not set on a phone; ours treats them like the rest. The Background tab of a section, which needs an upload",
+ "section": {
+  "sec phone before": {
+   "w": 428,
+   "cls": "section-height--medium vertical-alignment--middle",
+   "theme": "",
+   "gap": [
+    "11px",
+    "11px"
+   ],
+   "h": 624,
+   "bg": "rgba(0, 0, 0, 0)",
+   "div": false,
+   "rows": 2
+  },
+  "sec phone after": {
+   "w": 428,
+   "cls": "section-height--small vertical-alignment--top",
+   "theme": "dark",
+   "gap": [
+    "0px",
+    "0px"
+   ],
+   "h": 312,
+   "bg": "rgba(0, 0, 0, 0)",
+   "div": true,
+   "rows": 2
+  },
+  "sec desktop after phone": {
+   "w": 1600,
+   "cls": "section-height--small vertical-alignment--top",
+   "theme": "dark",
+   "gap": [
+    "0px",
+    "0px"
+   ],
+   "h": 645,
+   "bg": "rgba(0, 0, 0, 0)",
+   "div": true,
+   "rows": 8
+  }
+ },
+ "blockPhoneOverride": {
+  "A phone set": [
+   {
+    "t": "0px,15px,50%,20°,100%,100%,0px,0px,0°,0°",
+    "bg": true,
+    "blur": true,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 428,
+    "op": "0.5",
+    "tf": "matrix(0.939693, 0.34202, -0.3",
+    "bd": "blur(15px)",
+    "bg": "rgb(255, 255, 255)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ],
+  "A desktop sees": [
+   {
+    "t": "100%,0°,100%,100%,0px,0px,0°,0°",
+    "bg": false,
+    "blur": false,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 1600,
+    "op": "1",
+    "tf": "none",
+    "bd": "blur(15px)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bw": "0px",
+    "sty": "--block-transform: none; --opacity: 100%; --translate-x: 0px"
+   }
+  ],
+  "A desktop set": [
+   {
+    "t": "0px,80%,5°,100%,100%,0px,0px,0°,0°",
+    "bg": true,
+    "blur": false,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 1600,
+    "op": "0.8",
+    "tf": "matrix(0.996195, 0.0871557, -0",
+    "bd": "none",
+    "bg": "rgb(255, 255, 255)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ],
+  "A phone again": [
+   {
+    "t": "0px,15px,50%,20°,100%,100%,0px,0px,0°,0°",
+    "bg": true,
+    "blur": true,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 428,
+    "op": "0.5",
+    "tf": "matrix(0.939693, 0.34202, -0.3",
+    "bd": "blur(15px)",
+    "bg": "rgb(255, 255, 255)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ],
+  "A phone reset opacity true": [
+   {
+    "t": "0px,15px,50%,20°,100%,100%,0px,0px,0°,0°",
+    "bg": true,
+    "blur": true,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 428,
+    "op": "0.5",
+    "tf": "matrix(0.939693, 0.34202, -0.3",
+    "bd": "blur(15px)",
+    "bg": "rgb(255, 255, 255)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ],
+  "A desktop after reset": [
+   {
+    "t": "0px,80%,5°,100%,100%,0px,0px,0°,0°",
+    "bg": true,
+    "blur": false,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 1600,
+    "op": "0.8",
+    "tf": "matrix(0.996195, 0.0871557, -0",
+    "bd": "none",
+    "bg": "rgb(255, 255, 255)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ],
+  "A phone after desktop 70": [
+   {
+    "t": "0px,15px,50%,20°,100%,100%,0px,0px,0°,0°",
+    "bg": true,
+    "blur": true,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 428,
+    "op": "0.5",
+    "tf": "matrix(0.939693, 0.34202, -0.3",
+    "bd": "blur(15px)",
+    "bg": "rgb(255, 255, 255)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ]
+ },
+ "blockFlow": {
+  "1 desktop rotate 30": [
+   {
+    "t": "100%,30°,100%,100%,0px,0px,0°,0°",
+    "bg": false,
+    "blur": false,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 1600,
+    "op": "1",
+    "tf": "matrix(0.866025, 0.5, -0.5, 0.",
+    "bd": "none",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ],
+  "1 phone sees": [
+   {
+    "t": "100%,30°,100%,100%,0px,0px,0°,0°",
+    "bg": false,
+    "blur": false,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 428,
+    "op": "1",
+    "tf": "matrix(0.866025, 0.5, -0.5, 0.",
+    "bd": "none",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ],
+  "1 phone opacity 50": [
+   {
+    "t": "50%,30°,100%,100%,0px,0px,0°,0°",
+    "bg": false,
+    "blur": false,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 428,
+    "op": "0.5",
+    "tf": "matrix(0.866025, 0.5, -0.5, 0.",
+    "bd": "none",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ],
+  "2 desktop sees": [
+   {
+    "t": "100%,30°,100%,100%,0px,0px,0°,0°",
+    "bg": false,
+    "blur": false,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 1600,
+    "op": "1",
+    "tf": "matrix(0.866025, 0.5, -0.5, 0.",
+    "bd": "none",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ],
+  "2 desktop rotate 40 bg": [
+   {
+    "t": "0px,100%,40°,100%,100%,0px,0px,0°,0°",
+    "bg": true,
+    "blur": false,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 1600,
+    "op": "1",
+    "tf": "matrix(0.766044, 0.642788, -0.",
+    "bd": "none",
+    "bg": "rgb(255, 255, 255)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ],
+  "2 phone sees": [
+   {
+    "t": "0px,50%,40°,100%,100%,0px,0px,0°,0°",
+    "bg": true,
+    "blur": false,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 428,
+    "op": "0.5",
+    "tf": "matrix(0.766044, 0.642788, -0.",
+    "bd": "none",
+    "bg": "rgb(255, 255, 255)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ],
+  "3 phone reset true": [
+   {
+    "t": "0px,50%,40°,100%,100%,0px,0px,0°,0°",
+    "bg": true,
+    "blur": false,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 428,
+    "op": "0.5",
+    "tf": "matrix(0.766044, 0.642788, -0.",
+    "bd": "none",
+    "bg": "rgb(255, 255, 255)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ],
+  "3 desktop reset true": [
+   {
+    "t": "0px,100%,40°,100%,100%,0px,0px,0°,0°",
+    "bg": true,
+    "blur": false,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 1600,
+    "op": "1",
+    "tf": "matrix(0.766044, 0.642788, -0.",
+    "bd": "none",
+    "bg": "rgb(255, 255, 255)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ],
+  "3 phone after desktop reset": [
+   {
+    "t": "0px,50%,40°,100%,100%,0px,0px,0°,0°",
+    "bg": true,
+    "blur": false,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 428,
+    "op": "0.5",
+    "tf": "matrix(0.766044, 0.642788, -0.",
+    "bd": "none",
+    "bg": "rgb(255, 255, 255)",
+    "bw": "0px",
+    "sty": "--block-transform: translateX(var(--translate-x)) translateY"
+   }
+  ]
+ },
+ "stroke": {
+  "phone stroke true": [
+   {
+    "t": "0px,100%,0°,100%,100%,0px,0px,0°,0°",
+    "bg": false,
+    "blur": false,
+    "stroke": "Solid Stroke,S"
+   },
+   {
+    "w": 428,
+    "sq": "2px solid normal none",
+    "blend": "normal",
+    "var1": "normal",
+    "st": [
+     "yui3-widget yui3-blo:2px",
+     "sqs-block-outline:2px",
+     "sqs-block-resizing-o:3px"
+    ]
+   }
+  ],
+  "phone blend falsefalse": [
+   {
+    "t": "0px,100%,0°,100%,100%,0px,0px,0°,0°",
+    "bg": false,
+    "blur": false,
+    "stroke": "Solid Stroke,S"
+   },
+   {
+    "w": 428,
+    "sq": "2px solid normal none",
+    "blend": "normal",
+    "var1": "normal",
+    "st": [
+     "yui3-widget yui3-blo:2px",
+     "sqs-block-outline:2px",
+     "sqs-block-resizing-o:3px"
+    ]
+   }
+  ],
+  "desktop sees": [
+   {
+    "t": "100%,0°,100%,100%,0px,0px,0°,0°",
+    "bg": false,
+    "blur": false,
+    "stroke": "No Stroke"
+   },
+   {
+    "w": 1600,
+    "sq": "0px none normal none",
+    "blend": "normal",
+    "var1": "normal",
+    "st": [
+     "sqs-block-outline:2px",
+     "sqs-block-resizing-o:3px",
+     "sqs-block-resizing-i:2px"
+    ]
+   }
+  ]
+ },
+ "blend": {
+  "phone blend true true": [
+   [
+    [
+     "DIV",
+     "button",
+     null,
+     "Blend ModeMultiply"
+    ]
+   ],
+   {
+    "w": 428,
+    "blend": [
+     "multiply"
+    ]
+   }
+  ],
+  "desktop sees": [
+   [
+    [
+     "DIV",
+     "button",
+     null,
+     "Blend ModeNormal"
+    ]
+   ],
+   {
+    "w": 1600,
+    "blend": []
+   }
+  ],
+  "phone again": [
+   [
+    [
+     "DIV",
+     "button",
+     null,
+     "Blend ModeMultiply"
+    ]
+   ],
+   {
+    "w": 428,
+    "blend": [
+     "multiply"
+    ]
+   }
+  ]
+ }
+}

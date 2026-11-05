@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="914" viewBox="0 0 1200 914" role="img" aria-labelledby="t d">
 <title id="t">Fluid editor parity</title>
-<desc id="d">93 of 118 items done, 25 partial, 0 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 7 of 8 done. Block types: 7 of 15 done. Geometry and snapping: 8 of 8 done. Gestures: 10 of 13 done. Row stretch: 3 of 5 done. Text editing: 6 of 7 done. Overlap and layers: 5 of 5 done. Phone layout: 6 of 8 done. Section settings and Stacks: 3 of 4 done. Editor chrome: 8 of 12 done. History, save and publish: 4 of 5 done. Accessibility and order: 2 of 3 done.</desc>
+<desc id="d">98 of 118 items done, 20 partial, 0 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 7 of 8 done. Block types: 8 of 15 done. Geometry and snapping: 8 of 8 done. Gestures: 11 of 13 done. Row stretch: 3 of 5 done. Text editing: 6 of 7 done. Overlap and layers: 5 of 5 done. Phone layout: 8 of 8 done. Section settings and Stacks: 4 of 4 done. Editor chrome: 8 of 12 done. History, save and publish: 4 of 5 done. Accessibility and order: 2 of 3 done.</desc>
 <style>
   svg { --bg:#fbfaf7; --card:#ffffff; --line:#e3e0d6; --ink:#1f1e1b; --muted:#6c6a63; --done:#2c7a4b; --now:#b26b00; --todo:#a3a097; --nowbg:#fff6e5; --partbg:#fdf0d8; --unk:#8a6fb0; }
   @media (prefers-color-scheme: dark) {
@@ -21,11 +21,11 @@
 <rect class="bg" width="1200" height="914" rx="16"/>
 <text x="40" y="70" font-size="36" font-weight="700" letter-spacing="-0.8">Parity</text>
 <text x="40" y="102" font-size="19" class="muted">Everything that has to match Fluid Engine, one cell per item.</text>
-<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">93<tspan class="muted" font-weight="400"> / 118</tspan></text>
+<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">98<tspan class="muted" font-weight="400"> / 118</tspan></text>
 <text x="1160" y="102" font-size="16" text-anchor="end" class="muted">items done</text>
-<rect x="40" y="124" width="882.7118644067797" height="10" class="s-done"/>
-<rect x="922.7118644067797" y="124" width="237.28813559322035" height="10" class="s-partial"/>
-<text x="40" y="172" font-size="16"><tspan class="done">✓ 93 done</tspan><tspan class="now" dx="24">◐ 25 partial</tspan><tspan class="todo" dx="24">○ 0 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
+<rect x="40" y="124" width="930.1694915254237" height="10" class="s-done"/>
+<rect x="970.1694915254237" y="124" width="189.83050847457628" height="10" class="s-partial"/>
+<text x="40" y="172" font-size="16"><tspan class="done">✓ 98 done</tspan><tspan class="now" dx="24">◐ 20 partial</tspan><tspan class="todo" dx="24">○ 0 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
 <text x="1160" y="172" font-size="16" text-anchor="end" class="muted">unknown: needs a trace on the oracle before it can be built</text>
 <path d="M40 190H1160" class="rule"/>
 <g data-area="Harness and oracle">
@@ -108,7 +108,7 @@
 </g>
 <g data-area="Block types">
 <text x="40" y="372" font-size="15" font-weight="600">Block types</text>
-<text x="324" y="372" font-size="14" text-anchor="end" class="muted">7/15</text>
+<text x="324" y="372" font-size="14" text-anchor="end" class="muted">8/15</text>
 <rect x="340" y="352" width="50" height="30" rx="6" class="c-done"><title>T1 Wrapper chain `.fe-block &gt; .sqs-block &gt; .sqs-block-content`: done</title></rect>
 <text x="365" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-done">T1</text>
 <rect x="396" y="352" width="50" height="30" rx="6" class="c-done"><title>T2 `.sqs-block-alignment-wrapper` on the right block types: done</title></rect>
@@ -117,8 +117,8 @@
 <text x="477" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-done">T3</text>
 <rect x="508" y="352" width="50" height="30" rx="6" class="c-partial"><title>T4 Image block: fit, fill, crop, focal point, stretched: partial</title></rect>
 <text x="533" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">T4</text>
-<rect x="564" y="352" width="50" height="30" rx="6" class="c-partial"><title>T5 Button block: sizes, styles, stretch: partial</title></rect>
-<text x="589" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">T5</text>
+<rect x="564" y="352" width="50" height="30" rx="6" class="c-done"><title>T5 Button block: sizes, styles, stretch: done</title></rect>
+<text x="589" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-done">T5</text>
 <rect x="620" y="352" width="50" height="30" rx="6" class="c-partial"><title>T6 Shape block and the Squarespace shape set: partial</title></rect>
 <text x="645" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">T6</text>
 <rect x="676" y="352" width="50" height="30" rx="6" class="c-partial"><title>T7 Video block: partial</title></rect>
@@ -162,7 +162,7 @@
 </g>
 <g data-area="Gestures">
 <text x="40" y="464" font-size="15" font-weight="600">Gestures</text>
-<text x="324" y="464" font-size="14" text-anchor="end" class="muted">10/13</text>
+<text x="324" y="464" font-size="14" text-anchor="end" class="muted">11/13</text>
 <rect x="340" y="444" width="50" height="30" rx="6" class="c-done"><title>X1 Move threshold before a drag starts, 4px in the prototype: done</title></rect>
 <text x="365" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X1</text>
 <rect x="396" y="444" width="50" height="30" rx="6" class="c-partial"><title>X2 How the block follows the pointer and how the target shows: partial</title></rect>
@@ -183,8 +183,8 @@
 <text x="813" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X9</text>
 <rect x="844" y="444" width="50" height="30" rx="6" class="c-done"><title>X10 Locked blocks, `data-is-locked`: done</title></rect>
 <text x="869" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X10</text>
-<rect x="900" y="444" width="50" height="30" rx="6" class="c-partial"><title>X11 Touch and pen input: partial</title></rect>
-<text x="925" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">X11</text>
+<rect x="900" y="444" width="50" height="30" rx="6" class="c-done"><title>X11 Touch and pen input: done</title></rect>
+<text x="925" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X11</text>
 <rect x="956" y="444" width="50" height="30" rx="6" class="c-done"><title>X13 Marquee selection: drag over an empty area to select the blocks inside: done</title></rect>
 <text x="981" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X13</text>
 <rect x="1012" y="444" width="50" height="30" rx="6" class="c-done"><title>X12 Esc cancels, one gesture is one undo step: done</title></rect>
@@ -238,7 +238,7 @@
 </g>
 <g data-area="Phone layout">
 <text x="40" y="648" font-size="15" font-weight="600">Phone layout</text>
-<text x="324" y="648" font-size="14" text-anchor="end" class="muted">6/8</text>
+<text x="324" y="648" font-size="14" text-anchor="end" class="done">8/8</text>
 <rect x="340" y="628" width="50" height="30" rx="6" class="c-done"><title>L1 Separate area and z per block, row count per layout: done</title></rect>
 <text x="365" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-done">L1</text>
 <rect x="396" y="628" width="50" height="30" rx="6" class="c-done"><title>L2 Shared content: done</title></rect>
@@ -247,10 +247,10 @@
 <text x="477" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-done">L3</text>
 <rect x="508" y="628" width="50" height="30" rx="6" class="c-done"><title>L4 Whether phone edits survive later desktop edits: done</title></rect>
 <text x="533" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-done">L4</text>
-<rect x="564" y="628" width="50" height="30" rx="6" class="c-partial"><title>L5 Hiding a block on one layout: partial</title></rect>
-<text x="589" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">L5</text>
-<rect x="620" y="628" width="50" height="30" rx="6" class="c-partial"><title>L6 Phone-only overrides such as font size: partial</title></rect>
-<text x="645" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">L6</text>
+<rect x="564" y="628" width="50" height="30" rx="6" class="c-done"><title>L5 Hiding a block on one layout: done</title></rect>
+<text x="589" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-done">L5</text>
+<rect x="620" y="628" width="50" height="30" rx="6" class="c-done"><title>L6 Phone-only overrides such as font size: done</title></rect>
+<text x="645" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-done">L6</text>
 <rect x="676" y="628" width="50" height="30" rx="6" class="c-done"><title>L7 Behaviour between 600 and 767px: done</title></rect>
 <text x="701" y="648" font-size="13" font-weight="700" text-anchor="middle" class="t-done">L7</text>
 <rect x="732" y="628" width="50" height="30" rx="6" class="c-done"><title>L8 Phone layout edits on demo section 7, traced and replayed: done</title></rect>
@@ -258,9 +258,9 @@
 </g>
 <g data-area="Section settings and Stacks">
 <text x="40" y="694" font-size="15" font-weight="600">Section settings and Stacks</text>
-<text x="324" y="694" font-size="14" text-anchor="end" class="muted">3/4</text>
-<rect x="340" y="674" width="50" height="30" rx="6" class="c-partial"><title>S1 Row count per layout, and whether it is the only per-layout section setting: partial</title></rect>
-<text x="365" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">S1</text>
+<text x="324" y="694" font-size="14" text-anchor="end" class="done">4/4</text>
+<rect x="340" y="674" width="50" height="30" rx="6" class="c-done"><title>S1 Row count per layout, and whether it is the only per-layout section setting: done</title></rect>
+<text x="365" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-done">S1</text>
 <rect x="396" y="674" width="50" height="30" rx="6" class="c-done"><title>S2 Spacing values allowed: done</title></rect>
 <text x="421" y="694" font-size="13" font-weight="700" text-anchor="middle" class="t-done">S2</text>
 <rect x="452" y="674" width="50" height="30" rx="6" class="c-done"><title>S3 Stacks: grouped blocks with their own order and spacing: done</title></rect>

@@ -21,6 +21,8 @@ Out of scope now:
 - **The Sell group of the Add Block menu (U5).** Product, donation and member blocks need a Squarespace store or account.
 - **Subscribe in the Site Styles panel (U12).** It is the trial account's billing button. It is not part of the editor.
 - **Gallery blocks in the corpus (H3).** Fluid Engine offers no Gallery block (parity/findings/T8.json).
+- **Answers that need a Save or an upload on the trial site (T7, P5, L5, T12).** Uploaded video, how an uploaded section picture fits, the published CSS of a hidden block, the published accordion. Probes never save or upload (O1). Ours is built from what the editor shows.
+- **Pressing buttons that write outside the page (U10, U12).** Save Section, Reset and Reset Color Theme on the trial site. A probe does not press them, so what they do there stays unread. Ours keeps its own behaviour.
 
 ## Considered
 

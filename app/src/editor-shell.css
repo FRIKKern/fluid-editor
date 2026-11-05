@@ -723,3 +723,16 @@ body.is-preview #reload-preview { display: inline-flex; }
 .st-size-f .st-size-menu { top: 54px; }
 .lp-kid .lp-icon { margin-left: 22px; }
 .lp-list > .lp-kid { margin-top: -3px; }
+/* A button's Design tab (parity/findings/BUTTONDESIGN.json): a 276 by 87 current style, a list of
+   55 tall options opening 16px below its top, Fit and Fill 36px with 6px between. */
+.bp-bs-title { margin: 16px 0 19px; font-weight: 500; }
+.bp-bs-wrap { position: relative; margin-bottom: 11px; }
+.bp-bs-cur { display: flex; align-items: center; gap: 12px; width: 100%; height: 87px; padding: 0 11px; border: 0; border-radius: 4px; background: #f2f2f2; color: #0e0e0e; font: inherit; text-align: left; cursor: pointer; }
+.bp-bs-cur svg, .bp-bs-opt svg { margin-left: auto; width: 16px; height: 16px; }
+.bp-bs-aa { display: inline-flex; align-items: center; justify-content: center; width: 54px; height: 31px; border-radius: 4px; background: #000; color: #fff; font: 500 16px Poppins, sans-serif; }
+.bp-bs-list { position: absolute; left: 0; top: 16px; z-index: 3; width: 276px; padding: 16px 0 0; background: #fff; border-radius: 6px; box-shadow: 0 2px 12px rgba(0, 0, 0, .16); }
+.bp-bs-opt { display: flex; align-items: center; gap: 12px; width: 100%; height: 55px; padding: 0 11px; border: 0; background: #fff; color: #0e0e0e; font: inherit; text-align: left; cursor: pointer; }
+.bp-bs-opt[aria-selected="true"], .bp-bs-opt:hover { background: #f2f2f2; }
+.bp-bs-edit { width: 100%; height: 55px; border: 0; background: #fff; color: #0e0e0e; font-size: 12px; font-weight: 500; letter-spacing: .5px; text-transform: uppercase; cursor: pointer; }
+.bp-btn-row { border-bottom: 0; }
+.bp-btn-row + .bp-thead { margin-top: 11px; padding-top: 25px; }

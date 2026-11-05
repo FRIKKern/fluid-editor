@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey } from './render.js';
+import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
@@ -518,9 +518,12 @@ function measure(fe) {
 
 // Rows a block needs so its content fits without stretching a row.
 function contentRows(b, m) {
-  if (b.type === 'shape' || b.type === 'image') return 1; // free in every mode (BLOCKTYPES.json)
+  if (b.type === 'shape' || b.type === 'image' || b.type === 'line') return 1; // free down to 1 row (BLOCKTYPES.json)
   const root = blockEl(b.id);
-  const c = root?.querySelector('.accordion-items-container, .sqs-block-video-placeholder--empty') || root?.querySelector('.sqs-block-content');
+  // A Fit button in the view on screen: its height is its own (BUTTONDESIGN.json).
+  const fit = b.type === 'button' ? [...(root?.querySelectorAll('.sqs-block-button-container:not(.sqs-stretched)') || [])].find((e) => e.offsetHeight) : null;
+  if (b.type === 'button' && !fit) return 1; // Fill goes to 1 row even when its text wraps
+  const c = fit || root?.querySelector('.accordion-items-container, .sqs-block-video-placeholder--empty') || root?.querySelector('.sqs-block-content');
   if (!c) return 1;
   return Math.max(1, Math.ceil((c.offsetHeight + m.rg) / m.pitch - 0.02));
 }
@@ -543,14 +546,16 @@ function normalize(sid) {
     const br = blockEl(b.id).getBoundingClientRect();
     const a = lay(b).area;
     const r0 = Math.max(1, Math.round((br.top - top) / m.pitch) + 1);
-    const n = Math.max(1, Math.ceil((br.height + m.rg) / m.pitch - 0.02));
+    // A block keeps its rows and grows only if its content needs more (CAP-NORMALIZE.json): a heading
+    // or a shape in stretched rows does not take their height.
+    const n = Math.max(a[2] - a[0], contentRows(b, m));
     return [r0, a[1], r0 + n, a[3]];
   });
   s.blocks.forEach((b, i) => {
     if (!same(lay(b).area, next[i])) moved++;
     lay(b).area = next[i];
   });
-  s.rows[bp] = Math.max(Math.round((m.r.height + m.rg) / m.pitch), ...next.map((a) => a[2] - 1));
+  s.rows[bp] = Math.max(Math.ceil((m.r.height + m.rg) / m.pitch - 0.02), ...next.map((a) => a[2] - 1));
   if (wasClean) savedJson = JSON.stringify(model);
   renderSectionDom(sid);
   note(`Normalized ${stretched} stretched rows, ${moved} blocks remapped`);
@@ -1047,6 +1052,8 @@ function updateResize(e) {
   let [r0, c0, r1, c1] = g.orig;
   const x = e.clientX;
   const y = e.clientY;
+  // A button stops at 3 columns on the desktop, whatever its text (BUTTONDESIGN.json).
+  const leastCols = B(g.sid, g.bid).type === 'button' && bp === 'desktop' ? 3 : 1;
   const q = fe.getBoundingClientRect();
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(v, hi));
   // While held the block's own box follows the pointer and only the ring snaps (HOLD.json). It is
@@ -1060,8 +1067,8 @@ function updateResize(e) {
   const el = blockEl(g.bid);
   // Out of the flow, so its height does not push the grid's rows. Its area is still its place.
   Object.assign(el.style, { position: 'absolute', left: '0', top: '0', width: `${R - L}px` });
-  if (g.dir.includes('e')) c1 = snapColumn(m, c1, x - m.colEnd[c1 - 2], c0 + 1, LAST_LINE[bp]);
-  if (g.dir.includes('w')) c0 = snapColumn(m, c0, x - m.colStart[c0 - 1], 1, c1 - 1);
+  if (g.dir.includes('e')) c1 = snapColumn(m, c1, x - m.colEnd[c1 - 2], Math.min(c0 + leastCols, LAST_LINE[bp]), LAST_LINE[bp]);
+  if (g.dir.includes('w')) c0 = snapColumn(m, c0, x - m.colStart[c0 - 1], 1, Math.max(1, c1 - leastCols));
   if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, y - (top + (r1 - 1) * m.pitch - m.rg)));
   if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, y - (top + (r0 - 1) * m.pitch))));
   // Guard: a target cannot be shorter than the content at the width the block has now.
@@ -1257,7 +1264,6 @@ function startTextEdit(sid, bid) {
   const b = B(sid, bid);
   if (!b || b.type !== 'text' || editing) return;
   select({ sid, bid: b.id });
-  normalize(sid);
   const before = JSON.stringify(model);
   const el = blockEl(b.id);
   el.classList.add('is-text-editing');
@@ -1297,6 +1303,7 @@ function onPaste(e) {
 let designOpen = null;
 let designTab = 'Design';
 let blendOpen = false;
+let bstyleOpen = false;
 let animPicker = false;
 let embedData = false;
 let accView = null; // 'acc-item:<n>' or 'acc-dividers'
@@ -1305,7 +1312,7 @@ function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
-  if (!b) { animPicker = false; blendOpen = false; embedData = false; accView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!b) { animPicker = false; blendOpen = false; bstyleOpen = false; embedData = false; accView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'accordion' || (accView?.startsWith('acc-item:') && !b.items[Number(accView.slice(9))])) accView = null; // undo can take the item away
   const content = b.type === 'button' ? { label: b.label, href: b.href } : b.type === 'image' ? { src: b.src, href: b.href, alt: b.alt, filename: b.filename, empty: !!b.empty }
     : b.type === 'video' && !b.html ? { kind: 'video', description: b.description }
@@ -1319,7 +1326,9 @@ function renderBlockPanel() {
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
   const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
-  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, b.type === 'accordion' && accView ? accView : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : null), shape, image, stack, kid);
+  const buttonView = b.type !== 'button' ? null : bp === 'mobile' && b.btnMobile ? b.btnMobile : { fit: b.fit, align: b.halign };
+  const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'accordion' && accView ? accView : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   blockPanel.style.width = b.type === 'code' && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
   // An item's view holds that item open on the canvas (ACCORDION.json).
   if (b.type === 'accordion') showAccordionItem(b);
@@ -1349,6 +1358,13 @@ blockPanel.addEventListener('click', (e) => {
   const o = e.target.closest('[data-blend]');
   if (o && sel) { blendOpen = false; setDesign('blend', o.dataset.blend === 'normal' ? null : o.dataset.blend); return; }
   if (blendOpen && !e.target.closest('.bp-listbox')) { blendOpen = false; renderBlockPanel(); }
+  if (e.target.closest('[data-bpstyle-toggle]')) { bstyleOpen = !bstyleOpen; renderBlockPanel(); return; }
+  if (e.target.closest('[data-bpstyle-edit]')) { bstyleOpen = false; setSiteStyles(true); ssView = 'Buttons'; renderSsPanel(); return; }
+  const bst = e.target.closest('[data-bpstyle]');
+  if (bst && sel) { bstyleOpen = false; setButtonStyle(sel.sid, sel.bid, bst.dataset.bpstyle); return; }
+  const bset = e.target.closest('[data-btn-set]');
+  if (bset && sel) { setButtonView(bset.dataset.btnSet, bset.dataset.v); return; }
+  if (bstyleOpen && !e.target.closest('.bp-bs-list')) { bstyleOpen = false; renderBlockPanel(); }
   const l = e.target.closest('[data-link]');
   if (l && sel) { onLinkAction(l.dataset.link, l); return; }
   const t = e.target.closest('[data-btab]');
@@ -1435,12 +1451,38 @@ blockPanel.addEventListener('change', (e) => {
 });
 
 // One design value of the selected block, as one undo step (null removes it).
+function setButtonStyle(sid, bid, style) {
+  const b = B(sid, bid);
+  if (!b) return;
+  const before = JSON.stringify(model);
+  if (style === 'primary') delete b.buttonStyle; else b.buttonStyle = style;
+  renderSectionDom(sid);
+  commit(before, `Button style ${style}`);
+}
+// Fit, Fill and Alignment of the view on screen (BUTTONDESIGN.json): the first change on the phone
+// starts from what the phone was following, and later desktop changes leave it alone.
+function setButtonView(key, v) {
+  const b = B(sel.sid, sel.bid);
+  const before = JSON.stringify(model);
+  if (bp === 'mobile') {
+    const o = b.btnMobile || { ...(b.fit ? { fit: true } : {}), ...(b.halign ? { align: b.halign } : {}) };
+    if (key === 'fit') { if (v) o.fit = true; else delete o.fit; }
+    if (key === 'align') { if (v === 'center') delete o.align; else o.align = v; }
+    b.btnMobile = o;
+  } else if (key === 'fit') { if (v) b.fit = true; else delete b.fit; } else if (v === 'center') delete b.halign; else b.halign = v;
+  renderSectionDom(sel.sid);
+  commit(before, `Button ${key} set on ${b.id}`);
+}
 function setDesign(k, v) {
   const b = B(sel.sid, sel.bid);
   const before = JSON.stringify(model);
-  const d = { ...(b.design || {}) };
-  if (v == null) delete d[k]; else d[k] = v;
-  if (Object.keys(d).length) b.design = d; else delete b.design;
+  const bag = designBag(bp);
+  const d = { ...(b[bag] || {}) };
+  // Removing a value on the phone is a value too: desktop's would flow back in (PERLAYOUT.json).
+  if (v == null && bag === 'designMobile') d[k] = k === 'blend' ? 'normal' : '';
+  else if (v == null) delete d[k];
+  else d[k] = v;
+  if (Object.keys(d).length) b[bag] = d; else delete b[bag];
   renderSectionDom(sel.sid);
   commit(before, `${k} set on ${b.id}`);
 }
@@ -1700,8 +1742,15 @@ function onDesignChange(e) {
   const before = JSON.stringify(model);
   const b = B(sel.sid, sel.bid);
   const k = input.dataset.design;
-  const d = { ...(b.design || {}) };
-  if (input.type === 'checkbox') { if (input.checked) d[k] = true; else delete d[k]; }
+  const bag = designBag(bp);
+  const d = { ...(b[bag] || {}) };
+  // A value set on the phone stays the phone's, even at the default (PERLAYOUT.json).
+  if (bag === 'designMobile') {
+    const f = DESIGN_FIELDS.find((x) => x[0] === k);
+    if (input.type === 'checkbox') d[k] = input.checked;
+    else if (!Number.isFinite(Number(input.value))) return;
+    else d[k] = f ? Math.min(f[4], Math.max(f[3], Number(input.value))) : Number(input.value);
+  } else if (input.type === 'checkbox') { if (input.checked) d[k] = true; else delete d[k]; }
   else {
     const f = DESIGN_FIELDS.find((x) => x[0] === k) || [k, k, 'px', 0, 500];
     const v = Number(input.value);
@@ -1709,7 +1758,7 @@ function onDesignChange(e) {
     const c = Math.min(f[4], Math.max(f[3], v));
     if (c === (DESIGN_DEFAULTS[k] ?? 0)) delete d[k]; else d[k] = c;
   }
-  if (Object.keys(d).length) b.design = d; else delete b.design;
+  if (Object.keys(d).length) b[bag] = d; else delete b[bag];
   renderSectionDom(sel.sid);
   commit(before, `${k} set on ${b.id}`);
 }
@@ -2694,13 +2743,8 @@ styleMenu.addEventListener('mousedown', (e) => e.preventDefault());
 styleMenu.addEventListener('click', (e) => {
   const o = e.target.closest('[data-bstyle]');
   if (!o) return;
-  const b = B(styleMenu.dataset.sid, styleMenu.dataset.bid);
   styleMenu.hidden = true;
-  if (!b) return;
-  const before = JSON.stringify(model);
-  if (o.dataset.bstyle === 'primary') delete b.buttonStyle; else b.buttonStyle = o.dataset.bstyle;
-  renderSectionDom(styleMenu.dataset.sid);
-  commit(before, `Button style ${o.dataset.bstyle}`);
+  setButtonStyle(styleMenu.dataset.sid, styleMenu.dataset.bid, o.dataset.bstyle);
 });
 
 const pinPop = $('pin-popover');

@@ -263,6 +263,9 @@
       "AaLight 2",
       "AaBright 1",
       "AaBright 2"
+    ],
+    "outOfScope": [
+      "0005: how an uploaded section picture fits, which needs an upload on the trial site"
     ]
   },
   {
@@ -338,12 +341,21 @@
     "id": "T5",
     "area": "Block types",
     "milestone": "M2",
-    "status": "partial",
+    "status": "done",
     "title": "Button block: sizes, styles, stretch",
-    "evidence": "Button fills its block height (59px at 768, 61.6px at 1280), 56px side padding, Poppins 500 16px. Sizes (parity/findings/BUTTONSTYLE.json): Primary is medium, Secondary large, Tertiary small, with the same box when stretched. The markup has the measured sqs-block-button-container and no alignment wrapper (BLOCKTYPES.json). Found in the editor screenshot comparison 2026-11-03: the demo hero button fills its block on the oracle (x 92 to 375), ours was narrower and centred (x 130 to 336); the button element and its content box now fill the block (width and height), also when the block centres its content on phones, from that one measured block (283 by 71). Measured 2026-11-04 by hand on the oracle: the button toolbar has Edit, Open link editor popover, Pin, Duplicate and Remove; Edit opens a panel on a Content tab (Text, Link with Attach link) next to Design and Animation. Our Edit opens Design only. Built 2026-11-04 from parity/findings/BUTTONEDIT.json: our button Edit opens on Content (Text field, Link with Attach link, then the link with Edit, Copy and Remove Link) beside Design and Animation; a new text replaces the text of the link, and a button without a link renders href=\"\" as on the oracle (the importer no longer turns it into #). Tested in headless Chrome: text, attach, remove and undo Unstretched button measured (parity/findings/CAP-BUTTON.json): the control is Design > Layout, Fit or Fill. In a 282.9 by 71.2 block Fill gives a button of that size; Fit gives 206.6 by 66.6, centred (38.2 from the left, 2.3 from the top). Not built: ours has no button Layout control.",
+    "evidence": "Button fills its block height (59px at 768, 61.6px at 1280), 56px side padding, Poppins 500 16px. Sizes (parity/findings/BUTTONSTYLE.json): Primary is medium, Secondary large, Tertiary small, with the same box when stretched. The markup has the measured sqs-block-button-container and no alignment wrapper (BLOCKTYPES.json). Found in the editor screenshot comparison 2026-11-03: the demo hero button fills its block on the oracle (x 92 to 375), ours was narrower and centred (x 130 to 336); the button element and its content box now fill the block (width and height), also when the block centres its content on phones, from that one measured block (283 by 71). Measured 2026-11-04 by hand on the oracle: the button toolbar has Edit, Open link editor popover, Pin, Duplicate and Remove; Edit opens a panel on a Content tab (Text, Link with Attach link) next to Design and Animation. Our Edit opens Design only. Built 2026-11-04 from parity/findings/BUTTONEDIT.json: our button Edit opens on Content (Text field, Link with Attach link, then the link with Edit, Copy and Remove Link) beside Design and Animation; a new text replaces the text of the link, and a button without a link renders href=\"\" as on the oracle (the importer no longer turns it into #). Tested in headless Chrome: text, attach, remove and undo Unstretched button measured (parity/findings/CAP-BUTTON.json): the control is Design > Layout, Fit or Fill. In a 282.9 by 71.2 block Fill gives a button of that size; Fit gives 206.6 by 66.6, centred (38.2 from the left, 2.3 from the top).. Design tab (parity/findings/BUTTONDESIGN.json, a new button on a new page, npm run button-check, real mouse): Button style with the same three picks as the toolbar and Edit Button Styles, which opens Site Styles > Buttons; Layout Fit or Fill; Alignment on Fit; the transforms. Fit: the button's own size (206.6 by 66.6, 20.8px 56px padding), centred in the block's height, with Align Left, Center or Right; one undo step each. Rows stop at what the button needs (2, or 3 when the text wraps), a Fill goes to 1 row. A button stops at 3 columns, whatever its text; a long word does not break and sticks out on both sides. Fit, Fill and Alignment belong to each view: the phone follows the desktop until it is changed, then has its own system_mobile container, and desktop changes leave it alone. Inferred, not in this claim: the 3 column stop on the w handle (only e and se were pulled); the importer reading Fit and Alignment (no oracle page has a Fit button to import); the phone's container shown under the same width rule as the phone grid. Not measured: the phone's least size, other button packs, the published page. Anchor and More actions by Transforms are shared by all blocks: T15",
     "controls": [
-      "Content",
+      "Align Center",
+      "Align Left",
+      "Align Right",
+      "Alignment",
       "Attach link",
+      "Button style",
+      "Content",
+      "Edit Button Styles",
+      "Fill",
+      "Fit",
+      "Layout",
       "Open link editor popover"
     ]
   },
@@ -370,7 +382,10 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Video block",
-    "evidence": "parity/findings/T7.json and T13.json: Add Block > Video lands at 1/2/9/10 (8 columns, 8 rows) with an empty placeholder (.sqs-block-video-placeholder--empty, no text). Our Video block has the same area, the published class string (website-component-block sqs-block-video, type 1337, from the corpus) and an editor-only placeholder. A new video (parity/findings/MEDIAEMPTY.json, npm run image-check): Edit opens on Content; dark placeholder 0.65 of its width tall with a centred icon; Content rows (Add a Video, Video Storage, Custom thumbnail, Lazy Loading, Elements, Description) and Design rows (Appearance, Transforms, Effects) in the oracle's order; the block's rows follow the width as on the oracle (e, s and se handles). Description is kept on the block. Missing: adding a video, the player, its settings; Add a Video, storage, thumbnail, Lazy Loading and Corner are dim. An uploaded video was not tried on the oracle (no uploads)"
+    "evidence": "parity/findings/T7.json and T13.json: Add Block > Video lands at 1/2/9/10 (8 columns, 8 rows) with an empty placeholder (.sqs-block-video-placeholder--empty, no text). Our Video block has the same area, the published class string (website-component-block sqs-block-video, type 1337, from the corpus) and an editor-only placeholder. A new video (parity/findings/MEDIAEMPTY.json, npm run image-check): Edit opens on Content; dark placeholder 0.65 of its width tall with a centred icon; Content rows (Add a Video, Video Storage, Custom thumbnail, Lazy Loading, Elements, Description) and Design rows (Appearance, Transforms, Effects) in the oracle's order; the block's rows follow the width as on the oracle (e, s and se handles). Description is kept on the block. Missing: adding a video, the player, its settings; Add a Video, storage, thumbnail, Lazy Loading and Corner are dim. An uploaded video was not tried on the oracle (no uploads)",
+    "outOfScope": [
+      "0005: an uploaded video, which needs an upload on the trial site"
+    ]
   },
   {
     "id": "T8",
@@ -419,7 +434,10 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Remaining block types from the add-block menu",
-    "evidence": "Scrolling block: heading formula with size value 5, height = 1.4em + 120px (measured at 375, 768, 1280, 1920); rendered as a static line, boxes match on Home and Services. The moving wave text is not built. Accordion block (parity/findings/ACCORDION.json): default three items, measured markup and sizes, icon and row padding choices, placement, Expand first, Allow multiple, Dividers switches, rows that follow the list both ways, Content list, item view and Dividers view, Backspace safe, one undo step; npm run accordion-check 44 of 44. Dim because not built or not measured: style pickers, Icon picker, more buttons, reorder grip, divider Thickness and Opacity. Opening a title on the published page is inferred, not measured. Other block types in the menu not built Measured (parity/findings/CAP-ACCORDION.json, CAP-ACCORDION2.json): Title and Description open a view with Back; Title has a style menu, Heading 1 to 4 and Paragraph 1 to 3, and left, center, right. Description opens on Paragraph 2 with S, M, L and left, center, right, each listed twice in the read. Dividers has Dividers, Show first, Show last, S, M, L and Opacity 1. Icon is Plus or Arrow. Dragging the grip reorders the items and the canvas follows: 1, 2, 3 to 2, 3, 1. The fourth Icon Size button takes the selection; what it shows is under the panel fold, not read."
+    "evidence": "Scrolling block: heading formula with size value 5, height = 1.4em + 120px (measured at 375, 768, 1280, 1920); rendered as a static line, boxes match on Home and Services. The moving wave text is not built. Accordion block (parity/findings/ACCORDION.json): default three items, measured markup and sizes, icon and row padding choices, placement, Expand first, Allow multiple, Dividers switches, rows that follow the list both ways, Content list, item view and Dividers view, Backspace safe, one undo step; npm run accordion-check 44 of 44. Dim because not built or not measured: style pickers, Icon picker, more buttons, reorder grip, divider Thickness and Opacity. Opening a title on the published page is inferred, not measured. Other block types in the menu not built Measured (parity/findings/CAP-ACCORDION.json, CAP-ACCORDION2.json): Title and Description open a view with Back; Title has a style menu, Heading 1 to 4 and Paragraph 1 to 3, and left, center, right. Description opens on Paragraph 2 with S, M, L and left, center, right, each listed twice in the read. Dividers has Dividers, Show first, Show last, S, M, L and Opacity 1. Icon is Plus or Arrow. Dragging the grip reorders the items and the canvas follows: 1, 2, 3 to 2, 3, 1. The fourth Icon Size button takes the selection; what it shows is under the panel fold, not read.",
+    "outOfScope": [
+      "0005: the published accordion, which needs a Save on the trial site"
+    ]
   },
   {
     "id": "T13",
@@ -640,9 +658,9 @@
     "id": "X11",
     "area": "Gestures",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "Touch and pen input",
-    "evidence": "parity/findings/TOUCHHOLD.json, on a new page that scrolls: a tap selects; a touch drags like a mouse; the browser cancels it, nothing moved, only if the first move passes its 15px pan distance after a press under about 100 ms (60 is cancelled, 100 moves, inferred between); a touch on a handle resizes; a touch on the empty grid draws no box; a pen does what a mouse does. This corrects CAP-TOUCH.json's quick drag and handle reads, one each on the demo page; why they differed is not known. Ours matches with real touch events and a pen (npm run mid-check, 15 cases); before this a touch drag ended at once and a block could never pan. Touch events were sent without emulation, so a real device may differ. Not read: a touch on a handle faster than 15px a move."
+    "evidence": "parity/findings/TOUCHHOLD.json, on a new page that scrolls: a tap selects; a touch drags like a mouse; the browser cancels it, nothing moved, only if the first move passes its 15px pan distance after a press under about 100 ms (60 is cancelled, 100 moves; the 100 ms hold in ours is a pick between them); a touch on a handle resizes; a touch on the empty grid draws no box; a pen does what a mouse does. This corrects CAP-TOUCH.json's quick drag and handle reads, one each on the demo page; why they differed is not known. Ours matches with real touch events and a pen (npm run mid-check, 15 cases); before this a touch drag ended at once and a block could never pan. Touch events were sent over the debug protocol without touch emulation, and no real device was tried, so a real device may differ. Not read: a touch on a handle faster than 15px a move."
   },
   {
     "id": "X13",
@@ -674,7 +692,7 @@
     "milestone": "M4",
     "status": "partial",
     "title": "Whether normalization also runs on select, resize or edit start",
-    "evidence": "Keyboard: yes (traces/T0001-key-right.json). Select: 1 of 2 oracle runs normalized, 2026-11-03; cause not proven Measured (parity/findings/CAP-NORMALIZE.json, section 3 in an 800px frame, rows stretched by text): select leaves the rows stretched in 3 of 3 runs, so does starting and leaving a text edit. A resize, a 60px drag and an arrow key each normalize, 12 stretched rows to 19 rows of 15.8. Why one select of 2 normalized on 2026-11-03 is still not known. A drag normalizes while held, before the drop: with the block held 60px right (is-being-dragged, translate 60) the rows are already 19 of 15.8, and they stay that way when it drops back home (parity/findings/CAP-HELDNORMAL.json). Ours not compared. Widening a long text block one column at a time (parity/findings/CAP-TEXTWIDTH.json, 1600 frame): at 15 of 16 drops the span is the smallest that holds the text, rows = ceil((text height + 11) / 41.1), 6 rows at 8 to 9 columns down to 2 at 24; the one miss kept 5 rows for 134.4 and took the row off one drop later. The section shrinks with it, 12 rows to 8. Narrowing again the same rule fits 18 of 20 drops, and the section stays at 8 until the block needs more. The two others are rows that stretch instead: 4 rows at 31 for a text of 156.8, then 11 rows at 32.8 for 470.5. The rule is inferred from this one block. A select with stretched rows at 800 normalized 0 of 3 again, so with the demo 9 of 9 did not; the 2026-11-03 select is not reproduced. A drag east at 800 did normalize, 12 rows of 77.7 to 40 of 15.8."
+    "evidence": "Keyboard: yes (traces/T0001-key-right.json). Select: 1 of 2 oracle runs normalized, 2026-11-03; cause not proven Measured (parity/findings/CAP-NORMALIZE.json, section 3 in an 800px frame, rows stretched by text): select leaves the rows stretched in 3 of 3 runs, so does starting and leaving a text edit. A resize, a 60px drag and an arrow key each normalize, 12 stretched rows to 19 rows of 15.8. Why one select of 2 normalized on 2026-11-03 is still not known. A drag normalizes while held, before the drop: with the block held 60px right (is-being-dragged, translate 60) the rows are already 19 of 15.8, and they stay that way when it drops back home (parity/findings/CAP-HELDNORMAL.json). Ours matches at each of those moments on the same section at 800px, and no longer normalizes when a text edit starts (npm run mid-check, 8 cases). Widening a long text block one column at a time (parity/findings/CAP-TEXTWIDTH.json, 1600 frame): at 15 of 16 drops the span is the smallest that holds the text, rows = ceil((text height + 11) / 41.1), 6 rows at 8 to 9 columns down to 2 at 24; the one miss kept 5 rows for 134.4 and took the row off one drop later. The section shrinks with it, 12 rows to 8. Narrowing again the same rule fits 18 of 20 drops, and the section stays at 8 until the block needs more. The two others are rows that stretch instead: 4 rows at 31 for a text of 156.8, then 11 rows at 32.8 for 470.5. The rule is inferred from this one block. A select with stretched rows at 800 normalized 0 of 3 again, so with the demo 9 of 9 did not; the 2026-11-03 select is not reproduced. A drag east at 800 did normalize, 12 rows of 77.7 to 40 of 15.8. Why this stays partial: ours does not build the widening rule above, and the 2026-11-03 select is not explained."
   },
   {
     "id": "R3",
@@ -682,7 +700,7 @@
     "milestone": "M4",
     "status": "partial",
     "title": "Exact pixel to grid conversion",
-    "evidence": "While building section 1 the oracle remapped the heading from 3/2/7/16 to 4/2/7/16 and the paragraph from 7/2/11/14 to 7/2/10/14 during later drags: normalization can move start rows too Start rows move, measured (parity/findings/CAP-NORMALIZE.json): normalizing at 800px took a block from 9/2/11/7 to 15/2/18/7 and the block being resized from 4/2/7/12 to 4/2/13/12; a block at 4/15/8/25 and one at 1/2/5/18 did not move."
+    "evidence": "While building section 1 the oracle remapped the heading from 3/2/7/16 to 4/2/7/16 and the paragraph from 7/2/11/14 to 7/2/10/14 during later drags: normalization can move start rows too Start rows move, measured (parity/findings/CAP-NORMALIZE.json): normalizing at 800px took a block from 9/2/11/7 to 15/2/18/7 and the block being resized from 4/2/7/12 to 4/2/13/12; a block at 4/15/8/25 and one at 1/2/5/18 did not move. The rule (parity/findings/NORMALPHONE.json): a block starts at the row its top falls on, keeps the rows it had and grows only if its content needs more; the row count rounds up. Ours fits all 9 reads on two sections, desktop at 800px and a phone (npm run mid-check). By hand it also gives the 40 rows of CAP-TEXTWIDTH.json's drag at 800. Why this stays partial: the read above of a paragraph going 7/2/11/14 to 7/2/10/14 loses a row, which this rule cannot do, and that section's steps cannot be replayed."
   },
   {
     "id": "R4",
@@ -862,18 +880,21 @@
     "id": "L5",
     "area": "Phone layout",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "Hiding a block on one layout",
     "wasUnknown": true,
-    "evidence": "No hide control found on the oracle: not in the desktop or phone block toolbars, and not in the shape Edit panel (Design: shape style, corner radius, Stretch, Color, Blend Mode, Stroke; Animation). The phone toolbars of text, shape and button blocks have no hide control (parity/findings/TOOLBARS.json), and the text Edit panel is the same on both layouts (EDITPANEL.json). Other block types and help pages not checked. Correction from the gap review (2026-11-03): the oracle does have a hide control, in the block right-click menu: Hide on desktop (Cmd+Shift+H) and Hide on mobile. Not measured yet what they change. Measured 2026-11-04 (parity/findings/UNBUILT.json, demo section 2, shape): Hide on desktop gives the block is-invisible should-remove and opacity 0 and takes it out of the desktop grid (grid-area 1/1/-1/-1), desktop rows stay 11; Hide on mobile removes its phone rule and the phone grid shrinks from 10 to 4 rows, what the other blocks need; one undo each. In the Layers panel the hidden block's row turns grey with a crossed-out eye on the right. Ours: Hide on desktop and Hide on mobile in the block menu and Cmd+Shift+H, display: none for that layout, the same row rule, the grey Layers row with the eye; clicking the eye shows the block again (headless Chrome). On the oracle the eye is a button labelled Display Block on a hidden row; a click puts the block back (2/15/12/25, opacity 1) and the button becomes Hide Block (parity/findings/CAP-HIDDENEYE.json). Not measured: the published CSS of a hidden block, which would need a Save Hide on Image, Button, Line and Form behaves the same (parity/findings/CAP-HIDETYPES.json): is-invisible should-remove, opacity 0 in that view only, and phone rows shrink to what the other blocks need."
+    "evidence": "No hide control found on the oracle: not in the desktop or phone block toolbars, and not in the shape Edit panel (Design: shape style, corner radius, Stretch, Color, Blend Mode, Stroke; Animation). The phone toolbars of text, shape and button blocks have no hide control (parity/findings/TOOLBARS.json), and the text Edit panel is the same on both layouts (EDITPANEL.json). Other block types and help pages not checked. Correction from the gap review (2026-11-03): the oracle does have a hide control, in the block right-click menu: Hide on desktop (Cmd+Shift+H) and Hide on mobile. Not measured yet what they change. Measured 2026-11-04 (parity/findings/UNBUILT.json, demo section 2, shape): Hide on desktop gives the block is-invisible should-remove and opacity 0 and takes it out of the desktop grid (grid-area 1/1/-1/-1), desktop rows stay 11; Hide on mobile removes its phone rule and the phone grid shrinks from 10 to 4 rows, what the other blocks need; one undo each. In the Layers panel the hidden block's row turns grey with a crossed-out eye on the right. Ours: Hide on desktop and Hide on mobile in the block menu and Cmd+Shift+H, display: none for that layout, the same row rule, the grey Layers row with the eye; clicking the eye shows the block again (headless Chrome). On the oracle the eye is a button labelled Display Block on a hidden row; a click puts the block back (2/15/12/25, opacity 1) and the button becomes Hide Block (parity/findings/CAP-HIDDENEYE.json). Not measured: the published CSS of a hidden block, which would need a Save Hide on Image, Button, Line and Form behaves the same (parity/findings/CAP-HIDETYPES.json): is-invisible should-remove, opacity 0 in that view only, and phone rows shrink to what the other blocks need. Ours compared with all of these (npm run mid-check, 8 cases): one undo step, the block off the layout at 0 by 0 and not selected, phone rows down to what the others need (Image 1, Button 6, Line 8, Form 25), Cmd+Shift+H, and the eye, whose hidden label was Show Block and is now Display Block. Ours uses display: none where the oracle uses is-invisible should-remove; both leave a 0 by 0 box in the editor.",
+    "outOfScope": [
+      "0005: the published CSS of a hidden block, which needs a Save on the trial site"
+    ]
   },
   {
     "id": "L6",
     "area": "Phone layout",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "Phone-only overrides such as font size",
-    "evidence": "No phone-only font size: the phone toolbars (parity/findings/TOOLBARS.json) and the text Edit panel on phones (EDITPANEL.json) offer the same settings as desktop, Design (Background, Stroke, Blend Mode, Blur, Transforms: Opacity, Rotate, Scale, Offset, Skew, Anchor, Position) and Animation. Stored per layout: see below. Phone Move Up and Move Down change the phone stack only (T0020, T0021) Measured (parity/findings/CAP-PERLAYOUT.json): block Opacity is not per layout; 50 set on desktop reads 0.5 in the phone view too (one text block, one setting)."
+    "evidence": "No phone-only font size: the phone toolbars (parity/findings/TOOLBARS.json) and the text Edit panel on phones (EDITPANEL.json) offer the same settings as desktop, Design (Background, Stroke, Blend Mode, Blur, Transforms: Opacity, Rotate, Scale, Offset, Skew, Anchor, Position) and Animation. Stored per layout: see below. Phone Move Up and Move Down change the phone stack only (T0020, T0021) Measured (parity/findings/PERLAYOUT.json, corrects CAP-PERLAYOUT.json's reading that Opacity is not per layout): each layout has its own Design values. Desktop values flow to the phone, value by value, unless the phone set that value itself; phone values never reach desktop. Read for Opacity, Rotate, Background, Blur, Stroke and Blend Mode. Ours does the same (npm run mid-check, 11 cases). Inferred: Scale, Offset, Skew, Anchor, Stroke thickness and Corner, not set on a phone, work the same. Not read: Reset to default value, where my click changed nothing, 3 of 3; ours removes the phone's value, so desktop's flows back. Copy Properties in ours reads and writes desktop's Transforms, not measured on a phone."
   },
   {
     "id": "L7",
@@ -897,9 +918,9 @@
     "id": "S1",
     "area": "Section settings and Stacks",
     "milestone": "M4",
-    "status": "partial",
+    "status": "done",
     "title": "Row count per layout, and whether it is the only per-layout section setting",
-    "evidence": "Edit Section > Design > Row Count: a number input, min = the current row count (11 on demo section 2), max 10000 (parity/findings/SETTINGS.json). Our panel has Row Count per layout with min = the lowest row the blocks need. Measured (parity/findings/CAP-PERLAYOUT.json): Row Count is per layout. On demo section 2 desktop reads 11, min 11; phone reads 10, min 10; phone set to 40 leaves desktop at 11. Edit Section offers the same tabs and labels on both layouts: Design, Background, Colors, Row Count, Divider (parity/findings/CAP-SECTIONVIEWS.json). Only Row Count shows a different value at rest; no other setting was changed on one layout to test it. Section Height is shared (parity/findings/CAP-S1OTHER.json): L on phones sets section-height--large and makes desktop 945 tall too. Not tested: vertical alignment on one layout, the Top label was not found."
+    "evidence": "Edit Section > Design > Row Count: a number input, min = the current row count (11 on demo section 2), max 10000 (parity/findings/SETTINGS.json). Our panel has Row Count per layout with min = the lowest row the blocks need. Measured (parity/findings/CAP-PERLAYOUT.json): Row Count is per layout. On demo section 2 desktop reads 11, min 11; phone reads 10, min 10; phone set to 40 leaves desktop at 11. Edit Section offers the same tabs and labels on both layouts: Design, Background, Colors, Row Count, Divider (parity/findings/CAP-SECTIONVIEWS.json). Section Height is shared (parity/findings/CAP-S1OTHER.json): L on phones sets section-height--large and makes desktop 945 tall too. Only Row Count is per layout (parity/findings/PERLAYOUT.json): Gap, Height, Alignment, Divider and Colors set on the phone all read the same on desktop. Ours keeps those on the section and Row Count per layout, and gives the same (npm run mid-check, 3 cases; Divider is not one of them). Not read: the Background tab, which needs an upload."
   },
   {
     "id": "S2",
@@ -1071,6 +1092,9 @@
       "Audio",
       "Charts",
       "AI Terms"
+    ],
+    "outOfScope": [
+      "0005: what Save Section stores on the trial site, a probe does not press it"
     ]
   },
   {
@@ -1079,7 +1103,7 @@
     "milestone": "M5",
     "status": "partial",
     "title": "Block right-click menu",
-    "evidence": "Right-click on a block opens Copy (Cmd+C), Paste (Cmd+V), Duplicate (Cmd+D), Delete, Copy Properties, Paste Properties, Stack (Shift+S), Arrange, Hide on desktop (Cmd+Shift+H), Hide on mobile (gap review, 2026-11-03). Ours opens the same menu. Duplicate, Delete, Stack, Arrange (Z2) and Hide (L5) work. The submenus read on 2026-11-04: Copy Properties (Transforms, Animations), Paste Properties (Replace Animations), Arrange (Move forward, Move to front, Move backward, Move to back). Ours (headless Chrome): Copy and Cmd+C keep the selected blocks in memory, Paste and Cmd+V add them, one undo step; Copy Properties, Transforms keeps the Design tab transforms and Replace Transforms sets them on the selection, one undo step. Inferred, Copy and Paste measured on a probe page (parity/findings/CAP-COPYPASTE.json; the older reading saw no change only because of scripted keys): from the block menu, or real Cmd+C and Cmd+V, a paste lands one row and one column on while the area is taken (1/2/3/8, then 2/3/4/9, then 3/4/5/10) and at the bottom on phones (4/2/6/10); one undo removes it. In another section it keeps the same desktop area and goes below on phones. One reading on another page: nothing was added. The clipboard stubs logged no calls and the system clipboard read empty before and after, so this shows only that nothing was written to it. Not run in ours; Replace Transforms is ours, the oracle menu was read with nothing copied. Not built: Animations and Replace Animations, because block animations are not built (T15)",
+    "evidence": "Right-click on a block opens Copy (Cmd+C), Paste (Cmd+V), Duplicate (Cmd+D), Delete, Copy Properties, Paste Properties, Stack (Shift+S), Arrange, Hide on desktop (Cmd+Shift+H), Hide on mobile (gap review, 2026-11-03). Ours opens the same menu. Duplicate, Delete, Stack, Arrange (Z2) and Hide (L5) work. The submenus read on 2026-11-04: Copy Properties (Transforms, Animations), Paste Properties (Replace Animations), Arrange (Move forward, Move to front, Move backward, Move to back). Ours (headless Chrome): Copy and Cmd+C keep the selected blocks in memory, Paste and Cmd+V add them, one undo step; Copy Properties, Transforms keeps the Design tab transforms and Replace Transforms sets them on the selection, one undo step. Inferred, Copy and Paste measured on a probe page (parity/findings/CAP-COPYPASTE.json; the older reading saw no change only because of scripted keys): from the block menu, or real Cmd+C and Cmd+V, a paste lands one row and one column on while the area is taken (1/2/3/8, then 2/3/4/9, then 3/4/5/10) and at the bottom on phones (4/2/6/10); one undo removes it. In another section it keeps the same desktop area and goes below on phones. One reading on another page: nothing was added. The clipboard stubs logged no calls and the system clipboard read empty before and after, so this shows only that nothing was written to it. Synthetic events with our own DataTransfer give the same places, no keys and nothing near the clipboard (parity/findings/CAP-SYNTHCLIP.json): a copy event in the frame is taken and writes text/plain; a paste event in the top window lands at 2/3/4/9, phone 4/2/6/10, and in another section at 1/2/3/8, phone 2/2/4/10; a paste event in the frame adds nothing. CAP-COPYPASTE.json used real Cmd+C and Cmd+V, before the ruling against them; CAP-SYNTHCLIP.json confirms the same places without them. The recipe no longer presses them, so do not press them again. Not run in ours; Replace Transforms is ours, the oracle menu was read with nothing copied. Not built: Animations and Replace Animations, because block animations are not built (T15)",
     "controls": [
       "Copy",
       "Paste",
@@ -1142,7 +1166,7 @@
     "milestone": "M6",
     "status": "partial",
     "title": "Copy and paste between sections and pages",
-    "evidence": "parity/findings/KEYS.json, KEYS2.json: Cmd+D duplicates one row down and one column right, on top, and right below the original on phones (3/16/13/26, phone 11/2/17/10); our editor gives the same. Delete and Backspace remove the block. Cmd+C and Cmd+V did nothing with scripted key events; with real ones they work (see U11, parity/findings/CAP-COPYPASTE.json)"
+    "evidence": "parity/findings/KEYS.json, KEYS2.json: Cmd+D duplicates one row down and one column right, on top, and right below the original on phones (3/16/13/26, phone 11/2/17/10); our editor gives the same. Delete and Backspace remove the block. Cmd+C and Cmd+V did nothing with scripted key events; real ones worked once, in parity/findings/CAP-COPYPASTE.json, and are no longer pressed; copy and paste events with our own DataTransfer also work (see U11, parity/findings/CAP-SYNTHCLIP.json)"
   },
   {
     "id": "Y5",
@@ -1199,7 +1223,8 @@
       "Miscellaneous"
     ],
     "outOfScope": [
-      "0005: Subscribe, the trial account's billing button beside Site Styles"
+      "0005: Subscribe, the trial account's billing button beside Site Styles",
+      "0005: what Reset and Reset Color Theme do on the trial site, a probe does not press them"
     ]
   },
   {
