@@ -767,9 +767,9 @@ body.styles-open .bar { padding-right: 24px; }
 .ss-tr-aa { position: absolute; left: 38px; top: 8px; font-size: 16px; line-height: 28px; }
 .ss-tr-n { position: absolute; left: 0; width: 296px; top: 14px; text-align: center; font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; }
 .ss-bcards { margin-top: 45px; display: flex; flex-direction: column; gap: 11px; }
-.ss-bcard { position: relative; width: 276px; height: 104px; border-radius: 3px; background: #f2f2f2; }
+.ss-bcard { display: block; position: relative; width: 276px; height: 104px; padding: 0; border: 0; border-radius: 3px; background: #f2f2f2; color: inherit; font: inherit; cursor: pointer; }
 .ss-bcard-n { position: absolute; left: 11px; top: 11px; margin: 0; }
-.ss-bcard .ss-btn { position: absolute; left: 75px; top: 37px; }
+.ss-bcard .ss-btn { position: absolute; left: 50%; top: 28px; transform: translateX(-50%); }
 .ss-bcard svg { position: absolute; right: 14px; top: 44px; }
 .ss-form-big { width: 276px; height: 144px; padding: 0 22px; border-radius: 3px; box-shadow: none; }
 .ss-fline { display: flex; align-items: center; justify-content: space-between; width: 276px; height: 45px; box-sizing: border-box; border-bottom: 1px solid #e7e7e7; font-size: 14px; line-height: 22px; }
@@ -790,6 +790,52 @@ body.styles-open .bar { padding-right: 24px; }
 .ss-confirm-box { width: 342px; height: 156px; box-sizing: border-box; padding: 27px 33px 0; background: #fff; box-shadow: rgba(0, 0, 0, 0.12) 0 16px 64px 0, rgba(0, 0, 0, 0.08) 0 0 1px; color: #0e0e0e; font: 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; }
 .ss-confirm-box p { margin: 0; }
 .ss-confirm-title { font-weight: 600; }
+.ss-confirm-box.is-tall { height: 178px; }
+.ss-confirm-box.is-tall #ss-confirm-body { max-width: 250px; }
+#ss-confirm-reset.is-plain { color: #0e0e0e; }
+/* A button type's rows (parity/findings/CAP-BUTTONROWS.json). */
+.ss-tier-tabs { margin-bottom: 22px; }
+.ss-tier-tabs .ss-tab[data-ss-tier="primary"] { width: 50.7px; }
+.ss-tier-tabs .ss-tab[data-ss-tier="secondary"] { width: 70.7px; }
+.ss-tier-tabs .ss-tab[data-ss-tier="tertiary"] { width: 49.1px; }
+.ss-tier-preview { display: flex; align-items: center; justify-content: center; width: 276px; height: 104px; margin-bottom: 22px; border-radius: 3px; background: #f2f2f2; }
+.ss-tier-shape { margin-top: 1px; }
+.ss-pad-row { position: relative; display: flex; justify-content: space-between; width: 276px; height: 65px; box-shadow: 0 1px 0 #e7e7e7; font-size: 14px; line-height: 22px; padding-top: 33px; box-sizing: border-box; }
+.ss-pad-set { position: absolute; left: 114px; top: 26px; display: flex; gap: 6px; }
+.ss-pad { width: 36px; height: 36px; padding: 0; border: 0; background: none; color: inherit; font: 500 14px/36px inherit; cursor: pointer; }
+.ss-pad b { font-weight: 700; letter-spacing: 1px; }
+.ss-pad.is-on { background: #e7e7e7; }
+.ss-tier-end .ss-tier-warn { margin: 38px 0 47px; color: #b54708; font-size: 14px; line-height: 22px; }
+.ss-tier-warn-secondary { max-width: 250px; }
+.ss-tier-end .ss-reset-red { margin-top: 1px; }
+.ss-tier-end .ss-tier-act { margin-top: 34px; border: 1px solid #e7e7e7; box-sizing: border-box; }
+.ss-tier-end .ss-tier-act + .ss-reset-red { margin-top: 16px; }
+.ss-tier-end.has-warn .ss-tier-act { margin-top: 0; }
+.ss-shape-pop { position: absolute; left: -6px; top: 45px; z-index: 3; width: 288px; box-sizing: border-box; padding: 16px; border-radius: 16px; background: #fff; box-shadow: 0 8px 40px rgba(0, 0, 0, .18); }
+.ss-seg { display: flex; box-sizing: border-box; width: 256px; height: 36px; padding: 2px; border-radius: 6px; background: #f2f2f2; }
+.ss-seg button { flex: 0 0 126px; height: 32px; padding: 0; border: 0; border-radius: 4px; background: none; color: #6f6f6f; font: 500 13px/32px inherit; cursor: pointer; }
+.ss-seg button.is-on { background: #fff; color: #0e0e0e; }
+.ss-shapes { display: grid; grid-template-columns: repeat(3, 82px); gap: 11px 5px; margin-top: 16px; }
+.ss-shape { display: flex; align-items: center; justify-content: center; width: 82px; height: 90px; padding: 0; border: 0; border-radius: 4px; background: none; cursor: pointer; }
+.ss-shape i { display: block; box-sizing: border-box; width: 62px; height: 34px; background: #d8d8d8; color: #6f6f6f; font: 500 14px/34px "Helvetica Neue", Helvetica, Arial, sans-serif; font-style: normal; text-align: center; }
+.ss-shape.is-line i { background: none; border: 2px solid #d8d8d8; }
+.ss-shape.is-on { background: #f2f2f2; }
+.ss-shape.is-on i { background: #fff; color: #0e0e0e; }
+.ss-shape.is-on.is-line i { background: none; border-color: #0e0e0e; }
+.ss-sh-rounded { border-radius: 6px; }
+.ss-sh-pill { border-radius: 300px; }
+.ss-sh-oval { border-radius: 100%; }
+.ss-sh-petal { border-radius: 16px 0 16px 0; }
+.ss-shape .ss-sh-underline, .ss-shape.is-line .ss-sh-underline, .ss-shape.is-on .ss-sh-underline { background: none; border: 0; border-bottom: 3px solid #d8d8d8; line-height: 28px; }
+.ss-shape.is-on .ss-sh-underline { border-bottom-color: #0e0e0e; }
+.ss-custom { display: flex; align-items: center; justify-content: center; gap: 8px; width: 256px; height: 44px; margin-top: 11px; padding: 0; border: 1px solid #e7e7e7; border-radius: 4px; background: #fff; color: #0e0e0e; font: 500 12px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; }
+.ss-custom.is-on { background: #e7e7e7; border-color: #e7e7e7; }
+.ss-corners { display: flex; gap: 6px; margin: 6px 0 15px; }
+.ss-seg-c { flex: 0 0 88px; width: 88px; height: 44px; }
+.ss-seg-c button { flex: 0 0 42px; height: 40px; }
+.ss-radius { flex: 1 1 0; min-width: 0; height: 44px; box-sizing: border-box; padding: 0; border: 0; border-radius: 4px; background: #f2f2f2; color: #0e0e0e; font: 400 14px/22px inherit; text-align: center; -moz-appearance: textfield; }
+.ss-radius.is-four { flex: 0 0 37.5px; }
+.ss-radius::-webkit-inner-spin-button { -webkit-appearance: none; }
 .ss-confirm-row { display: flex; justify-content: flex-end; gap: 22px; margin-top: 20px; }
 .ss-confirm-row button { padding: 0; border: 0; background: none; color: #0e0e0e; font: 500 14px/14px "Helvetica Neue", Helvetica, Arial, sans-serif; cursor: pointer; }
 #ss-confirm-reset { color: rgb(195, 45, 56); }

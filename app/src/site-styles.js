@@ -7,10 +7,11 @@
 // the site's current styles. A 44px disclosure swaps the panel for that pack's view, with a back
 // button. Works: Base Size and Reset in Fonts and Buttons, Headings, Paragraphs, Animations, Spacing and
 // the packs we hold in each list panel (parity/findings/CAP-SITESTYLEROWS.json), Edit Palette and Edit
-// Color Theme's rows (CAP-THEMEROWS.json). Faded and not built (data-unbuilt): the other rows of a view, Customize.
+// Color Theme's rows (CAP-THEMEROWS.json), each button type's rows (CAP-BUTTONROWS.json). Faded and not built (data-unbuilt): the other rows of a view, Customize.
 import { PALETTES, FONT_PACKS, BUTTON_PACKS, FORM_PACKS, THEMES, VARS, TYPE_DEFAULTS, SPACE_DEFAULTS, BASE_VARS, resolveSiteStyles, fontLink, baseSize } from './site-style-packs.js';
 import { paletteHtml } from './site-palette.js';
 import { ROW_GROUPS, rowValue, rowCss } from './theme-rows.js';
+import { TIERS, TIER_NAMES, SHAPES, tierValues, sameTier, tierSample } from './button-tiers.js';
 
 const svg = (d, s = 16) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const CHEV = '<path d="M9 6l6 6-6 6"/>';
@@ -22,7 +23,7 @@ const q = (s) => s.replace(/"/g, '&quot;');
 // The panel. view is null for the cards, or Fonts, Colors, Buttons, Forms or Miscellaneous; rows are
 // the section color themes for Colors: { name, bg, ink, used }.
 // The views a level down (parity/findings/CAP-SITESTYLEROWS.json): the view, its parent and its title.
-export const SUB = { FontPacks: ['Fonts', 'Font Packs'], Headings: ['Fonts', 'Headings'], Paragraphs: ['Fonts', 'Paragraphs'], ButtonPacks: ['Buttons', 'Button Packs'], FormPacks: ['Forms', 'Form Packs'], EditPalette: ['Colors', 'Edit Palette'], ThemeRows: ['Colors', 'Edit Color Theme'], Animations: ['Miscellaneous', 'Animations'], Spacing: ['Miscellaneous', 'Spacing'] };
+export const SUB = { ButtonTier: ['Buttons', 'Buttons'], FontPacks: ['Fonts', 'Font Packs'], Headings: ['Fonts', 'Headings'], Paragraphs: ['Fonts', 'Paragraphs'], ButtonPacks: ['Buttons', 'Button Packs'], FormPacks: ['Forms', 'Form Packs'], EditPalette: ['Colors', 'Edit Palette'], ThemeRows: ['Colors', 'Edit Color Theme'], Animations: ['Miscellaneous', 'Animations'], Spacing: ['Miscellaneous', 'Spacing'] };
 const CHEV_DOWN = '<path d="M6 9l6 6 6-6"/>';
 // What a font pack sets, shown in its rows: the readings in site-style-packs.js.
 function packValue(font, k, n) {
@@ -34,11 +35,35 @@ function packValue(font, k, n) {
   return undefined;
 }
 const ANIM_ICONS = { None: '<circle cx="12" cy="12" r="8"/><path d="M6.5 6.5l11 11"/>', Fade: '<path d="M4 5h16v11H4zM4 20h16"/>', Scale: '<path d="M4 9v11h11M4 20L20 4M12 4h8v8"/>', Slide: '<path d="M12 18V5M6 11l6-6 6 6M3 21h18"/>', Clip: '<path d="M4 4h16v16H4zM4 4l16 16"/>', Flex: '<path d="M8 19V5M4 9l4-4 4 4M16 5v14M12 15l4 4 4-4"/>' };
+// One button type (parity/findings/CAP-BUTTONROWS.json). The Font row opens with Fonts, not built here.
+function tierHtml(styles, font, slide, opts) {
+  const tier = opts.tier || 'primary', pack = resolveSiteStyles(styles).button, v = tierValues(styles, pack, tier), first = tierValues(styles, pack, 'primary');
+  const name = TIER_NAMES[tier], set = (n) => `buttons.${tier}.${n}`, open = opts.select === 'tier-shape';
+  const differs = TIERS.some((t) => !sameTier(tierValues(styles, pack, t), first));
+  const tabs = TIERS.map((t) => `<button type="button" class="ss-tab${t === tier ? ' is-on' : ''}" role="tab" aria-selected="${t === tier}" aria-label="${TIER_NAMES[t]}" data-ss-tier="${t}">${TIER_NAMES[t]}</button>`).join('');
+  const seg = (on, off) => `<div class="ss-seg" role="radiogroup">${on}${off}</div>`;
+  const tileHtml = ([n]) => `<button type="button" class="ss-shape${v.shape === n ? ' is-on' : ''}${v.fill ? '' : ' is-line'}" aria-label="${n}" aria-pressed="${v.shape === n}" data-ss-shape="${n}"><i class="ss-sh-${n.split(' ')[0].toLowerCase()}">${n === 'Underline' ? 'Text' : ''}</i></button>`;
+  const corners = v.shape !== 'Custom' ? '' : `<div class="ss-corners"><div class="ss-seg ss-seg-c" role="radiogroup"><button type="button" role="radio" aria-label="Use single border radius" aria-checked="${!v.multi}" class="${v.multi ? '' : 'is-on'}" data-ss-radii="single">${svg('<rect x="5" y="5" width="14" height="14" rx="3"/>', 18)}</button><button type="button" role="radio" aria-label="Use multiple border radii" aria-checked="${v.multi}" class="${v.multi ? 'is-on' : ''}" data-ss-radii="multi">${svg('<path d="M5 9V7a2 2 0 0 1 2-2h2M15 5h2a2 2 0 0 1 2 2v2M19 15v2a2 2 0 0 1-2 2h-2M9 19H7a2 2 0 0 1-2-2v-2"/>', 18)}</button></div>${(v.multi ? ['Top left', 'Top right', 'Bottom right', 'Bottom left'] : ['Single']).map((c, i) => `<input type="number" class="ss-radius${v.multi ? ' is-four' : ''}" aria-label="${c} border radius value" data-ss-radius="${i}" min="0" value="${v.radii[i]}">`).join('')}</div>`;
+  const pop = !open ? '' : `<div class="ss-shape-pop">${seg(`<button type="button" role="radio" aria-checked="${v.fill}" class="${v.fill ? 'is-on' : ''}" data-ss-fill="1">Fill</button>`, `<button type="button" role="radio" aria-checked="${!v.fill}" class="${v.fill ? '' : 'is-on'}" data-ss-fill="0">No fill</button>`)}<div class="ss-shapes">${SHAPES.map(tileHtml).join('')}</div><button type="button" class="ss-custom${v.shape === 'Custom' ? ' is-on' : ''}" data-ss-shape="Custom">${svg('<path d="M5 9V7a2 2 0 0 1 2-2h2M15 5h2a2 2 0 0 1 2 2v2M19 15v2a2 2 0 0 1-2 2h-2M9 19H7a2 2 0 0 1-2-2v-2"/>', 18)}<span>Custom Corners</span></button>${corners}</div>`;
+  const pad = (n, label, text) => `<button type="button" role="radio" aria-label="${label}" aria-checked="${v.pad === n}" class="ss-pad${v.pad === n ? ' is-on' : ''}" data-ss-set="${set('pad')}" data-v="${n}">${text}</button>`;
+  const sides = v.pad === 'custom' ? [['t', 'Top'], ['r', 'Right'], ['b', 'Bottom'], ['l', 'Left']].map(([k, l]) => slide(set(k), l, v[k], 0, 10, 0.1, 'em')).join('') : '';
+  const lacks = tier !== 'primary' && !opts.pageTiers?.has(tier);
+  const warn = lacks ? `<p class="ss-tier-warn ss-tier-warn-${tier}">This page doesn't have a ${tier} button.</p>` : '';
+  const act = tier === 'primary' ? (differs ? '<button type="button" class="ss-reset ss-tier-act" data-ss-reset="apply">Apply to all button types</button>' : '') : (!sameTier(v, first) ? '<button type="button" class="ss-reset ss-tier-act" data-ss-reset="match">Match with primary button</button>' : '');
+  return `<div class="ss-tabs ss-tier-tabs" role="tablist">${tabs}</div><div class="ss-preview ss-tier-preview"><span class="ss-btn" style="${tierSample(v)}">Button</span></div>
+    <div class="ss-sel-row ss-tier-font" data-unbuilt><span>Font</span><span class="ss-sel"><span>${font?.p || 'Poppins'}, ${font?.pw || 500}, 1rem</span>${svg(CHEV_DOWN)}</span></div>
+    <div class="ss-sel-row ss-tier-shape"><span>Shape</span><button type="button" class="ss-sel" data-ss-select="tier-shape" aria-label="Shape" aria-expanded="${open}"><span>${v.shape}</span>${svg(CHEV_DOWN)}</button>${pop}</div>
+    ${slide(set('outline'), 'Outline', v.outline, 0, 10, 1, 'px')}
+    <div class="ss-pad-row"><span>Padding</span><span class="ss-pad-set" role="radiogroup">${pad('S', 'Small', 'S')}${pad('M', 'Medium', 'M')}${pad('L', 'Large', 'L')}${pad('custom', 'Custom', '<b>...</b>')}</span></div>
+    ${sides}<div class="ss-tier-end${warn ? ' has-warn' : ''}">${warn}${act}${reset(`Reset ${name} Button`, 'data-ss-reset="tier"', 'ss-reset-red')}</div>`;
+}
+
 function subHtml(view, styles, font, opts) {
   const open = opts.select;
   // A list row: the open list lays the current option over the row, as on the oracle.
   const select = (key, label, now, options) => `<div class="ss-sel-row"><span>${label}</span><button type="button" class="ss-sel" data-ss-select="${key}" aria-label="${label}" aria-expanded="${open === key}"><span>${now}</span>${svg(CHEV_DOWN)}</button>${open === key ? `<div class="ss-options" role="listbox" style="top:${1 - 44 * options.indexOf(now)}px">${options.map((o) => `<button type="button" role="option" class="ss-option${o === now ? ' is-on' : ''}" aria-selected="${o === now}" data-ss-set="${key}" data-v="${o}">${o}</button>`).join('')}</div>` : ''}</div>`;
   const slide = (key, label, now, min, max, step, unit) => `<div class="ss-slide"><span>${label}</span><input type="text" data-ss-set="${key}" aria-label="${label} value" value="${now}${unit}"><input type="range" data-ss-set="${key}" data-unit="${unit}" aria-label="${label}" min="${min}" max="${max}" step="${step}" value="${now}" style="--p:${(100 * (now - min)) / (max - min)}%"></div>`;
+  if (view === 'ButtonTier') return tierHtml(styles, font, slide, opts);
   if (view === 'Headings' || view === 'Paragraphs') {
     const k = view === 'Headings' ? 'h' : 'p', d = TYPE_DEFAULTS[k], t = styles?.type?.[k] || {}, v = (n) => t[n] ?? packValue(font, k, n) ?? d[n];
     const family = (k === 'h' ? font?.h : font?.p) || 'Poppins';
@@ -148,8 +173,10 @@ function viewHtml(view, { styles, font, colors, bg, ink, btnStyle, rows, opts })
     <div class="ss-group ss-group-2">Other color themes</div>${rows.filter((r) => !r.used).map(tr).join('')}`;
   }
   if (view === 'Buttons') {
-    const card = (name) => `<div class="ss-bcard" data-unbuilt><span class="ss-group ss-bcard-n">${name}</span><span class="ss-btn ss-btn-wide" style="${btnStyle}">Button</span>${svg(CHEV)}</div>`;
-    return `<div class="ss-preview ss-preview-center"><span class="ss-btn ss-btn-wide" style="${btnStyle}">Button</span></div>
+    const pack = resolveSiteStyles(styles).button;
+    const sample = (t) => (styles?.buttons?.[t] ? tierSample(tierValues(styles, pack, t)) : btnStyle);
+    const card = (name) => { const t = name.toLowerCase(); return `<button type="button" class="ss-bcard" data-ss-view="ButtonTier" data-ss-tier="${t}" aria-label="${name}"><span class="ss-group ss-bcard-n">${name}</span><span class="ss-btn ss-btn-wide" style="${sample(t)}">Button</span>${svg(CHEV)}</button>`; };
+    return `<div class="ss-preview ss-preview-center"><span class="ss-btn ss-btn-wide" style="${sample('primary')}">Button</span></div>
     ${disRow('All Button Packs', '', 'ButtonPacks')}
     <div class="ss-bcards">${card('Primary')}${card('Secondary')}${card('Tertiary')}</div>
     ${reset('Reset Button Pack', 'data-ss-reset="button"', 'ss-reset-red')}`;
