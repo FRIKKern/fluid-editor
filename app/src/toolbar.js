@@ -60,7 +60,14 @@ const B = {
 // The groups of buttons for a block, with '|' for a separator.
 // fit: a Button that does not fill its block (parity/findings/S3.json fitButton) gains Align
 // Horizontally and Align Vertically. Alone in its section on a phone, a block has no Move Up or Down (S3.json aloneBar).
-export function toolbarItems(type, bp, z, fit = false) {
+export function toolbarItems(type, bp, z, fit = false, inStack = false) {
+  // A child picked from Layers (S3.json children): no Pin, no Move.
+  if (inStack) {
+    if (bp === 'mobile') return type === 'text' ? ['write', 'edit', '|', 'remove'] : type === 'button' ? ['edit', '|', 'remove'] : ['edit', '|', 'align', '|', 'remove'];
+    if (type === 'text') return ['write', 'edit', '|', 'duplicate', 'remove'];
+    if (type === 'button') return ['edit', '|', 'primary', 'link', 'halign', 'duplicate', 'remove'];
+    return ['edit', '|', 'align', '|', 'duplicate', 'remove'];
+  }
   const zs = z.overlaps ? ['z+', 'z-'] : [];
   if (bp === 'mobile') {
     const moves = z.first && z.last ? [] : ['up', 'down'];

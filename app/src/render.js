@@ -207,7 +207,7 @@ function blockInner(b, model) {
     case 'stack': {
       // A Stack (S3): one grid block whose children flow in a flex box, measured on the oracle
       // (parity/findings/S3.json). stackCss holds its values, once per layout.
-      const kids = (b.children || []).map((c) => `<div class="stack-child-container">${blockInner({ ...c, id: `${b.id}-${c.id}`, fit: c.type === 'button' || c.fit }, model)}</div>`).join('');
+      const kids = (b.children || []).map((c) => `<div class="stack-child-container"${kidAttrs(c)}>${blockInner({ ...c, id: `${b.id}-${c.id}`, fit: c.type === 'button' || c.fit }, model)}${kidDesign(b, c)}</div>`).join('');
       return `<div class="sqs-block stack-block sqs-block-stack" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-stack-container stack-d-${stackAxes(b, 'desktop').direction} stack-m-${stackAxes(b, 'mobile').direction}" data-component-id="${b.id}">${kids}</div></div></div><style class="stack-vars">${stackCss(b)}</style>`;
     }
     case 'image': {
@@ -310,6 +310,21 @@ export function designCss(b) {
 export const BLEND_MODES = ['Normal', 'Multiply', 'Screen', 'Overlay', 'Darken', 'Lighten', 'Color Dodge', 'Color Burn', 'Hard Light', 'Soft Light', 'Difference', 'Exclusion', 'Hue', 'Saturation', 'Color', 'Luminosity'];
 export const BUTTON_SIZE = { primary: 'medium', secondary: 'large', tertiary: 'small' };
 
+// A child's W and H inside its stack (parity/findings/S3.json children): Fill, Hug or a size with
+// a unit. A Shape fills both ways by default, others fill across and hug their height.
+// Phones keep their own: a phone's W starts at Fill, its H starts at the desktop H, and nothing set on a phone reaches desktop.
+export const kidSize = (c, bp = 'desktop') => {
+  const h = c.size?.h || (c.type === 'shape' ? 'Fill' : 'Hug');
+  return bp === 'mobile' ? { w: c.sizeM?.w || 'Fill', h: c.sizeM?.h || h } : { w: c.size?.w || 'Fill', h };
+};
+export const kidSizeKey = (bp) => (bp === 'mobile' ? 'sizeM' : 'size');
+function kidAttrs(c) {
+  const mode = (v) => (v === 'Fill' || v === 'Hug' ? v.toLowerCase() : 'fixed');
+  const attrs = [['desktop', ''], ['mobile', 'm']].map(([bp, m]) => { const { w, h } = kidSize(c, bp); return { data: ` data-${m}w="${mode(w)}" data-${m}h="${mode(h)}"`, vars: `${mode(w) === 'fixed' ? `--kid-${m}w:${w};` : ''}${mode(h) === 'fixed' ? `--kid-${m}h:${h};` : ''}` }; });
+  const vars = attrs[0].vars + attrs[1].vars;
+  const hide = `${c.layout?.desktop?.hidden ? ' data-hide-d' : ''}${c.layout?.mobile?.hidden ? ' data-hide-m' : ''}`;
+  return ` data-kid="${c.id}"${attrs[0].data}${attrs[1].data}${vars ? ` style="${vars}"` : ''}${hide}`;
+}
 // A stack's direction and position in one layout (parity/findings/S3.json): phones start as a
 // column at the top left and keep their own values. Position is stored as left-right and
 // top-bottom, so the same tab stays on when the direction changes.
@@ -349,6 +364,14 @@ export function blendCss(b) {
   if (!m || m === 'normal') return shadow;
   if (b.type === 'text') return `${shadow} .fe-block-${b.id} { mix-blend-mode: var(--tweak-text-block-blend ); } .fe-block-${b.id} { --tweak-text-block-blend : ${m}; }`.trim();
   return `${shadow} .fe-block-${b.id} { mix-blend-mode: ${m}; }`.trim();
+}
+
+// A child's design goes on the block inside its container, so the marks stay square when it turns (S3.json fromLayers.transforms).
+function kidDesign(b, c) {
+  const css = `${c.design ? designCss(c) : ''}${blendCss(c)}`;
+  if (!css) return '';
+  const on = `#block-${b.id}-${c.id}`;
+  return `<style class="transform-vars">${css.replaceAll(`.fe-block-${c.id} .sqs-block`, on).replaceAll(`.fe-block-${c.id}`, on)}</style>`;
 }
 
 export function renderBlock(b, model) {

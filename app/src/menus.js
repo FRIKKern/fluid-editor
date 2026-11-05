@@ -9,6 +9,7 @@
 // Our icons are our own (O2). Items marked data-unbuilt are shown but not built yet.
 const svg = (d, w = 16) => `<svg width="${w}" height="${w}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 export const TYPE_ICON = {
+  Stack: '<rect x="4" y="5" width="6" height="6"/><rect x="14" y="5" width="6" height="6"/><path d="M5 17h14"/><path d="M16 14l3 3-3 3"/>',
   Text: '<path d="M6 6h12M12 6v13"/>',
   Image: '<rect x="4" y="5" width="16" height="14" rx="1"/><path d="M4 16l5-5 4 4 3-3 4 4"/>',
   Button: '<rect x="4" y="7" width="16" height="10" rx="1.5"/><path d="M8 12h8"/>',
@@ -42,7 +43,7 @@ export function layersPanelHtml(rows) {
   const eye = (r) => (r.hidden
     ? `<button type="button" class="lp-eye" data-unhide="${r.id}" aria-label="Show Block" title="Hidden on this layout">${svg(EYE_OFF)}</button>`
     : `<button type="button" class="lp-eye" data-hide="${r.id}" aria-label="Hide Block">${svg(EYE)}</button>`);
-  return `<div class="lp-title">Layers</div><ol class="lp-list">${rows.map((r) => `<li class="lp-row${r.on ? ' is-on' : ''}${r.hidden ? ' is-hidden' : ''}" role="button" tabindex="0" data-layer="${r.id}" aria-label="${r.label.replace(/"/g, '&quot;')}"><span class="lp-icon">${r.type === 'Shape' ? LP_SHAPE : svg(TYPE_ICON[r.type] || TYPE_ICON.Shape, 22)}</span><span class="lp-name">${r.label.replace(/</g, '&lt;')}</span>${eye(r)}</li>`).join('')}</ol>`;
+  return `<div class="lp-title">Layers</div><ol class="lp-list">${rows.map((r) => `<li class="lp-row${r.kidOf ? ' lp-kid' : ''}${r.on ? ' is-on' : ''}${r.hidden ? ' is-hidden' : ''}" role="button" tabindex="0" data-layer="${r.id}"${r.kidOf ? ` data-kid-of="${r.kidOf}"` : ''} aria-label="${r.label.replace(/"/g, '&quot;')}"><span class="lp-icon">${r.type === 'Shape' ? LP_SHAPE : svg(TYPE_ICON[r.type] || TYPE_ICON.Shape, 22)}</span><span class="lp-name">${r.label.replace(/</g, '&lt;')}</span>${eye(r)}</li>`).join('')}</ol>`;
 }
 
 const K = { cmd: '⌘', shift: '⇧', back: '⌫' };

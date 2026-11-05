@@ -103,3 +103,12 @@ body.is-preview .fe-indicator, body.is-preview .fe-grid-row, body.is-preview .fe
 
 /* Marquee box (parity/findings/X13.json). */
 .fe-marquee { position: fixed; z-index: 2147483000; outline: 3px solid rgb(0, 114, 240); pointer-events: none; }
+/* A selected stack's gaps (parity/findings/S3.json gapHandle). */
+.stack-gap-handle { position: absolute; z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; background: rgba(223, 130, 203, .2); cursor: row-resize; }
+.stack-gap-handle.is-row { cursor: col-resize; }
+.stack-gap-handle:hover { opacity: 1; }
+.stack-gap-handle i { display: block; width: 24px; height: 5px; background: rgb(223, 130, 203); border-radius: 3px; }
+.stack-gap-handle.is-row i { width: 5px; height: 24px; }
+.stack-child-container { position: relative; }
+.fe-indicator.is-kid { position: absolute; inset: 0; }
+.sqs-block-stack { position: relative; }
