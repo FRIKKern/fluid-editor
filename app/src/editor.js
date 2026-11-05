@@ -2262,11 +2262,14 @@ const ADD_TYPES = [
   // From the menu search (parity/findings/T10.json): Code 4 by 6, Embed 8 by 8.
   ['Code', 4, 6, () => ({ type: 'code', html: '<p>Hello, World!</p>' })],
   ['Embed', 8, 8, () => ({ type: 'embed' })],
+  // Not built yet (T11, T12): a stand-in of the size the oracle gives (parity/findings/U5.json sizes).
+  ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Map: [8, 12], Menu: [12, 28], Chart: [8, 8], Markdown: [4, 6], 'Social Links': [4, 2], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
+    .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name })]),
 ];
 function addBlock(sid, name) {
   const [, w, h, make] = ADD_TYPES.find((t) => t[0] === name);
   const s = S(sid);
-  const id = `${name.toLowerCase()}-${Date.now().toString(36)}`;
+  const id = `${name.toLowerCase().replace(/ /g, '-')}-${Date.now().toString(36)}`;
   // Phone (L3, parity/findings/L3.json): the new block joins the phone stack in desktop
   // reading order (row, then column; after blocks that start at the same place) and the
   // blocks after it move down by its height.
@@ -2283,7 +2286,8 @@ function addBlock(sid, name) {
     if (!before.includes(b) && a[0] >= mobileEnd) b.layout.mobile.area = [a[0] + h, a[1], a[2] + h, a[3]];
   }
   s.blocks.push(block);
-  for (const bpName of ['desktop', 'mobile']) s.rows[bpName] = Math.max(s.rows[bpName], block.layout[bpName].area[2] - 1);
+  // The blocks that moved down can grow the phone section too (CAP-PHONE.json: 10 to 11 rows).
+  for (const bpName of ['desktop', 'mobile']) s.rows[bpName] = Math.max(s.rows[bpName], ...s.blocks.map((b) => b.layout[bpName].area[2] - 1));
   sel = { sid, bid: id };
 }
 
@@ -2762,6 +2766,12 @@ chrome.addEventListener('click', (e) => {
   commit(before, `${btn.getAttribute('aria-label')} ${sid}`);
 });
 addMenu.addEventListener('click', (e) => {
+  if (e.target.closest('[data-am="clear"]')) {
+    e.preventDefault();
+    addMenu.innerHTML = addBlockMenuHtml(ADD_TYPES);
+    addMenu.querySelector('input').focus();
+    return;
+  }
   const b = e.target.closest('button[data-add]');
   if (!b) return;
   const before = JSON.stringify(model);
@@ -3072,8 +3082,9 @@ addMenu.addEventListener('input', (e) => {
 // A text block is named by its text, cut by CSS (the oracle row label holds at least the
 // first 48 characters, gap review 2026-11-04).
 function layerRows(s) {
-  const row = (b, kidOf) => ({ id: b.id, kidOf, type: b.type[0].toUpperCase() + b.type.slice(1), on: sel?.bid === b.id, hidden: !!lay(b).hidden,
-    label: b.type === 'text' ? (b.html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() || 'Text' : b.type[0].toUpperCase() + b.type.slice(1) });
+  const named = (b) => { const n = b.label && b.type === 'shape' ? b.label : b.type; return n[0].toUpperCase() + n.slice(1); };
+  const row = (b, kidOf) => ({ id: b.id, kidOf, type: named(b), on: sel?.bid === b.id, hidden: !!lay(b).hidden,
+    label: b.type === 'text' ? (b.html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() || 'Text' : named(b) });
   // A stack's children follow it, one step in (S3.json children).
   return [...s.blocks].sort((a, b) => lay(b).z - lay(a).z).flatMap((b) => [row(b), ...(b.children || []).map((c) => row(c, b.id))]);
 }
