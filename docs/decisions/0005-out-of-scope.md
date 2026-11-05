@@ -29,6 +29,8 @@ Out of scope now:
 - **Section templates and Made with Classic Editor (U10).** They are Squarespace's pictures and words (O2). Ours lists them with empty tiles. View Layouts is not part of this: it lays out the section's own blocks, and it is built.
 - **The WebGL art pictures (P5).** They are Squarespace's pictures. Ours are named CSS stand-ins from the same colors and do not follow the rows. Art's rows and the Aa chips are controls, and they are built.
 - **Pressing buttons that write outside the page (U10, U12).** Save Section, Reset and Reset Color Theme on the trial site. A probe does not press them, so what they do there stays unread. Ours keeps its own behaviour.
+- **Map tiles and the address lookup (T11).** A hosted service. Ours draws a plain local map with a pin, copies nothing from the host's or the service's tiles and leaves out their legal note; every panel control works. Whether the address fields write outside the block is unknown: nobody read it, and they are not typed into on the trial site.
+- **The social rows' writes on the trial site (T11).** The rows are one list for the whole site, written at once with no Save. What Add, edit, hide, delete and reorder do there beyond the reads in `parity/findings/T11.json` stays unread. Ours keeps the list in the browser.
 
 ## Considered
 

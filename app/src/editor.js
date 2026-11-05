@@ -3,7 +3,7 @@
 // on commit; during a gesture we change inline styles and editor layers.
 import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults } from './render.js';
 import { imageShapeById } from './image-shapes.js';
-import { ACCORDION_STYLES, ACCORDION_ICON, ACCORDION_LINE, ACCORDION_PAD, ACCORDION_WIDTH, BLEND_MODES, renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
+import { socialLook, ACCORDION_STYLES, ACCORDION_ICON, ACCORDION_LINE, ACCORDION_PAD, ACCORDION_WIDTH, BLEND_MODES, renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
@@ -1406,7 +1406,7 @@ function renderBlockPanel() {
     : b.type === 'code' && b.html != null ? { kind: 'code', html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource }
     : b.type === 'accordion' ? { kind: 'accordion', items: b.items, expandFirst: b.expandFirst, multiple: b.multiple, dividers: b.dividers, showFirst: b.showFirst, showLast: b.showLast, iconSize: b.iconSize, iconThickness: b.iconThickness, iconLeft: b.iconLeft, rowPadding: b.rowPadding, icon: b.icon, titleStyle: b.titleStyle, titleAlign: b.titleAlign, descStyle: b.descStyle, descWidth: b.descWidth, descPad: b.descPad, descAlign: b.descAlign, descPlace: b.descPlace, dividerSize: b.dividerSize, dividerOpacity: b.dividerOpacity }
     : b.type === 'line' ? { kind: 'line' }
-    : b.type === 'social' ? { kind: 'social', links: socialList(), err: socErr, iconBorder: b.iconBorder, iconStyle: b.iconStyle, iconThick: b.iconThick, iconSize: b.iconSize, align: b.align }
+    : b.type === 'social' ? (() => { const l = socialLook(b, bp === 'mobile'); return { kind: 'social', links: socialList(), err: socErr, iconBorder: l.iconBorder, iconStyle: l.iconStyle, iconThick: l.iconThick, iconSize: l.iconSize, align: l.align }; })()
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
@@ -1916,11 +1916,12 @@ function addSocialLink(field) {
 blockPanel.addEventListener('click', (e) => {
   if (!sel) return;
   const set = e.target.closest('[data-soc-set]');
-  if (set) { const { socSet: k, v } = set.dataset; setSocial((b) => { if (v) b[k] = v; else delete b[k]; }, `${k} ${v}`); return; }
+  // On a phone a row keeps its own value (T11.json, phone); None is kept as an empty value there.
+  if (set) { const { socSet: k, v } = set.dataset; setSocial((b) => { if (bp === 'mobile') (b.socialMobile ||= {})[k] = v; else if (v) b[k] = v; else delete b[k]; }, `${k} ${v}`); return; }
   const z = e.target.closest('[data-map-zoom]');
   if (z) { const d = Number(z.dataset.mapZoom); setMap((b) => { b.mapZoom = Math.max(0, Math.min(MAP_ZOOMS.length - 1, mapOf(b).zoom + d)); }, 'Map zoom'); return; }
   const a = e.target.closest('[data-social]');
-  if (!a) return;
+  if (!a || e.target.closest('.bp-soc-grip')) return;
   const [act, arg] = a.dataset.social.split(':');
   if (act === 'open') { socView = `soc-row:${arg}`; socErr = ''; renderBlockPanel(); }
   else if (act === 'back') { socView = null; socErr = ''; renderBlockPanel(); }
@@ -1940,20 +1941,20 @@ blockPanel.addEventListener('input', (e) => {
 blockPanel.addEventListener('change', (e) => {
   if (!sel) return;
   const t = e.target.closest('[data-soc-thick]');
-  if (t) { const v = Number(t.value); setSocial((b) => { b.iconThick = v; }, `Thickness ${v}`); return; }
+  if (t) { const v = Number(t.value); setSocial((b) => { if (bp === 'mobile') (b.socialMobile ||= {}).iconThick = v; else b.iconThick = v; }, `Thickness ${v}`); return; }
   const show = e.target.closest('[data-soc-show]');
-  if (show) { const n = Number(show.dataset.socShow), on = show.checked; changeSocialList((l) => { if (on) delete l[n].hidden; else l[n].hidden = true; }, 'Social icon shown or hidden'); return; }
+  if (show) { const n = Number(show.dataset.socShow), on = show.checked; changeSocialList((l) => { if (on) delete l[n].hidden; else l[n].hidden = true; delete l[n].aria; }, 'Social icon shown or hidden'); return; }
   const url = e.target.closest('[data-soc-url]');
   if (url) {
     const n = Number(url.dataset.socUrl), v = url.value.trim();
     if (!socialKind(v)) { socErr = 'URL not found'; renderBlockPanel(); return; }
-    socErr = ''; changeSocialList((l) => { l[n].url = v; }, 'Social link changed');
+    socErr = ''; changeSocialList((l) => { l[n].url = v; delete l[n].aria; }, 'Social link changed');
     return;
   }
   const m = e.target.closest('[data-map-set]');
   if (m) { const k = m.dataset.mapSet, on = m.checked; setMap((b) => { b[k] = on; }, `${k} ${on}`); return; }
   const zf = e.target.closest('[data-map-zoomfield]');
-  if (zf) { const v = parseFloat(zf.value); if (Number.isFinite(v)) setMap((b) => { b.mapZoom = MAP_ZOOMS.reduce((best, x, i) => (Math.abs(x - v) < Math.abs(MAP_ZOOMS[best] - v) ? i : best), 0); }, 'Map zoom'); else renderBlockPanel(); return; }
+  if (zf) { const v = parseFloat(zf.value); if (Number.isFinite(v)) setMap((b) => { b.mapZoom = Math.max(0, Math.min(MAP_ZOOMS.length - 1, Math.round(v))); }, 'Map zoom'); else renderBlockPanel(); return; }
   const c = e.target.closest('input[data-content^="map"]');
   if (c) { const k = c.dataset.content, v = c.value; c.blur(); setMap((b) => { if (v) b[k] = v; else delete b[k]; }, `${k} changed`); }
 });
@@ -2422,7 +2423,9 @@ blockPanel.addEventListener('pointerdown', (e) => {
   const g = e.target.closest('.bp-acc-grip');
   if (!g || !sel || e.button) return;
   e.preventDefault();
-  const row = g.closest('.bp-acc-row'), rows = [...blockPanel.querySelectorAll('.bp-acc-row')], from = rows.indexOf(row), h = row.offsetHeight, y0 = e.clientY;
+  // A social row's grip moves a row of the site-wide list: same drag, not read on the oracle (T11.json).
+  const social = g.classList.contains('bp-soc-grip'), kind = social ? '.bp-soc-row' : '.bp-acc-row';
+  const row = g.closest(kind), rows = [...blockPanel.querySelectorAll(kind)], from = rows.indexOf(row), h = row.offsetHeight, y0 = e.clientY;
   let to = from;
   row.classList.add('is-moving');
   g.setPointerCapture(e.pointerId);
@@ -2430,7 +2433,8 @@ blockPanel.addEventListener('pointerdown', (e) => {
   const up = () => {
     g.removeEventListener('pointermove', move); g.removeEventListener('pointerup', up); g.removeEventListener('pointercancel', up);
     if (to === from) { renderBlockPanel(); return; }
-    setAccordion((b) => { const [it] = b.items.splice(from, 1); b.items.splice(to, 0, it); }, `Item moved to ${to + 1}`);
+    if (social) changeSocialList((l) => { const [it] = l.splice(from, 1); l.splice(to, 0, it); }, `Social link moved to ${to + 1}`);
+    else setAccordion((b) => { const [it] = b.items.splice(from, 1); b.items.splice(to, 0, it); }, `Item moved to ${to + 1}`);
   };
   g.addEventListener('pointermove', move); g.addEventListener('pointerup', up); g.addEventListener('pointercancel', up);
 });

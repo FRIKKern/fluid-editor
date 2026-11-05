@@ -462,7 +462,7 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 
 /* Accordion panels (ACCORDION.json): 59px item rows with a 36px T tile, then Add Item. */
 .bp-acc-row { display: flex; align-items: center; height: 59px; border-bottom: 1px solid #e7e7e7; margin: 0 -5px; }
-.bp-acc-row.is-moving { position: relative; z-index: 2; background: #fff; }
+.bp-acc-row.is-moving, .bp-soc-row.is-moving { position: relative; z-index: 2; background: #fff; }
 .bp-acc-grip { cursor: grab; touch-action: none; flex: none; display: grid; grid-template-columns: 2px 2px; gap: 2px 3px; width: 7px; margin-right: 9px; }
 .bp-acc-grip i { width: 2px; height: 2px; border-radius: 50%; background: #3a3a3a; }
 .bp-acc-t { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 3px; background: #f2f2f2; font-size: 18px; }

@@ -368,7 +368,7 @@ export function shapeColorHtml(c) {
 }
 
 // Social Links (T11.json). The list is one for the whole site, so a change shows in every social block.
-const GRIP = '<span class="bp-acc-grip bp-soc-grip" data-unbuilt title="Not built yet" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>';
+const GRIP = '<span class="bp-acc-grip bp-soc-grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>';
 function socialContentHtml(c, open) {
   if (open?.startsWith('soc-row:')) {
     const n = Number(open.slice(8)), l = c.links[n], k = socialKind(l.url) || { name: l.url };
