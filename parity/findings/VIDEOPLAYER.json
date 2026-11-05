@@ -1,0 +1,278 @@
+{
+ "item": "T7",
+ "capturedAt": "2026-11-05",
+ "question": "What does a video block hold once it has a video, and what does each setting write?",
+ "page": "a new blank page, the real video of the Intro section template (no upload, nothing saved), a block 929.5 wide at area 6/6/20/22, a 1600 wide window",
+ "markup": ".sqs-block-content > .intrinsic > .embed-block-wrapper > .sqs-native-video[data-config-settings][data-config-loading] > .native-video-player.video-player[style=aspect-ratio] > video",
+ "toolbar": [
+  "Edit",
+  "Align Vertically",
+  "Pin",
+  "Duplicate",
+  "Remove"
+ ],
+ "rows": [
+  "player preview",
+  "file name",
+  "Video · 0:08",
+  "Replace",
+  "Remove (trash)",
+  "Video Storage, 30 min left",
+  "Custom thumbnail",
+  "Aspect ratio",
+  "Lazy Loading",
+  "help text",
+  "Autoplay, Loop, Mute",
+  "Videos are automatically muted on autoplay.",
+  "Elements",
+  "Player controls",
+  "Description"
+ ],
+ "fileAccept": "video/mp4, video/x-m4v, video/quicktime",
+ "aspect": {
+  "options": [
+   "Auto-detect",
+   "16:9 — Landscape",
+   "9:16 — Portrait",
+   "1:1 — Square",
+   "4:3 — Classic",
+   "3:2 — Photo"
+  ],
+  "values": {
+   "Auto-detect": {
+    "settings": "auto",
+    "style": "aspect-ratio:1.7777777777777777;",
+    "block": [
+     929.5,
+     564.3
+    ],
+    "player": [
+     0,
+     0,
+     929.5,
+     522.8
+    ]
+   },
+   "16:9 — Landscape": {
+    "settings": "16/9",
+    "style": "aspect-ratio:16/9;",
+    "block": [
+     929.5,
+     564.3
+    ],
+    "player": [
+     0,
+     0,
+     929.5,
+     522.8
+    ]
+   },
+   "9:16 — Portrait": {
+    "settings": "9/16",
+    "style": "aspect-ratio:9/16;",
+    "block": [
+     929.5,
+     1673.8
+    ],
+    "player": [
+     0,
+     0,
+     929.5,
+     1652.4
+    ]
+   },
+   "1:1 — Square": {
+    "settings": "1/1",
+    "style": "aspect-ratio:1/1;",
+    "block": [
+     929.5,
+     934.2
+    ],
+    "player": [
+     0,
+     0,
+     929.5,
+     929.5
+    ]
+   },
+   "4:3 — Classic": {
+    "settings": "4/3",
+    "style": "aspect-ratio:4/3;",
+    "block": [
+     929.5,
+     697.1
+    ],
+    "player": [
+     0,
+     0,
+     929.5,
+     697.1
+    ]
+   },
+   "3:2 — Photo": {
+    "settings": "3/2",
+    "style": "aspect-ratio:3/2;",
+    "block": [
+     929.5,
+     619.7
+    ],
+    "player": [
+     0,
+     0,
+     929.5,
+     619.7
+    ]
+   }
+  },
+  "note": "The area stays 6/6/20/22; the rows stretch when the player is taller than the block. The block is never shorter than the player."
+ },
+ "lazy": {
+  "options": [
+   "Auto",
+   "Enabled",
+   "Disabled"
+  ],
+  "start": "Select, with no value; a new video block reads Auto (MEDIAEMPTY.json)",
+  "values": {
+   "Auto": {
+    "settings": "auto",
+    "attribute": "lazy"
+   },
+   "Enabled": {
+    "settings": "lazy",
+    "attribute": "lazy"
+   },
+   "Disabled": {
+    "settings": "eager",
+    "attribute": "eager"
+   }
+  }
+ },
+ "toggles": {
+  "on": [
+   "Stop Autoplay",
+   "Unloop",
+   "Unmute"
+  ],
+  "off": [
+   "Autoplay",
+   "Loop",
+   "Mute"
+  ],
+  "writes": [
+   "autoPlay",
+   "loop",
+   "muted"
+  ],
+  "start": {
+   "autoPlay": true,
+   "loop": true,
+   "muted": true
+  },
+  "note": "Autoplay off leaves the video paused. Each is a button; its name says what a press will do."
+ },
+ "controls": {
+  "options": [
+   "All",
+   "Minimal",
+   "None"
+  ],
+  "values": {
+   "All": {
+    "settings": "full",
+    "shown": [
+     "play",
+     "mute",
+     "volume",
+     "settings",
+     "fullscreen",
+     "seek"
+    ]
+   },
+   "Minimal": {
+    "settings": "minimal",
+    "shown": [
+     "play",
+     "seek"
+    ]
+   },
+   "None": {
+    "settings": "none",
+    "shown": []
+   }
+  }
+ },
+ "thumbnail": {
+  "on": "The switch turns green and an add box follows it, Add an Image, 20 MB max. The player does not change. Off removes the box."
+ },
+ "remove": {
+  "box": [
+   929.5,
+   604.2
+  ],
+  "panel": [
+   "Add a Video",
+   "30 minutes max",
+   "Video Storage",
+   "30 min left",
+   "Custom thumbnail",
+   "Lazy Loading",
+   "Disabled",
+   "Lazy loading is an optimization that defers loading content ",
+   "Elements",
+   "Description"
+  ],
+  "note": "The placeholder returns, 0.65 of the width tall. Lazy Loading keeps its value. Aspect ratio, the three buttons and Player controls go."
+ },
+ "alignVertically": {
+  "items": [
+   "Align Top",
+   "Align Center",
+   "Align Bottom"
+  ],
+  "note": "Each writes justify-content on the block. The player stays at the top of the block in all three.",
+  "player": [
+   0,
+   0,
+   929.5,
+   522.8
+  ]
+ },
+ "corner": {
+  "typed": "20",
+  "player": [
+   0,
+   0,
+   929.5,
+   522.8
+  ],
+  "chain": [
+   [
+    "intrinsic sqs-border-radius-enabled",
+    "20px",
+    "hidden"
+   ],
+   [
+    "sqs-block-website-component-content sqs-block-cont",
+    "20px",
+    "visible"
+   ],
+   [
+    "yui3-widget yui3-block-base sqs-block-csr sqs-bloc",
+    "20px",
+    "visible"
+   ]
+  ],
+  "class": "sqs-border-radius-enabled on .intrinsic",
+  "note": "A 20px radius on .sqs-block, its content and .intrinsic; .intrinsic clips the player."
+ },
+ "notMeasured": [
+  "an uploaded video: what its settings start at, its file name and length (out of scope, 0005)",
+  "a picture in Custom thumbnail, it needs an upload (0005)",
+  "the ? by Video Storage: a bare icon, a click on it changed nothing read",
+  "the player's Settings button",
+  "what Replace does, it needs an upload",
+  "Corner on a block with no video",
+  "the published page"
+ ]
+}

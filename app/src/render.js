@@ -181,6 +181,22 @@ function accordionHtml(b) {
   return `<ul class="accordion-items-container" style="${style}" data-should-allow-multiple-open-items="${flag(b.multiple)}" data-is-divider-enabled="${flag(on)}" data-is-first-divider-visible="${flag(b.showFirst !== false)}" data-is-last-divider-visible="${flag(b.showLast !== false)}" data-is-expanded-first-item="${flag(b.expandFirst)}" data-accordion-title-alignment="left" data-accordion-description-alignment="left" data-accordion-description-placement="left" data-accordion-icon-placement="${b.iconLeft ? 'left' : 'right'}">${items}</ul>`;
 }
 
+const VIDEO_PLACEHOLDER = '<div class="sqs-block-video-placeholder sqs-block-video-placeholder--empty"><div class="sqs-block-video-placeholder__ui"><div class="sqs-block-video-placeholder__icon"><svg viewBox="0 0 26 21" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 2" aria-hidden="true"><rect x="1" y="1" width="24" height="19"/><path d="M10.5 7v7l6-3.5z" fill="currentColor" stroke="none"/></svg></div></div></div>';
+// A video with a file (parity/findings/VIDEOPLAYER.json). Autoplay, Loop and Mute start on, as the
+// oracle's only reachable video has them; a video added by upload there is out of scope (0005).
+function videoPlayerHtml(b) {
+  const v = b.video;
+  const aspect = v.aspect || 'auto';
+  const ratio = aspect === 'auto' ? v.natural || 16 / 9 : aspect;
+  const on = (k) => v[k] !== false;
+  const controls = v.controls || 'minimal';
+  const settings = { aspectRatio: aspect, muted: on('muted'), autoPlay: on('autoPlay'), loop: on('loop'), controls, ...(v.lazy ? { loading: v.lazy } : {}) };
+  const svg = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
+  const full = controls !== 'full' ? '' : `<button type="button" class="vp-btn" data-vp="mute" aria-label="Mute">${svg('M4 9v6h4l5 4V5L8 9z')}</button><input class="vp-volume" data-vp="volume" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"><button type="button" class="vp-btn" aria-label="Settings">${svg('M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z')}</button><button type="button" class="vp-btn" data-vp="fullscreen" aria-label="Enter fullscreen">${svg('M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5')}</button>`;
+  const ui = controls === 'none' ? '' : `<button type="button" class="vp-play" data-vp="play" aria-label="Play">${svg('M8 5v14l11-7z')}</button><div class="vp-bar"><input class="vp-seek" data-vp="seek" type="range" min="0" max="100" step="0.01" value="0" aria-label="Seek">${full}</div>`;
+  return `<div class="intrinsic${b.design?.corner ? ' sqs-border-radius-enabled' : ''}" style="max-width:100%${b.design?.corner ? `;border-radius:${b.design.corner}px` : ''}"><div class="embed-block-wrapper"><div class="sqs-native-video" data-config-settings="${escapeHtml(JSON.stringify(settings))}" data-config-loading="${v.lazy === 'eager' ? 'eager' : 'lazy'}"><div class="native-video-player video-player" style="aspect-ratio:${ratio};"><video src="${escapeHtml(v.src)}"${v.thumb && v.thumbSrc ? ` poster="${escapeHtml(v.thumbSrc)}"` : ''} playsinline${on('muted') ? ' muted' : ''}${on('loop') ? ' loop' : ''}${on('autoPlay') ? ' autoplay' : ''}></video>${ui}</div></div></div></div>`;
+}
+
 function blockInner(b, model) {
   switch (b.type) {
     case 'text':
@@ -264,7 +280,11 @@ function blockInner(b, model) {
       return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-embed embed-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-embed-container">${b.html || status}</div></div></div>`;
     }
     case 'video':
-      return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-video video-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div>${b.html || '<div class="sqs-block-video-placeholder sqs-block-video-placeholder--empty"><div class="sqs-block-video-placeholder__ui"><div class="sqs-block-video-placeholder__icon"><svg viewBox="0 0 26 21" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 2" aria-hidden="true"><rect x="1" y="1" width="24" height="19"/><path d="M10.5 7v7l6-3.5z" fill="currentColor" stroke="none"/></svg></div></div></div>'}</div></div></div>`;
+      {
+      // Corner: a radius on .sqs-block, its content and the player's .intrinsic (VIDEOPLAYER.json).
+      const radius = b.design?.corner ? ` style="border-radius:${b.design.corner}px"` : '';
+      return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-video video-block" data-block-type="1337" id="block-${b.id}"${radius}><div class="sqs-block-content"${radius}><div>${b.html || (b.video?.src ? videoPlayerHtml(b) : VIDEO_PLACEHOLDER)}</div></div></div>`;
+    }
     case 'code': {
       if (b.html != null) return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-code code-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-code-container">${codeOutput(b)}</div></div></div>`;
       const src = b.codeOf ? sectionGridCss(model.sections.find((s) => s.id === b.codeOf)).trim() : b.code;
@@ -441,6 +461,27 @@ export const HEADER_SCRIPT = `(() => {
 
 // On a published page a title opens and closes its item, one at a time unless the block allows
 // more. This behaviour is inferred from the block's labels, not measured on a published page.
+// The player's own buttons on a published page. The editor's frame has no script: a click there selects.
+export const VIDEO_SCRIPT = `const vpOf = (e) => e.target.closest('.native-video-player');
+document.addEventListener('click', (e) => {
+  const p = vpOf(e); if (!p) return;
+  const v = p.querySelector('video'), act = e.target.closest('[data-vp]')?.dataset.vp;
+  if (act === 'mute') v.muted = !v.muted;
+  else if (act === 'fullscreen') p.requestFullscreen?.();
+  else if (act === 'seek' || act === 'volume') return;
+  else if (v.paused) v.play(); else v.pause();
+});
+document.addEventListener('input', (e) => {
+  const p = vpOf(e); if (!p) return;
+  const v = p.querySelector('video'), act = e.target.dataset.vp;
+  if (act === 'seek' && Number.isFinite(v.duration)) v.currentTime = e.target.value / 100 * v.duration;
+  if (act === 'volume') v.volume = Number(e.target.value);
+});
+document.addEventListener('timeupdate', (e) => {
+  const p = e.target.closest?.('.native-video-player'), s = p?.querySelector('.vp-seek');
+  if (s && Number.isFinite(e.target.duration)) s.value = e.target.currentTime / e.target.duration * 100;
+}, true);`;
+
 export const ACCORDION_SCRIPT = `document.addEventListener('click', (e) => {
   const b = e.target.closest('.accordion-item__click-target');
   if (!b) return;
@@ -478,7 +519,8 @@ ${renderPage(model)}
 </main>
 ${renderFooter(model)}
 <script>${HEADER_SCRIPT}
-${ACCORDION_SCRIPT}</script>
+${ACCORDION_SCRIPT}
+${VIDEO_SCRIPT}</script>
 </body>
 </html>
 `;

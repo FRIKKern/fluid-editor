@@ -69,6 +69,8 @@ export function toolbarItems(type, bp, z, fit = false) {
   }
   if (type === 'stack') return ['edit', '|', 'link', 'stackopts', 'pin', ...zs, 'duplicate', 'remove'];
   if (type === 'button' && fit) return ['edit', '|', 'primary', 'link', 'halign', 'align', 'pin', '|', 'duplicate', 'remove'];
+  // A video with a file gains Align Vertically (VIDEOPLAYER.json).
+  if (type === 'video' && fit) return ['edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove'];
   if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove'];
   if (type === 'button') return ['edit', '|', 'primary', 'link', 'pin', 'duplicate', 'remove'];
   return ['edit', '|', 'pin', ...zs, '|', 'duplicate', 'remove'];

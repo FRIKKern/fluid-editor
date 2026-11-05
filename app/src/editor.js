@@ -344,9 +344,9 @@ function placeToolbar() {
   if (!b || !el) { toolbar.hidden = true; return; }
   const z = zInfo(sel.sid, b);
   const align = { current: lay(b).justify || 'flex-start', open: vAlignOpen === sel.bid, menu: barMenu, stackDir: stackAxes(b, bp).direction, hAlign: b.halign || 'center' };
-  const key = `${sel.bid}|${bp}|${JSON.stringify(z)}|${b.buttonStyle || ""}|${b.fit || ''}|${JSON.stringify(align)}`;
+  const key = `${sel.bid}|${bp}|${JSON.stringify(z)}|${b.buttonStyle || ""}|${b.fit || ''}|${b.video?.src ? 1 : ''}|${JSON.stringify(align)}`;
   if (toolbar.dataset.key !== key) {
-    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z, !!b.fit), z, align);
+    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z, !!b.fit || !!b.video?.src), z, align);
     toolbar.dataset.key = key;
     // The menu sits 4px under the bar, centred on the button.
     const vm = toolbar.querySelector('.tb-vmenu');
@@ -476,7 +476,7 @@ function contentRows(b, m) {
   // A Fit button in the view on screen: its height is its own (BUTTONDESIGN.json).
   const fit = b.type === 'button' ? [...(root?.querySelectorAll('.sqs-block-button-container:not(.sqs-stretched)') || [])].find((e) => e.offsetHeight) : null;
   if (b.type === 'button' && !fit) return 1; // Fill goes to 1 row even when its text wraps
-  const c = fit || root?.querySelector('.accordion-items-container, .sqs-block-video-placeholder--empty') || root?.querySelector('.sqs-block-content');
+  const c = fit || root?.querySelector('.accordion-items-container, .sqs-block-video-placeholder--empty, .native-video-player') || root?.querySelector('.sqs-block-content');
   if (!c) return 1;
   return Math.max(1, Math.ceil((c.offsetHeight + m.rg) / m.pitch - 0.02));
 }
@@ -1261,7 +1261,7 @@ function renderBlockPanel() {
   if (!b) { animPicker = false; blendOpen = false; bstyleOpen = false; embedData = false; accView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'accordion' || (accView?.startsWith('acc-item:') && !b.items[Number(accView.slice(9))])) accView = null; // undo can take the item away
   const content = b.type === 'button' ? { label: b.label, href: b.href } : b.type === 'image' ? { src: b.src, href: b.href, alt: b.alt, filename: b.filename, empty: !!b.empty }
-    : b.type === 'video' && !b.html ? { kind: 'video', description: b.description }
+    : b.type === 'video' && !b.html ? { kind: 'video', description: b.description, video: b.video }
     : b.type === 'code' && b.html != null ? { kind: 'code', html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource }
     : b.type === 'accordion' ? { kind: 'accordion', items: b.items, expandFirst: b.expandFirst, multiple: b.multiple, dividers: b.dividers, showFirst: b.showFirst, showLast: b.showLast, iconSize: b.iconSize, iconThickness: b.iconThickness, iconLeft: b.iconLeft, rowPadding: b.rowPadding }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
@@ -1593,6 +1593,59 @@ blockPanel.addEventListener('change', (e) => {
   f.blur();
   setButton((b) => { if (v) b[key] = v; else delete b[key]; }, key === 'alt' ? 'Image alt text changed' : 'Alternate Filename changed');
   renderBlockPanel();
+}, true);
+// A video's settings (VIDEOPLAYER.json): one undo step each. The file stays in this tab only: the
+// browser's storage holds a few MB, so after a reload the block keeps its name but not its picture.
+function setVideo(change, label) {
+  const b = sel && B(sel.sid, sel.bid);
+  if (!b || b.type !== 'video') return;
+  const before = JSON.stringify(model);
+  b.video = { ...(b.video || {}) };
+  change(b.video);
+  if (!Object.keys(b.video).length) delete b.video;
+  renderSectionDom(sel.sid);
+  commit(before, label);
+  renderBlockPanel();
+}
+blockPanel.addEventListener('click', (e) => {
+  if (!sel) return;
+  const t = e.target.closest('[data-video-toggle]');
+  if (t) { const k = t.dataset.videoToggle; setVideo((v) => { if (v[k] === false) delete v[k]; else v[k] = false; }, `Video ${k}`); return; }
+  const a = e.target.closest('[data-video-act]');
+  if (!a) return;
+  if (a.dataset.videoAct === 'add') blockPanel.querySelector('[data-video-file]').click();
+  else if (a.dataset.videoAct === 'thumb') blockPanel.querySelector('[data-video-thumb-file]').click();
+  else setVideo((v) => { for (const k of ['src', 'name', 'length', 'natural', 'aspect', 'autoPlay', 'loop', 'muted', 'controls']) delete v[k]; }, 'Video removed');
+});
+blockPanel.addEventListener('change', async (e) => {
+  if (!sel) return;
+  const s = e.target.closest('[data-video]');
+  if (s) {
+    e.stopImmediatePropagation();
+    const k = s.dataset.video;
+    setVideo((v) => { if (k === 'thumb') { if (s.checked) v.thumb = true; else { delete v.thumb; delete v.thumbSrc; } } else v[k] = s.value; }, `Video ${k}`);
+    return;
+  }
+  const tf = e.target.closest('input[data-video-thumb-file]');
+  if (tf) {
+    e.stopImmediatePropagation();
+    const pic = tf.files[0] && await readPicture(tf.files[0]).catch(() => null);
+    if (pic) setVideo((v) => { v.thumbSrc = pic.src; }, 'Video thumbnail');
+    return;
+  }
+  const f = e.target.closest('input[data-video-file]');
+  if (!f) return;
+  e.stopImmediatePropagation();
+  const file = f.files[0];
+  if (!file) return;
+  if (!file.type.startsWith('video/')) { note('That file is not a video'); updateUi(); return; }
+  const src = URL.createObjectURL(file);
+  const probe = document.createElement('video');
+  probe.src = src;
+  const meta = await new Promise((res) => { probe.onloadedmetadata = () => res(true); probe.onerror = () => res(false); });
+  if (!meta) { URL.revokeObjectURL(src); note('That video cannot be played here'); updateUi(); return; }
+  const secs = Math.round(Number.isFinite(probe.duration) ? probe.duration : 0);
+  setVideo((v) => { v.src = src; v.name = file.name; v.length = `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}`; v.natural = probe.videoWidth / probe.videoHeight || undefined; if (!v.natural) delete v.natural; }, 'Video added');
 }, true);
 // Image Replace and Remove: one undo step each.
 blockPanel.addEventListener('click', (e) => {
