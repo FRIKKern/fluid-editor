@@ -38,9 +38,12 @@ function imageContentHtml(c) {
   // A new image (MEDIAEMPTY.json): Add an Image takes a picture from this computer, nothing is uploaded.
   if (c.empty) return `${addBox('Add an Image', '20 MB max', 'replace')}<input class="bp-pic-file" type="file" accept="image/*" hidden data-image-file>${linkField(c.href, c.pages)}`;
   const text = (key, label, value) => `<div class="bp-field"><span class="bp-flabel">${label}</span><input class="bp-text" type="text" aria-label="${label}" data-content="${key}" value="${esc(value || '')}"></div>`;
-  const pic = c.src ? `<img class="bp-pic-img" alt="" src="${esc(c.src)}">` : '';
-  return `<div class="bp-pic">${pic}<div class="bp-pic-actions"><button type="button" data-image-act="replace">Replace</button><button type="button" data-unbuilt disabled title="Not built yet">Edit</button><button type="button" class="bp-link-remove" data-image-act="remove"${c.src ? '' : ' disabled'}>Remove</button></div><input class="bp-pic-file" type="file" accept="image/*" hidden data-image-file></div>`
-    + linkField(c.href, c.pages)
+  // The picture stands on a checker, 125 high, with the focal point's ring on it (IMAGEDESIGN.json).
+  const h = c.src ? Math.min(125, 276 / (c.aspect || 1.5)) : 0, w = h * (c.aspect || 1.5), [fx, fy] = c.focal || [0.5, 0.5];
+  const pic = c.src ? `<div class="bp-pic-stage"><div class="bp-pic-frame" style="width:${w}px;height:${h}px"><img class="bp-pic-img" alt="" src="${esc(c.src)}"><div class="bp-focal" role="button" tabindex="0" aria-label="Focal point" style="left:${fx * 100}%;bottom:${(1 - fy) * 100}%"></div></div></div><div class="bp-pic-name">${esc(c.filename || '')}</div><div class="bp-pic-kind">Image</div>` : '';
+  const trash = pi('<path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12M10 10v6M14 10v6"/>');
+  return `<div class="bp-pic">${pic}<div class="bp-pic-actions"><button type="button" data-image-act="replace">Replace</button><button type="button" data-unbuilt disabled title="Not built yet">Edit</button><button type="button" class="bp-link-remove" data-image-act="remove" aria-label="Remove"${c.src ? '' : ' disabled'}>${trash}<span class="bp-sr">Remove</span></button></div><input class="bp-pic-file" type="file" accept="image/*" hidden data-image-file></div>`
+    + (c.lightbox ? '' : linkField(c.href, c.pages))
     + text('filename', 'Alternate Filename', c.filename)
     + text('alt', 'Image alt text', c.alt);
 }
@@ -199,7 +202,7 @@ export function linkPopoverPosition(panel, attach, stage, height = 167) {
 
 // Blend Mode (parity/findings/BLEND.json): a button reading Blend Mode and the current mode,
 // opening a list of the 16 CSS blend modes.
-const blendValue = (label) => label.toLowerCase().replace(/ /g, '-');
+export const blendValue = (label) => label.toLowerCase().replace(/ /g, '-');
 function blendRow(cur, open) {
   const name = BLEND_MODES.find((m) => blendValue(m) === cur) || 'Normal';
   const list = open ? `<div class="bp-listbox" role="listbox" aria-label="Blend Mode">${BLEND_MODES.map((m) => `<div role="option" class="bp-option" aria-selected="${m === name}" data-blend="${blendValue(m)}">${m}</div>`).join('')}</div>` : '';
@@ -311,7 +314,7 @@ export const shapePickerHtml = (cur) => `<div class="sh-grid" role="radiogroup" 
 export function shapeColorHtml(c) {
   const hex = (rgb) => `#${rgb.map((v) => Math.round(v).toString(16).padStart(2, '0')).join('').toUpperCase()}`;
   const now = hex(c.rgb), css = c.a < 1 ? `rgba(${c.rgb.join(', ')}, ${c.a})` : `rgb(${c.rgb.join(', ')})`;
-  const on = c.a === 1 && c.swatches.includes(now) ? now : null;
+  const on = (c.a === 1 || c.keepAlpha) && c.swatches.includes(now) ? now : null;
   const swatch = (label, value, bg, checked) => `<label class="sh-swatch"><span style="background:${bg}"></span><input type="checkbox" aria-label="Color ${label}" data-color-pick="${value}"${checked ? ' checked' : ''}></label>`;
   const row = c.swatches.map((h) => swatch(h, h, h, h === on)).join('') + (c.custom ? (on ? '' : swatch(css, css, css, true)) : '<button type="button" class="sh-plus" data-color-custom aria-label="Custom color">+</button>');
   const bar = c.opacity || c.custom ? `<input type="range" class="sh-opacity" aria-label="Opacity slider" min="0" max="100" data-color-alpha value="${Math.round(c.a * 100)}" style="--c:${now}">` : '';
@@ -430,10 +433,18 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
     else if (image) {
       const seg = (m, l) => `<button type="button" role="radio" class="bp-mode${image.mode === m ? ' is-on' : ''}" aria-checked="${image.mode === m}" aria-label="${l}" data-image-mode="${m}">${l}</button>`;
       const chip = (l, v) => row(l, `<span class="bp-unbuilt-chip" data-unbuilt title="Not built yet" aria-label="${l}">${v}</span>`);
-      const off = (l) => row(l, `<label class="sp-switch" data-unbuilt title="Not built yet"><input type="checkbox" disabled aria-label="${l}"><span aria-hidden="true"></span></label>`);
-      body = `<div class="bp-modes" role="radiogroup" aria-label="Image mode">${seg('fit', 'Fit')}${seg('fill', 'Fill')}${seg('shape', 'Shape')}</div>`
-        + (image.mode === 'shape' ? chip('Shape', 'Circle') + off('Stretch') : row('Corner', `<label class="bp-box"><input type="number" data-image-corner aria-label="Corner" min="0" max="1000" value="${image.corner}"><span class="bp-unit">px</span></label>`))
-        + (image.empty ? '' : chip('Image Effect', '›') + off('Overlay') + off('Lightbox'))
+      const sw = (l, key, on) => row(l, `<label class="sp-switch"><input type="checkbox" data-image-set="${key}" aria-label="${l}"${on ? ' checked' : ''}><span aria-hidden="true"></span></label>`);
+      const sel = (l, key, v) => `<div class="sp-row bp-image-sel"><span class="sp-label">${l}</span><button type="button" class="an-sel" data-image-sel="${key}" aria-haspopup="listbox" aria-label="${l}"><span>${v}</span>${pi('<path d="M7 10l5 5 5-5"/>')}</button></div>`;
+      const four = image.corners, mixed = four && new Set(four).size > 1;
+      const fld = (n, label) => `<input type="text" class="sh-corner" aria-label="${label} corner radius" data-shape="corner:${n}" value="${four[n]}">`;
+      // Corner: Uniform or Individual radii, as a shape's (IMAGEDESIGN.json); Individual starts from the Uniform value.
+      const corner = `<div class="sp-row bp-image-corner"><span class="sp-label">Corner</span><span class="sh-radii"><span class="bp-radii"><button type="button" role="radio" aria-checked="${!four}" class="sp-seg${four ? '' : ' is-on'}" aria-label="Uniform corner radii" data-shape-act="uniform">${pi('<rect x="5" y="5" width="14" height="14" rx="4"/>')}</button><button type="button" role="radio" aria-checked="${!!four}" class="sp-seg${four ? ' is-on' : ''}" aria-label="Individual corner radii" data-shape-act="individual">${pi('<path d="M5 9V7a2 2 0 0 1 2-2h2M15 5h2a2 2 0 0 1 2 2v2M19 15v2a2 2 0 0 1-2 2h-2M9 19H7a2 2 0 0 1-2-2v-2"/>')}</button></span><label class="bp-box bp-radius"><input type="text" data-shape="radius" aria-label="Corner" value="${mixed ? 'Mixed' : `${four ? four[0] : image.corner}px`}"></label></span></div>${four ? `<div class="sp-row sh-corners">${fld(0, 'Top left')}${fld(1, 'Top right')}${fld(2, 'Bottom right')}${fld(3, 'Bottom left')}</div>` : ''}`;
+      body = `<div class="bp-modes bp-image-modes" role="radiogroup" aria-label="Image mode">${seg('fit', 'Fit')}${seg('fill', 'Fill')}${seg('shape', 'Shape')}</div><div class="bp-image-rows">`
+        + (image.mode === 'shape' ? chip('Shape', '›') + sw('Stretch', 'stretch', image.stretch) + '<div class="bp-image-gap"></div>' : corner)
+        + (image.empty ? '' : chip('Image Effect', '›')
+          + sw('Overlay', 'overlay', image.overlay) + (image.overlay ? colorRow('Color', 'overlay', image.overlayColor) + sel('Blend Mode', 'blend', image.blendName) : '')
+          + sw('Lightbox', 'lightbox', image.lightbox) + (image.lightbox ? sel('Lightbox Theme', 'theme', image.themeName) : ''))
+        + '</div>'
         + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`
         + pairs.join('');
     }

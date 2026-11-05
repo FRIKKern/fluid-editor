@@ -1,0 +1,957 @@
+{
+ "item": "T4",
+ "capturedAt": "2026-11-05",
+ "oracle": "new blank page Blocks Probe, a section from the Intro template, never saved",
+ "question": "What do Focal point, Corner, Overlay, Lightbox and Stretch do on an image block, and what is in the views not built yet?",
+ "panel": [
+  320,
+  500
+ ],
+ "content": {
+  "note": "Panel-relative [left, top, width, height].",
+  "thumbnail": [
+   113.4,
+   72,
+   93.3,
+   125
+  ],
+  "thumbnailHeight": 125,
+  "cardLeft": 22,
+  "cardWidth": 276,
+  "name": [
+   33,
+   210,
+   236,
+   18
+  ],
+  "kind": [
+   33,
+   231,
+   254,
+   16
+  ],
+  "replace": [
+   33,
+   259,
+   58,
+   36
+  ],
+  "edit": [
+   102,
+   259,
+   28,
+   36
+  ],
+  "remove": [
+   258,
+   257,
+   36,
+   36
+  ],
+  "withLightbox": "The Link rows go: Alternate Filename moves from 416 to 328.",
+  "contentWithLb": [
+   [
+    "Content",
+    22,
+    19,
+    53,
+    18
+   ],
+   [
+    "Design",
+    91,
+    19,
+    46,
+    18
+   ],
+   [
+    "Animation",
+    153,
+    19,
+    67,
+    18
+   ],
+   [
+    "imgg-gg3p-BC-DQ-Y-2b15be47.png",
+    33,
+    210,
+    236,
+    18
+   ],
+   [
+    "Image",
+    33,
+    231,
+    254,
+    16
+   ],
+   [
+    "Replace",
+    33,
+    266,
+    58,
+    22
+   ],
+   [
+    "Edit",
+    102,
+    266,
+    28,
+    22
+   ],
+   [
+    "Alternate Filename",
+    22,
+    328,
+    129,
+    20
+   ],
+   [
+    "Image alt text",
+    22,
+    422,
+    94,
+    20
+   ],
+   [
+    "Describe your image",
+    22,
+    492,
+    118,
+    15
+   ]
+  ]
+ },
+ "focal": {
+  "ring": [
+   16,
+   16
+  ],
+  "ringBorder": 2,
+  "ringColor": "rgb(255, 255, 255)",
+  "start": "0.5,0.5",
+  "formula": "(pointer - thumbnail left) / width, (pointer - thumbnail top) / height, each kept in 0..1; the ring's centre sits on the point",
+  "pressOnPicture": {
+   "press": [
+    0.25,
+    0.75
+   ],
+   "point": [
+    0.2427,
+    0.7441
+   ],
+   "note": "press landed on whole pixels"
+  },
+  "dragBy": {
+   "px": [
+    30,
+    -25
+   ],
+   "from": [
+    0.5,
+    0.5
+   ],
+   "point": [
+    0.8216,
+    0.296
+   ]
+  },
+  "dragOut": {
+   "point": [
+    1,
+    0
+   ]
+  },
+  "arrowRight": {
+   "from": [
+    0.2427,
+    0.7441
+   ],
+   "to": [
+    0.3427,
+    0.7441
+   ]
+  },
+  "canvas": "the picture's object-position takes the point at once, as x% y%",
+  "undo": "Two presses of the top bar's Undo after a drag left the point where it was."
+ },
+ "corner": {
+  "typed24": "24px on all four corners of the picture box, overflow hidden",
+  "individualFrom24": [
+   24,
+   24,
+   24,
+   24
+  ],
+  "topLeft40": "40px 24px 24px 24px; the main field reads Mixed",
+  "uniformAfter": "Uniform takes the top left value: 40 on all four",
+  "keptInFit": "Fit keeps the radius",
+  "shape": "Shape has no Corner row; the mask replaces the corners on the box",
+  "individualInputs": [
+   [
+    122,
+    174,
+    32,
+    44
+   ],
+   [
+    168,
+    174,
+    32,
+    44
+   ],
+   [
+    214,
+    174,
+    32,
+    44
+   ],
+   [
+    260,
+    174,
+    32,
+    44
+   ]
+  ],
+  "resetButton": "Pressing the Reset at 291,137 left 24px in place."
+ },
+ "overlay": {
+  "default": "rgba(0, 0, 0, 0.5)",
+  "blendDefault": "normal",
+  "element": "fills the picture box in Fill and Fit; opacity 1 on, 0 off",
+  "swatch": "rgba(255, 207, 90, 0.5): a swatch keeps the alpha",
+  "popover": [
+   949,
+   253,
+   300,
+   107
+  ],
+  "off": "color and blend stay, opacity 0",
+  "onAgain": "comes back with the same color and blend",
+  "blendList": [
+   "Normal",
+   "Multiply",
+   "Screen",
+   "Overlay",
+   "Darken",
+   "Lighten",
+   "Color Dodge",
+   "Color Burn",
+   "Hard Light",
+   "Soft Light",
+   "Difference",
+   "Exclusion",
+   "Hue",
+   "Saturation",
+   "Color",
+   "Luminosity"
+  ],
+  "blendListBox": {
+   "left": 1414,
+   "top": "the button's top",
+   "width": 144,
+   "rowHeight": 44
+  },
+  "multiply": "--image-component-overlay-blend-mode: multiply"
+ },
+ "lightbox": {
+  "themeList": [
+   "Light Overlay",
+   "Dark Overlay"
+  ],
+  "defaultTheme": "Dark Overlay",
+  "editing": "The picture is a button in the block; the block keeps its size; cursor grab while editing, pointer in preview.",
+  "light": "Picking Light Overlay changes the panel's label; the block's stored theme still reads dark and the preview draws the dark page. What Light draws after a Save is not measured.",
+  "preview": {
+   "frame": [
+    1600,
+    945
+   ],
+   "page": {
+    "color": "rgb(0, 0, 0)",
+    "opacity": 0.95
+   },
+   "close": {
+    "box": [
+     1544,
+     19,
+     24,
+     24
+    ],
+    "color": "rgb(204, 204, 204)"
+   },
+   "picture": [
+    461,
+    19,
+    677,
+    907
+   ],
+   "pictureArea": [
+    32,
+    19,
+    1536,
+    907
+   ],
+   "pressBesidePicture": "closes",
+   "closeButton": "closes",
+   "escape": "The press was sent to the top page and did not close it; not measured from inside the page."
+  }
+ },
+ "stretch": {
+  "off": [
+   0,
+   289.3,
+   694.4,
+   694
+  ],
+  "on": [
+   0,
+   0,
+   694.4,
+   1272.7
+  ],
+  "block": [
+   694.4,
+   1272.7
+  ],
+  "note": "The mask stays on the box."
+ },
+ "rows": {
+  "fill": [
+   [
+    "Fit",
+    18,
+    78,
+    95,
+    32
+   ],
+   [
+    "Fill",
+    113,
+    78,
+    95,
+    32
+   ],
+   [
+    "Shape",
+    207,
+    78,
+    95,
+    32
+   ],
+   [
+    "Corner",
+    22,
+    123,
+    46,
+    44
+   ],
+   [
+    "Image Effect",
+    22,
+    178,
+    83,
+    22
+   ],
+   [
+    "Overlay",
+    22,
+    223,
+    51,
+    22
+   ],
+   [
+    "Lightbox",
+    22,
+    268,
+    58,
+    22
+   ],
+   [
+    "Transforms",
+    22,
+    325,
+    182,
+    44
+   ],
+   [
+    "Opacity",
+    22,
+    376,
+    52,
+    44
+   ],
+   [
+    "Rotate",
+    22,
+    427,
+    43,
+    44
+   ],
+   [
+    "Scale",
+    22,
+    478,
+    88,
+    44
+   ],
+   [
+    "Offset",
+    22,
+    529,
+    88,
+    44
+   ],
+   [
+    "Skew",
+    22,
+    580,
+    88,
+    44
+   ],
+   [
+    "Anchor",
+    22,
+    631,
+    49,
+    44
+   ]
+  ],
+  "overlayOn": [
+   [
+    "Fit",
+    18,
+    78,
+    95,
+    32
+   ],
+   [
+    "Fill",
+    113,
+    78,
+    95,
+    32
+   ],
+   [
+    "Shape",
+    207,
+    78,
+    95,
+    32
+   ],
+   [
+    "Corner",
+    22,
+    123,
+    46,
+    44
+   ],
+   [
+    "Image Effect",
+    22,
+    178,
+    83,
+    22
+   ],
+   [
+    "Overlay",
+    22,
+    223,
+    51,
+    22
+   ],
+   [
+    "Color",
+    22,
+    270,
+    229,
+    22
+   ],
+   [
+    "Blend Mode",
+    22,
+    313,
+    81,
+    44
+   ],
+   [
+    "Normal",
+    175,
+    324,
+    88,
+    22
+   ],
+   [
+    "Lightbox",
+    22,
+    368,
+    58,
+    22
+   ],
+   [
+    "Transforms",
+    22,
+    425,
+    182,
+    44
+   ],
+   [
+    "Opacity",
+    22,
+    476,
+    52,
+    44
+   ],
+   [
+    "Rotate",
+    22,
+    527,
+    43,
+    44
+   ],
+   [
+    "Scale",
+    22,
+    578,
+    88,
+    44
+   ],
+   [
+    "Offset",
+    22,
+    629,
+    88,
+    44
+   ],
+   [
+    "Skew",
+    22,
+    680,
+    88,
+    44
+   ],
+   [
+    "Anchor",
+    22,
+    731,
+    49,
+    44
+   ]
+  ],
+  "lightboxOn": [
+   [
+    "Fit",
+    18,
+    78,
+    95,
+    32
+   ],
+   [
+    "Fill",
+    113,
+    78,
+    95,
+    32
+   ],
+   [
+    "Shape",
+    207,
+    78,
+    95,
+    32
+   ],
+   [
+    "Corner",
+    22,
+    123,
+    46,
+    44
+   ],
+   [
+    "Image Effect",
+    22,
+    178,
+    83,
+    22
+   ],
+   [
+    "Overlay",
+    22,
+    223,
+    51,
+    22
+   ],
+   [
+    "Lightbox",
+    22,
+    268,
+    58,
+    22
+   ],
+   [
+    "Lightbox Theme",
+    22,
+    309,
+    107,
+    44
+   ],
+   [
+    "Dark Overlay",
+    175,
+    320,
+    88,
+    22
+   ],
+   [
+    "Transforms",
+    22,
+    376,
+    182,
+    44
+   ],
+   [
+    "Opacity",
+    22,
+    427,
+    52,
+    44
+   ],
+   [
+    "Rotate",
+    22,
+    478,
+    43,
+    44
+   ],
+   [
+    "Scale",
+    22,
+    529,
+    88,
+    44
+   ],
+   [
+    "Offset",
+    22,
+    580,
+    88,
+    44
+   ],
+   [
+    "Skew",
+    22,
+    631,
+    88,
+    44
+   ],
+   [
+    "Anchor",
+    22,
+    682,
+    49,
+    44
+   ]
+  ],
+  "individual": [
+   [
+    "Fit",
+    18,
+    78,
+    95,
+    32
+   ],
+   [
+    "Fill",
+    113,
+    78,
+    95,
+    32
+   ],
+   [
+    "Shape",
+    207,
+    78,
+    95,
+    32
+   ],
+   [
+    "Corner",
+    22,
+    123,
+    46,
+    44
+   ],
+   [
+    "Image Effect",
+    22,
+    229,
+    83,
+    22
+   ],
+   [
+    "Overlay",
+    22,
+    274,
+    51,
+    22
+   ],
+   [
+    "Lightbox",
+    22,
+    319,
+    58,
+    22
+   ],
+   [
+    "Transforms",
+    22,
+    376,
+    182,
+    44
+   ],
+   [
+    "Opacity",
+    22,
+    427,
+    52,
+    44
+   ],
+   [
+    "Rotate",
+    22,
+    478,
+    43,
+    44
+   ],
+   [
+    "Scale",
+    22,
+    529,
+    88,
+    44
+   ],
+   [
+    "Offset",
+    22,
+    580,
+    88,
+    44
+   ],
+   [
+    "Skew",
+    22,
+    631,
+    88,
+    44
+   ],
+   [
+    "Anchor",
+    22,
+    682,
+    49,
+    44
+   ]
+  ],
+  "shape": [
+   [
+    "Fit",
+    18,
+    78,
+    95,
+    32
+   ],
+   [
+    "Fill",
+    113,
+    78,
+    95,
+    32
+   ],
+   [
+    "Shape",
+    207,
+    78,
+    95,
+    32
+   ],
+   [
+    "Shape",
+    22,
+    127,
+    42,
+    22
+   ],
+   [
+    "Stretch",
+    22,
+    172,
+    47,
+    22
+   ],
+   [
+    "Image Effect",
+    22,
+    239,
+    83,
+    22
+   ],
+   [
+    "Overlay",
+    22,
+    284,
+    51,
+    22
+   ],
+   [
+    "Lightbox",
+    22,
+    329,
+    58,
+    22
+   ],
+   [
+    "Transforms",
+    22,
+    386,
+    182,
+    44
+   ],
+   [
+    "Opacity",
+    22,
+    437,
+    52,
+    44
+   ],
+   [
+    "Rotate",
+    22,
+    488,
+    43,
+    44
+   ],
+   [
+    "Scale",
+    22,
+    539,
+    88,
+    44
+   ],
+   [
+    "Offset",
+    22,
+    590,
+    88,
+    44
+   ],
+   [
+    "Skew",
+    22,
+    641,
+    88,
+    44
+   ],
+   [
+    "Anchor",
+    22,
+    692,
+    49,
+    44
+   ]
+  ]
+ },
+ "notBuilt": {
+  "imageEffect": {
+   "names": [
+    "None",
+    "Liquid",
+    "Film grain",
+    "Parallax",
+    "Circles",
+    "Lines"
+   ],
+   "tileSize": [
+    125,
+    108
+   ],
+   "note": "Image effects will only appear in browsers that support WebGL.",
+   "chosenTile": [
+    "Shuffle Settings",
+    "Edit Settings"
+   ]
+  },
+  "shapePicker": {
+   "aspects": [
+    "1:1",
+    "2:3",
+    "3:2"
+   ],
+   "1:1": [
+    "Circle",
+    "Diamond",
+    "Bottom-left curve",
+    "Rabbet",
+    "Four-petal flower",
+    "Four-point star",
+    "Descending ramp",
+    "Descending stairs",
+    "Octagon",
+    "Stepped cross",
+    "TV",
+    "Open book",
+    "Flower",
+    "Eight-sided shield",
+    "Rounded pentagon",
+    "Gear"
+   ],
+   "2:3": [
+    "Vertical oval",
+    "Hourglass",
+    "Keystone",
+    "Vertical parallelogram",
+    "Vertical right-leaning oval",
+    "Arched window",
+    "Vertical stacked circles",
+    "Pointed window",
+    "Award",
+    "Narrow horizontal stacked pills",
+    "Egg",
+    "Narrow pow"
+   ],
+   "3:2": [
+    "Horizontal stacked circles",
+    "Wide vertical stacked pills",
+    "Wide horizontal stacked pills",
+    "Horizontal oval",
+    "Horizontal right-leaning oval",
+    "Wide eight-sided shield",
+    "Wide open book"
+   ],
+   "aspectOfDiamondIn23": "container 694 by 1041, native aspect 2/3"
+  },
+  "editMenu": {
+   "items": [
+    "Edit with AI",
+    "Reshoot",
+    "Edit image"
+   ],
+   "note": "Edit opens this menu. Not opened further."
+  }
+ },
+ "leak": {
+  "check": "A section added after all these gestures brought a new image with none of the changes.",
+  "fresh": {
+   "overlay": "rgba(0, 0, 0, 0.5)",
+   "lightbox": false,
+   "focal": "0.5,0.5"
+  }
+ },
+ "notMeasured": [
+  "What Left, Up and Down do on the ring: ours moves by 0.1 the same way as Right.",
+  "Whether any of these differ on a phone.",
+  "What Light Overlay draws.",
+  "Overlay and Lightbox on a published page: that needs a Save.",
+  "A press on the lightbox picture itself: ours leaves it open.",
+  "Whether the list opens elsewhere when another Blend Mode is chosen: read with Normal and Dark Overlay."
+ ]
+}

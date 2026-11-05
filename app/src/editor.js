@@ -2,7 +2,7 @@
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
 import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults } from './render.js';
-import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
+import { BLEND_MODES, renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
@@ -10,7 +10,7 @@ import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHt
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPanelTop, sectionLook } from './section-layouts.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder } from './phone-order.js';
-import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue } from './block-panel.js';
+import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -1393,7 +1393,7 @@ function renderBlockPanel() {
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
   if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; embedData = false; accView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'accordion' || (accView?.startsWith('acc-item:') && !b.items[Number(accView.slice(9))])) accView = null; // undo can take the item away
-  const content = b.type === 'button' ? { label: b.label, href: b.href, pages: siteLinkGroups() } : b.type === 'image' ? { src: b.src, href: b.href, pages: siteLinkGroups(), alt: b.alt, filename: b.filename, empty: !!b.empty }
+  const content = b.type === 'button' ? { label: b.label, href: b.href, pages: siteLinkGroups() } : b.type === 'image' ? { src: b.src, href: b.href, pages: siteLinkGroups(), alt: b.alt, filename: b.filename, empty: !!b.empty, focal: b.focal, aspect: b.aspect, lightbox: !!b.lightbox }
     : b.type === 'video' && !b.html ? { kind: 'video', description: b.description, video: b.video }
     : b.type === 'code' && b.html != null ? { kind: 'code', html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource }
     : b.type === 'accordion' ? { kind: 'accordion', items: b.items, expandFirst: b.expandFirst, multiple: b.multiple, dividers: b.dividers, showFirst: b.showFirst, showLast: b.showLast, iconSize: b.iconSize, iconThickness: b.iconThickness, iconLeft: b.iconLeft, rowPadding: b.rowPadding }
@@ -1405,7 +1405,7 @@ function renderBlockPanel() {
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || '#ffffff' } : null;
-  const image = b.type === 'image' ? { mode: b.mode || 'fill', corner: parseFloat(b.radius) || 0, empty: !!b.empty } : null;
+  const image = b.type === 'image' ? { mode: b.mode || 'fill', corner: parseFloat(b.radius) || 0, corners: b.corners, empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay' } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
   const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
@@ -1761,20 +1761,77 @@ blockPanel.addEventListener('click', (e) => {
   renderBlockPanel();
 });
 
-// Image Corner (Fit and Fill only, parity/findings/IMAGEMODES.json): the picture box's corner
-// radius, the value the oracle importer reads from its pages. One undo step.
+// Image Corner (Fit and Fill) goes through the shape's fields below. Overlay, Lightbox and Stretch
+// (parity/findings/IMAGEDESIGN.json), one undo step each: off, Overlay keeps its color and blend.
 blockPanel.addEventListener('change', (e) => {
-  const f = e.target.closest('input[data-image-corner]');
+  const f = e.target.closest('input[data-image-set]');
   if (!f || !sel) return;
   e.stopImmediatePropagation();
-  const b = B(sel.sid, sel.bid);
-  if (!b || b.type !== 'image') return;
-  const before = JSON.stringify(model);
-  const v = Math.max(0, Math.min(1000, Number(f.value) || 0));
-  if (v) b.radius = `${v}px`; else delete b.radius;
-  renderSectionDom(sel.sid);
-  commit(before, `corner set on ${b.id}`);
+  setShape((b) => { if (f.checked) b[f.dataset.imageSet] = true; else delete b[f.dataset.imageSet]; }, `${f.dataset.imageSet} ${f.checked ? 'on' : 'off'}`);
 }, true);
+blockPanel.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-image-sel]');
+  if (!a || !sel) return;
+  if (shapeUi?.kind === 'imagesel' && shapeUi.key === a.dataset.imageSel) { closeShapePop(); return; }
+  shapeUi = { kind: 'imagesel', key: a.dataset.imageSel, bid: sel.bid, custom: null, rect: a.getBoundingClientRect() };
+  renderShapePop();
+});
+// Focal point (IMAGEDESIGN.json): a press or a drag on the thumbnail puts the point under the
+// pointer, inside the picture; the canvas follows at once; an arrow key moves it by 0.1. One undo step.
+const focalAt = (v) => Math.max(0, Math.min(1, v));
+function showFocal(ring, xy) {
+  ring.style.left = `${xy[0] * 100}%`; ring.style.bottom = `${(1 - xy[1]) * 100}%`;
+  const img = doc?.getElementById(`block-${sel.bid}`)?.querySelector('.fluid-image-container img');
+  if (img) img.style.objectPosition = `${xy[0] * 100}% ${xy[1] * 100}%`;
+}
+function writeFocal(before, xy) {
+  const b = B(sel.sid, sel.bid);
+  if (xy[0] === 0.5 && xy[1] === 0.5) delete b.focal; else b.focal = xy;
+  renderSectionDom(sel.sid);
+  if (JSON.stringify(model) !== before) commit(before, `focal point on ${b.id}`);
+}
+blockPanel.addEventListener('pointerdown', (e) => {
+  const fr = e.target.closest('.bp-pic-frame');
+  if (!fr || !sel || e.button) return;
+  e.preventDefault();
+  const ring = fr.querySelector('.bp-focal'), q = fr.getBoundingClientRect(), before = JSON.stringify(model);
+  const at = (ev) => [focalAt((ev.clientX - q.left) / q.width), focalAt((ev.clientY - q.top) / q.height)];
+  let xy = at(e);
+  showFocal(ring, xy);
+  const move = (ev) => { xy = at(ev); showFocal(ring, xy); };
+  const up = () => { fr.removeEventListener('pointermove', move); fr.removeEventListener('pointerup', up); fr.removeEventListener('pointercancel', up); writeFocal(before, xy); ring.focus(); };
+  // Captured: the pointer may cross the canvas, which is another document.
+  fr.setPointerCapture(e.pointerId);
+  fr.addEventListener('pointermove', move);
+  fr.addEventListener('pointerup', up);
+  fr.addEventListener('pointercancel', up);
+});
+blockPanel.addEventListener('keydown', (e) => {
+  const ring = e.target.closest('.bp-focal'), step = { ArrowLeft: [-0.1, 0], ArrowRight: [0.1, 0], ArrowUp: [0, -0.1], ArrowDown: [0, 0.1] }[e.key];
+  if (!ring || !step || !sel) return;
+  e.preventDefault(); e.stopPropagation();
+  const before = JSON.stringify(model), cur = B(sel.sid, sel.bid).focal || [0.5, 0.5], xy = [focalAt(cur[0] + step[0]), focalAt(cur[1] + step[1])];
+  showFocal(ring, xy);
+  writeFocal(before, xy);
+});
+// The Lightbox in preview (IMAGEDESIGN.json): a press on the picture opens it over a black 0.95
+// page; the close button or a press beside the picture ends it.
+function bindLightbox(d) {
+  d.addEventListener('click', (e) => {
+    if (!d.body.classList.contains('is-preview')) return;
+    const box = d.querySelector('.cdk-image-lightbox');
+    if (box) { if (!e.target.closest('.cdk-image-lightbox-padder img')) box.remove(); return; }
+    const img = e.target.closest('.image-lightbox .fluid-image-container')?.querySelector('img');
+    if (!img) return;
+    const big = d.createElement('div');
+    big.className = 'cdk-image-lightbox';
+    big.innerHTML = '<div class="sqs-lightbox-overlay"></div><div class="cdk-image-lightbox-padder"><img alt=""></div><button type="button" class="sqs-lightbox-close" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
+    const pic = big.querySelector('img');
+    pic.src = img.src; pic.alt = img.alt;
+    pic.style.setProperty('--lightbox-aspect', img.naturalWidth / img.naturalHeight || 1);
+    d.body.append(big);
+  });
+}
 
 // Shape Corner radius and Stretch (parity/findings/SHAPEDESIGN.json), one undo step each.
 blockPanel.addEventListener('change', (e) => {
@@ -1782,7 +1839,7 @@ blockPanel.addEventListener('change', (e) => {
   if (!f || !sel) return;
   e.stopImmediatePropagation();
   const b = B(sel.sid, sel.bid);
-  if (!b || b.type !== 'shape') return;
+  if (!b || (b.type !== 'shape' && b.type !== 'image')) return;
   const before = JSON.stringify(model);
   if (f.dataset.shape === 'radius') {
     if (f.value === 'Mixed') return;
@@ -1924,9 +1981,10 @@ function hslOf([r0, g0, b0]) {
   return [h * 60, (d / (1 - Math.abs(2 * l - 1))) * 100, l * 100];
 }
 const rgbFromHsl = (h, s, l) => { const a = (s / 100) * Math.min(l / 100, 1 - l / 100), f = (n) => { const k = (n + h / 30) % 12; return Math.round(255 * (l / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))); }; return [f(0), f(8), f(4)]; };
-const shapeColorOf = (b, key) => (key === 'color' ? b.color || b.fill || '#ffffff' : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || 'rgb(0, 0, 0)');
+const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? b.color || b.fill || '#ffffff' : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || 'rgb(0, 0, 0)');
 function writeShapeColor(b, key, css) {
   if (key === 'color') { if (css) b.color = css; else delete b.color; return; }
+  if (key === 'overlay') { if (css) b.overlayColor = css; else delete b.overlayColor; return; }
   const bag = designBag(bp), d = { ...(b[bag] || {}) };
   if (css) d[key] = css; else if (bag === 'designMobile') d[key] = ''; else delete d[key];
   if (Object.keys(d).length) b[bag] = d; else delete b[bag];
@@ -1953,7 +2011,7 @@ function renderSectionPop() {
   const custom = u.custom && (u.custom.hex === toHex(c.rgb) ? u.custom : { ...u.custom, ...hexToHsv(toHex(c.rgb)), hex: toHex(c.rgb) });
   if (custom) u.custom = custom;
   shapePop.className = 'is-color';
-  shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: secColorSet(u), opacity: secColorSet(u) });
+  shapePop.innerHTML = shapeColorHtml({ keepAlpha: kind === 'overlay', swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: secColorSet(u), opacity: secColorSet(u) });
   shapePop.hidden = false;
   const a = sectionPanel.querySelector(`[data-sp-color="${u.section}"]`)?.getBoundingClientRect(), h = shapePop.offsetHeight;
   shapePop.style.cssText = `left:${P.left - 311}px;top:${Math.max(60, Math.min((a ? a.top + a.height / 2 : P.top) - h / 2 - 12, innerHeight - h - 8))}px`;
@@ -1961,11 +2019,17 @@ function renderSectionPop() {
 function renderShapePop() {
   if (shapeUi.section) { renderSectionPop(); return; }
   const b = B(sel.sid, sel.bid), P = blockPanel.getBoundingClientRect(), { kind } = shapeUi;
-  shapePop.className = kind === 'animopts' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
+  shapePop.className = kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
   if (kind === 'animopts') {
     const u = shapeUi, one = u.mode === 'row' ? ' animation' : ' animations', a = animRows()[anim.i];
     if (u.mode === 'sel') { shapePop.innerHTML = animOptionsHtml(u.key, a?.[u.key]); shapePop.style.cssText = `left:${u.rect.left - 9}px;top:${u.rect.top}px`; }
     else { shapePop.innerHTML = `<button type="button" role="option" data-an-clip="copy">Copy${one}</button><button type="button" role="option" data-an-clip="paste"${animClip ? '' : ' disabled'}>Paste${one}</button>`; shapePop.style.cssText = `left:${u.rect.left - 54}px;top:${u.rect.top - 6}px`; }
+  } else if (kind === 'imagesel') {
+    // Blend Mode and Lightbox Theme (IMAGEDESIGN.json): a list over the button, 9px to its left.
+    const blend = shapeUi.key === 'blend', list = blend ? BLEND_MODES : ['Light Overlay', 'Dark Overlay'];
+    const cur = blend ? BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')) : b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay';
+    shapePop.innerHTML = list.map((o) => `<button type="button" role="option" class="${o === cur ? 'is-cur' : ''}" data-image-opt="${o}">${o}</button>`).join('');
+    shapePop.style.cssText = `left:${shapeUi.rect.left - 9}px;top:${shapeUi.rect.top}px;max-height:${innerHeight - shapeUi.rect.top - 8}px;overflow:auto`;
   } else if (kind === 'more') {
     shapePop.innerHTML = '<button type="button" role="option" data-more="copy">Copy transforms</button><button type="button" role="option" data-more="paste">Paste transforms</button>';
     const r = blockPanel.querySelector('.bp-more').getBoundingClientRect();
@@ -1983,7 +2047,7 @@ function renderShapePop() {
     const c = colorParts(shapeColorOf(b, kind));
     const custom = shapeUi.custom && (shapeUi.custom.hex === toHex(c.rgb) ? shapeUi.custom : { ...shapeUi.custom, ...hexToHsv(toHex(c.rgb)), hex: toHex(c.rgb) });
     if (custom) shapeUi.custom = custom;
-    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'color' ? !!b.color : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? !!designFor(b, bp).strokeColor : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') });
+    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? !!b.color : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? !!designFor(b, bp).strokeColor : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') });
     const anchor = blockPanel.querySelector(`[data-shape-act="${kind}"]`)?.getBoundingClientRect();
     const h = shapePop.hidden ? 200 : shapePop.offsetHeight;
     shapePop.style.cssText = `left:${P.right + 11}px;top:${Math.max(60, Math.min((anchor?.top ?? P.top) - 60, innerHeight - h - 8))}px`;
@@ -2007,6 +2071,16 @@ shapePop.addEventListener('click', (e) => {
     return;
   }
   if (!sel || !shapeUi) return;
+  const io = e.target.closest('[data-image-opt]');
+  if (io) {
+    const { key } = shapeUi, v = io.dataset.imageOpt;
+    closeShapePop();
+    setShape((b) => {
+      if (key === 'blend') { if (v === 'Normal') delete b.overlayBlend; else b.overlayBlend = blendValue(v); }
+      else if (v === 'Light Overlay') b.lightboxTheme = 'light'; else delete b.lightboxTheme;
+    }, `${key} ${v}`);
+    return;
+  }
   const ao = e.target.closest('[data-an-opt]');
   if (ao) { const k = shapeUi.key; closeShapePop(); animSet(k, ao.dataset.anOpt); return; }
   const ac = e.target.closest('[data-an-clip]');
@@ -2033,7 +2107,7 @@ shapePop.addEventListener('change', (e) => {
   if (!shapeUi || (!sel && !shapeUi.section)) return;
   const key = shapeUi.kind, t = e.target, c = colorParts(shapeUi.section ? secColorOf(shapeUi) : shapeColorOf(B(sel.sid, sel.bid), key));
   const write = (next) => { if (shapeUi.section) setSecColor(colorCss(next)); else setShape((b) => writeShapeColor(b, key, colorCss(next)), `${key} changed`); renderShapePop(); };
-  if (t.matches('[data-color-pick]')) { const v = t.dataset.colorPick; write(v.startsWith('#') ? { rgb: rgbOf(v), a: 1 } : colorParts(v)); return; }
+  if (t.matches('[data-color-pick]')) { const v = t.dataset.colorPick; write(v.startsWith('#') ? { rgb: rgbOf(v), a: key === 'overlay' ? c.a : 1 } : colorParts(v)); return; }
   if (t.matches('[data-color-alpha]')) { write({ rgb: c.rgb, a: Number(t.value) / 100 }); return; }
   if (t.matches('[data-color-format]')) { shapeUi.custom.format = t.value; renderShapePop(); return; }
   if (t.matches('[data-color-field]')) {
@@ -2085,7 +2159,7 @@ shapePop.addEventListener('pointerdown', (e) => {
 });
 for (const t of ['mousedown']) shapePop.addEventListener(t, (e) => e.stopPropagation());
 shapePop.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Escape') closeShapePop(); });
-document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-sp-color]')) closeShapePop(); }, true);
+document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-sp-color], [data-image-sel]')) closeShapePop(); }, true);
 // Button and image Content tabs: the text and the link (parity/findings/BUTTONEDIT.json). The
 // text is one undo step when the field is left; each link change is one step.
 function setButton(change, label) {
@@ -2346,7 +2420,7 @@ blockPanel.addEventListener('change', async (e) => {
   if (!file) return;
   const pic = await readPicture(file).catch(() => null);
   if (!pic) { note('That file is not a picture'); updateUi(); return; }
-  setButton((b) => { b.src = pic.src; b.aspect = pic.aspect; delete b.empty; }, 'Image replaced');
+  setButton((b) => { b.src = pic.src; b.aspect = pic.aspect; b.filename = file.name; delete b.empty; }, 'Image replaced');
   renderBlockPanel();
 }, true);
 // The editor saves to the browser, which holds only a few MB: a picture is kept at most 1600px wide or tall.
@@ -4233,6 +4307,7 @@ document.addEventListener('keydown', (e) => { if (e.ctrlKey && e.shiftKey && e.c
 function setPreview(on) {
   document.body.classList.toggle('is-preview', on);
   doc?.body.classList.toggle('is-preview', on);
+  if (!on) doc?.querySelector('.cdk-image-lightbox')?.remove();
   $('preview').setAttribute('aria-pressed', String(on));
   $('page-state').textContent = on ? 'Previewing' : 'Page · Published';
   if (on) { closeFloating(); closeSectionPanel(); designOpen = null; if (editing) finishTextEdit(); select(null); }
@@ -4260,6 +4335,7 @@ function boot() {
   doc = frame.contentDocument;
   win = frame.contentWindow;
   doc.addEventListener('pointerdown', closeLinkOutside, true);
+  bindLightbox(doc);
   bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations; } return null; });
   doc.addEventListener('pointerdown', onDown);
   doc.addEventListener('pointermove', onMove);
