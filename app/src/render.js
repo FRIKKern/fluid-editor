@@ -485,7 +485,9 @@ function kidDesign(b, c) {
 export function renderBlock(b, model) {
   const blend = blendCss(b);
   const design = (b.design || b.designMobile ? `<style class="transform-vars">${designCss(b)}</style>` : '') + (blend ? `<style class="fe-blend">${blend}</style>` : '');
-  return `<div class="fe-block fe-block-${b.id}" data-block-id="${b.id}">${blockInner(b, model)}${design}</div>`;
+  // A block with animations says so on its .sqs-block (ANIMFLOW.json).
+  const inner = b.animations?.length ? blockInner(b, model).replace('<div class="sqs-block ', '<div data-has-block-animations="" class="sqs-block ') : blockInner(b, model);
+  return `<div class="fe-block fe-block-${b.id}" data-block-id="${b.id}">${inner}${design}</div>`;
 }
 
 // Section divider (P5), measured on the oracle (parity/findings/DIVIDER.json, CAP-DIVSHAPES.json):
