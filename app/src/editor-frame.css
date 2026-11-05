@@ -4,7 +4,7 @@
 /* Re-rendering a section must not make the browser shift the scroll position. */
 html { overflow-anchor: none; }
 .fluid-engine.is-editing { isolation: isolate; }
-.fluid-engine.is-editing .fe-block { cursor: grab; touch-action: none; transition: opacity 0.1s cubic-bezier(0.66, 0, 0.34, 1); }
+.fluid-engine.is-editing .fe-block { cursor: grab; transition: opacity 0.1s cubic-bezier(0.66, 0, 0.34, 1); }
 .fluid-engine.is-editing .fe-block.is-text-editing { cursor: text; }
 /* A held block keeps its z-index and full opacity (parity/findings/GUIDES.json); while held everything shows the grabbing cursor. */
 .fluid-engine.is-editing.is-gesture, .fluid-engine.is-editing.is-gesture * { cursor: grabbing !important; }

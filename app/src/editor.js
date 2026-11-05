@@ -694,7 +694,7 @@ function onDown(e) {
   if (handle && sel) {
     e.preventDefault();
     // Like a drag, a group too: the move past 10px changes nothing, the next one starts it (HOLD.json).
-    gesture = { type: 'pending', resizeDir: handle.dataset.dir, sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, x0: e.clientX, y0: e.clientY, py0: e.clientY - feEl(sel.sid).getBoundingClientRect().top, before: JSON.stringify(model) };
+    gesture = { type: 'pending', resizeDir: handle.dataset.dir, sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, t0: e.timeStamp, x0: e.clientX, y0: e.clientY, py0: e.clientY - feEl(sel.sid).getBoundingClientRect().top, before: JSON.stringify(model) };
     return;
   }
   if (!blk) {
@@ -718,7 +718,7 @@ function onDown(e) {
   select(keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid });
   const r = blk.getBoundingClientRect();
   gesture = {
-    type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, wasSelected,
+    type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected,
     x0: e.clientX, y0: e.clientY, grabX: e.clientX - r.left, grabY: e.clientY - r.top,
     before: JSON.stringify(model),
   };
@@ -762,6 +762,14 @@ function onUp(e) {
   endGesture();
   renderSectionDom(g.sid);
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
+}
+
+// A touch drags like a mouse unless the browser pans first (TOUCHHOLD.json): it takes the pointer
+// when a first move goes past its pan distance after a short press. A drag that has started, or a
+// press held this long, keeps the pointer. Measured between 60 and 100 ms.
+const TOUCH_HOLD = 100;
+function onTouchMove(e) {
+  if (gesture && (gesture.type !== 'pending' || e.timeStamp - gesture.t0 >= TOUCH_HOLD)) e.preventDefault();
 }
 
 function onCancel(e) {
@@ -2974,8 +2982,11 @@ function boot() {
   doc.addEventListener('pointermove', onMove);
   doc.addEventListener('pointerup', onUp);
   doc.addEventListener('pointercancel', onCancel);
+  doc.addEventListener('touchmove', onTouchMove, { passive: false });
+  // A touch holds its pointer on the block it landed on, and taking that over fires this event on
+  // the block too. Only losing our own capture on the root ends a gesture (X11).
   doc.addEventListener('lostpointercapture', (e) => {
-    if (gesture && gesture.type !== 'pending' && e.pointerId === gesture.pointerId) onUp(e);
+    if (e.target === doc.documentElement && gesture && gesture.type !== 'pending' && e.pointerId === gesture.pointerId) onUp(e);
   });
   doc.addEventListener('dblclick', onDblClick);
   doc.addEventListener('keydown', onKey);

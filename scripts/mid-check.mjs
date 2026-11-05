@@ -5,7 +5,7 @@
 // X2: where a held block sits and the center line on phones (HOLD.json).
 // Runs on headless Chrome. Writes parity/mid-check.json. Usage: npm run mid-check.
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, waitFor, mouse } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, waitFor, mouse, cdp } from './lib/cmux.mjs';
 import { modelFor } from './lib/trace-model.mjs';
 import { BASE } from './lib/base.mjs';
 
@@ -309,6 +309,30 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   await load([4, 5, 5, 9]); await press(0.5, 60, 50); const grown = area();
   await load([1, 2, 2, 6]); await press(0.3, 0, 0); const one = selected(); await pause(500); await press(0.3, 0, 0); const two = selected();
   groupCases.push({ name: 'a selected Line: moved, grown, clicked', diffs: [moved !== '4/5/5/9' && `30 percent along: oracle 4/5/5/9, ours ${moved}`, grown !== '4/5/6/9' && `the middle: oracle 4/5/6/9, ours ${grown}`, !one && 'a click deselected it', !two && 'a second click deselected it'].filter(Boolean) });
+}
+// X11 with real touch events and a pen (TOUCHHOLD.json), on a page that scrolls.
+{ const area0 = [1, 2, 7, 8];
+  const load = async () => { evalJs(S, `(async () => { const sec = (id, blocks) => ({ id, theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 24, mobile: 6 }, blocks }); fe.load({ version: 1, title: 't', sections: [sec('s', [{ id: 'k', type: 'shape', label: 'k', fill: '#ccc', layout: { desktop: { area: ${JSON.stringify(area0)}, z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }]), sec('t', []), sec('u', [])] }); fe.select(null); await new Promise((r) => setTimeout(r, 80)); document.getElementById('site-frame').contentWindow.scrollTo(0, 0); window.__c = 0; const d = document.getElementById('site-frame').contentDocument; if (!d.__x11) { d.__x11 = true; d.addEventListener('pointercancel', () => { window.__c++; }, true); } return JSON.stringify(1); })()`); await pause(100); };
+  const at = (fx, fy) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), b = f.contentDocument.querySelector('.fe-block').getBoundingClientRect(); return JSON.stringify([q.left + b.left + b.width * ${fx}, q.top + b.top + b.height * ${fy}]); })()`);
+  const area = () => evalJs(S, `JSON.stringify(fe.model.sections[0].blocks[0].layout.desktop.area.join('/'))`);
+  const handles = () => evalJs(S, `JSON.stringify(document.getElementById('site-frame').contentDocument.querySelectorAll('.fe-handle').length)`);
+  const cancels = () => evalJs(S, `JSON.stringify(window.__c)`);
+  const touch = (p, dx, dy, holdMs = 0) => cdp(S, { op: 'touch', from: p, to: [p[0] + dx, p[1] + dy], steps: 12, holdMs });
+  const walk = [[70, 0, 0, '1/3/7/9'], [125, 0, 0, '1/4/7/10'], [150, 0, 0, '1/4/7/10'], [200, 0, 0, '1/2/7/8', true], [200, 0, 30, '1/2/7/8', true], [200, 0, 60, '1/2/7/8', true], [200, 0, 100, '1/5/7/11'], [200, 0, 800, '1/5/7/11'], [0, 125, 0, '4/2/10/8'], [0, 200, 0, '1/2/7/8', true]];
+  for (const [dx, dy, hold, want, cancelled] of walk) {
+    await load(); touch(at(0.5, 0.5), dx, dy, hold); await pause(150);
+    groupCases.push({ name: `touch ${dx},${dy} after ${hold} ms`, diffs: [area() !== want && `oracle ${want}, ours ${area()}`, (cancels() > 0) !== !!cancelled && `cancelled: oracle ${!!cancelled}, ours ${cancels() > 0}`].filter(Boolean) });
+  }
+  await load(); { const p = at(0.5, 0.5); touch(p, 0, 0); await pause(150); }
+  groupCases.push({ name: 'a tap selects', diffs: [handles() !== 8 && `${handles()} handles`, area() !== '1/2/7/8' && area()].filter(Boolean) });
+  touch(at(1, 1), 70, 70); await pause(150); const h1 = area(), s1 = handles(); touch(at(1, 1), 125, 75); await pause(150); const h2 = area();
+  groupCases.push({ name: 'a touch on a handle resizes', diffs: [h1 !== '1/2/9/9' && `oracle 1/2/9/9, ours ${h1}`, h2 !== '1/2/11/11' && `oracle 1/2/11/11, ours ${h2}`, s1 !== 8 && 'not selected after'].filter(Boolean) });
+  await load(); { const p = at(1, 0); touch([p[0] + 300, p[1] + 60], 70, 70); await pause(150); }
+  groupCases.push({ name: 'a touch on the empty grid', diffs: [area() !== '1/2/7/8' && area(), cancels() !== 1 && `${cancels()} cancels`, handles() !== 0 && 'selected'].filter(Boolean) });
+  await load(); { const p = at(0.5, 0.5); cdp(S, { op: 'drag', from: p, to: [p[0] + 200, p[1]], steps: 12, holdMs: 150, pointerType: 'pen' }); await pause(150); }
+  groupCases.push({ name: 'a pen drags', diffs: [area() !== '1/5/7/11' && `oracle 1/5/7/11, ours ${area()}`, cancels() !== 0 && 'cancelled'].filter(Boolean) });
+  await load(); evalJs(S, `fe.select('s', 'k')`); await pause(80); { const p = at(1, 1); cdp(S, { op: 'drag', from: p, to: [p[0] + 70, p[1] + 70], steps: 12, holdMs: 150, pointerType: 'pen' }); await pause(150); }
+  groupCases.push({ name: 'a pen on a handle resizes', diffs: [area() !== '1/2/9/9' && `oracle 1/2/9/9, ours ${area()}`].filter(Boolean) });
 }
 // S4 on phones (CAP-S4PHONE.json), with the real mouse: the handle, 90 down, 150 up, desktop stays, a click does nothing.
 { const T = JSON.parse(readFileSync(new URL('../parity/findings/CAP-S4PHONE.json', import.meta.url))).reads;
