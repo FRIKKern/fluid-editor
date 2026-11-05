@@ -6,7 +6,7 @@ import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
-import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue } from './block-panel.js';
+import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, DESIGN_FIELDS, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -1347,7 +1347,9 @@ let animPicker = false;
 let embedData = false;
 let accView = null; // 'acc-item:<n>' or 'acc-dividers'
 const blockPanel = $('block-panel');
+let shapeUi = null; // the open popup of a shape's Design tab: { kind, bid, custom }
 function renderBlockPanel() {
+  if (shapeUi && (!sel || shapeUi.bid !== sel.bid || designOpen !== sel.bid)) closeShapePop();
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
@@ -1360,7 +1362,7 @@ function renderBlockPanel() {
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if (!content && designTab === 'Content') designTab = 'Design';
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
-  const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false } : null;
+  const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || '#ffffff' } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', corner: parseFloat(b.radius) || 0, empty: !!b.empty } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
@@ -1374,6 +1376,7 @@ function renderBlockPanel() {
   placeBlockPanel();
   blockPanel.hidden = false;
   if (blockPanel.dataset.bid !== b.id) { blockPanel.dataset.bid = b.id; blockPanel.scrollTop = 0; } // another block starts at the top
+  if (shapeUi) renderShapePop(); // undo can change what an open popup shows
 }
 let panelMoved = null; // the block whose panel was dragged; it stays where it was dropped
 function placeBlockPanel() {
@@ -1566,12 +1569,132 @@ blockPanel.addEventListener('change', (e) => {
   const b = B(sel.sid, sel.bid);
   if (!b || b.type !== 'shape') return;
   const before = JSON.stringify(model);
-  if (f.dataset.shape === 'radius') { const v = Math.max(0, Math.min(1000, Number(f.value) || 0)); if (v) b.radius = `${v}px`; else delete b.radius; }
+  if (f.dataset.shape === 'radius') {
+    if (f.value === 'Mixed') return;
+    const v = Math.max(0, Math.min(1000, parseFloat(f.value) || 0));
+    if (b.corners) b.corners = b.corners.map(() => v);
+    else if (v) b.radius = `${v}px`; else delete b.radius;
+  }
+  if (f.dataset.shape?.startsWith('corner:')) b.corners = b.corners.map((v, n) => (n === Number(f.dataset.shape.slice(7)) ? Math.max(0, Math.min(1000, parseFloat(f.value) || 0)) : v));
   if (f.dataset.shape === 'stretch') { if (f.checked) delete b.stretch; else b.stretch = false; }
   renderSectionDom(sel.sid);
   commit(before, `${f.dataset.shape} set on ${b.id}`);
+  renderBlockPanel();
 }, true);
 
+// A shape's Shape style, corners, Color and Stroke Color (parity/findings/SHAPESTYLES.json). Each
+// change is one undo step; a drag on the map or the bars is one step when it ends.
+const shapePop = document.createElement('div');
+shapePop.id = 'shape-pop';
+shapePop.hidden = true;
+document.body.append(shapePop);
+function closeShapePop() { shapeUi = null; shapePop.hidden = true; }
+function setShape(change, label) {
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  change(b);
+  renderSectionDom(sel.sid);
+  commit(before, label);
+  renderBlockPanel();
+}
+const COLOR_RE = /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/;
+function colorParts(css) {
+  const m = COLOR_RE.exec(css || '');
+  if (m) return { rgb: [+m[1], +m[2], +m[3]], a: m[4] == null ? 1 : +m[4] };
+  const hex = /^#[0-9a-f]{6}$/i.test(css || '') ? css : '#ffffff';
+  return { rgb: [1, 3, 5].map((n) => parseInt(hex.slice(n, n + 2), 16)), a: 1 };
+}
+const colorCss = ({ rgb, a }) => (a < 1 ? `rgba(${rgb.join(', ')}, ${a})` : `rgb(${rgb.join(', ')})`);
+const toHex = (rgb) => `#${rgb.map((v) => Math.round(v).toString(16).padStart(2, '0')).join('')}`;
+const rgbOf = (hex) => [1, 3, 5].map((n) => parseInt(hex.slice(n, n + 2), 16));
+function hslOf([r0, g0, b0]) {
+  const r = r0 / 255, g = g0 / 255, bl = b0 / 255, max = Math.max(r, g, bl), min = Math.min(r, g, bl), l = (max + min) / 2, d = max - min;
+  if (!d) return [0, 0, l * 100];
+  const h = max === r ? ((g - bl) / d + 6) % 6 : max === g ? (bl - r) / d + 2 : (r - g) / d + 4;
+  return [h * 60, (d / (1 - Math.abs(2 * l - 1))) * 100, l * 100];
+}
+const rgbFromHsl = (h, s, l) => { const a = (s / 100) * Math.min(l / 100, 1 - l / 100), f = (n) => { const k = (n + h / 30) % 12; return Math.round(255 * (l / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))); }; return [f(0), f(8), f(4)]; };
+const shapeColorOf = (b, key) => (key === 'color' ? b.color || b.fill || '#ffffff' : b.design?.strokeColor || 'rgb(0, 0, 0)');
+function writeShapeColor(b, key, css) {
+  if (key === 'color') { if (css) b.color = css; else delete b.color; return; }
+  b.design = { ...(b.design || {}) };
+  if (css) b.design.strokeColor = css; else delete b.design.strokeColor;
+}
+function renderShapePop() {
+  const b = B(sel.sid, sel.bid), P = blockPanel.getBoundingClientRect(), { kind } = shapeUi;
+  shapePop.className = kind === 'style' ? 'is-style' : 'is-color';
+  if (kind === 'style') {
+    shapePop.innerHTML = shapePickerHtml(b.shape);
+    const top = Math.max(60, P.top - 85);
+    shapePop.style.cssText = `left:${P.left + 22}px;top:${top}px;max-height:${innerHeight - top - 8}px`;
+  } else {
+    const c = colorParts(shapeColorOf(b, kind));
+    const custom = shapeUi.custom && (shapeUi.custom.hex === toHex(c.rgb) ? shapeUi.custom : { ...shapeUi.custom, ...hexToHsv(toHex(c.rgb)), hex: toHex(c.rgb) });
+    if (custom) shapeUi.custom = custom;
+    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'color' ? !!b.color : !!b.design?.strokeColor, opacity: kind === 'color' });
+    const anchor = blockPanel.querySelector(`[data-shape-act="${kind === 'color' ? 'color' : 'strokeColor'}"]`)?.getBoundingClientRect();
+    const h = shapePop.hidden ? 200 : shapePop.offsetHeight;
+    shapePop.style.cssText = `left:${P.right + 11}px;top:${Math.max(60, Math.min((anchor?.top ?? P.top) - 60, innerHeight - h - 8))}px`;
+  }
+  shapePop.hidden = false;
+}
+blockPanel.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-shape-act]');
+  if (!a || !sel) return;
+  const act = a.dataset.shapeAct;
+  if (act === 'uniform') { setShape((b) => { if (b.corners) { if (b.corners[0]) b.radius = `${b.corners[0]}px`; else delete b.radius; delete b.corners; } }, 'Uniform corners'); return; }
+  if (act === 'individual') { setShape((b) => { if (!b.corners) { const r = parseFloat(b.radius) || 0; b.corners = [r, r, r, r]; delete b.radius; } }, 'Individual corners'); return; }
+  if (shapeUi?.kind === act) { closeShapePop(); return; }
+  shapeUi = { kind: act, bid: sel.bid, custom: null };
+  renderShapePop();
+});
+shapePop.addEventListener('click', (e) => {
+  if (!sel || !shapeUi) return;
+  const pick = e.target.closest('[data-shape-pick]');
+  if (pick) { const id = pick.dataset.shapePick; closeShapePop(); setShape((b) => { if (id === 'rectangle') delete b.shape; else b.shape = id; }, `Shape ${id}`); return; }
+  const key = shapeUi.kind;
+  if (e.target.closest('[data-color-custom]')) { const c = colorParts(shapeColorOf(B(sel.sid, sel.bid), key)), hex = toHex(c.rgb); shapeUi.custom = { ...hexToHsv(hex), hex, format: 'rgb' }; renderShapePop(); return; }
+  if (e.target.closest('[data-color-reset]')) { setShape((b) => writeShapeColor(b, key, null), `${key} reset`); renderShapePop(); }
+});
+shapePop.addEventListener('change', (e) => {
+  if (!sel || !shapeUi) return;
+  const key = shapeUi.kind, t = e.target, b0 = B(sel.sid, sel.bid), c = colorParts(shapeColorOf(b0, key));
+  const write = (next) => { setShape((b) => writeShapeColor(b, key, colorCss(next)), `${key} changed`); renderShapePop(); };
+  if (t.matches('[data-color-pick]')) { const v = t.dataset.colorPick; write(v.startsWith('#') ? { rgb: rgbOf(v), a: 1 } : colorParts(v)); return; }
+  if (t.matches('[data-color-alpha]')) { write({ rgb: c.rgb, a: Number(t.value) / 100 }); return; }
+  if (t.matches('[data-color-format]')) { shapeUi.custom.format = t.value; renderShapePop(); return; }
+  if (t.matches('[data-color-field]')) {
+    const f = t.dataset.colorField, n = parseFloat(t.value);
+    if (f === 'Alpha') { if (Number.isFinite(n)) write({ rgb: c.rgb, a: Math.max(0, Math.min(100, n)) / 100 }); return; }
+    if (f === 'Hex') { if (/^#?[0-9a-f]{6}$/i.test(t.value)) write({ rgb: rgbOf(`#${t.value.replace('#', '')}`), a: c.a }); return; }
+    if (!Number.isFinite(n)) return;
+    if (['Red', 'Green', 'Blue'].includes(f)) { const rgb = [...c.rgb]; rgb[['Red', 'Green', 'Blue'].indexOf(f)] = Math.max(0, Math.min(255, Math.round(n))); write({ rgb, a: c.a }); return; }
+    const hsl = hslOf(c.rgb); hsl[['Hue', 'Saturation', 'Lightness'].indexOf(f)] = n;
+    write({ rgb: rgbFromHsl(hsl[0], hsl[1], hsl[2]), a: c.a });
+  }
+});
+shapePop.addEventListener('pointerdown', (e) => {
+  if (!sel || !shapeUi?.custom) return;
+  const map = e.target.closest('.sh-map'), hue = e.target.closest('.sh-hue'), area = map || hue;
+  if (!area) return;
+  e.preventDefault();
+  const key = shapeUi.kind, before = JSON.stringify(model), r = area.getBoundingClientRect();
+  const step = (ev) => {
+    const x = Math.max(0, Math.min(1, (ev.clientX - r.left) / r.width)), y = Math.max(0, Math.min(1, (ev.clientY - r.top) / r.height)), u = shapeUi.custom;
+    if (map) { u.s = x; u.v = 1 - y; } else u.h = x * 360;
+    const hex = hsvToHex(u), b = B(sel.sid, sel.bid);
+    u.hex = hex;
+    writeShapeColor(b, key, colorCss({ rgb: rgbOf(hex), a: colorParts(shapeColorOf(b, key)).a }));
+    renderSectionDom(sel.sid);
+    renderShapePop();
+  };
+  const up = () => { removeEventListener('pointermove', step); removeEventListener('pointerup', up); commit(before, `${key} changed`); renderBlockPanel(); };
+  addEventListener('pointermove', step);
+  addEventListener('pointerup', up);
+  step(e);
+});
+for (const t of ['mousedown']) shapePop.addEventListener(t, (e) => e.stopPropagation());
+shapePop.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Escape') closeShapePop(); });
+document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act]')) closeShapePop(); }, true);
 // Button and image Content tabs: the text and the link (parity/findings/BUTTONEDIT.json). The
 // text is one undo step when the field is left; each link change is one step.
 function setButton(change, label) {

@@ -778,3 +778,43 @@ body.is-preview #reload-preview { display: inline-flex; }
 .code-modal-box .bp-code-top { margin-top: auto; }
 .code-modal-box .bp-code-top .bp-code-mode { flex: 0 0 406px; }
 .code-modal-box .bp-code { flex: 0 0 471px; }
+
+/* A shape's Design tab and popups (parity/findings/SHAPESTYLES.json). */
+.sh-head { margin: 8px 0 6px; font-weight: 500; }
+.sh-style { position: relative; display: flex; align-items: center; justify-content: center; width: 276px; height: 103px; padding: 0; border: 0; border-radius: 3px; background: #f2f2f2; cursor: pointer; }
+.sh-chev { position: absolute; right: 16px; top: 42px; color: #0e0e0e; }
+.sh-thumb { display: block; fill: #666; }
+.sh-radii { display: flex; gap: 6px; align-items: center; border: 0; padding-top: 6px; }
+.sh-radii .bp-radius { flex: 1; }
+.sh-radii .bp-radii { display: flex; gap: 2px; padding: 4px; border-radius: 3px; background: #f2f2f2; }
+.sh-radii .sp-seg.is-on { background: #fff; }
+.sh-corners { display: flex; justify-content: flex-end; gap: 2px; border: 0; }
+.sh-corner { width: 44px; height: 44px; box-sizing: border-box; padding: 0; border: 0; border-radius: 3px; background: #f2f2f2; text-align: center; font: inherit; }
+.sh-swatch-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 3px; background: #f2f2f2; cursor: pointer; }
+.sh-swatch-btn i { width: 20px; height: 20px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
+.sh-range input { flex: 1; }
+.sh-range span { margin-left: 12px; }
+#shape-pop { position: fixed; z-index: 90000; box-sizing: border-box; background: #fff; border-radius: 11px; box-shadow: 0 8px 40px rgba(0, 0, 0, .18); font: 14px/22px Poppins, sans-serif; color: #0e0e0e; }
+#shape-pop[hidden] { display: none; }
+#shape-pop.is-style { width: 276px; overflow-y: auto; border-radius: 3px; }
+.sh-grid { display: grid; grid-template-columns: repeat(3, 77px); justify-content: space-between; padding: 11px 16px; }
+.sh-tile { display: flex; align-items: center; justify-content: center; width: 77px; height: 77px; margin: 0.5px 0; padding: 0; border: 1px solid transparent; border-radius: 3px; background: none; cursor: pointer; }
+.sh-tile:hover { background: #f2f2f2; }
+.sh-tile.is-on { border-color: #0e0e0e; }
+#shape-pop.is-color { width: 300px; padding: 11px; }
+.sh-map { position: relative; height: 240px; margin-bottom: 11px; background-image: linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, transparent); cursor: crosshair; }
+.sh-map i, .sh-hue i { position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border: 2px solid #fff; border-radius: 50%; box-sizing: border-box; box-shadow: 0 0 2px rgba(0, 0, 0, .5); }
+.sh-hue { position: relative; height: 22px; margin: 11px 0 6px; background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00); cursor: pointer; }
+.sh-hue i { top: 11px; }
+.sh-swatches { display: flex; align-items: center; justify-content: space-between; height: 44px; }
+.sh-swatch { position: relative; display: block; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; }
+.sh-swatch span { display: block; width: 100%; height: 100%; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1); }
+.sh-swatch input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.sh-swatch:has(input:checked) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px #0e0e0e; }
+.sh-plus { width: 34px; height: 34px; padding: 0; border: 0; background: none; font-size: 26px; font-weight: 300; line-height: 30px; cursor: pointer; }
+.sh-opacity { display: block; width: 100%; height: 22px; margin: 6px 0 0; appearance: none; background: linear-gradient(to right, transparent, var(--c)), repeating-conic-gradient(#ddd 0 25%, #fff 0 50%) 0 0 / 10px 10px; }
+.sh-opacity::-webkit-slider-thumb { appearance: none; width: 16px; height: 16px; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 2px rgba(0, 0, 0, .5); background: transparent; }
+.sh-fields { display: flex; gap: 6px; margin-top: 6px; }
+.sh-fields select { flex: 0 0 73px; height: 44px; border: 0; border-radius: 3px; background: #f2f2f2; font: inherit; }
+.sh-fields input { flex: 1; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 3px; text-align: center; border: 0; background: #f2f2f2; font: inherit; }
+.sh-reset { display: block; width: 100%; height: 28px; margin-top: 6px; padding: 0; border: 0; background: none; font: 500 14px/28px Poppins, sans-serif; cursor: pointer; }
