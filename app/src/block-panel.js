@@ -5,7 +5,7 @@
 // transform-vars rule (render.js designCss). Controls marked data-unbuilt are shown where the
 // oracle shows them but do nothing yet; the inventory counts them as missing.
 import { SHAPES, shapeById } from './shapes.js';
-import { escapeHtml as esc, BLEND_MODES, STROKE_PX } from './render.js';
+import { escapeHtml as esc, BLEND_MODES, STROKE_PX, MAP_STYLES, MAP_ZOOMS, mapArt, mapVars, socialGlyph, socialKind, SOCIAL_SIZES, SOCIAL_STYLES } from './render.js';
 import { linkKind, linkSummary, parseMail, parsePhone } from './link-kinds.js';
 
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
@@ -327,6 +327,55 @@ export function shapeColorHtml(c) {
   return `${map}<div class="sh-swatches">${row}</div>${hue}${bar}${fields}${c.set ? '<button type="button" class="sh-reset" data-color-reset>Reset to theme</button>' : ''}`;
 }
 
+// Social Links (T11.json). The list is one for the whole site, so a change shows in every social block.
+const GRIP = '<span class="bp-acc-grip bp-soc-grip" data-unbuilt title="Not built yet" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>';
+function socialContentHtml(c, open) {
+  if (open?.startsWith('soc-row:')) {
+    const n = Number(open.slice(8)), l = c.links[n], k = socialKind(l.url) || { name: l.url };
+    return `<div class="bp-sub"><button type="button" class="bp-back" data-social="back">${pi('<path d="M15 6l-6 6 6 6"/>')}Back</button><span>${esc(k.name)}</span></div>`
+      + `<label class="bp-soccap bp-soccap-top" for="bp-soc-url">Profile Link</label><input class="bp-socf" id="bp-soc-url" type="text" aria-label="Profile Link" data-soc-url="${n}" value="${esc(l.url)}">`
+      + (c.err ? `<div class="bp-soc-err" role="alert">${esc(c.err)}</div>` : '')
+      + `<div class="sp-row"><span class="sp-label">Display Social Icon</span><label class="sp-switch"><input type="checkbox" aria-label="Display Social Icon" data-soc-show="${n}"${l.hidden ? '' : ' checked'}><span aria-hidden="true"></span></label></div>`
+      + `<button type="button" class="bp-soc-del" data-social="delete:${n}">Delete Social Link</button>`;
+  }
+  const rows = c.links.map((l, n) => {
+    const k = socialKind(l.url) || { net: 'url', name: l.url };
+    return `<div class="bp-soc-row" data-social="open:${n}">${GRIP}<span class="bp-soc-ic">${socialGlyph(k.net === 'facebook' ? 'facebookRound' : k.net)}</span><span class="bp-soc-name">${esc(k.name)}</span><span class="bp-soc-state">${l.hidden ? 'hidden' : 'visible'}</span><button type="button" class="bp-soc-go" aria-label="Navigate to ${esc(k.name)}">${pi('<path d="M9 6l6 6-6 6"/>')}</button></div>`;
+  }).join('');
+  return rows + (open === 'soc-add'
+    ? `<input class="bp-socf bp-soc-new" type="text" aria-label="Add Social Link" data-soc-add>${c.err ? `<div class="bp-soc-err" role="alert">${esc(c.err)}</div>` : ''}`
+    : '<button type="button" class="bp-soc-add" data-social="add">Add Social Link</button>');
+}
+const socIcon = { None: '<circle cx="12" cy="12" r="8"/><path d="M6.5 17.5l11-11"/>', Square: '<rect x="5" y="5" width="14" height="14"/>', Circle: '<circle cx="12" cy="12" r="8"/>', Rounded: '<rect x="5" y="5" width="14" height="14" rx="3.5"/>', Left: '<path d="M5 5v14M19 12H9M12 8.5L8.5 12l3.5 3.5"/>', Center: '<path d="M12 5v14M3 12h6M6.5 8.5L10 12l-3.5 3.5M21 12h-6M17.5 8.5L14 12l3.5 3.5"/>', Right: '<path d="M19 5v14M5 12h10M12 8.5l3.5 3.5-3.5 3.5"/>' };
+function socialDesignHtml(c, d, open, pairs) {
+  const seg = (key, v, cur, label, icon) => `<button type="button" role="radio" class="bp-sgrp-b${cur ? ' is-on' : ''}" aria-checked="${!!cur}"${icon ? ` aria-label="${label}"` : ''} data-soc-set="${key}" data-v="${v}">${icon ? pi(socIcon[label]) : label}</button>`;
+  const group = (n, inner) => `<div class="bp-sgrp bp-sgrp-${n}" role="radiogroup">${inner}</div>`;
+  const border = c.iconBorder || '';
+  return `<div class="bp-soccap bp-soccap-first">Border</div>` + group(4, [['None', ''], ['Square', 'square'], ['Circle', 'circle'], ['Rounded', 'rounded']].map(([l, v]) => seg('iconBorder', v, border === v, l, true)).join(''))
+    + (border ? group(3, Object.entries(SOCIAL_STYLES).map(([l, v]) => seg('iconStyle', v, (c.iconStyle || 'knockout') === v, l)).join('')) : '')
+    + (border && c.iconStyle === 'border' ? `<label class="bp-soc-thick"><span class="sp-label">Thickness</span><span class="bp-soc-tv">${c.iconThick ?? 2}px</span><input type="range" aria-label="Thickness" min="1" max="5" step="1" value="${c.iconThick ?? 2}" data-soc-thick></label>` : '')
+    + '<div class="bp-soccap">Alignment</div>' + group(3, [['Left', 'left'], ['Center', 'center'], ['Right', 'right']].map(([l, v]) => seg('align', v, (c.align || 'left') === v, l, true)).join(''))
+    + '<div class="bp-soccap">Size</div>' + group(5, Object.keys(SOCIAL_SIZES).map((k) => seg('iconSize', k, (c.iconSize || 'S') === k, k)).join(''))
+    + appearanceRows(d) + blendRow(d.blend || 'normal', open === 'blend') + blurRows(d)
+    + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs}`;
+}
+// Map (T11.json): the map's values stay on the block.
+const mapThumb = (id) => `<svg class="bp-map-thumb" viewBox="0 0 400 400" style="${mapVars(id)}" aria-hidden="true">${mapArt(false)}</svg>`;
+export const mapStylesHtml = (cur) => MAP_STYLES.map(([name, id]) => `<button type="button" role="option" aria-selected="${id === cur}" class="bp-map-opt${id === cur ? ' is-on' : ''}" data-map-pick="${id}">${mapThumb(id)}<span>${name}</span>${id === cur ? pi('<path d="M5 12l5 5 9-10"/>') : ''}</button>`).join('');
+function mapContentHtml(c) {
+  const f = (key, label, ph) => `<label class="bp-mapf"><span class="bp-soccap">${label}</span><input class="bp-socf" type="text" aria-label="${label}" placeholder="${ph}" data-content="${key}" value="${esc(c[key] || '')}"></label>`;
+  return f('mapName', 'Business Name', 'Squarespace') + f('mapAddress', 'Address', '8 Clarkson St') + f('mapCity', 'City, State, Zip Code', 'New York, NY, 10014') + f('mapCountry', 'Country', 'United States');
+}
+function mapDesignHtml(c, pairs) {
+  const name = MAP_STYLES.find(([, id]) => id === c.style)[0];
+  const sw = (key, on, label) => `<div class="sp-row"><span class="sp-label">${label}</span><label class="sp-switch"><input type="checkbox" aria-label="${label}" data-map-set="${key}"${on ? ' checked' : ''}><span aria-hidden="true"></span></label></div>`;
+  return `<button type="button" class="bp-map-style" data-shape-act="mapstyle" aria-haspopup="listbox" aria-label="${name}">${mapThumb(c.style)}<span>${name}</span>${pi('<path d="M7 10l5 5 5-5"/>')}</button>`
+    + '<div class="bp-soccap bp-map-cap">Elements</div>'
+    + `<div class="bp-map-zoom"><span class="sp-label">Zoom</span><input type="text" aria-label="Zoom" data-map-zoomfield value="${MAP_ZOOMS[c.zoom]}"><span class="bp-map-x">x</span><button type="button" aria-label="decrement" data-map-zoom="-1"${c.zoom <= 0 ? ' disabled' : ''}>${pi('<path d="M5 12h14"/>')}</button><button type="button" aria-label="increment" data-map-zoom="1"${c.zoom >= MAP_ZOOMS.length - 1 ? ' disabled' : ''}>${pi('<path d="M12 5v14M5 12h14"/>')}</button></div>`
+    + sw('mapLabels', c.labels, 'Labels') + sw('mapTerrain', c.terrain, 'Terrain') + sw('mapControls', c.controls, 'Controls')
+    + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs}`;
+}
+
 export function blockPanelHtml(d, tab, content = null, open = null, shape = null, image = null, stack = null, button = null, kid = null) {
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
@@ -334,7 +383,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   const box = ([k, l, u, min, max, axis]) => `<label class="bp-box"><input type="number" data-design="${k}" aria-label="${axis ? `${l} ${axis}` : l}" min="${min}" max="${max}" value="${d[k]}"><span class="bp-unit">${u}${axis ? ` <b>${axis}</b>` : ''}</span></label>`;
   let body;
   if (tab === 'Content' && content) {
-    body = image ? imageContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
+    body = image ? imageContentHtml(content) : content.kind === 'social' ? socialContentHtml(content, open) : content.kind === 'map' ? mapContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
   } else if (tab === 'Design' && content?.kind === 'accordion') {
     body = accordionDesignHtml(content, open, d);
   } else if (tab === 'Design') {
@@ -345,12 +394,14 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       else pairs.push(`<div class="bp-trow"><span class="sp-label">${f[1]}</span>${box(f)}</div>`);
     }
     // A new video (MEDIAEMPTY.json): Appearance, Transforms, Effects. Its Corner is not built.
-    if (content?.kind === 'video') body = '<div class="bp-thead"><span>Appearance</span></div>' + appearanceRows(d)
+    if (content?.kind === 'social') body = socialDesignHtml(content, d, open, pairs.join(''));
+    else if (content?.kind === 'map') body = mapDesignHtml(content, pairs.join(''));
+    else if (content?.kind === 'video') body = '<div class="bp-thead"><span>Appearance</span></div>' + appearanceRows(d)
       + row('Corner', `<label class="bp-box bp-vcorner"><input type="number" data-design="corner" aria-label="Corner" min="0" max="500" value="${d.corner || 0}"><span class="bp-unit">px</span></label>`)
       + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`
       + '<div class="bp-thead"><span>Effects</span></div>' + blendRow(d.blend || 'normal', open === 'blend') + blurRows(d);
-    // Code and embed blocks (CODEEMBED.json) have the transforms alone.
-    else if (content?.kind === 'code' || content?.kind === 'embed') body = `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`;
+    // Code, embed and Line blocks (CODEEMBED.json, T11.json) have the transforms alone.
+    else if (content?.kind === 'code' || content?.kind === 'embed' || content?.kind === 'line') body = `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`;
     // A shape's Design tab (parity/findings/SHAPESTYLES.json):
     // shape style, Corner radius with Uniform or Individual radii, Stretch, Color, Blend Mode,
     // Drop Shadow, Blur, then the transforms.
@@ -408,8 +459,8 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
         + '<button type="button" class="an-empty" data-anim="add" aria-label="Press + to get startedUse a preset or customize"><strong>Press + to get started</strong><span>Use a preset or customize</span></button>';
   }
   if (kid && tab === 'Design') body = kidSizeHtml(kid) + body;
-  if ((tab === 'Content' && (open === 'embed-data' || open?.startsWith('acc-item:'))) || open === 'acc-dividers') return `<div class="sp-body">${body}</div>`;
-  const tabs = content?.kind === 'accordion' ? ['Content', 'Design'] : content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
+  if ((tab === 'Content' && (open === 'embed-data' || open?.startsWith('acc-item:') || open?.startsWith('soc-row:'))) || open === 'acc-dividers') return `<div class="sp-body">${body}</div>`;
+  const tabs = content?.kind === 'accordion' ? ['Content', 'Design'] : content?.kind === 'line' ? ['Design', 'Animation'] : content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
   // The header is also the drag handle (U13): the oracle labels it Click and drag to reposition block editor form.
   return `<div class="bp-drag" role="button" aria-label="Click and drag to reposition block editor form" data-drag-panel></div><div class="sp-tabs" role="tablist">${tabs.map(tabBtn).join('')}</div><div class="sp-body">${body}</div>`;
 }
