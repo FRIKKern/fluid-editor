@@ -41,15 +41,31 @@ function imageContentHtml(c) {
     + text('alt', 'Image alt text', c.alt);
 }
 
-// Content tab of a new video (MEDIAEMPTY.json). Uploads, the player and the storage dialog are not
-// built, so those rows are dim. Description is kept on the block.
+// Content tab of a video (MEDIAEMPTY.json, VIDEOPLAYER.json). The file comes from this computer,
+// nothing is uploaded. Storage is the oracle's words: ours has no quota.
+const VIDEO_SELECTS = {
+  aspect: ['Aspect ratio', [['auto', 'Auto-detect'], ['16/9', '16:9 — Landscape'], ['9/16', '9:16 — Portrait'], ['1/1', '1:1 — Square'], ['4/3', '4:3 — Classic'], ['3/2', '3:2 — Photo']]],
+  lazy: ['Lazy Loading', [['auto', 'Auto'], ['lazy', 'Enabled'], ['eager', 'Disabled']]],
+  controls: ['Player controls', [['full', 'All'], ['minimal', 'Minimal'], ['none', 'None']]],
+};
 function videoContentHtml(c) {
-  return addBox('Add a Video', '30 minutes max')
-    + '<div class="bp-video-store" data-unbuilt title="Not built yet"><span>Video Storage</span><span>30 min left</span></div>'
-    + '<div class="sp-row" data-unbuilt title="Not built yet"><span class="sp-label">Custom thumbnail</span><label class="sp-switch"><input type="checkbox" disabled aria-label="Custom thumbnail"><span aria-hidden="true"></span></label></div>'
-    + '<div class="sp-row" data-unbuilt title="Not built yet"><span class="sp-label">Lazy Loading</span><span class="bp-unbuilt-chip">Auto</span></div>'
-    + '<p class="bp-help">Lazy loading is an optimization that defers loading content until the block is near the visible portion of the page.</p>'
-    + `<div class="bp-video-head">Elements</div><div class="bp-field"><span class="sp-label">Description</span><textarea class="bp-desc" aria-label="Description" placeholder="Add description here..." data-content="description">${esc(c.description || '')}</textarea></div>`;
+  const v = c.video || {};
+  const select = (key, cur) => { const [label, opts] = VIDEO_SELECTS[key]; return `<div class="sp-row"><span class="sp-label">${label}</span><select class="bp-vselect" aria-label="${label}" data-video="${key}">${opts.map(([val, text]) => `<option value="${val}"${val === cur ? ' selected' : ''}>${text}</option>`).join('')}</select></div>`; };
+  const toggle = (key, off, on, d) => `<button type="button" class="bp-vtoggle${v[key] !== false ? ' is-on' : ''}" data-video-toggle="${key}" aria-label="${v[key] !== false ? on : off}" title="${v[key] !== false ? on : off}">${pi(d)}</button>`;
+  const file = '<input type="file" accept="video/mp4, video/x-m4v, video/quicktime" hidden data-video-file>';
+  const thumb = `<div class="sp-row"><span class="sp-label">Custom thumbnail</span><label class="sp-switch"><input type="checkbox" aria-label="Custom thumbnail" data-video="thumb"${v.thumb ? ' checked' : ''}><span aria-hidden="true"></span></label></div>`
+    + (!v.thumb ? '' : v.thumbSrc ? `<div class="bp-pic"><img class="bp-pic-img" alt="" src="${esc(v.thumbSrc)}"></div>` : `<button type="button" class="bp-add-box" data-video-act="thumb" aria-label="Add an Image"><span class="bp-add-plus" aria-hidden="true">${pi('<path d="M12 5v14M5 12h14"/>')}</span><strong>Add an Image</strong><small>20 MB max</small></button><input type="file" accept="image/*" hidden data-video-thumb-file>`);
+  const head = v.src
+    ? `<div class="bp-vid"><div class="bp-vid-prev"><video src="${esc(v.src)}" muted playsinline aria-hidden="true"></video><span class="bp-vid-play" aria-hidden="true">${pi('<path d="M8 5v14l11-7z"/>')}</span></div><div class="bp-vid-name">${esc(v.name || '')}</div><div class="bp-vid-meta">Video · ${esc(v.length || '0:00')}</div><div class="bp-vid-acts"><button type="button" data-video-act="add">Replace</button><button type="button" class="bp-vid-trash" data-video-act="remove" aria-label="Remove">${pi('<path d="M5 7h14M10 7V5h4v2M7 7l1 13h8l1-13M10 11v6M14 11v6"/>')}</button></div></div>`
+    : `<button type="button" class="bp-add-box" data-video-act="add" aria-label="Add a Video"><span class="bp-add-plus" aria-hidden="true">${pi('<path d="M12 5v14M5 12h14"/>')}</span><strong>Add a Video</strong><small>30 minutes max</small></button>`;
+  const store = '<div class="bp-video-store"><span>Video Storage</span><span>30 min left</span></div>';
+  const help = '<p class="bp-help">Lazy loading is an optimization that defers loading content until the block is near the visible portion of the page.</p>';
+  const desc = `<div class="bp-field"><span class="sp-label">Description</span><textarea class="bp-desc" aria-label="Description" placeholder="Add description here..." data-content="description">${esc(c.description || '')}</textarea></div>`;
+  if (!v.src) return head + file + store + thumb + select('lazy', v.lazy || 'auto') + help + `<div class="bp-video-head">Elements</div>${desc}`;
+  return head + file + store + thumb + select('aspect', v.aspect || 'auto') + select('lazy', v.lazy || 'auto') + help
+    + `<div class="bp-vtoggles">${toggle('autoPlay', 'Autoplay', 'Stop Autoplay', '<path d="M18 7a8 8 0 1 0 2 5M18 3v4h-4M10 9v6l5-3z"/>')}${toggle('loop', 'Loop', 'Unloop', '<path d="M17 3l3 3-3 3M20 6H8a4 4 0 0 0-4 4v1M7 21l-3-3 3-3M4 18h12a4 4 0 0 0 4-4v-1"/>')}${toggle('muted', 'Mute', 'Unmute', '<path d="M4 9v6h4l5 4V5L8 9zM16 9a4 4 0 0 1 0 6"/>')}</div>`
+    + '<p class="bp-help">Videos are automatically muted on autoplay.</p>'
+    + `<div class="bp-video-head">Elements</div>${select('controls', v.controls || 'minimal')}${desc}`;
 }
 
 // Content tab of a code block (parity/findings/CODEEMBED.json): Mode, Display Source Code and the
@@ -117,12 +133,13 @@ const row2 = (label, control) => `<div class="sp-row"><span class="sp-label">${l
 
 // The link editor popover (BUTTONEDIT.json, the gap review's button-link state): a URL tab, the
 // field Enter link, search, or add files, Open link in new tab and Clear selected page; the site
-// pages show under the field while it is empty, as name and path, grouped by navigation.
-export function linkPopoverHtml(href, groups) {
-  const pages = groups.filter((g) => g.pages.length).map((g) => `<div class="lk-group">${esc(g.name)}</div>${g.pages.map((pg) => `<button type="button" class="lk-page" data-href="${esc(pg.href)}" aria-label="${esc(`${pg.label}${pg.href}`)}"><span>${esc(pg.label)}</span><span class="lk-path">${esc(pg.href)}</span></button>`).join('')}`).join('');
+// pages lie over the box while the field is in use, as name and path, grouped by navigation
+// (parity/findings/LINKBOX.json), so a click reaches the box only once a link is entered.
+export function linkPopoverHtml(href, groups, newTab = false) {
+  const pages = groups.filter((g) => g.pages.length).map((g) => `<div class="lk-set"><div class="lk-group">${esc(g.name)}</div>${g.pages.map((pg) => `<button type="button" class="lk-page" data-href="${esc(pg.href)}" aria-label="${esc(`${pg.label}${pg.href}`)}"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 5.5 6.5 1H14v16H2z"/></svg><span>${esc(pg.label)}</span><span class="lk-path">${esc(pg.href)}</span></button>`).join('')}</div>`).join('');
   return `<div class="lk-tabs"><button type="button" class="lk-tab is-on">URL</button></div>`
     + `<div class="lk-row"><input class="lk-input" type="text" placeholder="Enter link, search, or add files" value="${esc(href || '')}"><button type="button" class="lk-clear" aria-label="Clear selected page">×</button></div>`
-    + `<label class="lk-newtab" data-unbuilt title="Not built yet"><input type="checkbox" disabled> Open link in new tab</label>`
+    + `<label class="lk-newtab"><input type="checkbox" class="lk-box"${newTab ? ' checked' : ''}> Open link in new tab</label>`
     + `<div class="lk-pages">${pages}</div>`;
 }
 
@@ -229,7 +246,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
     }
     // A new video (MEDIAEMPTY.json): Appearance, Transforms, Effects. Its Corner is not built.
     if (content?.kind === 'video') body = '<div class="bp-thead"><span>Appearance</span></div>' + row('Background', sw('background', d.background, 'Background')) + strokeRows(d)
-      + row('Corner', '<span class="bp-unbuilt-chip" data-unbuilt title="Not built yet">0px</span>')
+      + row('Corner', `<label class="bp-box bp-vcorner"><input type="number" data-design="corner" aria-label="Corner" min="0" max="500" value="${d.corner || 0}"><span class="bp-unit">px</span></label>`)
       + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>${pairs.join('')}`
       + '<div class="bp-thead"><span>Effects</span></div>' + blendRow(d.blend || 'normal', open === 'blend') + row('Blur', sw('blur', d.blur, 'Blur'));
     // Code and embed blocks (CODEEMBED.json) have the transforms alone.

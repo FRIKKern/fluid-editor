@@ -65,7 +65,8 @@ export function pastePropsMenuHtml({ canPaste }) {
   return [it('ppaste-transforms', 'Replace Transforms', canPaste ? '' : ' disabled'), it('ppaste-animations', 'Replace Animations', ' data-unbuilt')].join('');
 }
 
-export function contextMenuHtml({ canPaste }) {
+// On a phone the oracle's menu has no Copy Properties or Paste Properties (parity/findings/LINKBOX.json).
+export function contextMenuHtml({ canPaste, phone = false }) {
   const item = (act, label, keys = '', opts = {}) => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"${opts.off ? ' disabled' : ''}${opts.unbuilt ? ' data-unbuilt' : ''}><span>${label}</span>${keys ? `<kbd>${keys}</kbd>` : ''}${opts.more ? '<span class="cm-more">›</span>' : ''}</button>`;
   return [
     item('copy', 'Copy', `${K.cmd} C`),
@@ -73,9 +74,7 @@ export function contextMenuHtml({ canPaste }) {
     item('duplicate', 'Duplicate', `${K.cmd} D`),
     item('delete', 'Delete', K.back),
     '<hr>',
-    item('copy-props', 'Copy Properties', '', { more: true }),
-    item('paste-props', 'Paste Properties', '', { more: true }),
-    '<hr>',
+    ...(phone ? [] : [item('copy-props', 'Copy Properties', '', { more: true }), item('paste-props', 'Paste Properties', '', { more: true }), '<hr>']),
     item('stack', 'Stack', `${K.shift} S`),
     item('arrange', 'Arrange', '', { more: true }),
     '<hr>',

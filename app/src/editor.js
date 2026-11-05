@@ -390,10 +390,10 @@ function placeToolbar() {
   if (!b || !el) { toolbar.hidden = true; return; }
   const z = zInfo(sel.sid, b);
   const align = { current: lay(b).justify || 'flex-start', open: vAlignOpen === sel.bid, menu: barMenu, stackDir: stackAxes(b, bp).direction, hAlign: b.halign || 'center' };
-  const key = `${sel.bid}|${bp}|${JSON.stringify(z)}|${b.buttonStyle || ""}|${b.fit || ''}|${JSON.stringify(align)}`;
+  const key = `${sel.bid}|${bp}|${JSON.stringify(z)}|${b.buttonStyle || ""}|${b.fit || ''}|${b.video?.src ? 1 : ''}|${JSON.stringify(align)}`;
   if (toolbar.dataset.key !== key) {
     const inStack = !!parentStack(sel.sid, sel.bid);
-    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z, !!b.fit, inStack), z, align);
+    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z, !!b.fit || !!b.video?.src, inStack), z, align);
     toolbar.dataset.key = key;
     // The menu sits 4px under the bar, centred on the button.
     const vm = toolbar.querySelector('.tb-vmenu');
@@ -517,13 +517,14 @@ function measure(fe) {
 }
 
 // Rows a block needs so its content fits without stretching a row.
-function contentRows(b, m) {
+function contentRows(b, m, normalizing = false) {
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line') return 1; // free down to 1 row (BLOCKTYPES.json)
   const root = blockEl(b.id);
   // A Fit button in the view on screen: its height is its own (BUTTONDESIGN.json).
   const fit = b.type === 'button' ? [...(root?.querySelectorAll('.sqs-block-button-container:not(.sqs-stretched)') || [])].find((e) => e.offsetHeight) : null;
-  if (b.type === 'button' && !fit) return 1; // Fill goes to 1 row even when its text wraps
-  const c = fit || root?.querySelector('.accordion-items-container, .sqs-block-video-placeholder--empty') || root?.querySelector('.sqs-block-content');
+  // Fill resizes down to 1 row even when its text wraps; normalize still keeps the text (CAP-NORMALIZE.json).
+  if (b.type === 'button' && !fit && !normalizing) return 1;
+  const c = fit || root?.querySelector('.accordion-items-container, .sqs-block-video-placeholder--empty, .native-video-player') || root?.querySelector('.sqs-block-content');
   if (!c) return 1;
   return Math.max(1, Math.ceil((c.offsetHeight + m.rg) / m.pitch - 0.02));
 }
@@ -548,7 +549,7 @@ function normalize(sid) {
     const r0 = Math.max(1, Math.round((br.top - top) / m.pitch) + 1);
     // A block keeps its rows and grows only if its content needs more (CAP-NORMALIZE.json): a heading
     // or a shape in stretched rows does not take their height.
-    const n = Math.max(a[2] - a[0], contentRows(b, m));
+    const n = Math.max(a[2] - a[0], contentRows(b, m, true));
     return [r0, a[1], r0 + n, a[3]];
   });
   s.blocks.forEach((b, i) => {
@@ -1315,7 +1316,7 @@ function renderBlockPanel() {
   if (!b) { animPicker = false; blendOpen = false; bstyleOpen = false; embedData = false; accView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'accordion' || (accView?.startsWith('acc-item:') && !b.items[Number(accView.slice(9))])) accView = null; // undo can take the item away
   const content = b.type === 'button' ? { label: b.label, href: b.href } : b.type === 'image' ? { src: b.src, href: b.href, alt: b.alt, filename: b.filename, empty: !!b.empty }
-    : b.type === 'video' && !b.html ? { kind: 'video', description: b.description }
+    : b.type === 'video' && !b.html ? { kind: 'video', description: b.description, video: b.video }
     : b.type === 'code' && b.html != null ? { kind: 'code', html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource }
     : b.type === 'accordion' ? { kind: 'accordion', items: b.items, expandFirst: b.expandFirst, multiple: b.multiple, dividers: b.dividers, showFirst: b.showFirst, showLast: b.showLast, iconSize: b.iconSize, iconThickness: b.iconThickness, iconLeft: b.iconLeft, rowPadding: b.rowPadding }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
@@ -1658,6 +1659,59 @@ blockPanel.addEventListener('change', (e) => {
   setButton((b) => { if (v) b[key] = v; else delete b[key]; }, key === 'alt' ? 'Image alt text changed' : 'Alternate Filename changed');
   renderBlockPanel();
 }, true);
+// A video's settings (VIDEOPLAYER.json): one undo step each. The file stays in this tab only: the
+// browser's storage holds a few MB, so after a reload the block keeps its name but not its picture.
+function setVideo(change, label) {
+  const b = sel && B(sel.sid, sel.bid);
+  if (!b || b.type !== 'video') return;
+  const before = JSON.stringify(model);
+  b.video = { ...(b.video || {}) };
+  change(b.video);
+  if (!Object.keys(b.video).length) delete b.video;
+  renderSectionDom(sel.sid);
+  commit(before, label);
+  renderBlockPanel();
+}
+blockPanel.addEventListener('click', (e) => {
+  if (!sel) return;
+  const t = e.target.closest('[data-video-toggle]');
+  if (t) { const k = t.dataset.videoToggle; setVideo((v) => { if (v[k] === false) delete v[k]; else v[k] = false; }, `Video ${k}`); return; }
+  const a = e.target.closest('[data-video-act]');
+  if (!a) return;
+  if (a.dataset.videoAct === 'add') blockPanel.querySelector('[data-video-file]').click();
+  else if (a.dataset.videoAct === 'thumb') blockPanel.querySelector('[data-video-thumb-file]').click();
+  else setVideo((v) => { for (const k of ['src', 'name', 'length', 'natural', 'aspect', 'autoPlay', 'loop', 'muted', 'controls']) delete v[k]; }, 'Video removed');
+});
+blockPanel.addEventListener('change', async (e) => {
+  if (!sel) return;
+  const s = e.target.closest('[data-video]');
+  if (s) {
+    e.stopImmediatePropagation();
+    const k = s.dataset.video;
+    setVideo((v) => { if (k === 'thumb') { if (s.checked) v.thumb = true; else { delete v.thumb; delete v.thumbSrc; } } else v[k] = s.value; }, `Video ${k}`);
+    return;
+  }
+  const tf = e.target.closest('input[data-video-thumb-file]');
+  if (tf) {
+    e.stopImmediatePropagation();
+    const pic = tf.files[0] && await readPicture(tf.files[0]).catch(() => null);
+    if (pic) setVideo((v) => { v.thumbSrc = pic.src; }, 'Video thumbnail');
+    return;
+  }
+  const f = e.target.closest('input[data-video-file]');
+  if (!f) return;
+  e.stopImmediatePropagation();
+  const file = f.files[0];
+  if (!file) return;
+  if (!file.type.startsWith('video/')) { note('That file is not a video'); updateUi(); return; }
+  const src = URL.createObjectURL(file);
+  const probe = document.createElement('video');
+  probe.src = src;
+  const meta = await new Promise((res) => { probe.onloadedmetadata = () => res(true); probe.onerror = () => res(false); });
+  if (!meta) { URL.revokeObjectURL(src); note('That video cannot be played here'); updateUi(); return; }
+  const secs = Math.round(Number.isFinite(probe.duration) ? probe.duration : 0);
+  setVideo((v) => { v.src = src; v.name = file.name; v.length = `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}`; v.natural = probe.videoWidth / probe.videoHeight || undefined; if (!v.natural) delete v.natural; }, 'Video added');
+}, true);
 // Image Replace and Remove: one undo step each.
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-image-act]');
@@ -1691,50 +1745,83 @@ blockPanel.addEventListener('keydown', (e) => { if (e.key !== 'Escape' && e.targ
 blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input[data-content]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); });
 
 const linkPop = $('link-popover');
-function closeLinkPopover() { linkPop.hidden = true; }
+function closeLinkPopover() {
+  if (linkPop.hidden) return;
+  linkPop.hidden = true;
+  // The box reaches a text link only now (parity/findings/CAP-LINK.json, LINKBOX.json).
+  const t = linkTarget;
+  linkTarget = null;
+  if (t) t.setNewTab(linkPop.querySelector('.lk-box').checked);
+}
+const SITE_PAGES = ['Services', 'About', 'Contact', 'Home'];
 function siteLinkGroups() {
   // The oracle lists each page as name and path, e.g. Services/services. Our header stores no
   // path for most pages, so the path comes from the name when none is stored.
   const path = (n) => (n.href && n.href !== '#' ? n.href : `/${n.label.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`);
   const nav = (model.header?.nav || []).map((n) => ({ label: n.label, href: path(n) }));
-  return [{ name: 'Main Navigation', pages: nav }];
+  // Pages that exist but are not in the navigation; the oracle lists them last, Home among them.
+  const hidden = SITE_PAGES.map((label) => ({ label, href: path({ label }) })).filter((p) => !nav.some((n) => n.href === p.href));
+  return [{ name: 'Main Navigation', pages: nav }, { name: 'Hidden Navigation', pages: hidden }];
 }
 function onLinkAction(act, el) {
   const b = B(sel.sid, sel.bid);
   if (act === 'copy') { navigator.clipboard?.writeText(b.href || '').catch(() => {}); note('Link copied'); updateUi(); return; }
-  if (act === 'remove') { closeLinkPopover(); setButton((x) => { delete x.href; }, 'Link removed'); return; }
+  if (act === 'remove') { closeLinkPopover(); setButton((x) => { delete x.href; delete x.newTab; }, 'Link removed'); return; }
   // open or edit
   openLinkPopover(b, (st) => linkPopoverPosition(blockPanel.getBoundingClientRect(), el.getBoundingClientRect(), st));
 }
 // What Enter or a page applies to: the selected button (default) or a saved text range.
 let linkTarget = null;
 function openLinkPopover(b, place, target = null) {
+  closeLinkPopover();
   linkTarget = target;
   linkPop.dataset.bid = b.id;
-  linkPop.innerHTML = linkPopoverHtml(target ? target.href : b.href, siteLinkGroups());
+  linkPop.innerHTML = linkPopoverHtml(target ? target.href : b.href, siteLinkGroups(), target ? target.newTab : !!b.newTab);
   const p = place(stage.getBoundingClientRect());
   linkPop.style.left = `${p.left}px`; linkPop.style.top = `${p.top}px`;
   linkPop.hidden = false;
-  linkPop.classList.toggle('has-text', !!(target ? target.href : b.href));
+  showLinkList(true);
   linkPop.querySelector('.lk-input').focus();
 }
-function applyLink(href) {
-  closeLinkPopover();
-  const v = href.trim();
-  if (linkTarget) { const t = linkTarget; linkTarget = null; t.apply(v); return; }
-  setButton((b) => { if (v) b.href = v; else delete b.href; }, v ? 'Link set' : 'Link removed');
+// The list follows the field: the pages whose name or path holds what is typed. One read, for
+// /about; that a name matches too is inferred from the field's "search".
+function showLinkList(on) {
+  const v = linkPop.querySelector('.lk-input').value.trim().toLowerCase();
+  for (const pg of linkPop.querySelectorAll('.lk-page')) pg.hidden = !!v && !pg.getAttribute('aria-label').toLowerCase().includes(v);
+  for (const set of linkPop.querySelectorAll('.lk-set')) set.hidden = !set.querySelector('.lk-page:not([hidden])');
+  linkPop.querySelector('.lk-pages').hidden = !on || !linkPop.querySelector('.lk-set:not([hidden])');
 }
-linkPop.addEventListener('input', (e) => { if (e.target.matches('.lk-input')) linkPop.classList.toggle('has-text', !!e.target.value); });
+// Enter or a page sets the link; the editor stays open, field focused, list gone (LINKBOX.json).
+function applyLink(href) {
+  const v = href.trim();
+  const input = linkPop.querySelector('.lk-input');
+  input.value = v;
+  showLinkList(false);
+  if (linkTarget) linkTarget.apply(v);
+  else setButton((b) => { if (v) b.href = v; else { delete b.href; delete b.newTab; } }, v ? 'Link set' : 'Link removed');
+  input.focus();
+}
+linkPop.addEventListener('input', (e) => { if (e.target.matches('.lk-input')) showLinkList(true); });
 linkPop.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && e.target.matches('.lk-input')) { e.preventDefault(); applyLink(e.target.value); }
   if (e.key === 'Escape') { e.stopPropagation(); closeLinkPopover(); }
 });
-linkPop.addEventListener('mousedown', (e) => { if (e.target.closest('button')) e.preventDefault(); });
+linkPop.addEventListener('mousedown', (e) => {
+  if (e.target.closest('button')) e.preventDefault();
+  if (e.target.matches('.lk-input')) showLinkList(true);
+});
 linkPop.addEventListener('click', (e) => {
   const pg = e.target.closest('.lk-page');
   if (pg) { applyLink(pg.dataset.href); return; }
-  if (e.target.closest('.lk-clear')) { const i = linkPop.querySelector('.lk-input'); i.value = ''; linkPop.classList.remove('has-text'); i.focus(); }
+  if (e.target.closest('.lk-clear')) { const i = linkPop.querySelector('.lk-input'); i.value = ''; showLinkList(true); i.focus(); }
 });
+linkPop.addEventListener('change', (e) => {
+  if (!e.target.matches('.lk-box') || linkTarget) return;
+  setButton((b) => { if (e.target.checked) b.newTab = true; else delete b.newTab; }, 'Link changed');
+});
+// A click anywhere else closes the editor (read for the panel's tabs).
+const closeLinkOutside = (e) => { if (!linkPop.contains(e.target)) closeLinkPopover(); };
+document.addEventListener('pointerdown', closeLinkOutside, true);
 function onDesignChange(e) {
   const input = e.target.closest('input[data-design]');
   if (!input || !sel) return;
@@ -1910,6 +1997,7 @@ function openTextLink(btnEl) {
   const a = fmt.linkAt(ed.ce, range);
   openLinkPopover(B(ed.sid, ed.bid), (st) => { const r = btnEl.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 10 - st.top }; }, {
     href: a ? a.getAttribute('href') : '',
+    newTab: !!a && a.getAttribute('target') === '_blank',
     apply: (href) => {
       if (editing !== ed) return;
       ed.ce.focus();
@@ -1918,6 +2006,12 @@ function openTextLink(btnEl) {
       if (fmt.setLink(doc, ed.ce, sel2, range, href)) onTextInput();
       textStep(ed, ed.ce.innerHTML, ed.area);
       renderTextBar();
+    },
+    setNewTab: (on) => {
+      if (editing !== ed || !ed.ce.isConnected) return;
+      textStep(ed, ed.ce.innerHTML, ed.area);
+      if (fmt.setLinkTarget(ed.ce, range, on)) onTextInput();
+      textStep(ed, ed.ce.innerHTML, ed.area);
     },
   });
 }
@@ -1994,6 +2088,7 @@ function onTextSelection() { if (editing && !textMenu) renderTextBar(); }
 function finishTextEdit() {
   const ed = editing;
   if (!ed) return;
+  closeLinkPopover();
   editing = null;
   doc.removeEventListener('selectionchange', onTextSelection);
   renderTextBar();
@@ -2971,7 +3066,7 @@ function onContextMenu(e) {
   const sid = blk.closest('section').dataset.sectionId;
   if (sel?.bid !== blk.dataset.blockId) select({ sid, bid: blk.dataset.blockId });
   closeFloating();
-  contextMenu.innerHTML = contextMenuHtml({ canPaste: !!blockClip });
+  contextMenu.innerHTML = contextMenuHtml({ canPaste: !!blockClip, phone: bp === 'mobile' });
   const fr = frame.getBoundingClientRect(), st = stage.getBoundingClientRect();
   contextMenu.style.left = `${Math.min(fr.left - st.left + e.clientX, st.width - 180)}px`;
   contextMenu.style.top = `${Math.min(fr.top - st.top + e.clientY, st.height - 400)}px`;
@@ -3231,6 +3326,7 @@ function boot() {
   frame.contentDocument.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeFloating(); closeSectionPanel(); } });
   doc = frame.contentDocument;
   win = frame.contentWindow;
+  doc.addEventListener('pointerdown', closeLinkOutside, true);
   doc.addEventListener('pointerdown', onDown);
   doc.addEventListener('pointermove', onMove);
   doc.addEventListener('pointerup', onUp);
