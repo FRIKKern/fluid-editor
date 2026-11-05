@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 551,
+  "pass": 598,
   "known": [
     "group south by 4",
     "hold phone, full width -24,12",
@@ -11,9 +11,10 @@
     "hold from the right margin track -60,12",
     "hold from the right margin track -70,12",
     "hold from the right margin track -80,12",
-    "hold from the right margin track -90,12"
+    "hold from the right margin track -90,12",
+    "R2 wider 5"
   ],
-  "total": 561,
+  "total": 609,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -2708,6 +2709,202 @@
     },
     {
       "name": "L6 a stack Corner per layout",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 1",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 2",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 3",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 4",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 5",
+      "diffs": [
+        "area: oracle 1/2/6/15, ours 1/2/5/15",
+        "rows: oracle 11, ours 10"
+      ],
+      "known": "the oracle keeps 5 rows for a text of 134.4 and takes the row off one drop later, 2 of 2 runs; no width offset explains it"
+    },
+    {
+      "name": "R2 wider 6",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 7",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 8",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 9",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 10",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 11",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 12",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 13",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 14",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 15",
+      "diffs": []
+    },
+    {
+      "name": "R2 wider 16",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 1",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 2",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 3",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 4",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 5",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 6",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 7",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 8",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 9",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 10",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 11",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 12",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 13",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 14",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 15",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 16",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 17",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 18",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 19",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 20",
+      "diffs": []
+    },
+    {
+      "name": "X2 Shape south 35 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 Shape south 65 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 Shape corner 70, 70",
+      "diffs": []
+    },
+    {
+      "name": "X2 Shape corner 30, 30",
+      "diffs": []
+    },
+    {
+      "name": "X2 Shape east 120",
+      "diffs": []
+    },
+    {
+      "name": "X2 Shape south 35 up",
+      "diffs": []
+    },
+    {
+      "name": "X2 Shape north 80 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 Shape west 70 left",
+      "diffs": []
+    },
+    {
+      "name": "X2 Line south 80 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text south 160 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 Shape corner 70, 70 by pen",
+      "diffs": []
+    },
+    {
+      "name": "X2 Shape corner 70, 70 by touch",
       "diffs": []
     },
     {
