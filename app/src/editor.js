@@ -12,7 +12,7 @@ import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, sh
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
-import { siteStylesHtml, stylePopoverHtml, stylePopoverPosition, packFontLinks } from './site-styles.js';
+import { SUB as SS_SUB, siteStylesHtml, stylePopoverHtml, stylePopoverPosition, packFontLinks } from './site-styles.js';
 import { siteStylesHead, baseSize } from './site-style-packs.js';
 import { demoModel } from './demo.js';
 
@@ -3201,6 +3201,7 @@ const contextMenu = $('context-menu');
 const siteStyles = $('site-styles');
 let ssView = null;
 let themeFrom = null; // the section whose Colors tab opened Edit Color Theme
+let ssSelect = null, ssHelp = false, ssTheme = null;
 function renderSsPanel() {
   let rows = [];
   if (ssView === 'Colors') {
@@ -3208,7 +3209,17 @@ function renderSsPanel() {
     const used = new Set(model.sections.map((s) => s.theme || 'light'));
     rows = THEMES.map(([name, v]) => ({ name, ...themeColors[v], used: used.has(v) }));
   }
-  siteStyles.innerHTML = siteStylesHtml(model.siteStyles, ssView, rows);
+  let opts = { select: ssSelect, help: ssHelp };
+  if (ssView === 'ThemeRows') {
+    themeColors = themeColors || readThemeColors();
+    const hit = THEMES.find(([name]) => name === ssTheme);
+    opts = { ...opts, theme: { name: ssTheme, ...(hit ? themeColors[hit[1]] : {}) } };
+  }
+  const top = siteStyles.scrollTop;
+  siteStyles.innerHTML = siteStylesHtml(model.siteStyles, ssView, rows, opts);
+  siteStyles.scrollTop = top;
+  const tip = siteStyles.querySelector('.ss-tip');
+  if (tip) tip.style.top = `${siteStyles.querySelector('.ss-help').getBoundingClientRect().top - 16}px`;
   if (stylePopKind) siteStyles.querySelector(`[data-ss-pop="${stylePopKind}"]`)?.setAttribute('aria-expanded', 'true');
 }
 function setSiteStyles(on) {
@@ -3235,9 +3246,19 @@ siteStyles.addEventListener('click', (e) => {
     if (themeFrom && S(themeFrom)) { editSid = themeFrom; panelPlace = null; sectionTab = 'Colors'; renderSectionPanel(); placeChrome(); }
     return;
   }
+  if (e.target.closest('[data-ss-help]')) { ssHelp = !ssHelp; renderSsPanel(); return; }
+  const row = e.target.closest('[data-ss-theme]');
+  if (row) { closeStylePopover(); ssTheme = row.dataset.ssTheme; ssView = 'ThemeRows'; ssSelect = null; renderSsPanel(); siteStyles.scrollTop = 0; return; }
+  const sel0 = e.target.closest('[data-ss-select]');
+  if (sel0) { ssSelect = ssSelect === sel0.dataset.ssSelect ? null : sel0.dataset.ssSelect; renderSsPanel(); return; }
+  const set0 = e.target.closest('button[data-ss-set]');
+  if (set0) { ssSelect = null; setSsValue(set0.dataset.ssSet, set0.dataset.v); return; }
+  const pick0 = e.target.closest('button[data-ss-pick]');
+  if (pick0 && !pick0.hasAttribute('data-unbuilt')) { applyStylePick(pick0); renderSsPanel(); return; }
   if (open || e.target.closest('[data-ss-back]')) {
     closeStylePopover();
-    ssView = open ? open.dataset.ssView : null;
+    ssSelect = null; ssHelp = false;
+    ssView = open ? open.dataset.ssView : SS_SUB[ssView]?.[0] ?? null;
     renderSsPanel();
     siteStyles.scrollTop = 0;
     return;
@@ -3247,12 +3268,36 @@ siteStyles.addEventListener('click', (e) => {
   const r = e.target.closest('[data-ss-reset]');
   if (r) showStyleConfirm(r.dataset.ssReset);
 });
+siteStyles.addEventListener('input', (e) => {
+  if (!e.target.matches('.ss-slide input[type="range"]')) return;
+  const r = e.target;
+  r.parentElement.querySelector('input[type="text"]').value = r.value + (r.dataset.unit || '');
+  r.style.setProperty('--p', `${(100 * (r.value - r.min)) / (r.max - r.min)}%`);
+});
+// A row of Headings, Paragraphs, Spacing or Animations: one value in the site's styles, one undo step.
+function setSsValue(path, raw) {
+  const [a, b, c] = path.split('.');
+  setSiteStyleKeys(`${path} ${raw}`, (st) => {
+    const num = (v) => (typeof v === 'string' && /^-?[0-9.]/.test(v) ? parseFloat(v) : v);
+    if (c) { st[a] = { ...(st[a] || {}), [b]: { ...(st[a]?.[b] || {}), [c]: num(raw) } }; return st; }
+    st[a] = { ...(st[a] || {}), [b]: a === 'anim' ? raw : num(raw) };
+    return st;
+  });
+}
 siteStyles.addEventListener('change', (e) => {
+  const set1 = e.target.closest('input[data-ss-set]');
+  if (set1) {
+    let raw = set1.type === 'radio' ? set1.dataset.v : set1.type === 'text' ? parseFloat(set1.value) : Number(set1.value);
+    if (typeof raw === 'number' && !Number.isFinite(raw)) { renderSsPanel(); return; }
+    if (set1.type === 'text') { const r = set1.parentElement.querySelector('input[type="range"]'); raw = Math.min(Number(r.max), Math.max(Number(r.min), raw)); }
+    setSsValue(set1.dataset.ssSet, raw);
+    return;
+  }
   if (!e.target.matches('.ss-base-in')) return;
   const n = parseInt(e.target.value, 10);
   if (Number.isFinite(n)) setBaseSize(n); else renderSsPanel();
 });
-// Base Size: one undo step per press. The limits are ours: the oracle's were not read.
+// Base Size: one undo step per press. The limits are the oracle's (parity/findings/CAP-BASESIZE.json).
 function setSiteStyleKeys(label, change) {
   const before = JSON.stringify(model);
   model.siteStyles = change({ ...(model.siteStyles || {}) });
@@ -3261,7 +3306,7 @@ function setSiteStyleKeys(label, change) {
   fitHeader();
 }
 function setBaseSize(px) {
-  const n = Math.min(32, Math.max(8, px));
+  const n = Math.min(24, Math.max(12, px));
   if (n === baseSize(model.siteStyles)) { renderSsPanel(); return; }
   setSiteStyleKeys('Base Size', (st) => ({ ...st, base: n }));
 }
@@ -3282,7 +3327,7 @@ styleConfirm.addEventListener('click', (e) => {
   const kind = styleConfirmKind;
   hideStyleConfirm();
   if (b.id !== 'ss-confirm-reset') return;
-  setSiteStyleKeys(`Reset ${kind} pack`, (st) => { delete st[kind]; if (kind === 'font') delete st.base; return st; });
+  setSiteStyleKeys(`Reset ${kind} pack`, (st) => { delete st[kind]; if (kind === 'font') { delete st.base; delete st.type; } return st; });
 });
 // A style pack popover (parity/findings/SITESTYLES2.json). A tile sets that part of the site's
 // styles in one undo step and the popover stays open, as on the oracle.
@@ -3308,16 +3353,19 @@ function openStylePopover(kind) {
   stylePop.style.left = `${p.left}px`; stylePop.style.top = `${p.top}px`; stylePop.style.height = `${p.height}px`;
   stylePop.hidden = false;
 }
-stylePop.addEventListener('click', (e) => {
-  const t = e.target.closest('button[data-ss-pick]');
-  if (!t || t.hasAttribute('data-unbuilt')) return;
+function applyStylePick(t) {
   const before = JSON.stringify(model);
   const kind = t.dataset.ssPick;
-  const top = stylePop.scrollTop;
   model.siteStyles = kind === 'theme' ? { theme: t.dataset.v } : { ...(model.siteStyles || {}), [kind]: t.dataset.v };
   commit(before, `Site Styles: ${t.getAttribute('aria-label')}`);
   renderAll();
   fitHeader();
+}
+stylePop.addEventListener('click', (e) => {
+  const t = e.target.closest('button[data-ss-pick]');
+  if (!t || t.hasAttribute('data-unbuilt')) return;
+  const top = stylePop.scrollTop;
+  applyStylePick(t);
   stylePop.scrollTop = top;
 });
 // A change to the styles, undo included, redraws the panel and an open popover.

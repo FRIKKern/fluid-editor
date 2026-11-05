@@ -1149,6 +1149,105 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Edit Color Theme: back to the Colors tab', evalJs(S, `(() => JSON.stringify(document.querySelector('#section-panel .sp-tab.is-on')?.textContent))()`) === 'Colors');
 }
 
+// U12: the rows behind Site Styles: Headings, Paragraphs, Spacing, Animations, lists, tip, theme rows.
+{
+  const near = (got, want, tol = 1) => Array.isArray(got) && got.length === want.length && got.every((v, n) => Math.abs(v - want[n]) <= tol);
+  const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-SITESTYLEROWS.json', import.meta.url)));
+  const start = async () => { viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(1200); await click('#site-styles-toggle'); await pause(300); };
+  const click = async (sel) => { const ok = evalJs(S, `(() => { const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true'; })()`); await pause(120); if (ok !== true && ok !== 'true') add(`U12 pressed ${sel}`, false); };
+  const go = async (...views) => { for (const v of views) await click(`[data-ss-view="${v}"]`); };
+  const setRange = async (label, v) => { evalJs(S, `(() => { const e = [...document.querySelectorAll('#site-styles input[type=range]')].find((x) => x.getAttribute('aria-label') === ${JSON.stringify(label)}); e.value = ${JSON.stringify(String(v))}; e.dispatchEvent(new Event('input', { bubbles: true })); e.dispatchEvent(new Event('change', { bubbles: true })); return 'true'; })()`); await pause(200); };
+  const boxes = (sel) => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll(${JSON.stringify(`#site-styles ${sel}`)})].map((e) => { const r = e.getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; })))()`);
+  const page = () => evalJs(S, `(() => { const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow; const c = (s) => { const e = [...d.querySelectorAll(s)].find((x) => x.getBoundingClientRect().width > 0), g = W.getComputedStyle(e); return [g.fontSize, g.lineHeight, g.letterSpacing, Math.round(e.getBoundingClientRect().width)]; }; return JSON.stringify({ h2: c('h2'), p: c('.sqs-html-content p, p'), title: c('.header-title'), nav: c('.header-nav-item') }); })()`);
+  const sameText = (got, want) => got.slice(0, 3).every((v, n) => v === want[n] || Math.abs(parseFloat(v) - parseFloat(want[n])) <= 0.02);
+  const inputs = (rows) => rows.filter((r) => r[0] === 'INPUT' && r[3].startsWith('range')).map((r) => r.slice(4));
+
+  // Where the rows go.
+  await start(); await go('Fonts', 'Headings');
+  add('Headings: back says Fonts, title', evalJs(S, `(() => document.querySelector('#site-styles .ss-back').textContent + '|' + document.querySelector('#site-styles .ss-title').textContent)()`) === 'Fonts|Headings');
+  add('Headings: sliders on the measured boxes', near(boxes('input[type=range]').flat(), inputs(R.headings).flat()), JSON.stringify(boxes('input[type=range]')));
+  add('Headings: slider limits and values', evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#site-styles input[type=range]')].map((e) => [e.value, e.min, e.max, e.step].join('|'))))()`).join() === R.headings.filter((r) => r[0] === 'INPUT' && r[3].startsWith('range')).map((r) => `${r[2]}|${r[3].split('|').slice(1).join('|')}`).join());
+  await click('[data-ss-select="type.h.weight"]');
+  add('Weight list: nine options on the measured boxes, current over its row', near(boxes('.ss-option').flat(), R.options.Weight.map((o) => o.slice(1)).flat()), JSON.stringify(boxes('.ss-option')));
+  await click('.ss-option[data-v="700"]');
+  add('Weight: a pick sets the headings', String(evalJs(S, `(() => document.getElementById('site-frame').contentWindow.getComputedStyle(document.getElementById('site-frame').contentDocument.querySelector('h2')).fontWeight)()`)) === '700');
+  await click('[data-ss-select="type.h.tt"]');
+  add('Text Transform list on the measured boxes', near(boxes('.ss-option').flat(), R.options['Text'].map((o) => o.slice(1)).flat()), JSON.stringify(boxes('.ss-option')));
+  await click('.ss-back');
+  add('back goes to Fonts', evalJs(S, `(() => document.querySelector('#site-styles .ss-title').textContent)()`) === 'Fonts');
+
+  // Each slider does what it did on the oracle: size, line height, letter spacing.
+  for (const [view, label, key] of [['Headings', 'Line Height', 'H Line Height'], ['Headings', 'Letter Spacing', 'H Letter Spacing'], ['Headings', 'Heading 2', 'H Heading 2'], ['Paragraphs', 'Line Height', 'P Line Height'], ['Paragraphs', 'Letter Spacing', 'P Letter Spacing'], ['Paragraphs', 'Paragraph 2', 'P Paragraph 2']]) {
+    await start(); await go('Fonts', view);
+    await setRange(label, R.effects[key].set);
+    const got = page(), want = R.effects[key].page;
+    add(`${key}: headings, title and menu as on the oracle`, sameText(got.h2, want.h2) && sameText(got.title, want.title) && sameText(got.p, want.p) && sameText(got.nav, want.nav), `${JSON.stringify(got)} oracle ${JSON.stringify(want)}`);
+  }
+  await start(); await go('Fonts', 'Headings');
+  const before = page();
+  await setRange('Line Height', 2);
+  evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(200);
+  add('a slider is one undo step', JSON.stringify(page()) === JSON.stringify(before), JSON.stringify(page()));
+
+  // Spacing.
+  await start(); await go('Miscellaneous', 'Spacing');
+  add('Spacing: sliders on the measured boxes', near(boxes('input[type=range]').flat(), inputs(R.spacing).flat()), JSON.stringify(boxes('input[type=range]')));
+  const w0 = page();
+  await setRange('Page Width (Max)', R.effects['Sp Page Width (Max)'].set);
+  add('Page Width: no change at this window', page().h2[3] === w0.h2[3], JSON.stringify(page()));
+  await setRange('Page Width (Max)', 1400);
+  await setRange('Site Margin', R.effects['Sp Site Margin'].set);
+  const ratio = page().h2[3] / w0.h2[3], oracleRatio = R.effects['Sp Site Margin'].page.h2[3] / R.base.h2[3];
+  add('Site Margin: a block narrows as on the oracle', Math.abs(ratio - oracleRatio) <= 0.01, `${ratio} oracle ${oracleRatio}`);
+
+  // Animations.
+  await click('.ss-back'); await go('Animations');
+  add('Animations: no Speed at None', boxes('.ss-speed').length === 0);
+  await click('input[data-v="Fade"]');
+  const an = R.animationsAfterFade, inp = an.filter((r) => r[0] === 'INPUT').map((r) => r.slice(4));
+  add('Animations: choices on the measured boxes', near(boxes('.ss-radio input').flat(), inp.flat()), JSON.stringify(boxes('.ss-radio input')));
+  add('Animations: Speed after a style, Medium on', near(boxes('.ss-speed').flat(), [1304, 560, 90.7, 32, 1394.7, 560, 90.7, 32, 1485.3, 560, 90.7, 32]) && evalJs(S, `(() => document.querySelector('.ss-speed.is-on').textContent)()`) === 'Medium', JSON.stringify(boxes('.ss-speed')));
+  await click('.ss-speed[data-v="Fast"]');
+  add('Animations: the style and speed are kept', evalJs(S, `(() => JSON.stringify(fe.model.siteStyles.anim))()`).style === 'Fade' && evalJs(S, `(() => JSON.stringify(fe.model.siteStyles.anim))()`).speed === 'Fast');
+
+  // Colors: the tip and a theme's rows.
+  await start(); await go('Colors'); await click('[data-ss-help]');
+  add('Colors help: the words and box', near(boxes('.ss-tip')[0], R.tip.box) && evalJs(S, `(() => document.querySelector('.ss-tip').textContent)()`) === R.tip.text, JSON.stringify(boxes('.ss-tip')));
+  await click('[data-ss-help]'); await click('[data-ss-theme="Lightest 1"]');
+  const ct = R.colorTheme, wantRows = Object.values(ct.groups).flatMap((g) => g[1]);
+  add('Edit Color Theme: Aa row and named rows', near(boxes('.ss-tr-now')[0], ct.aa) && evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('.ss-theme-row')].map((e) => e.textContent)))()`).join() === wantRows.join() && near(boxes('.ss-theme-row')[0].slice(1, 2), [ct.firstRow]), JSON.stringify(boxes('.ss-tr-now')));
+  add('Edit Color Theme: group heads', near(boxes('.ss-theme-h').map((b) => b[1]), Object.values(ct.groups).map((g) => g[0])), JSON.stringify(boxes('.ss-theme-h')));
+  await click('.ss-back');
+  add('back goes to Colors', evalJs(S, `(() => document.querySelector('#site-styles .ss-title').textContent)()`) === 'Colors');
+
+  // The list panels.
+  const L = R.lists;
+  await go('EditPalette');
+  add('Edit Palette: swatches, map and tabs', near(boxes('.ss-swatch').flat(), L.EditPalette.swatches.map((s) => s.slice(1)).flat()) && near(boxes('.ss-map')[0], L.EditPalette.map) && near(boxes('.ss-tab').map((b) => b[1]), L.EditPalette.tabs.map((t) => t[2])) && near(boxes('.ss-pal-row')[0], L.EditPalette.row), JSON.stringify(boxes('.ss-swatch')));
+  add('Edit Palette: colors named', evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('.ss-swatch')].map((e) => e.getAttribute('aria-label'))))()`).join() === L.EditPalette.swatches.map((s) => s[0]).join());
+  const palId = evalJs(S, `(() => { const e = document.querySelectorAll('.ss-pal-row')[1]; e.click(); return e.dataset.v; })()`); await pause(150);
+  add('Edit Palette: a preset is a pick', evalJs(S, `(() => fe.model.siteStyles?.palette)()`) === palId, palId);
+  await start(); await go('Fonts', 'FontPacks');
+  const fp = boxes('.ss-pack');
+  add('Font Packs: tiles', near(fp[0], L.FontPacks.tile) && Math.abs(fp[1][1] - fp[0][1] - L.FontPacks.pitch) <= 1, JSON.stringify(fp[0]));
+  add('Font Packs: tabs', near(boxes('.ss-tab').map((b) => b[2]), L.FontPacks.tabs.map((t) => t[3]), 3), JSON.stringify(boxes('.ss-tab')));
+  await click('.ss-pack[data-v="manrope"]');
+  add('Font Packs: a tile is a pick', evalJs(S, `(() => JSON.stringify(fe.model.siteStyles.font))()`) === 'manrope' && /Manrope/.test(evalJs(S, `(() => document.getElementById('site-frame').contentWindow.getComputedStyle(document.getElementById('site-frame').contentDocument.querySelector('h2')).fontFamily)()`)));
+  await click('.ss-back'); await click('.ss-back'); await go('Buttons', 'ButtonPacks');
+  const bp = boxes('.ss-pack');
+  add('Button Packs: tiles', near(bp[0], L.ButtonPacks.tile) && Math.abs(bp[1][1] - bp[0][1] - L.ButtonPacks.pitch) <= 1, JSON.stringify(bp[0]));
+  await click('.ss-back'); await click('.ss-back'); await go('Forms', 'FormPacks');
+  const fm = boxes('.ss-pack');
+  add('Form Packs: tiles', near(fm[0], L.FormPacks.tile) && Math.abs(fm[1][1] - fm[0][1] - L.FormPacks.pitch) <= 1, JSON.stringify(fm[0]));
+
+  // Base Size stops where the oracle does (parity/findings/CAP-BASESIZE.json).
+  await click('.ss-back'); await click('.ss-back'); await go('Fonts');
+  const typeBase = async (v) => { evalJs(S, `(() => { const e = document.querySelector('.ss-base-in'); e.value = ${JSON.stringify(String(v))}; e.dispatchEvent(new Event('change', { bubbles: true })); return 'true'; })()`); await pause(150); return evalJs(S, `(() => document.querySelector('.ss-base-in').value)()`); };
+  add('Base Size: 1 gives 12, 999 gives 24', String(await typeBase(1)) === '12' && String(await typeBase(999)) === '24');
+  await start();
+  viewport(S, 1600, 1000);
+}
+
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
 if (pass !== total) process.exit(1);
