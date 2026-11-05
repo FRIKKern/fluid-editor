@@ -4,6 +4,7 @@
 // Transforms (Opacity, Rotate, Scale X/Y, Offset X/Y, Skew X/Y). Values go into the block's
 // transform-vars rule (render.js designCss). Controls marked data-unbuilt are shown where the
 // oracle shows them but do nothing yet; the inventory counts them as missing.
+import { SHAPES, shapeById } from './shapes.js';
 import { escapeHtml as esc, BLEND_MODES } from './render.js';
 
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
@@ -203,12 +204,19 @@ function stackCornerRow(d) {
   return `<div class="sp-row st-row-corner${each ? ' is-four' : ''}"><span class="sp-label">Corner</span><span class="st-corner-seg" role="radiogroup" aria-label="Corner">${seg(0, 'Uniform corner radii', !each, '<rect x="6" y="6" width="12" height="12" rx="3"/>')}${seg(1, 'Individual corner radii', !!each, '<path d="M6 10V6h4M14 6h4v4M18 14v4h-4M10 18H6v-4"/>')}</span><label class="st-corner-field"><input type="text" aria-label="Corner" data-stack-field="corner" value="${each ? each[0] : d.corner || 0}px"></label>${four}</div>`;
 }
 
-function strokeRows(d, stack = false) {
+function strokeRows(d, stack = false, shape = false) {
   const seg = (key, val, label, on, icon) => `<button type="button" role="radio" class="sp-seg${on ? ' is-on' : ''}" aria-checked="${on}" data-dset="${key}" data-v="${val}" aria-label="${label}">${icon}</button>`;
   const cur = d.stroke || '';
   let html = `<div class="sp-row"><span class="sp-label">Stroke</span><span class="sp-ctl">${seg('stroke', '', 'No Stroke', !cur, pi('<circle cx="12" cy="12" r="7"/><path d="M7 17L17 7"/>'))}${seg('stroke', 'solid', 'Solid Stroke', cur === 'solid', pi('<path d="M5 12h14"/>'))}${seg('stroke', 'dashed', 'Dashed Stroke', cur === 'dashed', pi('<path d="M4 12h3M10.5 12h3M17 12h3"/>'))}</span></div>`;
   if (!cur) return html;
   const sml = (key, def, labels) => ['S', 'M', 'L'].map((k, n) => `<button type="button" role="radio" class="sp-seg sp-txt${(d[key] || def) === k ? ' is-on' : ''}" aria-checked="${(d[key] || def) === k}" data-dset="${key}" data-v="${k}" aria-label="${labels ? labels[n] : k}">${k}</button>`).join('');
+  // A shape's stroke (SHAPESTYLES.json): its color opens a popup, M to start, three dots for a range.
+  if (shape) {
+    const custom = d.strokeSize === 'custom';
+    return html + `<div class="sp-row"><span class="sp-label">Stroke Color</span><span class="sp-ctl"><button type="button" class="bp-swatch sh-swatch-btn" data-shape-act="strokeColor" aria-label="Stroke Color"><i style="background:${esc(d.strokeColor || 'rgb(0, 0, 0)')}"></i></button></span></div>`
+      + `<div class="sp-row"><span class="sp-label">Thickness</span><span class="sp-ctl">${sml('strokeSize', 'M')}<button type="button" role="radio" class="sp-seg sp-txt${custom ? ' is-on' : ''}" aria-checked="${custom}" data-dset="strokeSize" data-v="custom" aria-label="Custom thickness">···</button></span></div>`
+      + (custom ? `<div class="sp-row sh-range"><input type="range" min="1" max="50" data-design="strokePx" aria-label="Thickness" value="${d.strokePx ?? 6}"><span>${d.strokePx ?? 6}px</span></div>` : '');
+  }
   html += `<div class="sp-row"><span class="sp-label">Stroke Color</span><span class="sp-ctl"><button type="button" class="bp-swatch" data-unbuilt disabled aria-label="Stroke Color"></button></span></div>`
     + `<div class="sp-row"><span class="sp-label">Thickness</span><span class="sp-ctl">${sml('strokeSize', 'S')}</span></div>`;
   if (stack) return html;
@@ -227,6 +235,30 @@ function buttonDesignHtml(c, open) {
   return `<div class="bp-bs-title">Button style</div><div class="bp-bs-wrap"><button type="button" class="bp-bs-cur" data-bpstyle-toggle aria-haspopup="listbox" aria-expanded="${open}">${aa}<span>${name}</span>${pi('<path d="M7 10l5 5 5-5"/>')}</button>${list}</div>`
     + line('Layout', seg('fit', '1', 'Fit', c.fit, 'Fit') + seg('fit', '', 'Fill', !c.fit, 'Fill'))
     + (c.fit ? line('Alignment', [['left', 'Align Left', '<path d="M5 5v14M19 12H9M13 8l-4 4 4 4"/>'], ['center', 'Align Center', '<path d="M12 5v14M4 12h5M6.5 9.5L9 12l-2.5 2.5M20 12h-5M17.5 9.5L15 12l2.5 2.5"/>'], ['right', 'Align Right', '<path d="M19 5v14M5 12h10M11 8l4 4-4 4"/>']].map(([v, l, icon]) => seg('align', v, l, c.align === v, pi(icon))).join('')) : '');
+}
+
+// A shape's popups (parity/findings/SHAPESTYLES.json): the style picker, and Color and Stroke Color.
+const shapeThumb = (s) => `<svg class="sh-thumb" viewBox="0 0 ${s.d ? `${s.w} ${s.h}` : '1 1'}" width="43" height="43" aria-hidden="true">${s.d ? `<path d="${s.d}"/>` : '<rect width="1" height="1"/>'}</svg>`;
+export const shapePickerHtml = (cur) => `<div class="sh-grid" role="radiogroup" aria-label="Shape style">${SHAPES.map((s) => `<button type="button" role="radio" class="sh-tile${s.id === (cur || 'rectangle') ? ' is-on' : ''}" aria-checked="${s.id === (cur || 'rectangle')}" aria-label="${s.label}" data-shape-pick="${s.id}">${shapeThumb(s)}</button>`).join('')}</div>`;
+// c: { swatches: [hex], rgb: [r, g, b], a: 0-1, set: did the user pick one, custom: null or { h, s, v, format }, opacity: show the bar }.
+export function shapeColorHtml(c) {
+  const hex = (rgb) => `#${rgb.map((v) => Math.round(v).toString(16).padStart(2, '0')).join('').toUpperCase()}`;
+  const now = hex(c.rgb), css = c.a < 1 ? `rgba(${c.rgb.join(', ')}, ${c.a})` : `rgb(${c.rgb.join(', ')})`;
+  const on = c.a === 1 && c.swatches.includes(now) ? now : null;
+  const swatch = (label, value, bg, checked) => `<label class="sh-swatch"><span style="background:${bg}"></span><input type="checkbox" aria-label="Color ${label}" data-color-pick="${value}"${checked ? ' checked' : ''}></label>`;
+  const row = c.swatches.map((h) => swatch(h, h, h, h === on)).join('') + (c.custom ? (on ? '' : swatch(css, css, css, true)) : '<button type="button" class="sh-plus" data-color-custom aria-label="Custom color">+</button>');
+  const bar = c.opacity || c.custom ? `<input type="range" class="sh-opacity" aria-label="Opacity slider" min="0" max="100" data-color-alpha value="${Math.round(c.a * 100)}" style="--c:${now}">` : '';
+  const field = (label, v) => `<input type="text" aria-label="${label}" data-color-field="${label}" value="${v}">`;
+  let fields = '';
+  if (c.custom) {
+    const f = c.custom.format, alpha = field('Alpha', `${Math.round(c.a * 100)}%`);
+    const [h, s, l] = c.hsl;
+    const body = f === 'hex' ? field('Hex', now) : f === 'hsl' ? field('Hue', Math.round(h)) + field('Saturation', Math.round(s)) + field('Lightness', Math.round(l)) : field('Red', c.rgb[0]) + field('Green', c.rgb[1]) + field('Blue', c.rgb[2]);
+    fields = `<div class="sh-fields"><select aria-label="Color format" data-color-format>${[['hex', 'Hex'], ['rgb', 'RGB'], ['hsl', 'HSL']].map(([v, l2]) => `<option value="${v}"${v === f ? ' selected' : ''}>${l2}</option>`).join('')}</select>${body}${alpha}</div>`;
+  }
+  const map = c.custom ? `<div class="sh-map" style="background-color:hsl(${c.custom.h} 100% 50%)"><i role="slider" aria-label="Color Map" style="left:${c.custom.s * 100}%;top:${(1 - c.custom.v) * 100}%"></i></div>` : '';
+  const hue = c.custom ? `<div class="sh-hue"><i role="slider" aria-label="Hue slider" style="left:${(c.custom.h / 360) * 100}%"></i></div>` : '';
+  return `${map}<div class="sh-swatches">${row}</div>${hue}${bar}${fields}${c.set ? '<button type="button" class="sh-reset" data-color-reset>Reset to theme</button>' : ''}`;
 }
 
 export function blockPanelHtml(d, tab, content = null, open = null, shape = null, image = null, stack = null, button = null, kid = null) {
@@ -256,15 +288,23 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
     // A shape's Design tab (parity/findings/SHAPEDESIGN.json) has no Background or Stroke row:
     // shape style, Corner radius with Uniform or Individual radii, Stretch, Color, Blend Mode,
     // Drop Shadow, Blur, then the transforms.
-    else if (shape) body = row('Shape style', '<span class="bp-unbuilt-chip" data-unbuilt title="Not built yet">Rectangle</span>')
-      + `<div class="sp-row"><span class="sp-label">Corner radius</span><span class="sp-ctl"><label class="bp-box bp-radius"><input type="number" data-shape="radius" aria-label="Corner radius" min="0" max="1000" value="${shape.radius}"><span class="bp-unit">px</span></label><span class="bp-radii"><button type="button" role="radio" aria-checked="true" class="sp-seg is-on" aria-label="Uniform corner radii">${pi('<rect x="5" y="5" width="14" height="14" rx="4"/>')}</button><button type="button" role="radio" aria-checked="false" class="sp-seg" disabled data-unbuilt title="Not built yet" aria-label="Individual corner radii">${pi('<path d="M5 9V7a2 2 0 0 1 2-2h2M15 5h2a2 2 0 0 1 2 2v2M19 15v2a2 2 0 0 1-2 2h-2M9 19H7a2 2 0 0 1-2-2v-2"/>')}</button></span></span></div>`
-      + row('Stretch', `<label class="sp-switch"><input type="checkbox" data-shape="stretch" aria-label="Stretch" ${shape.stretch ? 'checked' : ''}><span aria-hidden="true"></span></label>`)
-      + row('Color', '<button type="button" class="bp-swatch" data-unbuilt title="Not built yet" aria-label="Color" disabled></button>')
-      + blendRow(d.blend || 'normal', open === 'blend')
-      + row('Drop Shadow', sw('shadow', d.shadow, 'Drop Shadow'))
-      + row('Blur', sw('blur', d.blur, 'Blur'))
-      + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
-      + pairs.join('');
+    else if (shape) {
+      const thumb = shapeThumb(shapeById(shape.shape));
+      const four = shape.corners, mixed = four && new Set(four).size > 1;
+      const fld = (n, label) => `<input type="text" class="sh-corner" aria-label="${label} corner radius" data-shape="corner:${n}" value="${four[n]}">`;
+      const radii = shape.shape && shape.shape !== 'rectangle' ? '' : `<div class="sp-row sh-radii"><span class="bp-radii"><button type="button" role="radio" aria-checked="${!four}" class="sp-seg${four ? '' : ' is-on'}" aria-label="Uniform corner radii" data-shape-act="uniform">${pi('<rect x="5" y="5" width="14" height="14" rx="4"/>')}</button><button type="button" role="radio" aria-checked="${!!four}" class="sp-seg${four ? ' is-on' : ''}" aria-label="Individual corner radii" data-shape-act="individual">${pi('<path d="M5 9V7a2 2 0 0 1 2-2h2M15 5h2a2 2 0 0 1 2 2v2M19 15v2a2 2 0 0 1-2 2h-2M9 19H7a2 2 0 0 1-2-2v-2"/>')}</button></span><label class="bp-box bp-radius"><input type="text" data-shape="radius" aria-label="Corner radius" value="${mixed ? 'Mixed' : `${four ? four[0] : shape.radius}px`}"></label></div>${four ? `<div class="sp-row sh-corners">${fld(0, 'Top left')}${fld(1, 'Top right')}${fld(2, 'Bottom right')}${fld(3, 'Bottom left')}</div>` : ''}`;
+      body = `<div class="sh-head">Shape style</div><button type="button" class="sh-style" data-shape-act="style" aria-haspopup="true" aria-label="Shape style">${thumb}<span class="sh-chev" aria-hidden="true">${pi('<path d="M7 10l5 5 5-5"/>')}</span></button>`
+        + radii
+        + row('Stretch', `<label class="sp-switch"><input type="checkbox" data-shape="stretch" aria-label="Stretch" ${shape.stretch ? 'checked' : ''}><span aria-hidden="true"></span></label>`)
+        + '<div class="bp-thead"><span>Styling</span></div>'
+        + row('Color', `<button type="button" class="bp-swatch sh-swatch-btn" data-shape-act="color" aria-label="Color"><i style="background:${esc(shape.color)}"></i></button>`)
+        + blendRow(d.blend || 'normal', open === 'blend')
+        + strokeRows(d, false, true)
+        + row('Drop Shadow', sw('shadow', d.shadow, 'Drop Shadow'))
+        + row('Blur', sw('blur', d.blur, 'Blur'))
+        + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>`
+        + pairs.join('');
+    }
     // A button's Design tab (parity/findings/BUTTONDESIGN.json): Button style, Layout, Alignment
     // on Fit, the transforms.
     else if (button) body = buttonDesignHtml(button, open === 'bstyle') + `<div class="bp-thead"><span>Transforms</span><span class="bp-more" data-unbuilt title="Not built yet" aria-label="More actions">···</span></div>${pairs.join('')}`;

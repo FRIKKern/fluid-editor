@@ -2,6 +2,7 @@
 // Squarespace publishes for Fluid Engine sections, captured 2026-11-03.
 // Runs in the browser and in Node.
 import { siteStylesHead } from './site-style-packs.js';
+import { shapeById } from './shapes.js';
 
 export const BPS = ['mobile', 'desktop'];
 export const COLS = { mobile: 8, desktop: 24 };
@@ -214,12 +215,22 @@ function blockInner(b, model) {
         return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-content">${box('desktop', { fit: b.fit, align: b.halign })}${b.btnMobile ? box('mobile', b.btnMobile) : ''}</div></div>`;
       }
     case 'shape': {
-      const style = `--shape-fill:${b.fill || 'var(--accent)'};--shape-radius:${b.radius || '0'};--shape-ink:${b.ink || 'inherit'}`;
+      const kind = shapeById(b.shape), rect = !kind.d, stretched = b.stretch !== false, dg = b.design || {};
+      const fill = b.color || b.fill || 'var(--accent)';
+      const radius = b.corners ? b.corners.map((v) => `${v}px`).join(' ') : b.radius || '0';
+      const style = `--shape-fill:${fill};--shape-radius:${radius};--shape-ink:${b.ink || 'inherit'}${stretched ? '' : `;--shape-ratio:${kind.w / kind.h}`}`;
       const label = b.label ? `<span class="sqs-shape-label">${escapeHtml(b.label)}</span>` : '';
-      // Stretch off (parity/findings/SHAPEDESIGN.json): the oracle drops data-stretched-to-fill
-      // and draws the shape as wide as it is tall.
-      const stretched = b.stretch !== false;
-      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-shape-block-outer-container"><div class="sqs-shape-block-container sqs-block-alignment-wrapper sqs-shape-block-container-system_desktop"><div class="sqs-shape${stretched ? '' : ' is-square'}" style="${style}">${label}</div></div></div></div></div>`;
+      // Stroke (SHAPESTYLES.json): black, 2, 6 or 15px unless set, dashes of 5 with a gap of the width
+      // plus 15, the same px however the block stretches.
+      const w = !dg.stroke ? 0 : dg.strokeSize === 'custom' ? dg.strokePx ?? 6 : STROKE_PX[dg.strokeSize || 'M'];
+      const ink = w ? ` stroke="${dg.strokeColor || 'rgb(0, 0, 0)'}" stroke-width="${w}" vector-effect="non-scaling-stroke"${dg.stroke === 'dashed' ? ` stroke-dasharray="5 ${w + 15}"` : ''}` : '';
+      const svg = (attrs, inner) => `<svg class="sqs-shape${rect ? ' sqs-shape-rectangle' : ''}${stretched ? '' : ' is-square'}" preserveAspectRatio="none"${attrs} style="${style};background:none;overflow:visible">${inner}</svg>`;
+      // A rectangle's stroke sits outside its box and its corner loses half the stroke. With four
+      // corners ours strokes the top left's: a known difference.
+      const drawn = !rect ? svg(` viewBox="0 0 ${kind.w} ${kind.h}"`, `<path d="${kind.d}" fill="${fill}"${ink}/>`)
+        : w ? svg('', `<rect style="width:calc(100% + ${w}px);height:calc(100% + ${w}px);x:calc(${w}px / -2);y:calc(${w}px / -2)" rx="${Math.max(0, parseFloat(b.corners ? b.corners[0] : b.radius) - w / 2 || 0)}" fill="${fill}"${ink}/>`)
+        : `<div class="sqs-shape${stretched ? '' : ' is-square'}" style="${style}">${label}</div>`;
+      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-shape-block-outer-container"><div class="sqs-shape-block-container sqs-block-alignment-wrapper sqs-shape-block-container-system_desktop${stretched ? '' : ' is-contained'}" data-shape-name="${kind.id}">${drawn}</div></div></div></div>`;
     }
     case 'stack': {
       // A Stack (S3): one grid block whose children flow in a flex box, measured on the oracle
@@ -391,7 +402,7 @@ function blendRule(b, g, phone) {
   // Stroke on a text block (parity/findings/STROKE.json): a solid or dashed black border on
   // .sqs-block, 2, 6 or 15px, and padding inside it of 3, 6 or 12% (6% unless set). Corner is
   // ours: the block's corner radius (not measured).
-  const stroke = g.stroke ? `.fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { border: ${STROKE_PX[g.strokeSize || 'S']}px ${g.stroke} rgb(0, 0, 0); border-radius: ${g.corner || 0}px; } .fe-block-${b.id} .sqs-html-content { padding: ${STROKE_PAD[g.pad || 'M']}; }`
+  const stroke = b.type === 'shape' ? '' : g.stroke ? `.fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { border: ${STROKE_PX[g.strokeSize || 'S']}px ${g.stroke} rgb(0, 0, 0); border-radius: ${g.corner || 0}px; } .fe-block-${b.id} .sqs-html-content { padding: ${STROKE_PAD[g.pad || 'M']}; }`
     : phone && base.stroke ? `.fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { border: 0; } .fe-block-${b.id} .sqs-html-content { padding: 0; }` : '';
   const drop = g.shadow ? `.fe-block-${b.id} .sqs-block { filter: drop-shadow(2px 2px 3px); }` : phone && base.shadow ? `.fe-block-${b.id} .sqs-block { filter: none; }` : '';
   const shadow = drop + (stroke ? ` ${stroke}` : '');
