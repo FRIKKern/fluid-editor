@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, ACCORDION_DESCRIPTION } from './render.js';
+import { renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, ACCORDION_DESCRIPTION, stackAxes } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
@@ -299,7 +299,8 @@ function zInfo(sid, b) {
   return { overlaps: over.length > 0, above: over.some((o) => o.layout[bp].z > L.z), below: over.some((o) => o.layout[bp].z < L.z), first: stack[0] === b, last: stack[stack.length - 1] === b };
 }
 let groupAlignOpen = false;
-let vAlignOpen = null; // The block whose Align Vertically menu is open.
+let vAlignOpen = null; // The block whose toolbar menu is open: barMenu says which.
+let barMenu = 'align'; // align, stackopts or halign (toolbar.js BAR_MENUS).
 // Group Move Forward and Backward (parity/findings/GROUPRESIZE.json): is a block outside the group
 // above its top one or below its bottom one? The oracle's case is one block above a group of two.
 function groupZ(sid, ids) {
@@ -342,14 +343,14 @@ function placeToolbar() {
   const el = blockEl(sel.bid);
   if (!b || !el) { toolbar.hidden = true; return; }
   const z = zInfo(sel.sid, b);
-  const align = { current: lay(b).justify || 'flex-start', open: vAlignOpen === sel.bid };
-  const key = `${sel.bid}|${bp}|${JSON.stringify(z)}|${b.buttonStyle || ""}|${align.current}|${align.open}`;
+  const align = { current: lay(b).justify || 'flex-start', open: vAlignOpen === sel.bid, menu: barMenu, stackDir: stackAxes(b, bp).direction, hAlign: b.halign || 'center' };
+  const key = `${sel.bid}|${bp}|${JSON.stringify(z)}|${b.buttonStyle || ""}|${b.fit || ''}|${JSON.stringify(align)}`;
   if (toolbar.dataset.key !== key) {
-    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z), z, align);
+    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z, !!b.fit), z, align);
     toolbar.dataset.key = key;
     // The menu sits 4px under the bar, centred on the button.
     const vm = toolbar.querySelector('.tb-vmenu');
-    if (vm) vm.style.left = `${toolbar.querySelector('[data-tb="align"]').offsetLeft + 18 - 62}px`;
+    if (vm) vm.style.left = `${toolbar.querySelector(`[data-tb="${vm.dataset.for}"]`).offsetLeft + 18 - 62}px`;
     // The style button names the current style (BUTTONSTYLE.json).
     const sb = toolbar.querySelector('[data-tb="primary"]');
     if (sb && b.buttonStyle) { const n = b.buttonStyle[0].toUpperCase() + b.buttonStyle.slice(1); sb.setAttribute('aria-label', n); sb.querySelector('.tb-text').textContent = n; }
@@ -365,7 +366,7 @@ toolbar.addEventListener('click', (e) => {
   if (!btn || !sel || btn.classList.contains('is-off')) return;
   const act = btn.dataset.tb;
   const { sid, bid } = sel;
-  if (act !== 'align' && !act.startsWith('valign:') && vAlignOpen) { vAlignOpen = null; placeToolbar(); }
+  if (!/^(align|stackopts|halign|valign:.*|sopt:.*|halign:.*)$/.test(act) && vAlignOpen) { vAlignOpen = null; placeToolbar(); }
   if (sel.more?.length) {
     // The group toolbar.
     if (act === 'align-menu') { groupAlignOpen = !groupAlignOpen; placeToolbar(); return; }
@@ -387,7 +388,7 @@ toolbar.addEventListener('click', (e) => {
   if (act === 'edit') { designOpen = bid; designTab = b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
-  if (act === 'link' && b.type === 'button') { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
+  if (act === 'link' && (b.type === 'button' || b.type === 'stack')) { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
   // Pin (parity/findings/PIN.json): the first click pins to the top with no offset, in the layout
   // on screen, and opens the popover; one undo step.
   if (act === 'pin') {
@@ -398,7 +399,23 @@ toolbar.addEventListener('click', (e) => {
   }
   // Align Vertically (parity/findings/TOOLBARS.json alignMenu): a menu of three that stays open
   // after a pick, one undo step each, in the layout on screen.
-  if (act === 'align') { pinPop.hidden = true; vAlignOpen = vAlignOpen === bid ? null : bid; placeToolbar(); return; }
+  if (act === 'align' || act === 'stackopts' || act === 'halign') { pinPop.hidden = true; setTbTip(null); vAlignOpen = vAlignOpen === bid && barMenu === act ? null : bid; barMenu = act; placeToolbar(); return; }
+  if (act.startsWith('sopt:')) {
+    const v = act.slice(5), before = JSON.stringify(model);
+    if (v === 'unstack') { vAlignOpen = null; unstack(sid, b); } else b.direction = v;
+    renderSectionDom(sid);
+    commit(before, `${btn.getAttribute('aria-label')} on ${bid}`);
+    placeToolbar();
+    return;
+  }
+  if (act.startsWith('halign:')) {
+    const before = JSON.stringify(model);
+    b.halign = act.slice(7);
+    renderSectionDom(sid);
+    commit(before, `${btn.getAttribute('aria-label')} on ${bid}`);
+    placeToolbar();
+    return;
+  }
   if (act.startsWith('valign:')) {
     const v = act.slice(7), L = lay(b);
     if (L.justify === v && L.align === v) return;
@@ -1245,7 +1262,8 @@ function renderBlockPanel() {
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', corner: parseFloat(b.radius) || 0, empty: !!b.empty } : null;
-  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, b.type === 'accordion' && accView ? accView : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : null), shape, image);
+  const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
+  blockPanel.innerHTML = blockPanelHtml({ ...DESIGN_DEFAULTS, ...b.design }, designTab, content, b.type === 'accordion' && accView ? accView : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' && animPicker ? 'anim-picker' : (blendOpen ? 'blend' : null), shape, image, stack);
   blockPanel.style.width = b.type === 'code' && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
   // An item's view holds that item open on the canvas (ACCORDION.json).
   if (b.type === 'accordion') showAccordionItem(b);
@@ -1267,6 +1285,8 @@ blockPanel.addEventListener('click', (e) => {
   if (e.target.closest('[data-blend-toggle]')) { blendOpen = !blendOpen; renderBlockPanel(); return; }
   const ds = e.target.closest('[data-dset]');
   if (ds && sel) { setDesign(ds.dataset.dset, ds.dataset.v || null); return; }
+  const st = e.target.closest('[data-stack]');
+  if (st && sel) { stackAct(st.dataset.stack); return; }
   const o = e.target.closest('[data-blend]');
   if (o && sel) { blendOpen = false; setDesign('blend', o.dataset.blend === 'normal' ? null : o.dataset.blend); return; }
   if (blendOpen && !e.target.closest('.bp-listbox')) { blendOpen = false; renderBlockPanel(); }
@@ -1297,6 +1317,57 @@ blockPanel.addEventListener('pointerdown', (e) => {
   const up = () => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
   window.addEventListener('pointermove', move);
   window.addEventListener('pointerup', up);
+});
+
+// The Stack's Design panel (S3.json panel), one undo step each. Direction and Position belong to
+// the layout on screen; Gap, Padding, Background, Stroke and Corner to both.
+let stackGapOpen = false;
+function stackAct(act) {
+  const i = act.indexOf(':'), k = i < 0 ? act : act.slice(0, i), v = act.slice(i + 1);
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  const here = bp === 'mobile' ? (b.phone ||= {}) : b;
+  if (k === 'gapopen') { stackGapOpen = !stackGapOpen; renderBlockPanel(); return; }
+  if (k === 'dir') here.direction = v;
+  if (k === 'pos') [here.posX, here.posY] = v.split(',');
+  if (k === 'gap') { stackGapOpen = false; b.gap = v === 'fill' ? 'fill' : Number(v); }
+  if (k === 'four') {
+    if (v === '1') b.padFour = true;
+    else { delete b.padFour; if (b.padding) b.padding = { t: b.padding.t, b: b.padding.t, l: b.padding.l, r: b.padding.l }; }
+  }
+  if (k === 'fill') b.design = { ...b.design, background: true };
+  if (k === 'nofill' && b.design) delete b.design.background;
+  if (k === 'corners') {
+    const d = (b.design ||= {});
+    // Back to one value: the top left one for all four.
+    if (v === '1') { d.corners = Array(4).fill(d.corner || 0); delete d.corner; } else { d.corner = d.corners?.[0] || 0; delete d.corners; }
+  }
+  renderSectionDom(sel.sid);
+  commit(before, `${k} set on ${b.id}`);
+  renderBlockPanel();
+}
+// Gap: any number in px, kept above zero, a unit ignored; words keep the last value. Padding and
+// Corner: a bare number is px; Padding keeps another unit as typed (S3.json gap, padding).
+blockPanel.addEventListener('change', (e) => {
+  const f = e.target.closest('input[data-stack-field]');
+  if (!f || !sel) return;
+  const b = B(sel.sid, sel.bid), k = f.dataset.stackField, before = JSON.stringify(model), raw = f.value.trim();
+  if (k === 'gap') {
+    if (/^fill$/i.test(raw)) b.gap = 'fill';
+    else if (Number.isFinite(parseFloat(raw))) b.gap = Math.max(0, parseFloat(raw));
+  } else if (k === 'corner' || /^c\d$/.test(k)) {
+    const n = Math.max(0, parseFloat(raw));
+    if (Number.isFinite(n)) {
+      const d = (b.design ||= {});
+      if (k === 'corner') { if (d.corners) d.corners = Array(4).fill(n); else d.corner = n; } else d.corners[Number(k[1])] = n;
+    }
+  } else if (/^[\d.]+([a-z%]+)?$/i.test(raw)) {
+    const val = /^[\d.]+$/.test(raw) ? `${raw}px` : raw;
+    const p = (b.padding ||= { t: '0px', r: '0px', b: '0px', l: '0px' });
+    if (k === 'y') { p.t = val; p.b = val; } else if (k === 'x') { p.l = val; p.r = val; } else p[k] = val;
+  }
+  renderSectionDom(sel.sid);
+  commit(before, `${k} set on ${b.id}`);
+  renderBlockPanel();
 });
 
 // One design value of the selected block, as one undo step (null removes it).
@@ -2034,27 +2105,58 @@ function alignGroup(kind) {
   }
 }
 
-// Stack Blocks (S3): the selected blocks become one stack over their bounding box,
-// on both layouts, children in row order (parity/findings/S3.json). The new block
-// is selected afterwards.
+// Stack Blocks (S3, parity/findings/S3.json). A row when the blocks' centres spread wider than
+// tall, else a column. From the top-left of the group the stack spans, in a row, the sum of the
+// children's columns and the tallest; in a column the widest and the sum of their rows. Phones are
+// always a column. It takes the group's top z, and the blocks keep their layouts for Unstack.
+const spanOf = (a) => [a[2] - a[0], a[3] - a[1]];
 function stackBlocks() {
   normalize(sel.sid); // the oracle works on normalized rows here too
   const s = S(sel.sid);
   const ids = [sel.bid, ...(sel.more || [])];
   const parts = ids.map((id) => B(sel.sid, id));
-  const box = (bpName) => {
-    const A = parts.map((b) => b.layout[bpName].area);
-    return [Math.min(...A.map((a) => a[0])), Math.min(...A.map((a) => a[1])), Math.max(...A.map((a) => a[2])), Math.max(...A.map((a) => a[3]))];
+  const boxes = parts.map((b) => blockEl(b.id).getBoundingClientRect());
+  const spread = (k) => { const c = boxes.map((q) => q[k] + (k === 'left' ? q.width : q.height) / 2); return Math.max(...c) - Math.min(...c); };
+  const direction = spread('left') > spread('top') ? 'row' : 'column';
+  const areaOf = (name, dir) => {
+    const A = parts.map((b) => b.layout[name].area), S2 = A.map(spanOf);
+    const r = Math.min(...A.map((a) => a[0])), c = Math.min(...A.map((a) => a[1]));
+    const h = S2.map((x) => x[0]), w = S2.map((x) => x[1]), sum = (v) => v.reduce((m, x) => m + x, 0);
+    return [r, c, r + (dir === 'row' ? Math.max(...h) : sum(h)), Math.min(c + (dir === 'row' ? sum(w) : Math.max(...w)), COLS[name] + 2)];
   };
-  const order = [...parts].sort((a, b) => a.layout[bp].area[0] - b.layout[bp].area[0] || a.layout[bp].area[1] - b.layout[bp].area[1]);
+  const key = direction === 'row' ? [1, 0] : [0, 1];
+  const order = [...parts].sort((p, q) => { const a = p.layout.desktop.area, c = q.layout.desktop.area; return a[key[0]] - c[key[0]] || a[key[1]] - c[key[1]]; });
   const id = `stack-${Date.now().toString(36)}`;
   const layout = {};
-  for (const bpName of ['desktop', 'mobile']) layout[bpName] = { area: box(bpName), z: Math.max(...parts.map((b) => b.layout[bpName].z)), justify: 'flex-start', align: 'flex-start' };
-  const stack = { id, type: 'stack', direction: 'column', gap: 20, children: order.map(({ layout: _l, ...c }) => c), layout };
+  for (const name of ['desktop', 'mobile']) layout[name] = { area: areaOf(name, name === 'desktop' ? direction : 'column'), z: Math.max(...parts.map((b) => b.layout[name].z)), justify: 'flex-start', align: 'flex-start' };
+  const stack = { id, type: 'stack', direction, gap: 20, children: order.map((c) => (c.type === 'button' ? { ...c, fit: true } : c)), layout };
   const at = Math.min(...parts.map((b) => s.blocks.indexOf(b)));
   s.blocks = s.blocks.filter((b) => !ids.includes(b.id));
   s.blocks.splice(at, 0, stack);
+  for (const name of ['desktop', 'mobile']) s.rows[name] = Math.max(s.rows[name], layout[name].area[2] - 1);
   sel = { sid: sel.sid, bid: id };
+}
+// Unstack (S3.json unstack): the first child takes the stack's corner, each next one follows with
+// its own spans: below in a column, one column clear to the right in a row. New z values on top;
+// the last child ends up selected. Phones are a column.
+function unstack(sid, b) {
+  const s = S(sid);
+  for (const name of ['desktop', 'mobile']) {
+    let [r, c] = b.layout[name].area;
+    let z = Math.max(...s.blocks.map((o) => o.layout[name].z));
+    const row = name === 'desktop' && stackAxes(b, 'desktop').direction === 'row';
+    for (const kid of b.children) {
+      const L = kid.layout[name], [h, w] = spanOf(L.area);
+      const left = Math.min(c, COLS[name] + 2 - w);
+      L.area = [r, left, r + h, left + w];
+      L.z = ++z;
+      if (row) c = left + w + 1; else r += h;
+    }
+  }
+  const at = s.blocks.indexOf(b);
+  s.blocks.splice(at, 1, ...b.children);
+  for (const name of ['desktop', 'mobile']) s.rows[name] = Math.max(s.rows[name], ...s.blocks.map((o) => o.layout[name].area[2] - 1));
+  sel = { sid, bid: b.children[b.children.length - 1].id };
 }
 
 // Layers, as on the oracle: the section's blocks front to back by z-index; text blocks
@@ -2882,7 +2984,8 @@ function setTbTip(btn) {
   tbTipBtn = btn;
   if (btn && !btn.classList.contains('is-off')) tbTipTimer = setTimeout(() => showBarTip(btn), 200);
 }
-toolbar.addEventListener('pointerover', (e) => { const btn = e.target.closest('button[data-tip]'); if (btn !== tbTipBtn) setTbTip(btn); });
+// No tip on the button whose menu is open (parity/findings/S3.json).
+toolbar.addEventListener('pointerover', (e) => { let btn = e.target.closest('button[data-tip]'); if (btn?.classList.contains('tb-open') && !btn.closest('.tb-vmenu')) btn = null; if (btn !== tbTipBtn) setTbTip(btn); });
 toolbar.addEventListener('pointerleave', () => setTbTip(null));
 // A pick redraws the toolbar and keeps the tip; a block that goes takes the tip with it.
 new MutationObserver(() => {

@@ -1,4 +1,4 @@
-// Small marks of the editor chrome against parity/findings/MARKS.json, TOPBAR.json, SECTIONBAR.json, P3.json, PIN.json and TOOLBARS.json, with real input in our editor.
+// Small marks of the editor chrome against parity/findings/MARKS.json, TOPBAR.json, SECTIONBAR.json, P3.json, PIN.json, TOOLBARS.json, CAP-HEADER.json and S3.json, with real input in our editor.
 // Writes parity/marks-check.json. Usage: npm run marks-check (FLUID_SURFACE=cdp:<port> FLUID_PORT=<port>).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, browser, drag, mouse } from './lib/cmux.mjs';
@@ -612,6 +612,196 @@ const rq = evalJs(S, `(() => { const q = document.querySelector('#block-toolbar 
 moveTo(rq); await pause(350);
 await tbClick('remove'); await pause(250);
 add('A removed block takes its tip with it', evalJs(S, `(() => JSON.stringify(document.getElementById('bar-tip').hidden))()`) === true);
+
+// P8: the header above 1520px: the larger of 4vw and centred in 1400.
+const HD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-HEADER.json', import.meta.url)));
+for (const w of [1520, 1700, 1920, 2400]) {
+  viewport(S, w, 900); goto(S, `${BASE}/page.html`); await pause(900);
+  const r = evalJs(S, `(() => { const q = (s) => { const b = document.querySelector(s).getBoundingClientRect(); return [b.left, b.top, b.width, b.height]; }; return JSON.stringify({ wrap: q('.site-header'), title: q('.header-title'), nav: q('.header-nav'), actions: q('.header-actions') }); })()`);
+  const o = Object.fromEntries(HD.reads[w].sel.map((x) => [x.cls.split(' ')[0], x.box]));
+  const close = (a, b, n = 1) => a.every((v, i) => Math.abs(v - b[i]) <= n);
+  add(`Header ${w}: height`, close([r.wrap[3]], [o['header-announcement-bar-wrapper'][3]]), String(r.wrap));
+  add(`Header ${w}: title box`, close(r.title, o['header-title']), String(r.title));
+  add(`Header ${w}: menu`, close(r.nav, o['header-nav']), String(r.nav));
+  add(`Header ${w}: actions`, close(r.actions, o['header-actions']), String(r.actions));
+}
+viewport(S, 1600, 1000);
+
+// S3: a stack on a blank section, against parity/findings/S3.json round3, with real clicks.
+const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.meta.url))).round3;
+{
+  viewport(S, 1600, 1000); goto(S, `${BASE}/`); await pause(1500);
+  const area = (a, z) => ({ area: a, z, justify: 'flex-start', align: 'flex-start' });
+  const load = (cs) => evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)); const s = m.sections[0]; const pad = (t, a, z, extra) => ({ id: t + a[0] + a[1], type: t, ...extra, layout: { desktop: { area: a, z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: a[3] > 10 ? [a[0], 2, a[2], 10] : a, z, justify: 'flex-start', align: 'flex-start' } } }); s.blocks = ${JSON.stringify(cs)}.map(([t, a, z]) => pad(t, a, z, t === 'button' ? { label: 'Learn more' } : {})); s.rows = { desktop: 12, mobile: 12 }; m.sections = [s]; fe.load(m); return 'true'; })()`);
+  const blockBox = (id) => evalJs(S, `(() => { const f = document.querySelector('iframe').getBoundingClientRect(); const q = document.querySelector('iframe').contentDocument.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect(); return JSON.stringify([q.left + f.left, q.top + f.top, q.width, q.height]); })()`);
+  const clickAt = async (x, y, mods) => { mouse(S, 'move', x, y); await pause(40); mouse(S, 'down', x, y, { buttons: 1, mods }); await pause(30); mouse(S, 'up', x, y, { mods }); await pause(220); };
+  const stackOf = () => evalJs(S, `(() => { const d = document.querySelector('iframe').contentDocument; const W = d.defaultView; const c = d.querySelector('.sqs-stack-container'); if (!c) return JSON.stringify(null); const fe = c.closest('.fe-block'); const q = fe.getBoundingClientRect(); const s = W.getComputedStyle(c), b = W.getComputedStyle(fe.querySelector('.sqs-block')); return JSON.stringify({ id: fe.dataset.blockId, area: W.getComputedStyle(fe).gridArea, z: W.getComputedStyle(fe).zIndex, box: [q.width, q.height], dir: s.flexDirection, jc: s.justifyContent, ai: s.alignItems, gap: s.columnGap, pad: b.padding, bg: b.backgroundColor, radius: [b.borderTopLeftRadius, b.borderTopRightRadius, b.borderBottomRightRadius, b.borderBottomLeftRadius], border: b.borderTopWidth + ' ' + b.borderTopStyle + ' ' + b.borderTopColor, kids: [...c.children].map((k) => { const r = k.getBoundingClientRect(); return [r.left - q.left, r.top - q.top, r.width, r.height]; }) }); })()`);
+  const tbLabels = () => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#block-toolbar > .tb-btn')].map((b) => b.getAttribute('aria-label'))))()`);
+  const tbPress = async (act) => { const q = evalJs(S, `(() => { const b = document.querySelector('#block-toolbar [data-tb="${act}"]'); if (!b) return JSON.stringify(null); const r = b.getBoundingClientRect(); return JSON.stringify([r.left + 18, r.top + 18]); })()`); if (!q) return false; await clickAt(q[0], q[1]); return true; };
+  const pPress = async (label) => { const q = evalJs(S, `(() => { const b = [...document.querySelectorAll('#block-panel [aria-label]')].find((x) => x.getAttribute('aria-label') === ${JSON.stringify(label)}); if (!b) return JSON.stringify(null); b.scrollIntoView({ block: 'nearest' }); const r = b.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]); })()`); if (!q) return false; await clickAt(q[0], q[1]); return true; };
+  const typeIn = async (label, v) => { evalJs(S, `(() => { const i = [...document.querySelectorAll('#block-panel input')].find((x) => x.getAttribute('aria-label') === ${JSON.stringify(label)}); i.value = ${JSON.stringify(v)}; i.dispatchEvent(new Event('change', { bubbles: true })); return 'true'; })()`); await pause(120); };
+  const inPanel = (label) => evalJs(S, `(() => { const p = document.querySelector('#block-panel').getBoundingClientRect(); const b = [...document.querySelectorAll('#block-panel [aria-label]')].find((x) => x.getAttribute('aria-label') === ${JSON.stringify(label)}); if (!b) return JSON.stringify(null); const r = b.getBoundingClientRect(); return JSON.stringify([r.left - p.left, r.top - p.top, r.width, r.height]); })()`);
+  const value = (label) => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#block-panel input')].find((x) => x.getAttribute('aria-label') === ${JSON.stringify(label)}).value))()`);
+  const near = (a, b, n = 1) => !!a && a.length === b.length && a.every((v, i) => Math.abs(v - b[i]) <= n);
+  const nearRows = (a, b, n = 1) => !!a && a.length === b.length && a.every((v, i) => near(v, b[i], n));
+  const scrollPanel = (top) => evalJs(S, `(() => { const e = [...document.querySelectorAll('#block-panel *')].find((x) => x.scrollHeight > x.clientHeight + 20 && /auto|scroll/.test(getComputedStyle(x).overflowY)); if (e) e.scrollTop = ${top}; return 'true'; })()`);
+  const make = async (cs) => {
+    load(cs); await pause(500);
+    const ids = cs.map(([t, a]) => t + a[0] + a[1]);
+    let q = blockBox(ids[0]); await clickAt(q[0] + q[2] / 2, q[1] + q[3] / 2);
+    for (const id of ids.slice(1)) { q = blockBox(id); await clickAt(q[0] + q[2] / 2, q[1] + q[3] / 2, ['Shift']); }
+    await tbPress('stack');
+    await pause(300);
+  };
+  // Direction, area, kids and Unstack, in the oracle's two cases.
+  for (const [n, c] of ST.cases.entries()) {
+    const toArea = (t) => t.split(' / ').map(Number);
+    const types = n === 0 ? ['shape', 'button'] : ['button', 'shape'];
+    await make(c.before.map((t, k) => [types[k], toArea(t), c.zBefore[k]]));
+    const r = stackOf();
+    add(`Stack ${c.direction}: direction`, r?.dir === c.direction, r?.dir);
+    add(`Stack ${c.direction}: area`, r?.area === c.area, r?.area);
+    add(`Stack ${c.direction}: on top of the group`, r && Number(r.z) === c.z, r?.z);
+    add(`Stack ${c.direction}: children`, nearRows(r?.kids, c.kids, 12), JSON.stringify(r?.kids));
+    await tbPress('stackopts'); await tbPress('sopt:unstack'); await pause(300);
+    const un = evalJs(S, `(() => { const d = document.querySelector('iframe').contentDocument; return JSON.stringify([...d.querySelectorAll('main .fe-block, .fluid-engine .fe-block')].map((b) => [d.defaultView.getComputedStyle(b).gridArea, d.defaultView.getComputedStyle(b).zIndex])); })()`);
+    add(`Unstack ${c.direction}: places`, c.unstacked.every((t) => un.some((x) => x[0] === t)), JSON.stringify(un));
+    add(`Unstack ${c.direction}: new z`, c.zAfter.every((z) => un.some((x) => Number(x[1]) === z)), JSON.stringify(un));
+    evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(300);
+    add(`Unstack ${c.direction}: one undo brings the stack back`, stackOf()?.area === c.area);
+  }
+  // Toolbar and Stack Options on the row case.
+  await make([['shape', [1, 2, 7, 8], 1], ['button', [1, 12, 3, 18], 2]]);
+  add('Stack toolbar: buttons', JSON.stringify(tbLabels()) === JSON.stringify(ST.toolbar.labels), String(tbLabels()));
+  const bar = evalJs(S, `(() => { const t = document.getElementById('block-toolbar').getBoundingClientRect(); return JSON.stringify([t.width, t.height, ...[...document.querySelectorAll('#block-toolbar > .tb-btn')].map((b) => b.getBoundingClientRect().left - t.left)]); })()`);
+  const L = ST.toolbar.buttonLefts;
+  add('Stack toolbar: boxes', near(bar, [ST.toolbar.barWidth - 2, 42, L.Edit, L['Open link editor popover'], L['Stack Options'], L.Pin, L.Duplicate, L.Remove], 10) && near(bar.slice(2), [L.Edit, L['Open link editor popover'], L['Stack Options'], L.Pin, L.Duplicate, L.Remove]), String(bar));
+  await tbPress('stackopts');
+  const menu = evalJs(S, `(() => { const m = document.querySelector('#block-toolbar .tb-vmenu'); const r = m.getBoundingClientRect(); const o = document.querySelector('#block-toolbar [data-tb="stackopts"]').getBoundingClientRect(); return JSON.stringify({ labels: [...m.children].map((b) => b.getAttribute('aria-label')), box: [r.width, r.height], off: r.left + r.width / 2 - o.left - o.width / 2, on: [...m.children].filter((b) => b.classList.contains('tb-open')).map((b) => b.getAttribute('aria-label')), open: document.querySelector('#block-toolbar [data-tb="stackopts"]').classList.contains('tb-open') }); })()`);
+  add('Stack Options: labels', JSON.stringify(menu.labels) === JSON.stringify(ST.stackOptions.labels), String(menu.labels));
+  add('Stack Options: box, centred', near(menu.box, ST.stackOptions.box) && Math.abs(menu.off) <= 1, JSON.stringify(menu));
+  await pause(320);
+  add('Stack Options: no tip on the open button', evalJs(S, `(() => JSON.stringify(document.getElementById('bar-tip').hidden))()`) === true);
+  add('Stack Options: the current one is on', menu.on.join() === 'Stack Horizontally' && menu.open, String(menu.on));
+  await tbPress('sopt:column'); await pause(200);
+  const col = stackOf();
+  add('Stack Vertically: a column, same area', col.dir === 'column' && col.area === ST.toggle.areaKept.replace('14', '14'), JSON.stringify([col.dir, col.area]));
+  add('Stack Vertically: children', nearRows(col.kids, ST.toggle.column.kids, 2), JSON.stringify(col.kids));
+  add('Stack Vertically: the stack grows to hold them', near(col.box, ST.toggle.column.box, 2), String(col.box));
+  add('A pick keeps the menu open', evalJs(S, `(() => JSON.stringify(!!document.querySelector('#block-toolbar .tb-vmenu')))()`) === true);
+  await tbPress('sopt:row'); await pause(200);
+  const row = stackOf();
+  add('Stack Horizontally: children', nearRows(row.kids, ST.toggle.row.kids, 2), JSON.stringify(row.kids));
+  // Clicks and drags on a child belong to the stack.
+  const sq = blockBox(row.id);
+  await clickAt(sq[0] + 40, sq[1] + 40); await clickAt(sq[0] + 40, sq[1] + 40);
+  add('A click on a child keeps the stack', JSON.stringify(tbLabels()) === JSON.stringify(ST.toolbar.labels), String(tbLabels()));
+  // Design panel.
+  await tbPress('edit'); await pause(300);
+  const tabs = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#block-panel [role=tab][data-btab]')].map((t) => t.textContent)))()`);
+  add('Stack panel: tabs', tabs.join() === ST.panel.tabs.join(), String(tabs));
+  const PB = ST.panel.boxesInPanel;
+  add('Stack panel: Direction', near(inPanel('Column'), PB.Column, 1), String(inPanel('Column')));
+  add('Stack panel: Position, first tab', near(inPanel('Top Left'), PB['Top Left'], 1), String(inPanel('Top Left')));
+  add('Stack panel: Position, last tab', near(inPanel('Bottom Right'), PB['Bottom Right'], 1), String(inPanel('Bottom Right')));
+  add('Stack panel: Gap', near(inPanel('Gap'), PB.gapInput, 1), String(inPanel('Gap')));
+  add('Stack panel: Gap options', near(inPanel('Expand gap options'), PB.gapToggle, 1), String(inPanel('Expand gap options')));
+  add('Stack panel: Padding', near(inPanel('Padding vertical'), PB.padY, 1) && near(inPanel('Padding horizontal'), PB.padX, 1), String(inPanel('Padding vertical')));
+  add('Stack panel: Padding toggle', near(inPanel('Show top, bottom, left, and right padding controls'), PB.padToggle, 1), String(inPanel('Show top, bottom, left, and right padding controls')));
+  add('Stack panel: Add fill', near(inPanel('Add fill'), PB.addFill, 1), String(inPanel('Add fill')));
+  await pPress('Bottom Right');
+  let r = stackOf();
+  add('Position in a row: left-right on justify-content', r.jc === 'flex-end' && r.ai === 'flex-end', JSON.stringify([r.jc, r.ai]));
+  add('Position Bottom: the button drops, the shape fills', near(r.kids[1].slice(1, 2), [ST.position.rowButtonTop.bottom], 1) && near(r.kids[0].slice(1, 2), [0]), JSON.stringify(r.kids));
+  await pPress('Center Left'); r = stackOf();
+  add('Position Center: the button centres', near(r.kids[1].slice(1, 2), [ST.position.rowButtonTop.center], 1) && r.jc === 'flex-start' && r.ai === 'center', JSON.stringify(r.kids));
+  await pPress('Column'); r = stackOf();
+  add('Position in a column: the reverse', r.jc === 'center' && r.ai === 'flex-start', JSON.stringify([r.jc, r.ai]));
+  await pPress('Row'); await pPress('Top Left');
+  for (const [typed, want] of [['40px', '40px'], ['0px', '0px'], ['100px', '100px'], ['500px', '500px'], ['30', '30px'], ['-5px', '0px'], ['2em', '2px']]) {
+    await typeIn('Gap', typed);
+    add(`Gap ${typed}`, stackOf().gap === want && value('Gap') === want, `${stackOf().gap} ${value('Gap')}`);
+  }
+  await typeIn('Gap', 'abc');
+  add('Gap: a word keeps the last', stackOf().gap === '2px', stackOf().gap);
+  await typeIn('Gap', '20px');
+  await pPress('Expand gap options');
+  add('Gap options: the rows', near(evalJs(S, `(() => { const p = document.querySelector('#block-panel').getBoundingClientRect(); const b = document.querySelectorAll('.st-gap-menu button')[1].getBoundingClientRect(); return JSON.stringify([b.left - p.left, b.top - p.top, b.width, b.height]); })()`), PB.gapRows[1], 1), '');
+  await clickAt(...evalJs(S, `(() => { const b = document.querySelectorAll('.st-gap-menu button')[1].getBoundingClientRect(); return JSON.stringify([b.left + 40, b.top + 20]); })()`));
+  r = stackOf();
+  add('Gap Fill: spread, no gap, equal children', r.jc === ST.gap.fill.justifyContent && value('Gap') === 'Fill' && near([r.kids[0][2]], [ST.gap.fill.kidWidth], 1), JSON.stringify([r.jc, r.gap, r.kids[0]]));
+  await typeIn('Gap', '20px');
+  await typeIn('Padding vertical', '40px'); await typeIn('Padding horizontal', '15px'); r = stackOf();
+  add('Padding: two values', r.pad === ST.padding.two.padding, r.pad);
+  add('Padding: the children move in', near(r.kids[0].slice(0, 3), ST.padding.two.kid.slice(0, 3), 1), JSON.stringify(r.kids[0]));
+  await typeIn('Padding vertical', '30'); add('Padding: a bare number is px', value('Padding vertical') === '30px', value('Padding vertical'));
+  await typeIn('Padding vertical', '2em'); add('Padding: another unit stays', value('Padding vertical') === '2em', value('Padding vertical'));
+  await pPress('Show top, bottom, left, and right padding controls');
+  for (const [l, v] of [['Padding top', '1'], ['Padding left', '2'], ['Padding bottom', '3'], ['Padding right', '4']]) await typeIn(l, v);
+  add('Padding: four values, in the order read', stackOf().pad === ST.padding.four.padding, stackOf().pad);
+  await pPress('Only show vertical and horizontal padding controls');
+  await typeIn('Padding vertical', '0px'); await typeIn('Padding horizontal', '0px');
+  add('No Corner row before a fill', inPanel('Uniform corner radii') === null);
+  await pPress('Add fill'); r = stackOf();
+  add('Add fill: white', r.bg === ST.fill.block, r.bg);
+  add('Add fill: Color and Remove color', !!inPanel('Color') && !!inPanel('Remove color'));
+  await typeIn('Corner', '24px'); r = stackOf();
+  add('Corner: all four', r.radius.every((v) => v === ST.corner.uniform.sqsBlockRadius), String(r.radius));
+  await typeIn('Corner', '1px');
+  await pPress('Individual corner radii');
+  for (const [n, v] of [['Top left', '2'], ['Top right', '3'], ['Bottom right', '4']]) await typeIn(`${n} corner radius`, v);
+  r = stackOf();
+  add('Corner: four, in the order read', r.radius.join() === ST.corner.individual.radius.join(), String(r.radius));
+  await pPress('Uniform corner radii'); r = stackOf();
+  add('Corner: back to one takes the top left', r.radius.every((v) => v === '2px'), String(r.radius));
+  await pPress('Solid Stroke'); r = stackOf();
+  add('Solid Stroke', `${r.border}` === '2px solid rgb(0, 0, 0)', r.border);
+  add('Solid Stroke: the children sit inside', near(r.kids[0], ST.stroke.kidWithStroke, 1), JSON.stringify(r.kids[0]));
+  add('Solid Stroke: its rows', !!inPanel('Stroke Color'));
+  await pPress('Dashed Stroke'); add('Dashed Stroke', stackOf().border === '2px dashed rgb(0, 0, 0)', stackOf().border);
+  await pPress('No Stroke'); await pPress('Remove color');
+  add('Remove color', stackOf().bg === 'rgba(0, 0, 0, 0)', stackOf().bg);
+  add('Corner goes with the fill and the stroke', inPanel('Uniform corner radii') === null);
+  evalJs(S, `(() => { fe.select(null); return 'true'; })()`); await pause(200);
+  // Link: the same editor as buttons.
+  await clickAt(sq[0] + 40, sq[1] + 40);
+  await tbPress('link'); await pause(200);
+  add('Link: the editor opens', evalJs(S, `(() => JSON.stringify(!document.getElementById('link-popover').hidden))()`) === true);
+  evalJs(S, `(() => { document.getElementById('link-popover').hidden = true; fe.select(null); return 'true'; })()`); await pause(100);
+  // Phones: alone in the section, a column of its own, values kept apart.
+  await make([['shape', [1, 2, 7, 8], 1], ['button', [1, 12, 3, 18], 2]]);
+  const id = stackOf().id;
+  evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(500);
+  evalJs(S, `(() => { fe.select(fe.model.sections[0].id, ${JSON.stringify(id)}); return 'true'; })()`); await pause(300);
+  add('Phone: Edit, Pin, Remove', JSON.stringify(tbLabels()) === JSON.stringify(ST.toolbar.phoneAlone), String(tbLabels()));
+  r = stackOf();
+  add('Phone: a column', r.dir === 'column', r.dir);
+  await tbPress('edit'); await pause(300);
+  await pPress('Row'); await pPress('Center'); r = stackOf();
+  add('Phone: Direction and Position change the phone', r.dir === 'row' && r.jc === 'center' && r.ai === 'center', JSON.stringify([r.dir, r.jc, r.ai]));
+  evalJs(S, `(() => { fe.select(null); fe.setBp('desktop'); return 'true'; })()`); await pause(500); r = stackOf();
+  add('Phone values leave the desktop alone', r.dir === 'row' && r.jc === 'flex-start' && r.ai === 'flex-start', JSON.stringify([r.dir, r.jc, r.ai]));
+  // The button after Unstack: Align Horizontally.
+  await clickAt(sq[0] + 40, sq[1] + 40);
+  await tbPress('stackopts'); await tbPress('sopt:unstack'); await pause(300);
+  const FB = ST.fitButton;
+  const btnId = evalJs(S, `(() => JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'button').id))()`);
+  const bq = blockBox(btnId); await clickAt(bq[0] + 2, bq[1] + 2);
+  add('Fit button: its toolbar', JSON.stringify(tbLabels()) === JSON.stringify(FB.toolbar), String(tbLabels()));
+  const toLeft = () => evalJs(S, `(() => { const d = document.querySelector('iframe').contentDocument; const fe = d.querySelector('.fe-block[data-block-id="${btnId}"]'); return JSON.stringify(fe.querySelector('a').getBoundingClientRect().left - fe.getBoundingClientRect().left); })()`);
+  const fw = evalJs(S, `(() => { const d = document.querySelector('iframe').contentDocument; const q = d.querySelector('.fe-block[data-block-id="${btnId}"] a').getBoundingClientRect(); return JSON.stringify([q.width, q.height]); })()`);
+  add('Fit button: as tall as read, wide within our font', near([fw[1]], [FB.box[3]], 2) && near([fw[0]], [FB.box[2]], 12), String(fw));
+  await tbPress('halign');
+  add('Align Horizontally: the menu', JSON.stringify(evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#block-toolbar .tb-vmenu button')].map((b) => b.getAttribute('aria-label'))))()`)) === JSON.stringify(FB.menu));
+  const free = evalJs(S, `(() => { const d = document.querySelector('iframe').contentDocument; const fe = d.querySelector('.fe-block[data-block-id="${btnId}"]'); return JSON.stringify(fe.getBoundingClientRect().width - fe.querySelector('a').getBoundingClientRect().width); })()`);
+  add('Align Center: centred', near([toLeft()], [free / 2], 1), String(toLeft()));
+  await tbPress('halign:right'); await pause(150);
+  add('Align Right', near([toLeft()], [free], 1), String(toLeft()));
+  await tbPress('halign:left'); await pause(150);
+  add('Align Left', near([toLeft()], [0], 1), String(toLeft()));
+  evalJs(S, `(() => { fe.select(null); return 'true'; })()`);
+  await pause(100);
+}
 
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
