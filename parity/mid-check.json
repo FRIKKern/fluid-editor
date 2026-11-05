@@ -1,9 +1,8 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 463,
+  "pass": 464,
   "known": [
     "group south by 4",
-    "group drop n 0,-1",
     "hold phone, full width -24,12",
     "hold resize w to the far side -50,0",
     "hold from the margin track, far right 1150,12",
@@ -279,10 +278,8 @@
     },
     {
       "name": "group drop n 0,-1",
-      "diffs": [
-        "no undo step"
-      ],
-      "known": true
+      "diffs": [],
+      "known": false
     },
     {
       "name": "group drop s 0,-3",

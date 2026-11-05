@@ -1,0 +1,73 @@
+{
+ "item": "TEXTUNDO",
+ "capturedAt": "2026-11-05",
+ "question": "How many undo steps does typing take, and which typed words become links?",
+ "how": "real keys over the DevTools protocol with exact gaps, on a text block on the empty not-linked page, nothing saved: Exit Without Saving after each run. Undo counted with the Undo button after leaving the edit.",
+ "corrects": "CAP-UNDOTYPE.json says a pause of 300ms splits typing. Its keys step waits 300ms more after typing and each key starts a process, so the real gap was longer. With exact gaps 150, 300, 500, 700, 800 and 900ms do not split. CAP-UNDOSHORT.json's 100ms and 200ms fit this: its keys step adds 300ms and a process start per key, so those gaps sat close to a second.",
+ "typing": {
+  "gapsNoSplit": [
+   150,
+   300,
+   500,
+   700,
+   800,
+   900
+  ],
+  "gapsSplit": [
+   1000,
+   1500
+  ],
+  "steady": "four keys 300ms or 600ms apart: 1 step",
+  "enter": "a burst with Enter in it: 1 step",
+  "backspace": "typing then Backspace: 1 step",
+  "rule": "a pause between 900 and 1000ms starts a new step. Ours: 1000"
+ },
+ "actions": "Bold then Italic in one edit are 2 (CAP-UNDOTYPE.json), two color picks 2 (TEXTCOLOR.json). Whether typing around a toolbar action in one burst is 1 or 3 is not read: the button click in this probe found no button and Cmd+B sent by the protocol did nothing. Ours treats an action as a step on both sides, inferred.",
+ "dropAtHome": "a drag of a lone block let go at home leaves the block where it was and is an undo step: one undo later the block is still there, and Undo still on.",
+ "links": {
+  "rule": "on a space or Enter after it, a word that reads as a domain or a mail address becomes a link with the http scheme or mailto. The text stays as typed. Typing goes on after the link.",
+  "linked": [
+   "changes.one",
+   "example.com",
+   "foo.bar",
+   "x.y.no",
+   "me@x.com",
+   "www.site",
+   "Hello.World",
+   "bar.COM",
+   "x.dev",
+   "ab.co",
+   "FOO.no",
+   "foo-bar.no"
+  ],
+  "notLinked": [
+   "a.b",
+   "1.5",
+   "site.no/path",
+   "site.no/",
+   "x.no?q=1",
+   "end.",
+   "foo.comma",
+   "foo.c",
+   "foo.toolong",
+   "next.no.",
+   "Foo.No.",
+   "foo_bar.no",
+   "foo.no,",
+   "foo.no!",
+   "foo.no;",
+   "foo.no:",
+   "foo.no?"
+  ],
+  "oneOf": "in brackets or quotes the link goes around foo.no only. A comma or other mark after it means no link.",
+  "list": "the word's ending must be a real one: foo.bar yes, foo.comma no. The oracle's list is not read. Ours is a short list of its own, so a rare ending does not link.",
+  "wrapped": [
+   "(foo.no)",
+   "\"foo.no\""
+  ]
+ },
+ "inAnEdit": {
+  "cmdZ": "typing aa, a pause of 1.1s, bb, then Cmd+Z goes back to before the edit's typing in one press, and the edit stays open. Cmd+Shift+Z brings it all back. After that, leaving the edit, it is 1 undo step and not 2. One reading.",
+  "undoButton": "typing cc after an earlier edit, then the Undo button: the typing is gone and so is the earlier edit, and the edit stays open. One reading."
+ }
+}

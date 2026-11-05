@@ -99,6 +99,36 @@ for (const [name, [act, parts]] of Object.entries(ACT)) {
   }
 }
 
+// Y2, E4: undo steps inside one edit, and typed words that become links (TEXTUNDO.json).
+const TU = JSON.parse(readFileSync(new URL('../parity/findings/TEXTUNDO.json', import.meta.url)));
+const edit = (body) => { goto(S, `${BASE}/index.html?replay`); return evalJs(S, `(async () => { const sleep = (ms) => new Promise((r) => setTimeout(r, ms)); await sleep(800);
+  const s = fe.model.sections[2]; const b = s.blocks.find((x) => x.type === 'text' && x.html.includes('On desktop the smallest')); fe.edit(s.id, b.id);
+  const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow; const ce = d.querySelector('.fe-block[data-block-id="' + b.id + '"] .sqs-html-content');
+  const type = (t) => d.execCommand('insertText', false, t); const enter = () => d.execCommand('insertParagraph');
+  const tool = (a) => document.querySelector('#text-bar button[data-fmt="' + a + '"]').click();
+  const word = () => { const t = ce.querySelector('p').firstChild; const r = d.createRange(); r.setStart(t, 0); r.setEnd(t, t.textContent.indexOf(' ')); const q = W.getSelection(); q.removeAllRanges(); q.addRange(r); };
+  const color = (v) => { document.querySelector('#text-bar [data-fmt="color-menu"]').click(); document.querySelector('#text-bar input[data-fmt="color"][data-v="' + v + '"]').click(); };
+  const links = () => [...ce.querySelectorAll('a')].map((a) => [a.textContent, a.protocol]);
+  ${body}
+  const a = links(); d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(120);
+  let n = 0; while (fe.canUndo && n < 9) { fe.undo(); n++; await sleep(20); }
+  return JSON.stringify({ undos: n, links: a }); })()`); };
+for (const [name, body, want] of [['one burst', `type('one'); await sleep(50); type(' two');`, 1], ['900ms between', `type('one'); await sleep(900); type(' two');`, 1], ['a pause of 1.1s', `type('one'); await sleep(1100); type(' two');`, 2],
+  ['Enter in a burst', `type('one'); enter(); type('two');`, 1], ['Bold then Italic', `word(); tool('bold'); tool('italic');`, 2], ['two color picks', `word(); color('accent'); color('black');`, 2]]) {
+  const got = edit(body).undos;
+  results.push({ name: `Undo ${name}`, ok: got === want });
+  if (got !== want) console.log(`Undo ${name} DIFF oracle ${want}, ours ${got}`);
+}
+{ goto(S, `${BASE}/index.html?replay`); const got = evalJs(S, `(async () => { const sleep = (ms) => new Promise((r) => setTimeout(r, ms)); await sleep(800);
+  const s = fe.model.sections[2]; const b = s.blocks.find((x) => x.type === 'text' && x.html.includes('On desktop the smallest')); const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow;
+  const ce = () => d.querySelector('.fe-block[data-block-id="' + b.id + '"] .sqs-html-content'); const start = ce().textContent;
+  fe.edit(s.id, b.id); d.execCommand('insertText', false, 'one'); d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(120);
+  fe.edit(s.id, b.id); d.execCommand('insertText', false, 'two'); await sleep(30); document.getElementById('undo').click(); await sleep(120);
+  return JSON.stringify({ back: ce().textContent === start, open: ce().contentEditable === 'true' }); })()`);
+  const ok = got.back && got.open; results.push({ name: 'Undo button during an edit', ok }); if (!ok) console.log('Undo button during an edit DIFF', JSON.stringify(got)); }
+{ const words = [...TU.links.linked, ...TU.links.notLinked, ...TU.links.wrapped]; const got = edit(`const r = d.createRange(); r.selectNodeContents(ce.querySelector('p')); r.collapse(false); const q = W.getSelection(); q.removeAllRanges(); q.addRange(r); type(' '); for (const w of ${JSON.stringify(words)}) { type(w); type(' '); }`).links;
+  for (const w of words) { const inner = TU.links.wrapped.includes(w) ? w.slice(1, -1) : w; const hit = got.find((a) => a[0] === inner); const want = inner !== w || TU.links.linked.includes(w); const ok = !!hit === want && (!hit || hit[1] === (w.includes('@') ? 'mailto:' : 'http:')); results.push({ name: `Link ${w}`, ok }); if (!ok) console.log(`Link ${w} DIFF oracle ${want}, ours ${JSON.stringify(hit)}`); } }
+
 const pass = results.filter((r) => r.ok).length;
 console.log(`Text toolbar: ${pass} of ${results.length} actions match`);
 writeFileSync(new URL('../parity/text-check.json', import.meta.url), JSON.stringify({ check: 'text toolbar HTML', pass, total: results.length, results }, null, 2) + '\n');

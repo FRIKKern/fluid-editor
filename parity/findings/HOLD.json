@@ -22,7 +22,7 @@
     "rule": "a lone held block: yellow when the center of the block at its own width is within half a column of the canvas center, on desktop and on phones. Not the target: full width stays on the centered target 1 / 2 / 7 / 26 to dx 50, but is dashed from dx 30, and on phones 1 / 3 / 7 / 11 is yellow to 23.67 off the center. A resize goes by the target: east -24 yellow at 1 / 2 / 7 / 10, east -36 none at 1 / 2 / 7 / 9.",
     "snap": "phones also center-snap: a 7 column block takes one more column within half a column of the center, as 1 / 2 / 7 / 10, at width 376"
   },
-  "notMeasured": "A group's bottom limit where the blocks reach it with the grid at its own height. Why the right limit is 4px. Whether the group narrowing is a phone rule or some other rule: only those cases. Group resize's start move: not measured, ours starts on the press (GROUPRESIZE.json).",
+  "notMeasured": "A group's bottom limit where the blocks reach it with the grid at its own height. Why the right limit is 4px. Whether the group narrowing is a phone rule or some other rule: only those cases.",
   "phoneResize": [
     {"dx": -24, "ring": "1 / 2 / 7 / 10", "line": "centered"},
     {"dx": -36, "ring": "1 / 2 / 7 / 9", "line": null},
