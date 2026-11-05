@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 498,
+  "pass": 523,
   "known": [
     "group south by 4",
     "hold phone, full width -24,12",
@@ -13,7 +13,7 @@
     "hold from the right margin track -80,12",
     "hold from the right margin track -90,12"
   ],
-  "total": 508,
+  "total": 533,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -2496,6 +2496,106 @@
     },
     {
       "name": "a pen on a handle resizes",
+      "diffs": []
+    },
+    {
+      "name": "normalize: select",
+      "diffs": []
+    },
+    {
+      "name": "normalize: edit start",
+      "diffs": []
+    },
+    {
+      "name": "normalize: edit left",
+      "diffs": []
+    },
+    {
+      "name": "normalize: held 60 right",
+      "diffs": []
+    },
+    {
+      "name": "normalize: dropped home",
+      "diffs": []
+    },
+    {
+      "name": "normalize: dragged 60 right",
+      "diffs": []
+    },
+    {
+      "name": "normalize: resize home",
+      "diffs": []
+    },
+    {
+      "name": "normalize: arrow key",
+      "diffs": []
+    },
+    {
+      "name": "normalize: a second section on a phone",
+      "diffs": []
+    },
+    {
+      "name": "per layout: phone set",
+      "diffs": []
+    },
+    {
+      "name": "per layout: desktop sees none of it",
+      "diffs": []
+    },
+    {
+      "name": "per layout: desktop set",
+      "diffs": []
+    },
+    {
+      "name": "per layout: phone keeps its own",
+      "diffs": []
+    },
+    {
+      "name": "per layout: desktop flows down",
+      "diffs": []
+    },
+    {
+      "name": "per layout: one phone value",
+      "diffs": []
+    },
+    {
+      "name": "per layout: desktop keeps its opacity",
+      "diffs": []
+    },
+    {
+      "name": "per layout: later desktop values flow too",
+      "diffs": []
+    },
+    {
+      "name": "per layout: phone stroke",
+      "diffs": []
+    },
+    {
+      "name": "per layout: desktop has no stroke",
+      "diffs": []
+    },
+    {
+      "name": "per layout: phone blend",
+      "diffs": []
+    },
+    {
+      "name": "per layout: desktop blend",
+      "diffs": []
+    },
+    {
+      "name": "per layout: phone blend again",
+      "diffs": []
+    },
+    {
+      "name": "section settings on phone",
+      "diffs": []
+    },
+    {
+      "name": "section settings on desktop",
+      "diffs": []
+    },
+    {
+      "name": "section rows stay per layout",
       "diffs": []
     },
     {
