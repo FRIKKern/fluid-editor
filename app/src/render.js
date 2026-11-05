@@ -3,6 +3,7 @@
 // Runs in the browser and in Node.
 import { siteStylesHead } from './site-style-packs.js';
 import { shapeById } from './shapes.js';
+import { imageShapeById } from './image-shapes.js';
 
 export const BPS = ['mobile', 'desktop'];
 export const COLS = { mobile: 8, desktop: 24 };
@@ -314,8 +315,12 @@ function blockInner(b, model) {
       // Focal point and Overlay (parity/findings/IMAGEDESIGN.json): off, the overlay keeps its color and blend at opacity 0.
       const focal = b.focal ? ` style="object-position:${b.focal[0] * 100}% ${b.focal[1] * 100}%"` : '';
       const overlay = b.overlay || b.overlayColor || b.overlayBlend ? `<div class="fluidImageOverlay" style="opacity:${b.overlay ? 1 : 0};background-color:${escapeHtml(b.overlayColor || 'rgba(0, 0, 0, 0.5)')};mix-blend-mode:${b.overlayBlend || 'normal'}"></div>` : '';
-      const inner = b.src ? `<div class="fluid-image-container has-picture" style="${r}${aspect}"><img src="${escapeHtml(b.src)}" alt="${alt}"${focal}>${overlay}</div>`
-        : `<div class="fluid-image-container" style="${r}${aspect}" role="img" aria-label="${alt}">${overlay}</div>`;
+      // The chosen shape clips the picture's box and stretches with it (IMAGESHAPES.json). Circle is the CSS default.
+      const shape = b.mode === 'shape' && b.imageShape ? imageShapeById(b.imageShape) : null;
+      const clip = shape ? `clip-path:url(#fe-image-clip-${b.id});` : '';
+      const clipDef = shape ? `<svg class="fe-image-clip" width="0" height="0" aria-hidden="true"><clipPath id="fe-image-clip-${b.id}" clipPathUnits="objectBoundingBox"><path d="${shape.d}"/></clipPath></svg>` : '';
+      const inner = b.src ? `<div class="fluid-image-container has-picture" style="${r}${aspect}${clip}"><img src="${escapeHtml(b.src)}" alt="${alt}"${focal}>${overlay}</div>${clipDef}`
+        : `<div class="fluid-image-container" style="${r}${aspect}${clip}" role="img" aria-label="${alt}">${overlay}</div>${clipDef}`;
       // A new block has no picture yet (MEDIAEMPTY.json): the editor shows a white box with a +.
       if (b.empty) return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-image image-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-component-empty-state-node"><span class="fluid-image-add" aria-hidden="true"></span></div></div></div>`;
       const pic = b.href && !b.lightbox ? `<a class="sqs-block-image-link" href="${escapeHtml(b.href)}"${b.newTab ? ' target="_blank"' : ''}>${inner}</a>` : inner;

@@ -1,0 +1,208 @@
+{
+ "item": "T4",
+ "capturedAt": "2026-11-05",
+ "oracle": "a new section with a picture on the Blocks Probe page, never saved",
+ "engine": "chrome",
+ "question": "What does an image's Shape picker offer, and what does a pick do to the block?",
+ "panel": [
+  320,
+  500
+ ],
+ "row": {
+  "where": "Design tab, Shape mode",
+  "label": "Shape",
+  "top": 127,
+  "note": "Navigate to Shape, a chevron and no value."
+ },
+ "view": {
+  "back": [
+   11,
+   5,
+   48,
+   46
+  ],
+  "title": [
+   139,
+   17,
+   42,
+   22
+  ],
+  "tabs": {
+   "1:1": [
+    6,
+    55,
+    95,
+    55
+   ],
+   "2:3": [
+    113,
+    55,
+    95,
+    55
+   ],
+   "3:2": [
+    219,
+    55,
+    95,
+    55
+   ]
+  },
+  "tabColor": {
+   "on": "rgb(14, 14, 14)",
+   "off": "rgb(102, 102, 102)"
+  },
+  "tabFont": "14px"
+ },
+ "tile": {
+  "box": [
+   96,
+   88
+  ],
+  "first": [
+   0,
+   110
+  ],
+  "columns": [
+   0,
+   112,
+   224
+  ],
+  "rowPitch": 94,
+  "fill": "rgb(118, 118, 118)",
+  "chosen": {
+   "ring": "rgb(0, 114, 240)",
+   "ringWidth": "1px",
+   "gap": "rgb(255, 255, 255)",
+   "gapWidth": "2px"
+  },
+  "drawn": {
+   "1:1": [
+    63.4,
+    63.4
+   ],
+   "2:3": [
+    42.7,
+    64.3
+   ],
+   "3:2": [
+    72.1,
+    47.9
+   ]
+  }
+ },
+ "names": {
+  "1:1": [
+   "Circle",
+   "Diamond",
+   "Bottom-left curve",
+   "Rabbet",
+   "Four-petal flower",
+   "Four-point star",
+   "Descending ramp",
+   "Descending stairs",
+   "Octagon",
+   "Stepped cross",
+   "TV",
+   "Open book",
+   "Flower",
+   "Eight-sided shield",
+   "Rounded pentagon",
+   "Gear"
+  ],
+  "2:3": [
+   "Vertical oval",
+   "Hourglass",
+   "Keystone",
+   "Vertical parallelogram",
+   "Vertical right-leaning oval",
+   "Arched window",
+   "Vertical stacked circles",
+   "Pointed window",
+   "Award",
+   "Narrow horizontal stacked pills",
+   "Egg",
+   "Narrow pow"
+  ],
+  "3:2": [
+   "Horizontal stacked circles",
+   "Wide vertical stacked pills",
+   "Wide horizontal stacked pills",
+   "Horizontal oval",
+   "Horizontal right-leaning oval",
+   "Wide eight-sided shield",
+   "Wide open book"
+  ]
+ },
+ "scroll": {
+  "note": "The list scrolls under Back, which stays at 5; the tabs scroll away.",
+  "back": 5
+ },
+ "pick": {
+  "clip": "clip-path url on the picture's box; clipPathUnits objectBoundingBox, so the shape stretches with the box",
+  "box": "A pick does not change the box: at a block of 694.4 by 1272.7 it stays 694.4 by 694 and centred, native aspect 1, whichever tab the shape is on. So a Horizontal oval draws as a circle and an Hourglass fills the square.",
+  "reads": [
+   [
+    "Hourglass",
+    694
+   ],
+   [
+    "Keystone",
+    694
+   ],
+   [
+    "Egg",
+    694
+   ],
+   [
+    "Horizontal oval",
+    694
+   ],
+   [
+    "Arched window",
+    694
+   ],
+   [
+    "Gear",
+    694
+   ],
+   [
+    "Circle",
+    694
+   ]
+  ],
+  "held": "The same at about 1.5, 2.3, 4.3 and 7.3 s after the press, and at every 160 ms in the first 1.5 s."
+ },
+ "tabs": {
+  "openOn": "the tab of the chosen shape, also after looking at another tab",
+  "tabOnly": "Pressing a tab changes the list only, the block keeps its shape."
+ },
+ "stretch": {
+  "on": [
+   0,
+   0,
+   694.4,
+   1272.7
+  ],
+  "off": [
+   0,
+   289.3,
+   694.4,
+   694
+  ],
+  "clip": "kept"
+ },
+ "modes": {
+  "Fill": "no clip",
+  "Fit": "no clip",
+  "backToShape": "the chosen shape comes back"
+ },
+ "undo": "One undo step: Gear back to Arched window.",
+ "unexplained": "One earlier read on a new page gave Hourglass a box of 694 by 1041, native aspect 2/3, without the shapeMask data the later reads carry. Thirteen later picks kept the square: four of them Hourglass, one of those with Overlay on, and one pick right after Stretch on and off as in that read. Not repeated, not explained, so not built.",
+ "notMeasured": [
+  "The drawings are ours: only names, order and the size in the tile come from the oracle.",
+  "Whether an empty image, with no picture, offers the same list: ours does, inferred.",
+  "Phones.",
+  "A published page: that needs a Save."
+ ],
+ "leak": "Not read: the new-block step failed in this probe, so whether a pick reaches a new image is inferred. A shape is written on the block in the unsaved page, like the rows IMAGEDESIGN.json did check."
+}
