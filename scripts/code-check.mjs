@@ -3,7 +3,7 @@
 // panel's rows and size, growth, Embed data, the bad-link error, one undo step. Keys are real
 // input, so a Backspace in the code must stay in the code.
 // Usage: FLUID_SURFACE=cdp:<port> npm run code-check. Under 2 min; `-- --full` also replays the row
-// walks, every read edit and Link press, the last score, tips and the phone chains, about 10 min,
+// walks, every read edit and Link press, the last score, tips and the phone chains, 10 to 12 min,
 // and writes the result file.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible, browser, drag, mouse } from './lib/cmux.mjs';
@@ -217,8 +217,9 @@ for (let k = 0; k < MD.steps.length; k++) {
   add(`Markdown ${name}`, htmlNorm(got) === htmlNorm(want), got);
 }
 
-// A script (CAP-T10MD2.json): a note in its place under a status box, rows as if the box weren't there.
 const MD2 = read('CAP-T10MD2');
+if (FULL) { // scripts in a Code and an Embed block
+// A script (CAP-T10MD2.json): a note in its place under a status box, rows as if the box weren't there.
 const scriptId = fresh('code', `html: '<p>Hello, World!</p>',`);
 await setText(CODE_FIELD, MD2.steps.find((x) => x[0] === 'setCode')[1]);
 const inScript = MD2.reads['code html with script'];
@@ -239,6 +240,7 @@ await setText('textarea[data-content="embedHtml"]', MD2.steps.filter((x) => x[0]
 add('Embed: a script, its rows', areasOf(embedScript)[0] === MD2.reads['embed with script'].block.desktop, areasOf(embedScript)[0]);
 add('Embed: a note under a status box', htmlNorm(htmlOf(embedScript, '.sqs-embed-container')) === htmlNorm(MD2.reads['embed with script'].htmlOf), htmlOf(embedScript, '.sqs-embed-container'));
 
+}
 // Expand: a full-screen view with its own copy of the code. Real keys and clicks.
 const code3 = start('code', `html: '<p>Hello, World!</p>',`);
 const blockText = () => htmlOf(code3, '.sqs-code-container');
@@ -329,10 +331,11 @@ for (let k = 0; k < MD.steps.length; k++) {
 }
 
 }
+const empty = async () => { selAll(); await key('Backspace'); await pause(150); };
+if (FULL) { // rows on emptying
 // Rows on emptying (CAP-T10MD6.json): its placeholder is 22 tall like any line, so the rule stays the same.
 const mdRows = await freshMd();
 const checkRows = (name) => add(`Rows: ${name}`, areasOf(mdRows)[0] === MD6.reads[name].areas[0][0], `${areasOf(mdRows)[0]} want ${MD6.reads[name].areas[0][0]}`);
-const empty = async () => { selAll(); await key('Backspace'); await pause(150); };
 const TEN = 'a\n\nb\n\nc\n\nd\n\ne\n\nf\n\ng\n\nh\n\ni\n\nj';
 checkRows('fresh');
 await setMd('a'); checkRows('one letter');
@@ -347,6 +350,7 @@ await setMd(TEN); checkRows('ten again');
 await setMd('a'); checkRows('ten to one');
 await empty(); checkRows('emptied after the fall');
 
+}
 // The toolbar, by real presses (CAP-T10MD2.json, CAP-T10MD3.json, CAP-T10MD6.json).
 const MD2R = MD2.reads, firstLabel = (r) => r.panelEls.map((p) => p.label).join('');
 const m = await freshMd();
@@ -467,6 +471,7 @@ add('Undo after Bold', mdVal() === line('undo after bold', MD7), JSON.stringify(
 await pressBar('Undo'); await pause(250);
 add('Undo takes the typing next', mdVal() === line('undo twice', MD7), JSON.stringify(mdVal()));
 
+if (FULL) { // a double-click, and the Code Editor view by real keys
 // Double-click, and the Code Editor view (CAP-T10MD3.json).
 evalJs(S, `(async () => { fe.select(null); await new Promise((r) => setTimeout(r, 200)); const d = document.getElementById('site-frame').contentDocument; d.querySelector('.fe-block[data-block-id="${mu}"]').dispatchEvent(new MouseEvent('dblclick', { bubbles: true })); await new Promise((r) => setTimeout(r, 300)); return 'true'; })()`); await pause(350);
 add('A double-click opens the panel', evalJs(S, `(() => JSON.stringify(!document.getElementById('block-panel').hidden && !!document.querySelector('#block-panel ${MD_FIELD}')))()`) === true);
@@ -498,6 +503,7 @@ await pressAt(page('/about'));
 add('A filled one has', mdBox('#link-popover .lk-clear')?.[2] > 0, mdBox('#link-popover .lk-clear'));
 await key('Escape'); await pause(150);
 
+}
 // The editors' look, against CAP-T10LOOK: every coloured span of the same text, the number column, the band, the selection.
 const LOOK = read('CAP-T10LOOK'), LOOK_TEXT = '# h1\n## h2\nplain **bold** *ital* `code` [a](/x) ~~del~~\n* item\n1. item\n> quote\n---\n```js\nfence\n```\n<b>html</b>\n![i](/y)\n[r]: /z';
 const lookIn = (root = '#block-panel') => evalJs(S, `(() => {
@@ -669,6 +675,7 @@ for (const [k, v, wraps] of [['CSS', 'css', false], ['JavaScript', 'javascript',
   add(`${k} ${wraps ? 'wraps' : 'doesn\'t wrap'}`, (lookIn().wrap === 'break-spaces') === wraps, lookIn().wrap);
 }
 
+if (FULL) { // matching marks by the caret
 // Matching marks by the caret: as the oracle's, by text and colour.
 const matchOf = () => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#block-panel .bp-code-hl .c-match, #block-panel .bp-code-hl .c-nomatch')].map((e) => [e.textContent, getComputedStyle(e).backgroundColor])))()`);
 const oMatch = (els) => { const m = els.filter((e) => /atchingBracket/.test(e.cls)); return m.slice(-2).filter((e, n, a) => a.length < 2 || /onmatch/.test(e.cls) === false || n === a.length - 1).map((e) => [e.text, e.bg]); };
@@ -688,6 +695,7 @@ for (const [what, text, at, name, only] of [['Markdown, a bracket', '[a](/x)', 1
   add(`Match: ${what}`, JSON.stringify(got) === JSON.stringify(want), `${JSON.stringify(got)} wants ${JSON.stringify(want)}`);
 }
 
+}
 const casesOf = (f) => { const out = []; let text = null, a = 0, b = 0, press = [];
   for (const [op, v] of f.steps) {
     if (op === 'setCode') { text = v; a = b = v.length; press = []; }
@@ -775,6 +783,7 @@ add('Score: 29 of 39', lastHits === 29 && lastAll === 39, `${lastHits} of ${last
 
 }
 // A press while dim does nothing; the dim colour and the lit one.
+if (!FULL) await freshMd();
 await setMd('# h\nplain'); selAll(); await pause(120);
 const dimLook = () => evalJs(S, `(() => { const b = document.querySelector('${mdBtn('Bold')}'); return JSON.stringify({ svg: getComputedStyle(b.querySelector('svg')).color, label: b.getAttribute('aria-disabled') }); })()`);
 add('Dim: its colour, and not disabled', dimLook().svg === 'rgb(183, 183, 183)' && dimLook().label !== 'true', JSON.stringify(dimLook()));
