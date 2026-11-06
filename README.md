@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 17 changes
+- **Today** · 18 changes
+  - T4: Image Effect: the six tiles, each effect's settings, Shuffle and our own WebGL drawing ([#196](https://github.com/FRIKKern/fluid-editor/pull/196))
   - L6, T6: the phone button and its menu, and Reset to theme ([#195](https://github.com/FRIKKern/fluid-editor/pull/195))
-  - T6, L6, P3: back to partial, new reads show parts that differ ([#194](https://github.com/FRIKKern/fluid-editor/pull/194))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
