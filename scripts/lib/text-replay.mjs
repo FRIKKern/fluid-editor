@@ -4,8 +4,8 @@
 import { browser, cdp, evalJs, goto, pause } from './cmux.mjs';
 import { BASE } from './base.mjs';
 
-const TRAILING = / class="is-empty( is-editor-empty)?"| data-placeholder="[^"]*"| class="ProseMirror-trailingBreak"| data-rte-preserve-empty="true"| ?style="white-space: ?pre-wrap;?"/g;
-export const textNorm = (h) => (h == null ? h : h.replace(TRAILING, '').replace(/ data-text-attribute-id="[^"]*"/g, ' data-text-attribute-id="id"').replace(/<(p|h[1-4]|li) +>/g, '<$1>').replace(/<br *\/?>(?=<\/(p|h[1-4])>)/g, (m, tag, at, all) => (all.slice(0, at).endsWith(`<${tag}>`) ? '' : m)).replace(/<(https?)>/g, '$1://'));
+const TRAILING = / class="is-empty( is-editor-empty)?"| is-empty( is-editor-empty)?(?=")| data-placeholder="[^"]*"| class="ProseMirror-trailingBreak"| data-rte-preserve-empty="true"| ?style="white-space: ?pre-wrap;?"/g;
+export const textNorm = (h) => (h == null ? h : h.replace(TRAILING, '').replace(/ data-text-attribute-id="[^"]*"/g, ' data-text-attribute-id="id"').replace(/<(p|h[1-4]|li) +>/g, '<$1>').replace(/(<(p|h[1-4])(?: [^>]*)?>|<code>)<br *\/?>(?=<\/(p|h[1-4]|code)>)/g, '$1').replace(/<(https?)>/g, '$1://'));
 
 // What a step waited on the oracle (oracle-capture.mjs), what starting it took (CAP-E4GAP2.json), and how
 // many changes it makes. Selecting is no change: it doesn't start the clock (CAP-E4GAP.json).

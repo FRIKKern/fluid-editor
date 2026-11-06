@@ -21,6 +21,11 @@ const Z2 = ['Move Forward', 'Move Backward'];
 const UR = ['Undo', 'Redo'];
 const BARTIPS = ['Save', 'Desktop View', 'Mobile View', 'Toggle Site Styles editing', 'Toggle preview mode'];
 export const RECIPES = {
+  'CAP-T3EMPTY3': { question: 'T3: two empty lines, left: does the hint stay deselected, selected, on the phone and when the edit is opened again? Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['press', 'Enter'], ['press', 'ArrowUp'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['hintOf', 'caret on the first, left'], ['press', 'Escape'], ['pause', 300], ['hintOf', 'caret on the first, deselected'], ['view', 'Mobile'], ['pause', 700], ['hintOf', 'caret on the first, phone'], ['view', 'Desktop'], ['pause', 500], ['pick', 0, 'new'], ['pause', 300], ['hintOf', 'caret on the first, selected'], ['click', 'Write'], ['pause', 400], ['hintOf', 'caret on the first, opened again'], ['keys', 'x'], ['pause', 300], ['read', 'caret on the first, opened again, typed', H],
+    ...NEWTEXT, ['press', 'Enter'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['hintOf', 'caret on the second, left'], ['press', 'Escape'], ['pause', 300], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['hintOf', 'caret on the second, opened again'], ['keys', 'x'], ['pause', 300], ['read', 'caret on the second, opened again, typed', H],
+  ] },
   'CAP-T3EMPTY2': { question: 'T3: the hint with more than one empty line: which caret place shows it, leaving, a word below, a heading beside it. Predicted first.', page: 'Gestures Probe', steps: [
     ['enter'], ['blank'],
     ...NEWTEXT, ['press', 'Enter'], ['press', 'Enter'], ['pause', 300], ['hintOf', 'three lines, caret on the third'], ['press', 'ArrowUp'], ['pause', 300], ['hintOf', 'three lines, caret on the second'], ['press', 'ArrowUp'], ['pause', 300], ['hintOf', 'three lines, caret on the first'], ['press', 'Escape'], ['pause', 300], ['hintOf', 'three lines, caret on the first, left'], ['read', 'three lines, left, html', H],

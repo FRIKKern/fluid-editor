@@ -5684,14 +5684,16 @@ document.addEventListener('keydown', onKey);
 // ---------- boot ----------
 // An empty Text shows its hint in the editor: added, left, selected, in an edit, on the phone, and it goes on
 // the first letter (CAP-TEXTEMPTY.json). The hint sits on the first line, and only while it is a paragraph. With more
-// empty lines, only while the caret is on that first one (CAP-T3EMPTY.json).
+// empty lines, only while the caret is or last was on that first one (CAP-T3EMPTY.json, CAP-T3EMPTY2.json).
 // A mark on the content box, outside the block's HTML, so the model stays clean.
+const caretOnFirstLine = new Set();
 function markEmptyText(doc) {
   const at = doc.getSelection()?.anchorNode;
   for (const ce of doc.querySelectorAll('.sqs-block-html .sqs-html-content')) {
-    const first = ce.firstElementChild;
+    const first = ce.firstElementChild, id = ce.closest('.fe-block')?.dataset.blockId;
+    if (at && ce.contains(at)) { if (first?.contains(at)) caretOnFirstLine.add(id); else caretOnFirstLine.delete(id); }
     const empty = first?.tagName === 'P' && !ce.textContent && first.querySelectorAll('br').length < 2;
-    ce.classList.toggle('is-text-empty', !!empty && (ce.children.length === 1 || !!at && first.contains(at)));
+    ce.classList.toggle('is-text-empty', !!empty && (ce.children.length === 1 || caretOnFirstLine.has(id)));
   }
 }
 function watchEmptyText() {
