@@ -10,7 +10,7 @@ import * as fmt from './text-format.js';
 import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
-import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
+import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
@@ -4216,12 +4216,22 @@ for (const host of [panel, sectionPanel]) {
 }
 function chromeSid() { return editSid || sel?.sid || hoverSid; }
 // The chrome fades out over 0.15s when the mouse leaves, and the outline over 0.2s; a gesture takes it away at once
-// (SECTIONBAR.json, fade; CAP-U9FADE.json).
+// (SECTIONBAR.json, fade; CAP-U9FADE.json). The outline fades there too: moving to another section and in a gesture, the
+// old one fades as a copy left behind (CAP-U9CLOSE.json). A copy doesn't follow a scroll during its 0.2 s, ours only.
 let chromeOut = 0;
+function outlineAway() {
+  const o = chrome.hidden ? null : chrome.querySelector('.sc-outline');
+  if (!o) return;
+  const gone = o.cloneNode(false);
+  gone.classList.add('sc-outline-gone');
+  gone.removeAttribute('data-sc-part');
+  chrome.after(gone);
+  gone.animate([{ borderColor: getComputedStyle(o).borderTopColor }, { borderColor: 'transparent' }], { duration: 200, easing: 'ease-in-out', fill: 'forwards' }).onfinish = () => gone.remove();
+}
 function hideChrome(fade) {
   if (chrome.hidden || (fade && chromeOut)) return;
   clearTimeout(chromeOut); chromeOut = 0;
-  if (!fade) { chrome.classList.remove('is-out'); chrome.hidden = true; return; }
+  if (!fade) { outlineAway(); chrome.classList.remove('is-out'); chrome.hidden = true; return; }
   chrome.classList.remove('is-outline-in'); chrome.classList.add('is-out');
   chromeOut = setTimeout(() => { chromeOut = 0; chrome.classList.remove('is-out'); chrome.hidden = true; }, 200);
 }
@@ -4237,6 +4247,7 @@ function placeChrome() {
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}|${hasLayouts}`;
   const newSection = chrome.hidden || chrome.dataset.key?.split('|')[0] !== sid;
   const appears = newSection || !!chromeOut;
+  if (newSection) outlineAway();
   if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); }
   // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
   if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
@@ -4258,6 +4269,8 @@ function placeChrome() {
   if (editSid) {
     // 342px from the window's right edge; on phones 195px right of the canvas (SECTIONBAR.json).
     const st = stage.getBoundingClientRect(), fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect();
+    // Read on desktop only, so the phone panel stays open.
+    if (!phone && sectionPanelGone({ secTop: fr.top + q.top, secBottom: fr.top + q.bottom })) { closeSectionPanel(); return; }
     sectionPanel.style.left = `${phone ? fr.right - st.left + 195 : st.width - 342}px`;
     const place = sectionPanelTop({ edit: st.top + L.card.top + 7, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom, prev: panelPlace?.sid === editSid ? panelPlace.top : null });
     panelPlace = { sid: editSid, top: place };
