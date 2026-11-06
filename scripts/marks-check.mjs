@@ -394,6 +394,45 @@ add('outline back on during its fade runs back', !backOn.hidden && backOn.name =
 await pause(300);
 const lit = evalJs(S, `(() => { const c = document.getElementById('section-chrome'); const id = c.dataset.key.split('|')[0]; const sec = fe.model.sections.find((x) => x.id === id); fe.select(id, sec.blocks[0].id); const o = getComputedStyle(c.querySelector('.sc-outline')); const r = { rebuilt: c.dataset.key.split('|')[4], name: o.animationName, color: o.borderTopColor }; fe.select(null); return JSON.stringify(r); })()`);
 add('outline stays lit through a rebuild', lit.rebuilt === 'true' && lit.name === 'none' && lit.color === 'rgb(72, 148, 255)', JSON.stringify(lit));
+// The old outline fades as a copy left behind: straight to another section, and in a gesture (CAP-U9CLOSE.json).
+const alpha = (c) => { if (!c) return null; const n = c.match(/[\d.]+/g).map(Number); return n.length > 3 ? n[3] : 1; };
+const crossWatch = async (act, ms = 600) => {
+  evalJs(S, `(() => { const T = window.__cw = { t0: performance.now(), seen: [], stop: false }; const tick = () => { if (T.stop) return; const g = document.querySelector('.sc-outline-gone'), c = document.getElementById('section-chrome'), o = c.querySelector('.sc-outline'); T.seen.push([g ? getComputedStyle(g).borderTopColor : null, !c.hidden && o ? getComputedStyle(o).borderTopColor : null, c.hidden]); requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
+  await act(); await pause(ms);
+  const seen = evalJs(S, `(() => { const T = window.__cw; T.stop = true; return JSON.stringify(T.seen); })()`);
+  const gone = seen.map((r) => alpha(r[0])).filter((a) => a !== null && a > 0 && a < 1), lit = seen.map((r) => alpha(r[1])).filter((a) => a !== null && a > 0 && a < 1);
+  return { gone: gone.length, lit: lit.length, falling: gone.every((a, i) => !i || a <= gone[i - 1]), rising: lit.every((a, i) => !i || a >= lit[i - 1]), end: seen.at(-1), left: evalJs(S, `(() => JSON.stringify(document.querySelectorAll('.sc-outline-gone').length))()`) };
+};
+await frameScroll(500); mouse(S, 'move', 60, 300); mouse(S, 'move', 62, 301); await pause(500);
+const crossed = await crossWatch(async () => { mouse(S, 'move', 60, 700); mouse(S, 'move', 62, 701); });
+add('straight to another section: the old outline fades as the new one comes', crossed.gone >= 6 && crossed.falling && crossed.lit >= 6 && crossed.rising && crossed.left === 0, JSON.stringify(crossed));
+evalJs(S, `(() => { ${FR} W.scrollTo({ left: 0, top: W.scrollY + d.querySelector('.fe-block[data-block-id="${BIDS.shape}"]').getBoundingClientRect().top - 300, behavior: 'instant' }); return 'ok'; })()`); await pause(200);
+const dragBox = boxOf(BIDS.shape); await moveTo(at(dragBox)); await pause(300);
+const [gx, gy] = at(dragBox);
+const dragged = await crossWatch(async () => { mouse(S, 'down', gx, gy, { buttons: 1 }); mouse(S, 'move', gx + 14, gy, { buttons: 1 }); await pause(60); mouse(S, 'move', gx + 30, gy + 20, { buttons: 1 }); }, 400);
+add('a gesture: the chrome goes at once and the outline fades', dragged.gone >= 6 && dragged.falling && dragged.end[2] === true && dragged.left === 0, JSON.stringify(dragged));
+const dropped = await crossWatch(async () => { mouse(S, 'move', gx, gy, { buttons: 1 }); await pause(150); mouse(S, 'up', gx, gy); }, 500);
+add('let go: the outline fades back', dropped.lit >= 6 && dropped.rising && dropped.end[2] === false, JSON.stringify(dropped));
+await fresh(); await hoverBar(800, 20); await pause(300);
+// Scrolled up past its section, the panel closes and stays closed (CAP-U9CLOSE.json). Ours by its own band: 52 is named.
+{
+  const { sectionPanelGone, PANEL_CLOSES_AT } = await import('../app/src/section-chrome.js');
+  add('panel closes at the inferred -421', PANEL_CLOSES_AT === -421 && sectionPanelGone({ secTop: -570.7, secBottom: 53 }) && !sectionPanelGone({ secTop: -568.7, secBottom: 55 }));
+  await frameScroll(0); await hoverInSection(400);
+  const eb = chromeBox('Edit Section'); await pressAt(eb[0] + 60, eb[1] + 20);
+  const secBottomAt = (y) => evalJs(S, `(() => { const f = document.querySelector('iframe'), W = f.contentWindow; W.scrollTo({ left: 0, top: ${y}, behavior: 'instant' }); return JSON.stringify(f.getBoundingClientRect().top + W.document.querySelectorAll('main#page .page-section')[0].getBoundingClientRect().bottom); })()`);
+  const b0 = secBottomAt(0); const open0 = !!panelRect();
+  const b1 = secBottomAt(b0 - 60); await pause(200); const open1 = !!panelRect();
+  const b2 = secBottomAt(b0 - 50); await pause(200); const open2 = !!panelRect();
+  await frameScroll(0); await pause(200); const open3 = !!panelRect();
+  add('panel open with its section still above 54, closed past it, and closed on the way back', open0 && open1 && !open2 && !open3, JSON.stringify([b1, open1, b2, open2, open3]));
+  evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(600); await frameScroll(0); await hoverInSection(400, 800);
+  const pb = chromeBox('Edit Section'); await pressAt(pb[0] + 40, pb[1] + 20);
+  await frameScroll(4000); await pause(200); const openPhone = !!panelRect();
+  add('phone: not read, so the panel stays open', openPhone);
+  browser(S, 'press', 'Escape'); await pause(150);
+  evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(400); await frameScroll(0); await hoverBar(800, 20); await pause(300);
+}
 // Hover colors.
 const hoverColor = async (label) => { await hoverInSection(400); const b = chromeBox(label); mouse(S, 'move', b[0] + 10, b[1] + 10); await pause(100); return evalJs(S, `(() => { const x = [...document.querySelectorAll('#section-chrome button')].find((b) => b.getAttribute('aria-label') === '${label}'); return JSON.stringify(getComputedStyle(x).backgroundColor); })()`); };
 for (const [label, ours] of [['Open Layers Panel', 'Layers'], ['Add Block', 'Add Block'], ['Edit Section', 'Edit Section'], ['Duplicate Section', 'Duplicate Section'], ['Remove Section', 'Remove Section']]) {

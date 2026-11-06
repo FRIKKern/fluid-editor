@@ -7,7 +7,7 @@
 // Steps: enter | exit | view Mobile|Desktop | window w h (the real window, for a block taller than it) | frame w h | unframe | pause ms | listen
 //   hover i | hoverBlock i k | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
-//   hoverNamed label | fadeWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
+//   hoverNamed label | moveAt x y | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
 //   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | keysGap ms [keys] | fill label value | fillValue shown value | rightClick i k
 //   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clipHold | clipGive | clickAt x y | walk i k part mx my | pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillRow label n value | hoverRow label [n] | pressEl selector [n] | hoverEl selector [n] | pressNamed label | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
 //   hold i k part dx dy [mods] | holdRaw i k part dx dy | shiftClick i k | move dx dy | release [home] | drag i k part dx dy {pointerType}
@@ -401,6 +401,10 @@ const STEPS = {
   // A real move onto a named element, nothing pressed.
   hoverNamed: async (label) => { if (!tag(LABEL(label))) throw new Error(`nothing labelled ${label}`); const at = evalJs(S, `(() => { const q = document.getElementById('fx-target').getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); mouse(S, 'move', at[0], at[1]); await pause(600); },
   // Section i's Add Section buttons and outline, frame by frame, by the page's own clock, as the pointer comes on and goes off.
+  moveAt: (x, y) => { mouse(S, 'move', x, y); },
+  frameTo: async (y) => { evalJs(S, `(() => { document.getElementById('sqs-site-frame').contentWindow.scrollTo({ top: ${y}, behavior: 'instant' }); return 'true'; })()`); await pause(300); },
+  outlineStart: () => { evalJs(S, `(() => { ${FRAME} const T = window.__ol = { t0: performance.now(), seen: [], stop: false }; const tick = () => { if (T.stop) return; const row = [...d.querySelectorAll('.sqs-section-outline')].map((l) => { const c = W.getComputedStyle(l); return [Math.round(l.getBoundingClientRect().top), c.borderTopColor.replace(/rgba?\\(|\\)/g, ''), l.classList.contains('show-section-outline') ? 1 : 0, c.display === 'none' ? 0 : 1]; }); const key = JSON.stringify(row); if (key !== T.key) { T.key = key; T.seen.push([Math.round(performance.now() - T.t0), row]); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`); },
+  outlineStop: (name) => { const seen = evalJs(S, `(() => { const T = window.__ol; T.stop = true; return JSON.stringify(T.seen); })()`); finding.reads[name] = { columns: ['ms', 'each outline: top, border color, has the show class, displayed'], seen }; },
   fadeWatch: async (i, name) => {
     const sec = evalJs(S, `(() => { ${FRAME} const fr = f.getBoundingClientRect(), s = d.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return JSON.stringify([fr.left + s.left + s.width / 2, fr.top + s.top + s.height / 2]); })()`);
     const off = [800, 28];
@@ -447,7 +451,7 @@ const STEPS = {
 };
 
 // These don't act on the page, or are how it gets there.
-const NO_PAGE_NEEDED = new Set(['enter', 'toPage', 'exit', 'pause', 'window', 'frame', 'unframe']);
+const NO_PAGE_NEEDED = new Set(['enter', 'toPage', 'exit', 'pause', 'window', 'frame', 'unframe', 'moveAt']);
 const wrongPage = () => { const at = evalJs(S, `(() => { ${FRAME} return JSON.stringify(d.location.pathname); })()`); return at === pathOf(pageTitle) ? null : at; };
 try {
   for (const [op, ...a] of recipe.steps) {

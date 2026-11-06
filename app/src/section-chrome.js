@@ -103,6 +103,13 @@ export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = fal
 // while the panel ends 170px above the window's bottom; then H - 520 until the section's top catches
 // up; then held at H - 476, with the panel hanging out of the window once the button is low enough.
 // prev is the panel's place while it stays open: it comes along when the button moves down.
+const panelInside = (secTop, secBottom) => Math.max(secBottom + 1 - 476, secTop + 121 + 0.316 * (secBottom - secTop - 562));
+// Scrolled up past its section, the panel closes once its top, without the hold at 0, passes this: about where the
+// bottom of the 476 tall panel meets the top bar at 55. Inferred from the reads: 3 of 3 predictions at new heights, frames
+// and sections, each within 2 px, closed between -418 and -422 (CAP-U9PREDICT2.json, CAP-U9CLOSE.json). The oracle's top
+// without the hold comes from its own band (difference 52, no rule yet), and ours from ours, so ours closes later.
+export const PANEL_CLOSES_AT = -421;
+export const sectionPanelGone = ({ secTop, secBottom }) => Math.max(secTop, panelInside(secTop, secBottom)) < PANEL_CLOSES_AT;
 export function sectionPanelTop({ edit, H, secTop, secBottom, prev = null }) {
   let p;
   if (prev != null) p = Math.max(prev, Math.min(edit - 3, H - 476));
@@ -111,7 +118,7 @@ export function sectionPanelTop({ edit, H, secTop, secBottom, prev = null }) {
   else p = H - 267 + 1.087 * (edit - (H - 240));
   // It stays inside its section, but never above the section's top or the window's. A short section
   // lets it hang out by more: 121 under the section's top at 562 tall, 134 at 603.1 (CAP-VIEWLAYOUTS.json).
-  const inside = Math.max(secBottom + 1 - 476, secTop + 121 + 0.316 * (secBottom - secTop - 562));
+  const inside = panelInside(secTop, secBottom);
   // The oracle's panel reads whole pixels.
   return Math.round(p > inside ? Math.max(secTop, 0, inside) : p);
 }
