@@ -1,0 +1,322 @@
+{
+  "item": "CAP-KEYSGUARD",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "Tool guard: keys with no text editor in focus are refused; after a Write that found nothing, presses are refused too; typing in a Text still lands.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "start",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "pick",
+      0,
+      1
+    ],
+    [
+      "keys",
+      "ab"
+    ],
+    [
+      "keysFast",
+      "cd"
+    ],
+    [
+      "keysList",
+      [
+        "Backspace"
+      ]
+    ],
+    [
+      "read",
+      "Line selected, keys refused",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "read",
+      "no Write, presses refused",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "read",
+      "Text selected",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "keys",
+      "no"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "hello"
+    ],
+    [
+      "keysFast",
+      " world"
+    ],
+    [
+      "keysList",
+      [
+        "!"
+      ]
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "typed in the Text",
+      {
+        "stack": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "stack": [
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "8_629",
+          "type": "csr",
+          "desktop": "8/2/9/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Line selected, keys refused": {
+      "stack": [
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "8_629",
+          "type": "csr",
+          "desktop": "8/2/9/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "no Write, presses refused": {
+      "stack": [
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "8_629",
+          "type": "csr",
+          "desktop": "8/2/9/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text selected": {
+      "stack": [
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "8_629",
+          "type": "csr",
+          "desktop": "8/2/9/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed in the Text": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">hello world!</p>",
+      "stack": [
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "8_629",
+          "type": "csr",
+          "desktop": "8/2/9/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "keys [\"ab\"]: keys not pressed: no text editor has focus",
+    "keysFast [\"cd\"]: keys not pressed: no text editor has focus",
+    "keysList [[\"Backspace\"]]: keys not pressed: no text editor has focus",
+    "click [\"Write\"]: nothing labelled Write",
+    "press [\"Meta+a\"]: Meta+a not pressed: the last Write found nothing, so a block may be selected",
+    "press [\"Backspace\"]: Backspace not pressed: the last Write found nothing, so a block may be selected",
+    "keys [\"no\"]: keys not pressed: no text editor has focus"
+  ],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}
