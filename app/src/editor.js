@@ -1550,7 +1550,7 @@ function animAction(el) {
   else if (act === 'sel') { openAnimOptions('sel', el, { key: el.dataset.key }); return; }
   else if (act === 'listacts' || act === 'rowacts') { openAnimOptions(act === 'listacts' ? 'list' : 'row', el, { i }); return; }
   else if (act === 'edge') { animSet(el.dataset.key, el.dataset.v); return; }
-  else if (act === 'reset') { const k = el.dataset.key; animSet(k, k.includes(':') ? REST[parseInt(k.split(':')[1], 10)] : defaultOf(animRows()[anim.i], k)); return; }
+  else if (act === 'reset') { const k = el.dataset.key; document.activeElement?.blur(); animSet(k, k.includes(':') ? REST[parseInt(k.split(':')[1], 10)] : defaultOf(animRows()[anim.i], k)); return; }
   renderBlockPanel();
 }
 // A tile: a new row, or this row takes the preset. It plays at once and the tile stays chosen.
@@ -1585,6 +1585,8 @@ blockPanel.addEventListener('change', (e) => {
   animSet(key, v);
 });
 blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('[data-afield]')) e.target.blur(); });
+// Reset shows only while its field has focus (CAP-L6RESET.json), so the press must leave the focus there.
+blockPanel.addEventListener('mousedown', (e) => { if (e.target.closest('.sc-reset')) e.preventDefault(); });
 // A drag on a field's edge moves its value, one undo step when let go. A click does nothing.
 blockPanel.addEventListener('pointerdown', (e) => {
   const hit = e.target.closest('.sc-hit');
@@ -3076,8 +3078,10 @@ function onDesignChange(e) {
     }
     if (Object.keys(d).length) b[bag] = d; else delete b[bag];
   }, fit);
+  const typing = document.activeElement === input; // Enter keeps the focus, and with it Reset (CAP-L6RESET.json)
   commit(before, `${k} set on ${b.id}`);
   renderBlockPanel();
+  if (typing) blockPanel.querySelector(`input[data-design="${k}"]`)?.focus();
 }
 panel.addEventListener('change', onDesignChange, true);
 blockPanel.addEventListener('change', onDesignChange, true);

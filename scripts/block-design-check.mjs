@@ -153,6 +153,36 @@ act('more');
 click(`pop.querySelector('[data-more="paste"]')`);
 add('Paste brings 50 back, one undo step', read().op === '0.5' && q(`fe.undo(); await sleep(300); return JSON.stringify(getComputedStyle(block()).opacity === '1');`), read().op);
 
+// Reset to default value shows while its field has focus, and a hover shows nothing (CAP-L6RESET.json), with real keys and a real mouse.
+const RS = JSON.parse(readFileSync(new URL('../parity/findings/CAP-L6RESET.json', import.meta.url))).reads;
+await openDesign();
+const rstOf = (key) => q(`const f = panel.querySelector('input[data-design="${key}"]'); f.scrollIntoView({ block: 'center' }); const box = f.closest('.sc-box'), e = box.querySelector('.sc-reset'), r = e.getBoundingClientRect(), c = getComputedStyle(e), hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2), b = box.getBoundingClientRect(); return JSON.stringify({ on: c.opacity === '1' && c.pointerEvents !== 'none', pointer: c.pointerEvents, onTop: !!hit?.closest('.sc-reset'), v: f.value, focus: document.activeElement === f, at: [r.left + r.width / 2, r.top + r.height / 2], box: [b.left + b.width / 2, b.top + b.height / 2] });`);
+const typeRst = (key, text) => { browser(S, 'fill', `#block-panel input[data-design="${key}"]`, text); browser(S, 'press', 'Enter'); };
+const realPress = async (at) => { mouse(S, 'move', at[0], at[1]); await pause(60); mouse(S, 'down', at[0], at[1], { buttons: 1 }); await pause(40); mouse(S, 'up', at[0], at[1]); await pause(280); };
+let rs = rstOf('rotate');
+add('Reset at the default: not shown, no pointer', !rs.on && rs.pointer === RS['at default'].reset.pointer && !rs.onTop, JSON.stringify(rs));
+typeRst('rotate', '30'); await pause(300); rs = rstOf('rotate');
+add('Reset with the field focused: on top', rs.on && rs.pointer === RS['desktop 30, focused'].reset.pointer && rs.onTop === RS['desktop 30, focused'].reset.onTop && rs.focus, JSON.stringify(rs));
+await realPress(rs.at); rs = rstOf('rotate');
+add('Reset pressed: back to 0', rs.v === '0' && !rs.on && q(`return JSON.stringify(getComputedStyle(block()).transform === 'none');`), JSON.stringify(rs));
+typeRst('sx', '150'); await pause(300);
+typeRst('sy', '80'); await pause(300); rs = rstOf('sy');
+await realPress(rs.at);
+const scaleRead = RS['desktop scale Y reset'].rows.Scale;
+add('Scale Y Reset: Y goes back, X stays', `${rstOf('sx').v}%` === scaleRead[0] && `${rstOf('sy').v}%` === scaleRead[1], `${rstOf('sx').v} ${rstOf('sy').v}`);
+typeRst('rotate', '30'); await pause(300);
+browser(S, 'press', 'Tab'); await pause(300);
+q(`document.activeElement?.blur?.(); return 'true';`);
+rs = rstOf('rotate');
+mouse(S, 'move', rs.box[0], rs.box[1]); await pause(150);
+const hov = rstOf('rotate');
+add('Field blurred, hovered: nothing to press', !hov.on && hov.pointer === RS['blurred, hovered'].reset.pointer && hov.onTop === RS['blurred, hovered'].reset.onTop, JSON.stringify(hov));
+mouse(S, 'move', hov.at[0], hov.at[1]); await pause(100);
+const onIt = rstOf('rotate');
+add('Blurred, hovered on the spot: nothing to press', !onIt.on && !onIt.onTop, JSON.stringify(onIt));
+await realPress(onIt.at);
+add('Blurred, a press there leaves 30', rstOf('rotate').v === '30', rstOf('rotate').v);
+
 writeFileSync(new URL('../parity/block-design-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nBlock design: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);
