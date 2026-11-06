@@ -1,0 +1,410 @@
+{
+  "item": "CAP-U3CHILDHOVER",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U3: pills on hover around a stack, by shots",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "stack",
+      {
+        "kids": [
+          0,
+          0
+        ],
+        "frameEls": ".sqs-block-label-tag"
+      }
+    ],
+    [
+      "shot",
+      "selected"
+    ],
+    [
+      "hoverBlock",
+      0,
+      0
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "shot",
+      "selected-hover"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "shot",
+      "none"
+    ],
+    [
+      "hoverBlock",
+      0,
+      0
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "shot",
+      "hover-middle"
+    ],
+    [
+      "hoverBlock",
+      0,
+      0,
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "shot",
+      "hover-left"
+    ],
+    [
+      "read",
+      "hovered",
+      {
+        "frameEls": ".sqs-block-label-tag"
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "stack": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Stack",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            51.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Text",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            42.5,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            495,
+            277.2,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Button",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            889.9,
+            277.2,
+            60.4,
+            16
+          ]
+        }
+      ],
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "shape": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "wrap": [
+              394.9,
+              0,
+              374.9,
+              235.6,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "hovered": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Stack",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            51.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Text",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            277.2,
+            42.5,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            495,
+            277.2,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Button",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            889.9,
+            277.2,
+            60.4,
+            16
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "With nothing selected, the mouse on a stack shows the STACK pill above it and a thin outline, on a child in the middle and on one at the left. No child's own pill. On a selected stack, a hover shows no pill. From 4 shots. Also seen: the empty Text in the stack shows Write here..., which CAP-TEXTEMPTY.json reads.",
+  "ours": "The same: the Stack pill above the stack on a hover, at the middle and the left, no child pill. From shots on 5210, with the stack moved down so the section buttons do not cover it. The placeholder is missing, see CAP-TEXTEMPTY.json.",
+  "differs": [],
+  "pressed": "Real mouse clicks and pulls on blocks made in the session. Add Block tiles and panel rows by name. No Save, no upload, no Reset."
+}

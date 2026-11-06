@@ -1,0 +1,1734 @@
+{
+  "item": "CAP-T14FRAME",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T14: where a new block lands by the frame's scroll with the menu open. Prediction, written before this read: on section 0 the row is 1 + round(scroll / 41.1), so 30 is row 2, 65 row 3, 100 row 3, 130 row 4. Section 1 is not predicted.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "Text",
+      "Text s0 frame by 30",
+      {
+        "frameBy": 30
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text s0 frame by 30, area",
+      {
+        "areas": 0,
+        "section": 0,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "Text",
+      "Text s0 frame by 65",
+      {
+        "frameBy": 65
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text s0 frame by 65, area",
+      {
+        "areas": 0,
+        "section": 0,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "Text",
+      "Text s0 frame by 100",
+      {
+        "frameBy": 100
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text s0 frame by 100, area",
+      {
+        "areas": 0,
+        "section": 0,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "Text",
+      "Text s0 frame by 130",
+      {
+        "frameBy": 130
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text s0 frame by 130, area",
+      {
+        "areas": 0,
+        "section": 0,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      1,
+      "Text",
+      "Text s1 frame by 0",
+      {}
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text s1 frame by 0, area",
+      {
+        "areas": 1,
+        "section": 1,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      1,
+      "Text",
+      "Text s1 frame by 100",
+      {
+        "frameBy": 100
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text s1 frame by 100, area",
+      {
+        "areas": 1,
+        "section": 1,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      1,
+      "Text",
+      "Text s1 frame by 200",
+      {
+        "frameBy": 200
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text s1 frame by 200, area",
+      {
+        "areas": 1,
+        "section": 1,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      1,
+      "Text",
+      "Text s1 frame by 400",
+      {
+        "frameBy": 400
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text s1 frame by 400, area",
+      {
+        "areas": 1,
+        "section": 1,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "Text",
+      "Text s0 frame by 400",
+      {
+        "frameBy": 400
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text s0 frame by 400, area",
+      {
+        "areas": 0,
+        "section": 0,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "Text",
+      "Text s0 frame by 700",
+      {
+        "frameBy": 700
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text s0 frame by 700, area",
+      {
+        "areas": 0,
+        "section": 0,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "Shape",
+      "Shape s0 frame by 170",
+      {
+        "frameBy": 170
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Shape s0 frame by 170, area",
+      {
+        "areas": 0,
+        "section": 0,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "Shape",
+      "Shape s0 frame by 300",
+      {
+        "frameBy": 300
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Shape s0 frame by 300, area",
+      {
+        "areas": 0,
+        "section": 0,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ]
+  ],
+  "reads": {
+    "Text s0 frame by 30": {
+      "open": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          284,
+          300
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          347
+        ]
+      },
+      "frameMoved": {
+        "frameY": 30,
+        "frameH": 945,
+        "tile": [
+          254,
+          270
+        ],
+        "scroller": {
+          "top": 123,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          317
+        ]
+      },
+      "atPress": {
+        "frameY": 30,
+        "frameH": 945,
+        "tile": [
+          254,
+          270
+        ],
+        "scroller": {
+          "top": 123,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          317
+        ]
+      },
+      "afterFrameY": 30
+    },
+    "Text s0 frame by 30, area": {
+      "sections": [
+        {
+          "id": "f6a5f4",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "27_440"
+          ],
+          "h": 667.6
+        },
+        {
+          "id": "62ac89",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -30,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 30,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text s0 frame by 65": {
+      "open": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          284,
+          300
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          347
+        ]
+      },
+      "frameMoved": {
+        "frameY": 65,
+        "frameH": 945,
+        "tile": [
+          219,
+          235
+        ],
+        "scroller": {
+          "top": 88,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          282
+        ]
+      },
+      "atPress": {
+        "frameY": 65,
+        "frameH": 945,
+        "tile": [
+          219,
+          235
+        ],
+        "scroller": {
+          "top": 88,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          282
+        ]
+      },
+      "afterFrameY": 65
+    },
+    "Text s0 frame by 65, area": {
+      "sections": [
+        {
+          "id": "f87969",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "32_422"
+          ],
+          "h": 667.6
+        },
+        {
+          "id": "422c8a",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -65,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 65,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "2/2/4/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text s0 frame by 100": {
+      "open": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          284,
+          300
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          347
+        ]
+      },
+      "frameMoved": {
+        "frameY": 100,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "atPress": {
+        "frameY": 100,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "afterFrameY": 100
+    },
+    "Text s0 frame by 100, area": {
+      "sections": [
+        {
+          "id": "d8ae33",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "86_422"
+          ],
+          "h": 667.6
+        },
+        {
+          "id": "ea7608",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -100,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 100,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "3/2/5/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text s0 frame by 130": {
+      "open": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          284,
+          300
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          347
+        ]
+      },
+      "frameMoved": {
+        "frameY": 130,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "atPress": {
+        "frameY": 130,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "afterFrameY": 130
+    },
+    "Text s0 frame by 130, area": {
+      "sections": [
+        {
+          "id": "63d9af",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "51_422"
+          ],
+          "h": 667.6
+        },
+        {
+          "id": "4c6b31",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -130,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 130,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "4/2/6/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text s1 frame by 0": {
+      "open": {
+        "frameY": 588,
+        "frameH": 945,
+        "tile": [
+          226,
+          242
+        ],
+        "scroller": {
+          "top": 95,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          289
+        ]
+      },
+      "atPress": {
+        "frameY": 588,
+        "frameH": 945,
+        "tile": [
+          226,
+          242
+        ],
+        "scroller": {
+          "top": 95,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          289
+        ]
+      },
+      "afterFrameY": 588
+    },
+    "Text s1 frame by 0, area": {
+      "sections": [
+        {
+          "id": "411819",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        },
+        {
+          "id": "af6afe",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "31_423"
+          ],
+          "h": 623.7
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          79.6,
+          1600,
+          623.7
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 588,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text s1 frame by 100": {
+      "open": {
+        "frameY": 588,
+        "frameH": 945,
+        "tile": [
+          226,
+          242
+        ],
+        "scroller": {
+          "top": 95,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          289
+        ]
+      },
+      "frameMoved": {
+        "frameY": 688,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "atPress": {
+        "frameY": 688,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "afterFrameY": 688
+    },
+    "Text s1 frame by 100, area": {
+      "sections": [
+        {
+          "id": "9d6491",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        },
+        {
+          "id": "9be023",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "14_423"
+          ],
+          "h": 623.7
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -20.4,
+          1600,
+          623.7
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 688,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text s1 frame by 200": {
+      "open": {
+        "frameY": 588,
+        "frameH": 945,
+        "tile": [
+          226,
+          242
+        ],
+        "scroller": {
+          "top": 95,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          289
+        ]
+      },
+      "frameMoved": {
+        "frameY": 788,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "atPress": {
+        "frameY": 788,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "afterFrameY": 788
+    },
+    "Text s1 frame by 200, area": {
+      "sections": [
+        {
+          "id": "fd107d",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        },
+        {
+          "id": "14658c",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "30_423"
+          ],
+          "h": 623.7
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -120.4,
+          1600,
+          623.7
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 788,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "3/2/5/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text s1 frame by 400": {
+      "open": {
+        "frameY": 588,
+        "frameH": 945,
+        "tile": [
+          226,
+          242
+        ],
+        "scroller": {
+          "top": 95,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          289
+        ]
+      },
+      "frameMoved": {
+        "frameY": 979,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "atPress": {
+        "frameY": 979,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "afterFrameY": 979
+    },
+    "Text s1 frame by 400, area": {
+      "sections": [
+        {
+          "id": "f6dd68",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        },
+        {
+          "id": "9d7770",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 9,
+          "blocks": [
+            "17_423"
+          ],
+          "h": 623.7
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -311.4,
+          1600,
+          623.7
+        ],
+        "rows": 9,
+        "rowSizes": "30.1x9",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 979,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "8/2/10/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text s0 frame by 400": {
+      "open": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          284,
+          300
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          347
+        ]
+      },
+      "frameMoved": {
+        "frameY": 400,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "atPress": {
+        "frameY": 400,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "afterFrameY": 0
+    },
+    "Text s0 frame by 400, area": {
+      "sections": [
+        {
+          "id": "af7c92",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "30_422"
+          ],
+          "h": 667.6
+        },
+        {
+          "id": "437c56",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text s0 frame by 700": {
+      "open": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          284,
+          300
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          347
+        ]
+      },
+      "frameMoved": null,
+      "atPress": null
+    },
+    "Text s0 frame by 700, area": {
+      "sections": [
+        {
+          "id": "413405",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        },
+        {
+          "id": "b8fec5",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -700,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 700,
+        "blocks": 0
+      },
+      "areas": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Shape s0 frame by 170": {
+      "open": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          434,
+          450
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          497
+        ]
+      },
+      "frameMoved": {
+        "frameY": 170,
+        "frameH": 945,
+        "tile": [
+          368,
+          384
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          431
+        ]
+      },
+      "atPress": {
+        "frameY": 170,
+        "frameH": 945,
+        "tile": [
+          368,
+          384
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          431
+        ]
+      },
+      "afterFrameY": 170
+    },
+    "Shape s0 frame by 170, area": {
+      "sections": [
+        {
+          "id": "df22a7",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 10,
+          "blocks": [
+            "71_422"
+          ],
+          "h": 749.8
+        },
+        {
+          "id": "d8e1a2",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -170,
+          1600,
+          749.8
+        ],
+        "rows": 10,
+        "rowSizes": "30.1x10",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 170,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "5/2/11/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Shape s0 frame by 300": {
+      "open": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          434,
+          450
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          497
+        ]
+      },
+      "frameMoved": {
+        "frameY": 300,
+        "frameH": 945,
+        "tile": [
+          368,
+          384
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          431
+        ]
+      },
+      "atPress": {
+        "frameY": 300,
+        "frameH": 945,
+        "tile": [
+          368,
+          384
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          431
+        ]
+      },
+      "afterFrameY": 300
+    },
+    "Shape s0 frame by 300, area": {
+      "sections": [
+        {
+          "id": "62f77f",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 13,
+          "blocks": [
+            "59_422"
+          ],
+          "h": 873
+        },
+        {
+          "id": "62f871",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -300,
+          1600,
+          873
+        ],
+        "rows": 13,
+        "rowSizes": "30.1x13",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 300,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "8/2/14/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "addFromMenu [0,\"Text\",\"Text s0 frame by 700\",{\"frameBy\":700}]: Cannot read properties of null (reading 'inView')"
+  ],
+  "leftDirty": false,
+  "answer": "Where a new Text lands with the frame scrolled while the menu is open, reading the section's top above the frame. Section 0: 30 row 1, 65 row 2, 87 row 3, 100 row 3, 130 row 4, 170 row 5. Section 1, its top at 79.6 when hovered: still below the frame's top, row 1; 20.4 above row 1; 120.4 above row 3; 311.4 above row 8, and the section's rows go to 9. Shape, section 0: 170 row 5, 300 row 8, rows grow to 13. Section 0 by 400 lands on row 1 and the frame goes back to 0. By 700 the menu is gone, so nothing to press. The prediction, row 1 + round(scroll / 41.1), was wrong at 30 and 65: it is floor. The phone stays on row 1 in every read.",
+  "ours": "Row 1 at every scroll. app/src/editor.js addBlock always starts at row 1. Measured on 5210 with 4 sections: frame by 0, 87, 170, 300 on the first, by 100 on the second.",
+  "differs": [
+    "A new block lands by how far the section is scrolled above the frame on the oracle, on row 1 in ours."
+  ],
+  "pressed": "Add Block by its button. Each tile by the real mouse at its place, only with what is under the pointer checked to be that tile. The frame or the menu scrolled by script. No Save, no upload, no Reset."
+}

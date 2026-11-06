@@ -862,10 +862,8 @@
   },
   "errors": [],
   "leftDirty": false,
-  "answer": "The start row follows the window height. At 1000 high: Zola 3/2/19/10, Bandsintown 4/2/9/10, OpenTable 3/2/11/10. At 1200, 1400, 1600 and 1900: all on row 1, Zola 1/2/17/10, Bandsintown 1/2/6/10, OpenTable 1/2/9/10. The phone is row 1 in every read.",
-  "ours": "Row 1 at every window height, for all three. Measured on 5210 at 1000, 1050, 1100, 1150, 1200 and 1400 high.",
-  "differs": [
-    "Zola, Bandsintown and OpenTable below 1200 high: the oracle starts them on rows 2 to 4, ours on row 1."
-  ],
+  "answer": "The start row followed the window height because of my tool. At 1000 high: Zola 3/2/19/10, Bandsintown 4/2/9/10, OpenTable 3/2/11/10. At 1200, 1400, 1600 and 1900: all on row 1. Below 1200 the tile is under the window, so the tool scrolled the frame to reach it. See CAP-T14MENU.json.",
+  "ours": "Row 1 at every window height, which is right when only the menu scrolls.",
+  "differs": [],
   "pressed": "Real mouse clicks and pulls on blocks made in the session. Add Block tiles and panel rows by name. No Save, no upload, no Reset, no tile or row pressed by place."
 }

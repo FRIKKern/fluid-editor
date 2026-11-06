@@ -1,0 +1,319 @@
+{
+  "item": "CAP-TEXTEMPTY",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "An empty Text block's placeholder: when it shows and how it looks",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "shot",
+      "added"
+    ],
+    [
+      "beforeOf",
+      "just added",
+      ".sqs-html-content [data-placeholder]"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "shot",
+      "left"
+    ],
+    [
+      "beforeOf",
+      "left",
+      ".sqs-html-content [data-placeholder]"
+    ],
+    [
+      "read",
+      "left, html",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "shot",
+      "selected"
+    ],
+    [
+      "beforeOf",
+      "selected",
+      ".sqs-html-content [data-placeholder]"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "shot",
+      "typing"
+    ],
+    [
+      "beforeOf",
+      "in an edit",
+      ".sqs-html-content [data-placeholder]"
+    ],
+    [
+      "keysFast",
+      "a"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "beforeOf",
+      "one letter",
+      ".sqs-html-content [data-placeholder]"
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "shot",
+      "emptied"
+    ],
+    [
+      "beforeOf",
+      "emptied",
+      ".sqs-html-content [data-placeholder]"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "shot",
+      "phone"
+    ],
+    [
+      "beforeOf",
+      "phone",
+      ".sqs-html-content [data-placeholder]"
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "just added": [
+      {
+        "tag": "p",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          22.4
+        ],
+        "content": "\"Write here...\"",
+        "color": "rgb(183, 183, 183)",
+        "opacity": "1",
+        "font": "16px Poppins",
+        "float": "left",
+        "height": "0px",
+        "pointer": "none"
+      }
+    ],
+    "left": [
+      {
+        "tag": "p",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          22.4
+        ],
+        "content": "\"Write here...\"",
+        "color": "rgb(183, 183, 183)",
+        "opacity": "1",
+        "font": "16px Poppins",
+        "float": "left",
+        "height": "0px",
+        "pointer": "none"
+      }
+    ],
+    "left, html": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "selected": [
+      {
+        "tag": "p",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          22.4
+        ],
+        "content": "\"Write here...\"",
+        "color": "rgb(183, 183, 183)",
+        "opacity": "1",
+        "font": "16px Poppins",
+        "float": "left",
+        "height": "0px",
+        "pointer": "none"
+      }
+    ],
+    "in an edit": [
+      {
+        "tag": "p",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          22.4
+        ],
+        "content": "\"Write here...\"",
+        "color": "rgb(183, 183, 183)",
+        "opacity": "1",
+        "font": "16px Poppins",
+        "float": "left",
+        "height": "0px",
+        "pointer": "none"
+      }
+    ],
+    "one letter": [],
+    "emptied": [
+      {
+        "tag": "p",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          22.4
+        ],
+        "content": "\"Write here...\"",
+        "color": "rgb(183, 183, 183)",
+        "opacity": "1",
+        "font": "16px Poppins",
+        "float": "left",
+        "height": "0px",
+        "pointer": "none"
+      }
+    ],
+    "phone": [
+      {
+        "tag": "p",
+        "box": [
+          25.7,
+          326.5,
+          376.7,
+          22.4
+        ],
+        "content": "\"Write here...\"",
+        "color": "rgb(183, 183, 183)",
+        "opacity": "1",
+        "font": "16px Poppins",
+        "float": "left",
+        "height": "0px",
+        "pointer": "none"
+      }
+    ]
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "An empty Text shows Write here... in the editor at all times: added, left, selected, in an edit, emptied again, and on the phone. It goes on the first letter. A ::before on the p, data-placeholder and is-empty, in rgb(183, 183, 183), the block's font at 16px, float left, height 0, no pointer events.",
+  "ours": "Nothing shows. No such string in app/src. An empty Text's block has an empty p. Read on 5210 with the block left, and from the code.",
+  "differs": [
+    "An empty Text in the editor: Write here... in grey on the oracle, blank in ours."
+  ],
+  "pressed": "Real mouse clicks and pulls on blocks made in the session. Add Block tiles and panel rows by name. No Save, no upload, no Reset. One letter and Backspace by real keys."
+}
