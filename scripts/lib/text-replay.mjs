@@ -27,7 +27,7 @@ export async function replay(S, finding, add) {
   await fresh();
   // Undo steps go by time: the capture's pauses are kept only where undo is walked.
   const untilNextEnter = (k) => { const n = finding.steps.findIndex((x, j) => j > k && x[0] === 'enter'); return finding.steps.slice(k, n < 0 ? undefined : n); };
-  let wait = pause;
+  let wait = pause, typed = '';
   for (const [k, [op, ...a]] of finding.steps.entries()) {
     if (op === 'enter') { await fresh(); wait = untilNextEnter(k).some((x) => x[0] === 'undoWalk') ? pause : (ms) => pause(Math.min(ms, 120)); }
     else if (op === 'add') { const s = sid(); evalJs(S, `(() => { fe.addBlock(${JSON.stringify(s)}, 'Text'); return 1; })()`); id = evalJs(S, `JSON.stringify(fe.model.sections[1].blocks.at(-1).id)`); await pause(100); }
@@ -36,9 +36,15 @@ export async function replay(S, finding, add) {
     else if (op === 'click' || op === 'clickIf') { browser(S, 'click', `#text-bar [aria-label="${a[0]}"], #text-bar [data-ctab="${a[0]}"]`); await wait(1200); }
     else if (op === 'fill') { browser(S, 'fill', `#text-bar input[aria-label="${a[0]}"]`, a[1]); await wait(1200); }
     else if (op === 'press') { browser(S, 'press', a[0]); await wait(500); }
-    else if (op === 'keys') { for (const c of a[0]) browser(S, 'press', c === ' ' ? 'Space' : c); await wait(300); }
+    else if (op === 'keys' || op === 'keysFast') { cdp(S, { op: 'presses', keys: [...a[0]].map((c) => (c === ' ' ? 'Space' : c)) }, 300000); typed = a[0]; await wait(300); }
     else if (op === 'keysList') { cdp(S, { op: 'presses', keys: a[0] }); await wait(300); }
     else if (op === 'pause') await wait(a[0]);
+    else if (op === 'read' && finding.reads[a[0]]?.linkTexts) {
+      const got = new Set(evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; return JSON.stringify([...ce.querySelectorAll('a')].map((e) => e.textContent)); })()`));
+      const want = new Set(finding.reads[a[0]].linkTexts);
+      const names = typed.trim().split(/\s+/), wrong = names.filter((n) => got.has(n) !== want.has(n));
+      add(`${a[0]}: ${names.length - wrong.length} of ${names.length} names`, !wrong.length, `${wrong.length} differ: ${wrong.slice(0, 12).join(' ')}`);
+    }
     else if (op === 'read') { const want = finding.reads[a[0]]?.html; if (want === undefined) continue; const got = q('innerHTML'); add(a[0], textNorm(got) === textNorm(want), `oracle ${textNorm(want)}, ours ${textNorm(got)}`); }
     else if (op === 'undoWalk') await undoHere(a[0], finding.reads[a[0]] || { undo: [] });
   }

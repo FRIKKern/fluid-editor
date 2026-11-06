@@ -1,6 +1,6 @@
 {
  "item": "CAP-E4FRESH-PREDICTED",
- "note": "What our build gave before the oracle was read, commit first, reads after.",
+ "note": "What our build gave before the oracle was read. Each round was committed first, then read, but those commits were local and squashed before the push, so the order cannot be checked from the repo.",
  "capturedAt": "2026-11-06",
  "predicted": {
   "mixed, caret in the plain word": "<p><strong>alpha beta</strong></p>",

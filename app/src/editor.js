@@ -7,6 +7,7 @@ import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
 import { socialLook, ACCORDION_STYLES, ACCORDION_ICON, ACCORDION_LINE, ACCORDION_PAD, ACCORDION_WIDTH, BLEND_MODES, renderPage, renderSection, renderHeader, headerTheme, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
 import * as fmt from './text-format.js';
+import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
@@ -3446,9 +3447,9 @@ function textStep(ed, html, area) {
   if (snap !== ed.marks.at(-1)) ed.marks.push(snap);
 }
 // A word that reads as a domain or a mail address links when a space or Enter follows it
-// (TEXTUNDO.json, links), with the http scheme. No path and no end mark. The list of endings is ours.
-const LINK_ENDS = /\.(com|org|net|edu|gov|mil|int|info|biz|name|pro|io|co|ai|app|dev|me|tv|cc|ws|xyz|site|online|store|shop|blog|tech|cloud|world|one|bar|art|club|live|news|page|link|space|website|design|agency|studio|no|se|dk|fi|is|uk|ie|de|fr|es|it|nl|be|ch|at|pl|pt|cz|gr|ru|ua|tr|us|ca|mx|br|ar|cl|au|nz|jp|kr|cn|in|sg|za|eu)$/i;
-const linkFor = (w) => (/^[^\s@]+@[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(w) && LINK_ENDS.test(w) ? `mailto:${w}` : /^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(w) && LINK_ENDS.test(w) ? `http://${w}` : null);
+// (TEXTUNDO.json, links), with the http scheme. No path and no end mark.
+const endsReal = (w) => LINK_ENDINGS.has(w.slice(w.lastIndexOf('.') + 1).toLowerCase());
+const linkFor = (w) => (/^[^\s@]+@[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(w) && endsReal(w) ? `mailto:${w}` : /^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(w) && endsReal(w) ? `http://${w}` : null);
 function autoLink(ed, inputType, data) {
   const s = win.getSelection();
   if (!s.isCollapsed || !s.focusNode) return;
