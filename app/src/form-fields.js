@@ -91,6 +91,19 @@ export function formFieldHtml(f, ctl) {
   }
 }
 
+// After a submit (FORMFIELDS.json, postSubmit). The editor shows it while its view is open; a real
+// submit shows the same, which is inferred: a submit writes to form storage (0005).
+export const postOf = (b) => ({ redirect: false, message: 'Thank you!', align: 'left', position: 'top', html: '', href: '', ...b.post });
+export function formPostHtml(b) {
+  const p = postOf(b);
+  return `<div class="form-post form-post--${p.position}"><div class="form-submission-text form-submission-text--align-${p.align}">${p.message.split('\n').map((l) => `<p>${e(l)}</p>`).join('')}</div>${p.html ? `<div class="form-submission-html">${p.html}</div>` : ''}</div>`;
+}
+// In a frame, as our editor's Preview is, a redirect stays put and shows the message.
+export function formSubmitJs(b) {
+  const p = postOf(b);
+  return `var w=this.parentNode;${p.redirect && p.href ? `if(top===self){${p.newTab ? `window.open(${JSON.stringify(p.href)},'_blank')` : `location.href=${JSON.stringify(p.href)}`};return false}` : ''}w.classList.add('is-submitted');return false`;
+}
+
 // The panel's views.
 const ic = (d, s = 20) => `<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${d}</svg>`;
 const ICONS = {
@@ -173,7 +186,21 @@ function editorHtml(f, n) {
   return `${top}${description}${rows}${actions(n)}`;
 }
 
-export function formFieldsPanelHtml(fields, view) {
+const ALIGN_ICONS = { left: '<path d="M4 6h16M4 10h11M4 14h16M4 18h11"/>', center: '<path d="M4 6h16M7 10h10M4 14h16M7 18h10"/>', right: '<path d="M4 6h16M9 10h11M4 14h16M9 18h11"/>' };
+const POSITION_ICONS = { top: '<path d="M4 4h16M12 21V8M8 12l4-4 4 4"/>', middle: '<path d="M4 12h16M12 2v7M9 6l3 3 3-3M12 22v-7M9 18l3-3 3 3"/>', bottom: '<path d="M4 20h16M12 3v13M8 12l4 4 4-4"/>' };
+function postHtml(p, link) {
+  const seg = (on, v, t) => `<button type="button" role="radio" aria-checked="${on}" class="bp-ffp-seg${on ? ' is-on' : ''}" data-ff="post-mode:${v}">${t}</button>`;
+  const three = (k, cur, icons) => Object.entries(icons).map(([v, d]) => `<button type="button" role="radio" aria-checked="${cur === v}" aria-label="${v[0].toUpperCase()}${v.slice(1)}" class="bp-ffp-pick${cur === v ? ' is-on' : ''}" data-ff="post-${k}:${v}">${ic(d, 22)}</button>`).join('');
+  const lines = Array.from({ length: Math.max(1, p.html.split('\n').length) }, (_, n) => n + 1).join('<br>');
+  const body = p.redirect
+    ? `<div class="bp-ffp-link">${link}</div><div class="bp-ff-note bp-ffp-help">Add a URL to redirect the user after they submit the form.</div>`
+    : `<div class="bp-soccap bp-ff-cap bp-ffp-cap">Message</div><textarea class="bp-ffp-msg" aria-label="Message" data-ff-post="message">${e(p.message)}</textarea><div class="bp-ff-note bp-ffp-help">This message displays after users submit a form.</div><div class="sp-row bp-ffp-row"><span class="sp-label">Alignment</span><span class="bp-ffp-three" role="radiogroup">${three('align', p.align, ALIGN_ICONS)}</span></div><div class="sp-row bp-ffp-row"><span class="sp-label">Position</span><span class="bp-ffp-three" role="radiogroup">${three('position', p.position, POSITION_ICONS)}</span></div><div class="bp-soccap bp-ff-cap bp-ffp-cap bp-ffp-htmlcap">HTML</div><div class="bp-code bp-ffp-code"><div class="bp-code-lines" aria-hidden="true">${lines}</div><textarea spellcheck="false" aria-label="HTML" placeholder="Add" data-ff-post="html">${e(p.html)}</textarea></div><div class="bp-ff-note bp-ffp-help">HTML to be rendered in addition to the Post-Submit Message.</div>`;
+  return `${head('Edit Post-Submit')}<div class="bp-ff bp-ffp"><div class="bp-soccap bp-ff-cap bp-ffp-cap bp-ffp-first">After Submission</div><div class="bp-ffp-segs" role="radiogroup">${seg(!p.redirect, 'message', 'Message')}${seg(p.redirect, 'redirect', 'Redirect')}</div>${body}</div>`;
+}
+
+export function formFieldsPanelHtml(c, view, linkField) {
+  const fields = c.fields;
+  if (view === 'ff-post') return postHtml(c.post, linkField(c.post.href, c.pages).replace('>Link<', '>Redirect Url<'));
   if (view === 'ff-add') return addHtml();
   if (view?.startsWith('ff-edit:')) {
     const n = Number(view.slice(8)), f = fields[n];
