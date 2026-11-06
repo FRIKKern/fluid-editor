@@ -877,6 +877,9 @@ function onDown(e) {
   if (handle && sel) {
     e.preventDefault();
     // Like a drag, a group too: the move past 10px changes nothing, the next one starts it (HOLD.json).
+    // Starting the resize takes the handle out of the page, and a touch's later events stay on it,
+    // out of reach of the page's listener. Unprevented, the browser pans and the release is lost.
+    if (e.pointerType === 'touch') handle.addEventListener('touchmove', onTouchMove, { passive: false });
     gesture = { type: 'pending', resizeDir: handle.dataset.dir, sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, t0: e.timeStamp, x0: e.clientX, y0: e.clientY, py0: e.clientY - feEl(sel.sid).getBoundingClientRect().top, before: JSON.stringify(model) };
     return;
   }
@@ -912,6 +915,7 @@ function onDown(e) {
 function onMove(e) {
   if (!gesture || e.pointerId !== gesture.pointerId) return;
   if (gesture.type === 'pending') {
+    gesture.moves = (gesture.moves || 0) + 1;
     // The oracle starts a drag once the pointer has moved more than 10px (11 does, 10 does not).
     // The move that crosses it changes nothing, and a release right after it is no drag: the next
     // move starts the drag (parity/findings/HOLD.json).
@@ -978,10 +982,10 @@ function fitTextRows(s, b, g) {
 
 // A touch drags like a mouse unless the browser pans first (TOUCHHOLD.json): it takes the pointer
 // when a first move goes past its pan distance after a short press. A drag that has started, or a
-// press held this long, keeps the pointer. Measured between 60 and 100 ms.
+// press held this long, keeps the pointer. Measured between 60 and 100 ms. The same on a handle (CAP-X11FAST.json).
 const TOUCH_HOLD = 100;
 function onTouchMove(e) {
-  if (gesture && (gesture.type !== 'pending' || e.timeStamp - gesture.t0 >= TOUCH_HOLD)) e.preventDefault();
+  if (gesture && (gesture.type !== 'pending' || gesture.moves > 1 || e.timeStamp - gesture.t0 >= TOUCH_HOLD)) e.preventDefault();
 }
 
 function onCancel(e) {
@@ -1189,8 +1193,9 @@ function updateGroupResize(e) {
   if (r1 - 1 > g.shownRows) showGrid(g.sid, r1 - 1);
 }
 
-// Where a side pull stops, the same from each side, by type or by a stand-in's name (CAP-X6FLOORS.json, on desktop;
+// Where a side pull stops, the same from each side, by type or by a stand-in's name (CAP-X6FLOORS.json, CAP-X6PHONEFLOORS.json;
 // a button whatever its text, BUTTONDESIGN.json; CAP-T5PHONE.json, CAP-T11SOCIAL.json). Text, Shape and Line stop at 1.
+const LEAST_COLS_PHONE = { scrolling: 3 }; // CAP-X6PHONEFLOORS.json, the only one that differs on a phone
 const LEAST_COLS = { markdown: 2, social: 2, button: 3, accordion: 3, Product: 3, Donation: 3, Quote: 3, 'Page Link': 3, 'Tag Cloud': 3, RSS: 3, Tock: 3, SoundCloud: 3, Flickr: 3, OpenTable: 3, Zola: 3, Bandsintown: 3, video: 4, form: 4, scrolling: 4, Audio: 4, map: 4, code: 4, embed: 4, Instagram: 4, 'Pricing Plan': 6, Calendar: 6, Menu: 6, 'Search Field': 6, Archive: 6, Newsletter: 7, Scheduling: 8, Summary: 8, Chart: 8 };
 
 function updateResize(e) {
@@ -1201,7 +1206,7 @@ function updateResize(e) {
   let [r0, c0, r1, c1] = g.orig;
   const x = e.clientX;
   const y = e.clientY;
-  const held = B(g.sid, g.bid), leastCols = LEAST_COLS[held.label] ?? LEAST_COLS[held.type] ?? 1;
+  const held = B(g.sid, g.bid), leastCols = (bp === 'mobile' ? LEAST_COLS_PHONE[held.type] : null) ?? LEAST_COLS[held.label] ?? LEAST_COLS[held.type] ?? 1;
   const q = fe.getBoundingClientRect();
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(v, hi));
   // While held the block's own box follows the pointer and only the ring snaps (HOLD.json). It stops at
