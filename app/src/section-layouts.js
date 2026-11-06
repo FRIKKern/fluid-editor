@@ -82,7 +82,8 @@ export function layoutsPanelHtml(mix, picked, look) {
   return `<div class="lo-head">Layouts</div><ul class="lo-list">${mix.list.map((_, n) => tile(mix, n, picked === n, look)).join('')}</ul>`;
 }
 
-// Read with the section at the top of the window: 176 at 562, 248 at 667.6, 272 from 749.8 to 1160.7. Between them it is a line.
-export const layoutsPanelTop = (sectionHeight) => Math.min(272, Math.round(248 + (sectionHeight - 667.6) * (72 / 105.6)));
+// Opening, it sits where Edit Section's panel does (sectionPanelTop). The first pick in a short section
+// moves it down once, and it stays there until it closes (CAP-VIEWLAYOUTS.json, panelTop.afterPick).
+export const layoutsPickTop = ({ top, secTop, h }) => (h < 644 ? Math.max(top, secTop + 140) : top);
 
 export const sectionLook = (s) => ({ theme: s.theme, height: s.height, divider: s.divider, dividerShape: s.dividerShape });

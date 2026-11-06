@@ -2137,6 +2137,76 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   }
 }
 
+// P7: the header takes the first section's theme (CAP-HEADERTHEME.json). U10: the Layouts panel's top (CAP-VIEWLAYOUTS.json).
+{
+  const HT = JSON.parse(readFileSync(new URL('../parity/findings/CAP-HEADERTHEME.json', import.meta.url)));
+  const VL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-VIEWLAYOUTS.json', import.meta.url))).panelTop;
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const start = async () => { viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1200); };
+  const change = async (fn) => { js(`const m = JSON.parse(JSON.stringify(fe.model)); (${fn})(m); fe.load(m); return 'true';`); await pause(300); };
+  const head = () => js(`const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, c = (q) => W.getComputedStyle(d.querySelector(q)).color; return JSON.stringify({ theme: d.getElementById('header').dataset.sectionTheme, title: c('.header-title'), nav: c('.header-nav-item'), login: c('.header-action'), bg: W.getComputedStyle(d.getElementById('header')).backgroundColor });`);
+  const real = async (q) => { mouse(S, 'move', q[0], q[1]); await pause(60); mouse(S, 'down', q[0], q[1], { buttons: 1 }); await pause(30); mouse(S, 'up', q[0], q[1]); await pause(280); };
+  const centre = (sel) => js(`const e = ${sel}; if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`);
+  const hoverAt = async (y) => { const f = js(`const r = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + ${y}]);`); mouse(S, 'move', f[0], f[1]); await pause(120); mouse(S, 'move', f[0] + 4, f[1] + 3); await pause(260); };
+  await start();
+  for (const [name, w] of Object.entries(HT.themes)) {
+    await change(`(m) => { m.sections[0].theme = ${JSON.stringify(w.theme)}; }`);
+    const h = head();
+    add(`Header on a first section of ${name}`, h.theme === w.theme && h.title === w.title && h.nav === w.nav && h.login === w.login && h.bg === 'rgba(0, 0, 0, 0)', JSON.stringify(h));
+  }
+  // By real presses: Edit Section, Colors, Darkest 1, then undo and redo.
+  await change(`(m) => { m.sections[0].theme = ''; m.sections[1].theme = ''; }`);
+  await hoverAt(200);
+  await real(await centre(`document.querySelector('[data-sc="edit"]')`)); await pause(200);
+  await real(await centre(`[...document.querySelectorAll('#section-panel button')].find((b) => b.textContent.trim() === 'Colors')`));
+  await real(await centre(`[...document.querySelectorAll('#section-panel .sp-theme')].find((b) => /Darkest 1/.test(b.textContent))`));
+  const black = head();
+  add('Header: Darkest 1 pressed on the first section turns it white on black', black.theme === 'black' && black.title === HT.themes['Darkest 1'].title, JSON.stringify(black));
+  browser(S, 'press', 'Escape'); await pause(250);
+  js(`fe.undo(); return 'true';`); await pause(250);
+  add('Header: undo takes the theme back', head().theme === '', JSON.stringify(head()));
+  js(`document.getElementById('redo').click(); return 'true';`); await pause(250);
+  add('Header: redo brings it again', head().theme === 'black', JSON.stringify(head()));
+  // A second section's theme leaves it alone; moving a section first hands the header that section's theme.
+  await change(`(m) => { m.sections[1].theme = 'bright-inverse'; }`);
+  add('Header: a second section\'s theme leaves it alone', head().theme === 'black', JSON.stringify(head()));
+  await hoverAt(200);
+  await real(await centre(`[...document.querySelectorAll('[data-sc="down"]')].find((b) => b.getBoundingClientRect().width > 0)`)); await pause(400);
+  const F = HT.follows.moveFirstDown, moved = head();
+  add('Header: moving the first section down follows the new first', moved.theme === F.header && moved.title === F.title && moved.nav === F.nav, JSON.stringify(moved));
+  // On a phone: the same colors, and the burger too (the burger seen in a screenshot, the same as the title).
+  await change(`(m) => { m.sections[0].theme = 'bright-inverse'; }`);
+  viewport(S, 600, 1000); await pause(500);
+  const burger = js(`const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, s = d.querySelector('.header-burger span'), h = d.getElementById('header'); return JSON.stringify([h.classList.contains('is-collapsed'), W.getComputedStyle(s).backgroundColor, W.getComputedStyle(d.querySelector('.header-title')).color]);`);
+  add('Header: the burger takes the theme\'s color', burger[0] === true && burger[1] === HT.follows.phone.title && burger[2] === HT.follows.phone.title, JSON.stringify(burger));
+  viewport(S, 1600, 1000); await pause(300);
+  // The saved page carries it too.
+  const { exportHtml } = await import('../app/src/render.js');
+  add('Header: an exported page takes the first section\'s theme', /<header[^>]*data-section-theme="black"/.test(exportHtml({ header: { title: 'x' }, sections: [{ id: 'a', theme: 'black', blocks: [], rows: { desktop: 8, mobile: 8 } }] }, '')));
+  // A row of the first section's theme moves the header; the same row of another theme doesn't.
+  await start();
+  await change(`(m) => { m.sections[0].theme = 'black'; m.siteStyles = { ...(m.siteStyles || {}), themeRows: { 'Darkest 1': { 0: { rgb: [1, 2, 3], a: 1 } }, 'Light 1': { 0: { rgb: [4, 5, 6], a: 1 } } } }; }`);
+  const row = head();
+  add('Header: Site Title row of the first section\'s theme', row.title === 'rgb(1, 2, 3)' && row.nav === HT.themes['Darkest 1'].nav, JSON.stringify(row));
+  // The Layouts panel opens where Edit Section's does: every read against the rule, then on the page.
+  const { sectionPanelTop } = await import('../app/src/section-chrome.js');
+  const offs = VL.cases.rows.filter(([c, t, h, p]) => Math.abs(sectionPanelTop({ edit: c === 156 ? 84 : c - 72.04, H: 1000, secTop: t, secBottom: t + h }) - p) > 1.5);
+  add(`Layouts panel top: ${VL.cases.rows.length} reads fit the rule`, offs.length === 0, JSON.stringify(offs.slice(0, 3)));
+  await start();
+  const openLayouts = async (y = 200) => { await hoverAt(y); await real(await centre(`[...document.querySelectorAll('[data-sc="layouts"]')].find((b) => b.getBoundingClientRect().width > 0)`)); await pause(150); return js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`); };
+  const sized = async (n) => { await start(); await change(`(m) => { const s = m.sections[0]; s.height = 'small'; s.rows.desktop = ${n}; }`); return js(`const f = document.getElementById('site-frame'), q = f.contentDocument.querySelector('main#page .page-section').getBoundingClientRect(), r = f.getBoundingClientRect(); return JSON.stringify({ top: r.top + q.top, h: q.height });`); };
+  const tall = await sized(16);
+  add('Layouts panel: 272 on a tall first section', Math.abs(await openLayouts() - 272) <= 1.5 && tall.h > 726, JSON.stringify(tall));
+  browser(S, 'press', 'Escape'); await pause(200);
+  const short = await sized(4), shortAt = await openLayouts(150), wantShort = short.top + 121 + 0.316 * (short.h - 562);
+  add('Layouts panel: a short first section by the 562 and 603.1 reads', short.h < 640 && Math.abs(shortAt - Math.max(short.top + short.h + 1 - 476, wantShort)) <= 1.5, JSON.stringify([short, shortAt]));
+  await real(await centre(`document.querySelector('[data-layout="1"]')`)); await pause(300);
+  const afterPick = js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`);
+  add('Layouts panel: the first pick moves a short section\'s panel to 195', Math.abs(afterPick - 195) <= 1.5, JSON.stringify([shortAt, afterPick]));
+  await real(await centre(`document.querySelector('[data-layout="2"]')`)); await pause(300);
+  add('Layouts panel: later picks leave it there', js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`) === afterPick);
+  browser(S, 'press', 'Escape'); await pause(200);
+}
 // U10: the Layouts panel closing and a pick on a section with a look, against CAP-VIEWLAYOUTS.json.
 {
   const VL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-VIEWLAYOUTS.json', import.meta.url))), Q = VL.priorState, E = VL.mixes.i1;
@@ -2190,7 +2260,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   // The panel's top.
   await setup({ rows: { desktop: 8, mobile: 8 } }); await open();
   const top0 = js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`), h0 = now().h;
-  add('Panel top: reads as the section\'s height', top0 === Math.min(272, Math.round(248 + (h0 - 667.6) * (72 / 105.6))), JSON.stringify([top0, h0]));
+  add('Panel top: reads as the section\'s height', top0 === Math.min(272, Math.round(55 + h0 + 1 - 476)), JSON.stringify([top0, h0]));
   await pick(1); browser(S, 'press', 'Escape'); await pause(150); await open();
   add('Panel top stops at 272', js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`) === 272);
 

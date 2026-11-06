@@ -5,12 +5,12 @@ import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
-import { socialLook, ACCORDION_STYLES, ACCORDION_ICON, ACCORDION_LINE, ACCORDION_PAD, ACCORDION_WIDTH, BLEND_MODES, renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
+import { socialLook, ACCORDION_STYLES, ACCORDION_ICON, ACCORDION_LINE, ACCORDION_PAD, ACCORDION_WIDTH, BLEND_MODES, renderPage, renderSection, renderHeader, headerTheme, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
-import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPanelTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
+import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock } from './phone-order.js';
@@ -182,13 +182,13 @@ function fitHeader() {
 // The header follows the model: a model without one (a replayed trace) shows none.
 let headerJson = null;
 function renderHeaderOnce() {
-  const json = JSON.stringify(model.header || null);
-  if (json === headerJson) return;
+  const json = JSON.stringify(model.header || null), theme = headerTheme(model);
+  if (json === headerJson) { const on = doc.getElementById('header'); if (on) on.dataset.sectionTheme = theme; return; }
   headerJson = json;
   const old = doc.getElementById('header') || doc.getElementById('header-slot');
   if (!old) return;
   if (!model.header) { old.outerHTML = '<div id="header-slot"></div>'; return; }
-  old.outerHTML = renderHeader(model.header);
+  old.outerHTML = renderHeader(model.header, theme);
   new win.Function(HEADER_SCRIPT)();
 }
 // Site Styles picks (U12): their fonts and rules sit at the end of the canvas's head.
@@ -222,6 +222,7 @@ function renderSectionDom(sid) {
     sectionEl(id).replaceWith(tmp.firstElementChild);
     decorate(id);
   }
+  renderHeaderOnce();
   fitHeader();
   drawSelection();
 }
@@ -3807,6 +3808,7 @@ function renderSectionPanel() {
 function closeSectionPanel() { if (!editSid) return; editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
 const layoutsPanel = $('layouts-panel');
+let layoutsPlace = null;
 let layoutsSid = null, layoutsMix = null, layoutsPicked = null, layoutsOrder = [], layoutsBase = null, layoutsLook = null, layoutsPress = false;
 // Roles stay with the blocks as they were on opening: a pick puts them in phone order.
 const openedMix = () => sectionMix({ blocks: [...S(layoutsSid).blocks].sort((a, b) => layoutsOrder.indexOf(a.id) - layoutsOrder.indexOf(b.id)) });
@@ -3846,7 +3848,11 @@ function openLayouts(sid) {
   closeFloating();
   layoutsSid = sid; layoutsOrder = S(sid).blocks.map((b) => b.id); layoutsBase = sectionLook(S(sid)); layoutsMix = openedMix(); layoutsPicked = null;
   layoutsPanel.hidden = false;
-  layoutsPanel.style.top = `${layoutsPanelTop(sectionEl(sid).getBoundingClientRect().height)}px`;
+  // The same place as Edit Section's panel (CAP-VIEWLAYOUTS.json, panelTop).
+  const fr = frame.getBoundingClientRect(), q = sectionEl(sid).getBoundingClientRect();
+  const editAt = chrome.querySelector('[data-sc-part="card"]').getBoundingClientRect().top + 7;
+  layoutsPlace = { top: Math.round(sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom })), secTop: fr.top + q.top, h: q.height, moved: false };
+  layoutsPanel.style.top = `${layoutsPlace.top}px`;
   readLayoutsLook();
   renderLayouts();
 }
@@ -3857,6 +3863,7 @@ layoutsPanel.addEventListener('click', (e) => {
   if (!mix) return;
   const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
   layoutsPicked = Number(t.dataset.layout);
+  if (!layoutsPlace.moved) { layoutsPlace.moved = true; layoutsPanel.style.top = `${layoutsPickTop(layoutsPlace)}px`; }
   applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase);
   if (sel?.sid === layoutsSid) select(null);
   commit(before, `Layout ${layoutsPicked + 1}`);
