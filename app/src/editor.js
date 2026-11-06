@@ -1414,7 +1414,7 @@ function startTextEdit(sid, bid) {
   const fe = feEl(sid);
   const m = measure(fe);
   fe.style.gridAutoRows = `${m.rowMin}px`;
-  editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], marks: [before], prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
+  editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], need: contentRows(b, m), need0: contentRows(b, m), marks: [before], prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
   ce.addEventListener('input', onTextInput);
   ce.addEventListener('paste', onPaste);
   ce.addEventListener('focus', () => { if (editing) editing.keysOff = false; });
@@ -3569,17 +3569,44 @@ function onTextInput(e) {
       }
     }
   }
-  // The end row follows the text both ways, but not below 2 rows
-  // (parity/findings/E3.json: a one-line paragraph ended at 2 rows).
-  const need = Math.max(2, contentRows(b, ed.m));
-  if (ed.area[2] - ed.area[0] !== need) {
-    ed.area[2] = ed.area[0] + need;
+  // Rows the text needs going up take up any spare rows first. Going down, the block gives up as many
+  // rows as the text did, so spare rows stay spare: a new block's second row, or rows added by hand
+  // (CAP-TEXTPUSH.json, CAP-TEXTPUSH2.json q1 and q2, CAP-TEXTPUSH3.json r6 and r11).
+  const need = contentRows(b, ed.m), rows = ed.area[2] - ed.area[0];
+  const next = need > ed.need ? Math.max(rows, need) : rows - (ed.need - need);
+  ed.need = need;
+  if (next !== rows) {
+    if (S(ed.sid).blocks.includes(b)) for (const o of moveWithText(S(ed.sid), b, ed.area, next - rows)) setArea(blockEl(o.id), lay(o).area);
+    ed.area[2] = ed.area[0] + next;
     setArea(blockEl(ed.bid), ed.area);
     const ind = feEl(ed.sid).querySelector('.fe-indicator');
     if (ind) setArea(ind, ed.area);
   }
   ed.prevHtml = ed.ce.innerHTML;
   ed.prevArea = [...ed.area];
+}
+
+// Text that grows or shrinks moves other blocks by one amount, in this view only. Growing: blocks in
+// shared columns whose bottom reaches the old end, and any block whose top is past it. No chains.
+// Shrinking: the same test against the new end, and the highest of them stops at the new end.
+// The section takes the change of its lowest block (CAP-TEXTPUSH.json to CAP-TEXTPUSH4.json).
+function moveWithText(s, b, a, d) {
+  const others = s.blocks.filter((o) => o !== b && o.id !== b.id);
+  const end = d > 0 ? a[2] : a[2] + d;
+  const moved = others.filter((o) => {
+    const q = o.layout[bp].area;
+    return q[0] > end || (q[1] < a[3] && q[3] > a[1] && q[2] >= end);
+  });
+  const by = d > 0 ? d : Math.min(0, Math.max(d, end - Math.min(...moved.map((o) => o.layout[bp].area[0]))));
+  const lowest = (own) => Math.max(own, ...others.map((o) => o.layout[bp].area[2]));
+  const low = lowest(a[2]);
+  for (const o of moved) {
+    const q = o.layout[bp].area;
+    q[0] += by;
+    q[2] += by;
+  }
+  s.rows[bp] += lowest(a[2] + d) - low;
+  return moved;
 }
 
 function onTextSelection() {
@@ -3602,8 +3629,22 @@ function finishTextEdit() {
   const now = JSON.stringify(model);
   // A step can look like where the edit ended (Bold, then Clear Formatting): it's still a step (CAP-E4SCORE.json).
   const steps = ed.marks.at(-1) === now ? ed.marks.slice(0, -1) : ed.marks;
+  if (steps.length === 1 && ed.need > ed.need0) steps[0] = undoTextFalls(ed, now);
   for (const m of steps.slice(0, -1)) undoStack.push(m);
   commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`);
+}
+
+// Undoing an edit whose text needed more rows: the old text comes back, and the rows fall by what
+// the text needs less. Spare rows at the start of the edit are not given back (CAP-TEXTPUSH2.json q8).
+function undoTextFalls(ed, now) {
+  const m = JSON.parse(now), s = m.sections.find((o) => o.id === ed.sid);
+  const b = s.blocks.find((o) => o.id === ed.bid);
+  if (!b) return ed.before;
+  const a = b.layout[bp].area, fall = ed.need - ed.need0;
+  moveWithText(s, b, a, -fall);
+  a[2] -= fall;
+  b.html = JSON.parse(ed.before).sections.find((o) => o.id === ed.sid).blocks.find((o) => o.id === ed.bid).html;
+  return JSON.stringify(m);
 }
 
 // ---------- panel ----------
