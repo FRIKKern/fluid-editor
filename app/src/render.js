@@ -4,6 +4,7 @@
 import { siteStylesHead } from './site-style-packs.js';
 import { shapeById } from './shapes.js';
 import { imageShapeById } from './image-shapes.js';
+import { effectData, IMAGE_EFFECT_SCRIPT } from './image-effects.js';
 
 export const BPS = ['mobile', 'desktop'];
 export const COLS = { mobile: 8, desktop: 24 };
@@ -342,7 +343,9 @@ function blockInner(b, model) {
       const shape = b.mode === 'shape' && b.imageShape ? imageShapeById(b.imageShape) : null;
       const clip = shape ? `clip-path:url(#fe-image-clip-${b.id});` : '';
       const clipDef = shape ? `<svg class="fe-image-clip" width="0" height="0" aria-hidden="true"><clipPath id="fe-image-clip-${b.id}" clipPathUnits="objectBoundingBox"><path d="${shape.d}"/></clipPath></svg>` : '';
-      const inner = b.src ? `<div class="fluid-image-container has-picture" style="${r}${aspect}${clip}"><img src="${escapeHtml(b.src)}" alt="${alt}"${focal}>${overlay}</div>${clipDef}`
+      // Image Effect (IMAGEEFFECT.json): over the picture and under the overlay. The picture hides once it draws.
+      const effect = b.effect && b.src ? `<div class="imageEffectContainer" data-effect="${escapeHtml(effectData(b.effect))}"><canvas></canvas></div>` : '';
+      const inner = b.src ? `<div class="fluid-image-container has-picture" style="${r}${aspect}${clip}"><img src="${escapeHtml(b.src)}" alt="${alt}"${focal}>${effect}${overlay}</div>${clipDef}`
         : `<div class="fluid-image-container" style="${r}${aspect}${clip}" role="img" aria-label="${alt}">${overlay}</div>${clipDef}`;
       // A new block has no picture yet (MEDIAEMPTY.json): the editor shows a white box with a +.
       if (b.empty) return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-image image-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-component-empty-state-node"><span class="fluid-image-add" aria-hidden="true"></span></div></div></div>`;
@@ -731,7 +734,8 @@ ${renderPage(model)}
 ${renderFooter(model)}
 <script>${HEADER_SCRIPT}
 ${ACCORDION_SCRIPT}
-${VIDEO_SCRIPT}</script>
+${VIDEO_SCRIPT}
+(() => { ${IMAGE_EFFECT_SCRIPT} })();</script>
 </body>
 </html>
 `;

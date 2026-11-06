@@ -321,6 +321,10 @@ body { position: relative; }
 .sqs-block-image.image-mode-fit .fluid-image-container, .sqs-block-image.image-mode-shape .fluid-image-container { width: min(100cqw, calc(100cqh * var(--image-aspect, 1))); height: auto; aspect-ratio: var(--image-aspect, 1); }
 .sqs-block-image.image-mode-shape .fluid-image-container { clip-path: circle(50%); }
 .fe-image-clip { position: absolute; }
+/* Image Effect (IMAGEEFFECT.json): the canvas takes the picture's box; the picture hides only when it draws */
+.imageEffectContainer { position: absolute; inset: 0; overflow: hidden; }
+.imageEffectContainer canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fluid-image-container:has(> .imageEffectContainer.is-on) > img { visibility: hidden; }
 /* Stretch, Overlay and the Lightbox in preview (IMAGEDESIGN.json) */
 .sqs-block-image.image-mode-shape.image-stretch .fluid-image-container { width: 100%; height: 100%; aspect-ratio: auto; }
 .fluidImageOverlay { position: absolute; inset: 0; pointer-events: none; }

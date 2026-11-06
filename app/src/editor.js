@@ -3,6 +3,7 @@
 // on commit; during a gesture we change inline styles and editor layers.
 import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults } from './render.js';
 import { imageShapeById } from './image-shapes.js';
+import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
 import { socialLook, ACCORDION_STYLES, ACCORDION_ICON, ACCORDION_LINE, ACCORDION_PAD, ACCORDION_WIDTH, BLEND_MODES, renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
@@ -1422,6 +1423,8 @@ let animPlay = null; // after the next draw: 'tiles' or 'square'
 let embedData = false;
 let accView = null; // 'acc-item:<n>' or 'acc-dividers'
 let imageView = null; // the image Shape picker's tab, or null
+let fxView = null; // the Image Effect panel: 'list', 'settings' or null
+let fxOpen = []; // its settings groups that are open: they all start closed
 const blockPanel = $('block-panel');
 let shapeUi = null; // the open popup of a shape's Design tab: { kind, bid, custom }
 function renderBlockPanel() {
@@ -1429,8 +1432,10 @@ function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
-  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; accView = null; imageView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; accView = null; imageView = null; fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'image' || b.mode !== 'shape' || designTab !== 'Design') imageView = null; // undo can leave Shape
+  if (b.type !== 'image' || b.empty || designTab !== 'Design') fxView = null;
+  if (fxView === 'settings' && !b.effect) fxView = 'list'; // undo can take the effect away
   if (b.type !== 'accordion' || (accView?.startsWith('acc-item:') && !b.items[Number(accView.slice(9))])) accView = null; // undo can take the item away
   const content = b.type === 'button' ? { label: b.label, href: b.href, pages: siteLinkGroups() } : b.type === 'image' ? { src: b.src, href: b.href, pages: siteLinkGroups(), alt: b.alt, filename: b.filename, empty: !!b.empty, focal: b.focal, aspect: b.aspect, lightbox: !!b.lightbox }
     : b.type === 'video' && !b.html ? { kind: 'video', description: b.description, video: b.video }
@@ -1445,15 +1450,16 @@ function renderBlockPanel() {
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || '#ffffff' } : null;
-  const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: parseFloat(b.radius) || 0, corners: b.corners, empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay' } : null;
+  const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: parseFloat(b.radius) || 0, corners: b.corners, empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
   const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
   const buttonView = b.type !== 'button' ? null : bp === 'mobile' && b.btnMobile ? b.btnMobile : { fit: b.fit, align: b.halign };
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
-  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
   if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, b.animations?.[anim.i], anim.menu) : animEditorHtml(b.animations[anim.i], anim.tab);
+  if (fxView) paintEffectTiles(blockPanel, b.src);
   blockPanel.style.width = b.type === 'code' && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
   syncAnimView(b);
   // An item's view holds that item open on the canvas (ACCORDION.json).
@@ -1841,6 +1847,61 @@ blockPanel.addEventListener('click', (e) => {
   shapeUi = { kind: 'imagesel', key: a.dataset.imageSel, bid: sel.bid, custom: null, rect: a.getBoundingClientRect() };
   renderShapePop();
 });
+// Image Effect (IMAGEEFFECT.json): a tile, a seg, a switch and Shuffle are one undo step each and the
+// panel stays where it is. A slider moves the picture as it goes and is one step when let go.
+function setEffect(change, label) {
+  const top = blockPanel.scrollTop;
+  setShape(change, label);
+  blockPanel.scrollTop = top;
+}
+blockPanel.addEventListener('click', (e) => {
+  const t = e.target.closest('[data-fx-nav],[data-fx-tile],[data-fx-shuffle],[data-fx-group],[data-fx-seg],[data-fx-sel]');
+  if (!t || !sel) return;
+  const b = B(sel.sid, sel.bid), d = t.dataset;
+  if (d.fxNav) {
+    if (d.fxNav === 'back') fxView = fxView === 'settings' ? 'list' : null; else fxView = d.fxNav;
+    if (fxView !== 'settings') fxOpen = [];
+    renderBlockPanel(); blockPanel.scrollTop = 0;
+  } else if (d.fxTile) {
+    if (d.fxTile === (b.effect?.kind || 'none')) return;
+    setEffect((x) => { if (d.fxTile === 'none') delete x.effect; else x.effect = effectDefaults(d.fxTile); }, `image effect ${d.fxTile}`);
+  } else if ('fxShuffle' in d) {
+    setEffect((x) => { x.effect = shuffleEffect(x.effect); }, 'image effect shuffle');
+  } else if (d.fxGroup) {
+    const top = blockPanel.scrollTop;
+    fxOpen = fxOpen.includes(d.fxGroup) ? fxOpen.filter((g) => g !== d.fxGroup) : [...fxOpen, d.fxGroup];
+    renderBlockPanel(); blockPanel.scrollTop = top;
+  } else if (d.fxSeg) {
+    if (b.effect[d.fxSeg] === d.fxVal) return;
+    setEffect((x) => { x.effect[d.fxSeg] = d.fxVal; Object.assign(x.effect, EFFECTS[x.effect.kind].presets?.[d.fxSeg]?.[d.fxVal]); }, `image effect ${d.fxSeg} ${d.fxVal}`);
+  } else {
+    if (shapeUi?.kind === 'fxmenu') { closeShapePop(); return; }
+    shapeUi = { kind: 'fxmenu', key: d.fxSel, bid: sel.bid, custom: null, rect: t.getBoundingClientRect() };
+    renderShapePop();
+  }
+});
+let fxBefore = null;
+blockPanel.addEventListener('input', (e) => {
+  const r = e.target.closest('[data-fx-range]');
+  if (!r || !sel) return;
+  fxBefore ??= JSON.stringify(model);
+  const b = B(sel.sid, sel.bid), v = Number(r.value), min = Number(r.min), max = Number(r.max);
+  b.effect[r.dataset.fxRange] = v;
+  const at = (x) => ((x - min) / (max - min)) * 100, zero = at(Math.max(min, Math.min(max, 0)));
+  r.style.setProperty('--from', `${Math.min(zero, at(v))}%`); r.style.setProperty('--to', `${Math.max(zero, at(v))}%`);
+  r.parentElement.querySelector('[data-fx-field]').value = v;
+  const box = blockEl(sel.bid)?.querySelector('.imageEffectContainer');
+  if (box) box.dataset.effect = effectData(b.effect);
+});
+blockPanel.addEventListener('change', (e) => {
+  const r = e.target.closest('[data-fx-range]'), f = e.target.closest('[data-fx-field]'), s = e.target.closest('[data-fx-switch]');
+  if ((!r && !f && !s) || !sel) return;
+  if (r) { const before = fxBefore; fxBefore = null; if (before) { renderSectionDom(sel.sid); commit(before, `image effect ${r.dataset.fxRange}`); } return; }
+  if (s) { setEffect((x) => { x.effect[s.dataset.fxSwitch] = s.checked; }, `image effect ${s.dataset.fxSwitch}`); return; }
+  const key = f.dataset.fxField, n = parseFloat(f.value), v = Number.isNaN(n) ? B(sel.sid, sel.bid).effect[key] : Math.max(Number(f.dataset.min), Math.min(Number(f.dataset.max), Math.round(n)));
+  setEffect((x) => { x.effect[key] = v; }, `image effect ${key}`);
+  renderBlockPanel();
+});
 // Focal point (IMAGEDESIGN.json): a press or a drag on the thumbnail puts the point under the
 // pointer, inside the picture; the canvas follows at once; an arrow key moves it by 0.1. One undo step.
 const focalAt = (v) => Math.max(0, Math.min(1, v));
@@ -2085,11 +2146,15 @@ function renderSectionPop() {
 function renderShapePop() {
   if (shapeUi.section) { renderSectionPop(); return; }
   const b = B(sel.sid, sel.bid), P = blockPanel.getBoundingClientRect(), { kind } = shapeUi;
-  shapePop.className = kind === 'accmenu' ? 'is-accmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
+  shapePop.className = kind === 'fxmenu' ? 'is-fxmenu' : kind === 'accmenu' ? 'is-accmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
   if (kind === 'animopts') {
     const u = shapeUi, one = u.mode === 'row' ? ' animation' : ' animations', a = animRows()[anim.i];
     if (u.mode === 'sel') { shapePop.innerHTML = animOptionsHtml(u.key, a?.[u.key]); shapePop.style.cssText = `left:${u.rect.left - 9}px;top:${u.rect.top}px`; }
     else { shapePop.innerHTML = `<button type="button" role="option" data-an-clip="copy">Copy${one}</button><button type="button" role="option" data-an-clip="paste"${animClip ? '' : ' disabled'}>Paste${one}</button>`; shapePop.style.cssText = `left:${u.rect.left - 54}px;top:${u.rect.top - 6}px`; }
+  } else if (kind === 'fxmenu') {
+    // Interaction (IMAGEEFFECT.json): a list over its row, the current one on the row with a check.
+    shapePop.innerHTML = EFFECTS[b.effect.kind].groups.flatMap(([, rows]) => rows).find((r) => r[2] === shapeUi.key)[3].map((o) => `<button type="button" role="option" class="${o === b.effect[shapeUi.key] ? 'is-cur' : ''}" data-fx-opt="${o}">${o}${o === b.effect[shapeUi.key] ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 12l4 4 8-9"/></svg>' : ''}</button>`).join('');
+    shapePop.style.cssText = `left:${P.left + 11}px;top:${shapeUi.rect.top - 5}px`;
   } else if (kind === 'imagesel') {
     // Blend Mode and Lightbox Theme (IMAGEDESIGN.json): a list over the button, 9px to its left.
     const blend = shapeUi.key === 'blend', list = blend ? BLEND_MODES : ['Light Overlay', 'Dark Overlay'];
@@ -2144,6 +2209,13 @@ shapePop.addEventListener('click', (e) => {
     return;
   }
   if (!sel || !shapeUi) return;
+  const fxo = e.target.closest('[data-fx-opt]');
+  if (fxo) {
+    const { key } = shapeUi, v = fxo.dataset.fxOpt;
+    closeShapePop();
+    if (B(sel.sid, sel.bid).effect[key] !== v) setEffect((b) => { b.effect[key] = v; }, `image effect ${key} ${v}`);
+    return;
+  }
   const io = e.target.closest('[data-image-opt]');
   if (io) {
     const { key } = shapeUi, v = io.dataset.imageOpt;
@@ -4865,6 +4937,7 @@ function boot() {
   win = frame.contentWindow;
   doc.addEventListener('pointerdown', closeLinkOutside, true);
   bindLightbox(doc);
+  new win.Function(IMAGE_EFFECT_SCRIPT)();
   bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations; } return null; });
   doc.addEventListener('pointerdown', onDown);
   doc.addEventListener('pointermove', onMove);

@@ -9,6 +9,7 @@ import { IMAGE_SHAPE_TABS, imageShapesOf } from './image-shapes.js';
 import { ACCORDION_STYLES, escapeHtml as esc, DESIGN_DEFAULTS, BLEND_MODES, STROKE_PX, MAP_STYLES, MAP_ZOOMS, mapArt, mapVars, socialGlyph, socialKind, SOCIAL_SIZES, SOCIAL_STYLES } from './render.js';
 import { linkKind, linkSummary, parseMail, parsePhone } from './link-kinds.js';
 import { HITS, resetBtn } from './anim-panel.js';
+import { effectPanelHtml } from './effect-panel.js';
 
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
 
@@ -445,6 +446,7 @@ function mapDesignHtml(c, pairs) {
 
 export function blockPanelHtml(d, tab, content = null, open = null, shape = null, image = null, stack = null, button = null, kid = null) {
   if (image && open?.startsWith('image-shape:')) return imageShapeHtml(image.shapeId, open.slice(12));
+  if (image && open === 'image-fx') return effectPanelHtml(image);
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
@@ -496,7 +498,6 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
     // An image's Design tab (parity/findings/IMAGEMODES.json) opens with Fit, Fill and Shape.
     else if (image) {
       const seg = (m, l) => `<button type="button" role="radio" class="bp-mode${image.mode === m ? ' is-on' : ''}" aria-checked="${image.mode === m}" aria-label="${l}" data-image-mode="${m}">${l}</button>`;
-      const chip = (l, v) => row(l, `<span class="bp-unbuilt-chip" data-unbuilt title="Not built yet" aria-label="${l}">${v}</span>`);
       const sw = (l, key, on) => row(l, `<label class="sp-switch"><input type="checkbox" data-image-set="${key}" aria-label="${l}"${on ? ' checked' : ''}><span aria-hidden="true"></span></label>`);
       const sel = (l, key, v) => `<div class="sp-row bp-image-sel"><span class="sp-label">${l}</span><button type="button" class="an-sel" data-image-sel="${key}" aria-haspopup="listbox" aria-label="${l}"><span>${v}</span>${pi('<path d="M7 10l5 5 5-5"/>')}</button></div>`;
       const four = image.corners, mixed = four && new Set(four).size > 1;
@@ -505,7 +506,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       const corner = `<div class="sp-row bp-image-corner"><span class="sp-label">Corner</span><span class="sh-radii"><span class="bp-radii"><button type="button" role="radio" aria-checked="${!four}" class="sp-seg${four ? '' : ' is-on'}" aria-label="Uniform corner radii" data-shape-act="uniform">${pi('<rect x="5" y="5" width="14" height="14" rx="4"/>')}</button><button type="button" role="radio" aria-checked="${!!four}" class="sp-seg${four ? ' is-on' : ''}" aria-label="Individual corner radii" data-shape-act="individual">${pi('<path d="M5 9V7a2 2 0 0 1 2-2h2M15 5h2a2 2 0 0 1 2 2v2M19 15v2a2 2 0 0 1-2 2h-2M9 19H7a2 2 0 0 1-2-2v-2"/>')}</button></span><label class="bp-box bp-radius"><input type="text" data-shape="radius" aria-label="Corner" value="${mixed ? 'Mixed' : `${four ? four[0] : image.corner}px`}"></label></span></div>${four ? `<div class="sp-row sh-corners">${fld(0, 'Top left')}${fld(1, 'Top right')}${fld(2, 'Bottom right')}${fld(3, 'Bottom left')}</div>` : ''}`;
       body = `<div class="bp-modes bp-image-modes" role="radiogroup" aria-label="Image mode">${seg('fit', 'Fit')}${seg('fill', 'Fill')}${seg('shape', 'Shape')}</div><div class="bp-image-rows">`
         + (image.mode === 'shape' ? `<button type="button" class="sp-row bp-rowbtn" data-image-nav="shape" aria-label="Navigate to Shape"><span class="sp-label">Shape</span><span class="bp-chip-v">${CHEV_R}</span></button>` + sw('Stretch', 'stretch', image.stretch) + '<div class="bp-image-gap"></div>' : corner)
-        + (image.empty ? '' : chip('Image Effect', '›')
+        + (image.empty ? '' : `<button type="button" class="sp-row bp-rowbtn" data-fx-nav="list" aria-label="Navigate to Image Effect"><span class="sp-label">Image Effect</span><span class="bp-chip-v">${CHEV_R}</span></button>`
           + sw('Overlay', 'overlay', image.overlay) + (image.overlay ? colorRow('Color', 'overlay', image.overlayColor) + sel('Blend Mode', 'blend', image.blendName) : '')
           + sw('Lightbox', 'lightbox', image.lightbox) + (image.lightbox ? sel('Lightbox Theme', 'theme', image.themeName) : ''))
         + '</div>'
