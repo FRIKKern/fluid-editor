@@ -332,13 +332,17 @@ function appearanceRows(d) {
 const MORE = '<button type="button" class="bp-more" data-shape-act="more" aria-label="More actions" aria-haspopup="listbox">···</button>';
 
 const BUTTON_STYLES = [['primary', 'Primary Button'], ['secondary', 'Secondary Button'], ['tertiary', 'Tertiary Button']];
-function buttonDesignHtml(c, open) {
+function buttonStyleHtml(style, open) {
+  const c = { style };
   const aa = '<span class="bp-bs-aa">Aa</span>';
   const name = BUTTON_STYLES.find(([k]) => k === c.style)[1];
   const list = !open ? '' : `<div class="bp-bs-list" role="listbox" aria-label="Button style">${BUTTON_STYLES.map(([k, n]) => `<button type="button" role="option" class="bp-bs-opt" aria-selected="${k === c.style}" data-bpstyle="${k}">${aa}<span>${n}</span>${k === c.style ? pi('<path d="M5 12.5l4.5 4.5L19 7.5"/>') : ''}</button>`).join('')}<button type="button" class="bp-bs-edit" data-bpstyle-edit>Edit Button Styles</button></div>`;
+  return `<div class="bp-bs-wrap"><button type="button" class="bp-bs-cur" data-bpstyle-toggle aria-haspopup="listbox" aria-expanded="${open}">${aa}<span>${name}</span>${pi('<path d="M7 10l5 5 5-5"/>')}</button>${list}</div>`;
+}
+function buttonDesignHtml(c, open) {
   const seg = (key, v, label, on, inner) => `<button type="button" role="radio" class="sp-seg sp-txt${on ? ' is-on' : ''}" aria-checked="${on}" data-btn-set="${key}" data-v="${v}" aria-label="${label}">${inner}</button>`;
   const line = (l, body) => `<div class="sp-row bp-btn-row"><span class="sp-label">${l}</span><span class="sp-ctl">${body}</span></div>`;
-  return `<div class="bp-bs-title">Button style</div><div class="bp-bs-wrap"><button type="button" class="bp-bs-cur" data-bpstyle-toggle aria-haspopup="listbox" aria-expanded="${open}">${aa}<span>${name}</span>${pi('<path d="M7 10l5 5 5-5"/>')}</button>${list}</div>`
+  return `<div class="bp-bs-title">Button style</div>${buttonStyleHtml(c.style, open)}`
     + line('Layout', seg('fit', '1', 'Fit', c.fit, 'Fit') + seg('fit', '', 'Fill', !c.fit, 'Fill'))
     + (c.fit ? line('Alignment', [['left', 'Align Left', '<path d="M5 5v14M19 12H9M13 8l-4 4 4 4"/>'], ['center', 'Align Center', '<path d="M12 5v14M4 12h5M6.5 9.5L9 12l-2.5 2.5M20 12h-5M17.5 9.5L15 12l2.5 2.5"/>'], ['right', 'Align Right', '<path d="M19 5v14M5 12h10M11 8l4 4-4 4"/>']].map(([v, l, icon]) => seg('align', v, l, c.align === v, pi(icon))).join('')) : '');
 }
@@ -411,6 +415,19 @@ function formContentHtml(c) {
   return f('formName', 'Form Name', c.formName) + f('button', 'Button Text', c.button) + row('Edit Form Fields')
     + head('Submissions') + row('Edit Post-Submit') + act('Manage Submissions') + act('Export Form Submissions')
     + head('Email Notification') + row('Additional Storage') + row('Google reCAPTCHA', 'On');
+}
+// A form's own Design rows (parity/findings/FORMADD.json). Form Style reaches every form on the site:
+// shown as the oracle shows it, its list is not built and was read only.
+const FORM_HIGHLIGHTS = [['none', 'None', 'NONE'], ['wave', 'Wave', '<i class="bp-fih-line"></i>'], ['double', 'Double Wave', '<i class="bp-fih-line"></i><i class="bp-fih-line"></i>'], ['glow', 'Glow', '<i class="bp-fih-box"></i>']];
+function formDesignHtml(c, open) {
+  const seg = (v, icon) => `<button type="button" role="radio" class="sp-seg sp-txt${c.buttonAlign === v ? ' is-on' : ''}" aria-checked="${c.buttonAlign === v}" aria-label="${v}" data-form-set="buttonAlign" data-v="${v}">${pi(icon)}</button>`;
+  const hi = FORM_HIGHLIGHTS.find(([k]) => k === c.highlight);
+  const tiles = !c.fihOpen ? '' : `<div class="bp-fih-grid" role="radiogroup" aria-label="First Input Highlight">${FORM_HIGHLIGHTS.map(([k, n, inner]) => `<button type="button" role="radio" class="bp-fih-tile bp-fih-tile--${k}${k === c.highlight ? ' is-on' : ''}" aria-checked="${k === c.highlight}" aria-label="${n}" data-form-set="highlight" data-v="${k}">${inner}</button>`).join('')}</div>`;
+  return `<div class="bp-form-h">Form Style</div><div class="bp-form-style" data-unbuilt title="Not built yet"><span class="bp-form-style-in">Text</span><span class="bp-form-style-ok">${pi('<path d="M7 12.5l3.5 3.5L17 9"/>')}</span>${pi('<path d="M7 10l5 5 5-5"/>')}</div><div class="bp-form-note">Form style affects all forms on your site.</div>`
+    + `<div class="bp-form-h">Button Style</div>${buttonStyleHtml(c.buttonStyle, open)}`
+    + `<div class="bp-form-h">Button Alignment</div><div class="bp-seg4 bp-form-seg" role="radiogroup" aria-label="Button Alignment">${seg('left', '<path d="M5 5v14M19 12H9M13 8l-4 4 4 4"/>')}${seg('center', '<path d="M12 5v14M4 12h5M6.5 9.5L9 12l-2.5 2.5M20 12h-5M17.5 9.5L15 12l2.5 2.5"/>')}${seg('right', '<path d="M19 5v14M5 12h10M11 8l4 4-4 4"/>')}${seg('stretch', '<path d="M5 5v14M19 5v14M8 12h8M10.5 9.5L8 12l2.5 2.5M13.5 9.5L16 12l-2.5 2.5"/>')}</div>`
+    + `<button type="button" class="bp-fih-row" data-fih-toggle aria-expanded="${!!c.fihOpen}"><span>First Input Highlight</span><em>${hi[1]}</em>${pi('<path d="M7 10l5 5 5-5"/>')}</button>${tiles}`
+    + `<div class="sp-row"><span class="sp-label">Lightbox</span><label class="sp-switch" data-unbuilt title="Not built yet"><input type="checkbox" disabled aria-label="Lightbox"><span aria-hidden="true"></span></label></div>`;
 }
 function mapContentHtml(c) {
   const f = (key, label, ph) => `<label class="bp-mapf"><span class="bp-soccap">${label}</span><input class="bp-socf" type="text" aria-label="${label}" placeholder="${ph}" data-content="${key}" value="${esc(c[key] || '')}"></label>`;
@@ -511,6 +528,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
     body = open;
   }
   if (kid && tab === 'Design') body = kidSizeHtml(kid) + body;
+  if (content?.kind === 'form' && tab === 'Design') body = formDesignHtml(content, open === 'bstyle') + body;
   if ((tab === 'Content' && (open === 'embed-data' || open?.startsWith('acc-item:') || open?.startsWith('soc-row:'))) || open === 'acc-dividers' || open === 'acc-title' || open === 'acc-desc') return `<div class="sp-body">${body}</div>`;
   const tabs = content?.kind === 'accordion' ? ['Content', 'Design'] : content?.kind === 'line' ? ['Design', 'Animation'] : content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
   // The header is also the drag handle (U13): the oracle labels it Click and drag to reposition block editor form.

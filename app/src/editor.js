@@ -1390,6 +1390,7 @@ let designOpen = null;
 let designTab = 'Design';
 let blendOpen = false;
 let bstyleOpen = false;
+let fihOpen = false;
 // The Animation tab (T15): which view, for which row of b.animations. i is null while a new row
 // has no preset yet: nothing is added until a tile or Start blank is pressed.
 const ANIM_LIST = { view: 'list', i: null, trigger: 'hover', tab: null, menu: false };
@@ -1408,7 +1409,7 @@ function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
-  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; embedData = false; accView = null; imageView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; accView = null; imageView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'image' || b.mode !== 'shape' || designTab !== 'Design') imageView = null; // undo can leave Shape
   if (b.type !== 'accordion' || (accView?.startsWith('acc-item:') && !b.items[Number(accView.slice(9))])) accView = null; // undo can take the item away
   const content = b.type === 'button' ? { label: b.label, href: b.href, pages: siteLinkGroups() } : b.type === 'image' ? { src: b.src, href: b.href, pages: siteLinkGroups(), alt: b.alt, filename: b.filename, empty: !!b.empty, focal: b.focal, aspect: b.aspect, lightbox: !!b.lightbox }
@@ -1418,7 +1419,7 @@ function renderBlockPanel() {
     : b.type === 'line' ? { kind: 'line' }
     : b.type === 'social' ? (() => { const l = socialLook(b, bp === 'mobile'); return { kind: 'social', links: socialList(), err: socErr, iconBorder: l.iconBorder, iconStyle: l.iconStyle, iconThick: l.iconThick, iconSize: l.iconSize, align: l.align }; })()
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
-    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send' }
+    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', buttonAlign: b.buttonAlign || 'left', highlight: b.highlight || 'none', fihOpen }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
@@ -1614,6 +1615,9 @@ blockPanel.addEventListener('click', (e) => {
   if (blendOpen && !e.target.closest('.bp-listbox')) { blendOpen = false; renderBlockPanel(); }
   if (e.target.closest('[data-bpstyle-toggle]')) { bstyleOpen = !bstyleOpen; renderBlockPanel(); return; }
   if (e.target.closest('[data-bpstyle-edit]')) { bstyleOpen = false; setSiteStyles(true); ssView = 'Buttons'; renderSsPanel(); return; }
+  if (e.target.closest('[data-fih-toggle]')) { const top = blockPanel.scrollTop; fihOpen = !fihOpen; renderBlockPanel(); blockPanel.scrollTop = top; blockPanel.querySelector('.bp-fih-grid')?.scrollIntoView({ block: 'nearest' }); return; }
+  const fset = e.target.closest('[data-form-set]');
+  if (fset && sel) { setFormDesign(fset.dataset.formSet, fset.dataset.v); return; }
   const bst = e.target.closest('[data-bpstyle]');
   if (bst && sel) { bstyleOpen = false; setButtonStyle(sel.sid, sel.bid, bst.dataset.bpstyle); return; }
   const bset = e.target.closest('[data-btn-set]');
@@ -1712,6 +1716,17 @@ function setButtonStyle(sid, bid, style) {
   if (style === 'primary') delete b.buttonStyle; else b.buttonStyle = style;
   renderSectionDom(sid);
   commit(before, `Button style ${style}`);
+}
+// A form's Button Alignment and First Input Highlight (FORMADD.json); left and none are the defaults.
+function setFormDesign(key, v) {
+  const b = B(sel.sid, sel.bid);
+  if (!b) return;
+  const before = JSON.stringify(model);
+  const top = blockPanel.scrollTop;
+  if (v === 'left' || v === 'none') delete b[key]; else b[key] = v;
+  renderSectionDom(sel.sid);
+  commit(before, `Form ${key} ${v}`);
+  blockPanel.scrollTop = top;
 }
 // Fit, Fill and Alignment of the view on screen (BUTTONDESIGN.json): the first change on the phone
 // starts from what the phone was following, and later desktop changes leave it alone.

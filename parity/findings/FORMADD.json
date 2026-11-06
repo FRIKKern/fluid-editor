@@ -1785,15 +1785,21 @@
   },
   "notRead": [
     "What Edit Form Fields, Edit Post-Submit, Additional Storage, reCAPTCHA and the export do: not pressed. Form storage writes outside the page.",
-    "Form Style's list on the block, which says it affects all forms on the site: not pressed.",
-    "Button Style, Button Alignment, First Input Highlight: their defaults only.",
-    "The hidden spam field off to the left."
+    "The hidden spam field off to the left.",
+    "Form Style's list and what its other choices draw: site-wide, and the tile opened nothing.",
+    "Edit Button Styles in Button Style's list: not pressed, site-wide.",
+    "Lightbox: not pressed, not built, shown faded.",
+    "Edit Form Fields and Edit Post-Submit: pressed in a probe, but neither opened, so their screens are unread.",
+    "Button Alignment and First Input Highlight on the phone."
   ],
   "inferred": [
     "The form name follows the page title: read on one page.",
     "Ours fades every row but Form Name and Button Text.",
     "The opacity .7 of (required) is from a screenshot, not read.",
-    "The 12px empty mark box in an option's checkbox is inferred: the row's parts were read, the box inside the checkbox was not. With it, Contact's rows match at 5 widths; without it, each is 4 px too tall. The sign-up row on a new form matches without it."
+    "The 12px empty mark box in an option's checkbox is inferred: the row's parts were read, the box inside the checkbox was not. With it, Contact's rows match at 5 widths; without it, each is 4 px too tall. The sign-up row on a new form matches without it.",
+    "The highlight on a form whose first field is not Name: read only on Name. Ours puts it on the first text box, text area or select.",
+    "The highlight tiles in the panel are still pictures; the oracle's move. The look of a tile is from screenshots.",
+    "Secondary and Tertiary look the same as Primary here because of this site's styles, not as a rule: other sites' styles were not read."
   ],
   "contactChrome": {
     "engine": "headless Chrome, both sides",
@@ -1805,5 +1811,129 @@
       1920
     ],
     "boxes": "65 of 65"
+  },
+  "design": {
+    "capturedAt": "2026-11-06",
+    "how": "A new Form on the probe page, unsaved, left with Exit Without Saving. Reads at 1600.",
+    "rows": [
+      "Form Style",
+      "Button Style",
+      "Button Alignment",
+      "First Input Highlight",
+      "Lightbox",
+      "Background",
+      "Stroke",
+      "Blend Mode",
+      "Blur",
+      "Transforms"
+    ],
+    "panelY": {
+      "Form Style tile": 99,
+      "Button Style tile": 297,
+      "Alignment control": 428,
+      "First Input Highlight row": 488
+    },
+    "formStyle": {
+      "note": "Form style affects all forms on your site.",
+      "read": "The tile only. Two presses on it opened no list. No choice pressed, site-wide."
+    },
+    "buttonStyle": {
+      "choices": [
+        "Primary Button",
+        "Secondary Button",
+        "Tertiary Button"
+      ],
+      "listEnd": "Edit Button Styles, not pressed",
+      "box": [
+        0,
+        494.3,
+        171.6,
+        66.6
+      ],
+      "note": "All three draw the same box and colours on this site. The button's class names the style."
+    },
+    "buttonAlignment": {
+      "labels": [
+        "left",
+        "center",
+        "right",
+        "stretch"
+      ],
+      "default": "left",
+      "formBox": [
+        0,
+        0,
+        518,
+        560.9
+      ],
+      "button": {
+        "left": [
+          0,
+          494.3,
+          171.6,
+          66.6
+        ],
+        "center": [
+          173.2,
+          494.3,
+          171.6,
+          66.6
+        ],
+        "right": [
+          346.4,
+          494.3,
+          171.6,
+          66.6
+        ],
+        "stretch": [
+          0,
+          494.3,
+          518,
+          66.6
+        ]
+      }
+    },
+    "firstInputHighlight": {
+      "choices": [
+        "None",
+        "Wave",
+        "Double Wave",
+        "Glow"
+      ],
+      "grid": {
+        "tile": [
+          92,
+          92
+        ],
+        "gap": 6,
+        "columns": 3
+      },
+      "firstControlOnly": true,
+      "blockAndFormBoxChange": false,
+      "wave": {
+        "ring": "2px, the first input's corner",
+        "durationMs": 5000,
+        "delayMs": 0,
+        "moving": 1
+      },
+      "double": {
+        "ring": "2px, the first input's corner",
+        "durationMs": 6000,
+        "delayMs": [
+          0,
+          -3000
+        ],
+        "moving": 2
+      },
+      "glow": {
+        "ring": "2px border",
+        "durationMs": 2500,
+        "opacity": [
+          0.1,
+          1,
+          0.1
+        ]
+      }
+    }
   }
 }

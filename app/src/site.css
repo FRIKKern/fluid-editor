@@ -424,6 +424,37 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .fe-form label.title .req { margin-left: 8px; line-height: 1; font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); opacity: .7; }
 .fe-form .caption-row .req { margin-left: 8px; line-height: 1; opacity: .7; }
 .fe-form .form-button-wrapper { margin: 0; }
+.fe-form .form-button-wrapper--align-center { text-align: center; }
+.fe-form .form-button-wrapper--align-right { text-align: right; }
+.fe-form .form-button-wrapper--align-stretch .form-submit { width: 100%; }
+/* First Input Highlight (parity/findings/FORMADD.json): a 2px ring over the first control. */
+.fe-form .form-fx-box { display: block; position: relative; }
+.fe-form .form-input-effects { position: absolute; inset: 0; pointer-events: none; }
+.fe-form .form-fx { position: absolute; inset: 0; box-sizing: border-box; border-radius: 24.784px; }
+.fe-form .form-fx--wave, .fe-form .form-fx--double {
+  padding: 2px; overflow: hidden;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude;
+}
+.fe-form .form-fx--wave::before, .fe-form .form-fx--double::before, .fe-form .form-fx--double::after {
+  content: ''; position: absolute; top: 50%; left: 50%; width: 320px; height: 320px;
+  background: conic-gradient(transparent 40%, currentColor, transparent 60%);
+  -webkit-mask: linear-gradient(to right, transparent 40%, #000, transparent 60%); mask: linear-gradient(to right, transparent 40%, #000, transparent 60%);
+  animation: form-fx-trace 5s linear infinite;
+}
+.fe-form .form-fx--double::before, .fe-form .form-fx--double::after { animation-duration: 6s; }
+.fe-form .form-fx--double::after { animation-delay: -3s; }
+.fe-form .form-fx--glow::before {
+  content: ''; position: absolute; inset: 0; box-sizing: border-box; border: 2px solid currentColor; border-radius: inherit;
+  animation: form-fx-glow 2.5s linear infinite;
+}
+@keyframes form-fx-trace {
+  0%, 100% { left: 50%; transform: translate3d(-50%, -50%, 0) scaleY(1) scaleX(3) rotate(0deg); }
+  25% { left: min(50%, 40px); transform: translate3d(-50%, -50%, 0) scaleY(1.5) scaleX(1) rotate(90deg); }
+  50% { transform: translate3d(-50%, -50%, 0) scaleY(1) scaleX(3) rotate(180deg); }
+  75% { left: calc(100% - min(40px, 50%)); transform: translate3d(-50%, -50%, 0) scaleY(1.5) scaleX(1) rotate(270deg); }
+}
+@keyframes form-fx-glow { 0%, 100% { opacity: .1; } 50% { opacity: 1; } }
 .fe-form .form-submit { height: 66.6px; padding: 20.8px 56px; border: 0; border-radius: 300px; background: #000; color: #fff; font: inherit; font-weight: 500; letter-spacing: .02em; }
 
 /* Line block (T11) */
