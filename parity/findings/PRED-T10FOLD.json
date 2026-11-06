@@ -29,5 +29,21 @@
     "javascript": "`function f() {…};`, `[…]` inside, a comment of several lines, `if (x) {…} else {`",
     "html": "`<div>…</div>`: the closing tag stays beside it; a tag across lines folds to its own `>`",
     "plain": "no chevrons; a fold doesn't survive changing Mode"
+  },
+  "second": {
+    "written after CAP-T10FOLD5 and CAP-T10FOLD6, before CAP-T10FOLD7": true,
+    "backspace right of a fold": "takes the last hidden letter and opens the fold",
+    "left from right of a fold": "goes in and opens the fold, as right does from the other side",
+    "end on a folded row": "lands right of the fold",
+    "folding with the caret on a hidden line": "caret stays, a key opens nothing until it lands",
+    "javascript": "`function f() {…};`, `  return […];`, `const o = {…};` with ` a: 1 ` hidden, `/*…*/`, `if (x) {…} else {`, `} else {…}`",
+    "javascript unclosed": "folds to the end",
+    "html li": "`  <li>…</ul> tail`: to its own end, the close of what holds it",
+    "html comment": "no chevron",
+    "html script": "one on `<script>`, none inside it, and the same for `<style>`",
+    "html void over lines": "none",
+    "html unclosed": "`<div>…` to the end",
+    "css unclosed": "to the end",
+    "markdown comment": "`<!-- x…\\nz`"
   }
 }
