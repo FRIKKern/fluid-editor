@@ -1,0 +1,315 @@
+{
+  "item": "PRED-T7ROWS2",
+  "question": "T10: written and pushed before reading CAP-T10ROWS2. The rule for a section's rows when a Code, Markdown or Embed block grows and shrinks: they move by the block's rows, keeping the spare rows, never below a block's end. Inferred from CAP-T7THICK.json, no fresh read. These sizes are unread. Last round: the count before any refit stands. Each case's rows are what our code gives from the same start.",
+  "rule": "s.rows + (block's new rows - its old rows), at least the lowest block's end",
+  "padding and corner": "T7, for CAP-T7SCRUB: Padding's and Corner's fields have the same <> as Thickness: dim on a hover or a focus, a dark line on focus, a press does nothing, a pull moves the value",
+  "cases": {
+    "Code desktop a": {
+      "9": {
+        "areas": [
+          [
+            "1/2/9/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 10
+      },
+      "12": {
+        "areas": [
+          [
+            "1/2/13/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 14
+      },
+      "22": {
+        "areas": [
+          [
+            "1/2/22/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 23
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 8
+      }
+    },
+    "Code desktop b": {
+      "5": {
+        "areas": [
+          [
+            "1/2/5/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 6
+      },
+      "17": {
+        "areas": [
+          [
+            "1/2/17/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 18
+      },
+      "35": {
+        "areas": [
+          [
+            "1/2/34/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 35
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 8
+      }
+    },
+    "Code phone": {
+      "7": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/9/10"
+          ]
+        ],
+        "rows": 8
+      },
+      "12": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/14/10"
+          ]
+        ],
+        "rows": 13
+      },
+      "23": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/27/10"
+          ]
+        ],
+        "rows": 26
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 6
+      }
+    },
+    "Embed desktop": {
+      "4": {
+        "areas": [
+          [
+            "1/2/5/10",
+            "1/2/9/10"
+          ]
+        ],
+        "rows": 4
+      },
+      "7": {
+        "areas": [
+          [
+            "1/2/9/10",
+            "1/2/9/10"
+          ]
+        ],
+        "rows": 8
+      },
+      "15": {
+        "areas": [
+          [
+            "1/2/16/10",
+            "1/2/9/10"
+          ]
+        ],
+        "rows": 15
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/9/10",
+            "1/2/9/10"
+          ]
+        ],
+        "rows": 8
+      }
+    },
+    "Embed phone": {
+      "5": {
+        "areas": [
+          [
+            "1/2/9/10",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 6
+      },
+      "13": {
+        "areas": [
+          [
+            "1/2/9/10",
+            "1/2/16/10"
+          ]
+        ],
+        "rows": 15
+      },
+      "27": {
+        "areas": [
+          [
+            "1/2/9/10",
+            "1/2/32/10"
+          ]
+        ],
+        "rows": 31
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/9/10",
+            "1/2/9/10"
+          ]
+        ],
+        "rows": 8
+      }
+    },
+    "Markdown desktop": {
+      "6": {
+        "areas": [
+          [
+            "1/2/6/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 7
+      },
+      "12": {
+        "areas": [
+          [
+            "1/2/13/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 14
+      },
+      "25": {
+        "areas": [
+          [
+            "1/2/25/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 26
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 8
+      }
+    },
+    "Code, a section pulled taller": {
+      "3": {
+        "areas": [
+          [
+            "1/2/4/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 13
+      },
+      "14": {
+        "areas": [
+          [
+            "1/2/14/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 23
+      },
+      "24": {
+        "areas": [
+          [
+            "1/2/24/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 33
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 16
+      }
+    },
+    "Second Code": {
+      "8": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ],
+          [
+            "1/2/8/6",
+            "7/2/13/10"
+          ]
+        ],
+        "rows": 9
+      },
+      "18": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ],
+          [
+            "1/2/18/6",
+            "7/2/13/10"
+          ]
+        ],
+        "rows": 19
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ],
+          [
+            "1/2/7/6",
+            "7/2/13/10"
+          ]
+        ],
+        "rows": 8
+      }
+    }
+  }
+}
