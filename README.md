@@ -25,13 +25,12 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 111 changes
-  - R2: text that grows or shrinks moves blocks; first undo falls by height ([#290](https://github.com/FRIKKern/fluid-editor/pull/290))
-  - T10: folding in the Code and Markdown editors ([#288](https://github.com/FRIKKern/fluid-editor/pull/288))
-- **Yesterday** · 52 changes
+- **Today** · 1 change
+  - L6, T6: Anchor, Corner per layout, a new Shape's rows, Color's Reset on a phone ([#292](https://github.com/FRIKKern/fluid-editor/pull/292))
+- **Yesterday** · 112 changes
+  - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
+- **This week** · 160 changes, 3 milestones closed
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
-- **This week** · 108 changes, 3 milestones closed
-  - X2, G5: a held block stays inside the grid, phones have the center line ([#126](https://github.com/FRIKKern/fluid-editor/pull/126))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
