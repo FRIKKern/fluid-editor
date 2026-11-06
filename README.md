@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 46 changes
+- **Today** · 47 changes
+  - U9, U10: Edit Section on the rounded heights above; Panel top stops at 272 exactly ([#225](https://github.com/FRIKKern/fluid-editor/pull/225))
   - A2, T11: one rule for the phone order, tested on fresh reads ([#224](https://github.com/FRIKKern/fluid-editor/pull/224))
-  - L6: Reset to default value shows on focus only, a hover shows nothing ([#223](https://github.com/FRIKKern/fluid-editor/pull/223))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
