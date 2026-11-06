@@ -4448,17 +4448,26 @@ for (const host of [panel, sectionPanel]) {
 }
 function chromeSid() { return editSid || sel?.sid || hoverSid; }
 // The chrome fades out over 0.15s when the mouse leaves, and the outline over 0.2s; a gesture takes it away at once
-// (SECTIONBAR.json, fade; CAP-U9FADE.json). Add Section takes 0.2s too, on its opacity (CAP-U9ADDFADE.json). The outline fades there too: moving to another section and in a gesture, the
-// old one fades as a copy left behind (CAP-U9CLOSE.json). A copy doesn't follow a scroll during its 0.2 s, ours only.
+// (SECTIONBAR.json, fade; CAP-U9FADE.json). Add Section takes 0.2s too, on its opacity (CAP-U9ADDFADE.json). Those two fade
+// there too, moving to another section and in a gesture, and Add Section on selecting a block: each as a copy left behind
+// (CAP-U9CLOSE.json, CAP-U9ADDFADE2.json, CAP-U9ADDFADE3.json). A copy doesn't follow a scroll during its 0.2 s, ours only.
 let chromeOut = 0;
+function leaveCopy(o, cls, frames) {
+  const gone = o.cloneNode(true);
+  gone.classList.add(cls);
+  for (const n of ['data-sc-part', 'data-sc']) gone.removeAttribute(n);
+  chrome.after(gone);
+  gone.animate(frames, { duration: 200, easing: 'ease-in-out', fill: 'forwards' }).onfinish = () => gone.remove();
+}
+function addSectionAway() {
+  if (chrome.hidden) return;
+  for (const o of chrome.querySelectorAll('.sc-add-section')) leaveCopy(o, 'sc-add-gone', [{ opacity: getComputedStyle(o).opacity }, { opacity: 0 }]);
+}
 function outlineAway() {
   const o = chrome.hidden ? null : chrome.querySelector('.sc-outline');
   if (!o) return;
-  const gone = o.cloneNode(false);
-  gone.classList.add('sc-outline-gone');
-  gone.removeAttribute('data-sc-part');
-  chrome.after(gone);
-  gone.animate([{ borderColor: getComputedStyle(o).borderTopColor }, { borderColor: 'transparent' }], { duration: 200, easing: 'ease-in-out', fill: 'forwards' }).onfinish = () => gone.remove();
+  leaveCopy(o, 'sc-outline-gone', [{ borderColor: getComputedStyle(o).borderTopColor }, { borderColor: 'transparent' }]);
+  addSectionAway();
 }
 function hideChrome(fade) {
   if (chrome.hidden || (fade && chromeOut)) return;
@@ -4482,6 +4491,8 @@ function placeChrome() {
   if (newSection) outlineAway();
   if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); }
   // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
+  // Selecting a block takes Add Section away, and letting the block go brings it back: both over 0.2 s (CAP-U9ADDFADE3.json).
+  if (chrome.dataset.key !== key && !newSection) { if (blockSelected) addSectionAway(); chrome.classList.toggle('is-add-in', chrome.dataset.key?.split('|')[4] === 'true' && !blockSelected); }
   if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
   if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in', 'is-add-in'); }
