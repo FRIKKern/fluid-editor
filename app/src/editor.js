@@ -1869,7 +1869,7 @@ function setButtonView(key, v) {
 // fall by what the fit fell. A block made taller by hand keeps the rest: 8 rows, fit 3 to 2, gives 7.
 const FIT_KEYS = new Set(['background', 'stroke', 'strokeSize', 'strokePx', 'pad', 'padY', 'padX', 'padT', 'padB', 'padL', 'padR']);
 function designChange(b, keys, change, fitBefore = null) {
-  // A video's rows follow its height by the rule of a code block's, and a rise pushes what is below it (CAP-T7DESIGN2.json, CAP-T7DESIGN3.json).
+  // A video's rows follow its height by the rule of a code block's, and what is below it goes along (CAP-T7DESIGN2.json, CAP-T7DESIGN3.json, CAP-T7ORDER.json).
   if (b.type === 'video' && keys.some((k) => FIT_KEYS.has(k))) {
     const was = codeHeight(b);
     change();
@@ -2720,8 +2720,10 @@ function fitRows(b, was) {
   const bottom = L.area[2];
   L.area = [L.area[0], L.area[1], L.area[0] + next, L.area[3]];
   const s = S(sel.sid);
-  if (b.type === 'video' && next > rows) for (const o of s.blocks) { const A = o !== b && o.layout?.[bp]?.area; if (A && A[0] >= bottom) { A[0] += next - rows; A[2] += next - rows; } }
-  s.rows[bp] = Math.max(s.rows[bp], ...s.blocks.map((o) => (o.layout?.[bp]?.area?.[2] ?? 1) - 1)); // or the rows past the section's end collapse
+  // A video takes what is below it along, up or down (CAP-T7ORDER.json). The section's rows move by the same
+  // number, keeping any spare below (CAP-T7THICK.json), but never past a block's end, or the rows past it collapse.
+  if (b.type === 'video') for (const o of s.blocks) { const A = o !== b && o.layout?.[bp]?.area; if (A && A[0] >= bottom) { A[0] += next - rows; A[2] += next - rows; } }
+  s.rows[bp] = Math.max(s.rows[bp] + next - rows, ...s.blocks.map((o) => (o.layout?.[bp]?.area?.[2] ?? 1) - 1));
   renderSectionDom(sel.sid);
 }
 // The Markdown block's toolbar and keys, in the panel and in the Code Editor view (markdown-edit.js).
@@ -3125,14 +3127,15 @@ blockPanel.addEventListener('change', (e) => {
 }, true);
 // A video's settings (VIDEOPLAYER.json): one undo step each. The file stays in this tab only: the
 // browser's storage holds a few MB, so after a reload the block keeps its name but not its picture.
-function setVideo(change, label) {
+function setVideo(change, label, fit = false) {
   const b = sel && B(sel.sid, sel.bid);
   if (!b || b.type !== 'video') return;
-  const before = JSON.stringify(model);
+  const before = JSON.stringify(model), was = codeHeight(b);
   b.video = { ...(b.video || {}) };
   change(b.video);
   if (!Object.keys(b.video).length) delete b.video;
   renderSectionDom(sel.sid);
+  if (fit) fitRows(b, was); // an Aspect ratio takes whole rows by a Code block's rule (CAP-T7ORDER.json)
   commit(before, label);
   renderBlockPanel();
 }
@@ -3152,7 +3155,7 @@ blockPanel.addEventListener('change', async (e) => {
   if (s) {
     e.stopImmediatePropagation();
     const k = s.dataset.video;
-    setVideo((v) => { if (k === 'thumb') { if (s.checked) v.thumb = true; else { delete v.thumb; delete v.thumbSrc; } } else v[k] = s.value; }, `Video ${k}`);
+    setVideo((v) => { if (k === 'thumb') { if (s.checked) v.thumb = true; else { delete v.thumb; delete v.thumbSrc; } } else v[k] = s.value; }, `Video ${k}`, k === 'aspect');
     return;
   }
   const tf = e.target.closest('input[data-video-thumb-file]');
@@ -3449,6 +3452,29 @@ blockPanel.addEventListener('input', (e) => {
   renderSectionDom(sel.sid);
   const t = r.parentElement.querySelector('input[type="text"]');
   if (t) t.value = t.value.replace(/^[\d.]+/, r.value);
+});
+// The <> on a Thickness field: a pull moves the value 0.4 a pixel, down to 0, with the block following; letting go
+// is the same as typing it, so one undo step and the same rows (CAP-T7THICK3.json, CAP-T7THICK4.json).
+const SCRUB_PER_PX = 0.4;
+blockPanel.addEventListener('pointerdown', (e) => {
+  const grip = e.target.closest('[data-scrub]');
+  if (!grip || !sel) return;
+  e.preventDefault();
+  const input = grip.parentElement.querySelector('input[data-design]'), b = B(sel.sid, sel.bid), bag = designBag(bp), k = grip.dataset.scrub;
+  const start = parseFloat(input.value) || 0, x0 = e.clientX, had = b[bag]?.[k], valueAt = (x) => Math.min(RANGE_LIMITS[k], Math.max(0, start + Math.round((x - x0) * SCRUB_PER_PX)));
+  const show = (v) => { b[bag] = { ...(b[bag] || {}), [k]: v }; renderSectionDom(sel.sid); input.value = `${v}px`; };
+  const move = (m) => show(valueAt(m.clientX));
+  const up = (m) => {
+    removeEventListener('pointermove', move); removeEventListener('pointerup', up);
+    const v = valueAt(m.clientX);
+    b[bag] = { ...(b[bag] || {}) };
+    if (had === undefined) delete b[bag][k]; else b[bag][k] = had;
+    renderSectionDom(sel.sid);
+    if (v === start) { input.value = `${start}px`; return; }
+    input.value = String(v);
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  };
+  addEventListener('pointermove', move); addEventListener('pointerup', up);
 });
 function onDesignChange(e) {
   const input = e.target.closest('input[data-design]');
