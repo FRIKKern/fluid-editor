@@ -1,0 +1,1206 @@
+{
+  "item": "CAP-Y2GAPS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "Y2: the split of typing into undo steps between 900 and 1000 ms, gaps at 25 ms steps, real keys in one process; and second readings of the in-edit undo. Cmd+Z only, no clipboard keys.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      900,
+      [
+        "a",
+        "b",
+        "c"
+      ]
+    ],
+    [
+      "read",
+      "gap 900 #1",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "gap 900 #1, walk",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      925,
+      [
+        "a",
+        "b",
+        "c"
+      ]
+    ],
+    [
+      "read",
+      "gap 925 #1",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "gap 925 #1, walk",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      950,
+      [
+        "a",
+        "b",
+        "c"
+      ]
+    ],
+    [
+      "read",
+      "gap 950 #1",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "gap 950 #1, walk",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      975,
+      [
+        "a",
+        "b",
+        "c"
+      ]
+    ],
+    [
+      "read",
+      "gap 975 #1",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "gap 975 #1, walk",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      1000,
+      [
+        "a",
+        "b",
+        "c"
+      ]
+    ],
+    [
+      "read",
+      "gap 1000 #1",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "gap 1000 #1, walk",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      900,
+      [
+        "a",
+        "b",
+        "c"
+      ]
+    ],
+    [
+      "read",
+      "gap 900 #2",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "gap 900 #2, walk",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      925,
+      [
+        "a",
+        "b",
+        "c"
+      ]
+    ],
+    [
+      "read",
+      "gap 925 #2",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "gap 925 #2, walk",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      950,
+      [
+        "a",
+        "b",
+        "c"
+      ]
+    ],
+    [
+      "read",
+      "gap 950 #2",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "gap 950 #2, walk",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      975,
+      [
+        "a",
+        "b",
+        "c"
+      ]
+    ],
+    [
+      "read",
+      "gap 975 #2",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "gap 975 #2, walk",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      1000,
+      [
+        "a",
+        "b",
+        "c"
+      ]
+    ],
+    [
+      "read",
+      "gap 1000 #2",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "gap 1000 #2, walk",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "one two"
+    ],
+    [
+      "read",
+      "typed #1",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Cmd+Z in the edit #1",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Cmd+Z again #1",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "one two"
+    ],
+    [
+      "click",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Undo button in the edit #1",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Exit"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "one two"
+    ],
+    [
+      "read",
+      "typed #2",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Cmd+Z in the edit #2",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Cmd+Z again #2",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "one two"
+    ],
+    [
+      "click",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Undo button in the edit #2",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Exit"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "gap 900 #1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 900 #1, walk": {
+      "undo": [
+        [
+          "start",
+          "abc"
+        ],
+        [
+          1,
+          ""
+        ],
+        [
+          2,
+          null
+        ],
+        [
+          3,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "gap 925 #1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 925 #1, walk": {
+      "undo": [
+        [
+          "start",
+          "abc"
+        ],
+        [
+          1,
+          ""
+        ],
+        [
+          2,
+          null
+        ],
+        [
+          3,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "gap 950 #1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 950 #1, walk": {
+      "undo": [
+        [
+          "start",
+          "abc"
+        ],
+        [
+          1,
+          ""
+        ],
+        [
+          2,
+          null
+        ],
+        [
+          3,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "gap 975 #1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 975 #1, walk": {
+      "undo": [
+        [
+          "start",
+          "abc"
+        ],
+        [
+          1,
+          ""
+        ],
+        [
+          2,
+          null
+        ],
+        [
+          3,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "gap 1000 #1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 1000 #1, walk": {
+      "undo": [
+        [
+          "start",
+          "abc"
+        ],
+        [
+          1,
+          "ab"
+        ],
+        [
+          2,
+          "a"
+        ],
+        [
+          3,
+          ""
+        ],
+        [
+          4,
+          null
+        ],
+        [
+          5,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "gap 900 #2": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 900 #2, walk": {
+      "undo": [
+        [
+          "start",
+          "abc"
+        ],
+        [
+          1,
+          ""
+        ],
+        [
+          2,
+          null
+        ],
+        [
+          3,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "gap 925 #2": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 925 #2, walk": {
+      "undo": [
+        [
+          "start",
+          "abc"
+        ],
+        [
+          1,
+          ""
+        ],
+        [
+          2,
+          null
+        ],
+        [
+          3,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "gap 950 #2": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 950 #2, walk": {
+      "undo": [
+        [
+          "start",
+          "abc"
+        ],
+        [
+          1,
+          ""
+        ],
+        [
+          2,
+          null
+        ],
+        [
+          3,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "gap 975 #2": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 975 #2, walk": {
+      "undo": [
+        [
+          "start",
+          "abc"
+        ],
+        [
+          1,
+          ""
+        ],
+        [
+          2,
+          null
+        ],
+        [
+          3,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "gap 1000 #2": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 1000 #2, walk": {
+      "undo": [
+        [
+          "start",
+          "abc"
+        ],
+        [
+          1,
+          "ab"
+        ],
+        [
+          2,
+          "a"
+        ],
+        [
+          3,
+          ""
+        ],
+        [
+          4,
+          null
+        ],
+        [
+          5,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "typed #1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">one two</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Cmd+Z in the edit #1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Undo button in the edit #1": {
+      "has": {
+        "Exit": true
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed #2": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">one two</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Cmd+Z in the edit #2": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Undo button in the edit #2": {
+      "has": {
+        "Exit": true
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "read [\"Cmd+Z again #1\",{\"html\":[0,\"new\"]}]: js_error: TypeError: Cannot read properties of null (reading 'querySelector')",
+    "read [\"Cmd+Z again #2\",{\"html\":[0,\"new\"]}]: js_error: TypeError: Cannot read properties of null (reading 'querySelector')"
+  ],
+  "leftDirty": false,
+  "answer": "Three keys, real and in one process, at each gap, twice. 900, 925, 950 and 975 ms: 1 step, 2 of 2 each. 1000 ms: 3 steps, 2 of 2. So the split sits above 975 and at or below 1000.",
+  "ours": "The same at 900, 975, 1000 and 1025: TYPING_PAUSE is 1000.",
+  "differs": [],
+  "pressed": "Named presses with an on-top check. Typing by real keys in the search and link fields. Unnamed: real clicks on blocks and a drag, the box Edit by Enter since it opens focused. No Save, no upload, no Reset, no tile or row pressed, Copy and Remove Link not pressed."
+}
