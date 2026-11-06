@@ -90,16 +90,15 @@ export function arrangeMenuHtml() {
   return [it('z-forward', 'Move forward', '↑'), it('z-front', 'Move to front'), it('z-backward', 'Move backward', '↓'), it('z-back', 'Move to back')].join('');
 }
 
-// Copy Properties and Paste Properties (labels read on the oracle, 2026-11-04: Transforms and
-// Animations; Replace Animations). Replace Transforms is ours: the oracle's menu was read with
-// nothing copied. Animations are not built (T15).
-export function copyPropsMenuHtml() {
-  const it = (act, label, extra = '') => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"${extra}><span>${label}</span></button>`;
-  return [it('pcopy-transforms', 'Transforms'), it('pcopy-animations', 'Animations', ' data-unbuilt')].join('');
+// Copy Properties and Paste Properties, read on the oracle (parity/findings/CAP-COPYANIM.json).
+// Copy's Animations is grey on a block with no animations. Paste's rows are grey until their kind
+// is on the one clip: Animations adds after the block's rows, Replace Animations takes their place.
+const propRow = (act, label, on = true) => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"${on ? '' : ' disabled'}><span>${label}</span></button>`;
+export function copyPropsMenuHtml({ hasAnimations }) {
+  return [propRow('pcopy-transforms', 'Transforms'), propRow('pcopy-animations', 'Animations', hasAnimations)].join('');
 }
-export function pastePropsMenuHtml({ canPaste }) {
-  const it = (act, label, extra = '') => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"${extra}><span>${label}</span></button>`;
-  return [it('ppaste-transforms', 'Replace Transforms', canPaste ? '' : ' disabled'), it('ppaste-animations', 'Replace Animations', ' data-unbuilt')].join('');
+export function pastePropsMenuHtml({ canTransforms, canAnimations }) {
+  return [propRow('ppaste-transforms', 'Transforms', canTransforms), propRow('ppaste-animations', 'Animations', canAnimations), propRow('preplace-animations', 'Replace Animations', canAnimations)].join('');
 }
 
 // On a phone the oracle's menu has no Copy Properties or Paste Properties (parity/findings/LINKBOX.json).

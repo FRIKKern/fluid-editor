@@ -356,6 +356,130 @@ for (const name of ['Text', 'Image']) {
 id = picked;
 add('After a pick: the first block keeps its row', (await model()).length === 1);
 
+
+// U11, T15: Copy Properties and Paste Properties on the block menu (parity/findings/CAP-COPYANIM.json).
+{
+  const C = JSON.parse(readFileSync(new URL('../parity/findings/CAP-COPYANIM.json', import.meta.url)));
+  const bs = C.boxes;
+  await fresh('Text');
+  await clickSel(act('add')); await clickRadio('hover-1', 200);
+  const one = (await model())[0];
+  const proto = q(`const b = JSON.parse(JSON.stringify(fe.model.sections[1].blocks.find((x) => x.id === ${JSON.stringify(id)}))); delete b.animations; return JSON.stringify(b);`);
+  const row = (k) => ({ ...one, preset: `p${k}` });
+  const blk = (bid, top, extra = {}) => ({ ...proto, id: bid, layout: { desktop: { ...proto.layout.desktop, area: [top, 2, top + 4, 10] }, mobile: { ...proto.layout.mobile, area: [top, 2, top + 4, 10] } }, ...extra });
+  const base = { a: blk('a', 1, { animations: [row(1), row(2)], design: { opacity: 50, rotate: 10 } }), b: blk('b', 6), c: blk('c', 11, { animations: [row(3)], design: { opacity: 80, rotate: 30 } }), e: blk('e', 16), z: blk('z', 21, { animations: [row(9)] }) };
+  const load = () => q(`const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [{ ...next.sections[0], id: 's1', blocks: ${JSON.stringify(Object.values(base))}, rows: { desktop: 40, mobile: 40 } }, { ...next.sections[0], id: 's2', blocks: [${JSON.stringify(blk('o', 1))}], rows: { desktop: 8, mobile: 8 } }]; fe.load(next); await sleep(300); d.querySelector('.fe-block[data-block-id="a"]').scrollIntoView({ block: 'center' }); await sleep(120); return 'true';`);
+  const anims = (bid) => q(`const b = fe.model.sections.flatMap((s) => s.blocks).find((x) => x.id === '${bid}'); return JSON.stringify((b.animations || []).map((r) => r.preset));`);
+  const menu = async (bid) => { q(`document.getElementById('arrange-menu').hidden = true; const e = d.querySelector('.fe-block[data-block-id="${bid}"]'); e.scrollIntoView({ block: 'center' }); await sleep(60); const r = e.getBoundingClientRect(); e.firstElementChild.dispatchEvent(new W.MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: r.left + 30, clientY: r.top + 10, button: 2, view: W })); await sleep(120); return 'true';`); };
+  const hover = async (label) => { const c = q(`const e = document.querySelector('#context-menu [aria-label="${label}"]'); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`); mouse(S, 'move', c[0], c[1]); await pause(160); };
+  const subRows = () => q(`const m = document.getElementById('arrange-menu'); return JSON.stringify(m.hidden ? null : [...m.querySelectorAll('button')].map((b) => [b.getAttribute('aria-label'), !b.disabled]));`);
+  const press = (label) => clickSel(`document.querySelector('#arrange-menu [aria-label="${label}"]')`, 200);
+  const copyAnim = async (bid) => { await menu(bid); await hover('Copy Properties'); await press('Animations'); };
+  const paste = async (bid, label) => { await menu(bid); await hover('Paste Properties'); await press(label); };
+  const undoNow = () => q(`fe.undo(); await sleep(150); return 'true';`);
+  const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+
+  load(); await pause(200);
+  await menu('b');
+  const mm = q(`const m = document.getElementById('context-menu'), r = m.getBoundingClientRect(), f = m.querySelector('button').getBoundingClientRect(), c = getComputedStyle(m); return JSON.stringify({ w: r.width, h: r.height, top: f.top - r.top, radius: c.borderRadius, shadow: c.boxShadow, font: getComputedStyle(m.querySelector('button')).fontSize });`);
+  add('The block menu: box', near(mm.w, bs.menu[2], 0.5) && near(mm.h, bs.menu[3]) && near(mm.top, bs.menuFirstRowTop), JSON.stringify(mm));
+  add('The block menu: corner and type', mm.radius === bs.menuRadius && mm.font === bs.fontSize, JSON.stringify(mm));
+  add('The block menu: shadow', mm.shadow.includes('0px 2px 8px 0px') && mm.shadow.includes('0px 0px 1px 0px'), mm.shadow);
+  await hover('Arrange');
+  const ar = q(`const m = document.getElementById('arrange-menu').getBoundingClientRect(), p = document.querySelector('#context-menu [aria-label="Arrange"]').getBoundingClientRect(); return JSON.stringify({ w: m.width, h: m.height, top: m.top - p.top, gap: m.left - p.right });`);
+  add('Arrange: a hover opens it, box', near(ar.w, bs.arrangeSub[2], 0.5) && near(ar.h, bs.arrangeSub[3]) && near(ar.top, 0) && near(ar.gap, bs.arrangeSub[0] - bs.arrangeParentRow[0] - bs.arrangeParentRow[2], 1), JSON.stringify(ar));
+  await hover('Copy Properties');
+  add('Copy Properties: a hover opens it, Animations grey with no rows', same(subRows(), [['Transforms', true], ['Animations', false]]), JSON.stringify(subRows()));
+  const sub = (label) => q(`const m = document.getElementById('arrange-menu').getBoundingClientRect(), p = document.querySelector('#context-menu [aria-label="${label}"]').getBoundingClientRect(), it = document.querySelector('#arrange-menu button'), t = it.querySelector('span').getBoundingClientRect(), c = getComputedStyle(it), g = getComputedStyle(document.querySelector('#arrange-menu button:disabled')); return JSON.stringify({ gap: m.left - p.right, top: m.top - p.top, w: m.width, h: m.height, row: it.getBoundingClientRect().height, text: t.left - m.left, font: c.fontSize, on: c.color, grey: g.color, radius: getComputedStyle(document.getElementById('arrange-menu')).borderRadius });`);
+  const cs = sub('Copy Properties');
+  add('Copy Properties rows: box', near(cs.gap, bs.copySub[0] - bs.copyParentRow[0] - bs.copyParentRow[2], 1) && near(cs.top, 0) && near(cs.w, bs.copySub[2]) && near(cs.h, bs.copySub[3]) && near(cs.row, bs.copySubRow[3]) && near(cs.text, bs.rowTextLeft), JSON.stringify(cs));
+  add('Copy Properties rows: type', cs.font === bs.fontSize && cs.on === bs.on && cs.grey === bs.grey && cs.radius === bs.subRadius, JSON.stringify(cs));
+  await clickSel(`document.querySelector('#arrange-menu [aria-label="Animations"]')`, 150);
+  add('A press on a grey row leaves the menu open', q(`return JSON.stringify(!document.getElementById('arrange-menu').hidden && !document.getElementById('context-menu').hidden);`));
+  await hover('Paste Properties');
+  add('Paste Properties: three rows, all grey with nothing copied', same(subRows(), [['Transforms', false], ['Animations', false], ['Replace Animations', false]]), JSON.stringify(subRows()));
+  const ps = sub('Paste Properties');
+  add('Paste Properties rows: box', near(ps.top, 0) && near(ps.w, bs.pasteSub[2]) && near(ps.h, bs.pasteSub[3]), JSON.stringify(ps));
+  await hover('Duplicate');
+  add('A hover on another row closes them', q(`return JSON.stringify(document.getElementById('arrange-menu').hidden);`));
+
+  await menu('a'); await hover('Copy Properties');
+  add('Copy: Animations on for a block with rows', same(subRows(), [['Transforms', true], ['Animations', true]]), JSON.stringify(subRows()));
+  await press('Animations');
+  add('Copy: an on row closes the menu', q(`return JSON.stringify(document.getElementById('arrange-menu').hidden && document.getElementById('context-menu').hidden);`));
+  await menu('b'); await hover('Paste Properties');
+  add('After copying animations: Transforms grey, the other two on', same(subRows(), [['Transforms', false], ['Animations', true], ['Replace Animations', true]]), JSON.stringify(subRows()));
+  await press('Animations');
+  add('Animations on a block with none: the rows in order', same(anims('b'), ['p1', 'p2']), JSON.stringify(anims('b')));
+  add('The block carries data-has-block-animations', q(`return JSON.stringify(d.querySelector('.fe-block[data-block-id="b"] .sqs-block').hasAttribute('data-has-block-animations'));`));
+  await paste('b', 'Animations');
+  add('Animations twice: four rows', same(anims('b'), ['p1', 'p2', 'p1', 'p2']), JSON.stringify(anims('b')));
+  undoNow(); add('One undo for one paste', same(anims('b'), ['p1', 'p2']), JSON.stringify(anims('b')));
+  undoNow(); add('Undo back to none, the mark goes', same(anims('b'), []) && q(`return JSON.stringify(!d.querySelector('.fe-block[data-block-id="b"] .sqs-block').hasAttribute('data-has-block-animations'));`), JSON.stringify(anims('b')));
+  await paste('c', 'Replace Animations');
+  add('Replace Animations: the copied rows only', same(anims('c'), ['p1', 'p2']), JSON.stringify(anims('c')));
+  undoNow(); add('Replace Animations: one undo restores', same(anims('c'), ['p3']), JSON.stringify(anims('c')));
+  await paste('c', 'Animations');
+  add('Animations keeps its own rows first', same(anims('c'), ['p3', 'p1', 'p2']), JSON.stringify(anims('c')));
+  await copyAnim('z');
+  q(`const b = fe.model.sections[0].blocks.find((x) => x.id === 'z'); b.animations.push({ ...b.animations[0], preset: 'later' }); return 'true';`);
+  await paste('e', 'Replace Animations');
+  add('The clip is what the block had at the copy', same(anims('e'), ['p9']), JSON.stringify(anims('e')));
+  q(`const b = fe.model.sections[0].blocks.find((x) => x.id === 'z'); b.animations.pop(); return 'true';`);
+
+  // Grey copy keeps the clip; the clip reaches another section.
+  load(); await pause(200);
+  await copyAnim('a');
+  await menu('b'); await hover('Copy Properties'); await clickSel(`document.querySelector('#arrange-menu [aria-label="Animations"]')`, 120);
+  await paste('o', 'Replace Animations');
+  add('A grey copy keeps the clip; it reaches another section', same(anims('o'), ['p1', 'p2']), JSON.stringify(anims('o')));
+
+  // One clip with the panel.
+  load(); await pause(200);
+  await copyAnim('a');
+  const animTab = async (bid) => { q(`fe.select('s1', '${bid}'); await sleep(150); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(220); panel.querySelector('[data-btab="Animation"]').click(); await sleep(180); return 'true';`); };
+  await animTab('b');
+  await clickSel(act('listacts'), 180);
+  add('The panel can paste what the menu copied', q(`const p = pop.querySelector('[data-an-clip="paste"]'); return JSON.stringify(!!p && !p.disabled);`));
+  q(`pop.querySelector('[data-an-clip="paste"]').click(); await sleep(200); return 'true';`);
+  add('The panel paste adds the rows', same(anims('b'), ['p1', 'p2']), JSON.stringify(anims('b')));
+  await animTab('c');
+  await clickSel(act('listacts'), 180);
+  q(`pop.querySelector('[data-an-clip="copy"]').click(); await sleep(200); return 'true';`);
+  q(`fe.select('s1', 'e'); await sleep(150); return 'true';`);
+  await paste('e', 'Replace Animations');
+  add('The menu pastes what the panel copied', same(anims('e'), ['p3']), JSON.stringify(anims('e')));
+
+  // One clip for both kinds, and Transforms.
+  load(); await pause(200);
+  await copyAnim('a');
+  await menu('a'); await hover('Copy Properties'); await press('Transforms');
+  await menu('b'); await hover('Paste Properties');
+  add('Copying transforms greys the animation rows', same(subRows(), [['Transforms', true], ['Animations', false], ['Replace Animations', false]]), JSON.stringify(subRows()));
+  await press('Transforms');
+  const des = (bid) => q(`const b = fe.model.sections.flatMap((s) => s.blocks).find((x) => x.id === '${bid}'); return JSON.stringify([b.design?.opacity ?? null, b.design?.rotate ?? null]);`);
+  add('Transforms paste the values', same(des('b'), [50, 10]), JSON.stringify(des('b')));
+  await menu('e'); await hover('Copy Properties'); await press('Transforms');
+  await paste('c', 'Transforms');
+  add('Transforms from a block with defaults reset the target', same(des('c'), [null, null]), JSON.stringify(des('c')));
+  undoNow(); add('Transforms: one undo restores', same(des('c'), [80, 30]), JSON.stringify(des('c')));
+  await copyAnim('a');
+  await menu('b'); await hover('Paste Properties');
+  add('Copying animations greys Transforms', same(subRows(), [['Transforms', false], ['Animations', true], ['Replace Animations', true]]), JSON.stringify(subRows()));
+
+  // A paste goes to the block the menu opened on, not to the rest of a group.
+  load(); await pause(200);
+  await copyAnim('a');
+  q(`fe.select('s1', 'b'); await sleep(100); return 'true';`);
+  const ec = q(`const f = fr.getBoundingClientRect(), r = d.querySelector('.fe-block[data-block-id="e"]').getBoundingClientRect(); return JSON.stringify([f.left + r.left + r.width / 2, f.top + r.top + r.height / 2]);`);
+  mouse(S, 'move', ec[0], ec[1], { mods: ['Shift'] }); await pause(60); mouse(S, 'down', ec[0], ec[1], { buttons: 1, mods: ['Shift'] }); await pause(40); mouse(S, 'up', ec[0], ec[1], { mods: ['Shift'] }); await pause(200);
+  const grouped = q(`return JSON.stringify(!!d.querySelector('.fe-indicator.is-group'));`);
+  await menu('b');
+  const dropped = q(`return JSON.stringify(!d.querySelector('.fe-indicator.is-group'));`);
+  await hover('Paste Properties'); await press('Replace Animations');
+  add('A right press on a group leaves that block; the paste goes to it', grouped && dropped && same(anims('b'), ['p1', 'p2']) && same(anims('e'), []), JSON.stringify([grouped, dropped, anims('b'), anims('e')]));
+}
+
 writeFileSync(new URL('../parity/anim-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nAnimation: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);
