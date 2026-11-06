@@ -1,0 +1,610 @@
+{
+  "item": "CAP-U3STACKPILL",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U3: a stack's pill, hovered and selected, on desktop and the phone. Unnamed presses: real clicks on blocks, a drag.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "stack selected",
+      {
+        "frameEls": ".sqs-block-label-tag",
+        "controls": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "hoverBlock",
+      0,
+      0
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "stack hovered",
+      {
+        "frameEls": ".sqs-block-label-tag",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "stackpill"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "child selected",
+      {
+        "frameEls": ".sqs-block-label-tag"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "hoverBlock",
+      0,
+      0
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "stack hovered, phone",
+      {
+        "frameEls": ".sqs-block-label-tag"
+      }
+    ]
+  ],
+  "reads": {
+    "stack selected": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open link editor popover",
+          "box": [
+            153.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Stack Options",
+          "box": [
+            193.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            233.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            273.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            313.1,
+            242.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Stack",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            51.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Text",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            42.5,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            495,
+            277.2,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Button",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            889.9,
+            277.2,
+            60.4,
+            16
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stack hovered": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Stack",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            51.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Text",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            277.2,
+            42.5,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            495,
+            277.2,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Button",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            889.9,
+            277.2,
+            60.4,
+            16
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/22",
+          "1/2/11/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "child selected": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Stack",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            51.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Text",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            42.5,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            495,
+            277.2,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Button",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            889.9,
+            277.2,
+            60.4,
+            16
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stack hovered, phone": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Stack",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            219.5,
+            51.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Text",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            611.7,
+            219.5,
+            42.5,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            611.7,
+            261.9,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Button",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            611.7,
+            491.9,
+            60.4,
+            16
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "A hovered stack's pill says Stack (capitals by CSS), 51.1 by 16, the same 22 px above as a block's. From a shot. Each child has its own tag in the page too, which reads Text, Shape or Button. The reads list every tag and do not say which show, so only the hovered read is from a shot; the selected and phone reads are not established.",
+  "ours": "Hovered: Stack, 51.2 by 16. Read on 5210 2026-11-06.",
+  "differs": [],
+  "pressed": [
+    "Unnamed presses: real clicks on blocks, a drag on a block. All else by name with an on-top check."
+  ]
+}

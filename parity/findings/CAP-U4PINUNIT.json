@@ -1,0 +1,635 @@
+{
+  "item": "CAP-U4PINUNIT",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U4: a move of the Pin offset slider after a value that is not in px. Unnamed presses: real clicks on the block, keys on the slider.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "open",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "fillValue",
+      "0px",
+      "5vh"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "5vh",
+      {
+        "panelEls": "input",
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "rangeKey",
+      "ArrowRight"
+    ],
+    [
+      "read",
+      "5vh, ArrowRight",
+      {
+        "panelEls": "input",
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "rangeKey",
+      "ArrowRight"
+    ],
+    [
+      "read",
+      "5vh, ArrowRight twice",
+      {
+        "panelEls": "input",
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ]
+  ],
+  "reads": {
+    "open": {
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0px",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "5vh": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793968698356_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "sticky",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5vh",
+          "cls": "css-1ct4fc focus-visible",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "5vh, ArrowRight": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793968698356_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "sticky",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "6vh",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "6",
+          "cls": "css-15syvlo focus-visible",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "5vh, ArrowRight twice": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793968698356_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "sticky",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "7vh",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "7",
+          "cls": "css-15syvlo focus-visible",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "A slider move keeps the unit. 5vh, then ArrowRight on the slider: 6vh, then 7vh, slider 6 and 7. It does not drop to px, so the note in U4 was wrong.",
+  "ours": "Ours drops it: 5vh, then ArrowRight: 6px. Read on 5210, 2026-11-06.",
+  "differs": [
+    "A Pin slider move after a value that is not in px: the oracle keeps the unit, ours drops to px."
+  ],
+  "pressed": [
+    "Fill on the Offset field, real key on the slider. Unnamed presses: real clicks on blocks, a drag on a block. All else by name with an on-top check."
+  ]
+}

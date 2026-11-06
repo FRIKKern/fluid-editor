@@ -9,10 +9,13 @@ const AZ = 'abcdefghijklmnopqrstuvwxyz';
 const ENDS2 = [...AZ].flatMap((a) => [...AZ].map((b) => `foo.${a}${b} `)).join('');
 const ENDS = 'com org net edu gov mil int info biz name pro aero asia cat coop jobs mobi museum post tel travel xxx arpa academy accountant accountants actor adult agency airforce apartments app army art associates attorney auction audio auto band bank bar barcelona beauty beer berlin best bet bible bid bike bingo bio black blackfriday blog blue boston boutique build builders business buzz cab cafe cam camera camp capital car cards care careers cars casa cash casino catering center ceo charity chat cheap christmas church city claims cleaning click clinic clothing cloud club coach codes coffee college community company computer condos construction consulting contractors cooking cool country coupons courses credit creditcard cricket cruises dance date dating deals degree delivery democrat dental dentist design dev diamonds diet digital direct directory discount doctor dog domains download earth eco education email energy engineer engineering enterprises equipment estate events exchange expert exposed express fail faith family fans farm fashion film finance financial fish fishing fit fitness flights florist flowers football forex forsale foundation fun fund furniture futbol fyi gallery game games garden gay gift gifts gives glass global gmbh gold golf graphics gratis green gripe group guide guitars guru hair haus health healthcare help hiphop hockey holdings holiday homes horse hospital host hosting house how icu immo immobilien inc industries ink institute insurance insure international investments irish jetzt jewelry juegos kaufen kim kitchen kiwi land law lawyer lease legal lgbt life lighting limited limo link live loan loans lol london love ltd luxury maison management market marketing mba media meme memorial men menu miami mma moda mom money mortgage movie nagoya network new news nexus ngo ninja now nyc observer one ong onl online ooo organic page paris partners parts party pet phd photo photography photos physio pics pictures pink pizza place plumbing plus poker porn press productions promo properties property protection pub qpon quebec racing radio realestate realty recipes red rehab reise reisen rent rentals repair report republican rest restaurant review reviews rich rip rocks rodeo rugby run sale salon sarl school schule science security select services sex sexy shiksha shoes shop shopping show singles site ski skin sky social software solar solutions soy space spa sport storage store stream studio study style sucks supplies supply support surf surgery sydney systems taxi team tech technology tennis theater tickets tienda tips tires today tokyo tools top tours town toys trade training tube university uno vacations vegas ventures vet viajes video villas vin vip vision vodka vote voting voyage watch webcam website wedding wiki win wine work works world wtf xyz yoga zip zone google amazon apple comma toolong nope abcd wxyz test local example invalid localhost onion'.split(' ').map((e) => `foo.${e} `).join('');
 const NEWTEXT = [['press', 'Escape'], ['add', 0, 'Text'], ['press', 'Escape'], ['pick', 0, 'new'], ['click', 'Write']];
+const H = { html: [0, 'new'] };
 const LEFT4 = Array.from({ length: 4 }, () => ['press', 'Shift+ArrowLeft']);
 const HEADPASTE = { inline: '<b>PASTED</b>', 'one paragraph': '<p>ONE</p>', 'two paragraphs': '<p>ONE</p><p>TWO</p>', 'heading and paragraph': '<h2>HEAD</h2><p>TAIL</p>', 'a list': '<ul><li><p>A</p></li><li><p>B</p></li></ul>', 'plain words': 'plain words' };
 const STACK3 = [['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], ['add', 0, 'Shape'], ['press', 'Escape'], ['drag', 0, 'new', 'middle', 500, 0], ['press', 'Escape'], ['add', 0, 'Button'], ['press', 'Escape'], ['drag', 0, 'new', 'middle', 1000, 0], ['press', 'Escape'], ['select', 0, 0], ['shiftClick', 0, 1], ['shiftClick', 0, 2], ['click', 'Stack Blocks'], ['pause', 500]];
 const ALIGNS = (tag) => [['pressNamed', 'Align Vertically'], ['pause', 300], ...['Align Center', 'Align Bottom', 'Align Top'].flatMap((n) => [['pressNamed', n], ['pause', 400], ['read', `${tag}, ${n}`, { kids: [0, 0] }]]), ['shot', tag.replace(/\W+/g, '-')]];
+const WORDS = ["image", "photo", "picture", "gallery", "video", "youtube", "vimeo", "text", "paragraph", "heading", "title", "link", "url", "button", "cta", "quote", "testimonial", "map", "location", "address", "google", "form", "contact", "newsletter", "email", "subscribe", "mailchimp", "shop", "product", "store", "price", "pricing", "donate", "music", "audio", "podcast", "spotify", "soundcloud", "summary", "blog", "post", "archive", "social", "facebook", "instagram", "twitter", "code", "html", "css", "markdown", "embed", "iframe", "chart", "graph", "calendar", "event", "schedule", "booking", "appointment", "acuity", "divider", "line", "spacer", "shape", "menu", "restaurant", "food", "reservation", "table", "opentable", "tock", "pdf", "file", "download", "accordion", "faq", "search", "tag", "rss", "flickr", "zola", "wedding", "bandsintown", "concert", "amazon", "ecommerce", "cart", "scroll", "marquee", "ticker", "animation", "logo", "page", "co", "xyzzy"].map((x) => x);
+const Z2 = ['Move Forward', 'Move Backward'];
 export const RECIPES = {
   'CAP-TOUCH': { question: 'X11: what do touch and pen do on a block: tap, drag, a long press, a handle?', steps: [
     ['enter'], ['listen'],
@@ -578,6 +581,93 @@ export const RECIPES = {
     ...NEWTEXT, ['keys', 'alpha beta'], ...LEFT4, ['click', 'Text Highlight'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['click', 'Text Color'], ['click', 'Bright'], ['read', 'a highlight, caret in plain text, a color', { html: [0, 'new'] }],
     ...NEWTEXT, ['keys', 'alpha'], ['press', 'Escape'], ['read', 'typed, Escape', { has: ['Bold'] }], ['keys', 'x'], ['read', 'typed, Escape, typed', { html: [0, 'new'], has: ['Bold'] }],
     ...NEWTEXT, ['keys', 'alpha'], ['click', 'Text Color'], ['click', 'Bright'], ['read', 'a color, the bar', { has: ['Bold'] }], ['press', 'Escape'], ['read', 'a color, Escape, the bar', { has: ['Bold'] }], ['press', 'Escape'], ['read', 'a color, two Escapes, the bar', { has: ['Bold'] }], ['keys', 'x'], ['read', 'a color, two Escapes, typed', { html: [0, 'new'] }],
+  ] },
+  'CAP-U3STACKPILL': { page: 'Gestures Probe', question: "U3: a stack's pill, hovered and selected, on desktop and the phone. Unnamed presses: real clicks on blocks, a drag.", steps: [
+    ...STACK3, ['read', 'stack selected', { frameEls: '.sqs-block-label-tag', controls: true }], ['press', 'Escape'], ['pause', 300], ['deselect', 0], ['hoverBlock', 0, 0], ['pause', 500], ['read', 'stack hovered', { frameEls: '.sqs-block-label-tag', areas: 0 }], ['shot', 'stackpill'],
+    ['select', 0, 0], ['pause', 300], ['pressRow', 'Shape'], ['pause', 400], ['read', 'child selected', { frameEls: '.sqs-block-label-tag' }], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['deselect', 0],
+    ['view', 'Mobile'], ['pause', 500], ['hoverBlock', 0, 0], ['pause', 500], ['read', 'stack hovered, phone', { frameEls: '.sqs-block-label-tag' }],
+  ] },
+  'CAP-U3GROUPHIT': { page: 'Gestures Probe', question: "U3, U4: a group's eight handles, each hit box up to its edge, and the group toolbar's shadow against one block's. Unnamed presses: real clicks on blocks, a drag.", steps: [
+    ['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], ['add', 0, 'Shape'], ['press', 'Escape'], ['drag', 0, 'new', 'middle', 500, 120], ['press', 'Escape'], ['select', 0, 0], ['pause', 300], ['read', 'one block', { cursorEls: true, shadowOf: 'Duplicate' }],
+    ['shiftClick', 0, 1], ['pause', 400], ['read', 'group', { cursorEls: true, shadowOf: 'Duplicate', controls: true }], ['shot', 'group'],
+  ] },
+  'CAP-U3GUIDES': { page: 'Gestures Probe', question: 'U3: what is drawn while a block is held, on the types beyond text and shape. One hold per type. Unnamed presses: real holds on blocks.', steps: [
+    ['enter'], ['blank'],
+    ...['Image', 'Button', 'Line', 'Video', 'Accordion', 'Form', 'Quote', 'Map', 'Code', 'Scrolling', 'Embed', 'Markdown'].flatMap((n) => [['add', 0, n], ['pause', 800], ['press', 'Escape'], ['select', 0, 'new'], ['pause', 300], ['hold', 0, 'new', 'middle', 123, 77], ['pause', 300], ['read', `${n} held`, { block: [0, 'new'], layers: 0, cursorEls: true, frameEls: '.sqs-block-label-tag' }], ['release'], ['pause', 400], ['select', 0, 'new'], ['pressNamed', 'Remove'], ['pause', 500]]),
+  ] },
+  'CAP-U4ZCOUNT': { page: 'Gestures Probe', question: 'U4: do Move Forward and Backward count only overlapping blocks with nothing pinned? Text and Shape overlap, a Line on top of the order overlaps neither. Unnamed presses: real clicks on blocks, a drag.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], ['add', 0, 'Shape'], ['press', 'Escape'], ['add', 0, 'Line'], ['press', 'Escape'], ['drag', 0, 'new', 'middle', 700, 300], ['press', 'Escape'], ['pause', 300], ['read', 'start', { stack: 0 }],
+    ['select', 0, 0], ['pause', 300], ['read', 'first selected', { controls: true, thin: true, stack: 0 }], ['press', 'Escape'], ['pause', 300], ['deselect', 0],
+    ['select', 0, 1], ['pause', 300], ['read', 'second selected', { controls: true, thin: true, stack: 0 }], ['press', 'Escape'], ['pause', 300], ['deselect', 0],
+    ['select', 0, 2], ['pause', 300], ['read', 'third selected', { controls: true, thin: true, stack: 0 }],
+  ] },
+  'CAP-U4PINALONE': { page: 'Gestures Probe', question: 'U4: does a pinned block alone in its section show Move Forward and Backward? And Pin to a slider move after a non-px value.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Shape'], ['press', 'Escape'], ['select', 0, 'new'], ['pause', 300], ['read', 'alone', { controls: true, thin: true }], ['pressNamed', 'Pin'], ['pause', 600], ['read', 'pin open', { controls: true, thin: true, range: true }], ['shot', 'pinopen'],
+    ['pressNamed', 'Pin to Top on Scroll'], ['pause', 500], ['read', 'pinned, popover open', { range: true, block: [0, 'new'] }], ['press', 'Escape'], ['pause', 500], ['read', 'pinned alone', { controls: true, thin: true, block: [0, 'new'] }], ['shot', 'pinned'],
+  ] },
+  'CAP-U4TIPS': { page: 'Gestures Probe', question: "U4: the tip's delay in the page's own clock, and the tip on a Button that is not Primary", steps: [
+    ['enter'], ['blank'], ['add', 0, 'Button'], ['press', 'Escape'], ['select', 0, 'new'], ['pause', 400], ['read', 'button', { controls: true, thin: true }],
+    ['tipDelay', 'Duplicate', 'Duplicate delay', 5], ['tipDelay', 'Remove', 'Remove delay', 3], ['tipRead', 'Primary', 'tip on Primary'], ['shot', 'tip'],
+  ] },
+  'CAP-U5WORDS': { page: 'Gestures Probe', question: 'U5: the words behind Add Block search. Words typed by real keys; no tile and no Enter pressed.', steps: [
+    ['enter'], ['blank'], ['hover', 0], ['pause', 400], ['click', 'Add Block'], ['pause', 1000], ['searchWords', 'words', WORDS], ['press', 'Escape'],
+  ] },
+  'CAP-U4ZPRESS': { page: 'Gestures Probe', question: 'U4: what Move Forward and Backward step over. The order is Text, Line, Shape; Text and Shape overlap, the Line overlaps neither, and sits between them. Unnamed presses: real clicks on blocks, a drag.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], ['add', 0, 'Line'], ['press', 'Escape'], ['drag', 0, 'new', 'middle', 700, 300], ['press', 'Escape'], ['add', 0, 'Shape'], ['press', 'Escape'], ['pause', 300], ['read', 'start', { stack: 0 }],
+    ['select', 0, 'new'], ['pause', 300], ['read', 'Shape selected', { btnState: Z2, stack: 0 }],
+    ['pressNamed', 'Move Forward'], ['pause', 400], ['read', 'Shape, Forward', { btnState: Z2, stack: 0 }],
+    ['pressNamed', 'Move Backward'], ['pause', 400], ['read', 'Shape, Backward', { btnState: Z2, stack: 0 }],
+    ['pressNamed', 'Move Backward'], ['pause', 400], ['read', 'Shape, Backward again', { btnState: Z2, stack: 0 }],
+    ['pressNamed', 'Move Backward'], ['pause', 400], ['read', 'Shape, Backward a third time', { btnState: Z2, stack: 0 }],
+    ['pressNamed', 'Move Forward'], ['pause', 400], ['read', 'Shape, Forward again', { btnState: Z2, stack: 0 }],
+  ] },
+  'CAP-U4PINUNIT': { page: 'Gestures Probe', question: 'U4: a move of the Pin offset slider after a value that is not in px. Unnamed presses: real clicks on the block, keys on the slider.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Shape'], ['press', 'Escape'], ['select', 0, 'new'], ['pause', 300], ['pressNamed', 'Pin'], ['pause', 600], ['read', 'open', { panelEls: 'input' }],
+    ['fillValue', '0px', '5vh'], ['pause', 500], ['read', '5vh', { panelEls: 'input', block: [0, 'new'] }], ['rangeKey', 'ArrowRight'], ['read', '5vh, ArrowRight', { panelEls: 'input', block: [0, 'new'] }], ['rangeKey', 'ArrowRight'], ['read', '5vh, ArrowRight twice', { panelEls: 'input', block: [0, 'new'] }],
+    ['press', 'Escape'], ['pause', 400],
+  ] },
+  'CAP-U4PINDRAG': { page: 'Gestures Probe', question: 'U4: a real drag of the Pin offset slider after a value that is not in px. Unnamed presses: real clicks on the block, a drag on the slider by its place.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Shape'], ['press', 'Escape'], ['select', 0, 'new'], ['pause', 300], ['pressNamed', 'Pin'], ['pause', 600], ['fillValue', '0px', '5vh'], ['pause', 500], ['read', '5vh', { panelEls: 'input[aria-label="Offset"]' }], ['shot', 'fivevh'],
+    ['dragAt', 79, 394, 150, 394], ['pause', 500], ['read', 'dragged', { panelEls: 'input[aria-label="Offset"]', block: [0, 'new'] }], ['shot', 'dragged'], ['press', 'Escape'], ['pause', 400],
+  ] },
+  'CAP-U3GUIDES2': { page: 'Gestures Probe', question: 'U3: an Image and a Line held near a corner, then every layer in the grid. Unnamed presses: real holds on blocks.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Image'], ['pause', 800], ['press', 'Escape'], ['select', 0, 'new'], ['pause', 300], ['hold', 0, 'new', [0.1, 0.1], 123, 77], ['pause', 300], ['read', 'Image held by its corner', { block: [0, 'new'], layers: 0, frameEls: '.sqs-block-label-tag' }], ['shot', 'imageheld'], ['release'], ['pause', 500], ['read', 'dropped', { areas: 0 }],
+  ] },
+  'CAP-U4BTNTIP': { page: 'Gestures Probe', question: 'U4: the tip on a Button that is not Primary', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Button'], ['press', 'Escape'], ['select', 0, 'new'], ['pause', 400], ['pressNamed', 'Primary'], ['pause', 600], ['read', 'menu', { controls: true, thin: true }], ['shot', 'btnmenu'], ['click', 'Secondary'], ['pause', 600], ['read', 'secondary', { controls: true, thin: true }], ['tipRead', 'Secondary', 'tip on Secondary'], ['shot', 'tipsec'],
+  ] },
+  'CAP-E4SCORE': { page: 'Gestures Probe', question: 'E4: the last score. Cases not read before, on the rules as they stand. Predictions pushed first, no fitting after.', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['keys', 'alpha beta'], ...LEFT4, ['click', 'Italic'], ['press', 'ArrowLeft'], ['click', 'Italic'], ['read', 'Italic, caret at the left edge of italic', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['press', 'Enter'], ['keys', 'beta'], ...LEFT4, ['click', 'Bold'], ['press', 'ArrowLeft'], ['click', 'Bold'], ['read', 'Bold, caret at the start of a bold line', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['press', 'Enter'], ['keys', 'beta'], ...LEFT4, ['click', 'Bold'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['click', 'Bold'], ['read', 'Bold, caret at the end of a plain line, next line bold', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['click', 'Quote'], ['click', 'Bold'], ['read', 'Bold with a caret in a quote', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['click', 'Text Style'], ['click', 'Heading 2'], ['press', 'Enter'], ['keys', 'beta'], ['click', 'Bold'], ['read', 'Bold with a caret, heading and paragraph', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['press', 'Enter'], ['keys', 'beta'], ['press', 'Meta+a'], ['press', 'Meta+b'], ['read', 'Cmd+B on a selection over paragraphs', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['press', 'Enter'], ['press', 'Enter'], ['keys', 'beta'], ['press', 'Meta+a'], ['click', 'Bold'], ['read', 'Bold over an empty line', H],
+    ...NEWTEXT, ['keys', 'alpha beta'], ...LEFT4, ['click', 'Strike'], ['press', 'Meta+a'], ['click', 'Strike'], ['read', 'Strike over text partly struck', H], ['click', 'Strike'], ['read', 'Strike over all of it again', H],
+    ...NEWTEXT, ['keys', 'alpha beta'], ['press', 'Meta+a'], ['click', 'Bold'], ['press', 'ArrowRight'], ...LEFT4, ['click', 'Italic'], ['read', 'Italic on a part of bold', H],
+    ...NEWTEXT, ['keys', 'alpha beta'], ['press', 'Meta+a'], ['click', 'Bold'], ['press', 'ArrowRight'], ...LEFT4, ['click', 'Text Color'], ['click', 'Bright'], ['read', 'a color on a part of bold', H],
+    ...NEWTEXT, ['keys', 'alpha beta'], ['press', 'Meta+a'], ['click', 'Bold'], ['press', 'ArrowRight'], ...LEFT4, ['click', 'Clear Formatting'], ['read', 'Clear Formatting on a part of bold', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['press', 'Enter'], ['keys', 'beta'], ['press', 'Meta+a'], ['click', 'Italic'], ['click', 'Clear Formatting'], ['read', 'Clear Formatting over paragraphs', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['click', 'Text Color'], ['click', 'Bright'], ['click', 'Clear Formatting'], ['read', 'Clear Formatting with a caret on a color', H],
+    ...NEWTEXT, ['keys', 'one'], ['press', 'Enter'], ['keys', 'two'], ['press', 'Enter'], ['keys', 'three'], ['press', 'Meta+a'], ['click', 'Bullet List'], ['read', 'three lines, Bullet List', H], ['click', 'Numbered List'], ['read', 'then Numbered List', H], ['click', 'Numbered List'], ['read', 'then Numbered List again', H],
+    ...NEWTEXT, ['keys', 'one'], ['press', 'Enter'], ['keys', 'two'], ['press', 'Meta+a'], ['click', 'Quote'], ['read', 'two lines, Quote', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['press', 'Enter'], ['keys', 'beta'], ['click', 'Bold'], ['press', 'Enter'], ['keys', 'x'], ['read', 'Bold on both, Enter, typed', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['click', 'Strike'], ['press', 'Enter'], ['press', 'Backspace'], ['keys', 'x'], ['read', 'Strike, Enter, Backspace, typed', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['click', 'Strike'], ['click', 'Text Color'], ['click', 'Bright'], ['keys', 'x'], ['read', 'Strike, a color, typed', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['press', 'Enter'], ['click', 'Strike'], ['keys', 'x'], ['read', 'Strike on an empty second line, typed', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['click', 'Text Color'], ['click', 'Bright'], ['click', 'Bold'], ['read', 'a color with a caret, then Bold', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['press', 'Meta+a'], ['click', 'Text Highlight'], ['click', 'Strike'], ['read', 'Highlight, then Strike', H],
+    ...NEWTEXT, ['keys', 'alpha'], ['press', 'Meta+a'], ['click', 'Text Highlight'], ['click', 'Text Style'], ['click', 'Heading 2'], ['read', 'Highlight, then a heading', H],
+    ...NEWTEXT, ['keys', 'alpha beta'], ...LEFT4, ['click', 'Bold'], ['keys', 'x'], ['read', 'a bold selection typed over', H],
+    ...NEWTEXT, ['keys', 'alpha beta'], ...LEFT4, ['click', 'Bold'], ['press', 'ArrowRight'], ['keys', 'x'], ['read', 'typed at the end of a bold word', H],
+    ...NEWTEXT, ['keys', 'alpha beta'], ...LEFT4, ['click', 'Bold'], ['press', 'ArrowLeft'], ['keys', 'x'], ['read', 'typed just before a bold word', H],
+    ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['keys', 'one'], ['pause', 3000], ['click', 'Text Color'], ['click', 'Bright'], ['keys', 'two'], ['press', 'Escape'], ['undoWalk', 'typing around a color', 0, 'new', 12, true],
+    ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['keys', 'alpha'], ['press', 'Meta+a'], ['click', 'Bold'], ['pause', 3000], ['click', 'Clear Formatting'], ['press', 'Escape'], ['undoWalk', 'Bold, a wait, Clear Formatting', 0, 'new', 12, true],
+    ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['keys', 'one'], ['pause', 3000], ['click', 'Text Style'], ['click', 'Heading 2'], ['keys', 'two'], ['press', 'Escape'], ['undoWalk', 'typing around a style', 0, 'new', 12, true],
+    ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['keys', 'one'], ['click', 'Bullet List'], ['keys', 'two'], ['press', 'Escape'], ['undoWalk', 'typing around a list', 0, 'new', 12, true],
+    ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['keysList', ['o', 'n', 'e', 'Meta+b', 'Meta+i']], ['press', 'Escape'], ['undoWalk', 'a burst with Cmd+B and Cmd+I', 0, 'new', 12, true],
   ] },
   'CAP-SECTIONMODEL': { page: 'Gestures Probe', question: 'U10: what Duplicate, Move, Remove and the Add Section picker do to the page', steps: [
     ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['blank'], ['read', 'two sections', { sections: true }],
