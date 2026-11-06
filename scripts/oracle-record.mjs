@@ -22,6 +22,8 @@ const id = arg('id');
 const pageTitle = arg('page', 'How Fluid Engine works');
 const pagePath = arg('path', '/how-fluid-engine-works');
 if (!id) throw new Error('--id is required, like T0001-key-right');
+// A recording presses and undoes on its page. The traces name the demo page's blocks, so it stays the default, but say so (0006).
+if (pageTitle === 'How Fluid Engine works' && !process.env.ORACLE_DEMO_WRITES) { console.error('oracle-record refused, nothing ran: on the demo page it writes unsaved. Pass --page and --path, or set ORACLE_DEMO_WRITES=1 only if the lead has asked for this recording (0006).'); process.exit(2); }
 
 // The editor opens on Home after a reload; pick our page in the pages panel.
 function ensurePage() {

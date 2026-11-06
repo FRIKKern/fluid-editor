@@ -350,7 +350,8 @@ export async function release({ shift = false, alt = false } = {}) {
 
 // ---------- getting in and out of edit mode ----------
 // Open a page by its title in the page list and enter edit mode. Real clicks.
-export async function enterEdit(title = 'How Fluid Engine works') {
+export async function enterEdit(title) {
+  if (!title) throw new Error('enterEdit: name the page (0006).');
   const titled = `() => [...document.querySelectorAll('*')].filter((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(title)} && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().left < 400)[0]`;
   // An empty page has no editing section until one is touched, so the top bar's Exit counts too.
   const editing = () => evalJs(SURFACE, `(() => { ${FRAME} return JSON.stringify((d && d.querySelectorAll('.fluid-engine.is-editing').length > 0) || [...document.querySelectorAll('button')].some((x) => x.textContent.trim() === 'Exit' && x.getBoundingClientRect().width > 0)); })()`);
