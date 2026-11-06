@@ -784,17 +784,19 @@ function layer(fe, cls, a, z) {
 
 // G4 (parity/findings/SNAP.json): a grid line held by the pointer moves when the leading edge
 // passes the middle of the next track, so the first step takes half a pitch plus half a gap.
-// A side margin counts as its width less one gap. d is the pointer's distance from `line`.
+// A side margin counts as its width less one gap, and half a pixel: that fits a step at 51 on desktop
+// and 14 on a phone (CAP-G4MARGIN.json, CAP-G4PHONE.json), why half is not known. d is the pointer's distance from `line`.
 function snapColumn(m, line, d, lo, hi) {
   const n = m.colStart.length;
   const at = (l) => (l <= n ? m.colStart[l - 1] : m.colEnd[n - 1] + m.cg);
-  const half = (t) => (m.colEnd[t - 1] - m.colStart[t - 1] - (t === 1 || t === n ? m.cg : 0)) / 2;
+  const half = (t) => t === 1 || t === n ? (m.colEnd[t - 1] - m.colStart[t - 1] - m.cg + 1) / 2 : (m.colEnd[t - 1] - m.colStart[t - 1]) / 2;
   const p = at(line) + d;
   let l = line;
   while (l < hi && p >= at(l) + m.cg + half(l)) l++;
   while (l > lo && p <= at(l) - m.cg - half(l - 1)) l--;
   return l;
 }
+const rightEdgeOut = (m, line, d) => snapColumn(m, line, d, line, m.colStart.length + 1) === m.colStart.length + 1;
 // The same rule for rows, on a uniform pitch, also past the last row (traces T0013, T0014).
 const snapRow = (m, line, d) => line + Math.sign(d) * Math.max(0, Math.round((Math.abs(d) - m.rg / 2) / m.pitch));
 
@@ -1022,7 +1024,6 @@ function beginMove(e) {
   el.classList.add('is-dragging');
 }
 
-const LAST_STEP_LATE = 32;
 function updateMove(e) {
   const g = gesture;
   const fe = feEl(g.sid);
@@ -1046,11 +1047,13 @@ function updateMove(e) {
   const cHi = Math.max(...origs.map((a) => a[3]));
   const cMin = c0 + 1 - cLo;
   // A box that starts on the left margin track goes as far as the last column, not the right margin.
-  const cMax = Math.max(c0, c0 + (cLo === 1 ? LAST_LINE[bp] - 1 : LAST_LINE[bp]) - cHi);
+  // One block on a phone does go into it (CAP-G4MARGIN2.json to CAP-G4MARGIN4.json); a group on a phone isn't read.
+  const cMax = Math.max(c0, c0 + (cLo === 1 && !(solo && bp === 'mobile') ? LAST_LINE[bp] - 1 : LAST_LINE[bp]) - cHi);
   const dx = left - baseLeft;
   let nc0 = dx > 0 && c0 > 1 ? snapColumn(m, c0 + w, dx, cMin + w, cMax + w) - w : snapColumn(m, c0, dx, cMin, cMax);
-  // From the left margin track the last step comes later (MARGINSTEPS.json: 30 to 40px on six wide, 25 to 35 on four).
-  if (solo && c0 === 1 && nc0 === cMax && cMax > c0 && snapColumn(m, c0, dx - LAST_STEP_LATE, cMin, cMax) < cMax) nc0 = cMax - 1;
+  // From the left margin track the last step waits for the right edge to pass the right margin's middle
+  // (MARGINSTEPS.json, CAP-G4MARGIN3.json, CAP-G4MARGIN4.json, CAP-G4MARGIN5.json).
+  if (solo && c0 === 1 && nc0 === cMax && cMax > c0 && !rightEdgeOut(m, c0 + w, dx)) nc0 = cMax - 1;
   // A group's ring stops when its box reaches the top (HOLD.json).
   const nr0 = Math.max(r0 + 1 - Math.min(...origs.map((a) => a[0])), snapRow(m, r0, y - baseTop));
   let t = [nr0, nc0, nr0 + h, nc0 + w];
@@ -1200,7 +1203,16 @@ function updateResize(e) {
   const el = blockEl(g.bid);
   // Out of the flow, so its height does not push the grid's rows. Its area is still its place.
   Object.assign(el.style, { position: 'absolute', left: '0', top: '0', width: `${R - L}px` });
-  if (g.dir.includes('e')) c1 = snapColumn(m, c1, x - m.colEnd[c1 - 2], Math.min(c0 + leastCols, LAST_LINE[bp]), LAST_LINE[bp]);
+  if (g.dir.includes('e')) {
+    const lo = Math.min(c0 + leastCols, LAST_LINE[bp]), hi = LAST_LINE[bp], d = x - m.colEnd[c1 - 2];
+    // A block on the left margin track grows by its left edge's steps, as a move does. It stops as a move does, and its last
+    // step waits the same way (CAP-G4MARGIN.json, CAP-G4MARGIN2.json, CAP-G4MARGIN5.json, CAP-G4MARGIN6.json, BLOCKTYPES.json columnSnap).
+    const top = bp === 'mobile' ? hi : hi - 1;
+    if (c0 === 1 && d > 0 && c1 < top) {
+      const e = Math.min(top, c1 + snapColumn(m, 1, d, 1, 1 + hi - c1) - 1);
+      c1 = Math.max(lo, e === top && !rightEdgeOut(m, c1, d) ? top - 1 : e);
+    } else c1 = snapColumn(m, c1, d, lo, hi);
+  }
   if (g.dir.includes('w')) c0 = snapColumn(m, c0, x - m.colStart[c0 - 1], 1, Math.max(1, c1 - leastCols));
   if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, y - (top + (r1 - 1) * m.pitch - m.rg)));
   if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, y - (top + (r0 - 1) * m.pitch))));
@@ -1328,7 +1340,7 @@ function onKey(e) {
     // An open menu or popover goes first; the block stays selected until the next Escape.
     if (vAlignOpen || !pinPop.hidden) { closeFloating(); return; }
     if (gesture && gesture.type !== 'pending') cancelGesture();
-    else select(null);
+    else { accordionEscape(); select(null); }
     return;
   }
   // Keys measured on the oracle (parity/findings/KEYS.json, KEYS2.json).
@@ -1453,6 +1465,7 @@ let animPlaying = false;
 let animPlay = null; // after the next draw: 'tiles' or 'square'
 let embedData = false;
 let accView = null; // 'acc-item:<n>' or 'acc-dividers'
+let accGrew = false; // an edit in the item view on show made the block grow
 let imageView = null; // the image Shape picker's tab, or null
 let fxView = null; // the Image Effect panel: 'list', 'settings' or null
 let fxOpen = []; // its settings groups that are open: they all start closed
@@ -2868,20 +2881,36 @@ function showAccordionItem(b) {
   const n = accView?.startsWith('acc-item:') ? Number(accView.slice(9)) : -1;
   lis?.forEach((li, k) => { const on = k === n || (k === 0 && !!b.expandFirst); if (on) li.setAttribute('data-is-open', 'true'); else li.removeAttribute('data-is-open'); li.querySelector('button').setAttribute('aria-expanded', String(on)); });
 }
+// It follows its content and what's below moves with it. Growing moves every block that starts lower, in any column, even
+// one that overlaps it. Shrinking moves only those at or past its old end (CAP-ACCBELOW.json to CAP-ACCBELOW4.json, CAP-ACCPHONE6.json).
+function fitAccordion(b, s, need) {
+  const L = lay(b), rows = L.area[2] - L.area[0], start = L.area[0], end = L.area[2], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), lowest = low();
+  L.area = [start, L.area[1], start + need, L.area[3]];
+  for (const o of s.blocks) { const a = o.layout[bp].area; if (o !== b && (need > rows ? a[0] > start : a[0] >= end)) o.layout[bp].area = [a[0] + need - rows, a[1], a[2] + need - rows, a[3]]; }
+  if (need < rows) s.rows[bp] -= lowest - low(); else growRows(s);
+  renderSectionDom(sel.sid); showAccordionItem(b);
+}
+// Escape from an item view whose edit made it grow gives the open item's rows back, to the nearest row, so the rows can
+// stretch. Back doesn't, and neither does Escape with no edit (CAP-ACCPHONE7.json to CAP-ACCPHONE10.json). Read at one length of description.
+function accordionEscape() {
+  if (!accGrew || !sel || !accView?.startsWith('acc-item:')) return;
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), m = measure(feEl(sel.sid));
+  accView = null; accGrew = false;
+  showAccordionItem(b);
+  const need = Math.max(1, Math.round((blockEl(b.id).querySelector('.accordion-items-container').offsetHeight + m.rg) / m.pitch));
+  fitAccordion(b, S(sel.sid), need);
+  commit(before, 'Item closed');
+}
 function setAccordion(change, label, before = JSON.stringify(model)) {
   const b = B(sel.sid, sel.bid), s = S(sel.sid), was = contentRows(b, measure(feEl(sel.sid)));
   change(b);
   renderSectionDom(sel.sid);
   showAccordionItem(b);
   const L = lay(b), rows = L.area[2] - L.area[0], need = contentRows(b, measure(feEl(sel.sid)));
-  // It follows its content, and what's below it moves with it. Content that shrinks doesn't grow a block that was
-  // already short of it: a new one's 5 phone rows stay at 2 items (CAP-ACCPHONE.json to CAP-ACCPHONE6.json).
+  // Content that shrinks doesn't grow a block that was already short of it: a new one's 5 phone rows stay at 2 items (CAP-ACCPHONE.json to CAP-ACCPHONE6.json).
   if (rows !== need && !(need < was && need > rows)) {
-    const end = L.area[2], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), lowest = low();
-    L.area = [L.area[0], L.area[1], L.area[0] + need, L.area[3]];
-    for (const o of s.blocks) { const a = o.layout[bp].area; if (o !== b && a[0] >= end && a[1] < L.area[3] && L.area[1] < a[3]) o.layout[bp].area = [a[0] + need - rows, a[1], a[2] + need - rows, a[3]]; }
-    if (need < rows) s.rows[bp] -= lowest - low(); else growRows(s);
-    renderSectionDom(sel.sid); showAccordionItem(b);
+    if (need > rows && accView?.startsWith('acc-item:')) accGrew = true;
+    fitAccordion(b, s, need);
   }
   commit(before, label);
   renderBlockPanel();
@@ -2901,8 +2930,8 @@ blockPanel.addEventListener('click', (e) => {
     return;
   }
   const [act, arg] = a.dataset.acc.split(':'), n = Number(arg);
-  if (act === 'open') { accView = `acc-item:${n}`; renderBlockPanel(); return; }
-  if (act === 'back') { accView = null; renderBlockPanel(); return; }
+  if (act === 'open') { accView = `acc-item:${n}`; accGrew = false; renderBlockPanel(); return; }
+  if (act === 'back') { accView = null; accGrew = false; renderBlockPanel(); return; }
   if (act === 'dividers') { accView = 'acc-dividers'; renderBlockPanel(); return; }
   if (act === 'title' || act === 'desc') { accView = `acc-${act}`; renderBlockPanel(); return; }
   if (act === 'design') { accView = null; renderBlockPanel(); return; }

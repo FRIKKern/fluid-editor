@@ -1,0 +1,239 @@
+{
+  "item": "CAP-ACCBELOW2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T12: Add Item with a Shape already overlapping the Accordion. Made here on a probe page.",
+  "answer": "A Shape overlapping, starting lower: 5/6/11/12 moves to 8/6/14/12 on Add Item, 10 rows to 13. On Delete the Accordion goes back and the Shape stays, 13 rows, as it isn't at or past the old end. This corrects my inference that it stays on Add Item.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      235,
+      165
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Accordion"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "start",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Add Item"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "Add Item",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Delete New Item"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "Delete it",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          749.8
+        ],
+        "rows": 10,
+        "rowSizes": "30.1x10",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "6_665",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/6/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "6_438",
+          "type": "csr",
+          "desktop": "5/6/11/12",
+          "phone": "6/2/12/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Add Item": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          873
+        ],
+        "rows": 13,
+        "rowSizes": "30.1x13",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "6_665",
+          "type": "csr",
+          "desktop": "1/2/12/10",
+          "phone": "1/2/6/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "6_438",
+          "type": "csr",
+          "desktop": "8/6/14/12",
+          "phone": "6/2/12/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Delete it": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          873
+        ],
+        "rows": 13,
+        "rowSizes": "30.1x13",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "6_665",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/6/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "6_438",
+          "type": "csr",
+          "desktop": "8/6/14/12",
+          "phone": "6/2/12/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

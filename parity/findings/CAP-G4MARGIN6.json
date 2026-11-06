@@ -1,0 +1,239 @@
+{
+  "item": "CAP-G4MARGIN6",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "G4: how far a south east pull goes from the left margin on desktop. One real pointer, 1px at a time. Made here on a probe page.",
+  "answer": "The same south east pull to 400: nothing past 26 on desktop.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      -60,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "se",
+      940,
+      0
+    ],
+    [
+      "read",
+      "start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "se",
+      400,
+      20
+    ],
+    [
+      "read",
+      "se",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/1/7/22",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "se": {
+      "walk": {
+        "part": "se",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 1 / 7 / 22"
+          ],
+          [
+            51,
+            "1 / 1 / 7 / 23"
+          ],
+          [
+            135,
+            "1 / 1 / 7 / 24"
+          ],
+          [
+            194,
+            "1 / 1 / 7 / 25"
+          ],
+          [
+            286,
+            "1 / 1 / 7 / 26"
+          ]
+        ],
+        "xBack": [
+          [
+            285,
+            "1 / 1 / 7 / 25"
+          ],
+          [
+            193,
+            "1 / 1 / 7 / 24"
+          ],
+          [
+            134,
+            "1 / 1 / 7 / 23"
+          ],
+          [
+            50,
+            "1 / 1 / 7 / 22"
+          ],
+          [
+            -35,
+            "1 / 1 / 7 / 21"
+          ],
+          [
+            -94,
+            "1 / 1 / 7 / 20"
+          ],
+          [
+            -153,
+            "1 / 1 / 7 / 19"
+          ],
+          [
+            -212,
+            "1 / 1 / 7 / 18"
+          ],
+          [
+            -271,
+            "1 / 1 / 7 / 17"
+          ],
+          [
+            -329,
+            "1 / 1 / 7 / 16"
+          ],
+          [
+            -388,
+            "1 / 1 / 7 / 15"
+          ]
+        ],
+        "xHome": [
+          [
+            -387,
+            "1 / 1 / 7 / 16"
+          ],
+          [
+            -328,
+            "1 / 1 / 7 / 17"
+          ],
+          [
+            -270,
+            "1 / 1 / 7 / 18"
+          ],
+          [
+            -211,
+            "1 / 1 / 7 / 19"
+          ],
+          [
+            -152,
+            "1 / 1 / 7 / 20"
+          ],
+          [
+            -93,
+            "1 / 1 / 7 / 21"
+          ],
+          [
+            -34,
+            "1 / 1 / 7 / 22"
+          ]
+        ],
+        "yOut": [],
+        "yBack": [],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/1/7/22",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

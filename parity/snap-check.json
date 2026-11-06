@@ -1,8 +1,8 @@
 {
   "check": "where a held drag or resize takes the next line",
   "tolerance": 1,
-  "pass": 24,
-  "total": 24,
+  "pass": 48,
+  "total": 48,
   "results": [
     {
       "kind": "move",
@@ -170,6 +170,126 @@
       "section": 2,
       "block": 2,
       "leg": "yHome",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN se, left margin",
+      "leg": "xOut",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN se, left margin",
+      "leg": "xBack",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN move, left margin",
+      "leg": "xOut",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN move, left margin",
+      "leg": "xBack",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN2 se, left margin, to 200",
+      "leg": "xOut",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN2 se, left margin, to 200",
+      "leg": "xBack",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN2 phone, move, left margin",
+      "leg": "xOut",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN2 phone, move, left margin",
+      "leg": "xBack",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN2 phone, se, left margin",
+      "leg": "xOut",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN2 phone, se, left margin",
+      "leg": "xBack",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN3 move",
+      "leg": "xOut",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN3 move",
+      "leg": "xBack",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN4 move",
+      "leg": "xOut",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN4 move",
+      "leg": "xBack",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN5 move",
+      "leg": "xOut",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN5 move",
+      "leg": "xBack",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN5 se",
+      "leg": "xOut",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN5 se",
+      "leg": "xBack",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN6 se",
+      "leg": "xOut",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4MARGIN6 se",
+      "leg": "xBack",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4PHONE move",
+      "leg": "xOut",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4PHONE move",
+      "leg": "xBack",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4PHONE se",
+      "leg": "xOut",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4PHONE se",
+      "leg": "xBack",
       "ok": true
     }
   ]

@@ -1,0 +1,190 @@
+{
+  "item": "CAP-G4MARGIN3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "G4: a phone move from the left margin at 6 wide. One real pointer, 1px at a time. Made here on a probe page.",
+  "answer": "Phone, 6 wide from the left margin, a move: 14, 56, 105, 159, ending 1/5/7/11. The last step waits for the right edge to pass the right margin's middle (158.75 worked out).",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      -60,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "se",
+      -98,
+      0
+    ],
+    [
+      "read",
+      "start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "middle",
+      220,
+      20
+    ],
+    [
+      "read",
+      "move",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          623.7
+        ],
+        "rows": 6,
+        "rowSizes": "24x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/1/7/7"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "move": {
+      "walk": {
+        "part": "middle",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 1 / 7 / 7"
+          ],
+          [
+            14,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            56,
+            "1 / 3 / 7 / 9"
+          ],
+          [
+            105,
+            "1 / 4 / 7 / 10"
+          ],
+          [
+            159,
+            "1 / 5 / 7 / 11"
+          ]
+        ],
+        "xBack": [
+          [
+            158,
+            "1 / 4 / 7 / 10"
+          ],
+          [
+            104,
+            "1 / 3 / 7 / 9"
+          ],
+          [
+            55,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            13,
+            "1 / 1 / 7 / 7"
+          ]
+        ],
+        "xHome": [],
+        "yOut": [],
+        "yBack": [],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/1/7/7"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
