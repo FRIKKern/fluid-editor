@@ -1,0 +1,309 @@
+{
+  "item": "CAP-U4TIPS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U4: the tip's delay in the page's own clock, and the tip on a Button that is not Primary",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "button",
+      {
+        "controls": true,
+        "thin": true
+      }
+    ],
+    [
+      "tipDelay",
+      "Duplicate",
+      "Duplicate delay",
+      5
+    ],
+    [
+      "tipDelay",
+      "Remove",
+      "Remove delay",
+      3
+    ],
+    [
+      "tipRead",
+      "Primary",
+      "tip on Primary"
+    ],
+    [
+      "shot",
+      "tip"
+    ]
+  ],
+  "reads": {
+    "button": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Primary",
+          "box": [
+            153.1,
+            242.2,
+            96.7,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open link editor popover",
+          "box": [
+            249.8,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            289.8,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            329.8,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            369.8,
+            242.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "thin": [
+        {
+          "box": [
+            148.1,
+            250.2,
+            1,
+            20
+          ],
+          "bg": "rgb(231, 231, 231)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Duplicate delay": {
+      "label": "Duplicate",
+      "seen": [
+        {
+          "first": 528,
+          "full": 528,
+          "firstOpacity": 1,
+          "text": "Duplicate⌘D"
+        },
+        {
+          "first": 517,
+          "full": 517,
+          "firstOpacity": 1,
+          "text": "Duplicate⌘D"
+        },
+        {
+          "first": 517,
+          "full": 517,
+          "firstOpacity": 1,
+          "text": "Duplicate⌘D"
+        },
+        {
+          "first": 517,
+          "full": 517,
+          "firstOpacity": 1,
+          "text": "Duplicate⌘D"
+        },
+        {
+          "first": 517,
+          "full": 517,
+          "firstOpacity": 1,
+          "text": "Duplicate⌘D"
+        }
+      ]
+    },
+    "Remove delay": {
+      "label": "Remove",
+      "seen": [
+        {
+          "first": 518,
+          "full": 518,
+          "firstOpacity": 1,
+          "text": "RemoveDELETE"
+        },
+        {
+          "first": 518,
+          "full": 518,
+          "firstOpacity": 1,
+          "text": "RemoveDELETE"
+        },
+        {
+          "first": 517,
+          "full": 517,
+          "firstOpacity": 1,
+          "text": "RemoveDELETE"
+        }
+      ]
+    },
+    "tip on Primary": {
+      "label": "Primary",
+      "text": "Button Type",
+      "box": [
+        147.1,
+        289.2,
+        108.9,
+        44
+      ]
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "The tip shows 517 ms after the pointer gets on the button, all 8 tries on Duplicate and Remove within 528, by the page's own clock at each frame, so a timer of about 500 ms. It shows at full opacity at once, no fade. Corrects TOOLBARS.json's \"there at 400 ms\", which was timed from outside the page. Primary's tip says Button Type.",
+  "ours": "216 and 217 ms, by the same clock: ours has a 200 ms timer. Read on 5210, 2026-11-06.",
+  "differs": [
+    "The tip on a toolbar button: about 500 ms on the oracle, 200 in ours."
+  ],
+  "pressed": [
+    "Real moves only."
+  ]
+}
