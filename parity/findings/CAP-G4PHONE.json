@@ -318,10 +318,8 @@
   "errors": [],
   "leftDirty": true,
   "answer": "Phones follow the desktop rule: half a pitch plus half a gap, a margin counted as width less gap, no dead zone, no hysteresis. A move: first x step 14, back 13 and -14, first y step 23, then 58. South east: back -30, -79, y out 23, 58, y back -24, -59.",
-  "ours": "Same, but a phone move into the margin steps at 13, not 14. Other 1 or 2 px gaps come from the press: ours at the handle's center, the oracle's at the block's corner.",
-  "differs": [
-    "phone move into the margin: oracle 14, ours 13"
-  ],
+  "ours": "Same: a phone move into the margin was 13, now 14, npm run snap-check. Other 1 or 2 px gaps come from the press: ours at the handle's center, the oracle's at the block's corner.",
+  "differs": [],
   "pressed": [
     "Real pointer walks on a block's body and handle, unnamed."
   ]
