@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 47 changes
+- **Today** · 48 changes
+  - A2, T11: new-block order moves to A2, T11 points there; the long drag measured on ours; the q2 hole and c6 tall nudged in A2 ([#226](https://github.com/FRIKKern/fluid-editor/pull/226))
   - U9, U10: Edit Section on the rounded heights above; Panel top stops at 272 exactly ([#225](https://github.com/FRIKKern/fluid-editor/pull/225))
-  - A2, T11: one rule for the phone order, tested on fresh reads ([#224](https://github.com/FRIKKern/fluid-editor/pull/224))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
