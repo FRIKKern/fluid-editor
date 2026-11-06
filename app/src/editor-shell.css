@@ -535,7 +535,35 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 .bp-add-box strong { margin-top: 14px; font-weight: 400; line-height: 20px; }
 .bp-add-box small { font-size: 12px; line-height: 16px; color: #6f6f6f; }
 .bp-video-store + .sp-row { margin-top: 13px; }
-.bp-video-store { display: flex; justify-content: space-between; box-sizing: border-box; width: 276px; height: 78px; margin-top: 11px; padding: 20px 22px; background: #f2f2f2; border-radius: 3px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #6f6f6f; }
+/* The text stops short of the ?, with a line under it (CAP-T7TIP2.json). */
+.bp-video-store { position: relative; }
+.bp-video-store::after { content: ""; position: absolute; left: 22px; right: 22px; bottom: 22px; height: 1px; background: #bdbdbd; }
+.bp-video-tip { position: absolute; right: 15px; top: 9px; width: 36px; height: 36px; padding: 7px; border: 0; border-radius: 50%; background: transparent; color: #767676; cursor: pointer; }
+.bp-video-tip:hover, .bp-video-tip:focus-visible { background: #e7e7e7; }
+.bp-video-tip svg { display: block; width: 22px; height: 22px; }
+/* The tip it opens, over a dark overlay of the whole window (CAP-T7TIP2.json). */
+.video-tip-over { position: fixed; inset: 0; z-index: 9000; background: rgba(43, 43, 43, .6); }
+.video-tip-box { position: fixed; z-index: 9001; box-sizing: border-box; width: 320px; height: 66px; padding: 11px 16px; background: #0e0e0e; color: #fff; font-size: 14px; line-height: 22px; box-shadow: 0 8px 24px rgba(0, 0, 0, .35); }
+/* A video's Appearance: no lines, a row every 51 (CAP-T7DESIGN.json). */
+.bp-vrows .sp-row, .bp-vrows .st-row { min-height: 44px; margin-bottom: 7px; border-bottom: 0; }
+.bp-vrows { margin: 7px 0 -7px; }
+.bp-thead:has(+ .bp-vrows) { padding-top: 16px; }
+.bp-vrows > :last-child { margin-bottom: 0; }
+.bp-vhint { margin: 14px 0; font-size: 12px; line-height: 16px; color: #949494; }
+.bp-vrows .bp-vcolor .sh-swatch-btn { width: 44px; height: 44px; }
+.bp-vrows .bp-vcolor .sh-swatch-btn i { width: 28px; height: 28px; }
+.st-pad > .st-pad-icon.is-x { border-width: 0 1.5px; }
+.st-pad > .st-pad-icon.is-t { border-width: 1.5px 0 0; }
+.st-pad > .st-pad-icon.is-b { border-width: 0 0 1.5px; }
+.st-pad > .st-pad-icon.is-l { border-width: 0 0 0 1.5px; }
+.st-pad > .st-pad-icon.is-r { border-width: 0 1.5px 0 0; }
+/* A video's Stroke: three segments of 56.7 by 38 in a box as wide as Corner's two rows (CAP-T7DESIGN.json). */
+.bp-vsegs { box-sizing: border-box; width: 182px; height: 44px; padding: 3px; gap: 3px; background: #f2f2f2; border-radius: 4px; }
+.bp-vsegs .sp-seg { flex: 1; min-width: 0; height: 38px; padding: 0; }
+.bp-vsegs .sp-seg.is-on { background: #fff; }
+.bp-vfield { display: block; width: 182px; height: 44px; border-radius: 4px; background: #f2f2f2; }
+.bp-vfield input { box-sizing: border-box; width: 100%; height: 100%; padding: 0 11px; border: 0; background: transparent; font: inherit; }
+.bp-video-store { display: flex; justify-content: space-between; box-sizing: border-box; width: 276px; height: 78px; margin-top: 11px; padding: 20px 57px 20px 22px; background: #f2f2f2; border-radius: 3px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #6f6f6f; }
 .bp-help { margin: 12px 0 0; font-size: 12px; line-height: 16px; color: #6f6f6f; }
 .sp-body > .bp-thead:first-child { border-top: 0; margin-top: 0; }
 .bp-video-head { margin-top: 26px; font-weight: 500; color: #0e0e0e; }
@@ -1097,6 +1125,8 @@ body.is-preview #reload-preview { display: inline-flex; }
 .st-corner-seg { position: absolute; left: 94px; top: 0; display: flex; padding: 3px; box-sizing: border-box; width: 88px; height: 44px; background: #f2f2f2; border-radius: 4px; }
 .st-corner-btn { width: 41px; height: 38px; padding: 0; border: 0; border-radius: 3px; background: transparent; display: inline-flex; align-items: center; justify-content: center; color: #6e6e6e; cursor: pointer; }
 .st-corner-btn.is-on { background: #fff; color: #0e0e0e; }
+.st-corner-reset { position: absolute; right: -9px; top: 13px; width: 18px; height: 18px; padding: 0; border: 0; border-radius: 50%; background: #0e0e0e; color: #fff; font: 14px/18px "Helvetica Neue", Helvetica, Arial, sans-serif; cursor: pointer; opacity: 0; }
+.st-corner-field:hover .st-corner-reset, .st-corner-field:focus-within .st-corner-reset { opacity: 1; }
 .st-corner-field { position: absolute; left: 188px; top: 0; display: block; width: 88px; height: 44px; background: #f2f2f2; border-radius: 4px; }
 .st-corner-field input { position: absolute; left: 11px; top: 0; width: 66px; height: 44px; box-sizing: border-box; padding: 0; border: 0; background: transparent; font: inherit; }
 .st-corners { position: absolute; left: 94px; top: 51px; display: grid; grid-template-columns: repeat(4, 44px); gap: 2px; width: 182px; }

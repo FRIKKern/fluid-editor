@@ -287,6 +287,8 @@ function mapHtml(b) {
 const VIDEO_PLACEHOLDER = '<div class="sqs-block-video-placeholder sqs-block-video-placeholder--empty"><div class="sqs-block-video-placeholder__ui"><div class="sqs-block-video-placeholder__icon"><svg viewBox="0 0 26 21" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 2" aria-hidden="true"><rect x="1" y="1" width="24" height="19"/><path d="M10.5 7v7l6-3.5z" fill="currentColor" stroke="none"/></svg></div></div></div>';
 // A video with a file (parity/findings/VIDEOPLAYER.json). Autoplay, Loop and Mute start on, as the
 // oracle's only reachable video has them; a video added by upload there is out of scope (0005).
+// .intrinsic takes Corner, Background, Padding and Stroke, on an empty block too (CAP-T7CORNER.json, CAP-T7DESIGN2.json).
+const videoBoxClass = (b) => `intrinsic${b.design?.corner || b.design?.corners ? ' sqs-border-radius-enabled' : ''}${b.design?.stroke ? ' sqs-stroke-enabled' : ''}`;
 function videoPlayerHtml(b) {
   const v = b.video;
   const aspect = v.aspect || 'auto';
@@ -295,9 +297,12 @@ function videoPlayerHtml(b) {
   const controls = v.controls || 'minimal';
   const settings = { aspectRatio: aspect, muted: on('muted'), autoPlay: on('autoPlay'), loop: on('loop'), controls, ...(v.lazy ? { loading: v.lazy } : {}) };
   const svg = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
-  const full = controls !== 'full' ? '' : `<button type="button" class="vp-btn" data-vp="mute" aria-label="Mute">${svg('M4 9v6h4l5 4V5L8 9z')}</button><input class="vp-volume" data-vp="volume" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"><button type="button" class="vp-btn" aria-label="Settings">${svg('M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z')}</button><button type="button" class="vp-btn" data-vp="fullscreen" aria-label="Enter fullscreen">${svg('M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5')}</button>`;
-  const ui = controls === 'none' ? '' : `<button type="button" class="vp-play" data-vp="play" aria-label="Play">${svg('M8 5v14l11-7z')}</button><div class="vp-bar"><input class="vp-seek" data-vp="seek" type="range" min="0" max="100" step="0.01" value="0" aria-label="Seek">${full}</div>`;
-  return `<div class="intrinsic${b.design?.corner ? ' sqs-border-radius-enabled' : ''}" style="max-width:100%${b.design?.corner ? `;border-radius:${b.design.corner}px` : ''}"><div class="embed-block-wrapper"><div class="sqs-native-video" data-config-settings="${escapeHtml(JSON.stringify(settings))}" data-config-loading="${v.lazy === 'eager' ? 'eager' : 'lazy'}"><div class="native-video-player video-player" style="aspect-ratio:${ratio};"><video src="${escapeHtml(v.src)}"${v.thumb && v.thumbSrc ? ` poster="${escapeHtml(v.thumbSrc)}"` : ''} playsinline${on('muted') ? ' muted' : ''}${on('loop') ? ' loop' : ''}${on('autoPlay') ? ' autoplay' : ''}></video>${ui}</div></div></div></div>`;
+  // Settings (CAP-T7SETTINGS.json): one row, Speed, which swaps for the list. The player's look is ours.
+  const speeds = ['0.5x', '0.75x', 'Normal', '1.25x', '1.5x', '1.75x', '2x'].map((s) => `<button type="button" role="menuitemradio" class="vp-row" aria-checked="${s === 'Normal'}" data-vp-rate="${s === 'Normal' ? 1 : parseFloat(s)}">${s}</button>`).join('');
+  const menu = `<div class="vp-menu" hidden><div class="vp-home"><button type="button" class="vp-row" data-vp-menu="speed"><span>Speed</span><span class="vp-now">Normal</span></button></div><div class="vp-speeds" hidden><button type="button" class="vp-row vp-back" data-vp-menu="home" aria-label="Go back to previous menu">Speed</button>${speeds}</div></div>`;
+  const full = controls !== 'full' ? '' : `<button type="button" class="vp-btn" data-vp="mute" aria-label="Mute">${svg('M4 9v6h4l5 4V5L8 9z')}</button><input class="vp-volume" data-vp="volume" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"><button type="button" class="vp-btn" data-vp="settings" aria-label="Settings" aria-expanded="false">${svg('M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z')}</button><button type="button" class="vp-btn" data-vp="fullscreen" aria-label="Enter fullscreen">${svg('M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5')}</button>`;
+  const ui = controls === 'none' ? '' : `<button type="button" class="vp-play" data-vp="play" aria-label="Play">${svg('M8 5v14l11-7z')}</button><div class="vp-bar"><input class="vp-seek" data-vp="seek" type="range" min="0" max="100" step="0.01" value="0" aria-label="Seek">${full}</div>${controls === 'full' ? menu : ''}`;
+  return `<div class="${videoBoxClass(b)}" style="max-width:100%"><div class="embed-block-wrapper"><div class="sqs-native-video" data-config-settings="${escapeHtml(JSON.stringify(settings))}" data-config-loading="${v.lazy === 'eager' ? 'eager' : 'lazy'}"><div class="native-video-player video-player" style="aspect-ratio:${ratio};"><video src="${escapeHtml(v.src)}"${v.thumb && v.thumbSrc ? ` poster="${escapeHtml(v.thumbSrc)}"` : ''} playsinline${on('muted') ? ' muted' : ''}${on('loop') ? ' loop' : ''}${on('autoPlay') ? ' autoplay' : ''}></video>${ui}</div></div></div></div>`;
 }
 
 function blockInner(b, model) {
@@ -398,9 +403,7 @@ function blockInner(b, model) {
     }
     case 'video':
       {
-      // Corner: a radius on .sqs-block, its content and the player's .intrinsic (VIDEOPLAYER.json).
-      const radius = b.design?.corner ? ` style="border-radius:${b.design.corner}px"` : '';
-      return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-video video-block" data-block-type="1337" id="block-${b.id}"${radius}><div class="sqs-block-content"${radius}><div>${b.html || (b.video?.src ? videoPlayerHtml(b) : VIDEO_PLACEHOLDER)}</div></div></div>`;
+      return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-video video-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${b.html ? `<div>${b.html}</div>` : b.video?.src ? `<div>${videoPlayerHtml(b)}</div>` : `<div class="${videoBoxClass(b)}">${VIDEO_PLACEHOLDER}</div>`}</div></div>`;
     }
     // A Markdown block (parity/findings/CAP-T10PRE.json, CAP-T10MD.json): its placeholder shows in the editor and in Preview (CAP-T10MD9.json); hidden on the published page, inferred.
     case 'markdown':
@@ -517,7 +520,11 @@ function blendRule(b, g, phone) {
   const pad = g.pad === 'custom' ? `${g.padY ?? 6}% ${g.padX ?? 6}%` : STROKE_PAD[g.pad || 'M'];
   const inner = b.type === 'social' ? '.sqs-block-content' : '.sqs-html-content'; // what the padding goes on
   // Stroke, Corner and Padding (STROKE.json, BLOCKDESIGN.json). A background has the same corner and padding.
-  const stroke = b.type === 'shape' ? '' : (g.stroke ? `${on} { border: ${w}px ${g.stroke} ${g.strokeColor || 'rgb(0, 0, 0)'}; border-radius: ${b.type === 'stack' ? `${g.corner || 0}px` : radius}; }` : phone && base.stroke ? `${on} { border: 0; }` : '')
+  // A video's: on .intrinsic, the Corner on the two above it as well (CAP-T7DESIGN2.json, CAP-T7DESIGN3.json).
+  const vAt = `.fe-block-${b.id}`, vBoxed = g.background || g.stroke, vY = g.padY ?? 6, vX = g.padX ?? 6;
+  const vPad = !vBoxed ? '0' : g.padFour ? `${g.padT ?? vY}% ${g.padR ?? vX}% ${g.padB ?? vY}% ${g.padL ?? vX}%` : `${vY}% ${vX}%`;
+  const video = g.corner || g.corners || vBoxed || phone ? `${vAt} .sqs-block, ${vAt} .sqs-block-content { border-radius: ${radius}; } ${vAt} .intrinsic { border-radius: ${radius}; padding: ${vPad}; background-color: ${g.background ? g.bgColor || 'rgb(255, 255, 255)' : 'transparent'}; border: ${g.stroke ? `${g.strokePx ?? 6}px ${g.stroke} ${g.strokeColor || 'rgb(255, 255, 255)'}` : '0'}; }` : '';
+  const stroke = b.type === 'video' ? video : b.type === 'shape' ? '' : (g.stroke ? `${on} { border: ${w}px ${g.stroke} ${g.strokeColor || 'rgb(0, 0, 0)'}; border-radius: ${b.type === 'stack' ? `${g.corner || 0}px` : radius}; }` : phone && base.stroke ? `${on} { border: 0; }` : '')
     + (boxed ? `${g.stroke ? '' : ` ${on} { border-radius: ${radius}; }`} .fe-block-${b.id} { border-radius: ${radius}; } .fe-block-${b.id} ${inner} { padding: ${pad}; }`
       : phone && b.type !== 'shape' && b.type !== 'stack' && (base.stroke || base.background) ? ` .fe-block-${b.id} ${inner} { padding: 0; } ${on} { border-radius: 0; } .fe-block-${b.id} { border-radius: 0; }` : '');
   const drop = g.shadow ? `.fe-block-${b.id} .sqs-block { filter: drop-shadow(2px 2px 3px); }` : phone && base.shadow ? `.fe-block-${b.id} .sqs-block { filter: none; }` : '';
@@ -687,26 +694,43 @@ export const HEADER_SCRIPT = `(() => {
 
 // On a published page a title opens and closes its item, one at a time unless the block allows
 // more. This behaviour is inferred from the block's labels, not measured on a published page.
-// The player's own buttons on a published page. The editor's frame has no script: a click there selects.
-export const VIDEO_SCRIPT = `const vpOf = (e) => e.target.closest('.native-video-player');
-document.addEventListener('click', (e) => {
-  const p = vpOf(e); if (!p) return;
-  const v = p.querySelector('video'), act = e.target.closest('[data-vp]')?.dataset.vp;
-  if (act === 'mute') v.muted = !v.muted;
-  else if (act === 'fullscreen') p.requestFullscreen?.();
-  else if (act === 'seek' || act === 'volume') return;
-  else if (v.paused) v.play(); else v.pause();
-});
-document.addEventListener('input', (e) => {
-  const p = vpOf(e); if (!p) return;
-  const v = p.querySelector('video'), act = e.target.dataset.vp;
-  if (act === 'seek' && Number.isFinite(v.duration)) v.currentTime = e.target.value / 100 * v.duration;
-  if (act === 'volume') v.volume = Number(e.target.value);
-});
-document.addEventListener('timeupdate', (e) => {
-  const p = e.target.closest?.('.native-video-player'), s = p?.querySelector('.vp-seek');
-  if (s && Number.isFinite(e.target.duration)) s.value = e.target.currentTime / e.target.duration * 100;
-}, true);`;
+// The player's own buttons, on a published page and in preview. In edit mode a click there selects, and
+// `live` says no. The published page gets this function's own text.
+export function bindVideoPlayer(document, live = () => true) {
+  const vpOf = (e) => e.target.closest('.native-video-player');
+  const vpClose = () => { for (const m of document.querySelectorAll('.vp-menu')) { m.hidden = true; m.querySelector('.vp-home').hidden = false; m.querySelector('.vp-speeds').hidden = true; m.closest('.native-video-player').querySelector('[data-vp="settings"]').setAttribute('aria-expanded', 'false'); } };
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') vpClose(); });
+  for (const t of ['play', 'pause', 'ended']) document.addEventListener(t, (e) => { e.target.closest?.('.native-video-player')?.classList.toggle('is-playing', t === 'play'); }, true);
+  document.addEventListener('click', (e) => {
+    const p = live() && vpOf(e); if (!p) return;
+    const v = p.querySelector('video'), act = e.target.closest('[data-vp]')?.dataset.vp, menu = p.querySelector('.vp-menu');
+    const swap = e.target.closest('[data-vp-menu]'), rate = e.target.closest('[data-vp-rate]');
+    if (swap || rate) {
+      if (rate) { v.playbackRate = Number(rate.dataset.vpRate); menu.querySelectorAll('[data-vp-rate]').forEach((r) => r.setAttribute('aria-checked', String(r === rate))); menu.querySelector('.vp-now').textContent = rate.textContent; }
+      const list = swap?.dataset.vpMenu === 'speed';
+      menu.querySelector('.vp-home').hidden = list; menu.querySelector('.vp-speeds').hidden = !list;
+      return;
+    }
+    if (act === 'settings') { const open = menu.hidden; vpClose(); if (open) { menu.hidden = false; e.target.closest('[data-vp]').setAttribute('aria-expanded', 'true'); } return; }
+    if (e.target.closest('.vp-menu')) return;
+    if (menu && !menu.hidden) { vpClose(); return; }
+    if (act === 'mute') v.muted = !v.muted;
+    else if (act === 'fullscreen') p.requestFullscreen?.();
+    else if (act === 'seek' || act === 'volume') return;
+    else if (v.paused) v.play(); else v.pause();
+  });
+  document.addEventListener('input', (e) => {
+    const p = live() && vpOf(e); if (!p) return;
+    const v = p.querySelector('video'), act = e.target.dataset.vp;
+    if (act === 'seek' && Number.isFinite(v.duration)) v.currentTime = e.target.value / 100 * v.duration;
+    if (act === 'volume') v.volume = Number(e.target.value);
+  });
+  document.addEventListener('timeupdate', (e) => {
+    const p = e.target.closest?.('.native-video-player'), s = p?.querySelector('.vp-seek');
+    if (s && Number.isFinite(e.target.duration)) s.value = e.target.currentTime / e.target.duration * 100;
+  }, true);
+}
+export const VIDEO_SCRIPT = `(${bindVideoPlayer})(document);`;
 
 export const ACCORDION_SCRIPT = `document.addEventListener('click', (e) => {
   const b = e.target.closest('.accordion-item__click-target');

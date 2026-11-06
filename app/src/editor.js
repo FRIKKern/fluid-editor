@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -1700,7 +1700,12 @@ blockPanel.addEventListener('click', (e) => {
   if (tile && sel) { e.preventDefault(); animPick(tile.dataset.animTile); return; }
   if (e.target.closest('[data-blend-toggle]')) { blendOpen = !blendOpen; renderBlockPanel(); return; }
   const ds = e.target.closest('[data-dset]');
-  if (ds && sel) { setDesign(ds.dataset.dset, ds.dataset.v || null); return; }
+  if (ds && sel) {
+    setDesign(ds.dataset.dset, ds.dataset.v || null);
+    // A new fill opens its colours at once (CAP-T7DESIGN.json).
+    if (ds.dataset.dset === 'background' && ds.dataset.v && B(sel.sid, sel.bid)?.type === 'video') { renderBlockPanel(); blockPanel.querySelector('[data-shape-act="bgColor"]')?.click(); }
+    return;
+  }
   const st = e.target.closest('[data-stack]');
   if (st && sel) { stackAct(st.dataset.stack); return; }
   const o = e.target.closest('[data-blend]');
@@ -1722,6 +1727,7 @@ blockPanel.addEventListener('click', (e) => {
   if (!t) return;
   designTab = t.dataset.btab;
   closeLinkPopover();
+  closeShapePop(); // CAP-T7DESIGN.json
   renderBlockPanel();
 });
 
@@ -1762,6 +1768,14 @@ function stackAct(act) {
     if (v === '1') b.padFour = true;
     else { delete b.padFour; if (b.padding) b.padding = { t: b.padding.t, b: b.padding.t, l: b.padding.l, r: b.padding.l }; }
   }
+  if (k === 'vpad') {
+    // Four fields start from the two; back to two takes the top's and the right's (the way back is inferred).
+    const bag = designBag(bp), cur = designFor(b, bp), d = (b[bag] ||= {}), y = cur.padY ?? 6, x = cur.padX ?? 6;
+    if (v === '1') Object.assign(d, { padFour: true, padT: y, padR: x, padB: y, padL: x });
+    else { d.padY = cur.padT ?? y; d.padX = cur.padR ?? x; for (const f of ['padFour', 'padT', 'padR', 'padB', 'padL']) delete d[f]; }
+    renderSectionDom(sel.sid); commit(before, `padding on ${b.id}`); renderBlockPanel(); return;
+  }
+  if (k === 'cornerreset') { const bag = designBag(bp), d = (b[bag] ||= {}); d.corner = 0; if (bag === 'design') delete d.corners; else d.corners = null; }
   if (k === 'fill') b.design = { ...b.design, background: true };
   if (k === 'nofill' && b.design) delete b.design.background;
   if (k === 'corners') {
@@ -1849,8 +1863,16 @@ function setButtonView(key, v) {
 }
 // A text block's rows follow its box (BLOCKDESIGN.json): they grow when the text no longer fits, and
 // fall by what the fit fell. A block made taller by hand keeps the rest: 8 rows, fit 3 to 2, gives 7.
-const FIT_KEYS = new Set(['background', 'stroke', 'strokeSize', 'strokePx', 'pad', 'padY', 'padX']);
+const FIT_KEYS = new Set(['background', 'stroke', 'strokeSize', 'strokePx', 'pad', 'padY', 'padX', 'padT', 'padB', 'padL', 'padR']);
 function designChange(b, keys, change, fitBefore = null) {
+  // A video's rows follow its height by the rule of a code block's, and a rise pushes what is below it (CAP-T7DESIGN2.json, CAP-T7DESIGN3.json).
+  if (b.type === 'video' && keys.some((k) => FIT_KEYS.has(k))) {
+    const was = codeHeight(b);
+    change();
+    renderSectionDom(sel.sid);
+    fitRows(b, was);
+    return;
+  }
   const s = S(sel.sid), fits = (b.type === 'text' || b.type === 'social') && keys.some((k) => FIT_KEYS.has(k));
   const was = fitBefore ?? (fits ? contentRows(b, measure(feEl(sel.sid))) : 0);
   change();
@@ -2331,7 +2353,7 @@ function hslOf([r0, g0, b0]) {
   return [h * 60, (d / (1 - Math.abs(2 * l - 1))) * 100, l * 100];
 }
 const rgbFromHsl = (h, s, l) => { const a = (s / 100) * Math.min(l / 100, 1 - l / 100), f = (n) => { const k = (n + h / 30) % 12; return Math.round(255 * (l / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))); }; return [f(0), f(8), f(4)]; };
-const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? b.color || b.fill || '#ffffff' : key === 'lightboxBg' ? formView(b, bp).lightboxBg : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || 'rgb(0, 0, 0)');
+const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? b.color || b.fill || '#ffffff' : key === 'lightboxBg' ? formView(b, bp).lightboxBg : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || (b.type === 'video' ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'));
 function writeShapeColor(b, key, css) {
   if (key === 'color') { if (css) b.color = css; else delete b.color; return; }
   if (key === 'overlay') { if (css) b.overlayColor = css; else delete b.overlayColor; return; }
@@ -2594,6 +2616,7 @@ let codeBefore = null;
 // CAP-T10PULL.json, CAP-T10EMBED.json, CAP-T10VIEW.json, CAP-T10FRESH.json). An embed's height is that of
 // what is in it, margins included, and an empty one's is its 95 tall placeholder.
 function codeHeight(b) {
+  if (b.type === 'video') return blockEl(b.id)?.querySelector('.intrinsic')?.getBoundingClientRect().height ?? 0;
   if (b.type === 'embed' && !b.html) return 95;
   if (b.type === 'markdown') return blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0; // its placeholder too (CAP-T10MD6.json)
   const c = blockEl(b.id)?.querySelector(b.type === 'code' ? '.sqs-code-container' : '.sqs-embed-container');
@@ -2622,9 +2645,11 @@ function fitRows(b, was) {
   const m = measure(feEl(sel.sid)), L = lay(b), rows = L.area[2] - L.area[0], need = Math.max(1, codeRowsFor(h, m));
   const next = h > was ? Math.max(rows, need) : need >= rows ? rows : Math.max(1, rows - codeRowsFor(was - h, m));
   if (next === rows) return;
+  const bottom = L.area[2];
   L.area = [L.area[0], L.area[1], L.area[0] + next, L.area[3]];
   const s = S(sel.sid);
-  s.rows[bp] = Math.max(s.rows[bp], L.area[2] - 1); // or the rows past the section's end collapse
+  if (b.type === 'video' && next > rows) for (const o of s.blocks) { const A = o !== b && o.layout?.[bp]?.area; if (A && A[0] >= bottom) { A[0] += next - rows; A[2] += next - rows; } }
+  s.rows[bp] = Math.max(s.rows[bp], ...s.blocks.map((o) => (o.layout?.[bp]?.area?.[2] ?? 1) - 1)); // or the rows past the section's end collapse
   renderSectionDom(sel.sid);
 }
 // The Markdown block's toolbar and keys, in the panel and in the Code Editor view (markdown-edit.js).
@@ -3341,7 +3366,7 @@ linkPop.addEventListener('change', (e) => {
 const closeLinkOutside = (e) => { if (!linkPop.contains(e.target)) closeLinkPopover(); };
 document.addEventListener('pointerdown', closeLinkOutside, true);
 // The values with a range of their own (BLOCKDESIGN.json); the others are a field of DESIGN_FIELDS.
-const RANGE_LIMITS = { strokePx: 50, padY: 20, padX: 20, blurPx: 100 };
+const RANGE_LIMITS = { strokePx: 50, padY: 20, padX: 20, padT: 20, padR: 20, padB: 20, padL: 20, blurPx: 100 };
 let rangeDrag = null; // a range being dragged: its block moves with it, one undo step when let go
 blockPanel.addEventListener('input', (e) => {
   const r = e.target.closest('input[type="range"][data-design]');
@@ -3387,6 +3412,22 @@ function onDesignChange(e) {
   if (typing) blockPanel.querySelector(`input[data-design="${k}"]`)?.focus();
 }
 panel.addEventListener('change', onDesignChange, true);
+// The ? by Video Storage: a tip over a dark overlay; Escape or a press on the overlay closes it, and the block doesn't change (CAP-T7TIP.json, CAP-T7TIP2.json). The words are ours.
+function openVideoTip(btn) {
+  const P = blockPanel.getBoundingClientRect(), q = btn.getBoundingClientRect();
+  const over = document.createElement('div'), box = document.createElement('div');
+  over.className = 'video-tip-over';
+  box.className = 'video-tip-box';
+  box.setAttribute('role', 'dialog');
+  box.textContent = 'A video you add stays in this tab. Nothing is uploaded.';
+  box.style.cssText = `left:${P.left + 10}px;top:${q.top - 64}px`;
+  const close = () => { over.remove(); box.remove(); document.removeEventListener('keydown', onKey, true); btn.focus(); };
+  const onKey = (e) => { if (e.key !== 'Escape') return; e.preventDefault(); e.stopImmediatePropagation(); close(); };
+  over.addEventListener('click', close);
+  document.addEventListener('keydown', onKey, true);
+  document.body.append(over, box);
+}
+blockPanel.addEventListener('click', (e) => { const t = e.target.closest('[data-video-tip]'); if (t) { e.preventDefault(); e.stopPropagation(); openVideoTip(t); } });
 blockPanel.addEventListener('change', onDesignChange, true);
 
 // The text toolbar (E4, parity/findings/TEXTOPS.json), in the oracle's order: Text Style,
@@ -5511,6 +5552,7 @@ function setPreview(on) {
   doc?.body.classList.toggle('is-preview', on);
   if (!on) doc?.querySelectorAll('.cdk-image-lightbox, body > .form-lightbox').forEach((x) => x.remove());
   if (!on) doc?.querySelectorAll('.followup-question-container').forEach((x) => { x.hidden = true; });
+  if (!on) { doc?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); doc?.querySelectorAll('.native-video-player video').forEach((v) => v.pause()); } // no controls while editing
   $('preview').setAttribute('aria-pressed', String(on));
   $('page-state').textContent = on ? 'Previewing' : 'Page · Published';
   if (on) { closeFloating(); closeSectionPanel(); designOpen = null; if (editing) finishTextEdit(); select(null); }
@@ -5539,6 +5581,7 @@ function boot() {
   win = frame.contentWindow;
   doc.addEventListener('pointerdown', closeLinkOutside, true);
   bindLightbox(doc);
+  bindVideoPlayer(doc, () => doc.body.classList.contains('is-preview'));
   new win.Function(IMAGE_EFFECT_SCRIPT)();
   bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations; } return null; });
   doc.addEventListener('pointerdown', onDown);
