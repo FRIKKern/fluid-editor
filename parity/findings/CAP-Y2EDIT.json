@@ -1,0 +1,883 @@
+{
+  "item": "CAP-Y2EDIT",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "Y2: second readings of the in-edit undo: Cmd+Z with two bursts, Cmd+Shift+Z, then the count; the Undo button after an earlier edit, after one edit, and after a quick earlier edit",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysList",
+      [
+        "a",
+        "a"
+      ]
+    ],
+    [
+      "pause",
+      850
+    ],
+    [
+      "keysList",
+      [
+        "b",
+        "b"
+      ]
+    ],
+    [
+      "read",
+      "bursts typed #1",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Cmd+Z #1",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Cmd+Shift+Z #1",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "undoWalk",
+      "count #1",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysList",
+      [
+        "a",
+        "a"
+      ]
+    ],
+    [
+      "pause",
+      850
+    ],
+    [
+      "keysList",
+      [
+        "b",
+        "b"
+      ]
+    ],
+    [
+      "read",
+      "bursts typed #2",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Cmd+Z #2",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Cmd+Shift+Z #2",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "undoWalk",
+      "count #2",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "first"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "cc"
+    ],
+    [
+      "read",
+      "second edit typed #1",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "click",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Undo button #1",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "undo1"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "first"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "cc"
+    ],
+    [
+      "read",
+      "second edit typed #2",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "click",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Undo button #2",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "undo2"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "only"
+    ],
+    [
+      "click",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Undo button, one edit #1",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "only"
+    ],
+    [
+      "click",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Undo button, one edit #2",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      60,
+      [
+        "f",
+        "i",
+        "r",
+        "s",
+        "t"
+      ]
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      100
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      60,
+      [
+        "c",
+        "c"
+      ]
+    ],
+    [
+      "click",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Undo button, quick second edit #1",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      60,
+      [
+        "f",
+        "i",
+        "r",
+        "s",
+        "t"
+      ]
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      100
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      60,
+      [
+        "c",
+        "c"
+      ]
+    ],
+    [
+      "click",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Undo button, quick second edit #2",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "bursts typed #1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">aabb</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Cmd+Z #1": {
+      "has": {
+        "Bold": true
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">aa</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Cmd+Shift+Z #1": {
+      "has": {
+        "Bold": true
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">aabb</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "count #1": {
+      "undo": [
+        [
+          "start",
+          "aabb"
+        ],
+        [
+          1,
+          "aa"
+        ],
+        [
+          2,
+          ""
+        ],
+        [
+          3,
+          null
+        ],
+        [
+          4,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "bursts typed #2": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">aabb</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Cmd+Z #2": {
+      "has": {
+        "Bold": true
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">aa</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Cmd+Shift+Z #2": {
+      "has": {
+        "Bold": true
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">aabb</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "count #2": {
+      "undo": [
+        [
+          "start",
+          "aabb"
+        ],
+        [
+          1,
+          "aa"
+        ],
+        [
+          2,
+          ""
+        ],
+        [
+          3,
+          null
+        ],
+        [
+          4,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "second edit typed #1": {
+      "has": {
+        "Bold": true
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">firstcc</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Undo button #1": {
+      "has": {
+        "Bold": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">first</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "second edit typed #2": {
+      "has": {
+        "Bold": true
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">firstcc</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Undo button #2": {
+      "has": {
+        "Bold": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">first</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Undo button, one edit #1": {
+      "has": {
+        "Bold": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Undo button, one edit #2": {
+      "has": {
+        "Bold": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Undo button, quick second edit #1": {
+      "has": {
+        "Bold": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">first</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Undo button, quick second edit #2": {
+      "has": {
+        "Bold": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">first</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": false,
+  "answer": "These correct TEXTUNDO.json's single readings. Cmd+Z in an edit takes one step of typing, not all of it. aa, a pause over 1 s, bb: Cmd+Z leaves aa with the edit open, Cmd+Shift+Z brings bb back, and leaving the edit counts 2 steps. 2 of 2, and a run of 4 single keys also goes back 1 key at a time. The Undo button during an edit takes the last typing only and leaves the edit: the text bar goes and the block is no longer selected. An earlier edit stays: first plus cc gives first, 2 of 2, and the same with a quick earlier edit, 2 of 2. One edit alone: empty, the edit left, the block stays, 2 of 2. Redo lights up.",
+  "ours": "Cmd+Z takes all the typing: aabb to empty, and the count after Cmd+Shift+Z is 1. The Undo button takes the earlier edit too, firstcc to empty, and the edit stays open. One edit alone: empty, the block not editable, but the text bar still shows. Read in Chrome. scripts/text-check.mjs:130 pins the old read: it expects back to the start and the edit open.",
+  "differs": [
+    "Cmd+Z in an edit: oracle takes one step, ours all the typing. After it the oracle counts each step, ours 1.",
+    "The Undo button during an edit: oracle takes the last typing and leaves the edit, ours takes the earlier edit too and stays open.",
+    "After the Undo button on a lone edit ours leaves the text bar showing."
+  ],
+  "pressed": "Named presses with an on-top check. Typing by real keys in the search and link fields. Unnamed: real clicks on blocks and a drag, the box Edit by Enter since it opens focused. No Save, no upload, no Reset, no tile or row pressed, Copy and Remove Link not pressed."
+}

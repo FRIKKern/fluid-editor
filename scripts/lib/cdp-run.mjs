@@ -97,7 +97,8 @@ async function press(combo) {
   const named = key === 'Space' ? ' ' : key;
   const char = named.length === 1;
   const code = named === ' ' ? 'Space' : named === '.' ? 'Period' : char ? (/[a-z]/i.test(named) ? `Key${named.toUpperCase()}` : /\d/.test(named) ? `Digit${named}` : '') : named;
-  const keyCode = KEYS[named] ?? (char ? named.toUpperCase().charCodeAt(0) : 0);
+  // Only letters and digits are their own key codes: & and ' as char codes are the arrow keys.
+  const keyCode = KEYS[named] ?? (char && /[a-z0-9]/i.test(named) ? named.toUpperCase().charCodeAt(0) : 0);
   const modifiers = modBits(parts);
   const plain = !(modifiers & (MODS.Control | MODS.Meta | MODS.Alt));
   const text = plain ? (TEXT[named] ?? (char ? named : undefined)) : undefined;
@@ -170,7 +171,7 @@ try {
   if (cmd.op === 'dblclick') await clickAt(await centerOf(cmd.sel, { guard: true }), 2);
   if (cmd.op === 'hover') await mouseEvent('mouseMoved', await centerOf(cmd.sel));
   if (cmd.op === 'press') await press(cmd.key);
-  if (cmd.op === 'presses') for (const key of cmd.keys) await press(key);
+  if (cmd.op === 'presses') for (const [n, key] of cmd.keys.entries()) { if (n && cmd.gapMs) await new Promise((r) => setTimeout(r, cmd.gapMs)); await press(key); }
   if (cmd.op === 'fill') await fill(cmd.sel, cmd.text);
   if (cmd.op === 'dialog') { await send('Page.enable'); const r = await send('Page.handleJavaScriptDialog', { accept: cmd.accept !== false }); if (r.error) throw new Error(r.error.message); }
   if (cmd.op === 'mouse') {

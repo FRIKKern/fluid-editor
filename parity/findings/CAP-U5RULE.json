@@ -1,0 +1,433 @@
+{
+  "item": "CAP-U5RULE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U5: how Add Block search matches: prefix, middle of a word, typo, capitals, plural, two words. Typed by real keys; no tile and no Enter pressed.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "hover",
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "click",
+      "Add Block"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "searchWords",
+      "words",
+      [
+        "image",
+        "imag",
+        "ima",
+        "im",
+        "i",
+        "mage",
+        "age",
+        "ge",
+        "imge",
+        "ikage",
+        "imagee",
+        "IMAGE",
+        "Image",
+        "image ",
+        "text",
+        "ext",
+        "te",
+        "t",
+        "x",
+        "z",
+        "q",
+        "hape",
+        "shap",
+        "sh",
+        "page link",
+        "link page",
+        "pagelink",
+        "page  link",
+        "social links",
+        "links social",
+        "tag cloud",
+        "cloud",
+        "instagram",
+        "insta",
+        "gram",
+        "sound",
+        "cloud sound",
+        "a",
+        "b",
+        "c",
+        "co",
+        "cod",
+        "code",
+        "codes",
+        "coding",
+        "images",
+        "photos",
+        "buttons",
+        "button "
+      ]
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "words": {
+      "image": [
+        "Image",
+        "Chart",
+        "Instagram",
+        "Flickr"
+      ],
+      "imag": [
+        "Image",
+        "Chart",
+        "Instagram",
+        "Flickr"
+      ],
+      "ima": [
+        "Image",
+        "Chart",
+        "Instagram",
+        "Flickr"
+      ],
+      "im": [
+        "Image",
+        "Chart",
+        "RSS",
+        "Instagram",
+        "Flickr"
+      ],
+      "i": [
+        "Image",
+        "Video",
+        "Form",
+        "Accordion",
+        "Scrolling",
+        "Line",
+        "Product",
+        "Pricing Plan",
+        "Donation",
+        "Scheduling",
+        "Newsletter",
+        "Audio",
+        "Calendar",
+        "Map",
+        "Chart",
+        "Social Links",
+        "Search Field",
+        "Page Link",
+        "Tag Cloud",
+        "RSS",
+        "Archive",
+        "Instagram",
+        "Tock",
+        "SoundCloud",
+        "Flickr",
+        "OpenTable",
+        "Zola",
+        "Bandsintown"
+      ],
+      "mage": [
+        "Image",
+        "Chart",
+        "Instagram",
+        "Flickr"
+      ],
+      "age": [
+        "Image",
+        "Chart",
+        "Page Link",
+        "Instagram",
+        "Flickr"
+      ],
+      "ge": [
+        "Image",
+        "Donation",
+        "Map",
+        "Chart",
+        "Page Link",
+        "Instagram",
+        "Flickr",
+        "Zola"
+      ],
+      "imge": [
+        "No Results"
+      ],
+      "ikage": [
+        "No Results"
+      ],
+      "imagee": [
+        "No Results"
+      ],
+      "IMAGE": [
+        "Image",
+        "Chart",
+        "Instagram",
+        "Flickr"
+      ],
+      "Image": [
+        "Image",
+        "Chart",
+        "Instagram",
+        "Flickr"
+      ],
+      "image ": [
+        "Image",
+        "Chart",
+        "Instagram",
+        "Flickr"
+      ],
+      "text": [
+        "Text"
+      ],
+      "ext": [
+        "Text"
+      ],
+      "te": [
+        "Text",
+        "Product",
+        "Pricing Plan",
+        "Donation",
+        "Newsletter",
+        "Quote",
+        "Calendar",
+        "Page Link",
+        "Tag Cloud",
+        "RSS",
+        "OpenTable"
+      ],
+      "t": [
+        "Text",
+        "Image",
+        "Button",
+        "Form",
+        "Accordion",
+        "Line",
+        "Product",
+        "Pricing Plan",
+        "Donation",
+        "Scheduling",
+        "Newsletter",
+        "Quote",
+        "Calendar",
+        "Map",
+        "Menu",
+        "Chart",
+        "Page Link",
+        "Tag Cloud",
+        "RSS",
+        "Instagram",
+        "Tock",
+        "SoundCloud",
+        "Flickr",
+        "OpenTable",
+        "Zola",
+        "Bandsintown"
+      ],
+      "x": [
+        "Text",
+        "Accordion",
+        "Tag Cloud"
+      ],
+      "z": [
+        "Line",
+        "Zola"
+      ],
+      "q": [
+        "Accordion",
+        "Scrolling",
+        "Quote"
+      ],
+      "hape": [
+        "Shape"
+      ],
+      "shap": [
+        "Shape"
+      ],
+      "sh": [
+        "Shape",
+        "Pricing Plan",
+        "Calendar",
+        "Bandsintown"
+      ],
+      "page link": [
+        "No Results"
+      ],
+      "link page": [
+        "No Results"
+      ],
+      "pagelink": [
+        "No Results"
+      ],
+      "page  link": [
+        "No Results"
+      ],
+      "social links": [
+        "Social Links"
+      ],
+      "links social": [
+        "No Results"
+      ],
+      "tag cloud": [
+        "Tag Cloud"
+      ],
+      "cloud": [
+        "Tag Cloud",
+        "SoundCloud"
+      ],
+      "instagram": [
+        "Instagram"
+      ],
+      "insta": [
+        "Instagram"
+      ],
+      "gram": [
+        "Instagram"
+      ],
+      "sound": [
+        "SoundCloud"
+      ],
+      "cloud sound": [
+        "No Results"
+      ],
+      "a": [
+        "Image",
+        "Form",
+        "Accordion",
+        "Shape",
+        "Scrolling",
+        "Line",
+        "Product",
+        "Pricing Plan",
+        "Donation",
+        "Scheduling",
+        "Summary",
+        "Newsletter",
+        "Audio",
+        "Calendar",
+        "Map",
+        "Menu",
+        "Chart",
+        "Markdown",
+        "Social Links",
+        "Search Field",
+        "Page Link",
+        "Tag Cloud",
+        "RSS",
+        "Archive",
+        "Instagram",
+        "Tock",
+        "SoundCloud",
+        "Flickr",
+        "OpenTable",
+        "Zola",
+        "Bandsintown"
+      ],
+      "b": [
+        "Image",
+        "Button",
+        "Product",
+        "Pricing Plan",
+        "Donation",
+        "Scheduling",
+        "Chart",
+        "Embed",
+        "Search Field",
+        "RSS",
+        "Tock",
+        "SoundCloud",
+        "OpenTable",
+        "Bandsintown"
+      ],
+      "c": [
+        "Image",
+        "Form",
+        "Accordion",
+        "Scrolling",
+        "Product",
+        "Pricing Plan",
+        "Donation",
+        "Scheduling",
+        "Calendar",
+        "Map",
+        "Menu",
+        "Chart",
+        "Code",
+        "Social Links",
+        "Search Field",
+        "Page Link",
+        "Tag Cloud",
+        "RSS",
+        "Archive",
+        "Instagram",
+        "Tock",
+        "SoundCloud",
+        "Flickr",
+        "Zola",
+        "Bandsintown"
+      ],
+      "co": [
+        "Form",
+        "Accordion",
+        "Pricing Plan",
+        "Donation",
+        "Code",
+        "Page Link",
+        "Bandsintown"
+      ],
+      "cod": [
+        "Code"
+      ],
+      "code": [
+        "Code"
+      ],
+      "codes": [
+        "No Results"
+      ],
+      "coding": [
+        "No Results"
+      ],
+      "images": [
+        "No Results"
+      ],
+      "photos": [
+        "No Results"
+      ],
+      "buttons": [
+        "No Results"
+      ],
+      "button ": [
+        "Button"
+      ]
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Search matches any part of a hidden string, in any case, with the ends trimmed: mage, ext and gram all hit. No typo tolerance: imge and imagee give nothing. No plurals by rule: images, photos and buttons give nothing. Words must sit in the same order and next to each other: tag cloud hits, cloud tag doesn't. A tile's name isn't always among its strings: page link gives No Results, though the tile is Page Link.",
+  "ours": "Ours matches any part too, on the name plus at most one word: page link hits in ours.",
+  "differs": [
+    "page link: oracle No Results, ours Page Link."
+  ],
+  "pressed": "Named presses with an on-top check. Typing by real keys in the search and link fields. Unnamed: real clicks on blocks and a drag, the box Edit by Enter since it opens focused. No Save, no upload, no Reset, no tile or row pressed, Copy and Remove Link not pressed."
+}

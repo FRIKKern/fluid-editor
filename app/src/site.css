@@ -477,7 +477,9 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .form-submission-text { margin-top: 20px; }
 .form-submission-text--align-center { text-align: center; }
 .form-submission-text--align-right { text-align: right; }
-.form-submission-text p { margin: 16px 0; }
+.form-submission-text p { margin: 16px 0; white-space: pre-wrap; }
+.form-submission-text h1, .form-submission-text h2, .form-submission-text h3, .form-submission-text h4 { margin: 32px 0; white-space: pre-wrap; }
+.form-submission-text pre { margin: 16px 0; font-family: monospace, serif; font-size: 16px; line-height: 22.4px; }
 .form-wrapper.is-post-view > .form-post, .form-wrapper.is-submitted > .form-post { display: flex; }
 .form-wrapper.is-post-view > .fe-form, .form-wrapper.is-submitted > .fe-form { visibility: hidden; }
 /* The oracle's view leaves the button's word showing, and only that. */
@@ -549,6 +551,7 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 @media screen and (max-width: 767px) and (orientation: portrait) {
   .lb-word--desktop, .form-views--phone-lightbox > .form-wrapper, .form-views--desktop-lightbox > .lightbox-handle-wrapper { display: none; }
   .lb-word--phone { display: inline; }
+  .form-lightbox-box--phone { --lb-bg: var(--lb-bg-phone); --lb-ink: var(--lb-ink-phone); }
   .form-views--phone-lightbox > .lightbox-handle-wrapper { display: block; }
   .form-views--desktop-lightbox > .form-wrapper { display: grid; }
   .lightbox-handle-wrapper--phone-left, .fe-form .form-button-wrapper--phone-left { text-align: left; }

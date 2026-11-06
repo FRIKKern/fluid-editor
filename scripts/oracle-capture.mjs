@@ -7,9 +7,9 @@
 // Steps: enter | exit | view Mobile|Desktop | window w h (the real window, for a block taller than it) | frame w h | unframe | pause ms | listen
 //   hover i | hoverBlock i k | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
-//   hoverNamed label | fadeWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | rangeKey key
-//   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | fill label value | fillValue shown value | rightClick i k
-//   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clickAt x y | walk i k part mx my | pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillRow label n value | hoverRow label [n] | pressEl selector [n] | hoverEl selector [n] | pressNamed label | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
+//   hoverNamed label | fadeWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
+//   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | keysGap ms [keys] | fill label value | fillValue shown value | rightClick i k
+//   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clipHold | clipGive | clickAt x y | walk i k part mx my | pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillRow label n value | hoverRow label [n] | pressEl selector [n] | hoverEl selector [n] | pressNamed label | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
 //   hold i k part dx dy [mods] | holdRaw i k part dx dy | shiftClick i k | move dx dy | release [home] | drag i k part dx dy {pointerType}
 //   touch i k part dx dy {holdMs} | pasteMid i k html | pasteHere i k html (over the selection as it is) | undoWalk name [n] [html] | stamp i k | shot name
 //   read name { stamps: true, codeText: true, block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], range: true, rows: [labels], parts: [labels], boxes: [labels], shape: [i,k], reset: [label,n], leaves: [labels], afterBtn: label, gridEls: selector, cursorEls: true, shadowOf: label, btnState: [labels], shadowChain: selector, fullEls: true, panelBox: true or i, panelState: true, kids: [i, k] (a stack's children), linkTexts: [i, k], gradients: true, marker: [i, k], hits: [i, k], htmlOf: selector, frameEls: selector, panelEls: selector, panelCss: selector, textBox: [text], radii: [i, k], icon: true, style: [i,k], textH: [i,k], checks: true, sel: selector, layers: i, controls: true, thin: true }
@@ -196,6 +196,7 @@ const ROWPARTS = (L) => `(() => { const vis = (e) => { const q = e.getBoundingCl
 // The Reset to default value button of one field: the row's n-th input, the button level with it and nearest its right edge.
 const RESETOF = (L, n) => `(() => { const f = ${ROWINPUTS(L)}; const e = f && f[${n}]; if (!e) return null; const q = e.getBoundingClientRect(); const all = [...document.querySelectorAll('[aria-label="Reset to default value"], [title="Reset to default value"]')].filter((b) => { const r = b.getBoundingClientRect(); return r.width > 0 && Math.abs(r.top + r.height / 2 - q.top - q.height / 2) < 14; }); all.sort((x, y) => Math.abs(x.getBoundingClientRect().left - q.right) - Math.abs(y.getBoundingClientRect().left - q.right)); return all[0] || null; })()`;
 const ROWINPUTS = (L) => `(() => { const vis = (e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'); const leaf = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && e.textContent.trim() === ${JSON.stringify(L)} && vis(e)); if (!leaf) return null; let r = leaf; while (r && r !== document.body && ![...r.querySelectorAll('input:not([type=radio]):not([type=checkbox])')].some(vis)) r = r.parentElement; return r && r !== document.body ? [...r.querySelectorAll('input:not([type=radio]):not([type=checkbox])')].filter(vis) : null; })()`;
+let heldClip = [];
 const STEPS = {
   // The Mobile view outlives Exit, so a step could read the wrong layout: always start on Desktop.
   // After many runs Edit can open the bar and leave the canvas not editing: leave, reload, enter again.
@@ -239,6 +240,8 @@ const STEPS = {
   keysFast: async (text) => { cdp(S, { op: 'presses', keys: [...text].map((c) => (c === ' ' ? 'Space' : c)) }); await pause(1500); },
   // Keys with no wait between them, so a Cmd+B is inside one burst of typing.
   keysList: async (keys) => { cdp(S, { op: 'presses', keys }); await pause(300); },
+  // Real keys with an exact gap between them, all in one process.
+  keysGap: async (gapMs, keys) => { cdp(S, { op: 'presses', keys, gapMs }); await pause(300); },
   keys: async (text) => { for (const c of text) browser(S, 'press', c === ' ' ? 'Space' : c); await pause(300); },
   fill: async (label, value) => {
     const ok = tag(`() => { const L = ${JSON.stringify(label)}; const vis = (e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'); const direct = [...document.querySelectorAll('input, textarea')].filter(vis).find((e) => e.getAttribute('aria-label') === L || e.getAttribute('placeholder') === L); if (direct) return direct; const t = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.textContent.trim() === L && vis(e)).pop(); let n = t; for (let u = 0; n && u < 6; u++, n = n.parentElement) { const i = [...n.querySelectorAll('input:not([type=checkbox]):not([type=radio]), textarea')].find(vis); if (i) return i; } return null; }`);
@@ -251,6 +254,9 @@ const STEPS = {
   holdRaw: async (i, k, part, dx, dy) => { const [x, y] = point(i, k, part); held = { x, y, mods: [] }; await inFrame(async () => { mouse(S, 'move', x, y); mouse(S, 'down', x, y); await pause(200); for (let n = 1; n <= 6; n++) { mouse(S, 'move', x + (dx * n) / 6, y + (dy * n) / 6, { buttons: 1 }); await pause(40); } }); await pause(300); },
   // Presses the south-east corner of the selected group, by the union of the selected blocks.
   groupDrag: async (i, dx, dy) => { const at = evalJs(S, `(() => { ${FRAME} const fe = d.querySelectorAll('main#page .fluid-engine')[${i}]; const qs = [...fe.querySelectorAll(':scope > .fe-block[data-is-selected="true"]')].map((b) => b.getBoundingClientRect()); if (qs.length < 2) return JSON.stringify(null); return JSON.stringify([Math.max(...qs.map((q) => q.right)), Math.max(...qs.map((q) => q.bottom))]); })()`); if (!at) throw new Error('no selected group'); const [x, y] = at; await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x + dx, y + dy], steps: 12, holdMs: 200, mods: [] })); await pause(800); },
+  // A synthetic copy's DataTransfer dies with the page, so carry it in this process to another page. Never stored or printed.
+  clipHold: () => { heldClip = evalJs(S, `(() => { const dt = document.getElementById('sqs-site-frame').contentWindow.__fxDt; return JSON.stringify(dt ? [...dt.types].map((t) => [t, dt.getData(t)]) : []); })()`); finding.reads.heldTypes = heldClip.map(([t]) => t); },
+  clipGive: () => evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame').contentWindow; f.__fxDt = new f.DataTransfer(); for (const [t, v] of ${JSON.stringify(heldClip)}) f.__fxDt.setData(t, v); return JSON.stringify(true); })()`),
   // Keeps the page's clipboard calls in memory, in the top window and the site frame, so a Copy cannot reach the machine's clipboard.
   // A copy or paste event with our own DataTransfer, in the frame or the top window. No key press, nothing reaches the machine's clipboard. Logs whether the page took it and the types, never the data.
   synthClip: (type, where = 'frame') => evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame').contentWindow; const w = ${JSON.stringify(where)} === 'top' ? window : f; const d = w.document; f.__fxDt = f.__fxDt || new f.DataTransfer(); const dt = f.__fxDt; const t = d.activeElement && d.activeElement !== d.body ? d.activeElement : d; const ev = new w.ClipboardEvent(${JSON.stringify(type)}, { bubbles: true, cancelable: true, composed: true, clipboardData: dt }); const taken = !t.dispatchEvent(ev); f.__fxClip.log.push(${JSON.stringify(type + ':' + where + ':')} + (taken ? 'taken' : 'not taken') + ':' + [...dt.types].join(',')); return JSON.stringify(true); })()`),
@@ -340,6 +346,55 @@ const STEPS = {
       out[w] = evalJs(S, `(() => { const { i } = ${box}; let c = i; while (c.parentElement && c.getBoundingClientRect().height < 150) c = c.parentElement; return JSON.stringify([...c.querySelectorAll('*')].filter((x) => x.childElementCount === 0 && x.tagName !== 'INPUT' && x.getBoundingClientRect().width > 0 && x.textContent.trim()).map((x) => x.textContent.trim())); })()`);
     }
     finding.reads[name] = out;
+  },
+  // Add Block's search matches any part of a hidden string (CAP-U5RULE.json), so its strings can be read back: every letter,
+  // every pair, then each pair grown left and right while its tile stays, then every triple the pairs allow that the grown
+  // strings don't hold, then two strings of a tile joined by a space. Typing only, and it stops if the field loses focus.
+  searchCrawl: async (name, wait = 280) => {
+    const box = `(() => { ${FRAME} for (const D of [d, document]) { const i = [...D.querySelectorAll('input')].find((x) => /search/i.test(x.placeholder || '') && x.getBoundingClientRect().width > 0); if (i) return { i, D }; } return null; })()`;
+    const at = evalJs(S, `(() => { const { i, D } = ${box}; const q = i.getBoundingClientRect(); const o = D === document ? { left: 0, top: 0 } : document.getElementById('sqs-site-frame').getBoundingClientRect(); return JSON.stringify([o.left + q.left + q.width / 2, o.top + q.top + q.height / 2]); })()`);
+    cdp(S, { op: 'drag', from: at, to: at, steps: 1, holdMs: 50, mods: [] }); await pause(400);
+    const seen = new Map();
+    const out = finding.reads[name] = { queries: 0, singles: {}, strings: {}, joined: {}, failedRecheck: [] };
+    const ask = async (w) => {
+      if (seen.has(w)) return seen.get(w);
+      out.queries = seen.size + 1; if (out.queries % 200 === 0) console.error(`searchCrawl: ${out.queries} queries`);
+      cdp(S, { op: 'presses', keys: ['Meta+a', ...w] }); await pause(wait);
+      const r = evalJs(S, `(() => { const { i, D } = ${box}; if (D.activeElement !== i) return JSON.stringify({ lost: true }); let c = i; while (c.parentElement && c.getBoundingClientRect().height < 150) c = c.parentElement; return JSON.stringify({ v: i.value, t: [...c.querySelectorAll('*')].filter((x) => x.childElementCount === 0 && x.tagName !== 'INPUT' && x.getBoundingClientRect().width > 0 && x.textContent.trim()).map((x) => x.textContent.trim()).filter((x) => x !== 'No Results') }); })()`);
+      if (r.lost || r.v !== w) throw new Error(`searchCrawl: the field lost focus or took "${r.v}" at "${w}"`);
+      seen.set(w, r.t);
+      return r.t;
+    };
+    const alphabet = [...'abcdefghijklmnopqrstuvwxyz0123456789-,/._+'];
+    const single = out.singles; for (const c of alphabet) single[c] = await ask(c);
+    const used = alphabet.filter((c) => single[c].length);
+    const pairs = {};
+    for (const a of used) for (const b of used) { if (!single[a].some((t) => single[b].includes(t))) continue; for (const t of await ask(a + b)) (pairs[t] ||= new Set()).add(a + b); }
+    const found = out.strings;
+    const grow = async (t, seed) => {
+      let s = seed, moved = true;
+      while (moved) {
+        moved = false;
+        for (const c of used) { if (pairs[t].has(s.at(-1) + c) && (await ask(s + c)).includes(t)) { s += c; moved = true; break; } }
+        if (moved) continue;
+        for (const c of used) { if (pairs[t].has(c + s[0]) && (await ask(c + s)).includes(t)) { s = c + s; moved = true; break; } }
+      }
+      return s;
+    };
+    const keep = (t, s) => { const l = (found[t] ||= []); if (l.some((x) => x.includes(s))) return; found[t] = l.filter((x) => !s.includes(x)).concat(s); };
+    const holds = (t, g) => (found[t] || []).some((x) => x.includes(g));
+    for (const t of Object.keys(pairs)) for (const g of pairs[t]) if (!holds(t, g)) keep(t, await grow(t, g));
+    for (const t of Object.keys(pairs)) {
+      for (const g of pairs[t]) for (const h of pairs[t]) {
+        if (g[1] !== h[0]) continue;
+        const tri = g + h[1];
+        if (!holds(t, tri) && (await ask(tri)).includes(t)) keep(t, await grow(t, tri));
+      }
+    }
+    const joined = out.joined;
+    for (const t of Object.keys(found)) for (const a of found[t]) for (const c of new Set(found[t].map((x) => x[0]))) if ((await ask(`${a} ${c}`)).includes(t)) (joined[t] ||= []).push(`${a} ${c}`);
+    const check = out.failedRecheck;
+    for (const t of Object.keys(found)) for (const w of found[t]) { cdp(S, { op: 'presses', keys: ['Meta+a', ...w] }); await pause(700); seen.delete(w); if (!(await ask(w)).includes(t)) check.push([t, w]); }
   },
   // Focus the panel's visible slider and press a real key on it.
   rangeKey: async (key) => { if (!tag(`() => [...document.querySelectorAll('input[type=range]')].find((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'))`)) throw new Error('no slider'); evalJs(S, `(() => { document.getElementById('fx-target').focus(); return 'true'; })()`); browser(S, 'press', key); await pause(500); },
