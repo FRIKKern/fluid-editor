@@ -135,6 +135,7 @@ body:has(#layers-panel:not([hidden])) .sc-layers { background: #e7e7e7; }
 #section-chrome.is-outline-in > .sc-outline { animation: sc-outline-in 0.2s ease-in-out; }
 @keyframes sc-outline-in { from { border-color: transparent; } }
 .sc-outline-gone { position: absolute; box-sizing: border-box; z-index: 8; }
+.sc-add-gone { position: absolute; box-sizing: border-box; z-index: 8; pointer-events: none; }
 @keyframes sc-in { from { opacity: 0; translate: 0 -11px; } }
 @keyframes sc-out { to { opacity: 0; translate: 0 -11px; } }
 .sc-layers { width: 38px; padding: 8px; }

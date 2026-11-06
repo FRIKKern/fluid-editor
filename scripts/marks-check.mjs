@@ -415,6 +415,41 @@ const addIn = await addWatch(60, 400);
 add('Add Section fades in over 0.2 s, ease-in-out, no slide', addOk(addIn, 'sc-add-in') && addIn.values.every((v, i, a) => !i || v >= a[i - 1]), JSON.stringify(addIn));
 const addOut = await addWatch(800, 20);
 add('Add Section fades out over 0.2 s, ease-in-out, no slide', addOk(addOut) && addOut.values.every((v, i, a) => !i || v <= a[i - 1]), JSON.stringify(addOut));
+// The old Add Section fades as a copy left behind, and comes back on letting go of a block, on CAP-U9ADDFADE2.json and CAP-U9ADDFADE3.json.
+const addCross = async (act, ms = 600) => {
+  evalJs(S, `(() => { const T = window.__acw = { t0: performance.now(), seen: [], timing: null, stop: false }; const tick = () => { if (T.stop) return; const g = [...document.querySelectorAll('.sc-add-gone')], c = document.getElementById('section-chrome'), o = c.hidden ? null : c.querySelector('[data-sc="add-section-below"]'); if (g[0] && !T.timing) { const t = g[0].getAnimations()[0].effect.getTiming(); T.timing = [t.duration, t.easing]; } T.seen.push([g.length, g[0] ? +getComputedStyle(g[0]).opacity : null, o ? +getComputedStyle(o).opacity : null, !!c.hidden, g[0] ? getComputedStyle(g[0]).pointerEvents : null]); requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
+  await act(); await pause(ms);
+  const T = evalJs(S, `(() => { const T = window.__acw; T.stop = true; return JSON.stringify({ seen: T.seen, timing: T.timing }); })()`);
+  const gone = T.seen.map((r) => r[1]).filter((a) => a !== null && a > 0 && a < 1), lit = T.seen.map((r) => r[2]).filter((a) => a !== null && a > 0 && a < 1);
+  return { copies: Math.max(...T.seen.map((r) => r[0])), timing: T.timing, gone: gone.length, lit: lit.length, falling: gone.every((a, i) => !i || a <= gone[i - 1]), rising: lit.every((a, i) => !i || a >= lit[i - 1]), end: T.seen.at(-1), through: T.seen.every((r) => r[4] === null || r[4] === 'none') };
+};
+const copyTiming = (r) => r.timing?.join() === '200,ease-in-out';
+await frameScroll(500); mouse(S, 'move', 60, 300); mouse(S, 'move', 62, 301); await pause(500);
+const addCrossed = await addCross(async () => { mouse(S, 'move', 60, 700); mouse(S, 'move', 62, 701); });
+add('straight to another section: the old Add Section fades as the new one comes', addCrossed.copies === 2 && copyTiming(addCrossed) && addCrossed.gone >= 6 && addCrossed.falling && addCrossed.lit >= 6 && addCrossed.rising && addCrossed.end[0] === 0 && addCrossed.through, JSON.stringify(addCrossed));
+// Off and back on within the fade it runs back from where it is, on CAP-U9ADDFADE2.json. Only a try where the chrome stayed counts: the wait can pass 200 ms.
+let addBack = null;
+for (let tryAt = 0; tryAt < 3 && !addBack?.seen; tryAt++) {
+  mouse(S, 'move', 60, 700); mouse(S, 'move', 62, 701); await pause(500);
+  evalJs(S, `(() => { const T = window.__abw = { seen: [], gone: false, stop: false }; const tick = () => { if (T.stop) return; const c = document.getElementById('section-chrome'), o = c.querySelector('[data-sc="add-section-below"]'); if (c.hidden || !o) T.gone = true; else T.seen.push(+getComputedStyle(o).opacity); requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
+  mouse(S, 'move', 800, 20); await pause(50); mouse(S, 'move', 60, 700); mouse(S, 'move', 62, 701); await pause(500);
+  const r = evalJs(S, `(() => { const T = window.__abw; T.stop = true; return JSON.stringify({ seen: T.seen, gone: T.gone }); })()`);
+  if (!r.gone) addBack = { seen: r.seen };
+}
+const addLow = addBack ? Math.min(...addBack.seen) : null, addLowAt = addBack ? addBack.seen.indexOf(addLow) : -1;
+add('Add Section back on during its fade runs back', !!addBack && addLow > 0 && addLow < 1 && addBack.seen.at(-1) === 1 && addBack.seen.slice(addLowAt).every((a, i, l) => !i || a >= l[i - 1]) && addBack.seen.slice(0, addLowAt + 1).every((a, i, l) => !i || a <= l[i - 1]), JSON.stringify({ low: addLow, frames: addBack?.seen.length }));
+// A block on screen, pressed with the pointer on it: a press selects, Escape lets go, a drag from hover goes too.
+evalJs(S, `(() => { ${FR} W.scrollTo({ left: 0, top: W.scrollY + d.querySelector('.fe-block[data-block-id="${BIDS.shape}"]').getBoundingClientRect().top - 300, behavior: 'instant' }); return 'ok'; })()`); await pause(200);
+const addBox = boxOf(BIDS.shape); await moveTo(at(addBox)); await pause(500);
+const [ax, ay] = at(addBox);
+const addSelected = await addCross(async () => { mouse(S, 'down', ax, ay, { buttons: 1 }); mouse(S, 'up', ax, ay); });
+add('selecting a block: Add Section fades as a copy', addSelected.copies === 2 && copyTiming(addSelected) && addSelected.gone >= 6 && addSelected.falling && addSelected.end[0] === 0 && addSelected.end[2] === null, JSON.stringify(addSelected));
+const addEsc = await addCross(async () => { browser(S, 'press', 'Escape'); });
+add('Escape with the pointer on the block: Add Section fades in', addEsc.copies === 0 && addEsc.lit >= 6 && addEsc.rising && addEsc.end[2] === 1, JSON.stringify(addEsc));
+const addHeld = await addCross(async () => { mouse(S, 'down', ax, ay, { buttons: 1 }); mouse(S, 'move', ax + 14, ay, { buttons: 1 }); await pause(60); mouse(S, 'move', ax + 30, ay + 20, { buttons: 1 }); }, 400);
+add('a gesture from hover: Add Section fades as a copy', addHeld.copies === 2 && copyTiming(addHeld) && addHeld.gone >= 6 && addHeld.falling && addHeld.end[0] === 0 && addHeld.end[3] === true, JSON.stringify(addHeld));
+mouse(S, 'move', ax, ay, { buttons: 1 }); await pause(150); mouse(S, 'up', ax, ay); await pause(300);
+await fresh(); await hoverBar(800, 20); await pause(300);
 // The old outline fades as a copy left behind: straight to another section, and in a gesture (CAP-U9CLOSE.json).
 const alpha = (c) => { if (!c) return null; const n = c.match(/[\d.]+/g).map(Number); return n.length > 3 ? n[3] : 1; };
 const crossWatch = async (act, ms = 600) => {

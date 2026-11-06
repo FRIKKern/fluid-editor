@@ -10378,6 +10378,6 @@
   "answer": "Add Section fades on opacity over 0.2 s, ease-in-out, both ways, the same series as the outline: 0.013, 0.056, 0.129, 0.232, 0.359, 0.5, 0.641, 0.768, 0.87, 0.944, 0.986, 1, about 16.6 ms apart, and reversed going out. Both of a section's buttons together. Its parent carries it: opacity 0.2s ease-in-out, with visibility turning hidden at the end of the fade out. CAP-U9FADE.json read flat because it found the outer wrapper, which holds the text and does not fade. 2 of 2 runs.",
   "ours": "Now 0.2 s, ease-in-out, both ways, on opacity, with no slide. Before this, read by frame: about 0.18 s in and 0.15 s out, along with the other parts: in 0.019, 0.079, 0.181, 0.319, 0.483, 0.649, 0.795, 0.904, 0.972, 0.999, 1; out 0.976, 0.898, 0.768, 0.596, 0.405, 0.232, 0.101, 0.025, 0. Read by frame on 5210, one run.",
   "differs": [],
-  "notRead": "Moving straight to another section, coming back during the fade, and a gesture, for Add Section. Ours: on a new section it fades in, and the old ones go at once. Coming back it runs back. In a gesture it goes at once.",
+  "notRead": "Read since: CAP-U9ADDFADE2.json and CAP-U9ADDFADE3.json.",
   "pressed": "None past the section panel by its tools. Scrolling by script. Mouse moves only."
 }
