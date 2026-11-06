@@ -1,12 +1,16 @@
 {
- "item": "A2",
- "question": "Fresh test of the turn rule: what it predicts, written before any of these cases was read on the oracle.",
- "ruleAt": "0177ae25316f93b98ea5bf7bfb95501d2160fde2",
- "scoring": "A case hits when the read has the same blocks by z in the same phone order with the same phone rows. A different desktop area is a setup difference, listed apart.",
+ "item": "CAP-TURNTEST",
+ "oracle": "/gestures-probe",
+ "capturedAt": "2026-11-06",
+ "engine": "chrome",
+ "question": "Fresh test of the turn rule: 35 cases predicted before reading",
  "steps": [
   [
    "toPage",
    "Gestures Probe"
+  ],
+  [
+   "enter"
   ],
   [
    "blank"
@@ -1117,6 +1121,1201 @@
    }
   ]
  ],
+ "reads": {
+  "p1 add image": {
+   "stack": [
+    {
+     "id": "2_422",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "2_631",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "3/2/9/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p1 image lower": {
+   "stack": [
+    {
+     "id": "2_422",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "2_631",
+     "type": "csr",
+     "desktop": "6/2/12/8",
+     "phone": "3/2/9/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p1 image wider": {
+   "stack": [
+    {
+     "id": "2_422",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "2_631",
+     "type": "csr",
+     "desktop": "6/2/12/10",
+     "phone": "3/2/9/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p1 image nudged up": {
+   "stack": [
+    {
+     "id": "2_422",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "2_631",
+     "type": "csr",
+     "desktop": "5/2/11/10",
+     "phone": "3/2/9/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p2 add button": {
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/9/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "1_679",
+     "type": "csr",
+     "desktop": "1/2/3/8",
+     "phone": "9/2/11/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p2 button low": {
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/9/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "1_679",
+     "type": "csr",
+     "desktop": "11/2/13/8",
+     "phone": "9/2/11/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p2 add line": {
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/9/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "1_918",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "9/2/10/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "1_679",
+     "type": "csr",
+     "desktop": "11/2/13/8",
+     "phone": "10/2/12/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p2 line right 2": {
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/9/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "1_918",
+     "type": "csr",
+     "desktop": "1/4/2/8",
+     "phone": "9/2/10/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "1_679",
+     "type": "csr",
+     "desktop": "11/2/13/8",
+     "phone": "10/2/12/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p2 line again": {
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/9/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "1_918",
+     "type": "csr",
+     "desktop": "2/7/3/11",
+     "phone": "9/2/10/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "1_679",
+     "type": "csr",
+     "desktop": "11/2/13/8",
+     "phone": "10/2/12/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p3 add line": {
+   "stack": [
+    {
+     "id": "2_718",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "2_420",
+     "type": "csr",
+     "desktop": "6/2/8/26",
+     "phone": "2/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p3 line far right": {
+   "stack": [
+    {
+     "id": "2_420",
+     "type": "csr",
+     "desktop": "6/2/8/26",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "2_718",
+     "type": "csr",
+     "desktop": "1/12/2/16",
+     "phone": "3/2/4/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p3 line down": {
+   "stack": [
+    {
+     "id": "2_718",
+     "type": "csr",
+     "desktop": "3/17/4/21",
+     "phone": "1/2/2/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "2_420",
+     "type": "csr",
+     "desktop": "6/2/8/26",
+     "phone": "2/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p3 add code": {
+   "stack": [
+    {
+     "id": "2_420",
+     "type": "csr",
+     "desktop": "6/2/8/26",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "2_953",
+     "type": "csr",
+     "desktop": "1/2/7/6",
+     "phone": "3/2/9/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "2_718",
+     "type": "csr",
+     "desktop": "3/17/4/21",
+     "phone": "9/2/10/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p4 image one phone row": {
+   "stack": [
+    {
+     "id": "6_650",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/2/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "7/2/9/8",
+     "phone": "7/2/9/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p4 image right": {
+   "stack": [
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "7/2/9/8",
+     "phone": "6/2/8/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "6_650",
+     "type": "csr",
+     "desktop": "1/5/7/11",
+     "phone": "8/2/9/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p4 group right": {
+   "stack": [
+    {
+     "id": "6_650",
+     "type": "csr",
+     "desktop": "1/6/7/12",
+     "phone": "1/2/2/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "7/3/9/9",
+     "phone": "7/2/9/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p4 index 0 moved": {
+   "stack": [
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "7/3/9/9",
+     "phone": "6/2/8/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "6_650",
+     "type": "csr",
+     "desktop": "2/8/8/14",
+     "phone": "8/2/9/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p5 add shape": {
+   "stack": [
+    {
+     "id": "6_859",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "6_635",
+     "type": "csr",
+     "desktop": "3/2/4/6",
+     "phone": "7/2/8/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "5/5/7/13",
+     "phone": "8/2/10/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p5 add line 2": {
+   "stack": [
+    {
+     "id": "6_859",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "_1087",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "7/2/8/10",
+     "z": [
+      "4",
+      "4"
+     ]
+    },
+    {
+     "id": "6_635",
+     "type": "csr",
+     "desktop": "3/2/4/6",
+     "phone": "8/2/9/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "5/5/7/13",
+     "phone": "9/2/11/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p5 line 2 wider": {
+   "stack": [
+    {
+     "id": "6_859",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "_1087",
+     "type": "csr",
+     "desktop": "1/2/2/8",
+     "phone": "7/2/8/10",
+     "z": [
+      "4",
+      "4"
+     ]
+    },
+    {
+     "id": "6_635",
+     "type": "csr",
+     "desktop": "3/2/4/6",
+     "phone": "8/2/9/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "5/5/7/13",
+     "phone": "9/2/11/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p5 line 2 nudged down": {
+   "stack": [
+    {
+     "id": "6_859",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "_1087",
+     "type": "csr",
+     "desktop": "2/2/3/8",
+     "phone": "7/2/8/10",
+     "z": [
+      "4",
+      "4"
+     ]
+    },
+    {
+     "id": "6_635",
+     "type": "csr",
+     "desktop": "3/2/4/6",
+     "phone": "8/2/9/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "5/5/7/13",
+     "phone": "9/2/11/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p7 add line": {
+   "stack": [
+    {
+     "id": "1_685",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "8/2/16/10",
+     "phone": "2/2/10/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p7 video taller": {
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "8/2/18/10",
+     "phone": "1/2/9/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "1_685",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "9/2/10/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p7 add image": {
+   "stack": [
+    {
+     "id": "1_916",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "1_685",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "7/2/8/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "8/2/18/10",
+     "phone": "8/2/16/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p7 add text": {
+   "stack": [
+    {
+     "id": "1_916",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "_1150",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "7/2/9/10",
+     "z": [
+      "4",
+      "4"
+     ]
+    },
+    {
+     "id": "1_685",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "9/2/10/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "8/2/18/10",
+     "phone": "10/2/18/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p8 line row 3": {
+   "stack": [
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "1/6/7/10",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "6_643",
+     "type": "csr",
+     "desktop": "3/2/4/6",
+     "phone": "7/2/8/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p8 add shape": {
+   "stack": [
+    {
+     "id": "6_868",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "6_643",
+     "type": "csr",
+     "desktop": "3/2/4/6",
+     "phone": "7/2/8/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "1/6/7/10",
+     "phone": "8/2/14/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p8 shape lower": {
+   "stack": [
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "1/6/7/10",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "6_868",
+     "type": "csr",
+     "desktop": "3/2/9/8",
+     "phone": "7/2/13/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "6_643",
+     "type": "csr",
+     "desktop": "3/2/4/6",
+     "phone": "13/2/14/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p8 shape wider west": {
+   "stack": [
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "1/6/7/10",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "6_868",
+     "type": "csr",
+     "desktop": "3/1/9/8",
+     "phone": "7/2/13/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "6_643",
+     "type": "csr",
+     "desktop": "3/2/4/6",
+     "phone": "13/2/14/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p8 shape nudged": {
+   "stack": [
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "1/6/7/10",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "6_868",
+     "type": "csr",
+     "desktop": "3/2/9/9",
+     "phone": "7/2/13/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "6_643",
+     "type": "csr",
+     "desktop": "3/2/4/6",
+     "phone": "13/2/14/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p6 add embed": {
+   "stack": [
+    {
+     "id": "3_420",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/6/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "3_695",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "6/2/14/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p6 add line": {
+   "stack": [
+    {
+     "id": "3_420",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/6/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "3_920",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "6/2/7/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "3_695",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "7/2/15/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p6 add button": {
+   "stack": [
+    {
+     "id": "3_420",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/6/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "_1139",
+     "type": "csr",
+     "desktop": "1/2/3/8",
+     "phone": "6/2/8/10",
+     "z": [
+      "4",
+      "4"
+     ]
+    },
+    {
+     "id": "3_920",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "8/2/9/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "3_695",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "9/2/17/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p6 add text": {
+   "stack": [
+    {
+     "id": "3_420",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/6/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "_1375",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "6/2/8/10",
+     "z": [
+      "5",
+      "5"
+     ]
+    },
+    {
+     "id": "_1139",
+     "type": "csr",
+     "desktop": "1/2/3/8",
+     "phone": "8/2/10/10",
+     "z": [
+      "4",
+      "4"
+     ]
+    },
+    {
+     "id": "3_920",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "10/2/11/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "3_695",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "11/2/19/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "p6 add code": {
+   "stack": [
+    {
+     "id": "3_420",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/6/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "_1375",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "6/2/8/10",
+     "z": [
+      "5",
+      "5"
+     ]
+    },
+    {
+     "id": "_1139",
+     "type": "csr",
+     "desktop": "1/2/3/8",
+     "phone": "8/2/10/10",
+     "z": [
+      "4",
+      "4"
+     ]
+    },
+    {
+     "id": "3_920",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "10/2/11/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "_1599",
+     "type": "csr",
+     "desktop": "1/2/7/6",
+     "phone": "11/2/17/10",
+     "z": [
+      "6",
+      "6"
+     ]
+    },
+    {
+     "id": "3_695",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "17/2/25/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  }
+ },
+ "errors": [],
+ "visited": "Gestures Probe",
+ "leftDirty": true,
  "predicted": {
   "p1 add image": [
    {
@@ -1777,5 +2976,22 @@
    }
   ]
  },
- "reads": {}
+ "ruleAt": "0177ae25316f93b98ea5bf7bfb95501d2160fde2",
+ "predictedAt": "a8b520d",
+ "scoring": "A case hits when the read has the same blocks by z in the same phone order with the same phone rows. A different desktop area is a setup difference, listed apart.",
+ "score": {
+  "strict": 27,
+  "orderOnly": 31,
+  "cases": 35,
+  "misses": [
+   "p8 shape lower",
+   "p8 shape wider west",
+   "p8 shape nudged",
+   "p6 add embed",
+   "p6 add line",
+   "p6 add button",
+   "p6 add text",
+   "p6 add code"
+  ]
+ }
 }
