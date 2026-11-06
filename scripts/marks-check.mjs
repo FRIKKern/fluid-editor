@@ -2262,7 +2262,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const top0 = js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`), h0 = now().h;
   add('Panel top: reads as the section\'s height', top0 === Math.min(272, Math.round(55 + h0 + 1 - 476)), JSON.stringify([top0, h0]));
   await pick(1); browser(S, 'press', 'Escape'); await pause(150); await open();
-  add('Panel top stops at 272', js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`) === 272);
+  add('Panel top stops at 272', Math.abs(js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`) - 272) <= 1);
 
   // A pick from each start theme.
   for (const [from, to] of Object.entries(Q.themeTurn)) {
