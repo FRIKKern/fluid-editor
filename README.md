@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 39 changes
+- **Today** · 40 changes
+  - E4, E5, Z3, L5: read undo around actions, Bold with a caret, real endings, a paste into a heading, Layers rows 1px at a time, Hide on 28 more types; BLOCKTYPES low menu again ([#218](https://github.com/FRIKKern/fluid-editor/pull/218))
   - T6: the panel at a block on the right, its popup's place, popup heights, Stroke Color's Opacity ([#217](https://github.com/FRIKKern/fluid-editor/pull/217))
-  - P7: the header takes the first section's theme; U10: the Layouts panel's top ([#214](https://github.com/FRIKKern/fluid-editor/pull/214))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
