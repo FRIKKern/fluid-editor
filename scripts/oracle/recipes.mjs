@@ -671,6 +671,21 @@ export const RECIPES = {
     ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['keys', 'one'], ['click', 'Bullet List'], ['keys', 'two'], ['press', 'Escape'], ['undoWalk', 'typing around a list', 0, 'new', 12, true],
     ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['keysList', ['o', 'n', 'e', 'Meta+b', 'Meta+i']], ['press', 'Escape'], ['undoWalk', 'a burst with Cmd+B and Cmd+I', 0, 'new', 12, true],
   ] },
+  'CAP-E4GAP': { page: 'Gestures Probe', question: 'E4: does selecting start the undo clock? Bold at clear gaps from typing and from selecting, the real gaps stamped in the page.', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['stamp', 0, 'new'], ['keys', 'alpha'], ['press', 'Meta+a'], ['click', 'Bold'], ['read', 'as in the score: typed, Cmd+A, Bold pressed, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'as in the score: typed, Cmd+A, Bold pressed', 0, 'new', 12, true],
+    ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['stamp', 0, 'new'], ['keysList', ['a', 'l', 'p', 'h', 'a', 'Meta+a']], ['pause', 200], ['keysList', ['Meta+b']], ['read', 'typed and Cmd+A in one burst, 0.5 s, Cmd+B, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'typed and Cmd+A in one burst, 0.5 s, Cmd+B', 0, 'new', 12, true],
+    ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['stamp', 0, 'new'], ['keysList', ['a', 'l', 'p', 'h', 'a', 'Meta+a']], ['pause', 1200], ['keysList', ['Meta+b']], ['read', 'typed and Cmd+A in one burst, 1.5 s, Cmd+B, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'typed and Cmd+A in one burst, 1.5 s, Cmd+B', 0, 'new', 12, true],
+    ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['stamp', 0, 'new'], ['keysList', ['a', 'l', 'p', 'h', 'a']], ['pause', 2700], ['keysList', ['Meta+a']], ['pause', 200], ['keysList', ['Meta+b']], ['read', 'typed, 3 s, Cmd+A, 0.5 s, Cmd+B, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'typed, 3 s, Cmd+A, 0.5 s, Cmd+B', 0, 'new', 12, true],
+    ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['stamp', 0, 'new'], ['keysList', ['a', 'l', 'p', 'h', 'a']], ['pause', 2700], ['keysList', ['Meta+a']], ['pause', 1200], ['keysList', ['Meta+b']], ['read', 'typed, 3 s, Cmd+A, 1.5 s, Cmd+B, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'typed, 3 s, Cmd+A, 1.5 s, Cmd+B', 0, 'new', 12, true],
+    ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['stamp', 0, 'new'], ['keysList', ['a', 'l', 'p', 'h', 'a']], ['pause', 200], ['keysList', ['Meta+b']], ['read', 'typed, 0.5 s, Cmd+B, no selection, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'typed, 0.5 s, Cmd+B, no selection', 0, 'new', 12, true],
+  ] },
+  'CAP-E4GAP2': { page: 'Gestures Probe', question: 'E4: the real gap to a Bold press on the bar, by the DOM change it makes, with and without a selection.', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['stamp', 0, 'new'], ['keys', 'alpha'], ['press', 'Meta+a'], ['click', 'Bold'], ['read', 'typed, Cmd+A pressed, Bold pressed, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'typed, Cmd+A pressed, Bold pressed', 0, 'new', 12, true],
+    ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['stamp', 0, 'new'], ['keys', 'alpha'], ['keysList', ['Meta+a']], ['click', 'Bold'], ['read', 'typed, Cmd+A with no wait, Bold pressed, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'typed, Cmd+A with no wait, Bold pressed', 0, 'new', 12, true],
+    ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['stamp', 0, 'new'], ['keys', 'alpha'], ['pause', 300], ['click', 'Bold'], ['read', 'typed, 0.3 s, Bold pressed, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'typed, 0.3 s, Bold pressed', 0, 'new', 12, true],
+  ] },
   'CAP-U6REDO': { page: 'Gestures Probe', question: "U6: Redo's hover while it can redo, against Undo's", steps: [
     ['enter'], ['blank'], ['add', 0, 'Shape'], ['press', 'Escape'], ['pause', 400], ['read', 'can undo', { btnState: UR }], ['hoverNamed', 'Undo'], ['read', 'Undo hovered', { btnState: UR }], ['pressNamed', 'Undo'], ['pause', 800], ['read', 'undone, pointer on Undo', { btnState: UR }], ['hoverNamed', 'Redo'], ['read', 'Redo hovered', { btnState: UR }], ['shot', 'redo'],
   ] },

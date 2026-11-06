@@ -3559,6 +3559,7 @@ function onTextInput(e) {
   if (e?.inputType?.startsWith('history')) ed.marks.length = 1;
   else if (e?.inputType) {
     joinOrStep(ed);
+    if (e.inputType === 'insertParagraph') fmt.enterInHeading(doc, ed.ce, win.getSelection());
     autoLink(ed, e.inputType, e.data);
     // Enter carries a pending Strike to the next line, anything else ends it (CAP-E4FRESH.json).
     if (ed.strikeNext) {
@@ -3600,7 +3601,8 @@ function finishTextEdit() {
   feEl(ed.sid).style.gridAutoRows = '';
   renderSectionDom(ed.sid);
   const now = JSON.stringify(model);
-  const steps = ed.marks.filter((m) => m !== now);
+  // A step can look like where the edit ended (Bold, then Clear Formatting): it's still a step (CAP-E4SCORE.json).
+  const steps = ed.marks.at(-1) === now ? ed.marks.slice(0, -1) : ed.marks;
   for (const m of steps.slice(0, -1)) undoStack.push(m);
   commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`);
 }
