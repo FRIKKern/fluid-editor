@@ -193,7 +193,7 @@ add('Reset is on the fields off their default', q(`return JSON.stringify([...pan
 const rz = q(`const e = panel.querySelectorAll('.an-box .sc-reset'); return JSON.stringify([rel(e[1]), rel(e[2]), rel(e[3])]);`);
 add('Reset boxes: 291, 197, 291', near(rz[0][0], 291, 2) && near(rz[1][0], 197, 2) && near(rz[2][0], 291, 2) && rz[0][2] === 16, JSON.stringify(rz));
 const hover = (sel) => { const c = q(`const r = ${sel}.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`); mouse(S, 'move', c[0], c[1]); return c; };
-hover(`panel.querySelectorAll('.an-box')[1]`); await pause(120);
+await clickSel(`panel.querySelectorAll('.an-box input')[1]`); await pause(120);
 await clickSel(`panel.querySelectorAll('.an-box .sc-reset')[1]`);
 add('Reset goes back to the default', fieldsNow()[1] === '0°', fieldsNow());
 const drag = async (sel, dx) => { const c = q(`const r = ${sel}.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`); mouse(S, 'move', c[0], c[1]); await pause(80); mouse(S, 'down', c[0], c[1], { buttons: 1 }); await pause(50); for (let i = 1; i <= 4; i++) { mouse(S, 'move', c[0] + (i * dx) / 4, c[1], { buttons: 1 }); await pause(30); } mouse(S, 'up', c[0] + dx, c[1]); await pause(220); };
@@ -220,7 +220,7 @@ for (const [k, name, want] of [['rotate', 'Rotate', '8'], ['sx', 'ScaleX', '108'
 await drag(`${dbox('opacity')}.querySelector('.sc-r')`, 20);
 add('Design Opacity stays at its top', dv('opacity') === '100', dv('opacity'));
 add('Design: a rule follows the drag', q(`const b = d.querySelector('.fe-block[data-block-id="${id}"]'); return JSON.stringify(W.getComputedStyle(b).transform !== 'none');`));
-hover(dbox('rotate')); await pause(120);
+await clickSel(`${dbox('rotate')}.querySelector('input')`); await pause(120);
 await clickSel(`${dbox('rotate')}.querySelector('.sc-reset')`);
 add('Design Reset: back to 0', dv('rotate') === '0', dv('rotate'));
 q(`fe.undo(); await sleep(220); return 'true';`);

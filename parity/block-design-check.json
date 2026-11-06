@@ -1,6 +1,6 @@
 {
-  "pass": 40,
-  "total": 40,
+  "pass": 47,
+  "total": 47,
   "results": [
     {
       "what": "A new Text lands at 1/2/3/10, 71 tall",
@@ -160,6 +160,34 @@
     },
     {
       "what": "Paste brings 50 back, one undo step",
+      "ok": true
+    },
+    {
+      "what": "Reset at the default: not shown, no pointer",
+      "ok": true
+    },
+    {
+      "what": "Reset with the field focused: on top",
+      "ok": true
+    },
+    {
+      "what": "Reset pressed: back to 0",
+      "ok": true
+    },
+    {
+      "what": "Scale Y Reset: Y goes back, X stays",
+      "ok": true
+    },
+    {
+      "what": "Field blurred, hovered: nothing to press",
+      "ok": true
+    },
+    {
+      "what": "Blurred, hovered on the spot: nothing to press",
+      "ok": true
+    },
+    {
+      "what": "Blurred, a press there leaves 30",
       "ok": true
     }
   ]
