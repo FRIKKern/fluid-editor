@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 109 changes
+- **Today** · 110 changes
+  - T10: folding in the Code and Markdown editors ([#288](https://github.com/FRIKKern/fluid-editor/pull/288))
   - T3: empty Text shows Write here...; E4: an edit opened again keeps its selection ([#287](https://github.com/FRIKKern/fluid-editor/pull/287))
-  - U12: startChrome never leaves a Chrome running when it throws ([#286](https://github.com/FRIKKern/fluid-editor/pull/286))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
