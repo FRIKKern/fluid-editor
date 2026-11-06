@@ -1820,30 +1820,21 @@ function setButtonStyle(sid, bid, style) {
   const b = B(sid, bid);
   if (!b) return;
   const before = JSON.stringify(model);
-  if (b.type === 'form') setFormView(b, bp, 'buttonStyle', style === 'primary' && bp !== 'mobile' ? '' : style);
+  if (b.type === 'form') { formStep(b); setFormView(b, bp, 'buttonStyle', style === 'primary' && bp !== 'mobile' ? '' : style); }
   else if (style === 'primary') delete b.buttonStyle; else b.buttonStyle = style;
   renderSectionDom(sid);
-  if (b.type === 'form') fitFormIfDue(b);
   commit(before, `Button style ${style}`);
 }
 // A form's Button Alignment and First Input Highlight (FORMADD.json); left and none are the defaults.
-// Lightbox off leaves the rows until the next press on a design row. That press grows them to hold the
-// form and never shrinks them. Only Lightbox off does this, one view at a time (FORMFIELDS.json, lightbox).
-function fitFormIfDue(b) {
-  if (!b.fitDue?.[bp]) return;
-  delete b.fitDue[bp];
-  if (!Object.keys(b.fitDue).length) delete b.fitDue;
-  if (!formView(b, bp).lightbox && contentRows(b, measure(feEl(sel.sid))) > lay(b).area[2] - lay(b).area[0]) fitForm(b, S(sel.sid));
-}
 function setFormDesign(key, v) {
   const b = B(sel.sid, sel.bid);
   if (!b) return;
   const before = JSON.stringify(model);
   const top = blockPanel.scrollTop;
+  formStep(b);
   if (key === 'buttonAlign') setFormView(b, bp, key, v === 'left' && bp !== 'mobile' ? '' : v);
   else if (v === 'none') delete b[key]; else b[key] = v;
   renderSectionDom(sel.sid);
-  fitFormIfDue(b);
   commit(before, `Form ${key} ${v}`);
   blockPanel.scrollTop = top;
 }
@@ -1873,6 +1864,7 @@ function designChange(b, keys, change, fitBefore = null) {
     fitRows(b, was);
     return;
   }
+  if (b.type === 'form') return formDesignStep(b, change);
   const s = S(sel.sid), fits = (b.type === 'text' || b.type === 'social') && keys.some((k) => FIT_KEYS.has(k));
   const was = fitBefore ?? (fits ? contentRows(b, measure(feEl(sel.sid))) : 0);
   change();
@@ -2118,20 +2110,62 @@ function setMap(change, label) {
 }
 // Edit Form Fields (FORMFIELDS.json): one undo step per change. The block's rows follow the form.
 let ffView = null, ffBefore = null;
-function fitForm(b, s) {
-  const need = contentRows(b, measure(feEl(sel.sid))), a = lay(b).area, rows = a[2] - a[0];
+function setFormRows(b, s, need) {
+  const a = lay(b).area, rows = a[2] - a[0];
   if (need === rows) return;
   const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), low = lowest();
   a[2] = a[0] + need;
   if (need < rows) s.rows[bp] -= low - lowest(); else growRows(s);
   renderSectionDom(sel.sid);
 }
-function setForm(change, label, fit = true) {
+const fitForm = (b, s) => setFormRows(b, s, contentRows(b, measure(feEl(sel.sid))));
+// What a form's rows answer to: the form or its message, and any padding and stroke round it.
+function formHeight(b) {
+  const root = blockEl(b.id), lb = formView(b, bp).lightbox;
+  const f = root.querySelector(lb ? '.lightbox-handle-wrapper' : '.form-wrapper:not(.form-lightbox .form-wrapper)');
+  const c = root.querySelector('.sqs-block'), edge = c.offsetHeight - c.clientHeight;
+  return Math.round((f.getBoundingClientRect().height + edge) * 10) / 10;
+}
+const formPitch = (b) => {
+  const f = blockEl(b.id).querySelector('.sqs-block');
+  f.style.display = 'none';
+  const free = measure(f.closest('.fluid-engine'));
+  f.style.display = '';
+  return free;
+};
+const formBoxed = (b) => { const d = designFor(b, bp); return !formView(b, bp).lightbox && !!(d.background || d.stroke); };
+// A form's rows settle one step late (FORMFIELDS.json, blockFits.rule). A step reads the form as the step before left
+// it. If that changed the height, a rise makes the rows hold it, with 2px of give, and a fall takes them down when more
+// than one row is spare. A form with Lightbox on has its own rule, and one with a Background or Stroke stays as it is.
+function formStep(b) {
+  const h = formHeight(b), last = b.formH?.[bp] ?? h;
+  b.formH = { ...b.formH, [bp]: h };
+  if (h === last || formView(b, bp).lightbox || formBoxed(b)) return;
+  const { rg, pitch } = formPitch(b), rows = lay(b).area[2] - lay(b).area[0];
+  const up = Math.ceil((h + rg - 2) / pitch), fall = Math.ceil((h - rg) / pitch);
+  setFormRows(b, S(sel.sid), h > last ? Math.max(rows, up) : rows > fall + 1 ? fall : rows);
+}
+// A Background or Stroke going on drops the rows to a few and the block hugs what it holds: 3 on a new form. The reads
+// from other rows have no rule, so they stand named (blockFits.boxed). Going off grows them to hold the block as it was.
+function formDesignStep(b, change) {
+  const wasBoxed = formBoxed(b);
+  formStep(b);
+  const h = b.formH[bp];
+  change();
+  renderSectionDom(sel.sid);
+  const boxed = formBoxed(b);
+  if (boxed === wasBoxed) return;
+  const rows = lay(b).area[2] - lay(b).area[0], { rg, pitch } = formPitch(b);
+  setFormRows(b, S(sel.sid), boxed ? Math.min(rows, 3) : Math.max(rows, Math.ceil((h + rg - 2) / pitch)));
+}
+// A delete fits at once: its reads found no rule to build (FORMFIELDS.json, lightbox.deleteThenOn).
+function setForm(change, label, deleted = false) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   b.fields ||= [];
+  if (!deleted) formStep(b);
   change(b);
   renderSectionDom(sel.sid);
-  if (fit && !formView(b, bp).lightbox) fitForm(b, S(sel.sid));
+  if (deleted && !formView(b, bp).lightbox) { fitForm(b, S(sel.sid)); b.formH = { ...b.formH, [bp]: formHeight(b) }; }
   commit(before, label);
   renderBlockPanel();
   blockPanel.scrollTop = Math.min(blockPanel.scrollTop, blockPanel.scrollHeight);
@@ -2141,8 +2175,10 @@ function setForm(change, label, fit = true) {
 function setFormLightbox(on) {
   const b = B(sel.sid, sel.bid), s = S(sel.sid), before = JSON.stringify(model), top = blockPanel.scrollTop;
   const h = on ? blockEl(b.id).querySelector(FORM_ON_PAGE).getBoundingClientRect().height : 0;
+  if (!on) b.formH = { ...b.formH, [bp]: formHeight(b) }; // the form coming back is a rise the next step answers
   setFormView(b, bp, 'lightbox', on);
-  if (on) { if (b.fitDue) { delete b.fitDue[bp]; if (!Object.keys(b.fitDue).length) delete b.fitDue; } } else (b.fitDue ||= {})[bp] = true;
+  // Lightbox on takes a Background off for good; a Stroke, Blend Mode and Blur stay (FORMFIELDS.json, lightbox.designSet).
+  if (on && designFor(b, bp).background) { const bag = designBag(bp), d = { ...b[bag] }; if (bag === 'designMobile') d.background = false; else delete d.background; if (Object.keys(d).length) b[bag] = d; else delete b[bag]; }
   renderSectionDom(sel.sid);
   if (on) {
     const w = blockEl(b.id).querySelector('.lightbox-handle-wrapper'), hh = w.getBoundingClientRect().height;
@@ -2182,7 +2218,7 @@ function showFormPost(b) {
   for (const w of on ? [on] : doc?.querySelectorAll('.form-wrapper.is-post-view') || []) w.classList.toggle('is-post-view', !!on);
   if (on) for (const w of doc.querySelectorAll('.form-wrapper.is-post-view')) if (w !== on) w.classList.remove('is-post-view');
 }
-const setPost = (k, v, label) => setForm((b) => { b.post = { ...b.post, [k]: v }; }, label, false); // the block's rows stay: read
+const setPost = (k, v, label) => setForm((b) => { b.post = { ...b.post, [k]: v }; }, label);
 function showFf(view) { ffView = view; renderBlockPanel(); blockPanel.scrollTop = 0; }
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-ff]');
@@ -2206,12 +2242,12 @@ blockPanel.addEventListener('click', (e) => {
     setForm((b) => { ffView = `ff-fu:${fn}:${oi}:${addFollow(b.fields[fn], Number(oi), arg)}`; }, `${arg} follow-up added`);
     blockPanel.scrollTop = 0;
   }
-  else if (act === 'fu-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteFollow(b.fields[n], o, Number(arg3)), 'Follow-up deleted'); blockPanel.scrollTop = 0; }
-  else if (act === 'opt-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteOption(b.fields[n], o), 'Option deleted'); blockPanel.scrollTop = 0; }
+  else if (act === 'fu-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteFollow(b.fields[n], o, Number(arg3)), 'Follow-up deleted', true); blockPanel.scrollTop = 0; }
+  else if (act === 'opt-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteOption(b.fields[n], o), 'Option deleted', true); blockPanel.scrollTop = 0; }
   else if (act === 'add') showFf('ff-add');
   else if (act === 'edit') showFf(`ff-edit:${n}`);
   else if (act === 'tile') { ffView = 'ff-list'; setForm((b) => b.fields.push(newField(arg)), `${arg} field added`); blockPanel.scrollTop = 0; }
-  else if (act === 'delete' || act === 'del') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n, 1), 'Field deleted'); blockPanel.scrollTop = 0; }
+  else if (act === 'delete' || act === 'del') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n, 1), 'Field deleted', true); blockPanel.scrollTop = 0; }
   else if (act === 'dup') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n + 1, 0, JSON.parse(JSON.stringify(b.fields[n]))), 'Field duplicated'); blockPanel.scrollTop = 0; }
   else if (act === 'opt-add') setForm((b) => { const l = ffField(b).options; l.push(`Option ${l.length + 1}`); }, 'Option added');
   else if (act === 'max') setForm((b) => { const f = ffField(b); f.maxFiles = Math.max(1, (f.maxFiles || 1) + n); }, 'Max files');
@@ -2222,20 +2258,22 @@ blockPanel.addEventListener('input', (e) => {
   if (q && sel) {
     ffBefore ??= JSON.stringify(model);
     const b = B(sel.sid, sel.bid);
+    formStep(b);
     b.post = { ...b.post, [q.dataset.ffPost]: q.isContentEditable ? cleanMessage(q) : q.value };
     renderSectionDom(sel.sid);
     showFormPost(b);
-    if (q.dataset.ffPost === 'html') blockPanel.querySelector('.bp-ffp-code .bp-code-lines').innerHTML = Array.from({ length: Math.max(1, q.value.split('\n').length) }, (_, n) => n + 1).join('<br>');
+    if (q.dataset.ffPost === 'html') paintCode(q);
     return;
   }
   const t = e.target.closest('[data-ff-field],[data-ff-opt]');
   if (!t || !sel || !ffOpen()) return;
   ffBefore ??= JSON.stringify(model);
+  formStep(B(sel.sid, sel.bid));
   const f = ffField(B(sel.sid, sel.bid));
   if (t.dataset.ffOpt != null) f.options[Number(t.dataset.ffOpt)] = t.value;
   else writeFieldText(f, t.dataset.ffField, t.value);
   renderSectionDom(sel.sid);
-  if (t.dataset.ffField === 'label') blockPanel.querySelector('.bp-ff-title').textContent = t.value;
+  if (t.dataset.ffField === 'label') blockPanel.querySelector('.bp-ff-title').textContent = t.value || t.placeholder || 'Hidden';
 });
 blockPanel.addEventListener('change', (e) => {
   if (sel && e.target.closest('[data-ff-post]')) {
@@ -2248,7 +2286,7 @@ blockPanel.addEventListener('change', (e) => {
   if (e.target.closest('[data-ff-field],[data-ff-opt]')) {
     const before = ffBefore;
     ffBefore = null;
-    if (before) { if (!formView(B(sel.sid, sel.bid), bp).lightbox) fitForm(B(sel.sid, sel.bid), S(sel.sid)); commit(before, 'Field changed'); }
+    if (before) commit(before, 'Field changed');
     return;
   }
   const t = e.target.closest('[data-ff-set]');
@@ -2472,7 +2510,7 @@ shapePop.addEventListener('click', (e) => {
     const i = Number(shapeUi.key.split(':')[1]), [, n] = ffView.split(':');
     closeShapePop();
     if (fp.dataset.ffPop === 'follow') { ffReturn = ffView; showFf(`ff-fuadd:${n}:${i}`); }
-    else setForm((b) => deleteOption(ffField(b), i), 'Option deleted');
+    else setForm((b) => deleteOption(ffField(b), i), 'Option deleted', true);
     return;
   }
   if (shapeUi?.section) {
@@ -5466,7 +5504,7 @@ function showBarTip(btn) {
   const q = btn.getBoundingClientRect();
   const w = barTip.getBoundingClientRect().width;
   barTip.style.left = `${Math.max(11, Math.min(q.left + q.width / 2 - w / 2, window.innerWidth - 22 - w))}px`;
-  barTip.style.top = `${q.bottom + (btn.closest('#block-toolbar') ? 11 : btn.classList.contains('tb-icon') ? 11.5 : 6.5)}px`;
+  barTip.style.top = `${q.bottom + (btn.closest('#block-toolbar, #block-panel') ? 11 : btn.classList.contains('tb-icon') ? 11.5 : 6.5)}px`;
 }
 // The block toolbar's tips (parity/findings/TOOLBARS.json tips): not on an unavailable button. They
 // appear between 100 and 400 ms after the hover on the oracle; ours at 200.
@@ -5478,6 +5516,10 @@ function setTbTip(btn) {
   if (btn && !btn.classList.contains('is-off')) tbTipTimer = setTimeout(() => showBarTip(btn), 200);
 }
 // No tip on the button whose menu is open (parity/findings/S3.json).
+// An option's menu button has its tip too (FORMFIELDS.json, followUp.menu).
+blockPanel.addEventListener('pointerover', (e) => { const btn = e.target.closest('[data-tip]'); if (btn) showBarTip(btn); });
+blockPanel.addEventListener('pointerout', (e) => { if (e.target.closest('[data-tip]')) barTip.hidden = true; });
+blockPanel.addEventListener('pointerdown', (e) => { if (e.target.closest('[data-tip]')) barTip.hidden = true; });
 toolbar.addEventListener('pointerover', (e) => { let btn = e.target.closest('button[data-tip]'); if (btn?.classList.contains('tb-open') && !btn.closest('.tb-vmenu')) btn = null; if (btn !== tbTipBtn) setTbTip(btn); });
 toolbar.addEventListener('pointerleave', () => setTbTip(null));
 // A pick redraws the toolbar and keeps the tip; a block that goes takes the tip with it.

@@ -381,5 +381,8 @@ export function codeLines(text, lang, head = null) {
   return toLines(p);
 }
 
+// An editor's markup, for editor.js to paint. attrs names its field; top goes before the gutter.
+export const lookBox = (attrs, value, lang, { placeholder = '', top = '', label = 'Code', cls = '' } = {}) => `<div class="bp-code${cls} is-look${lang === 'html' || lang === 'markdown' ? ' is-wrap' : ''}" data-lang="${lang}">${top}<div class="bp-code-lines" aria-hidden="true"></div><div class="bp-code-edit"><div class="bp-code-band"></div><div class="bp-code-sel"></div><textarea spellcheck="false" aria-label="${label}" ${attrs} placeholder="${placeholder}">${esc(value || '').replace(/"/g, '&quot;')}</textarea><div class="bp-code-hl" aria-hidden="true"></div></div></div>`;
+
 // The number column grows with the digits; the fold column beside it stays.
 export const gutterWidth = (lines) => Math.max(20, 9 + String(lines).length * 8.43) + 10.4 + 1;

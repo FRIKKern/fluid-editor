@@ -95,7 +95,20 @@
    "Message(required)",
    "Email(required)",
    "Dropdown"
-  ]
+  ],
+  "option": {
+   "note": "A hold and drag on an option's grip moves the option, in the panel and on the form. Option 1 to below Option 3:",
+   "before": [
+    "Option 1",
+    "Option 2",
+    "Option 3"
+   ],
+   "after": [
+    "Option 2",
+    "Option 3",
+    "Option 1"
+   ]
+  }
  },
  "addField": {
   "tiles": [
@@ -1664,7 +1677,536 @@
     ],
     "area": "1 / 2 / 16 / 11"
    }
-  ]
+  ],
+  "rule": {
+   "note": "The rows settle one step late. A step is any change: an add, a toggle even if it changes nothing on the form, each input while typing, a press on a design row. Opening a field or Back is not a step. A step reads the form as the step before it left it. If that height is the same as the step before that, the rows stay. If it rose, the rows grow to hold it and never shrink. If it fell, they go down to the least that holds it only when more than one row is spare. The first step on a new form has nothing before it, so its rows stay. Each view keeps its own. Delete is left out, as ruled (lightbox.deleteThenOn).",
+   "formula": {
+    "pitch": "41.094 on desktop at 1600, 35 on the phone",
+    "rise": "ceil((h + 11 - 2) / pitch)",
+    "fall": "ceil((h - 11) / pitch), taken when rows > that + 1"
+   },
+   "inferred": "The 2px on a rise is a range from reads: 1.13 to 2.8. The 11 on a fall is a range: 10.9 to 18.5. Moves and follow-ups are assumed to be steps like the rest: not read.",
+   "tested": "A plain rule (rows = the fit of the height one step back) was pushed first on 17 steps: 14 held. Its misses gave the same-height and fall parts. Those predicted 21 of 22, then 18 of 19, then 25 of 25 steps. The phone run's misses were my pitch read off stretched rows and one fall target. With both in the formula, two fresh runs written down before they ran: desktop 20 of 20, phone 17 of 17.",
+   "desktop": {
+    "text": {
+     "long": "A description long enough to wrap onto a second and a third line in the form, and then some more words to fill it.",
+     "short": "One line"
+    },
+    "start": [
+     16,
+     560.9
+    ],
+    "steps": [
+     [
+      "open Name"
+     ],
+     [
+      "short",
+      16,
+      598.7
+     ],
+     [
+      "show",
+      16,
+      598.7
+     ],
+     [
+      "long",
+      16,
+      618.4
+     ],
+     [
+      "show",
+      16,
+      618.4
+     ],
+     [
+      "empty",
+      16,
+      560.9
+     ],
+     [
+      "show",
+      14,
+      560.9
+     ],
+     [
+      "show",
+      14,
+      560.9
+     ],
+     [
+      "back"
+     ],
+     [
+      "add Text",
+      14,
+      655.7
+     ],
+     [
+      "add Radio",
+      17,
+      785.5
+     ],
+     [
+      "open Radio"
+     ],
+     [
+      "long",
+      20,
+      843
+     ],
+     [
+      "req",
+      21,
+      843
+     ],
+     [
+      "short",
+      21,
+      823.3
+     ],
+     [
+      "req",
+      21,
+      823.3
+     ],
+     [
+      "empty",
+      21,
+      785.5
+     ],
+     [
+      "req",
+      19,
+      785.5
+     ],
+     [
+      "req",
+      19,
+      785.5
+     ],
+     [
+      "back"
+     ],
+     [
+      "add Checkbox",
+      19,
+      907.4
+     ],
+     [
+      "open Checkbox"
+     ],
+     [
+      "short",
+      23,
+      945.2
+     ],
+     [
+      "req",
+      24,
+      945.2
+     ],
+     [
+      "req",
+      24,
+      945.2
+     ]
+    ]
+   },
+   "phone": {
+    "start": [
+     16,
+     562.7
+    ],
+    "steps": [
+     [
+      "add Text",
+      16,
+      657.5
+     ],
+     [
+      "add Radio",
+      20,
+      788.5
+     ],
+     [
+      "open Radio"
+     ],
+     [
+      "long",
+      23,
+      870.1
+     ],
+     [
+      "req",
+      26,
+      870.1
+     ],
+     [
+      "empty",
+      26,
+      788.5
+     ],
+     [
+      "req",
+      23,
+      788.5
+     ],
+     [
+      "opt",
+      23,
+      832.9
+     ],
+     [
+      "req",
+      25,
+      832.9
+     ],
+     [
+      "back"
+     ],
+     [
+      "add Checkbox",
+      25,
+      955.9
+     ],
+     [
+      "open Checkbox"
+     ],
+     [
+      "short",
+      28,
+      995.7
+     ],
+     [
+      "req",
+      29,
+      995.7
+     ],
+     [
+      "empty",
+      29,
+      955.9
+     ],
+     [
+      "req",
+      27,
+      955.9
+     ],
+     [
+      "req",
+      27,
+      955.9
+     ]
+    ]
+   },
+   "afterTallMessage": {
+    "note": "Edit Post-Submit, 30 Enters, then Position twice, Back, Edit Form Fields, two adds.",
+    "reads": [
+     [
+      "30 Enters",
+      30,
+      1226.6
+     ],
+     [
+      "position",
+      31,
+      1226.6
+     ],
+     [
+      "position",
+      31,
+      1226.6
+     ],
+     [
+      "back",
+      31,
+      560.9
+     ],
+     [
+      "add Text",
+      14,
+      655.7
+     ],
+     [
+      "add Radio",
+      17,
+      785.5
+     ]
+    ]
+   },
+   "freshDesktop": {
+    "start": [
+     16,
+     560.9
+    ],
+    "steps": [
+     [
+      "add Email",
+      16,
+      655.7
+     ],
+     [
+      "open Email"
+     ],
+     [
+      "req",
+      17,
+      655.7
+     ],
+     [
+      "long",
+      17,
+      713.2
+     ],
+     [
+      "req",
+      18,
+      713.2
+     ],
+     [
+      "short",
+      18,
+      693.5
+     ],
+     [
+      "empty",
+      18,
+      655.7
+     ],
+     [
+      "req",
+      16,
+      655.7
+     ],
+     [
+      "back"
+     ],
+     [
+      "add Radio",
+      16,
+      785.5
+     ],
+     [
+      "open Radio"
+     ],
+     [
+      "opt",
+      20,
+      829.3
+     ],
+     [
+      "opt",
+      21,
+      873
+     ],
+     [
+      "req",
+      22,
+      873
+     ],
+     [
+      "long",
+      22,
+      930.5
+     ],
+     [
+      "req",
+      23,
+      930.5
+     ],
+     [
+      "empty",
+      23,
+      873
+     ],
+     [
+      "req",
+      21,
+      873
+     ],
+     [
+      "back"
+     ],
+     [
+      "add Text",
+      21,
+      967.8
+     ]
+    ]
+   },
+   "freshPhone": {
+    "start": [
+     16,
+     562.7
+    ],
+    "steps": [
+     [
+      "add Radio",
+      16,
+      693.7
+     ],
+     [
+      "open Radio"
+     ],
+     [
+      "req",
+      21,
+      693.7
+     ],
+     [
+      "long",
+      21,
+      775.3
+     ],
+     [
+      "empty",
+      23,
+      693.7
+     ],
+     [
+      "req",
+      20,
+      693.7
+     ],
+     [
+      "opt",
+      20,
+      738
+     ],
+     [
+      "req",
+      22,
+      738
+     ],
+     [
+      "back"
+     ],
+     [
+      "add Text",
+      22,
+      832.9
+     ],
+     [
+      "open Text"
+     ],
+     [
+      "short",
+      25,
+      872.7
+     ],
+     [
+      "req",
+      26,
+      872.7
+     ],
+     [
+      "long",
+      26,
+      914.4
+     ],
+     [
+      "req",
+      27,
+      914.4
+     ],
+     [
+      "empty",
+      27,
+      832.9
+     ],
+     [
+      "req",
+      24,
+      832.9
+     ]
+    ]
+   }
+  },
+  "boxed": {
+   "note": "A Background or Stroke going on a form drops its rows to a few and the block hugs what it holds. The form takes the padding, as a text block's does: M 6%, S 3%, L 12% of the width. The rows those presses leave have no rule I could find, so ours gives 3 when one goes on, the most common read, and keeps them while it stays on. Going off follows the rule from the block's height.",
+   "new": {
+    "background": {
+     "rows": 3,
+     "block": 623,
+     "inner": 456
+    },
+    "padL": {
+     "rows": 3,
+     "block": 685
+    },
+    "padS": {
+     "rows": 1,
+     "block": 592
+    },
+    "padM": {
+     "rows": 1,
+     "block": 623
+    },
+    "off": {
+     "rows": 16,
+     "block": 647
+    },
+    "blurOn": {
+     "rows": 14,
+     "block": 564
+    },
+    "backgroundAgain": {
+     "rows": 1,
+     "block": 623
+    },
+    "offAgain": {
+     "rows": 16,
+     "block": 647
+    }
+   },
+   "withFields": {
+    "start": {
+     "rows": 20,
+     "block": 907
+    },
+    "background": {
+     "rows": 2,
+     "block": 970
+    },
+    "off": {
+     "rows": 24,
+     "block": 975
+    },
+    "backgroundAgain": {
+     "rows": 1,
+     "block": 970
+    }
+   },
+   "stroke": {
+    "solid": {
+     "rows": 3,
+     "block": 627,
+     "inner": 452
+    },
+    "dashed": {
+     "rows": 2,
+     "block": 627
+    },
+    "thicknessL": {
+     "rows": 2,
+     "block": 649
+    },
+    "paddingL": {
+     "rows": 4,
+     "block": 708
+    },
+    "none": {
+     "rows": 18,
+     "block": 729
+    },
+    "background": {
+     "rows": 3,
+     "block": 685
+    }
+   }
+  }
  },
  "postSubmit": {
   "view": {
@@ -2010,6 +2552,40 @@
      "html": "<div tabindex=\"-1\" class=\"form-submission-text form-submission-text--align-left\"><p data-rte-preserve-empty=\"true\" style=\"white-space:pre-wrap;\"><strong><em><u>Thanks a lot</u></em></strong></p></div>",
      "cs": "16px 700 italic underline rgb(0, 0, 0) 22.4px"
     }
+   }
+  },
+  "tall": {
+   "note": "A message taller than the form. The panel's box stays 110 and scrolls inside. On the canvas the form takes its height from the message once that passes the form's own: 20 plus the text. Top, Middle and Bottom then draw the same. Back draws the form again at 560.9 and the rows stay until the next step.",
+   "reads": [
+    {
+     "ps": 6,
+     "text": 246.4,
+     "form": 560.9,
+     "rows": 16
+    },
+    {
+     "ps": 13,
+     "text": 515.3,
+     "form": 560.9,
+     "rows": 16
+    },
+    {
+     "ps": 21,
+     "text": 822.5,
+     "form": 842.5,
+     "rows": 21
+    },
+    {
+     "ps": 36,
+     "text": 1398.6,
+     "form": 1418.6,
+     "rows": 35
+    }
+   ],
+   "back": {
+    "form": 560.9,
+    "rows": 35,
+    "block": 1427.3
    }
   }
  },
@@ -2440,6 +3016,14 @@
      "press": 16
     }
    }
+  },
+  "designSet": {
+   "note": "Lightbox on a form with a design value set, on a new form on the probe page.",
+   "background": "Lightbox on hides it and Lightbox off leaves its switch off: it is gone. The rows were 3, then 2, then 2 with a 561 block.",
+   "stroke": "It stays. The button's block draws it: 518 by 71, 2px solid, with no padding. Off brings the form back with its stroke and padding, 627 tall, and all its rows.",
+   "blur": "It stays, off as it was on. 16 rows, on 3, off 3.",
+   "blend": "Multiply stays on the block while on and after off.",
+   "ours": "Ours does all four. The rows from a Background or Stroke differ: ours gives 1 where the oracle gives 2, and the block looks the same."
   }
  },
  "submissions": {
@@ -2462,6 +3046,17 @@
    "box": {
     "rows": "220 wide, 45 per row, text 22 in",
     "position": "Right edge 4 left of the button, top 40 under the button's top. It may run past the panel's bottom."
+   },
+   "tip": {
+    "text": "Open menu",
+    "box": [
+     109.25,
+     44
+    ],
+    "from": "Centred under the button, 11 below it.",
+    "look": "rgb(14, 14, 14), radius 3, padding 11 16, white, 14px weight 400",
+    "role": "tooltip",
+    "note": "Read 1.5 seconds after the hover. How soon it shows is not read: ours shows at once."
    }
   },
   "delete": {
@@ -3576,8 +4171,7 @@
   "What a form's open lightbox draws: the preview opens nothing on an unsaved form, and it needs a Save (under 0005).",
   "What the Message, Alignment, Position, HTML and Redirect do after a submit: a submit writes to form storage.",
   "Send confirmation email and SMS Marketing Opt-in: not pressed. View plans: not pressed.",
-  "Email Notification, Additional Storage, reCAPTCHA: not pressed.",
-  "Field label typed empty."
+  "Email Notification, Additional Storage, reCAPTCHA: not pressed, under 0005."
  ],
  "drawn": {
   "note": "Item height and control boxes (x, y from the item top, width, height) at 1600 wide, a form 518 wide. plain: Subject has a description and placeholder, every other field as added. withDescription: every added field has a description, Required on where it has one, Phone shows its country code, a Dropdown has its own placeholder and a third option left empty.",
@@ -4140,29 +4734,21 @@
   "file": "Back\nFile Upload\nLABEL\nDESCRIPTION\n\nRequired\n\nFILE DETAILS\n\nAllow only specific file types\n\nImage (.png, .jpg, .tiff, .heic)\n\nDocument (.docx, .doc, .pdf, .txt)\n\nPresentation (.pptx, .pdf)\n\nVideo (.mp4, .avi, .avchd, .flv)\n\nAudio (.mp3, .wav, .aac, .mp4, .alac)\n\nMax Number of Files\nDUPLICATE\nDELETE"
  },
  "oursDiffers": [
-  "The block's rows fit in the same step as a change. The oracle settles a step late on add, duplicate, delete and toggles: reads in blockFits.",
-  "A typed value fits when the field is left. The oracle did not change rows for typing while the panel stayed in the field.",
   "One undo step per change. The oracle's Undo did not step field changes back: reads in undo.",
-  "The Country list is the browser's region names, 251 of them, with Norway chosen. The oracle has 245. The Phone prefix stays +47.",
   "The field and tile icons are our own drawings.",
-  "Ours' HTML box has no colours or code editor. It takes the same text.",
   "In ours' Preview frame a redirect shows the message, so the editor stays open. On the page itself it follows the link.",
   "A form with a field just deleted: ours has already fit its rows, so Lightbox on reads from there. The oracle's rows had not settled (lightbox, reads.otherForm.fewerFields: 3 rows where ours gives 2).",
   "What the Lightbox button opens is ours, with no read behind it: a dark page, a 640 wide box in the chosen Background Color, the form and a close button. A press beside the box or on the close button ends it. The text and submit button turn black or white to read on the color.",
-  "Ours has no tooltip Open menu on an option's menu button.",
-  "On the phone too the rows fit in the same step. The oracle's fit is one step late there as well.",
   "Lightbox off from the phone keeps 16 rows every time. The oracle read 15 in two of six reads on the same route, and a press gives 17 either way.",
   "A phone form turned on from desktop, off and on again from the phone: ours goes to 1 row by the height it draws, the oracle to 2 by the 549 block.",
-  "The Message box takes plain text on a paste. The oracle's paste is not read."
+  "The Message box takes plain text on a paste. The oracle's paste is not read.",
+  "A delete fits the rows at once. Its reads found no rule to build (lightbox.deleteThenOn).",
+  "The rows a Background or Stroke leaves: ours gives 3 and keeps them while it is on. The oracle read 1 to 4 with no rule (blockFits.boxed). The block looks the same when nothing sits under it.",
+  "The Phone prefix stays +47, and the Country options have no values."
  ],
  "inferred": [
-  "Hidden's Variable follows the Label: only SQF_HIDDEN for the label Hidden was read.",
-  "A grip on an option moves the option: only the field list's drag was read.",
-  "The Name part hidden by Show keeps its Require value for when it comes back.",
   "A real submit draws the message as the view does, and the Submit word goes.",
-  "A message taller than the form: not read.",
   "Background Color belongs to what the Lightbox button opens: nothing on the canvas changes when it is picked, and the open view is not read.",
-  "Lightbox on leaves a Background, Stroke, Blend Mode or Blur set earlier on the block as it was: only new forms were read, with none of them set.",
   "Ours hides the follow-ups again on leaving Preview, and a field's picks stay."
  ],
  "checkboxGap": {
@@ -5405,5 +5991,90 @@
    "note": "In Preview on the phone: 20 under the radio field, 32 in, the column less 32 wide. The block's rows stayed at 16 and stretched."
   },
   "buttonText": "The form's own Button Text, on the Content tab, is one value: PhoneGo typed on the phone shows on desktop, and DeskHey typed on desktop shows on the phone."
+ },
+ "hiddenVariable": {
+  "note": "The Variable follows the Label. SQF_, then the label in upper case. Letters and digits of any alphabet stay; each other run is one _.",
+  "reads": {
+   "Hidden": "SQF_HIDDEN",
+   "My Track Code": "SQF_MY_TRACK_CODE",
+   "a-b c!": "SQF_A_B_C_",
+   "hidden": "SQF_HIDDEN",
+   "Æøå 1": "SQF_ÆØÅ_1",
+   "first.last": "SQF_FIRST_LAST",
+   "": "SQF_"
+  }
+ },
+ "emptyLabel": {
+  "note": "A field's label typed empty. The panel's title stays the kind's name and the box shows it as the placeholder. In the list its row is Item and its place, counted from 1. Hidden was read too, its list row Item 5.",
+  "list": [
+   "Item 1",
+   "Email",
+   "Subject",
+   "Message",
+   "Item 5",
+   "Item 6"
+  ],
+  "text": {
+   "title": "Text",
+   "label": [
+    0,
+    30.4
+   ],
+   "note": "A label keeps its 30.4 with nothing in it."
+  },
+  "radio": {
+   "title": "Radio",
+   "legend": [
+    0,
+    8
+   ]
+  },
+  "name": {
+   "title": "Name",
+   "legend": [
+    0,
+    8
+   ]
+  },
+  "form": {
+   "before": 785.5,
+   "afterText": 785.5,
+   "afterRadioAndName": 740.7
+  },
+  "required": {
+   "note": "A required field typed empty keeps its (required), now at the left edge, and its 30.4.",
+   "label": [
+    0,
+    30.4
+   ],
+   "mark": [
+    0,
+    2,
+    72.3,
+    19.7
+   ],
+   "list": "Item 2"
+  }
+ },
+ "nameRequire": {
+  "note": "A Name part's Show off takes its Require row away. Show on brings it back with the value it had, on or off: read both ways, on the Last Name part."
+ },
+ "country": {
+  "note": "The Address field's list: 245 names, Norway chosen, in the oracle's order: app/src/form-countries.js. The browser's region names were 251, and 245 is 8 fewer and 2 more, so a net of 6.",
+  "onlyInBrowser": [
+   "Antarctica",
+   "Bouvet Island",
+   "Sark",
+   "South Georgia & South Sandwich Islands",
+   "Heard & McDonald Islands",
+   "Pitcairn Islands",
+   "French Southern Territories",
+   "U.S. Outlying Islands"
+  ],
+  "onlyOnOracle": [
+   "Ascension Island",
+   "Tristan da Cunha"
+  ],
+  "values": "Each option's value on the oracle is its two-letter code: not kept in ours."
  }
 }

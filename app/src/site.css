@@ -409,8 +409,9 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 /* Form block (T9), sizes measured on the oracle Contact form */
 .fe-form { margin: 0; }
 .fe-form .form-item { margin: 0 0 20px; padding: 0; border: 0; min-width: 0; }
+.fe-form .req.req--alone.req--alone { margin-left: 0; }
 .fe-form legend { padding: 0 0 8px; font-size: 16px; line-height: 22.4px; }
-.fe-form label.title { display: block; font-size: 16px; line-height: 22.4px; padding-bottom: 8px; }
+.fe-form label.title { display: block; min-height: 30.4px; font-size: 16px; line-height: 22.4px; padding-bottom: 8px; } /* an emptied label keeps its line; a legend does not (FORMFIELDS.json, emptyLabel) */
 .fe-form label.caption { display: block; padding-bottom: 4px; }
 /* Name sub-labels and checkbox labels use the small text size (value 0.9). */
 .fe-form .caption-row, .fe-form .form-checkbox .option, .fe-form .description, .fe-form .caption-text, .fe-form .likert-options .option {
