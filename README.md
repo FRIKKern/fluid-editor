@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 13 changes
+- **Today** · 14 changes
+  - A2: a phone reflow redraws the section, so a phone drag lands where the oracle's does ([#192](https://github.com/FRIKKern/fluid-editor/pull/192))
   - UNREAD: what is still unread on the oracle, per item ([#191](https://github.com/FRIKKern/fluid-editor/pull/191))
-  - T9: Gate B contact is 65 of 65 on the live oracle, recorded in 0006 ([#190](https://github.com/FRIKKern/fluid-editor/pull/190))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
