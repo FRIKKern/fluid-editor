@@ -447,6 +447,23 @@ export const RECIPES = {
   'CAP-E4LOOK': { page: 'Gestures Probe', question: "E4: the hue bar's whole gradient, and the list marker's style", steps: [
     ['enter'], ['blank'], ...NEWTEXT, ['keys', 'one'], ['press', 'Enter'], ['keys', 'two'], ['press', 'Meta+a'], ['click', 'Bullet List'], ['read', 'bullet', { marker: [0, 'new'], html: [0, 'new'] }], ['click', 'Numbered List'], ['read', 'numbered', { marker: [0, 'new'], html: [0, 'new'] }], ['click', 'Text Color'], ['clickIf', 'Custom'], ['read', 'custom', { gradients: true }], ['shot', 'custom'], ['press', 'Escape'], ['press', 'Escape'],
   ] },
+  'CAP-E5HEAD2': { page: 'Gestures Probe', question: 'E5: beyond CAP-E5HEAD, other headings, more kinds of paste, and where the caret ends. Synthetic paste, no machine clipboard.', steps: [
+    ['enter'], ['blank'],
+    ...[['H1, two paragraphs', 'Heading 1', '<p>ONE</p><p>TWO</p>'], ['H3, two paragraphs', 'Heading 3', '<p>ONE</p><p>TWO</p>'], ['H4, a list', 'Heading 4', '<ul><li><p>A</p></li><li><p>B</p></li></ul>'], ['H3, heading and paragraph', 'Heading 3', '<h2>HEAD</h2><p>TAIL</p>'],
+      ['H2, three paragraphs', 'Heading 2', '<p>ONE</p><p>TWO</p><p>THREE</p>'], ['H2, paragraph and heading', 'Heading 2', '<p>A</p><h3>B</h3>'], ['H2, a lone heading', 'Heading 2', '<h3>X</h3>'], ['H2, bold in the first paragraph', 'Heading 2', '<p><b>ONE</b></p><p>TWO</p>']]
+      .flatMap(([n, style, h]) => [...NEWTEXT, ['keys', 'heading text'], ['click', 'Text Style'], ['click', style], ['pasteMid', 0, 'new', h], ['read', n, { html: [0, 'new'] }]]),
+    ...[['H2, two paragraphs, typed', '<p>ONE</p><p>TWO</p>'], ['H2, a list, typed', '<ul><li><p>A</p></li><li><p>B</p></li></ul>'], ['H2, one paragraph, typed', '<p>ONE</p>'], ['H2, inline, typed', '<b>PASTED</b>']]
+      .flatMap(([n, h]) => [...NEWTEXT, ['keys', 'heading text'], ['click', 'Text Style'], ['click', 'Heading 2'], ['pasteMid', 0, 'new', h], ['keys', 'x'], ['read', n, { html: [0, 'new'] }]]),
+  ] },
+  'CAP-E4ENTER': { page: 'Gestures Probe', question: 'E4: Enter in headings and quotes, beyond the one H2 read in CAP-E4SCORE.', steps: [
+    ['enter'], ['blank'],
+    ...[['Heading 1', 'H1'], ['Heading 3', 'H3'], ['Heading 4', 'H4']].flatMap(([style, n]) => [...NEWTEXT, ['keys', 'alpha'], ['click', 'Text Style'], ['click', style], ['press', 'Enter'], ['keys', 'beta'], ['read', `${n}, Enter at the end`, { html: [0, 'new'] }]]),
+    ...NEWTEXT, ['keys', 'alpha'], ['click', 'Quote'], ['press', 'Enter'], ['keys', 'beta'], ['read', 'Quote, Enter at the end', { html: [0, 'new'] }],
+    ...NEWTEXT, ['keys', 'alpha'], ['click', 'Quote'], ['press', 'Enter'], ['press', 'Enter'], ['keys', 'beta'], ['read', 'Quote, Enter twice', { html: [0, 'new'] }],
+    ...NEWTEXT, ['keys', 'alpha'], ['click', 'Text Style'], ['click', 'Heading 2'], ['press', 'Enter'], ['press', 'Enter'], ['keys', 'beta'], ['read', 'H2, Enter twice', { html: [0, 'new'] }],
+    ...NEWTEXT, ['keys', 'alpha'], ['click', 'Text Style'], ['click', 'Heading 3'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['press', 'Enter'], ['keys', 'x'], ['read', 'H3, Enter in the middle', { html: [0, 'new'] }],
+    ...NEWTEXT, ['click', 'Text Style'], ['click', 'Heading 2'], ['press', 'Enter'], ['keys', 'beta'], ['read', 'empty H2, Enter', { html: [0, 'new'] }],
+  ] },
   'CAP-E5HEAD': { page: 'Gestures Probe', question: 'E5: a synthetic paste into the middle of a heading. No keys, own DataTransfer, no machine clipboard.', steps: [
     ['enter'], ['blank'],
     ...Object.entries(HEADPASTE).flatMap(([n, h]) => [...NEWTEXT, ['keys', 'heading text'], ['click', 'Text Style'], ['click', 'Heading 2'], ['read', `${n} before`, { html: [0, 'new'] }], ['pasteMid', 0, 'new', h], ['read', n, { html: [0, 'new'] }]]),

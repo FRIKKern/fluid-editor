@@ -103,15 +103,16 @@ export function cleanPaste(doc, html, text) {
 }
 
 // Insert the cleaned blocks at the selection. Measured on the oracle for a paste over the whole
-// content and into a paragraph; other content goes after the block.
+// content and into a paragraph or heading; other content goes after the block.
 const insideParagraph = (range, root) => {
   const at = range.startContainer.nodeType === 1 ? range.startContainer : range.startContainer.parentElement;
-  const p = at.closest('p');
+  const p = at.closest('p, h1, h2, h3, h4');
   return p && root.contains(p) ? p : null;
 };
-// A paste into a paragraph (PASTESPLIT.json): the first block loses its type and joins the text
-// before the caret, for a list that is its first item. The last block keeps its type and takes the
-// text after the caret. Blocks between stay whole. The caret ends right after the pasted text.
+// A paste into a paragraph (PASTESPLIT.json) or a heading (CAP-E5HEAD.json): the first block loses its
+// type and joins the text before the caret, for a list that is its first item. The last block keeps its
+// type and takes the text after the caret. Blocks between stay whole. The caret ends right after the
+// pasted text.
 const textHome = (block) => {
   if (!block.matches('ul, ol')) return block;
   const li = block.lastElementChild;
