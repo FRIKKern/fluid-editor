@@ -394,8 +394,9 @@ const STEPS = {
   // A whole real drag, in window pixels.
   dragAt: async (x, y, x2, y2) => { cdp(S, { op: 'drag', from: [x, y], to: [x2, y2], steps: 12, holdMs: 200, mods: [] }); await pause(800); },
   holdAt: async (x, y) => { mouse(S, 'move', x, y); mouse(S, 'down', x, y); await pause(300); heldAt = [x, y]; },
-  moveAt: async (x, y) => { mouse(S, 'move', x, y, { buttons: 1 }); await pause(400); heldAt = [x, y]; },
-  releaseAt: async () => { mouse(S, 'up', heldAt[0], heldAt[1]); await pause(600); },
+  // With a holdAt down the button stays down, otherwise a plain move.
+  moveAt: async (x, y) => { if (!heldAt) { mouse(S, 'move', x, y); return; } mouse(S, 'move', x, y, { buttons: 1 }); await pause(400); heldAt = [x, y]; },
+  releaseAt: async () => { mouse(S, 'up', heldAt[0], heldAt[1]); heldAt = null; await pause(600); },
   // How long a tip takes: a real move onto a named button, then from the page's own clock the first frame the tip shows and the first it is fully on. Reads only.
   tipDelay: async (label, name, tries = 4) => {
     const seen = [];
@@ -484,7 +485,6 @@ const STEPS = {
   // A real move onto a named element, nothing pressed.
   hoverNamed: async (label) => { if (!tag(LABEL(label))) throw new Error(`nothing labelled ${label}`); const at = evalJs(S, `(() => { const q = document.getElementById('fx-target').getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); mouse(S, 'move', at[0], at[1]); await pause(600); },
   // Section i's Add Section buttons and outline, frame by frame, by the page's own clock, as the pointer comes on and goes off.
-  moveAt: (x, y) => { mouse(S, 'move', x, y); },
   frameTo: async (y) => { evalJs(S, `(() => { document.getElementById('sqs-site-frame').contentWindow.scrollTo({ top: ${y}, behavior: 'instant' }); return 'true'; })()`); await pause(300); },
   outlineStart: () => { evalJs(S, `(() => { ${FRAME} const T = window.__ol = { t0: performance.now(), seen: [], stop: false }; const tick = () => { if (T.stop) return; const row = [...d.querySelectorAll('.sqs-section-outline')].map((l) => { const c = W.getComputedStyle(l); return [Math.round(l.getBoundingClientRect().top), c.borderTopColor.replace(/rgba?\\(|\\)/g, ''), l.classList.contains('show-section-outline') ? 1 : 0, c.display === 'none' ? 0 : 1]; }); const key = JSON.stringify(row); if (key !== T.key) { T.key = key; T.seen.push([Math.round(performance.now() - T.t0), row]); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`); },
   outlineStop: (name) => { const seen = evalJs(S, `(() => { const T = window.__ol; T.stop = true; return JSON.stringify(T.seen); })()`); finding.reads[name] = { columns: ['ms', 'each outline: top, border color, has the show class, displayed'], seen }; },
