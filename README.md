@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 111 changes
+- **Today** · 112 changes
+  - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
   - R2: text that grows or shrinks moves blocks; first undo falls by height ([#290](https://github.com/FRIKKern/fluid-editor/pull/290))
-  - T10: folding in the Code and Markdown editors ([#288](https://github.com/FRIKKern/fluid-editor/pull/288))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
