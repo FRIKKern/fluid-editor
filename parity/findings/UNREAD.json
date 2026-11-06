@@ -5,11 +5,11 @@
   "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here.",
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it. ask: the lead rules.",
   "counts": {
-    "total": 106,
-    "yes": 91,
+    "total": 107,
+    "yes": 92,
     "no": 11,
     "ask": 4,
-    "read": 88,
+    "read": 94,
     "notPressed": 0
   },
   "entries": [
@@ -1096,7 +1096,9 @@
       "safeRead": "yes",
       "how": "synthetic events only: copy, reload, paste, on a probe page",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U11RELOAD.json",
+      "result": "Yes, given back the same data, and the source block needn't exist. Ours loses it."
     },
     {
       "item": "U3",
@@ -1105,43 +1107,62 @@
       "safeRead": "yes",
       "how": "hover a child of a selected stack on a probe page, from a shot",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U3CHILDHOVER.json",
+      "result": "No child pill. The Stack pill shows on a hover. Ours matches."
     },
     {
       "lane": "recorder",
-      "state": "open",
+      "state": "read",
       "item": "X6",
       "what": "Each type's width floor on the phone",
       "source": "CAP-X6FLOORS.json",
       "safeRead": "yes",
-      "how": "the same far pulls in Mobile View, on a probe page"
+      "how": "the same far pulls in Mobile View, on a probe page",
+      "finding": "CAP-X6PHONEFLOORS.json",
+      "result": "35 of 36, Summary one side. Same on 5 in ours."
     },
     {
       "lane": "recorder",
-      "state": "open",
+      "state": "read",
       "item": "X6",
       "what": "An Image's width floor",
       "source": "CAP-X6FLOORS.json",
       "safeRead": "ask",
-      "how": "pull by the east and west handles only, a press over a new Image can reach Upload file"
+      "how": "pull by the east and west handles only, a press over a new Image can reach Upload file",
+      "finding": "CAP-X6IMAGEFLOOR.json",
+      "result": "1 column, by side handles. Ours matches."
     },
     {
       "lane": "recorder",
-      "state": "open",
+      "state": "read",
       "item": "E4",
       "what": "Longer endings past the 1030 tried",
       "source": "CAP-E4ENDS2.json",
       "safeRead": "yes",
-      "how": "type more names in a Text block, on a probe page"
+      "how": "type more names in a Text block, on a probe page",
+      "finding": "CAP-E4ENDS3.json",
+      "result": "The last 80 on a public list all link. None in ours."
+    },
+    {
+      "lane": "recorder",
+      "state": "read",
+      "item": "T14",
+      "what": "What sets the start row of Zola, Bandsintown and OpenTable",
+      "source": "CAP-T14SCROLL.json",
+      "safeRead": "yes",
+      "how": "read the menu's scroll and the tile's place at the press, at several window heights",
+      "finding": "CAP-T14MENU.json, CAP-T14FRAME.json, CAP-T14FRAME2.json",
+      "result": "The tool's scroll. The real rule, by the frame's scroll: 8 of 8. Ours is on row 1."
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T14",
-      "what": "What sets the start row of Zola, Bandsintown and OpenTable",
-      "source": "CAP-T14SCROLL.json",
+      "what": "A new block on a page scrolled before Add Block is pressed, and in the phone view",
+      "source": "CAP-T14FRAME2.json",
       "safeRead": "yes",
-      "how": "read the menu's scroll and the tile's place at the press, at several window heights"
+      "how": "open the menu with no hover scroll, on a probe page"
     }
   ]
 }

@@ -5,8 +5,9 @@
 //   ... node scripts/oracle-capture.mjs --list
 //   ... node scripts/oracle-capture.mjs --name WHAT --question '...' --steps '[["enter"],["select",2,2],["read","a",{"block":[2,2],"controls":true}]]'
 // Steps: enter | exit | view Mobile|Desktop | window w h (the real window, for a block taller than it) | frame w h | unframe | pause ms | listen
-//   hover i | hoverBlock i k | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
+//   hover i | hoverBlock i k [part] | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
+//   addFromMenu i type name {frameBy, menu} | handleDrag i k part dx dy name | beforeOf name selector
 //   hoverNamed label | moveAt x y (skips the page check: it presses nothing, and its timing matters) | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | addSectionWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
 //   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | keysGap ms [keys] | fill label value | fillValue shown value | rightClick i k
 //   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clipHold | clipGive | clickAt x y | walk i k part mx my | pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillRow label n value | hoverRow label [n] | pressTile [n] | pressEl selector [n] | hoverEl selector [n] | pressNamed label | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
@@ -21,7 +22,7 @@
 // clickAt is by position: Custom's place moves with the window, so a press on a control goes by name (click label).
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { browser, evalJs, mouse, cdp, goto, pause, reload, waitFor, engine, viewport } from './lib/cmux.mjs';
-import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock, addSection, blockIds, escape, select } from './oracle/ui.mjs';
+import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock, openAddBlock, addSection, blockIds, escape, select } from './oracle/ui.mjs';
 import { RECIPES } from './oracle/recipes.mjs';
 
 const S = process.env.ORACLE_SURFACE;
@@ -210,12 +211,42 @@ const STEPS = {
   // Leaves the page without saving and enters another probe page: does a copied block survive it?
   toPage: async (title) => { pageTitle = title; await exitWithoutSaving().catch((e) => { if (!e.message.includes('not in edit mode')) throw e; }); const o = evalJs(S, 'JSON.stringify(location.origin)'); goto(S, o + '/config/pages'); await pause(6000); booted(); try { await enterEdit(title); } catch { /* an empty page has no editing grid */ } finding.visited = title; await desktop(); },
   hover: (i) => hoverSection(i),
-  hoverBlock: async (i, k) => { const [x, y] = point(i, k); await inFrame(() => mouse(S, 'move', x, y)); await pause(600); },
+  hoverBlock: async (i, k, part) => { const [x, y] = point(i, k, part); await inFrame(() => mouse(S, 'move', x, y)); await pause(600); },
   sectionDrag: async (i, dy) => { const at = evalJs(S, `(() => { ${FRAME} const h = ${SECTION_HANDLE(i)}; if (!h) return JSON.stringify(null); const q = h.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); if (!at) throw new Error('no section handle'); const [x, y] = at; await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x, y + dy], steps: 12, holdMs: 200, mods: [] })); await pause(800); },
   select: async (i, k) => { const [x, y] = point(i, k); await inFrame(() => { mouse(S, 'move', x, y); mouse(S, 'down', x, y); mouse(S, 'up', x, y); }); await pause(800); },
   deselect: async () => { await escape(); },
   pick: (i, k) => select(i, blockId(i, k)),
   add: async (i, type) => { added = await addBlock(i, type); await pause(800); },
+  // Add a block with no scrollIntoView: opens the menu, moves only what o names, reads the frame's scroll and the tile's
+  // place, and presses the tile by the real mouse if it is on top. o.frameBy scrolls the frame, o.menu scrolls the menu's
+  // own scroller until the tile is in it. A tile out of reach or covered is named, and not pressed.
+  addFromMenu: async (i, type, name, o = {}) => {
+    const had = new Set(blockIds(i));
+    await openAddBlock(i);
+    const look = (extra = '') => evalJs(S, `(() => { ${FRAME} const t = [...d.querySelectorAll('div,span,button,li')].filter((x) => x.childElementCount === 0 && x.getBoundingClientRect().width > 0 && !x.closest('.fe-block') && !/label-tag/.test(x.className) && x.textContent.trim() === ${JSON.stringify(type)})[0]; if (!t) return JSON.stringify(null); let sc = t.parentElement; while (sc && sc !== d.body && !(['auto', 'scroll'].includes(W.getComputedStyle(sc).overflowY) && sc.scrollHeight > sc.clientHeight + 1)) sc = sc.parentElement; if (sc === d.body) sc = null; ${extra} const q = t.getBoundingClientRect(), s = sc && sc.getBoundingClientRect(), x = q.left + q.width / 2, y = q.top + q.height / 2, e = d.elementFromPoint(x, y), inView = q.top >= (s ? s.top : 0) && q.bottom <= (s ? s.bottom : W.innerHeight) && q.bottom <= W.innerHeight; const fr = f.getBoundingClientRect(); return JSON.stringify({ frameY: Math.round(W.scrollY), frameH: W.innerHeight, tile: [Math.round(q.top * 10) / 10, Math.round(q.bottom * 10) / 10], scroller: s ? { top: Math.round(s.top), h: Math.round(s.height), scrollTop: Math.round(sc.scrollTop), scrollH: sc.scrollHeight } : null, inView, onTop: !!e && (e === t || t.contains(e) || e.contains(t)), at: [fr.left + x, fr.top + y] }); })()`);
+    const out = finding.reads[name] = { open: look() };
+    if (!out.open) { finding.errors.push(`${name}: no tile ${type}`); await escape(); return; }
+    if (o.frameBy) { evalJs(S, `(() => { ${FRAME} W.scrollBy({ top: ${o.frameBy}, behavior: 'instant' }); return 'true'; })()`); await pause(500); out.frameMoved = look(); }
+    if (o.menu) { out.menuMoved = look(`if (sc) { const q0 = t.getBoundingClientRect(), s0 = sc.getBoundingClientRect(); sc.scrollTo({ top: sc.scrollTop + q0.top - s0.top - s0.height / 2, behavior: 'instant' }); }`); await pause(500); }
+    const now = look(); out.atPress = now;
+    if (!now.inView || !now.onTop) { out.notPressed = now.inView ? 'covered' : 'out of view'; finding.errors.push(`${name}: not pressed, ${out.notPressed}`); await escape(); return; }
+    cdp(S, { op: 'drag', from: now.at, to: now.at, steps: 1, holdMs: 50, mods: [] }); await pause(1800);
+    out.afterFrameY = evalJs(S, `(() => { ${FRAME} return JSON.stringify(Math.round(W.scrollY)); })()`);
+    added = blockIds(i).find((id) => !had.has(id)) || null;
+    if (!added) finding.errors.push(`${name}: no new block`);
+    await pause(800);
+  },
+  // What a ::before says and how it looks, on each element in the frame that matches. Reads only.
+  beforeOf: (name, sel) => { finding.reads[name] = evalJs(S, `(() => { ${FRAME} return JSON.stringify([...d.querySelectorAll(${JSON.stringify(sel)})].map((e) => { const c = W.getComputedStyle(e, '::before'); const q = e.getBoundingClientRect(); return { tag: e.tagName.toLowerCase(), box: [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10), content: c.content, color: c.color, opacity: c.opacity, font: c.fontSize + ' ' + c.fontFamily.slice(0, 40), float: c.float, height: c.height, pointer: c.pointerEvents }; })); })()`); },
+  // A drag from a block's handle, only if what is under the pointer is a handle by its size and resize cursor. Otherwise named, not pressed.
+  handleDrag: async (i, k, part, dx, dy, name) => {
+    const [x, y] = point(i, k, part);
+    const hit = evalJs(S, `(() => { ${FRAME} const e = d.elementFromPoint(${x}, ${y}); if (!e) return JSON.stringify(null); const q = e.getBoundingClientRect(); return JSON.stringify({ cursor: W.getComputedStyle(e).cursor, size: [q.width, q.height] }); })()`);
+    const ok = hit && /resize/.test(hit.cursor) && hit.size[0] <= 34 && hit.size[1] <= 34;
+    finding.reads[name] = { under: hit, pressed: !!ok };
+    if (!ok) { finding.errors.push(`${name}: ${part} handle not on top, not pressed`); return; }
+    await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x + dx, y + dy], steps: 12, holdMs: 200, mods: [] })); await pause(800);
+  },
   panel: (i) => openSectionPanel(i),
   editText: async (i, k) => { point(i, k); await inFrame(() => browser(S, 'dblclick', '#fx-b')); await pause(1000); },
   click: async (label) => { if (!tag(LABEL(label))) throw new Error(`nothing labelled ${label}`); browser(S, 'click', '#fx-target'); await pause(1200); },

@@ -1,0 +1,929 @@
+{
+  "item": "CAP-T14MENU",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T14: is the low start row my tool's scroll? Prediction, written before this read: pressed with only the menu's own scroller moved, Zola, Bandsintown and OpenTable land on row 1 at 1000 high, and a Text pressed after the frame moves by 87 lands below row 1.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "Zola",
+      "Zola at 1000, menu only",
+      {
+        "menu": true
+      }
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Zola at 1000, menu only, area",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "Bandsintown",
+      "Bandsintown at 1000, menu only",
+      {
+        "menu": true
+      }
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Bandsintown at 1000, menu only, area",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "OpenTable",
+      "OpenTable at 1000, menu only",
+      {
+        "menu": true
+      }
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "OpenTable at 1000, menu only, area",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Zola"
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Zola at 1000, the old way",
+      {
+        "areas": 0,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Bandsintown"
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Bandsintown at 1000, the old way",
+      {
+        "areas": 0,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "OpenTable"
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "OpenTable at 1000, the old way",
+      {
+        "areas": 0,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "Text",
+      "Text, nothing moved",
+      {}
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text, nothing moved, area",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "Text",
+      "Text, frame by 87",
+      {
+        "frameBy": 87
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text, frame by 87, area",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "Text",
+      "Text, frame by 170",
+      {
+        "frameBy": 170
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text, frame by 170, area",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1400
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "addFromMenu",
+      0,
+      "Text",
+      "Text at 1400, frame by 87",
+      {
+        "frameBy": 87
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text at 1400, frame by 87, area",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ]
+  ],
+  "reads": {
+    "Zola at 1000, menu only": {
+      "open": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          1464,
+          1480
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": false,
+        "onTop": false,
+        "at": [
+          268,
+          1527
+        ]
+      },
+      "menuMoved": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          551,
+          567
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 913,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          268,
+          614
+        ]
+      },
+      "atPress": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          551,
+          567
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 913,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          268,
+          614
+        ]
+      },
+      "afterFrameY": 0
+    },
+    "Zola at 1000, menu only, area": {
+      "areas": [
+        [
+          "1/2/17/10",
+          "1/2/17/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Bandsintown at 1000, menu only": {
+      "open": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          1514,
+          1530
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": false,
+        "onTop": false,
+        "at": [
+          116,
+          1577
+        ]
+      },
+      "menuMoved": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          601,
+          617
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 913,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          664
+        ]
+      },
+      "atPress": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          601,
+          617
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 913,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          664
+        ]
+      },
+      "afterFrameY": 0
+    },
+    "Bandsintown at 1000, menu only, area": {
+      "areas": [
+        [
+          "1/2/6/10",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "OpenTable at 1000, menu only": {
+      "open": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          1464,
+          1480
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": false,
+        "onTop": false,
+        "at": [
+          116,
+          1527
+        ]
+      },
+      "menuMoved": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          551,
+          567
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 913,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          614
+        ]
+      },
+      "atPress": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          551,
+          567
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 913,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          614
+        ]
+      },
+      "afterFrameY": 0
+    },
+    "OpenTable at 1000, menu only, area": {
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Zola at 1000, the old way": {
+      "sections": [
+        {
+          "id": "de2403",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 18,
+          "blocks": [
+            "94_420"
+          ],
+          "h": 1078.5
+        }
+      ],
+      "areas": [
+        [
+          "3/2/19/10",
+          "1/2/17/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Bandsintown at 1000, the old way": {
+      "sections": [
+        {
+          "id": "ecb06e",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "2_5002"
+          ],
+          "h": 1288.1
+        }
+      ],
+      "areas": [
+        [
+          "4/2/9/10",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "OpenTable at 1000, the old way": {
+      "sections": [
+        {
+          "id": "9afbab",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 10,
+          "blocks": [
+            "94_420"
+          ],
+          "h": 749.8
+        }
+      ],
+      "areas": [
+        [
+          "3/2/11/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text, nothing moved": {
+      "open": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          284,
+          300
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          347
+        ]
+      },
+      "atPress": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          284,
+          300
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          347
+        ]
+      },
+      "afterFrameY": 0
+    },
+    "Text, nothing moved, area": {
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text, frame by 87": {
+      "open": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          284,
+          300
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          347
+        ]
+      },
+      "frameMoved": {
+        "frameY": 87,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "atPress": {
+        "frameY": 87,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "afterFrameY": 87
+    },
+    "Text, frame by 87, area": {
+      "areas": [
+        [
+          "3/2/5/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text, frame by 170": {
+      "open": {
+        "frameY": 0,
+        "frameH": 945,
+        "tile": [
+          284,
+          300
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          347
+        ]
+      },
+      "frameMoved": {
+        "frameY": 170,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "atPress": {
+        "frameY": 170,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "afterFrameY": 170
+    },
+    "Text, frame by 170, area": {
+      "areas": [
+        [
+          "5/2/7/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text at 1400, frame by 87": {
+      "open": {
+        "frameY": 0,
+        "frameH": 1345,
+        "tile": [
+          284,
+          300
+        ],
+        "scroller": {
+          "top": 153,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          347
+        ]
+      },
+      "frameMoved": {
+        "frameY": 87,
+        "frameH": 1345,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "atPress": {
+        "frameY": 87,
+        "frameH": 1345,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "afterFrameY": 87
+    },
+    "Text at 1400, frame by 87, area": {
+      "areas": [
+        [
+          "3/2/5/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": false,
+  "answer": "The low start rows were my tool's. When a tile sits below the window, the tool's click calls scrollIntoView, which moves the frame too, and a new block lands by the frame's scroll. With only the menu's own list moved, at 1000 high: Zola 1/2/17/10, Bandsintown 1/2/6/10, OpenTable 1/2/9/10, all on row 1, the frame at 0. The old way in the same run: rows 3, 4, 3. The prediction was right on both parts. The real rule is in CAP-T14FRAME2.json.",
+  "ours": "Row 1 for all three, the same.",
+  "differs": [],
+  "pressed": "Add Block by its button. Each tile by the real mouse at its place, only with what is under the pointer checked to be that tile. The frame or the menu scrolled by script. No Save, no upload, no Reset."
+}
