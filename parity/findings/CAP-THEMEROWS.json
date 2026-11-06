@@ -2,7 +2,7 @@
  "item": "U12",
  "capturedAt": "2026-11-05",
  "page": "Blocks Probe, unsaved, 1600 by 1000",
- "note": "Palette editing and Edit Color Theme's rows. Every change undone, left with no Save, then site styles and two themes read back the same on a fresh load. Those read-backs skipped the 7 rows whose names take two lines (66 tall, not 44), so they covered 306 of 313 rows. On 2026-11-06 scripts/oracle-readback.mjs read the palette and all ten themes against rows.A, on the probe page, with Save off at every read and no question on Exit: all 313 rows, names and colors the same, so these rows are not new on the site. Opening Site Styles swaps the top bar's Edit for Exit and a Save that is off, so the read is not outside that mode. It does not cover Fonts, Buttons or Forms. Reset Color Theme, From Image's drop and the Custom color's inner rows were not pressed.",
+ "note": "Palette editing and Edit Color Theme's rows. Every change undone, left with no Save, then site styles and two themes read back the same on a fresh load. Those read-backs skipped the 7 rows whose names take two lines (66 tall, not 44), so they covered 306 of 313 rows. On 2026-11-06 scripts/oracle-readback.mjs read the palette and all ten themes against rows.A, on the probe page, with Save off at every read and no question on Exit: all 313 rows, names and colors the same, so these rows are not new on the site. Opening Site Styles swaps the top bar's Edit for Exit and a Save that is off, so the read is not outside that mode. The same tool reads Fonts, Buttons, Forms and Miscellaneous against CAP-STYLEROWS.json. Reset Color Theme, From Image's drop and the Custom color's inner rows were not pressed.",
  "rowGroups": [
   [
    "Header",

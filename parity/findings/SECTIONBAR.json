@@ -1239,7 +1239,13 @@
         "7": 27.52
       },
       "Layers": "3 less than Edit on each",
-      "note": "The value is 29 plus the sum of the rounded heights of the sections above, minus their true sum: computed from the demo page's section heights as ours draws them, all seven come out within 0.01 (2026-11-06). Add Section uses the same sum (ADDSECTIONTOP.json). Ours does this. Not read on a phone, where ours stays on the true top."
+      "note": "The value is 29 plus the sum of the rounded heights of the sections above, minus their true sum: computed from the demo page's section heights as ours draws them, all seven come out within 0.01 (2026-11-06). Add Section uses the same sum (ADDSECTIONTOP.json). Ours does this.",
+      "fresh": {
+        "read": "2026-11-06, Blocks Probe made taller, unsaved, sections 667.58, 623.69, 623.69, 623.69. Predictions written to a file first, hit within 0.05. Nothing refit between them and the reads.",
+        "desktop": {"predicted": 11, "hit": 11, "Edit": {"1": 29.422, "2": 29.734, "3": 30.047}, "LayersIs": "3 less on each", "headerHeight": 138.64, "firstEdit": 222.64, "firstLayers": 219.64, "sticky": [84, 81]},
+        "phoneFirst": {"predicted": {"Edit": 29, "Layers": 26}, "read": {"Edit": 29.94, "Layers": 26.94}, "section": 3, "result": "2 misses: ours had no drift on a phone. The same sum gives 29.938."},
+        "phoneAfter": {"predicted": 8, "hit": 8, "read": {"1": {"Edit": 29.313, "Layers": 26.313, "AddTop": -17.688, "AddBottom": 606.313}, "2": {"Edit": 29.625, "Layers": 26.625, "AddTop": -17.375, "AddBottom": 606.625}}, "offsetsFrom": "the section's true top; both sections 623.69 tall"}
+      }
     }
   },
   "panelTop": {
