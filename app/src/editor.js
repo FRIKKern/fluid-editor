@@ -14,7 +14,7 @@ import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHt
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
-import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock } from './phone-order.js';
+import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
 import { codeLines, gutterWidth } from './code-look.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkAt, mdSetLink, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
@@ -129,20 +129,18 @@ function followPhoneRows(before) {
 // A section built here follows any desktop move or resize on the phone until the phone is moved by
 // hand (CAP-DESKMOVE*.json). A saved page has no flag: a saved section can't be read (0006), so it stays.
 function phoneFollowsMove(s, was) {
-  if (!s.phoneFollows) return false;
+  if (s.phoneFollows == null) return false;
   const same = s.blocks.flatMap((b) => { const o = was.blocks.find((x) => x.id === b.id); return o ? [[b, o]] : []; });
   const changed = (name, part) => same.some(([b, o]) => part(b.layout[name].area).join() !== part(o.layout[name].area).join());
-  if (bp === 'mobile') {
-    if (changed('mobile', (a) => a.slice(0, 2))) s.phoneFollows = false;
-    return false;
-  }
-  // A block taken away on desktop: the stack closes up (CAP-TURNTEST4 d1, order and rows, one case).
+  // A block taken away, on either width: the stack closes up, keeping the gaps above the others
+  // (CAP-TURNTEST4 d1, CAP-A2EDITS2 p and h, CAP-A2ROUND1 a).
   const gone = was.blocks.filter((o) => !s.blocks.some((b) => b.id === o.id)).map((o) => o.layout.mobile.area);
-  if (gone.length) for (const b of s.blocks) {
-    const a = b.layout.mobile.area, up = gone.reduce((n, g) => n + (g[2] <= a[0] ? g[2] - g[0] : 0), 0);
-    b.layout.mobile.area = [a[0] - up, a[1], a[2] - up, a[3]];
+  closeUp(s, gone);
+  if (bp === 'mobile') {
+    if (!gone.length && (changed('mobile', (a) => a.slice(0, 2)) || phoneOverlaps(s))) s.phoneFollows = false;
+    return gone.length > 0;
   }
-  return (changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
+  return (s.phoneFollows && changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
 }
 
 function undo() {
@@ -745,7 +743,8 @@ function autoScroll(g) {
     else if (g.type === 'gresize') updateGroupResize(g.lastEvent);
     win.setTimeout(tick, SCROLL_EVERY);
   };
-  win.setTimeout(tick, SCROLL_EVERY);
+  // At once: a pointer that crosses the edge in one move still scrolls one step (CAP-LONGDRAG).
+  tick();
 }
 
 // One SVG per row, drawn the oracle's way (parity/findings/MARKS.json, grid): a pattern one cell wide
@@ -3736,6 +3735,18 @@ function duplicateBlock(sid, bid) {
   const c0 = Math.min(d[1] + 1, LAST_LINE.desktop - w);
   copy.layout.desktop.area = [d[0] + 1, c0, d[2] + 1, c0 + w];
   copy.layout.desktop.z = Math.max(...s.blocks.map((b) => b.layout.desktop.z)) + 1;
+  // A section built here, on desktop: the copy goes last on the phone with its source's z + 1, even if
+  // another block has that z (CAP-A2EDITS n, CAP-A2ROUND1 e).
+  if (s.phoneFollows != null && bp !== 'mobile') {
+    const end = Math.max(...s.blocks.map((b) => b.layout.mobile.area[2]));
+    copy.layout.desktop.z = orig.layout.desktop.z + 1;
+    copy.layout.mobile.z = orig.layout.mobile.z + 1;
+    copy.layout.mobile.area = [end, copy.layout.mobile.area[1], end + copy.layout.mobile.area[2] - copy.layout.mobile.area[0], copy.layout.mobile.area[3]];
+    s.blocks.push(copy);
+    for (const bpName of ['desktop', 'mobile']) s.rows[bpName] = Math.max(s.rows[bpName], copy.layout[bpName].area[2] - 1);
+    sel = { sid, bid: copy.id };
+    return;
+  }
   const m = orig.layout.mobile.area;
   const h = m[2] - m[0];
   for (const b of s.blocks) {
@@ -3774,7 +3785,8 @@ function pasteBlocks(sid) {
     const top = Math.max(1, ...s.blocks.map((b) => b.layout.mobile.area[2]));
     copy.layout.mobile.area = [top, m[1], top + m[2] - m[0], m[3]];
     for (const bpName of ['desktop', 'mobile']) {
-      copy.layout[bpName].z = Math.max(0, ...s.blocks.map((b) => b.layout[bpName].z)) + 1;
+      // A section built here, on desktop: its source's z + 1, as a copy does (CAP-A2ROUND2 c, 3 reads).
+      copy.layout[bpName].z = s.phoneFollows != null && bp !== 'mobile' ? src.layout[bpName].z + 1 : Math.max(0, ...s.blocks.map((b) => b.layout[bpName].z)) + 1;
       s.rows[bpName] = Math.max(s.rows[bpName], copy.layout[bpName].area[2] - 1);
     }
     s.blocks.push(copy);
