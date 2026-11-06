@@ -33,6 +33,7 @@ import { demoModel } from './demo.js';
 import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
+import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -1539,7 +1540,44 @@ function renderBlockPanel() {
   paintCode(lookNow); // measures, so it must be showing
   if (blockPanel.dataset.bid !== b.id) { blockPanel.dataset.bid = b.id; blockPanel.scrollTop = 0; } // another block starts at the top
   if (shapeUi) renderShapePop(); // undo can change what an open popup shows
+  drawPhoneControls(b);
 }
+// A phone's dotted labels and its button right of the Animation tab, on any block with that tab.
+const phoneMenu = $('phone-menu');
+phoneMenu.innerHTML = PHONE_MENU_HTML;
+const closePhoneMenu = () => { phoneMenu.hidden = true; };
+function drawPhoneControls(b) {
+  const tabs = blockPanel.querySelector('.sp-tabs');
+  if (bp !== 'mobile') { closePhoneMenu(); return; }
+  markPhoneLabels(blockPanel, b);
+  if (tabs?.querySelector('[data-btab="Animation"]')) tabs.insertAdjacentHTML('beforeend', phoneButtonHtml(hasOverrides(b)));
+  else closePhoneMenu();
+}
+blockPanel.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-phone-btn]');
+  if (!btn) return;
+  if (!phoneMenu.hidden) { closePhoneMenu(); return; }
+  const at = phoneMenuPlace(btn.getBoundingClientRect());
+  phoneMenu.style.left = `${at.left}px`;
+  phoneMenu.style.top = `${at.top}px`;
+  phoneMenu.hidden = false;
+});
+document.addEventListener('pointerdown', (e) => { if (!phoneMenu.hidden && !e.target.closest('#phone-menu, [data-phone-btn]')) closePhoneMenu(); }, true);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !phoneMenu.hidden) { e.preventDefault(); e.stopPropagation(); closePhoneMenu(); } }, true);
+phoneMenu.addEventListener('click', (e) => {
+  const act = e.target.closest('[data-phone-act]')?.dataset.phoneAct;
+  if (!act || !sel) return;
+  closePhoneMenu();
+  if (act === 'go') { setBp('desktop'); return; }
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), top = blockPanel.scrollTop;
+  // The form coming back is a rise the next step answers, as Lightbox off (FORMFIELDS.json, lightbox.offThenPress).
+  if (act === 'reset' && b.type === 'form' && formView(b, 'mobile').lightbox && !formView(b, 'desktop').lightbox) b.formH = { ...b.formH, [bp]: formHeight(b) };
+  (act === 'reset' ? resetOverrides : pushOverrides)(b);
+  renderSectionDom(sel.sid);
+  commit(before, act === 'reset' ? 'Reset all overrides' : 'Push to desktop');
+  renderBlockPanel();
+  blockPanel.scrollTop = top;
+});
 function syncAnimView(b) {
   const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' ? b.animations?.[anim.i] : null, key = a && poseKey(anim.tab);
   if (animPosed && (animPosed !== el || !key)) { releasePose(animPosed); animPosed = null; }
@@ -5686,8 +5724,8 @@ function setBp(next) {
   // Phones use overlay scrollbars, so the preview must not lose width to one.
   doc.documentElement.style.scrollbarWidth = bp === 'mobile' ? 'none' : '';
   for (const sec of model.sections) drawLabels(sec.id);
-  // A form's panel shows this view's own values (FORMFIELDS.json, phone).
-  if (sel && designOpen === sel.bid && B(sel.sid, sel.bid)?.type === 'form') { const top = blockPanel.scrollTop; renderBlockPanel(); blockPanel.scrollTop = top; }
+  // The panel shows this view's own values (FORMFIELDS.json, phone; CAP-L6GOTO.json).
+  if (sel && designOpen === sel.bid) { const top = blockPanel.scrollTop; renderBlockPanel(); blockPanel.scrollTop = top; }
   requestAnimationFrame(() => {
     drawSelection();
     updateUi();
