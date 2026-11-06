@@ -565,8 +565,12 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 .bp-vsegs { box-sizing: border-box; width: 182px; height: 44px; padding: 3px; gap: 3px; background: #f2f2f2; border-radius: 4px; }
 .bp-vsegs .sp-seg { flex: 1; min-width: 0; height: 38px; padding: 0; }
 .bp-vsegs .sp-seg.is-on { background: #fff; }
-.bp-vfield { display: block; width: 182px; height: 44px; border-radius: 4px; background: #f2f2f2; }
-.bp-vfield input { box-sizing: border-box; width: 100%; height: 100%; padding: 0 11px; border: 0; background: transparent; font: inherit; }
+.bp-vfield { position: relative; display: block; width: 182px; height: 44px; border-radius: 4px; background: #f2f2f2; }
+/* The <> shows on a hover or a focus and takes a pull (CAP-T7THICK.json); a focused field has a dark line round it. */
+.bp-vfield:focus-within { outline: 2px solid #0e0e0e; outline-offset: -1px; }
+.bp-vscrub { position: absolute; top: 0; right: 0; display: none; align-items: center; justify-content: center; width: 44px; height: 44px; color: #888; cursor: ew-resize; touch-action: none; }
+.bp-vfield:hover .bp-vscrub, .bp-vfield:focus-within .bp-vscrub { display: flex; }
+.bp-vfield input { box-sizing: border-box; width: 100%; height: 100%; padding: 0 11px; border: 0; outline: 0; background: transparent; font: inherit; }
 .bp-video-store { display: flex; justify-content: space-between; box-sizing: border-box; width: 276px; height: 78px; margin-top: 11px; padding: 20px 57px 20px 22px; background: #f2f2f2; border-radius: 3px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #6f6f6f; }
 .bp-help { margin: 12px 0 0; font-size: 12px; line-height: 16px; color: #6f6f6f; }
 .sp-body > .bp-thead:first-child { border-top: 0; margin-top: 0; }

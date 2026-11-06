@@ -1,0 +1,1061 @@
+{
+  "item": "CAP-T7THICK2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T7: what a press on the <> of a focused Thickness field does",
+  "answer": "A press on the <> does nothing: the value stays and the field keeps its focus and line. Escape then closes the panel.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressFrame",
+      "button",
+      1
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Intro"
+    ],
+    [
+      "pause",
+      1800
+    ],
+    [
+      "pressTile",
+      0
+    ],
+    [
+      "pause",
+      7000
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressPart",
+      "Thickness",
+      0
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "focused",
+      {
+        "controls": true,
+        "rows": [
+          "Thickness"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "pressPart",
+      "Thickness",
+      4
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "shot",
+      "press1"
+    ],
+    [
+      "read",
+      "after a press on it",
+      {
+        "controls": true,
+        "rows": [
+          "Thickness"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "after Escape",
+      {
+        "rows": [
+          "Thickness"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "esc"
+    ]
+  ],
+  "reads": {
+    "focused": {
+      "rows": {
+        "Thickness": [
+          "6px"
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            1260,
+            257,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            1282,
+            257,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1350.8,
+            257,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            1412.8,
+            257,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add fill",
+          "box": [
+            1522,
+            371,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Show individual padding controls",
+          "box": [
+            1348,
+            418,
+            28,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            1410,
+            418,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            418,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            451,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1453,
+            418,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            418,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            1504,
+            418,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            418,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            451,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1547,
+            418,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            418,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "No Stroke",
+          "box": [
+            1379,
+            472,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Solid Stroke",
+          "box": [
+            1438.7,
+            472,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Dashed Stroke",
+          "box": [
+            1498.3,
+            472,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6px",
+          "box": [
+            1387,
+            520,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            520,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            553,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            520,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1514,
+            520,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            1514,
+            571,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            1481,
+            622,
+            66,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            622,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            655,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            622,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            1379,
+            625,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            1420,
+            625,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            1519.5,
+            693,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            740,
+            182,
+            11
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "2/7/6/21",
+          "2/2/7/10"
+        ],
+        [
+          "6/6/21/22",
+          "7/2/14/10"
+        ],
+        [
+          "21/9/22/19",
+          "14/2/15/10"
+        ],
+        [
+          "23/11/25/17",
+          "16/2/18/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after a press on it": {
+      "rows": {
+        "Thickness": [
+          "6px"
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            1260,
+            257,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            1282,
+            257,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1350.8,
+            257,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            1412.8,
+            257,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add fill",
+          "box": [
+            1522,
+            371,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Show individual padding controls",
+          "box": [
+            1348,
+            418,
+            28,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            1410,
+            418,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            418,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            451,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1453,
+            418,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            418,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            1504,
+            418,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            418,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            451,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1547,
+            418,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            418,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "No Stroke",
+          "box": [
+            1379,
+            472,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Solid Stroke",
+          "box": [
+            1438.7,
+            472,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Dashed Stroke",
+          "box": [
+            1498.3,
+            472,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6px",
+          "box": [
+            1387,
+            520,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            520,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            553,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            520,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1514,
+            520,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            1514,
+            571,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            1481,
+            622,
+            66,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            622,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            655,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            622,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            1379,
+            625,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            1420,
+            625,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            1519.5,
+            693,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            740,
+            182,
+            11
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "2/7/6/21",
+          "2/2/7/10"
+        ],
+        [
+          "6/6/21/22",
+          "7/2/14/10"
+        ],
+        [
+          "21/9/22/19",
+          "14/2/15/10"
+        ],
+        [
+          "23/11/25/17",
+          "16/2/18/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after Escape": {
+      "rows": {
+        "Thickness": null
+      },
+      "areas": [
+        [
+          "2/7/6/21",
+          "2/2/7/10"
+        ],
+        [
+          "6/6/21/22",
+          "7/2/14/10"
+        ],
+        [
+          "21/9/22/19",
+          "14/2/15/10"
+        ],
+        [
+          "23/11/25/17",
+          "16/2/18/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}

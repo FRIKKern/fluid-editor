@@ -1,0 +1,31 @@
+{
+  "item": "CAP-T7AFTER2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "The probe page reloaded after this session's reads: as it was?",
+  "answer": "The probe page reloaded after all of this session's reads: no sections, Save clean, leftDirty false. oracle-readback.mjs after it: exit 0.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "read",
+      "after reload",
+      {
+        "sections": true
+      }
+    ]
+  ],
+  "reads": {
+    "after reload": {
+      "sections": [],
+      "path": "/gestures-probe",
+      "save": "clean"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false
+}

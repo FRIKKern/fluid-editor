@@ -190,6 +190,37 @@ viewport(S, 1600, 1000);
 evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(200);
 
 }
+// A block that fills its section: its content stretches every row, and rows still go by a row's own height (CAP-T10EMBED2.json).
+const EMBED2 = read('CAP-T10EMBED2'), P_LINES = (n) => Array.from({ length: n }, (_, k) => `<p>row ${k + 1}</p>`).join('');
+const fills = async (bp, type = 'Embed') => {
+  const id = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; s.blocks = []; s.rows = { desktop: 8, mobile: 8 }; fe.setBp('desktop'); fe.load(next); await sleep(200); const sid = fe.model.sections[1].id; fe.addBlock(sid, '${type}'); fe.setBp('${bp}'); await sleep(250); return JSON.stringify(fe.model.sections[1].blocks.at(-1).id); })()`);
+  await openPanel(id, type === 'Embed');
+  return id;
+};
+const fillsD = await fills('desktop');
+await setText('textarea[data-content="embedHtml"]', P_LINES(10));
+add('Fills its section, 10 lines: 10 rows', areasOf(fillsD)[0] === '1/2/11/10', areasOf(fillsD)[0]);
+const fillsP = await fills('mobile'), onPhone = (name) => EMBED2.reads[name].areas[0][1];
+for (const [lines, name] of [[6, 'phone 6 lines'], [20, 'phone 20 lines'], [2, 'phone 2 lines']]) {
+  await setText('textarea[data-content="embedHtml"]', P_LINES(lines));
+  add(`Fills its section on the phone, ${lines} lines: ${onPhone(name)}`, areasOf(fillsP)[1] === onPhone(name), areasOf(fillsP)[1]);
+}
+add('The desktop stays', areasOf(fillsP)[0] === EMBED2.reads['back on desktop'].areas[0][0], areasOf(fillsP)[0]);
+evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(150);
+// Rise after rise and a fall, where the section's rows move by the block's, spare rows kept (CAP-T7THICK.json, predictions first).
+const THICK = read('CAP-T7THICK'), MD_LINES = (n) => Array.from({ length: n }, (_, k) => `row ${k + 1}`).join('\n\n');
+const secRows = (bp) => evalJs(S, `(() => JSON.stringify(fe.model.sections[1].rows.${bp}))()`);
+for (const [tag, type, bp, field, text, ns] of [['Code desktop', 'Code', 'desktop', CODE_FIELD, P_LINES, [30, 40, 2]], ...(FULL ? [['Code phone', 'Code', 'mobile', CODE_FIELD, P_LINES, [30, 40, 2]], ['Markdown desktop', 'Markdown', 'desktop', 'textarea[data-content="markdown"]', MD_LINES, [20, 30, 2]], ['Markdown phone', 'Markdown', 'mobile', 'textarea[data-content="markdown"]', MD_LINES, [20, 30, 2]], ['Embed desktop', 'Embed', 'desktop', 'textarea[data-content="embedHtml"]', P_LINES, [10, 20, 2]]] : [])]) {
+  const fid = await fills(bp, type), side = bp === 'desktop' ? 0 : 1, start = THICK.reads[`${tag} start`].section.rows;
+  evalJs(S, `(() => { fe.model.sections[1].rows.${bp} = ${start}; return 'true'; })()`);
+  for (const n of ns) {
+    await setText(field, text(n).replace(/<\/p><p>/g, '</p>\n<p>'));
+    const r = THICK.reads[`${tag} ${n}`], want = r.areas[0][side], rows = secRows(bp);
+    add(`Fills, ${tag} ${n}: ${want}, ${r.section.rows} rows`, areasOf(fid)[side] === want && rows === r.section.rows, `${areasOf(fid)[side]}, ${rows}`);
+  }
+  evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(100);
+}
+
 // Mode and the switch in the Code Editor view reach the block on closing, and give rows up (CAP-T10VIEW.json).
 const VIEW = read('CAP-T10VIEW');
 const viewId = fresh('code', `html: '<p>Hello, World!</p>',`);

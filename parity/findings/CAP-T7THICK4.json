@@ -1,0 +1,794 @@
+{
+  "item": "CAP-T7THICK4",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T7: the <> of a Thickness field as a scrubber: pulls of known lengths from 10px",
+  "answer": "A pull on the <> moves the value by 0.4 a pixel, rounded, with a floor of 0: from 10, left 5 is 8, right 5 is 10, right 40 is 26, left 12 is 21, left 80 is 0, right 12 is 5. The 0.4 is inferred from those six. Each pull is by position after a hover on the row, on a block made in this session. Not read: a top limit, undo, and whether Padding and Corner's fields have one.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressFrame",
+      "button",
+      1
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Intro"
+    ],
+    [
+      "pause",
+      1800
+    ],
+    [
+      "pressTile",
+      0
+    ],
+    [
+      "pause",
+      7000
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "fillRow",
+      "Thickness",
+      0,
+      "10"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Tab"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "shot",
+      "ten"
+    ],
+    [
+      "read",
+      "typed 10",
+      {
+        "controls": true,
+        "rows": [
+          "Thickness"
+        ]
+      }
+    ],
+    [
+      "hoverRow",
+      "Thickness"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "dragAt",
+      1536,
+      542,
+      1531,
+      542
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "left 5",
+      {
+        "rows": [
+          "Thickness"
+        ]
+      }
+    ],
+    [
+      "hoverRow",
+      "Thickness"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "dragAt",
+      1536,
+      542,
+      1541,
+      542
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "right 5",
+      {
+        "rows": [
+          "Thickness"
+        ]
+      }
+    ],
+    [
+      "hoverRow",
+      "Thickness"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "dragAt",
+      1536,
+      542,
+      1576,
+      542
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "right 40",
+      {
+        "rows": [
+          "Thickness"
+        ]
+      }
+    ],
+    [
+      "hoverRow",
+      "Thickness"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "dragAt",
+      1536,
+      542,
+      1524,
+      542
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "left 12",
+      {
+        "rows": [
+          "Thickness"
+        ]
+      }
+    ],
+    [
+      "hoverRow",
+      "Thickness"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "dragAt",
+      1536,
+      542,
+      1456,
+      542
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "left 80",
+      {
+        "rows": [
+          "Thickness"
+        ]
+      }
+    ],
+    [
+      "hoverRow",
+      "Thickness"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "dragAt",
+      1536,
+      542,
+      1548,
+      542
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "right 12",
+      {
+        "rows": [
+          "Thickness"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "end"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ]
+  ],
+  "reads": {
+    "typed 10": {
+      "rows": {
+        "Thickness": [
+          "10px"
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            1260,
+            255,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            1282,
+            255,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1350.8,
+            255,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            1412.8,
+            255,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add fill",
+          "box": [
+            1522,
+            362,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Show individual padding controls",
+          "box": [
+            1348,
+            409,
+            28,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            1410,
+            409,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            409,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            442,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1453,
+            409,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            409,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            1504,
+            409,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            409,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            442,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1547,
+            409,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            409,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "No Stroke",
+          "box": [
+            1379,
+            463,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Solid Stroke",
+          "box": [
+            1438.7,
+            463,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Dashed Stroke",
+          "box": [
+            1498.3,
+            463,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "10px",
+          "box": [
+            1387,
+            511,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            511,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            544,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            511,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            1514,
+            562,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            1481,
+            613,
+            66,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            613,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            646,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            613,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            1379,
+            616,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            1420,
+            616,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            1519.5,
+            684,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            1387,
+            731,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            731,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            731,
+            11,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "left 5": {
+      "rows": {
+        "Thickness": [
+          "8px"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "right 5": {
+      "rows": {
+        "Thickness": [
+          "10px"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "right 40": {
+      "rows": {
+        "Thickness": [
+          "26px"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "left 12": {
+      "rows": {
+        "Thickness": [
+          "21px"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "left 80": {
+      "rows": {
+        "Thickness": [
+          "0px"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "right 12": {
+      "rows": {
+        "Thickness": [
+          "5px"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}

@@ -2,7 +2,7 @@
 // every setting against parity/findings/VIDEOPLAYER.json. The file is a short clip the page records itself.
 // Writes parity/video-check.json. Usage: FLUID_SURFACE=cdp:<port> npm run video-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, mouse } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, mouse, drag } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -73,12 +73,25 @@ for (const [label, want] of Object.entries(F.aspect.values)) {
   // Auto-detect writes this clip's own shape: 640 by 360 is the oracle's clip's too.
   add(`${label}: player ${want.player[3]} tall`, near(got.player[3], want.player[3]) && near(got.player[2], want.player[2]), got.player.join());
   add(`${label}: stays at the block's top`, near(got.player[1], 0, 0.1), got.player.join());
-  add(`${label}: the area stays 6/6/20/22`, got.area.join() === '6,6,20,22', got.area.join());
   add(`${label}: block never shorter than the player`, got.block[1] >= got.player[3] - 0.5, got.block.join());
 }
 await setSelect('aspect', '16/9');
 // Keep the style the oracle writes for a ratio it names.
 add('16:9 writes aspect-ratio:16/9;', size().style.replace(/\s/g, '') === 'aspect-ratio:16/9;', size().style);
+
+// The rows, each ratio by a Code block's rule, and what is below goes along: three orders (CAP-T7ORDER.json, predictions first).
+const ORDER = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T7ORDER.json', import.meta.url)));
+const place = () => q(`const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; const v = s.blocks.find((b) => b.id === '${id}'); v.layout.desktop.area = [6, 6, 20, 22]; v.video = { ...v.video, aspect: '16/9' }; s.blocks = [v, { id: 'below-a', type: 'shape', layout: { desktop: { area: [20, 9, 21, 19], z: 1 }, mobile: { area: [14, 2, 15, 10], z: 1 } } }, { id: 'below-b', type: 'shape', layout: { desktop: { area: [22, 11, 24, 17], z: 1 }, mobile: { area: [16, 2, 18, 10], z: 1 } } }]; s.rows.desktop = 30; fe.load(next); await sleep(300); return 'true';`);
+const areas = () => q(`return JSON.stringify(fe.model.sections[1].blocks.map((b) => b.layout.desktop.area.join('/')));`);
+for (const [n, list] of [[1, ['9:16', '1:1', '4:3', '3:2', '16:9']], [2, ['1:1', '9:16', '16:9']], [3, ['3:2', '16:9', '1:1', '4:3']]]) {
+  place(); await openPanel();
+  for (const ratio of list) {
+    await setSelect('aspect', ratio.replace(':', '/'));
+    const r = ORDER.reads[`order ${n} ${ratio}`], want = [r.areas[1][0], r.areas[2][0], r.areas[3][0]], tall = r.inside[0].box[3], got = areas();
+    add(`Order ${n}, ${ratio}: ${want[0]}, ${tall} tall`, got.join() === want.join() && near(size().block[1], tall, 0.6), `${got.join()}, ${size().block[1]}`);
+  }
+}
+place(); await openPanel();
 
 // Lazy Loading.
 add('Lazy Loading lists', labels('lazy').join() === F.lazy.options.join(), labels('lazy').join());
@@ -275,6 +288,22 @@ add('Dashed: the same with dashes', r.border === '6px dashed rgb(255, 255, 255)'
 press('Solid Stroke');
 typeIn('input[data-design="strokePx"]', '10'); r = vr();
 add('Thickness 10: 324.8, 37.6 in, same rows', near(r.box[1], 324.8) && nearAll(r.inner, [37.6, 37.6, 384.2, 249.7]) && r.area === '1/2/10/10', JSON.stringify(r));
+// The <> on Thickness: shows on a hover, a pull moves the value 0.4 a pixel, down to 0 (CAP-T7THICK.json, CAP-T7THICK4.json).
+const THICK4 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T7THICK4.json', import.meta.url)));
+const thickAt = () => q(`const f = panel.querySelector('input[data-design="strokePx"]').parentElement.getBoundingClientRect(); return JSON.stringify([f.left + 40, f.top + f.height / 2]);`);
+const grip = () => q(`const g = panel.querySelector('.bp-vscrub'); const c = g.getBoundingClientRect(); return JSON.stringify({ shown: getComputedStyle(g).display !== 'none', x: c.left + c.width / 2, y: c.top + c.height / 2, w: c.width, h: c.height }); `);
+mouse(S, 'move', 5, 5); q(`document.activeElement?.blur(); await sleep(60); return 'true';`);
+add('<>: none with no hover or focus', !grip().shown, JSON.stringify(grip()));
+{ const [x, y] = thickAt(); mouse(S, 'move', x, y); await pause(150); }
+add('<>: shows on a hover, 44 square', grip().shown && grip().w === 44 && grip().h === 44, JSON.stringify(grip()));
+for (const [name, dx] of [['left 5', -5], ['right 5', 5], ['right 40', 40], ['left 12', -12], ['left 80', -80], ['right 12', 12]]) {
+  { const [x, y] = thickAt(); mouse(S, 'move', x, y); await pause(100); }
+  const g = grip();
+  drag(S, [g.x, g.y], [g.x + dx, g.y], { steps: 12, holdMs: 100 }); await pause(200);
+  const shows = q(`return JSON.stringify(panel.querySelector('input[data-design="strokePx"]').value);`), held = q(`return JSON.stringify(fe.model.sections[1].blocks.find((b) => b.id === '${id}').design?.strokePx ?? 6);`);
+  add(`<> ${name}: ${THICK4.reads[name].rows.Thickness[0]}`, shows === THICK4.reads[name].rows.Thickness[0] && `${held}px` === shows, `${shows} ${held}`);
+}
+typeIn('input[data-design="strokePx"]', '10');
 press('No Stroke'); r = vr();
 add('No Stroke: back to 1/2/9/10, corner kept', r.area === '1/2/9/10' && r.radius[0] === '20px' && near(r.box[1], 298.5), JSON.stringify(r));
 add('No Stroke: Padding and Thickness rows go', !r.rows.includes('Padding') && !r.rows.includes('Thickness'), r.rows.join());
