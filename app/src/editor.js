@@ -558,7 +558,15 @@ function measure(fe) {
 }
 
 // Rows a block needs so its content fits without stretching a row.
-function contentRows(b, m, normalizing = false) {
+function contentRows(b, m, normalizing = false, widthPull = false) {
+  // Content that follows the width (STANDINS.json). A pull that changes the width lets it run over by
+  // less than the gap until the next gesture; one that changes only the height does not.
+  if (b.standin) {
+    const c = blockEl(b.id)?.querySelector('.sqs-block-content');
+    if (!c) return 1;
+    const h = c.getBoundingClientRect().height;
+    return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
+  }
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
   if (b.type === 'embed' && !b.html) return 3; // an empty embed's box fills its block: the 3 rows it needs (CODEMODAL.json)
   const root = blockEl(b.id);
@@ -1073,7 +1081,7 @@ function startResize(e, dir) {
   }
   prepare(e, 'resize', { dir });
   const held = B(gesture.sid, gesture.bid), span = lay(held).area[2] - lay(held).area[0];
-  gesture.fits = held.type === 'text' && !gesture.members && span === Math.max(2, contentRows(held, gesture.m));
+  gesture.fits = (held.type === 'text' || held.standin === 'instagram') && !gesture.members && span === Math.max(2, contentRows(held, gesture.m));
   gesture.bottom0 = blockEl(held.id).getBoundingClientRect().bottom;
 }
 
@@ -1150,7 +1158,7 @@ function updateResize(e) {
   if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, y - (top + (r1 - 1) * m.pitch - m.rg)));
   if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, y - (top + (r0 - 1) * m.pitch))));
   // Guard: a target cannot be shorter than the content at the width the block has now.
-  const need = contentRows(B(g.sid, g.bid), m);
+  const need = contentRows(B(g.sid, g.bid), m, false, /[ew]/.test(g.dir));
   if (r1 - r0 < need) {
     if (g.dir.includes('n')) {
       r0 = Math.max(1, r1 - need);
@@ -3083,6 +3091,7 @@ function renderPanel() {
 // Add Block (U5, T13): each type lands at the top left of the section with the size
 // the oracle gives it (parity/findings/T13.json). On phones it is full content width, and its
 // place in the stack goes by size (CAP-NEWORDER*.json).
+const STANDIN_TYPES = ['Quote', 'Chart', 'SoundCloud', 'Flickr', 'Instagram']; // their content follows the width (STANDINS.json)
 const ADD_TYPES = [
   ['Text', 8, 2, () => ({ type: 'text', html: '<p data-rte-preserve-empty="true"></p>' })],
   ['Image', 6, 6, () => ({ type: 'image', alt: '', empty: true, mode: 'fit' })],
@@ -3100,7 +3109,7 @@ const ADD_TYPES = [
   ['Embed', 8, 8, () => ({ type: 'embed' })],
   // Not built yet (T11, T12): a stand-in of the size the oracle gives (parity/findings/U5.json sizes).
   ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Menu: [12, 28], Chart: [8, 8], Markdown: [4, 6], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
-    .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name })]),
+    .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}) })]),
 ];
 function addBlock(sid, name) {
   const [, w, h, make] = ADD_TYPES.find((t) => t[0] === name);
