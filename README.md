@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 44 changes
+- **Today** · 45 changes
+  - L6: Reset to default value shows on focus only, a hover shows nothing ([#223](https://github.com/FRIKKern/fluid-editor/pull/223))
   - T9: a form's Lightbox: the button, its rows and a plain open view ([#222](https://github.com/FRIKKern/fluid-editor/pull/222))
-  - P5: done, Reset Color Theme under 0005; U12: note what the theme rows' read-backs covered ([#221](https://github.com/FRIKKern/fluid-editor/pull/221))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
