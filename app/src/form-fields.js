@@ -122,9 +122,11 @@ function oneFieldHtml(f, ctl) {
 // After a submit (FORMFIELDS.json, postSubmit). The editor shows it while its view is open; a real
 // submit shows the same, which is inferred: a submit writes to form storage (0005).
 export const postOf = (b) => ({ redirect: false, message: 'Thank you!', align: 'left', position: 'top', html: '', href: '', ...b.post });
+// The message is the box's rich text. One from before that, or from a file, is plain lines.
+export const messageHtml = (m) => (!m ? '' : /^\s*<(p|h[1-4]|pre)[\s>]/i.test(m) ? m : m.split('\n').map((l) => `<p>${e(l)}</p>`).join(''));
 export function formPostHtml(b) {
   const p = postOf(b);
-  return `<div class="form-post form-post--${p.position}"><div class="form-submission-text form-submission-text--align-${p.align}">${p.message.split('\n').map((l) => `<p>${e(l)}</p>`).join('')}</div>${p.html ? `<div class="form-submission-html">${p.html}</div>` : ''}</div>`;
+  return `<div class="form-post form-post--${p.position}"><div class="form-submission-text form-submission-text--align-${p.align}">${messageHtml(p.message)}</div>${p.html ? `<div class="form-submission-html">${p.html}</div>` : ''}</div>`;
 }
 // In a frame, as our editor's Preview is, a redirect stays put and shows the message.
 export function formSubmitJs(b) {
@@ -141,12 +143,13 @@ const inkOn = (css) => {
 };
 const LB_OPEN = "if(document.querySelector('.fluid-engine.is-editing')&&!document.body.classList.contains('is-preview'))return;var n=this.parentNode.nextElementSibling.cloneNode(true);n.classList.add('is-open');document.body.append(n)";
 const LB_CLOSE = "this.closest('.form-lightbox').remove()";
-// Lightbox, its Button Text and Button Alignment are per view: the phone follows desktop on each one
-// until the phone changes that one, and then keeps it (FORMFIELDS.json, phone).
+// Lightbox, its Button Text and Background Color, Button Alignment and Button Style are per view: the
+// phone follows desktop on each one until the phone changes that one, and then keeps it (FORMFIELDS.json,
+// phone). The form's own Button Text is one value for both views.
 export const formView = (b, view = 'desktop') => {
   const o = view === 'mobile' ? b.formMobile || {} : {};
   const own = (k) => (k in o ? o[k] : b[k]);
-  return { lightbox: !!own('lightbox'), lightboxText: own('lightboxText') || '', buttonAlign: own('buttonAlign') || 'left' };
+  return { lightbox: !!own('lightbox'), lightboxText: own('lightboxText') || '', buttonAlign: own('buttonAlign') || 'left', buttonStyle: own('buttonStyle') || 'primary', lightboxBg: own('lightboxBg') || 'rgb(255, 255, 255)' };
 };
 // The default is left out on desktop. On the phone it stays, because it differs from following desktop.
 export function setFormView(b, view, key, v) {
@@ -154,12 +157,14 @@ export function setFormView(b, view, key, v) {
   else if (v) b[key] = v;
   else delete b[key];
 }
+export const phoneStyle = (b) => { const d = formView(b).buttonStyle, m = formView(b, 'mobile').buttonStyle; return m === d ? '' : ` sqs-button-element--phone-${m}`; };
 export const phoneAlign = (kind, b) => { const d = formView(b).buttonAlign, m = formView(b, 'mobile').buttonAlign; return m === d ? '' : ` ${kind}--phone-${m}`; };
 export function formLightboxHtml(b, form) {
-  const bg = b.lightboxBg || 'rgb(255, 255, 255)', d = formView(b), m = formView(b, 'mobile');
+  const d = formView(b), m = formView(b, 'mobile'), bg = d.lightboxBg;
+  const phoneBg = m.lightboxBg === bg ? '' : `;--lb-bg-phone:${e(m.lightboxBg)};--lb-ink-phone:${inkOn(m.lightboxBg)}`;
   const word = d.lightboxText === m.lightboxText ? e(d.lightboxText || 'Open Form') : `<span class="lb-word--desktop">${e(d.lightboxText || 'Open Form')}</span><span class="lb-word--phone">${e(m.lightboxText || 'Open Form')}</span>`;
-  return `<div class="lightbox-handle-wrapper lightbox-handle-wrapper--align-${d.buttonAlign}${phoneAlign('lightbox-handle-wrapper', b)}"><button type="button" class="lightbox-handle sqs-button-element--${b.buttonStyle || 'primary'}" onclick="${LB_OPEN}">${word}</button></div>`
-    + `<div class="form-lightbox"><div class="form-lightbox-shade" onclick="${LB_CLOSE}"></div><div class="form-lightbox-box" style="--lb-bg:${e(bg)};--lb-ink:${inkOn(bg)}"><button type="button" class="form-lightbox-close" aria-label="Close" onclick="${LB_CLOSE}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>${form}</div></div>`;
+  return `<div class="lightbox-handle-wrapper lightbox-handle-wrapper--align-${d.buttonAlign}${phoneAlign('lightbox-handle-wrapper', b)}"><button type="button" class="lightbox-handle sqs-button-element--${d.buttonStyle}${phoneStyle(b)}" onclick="${LB_OPEN}">${word}</button></div>`
+    + `<div class="form-lightbox"><div class="form-lightbox-shade" onclick="${LB_CLOSE}"></div><div class="form-lightbox-box${phoneBg ? ' form-lightbox-box--phone' : ''}" style="--lb-bg:${e(bg)};--lb-ink:${inkOn(bg)}${phoneBg}"><button type="button" class="form-lightbox-close" aria-label="Close" onclick="${LB_CLOSE}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>${form}</div></div>`;
 }
 
 // The panel's views.
@@ -293,7 +298,7 @@ function postHtml(p, link) {
   const lines = Array.from({ length: Math.max(1, p.html.split('\n').length) }, (_, n) => n + 1).join('<br>');
   const body = p.redirect
     ? `<div class="bp-ffp-link">${link}</div><div class="bp-ff-note bp-ffp-help">Add a URL to redirect the user after they submit the form.</div>`
-    : `<div class="bp-soccap bp-ff-cap bp-ffp-cap">Message</div><textarea class="bp-ffp-msg" aria-label="Message" data-ff-post="message">${e(p.message)}</textarea><div class="bp-ff-note bp-ffp-help">This message displays after users submit a form.</div><div class="sp-row bp-ffp-row"><span class="sp-label">Alignment</span><span class="bp-ffp-three" role="radiogroup">${three('align', p.align, ALIGN_ICONS)}</span></div><div class="sp-row bp-ffp-row"><span class="sp-label">Position</span><span class="bp-ffp-three" role="radiogroup">${three('position', p.position, POSITION_ICONS)}</span></div><div class="bp-soccap bp-ff-cap bp-ffp-cap bp-ffp-htmlcap">HTML</div><div class="bp-code bp-ffp-code"><div class="bp-code-lines" aria-hidden="true">${lines}</div><textarea spellcheck="false" aria-label="HTML" placeholder="Add" data-ff-post="html">${e(p.html)}</textarea></div><div class="bp-ff-note bp-ffp-help">HTML to be rendered in addition to the Post-Submit Message.</div>`;
+    : `<div class="bp-soccap bp-ff-cap bp-ffp-cap">Message</div><div class="bp-ffp-msg${p.message ? '' : ' is-empty'}" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Message" data-ff-post="message">${messageHtml(p.message) || '<p><br></p>'}</div><div class="bp-ff-note bp-ffp-help">This message displays after users submit a form.</div><div class="sp-row bp-ffp-row"><span class="sp-label">Alignment</span><span class="bp-ffp-three" role="radiogroup">${three('align', p.align, ALIGN_ICONS)}</span></div><div class="sp-row bp-ffp-row"><span class="sp-label">Position</span><span class="bp-ffp-three" role="radiogroup">${three('position', p.position, POSITION_ICONS)}</span></div><div class="bp-soccap bp-ff-cap bp-ffp-cap bp-ffp-htmlcap">HTML</div><div class="bp-code bp-ffp-code"><div class="bp-code-lines" aria-hidden="true">${lines}</div><textarea spellcheck="false" aria-label="HTML" placeholder="Add" data-ff-post="html">${e(p.html)}</textarea></div><div class="bp-ff-note bp-ffp-help">HTML to be rendered in addition to the Post-Submit Message.</div>`;
   return `${head('Edit Post-Submit')}<div class="bp-ff bp-ffp"><div class="bp-soccap bp-ff-cap bp-ffp-cap bp-ffp-first">After Submission</div><div class="bp-ffp-segs" role="radiogroup">${seg(!p.redirect, 'message', 'Message')}${seg(p.redirect, 'redirect', 'Redirect')}</div>${body}</div>`;
 }
 
