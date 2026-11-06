@@ -463,7 +463,7 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 /* The circle: 1 at rest, 2 inward on a hover, 2 in the accent with focus, with or without a hover. */
 .fe-form .form-checkbox input, .fe-form .form-signup input, .fe-form .likert-options input { transition: outline-width .075s cubic-bezier(.33, 1, .68, 1), outline-offset .075s cubic-bezier(.33, 1, .68, 1), outline-color .2s cubic-bezier(.33, 1, .68, 1); }
 .fe-form .form-checkbox input:hover, .fe-form .form-signup input:hover, .fe-form .likert-options input:hover { outline-width: 2px; outline-offset: -2px; }
-.fe-form .form-checkbox input:focus, .fe-form .form-signup input:focus, .fe-form .likert-options input:focus { outline: 2px solid hsla(var(--accent-hsl), 1); outline-offset: -2px; }
+.fe-form .form-checkbox input:focus, .fe-form .form-signup input:focus, .fe-form .likert-options input:focus { outline: 2px solid var(--form-ring); outline-offset: -2px; }
 .fe-form .form-signup { margin-top: 6px; font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); line-height: 1.4em; }
 .fe-form .form-signup label { display: inline-flex; align-items: center; gap: 11px; }
 .fe-form label.title .req { margin-left: 8.768px; line-height: 1; font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); opacity: .7; }
@@ -621,6 +621,10 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .page-section[data-section-theme="black-bold"] { --section-bg: hsla(var(--black-hsl), 1); --heading-color: hsla(var(--safeLightAccent-hsl), 1); --section-ink: hsla(var(--white-hsl), 1); --button-bg: hsla(var(--safeLightAccent-hsl), 1); --button-ink: hsla(var(--safeInverseLightAccent-hsl), 1); }
 .page-section[data-section-theme="bright"] { --section-bg: hsla(var(--accent-hsl), 1); --heading-color: hsla(var(--safeInverseAccent-hsl), 1); --section-ink: hsla(var(--safeInverseAccent-hsl), 1); --button-bg: hsla(var(--safeInverseAccent-hsl), 1); --button-ink: hsla(var(--accent-hsl), 1); }
 .page-section[data-section-theme="bright-inverse"] { --section-bg: hsla(var(--safeInverseAccent-hsl), 1); --heading-color: hsla(var(--accent-hsl), 1); --section-ink: hsla(var(--accent-hsl), 1); --button-bg: hsla(var(--accent-hsl), 1); --button-ink: hsla(var(--safeInverseAccent-hsl), 1); }
+/* A form's focus ring is the accent on eight themes. On Bright 1 and 2, where the accent is the page's own ink or ground, it is another palette color (FORMFIELDS.json, followUp.marks). */
+.page-section { --form-ring: hsla(var(--accent-hsl), 1); }
+.page-section[data-section-theme="bright"] { --form-ring: hsla(var(--darkAccent-hsl), 1); }
+.page-section[data-section-theme="bright-inverse"] { --form-ring: hsla(var(--lightAccent-hsl), 1); }
 .page-section h1, .page-section h2, .page-section h3, .page-section h4 { color: var(--heading-color); }
 .page-section .sqs-block-button-element, .page-section .form-submit { background: var(--button-bg); color: var(--button-ink); }
 

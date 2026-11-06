@@ -546,10 +546,8 @@
   "errors": [],
   "leftDirty": true,
   "answer": "A start inside a margin. From the left margin, 1/1/7/7: a move goes out at 51. South east: first line at 51, no second by 110, back 50, -35, -94. From the right margin, 1/20/7/26: a move goes out at 51, back 50, -35, -94. North west: 35, 94.",
-  "ours": "Moves match. South east from the left margin: 34 and 93 going out, 92 and 33 back.",
-  "differs": [
-    "south east resize of a block starting in the left margin: oracle first line at 51 and back at 50, ours 34, then 93, back 92 and 33 (known name columnSnap in BLOCKTYPES.json)"
-  ],
+  "ours": "Same: both match now, npm run snap-check. South east from the left margin was 34 and 93 going out, 92 and 33 back.",
+  "differs": [],
   "pressed": [
     "Real pointer walks on a block's body and handles, unnamed."
   ]

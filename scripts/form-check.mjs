@@ -604,6 +604,12 @@ const ofd = pv(`await tab('Design'); await flip(); await view('mobile'); const o
 add('Off from the phone with Lightbox on from desktop: 16, then 17', ofd.on === 16 && ofd.off === 16 && ofd.press === OT.phone.afterDesktopOn.press, JSON.stringify(ofd));
 const off2 = pv(`await tab('Content'); await sleep(80); P.querySelector('[data-ff="list"]').click(); await sleep(120); for (let i = 0; i < 2; i++) { P.querySelector('[data-ff="add"]').click(); await sleep(70); P.querySelector('[data-ff="tile:Text"]').click(); await sleep(150); } P.querySelector('[data-ff="back"]').click(); await sleep(150); await tab('Design'); await view('mobile'); const out = { rows: rows() }; await al('center'); out.press = rows(); return JSON.stringify(out);`);
 add('Fields added on desktop: a press leaves the phone\'s rows', off2.rows === OT.phone.fieldsAddedOnDesktop.rows && off2.press === OT.phone.fieldsAddedOnDesktop.press, JSON.stringify(off2));
+// The focus ring on all ten themes, as read.
+const RT = FF.followUp.marks.ringByTheme;
+for (const [name, attr] of Object.entries(RT.attr)) {
+  const c = evalJs(S, `(async () => { ${sleepJs} const next = JSON.parse(JSON.stringify(fe.model)); next.sections[1].theme = ${JSON.stringify(attr)}; fe.load(next); await sleep(300); const d = document.getElementById('site-frame').contentDocument, W = d.defaultView, i = d.querySelector('#block-' + next.sections[1].blocks.at(-1).id + ' .form-signup input'); document.getElementById('site-frame').focus(); i.focus(); await sleep(350); const cs = W.getComputedStyle(i); const out = [d.querySelector('[data-section-id="' + next.sections[1].id + '"]').getAttribute('data-section-theme'), cs.outlineColor, cs.outlineWidth, W.getComputedStyle(i).outlineStyle]; i.blur(); return JSON.stringify(out); })()`);
+  add(`The focus ring on ${name}: ${RT[name]}`, c[0] === attr && c[1] === RT[name] && c[2] === '2px', JSON.stringify(c));
+}
 writeFileSync(new URL('../parity/form-check.json', import.meta.url), `${JSON.stringify({ check: 'Add Block > Form', pass, total, results }, null, 1)}\n`);
 console.log(`Form: ${pass} of ${total} checks match`);
 process.exit(pass === total ? 0 : 1);
