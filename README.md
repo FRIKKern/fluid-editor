@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 50 changes
+- **Today** · 51 changes
+  - S3, P3: read a child's align, Hug, transforms and stroke, and why the section panel closes and moves ([#229](https://github.com/FRIKKern/fluid-editor/pull/229))
   - P5: read-back of Edit Color Theme in the repo, against the full stored list ([#228](https://github.com/FRIKKern/fluid-editor/pull/228))
-  - T10: Add Block > Markdown is its own type, with its toolbar, Link, keys and rows ([#227](https://github.com/FRIKKern/fluid-editor/pull/227))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
