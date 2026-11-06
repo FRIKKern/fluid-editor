@@ -141,9 +141,24 @@ const inkOn = (css) => {
 };
 const LB_OPEN = "if(document.querySelector('.fluid-engine.is-editing')&&!document.body.classList.contains('is-preview'))return;var n=this.parentNode.nextElementSibling.cloneNode(true);n.classList.add('is-open');document.body.append(n)";
 const LB_CLOSE = "this.closest('.form-lightbox').remove()";
+// Lightbox, its Button Text and Button Alignment are per view: the phone follows desktop on each one
+// until the phone changes that one, and then keeps it (FORMFIELDS.json, phone).
+export const formView = (b, view = 'desktop') => {
+  const o = view === 'mobile' ? b.formMobile || {} : {};
+  const own = (k) => (k in o ? o[k] : b[k]);
+  return { lightbox: !!own('lightbox'), lightboxText: own('lightboxText') || '', buttonAlign: own('buttonAlign') || 'left' };
+};
+// The default is left out on desktop. On the phone it stays, because it differs from following desktop.
+export function setFormView(b, view, key, v) {
+  if (view === 'mobile') (b.formMobile ||= {})[key] = v;
+  else if (v) b[key] = v;
+  else delete b[key];
+}
+export const phoneAlign = (kind, b) => { const d = formView(b).buttonAlign, m = formView(b, 'mobile').buttonAlign; return m === d ? '' : ` ${kind}--phone-${m}`; };
 export function formLightboxHtml(b, form) {
-  const bg = b.lightboxBg || 'rgb(255, 255, 255)';
-  return `<div class="lightbox-handle-wrapper lightbox-handle-wrapper--align-${b.buttonAlign || 'left'}"><button type="button" class="lightbox-handle sqs-button-element--${b.buttonStyle || 'primary'}" onclick="${LB_OPEN}">${e(b.lightboxText || 'Open Form')}</button></div>`
+  const bg = b.lightboxBg || 'rgb(255, 255, 255)', d = formView(b), m = formView(b, 'mobile');
+  const word = d.lightboxText === m.lightboxText ? e(d.lightboxText || 'Open Form') : `<span class="lb-word--desktop">${e(d.lightboxText || 'Open Form')}</span><span class="lb-word--phone">${e(m.lightboxText || 'Open Form')}</span>`;
+  return `<div class="lightbox-handle-wrapper lightbox-handle-wrapper--align-${d.buttonAlign}${phoneAlign('lightbox-handle-wrapper', b)}"><button type="button" class="lightbox-handle sqs-button-element--${b.buttonStyle || 'primary'}" onclick="${LB_OPEN}">${word}</button></div>`
     + `<div class="form-lightbox"><div class="form-lightbox-shade" onclick="${LB_CLOSE}"></div><div class="form-lightbox-box" style="--lb-bg:${e(bg)};--lb-ink:${inkOn(bg)}"><button type="button" class="form-lightbox-close" aria-label="Close" onclick="${LB_CLOSE}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>${form}</div></div>`;
 }
 

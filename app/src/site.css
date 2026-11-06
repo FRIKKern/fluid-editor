@@ -442,6 +442,10 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .fe-form .form-checkbox legend + .option { margin-top: 6px; }
 .fe-form .form-checkbox .description + .option { margin-top: 10px; }
 .fe-form .form-radio .option { min-height: 25.7px; }
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  .fe-form .form-radio .option { min-height: 26.35px; }
+  .fe-form .form-signup { font-size: calc((var(--small-text-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
+}
 .fe-form .form-checkbox label { display: inline-flex; align-items: center; gap: 11px; vertical-align: baseline; }
 .fe-form .form-checkbox input, .fe-form .form-signup input {
   appearance: none; -webkit-appearance: none; box-sizing: border-box;
@@ -512,6 +516,7 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .fe-form .form-address > .field, .fe-form .address-row .field { margin-bottom: 20px; }
 .fe-form .address-row { display: flex; gap: 10px; }
 .fe-form .address-row .field { flex: 1; min-width: 0; }
+@media screen and (max-width: 767px) and (orientation: portrait) { .fe-form .address-row { display: block; } }
 .fe-form .caption-row--lead { padding-top: 4px; }
 .fe-form .form-line { margin: 32px 0; padding: 0 0 4.32px; font-size: 14.4px; }
 .fe-form .form-line.underline { border-bottom: 1px solid currentColor; }
@@ -522,7 +527,7 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .fe-form .form-survey legend.question { padding: 0 0 8px; }
 .fe-form .likert-options { display: flex; align-items: flex-start; }
 .fe-form .likert-options .option { flex: 0 0 20%; box-sizing: border-box; margin: 6px 0 4px; border-top: 1px solid currentColor; line-height: 1.4em; }
-.fe-form .likert-options label { display: block; padding: 10px 0 0 1px; font-size: .9em; line-height: 19.712px; }
+.fe-form .likert-options label { display: block; padding: 10px 0 0 1px; font-size: .9em; line-height: 1.5556em; }
 .fe-form .likert-options input { appearance: none; -webkit-appearance: none; display: block; box-sizing: border-box; width: 20px; height: 20px; margin: 0 0 10px; border: 2px solid transparent; outline: 1px solid currentColor; outline-offset: -1px; border-radius: 50%; }
 .fe-form .file-upload { box-sizing: border-box; height: 112px; border: 1px dashed currentColor; border-radius: 24.784px; }
 .fe-form .file-upload label { position: relative; display: block; }
@@ -534,6 +539,19 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .fe-form .form-button-wrapper--align-center { text-align: center; }
 .fe-form .form-button-wrapper--align-right { text-align: right; }
 .fe-form .form-button-wrapper--align-stretch .form-submit { width: 100%; }
+/* Per view (parity/findings/FORMFIELDS.json, phone). */
+.lb-word--phone, .form-views--desktop-lightbox > .form-wrapper, .form-views--phone-lightbox > .lightbox-handle-wrapper { display: none; }
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  .lb-word--desktop, .form-views--phone-lightbox > .form-wrapper, .form-views--desktop-lightbox > .lightbox-handle-wrapper { display: none; }
+  .lb-word--phone { display: inline; }
+  .form-views--phone-lightbox > .lightbox-handle-wrapper { display: block; }
+  .form-views--desktop-lightbox > .form-wrapper { display: grid; }
+  .lightbox-handle-wrapper--phone-left, .fe-form .form-button-wrapper--phone-left { text-align: left; }
+  .lightbox-handle-wrapper--phone-center, .fe-form .form-button-wrapper--phone-center { text-align: center; }
+  .lightbox-handle-wrapper--phone-right, .fe-form .form-button-wrapper--phone-right { text-align: right; }
+  .fe-form .form-button-wrapper--phone-stretch .form-submit { width: 100%; }
+  .fe-form .form-button-wrapper--phone-left .form-submit, .fe-form .form-button-wrapper--phone-center .form-submit, .fe-form .form-button-wrapper--phone-right .form-submit { width: auto; }
+}
 /* First Input Highlight (parity/findings/FORMADD.json): a 2px ring over the first control. */
 .fe-form .form-fx-box { display: block; position: relative; }
 .fe-form .form-input-effects { position: absolute; inset: 0; pointer-events: none; }
