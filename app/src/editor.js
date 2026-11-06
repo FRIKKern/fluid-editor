@@ -30,7 +30,7 @@ import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
 import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
-import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption } from './form-fields.js';
+import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
 const $ = (id) => document.getElementById(id);
@@ -587,6 +587,8 @@ function measure(fe) {
 }
 
 // Rows a block needs so its content fits without stretching a row.
+// The form on the page, not the copy a Lightbox holds to open.
+const FORM_ON_PAGE = '.fe-form:not(.form-lightbox .fe-form)';
 function contentRows(b, m, normalizing = false, widthPull = false) {
   // Content that follows the width (STANDINS.json). A pull that changes the width lets it run over by
   // less than the gap until the next gesture; one that changes only the height does not.
@@ -600,7 +602,7 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
   // A form: the least rows that hold it, with no give (FORMFIELDS.json, blockFits).
   // A form taller than its block stretches the grid's rows, so the pitch is read with the form out of it.
   if (b.type === 'form') {
-    const f = blockEl(b.id)?.querySelector(b.lightbox ? '.lightbox-handle-wrapper' : '.fe-form');
+    const f = blockEl(b.id)?.querySelector(formView(b, bp).lightbox ? '.lightbox-handle-wrapper' : FORM_ON_PAGE);
     if (!f) return 1;
     const h = f.getBoundingClientRect().height;
     f.style.display = 'none';
@@ -1471,7 +1473,7 @@ function renderBlockPanel() {
     : b.type === 'line' ? { kind: 'line' }
     : b.type === 'social' ? (() => { const l = socialLook(b, bp === 'mobile'); return { kind: 'social', links: socialList(), err: socErr, iconBorder: l.iconBorder, iconStyle: l.iconStyle, iconThick: l.iconThick, iconSize: l.iconSize, align: l.align }; })()
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
-    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', buttonAlign: b.buttonAlign || 'left', highlight: b.highlight || 'none', fihOpen, lightbox: !!b.lightbox, lightboxText: b.lightboxText || '', lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
+    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
@@ -1784,10 +1786,12 @@ function setFormDesign(key, v) {
   if (!b) return;
   const before = JSON.stringify(model);
   const top = blockPanel.scrollTop;
-  if (v === 'left' || v === 'none') delete b[key]; else b[key] = v;
+  if (key === 'buttonAlign') setFormView(b, bp, key, v === 'left' && bp !== 'mobile' ? '' : v);
+  else if (v === 'none') delete b[key]; else b[key] = v;
   renderSectionDom(sel.sid);
   // A form the Lightbox left too small gets its rows back on the next change (FORMFIELDS.json, lightbox).
-  if (!b.lightbox && contentRows(b, measure(feEl(sel.sid))) > lay(b).area[2] - lay(b).area[0]) fitForm(b, S(sel.sid));
+  // One row short isn't that: a new form on the phone is 16 rows and stretches, and a press leaves it (phone).
+  if (!formView(b, bp).lightbox && contentRows(b, measure(feEl(sel.sid))) > lay(b).area[2] - lay(b).area[0] + 1) fitForm(b, S(sel.sid));
   commit(before, `Form ${key} ${v}`);
   blockPanel.scrollTop = top;
 }
@@ -2067,7 +2071,7 @@ function setForm(change, label, fit = true) {
   b.fields ||= [];
   change(b);
   renderSectionDom(sel.sid);
-  if (fit && !b.lightbox) fitForm(b, S(sel.sid));
+  if (fit && !formView(b, bp).lightbox) fitForm(b, S(sel.sid));
   commit(before, label);
   renderBlockPanel();
   blockPanel.scrollTop = Math.min(blockPanel.scrollTop, blockPanel.scrollHeight);
@@ -2076,8 +2080,8 @@ function setForm(change, label, fit = true) {
 // the count depends on the rows it had. Off: the rows stay until the next change (FORMFIELDS.json, lightbox).
 function setFormLightbox(on) {
   const b = B(sel.sid, sel.bid), s = S(sel.sid), before = JSON.stringify(model), top = blockPanel.scrollTop;
-  const h = blockEl(b.id).querySelector('.fe-form').getBoundingClientRect().height;
-  if (on) b.lightbox = true; else delete b.lightbox;
+  const h = on ? blockEl(b.id).querySelector(FORM_ON_PAGE).getBoundingClientRect().height : 0;
+  setFormView(b, bp, 'lightbox', on);
   renderSectionDom(sel.sid);
   if (on) {
     const w = blockEl(b.id).querySelector('.lightbox-handle-wrapper'), hh = w.getBoundingClientRect().height;
@@ -2103,7 +2107,7 @@ blockPanel.addEventListener('input', (e) => {
   if (!t || !sel) return;
   ffBefore ??= JSON.stringify(model);
   const b = B(sel.sid, sel.bid), h = blockEl(b.id).querySelector('.lightbox-handle').offsetHeight;
-  if (t.value) b.lightboxText = t.value; else delete b.lightboxText;
+  setFormView(b, bp, 'lightboxText', t.value);
   renderSectionDom(sel.sid);
   if (blockEl(b.id).querySelector('.lightbox-handle').offsetHeight !== h) fitForm(b, S(sel.sid));
 });
@@ -2183,7 +2187,7 @@ blockPanel.addEventListener('change', (e) => {
   if (e.target.closest('[data-ff-field],[data-ff-opt]')) {
     const before = ffBefore;
     ffBefore = null;
-    if (before) { if (!B(sel.sid, sel.bid).lightbox) fitForm(B(sel.sid, sel.bid), S(sel.sid)); commit(before, 'Field changed'); }
+    if (before) { if (!formView(B(sel.sid, sel.bid), bp).lightbox) fitForm(B(sel.sid, sel.bid), S(sel.sid)); commit(before, 'Field changed'); }
     return;
   }
   const t = e.target.closest('[data-ff-set]');
@@ -5316,6 +5320,8 @@ function setBp(next) {
   // Phones use overlay scrollbars, so the preview must not lose width to one.
   doc.documentElement.style.scrollbarWidth = bp === 'mobile' ? 'none' : '';
   for (const sec of model.sections) drawLabels(sec.id);
+  // A form's panel shows this view's own values (FORMFIELDS.json, phone).
+  if (sel && designOpen === sel.bid && B(sel.sid, sel.bid)?.type === 'form') { const top = blockPanel.scrollTop; renderBlockPanel(); blockPanel.scrollTop = top; }
   requestAnimationFrame(() => {
     drawSelection();
     updateUi();
