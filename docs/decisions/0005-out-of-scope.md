@@ -36,6 +36,7 @@ Out of scope now:
 - **A form's Additional Storage and reCAPTCHA (T9).** Outside services, and storage writes outside the page, so a probe reads them and never presses them. Ours shows both rows faded.
 - **A form's stored submissions (T9).** Manage Submissions and Export need stored submissions, which ours does not have, and a submit writes to form storage. Ours shows both rows faded.
 - **What a form draws after a real submit (T9).** Reading it means a submit, which writes to form storage. The editor's Edit Post-Submit view is read and built. Ours draws the same after a submit, or follows the redirect, and that part is inferred.
+- **The phone order of a saved section after an edit (A2).** Holding a section saved needs a Save, which a probe never presses. A saved page keeps its order on load, which is ours.
 - **What an open form lightbox draws (T9).** The oracle opens it only after a Save, which a probe never presses. The button, its rows and the block's rows are read and built. The open view in ours is plain and our own.
 - **Send confirmation email, SMS Marketing Opt-in and View plans (T9).** The first two write outside the page, and View plans reaches a paid plan, so a probe reads the rows and never presses them. Ours shows them faded.
 - **Edit with AI and Reshoot on an image (T4).** They need an AI service, and the dialog's OK accepts AI Terms on the owner's account, so a probe never presses it and nothing past the dialog is read. Ours shows both rows faded.
