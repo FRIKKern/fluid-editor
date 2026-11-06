@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 22 changes
+- **Today** · 23 changes
+  - P5: Art presets' values, Shuffle Settings, rows that come and go, divider Shuffle and flip on Slanted ([#200](https://github.com/FRIKKern/fluid-editor/pull/200))
   - T4: the importer reads what an image on a page gives ([#201](https://github.com/FRIKKern/fluid-editor/pull/201))
-  - T5, T11: phone button least width, typed Map Zoom, social least width, Thickness field ([#199](https://github.com/FRIKKern/fluid-editor/pull/199))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
