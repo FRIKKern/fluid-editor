@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 37 changes
+- **Today** · 38 changes
+  - P7: the header takes the first section's theme; U10: the Layouts panel's top ([#214](https://github.com/FRIKKern/fluid-editor/pull/214))
   - T9: Edit Post-Submit, the block shows the message while its view is open; Manage, Export and a real submit under 0005 ([#216](https://github.com/FRIKKern/fluid-editor/pull/216))
-  - T10: rows rule refit and tested on fresh reads ([#215](https://github.com/FRIKKern/fluid-editor/pull/215))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
