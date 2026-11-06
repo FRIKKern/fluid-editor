@@ -96,7 +96,7 @@ export function insertLineBreak(doc, root, sel) {
   r.insertNode(line);
   r.setStartAfter(line);
   r.collapse(true);
-  if (atEnd) r.insertNode(mono ? doc.createTextNode('\n') : doc.createElement('br'));
+  if (atEnd) r.insertNode(doc.createElement('br'));
   if (!mono) block.normalize();
   r.setStartAfter(line);
   r.collapse(true);

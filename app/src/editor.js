@@ -863,6 +863,7 @@ function startMarquee(e, fe) {
   doc.addEventListener('pointercancel', up);
 }
 
+let pressedAfterEscape = false;
 function onDown(e) {
   if (document.body.classList.contains('is-preview')) return;
   if (e.button !== 0) return;
@@ -871,7 +872,9 @@ function onDown(e) {
   if (editing) {
     const same = blk && blk.dataset.blockId === editing.bid;
     if (same && !editing.soft) return;
-    if (!same) finishTextEdit();
+    // After one Escape a press on the block takes the keys from the text and opens nothing (CAP-ESC2.json).
+    pressedAfterEscape = same;
+    finishTextEdit();
   }
   const gapBand = e.target.closest('.stack-gap-handle');
   if (gapBand && sel) { e.preventDefault(); startGapDrag(e, gapBand.classList.contains('is-row')); return; }
@@ -898,7 +901,8 @@ function onDown(e) {
     select(next.length ? { sid, bid: next[0], more: next.slice(1) } : null);
     return;
   }
-  const wasSelected = sel && sel.sid === sid && sel.bid === bid && !sel.more?.length;
+  const wasSelected = !pressedAfterEscape && sel && sel.sid === sid && sel.bid === bid && !sel.more?.length;
+  pressedAfterEscape = false;
   const keep = sel && sel.sid === sid && [sel.bid, ...(sel.more || [])].includes(bid) && sel.more?.length;
   // A click on the selected child keeps it; a drag from there moves the whole stack (S3.json children).
   const onKid = sel && sel.sid === sid && parentStack(sid, sel.bid)?.id === bid && e.target.closest(`[data-kid="${sel.bid}"]`);
@@ -921,7 +925,6 @@ function onMove(e) {
       gesture.armed = Math.hypot(e.clientX - gesture.x0, e.clientY - gesture.y0) > 10;
       return;
     }
-    if (editing?.soft) finishTextEdit();
     if (gesture.resizeDir) startResize(e, gesture.resizeDir);
     else beginMove(e);
   }
@@ -3958,9 +3961,9 @@ function finishTextEdit() {
   growRows(S(ed.sid));
   feEl(ed.sid).style.gridAutoRows = '';
   renderSectionDom(ed.sid);
-  commitTextSteps(ed);
+  commitTextSteps(ed, height);
 }
-function commitTextSteps(ed) {
+function commitTextSteps(ed, height) {
   const now = JSON.stringify(model);
   // A step can look like where the edit ended (Bold, then Clear Formatting): it's still a step (CAP-E4SCORE.json).
   const steps = ed.marks.at(-1) === now ? ed.marks.slice(0, -1) : ed.marks;
@@ -3972,13 +3975,13 @@ function commitTextSteps(ed) {
 }
 // The text stays open and holds the keys, with no bar and the block's toolbar back. What was typed is in the model now.
 function softenTextEdit() {
-  const ed = editing, b = B(ed.sid, ed.bid);
+  const ed = editing, b = B(ed.sid, ed.bid), height = textHeight(b);
   closeLinkPopover();
   b.html = ed.ce.innerHTML;
   lay(b).area = [...ed.area];
   growRows(S(ed.sid));
-  const now = commitTextSteps(ed);
-  Object.assign(ed, { soft: true, before: now, marks: [now], lastInput: 0, prevHtml: b.html, prevArea: [...ed.area] });
+  const now = commitTextSteps(ed, height);
+  Object.assign(ed, { soft: true, before: now, marks: [now], lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height, height1: undefined });
   blockEl(ed.bid).classList.remove('is-text-editing');
   renderTextBar();
   placeToolbar();
@@ -5782,7 +5785,11 @@ function onHover(e) {
 // The mouse on the bar has left every section; on the canvas's white sides it has not (SECTIONBAR.json, fade).
 document.querySelector('.bar').addEventListener('pointerenter', () => { if (hoverSid) { hoverSid = null; placeChrome(); } });
 // A press on the editor's own controls ends the keys' way into the text, Write and Undo aside.
-document.addEventListener('click', (e) => { if (editing?.soft && !e.target.closest?.('#undo, [data-tb="write"]')) finishTextEdit(); }, true);
+document.addEventListener('click', (e) => {
+  if (!editing?.soft || e.target.closest?.('#undo, [data-tb="write"]')) return;
+  finishTextEdit();
+  if (e.target.closest?.('#bp-desktop, #bp-mobile')) select(null); // The other view lets the block go (CAP-ESC2.json)
+}, true);
 $('undo').addEventListener('click', undo);
 $('redo').addEventListener('click', redo);
 $('save').addEventListener('click', () => {
@@ -5963,7 +5970,7 @@ function boot() {
   frame.contentDocument.addEventListener('pointerdown', () => { closeFloating(); closeSectionPanel(); }, true);
   frame.contentDocument.addEventListener('contextmenu', onContextMenu);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeFloating(); closeSectionPanel(); if (designOpen) { designOpen = null; updateUi(); } } });
-  frame.contentDocument.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeFloating(); closeSectionPanel(); } });
+  frame.contentDocument.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !vAlignOpen && pinPop.hidden) { closeFloating(); closeSectionPanel(); } }); // An open toolbar menu is onKey's, and the block stays selected
   doc = frame.contentDocument;
   win = frame.contentWindow;
   doc.addEventListener('pointerdown', closeLinkOutside, true);
