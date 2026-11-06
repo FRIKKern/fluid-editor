@@ -1796,6 +1796,30 @@
     ],
     "note": "The link menu with URL and the site list. What the row shows after a link is set: not read."
    }
+  },
+  "messageBox": {
+   "note": "The Message box is rich text with the Text block's bar: Squarespace AI (never pressed), Text Style with Heading 1 to 4, Paragraph 1 to 3 and Monospace, Bold, Italic, Underline, Link, Clear Formatting. The bar is 376 by 36, above the box. Bold, italic and underline draw <strong>, <em> and <u> inside a p. Text Style's rows were read and none pressed, Link and Clear Formatting not pressed.",
+   "bar": {
+    "box": [
+     663,
+     169.78125,
+     376.109375,
+     36
+    ],
+    "kids": [
+     "DIV|Squarespace AI||663|170|36|36",
+     "DIV|Text Style|Paragraph 2|708|170|121|36",
+     "DIV|Bold||838|170|36|36",
+     "DIV|Italic||878|170|36|36",
+     "DIV|Underline||918|170|36|36",
+     "DIV|Link||958|170|36|36",
+     "DIV|Clear Formatting||1003|170|36|36"
+    ]
+   },
+   "html": {
+    "html": "<div tabindex=\"-1\" class=\"form-submission-text form-submission-text--align-left\"><p data-rte-preserve-empty=\"true\" style=\"white-space:pre-wrap;\"><strong><em><u>Thanks a lot</u></em></strong></p></div>",
+    "cs": "16px 700 italic underline rgb(0, 0, 0) 22.4px"
+   }
   }
  },
  "lightbox": {
@@ -2156,7 +2180,286 @@
   "export": "A press fades the row for a moment. No dialog, nothing else on screen. No submissions are stored on the trial site."
  },
  "followUp": {
-  "menu": "An option's ... menu has one row, Add Follow-Up Question. It opens Add Follow-Up with the same 19 tiles.",
+  "menu": {
+   "rows": [
+    "Add follow-up question",
+    "Delete Option"
+   ],
+   "inFollowUp": [
+    "Delete Option"
+   ],
+   "note": "An option's menu has two rows on every field kind read: Radio, Checkbox, Dropdown and Survey. An option left alone still has Delete Option. Capitals, 12px, weight 500, letter spacing 0.5px. Delete Option is rgb(195, 45, 56). The earlier note of one row in this finding was my wrong read of a menu that runs past the panel's bottom: the screenshot from that run shows both rows.",
+   "box": {
+    "rows": "220 wide, 45 per row, text 22 in",
+    "position": "Right edge 4 left of the button, top 40 under the button's top. It may run past the panel's bottom."
+   }
+  },
+  "delete": {
+   "note": "Delete Option removes the option at once, with no dialog, from the menu or from Option Details. Its follow-ups go with it. Options can all go: the field then draws its legend alone, 30.4 high. Add option then adds Option 1.",
+   "noOptions": [
+    0,
+    494.3,
+    518,
+    30.4
+   ]
+  },
+  "option": {
+   "withFollowUp": "A row to open in place of the field and the menu: name, then n follow-up under it, 16 high, and an arrow. 61 high, so Add option moves up 4.",
+   "views": {
+    "text": [
+     "Back @33,20,32,14",
+     "Option Details @113,17,95,22",
+     "Option @16,59,46,20",
+     "Follow-up @16,149,72,16",
+     "Text @71,187,200,22",
+     "Add follow-up @16,261,107,22",
+     "Delete Option @16,341,100,22"
+    ],
+    "c": [
+     "BUTTON|button||||||Back|11,5,54,46",
+     "INPUT|text|||Option 1||||27,88,266,22",
+     "BUTTON|submit||||||Text|16,165,288,66",
+     "BUTTON|submit||||||Add follow-up|16,254,107,36",
+     "BUTTON|submit||||||Delete Option|16,334,100,36"
+    ]
+   },
+   "css": [
+    "Back|33|20|32|14|14px|500|rgb(14, 14, 14)|-0.14px|none",
+    "Option Details|113|17|95|22|14px|500|rgb(62, 62, 62)|normal|none",
+    "Option|16|59|46|20|11px|400|rgb(102, 102, 102)|0.55px|uppercase",
+    "Follow-up|16|149|72|16|11px|500|rgb(102, 102, 102)|0.75px|uppercase",
+    "Text|71|187|200|22|14px|400|rgb(14, 14, 14)|-0.14px|none",
+    "Add follow-up|16|261|107|22|12px|500|rgb(14, 14, 14)|0.5px|uppercase",
+    "Delete Option|16|341|100|22|12px|500|rgb(195, 45, 56)|0.5px|uppercase"
+   ],
+   "boxes": [
+    "BUTTON||Back|11|5|54|46|rgba(0, 0, 0, 0)",
+    "svg|||11|16|22|22|rgba(0, 0, 0, 0)",
+    "INPUT||Option 1|27|88|266|22|rgba(0, 0, 0, 0)",
+    "BUTTON||Text|16|165|288|66|rgba(0, 0, 0, 0)",
+    "svg|||27|187|22|22|rgba(0, 0, 0, 0)",
+    "svg|||282|187|22|22|rgba(0, 0, 0, 0)",
+    "BUTTON||Add follow-up|16|254|107|36|rgba(0, 0, 0, 0)",
+    "BUTTON||Delete Option|16|334|100|36|rgba(0, 0, 0, 0)"
+   ],
+   "plural": "Follow-up with one, Follow-ups with more. Rows 67 apart."
+  },
+  "tile": "A tile adds the follow-up and opens its editor. Nothing new draws on the canvas while editing.",
+  "back": {
+   "fromMenuRoute": "Back goes to the field.",
+   "fromDetailsRoute": "Back goes to Option Details.",
+   "deleteField": "Delete Field goes to the field, from either route.",
+   "lastDeleted": "With its last follow-up gone the option is a plain row with its menu again."
+  },
+  "editors": {
+   "Name": [
+    "Back @27,20,32,14",
+    "Name @140,17,40,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "First Name @16,279,288,16",
+    "Show @16,306,249,22",
+    "Require @16,351,249,22",
+    "Last Name @16,407,288,16",
+    "Show @16,434,249,22",
+    "Require @16,479,249,22",
+    "At least one name field must be showing. @16,522,232,15",
+    "Delete Field @16,559,86,22"
+   ],
+   "Email": [
+    "Back @27,20,32,14",
+    "Email @142,17,37,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "Placeholder @16,261,87,20",
+    "Required @16,340,249,22",
+    "Delete Field @16,380,86,22"
+   ],
+   "Phone": [
+    "Back @27,20,32,14",
+    "Phone @139,17,43,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "Country dropdown @16,268,249,22",
+    "Required @16,312,249,22",
+    "Delete Field @16,352,86,22"
+   ],
+   "Text Area": [
+    "Back @27,20,32,14",
+    "Text Area @129,17,62,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "Placeholder @16,261,87,20",
+    "Required @16,340,249,22",
+    "Delete Field @16,380,86,22"
+   ],
+   "Checkbox": [
+    "Back @27,20,32,14",
+    "Checkbox @126,17,67,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "Required @16,268,249,22",
+    "Options @0,323,320,16",
+    "Add option @22,476,81,22",
+    "Delete Field @16,534,86,22"
+   ],
+   "Radio": [
+    "Back @27,20,32,14",
+    "Radio @141,17,38,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "Required @16,268,249,22",
+    "Options @0,323,320,16",
+    "Add option @22,476,81,22",
+    "Delete Field @16,534,86,22"
+   ],
+   "Survey": [
+    "Back @27,18,32,14",
+    "Survey @137,15,46,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Required @16,266,249,22",
+    "Options @0,321,320,16",
+    "Add option @22,474,81,22",
+    "Delete Field @16,532,86,22"
+   ],
+   "Address": [
+    "Back @27,18,32,14",
+    "Address @132,15,56,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Required @16,266,249,22",
+    "Delete Field @16,306,86,22"
+   ],
+   "Line": [
+    "Back @27,18,32,14",
+    "Line @146,15,28,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Underline @16,266,249,22",
+    "Delete Field @16,307,86,22"
+   ],
+   "Website": [
+    "Back @27,18,32,14",
+    "Website @133,15,55,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Placeholder @16,259,87,20",
+    "Required @16,338,249,22",
+    "Delete Field @16,378,86,22"
+   ],
+   "Date": [
+    "Back @27,18,32,14",
+    "Date @144,15,31,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Required @16,266,249,22",
+    "Delete Field @16,306,86,22"
+   ],
+   "Number": [
+    "Back @27,18,32,14",
+    "Number @133,15,55,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Placeholder @16,259,87,20",
+    "Required @16,338,249,22",
+    "Delete Field @16,378,86,22"
+   ],
+   "Time": [
+    "Back @27,18,32,14",
+    "Time @144,15,33,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Required @16,266,249,22",
+    "Delete Field @16,306,86,22"
+   ],
+   "Currency": [
+    "Back @27,18,32,14",
+    "Currency @129,15,62,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Currency symbol @16,259,117,20",
+    "Required @16,338,249,22",
+    "Delete Field @16,378,86,22"
+   ],
+   "Hidden": [
+    "Back @27,18,32,14",
+    "Hidden @136,15,49,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Learn More. @172,133,68,15",
+    "Label @16,153,37,20",
+    "Variable @16,225,57,20",
+    "To fill in this field, include the variable from the box above in the  @16,293,288,32",
+    "Value @16,329,38,20",
+    "Delete Field @16,404,86,22"
+   ],
+   "X Username": [
+    "Back @27,18,32,14",
+    "X Username @119,15,81,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Required @16,266,249,22",
+    "Delete Field @16,306,86,22"
+   ],
+   "File Upload": [
+    "Back @27,18,32,14",
+    "File Upload @122,15,75,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Required @16,266,249,22",
+    "Allow only specific file types @16,310,249,22",
+    "Max number of files @17,354,136,22",
+    "Delete Field @16,395,86,22"
+   ],
+   "Text": [
+    "Back @27,20,32,14",
+    "Text @146,17,27,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "Placeholder @16,261,87,20",
+    "Required @16,340,249,22",
+    "Delete Field @16,380,86,22"
+   ],
+   "Dropdown": [
+    "Back @27,20,32,14",
+    "Dropdown @125,17,70,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "Required @16,268,249,22",
+    "Options @0,323,320,16",
+    "Add option @22,476,81,22",
+    "Delete Field @16,534,86,22"
+   ]
+  },
+  "editorCss": [
+   "Back|27|20|32|14|14px|500|rgb(14, 14, 14)|-0.14px|none",
+   "Dropdown|125|17|70|22|14px|500|rgb(62, 62, 62)|normal|none",
+   "Follows-ups appear when visito|0|55|320|44|14px|400|rgb(14, 14, 14)|normal|none",
+   "Label|16|117|37|20|11px|400|rgb(102, 102, 102)|0.55px|uppercase",
+   "Description|16|189|80|20|11px|400|rgb(102, 102, 102)|0.55px|uppercase",
+   "Required|16|268|249|22|14px|400|rgb(14, 14, 14)|-0.14px|none",
+   "Options|0|323|320|16|11px|500|rgb(102, 102, 102)|0.75px|uppercase",
+   "Add option|22|476|81|22|12px|500|rgb(14, 14, 14)|0.5px|uppercase",
+   "Delete Field|16|534|86|22|12px|500|rgb(195, 45, 56)|0.5px|uppercase"
+  ],
   "view": {
    "text": [
     "Back @33,20,32,14",
@@ -2203,22 +2506,482 @@
     "BUTTON|submit||||||X Username|168,407,119,66",
     "BUTTON|submit||||||File Upload|33,473,119,44"
    ]
+  },
+  "drawn": {
+   "all": {
+    "h": 3229.1,
+    "c": [
+     {
+      "cls": "form-item.field.text",
+      "box": [
+       32,
+       624.1,
+       486,
+       74.8
+      ],
+      "txt": "Text",
+      "parts": [
+       "INPUT text 32 654.5 486 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.select",
+      "box": [
+       32,
+       718.9,
+       486,
+       74.8
+      ],
+      "txt": "Dropdown|Select an option|Option 1|Option 2",
+      "parts": [
+       "SELECT select-one 32 749.3 486 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.fields.name",
+      "box": [
+       32,
+       813.8,
+       486,
+       122.5
+      ],
+      "txt": "Name|First Name|Last Name",
+      "parts": [
+       "INPUT text 32 871.9 238 44.4",
+       "INPUT text 280 871.9 238 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.email",
+      "box": [
+       32,
+       936.3,
+       486,
+       74.8
+      ],
+      "txt": "Email",
+      "parts": [
+       "INPUT email 32 966.7 486 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.fields.phone",
+      "box": [
+       32,
+       1031.1,
+       486,
+       94.8
+      ],
+      "txt": "Phone",
+      "parts": [
+       "INPUT text 32 1061.5 486 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.textarea",
+      "box": [
+       32,
+       1125.9,
+       486,
+       130.4
+      ],
+      "txt": "Text Area",
+      "parts": [
+       "TEXTAREA textarea 32 1156.3 486 100"
+      ]
+     },
+     {
+      "cls": "form-item.field.checkbox",
+      "box": [
+       32,
+       1276.3,
+       486,
+       101.8
+      ],
+      "txt": "Checkbox|Option 1|Option 2",
+      "parts": [
+       "INPUT checkbox 32 1312.7 20 20",
+       "INPUT checkbox 32 1352.4 20 20"
+      ]
+     },
+     {
+      "cls": "form-item.field.radio",
+      "box": [
+       32,
+       1398.2,
+       486,
+       109.8
+      ],
+      "txt": "Radio|Option 1|Option 2",
+      "parts": [
+       "INPUT radio 32 1434.6 20 20",
+       "INPUT radio 32 1478.3 20 20"
+      ]
+     },
+     {
+      "cls": "form-item.field.likert",
+      "box": [
+       32,
+       1528,
+       486,
+       360.9
+      ],
+      "txt": "Survey|Option 1|Strongly Disagree|Disagree|Neutral|Agree|Str",
+      "parts": [
+       "INPUT radio 33 1631.4 20 20",
+       "INPUT radio 130.2 1631.4 20 20",
+       "INPUT radio 227.4 1631.4 20 20",
+       "INPUT radio 324.6 1631.4 20 20",
+       "INPUT radio 421.8 1631.4 20 20",
+       "INPUT radio 33 1777.8 20 20",
+       "INPUT radio 130.2 1777.8 20 20",
+       "INPUT radio 227.4 1777.8 20 20"
+      ]
+     },
+     {
+      "cls": "form-item.fields.address",
+      "box": [
+       32,
+       1888.9,
+       486,
+       402.9
+      ],
+      "txt": "Address|Country|Afghanistan|Åland Islands|Albania|Algeria|Am",
+      "parts": [
+       "SELECT select-one 32 1951 486 44.4",
+       "INPUT text 32 2043.1 486 44.4",
+       "INPUT text 32 2135.3 486 44.4",
+       "INPUT text 32 2227.4 238 44.4",
+       "INPUT text 280 2227.4 238 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.section.line-field.underline",
+      "box": [
+       32,
+       2323.8,
+       486,
+       35.7
+      ],
+      "txt": "Line",
+      "parts": []
+     },
+     {
+      "cls": "form-item.field.website",
+      "box": [
+       32,
+       2391.5,
+       486,
+       74.8
+      ],
+      "txt": "Website|(a web prefix)",
+      "parts": [
+       "INPUT text 32 2421.9 486 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.date",
+      "box": [
+       32,
+       2486.3,
+       486,
+       76.8
+      ],
+      "txt": "Date",
+      "parts": [
+       "INPUT date 32 2516.7 200 46.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.number",
+      "box": [
+       32,
+       2583.1,
+       486,
+       74.8
+      ],
+      "txt": "Number",
+      "parts": [
+       "INPUT text 32 2613.5 486 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.time",
+      "box": [
+       32,
+       2677.9,
+       486,
+       112.5
+      ],
+      "txt": "Time|in Central European Time",
+      "parts": [
+       "INPUT time 32 2708.3 200 46.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.currency",
+      "box": [
+       32,
+       2810.5,
+       486,
+       74.8
+      ],
+      "txt": "Currency|$",
+      "parts": [
+       "INPUT text 32 2840.9 200 44.4"
+      ]
+     },
+     {
+      "cls": "",
+      "box": [
+       32,
+       2905.3,
+       486,
+       0
+      ],
+      "txt": "",
+      "parts": [
+       "INPUT hidden -100.1 67.8 0 0"
+      ]
+     },
+     {
+      "cls": "form-item.field.twitter",
+      "box": [
+       32,
+       2905.3,
+       486,
+       74.8
+      ],
+      "txt": "X Username|@",
+      "parts": [
+       "INPUT text 32 2935.7 200 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.file",
+      "box": [
+       32,
+       3000.1,
+       486,
+       142.4
+      ],
+      "txt": "File Upload|Add a File",
+      "parts": [
+       "INPUT file 33 3031.5 486 46"
+      ]
+     }
+    ]
+   },
+   "radioOne": {
+    "h0": 690.71875,
+    "h1": 880.34375,
+    "tree": [
+     "DIV.followup-question-container [32,624.1,486,74.8]",
+     " DIV.form-item.field.text [32,624.1,486,74.8]",
+     "  LABEL.title.YB_rseKyzcQ64VtF [32,624.1,486,30.4]",
+     "   DIV.KBeHkQJXlg4N1Ujt [32,624.1,32.1,22.4]",
+     "    DIV.SP08ZLkhAnk2Rqaf [32,624.1,32.1,22.4]",
+     "     SPAN [32,624.1,32.1,22.4] \"Text\"",
+     "  INPUT.ngonnDl0lqs7ZArA [32,654.5,486,44.4] type=text",
+     "  SPAN.V60Xg8ZMr2Q9qLks.form-input-effects [32,654.5,486,44.4]",
+     "   SPAN.form-input-effects-border [32,654.5,486,44.4]",
+     "DIV.followup-question-container [32,718.9,486,74.8]",
+     " DIV.form-item.field.select [32,718.9,486,74.8]",
+     "  LABEL.title.YB_rseKyzcQ64VtF [32,718.9,486,30.4]",
+     "   DIV.KBeHkQJXlg4N1Ujt [32,718.9,82.8,22.4]",
+     "    DIV.SP08ZLkhAnk2Rqaf [32,718.9,82.8,22.4]",
+     "     SPAN [32,718.9,82.8,22.4] \"Dropdown\"",
+     "  DIV.AqFl_fiEKw4guqD2 [32,749.3,486,44.4]",
+     "   SELECT.WRQLXcvkXgAPo369.show-placeholder [32,749.3,486,44.4] type=select-one",
+     "   SPAN.V60Xg8ZMr2Q9qLks.form-input-effects [32,749.3,486,44.4]",
+     "    SPAN.form-input-effects-border [32,749.3,486,44.4]",
+     "   DIV.QeVRMFrE3dDozGvZ [479,765.5,18,12]",
+     "    svg [479,765.5,18,12]",
+     "DIV.btIyKrvyA6dTrftg [-5000,813.8,1,1]",
+     " INPUT.ngonnDl0lqs7ZArA [-5000,813.8,22,44.4] type=text",
+     " SPAN.V60Xg8ZMr2Q9qLks.form-input-effects [-100.1,-0.2,0,0] NONE"
+    ]
+   },
+   "checkbox": {
+    "second": {
+     "h": 1319.3,
+     "c": [
+      {
+       "cls": "form-item.field.email",
+       "box": [
+        32,
+        702.3,
+        486,
+        74.8
+       ],
+       "txt": "Email",
+       "parts": [
+        "INPUT email 32 732.7 486 44.4"
+       ]
+      }
+     ]
+    },
+    "thenFirst": {
+     "h": 1414.2,
+     "c": [
+      {
+       "cls": "form-item.field.text",
+       "box": [
+        32,
+        702.3,
+        486,
+        74.8
+       ],
+       "txt": "Text",
+       "parts": [
+        "INPUT text 32 732.7 486 44.4"
+       ]
+      },
+      {
+       "cls": "form-item.field.email",
+       "box": [
+        32,
+        797.1,
+        486,
+        74.8
+       ],
+       "txt": "Email",
+       "parts": [
+        "INPUT email 32 827.5 486 44.4"
+       ]
+      }
+     ]
+    },
+    "secondOff": {
+     "h": 1319.3,
+     "c": [
+      {
+       "cls": "form-item.field.text",
+       "box": [
+        32,
+        702.3,
+        486,
+        74.8
+       ],
+       "txt": "Text",
+       "parts": [
+        "INPUT text 32 732.7 486 44.4"
+       ]
+      }
+     ]
+    }
+   },
+   "dropdown": {
+    "h": 1414.2,
+    "c": [
+     {
+      "cls": "form-item.field.text",
+      "box": [
+       32,
+       702.3,
+       486,
+       74.8
+      ],
+      "txt": "Text",
+      "parts": [
+       "INPUT text 32 732.7 486 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.number",
+      "box": [
+       32,
+       891.9,
+       486,
+       74.8
+      ],
+      "txt": "Number",
+      "parts": [
+       "INPUT text 32 922.3 486 44.4"
+      ]
+     }
+    ]
+   },
+   "note": "In Preview. They draw at once after the field, 32 in and 486 wide, 20 apart, in option order however they were picked. Another radio takes them away. The select was set by script with a change event, not by a press."
+  },
+  "survey": {
+   "menu": [
+    "Add follow-up question",
+    "Delete Option"
+   ],
+   "note": "A survey's option offers follow-ups and draws them. A rating on an option's row draws that option's follow-ups, after the whole survey, in option order however they were rated. A survey has no way to unpick a rating, so they stay. An earlier note here said a first rating drew nothing: that press missed, because the page was still scrolling when I measured. The later reads checked the rating was checked.",
+   "reads": {
+    "secondRowFirst": {
+     "checked": [
+      5
+     ],
+     "follow": [
+      [
+       "Email",
+       32,
+       855.2,
+       486.03125,
+       74.8,
+       "-item field likert",
+       "field-list"
+      ]
+     ],
+     "h": 1016.6
+    },
+    "thenFirstRow": {
+     "checked": [
+      0,
+      5
+     ],
+     "follow": [
+      [
+       "Text",
+       32,
+       855.2,
+       486.03125,
+       74.8,
+       "-item field likert",
+       "field-list"
+      ],
+      [
+       "Email",
+       32,
+       950,
+       486.03125,
+       74.8,
+       "question-container",
+       "field-list"
+      ]
+     ],
+     "h": 1111.4
+    },
+    "before": {
+     "checked": [],
+     "follow": [],
+     "h": 921.8
+    }
+   }
+  },
+  "blockRows": "While a tile is pressed the rows can read tall for a moment, as in blockFits.",
+  "marks": {
+   "radio": "Picked: an 8px dot in the middle of the 20px circle, in the text color, scaled from 0 to 1. A rating draws the same dot. Read on Radio; the rating's mark is the same element.",
+   "checkbox": "Picked: a 12px tick in the 20px circle, in the text color. Its shape was read as a clip-path of about (13% 49%, 4% 60%, 41% 90%, 97% 21%, 87% 13%, 39% 70%) and it wipes in over 0.2s after 0.1s.",
+   "focusRing": "A pressed checkbox that holds the focus shows a 16px ring, 2px, rgb(242, 184, 180). Read once, on the checkbox pressed last: a picked radio without the focus has none. That it goes with the focus is inferred."
   }
  },
  "undo": "Undo did not step back a field's change. After adding a Dropdown one Undo left it there; after typing a label and a description one Undo left both, and the next removed the whole Form block. Ours takes one step per change.",
  "presses": [
   "The press on the lightbox button in the preview checked the element on top inside the frame.",
   "The row drag in the list checked the row was on top at its start.",
-  "The bottom edge drag on the Lightbox block was by coordinates, read from the block's box. Every other press in the Lightbox reads checked the element on top; the Button Style list was pressed on the element found on top at the label's center."
+  "The bottom edge drag on the Lightbox block was by coordinates, read from the block's box. Every other press in the Lightbox reads checked the element on top; the Button Style list was pressed on the element found on top at the label's center.",
+  "Follow-up reads: radio and checkbox presses in Preview checked the label on top inside the frame. Survey ratings checked the input on top and that its place had stopped moving. The Dropdown in Preview was set by script. Every other press used the on-top helper."
  ],
  "notRead": [
   "What a form's open lightbox draws: the preview opens nothing on an unsaved form, and it needs a Save (under 0005).",
   "What the Message, Alignment, Position, HTML and Redirect do after a submit: a submit writes to form storage.",
-  "Follow-up questions past Add Follow-Up: no tile pressed.",
   "Send confirmation email and SMS Marketing Opt-in: not pressed. View plans: not pressed.",
   "Fields on the phone.",
   "Email Notification, Additional Storage, reCAPTCHA: not pressed.",
-  "How an option is removed: its menu has one row, and an emptied option stays as an empty row.",
   "Field label typed empty.",
   "A Lightbox form on the phone: goes with the read of fields on the phone."
  ],
@@ -2788,11 +3551,13 @@
   "One undo step per change. The oracle's Undo did not step field changes back: reads in undo.",
   "The Country list is the browser's region names, 251 of them, with Norway chosen. The oracle has 245. The Phone prefix stays +47.",
   "The field and tile icons are our own drawings.",
-  "Ours' Message box is plain text: a new line is a new paragraph. The oracle's is rich text, whose formatting is not read.",
+  "Ours' Message box is plain text: a new line is a new paragraph. The oracle's is rich text with the Text block's bar (postSubmit.messageBox).",
   "Ours' HTML box has no colours or code editor. It takes the same text.",
   "In ours' Preview frame a redirect shows the message, so the editor stays open. On the page itself it follows the link.",
   "A form with a field just deleted: ours has already fit its rows, so Lightbox on reads from there. The oracle's rows had not settled (lightbox, reads.otherForm.fewerFields: 3 rows where ours gives 2).",
-  "What the Lightbox button opens is ours, with no read behind it: a dark page, a 640 wide box in the chosen Background Color, the form and a close button. A press beside the box or on the close button ends it. The text and submit button turn black or white to read on the color."
+  "What the Lightbox button opens is ours, with no read behind it: a dark page, a 640 wide box in the chosen Background Color, the form and a close button. A press beside the box or on the close button ends it. The text and submit button turn black or white to read on the color.",
+  "Ours has no tooltip Open menu on an option's menu button.",
+  "A picked checkbox's tick draws at once, with no wipe, and a picked radio's dot with no scale. Ours has no focus ring on a pressed checkbox."
  ],
  "inferred": [
   "Hidden's Variable follows the Label: only SQF_HIDDEN for the label Hidden was read.",
@@ -2801,7 +3566,9 @@
   "A real submit draws the message as the view does, and the Submit word goes.",
   "A message taller than the form: not read.",
   "Background Color belongs to what the Lightbox button opens: nothing on the canvas changes when it is picked, and the open view is not read.",
-  "Lightbox on leaves a Background, Stroke, Blend Mode or Blur set earlier on the block as it was: only new forms were read, with none of them set."
+  "Lightbox on leaves a Background, Stroke, Blend Mode or Blur set earlier on the block as it was: only new forms were read, with none of them set.",
+  "Back from Add Follow-Up goes where it came from: read from Option Details, inferred from the menu.",
+  "Ours hides the follow-ups again on leaving Preview, and a field's picks stay."
  ],
  "checkboxGap": {
   "contact": {

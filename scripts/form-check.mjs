@@ -241,7 +241,7 @@ const fit0 = fits();
 add('The block\'s rows hold the form', fit0.rows === fit0.need, JSON.stringify(fit0));
 
 // A description and Required on every kind that has them, Country Code, a Dropdown's own placeholder.
-inPage(`const start = 4; const adds = ${JSON.stringify(ADDS)}; for (let i = 0; i < adds.length; i++) { await ff('edit:' + (start + i)); await type('description', 'A short word'); if (adds[i] !== 'Line') await set('required'); if (adds[i] === 'Phone') await set('countryCode'); if (adds[i] === 'Dropdown') { await type('placeholder', 'Pick one'); await ff('opt-add:' + (start + i)); P.querySelector('[data-ff-opt="2"]').value = ''; P.querySelector('[data-ff-opt="2"]').dispatchEvent(new Event('input', { bubbles: true })); P.querySelector('[data-ff-opt="2"]').dispatchEvent(new Event('change', { bubbles: true })); await sleep(60); } await ff('back'); } await ff('delete:' + (start + adds.length)); for (const t of ['Text', 'Text Area', 'Email']) { await ff('add'); await ff('tile:' + t); const n = b().fields.length - 1; await ff('edit:' + n); await type('description', 'A short word'); await set('required'); await ff('back'); } await ff('edit:2'); await type('description', ''); await type('placeholder', ''); await ff('back'); return 'true';`);
+inPage(`const start = 4; const adds = ${JSON.stringify(ADDS)}; for (let i = 0; i < adds.length; i++) { await ff('edit:' + (start + i)); await type('description', 'A short word'); if (adds[i] !== 'Line') await set('required'); if (adds[i] === 'Phone') await set('countryCode'); if (adds[i] === 'Dropdown') { await type('placeholder', 'Pick one'); await ff('opt-add'); P.querySelector('[data-ff-opt="2"]').value = ''; P.querySelector('[data-ff-opt="2"]').dispatchEvent(new Event('input', { bubbles: true })); P.querySelector('[data-ff-opt="2"]').dispatchEvent(new Event('change', { bubbles: true })); await sleep(60); } await ff('back'); } await ff('delete:' + (start + adds.length)); for (const t of ['Text', 'Text Area', 'Email']) { await ff('add'); await ff('tile:' + t); const n = b().fields.length - 1; await ff('edit:' + n); await type('description', 'A short word'); await set('required'); await ff('back'); } await ff('edit:2'); await type('description', ''); await type('placeholder', ''); await ff('back'); return 'true';`);
 compare('With a description', drawn(), FF.drawn.withDescription, FF.formHeights.withDescription);
 const seld = inPage(`const sel = [...form().querySelectorAll('select')]; return JSON.stringify(sel.map((s) => [s.options[s.selectedIndex].text, s.options.length]));`);
 add('Dropdown: its own placeholder, a third option kept empty', seld[1][0] === 'Pick one' && seld[1][1] === 4, JSON.stringify(seld[1]));
@@ -287,14 +287,14 @@ const more = inPage(`await ff('back'); const out = {}; const addEdit = async (t)
 await addEdit('Line'); const L = () => [...form().querySelectorAll('.form-line')].at(-1); out.lineOn = Math.round(L().getBoundingClientRect().height * 10) / 10; await set('underline'); out.lineOff = Math.round(L().getBoundingClientRect().height * 10) / 10; await ff('back');
 await addEdit('File Upload'); out.dec0 = P.querySelector('[aria-label="decrement"]').disabled; P.querySelector('[aria-label="increment"]').click(); await sleep(60); out.max = [P.querySelector('[aria-label="Max Number of Files"]').value, P.querySelector('[aria-label="decrement"]').disabled, b().fields.at(-1).maxFiles]; await set('fileTypes'); out.types = P.querySelectorAll('[data-ff-set^="fileType:"]').length; out.word = [...form().querySelectorAll('.file-upload-in > span')].at(-1).textContent; await ff('back');
 await addEdit('Hidden'); out.hiddenDraws = form().querySelectorAll(':scope > .form-item').length === b().fields.length - 1; out.variable = P.querySelector('.bp-ff-var').textContent; await type('value', 'abc'); out.value = b().fields.at(-1).value; await ff('back');
-await addEdit('Dropdown'); await ff('opt-add:' + (b().fields.length - 1)); out.opts = b().fields.at(-1).options.join(); out.menus = [...P.querySelectorAll('.bp-ffo-menu')].every((e) => e.disabled && e.hasAttribute('data-unbuilt')); await ff('back'); await ff('back'); out.home = !!P.querySelector('[data-ff="list"]'); out.tabs = !!P.querySelector('.sp-tab'); return JSON.stringify(out);`);
+await addEdit('Dropdown'); await ff('opt-add'); out.opts = b().fields.at(-1).options.join(); out.menus = [...P.querySelectorAll('.bp-ffo-menu')].every((e) => !e.disabled && !e.hasAttribute('data-unbuilt')); await ff('back'); await ff('back'); out.home = !!P.querySelector('[data-ff="list"]'); out.tabs = !!P.querySelector('.sp-tab'); return JSON.stringify(out);`);
 add('Currency Symbol: kr, 44 wide', more.kr === 'kr' && Math.abs(more.krWide - 44.2) <= 1.5, JSON.stringify([more.kr, more.krWide]));
 add('Line: 35.7 with the underline, 34.7 without', Math.abs(more.lineOn - 35.7) <= 0.5 && Math.abs(more.lineOff - 34.7) <= 0.5, JSON.stringify([more.lineOn, more.lineOff]));
 add('Files: decrement off at 1, then on at 2', more.dec0 && more.max.join() === '2,false,2', JSON.stringify(more.max));
 add('File types: five checks, the page still says Add a File', more.types === 5 && more.word === 'Add a File', JSON.stringify([more.types, more.word]));
 add('Hidden: draws nothing, its variable and value', more.hiddenDraws && more.variable === 'SQF_HIDDEN' && more.value === 'abc', JSON.stringify(more));
 add('Add option: Option 3', more.opts === 'Option 1,Option 2,Option 3', more.opts);
-add('An option\'s menu: shown, not built', more.menus === true);
+add('An option\'s menu is built', more.menus === true);
 add('Back twice: Content, with its tabs', more.home && more.tabs, JSON.stringify([more.home, more.tabs]));
 // Edit Post-Submit (FORMFIELDS.json, postSubmit).
 const PS = FF.postSubmit;
@@ -324,6 +324,115 @@ add('Post-Submit scrolled: Back stays on top', back.stay[0] && back.stay[1], JSO
 add('Back: the form returns, the words are kept', back.home && !back.view && back.form === 'visible' && back.kept === 'Thanks a lot', JSON.stringify(back));
 const sent = inPage(`form().requestSubmit(); await sleep(60); const W = form().parentNode, out = [W.classList.contains('is-submitted'), doc.defaultView.getComputedStyle(W.querySelector('.form-post')).display, doc.defaultView.getComputedStyle(form()).visibility, doc.defaultView.getComputedStyle(form().querySelector('.form-submit')).visibility]; W.classList.remove('is-submitted'); return JSON.stringify(out);`);
 add('A submit in the Preview frame draws the message, the form goes', sent.join() === 'true,flex,hidden,hidden', sent.join());
+// Follow-up questions: an option's menu, each tile's editor, the routes back, what draws in Preview.
+const FU = FF.followUp;
+const leavePreview = () => evalJs(S, `(async () => { const d = document.getElementById('site-frame').contentDocument; if (d.body.classList.contains('is-preview')) { document.getElementById('preview').click(); await new Promise((res) => setTimeout(res, 300)); } return 'true'; })()`);
+const fuHome = () => { leavePreview(); evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); document.body.click(); fe.select(fe.model.sections[1].id, ${JSON.stringify(id)}); await sleep(150); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(200); for (let i = 0; i < 5 && !document.querySelector('#block-panel .bp-ff-list'); i++) { const q = (w) => document.querySelector('#block-panel ' + w), t = q('[data-btab="Content"]'); if (t) t.click(); const go = q('[data-ff="list"]') || q('[data-ff="back"]'); go.click(); await sleep(120); } return 'true'; })()`); };
+const fuTitle = `(P.querySelector('.bp-ff-title') || {}).textContent`;
+const fuLeaves = `[...P.querySelectorAll('*')].filter((e) => e.getBoundingClientRect().width > 0 && !e.children.length && e.textContent.trim()).map((e) => [e.textContent.trim(), ...box(e)])`;
+const fuHelp = `const menu = async (k) => { P.querySelectorAll('[data-ff-menu]')[k].click(); await sleep(120); }; const pop = async (w) => { document.querySelector('[data-ff-pop="' + w + '"]').click(); await sleep(120); };`;
+fuHome();
+const fuN = inPage(`await ff('add'); await ff('tile:Radio'); await sleep(100); return JSON.stringify(b().fields.length - 1);`);
+const fuMenu = inPage(`${fuHelp} await ff('edit:${fuN}'); const B = P.querySelector('[data-ff-menu]').getBoundingClientRect(); await menu(0); const p = document.getElementById('shape-pop').getBoundingClientRect(), rows = [...document.querySelectorAll('#shape-pop [data-ff-pop]')].map((e) => e.textContent.trim()); return JSON.stringify({ rows, gapRight: B.left - p.right, gapTop: p.top - B.top, w: p.width, h: p.height, row: document.querySelector('#shape-pop [data-ff-pop]').getBoundingClientRect().height });`);
+add('An option\'s menu: its two rows', fuMenu.rows.join() === FU.menu.rows.join(), fuMenu.rows.join());
+add('The menu box: 4 left of the button, 40 under its top', Math.abs(fuMenu.gapRight - 4) <= 1 && Math.abs(fuMenu.gapTop - 40) <= 1, JSON.stringify(fuMenu));
+add('The menu box: 220 wide, 45 per row', Math.abs(fuMenu.w - 220) <= 1.5 && Math.abs(fuMenu.row - 45) <= 1, JSON.stringify(fuMenu));
+const fuTiles = inPage(`${fuHelp} await pop('follow'); return JSON.stringify({ title: ${fuTitle}, leaves: ${fuLeaves} });`);
+add('Add follow-up question opens Add Follow-Up', fuTiles.title === 'Add Follow-Up', fuTiles.title);
+for (const t of FU.view.text.slice(2)) {
+  const [, w, y] = t.match(/^(.*) @\d+,(\d+),/);
+  const l = fuTiles.leaves.find((x) => x[0] === w);
+  add(`Add Follow-Up tile: ${w}`, l && Math.abs(l[2] + l[4] / 2 - (Number(y) + Number(t.split(',').pop()) / 2)) <= 3, l ? l.join() : 'missing');
+}
+const fuBackFirst = inPage(`await ff('back'); await sleep(60); return JSON.stringify(${fuTitle});`);
+add('Back from Add Follow-Up: the field', fuBackFirst === 'Radio', fuBackFirst);
+const tileKey = (t) => t === 'X Username' ? 'X' : t;
+for (const t of Object.keys(FU.editors)) {
+  const ours = inPage(`${fuHelp} await menu(1); await pop('follow'); await ff('fu-tile:${tileKey(t)}'); await sleep(60); const out = { title: ${fuTitle}, leaves: ${fuLeaves}, count: b().fields[${fuN}].follow[1].length }; await ff('fu-del:${fuN}:1:0'); await sleep(60); out.back = ${fuTitle}; out.left = (b().fields[${fuN}].follow || [])[1]; return JSON.stringify(out);`);
+  const theirs = FU.editors[t].map((x) => x.match(/^(.*) @(-?\d+),(-?\d+),(\d+),(\d+)$/)).map((x) => [x[1], Number(x[3]), Number(x[5])]);
+  const off = 20 - theirs[0][1], seen = [];
+  add(`Follow-up ${t}: its title, added once, Delete Field returns`, ours.title === t && ours.count === 1 && ours.back === 'Radio' && !(ours.left || []).length, `${ours.title} ${ours.count} ${ours.back}`);
+  for (const [w, y, h] of theirs.slice(2)) {
+    const same = ours.leaves.filter((l) => l[0].toLowerCase().startsWith(w.toLowerCase().slice(0, 60)) && !seen.includes(l));
+    const m = same[0];
+    if (m) seen.push(m);
+    add(`Follow-up ${t}: ${w.slice(0, 28)}`, m && Math.abs(m[2] + m[4] / 2 - (y + off + h / 2)) <= 3, m ? `${m[2] + m[4] / 2}, oracle ${y + off + h / 2}` : 'missing');
+  }
+}
+// One undo step, a follow-up on option 1, and the row it turns into.
+const fuUndo = inPage(`${fuHelp} await menu(0); await pop('follow'); await ff('fu-tile:Text'); await sleep(60); const had = b().fields[${fuN}].follow[0].length; document.getElementById('undo').click(); await sleep(250); return JSON.stringify([had, (b().fields[${fuN}].follow || [])[0]?.length || 0]);`);
+add('Adding a follow-up is one undo step', fuUndo.join() === '1,0', fuUndo.join());
+fuHome();
+const fuRow = inPage(`${fuHelp} await ff('edit:${fuN}'); await menu(0); await pop('follow'); await ff('fu-tile:Text'); await sleep(60); await ff('back'); await sleep(60); const r = P.querySelector('[data-ff="opt:${fuN}:0"]'), add = P.querySelector('[data-ff="opt-add"]'); return JSON.stringify({ title: ${fuTitle}, row: box(r), text: r.textContent.trim(), add: box(add), menus: P.querySelectorAll('[data-ff-menu]').length });`);
+add('Back from the menu route: the field', fuRow.title === 'Radio', fuRow.title);
+add('An option with a follow-up is a row to open', near(fuRow.row, [38, 315, 266, 61], 2) && /Option 1\s*1 follow-up/.test(fuRow.text) && fuRow.menus === 1, JSON.stringify(fuRow));
+add('Add option moves up 4 for it', near(fuRow.add, [22, 441, 276, 36], 2), fuRow.add.join());
+const fuDetails = inPage(`await ff('opt:${fuN}:0'); await sleep(60); return JSON.stringify({ leaves: ${fuLeaves}, c: [...P.querySelectorAll('button:not(.bp-back), input')].map((e) => [e.tagName, e.textContent.trim() || e.value, ...box(e)]) });`);
+for (const t of FU.option.views.text.slice(1)) {
+  const [, w, y, h] = t.match(/^(.*) @\d+,(\d+),\d+,(\d+)$/);
+  const l = fuDetails.leaves.find((x) => x[0] === w);
+  add(`Option Details: ${w}`, l && Math.abs(l[2] + l[4] / 2 - (Number(y) + Number(h) / 2)) <= 3, l ? l.join() : 'missing');
+}
+for (const t of FU.option.views.c.slice(1)) {
+  const p = t.split('|'), w = p[0] === 'INPUT' ? p[4] : p[7], at = p[8].split(',').map(Number);
+  const c = fuDetails.c.find((x) => x[0] === p[0] && x[1].startsWith(w));
+  add(`Option Details box: ${w}`, c && Math.abs(c[3] - at[1]) <= 2 && Math.abs(c[5] - at[3]) <= 2 && Math.abs(c[2] - at[0]) <= 2, c ? c.join() : 'missing');
+}
+const fuRoute = inPage(`const out = {}; await ff('fu:${fuN}:0:0'); await sleep(60); out.open = ${fuTitle}; await ff('back'); await sleep(60); out.back = ${fuTitle}; return JSON.stringify(out);`);
+add('From Option Details Back goes to Option Details', fuRoute.open === 'Text' && fuRoute.back === 'Option Details', JSON.stringify(fuRoute));
+// Every kind drawn in Preview, against the read, measured from the first one.
+const FU_ORDER = ['Dropdown', 'Name', 'Email', 'Phone', 'Text Area', 'Checkbox', 'Radio', 'Survey', 'Address', 'Line', 'Website', 'Date', 'Number', 'Time', 'Currency', 'Hidden', 'X', 'File Upload'];
+const fuAll = inPage(`for (const t of ${JSON.stringify(FU_ORDER)}) { P.querySelector('[data-ff^="fu-add"]').click(); await sleep(60); await ff('fu-tile:' + t); await sleep(50); await ff('back'); await sleep(50); } return JSON.stringify(b().fields[${fuN}].follow[0].length);`);
+add('All kinds added as follow-ups, each back to Option Details', fuAll === FU_ORDER.length + 1, fuAll);
+const fePreview = () => evalJs(S, `(async () => { document.getElementById('preview').click(); await new Promise((res) => setTimeout(res, 350)); return 'true'; })()`);
+fePreview();
+const fuDraw = (js) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const d = document.getElementById('site-frame').contentDocument, W = d.getElementById('block-${id}'); const seen = () => [...W.querySelectorAll('.followup-question-container')].filter((x) => !x.hidden); const rect = (e) => { const F = W.querySelector('.fe-form').getBoundingClientRect(), r = e.getBoundingClientRect(); return [r.left - F.left, r.top - F.top, r.width, r.height].map((v) => Math.round(v * 10) / 10); }; const wrap = () => W.querySelectorAll('.form-followed'); ${js} })()`);
+add('In Preview nothing draws before a pick', fuDraw(`return JSON.stringify(seen().length);`) === 0);
+const fuPicked = fuDraw(`const r = [...wrap()].at(-1).querySelectorAll('input[type=radio]')[0]; r.click(); await sleep(150); return JSON.stringify(seen().map((x) => rect(x)));`);
+const fuDot = fuDraw(`const a = [...wrap()].at(-1).firstElementChild.querySelectorAll('input'), m = (e) => d.defaultView.getComputedStyle(e, '::before').backgroundImage !== 'none'; return JSON.stringify([m(a[0]), m(a[1])]);`);
+add('A picked radio draws its dot, the other none', fuDot.join() === 'true,false', fuDot.join());
+const fuAllC = FU.drawn.all.c.filter((c) => c.cls);
+add('The pick draws them all', fuPicked.filter((x) => x[3] > 0).length === fuAllC.length, fuPicked.length);
+const ourDrawn = fuPicked.filter((x) => x[3] > 0);
+fuAllC.forEach((c, i) => { const o = ourDrawn[i], gotY = o ? o[1] - ourDrawn[0][1] : 0, wantY = c.box[1] - fuAllC[0].box[1]; add(`Drawn ${c.cls.replace('form-item.', '')}: place and size`, o && Math.abs(gotY - wantY) <= 3 && Math.abs(o[0] - c.box[0]) <= 1 && Math.abs(o[2] - c.box[2]) <= 1 && (c.cls.includes('name') || Math.abs(o[3] - c.box[3]) <= 3), `${o}, oracle ${c.box} (y ${wantY})`); });
+const fuOff = fuDraw(`[...wrap()].at(-1).querySelectorAll(':scope > .form-item input[type=radio], :scope > * input[type=radio]')[1].click(); await sleep(150); return JSON.stringify(seen().length);`);
+add('Another radio takes them away', fuOff === 0, fuOff);
+leavePreview();
+const fuSizeAfter = fits();
+add('The rows hold the form with them all in the panel', fuSizeAfter.rows >= fuSizeAfter.need - 1, JSON.stringify(fuSizeAfter));
+// Checkbox: option order however they were picked. Dropdown: by option, past its placeholder. Survey: draws none.
+fuHome();
+const fuMore = inPage(`${fuHelp} const add1 = async (k, t) => { await menu(k); await pop('follow'); await ff('fu-tile:' + t); await sleep(50); await ff('back'); await sleep(50); }; const out = {}; await ff('edit:${fuN}'); await ff('del:${fuN}'); await sleep(60); out.gone = b().fields.length; await ff('add'); await ff('tile:Checkbox'); await sleep(60); await ff('edit:' + (b().fields.length - 1)); await add1(1, 'Email'); await add1(0, 'Text'); await ff('back'); await sleep(60); await ff('add'); await ff('tile:Dropdown'); await sleep(60); await ff('edit:' + (b().fields.length - 1)); await add1(1, 'Number'); await add1(0, 'Text'); await ff('back'); await sleep(60); await ff('add'); await ff('tile:Survey'); await sleep(60); await ff('edit:' + (b().fields.length - 1)); await menu(0); out.survey = [...document.querySelectorAll('#shape-pop [data-ff-pop]')].map((e) => e.textContent.trim()); await pop('follow'); await ff('fu-tile:Text'); await sleep(60); out.title = ${fuTitle}; await ff('back'); await sleep(60); await add1(0, 'Email'); return JSON.stringify(out);`);
+add('A survey\'s option offers follow-ups too', fuMore.survey.join() === FU.survey.menu.join() && fuMore.title === 'Text', JSON.stringify(fuMore));
+fePreview();
+const fuPick = fuDraw(`const [c, s, v] = wrap(), list = (w) => [...w.querySelectorAll('.followup-question-container')].filter((x) => !x.hidden).map((x) => x.textContent.trim().slice(0, 6)); const box = c.querySelectorAll('input[type=checkbox]'); const out = {}; box[1].click(); await sleep(100); out.second = list(c); box[0].click(); await sleep(100); out.both = list(c); const g = [...c.querySelectorAll('.followup-question-container')].filter((x) => !x.hidden).map((x) => x.getBoundingClientRect()); out.pitch = g[1].top - g[0].top; const base = c.firstElementChild.getBoundingClientRect(); out.gap = g[0].top - base.bottom; box[1].click(); await sleep(100); out.off = list(c); const sel = s.querySelector('select'); sel.selectedIndex = 2; sel.dispatchEvent(new Event('change', { bubbles: true })); await sleep(100); out.dd = list(s); const dg = s.querySelector('.followup-question-container:not([hidden])').getBoundingClientRect(); out.ddGap = dg.top - s.firstElementChild.getBoundingClientRect().bottom; sel.selectedIndex = 0; sel.dispatchEvent(new Event('change', { bubbles: true })); await sleep(100); out.ddNone = list(s); const h = () => W.querySelector('.fe-form').getBoundingClientRect().height, rate = v.firstElementChild.querySelectorAll('input[type=radio]'); out.rating = rate.length; const h0 = h(); rate[5].click(); await sleep(100); out.rateSecond = list(v); const h1 = h(); rate[0].click(); await sleep(100); out.rateBoth = list(v); const h2 = h(); rate[1].click(); await sleep(100); out.rateKept = list(v); out.grow = [h1 - h0, h2 - h1]; const mark = (e, p) => { const c = d.defaultView.getComputedStyle(e, p); return [c.backgroundImage !== 'none', c.clipPath !== 'none', c.backgroundColor !== 'rgba(0, 0, 0, 0)']; }; out.marks = {}; out.marks.tick = mark(box[0], '::before'); out.marks.noTick = mark(box[1], '::before'); out.marks.rating = d.defaultView.getComputedStyle(rate[1]).backgroundImage !== 'none'; out.marks.noRating = d.defaultView.getComputedStyle(rate[0]).backgroundImage !== 'none'; const rg = [...W.querySelectorAll('.form-signup input')][0]; rg.click(); await sleep(60); out.marks.signup = mark(rg, '::before'); rg.click(); return JSON.stringify(out);`);
+add('Checkbox: the second alone draws its own', fuPick.second.join() === 'Email', fuPick.second.join());
+add('Checkbox: then the first draws above it', fuPick.both.join() === 'Text,Email', fuPick.both.join());
+add('Follow-ups sit 94.8 apart here, 20 under the field', Math.abs(fuPick.pitch - 94.8) <= 1 && Math.abs(fuPick.gap - 20) <= 1, `${fuPick.pitch} ${fuPick.gap}`);
+add('Checkbox: off takes its own away', fuPick.off.join() === 'Text', fuPick.off.join());
+add('Dropdown: the option\'s own, past the placeholder, 20 under', fuPick.dd.join() === 'Number' && Math.abs(fuPick.ddGap - 20) <= 1, `${fuPick.dd} ${fuPick.ddGap}`);
+add('Dropdown: back on the placeholder draws none', fuPick.ddNone.length === 0, fuPick.ddNone.join());
+add('Survey: a rating draws its option\'s, the second alone', fuPick.rating === 10 && fuPick.rateSecond.join() === 'Email', JSON.stringify(fuPick));
+add('Survey: then the first draws above it', fuPick.rateBoth.join() === 'Text,Email', fuPick.rateBoth.join());
+add('Survey: each adds 94.8, as read', fuPick.grow.every((g) => Math.abs(g - 94.8) <= 1), fuPick.grow.join());
+add('Survey: another rating on the row keeps them', fuPick.rateKept.join() === 'Text,Email', fuPick.rateKept.join());
+add('A picked checkbox draws a tick, the other none', fuPick.marks.tick.join() === 'false,true,true' && fuPick.marks.noTick.join() === 'false,false,false', JSON.stringify(fuPick.marks));
+add('The sign-up checkbox draws its tick', fuPick.marks.signup.join() === 'false,true,true', JSON.stringify(fuPick.marks));
+add('A picked rating draws its dot, the other none', fuPick.marks.rating === true && fuPick.marks.noRating === false, JSON.stringify(fuPick.marks));
+leavePreview();
+// Delete Option: from the menu and from Option Details, and the last one too. A follow-up's own options have only that row.
+fuHome();
+const fuDel = inPage(`${fuHelp} const out = {}; const n = b().fields.length - 3; await ff('edit:' + n); await ff('opt:' + n + ':0'); await sleep(60); await ff('opt-del:' + n + ':0'); await sleep(80); const c = b().fields[n]; out.details = [c.options.join(), ${fuTitle}]; out.follow = (c.follow || []).map((x) => (x || []).length).join(); await ff('opt:' + n + ':0'); await sleep(60); await ff('fu:' + n + ':0:0'); await sleep(60); await ff('fu-del:' + n + ':0:0'); await sleep(60); out.plain = [P.querySelectorAll('[data-ff-menu]').length, ${fuTitle}]; await ff('opt-add'); await sleep(60); await menu(0); await pop('delete'); await sleep(80); await menu(0); await pop('delete'); await sleep(80); out.none = b().fields[n].options.length; await ff('opt-add'); await sleep(60); out.again = b().fields[n].options.join(); await menu(0); await pop('follow'); await ff('fu-tile:Radio'); await sleep(60); await menu(0); const p = document.getElementById('shape-pop').getBoundingClientRect(); out.ownRows = [...document.querySelectorAll('#shape-pop [data-ff-pop]')].map((e) => e.textContent.trim()); out.ownW = p.width; return JSON.stringify(out);`);
+add('Delete Option from Option Details: at once, with its follow-ups', fuDel.details[0] === 'Option 2' && fuDel.follow === '1', JSON.stringify(fuDel));
+add('With its last follow-up gone: a plain row with its menu', fuDel.plain[0] === 1, JSON.stringify(fuDel.plain));
+add('Every option can go, Add option then adds Option 1', fuDel.none === 0 && fuDel.again === 'Option 1', `${fuDel.none} ${fuDel.again}`);
+add('A follow-up\'s own option has Delete Option alone, 144 wide', fuDel.ownRows.join() === FU.menu.inFollowUp.join() && Math.abs(fuDel.ownW - 144) <= 3, `${fuDel.ownRows} ${fuDel.ownW}`);
+// An option dragged keeps its follow-ups.
+fuHome();
+const fuGrip = inPage(`await ff('edit:' + (b().fields.length - 2)); await sleep(60); const r = [...P.querySelectorAll('.bp-ffo-grip')].map((g) => g.getBoundingClientRect()); return JSON.stringify([r[0].left + r[0].width / 2, r[0].top + r[0].height / 2, r[1].top + r[1].height / 2 + 34]);`);
+drag(S, [fuGrip[0], fuGrip[1]], [fuGrip[0], fuGrip[2]]); await pause(300);
+const fuMoved = inPage(`const f = b().fields.at(-2); return JSON.stringify({ o: f.options.join(), f: f.follow.map((l) => l.map((x) => x.label).join()).join('|'), t: ${fuTitle} });`);
+add('An option dragged keeps its follow-ups', fuMoved.o === 'Option 2,Option 1' && fuMoved.f === 'Number|Text' && fuMoved.t === 'Dropdown', JSON.stringify(fuMoved));
 const final = fits();
 add('The rows still hold the form', final.rows === final.need, JSON.stringify(final));
 
