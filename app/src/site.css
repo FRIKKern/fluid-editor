@@ -468,6 +468,20 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .form-wrapper.is-post-view > .fe-form, .form-wrapper.is-submitted > .fe-form { visibility: hidden; }
 /* The oracle's view leaves the button's word showing, and only that. */
 .form-wrapper.is-post-view > .fe-form .form-submit { visibility: visible; background: transparent; box-shadow: none; pointer-events: none; }
+/* A form as a Lightbox button (parity/findings/FORMFIELDS.json, lightbox). Stretch leaves it its own width. */
+.lightbox-handle-wrapper--align-left { text-align: left; }
+.lightbox-handle-wrapper--align-center { text-align: center; }
+.lightbox-handle-wrapper--align-right { text-align: right; }
+.lightbox-handle { display: inline-block; max-width: 100%; padding: 20.8px 56px; border: 0; border-radius: 300px; background: #000; color: #fff; font: inherit; font-size: 16px; font-weight: 500; line-height: 25px; letter-spacing: .02em; cursor: pointer; }
+.page-section .lightbox-handle { background: var(--button-bg); color: var(--button-ink); }
+/* What it opens is ours, not read: the oracle opens it only after a Save (decision 0005). */
+.form-lightbox { display: none; }
+.form-lightbox.is-open { display: flex; position: fixed; inset: 0; z-index: 2147483647; align-items: center; justify-content: center; }
+.form-lightbox-shade { position: absolute; inset: 0; background: rgba(0, 0, 0, .8); }
+.form-lightbox-box { position: relative; box-sizing: border-box; width: min(640px, 100vw); max-height: 100vh; overflow: auto; padding: 48px; background: var(--lb-bg); color: var(--lb-ink); }
+.form-lightbox-box .form-submit { background: var(--lb-ink); color: var(--lb-bg); }
+.form-lightbox-close { position: absolute; top: 12px; right: 12px; width: 24px; height: 24px; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; }
+.form-lightbox-close svg { display: block; width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; }
 /* The kinds a form can add (parity/findings/FORMFIELDS.json). */
 .fe-form legend .req { margin-left: 8.768px; line-height: 1; font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); opacity: .7; }
 .fe-form .description { margin: 0 0 4px; padding: 7.04px 0; line-height: 1.4em; opacity: .7; }

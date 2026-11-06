@@ -104,6 +104,21 @@ export function formSubmitJs(b) {
   return `var w=this.parentNode;${p.redirect && p.href ? `if(top===self){${p.newTab ? `window.open(${JSON.stringify(p.href)},'_blank')` : `location.href=${JSON.stringify(p.href)}`};return false}` : ''}w.classList.add('is-submitted');return false`;
 }
 
+// A form's Lightbox (FORMFIELDS.json, lightbox). The button and its rows are read. What the button
+// opens is ours: the oracle opens it only after a Save, so it is not read (decision 0005).
+const inkOn = (css) => {
+  const hex = css.match(/^#([0-9a-f]{6})/i)?.[1];
+  const [r, g, b] = hex ? [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16)) : (css.match(/\d+(\.\d+)?/g) || [255, 255, 255]).map(Number);
+  return 0.299 * r + 0.587 * g + 0.114 * b > 140 ? '#000' : '#fff';
+};
+const LB_OPEN = "if(document.querySelector('.fluid-engine.is-editing')&&!document.body.classList.contains('is-preview'))return;var n=this.parentNode.nextElementSibling.cloneNode(true);n.classList.add('is-open');document.body.append(n)";
+const LB_CLOSE = "this.closest('.form-lightbox').remove()";
+export function formLightboxHtml(b, form) {
+  const bg = b.lightboxBg || 'rgb(255, 255, 255)';
+  return `<div class="lightbox-handle-wrapper lightbox-handle-wrapper--align-${b.buttonAlign || 'left'}"><button type="button" class="lightbox-handle sqs-button-element--${b.buttonStyle || 'primary'}" onclick="${LB_OPEN}">${e(b.lightboxText || 'Open Form')}</button></div>`
+    + `<div class="form-lightbox"><div class="form-lightbox-shade" onclick="${LB_CLOSE}"></div><div class="form-lightbox-box" style="--lb-bg:${e(bg)};--lb-ink:${inkOn(bg)}"><button type="button" class="form-lightbox-close" aria-label="Close" onclick="${LB_CLOSE}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>${form}</div></div>`;
+}
+
 // The panel's views.
 const ic = (d, s = 20) => `<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${d}</svg>`;
 const ICONS = {
