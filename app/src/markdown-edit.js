@@ -42,11 +42,12 @@ export function mdLines(v, s, e, kind) {
 }
 export const mdHeading = (v, s, e, level) => eachLine(v, s, e, (l) => `${level ? `${'#'.repeat(level)} ` : ''}${l.replace(/^#{1,6} +/, '')}`);
 
-// What the toolbar shows for the line under the caret. Bold and Italic show nothing.
+// What the toolbar shows for the selection's moving end. Bold and Italic show nothing. A link lights with the end
+// inside it or just after it (CAP-T10LOOK2.json).
 export function mdState(v, at) {
   const line = v.slice(lineStart(v, at), lineEnd(v, at));
   const h = /^(#{1,4}) +/.exec(line);
-  return { heading: h ? `Heading ${h[1].length}` : 'Paragraph', bullet: LINE_MARKS.bullet[0].test(line), number: LINE_MARKS.number[0].test(line), quote: /^> /.test(line) };
+  return { heading: h ? `Heading ${h[1].length}` : 'Paragraph', bullet: LINE_MARKS.bullet[0].test(line), number: LINE_MARKS.number[0].test(line), quote: /^> /.test(line), link: !!mdLinkAt(v, at) || !!mdLinkAt(v, at - 1) };
 }
 
 // Enter carries a list or quote on, the number going up. On an empty item it leaves a blank line, or a bare >,
