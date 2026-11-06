@@ -2700,11 +2700,21 @@ function codeHeight(b) {
 // rows than it needs leaves it alone, so a block can stay well below what its content needs.
 const codeRowsFor = (h, m) => Math.ceil((h + m.rg - 1) / m.pitch);
 const rowsNow = (b) => codeHeight(b);
+// A row's own height: content taller than its section stretches every row, and rows follow the content
+// only by the height a row has with none of that (CAP-T10EMBED2.json).
+function rowFloor(fe) {
+  const probe = doc.createElement('div');
+  probe.style.cssText = 'position:absolute;visibility:hidden;height:calc(var(--container-width, 0px) * var(--row-height-scaling-factor, 0))';
+  fe.append(probe);
+  const h = probe.getBoundingClientRect().height;
+  probe.remove();
+  return h || 24; // the phone's rows are 24 tall at the least (render.js)
+}
 function fitRows(b, was) {
   if (b.type === 'code' && !String(b.html || '').trim()) return;
   const h = codeHeight(b);
   if (h === was) return;
-  const m = measure(feEl(sel.sid)), L = lay(b), rows = L.area[2] - L.area[0], need = Math.max(1, codeRowsFor(h, m));
+  const fe = feEl(sel.sid), found = measure(fe), m = { ...found, pitch: rowFloor(fe) + found.rg }, L = lay(b), rows = L.area[2] - L.area[0], need = Math.max(1, codeRowsFor(h, m));
   const next = h > was ? Math.max(rows, need) : need >= rows ? rows : Math.max(1, rows - codeRowsFor(was - h, m));
   if (next === rows) return;
   const bottom = L.area[2];
