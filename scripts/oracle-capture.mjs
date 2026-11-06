@@ -5,14 +5,15 @@
 //   ... node scripts/oracle-capture.mjs --list
 //   ... node scripts/oracle-capture.mjs --name WHAT --question '...' --steps '[["enter"],["select",2,2],["read","a",{"block":[2,2],"controls":true}]]'
 // Steps: enter | exit | view Mobile|Desktop | window w h (the real window, for a block taller than it) | frame w h | unframe | pause ms | listen
-//   hover i | hoverBlock i k | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
+//   hover i | hoverBlock i k [part] | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
-//   hoverNamed label | fadeWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | rangeKey key
-//   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | fill label value | fillValue shown value | rightClick i k
-//   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clickAt x y | walk i k part mx my | pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillRow label n value | hoverRow label [n] | pressNamed label | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
+//   addFromMenu i type name {frameBy, menu} | handleDrag i k part dx dy name | beforeOf name selector
+//   hoverNamed label | moveAt x y (skips the page check: it presses nothing, and its timing matters) | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | addSectionWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
+//   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | keysGap ms [keys] | fill label value | fillValue shown value | rightClick i k
+//   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clipHold | clipGive | clickAt x y | walk i k part mx my | pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillRow label n value | hoverRow label [n] | pressTile [n] | pressEl selector [n] | hoverEl selector [n] | pressNamed label | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
 //   hold i k part dx dy [mods] | holdRaw i k part dx dy | shiftClick i k | move dx dy | release [home] | drag i k part dx dy {pointerType}
-//   touch i k part dx dy {holdMs} | pasteMid i k html | undoWalk name [n] [html] | stamp i k | shot name
-//   read name { stamps: true, block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], range: true, rows: [labels], parts: [labels], boxes: [labels], shape: [i,k], reset: [label,n], leaves: [labels], afterBtn: label, gridEls: selector, cursorEls: true, shadowOf: label, btnState: [labels], shadowChain: selector, fullEls: true, panelBox: true or i, panelState: true, kids: [i, k] (a stack's children), linkTexts: [i, k], gradients: true, marker: [i, k], hits: [i, k], htmlOf: selector, frameEls: selector, panelEls: selector, panelCss: selector, textBox: [text], radii: [i, k], icon: true, style: [i,k], textH: [i,k], checks: true, sel: selector, layers: i, controls: true, thin: true }
+//   touch i k part dx dy {holdMs} | pasteMid i k html | pasteHere i k html (over the selection as it is) | undoWalk name [n] [html] | stamp i k | shot name
+//   read name { stamps: true, codeText: true, block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], range: true, rows: [labels], parts: [labels], boxes: [labels], shape: [i,k], reset: [label,n], leaves: [labels], afterBtn: label, gridEls: selector, cursorEls: true, shadowOf: label, btnState: [labels], shadowChain: selector, fullEls: true, panelBox: true or i, panelState: true, kids: [i, k] (a stack's children), linkTexts: [i, k], gradients: true, marker: [i, k], hits: [i, k], htmlOf: selector, frameEls: selector, panelEls: selector, panelCss: selector, textBox: [text], radii: [i, k], icon: true, style: [i,k], textH: [i,k], checks: true, sel: selector, layers: i, controls: true, thin: true }
 // k is a block's place in its section, or "new" for the block `add` made. part is "middle", a handle, or fractions [x, y] of the block.
 // A recipe that changes content names its page ({ page: 'Gestures Probe' }, 0006). Nothing is saved on any page.
 // The page (0006): --steps needs --page or a first toPage, and toPage sets the page a later enter comes back to. The demo
@@ -21,7 +22,7 @@
 // clickAt is by position: Custom's place moves with the window, so a press on a control goes by name (click label).
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { browser, evalJs, mouse, cdp, goto, pause, reload, waitFor, engine, viewport } from './lib/cmux.mjs';
-import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock, addSection, blockIds, escape, select } from './oracle/ui.mjs';
+import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock, openAddBlock, addSection, blockIds, escape, select } from './oracle/ui.mjs';
 import { RECIPES } from './oracle/recipes.mjs';
 
 const S = process.env.ORACLE_SURFACE;
@@ -132,7 +133,9 @@ function read(what) {
   if (what.frameEls) out.frameEls = evalJs(S, `(() => { ${FRAME} const ff = document.getElementById('sqs-site-frame').getBoundingClientRect(); return JSON.stringify([...d.querySelectorAll(${JSON.stringify(what.frameEls)})].filter((e) => e.getBoundingClientRect().width > 0).slice(0, 40).map((e) => { const q = e.getBoundingClientRect(); const c = W.getComputedStyle(e); return { tag: e.tagName.toLowerCase(), label: e.getAttribute('aria-label') || e.getAttribute('title') || e.textContent.trim().slice(0, 40), expanded: e.getAttribute('aria-expanded'), checked: e.getAttribute('aria-checked'), opacity: c.opacity, pointer: c.pointerEvents, box: [q.left + ff.left, q.top + ff.top, q.width, q.height].map((v) => Math.round(v * 10) / 10) }; })); })()`);
   if (what.textBox) out.textBox = Object.fromEntries(what.textBox.map((t) => [t, evalJs(S, `(() => { const hit = [...document.querySelectorAll('body *')].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame') && e.textContent.includes(${JSON.stringify(t)})); const e = hit[hit.length - 1]; if (!e) return JSON.stringify(null); const q = e.getBoundingClientRect(); return JSON.stringify({ text: e.textContent.trim().slice(0, 200), box: [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10) }); })()`)]));
   if (what.radii) { const [i, k] = what.radii; const id = blockId(i, k); out.radii = evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; if (!b) return JSON.stringify(null); return JSON.stringify([b, ...b.querySelectorAll('*')].filter((e) => W.getComputedStyle(e).borderTopLeftRadius !== '0px').map((e) => { const q = e.getBoundingClientRect(); const c = W.getComputedStyle(e); return { tag: e.tagName.toLowerCase(), cls: String(e.className.baseVal === undefined ? e.className : e.className.baseVal).slice(0, 60), radius: c.borderTopLeftRadius, overflow: c.overflow, box: [q.width, q.height].map((v) => Math.round(v * 10) / 10) }; })); })()`); }
-  if (what.panelCss) out.panelCss = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll(${JSON.stringify(what.panelCss)})].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')).slice(0, 80).map((e) => { const q = e.getBoundingClientRect(), c = getComputedStyle(e); return { cls: String(e.className).slice(0, 40), text: e.textContent.slice(0, 40), box: [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10), color: c.color, bg: c.backgroundColor, weight: c.fontWeight, style: c.fontStyle, deco: c.textDecorationLine, font: c.fontFamily.slice(0, 40), size: c.fontSize, line: c.lineHeight, pad: c.paddingLeft, opacity: c.opacity }; })))()`);
+  // What an editor holds, line by line, leaving its placeholder out.
+  if (what.codeText) out.codeText = evalJs(S, `(() => { const e = [...document.querySelectorAll('.cm-content')].filter((x) => x.getBoundingClientRect().width > 0).pop(); return JSON.stringify(e ? [...e.querySelectorAll('.cm-line')].map((l) => { const c = l.cloneNode(true); c.querySelectorAll('.cm-placeholder').forEach((p) => p.remove()); return c.textContent; }).join('\\n') : null); })()`);
+  if (what.panelCss) out.panelCss = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll(${JSON.stringify(what.panelCss)})].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')).slice(0, 80).map((e) => { const q = e.getBoundingClientRect(), c = getComputedStyle(e); return { cls: String(e.className).slice(0, 40), text: e.textContent.slice(0, 40), box: [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10), color: c.color, bg: c.backgroundColor, weight: c.fontWeight, style: c.fontStyle, deco: c.textDecorationLine, font: c.fontFamily.slice(0, 40), size: c.fontSize, line: c.lineHeight, pad: c.paddingLeft, opacity: c.opacity, label: e.getAttribute('aria-label') || e.getAttribute('title') || '', off: e.disabled === true || e.getAttribute('aria-disabled') === 'true', on: e.getAttribute('aria-checked') || e.getAttribute('aria-pressed') || '', cursor: c.cursor, outline: c.outlineStyle === 'none' ? '' : [c.outlineWidth, c.outlineStyle, c.outlineColor].join(' ') }; })))()`);
   if (what.panelEls) out.panelEls = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll(${JSON.stringify(what.panelEls)})].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')).slice(0, 40).map((e) => { const q = e.getBoundingClientRect(); return { tag: e.tagName.toLowerCase(), value: e.value, cls: String(e.className.baseVal === undefined ? e.className : e.className.baseVal).slice(0, 50), label: e.getAttribute('aria-label') || e.getAttribute('title') || e.value || e.textContent.trim().slice(0, 40), lines: e.childElementCount, box: [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10) }; })))()`);
   if (what.htmlOf) out.htmlOf = evalJs(S, `(() => { ${FRAME} const e = [...d.querySelectorAll(${JSON.stringify(what.htmlOf)})].filter((x) => x.getBoundingClientRect().width > 0).pop(); return JSON.stringify(e ? e.innerHTML.slice(0, 1500) : null); })()`);
   // What a press would hit at a block's eight handles, the page's chrome first, then inside the frame.
@@ -182,6 +185,7 @@ const pagePath = pageTitle ? pathOf(pageTitle) : null;
 { const here = evalJs(S, 'JSON.stringify(location.href)'); if (/^http/.test(here)) { goto(S, new URL(here).origin + '/config/pages'); await pause(6000); } }
 const finding = { item: name, oracle: pagePath || pathOf(recipe.steps[0][1]), capturedAt: new Date().toISOString().slice(0, 10), engine: engine(S), question: recipe.question, steps: recipe.steps, reads: {}, errors: [] };
 const LABEL = (label) => `() => { const L = ${JSON.stringify(label)}; const hits = [...document.querySelectorAll('[aria-label], [title], body *')].filter((e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && !e.closest('#sqs-site-frame') && (e.getAttribute('aria-label') === L || e.getAttribute('title') === L || (e.childElementCount === 0 && e.textContent.trim() === L)); }); const onTop = (e) => { const q = e.getBoundingClientRect(); const t = document.elementFromPoint(q.left + q.width / 2, q.top + q.height / 2); return t && (e === t || e.contains(t) || t.contains(e)); }; const hit = hits.filter(onTop).pop() || hits.pop(); return hit && (hit.closest('button, a, label, [role=radio], [role=button], [role=switch], [role=tab], [role=option], [role=menuitem]') || hit); }`;
+const panelAt = (sel, n) => { const r = evalJs(S, `(() => { const e = [...document.querySelectorAll(${JSON.stringify(sel)})].filter((x) => x.getBoundingClientRect().width > 0 && !x.closest('#sqs-site-frame'))[${n}]; if (!e) return JSON.stringify(null); const q = e.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2; const top = document.elementFromPoint(x, y); return JSON.stringify({ x, y, onTop: !!top && (top === e || e.contains(top) || top.contains(e)) }); })()`); if (!r) throw new Error(`nothing at ${sel} ${n}`); return r; };
 // A tip: the small dark box with the buttons' words, in either document.
 const TIPFIND = `const tipOf = (docs) => { for (const D of docs) { const V = D.defaultView; for (const e of D.querySelectorAll('div,span')) { const q = e.getBoundingClientRect(); if (q.height < 20 || q.height > 60 || q.width < 20 || q.width > 320) continue; const c = V.getComputedStyle(e); if (c.backgroundColor === 'rgb(14, 14, 14)' && c.borderRadius === '3px' && e.textContent.trim()) return { el: e, view: V }; } } return null; };`;
 const tag = (find) => evalJs(S, `(() => { const el = (${find})(); document.querySelectorAll('#fx-target').forEach((x) => x.removeAttribute('id')); if (!el) return JSON.stringify(false); el.id = 'fx-target'; return JSON.stringify(true); })()`) === true;
@@ -193,6 +197,7 @@ const ROWPARTS = (L) => `(() => { const vis = (e) => { const q = e.getBoundingCl
 // The Reset to default value button of one field: the row's n-th input, the button level with it and nearest its right edge.
 const RESETOF = (L, n) => `(() => { const f = ${ROWINPUTS(L)}; const e = f && f[${n}]; if (!e) return null; const q = e.getBoundingClientRect(); const all = [...document.querySelectorAll('[aria-label="Reset to default value"], [title="Reset to default value"]')].filter((b) => { const r = b.getBoundingClientRect(); return r.width > 0 && Math.abs(r.top + r.height / 2 - q.top - q.height / 2) < 14; }); all.sort((x, y) => Math.abs(x.getBoundingClientRect().left - q.right) - Math.abs(y.getBoundingClientRect().left - q.right)); return all[0] || null; })()`;
 const ROWINPUTS = (L) => `(() => { const vis = (e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'); const leaf = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && e.textContent.trim() === ${JSON.stringify(L)} && vis(e)); if (!leaf) return null; let r = leaf; while (r && r !== document.body && ![...r.querySelectorAll('input:not([type=radio]):not([type=checkbox])')].some(vis)) r = r.parentElement; return r && r !== document.body ? [...r.querySelectorAll('input:not([type=radio]):not([type=checkbox])')].filter(vis) : null; })()`;
+let heldClip = [];
 const STEPS = {
   // The Mobile view outlives Exit, so a step could read the wrong layout: always start on Desktop.
   // After many runs Edit can open the bar and leave the canvas not editing: leave, reload, enter again.
@@ -206,12 +211,42 @@ const STEPS = {
   // Leaves the page without saving and enters another probe page: does a copied block survive it?
   toPage: async (title) => { pageTitle = title; await exitWithoutSaving().catch((e) => { if (!e.message.includes('not in edit mode')) throw e; }); const o = evalJs(S, 'JSON.stringify(location.origin)'); goto(S, o + '/config/pages'); await pause(6000); booted(); try { await enterEdit(title); } catch { /* an empty page has no editing grid */ } finding.visited = title; await desktop(); },
   hover: (i) => hoverSection(i),
-  hoverBlock: async (i, k) => { const [x, y] = point(i, k); await inFrame(() => mouse(S, 'move', x, y)); await pause(600); },
+  hoverBlock: async (i, k, part) => { const [x, y] = point(i, k, part); await inFrame(() => mouse(S, 'move', x, y)); await pause(600); },
   sectionDrag: async (i, dy) => { const at = evalJs(S, `(() => { ${FRAME} const h = ${SECTION_HANDLE(i)}; if (!h) return JSON.stringify(null); const q = h.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); if (!at) throw new Error('no section handle'); const [x, y] = at; await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x, y + dy], steps: 12, holdMs: 200, mods: [] })); await pause(800); },
   select: async (i, k) => { const [x, y] = point(i, k); await inFrame(() => { mouse(S, 'move', x, y); mouse(S, 'down', x, y); mouse(S, 'up', x, y); }); await pause(800); },
   deselect: async () => { await escape(); },
   pick: (i, k) => select(i, blockId(i, k)),
   add: async (i, type) => { added = await addBlock(i, type); await pause(800); },
+  // Add a block with no scrollIntoView: opens the menu, moves only what o names, reads the frame's scroll and the tile's
+  // place, and presses the tile by the real mouse if it is on top. o.frameBy scrolls the frame, o.menu scrolls the menu's
+  // own scroller until the tile is in it. A tile out of reach or covered is named, and not pressed.
+  addFromMenu: async (i, type, name, o = {}) => {
+    const had = new Set(blockIds(i));
+    await openAddBlock(i);
+    const look = (extra = '') => evalJs(S, `(() => { ${FRAME} const t = [...d.querySelectorAll('div,span,button,li')].filter((x) => x.childElementCount === 0 && x.getBoundingClientRect().width > 0 && !x.closest('.fe-block') && !/label-tag/.test(x.className) && x.textContent.trim() === ${JSON.stringify(type)})[0]; if (!t) return JSON.stringify(null); let sc = t.parentElement; while (sc && sc !== d.body && !(['auto', 'scroll'].includes(W.getComputedStyle(sc).overflowY) && sc.scrollHeight > sc.clientHeight + 1)) sc = sc.parentElement; if (sc === d.body) sc = null; ${extra} const q = t.getBoundingClientRect(), s = sc && sc.getBoundingClientRect(), x = q.left + q.width / 2, y = q.top + q.height / 2, e = d.elementFromPoint(x, y), inView = q.top >= (s ? s.top : 0) && q.bottom <= (s ? s.bottom : W.innerHeight) && q.bottom <= W.innerHeight; const fr = f.getBoundingClientRect(); return JSON.stringify({ frameY: Math.round(W.scrollY), frameH: W.innerHeight, tile: [Math.round(q.top * 10) / 10, Math.round(q.bottom * 10) / 10], scroller: s ? { top: Math.round(s.top), h: Math.round(s.height), scrollTop: Math.round(sc.scrollTop), scrollH: sc.scrollHeight } : null, inView, onTop: !!e && (e === t || t.contains(e) || e.contains(t)), at: [fr.left + x, fr.top + y] }); })()`);
+    const out = finding.reads[name] = { open: look() };
+    if (!out.open) { finding.errors.push(`${name}: no tile ${type}`); await escape(); return; }
+    if (o.frameBy) { evalJs(S, `(() => { ${FRAME} W.scrollBy({ top: ${o.frameBy}, behavior: 'instant' }); return 'true'; })()`); await pause(500); out.frameMoved = look(); }
+    if (o.menu) { out.menuMoved = look(`if (sc) { const q0 = t.getBoundingClientRect(), s0 = sc.getBoundingClientRect(); sc.scrollTo({ top: sc.scrollTop + q0.top - s0.top - s0.height / 2, behavior: 'instant' }); }`); await pause(500); }
+    const now = look(); out.atPress = now;
+    if (!now.inView || !now.onTop) { out.notPressed = now.inView ? 'covered' : 'out of view'; finding.errors.push(`${name}: not pressed, ${out.notPressed}`); await escape(); return; }
+    cdp(S, { op: 'drag', from: now.at, to: now.at, steps: 1, holdMs: 50, mods: [] }); await pause(1800);
+    out.afterFrameY = evalJs(S, `(() => { ${FRAME} return JSON.stringify(Math.round(W.scrollY)); })()`);
+    added = blockIds(i).find((id) => !had.has(id)) || null;
+    if (!added) finding.errors.push(`${name}: no new block`);
+    await pause(800);
+  },
+  // What a ::before says and how it looks, on each element in the frame that matches. Reads only.
+  beforeOf: (name, sel) => { finding.reads[name] = evalJs(S, `(() => { ${FRAME} return JSON.stringify([...d.querySelectorAll(${JSON.stringify(sel)})].map((e) => { const c = W.getComputedStyle(e, '::before'); const q = e.getBoundingClientRect(); return { tag: e.tagName.toLowerCase(), box: [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10), content: c.content, color: c.color, opacity: c.opacity, font: c.fontSize + ' ' + c.fontFamily.slice(0, 40), float: c.float, height: c.height, pointer: c.pointerEvents }; })); })()`); },
+  // A drag from a block's handle, only if what is under the pointer is a handle by its size and resize cursor. Otherwise named, not pressed.
+  handleDrag: async (i, k, part, dx, dy, name) => {
+    const [x, y] = point(i, k, part);
+    const hit = evalJs(S, `(() => { ${FRAME} const e = d.elementFromPoint(${x}, ${y}); if (!e) return JSON.stringify(null); const q = e.getBoundingClientRect(); return JSON.stringify({ cursor: W.getComputedStyle(e).cursor, size: [q.width, q.height] }); })()`);
+    const ok = hit && /resize/.test(hit.cursor) && hit.size[0] <= 34 && hit.size[1] <= 34;
+    finding.reads[name] = { under: hit, pressed: !!ok };
+    if (!ok) { finding.errors.push(`${name}: ${part} handle not on top, not pressed`); return; }
+    await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x + dx, y + dy], steps: 12, holdMs: 200, mods: [] })); await pause(800);
+  },
   panel: (i) => openSectionPanel(i),
   editText: async (i, k) => { point(i, k); await inFrame(() => browser(S, 'dblclick', '#fx-b')); await pause(1000); },
   click: async (label) => { if (!tag(LABEL(label))) throw new Error(`nothing labelled ${label}`); browser(S, 'click', '#fx-target'); await pause(1200); },
@@ -236,6 +271,8 @@ const STEPS = {
   keysFast: async (text) => { cdp(S, { op: 'presses', keys: [...text].map((c) => (c === ' ' ? 'Space' : c)) }); await pause(1500); },
   // Keys with no wait between them, so a Cmd+B is inside one burst of typing.
   keysList: async (keys) => { cdp(S, { op: 'presses', keys }); await pause(300); },
+  // Real keys with an exact gap between them, all in one process.
+  keysGap: async (gapMs, keys) => { cdp(S, { op: 'presses', keys, gapMs }); await pause(300); },
   keys: async (text) => { for (const c of text) browser(S, 'press', c === ' ' ? 'Space' : c); await pause(300); },
   fill: async (label, value) => {
     const ok = tag(`() => { const L = ${JSON.stringify(label)}; const vis = (e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'); const direct = [...document.querySelectorAll('input, textarea')].filter(vis).find((e) => e.getAttribute('aria-label') === L || e.getAttribute('placeholder') === L); if (direct) return direct; const t = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.textContent.trim() === L && vis(e)).pop(); let n = t; for (let u = 0; n && u < 6; u++, n = n.parentElement) { const i = [...n.querySelectorAll('input:not([type=checkbox]):not([type=radio]), textarea')].find(vis); if (i) return i; } return null; }`);
@@ -248,6 +285,9 @@ const STEPS = {
   holdRaw: async (i, k, part, dx, dy) => { const [x, y] = point(i, k, part); held = { x, y, mods: [] }; await inFrame(async () => { mouse(S, 'move', x, y); mouse(S, 'down', x, y); await pause(200); for (let n = 1; n <= 6; n++) { mouse(S, 'move', x + (dx * n) / 6, y + (dy * n) / 6, { buttons: 1 }); await pause(40); } }); await pause(300); },
   // Presses the south-east corner of the selected group, by the union of the selected blocks.
   groupDrag: async (i, dx, dy) => { const at = evalJs(S, `(() => { ${FRAME} const fe = d.querySelectorAll('main#page .fluid-engine')[${i}]; const qs = [...fe.querySelectorAll(':scope > .fe-block[data-is-selected="true"]')].map((b) => b.getBoundingClientRect()); if (qs.length < 2) return JSON.stringify(null); return JSON.stringify([Math.max(...qs.map((q) => q.right)), Math.max(...qs.map((q) => q.bottom))]); })()`); if (!at) throw new Error('no selected group'); const [x, y] = at; await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x + dx, y + dy], steps: 12, holdMs: 200, mods: [] })); await pause(800); },
+  // A synthetic copy's DataTransfer dies with the page, so carry it in this process to another page. Never stored or printed.
+  clipHold: () => { heldClip = evalJs(S, `(() => { const dt = document.getElementById('sqs-site-frame').contentWindow.__fxDt; return JSON.stringify(dt ? [...dt.types].map((t) => [t, dt.getData(t)]) : []); })()`); finding.reads.heldTypes = heldClip.map(([t]) => t); },
+  clipGive: () => evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame').contentWindow; f.__fxDt = new f.DataTransfer(); for (const [t, v] of ${JSON.stringify(heldClip)}) f.__fxDt.setData(t, v); return JSON.stringify(true); })()`),
   // Keeps the page's clipboard calls in memory, in the top window and the site frame, so a Copy cannot reach the machine's clipboard.
   // A copy or paste event with our own DataTransfer, in the frame or the top window. No key press, nothing reaches the machine's clipboard. Logs whether the page took it and the types, never the data.
   synthClip: (type, where = 'frame') => evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame').contentWindow; const w = ${JSON.stringify(where)} === 'top' ? window : f; const d = w.document; f.__fxDt = f.__fxDt || new f.DataTransfer(); const dt = f.__fxDt; const t = d.activeElement && d.activeElement !== d.body ? d.activeElement : d; const ev = new w.ClipboardEvent(${JSON.stringify(type)}, { bubbles: true, cancelable: true, composed: true, clipboardData: dt }); const taken = !t.dispatchEvent(ev); f.__fxClip.log.push(${JSON.stringify(type + ':' + where + ':')} + (taken ? 'taken' : 'not taken') + ':' + [...dt.types].join(',')); return JSON.stringify(true); })()`),
@@ -271,6 +311,9 @@ const STEPS = {
   // Replaces the code in the last visible code editor, as selecting all and typing does. Empty deletes it.
   // Embed data's older editor takes it through its own setValue.
   setCode: async (text) => { const r = evalJs(S, `(() => { const old = [...document.querySelectorAll('.CodeMirror')].filter((x) => x.getBoundingClientRect().width > 0).pop(); if (old && old.CodeMirror) { old.CodeMirror.focus(); old.CodeMirror.setValue(${JSON.stringify(text)}); return JSON.stringify({ ok: true, now: old.CodeMirror.getValue().length }); } const e = [...document.querySelectorAll('.cm-content')].filter((x) => x.getBoundingClientRect().width > 0).pop(); if (!e) return JSON.stringify(null); e.focus(); document.execCommand('selectAll'); const t = ${JSON.stringify(text)}; const ok = t ? document.execCommand('insertText', false, t) : document.execCommand('delete'); return JSON.stringify({ ok, now: e.textContent.length }); })()`); if (!r || !r.ok) throw new Error(`setCode failed ${JSON.stringify(r)}`); await pause(1300); },
+  // A real press or hover on the n-th visible match of a selector outside the page frame, only if it is on top.
+  pressEl: async (sel, n = 0) => { const at = panelAt(sel, n); if (!at.onTop) throw new Error(`${sel} ${n} is covered`); mouse(S, 'move', at.x, at.y); await pause(300); mouse(S, 'down', at.x, at.y); mouse(S, 'up', at.x, at.y); await pause(800); },
+  hoverEl: async (sel, n = 0) => { const at = panelAt(sel, n); if (!at.onTop) throw new Error(`${sel} ${n} is covered`); mouse(S, 'move', at.x, at.y); await pause(1200); },
   pressNamed: async (label) => { if (!tag(LABEL(label))) throw new Error(`nothing labelled ${label}`); const at = evalJs(S, `(() => { const e = document.getElementById('fx-target'); e.scrollIntoView({ block: 'nearest' }); const q = e.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2; const top = document.elementFromPoint(x, y); return JSON.stringify({ x, y, onTop: !!top && (top === e || e.contains(top) || top.contains(e)) }); })()`); if (!at.onTop) throw new Error(`${label} is covered`); mouse(S, 'move', at.x, at.y); await pause(300); mouse(S, 'down', at.x, at.y); mouse(S, 'up', at.x, at.y); await pause(1000); },
   // The first button after a heading with this label, by a real press, only if nothing lies over its middle.
   pressAfter: async (label) => { if (!tag(`() => { const leaf = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && e.textContent.trim() === ${JSON.stringify(label)} && e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')); if (!leaf) return null; const all = [...document.querySelectorAll('button, [role=button]')].filter((e) => e.getBoundingClientRect().width > 0); return all.find((e) => leaf.compareDocumentPosition(e) & 4); }`)) throw new Error(`no button after ${label}`); const at = evalJs(S, `(() => { const e = document.getElementById('fx-target'); e.scrollIntoView({ block: 'nearest' }); const q = e.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2; const top = document.elementFromPoint(x, y); return JSON.stringify({ x, y, onTop: !!top && (top === e || e.contains(top) || top.contains(e)) }); })()`); if (!at.onTop) throw new Error(`something lies over the button after ${label}`); mouse(S, 'move', at.x, at.y); mouse(S, 'down', at.x, at.y); mouse(S, 'up', at.x, at.y); await pause(1000); },
@@ -288,6 +331,8 @@ const STEPS = {
   // Moves the real mouse over the n-th visible match inside the page frame, pressing nothing.
   moveFrame: async (sel, n = 0) => { const at = evalJs(S, `(() => { ${FRAME} const ff = document.getElementById('sqs-site-frame').getBoundingClientRect(); const e = [...d.querySelectorAll(${JSON.stringify(sel)})].filter((x) => x.getBoundingClientRect().width > 0)[${n}]; if (!e) return JSON.stringify(null); e.scrollIntoView({ block: 'nearest' }); const q = e.getBoundingClientRect(); return JSON.stringify({ x: q.left + q.width / 2 + ff.left, y: q.top + q.height / 2 + ff.top }); })()`); if (!at) throw new Error(`no ${sel} ${n}`); mouse(S, 'move', at.x, at.y); await pause(500); },
   // A real press on the n-th visible match inside the page frame, only if it is on top.
+  // A tile of Add a Section: they live in the catalog's own frame, so they go by its data-test, with an on-top check there.
+  pressTile: async (n = 0) => { const at = evalJs(S, `(() => { const i = document.querySelector('[data-test="catalog-body"] iframe'); const d = i.contentDocument, o = i.getBoundingClientRect(); const e = [...d.querySelectorAll('[data-test$="-entity"]')].filter((x) => x.getBoundingClientRect().width > 0)[${n}]; if (!e) return JSON.stringify(null); const q = e.getBoundingClientRect(); const top = d.elementFromPoint(q.left + q.width / 2, q.top + q.height / 2); return JSON.stringify({ x: q.left + q.width / 2 + o.left, y: q.top + q.height / 2 + o.top, onTop: !!top && (top === e || e.contains(top)) }); })()`); if (!at) throw new Error(`no tile ${n}`); if (!at.onTop) throw new Error(`tile ${n} is covered`); mouse(S, 'move', at.x, at.y); await pause(300); mouse(S, 'down', at.x, at.y); mouse(S, 'up', at.x, at.y); await pause(800); },
   pressFrame: async (sel, n = 0) => { const at = evalJs(S, `(() => { ${FRAME} const ff = document.getElementById('sqs-site-frame').getBoundingClientRect(); const e = [...d.querySelectorAll(${JSON.stringify(sel)})].filter((x) => x.getBoundingClientRect().width > 0)[${n}]; if (!e) return JSON.stringify(null); e.scrollIntoView({ block: 'nearest' }); const q = e.getBoundingClientRect(); const top = d.elementFromPoint(q.left + q.width / 2, q.top + q.height / 2); return JSON.stringify({ x: q.left + q.width / 2 + ff.left, y: q.top + q.height / 2 + ff.top, onTop: !!top && (top === e || e.contains(top)) }); })()`); if (!at) throw new Error(`no ${sel} ${n}`); if (!at.onTop) throw new Error(`something lies over ${sel} ${n}`); mouse(S, 'move', at.x, at.y); await pause(300); mouse(S, 'down', at.x, at.y); mouse(S, 'up', at.x, at.y); await pause(900); },
   // Moves the real mouse over a row's n-th input, so hover controls show.
   hoverRow: async (label, n = 0) => { if (!tag(`() => { const f = ${ROWINPUTS(label)}; const e = f && f[${n}]; if (e) e.scrollIntoView({ block: 'center' }); return e; }`)) throw new Error(`no row ${label}`); const at = evalJs(S, `(() => { const q = document.getElementById('fx-target').getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); mouse(S, 'move', at[0], at[1]); await pause(600); },
@@ -335,11 +380,64 @@ const STEPS = {
     }
     finding.reads[name] = out;
   },
+  // Add Block's search matches any part of a hidden string (CAP-U5RULE.json), so its strings can be read back: every letter,
+  // every pair, then each pair grown left and right while its tile stays, then every triple the pairs allow that the grown
+  // strings don't hold, then two strings of a tile joined by a space. Typing only, and it stops if the field loses focus.
+  searchCrawl: async (name, wait = 280) => {
+    const box = `(() => { ${FRAME} for (const D of [d, document]) { const i = [...D.querySelectorAll('input')].find((x) => /search/i.test(x.placeholder || '') && x.getBoundingClientRect().width > 0); if (i) return { i, D }; } return null; })()`;
+    const at = evalJs(S, `(() => { const { i, D } = ${box}; const q = i.getBoundingClientRect(); const o = D === document ? { left: 0, top: 0 } : document.getElementById('sqs-site-frame').getBoundingClientRect(); return JSON.stringify([o.left + q.left + q.width / 2, o.top + q.top + q.height / 2]); })()`);
+    cdp(S, { op: 'drag', from: at, to: at, steps: 1, holdMs: 50, mods: [] }); await pause(400);
+    const seen = new Map();
+    const out = finding.reads[name] = { queries: 0, singles: {}, strings: {}, joined: {}, failedRecheck: [] };
+    const ask = async (w) => {
+      if (seen.has(w)) return seen.get(w);
+      out.queries = seen.size + 1; if (out.queries % 200 === 0) console.error(`searchCrawl: ${out.queries} queries`);
+      cdp(S, { op: 'presses', keys: ['Meta+a', ...w] }); await pause(wait);
+      const r = evalJs(S, `(() => { const { i, D } = ${box}; if (D.activeElement !== i) return JSON.stringify({ lost: true }); let c = i; while (c.parentElement && c.getBoundingClientRect().height < 150) c = c.parentElement; return JSON.stringify({ v: i.value, t: [...c.querySelectorAll('*')].filter((x) => x.childElementCount === 0 && x.tagName !== 'INPUT' && x.getBoundingClientRect().width > 0 && x.textContent.trim()).map((x) => x.textContent.trim()).filter((x) => x !== 'No Results') }); })()`);
+      if (r.lost || r.v !== w) throw new Error(`searchCrawl: the field lost focus or took "${r.v}" at "${w}"`);
+      seen.set(w, r.t);
+      return r.t;
+    };
+    const alphabet = [...'abcdefghijklmnopqrstuvwxyz0123456789-,/._+'];
+    const single = out.singles; for (const c of alphabet) single[c] = await ask(c);
+    const used = alphabet.filter((c) => single[c].length);
+    const pairs = {};
+    for (const a of used) for (const b of used) { if (!single[a].some((t) => single[b].includes(t))) continue; for (const t of await ask(a + b)) (pairs[t] ||= new Set()).add(a + b); }
+    const found = out.strings;
+    const grow = async (t, seed) => {
+      let s = seed, moved = true;
+      while (moved) {
+        moved = false;
+        for (const c of used) { if (pairs[t].has(s.at(-1) + c) && (await ask(s + c)).includes(t)) { s += c; moved = true; break; } }
+        if (moved) continue;
+        for (const c of used) { if (pairs[t].has(c + s[0]) && (await ask(c + s)).includes(t)) { s = c + s; moved = true; break; } }
+      }
+      return s;
+    };
+    const keep = (t, s) => { const l = (found[t] ||= []); if (l.some((x) => x.includes(s))) return; found[t] = l.filter((x) => !s.includes(x)).concat(s); };
+    const holds = (t, g) => (found[t] || []).some((x) => x.includes(g));
+    for (const t of Object.keys(pairs)) for (const g of pairs[t]) if (!holds(t, g)) keep(t, await grow(t, g));
+    for (const t of Object.keys(pairs)) {
+      for (const g of pairs[t]) for (const h of pairs[t]) {
+        if (g[1] !== h[0]) continue;
+        const tri = g + h[1];
+        if (!holds(t, tri) && (await ask(tri)).includes(t)) keep(t, await grow(t, tri));
+      }
+    }
+    const joined = out.joined;
+    for (const t of Object.keys(found)) for (const a of found[t]) for (const c of new Set(found[t].map((x) => x[0]))) if ((await ask(`${a} ${c}`)).includes(t)) (joined[t] ||= []).push(`${a} ${c}`);
+    const check = out.failedRecheck;
+    for (const t of Object.keys(found)) for (const w of found[t]) { cdp(S, { op: 'presses', keys: ['Meta+a', ...w] }); await pause(700); seen.delete(w); if (!(await ask(w)).includes(t)) check.push([t, w]); }
+  },
   // Focus the panel's visible slider and press a real key on it.
   rangeKey: async (key) => { if (!tag(`() => [...document.querySelectorAll('input[type=range]')].find((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'))`)) throw new Error('no slider'); evalJs(S, `(() => { document.getElementById('fx-target').focus(); return 'true'; })()`); browser(S, 'press', key); await pause(500); },
   // A real move onto a named element, nothing pressed.
   hoverNamed: async (label) => { if (!tag(LABEL(label))) throw new Error(`nothing labelled ${label}`); const at = evalJs(S, `(() => { const q = document.getElementById('fx-target').getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); mouse(S, 'move', at[0], at[1]); await pause(600); },
   // Section i's Add Section buttons and outline, frame by frame, by the page's own clock, as the pointer comes on and goes off.
+  moveAt: (x, y) => { mouse(S, 'move', x, y); },
+  frameTo: async (y) => { evalJs(S, `(() => { document.getElementById('sqs-site-frame').contentWindow.scrollTo({ top: ${y}, behavior: 'instant' }); return 'true'; })()`); await pause(300); },
+  outlineStart: () => { evalJs(S, `(() => { ${FRAME} const T = window.__ol = { t0: performance.now(), seen: [], stop: false }; const tick = () => { if (T.stop) return; const row = [...d.querySelectorAll('.sqs-section-outline')].map((l) => { const c = W.getComputedStyle(l); return [Math.round(l.getBoundingClientRect().top), c.borderTopColor.replace(/rgba?\\(|\\)/g, ''), l.classList.contains('show-section-outline') ? 1 : 0, c.display === 'none' ? 0 : 1]; }); const key = JSON.stringify(row); if (key !== T.key) { T.key = key; T.seen.push([Math.round(performance.now() - T.t0), row]); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`); },
+  outlineStop: (name) => { const seen = evalJs(S, `(() => { const T = window.__ol; T.stop = true; return JSON.stringify(T.seen); })()`); finding.reads[name] = { columns: ['ms', 'each outline: top, border color, has the show class, displayed'], seen }; },
   fadeWatch: async (i, name) => {
     const sec = evalJs(S, `(() => { ${FRAME} const fr = f.getBoundingClientRect(), s = d.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return JSON.stringify([fr.left + s.left + s.width / 2, fr.top + s.top + s.height / 2]); })()`);
     const off = [800, 28];
@@ -351,6 +449,19 @@ const STEPS = {
     mouse(S, 'move', off[0], off[1]); await pause(900);
     const on = await watch(sec); const away = await watch(off);
     finding.reads[name] = { columns: ['ms', 'Add Section opacity', 'outline opacity', 'outline border', 'Add Section top', 'its document'], on, away };
+  },
+  // Every element whose text is Add Section, in both documents, each frame while the mouse goes on and off a section. Reads only.
+  addSectionWatch: async (i, name) => {
+    const sec = evalJs(S, `(() => { ${FRAME} const fr = f.getBoundingClientRect(), s = d.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return JSON.stringify([fr.left + s.left + s.width / 2, fr.top + s.top + s.height / 2]); })()`);
+    const off = [800, 28];
+    const watch = async (to) => {
+      evalJs(S, `(() => { ${FRAME} const T = window.__asw = { t0: performance.now(), seen: [], stop: false, last: '' }; const eff = (e, V) => { let o = 1, v = 'visible', dp = 'block'; for (let x = e; x && x.nodeType === 1; x = x.parentElement) { const c = V.getComputedStyle(x); o *= Number(c.opacity); if (c.visibility !== 'visible') v = c.visibility; if (c.display === 'none') dp = 'none'; } return [Math.round(o * 1000) / 1000, v, dp]; }; const tick = () => { if (T.stop) return; const rows = []; for (const [D, V, tag] of [[document, window, 'top'], [d, W, 'frame']]) for (const x of [...D.querySelectorAll('button, [role=button], a, div, span')].filter((e) => e.childElementCount <= 2 && e.textContent.trim() === 'Add Section')) { const q = x.getBoundingClientRect(); if (!q.width) continue; const c = V.getComputedStyle(x); rows.push([tag, x.tagName.toLowerCase(), Math.round(q.left), Math.round(q.top), ...eff(x, V), c.transform === 'none' ? '' : c.transform, c.transition.slice(0, 60)]); } const key = JSON.stringify(rows); if (key !== T.last) { T.last = key; T.seen.push([Math.round(performance.now() - T.t0), rows]); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
+      mouse(S, 'move', to[0], to[1]); await pause(1000);
+      return evalJs(S, `(() => { const T = window.__asw; T.stop = true; return JSON.stringify(T.seen); })()`);
+    };
+    mouse(S, 'move', off[0], off[1]); await pause(900);
+    const on = await watch(sec); const away = await watch(off);
+    finding.reads[name] = { columns: ['ms', 'each element: document, tag, left, top, opacity with its parents, visibility, display, transform, transition'], on, away };
   },
   // Scrolls the frame in steps with the section panel open, reading the panel's top and the frame's scroll each step.
   scrollWalk: async (name, dy, n, wait = 250) => {
@@ -366,6 +477,7 @@ const STEPS = {
   dragAt: async (x, y, x2, y2) => { cdp(S, { op: 'drag', from: [x, y], to: [x2, y2], steps: 12, holdMs: 200, mods: [] }); await pause(1000); },
   drag: async (i, k, part, dx, dy, o = {}) => { const [x, y] = point(i, k, part); await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x + dx, y + dy], steps: 12, holdMs: 200, mods: [], pointerType: o.pointerType })); await pause(800); },
   touch: async (i, k, part, dx, dy, o = {}) => { const [x, y] = point(i, k, part); await inFrame(() => cdp(S, { op: 'touch', from: [x, y], to: [x + dx, y + dy], steps: dx || dy ? 12 : 0, holdMs: o.holdMs || 0 })); await pause(1000); },
+  pasteHere: async (i, k, html) => { const id = blockId(i, k); evalJs(S, `(async () => { ${FRAME} const pm = ${BLOCK(i, id)}.querySelector('.ProseMirror[contenteditable=true]'); if (!pm) return JSON.stringify('no editor'); const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(html)}); dt.setData('text/plain', ${JSON.stringify(html.replace(/<[^>]+>/g, ' '))}); pm.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); await new Promise((res) => setTimeout(res, 400)); return 'true'; })()`); await pause(500); },
   pasteMid: async (i, k, html) => { const id = blockId(i, k); evalJs(S, `(async () => { ${FRAME} const pm = ${BLOCK(i, id)}.querySelector('.ProseMirror[contenteditable=true]'); if (!pm) return JSON.stringify('no editor'); pm.focus(); const w = d.createTreeWalker(pm, 4); const t = w.nextNode(); const r = d.createRange(); if (t) r.setStart(t, Math.floor(t.length / 2)); else r.setStart(pm, 0); r.collapse(true); const s = W.getSelection(); s.removeAllRanges(); s.addRange(r); await new Promise((res) => setTimeout(res, 300)); const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(html)}); dt.setData('text/plain', ${JSON.stringify(html.replace(/<[^>]+>/g, ' '))}); pm.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); await new Promise((res) => setTimeout(res, 400)); return 'true'; })()`); await pause(500); },
   // Stamps in the page, for gaps as they really were: each key, each letter, and each press on the bar.
   stamp: (i, k) => { const id = blockId(i, k); evalJs(S, `(() => { ${FRAME} window.__fxStamps = []; const at = (what) => window.__fxStamps.push([what, Date.now()]); const pm = ${BLOCK(i, id)}.querySelector('.ProseMirror[contenteditable=true]'); pm.addEventListener('input', () => at('input'));
@@ -385,7 +497,7 @@ const STEPS = {
 };
 
 // These don't act on the page, or are how it gets there.
-const NO_PAGE_NEEDED = new Set(['enter', 'toPage', 'exit', 'pause', 'window', 'frame', 'unframe']);
+const NO_PAGE_NEEDED = new Set(['enter', 'toPage', 'exit', 'pause', 'window', 'frame', 'unframe', 'moveAt']);
 const wrongPage = () => { const at = evalJs(S, `(() => { ${FRAME} return JSON.stringify(d.location.pathname); })()`); return at === pathOf(pageTitle) ? null : at; };
 try {
   for (const [op, ...a] of recipe.steps) {

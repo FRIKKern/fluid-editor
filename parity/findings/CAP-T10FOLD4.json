@@ -1,0 +1,812 @@
+{
+  "item": "CAP-T10FOLD4",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: which text shows a chevron in each Mode of a Code block",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "clickIf",
+      "Expand"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "HTML"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "CSS"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "a {\n  color: red;\n}\nb {\n  c: d;\n}"
+    ],
+    [
+      "pause",
+      450
+    ],
+    [
+      "read",
+      "CSS",
+      {
+        "panelCss": ".cm-foldGutter .cm-gutterElement span"
+      }
+    ],
+    [
+      "hoverEl",
+      ".cm-foldGutter span[title=\"Fold line\"]",
+      0
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "read",
+      "CSS hover",
+      {
+        "has": [
+          "Fold line"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "CSS"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "JavaScript"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "function f() {\n  return [\n    1,\n  ];\n}\nconst a = 1;"
+    ],
+    [
+      "pause",
+      450
+    ],
+    [
+      "read",
+      "JavaScript",
+      {
+        "panelCss": ".cm-foldGutter .cm-gutterElement span"
+      }
+    ],
+    [
+      "hoverEl",
+      ".cm-foldGutter span[title=\"Fold line\"]",
+      0
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "read",
+      "JavaScript hover",
+      {
+        "has": [
+          "Fold line"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "JavaScript"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Plain Text"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "a\nb\n\nc\nd"
+    ],
+    [
+      "pause",
+      450
+    ],
+    [
+      "read",
+      "Plain Text",
+      {
+        "panelCss": ".cm-foldGutter .cm-gutterElement span"
+      }
+    ],
+    [
+      "hoverEl",
+      ".cm-foldGutter span[title=\"Fold line\"]",
+      0
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "read",
+      "Plain Text hover",
+      {
+        "has": [
+          "Fold line"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Plain Text"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Markdown"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "# a\nb\nc\n# d"
+    ],
+    [
+      "pause",
+      450
+    ],
+    [
+      "read",
+      "Markdown",
+      {
+        "panelCss": ".cm-foldGutter .cm-gutterElement span"
+      }
+    ],
+    [
+      "hoverEl",
+      ".cm-foldGutter span[title=\"Fold line\"]",
+      0
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "read",
+      "Markdown hover",
+      {
+        "has": [
+          "Fold line"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Markdown"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "HTML"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "<div>\n  <p>\n    x\n  </p>\n</div>"
+    ],
+    [
+      "pause",
+      450
+    ],
+    [
+      "read",
+      "HTML",
+      {
+        "panelCss": ".cm-foldGutter .cm-gutterElement span"
+      }
+    ],
+    [
+      "hoverEl",
+      ".cm-foldGutter span[title=\"Fold line\"]",
+      0
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "read",
+      "HTML hover",
+      {
+        "has": [
+          "Fold line"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "CSS": {
+      "panelCss": [
+        {
+          "cls": "",
+          "text": "›",
+          "box": [
+            385,
+            442,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Unfold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "",
+          "text": "›",
+          "box": [
+            403,
+            336.5,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Unfold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "",
+          "text": "⌄",
+          "box": [
+            403,
+            347.5,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Fold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "",
+          "text": "⌄",
+          "box": [
+            403,
+            413.5,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Fold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "CSS hover": {
+      "has": {
+        "Fold line": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "JavaScript": {
+      "panelCss": [
+        {
+          "cls": "",
+          "text": "›",
+          "box": [
+            385,
+            442,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Unfold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "",
+          "text": "›",
+          "box": [
+            403,
+            336.5,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Unfold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "",
+          "text": "⌄",
+          "box": [
+            403,
+            347.5,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Fold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "",
+          "text": "⌄",
+          "box": [
+            403,
+            369.5,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Fold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "JavaScript hover": {
+      "has": {
+        "Fold line": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Plain Text": {
+      "panelCss": [
+        {
+          "cls": "",
+          "text": "›",
+          "box": [
+            385,
+            442,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Unfold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "",
+          "text": "›",
+          "box": [
+            403,
+            336.5,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Unfold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Plain Text hover": {
+      "has": {
+        "Fold line": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Markdown": {
+      "panelCss": [
+        {
+          "cls": "",
+          "text": "›",
+          "box": [
+            385,
+            442,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Unfold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "",
+          "text": "›",
+          "box": [
+            403,
+            336.5,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Unfold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "",
+          "text": "⌄",
+          "box": [
+            403,
+            347.5,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Fold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "",
+          "text": "⌄",
+          "box": [
+            403,
+            369.5,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Fold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Markdown hover": {
+      "has": {
+        "Fold line": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "HTML": {
+      "panelCss": [
+        {
+          "cls": "",
+          "text": "›",
+          "box": [
+            385,
+            442,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Unfold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "",
+          "text": "›",
+          "box": [
+            403,
+            336.5,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Unfold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "",
+          "text": "⌄",
+          "box": [
+            403,
+            347.5,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Fold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "",
+          "text": "⌄",
+          "box": [
+            403,
+            369.5,
+            10.4,
+            16
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "Fold line",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "HTML hover": {
+      "has": {
+        "Fold line": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "hoverEl [\".cm-foldGutter span[title=\\\"Fold line\\\"]\",0]: nothing at .cm-foldGutter span[title=\"Fold line\"] 0"
+  ],
+  "leftDirty": "exit failed: exitWithoutSaving: press: covered. Still in edit mode, nothing saved.",
+  "answer": "The Expand view doesn't carry the panel's fold; back in the panel it's still folded. Code block modes: CSS chevrons on { blocks, JavaScript on { and [ openers, Markdown as CAP-T10FOLD3.json, HTML on elements of several lines, Plain Text none (the one error is the hover looking for that chevron, which is the answer). This capture's exit failed: the Code Editor view covered Exit, so it left edit mode unsaved by a later step. Nothing was saved."
+}

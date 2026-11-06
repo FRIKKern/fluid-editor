@@ -1058,10 +1058,7 @@
   },
   "errors": [],
   "leftDirty": true,
-  "answer": "From 12 lines in 12 rows, straight to each smaller count: 11:10, 10:9, 9:8, 8:8, 7:7, 6:6, 5:5, 4:4, 3:3, 2:2, 1:1. Each gives up ceil((fall in content height + 9) / 41.1) rows, which fits all 11, and pulled tall blocks too (CAP-T10PULL). Walking down one line at a time gives 10,10,8,8,6,6,4,4,2,2,1: a block its content overruns doesn't follow that rule, and I found no rule for it. Inferred from these readings, not read from any code.",
-  "ours": "Ours goes to what the content needs: 11:11, 10:10, 9:9, and the walk 11,10,9,8,7,6,5,4,3,2,1.",
-  "differs": [
-    "12 to 11, 10, 9: oracle one row fewer",
-    "the walk: oracle 10,10,8,8,6,6,4,4,2,2,1; ours one row per line"
-  ]
+  "answer": "From 12 lines in 12 rows, straight to each smaller count: 11:10, 10:9, 9:8, 8:8, 7:7, 6:6, 5:5, 4:4, 3:3, 2:2, 1:1. Each gives up ceil((fall in content height + 9) / 41.1) rows, which fits all 11, and pulled tall blocks too (CAP-T10PULL). Walking down one line at a time gives 10,10,8,8,6,6,4,4,2,2,1: a block its content overruns doesn't follow that rule, and I found no rule for it then. CAP-T10FRESH.json's rule covers it: a fall gives up rows only if the block has more than it needs, and CAP-T10WALK.json reads 73 more steps by it. Inferred from these readings, not read from any code.",
+  "ours": "When read: 11:11, 10:10, 9:9, and the walk 11,10,9,8,7,6,5,4,3,2,1. Since built: ours follows the rule and matches CAP-T10WALK.json at all 73 reads.",
+  "differs": []
 }

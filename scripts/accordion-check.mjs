@@ -131,6 +131,97 @@ goto(S, `${BASE}/page.html?saved`); await pause(1500);
 const pub = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const lis = [...document.querySelectorAll('.accordion-item')], t = (i) => lis[i].querySelector('button'), shown = () => lis.map((l) => getComputedStyle(l.querySelector('.accordion-item__dropdown')).display === 'block'); t(0).click(); await sleep(50); const a = shown(); t(1).click(); await sleep(50); const b = shown(); t(1).click(); await sleep(50); return JSON.stringify({ a, b, c: shown(), n: lis.length }); })()`);
 add('Published titles toggle', pub.n === 3 && pub.a.join() === 'true,false,false' && pub.b.join() === 'false,true,false' && pub.c.join() === 'false,false,false', JSON.stringify(pub));
 
+// Panel edits and the rows, both views, with what is below (CAP-ACCPHONE*.json), and the toolbar (CAP-ACCBAR.json).
+goto(S, `${BASE}/index.html`); await pause(1500);
+const FIND = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads;
+const P1 = FIND('CAP-ACCPHONE'), P2 = FIND('CAP-ACCPHONE2'), P3 = FIND('CAP-ACCPHONE3'), P5 = FIND('CAP-ACCPHONE5'), P6 = FIND('CAP-ACCPHONE6'), BAR = FIND('CAP-ACCBAR');
+const Q = (body) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const panel = document.getElementById('block-panel'), fr = document.getElementById('site-frame'), d = fr.contentDocument; const blocks = () => fe.model.sections[0].blocks; const acc = () => blocks().find((b) => b.type === 'accordion'); const accEl = () => d.querySelector('.fe-block[data-block-id="' + acc().id + '"]'); ${body} })()`);
+const pair = (r) => JSON.stringify((r.stack || []).map((b) => [b.desktop, b.phone]));
+const stack = () => JSON.stringify(Q(`return JSON.stringify([acc(), ...blocks().filter((b) => b !== acc())].map((b) => [b.layout.desktop.area.join('/'), b.layout.mobile.area.join('/')]));`));
+const height = () => Q(`return JSON.stringify(accEl().getBoundingClientRect().height);`);
+// A new Accordion, a Shape after it; with `below` the Shape is where the read's was, 10/2/16/8 on 15 rows.
+const start = async (bp, below) => { Q(`fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 2 }, phoneFollows: true, blocks: [] }] }); await sleep(200); fe.addBlock('s', 'Accordion'); await sleep(150); fe.addBlock('s', 'Shape'); await sleep(250); ${below ? `const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks[1].layout.desktop.area = [10, 2, 16, 8]; m.sections[0].rows.desktop = 15; fe.load(m); await sleep(250);` : ''} fe.setBp('${bp}'); await sleep(400); return 'true';`); };
+const openPanel = () => Q(`fe.select('s', acc().id); await sleep(150); if (panel.hidden) document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); panel.querySelector('[data-btab="Content"]')?.click(); await sleep(200); return 'true';`);
+const pressAcc = async (act) => { Q(`panel.querySelector('[data-acc="${act}"]').click(); await sleep(450); return 'true';`); };
+// Real input, as the toolbar hides with a panel open: Escape twice, then a press on the block.
+const pick = async () => { browser(S, 'press', 'Escape'); await pause(120); browser(S, 'press', 'Escape'); await pause(120); const c = Q(`const f = accEl().getBoundingClientRect(), o = fr.getBoundingClientRect(); return JSON.stringify([o.left + f.left + f.width / 2, o.top + f.top + f.height / 2]);`); mouse(S, 'move', c[0], c[1]); mouse(S, 'down', c[0], c[1], { buttons: 1 }); await pause(30); mouse(S, 'up', c[0], c[1]); await pause(300); };
+const BAR_LABELS = ['Edit', 'Align Vertically', 'Pin', 'Move Up', 'Move Down', 'Duplicate', 'Remove'];
+const theirs = (r, min) => { const l = r.controls.filter((c) => c.box[0] > min && BAR_LABELS.includes(c.label)).map((c) => [c.label, c.box[0]]); return JSON.stringify(l.map((x) => [x[0], Math.round((x[1] - l[0][1]) * 10) / 10])); };
+const ours = () => JSON.stringify(Q(`const l = [...document.querySelectorAll('#block-toolbar > .tb-btn')].map((b) => [b.getAttribute('aria-label'), b.getBoundingClientRect().left]); return JSON.stringify(l.map((x) => [x[0], Math.round((x[1] - l[0][1]) * 10) / 10]));`));
+
+await start('mobile');
+add('Phone: new, 286 high', near(height(), P1['phone, new'].gridEls[0].box[3], 1), height());
+await openPanel(); await pressAcc('add');
+add('Phone Add Item moves what is below', stack() === pair(P2['phone, Add Item']), stack());
+add('Phone Add Item: 409 high', near(height(), 409, 1), height());
+await start('mobile'); await openPanel(); await pressAcc('del:2');
+add('Phone Delete: 5 rows stay', stack() === pair(P5['phone, 2 items']), stack());
+await pressAcc('open:0');
+Q(`const t = panel.querySelector('[data-content="accTitle"]'); t.value = 'A rather long new title for this first accordion item, to run onto more lines than before and more'; t.dispatchEvent(new Event('input', { bubbles: true })); t.dispatchEvent(new Event('change', { bubbles: true })); await sleep(450); return 'true';`);
+add('Phone, then a long title', stack() === pair(P5['phone, long title']), stack());
+await start('desktop'); await openPanel(); await pressAcc('add');
+add('Desktop Add Item: phone stays', stack().startsWith('[["1/2/12/10","1/2/6/10"]') && P3['desktop, Add Item'].stack[0].desktop === '1/2/12/10', stack());
+add('Desktop Add Item: 441 high', near(height(), P3['desktop, Add Item'].gridEls[0].box[3], 1), height());
+await start('desktop', true);
+add('A Shape below: the start', stack() === pair(P6.start), stack());
+await openPanel(); await pressAcc('add');
+add('Desktop Add Item moves it', stack() === pair(P6['Add Item']), stack());
+add('The section grows, 18 rows', Q(`return JSON.stringify(fe.model.sections[0].rows.desktop);`) === P6['Add Item'].section.rows, Q(`return JSON.stringify(fe.model.sections[0].rows.desktop);`));
+await pressAcc('del:3');
+add('Delete moves it back', stack() === pair(P6['Delete it']), stack());
+add('The section is 15 rows again', Q(`return JSON.stringify(fe.model.sections[0].rows.desktop);`) === P6['Delete it'].section.rows, Q(`return JSON.stringify(fe.model.sections[0].rows.desktop);`));
+Q(`fe.undo(); await sleep(300); return 'true';`);
+add('One undo for edit and move', stack() === pair(P6['Add Item']), stack());
+// Where the other block is: lower in other columns, overlapping, at the same row, above (CAP-ACCBELOW*.json). A step shows every
+// block as it read, in the read's order.
+const seed = (rows, shape, accRow) => Q(`fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 2 }, phoneFollows: true, blocks: [] }] }); await sleep(200); fe.addBlock('s', 'Accordion'); await sleep(150); fe.addBlock('s', 'Shape'); await sleep(250); const m = JSON.parse(JSON.stringify(fe.model)), s = m.sections[0], a = s.blocks[0], o = s.blocks[1]; o.layout.desktop.area = ${JSON.stringify(shape)}; if (${accRow} > 1) a.layout.desktop.area = [${accRow}, 2, ${accRow + 8}, 10]; s.rows.desktop = ${rows}; fe.load(m); await sleep(300); return 'true';`);
+const areas = () => JSON.stringify(Q(`return JSON.stringify([...blocks()].map((b) => [b.type, b.layout.desktop.area.join('/')]).sort());`));
+const wantAreas = (r, types) => JSON.stringify(r.stack.map((b, k) => [types[k], b.desktop]).sort());
+for (const [file, accAt, shape, rows, accRow] of [['CAP-ACCBELOW', 0, [10, 12, 16, 18], 15, 1], ['CAP-ACCBELOW2', 0, [5, 6, 11, 12], 10, 1], ['CAP-ACCBELOW3', 0, [1, 12, 7, 18], 8, 1], ['CAP-ACCBELOW4', 1, [1, 6, 7, 12], 10, 3]]) {
+  const R = FIND(file), types = accAt ? ['shape', 'accordion'] : ['accordion', 'shape'], secRows = () => Q(`return JSON.stringify(fe.model.sections[0].rows.desktop);`);
+  seed(rows, shape, accRow);
+  add(`${file}: the start`, areas() === wantAreas(R.start, types), areas());
+  await openPanel(); await pressAcc('add');
+  add(`${file}: Add Item`, areas() === wantAreas(R['Add Item'], types) && secRows() === R['Add Item'].section.rows, `${areas()} ${secRows()}`);
+  await pressAcc('del:3');
+  add(`${file}: Delete`, areas() === wantAreas(R['Delete it'], types) && secRows() === R['Delete it'].section.rows, `${areas()} ${secRows()}`);
+}
+// A long title on the phone, then Escape or Back (CAP-ACCPHONE7.json to CAP-ACCPHONE10.json).
+const LONG = 'A rather long new title for this first accordion item, to run onto more lines than before and more';
+const longTitle = () => Q(`const t = panel.querySelector('[data-content="accTitle"]'); t.value = '${LONG}'; t.dispatchEvent(new Event('input', { bubbles: true })); t.dispatchEvent(new Event('change', { bubbles: true })); await sleep(450); return 'true';`);
+const esc = async () => { browser(S, 'press', 'Escape'); await pause(400); };
+const P7 = FIND('CAP-ACCPHONE7'), P8 = FIND('CAP-ACCPHONE8'), P9 = FIND('CAP-ACCPHONE9'), P10 = FIND('CAP-ACCPHONE10');
+await start('mobile'); await openPanel(); await pressAcc('open:0'); longTitle();
+add('Long title, 3 items', stack() === pair(P7['long title']), stack());
+await esc();
+add('Then Escape gives rows back', stack() === pair(P7['then Escape']), stack());
+add('Then 388 high, rows stretched', near(height(), 25.3 * 11 + 110, 2), height());
+Q(`fe.setBp('desktop'); await sleep(400); fe.setBp('mobile'); await sleep(400); return 'true';`);
+add('The views keep it', stack() === pair(P7['phone again']), stack());
+await start('mobile'); await openPanel(); await pressAcc('del:2'); await pressAcc('open:0'); longTitle();
+add('Long title, 2 items', stack() === pair(P8['long title']), stack());
+await esc();
+add('Then Escape, 2 items', stack() === pair(P8['then Escape']), stack());
+await start('mobile'); await openPanel(); await pressAcc('open:0'); longTitle(); await pressAcc('back');
+add('Back keeps the rows', stack() === pair(P9['then Back']), stack());
+await esc();
+add('Back, then Escape keeps them', stack() === pair(P9['then Escape']), stack());
+await start('mobile'); await openPanel(); await pressAcc('add'); await pressAcc('open:0');
+add('Add Item, an item opened', stack() === pair(P10['item view']), stack());
+await esc();
+add('Escape with no edit keeps them', stack() === pair(P10['then Escape']), stack());
+// The toolbar.
+await start('desktop', true); await pick();
+add('Desktop bar and spacing', ours() === theirs(BAR['desktop bar'], 90), ours());
+await start('mobile'); await pick();
+add('Phone bar and spacing', ours() === theirs(P1['phone, selected'], 600), ours());
+// 3 items in 11 rows, as the read: the block made taller, content 301 in 441.
+await start('desktop'); Q(`const m = JSON.parse(JSON.stringify(fe.model)); const s = m.sections[0], o = s.blocks.find((b) => b.type === 'accordion'); o.layout.desktop.area = [1, 2, 12, 10]; s.blocks = [o]; s.rows.desktop = 11; fe.load(m); await sleep(300); return 'true';`); await pick();
+const before = Q(`return JSON.stringify(accEl().querySelector('.accordion-items-container').getBoundingClientRect().top);`);
+Q(`document.querySelector('#block-toolbar [data-tb="align"]').click(); await sleep(200); document.querySelector('[data-tb="valign:flex-end"]').click(); await sleep(300); return 'true';`);
+const after = Q(`return JSON.stringify(accEl().querySelector('.accordion-items-container').getBoundingClientRect().top);`);
+add('Align Bottom on 11 rows: 140.1 down', near(after - before, 140.1, 1), after - before);
+
 console.log(`Accordion: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/accordion-check.json', import.meta.url), `${JSON.stringify({ check: 'accordion block', pass, total, results }, null, 2)}\n`);
 if (!total || pass !== total) process.exitCode = 1;

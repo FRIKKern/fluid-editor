@@ -178,6 +178,8 @@ svg.sqs-shape:not(.is-square) { position: absolute; inset: 0; }
 /* Absolute, so the square adds nothing to the row height (rows grow to fit content). */
 .sqs-block-shape .sqs-block-content { position: relative; height: 100%; }
 .sqs-shape-block-outer-container { width: 100%; height: 100%; }
+@media (min-width: 768px) { .sqs-shape-block-container-system_mobile { display: none !important; } }
+@media (max-width: 767px) { .sqs-shape-block-container-system_desktop:has(+ .sqs-shape-block-container-system_mobile) { display: none !important; } }
 .sqs-shape-block-outer-container:has(> .is-contained) { container-type: size; }
 .fe-block .sqs-shape-block-container.is-contained { display: flex; flex-direction: row; align-items: center; justify-content: center; width: 100%; height: 100%; }
 .sqs-shape.is-square { flex: none; width: min(100cqw, calc(100cqh * var(--shape-ratio, 1))); height: auto; aspect-ratio: var(--shape-ratio, 1); }
@@ -409,8 +411,9 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 /* Form block (T9), sizes measured on the oracle Contact form */
 .fe-form { margin: 0; }
 .fe-form .form-item { margin: 0 0 20px; padding: 0; border: 0; min-width: 0; }
+.fe-form .req.req--alone.req--alone { margin-left: 0; }
 .fe-form legend { padding: 0 0 8px; font-size: 16px; line-height: 22.4px; }
-.fe-form label.title { display: block; font-size: 16px; line-height: 22.4px; padding-bottom: 8px; }
+.fe-form label.title { display: block; min-height: 30.4px; font-size: 16px; line-height: 22.4px; padding-bottom: 8px; } /* an emptied label keeps its line; a legend does not (FORMFIELDS.json, emptyLabel) */
 .fe-form label.caption { display: block; padding-bottom: 4px; }
 /* Name sub-labels and checkbox labels use the small text size (value 0.9). */
 .fe-form .caption-row, .fe-form .form-checkbox .option, .fe-form .description, .fe-form .caption-text, .fe-form .likert-options .option {
@@ -463,7 +466,7 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 /* The circle: 1 at rest, 2 inward on a hover, 2 in the accent with focus, with or without a hover. */
 .fe-form .form-checkbox input, .fe-form .form-signup input, .fe-form .likert-options input { transition: outline-width .075s cubic-bezier(.33, 1, .68, 1), outline-offset .075s cubic-bezier(.33, 1, .68, 1), outline-color .2s cubic-bezier(.33, 1, .68, 1); }
 .fe-form .form-checkbox input:hover, .fe-form .form-signup input:hover, .fe-form .likert-options input:hover { outline-width: 2px; outline-offset: -2px; }
-.fe-form .form-checkbox input:focus, .fe-form .form-signup input:focus, .fe-form .likert-options input:focus { outline: 2px solid hsla(var(--accent-hsl), 1); outline-offset: -2px; }
+.fe-form .form-checkbox input:focus, .fe-form .form-signup input:focus, .fe-form .likert-options input:focus { outline: 2px solid var(--form-ring); outline-offset: -2px; }
 .fe-form .form-signup { margin-top: 6px; font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); line-height: 1.4em; }
 .fe-form .form-signup label { display: inline-flex; align-items: center; gap: 11px; }
 .fe-form label.title .req { margin-left: 8.768px; line-height: 1; font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); opacity: .7; }
@@ -477,7 +480,9 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .form-submission-text { margin-top: 20px; }
 .form-submission-text--align-center { text-align: center; }
 .form-submission-text--align-right { text-align: right; }
-.form-submission-text p { margin: 16px 0; }
+.form-submission-text p { margin: 16px 0; white-space: pre-wrap; }
+.form-submission-text h1, .form-submission-text h2, .form-submission-text h3, .form-submission-text h4 { margin: 32px 0; white-space: pre-wrap; }
+.form-submission-text pre { margin: 16px 0; font-family: monospace, serif; font-size: 16px; line-height: 22.4px; }
 .form-wrapper.is-post-view > .form-post, .form-wrapper.is-submitted > .form-post { display: flex; }
 .form-wrapper.is-post-view > .fe-form, .form-wrapper.is-submitted > .fe-form { visibility: hidden; }
 /* The oracle's view leaves the button's word showing, and only that. */
@@ -549,6 +554,7 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 @media screen and (max-width: 767px) and (orientation: portrait) {
   .lb-word--desktop, .form-views--phone-lightbox > .form-wrapper, .form-views--desktop-lightbox > .lightbox-handle-wrapper { display: none; }
   .lb-word--phone { display: inline; }
+  .form-lightbox-box--phone { --lb-bg: var(--lb-bg-phone); --lb-ink: var(--lb-ink-phone); }
   .form-views--phone-lightbox > .lightbox-handle-wrapper { display: block; }
   .form-views--desktop-lightbox > .form-wrapper { display: grid; }
   .lightbox-handle-wrapper--phone-left, .fe-form .form-button-wrapper--phone-left { text-align: left; }
@@ -618,6 +624,16 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .page-section[data-section-theme="black-bold"] { --section-bg: hsla(var(--black-hsl), 1); --heading-color: hsla(var(--safeLightAccent-hsl), 1); --section-ink: hsla(var(--white-hsl), 1); --button-bg: hsla(var(--safeLightAccent-hsl), 1); --button-ink: hsla(var(--safeInverseLightAccent-hsl), 1); }
 .page-section[data-section-theme="bright"] { --section-bg: hsla(var(--accent-hsl), 1); --heading-color: hsla(var(--safeInverseAccent-hsl), 1); --section-ink: hsla(var(--safeInverseAccent-hsl), 1); --button-bg: hsla(var(--safeInverseAccent-hsl), 1); --button-ink: hsla(var(--accent-hsl), 1); }
 .page-section[data-section-theme="bright-inverse"] { --section-bg: hsla(var(--safeInverseAccent-hsl), 1); --heading-color: hsla(var(--accent-hsl), 1); --section-ink: hsla(var(--accent-hsl), 1); --button-bg: hsla(var(--accent-hsl), 1); --button-ink: hsla(var(--safeInverseAccent-hsl), 1); }
+/* A form's focus ring is the accent on eight themes. On Bright 1 and 2, where the accent is the page's own ink or ground, it is another palette color (FORMFIELDS.json, followUp.marks). */
+/* A new Shape's color and stroke follow the theme (CAP-T6THEME.json). Which palette color each is, is inferred from its value. */
+.page-section { --shape-theme-fill: hsla(var(--white-hsl), 1); --shape-theme-stroke: hsla(var(--black-hsl), 1); }
+.page-section[data-section-theme="white"], .page-section[data-section-theme="white-bold"] { --shape-theme-fill: hsla(var(--lightAccent-hsl), 1); }
+.page-section[data-section-theme="bright-inverse"] { --shape-theme-fill: hsla(var(--accent-hsl), 1); }
+.page-section[data-section-theme="bright"] { --shape-theme-fill: hsla(var(--black-hsl), 1); }
+.page-section[data-section-theme="dark"], .page-section[data-section-theme="dark-bold"] { --shape-theme-stroke: hsla(var(--accent-hsl), 1); }
+.page-section { --form-ring: hsla(var(--accent-hsl), 1); }
+.page-section[data-section-theme="bright"] { --form-ring: hsla(var(--darkAccent-hsl), 1); }
+.page-section[data-section-theme="bright-inverse"] { --form-ring: hsla(var(--lightAccent-hsl), 1); }
 .page-section h1, .page-section h2, .page-section h3, .page-section h4 { color: var(--heading-color); }
 .page-section .sqs-block-button-element, .page-section .form-submit { background: var(--button-bg); color: var(--button-ink); }
 
@@ -643,7 +659,8 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 
 /* A video with a file (parity/findings/VIDEOPLAYER.json): the player keeps its ratio at the top of
    the block whatever Align Vertically says; a corner clips it on .intrinsic. */
-.sqs-block-video .sqs-block-content:has(.intrinsic) { flex: 1 1 auto; }
+.sqs-block-video .sqs-block-content:has(.native-video-player) { flex: 1 1 auto; }
+.sqs-block-video .intrinsic { box-sizing: border-box; }
 .sqs-border-radius-enabled { overflow: hidden; }
 .native-video-player { position: relative; width: 100%; overflow: hidden; background: #000; }
 .native-video-player video { display: block; width: 100%; height: 100%; object-fit: contain; }
@@ -652,6 +669,16 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .vp-bar { position: absolute; left: 10px; right: 10px; bottom: 8px; display: flex; align-items: center; gap: 8px; color: #fff; }
 .vp-seek { flex: 1; min-width: 0; height: 14px; margin: 0; accent-color: #fff; }
 .vp-volume { width: 70px; height: 14px; margin: 0; accent-color: #fff; }
+/* The controls hide while it plays, unless the pointer is over it (CAP-T7SETTINGS.json). */
+.is-playing .vp-play { display: none; }
+.is-playing:not(:hover) .vp-bar { opacity: 0; }
+/* Settings: 164 wide with one row, 160 with the list, rows of 32.4, 12 above the bar (CAP-T7SETTINGS.json). */
+.vp-menu { position: absolute; right: 10px; bottom: 44px; box-sizing: border-box; width: 164px; padding: 8px 0; border-radius: 4px; background: rgba(255, 255, 255, .95); color: #1c1c1c; font-size: 13px; }
+.vp-menu:has(.vp-speeds:not([hidden])) { width: 160px; }
+.vp-row { display: flex; justify-content: space-between; box-sizing: border-box; width: 100%; height: 32.4px; align-items: center; padding: 0 12px; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.vp-row[aria-checked="true"] { font-weight: 600; }
+.vp-back::before { content: "\2039"; margin-right: 8px; }
+.vp-back { justify-content: flex-start; }
 .vp-btn { flex: none; width: 24px; height: 24px; padding: 3px; border: 0; background: none; color: inherit; cursor: pointer; }
 
 /* Content that follows the width (STANDINS.json). The block's rows come from these heights. */

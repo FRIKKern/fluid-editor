@@ -11,6 +11,7 @@ import { linkKind, linkSummary, parseMail, parsePhone } from './link-kinds.js';
 import { HITS, resetBtn } from './anim-panel.js';
 import { effectPanelHtml } from './effect-panel.js';
 import { formFieldsPanelHtml } from './form-fields.js';
+import { lookBox } from './code-look.js';
 
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
 
@@ -68,7 +69,7 @@ function videoContentHtml(c) {
   const head = v.src
     ? `<div class="bp-vid"><div class="bp-vid-prev"><video src="${esc(v.src)}" muted playsinline aria-hidden="true"></video><span class="bp-vid-play" aria-hidden="true">${pi('<path d="M8 5v14l11-7z"/>')}</span></div><div class="bp-vid-name">${esc(v.name || '')}</div><div class="bp-vid-meta">Video · ${esc(v.length || '0:00')}</div><div class="bp-vid-acts"><button type="button" data-video-act="add">Replace</button><button type="button" class="bp-vid-trash" data-video-act="remove" aria-label="Remove">${pi('<path d="M5 7h14M10 7V5h4v2M7 7l1 13h8l1-13M10 11v6M14 11v6"/>')}</button></div></div>`
     : `<button type="button" class="bp-add-box" data-video-act="add" aria-label="Add a Video"><span class="bp-add-plus" aria-hidden="true">${pi('<path d="M12 5v14M5 12h14"/>')}</span><strong>Add a Video</strong><small>30 minutes max</small></button>`;
-  const store = '<div class="bp-video-store"><span>Video Storage</span><span>30 min left</span></div>';
+  const store = `<div class="bp-video-store"><span>Video Storage</span><span>30 min left</span><button type="button" class="bp-video-tip" aria-label="Open storage dialog" data-video-tip>${pi('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1 1-1.1 1.8M12 16.5v.5"/>')}</button></div>`;
   const help = '<p class="bp-help">Lazy loading is an optimization that defers loading content until the block is near the visible portion of the page.</p>';
   const desc = `<div class="bp-field"><span class="sp-label">Description</span><textarea class="bp-desc" aria-label="Description" placeholder="Add description here..." data-content="description">${esc(c.description || '')}</textarea></div>`;
   if (!v.src) return head + file + store + thumb + select('lazy', v.lazy || 'auto') + help + `<div class="bp-video-head">Elements</div>${desc}`;
@@ -86,7 +87,7 @@ const EXPAND = `<button type="button" class="bp-code-expand" data-code-expand ar
 const codeEditor = (key, value, placeholder = '', expand = false) => `<div class="bp-code">${expand ? EXPAND : ''}<div class="bp-code-lines" aria-hidden="true">${Array.from({ length: Math.max(1, String(value || '').split('\n').length) }, (_, n) => n + 1).join('<br>')}</div><textarea spellcheck="false" aria-label="Code" data-content="${key}" placeholder="${placeholder}">${esc(value || '')}</textarea></div>`;
 // The editors with a look of their own (CAP-T10LOOK.json): a band on the caret's line, a layer of colours over a field whose
 // own text is clear, wrapped lines on HTML and Markdown. editor.js paints them.
-const lookEditor = (key, value, lang, placeholder = '', expand = false) => `<div class="bp-code is-look${lang === 'html' || lang === 'markdown' ? ' is-wrap' : ''}" data-lang="${lang}">${expand ? EXPAND : ''}<div class="bp-code-lines" aria-hidden="true"></div><div class="bp-code-edit"><div class="bp-code-band"></div><div class="bp-code-sel"></div><textarea spellcheck="false" aria-label="Code" data-content="${key}" placeholder="${placeholder}">${esc(value || '')}</textarea><div class="bp-code-hl" aria-hidden="true"></div></div></div>`;
+const lookEditor = (key, value, lang, placeholder = '', expand = false) => lookBox(`data-content="${key}"`, value, lang, { placeholder, top: expand ? EXPAND : '' });
 function codeContentHtml(c, expand = true) {
   return `<div class="bp-code-top"><label class="bp-field bp-code-mode"><span class="bp-flabel">Mode</span><select aria-label="Mode" data-content="codeMode">${CODE_MODES.map(([l, v]) => `<option value="${v}"${c.mode === v ? ' selected' : ''}>${l}</option>`).join('')}</select></label>`
     + `<div class="sp-row bp-code-source${c.mode === 'html' || c.mode === 'markdown' ? '' : ' is-locked'}"><span class="sp-label">Display Source Code</span><label class="sp-switch"><input type="checkbox" aria-label="Display Source Code" data-content="showSource" ${c.showSource ? 'checked' : ''}${c.mode === 'html' || c.mode === 'markdown' ? '' : ' disabled'}><span aria-hidden="true"></span></label></div></div>`
@@ -301,12 +302,12 @@ function stackFillRow(d) {
   if (!d.background) return `<div class="sp-row"><span class="sp-label">Background</span><span class="sp-ctl">${add}</span></div>`;
   return `<div class="sp-row"><span class="sp-label">Background</span><span class="sp-ctl">${add}<span class="st-color"><button type="button" class="bp-swatch" data-unbuilt disabled aria-label="Color"></button><button type="button" class="st-color-x" aria-label="Remove color" data-stack="nofill">×</button></span></span></div>`;
 }
-function stackCornerRow(d) {
-  if (!d.background && !d.stroke) return '';
+function stackCornerRow(d, always = false) {
+  if (!always && !d.background && !d.stroke) return '';
   const each = d.corners;
   const seg = (v, label, on, icon) => `<button type="button" role="radio" class="st-corner-btn${on ? ' is-on' : ''}" aria-checked="${on}" aria-label="${label}" data-stack="corners:${v}">${pi(icon)}</button>`;
   const four = each ? `<span class="st-corners">${[['Top left', 0], ['Top right', 1], ['Bottom right', 2], ['Bottom left', 3]].map(([n, k]) => `<input type="text" aria-label="${n} corner radius" data-stack-field="c${k}" value="${each[k]}">`).join('')}</span>` : '';
-  return `<div class="sp-row st-row-corner${each ? ' is-four' : ''}"><span class="sp-label">Corner</span><span class="st-corner-seg" role="radiogroup" aria-label="Corner">${seg(0, 'Uniform corner radii', !each, '<rect x="6" y="6" width="12" height="12" rx="3"/>')}${seg(1, 'Individual corner radii', !!each, '<path d="M6 10V6h4M14 6h4v4M18 14v4h-4M10 18H6v-4"/>')}</span><label class="st-corner-field"><input type="text" aria-label="Corner" data-stack-field="corner" value="${each ? (each.every((v) => v === each[0]) ? `${each[0]}px` : 'Mixed') : `${d.corner || 0}px`}"></label>${four}</div>`;
+  return `<div class="sp-row st-row-corner${each ? ' is-four' : ''}"><span class="sp-label">Corner</span><span class="st-corner-seg" role="radiogroup" aria-label="Corner">${seg(0, 'Uniform corner radii', !each, '<rect x="6" y="6" width="12" height="12" rx="3"/>')}${seg(1, 'Individual corner radii', !!each, '<path d="M6 10V6h4M14 6h4v4M18 14v4h-4M10 18H6v-4"/>')}</span><label class="st-corner-field"><input type="text" aria-label="Corner" data-stack-field="corner" value="${each ? (each.every((v) => v === each[0]) ? `${each[0]}px` : 'Mixed') : `${d.corner || 0}px`}">${always && (d.corner || each) ? '<button type="button" class="st-corner-reset" aria-label="Reset to default value" data-stack="cornerreset">×</button>' : ''}</label>${four}</div>`;
 }
 
 // A value with a range under it (BLOCKDESIGN.json): Blur Amount and custom Padding.
@@ -318,14 +319,29 @@ const thickness = (d, def) => `<div class="sp-row"><span class="sp-label">Thickn
   + (d.strokeSize === 'custom' ? `<div class="sp-row sh-range"><input type="range" min="0" max="50" step="1" data-design="strokePx" aria-label="Thickness" value="${d.strokePx ?? STROKE_PX[def]}"><input type="text" data-design="strokePx" aria-label="Thickness value" value="${d.strokePx ?? STROKE_PX[def]}px"></div>` : '');
 export const PAD_PCT = { S: 3, M: 6, L: 12 };
 
-function strokeRows(d, stack = false, shape = false) {
+function strokeSegs(cur, kind = '') {
   const seg = (key, val, label, on, icon) => `<button type="button" role="radio" class="sp-seg${on ? ' is-on' : ''}" aria-checked="${on}" data-dset="${key}" data-v="${val}" aria-label="${label}">${icon}</button>`;
-  const cur = d.stroke || '';
-  const html = `<div class="sp-row"><span class="sp-label">Stroke</span><span class="sp-ctl">${seg('stroke', '', 'No Stroke', !cur, pi('<circle cx="12" cy="12" r="7"/><path d="M7 17L17 7"/>'))}${seg('stroke', 'solid', 'Solid Stroke', cur === 'solid', pi('<path d="M5 12h14"/>'))}${seg('stroke', 'dashed', 'Dashed Stroke', cur === 'dashed', pi('<path d="M4 12h3M10.5 12h3M17 12h3"/>'))}</span></div>`;
+  return `<div class="sp-row"><span class="sp-label">Stroke</span><span class="sp-ctl${kind}">${seg('stroke', '', 'No Stroke', !cur, pi('<circle cx="12" cy="12" r="7"/><path d="M7 17L17 7"/>'))}${seg('stroke', 'solid', 'Solid Stroke', cur === 'solid', pi('<path d="M5 12h14"/>'))}${seg('stroke', 'dashed', 'Dashed Stroke', cur === 'dashed', pi('<path d="M4 12h3M10.5 12h3M17 12h3"/>'))}</span></div>`;
+}
+function strokeRows(d, stack = false, shape = false) {
+  const cur = d.stroke || '', html = strokeSegs(cur);
   if (!cur) return html;
   // Stroke Color opens a popup, and three dots a range (SHAPESTYLES.json, BLOCKDESIGN.json). A new shape starts at M, the rest at S.
   if (stack) return html + `<div class="sp-row"><span class="sp-label">Stroke Color</span><span class="sp-ctl"><button type="button" class="bp-swatch" data-unbuilt disabled aria-label="Stroke Color"></button></span></div><div class="sp-row"><span class="sp-label">Thickness</span><span class="sp-ctl">${sml(d, 'strokeSize', 'S')}</span></div>`;
   return html + colorRow('Stroke Color', 'strokeColor', d.strokeColor || 'rgb(0, 0, 0)') + thickness(d, shape ? 'M' : 'S');
+}
+// A video's Appearance, empty or with a file (CAP-T7CORNER.json, CAP-T7DESIGN2.json, CAP-T7DESIGN3.json).
+function videoAppearanceRows(d) {
+  const white = 'rgb(255, 255, 255)', pct = (key, label, v) => `<label class="st-pad"><span class="st-pad-icon${{ padX: ' is-x', padT: ' is-t', padL: ' is-l', padB: ' is-b', padR: ' is-r' }[key] || ''}" aria-hidden="true"></span><input type="text" aria-label="${label}" data-design="${key}" value="${v}%"></label>`;
+  const y = d.padY ?? 6, x = d.padX ?? 6;
+  const fill = d.background
+    ? `<span class="st-color"><button type="button" class="bp-swatch sh-swatch-btn" data-shape-act="bgColor" aria-label="Color"><i style="background:${esc(d.bgColor || white)}"></i></button><button type="button" class="st-color-x" aria-label="Remove color" data-dset="background">−</button></span>`
+    : '<button type="button" class="st-add" aria-label="Add fill" data-dset="background" data-v="1">+</button>';
+  const pads = !(d.background || d.stroke) ? '' : `<div class="st-row st-row-pad${d.padFour ? ' is-four' : ''}"><span class="sp-label">Padding</span><button type="button" class="st-pad-toggle" aria-label="${d.padFour ? 'Show vertical and horizontal padding controls' : 'Show individual padding controls'}" data-stack="vpad:${d.padFour ? 0 : 1}">${pi('<rect x="8" y="8" width="8" height="8"/>')}</button>${d.padFour
+    ? `<span class="st-pads st-pads-four">${pct('padT', 'Padding top', d.padT ?? y)}${pct('padL', 'Padding left', d.padL ?? x)}${pct('padB', 'Padding bottom', d.padB ?? y)}${pct('padR', 'Padding right', d.padR ?? x)}</span>`
+    : `<span class="st-pads">${pct('padY', 'Padding vertical', y)}${pct('padX', 'Padding horizontal', x)}</span>`}</div>`;
+  const line = d.stroke ? `<div class="sp-row"><span class="sp-label">Thickness</span><span class="sp-ctl"><label class="bp-vfield"><input type="text" aria-label="Thickness" data-design="strokePx" value="${d.strokePx ?? 6}px"></label></span></div>${colorRow('Color', 'strokeColor', d.strokeColor || white).replace('sp-row', 'sp-row bp-vcolor')}` : '';
+  return `<div class="bp-vrows"><div class="sp-row"><span class="sp-label">Background</span><span class="sp-ctl">${fill}</span></div>${pads}${strokeSegs(d.stroke || '', ' bp-vsegs')}${line}${stackCornerRow(d, true)}</div>${d.corner || d.corners?.some(Boolean) ? '<p class="bp-vhint">Design settings may obscure video controls.</p>' : ''}`;
 }
 // With a background or a stroke (BLOCKDESIGN.json): Corner, then Padding S, M, L or two ranges from 0 to 20.
 function padRows(d) {
@@ -487,11 +503,10 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       if (f[5] === 'X') { pairs.push(`<div class="bp-trow"><span class="sp-label">${f[1]}</span><span class="bp-pair">${box(f)}${box(DESIGN_FIELDS[i + 1])}</span></div>`); i++; }
       else pairs.push(`<div class="bp-trow"><span class="sp-label">${f[1]}</span>${box(f)}</div>`);
     }
-    // A new video (MEDIAEMPTY.json): Appearance, Transforms, Effects. Its Corner is not built.
+    // A video (MEDIAEMPTY.json, CAP-T7DESIGN2.json): Appearance, Transforms, Effects.
     if (content?.kind === 'social') body = socialDesignHtml(content, d, open, pairs.join(''));
     else if (content?.kind === 'map') body = mapDesignHtml(content, pairs.join(''));
-    else if (content?.kind === 'video') body = '<div class="bp-thead"><span>Appearance</span></div>' + appearanceRows(d)
-      + row('Corner', `<label class="bp-box bp-vcorner"><input type="number" data-design="corner" aria-label="Corner" min="0" max="500" value="${d.corner || 0}"><span class="bp-unit">px</span></label>`)
+    else if (content?.kind === 'video') body = '<div class="bp-thead"><span>Appearance</span></div>' + videoAppearanceRows(d)
       + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`
       + '<div class="bp-thead"><span>Effects</span></div>' + blendRow(d.blend || 'normal', open === 'blend') + blurRows(d);
     // Code, embed and Line blocks (CODEEMBED.json, T11.json) and a form as a Lightbox button have the transforms alone.
@@ -510,7 +525,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
         + '<div class="bp-thead"><span>Styling</span></div>'
         + row('Color', `<button type="button" class="bp-swatch sh-swatch-btn" data-shape-act="color" aria-label="Color"><i style="background:${esc(shape.color)}"></i></button>`)
         + blendRow(d.blend || 'normal', open === 'blend')
-        + strokeRows(d, false, true)
+        + strokeRows({ ...d, strokeColor: d.strokeColor || shape.strokeInk }, false, true)
         + row('Drop Shadow', sw('shadow', d.shadow, 'Drop Shadow'))
         + blurRows(d)
         + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`

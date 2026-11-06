@@ -1,0 +1,2826 @@
+{
+  "item": "CAP-T10WRAP",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: Bold and Italic on selections holding a line mark or spaces",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "setCode",
+      "# h"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "# h 0-3 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "* i"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "* i 0-3 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "> q"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Italic"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "> q 0-3 Italic",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "1. x"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "1. x 0-4 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "## h"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Italic"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "## h 0-4 Italic",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "* i"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "* i 0-1 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "# h"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "# h 0-1 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "# h"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "# h 1-3 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "# h"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "# h 2-3 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "  * i"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "  * i 0-5 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "* # h"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "* # h 0-5 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "> * i"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "> * i 0-5 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      " word "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      " word  0-6 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "word "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "word  0-5 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      " word"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Italic"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      " word 0-5 Italic",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "a b c"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "a b c 1-4 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "word 2-2 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Italic"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "word 4-4 Italic",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "one\ntwo"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "one\ntwo 0-7 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "one\n"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "one\n 0-4 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "# h\nplain"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "# h\nplain 4-9 Bold",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ],
+    [
+      "setCode",
+      "plain\n# h"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Italic"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "plain\n# h 0-5 Italic",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"], [aria-label=\"Bold\"], [aria-label=\"Italic\"]"
+      }
+    ]
+  ],
+  "reads": {
+    "# h 0-3 Bold": {
+      "codeText": "# **h**",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Heading 1",
+          "box": [
+            369,
+            366,
+            106.2,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            484.2,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            524.2,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "* i 0-3 Bold": {
+      "codeText": "* **i**",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "> q 0-3 Italic": {
+      "codeText": "> *q*",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "1. x 0-4 Bold": {
+      "codeText": "1. **x**",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "## h 0-4 Italic": {
+      "codeText": "## *h*",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Heading 2",
+          "box": [
+            369,
+            366,
+            108.6,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            486.6,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            526.6,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "* i 0-1 Bold": {
+      "codeText": "* ****i",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "# h 0-1 Bold": {
+      "codeText": "# ****h",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Heading 1",
+          "box": [
+            369,
+            366,
+            106.2,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            484.2,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            524.2,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "# h 1-3 Bold": {
+      "codeText": "# **h**",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Heading 1",
+          "box": [
+            369,
+            366,
+            106.2,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            484.2,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            524.2,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "# h 2-3 Bold": {
+      "codeText": "# **h**",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Heading 1",
+          "box": [
+            369,
+            366,
+            106.2,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            484.2,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            524.2,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "  * i 0-5 Bold": {
+      "codeText": "  * **i**",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "* # h 0-5 Bold": {
+      "codeText": "* # **h**",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "> * i 0-5 Bold": {
+      "codeText": "> * **i**",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    " word  0-6 Bold": {
+      "codeText": "** word **",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "word  0-5 Bold": {
+      "codeText": "**word **",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    " word 0-5 Italic": {
+      "codeText": "* word*",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(242, 242, 242)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "pointer",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "a b c 1-4 Bold": {
+      "codeText": "a** b **c",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "word 2-2 Bold": {
+      "codeText": "wo****rd",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "word 4-4 Italic": {
+      "codeText": "word**",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "one\ntwo 0-7 Bold": {
+      "codeText": "**one\ntwo**",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "one\n 0-4 Bold": {
+      "codeText": "**one**\n",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "# h\nplain 4-9 Bold": {
+      "codeText": "# h\n**plain**",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "plain\n# h 0-5 Italic": {
+      "codeText": "*plain*\n# h",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1wtd0d3",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "true",
+          "cursor": "pointer",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "A selection's ends inside a line's marks move past them; an end right after a newline steps back. Bold on all of # h is # **h**, of a bullet * **i**, of 1. x 1. **x**; a caret still writes its pair where it is. Spaces inside a selection stay: ** word **. The state reads the moved start, so Italic isn't lit on * word*. A selection over lines keeps its inner marks and only moves its ends."
+}

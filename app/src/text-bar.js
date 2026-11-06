@@ -11,6 +11,7 @@ const svg = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
 const I = {
   bold: '<path d="M7 5h6a3.5 3.5 0 0 1 0 7H7zM7 12h7a3.5 3.5 0 0 1 0 7H7z"/>',
   italic: '<path d="M10 5h8M6 19h8M14 5l-4 14"/>',
+  underline: '<path d="M7 4v8a5 5 0 0 0 10 0V4M5 20h14"/>',
   color: '<circle cx="12" cy="12" r="6" fill="currentColor"/>',
   scaled: '<path d="M4 19l4-10 4 10M5.5 15.5h5"/><path d="M15 4h5v5M20 4l-5 5"/>',
   highlight: '<path d="M5 15l4-10 4 10M6.5 11.5h5"/><path d="M4 19h16" stroke-width="2.4"/>',
@@ -32,6 +33,30 @@ const I = {
 const btn = (act, label, opts = {}) => `<button type="button" class="tx-btn${opts.on ? ' is-on' : ''}" data-fmt="${act}" aria-label="${label}" title="${label}"${opts.unbuilt ? ' data-unbuilt disabled' : ''}>${svg(I[opts.icon || act])}</button>`;
 const sep = '<span class="tx-sep" aria-hidden="true"></span>';
 
+// The oracle lists each style's shortcut: Cmd+Opt+6 to 3 for headings, 2 to 0 for paragraphs, M.
+const STYLE_KEYS = { h1: '6', h2: '5', h3: '4', h4: '3', 'p.sqsrte-large': '2', p: '1', 'p.sqsrte-small': '0', pre: 'M' };
+const styleMenuHtml = (style) => `<div class="tx-pop tx-styles" role="menu">${STYLES.map(([l, v]) => `<button type="button" role="menuitemradio" aria-checked="${v === style}" data-fmt="style" data-v="${v}" aria-label="${l}"><span class="tx-check">${v === style ? '✓' : ''}</span><span class="tx-sname">${l}</span><span class="tx-keys"><kbd>⌘</kbd><kbd>⌥</kbd><kbd>${STYLE_KEYS[v]}</kbd></span></button>`).join('')}</div>`;
+
+// Text Style's width follows its word, as read. Heading 2 and 3 are not read and take Heading 4's.
+const STYLE_WIDTHS = { h1: 106, h2: 108, h3: 108, h4: 108, 'p.sqsrte-large': 119, p: 121, 'p.sqsrte-small': 121, pre: 120 };
+// The Message box's short bar (FORMFIELDS.json, postSubmit.messageBox): 384 by 44 with 36 square
+// controls 4 apart. `on` holds what shows as pressed, `linkOff` fades Link in an empty box.
+export function messageBarHtml(style, open, on = {}, linkOff = false) {
+  const styleLabel = (STYLES.find(([, v]) => v === style) || STYLES[5])[0];
+  const mark = (act, label) => btn(act, label, { on: on[act] });
+  const items = [
+    `<button type="button" class="tx-btn" aria-label="Squarespace AI" title="Squarespace AI (out of scope)" data-unbuilt disabled>${svg(I.ai)}</button>`,
+    sep,
+    `<button type="button" class="tx-style" style="width:${STYLE_WIDTHS[style] || 121}px" data-fmt="style-menu" aria-label="Text Style" aria-expanded="${open === 'style'}">${styleLabel}${svg(I.chevron)}</button>`,
+    sep,
+    mark('bold', 'Bold'), mark('italic', 'Italic'), mark('underline', 'Underline'),
+    `<button type="button" class="tx-btn${on.link ? ' is-on' : ''}${linkOff ? ' is-faded' : ''}" data-fmt="link" aria-label="Link" title="Link">${svg(I.link)}</button>`,
+    sep,
+    btn('clear', 'Clear Formatting'),
+  ].join('');
+  return `<div class="tx-row">${items}</div>${open === 'style' ? styleMenuHtml(style) : ''}`;
+}
+
 export function textBarHtml(style, open, color = null, custom = null) {
   const styleLabel = (STYLES.find(([, v]) => v === style) || STYLES[5])[0];
   const items = [
@@ -51,9 +76,7 @@ export function textBarHtml(style, open, color = null, custom = null) {
     sep,
     btn('clear', 'Clear Formatting'),
   ].join('');
-  // The oracle lists each style's shortcut: Cmd+Opt+6 to 3 for headings, 2 to 0 for paragraphs, M.
-  const KEYS = { h1: '6', h2: '5', h3: '4', h4: '3', 'p.sqsrte-large': '2', p: '1', 'p.sqsrte-small': '0', pre: 'M' };
-  const styleMenu = open === 'style' ? `<div class="tx-pop tx-styles" role="menu">${STYLES.map(([l, v]) => `<button type="button" role="menuitemradio" aria-checked="${v === style}" data-fmt="style" data-v="${v}" aria-label="${l}"><span class="tx-check">${v === style ? '✓' : ''}</span><span class="tx-sname">${l}</span><span class="tx-keys"><kbd>⌘</kbd><kbd>⌥</kbd><kbd>${KEYS[v]}</kbd></span></button>`).join('')}</div>` : '';
+  const styleMenu = open === 'style' ? styleMenuHtml(style) : '';
   const alignMenu = open === 'align' ? `<div class="tx-pop tx-aligns" role="menu">${['left', 'center', 'right', 'justify'].map((a) => btn(`align:${a}`, `Text align: ${a}`)).join('')}</div>` : '';
   // Text Color (parity/findings/TEXTCOLOR.json): Palette and Custom tabs, five 34px swatches
   // named after the site colors, the current one checked. Custom: a color map, a hue bar, Hex and

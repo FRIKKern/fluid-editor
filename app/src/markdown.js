@@ -39,7 +39,7 @@ function tag(m) {
   const name = m[2].toLowerCase();
   if (!KEPT_TAGS.has(name)) return '';
   if (m[1]) return VOID.has(name) ? '' : `</${name}>`;
-  let out = `<${name}`;
+  let out = `<${name} data-preserve-html-node="true"`;
   for (const [, key, raw] of m[3].matchAll(ATTRS)) {
     const k = key.toLowerCase();
     if (!KEPT_ATTR.test(k) || k === 'data-preserve-html-node') continue;
@@ -47,7 +47,7 @@ function tag(m) {
     if ((k === 'href' || k === 'src') && !safeUrl(v)) continue;
     out += raw === undefined ? ` ${k}=""` : ` ${k}="${attr(v)}"`;
   }
-  return `${out} data-preserve-html-node="true">`;
+  return `${out}>`;
 }
 // Past a script or style's closing tag, or the end when it has none.
 function pastDropped(s, name) {
@@ -228,7 +228,7 @@ function blocks(lines, ctx, tight = false) {
     if (HR.test(line)) { out.push('<hr>\n'); i++; continue; }
     if (QUOTE.test(line)) {
       const body = [];
-      while (i < lines.length && lines[i].trim() && (QUOTE.test(lines[i]) || !startsBlock(lines[i]))) body.push(lines[i++].replace(/^ {0,3}> ?/, ''));
+      while (i < lines.length && lines[i].trim() && (QUOTE.test(lines[i]) || (!startsBlock(lines[i]) && !ITEM.test(lines[i])))) body.push(lines[i++].replace(/^ {0,3}> ?/, ''));
       out.push(`<blockquote>\n${blocks(body, ctx).join('')}</blockquote>\n`);
       continue;
     }
@@ -236,6 +236,8 @@ function blocks(lines, ctx, tight = false) {
     if (item) { const l = list(lines, i, ctx); out.push(l.html); i = l.next; continue; }
     if (htmlBlock(line)) {
       const script = line.match(/^ {0,3}<(script|style|pre|textarea)\b/i), comment = /^ {0,3}<!--/.test(line), body = [];
+      // A comment alone on a line comes out as text, with the mark raw HTML gets after its name (CAP-T10MD9.json).
+      if (/^ {0,3}<!--.*-->\s*$/.test(line)) { out.push(`<p>${code(line.trim().replace(/^<!/, '<! data-preserve-html-node="true"'))}</p>\n`); i++; continue; }
       if (script || comment) {
         const end = script ? new RegExp(`</${script[1]}\\s*>`, 'i') : /-->/;
         for (; i < lines.length; i++) { body.push(lines[i]); if (end.test(lines[i])) { i++; break; } }
@@ -289,6 +291,7 @@ function list(lines, start, ctx) {
         break;
       }
       if (l.match(/^ */)[0].length >= indent) { body.push(l.slice(indent)); continue; }
+      if (QUOTE.test(l) && body.at(-1).trim()) { body.push(l); continue; } // a quote straight under an item is the item's (CAP-T10MD9.json)
       if (ITEM.test(l) || startsBlock(l)) break;
       if (!body.at(-1).trim()) break;
       body.push(l.trim());
@@ -325,7 +328,9 @@ export function markdownParts(source, opts = {}) {
     if (fence) { if (f && f[1][0] === fence && !f[2]) fence = null; lines.push(raw); continue; }
     if (f) { fence = f[1][0]; lines.push(raw); continue; }
     const r = raw.match(REF);
-    if (r && !/^ {4}/.test(raw)) { const key = r[1].toLowerCase().replace(/\s+/g, ' ').trim(); if (!refs.has(key)) refs.set(key, { href: r[2].replace(/^<|>$/g, ''), title: r[3] ? r[3].slice(1, -1) : null }); continue; }
+    const above = lines.at(-1);
+    // A definition can't interrupt a paragraph: under one it is text (CAP-T10MD9.json).
+    if (r && !/^ {4}/.test(raw) && (!above?.trim() || HEADING.test(above) || HR.test(above))) { const key = r[1].toLowerCase().replace(/\s+/g, ' ').trim(); if (!refs.has(key)) refs.set(key, { href: r[2].replace(/^<|>$/g, ''), title: r[3] ? r[3].slice(1, -1) : null }); continue; }
     lines.push(raw);
   }
   return blocks(lines, { refs, ...opts });

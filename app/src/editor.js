@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, shapeFill, phoneOwn, FOLLOW_DESKTOP } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -10,13 +10,13 @@ import * as fmt from './text-format.js';
 import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
-import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
+import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
 import { codeLines, gutterWidth } from './code-look.js';
-import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkAt, mdSetLink, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
+import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
@@ -32,7 +32,8 @@ import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
 import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
-import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView } from './form-fields.js';
+import { messageBox, cleanMessage } from './form-message.js';
+import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
 const $ = (id) => document.getElementById(id);
@@ -612,6 +613,16 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
   }
   if (b.type === 'code' || b.type === 'embed' || b.type === 'markdown') return Math.max(1, codeRowsFor(codeHeight(b), m));
   const root = blockEl(b.id);
+  // Alone on a phone a new Accordion stretches every row, so the pitch is read with it out, as a form's is (CAP-X6FLOORSPHONE.json).
+  if (b.type === 'accordion') {
+    const list = root?.querySelector('.accordion-items-container');
+    if (!list) return 1;
+    const h = list.offsetHeight;
+    list.style.display = 'none';
+    const free = measure(list.closest('.fluid-engine'));
+    list.style.display = '';
+    return Math.max(1, Math.ceil((h + free.rg) / free.pitch - 0.02));
+  }
   // A Fit button in the view on screen: its height is its own (BUTTONDESIGN.json).
   const fit = b.type === 'button' ? [...(root?.querySelectorAll('.sqs-block-button-container:not(.sqs-stretched)') || [])].find((e) => e.offsetHeight) : null;
   // Fill resizes down to 1 row even when its text wraps; normalize still keeps the text (CAP-NORMALIZE.json).
@@ -783,17 +794,19 @@ function layer(fe, cls, a, z) {
 
 // G4 (parity/findings/SNAP.json): a grid line held by the pointer moves when the leading edge
 // passes the middle of the next track, so the first step takes half a pitch plus half a gap.
-// A side margin counts as its width less one gap. d is the pointer's distance from `line`.
+// A side margin counts as its width less one gap, and half a pixel: that fits a step at 51 on desktop
+// and 14 on a phone (CAP-G4MARGIN.json, CAP-G4PHONE.json), why half is not known. d is the pointer's distance from `line`.
 function snapColumn(m, line, d, lo, hi) {
   const n = m.colStart.length;
   const at = (l) => (l <= n ? m.colStart[l - 1] : m.colEnd[n - 1] + m.cg);
-  const half = (t) => (m.colEnd[t - 1] - m.colStart[t - 1] - (t === 1 || t === n ? m.cg : 0)) / 2;
+  const half = (t) => t === 1 || t === n ? (m.colEnd[t - 1] - m.colStart[t - 1] - m.cg + 1) / 2 : (m.colEnd[t - 1] - m.colStart[t - 1]) / 2;
   const p = at(line) + d;
   let l = line;
   while (l < hi && p >= at(l) + m.cg + half(l)) l++;
   while (l > lo && p <= at(l) - m.cg - half(l - 1)) l--;
   return l;
 }
+const rightEdgeOut = (m, line, d) => snapColumn(m, line, d, line, m.colStart.length + 1) === m.colStart.length + 1;
 // The same rule for rows, on a uniform pitch, also past the last row (traces T0013, T0014).
 const snapRow = (m, line, d) => line + Math.sign(d) * Math.max(0, Math.round((Math.abs(d) - m.rg / 2) / m.pitch));
 
@@ -1021,7 +1034,6 @@ function beginMove(e) {
   el.classList.add('is-dragging');
 }
 
-const LAST_STEP_LATE = 32;
 function updateMove(e) {
   const g = gesture;
   const fe = feEl(g.sid);
@@ -1045,11 +1057,13 @@ function updateMove(e) {
   const cHi = Math.max(...origs.map((a) => a[3]));
   const cMin = c0 + 1 - cLo;
   // A box that starts on the left margin track goes as far as the last column, not the right margin.
-  const cMax = Math.max(c0, c0 + (cLo === 1 ? LAST_LINE[bp] - 1 : LAST_LINE[bp]) - cHi);
+  // One block on a phone does go into it (CAP-G4MARGIN2.json to CAP-G4MARGIN4.json); a group on a phone isn't read.
+  const cMax = Math.max(c0, c0 + (cLo === 1 && !(solo && bp === 'mobile') ? LAST_LINE[bp] - 1 : LAST_LINE[bp]) - cHi);
   const dx = left - baseLeft;
   let nc0 = dx > 0 && c0 > 1 ? snapColumn(m, c0 + w, dx, cMin + w, cMax + w) - w : snapColumn(m, c0, dx, cMin, cMax);
-  // From the left margin track the last step comes later (MARGINSTEPS.json: 30 to 40px on six wide, 25 to 35 on four).
-  if (solo && c0 === 1 && nc0 === cMax && cMax > c0 && snapColumn(m, c0, dx - LAST_STEP_LATE, cMin, cMax) < cMax) nc0 = cMax - 1;
+  // From the left margin track the last step waits for the right edge to pass the right margin's middle
+  // (MARGINSTEPS.json, CAP-G4MARGIN3.json, CAP-G4MARGIN4.json, CAP-G4MARGIN5.json).
+  if (solo && c0 === 1 && nc0 === cMax && cMax > c0 && !rightEdgeOut(m, c0 + w, dx)) nc0 = cMax - 1;
   // A group's ring stops when its box reaches the top (HOLD.json).
   const nr0 = Math.max(r0 + 1 - Math.min(...origs.map((a) => a[0])), snapRow(m, r0, y - baseTop));
   let t = [nr0, nc0, nr0 + h, nc0 + w];
@@ -1173,9 +1187,9 @@ function updateGroupResize(e) {
   if (r1 - 1 > g.shownRows) showGrid(g.sid, r1 - 1);
 }
 
-// Where a side pull stops, on both layouts. A button at 3 columns whatever its text (BUTTONDESIGN.json,
-// CAP-T5PHONE.json), Social Links at 2 (CAP-T11SOCIAL.json).
-const LEAST_COLS = { button: 3, social: 2 };
+// Where a side pull stops, the same from each side, by type or by a stand-in's name (CAP-X6FLOORS.json, on desktop;
+// a button whatever its text, BUTTONDESIGN.json; CAP-T5PHONE.json, CAP-T11SOCIAL.json). Text, Shape and Line stop at 1.
+const LEAST_COLS = { markdown: 2, social: 2, button: 3, accordion: 3, Product: 3, Donation: 3, Quote: 3, 'Page Link': 3, 'Tag Cloud': 3, RSS: 3, Tock: 3, SoundCloud: 3, Flickr: 3, OpenTable: 3, Zola: 3, Bandsintown: 3, video: 4, form: 4, scrolling: 4, Audio: 4, map: 4, code: 4, embed: 4, Instagram: 4, 'Pricing Plan': 6, Calendar: 6, Menu: 6, 'Search Field': 6, Archive: 6, Newsletter: 7, Scheduling: 8, Summary: 8, Chart: 8 };
 
 function updateResize(e) {
   const g = gesture;
@@ -1185,26 +1199,38 @@ function updateResize(e) {
   let [r0, c0, r1, c1] = g.orig;
   const x = e.clientX;
   const y = e.clientY;
-  const leastCols = LEAST_COLS[B(g.sid, g.bid).type] ?? 1;
+  const held = B(g.sid, g.bid), leastCols = LEAST_COLS[held.label] ?? LEAST_COLS[held.type] ?? 1;
   const q = fe.getBoundingClientRect();
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(v, hi));
-  // While held the block's own box follows the pointer and only the ring snaps (HOLD.json). It is
-  // one column wide at the least and stops at the sides of the grid, with no 4px on the right.
+  // While held the block's own box follows the pointer and only the ring snaps (HOLD.json). It stops at
+  // its floor and at the sides of the grid, with no 4px on the right.
   const dx = x - g.x0, dy = y - top - g.py0;
   const left0 = m.colStart[c0 - 1];
   let L = left0, R = m.colEnd[c1 - 2];
-  const oneCol = m.colEnd[1] - m.colStart[1];
-  if (g.dir.includes('e')) R = clamp(R + dx, L + oneCol, q.right);
-  if (g.dir.includes('w')) L = clamp(L + dx, q.left, R - oneCol);
+  // Its floor in pixels, so what it needs is measured at no less than the width it can end at (CAP-X6FLOORS.json: Accordion 11 rows, Quote 9).
+  const leastPx = m.colEnd[leastCols] - m.colStart[1];
+  if (g.dir.includes('e')) R = clamp(R + dx, L + leastPx, q.right);
+  if (g.dir.includes('w')) L = clamp(L + dx, q.left, R - leastPx);
   const el = blockEl(g.bid);
   // Out of the flow, so its height does not push the grid's rows. Its area is still its place.
   Object.assign(el.style, { position: 'absolute', left: '0', top: '0', width: `${R - L}px` });
-  if (g.dir.includes('e')) c1 = snapColumn(m, c1, x - m.colEnd[c1 - 2], Math.min(c0 + leastCols, LAST_LINE[bp]), LAST_LINE[bp]);
+  if (g.dir.includes('e')) {
+    const lo = Math.min(c0 + leastCols, LAST_LINE[bp]), hi = LAST_LINE[bp], d = x - m.colEnd[c1 - 2];
+    // A block on the left margin track grows by its left edge's steps, as a move does. It stops as a move does, and its last
+    // step waits the same way (CAP-G4MARGIN.json, CAP-G4MARGIN2.json, CAP-G4MARGIN5.json, CAP-G4MARGIN6.json, BLOCKTYPES.json columnSnap).
+    const top = bp === 'mobile' ? hi : hi - 1;
+    if (c0 === 1 && d > 0 && c1 < top) {
+      const e = Math.min(top, c1 + snapColumn(m, 1, d, 1, 1 + hi - c1) - 1);
+      c1 = Math.max(lo, e === top && !rightEdgeOut(m, c1, d) ? top - 1 : e);
+    } else c1 = snapColumn(m, c1, d, lo, hi);
+  }
   if (g.dir.includes('w')) c0 = snapColumn(m, c0, x - m.colStart[c0 - 1], 1, Math.max(1, c1 - leastCols));
   if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, y - (top + (r1 - 1) * m.pitch - m.rg)));
   if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, y - (top + (r0 - 1) * m.pitch))));
   // Guard: a target cannot be shorter than the content at the width the block has now.
   const need = contentRows(B(g.sid, g.bid), m, false, /[ew]/.test(g.dir));
+  // A Video on a corner pull: the rows its new width takes go on the bottom, whatever the top does (CAP-X6PULLS.json, CAP-X6AGAIN.json).
+  if (held.type === 'video' && g.dir.includes('n') && /[ew]/.test(g.dir) && g.orig[2] - g.orig[0] < need) r1 = g.orig[0] + need;
   if (r1 - r0 < need) {
     if (g.dir.includes('n')) {
       r0 = Math.max(1, r1 - need);
@@ -1327,7 +1353,7 @@ function onKey(e) {
     // An open menu or popover goes first; the block stays selected until the next Escape.
     if (vAlignOpen || !pinPop.hidden) { closeFloating(); return; }
     if (gesture && gesture.type !== 'pending') cancelGesture();
-    else select(null);
+    else { accordionEscape(); select(null); }
     return;
   }
   // Keys measured on the oracle (parity/findings/KEYS.json, KEYS2.json).
@@ -1407,8 +1433,9 @@ function startTextEdit(sid, bid) {
   const ce = el.querySelector('.sqs-html-content');
   ce.contentEditable = 'true';
   ce.focus();
+  // The caret starts inside the last text, so a press finds its block even when it's empty (CAP-E4ENTER.json).
   const range = doc.createRange();
-  range.selectNodeContents(ce);
+  range.selectNodeContents([...ce.querySelectorAll('h1, h2, h3, h4, p, pre')].at(-1) ?? ce);
   range.collapse(false);
   const s = win.getSelection();
   s.removeAllRanges();
@@ -1431,7 +1458,7 @@ function onPaste(e) {
   if (!ed) return;
   e.preventDefault();
   const dt = e.clipboardData;
-  insertPaste(doc, ed.ce, win.getSelection(), cleanPaste(doc, dt.getData('text/html'), dt.getData('text/plain')));
+  insertPaste(doc, ed.ce, win.getSelection(), cleanPaste(doc, dt.getData('text/html'), dt.getData('text/plain')), dt.getData('text/plain'));
   onTextInput();
 }
 
@@ -1453,6 +1480,7 @@ let animPlaying = false;
 let animPlay = null; // after the next draw: 'tiles' or 'square'
 let embedData = false;
 let accView = null; // 'acc-item:<n>' or 'acc-dividers'
+let accGrew = false; // an edit in the item view on show made the block grow
 let imageView = null; // the image Shape picker's tab, or null
 let fxView = null; // the Image Effect panel: 'list', 'settings' or null
 let fxOpen = []; // its settings groups that are open: they all start closed
@@ -1477,7 +1505,7 @@ function renderBlockPanel() {
     : b.type === 'line' ? { kind: 'line' }
     : b.type === 'social' ? (() => { const l = socialLook(b, bp === 'mobile'); return { kind: 'social', links: socialList(), err: socErr, iconBorder: l.iconBorder, iconStyle: l.iconStyle, iconThick: l.iconThick, iconSize: l.iconSize, align: l.align }; })()
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
-    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
+    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
@@ -1488,7 +1516,7 @@ function renderBlockPanel() {
   if (mdField && mdField === document.activeElement && mdField.value !== (b.text || '')) { mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
   if (codeCommit) return; // the field's own text changed nothing else here, and a redraw would take a press on Mode from under it
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
-  const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || '#ffffff' } : null;
+  const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: parseFloat(b.radius) || 0, corners: b.corners, empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
@@ -1675,6 +1703,7 @@ function placeBlockPanel() {
   if (parentStack(sel.sid, sel.bid)) p.left = Math.min(el.getBoundingClientRect().right + frame.getBoundingClientRect().left - stage.getBoundingClientRect().left + 18, stage.getBoundingClientRect().width - 340);
   blockPanel.style.left = `${p.left}px`;
   blockPanel.style.top = `${p.top}px`;
+  formMessage.sync();
 }
 blockPanel.addEventListener('click', (e) => {
   if (shapeUi?.kind === 'animopts') closeShapePop();
@@ -1686,7 +1715,12 @@ blockPanel.addEventListener('click', (e) => {
   if (tile && sel) { e.preventDefault(); animPick(tile.dataset.animTile); return; }
   if (e.target.closest('[data-blend-toggle]')) { blendOpen = !blendOpen; renderBlockPanel(); return; }
   const ds = e.target.closest('[data-dset]');
-  if (ds && sel) { setDesign(ds.dataset.dset, ds.dataset.v || null); return; }
+  if (ds && sel) {
+    setDesign(ds.dataset.dset, ds.dataset.v || null);
+    // A new fill opens its colours at once (CAP-T7DESIGN.json).
+    if (ds.dataset.dset === 'background' && ds.dataset.v && B(sel.sid, sel.bid)?.type === 'video') { renderBlockPanel(); blockPanel.querySelector('[data-shape-act="bgColor"]')?.click(); }
+    return;
+  }
   const st = e.target.closest('[data-stack]');
   if (st && sel) { stackAct(st.dataset.stack); return; }
   const o = e.target.closest('[data-blend]');
@@ -1708,6 +1742,7 @@ blockPanel.addEventListener('click', (e) => {
   if (!t) return;
   designTab = t.dataset.btab;
   closeLinkPopover();
+  closeShapePop(); // CAP-T7DESIGN.json
   renderBlockPanel();
 });
 
@@ -1748,6 +1783,14 @@ function stackAct(act) {
     if (v === '1') b.padFour = true;
     else { delete b.padFour; if (b.padding) b.padding = { t: b.padding.t, b: b.padding.t, l: b.padding.l, r: b.padding.l }; }
   }
+  if (k === 'vpad') {
+    // Four fields start from the two; back to two takes the top's and the right's (the way back is inferred).
+    const bag = designBag(bp), cur = designFor(b, bp), d = (b[bag] ||= {}), y = cur.padY ?? 6, x = cur.padX ?? 6;
+    if (v === '1') Object.assign(d, { padFour: true, padT: y, padR: x, padB: y, padL: x });
+    else { d.padY = cur.padT ?? y; d.padX = cur.padR ?? x; for (const f of ['padFour', 'padT', 'padR', 'padB', 'padL']) delete d[f]; }
+    renderSectionDom(sel.sid); commit(before, `padding on ${b.id}`); renderBlockPanel(); return;
+  }
+  if (k === 'cornerreset') { const bag = designBag(bp), d = (b[bag] ||= {}); d.corner = 0; if (bag === 'design') delete d.corners; else d.corners = null; }
   if (k === 'fill') b.design = { ...b.design, background: true };
   if (k === 'nofill' && b.design) delete b.design.background;
   if (k === 'corners') {
@@ -1792,7 +1835,8 @@ function setButtonStyle(sid, bid, style) {
   const b = B(sid, bid);
   if (!b) return;
   const before = JSON.stringify(model);
-  if (style === 'primary') delete b.buttonStyle; else b.buttonStyle = style;
+  if (b.type === 'form') { formStep(b); setFormView(b, bp, 'buttonStyle', style === 'primary' && bp !== 'mobile' ? '' : style); }
+  else if (style === 'primary') delete b.buttonStyle; else b.buttonStyle = style;
   renderSectionDom(sid);
   commit(before, `Button style ${style}`);
 }
@@ -1802,12 +1846,10 @@ function setFormDesign(key, v) {
   if (!b) return;
   const before = JSON.stringify(model);
   const top = blockPanel.scrollTop;
+  formStep(b);
   if (key === 'buttonAlign') setFormView(b, bp, key, v === 'left' && bp !== 'mobile' ? '' : v);
   else if (v === 'none') delete b[key]; else b[key] = v;
   renderSectionDom(sel.sid);
-  // A form the Lightbox left too small gets its rows back on the next change (FORMFIELDS.json, lightbox).
-  // One row short isn't that: a new form on the phone is 16 rows and stretches, and a press leaves it (phone).
-  if (!formView(b, bp).lightbox && contentRows(b, measure(feEl(sel.sid))) > lay(b).area[2] - lay(b).area[0] + 1) fitForm(b, S(sel.sid));
   commit(before, `Form ${key} ${v}`);
   blockPanel.scrollTop = top;
 }
@@ -1827,8 +1869,17 @@ function setButtonView(key, v) {
 }
 // A text block's rows follow its box (BLOCKDESIGN.json): they grow when the text no longer fits, and
 // fall by what the fit fell. A block made taller by hand keeps the rest: 8 rows, fit 3 to 2, gives 7.
-const FIT_KEYS = new Set(['background', 'stroke', 'strokeSize', 'strokePx', 'pad', 'padY', 'padX']);
+const FIT_KEYS = new Set(['background', 'stroke', 'strokeSize', 'strokePx', 'pad', 'padY', 'padX', 'padT', 'padB', 'padL', 'padR']);
 function designChange(b, keys, change, fitBefore = null) {
+  // A video's rows follow its height by the rule of a code block's, and a rise pushes what is below it (CAP-T7DESIGN2.json, CAP-T7DESIGN3.json).
+  if (b.type === 'video' && keys.some((k) => FIT_KEYS.has(k))) {
+    const was = codeHeight(b);
+    change();
+    renderSectionDom(sel.sid);
+    fitRows(b, was);
+    return;
+  }
+  if (b.type === 'form') return formDesignStep(b, change);
   const s = S(sel.sid), fits = (b.type === 'text' || b.type === 'social') && keys.some((k) => FIT_KEYS.has(k));
   const was = fitBefore ?? (fits ? contentRows(b, measure(feEl(sel.sid))) : 0);
   change();
@@ -2074,20 +2125,62 @@ function setMap(change, label) {
 }
 // Edit Form Fields (FORMFIELDS.json): one undo step per change. The block's rows follow the form.
 let ffView = null, ffBefore = null;
-function fitForm(b, s) {
-  const need = contentRows(b, measure(feEl(sel.sid))), a = lay(b).area, rows = a[2] - a[0];
+function setFormRows(b, s, need) {
+  const a = lay(b).area, rows = a[2] - a[0];
   if (need === rows) return;
   const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), low = lowest();
   a[2] = a[0] + need;
   if (need < rows) s.rows[bp] -= low - lowest(); else growRows(s);
   renderSectionDom(sel.sid);
 }
-function setForm(change, label, fit = true) {
+const fitForm = (b, s) => setFormRows(b, s, contentRows(b, measure(feEl(sel.sid))));
+// What a form's rows answer to: the form or its message, and any padding and stroke round it.
+function formHeight(b) {
+  const root = blockEl(b.id), lb = formView(b, bp).lightbox;
+  const f = root.querySelector(lb ? '.lightbox-handle-wrapper' : '.form-wrapper:not(.form-lightbox .form-wrapper)');
+  const c = root.querySelector('.sqs-block'), edge = c.offsetHeight - c.clientHeight;
+  return Math.round((f.getBoundingClientRect().height + edge) * 10) / 10;
+}
+const formPitch = (b) => {
+  const f = blockEl(b.id).querySelector('.sqs-block');
+  f.style.display = 'none';
+  const free = measure(f.closest('.fluid-engine'));
+  f.style.display = '';
+  return free;
+};
+const formBoxed = (b) => { const d = designFor(b, bp); return !formView(b, bp).lightbox && !!(d.background || d.stroke); };
+// A form's rows settle one step late (FORMFIELDS.json, blockFits.rule). A step reads the form as the step before left
+// it. If that changed the height, a rise makes the rows hold it, with 2px of give, and a fall takes them down when more
+// than one row is spare. A form with Lightbox on has its own rule, and one with a Background or Stroke stays as it is.
+function formStep(b) {
+  const h = formHeight(b), last = b.formH?.[bp] ?? h;
+  b.formH = { ...b.formH, [bp]: h };
+  if (h === last || formView(b, bp).lightbox || formBoxed(b)) return;
+  const { rg, pitch } = formPitch(b), rows = lay(b).area[2] - lay(b).area[0];
+  const up = Math.ceil((h + rg - 2) / pitch), fall = Math.ceil((h - rg) / pitch);
+  setFormRows(b, S(sel.sid), h > last ? Math.max(rows, up) : rows > fall + 1 ? fall : rows);
+}
+// A Background or Stroke going on drops the rows to a few and the block hugs what it holds: 3 on a new form. The reads
+// from other rows have no rule, so they stand named (blockFits.boxed). Going off grows them to hold the block as it was.
+function formDesignStep(b, change) {
+  const wasBoxed = formBoxed(b);
+  formStep(b);
+  const h = b.formH[bp];
+  change();
+  renderSectionDom(sel.sid);
+  const boxed = formBoxed(b);
+  if (boxed === wasBoxed) return;
+  const rows = lay(b).area[2] - lay(b).area[0], { rg, pitch } = formPitch(b);
+  setFormRows(b, S(sel.sid), boxed ? Math.min(rows, 3) : Math.max(rows, Math.ceil((h + rg - 2) / pitch)));
+}
+// A delete fits at once: its reads found no rule to build (FORMFIELDS.json, lightbox.deleteThenOn).
+function setForm(change, label, deleted = false) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   b.fields ||= [];
+  if (!deleted) formStep(b);
   change(b);
   renderSectionDom(sel.sid);
-  if (fit && !formView(b, bp).lightbox) fitForm(b, S(sel.sid));
+  if (deleted && !formView(b, bp).lightbox) { fitForm(b, S(sel.sid)); b.formH = { ...b.formH, [bp]: formHeight(b) }; }
   commit(before, label);
   renderBlockPanel();
   blockPanel.scrollTop = Math.min(blockPanel.scrollTop, blockPanel.scrollHeight);
@@ -2097,7 +2190,10 @@ function setForm(change, label, fit = true) {
 function setFormLightbox(on) {
   const b = B(sel.sid, sel.bid), s = S(sel.sid), before = JSON.stringify(model), top = blockPanel.scrollTop;
   const h = on ? blockEl(b.id).querySelector(FORM_ON_PAGE).getBoundingClientRect().height : 0;
+  if (!on) b.formH = { ...b.formH, [bp]: formHeight(b) }; // the form coming back is a rise the next step answers
   setFormView(b, bp, 'lightbox', on);
+  // Lightbox on takes a Background off for good; a Stroke, Blend Mode and Blur stay (FORMFIELDS.json, lightbox.designSet).
+  if (on && designFor(b, bp).background) { const bag = designBag(bp), d = { ...b[bag] }; if (bag === 'designMobile') d.background = false; else delete d.background; if (Object.keys(d).length) b[bag] = d; else delete b[bag]; }
   renderSectionDom(sel.sid);
   if (on) {
     const w = blockEl(b.id).querySelector('.lightbox-handle-wrapper'), hh = w.getBoundingClientRect().height;
@@ -2137,7 +2233,7 @@ function showFormPost(b) {
   for (const w of on ? [on] : doc?.querySelectorAll('.form-wrapper.is-post-view') || []) w.classList.toggle('is-post-view', !!on);
   if (on) for (const w of doc.querySelectorAll('.form-wrapper.is-post-view')) if (w !== on) w.classList.remove('is-post-view');
 }
-const setPost = (k, v, label) => setForm((b) => { b.post = { ...b.post, [k]: v }; }, label, false); // the block's rows stay: read
+const setPost = (k, v, label) => setForm((b) => { b.post = { ...b.post, [k]: v }; }, label);
 function showFf(view) { ffView = view; renderBlockPanel(); blockPanel.scrollTop = 0; }
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-ff]');
@@ -2161,12 +2257,12 @@ blockPanel.addEventListener('click', (e) => {
     setForm((b) => { ffView = `ff-fu:${fn}:${oi}:${addFollow(b.fields[fn], Number(oi), arg)}`; }, `${arg} follow-up added`);
     blockPanel.scrollTop = 0;
   }
-  else if (act === 'fu-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteFollow(b.fields[n], o, Number(arg3)), 'Follow-up deleted'); blockPanel.scrollTop = 0; }
-  else if (act === 'opt-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteOption(b.fields[n], o), 'Option deleted'); blockPanel.scrollTop = 0; }
+  else if (act === 'fu-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteFollow(b.fields[n], o, Number(arg3)), 'Follow-up deleted', true); blockPanel.scrollTop = 0; }
+  else if (act === 'opt-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteOption(b.fields[n], o), 'Option deleted', true); blockPanel.scrollTop = 0; }
   else if (act === 'add') showFf('ff-add');
   else if (act === 'edit') showFf(`ff-edit:${n}`);
   else if (act === 'tile') { ffView = 'ff-list'; setForm((b) => b.fields.push(newField(arg)), `${arg} field added`); blockPanel.scrollTop = 0; }
-  else if (act === 'delete' || act === 'del') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n, 1), 'Field deleted'); blockPanel.scrollTop = 0; }
+  else if (act === 'delete' || act === 'del') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n, 1), 'Field deleted', true); blockPanel.scrollTop = 0; }
   else if (act === 'dup') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n + 1, 0, JSON.parse(JSON.stringify(b.fields[n]))), 'Field duplicated'); blockPanel.scrollTop = 0; }
   else if (act === 'opt-add') setForm((b) => { const l = ffField(b).options; l.push(`Option ${l.length + 1}`); }, 'Option added');
   else if (act === 'max') setForm((b) => { const f = ffField(b); f.maxFiles = Math.max(1, (f.maxFiles || 1) + n); }, 'Max files');
@@ -2177,20 +2273,22 @@ blockPanel.addEventListener('input', (e) => {
   if (q && sel) {
     ffBefore ??= JSON.stringify(model);
     const b = B(sel.sid, sel.bid);
-    b.post = { ...b.post, [q.dataset.ffPost]: q.value };
+    formStep(b);
+    b.post = { ...b.post, [q.dataset.ffPost]: q.isContentEditable ? cleanMessage(q) : q.value };
     renderSectionDom(sel.sid);
     showFormPost(b);
-    if (q.dataset.ffPost === 'html') blockPanel.querySelector('.bp-ffp-code .bp-code-lines').innerHTML = Array.from({ length: Math.max(1, q.value.split('\n').length) }, (_, n) => n + 1).join('<br>');
+    if (q.dataset.ffPost === 'html') paintCode(q);
     return;
   }
   const t = e.target.closest('[data-ff-field],[data-ff-opt]');
   if (!t || !sel || !ffOpen()) return;
   ffBefore ??= JSON.stringify(model);
+  formStep(B(sel.sid, sel.bid));
   const f = ffField(B(sel.sid, sel.bid));
   if (t.dataset.ffOpt != null) f.options[Number(t.dataset.ffOpt)] = t.value;
   else writeFieldText(f, t.dataset.ffField, t.value);
   renderSectionDom(sel.sid);
-  if (t.dataset.ffField === 'label') blockPanel.querySelector('.bp-ff-title').textContent = t.value;
+  if (t.dataset.ffField === 'label') blockPanel.querySelector('.bp-ff-title').textContent = t.value || t.placeholder || 'Hidden';
 });
 blockPanel.addEventListener('change', (e) => {
   if (sel && e.target.closest('[data-ff-post]')) {
@@ -2203,7 +2301,7 @@ blockPanel.addEventListener('change', (e) => {
   if (e.target.closest('[data-ff-field],[data-ff-opt]')) {
     const before = ffBefore;
     ffBefore = null;
-    if (before) { if (!formView(B(sel.sid, sel.bid), bp).lightbox) fitForm(B(sel.sid, sel.bid), S(sel.sid)); commit(before, 'Field changed'); }
+    if (before) commit(before, 'Field changed');
     return;
   }
   const t = e.target.closest('[data-ff-set]');
@@ -2308,13 +2406,24 @@ function hslOf([r0, g0, b0]) {
   return [h * 60, (d / (1 - Math.abs(2 * l - 1))) * 100, l * 100];
 }
 const rgbFromHsl = (h, s, l) => { const a = (s / 100) * Math.min(l / 100, 1 - l / 100), f = (n) => { const k = (n + h / 30) % 12; return Math.round(255 * (l / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))); }; return [f(0), f(8), f(4)]; };
-const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? b.color || b.fill || '#ffffff' : key === 'lightboxBg' ? b.lightboxBg || 'rgb(255, 255, 255)' : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || 'rgb(0, 0, 0)');
+// A shape's own section's theme color, as the page draws it (CAP-T6THEME.json).
+function themeInk(b, which) {
+  const probe = doc.createElement('i');
+  probe.style.color = `var(--shape-theme-${which})`;
+  blockEl(b.id).append(probe);
+  const c = win.getComputedStyle(probe).color;
+  probe.remove();
+  return c;
+}
+const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? shapeFill(b, bp) || themeInk(b, 'fill') : key === 'lightboxBg' ? formView(b, bp).lightboxBg : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || (b.type === 'video' ? 'rgb(255, 255, 255)' : b.type === 'shape' ? themeInk(b, 'stroke') : 'rgb(0, 0, 0)'));
+// On a phone a color set means its own: one that flows down from desktop shows no Reset and no Opacity (CAP-T6RESET.json).
+const strokeColorSet = (b) => (bp === 'mobile' ? phoneOwn(b, 'strokeColor') : !!b.design?.strokeColor);
 function writeShapeColor(b, key, css) {
-  if (key === 'color') { if (css) b.color = css; else delete b.color; return; }
+  if (key === 'color' && bp !== 'mobile') { if (css) b.color = css; else delete b.color; return; }
   if (key === 'overlay') { if (css) b.overlayColor = css; else delete b.overlayColor; return; }
-  if (key === 'lightboxBg') { if (css) b.lightboxBg = css; else delete b.lightboxBg; return; }
+  if (key === 'lightboxBg') { setFormView(b, bp, key, css); return; }
   const bag = designBag(bp), d = { ...(b[bag] || {}) };
-  if (css) d[key] = css; else if (bag === 'designMobile') d[key] = ''; else delete d[key];
+  if (css) d[key] = css; else if (bag === 'designMobile') d[key] = b.type === 'shape' ? FOLLOW_DESKTOP : ''; else delete d[key];
   if (Object.keys(d).length) b[bag] = d; else delete b[bag];
 }
 // The section panel's color rows: the divider stroke, or an Art color. Null writes the default back.
@@ -2395,7 +2504,7 @@ function renderShapePop() {
     const c = colorParts(shapeColorOf(b, kind));
     const custom = shapeUi.custom && (shapeUi.custom.hex === toHex(c.rgb) ? shapeUi.custom : { ...shapeUi.custom, ...hexToHsv(toHex(c.rgb)), hex: toHex(c.rgb) });
     if (custom) shapeUi.custom = custom;
-    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? !!b.color : kind === 'lightboxBg' ? !!b.lightboxBg : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? !!designFor(b, bp).strokeColor : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') || !!designFor(b, bp).strokeColor });
+    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? (bp === 'mobile' ? phoneOwn(b, 'color') : !!b.color) : kind === 'lightboxBg' ? !!b.lightboxBg : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? strokeColorSet(b) : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') || strokeColorSet(b) });
     const anchor = blockPanel.querySelector(`[data-shape-act="${kind}"]`)?.getBoundingClientRect();
     shapePop.hidden = false;
     const h = shapePop.offsetHeight;
@@ -2427,7 +2536,7 @@ shapePop.addEventListener('click', (e) => {
     const i = Number(shapeUi.key.split(':')[1]), [, n] = ffView.split(':');
     closeShapePop();
     if (fp.dataset.ffPop === 'follow') { ffReturn = ffView; showFf(`ff-fuadd:${n}:${i}`); }
-    else setForm((b) => deleteOption(ffField(b), i), 'Option deleted');
+    else setForm((b) => deleteOption(ffField(b), i), 'Option deleted', true);
     return;
   }
   if (shapeUi?.section) {
@@ -2571,6 +2680,7 @@ let codeBefore = null;
 // CAP-T10PULL.json, CAP-T10EMBED.json, CAP-T10VIEW.json, CAP-T10FRESH.json). An embed's height is that of
 // what is in it, margins included, and an empty one's is its 95 tall placeholder.
 function codeHeight(b) {
+  if (b.type === 'video') return blockEl(b.id)?.querySelector('.intrinsic')?.getBoundingClientRect().height ?? 0;
   if (b.type === 'embed' && !b.html) return 95;
   if (b.type === 'markdown') return blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0; // its placeholder too (CAP-T10MD6.json)
   const c = blockEl(b.id)?.querySelector(b.type === 'code' ? '.sqs-code-container' : '.sqs-embed-container');
@@ -2599,9 +2709,11 @@ function fitRows(b, was) {
   const m = measure(feEl(sel.sid)), L = lay(b), rows = L.area[2] - L.area[0], need = Math.max(1, codeRowsFor(h, m));
   const next = h > was ? Math.max(rows, need) : need >= rows ? rows : Math.max(1, rows - codeRowsFor(was - h, m));
   if (next === rows) return;
+  const bottom = L.area[2];
   L.area = [L.area[0], L.area[1], L.area[0] + next, L.area[3]];
   const s = S(sel.sid);
-  s.rows[bp] = Math.max(s.rows[bp], L.area[2] - 1); // or the rows past the section's end collapse
+  if (b.type === 'video' && next > rows) for (const o of s.blocks) { const A = o !== b && o.layout?.[bp]?.area; if (A && A[0] >= bottom) { A[0] += next - rows; A[2] += next - rows; } }
+  s.rows[bp] = Math.max(s.rows[bp], ...s.blocks.map((o) => (o.layout?.[bp]?.area?.[2] ?? 1) - 1)); // or the rows past the section's end collapse
   renderSectionDom(sel.sid);
 }
 // The Markdown block's toolbar and keys, in the panel and in the Code Editor view (markdown-edit.js).
@@ -2613,7 +2725,7 @@ function paintCode(f) {
   const box = f?.closest('.bp-code.is-look');
   if (!box) return;
   const hl = box.querySelector('.bp-code-hl'), nums = box.querySelector('.bp-code-lines'), band = box.querySelector('.bp-code-band');
-  const lines = codeLines(f.value, box.dataset.lang);
+  const lines = codeLines(f.value, box.dataset.lang, f.selectionStart === f.selectionEnd ? f.selectionStart : null);
   hl.innerHTML = lines.map((l) => `<div class="bp-code-l">${l || '<br>'}</div>`).join('');
   const on = f.value.slice(0, headOf(f)).split('\n').length - 1, rows = [...hl.children];
   nums.style.flexBasis = `${gutterWidth(lines.length)}px`;
@@ -2643,9 +2755,11 @@ function paintCodeSelection(f, hl, layer) {
   const a = at(f.selectionStart), b = at(f.selectionEnd), L = 6, R = f.clientWidth - 2;
   const rect = (x, top, w, h) => { const e = document.createElement('div'); e.style.cssText = `left:${x}px;top:${top}px;width:${w}px;height:${h}px`; layer.append(e); };
   if (a.top === b.top) { rect(a.x, a.top, b.x - a.x, 16); return; }
-  rect(a.x, a.top, R - a.x, 16);
-  if (b.top > a.top + 16) rect(L, a.top + 16, R - L, b.top - a.top - 16);
-  rect(L, b.top, b.x - L, 16);
+  // Two rows side by side meet halfway across the gap between their letters.
+  const near = b.top - a.top < 2 * 22, mid = (a.top + 16 + b.top) / 2;
+  rect(a.x, a.top, R - a.x, near ? mid - a.top : 16);
+  if (!near) rect(L, a.top + 16, R - L, b.top - a.top - 16);
+  rect(L, near ? mid : b.top, b.x - L, near ? b.top + 16 - mid : 16);
 }
 function scrollCode(f) {
   const box = f.closest('.bp-code.is-look');
@@ -2657,9 +2771,10 @@ function scrollCode(f) {
 function paintMdBar(f) {
   const bar = f?.closest('#block-panel, #code-modal')?.querySelector('.bp-md-bar');
   if (!bar) return;
-  const st = mdState(f.value, headOf(f));
+  const st = mdState(f.value, f.selectionStart, f.selectionEnd, headOf(f));
   bar.querySelector('.bp-md-heading span').textContent = st.heading;
-  for (const k of ['bullet', 'number', 'quote']) { const q = bar.querySelector(`[data-md="${k}"]`); q.classList.toggle('is-on', st[k]); q.setAttribute('aria-checked', String(st[k])); }
+  for (const k of ['bold', 'italic']) bar.querySelector(`[data-md="${k}"]`).classList.toggle('is-dim', st.dim);
+  for (const k of ['bold', 'italic', 'bullet', 'number', 'quote']) { const q = bar.querySelector(`[data-md="${k}"]`); q.classList.toggle('is-on', st[k]); q.setAttribute('aria-checked', String(st[k])); }
   // Link stays lit while its popover is open.
   const lk = bar.querySelector('[data-md="link"]');
   lk.classList.toggle('is-on', st.link || (!linkPop.hidden && !!linkTarget?.markdown));
@@ -2680,6 +2795,7 @@ function pressMdBar(root, btn) {
   const list = root.querySelector('.bp-md-list');
   if (k === 'heading') { list.hidden = !list.hidden; btn.setAttribute('aria-expanded', String(!list.hidden)); btn.classList.toggle('is-on', !list.hidden); return; }
   if (k === 'link') { openMdLink(root, btn, s, e); return; }
+  if (btn.classList.contains('is-dim')) return;
   flushMdStep();
   writeMd(f, k === 'bold' ? mdWrap(v, s, e, '**') : k === 'italic' ? mdWrap(v, s, e, '*') : mdLinesEdit(v, s, e, k));
   flushMdStep();
@@ -2699,17 +2815,17 @@ function closeMdList(root) {
 // Link (CAP-T10MD4.json, CAP-T10MD5.json, CAP-T10MD7.json): the popover under the button, 6px below it. A caret in a
 // link shows that link with Edit, Copy and Remove Link. A page fills the field, and Enter or a press away writes it.
 function openMdLink(root, btn, s, e) {
-  const f = mdRootField(root), link = mdLinkAt(f.value, s), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
+  const f = mdRootField(root), link = mdLinkIn(f.value, s, e), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
   flushMdStep();
   const target = { markdown: true, summary: !!link, href: link?.href || '', newTab: false, setNewTab() {},
     apply: (v) => {
-      const q = mdRootField(root), at = mdLinkAt(q.value, s);
+      const q = mdRootField(root), at = mdLinkIn(q.value, s, e);
       if (!v && !at) return;
       flushMdStep();
       writeMd(q, at ? (v ? mdChangeLink(q.value, at, v) : mdRemoveLink(q.value, at)) : mdSetLink(q.value, s, e, v));
       flushMdStep();
     },
-    remove: () => { const q = mdRootField(root), at = mdLinkAt(q.value, s); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(q.value, at)); flushMdStep(); } },
+    remove: () => { const q = mdRootField(root), at = mdLinkIn(q.value, s, e); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(q.value, at)); flushMdStep(); } },
     done: () => { const q = mdRootField(root); if (q) { if (document.activeElement === document.body) q.focus(); paintMdBar(q); } },
   };
   openLinkPopover(b, (st) => ({ left: r.left + r.width / 2 - 164 - st.left, top: r.bottom + 6 - st.top }), target);
@@ -2854,13 +2970,37 @@ function showAccordionItem(b) {
   const n = accView?.startsWith('acc-item:') ? Number(accView.slice(9)) : -1;
   lis?.forEach((li, k) => { const on = k === n || (k === 0 && !!b.expandFirst); if (on) li.setAttribute('data-is-open', 'true'); else li.removeAttribute('data-is-open'); li.querySelector('button').setAttribute('aria-expanded', String(on)); });
 }
+// It follows its content and what's below moves with it. Growing moves every block that starts lower, in any column, even
+// one that overlaps it. Shrinking moves only those at or past its old end (CAP-ACCBELOW.json to CAP-ACCBELOW4.json, CAP-ACCPHONE6.json).
+function fitAccordion(b, s, need) {
+  const L = lay(b), rows = L.area[2] - L.area[0], start = L.area[0], end = L.area[2], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), lowest = low();
+  L.area = [start, L.area[1], start + need, L.area[3]];
+  for (const o of s.blocks) { const a = o.layout[bp].area; if (o !== b && (need > rows ? a[0] > start : a[0] >= end)) o.layout[bp].area = [a[0] + need - rows, a[1], a[2] + need - rows, a[3]]; }
+  if (need < rows) s.rows[bp] -= lowest - low(); else growRows(s);
+  renderSectionDom(sel.sid); showAccordionItem(b);
+}
+// Escape from an item view whose edit made it grow gives the open item's rows back, to the nearest row, so the rows can
+// stretch. Back doesn't, and neither does Escape with no edit (CAP-ACCPHONE7.json to CAP-ACCPHONE10.json). Read at one length of description.
+function accordionEscape() {
+  if (!accGrew || !sel || !accView?.startsWith('acc-item:')) return;
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), m = measure(feEl(sel.sid));
+  accView = null; accGrew = false;
+  showAccordionItem(b);
+  const need = Math.max(1, Math.round((blockEl(b.id).querySelector('.accordion-items-container').offsetHeight + m.rg) / m.pitch));
+  fitAccordion(b, S(sel.sid), need);
+  commit(before, 'Item closed');
+}
 function setAccordion(change, label, before = JSON.stringify(model)) {
-  const b = B(sel.sid, sel.bid);
+  const b = B(sel.sid, sel.bid), s = S(sel.sid), was = contentRows(b, measure(feEl(sel.sid)));
   change(b);
   renderSectionDom(sel.sid);
   showAccordionItem(b);
-  const L = lay(b), need = contentRows(b, measure(feEl(sel.sid)));
-  if (L.area[2] - L.area[0] !== need) { L.area = [L.area[0], L.area[1], L.area[0] + need, L.area[3]]; renderSectionDom(sel.sid); showAccordionItem(b); }
+  const L = lay(b), rows = L.area[2] - L.area[0], need = contentRows(b, measure(feEl(sel.sid)));
+  // Content that shrinks doesn't grow a block that was already short of it: a new one's 5 phone rows stay at 2 items (CAP-ACCPHONE.json to CAP-ACCPHONE6.json).
+  if (rows !== need && !(need < was && need > rows)) {
+    if (need > rows && accView?.startsWith('acc-item:')) accGrew = true;
+    fitAccordion(b, s, need);
+  }
   commit(before, label);
   renderBlockPanel();
 }
@@ -2879,8 +3019,8 @@ blockPanel.addEventListener('click', (e) => {
     return;
   }
   const [act, arg] = a.dataset.acc.split(':'), n = Number(arg);
-  if (act === 'open') { accView = `acc-item:${n}`; renderBlockPanel(); return; }
-  if (act === 'back') { accView = null; renderBlockPanel(); return; }
+  if (act === 'open') { accView = `acc-item:${n}`; accGrew = false; renderBlockPanel(); return; }
+  if (act === 'back') { accView = null; accGrew = false; renderBlockPanel(); return; }
   if (act === 'dividers') { accView = 'acc-dividers'; renderBlockPanel(); return; }
   if (act === 'title' || act === 'desc') { accView = `acc-${act}`; renderBlockPanel(); return; }
   if (act === 'design') { accView = null; renderBlockPanel(); return; }
@@ -3063,7 +3203,7 @@ async function readPicture(file) {
   return { src: c.toDataURL('image/webp', 0.85), aspect: bmp.width / bmp.height };
 }
 // Keys typed in a panel field stay in the field: a Backspace there must not remove the block.
-blockPanel.addEventListener('keydown', (e) => { if (e.key !== 'Escape' && e.target.matches('input, textarea, select')) e.stopPropagation(); });
+blockPanel.addEventListener('keydown', (e) => { if (e.key !== 'Escape' && e.target.matches('input, textarea, select, [contenteditable]')) e.stopPropagation(); });
 blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input[data-content]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); });
 
 const linkPop = $('link-popover');
@@ -3076,6 +3216,8 @@ function flushLinkStep() {
   linkStep = null;
   commit(was, 'Link set');
 }
+// A form's Message box and its bar (form-message.js). Link opens under its button, 6 below (FORMFIELDS.json).
+const formMessage = messageBox({ panel: blockPanel, bar: $('msg-bar'), stage, linkPop, openLink: (btn, target) => openLinkPopover(B(sel.sid, sel.bid), (st) => { const r = btn.getBoundingClientRect(); return { left: r.left + r.width / 2 - 164 - st.left, top: r.bottom + 6 - st.top }; }, target) });
 function closeLinkPopover() {
   if (linkPop.hidden) return;
   linkPop.hidden = true;
@@ -3097,6 +3239,7 @@ function closeLinkPopover() {
     if (v ? v !== t.href : t.switched) t.apply(v);
     t.setNewTab(linkPop.querySelector('.lk-box').checked);
   }
+  t.after?.();
 }
 const SITE_PAGES = ['Services', 'About', 'Contact', 'Home'];
 function siteLinkGroups() {
@@ -3144,7 +3287,7 @@ function openLinkPopover(b, place, target = null) {
   closeLinkPopover();
   linkTarget = target;
   linkPlace = place;
-  linkPop.classList.toggle('is-md', !!target?.markdown);
+  linkPop.classList.toggle('is-md', !!target?.markdown || !!target?.atClose);
   linkPop.classList.remove('is-summary');
   linkPop.dataset.bid = b.id;
   linkPop.hidden = false;
@@ -3169,7 +3312,7 @@ function applyLink(href) {
   const input = linkPop.querySelector('.lk-input');
   input.value = v;
   showLinkList(false);
-  if (linkTarget?.markdown) { input.focus(); return; } // written on Enter or a press away (CAP-T10MD5.json)
+  if (linkTarget?.markdown || linkTarget?.atClose) { input.focus(); return; } // written on Enter or a press away (CAP-T10MD5.json); a form's message on a press away
   if (linkTarget) { linkTarget.apply(v); linkTarget.href = v; }
   else setLinkOnButton(v, linkPop.querySelector('.lk-box').checked);
   input.focus();
@@ -3287,7 +3430,7 @@ linkPop.addEventListener('change', (e) => {
 const closeLinkOutside = (e) => { if (!linkPop.contains(e.target)) closeLinkPopover(); };
 document.addEventListener('pointerdown', closeLinkOutside, true);
 // The values with a range of their own (BLOCKDESIGN.json); the others are a field of DESIGN_FIELDS.
-const RANGE_LIMITS = { strokePx: 50, padY: 20, padX: 20, blurPx: 100 };
+const RANGE_LIMITS = { strokePx: 50, padY: 20, padX: 20, padT: 20, padR: 20, padB: 20, padL: 20, blurPx: 100 };
 let rangeDrag = null; // a range being dragged: its block moves with it, one undo step when let go
 blockPanel.addEventListener('input', (e) => {
   const r = e.target.closest('input[type="range"][data-design]');
@@ -3333,6 +3476,22 @@ function onDesignChange(e) {
   if (typing) blockPanel.querySelector(`input[data-design="${k}"]`)?.focus();
 }
 panel.addEventListener('change', onDesignChange, true);
+// The ? by Video Storage: a tip over a dark overlay; Escape or a press on the overlay closes it, and the block doesn't change (CAP-T7TIP.json, CAP-T7TIP2.json). The words are ours.
+function openVideoTip(btn) {
+  const P = blockPanel.getBoundingClientRect(), q = btn.getBoundingClientRect();
+  const over = document.createElement('div'), box = document.createElement('div');
+  over.className = 'video-tip-over';
+  box.className = 'video-tip-box';
+  box.setAttribute('role', 'dialog');
+  box.textContent = 'A video you add stays in this tab. Nothing is uploaded.';
+  box.style.cssText = `left:${P.left + 10}px;top:${q.top - 64}px`;
+  const close = () => { over.remove(); box.remove(); document.removeEventListener('keydown', onKey, true); btn.focus(); };
+  const onKey = (e) => { if (e.key !== 'Escape') return; e.preventDefault(); e.stopImmediatePropagation(); close(); };
+  over.addEventListener('click', close);
+  document.addEventListener('keydown', onKey, true);
+  document.body.append(over, box);
+}
+blockPanel.addEventListener('click', (e) => { const t = e.target.closest('[data-video-tip]'); if (t) { e.preventDefault(); e.stopPropagation(); openVideoTip(t); } });
 blockPanel.addEventListener('change', onDesignChange, true);
 
 // The text toolbar (E4, parity/findings/TEXTOPS.json), in the oracle's order: Text Style,
@@ -3723,7 +3882,7 @@ const ADD_TYPES = [
   // A new form's fields (FORMADD.json).
   ['Form', 9, 16, () => ({ type: 'form', button: 'Submit', formName: `${pageTitle()} Form`, fields: [{ kind: 'name', label: 'Name', parts: ['First Name(required)', 'Last Name(required)'] }, { kind: 'email', label: 'Email(required)', signup: 'Sign up for news and updates' }, { kind: 'text', label: 'Subject(required)' }, { kind: 'textarea', label: 'Message(required)' }] })],
   ['Accordion', 8, 8, () => ({ type: 'accordion', items: [1, 2, 3].map((n) => ({ title: `Accordion Item ${n}`, description: ACCORDION_DESCRIPTION })) })],
-  ['Shape', 6, 6, () => ({ type: 'shape', fill: '#ffffff', radius: '0' })],
+  ['Shape', 6, 6, () => ({ type: 'shape', radius: '0' })],
   ['Scrolling', 24, 2, () => ({ type: 'scrolling', text: 'Dream it 〰️', size: 1.5, wave: 0 })],
   ['Line', 4, 1, () => ({ type: 'line' })],
   ['Map', 8, 12, () => ({ type: 'map' })],
@@ -3737,7 +3896,7 @@ const ADD_TYPES = [
     .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}) })]),
 ];
 // A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6).
-const PHONE_ROWS = { Accordion: 5 };
+const PHONE_ROWS = { Accordion: 5, Scheduling: 5 }; // CAP-X6FLOORSPHONE.json for Scheduling
 // A new Line sits in the middle of its block, in each view (CAP-U4LINE.json).
 const NEW_ALIGN = { Line: 'center' };
 function addBlock(sid, name) {
@@ -4260,14 +4419,25 @@ for (const host of [panel, sectionPanel]) {
   });
 }
 function chromeSid() { return editSid || sel?.sid || hoverSid; }
-// The chrome fades out over 0.15s when the mouse leaves; a gesture takes it away at once (SECTIONBAR.json, fade).
+// The chrome fades out over 0.15s when the mouse leaves, and the outline over 0.2s; a gesture takes it away at once
+// (SECTIONBAR.json, fade; CAP-U9FADE.json). Add Section takes 0.2s too, on its opacity (CAP-U9ADDFADE.json). The outline fades there too: moving to another section and in a gesture, the
+// old one fades as a copy left behind (CAP-U9CLOSE.json). A copy doesn't follow a scroll during its 0.2 s, ours only.
 let chromeOut = 0;
+function outlineAway() {
+  const o = chrome.hidden ? null : chrome.querySelector('.sc-outline');
+  if (!o) return;
+  const gone = o.cloneNode(false);
+  gone.classList.add('sc-outline-gone');
+  gone.removeAttribute('data-sc-part');
+  chrome.after(gone);
+  gone.animate([{ borderColor: getComputedStyle(o).borderTopColor }, { borderColor: 'transparent' }], { duration: 200, easing: 'ease-in-out', fill: 'forwards' }).onfinish = () => gone.remove();
+}
 function hideChrome(fade) {
   if (chrome.hidden || (fade && chromeOut)) return;
   clearTimeout(chromeOut); chromeOut = 0;
-  if (!fade) { chrome.classList.remove('is-out'); chrome.hidden = true; return; }
-  chrome.classList.add('is-out');
-  chromeOut = setTimeout(() => { chromeOut = 0; chrome.classList.remove('is-out'); chrome.hidden = true; }, 150);
+  if (!fade) { outlineAway(); chrome.classList.remove('is-out'); chrome.hidden = true; return; }
+  chrome.classList.remove('is-outline-in', 'is-add-in'); chrome.classList.add('is-out');
+  chromeOut = setTimeout(() => { chromeOut = 0; chrome.classList.remove('is-out'); chrome.hidden = true; }, 200);
 }
 function placeChrome() {
   const sid = chromeSid();
@@ -4279,10 +4449,14 @@ function placeChrome() {
   const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length && !marquee;
   const hasLayouts = !phone && !!sectionMix(S(sid));
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}|${hasLayouts}`;
-  const appears = chrome.hidden || !!chromeOut || chrome.dataset.key?.split('|')[0] !== sid;
+  const newSection = chrome.hidden || chrome.dataset.key?.split('|')[0] !== sid;
+  const appears = newSection || !!chromeOut;
+  if (newSection) outlineAway();
   if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); }
-  if (chrome.dataset.key !== key) { chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
+  // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
+  if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
+  if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in', 'is-add-in'); }
   const header = k === 0 ? doc.getElementById('header') : null;
   const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
   // The Add Section buttons sit on the sum of the rounded heights above, not on the section's edge
@@ -4299,6 +4473,8 @@ function placeChrome() {
   if (editSid) {
     // 342px from the window's right edge; on phones 195px right of the canvas (SECTIONBAR.json).
     const st = stage.getBoundingClientRect(), fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect();
+    // Read on desktop only, so the phone panel stays open.
+    if (!phone && sectionPanelGone({ secTop: fr.top + q.top, secBottom: fr.top + q.bottom })) { closeSectionPanel(); return; }
     sectionPanel.style.left = `${phone ? fr.right - st.left + 195 : st.width - 342}px`;
     const place = sectionPanelTop({ edit: st.top + L.card.top + 7, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom, prev: panelPlace?.sid === editSid ? panelPlace.top : null });
     panelPlace = { sid: editSid, top: place };
@@ -5410,7 +5586,7 @@ function showBarTip(btn) {
   const q = btn.getBoundingClientRect();
   const w = barTip.getBoundingClientRect().width;
   barTip.style.left = `${Math.max(11, Math.min(q.left + q.width / 2 - w / 2, window.innerWidth - 22 - w))}px`;
-  barTip.style.top = `${q.bottom + (btn.closest('#block-toolbar') ? 11 : btn.classList.contains('tb-icon') ? 11.5 : 6.5)}px`;
+  barTip.style.top = `${q.bottom + (btn.closest('#block-toolbar, #block-panel') ? 11 : btn.classList.contains('tb-icon') ? 11.5 : 6.5)}px`;
 }
 // The block toolbar's tips (parity/findings/TOOLBARS.json tips): not on an unavailable button. They
 // appear between 100 and 400 ms after the hover on the oracle; ours at 200.
@@ -5422,6 +5598,10 @@ function setTbTip(btn) {
   if (btn && !btn.classList.contains('is-off')) tbTipTimer = setTimeout(() => showBarTip(btn), 200);
 }
 // No tip on the button whose menu is open (parity/findings/S3.json).
+// An option's menu button has its tip too (FORMFIELDS.json, followUp.menu).
+blockPanel.addEventListener('pointerover', (e) => { const btn = e.target.closest('[data-tip]'); if (btn) showBarTip(btn); });
+blockPanel.addEventListener('pointerout', (e) => { if (e.target.closest('[data-tip]')) barTip.hidden = true; });
+blockPanel.addEventListener('pointerdown', (e) => { if (e.target.closest('[data-tip]')) barTip.hidden = true; });
 toolbar.addEventListener('pointerover', (e) => { let btn = e.target.closest('button[data-tip]'); if (btn?.classList.contains('tb-open') && !btn.closest('.tb-vmenu')) btn = null; if (btn !== tbTipBtn) setTbTip(btn); });
 toolbar.addEventListener('pointerleave', () => setTbTip(null));
 // A pick redraws the toolbar and keeps the tip; a block that goes takes the tip with it.
@@ -5496,6 +5676,7 @@ function setPreview(on) {
   doc?.body.classList.toggle('is-preview', on);
   if (!on) doc?.querySelectorAll('.cdk-image-lightbox, body > .form-lightbox').forEach((x) => x.remove());
   if (!on) doc?.querySelectorAll('.followup-question-container').forEach((x) => { x.hidden = true; });
+  if (!on) { doc?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); doc?.querySelectorAll('.native-video-player video').forEach((v) => v.pause()); } // no controls while editing
   $('preview').setAttribute('aria-pressed', String(on));
   $('page-state').textContent = on ? 'Previewing' : 'Page · Published';
   if (on) { closeFloating(); closeSectionPanel(); designOpen = null; if (editing) finishTextEdit(); select(null); }
@@ -5524,6 +5705,8 @@ function boot() {
   win = frame.contentWindow;
   doc.addEventListener('pointerdown', closeLinkOutside, true);
   bindLightbox(doc);
+  bindPhonePrefix(doc);
+  bindVideoPlayer(doc, () => doc.body.classList.contains('is-preview'));
   new win.Function(IMAGE_EFFECT_SCRIPT)();
   bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations; } return null; });
   doc.addEventListener('pointerdown', onDown);

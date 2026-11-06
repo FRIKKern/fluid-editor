@@ -4,7 +4,7 @@
 // input, so a Backspace in the code must stay in the code. Writes parity/code-check.json.
 // Usage: FLUID_SURFACE=cdp:<port> npm run code-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, browser, drag } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, browser, drag, mouse } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -514,11 +514,15 @@ add('Number colour', emptyLook.gutterColor === lookRead('empty', 'cm-gutters')[0
 add('Placeholder colour', emptyLook.placeholder === lookRead('empty', 'cm-placeholder')[0].color, emptyLook.placeholder);
 add('The empty field has its band', emptyLook.band[3] === 22 && emptyLook.rows.length === 1, JSON.stringify(emptyLook.band));
 await setMd(LOOK_TEXT); await pause(150);
-const marks = lookIn(), oSpans = LOOK.reads.marks.panelCss.filter((e) => !e.cls.startsWith('cm-'));
-add('Marks: as many spans', marks.spans.length === oSpans.length, `${marks.spans.length} of ${oSpans.length}`);
+// Runs of one look, leaving plain letters out: the oracle has an element per word, ours a span per run.
+const PLAIN = 'rgb(14, 14, 14),400,normal,none';
+const runsOf = (rows) => { const out = []; for (const [text, ...look] of rows) { const st = look.slice(0, 4).join(); if (st === PLAIN) continue; const l = out.at(-1); if (l && l.st === st) l.text += text; else out.push({ text, st, x: look[4] }); } return out; };
+const oRows = (els, left = 0) => els.filter((e) => !e.cls.startsWith('cm-')).map((o) => [o.text, o.color, o.weight, o.style, o.deco, o.box[0] - left]);
+const marks = lookIn(), oSpans = runsOf(oRows(LOOK.reads.marks.panelCss, edEl.box[0])), mineR = runsOf(marks.spans);
+add('Marks: as many runs', mineR.length === oSpans.length, `${mineR.length} of ${oSpans.length}`);
 oSpans.forEach((o, n) => {
-  const m = marks.spans[n], want = [o.text, o.color, o.weight, o.style, o.deco];
-  add(`Mark ${n + 1}: ${o.text}`, !!m && want.join() === m.slice(0, 5).join() && Math.abs(m[5] - (o.box[0] - edEl.box[0])) <= 0.6, m && `${m.join()} wants ${want.join()} at ${o.box[0] - edEl.box[0]}`);
+  const m = mineR[n];
+  add(`Mark ${n + 1}: ${o.text}`, !!m && m.text === o.text && m.st === o.st && Math.abs(m.x - o.x) <= 0.6, m && `${JSON.stringify(m)} wants ${JSON.stringify(o)}`);
 });
 add('Two digits: the numbers\' width', Math.abs(marks.gutter[2] - lookRead('marks', 'cm-gutters')[0].box[2]) < 0.1, marks.gutter[2]);
 add('Under the colours, the same text', marks.under === LOOK_TEXT && marks.value === LOOK_TEXT, JSON.stringify(marks.under));
@@ -537,7 +541,7 @@ const afterUndo = lookIn();
 add('Undo redraws the colours', afterUndo.under === afterUndo.value, JSON.stringify(afterUndo.under));
 await setMd('word'); selAll(); await pressAt(mdBtn('Bold'));
 const afterBold = lookIn();
-add('A bar press redraws them', afterBold.value === '**word**' && afterBold.under === '**word**' && afterBold.spans.length === 3, JSON.stringify(afterBold.spans));
+add('A bar press redraws them', afterBold.value === '**word**' && afterBold.under === '**word**' && runsOf(afterBold.spans).map((q) => q.text).join() === '**,word,**', JSON.stringify(afterBold.spans));
 await setMd('a < b & c > d'); await pause(100);
 add('Marks in the text stay text', lookIn().under === 'a < b & c > d', lookIn().under);
 
@@ -596,7 +600,7 @@ const setCodeMode = async (v) => { evalJs(S, `(() => { document.querySelector('#
 await setCodeMode('html');
 await setText(CODE_FIELD, '<b>x</b>'); await pause(150);
 const htmlLook = lookIn();
-add('HTML: tag names green, brackets plain', htmlLook.spans.map((q) => `${q[0]} ${q[1]}`).join() === '< rgb(14, 14, 14),b rgb(0, 136, 85),> rgb(14, 14, 14),</ rgb(14, 14, 14),b rgb(0, 136, 85),> rgb(14, 14, 14)', JSON.stringify(htmlLook.spans));
+add('HTML: tag names green, brackets plain', runsOf(htmlLook.spans).map((q) => `${q.text} ${q.st.split(',').slice(0, 3).join()}`).join() === 'bb rgb(0, 136, 85)', JSON.stringify(htmlLook.spans));
 await setText(CODE_FIELD, LONG); await pause(150);
 add('HTML wraps', lookIn().rows[0][4] === 66 && lookIn().wrap === 'break-spaces', JSON.stringify(lookIn().rows));
 await setCodeMode('css'); await pause(100);
@@ -606,6 +610,188 @@ add('CSS locks the source switch at once', evalJs(S, `(() => { const r = documen
 evalJs(S, `(() => { document.querySelector('#block-panel [data-code-expand]').click(); ${modeIn('html')} return 'true'; })()`); await pause(250);
 add('The view: changing the mode redraws', lookIn('#code-modal').wrap === 'break-spaces' && lookIn('#code-modal').rows.length === 2, JSON.stringify(lookIn('#code-modal').rows));
 evalJs(S, `(() => { document.querySelector('#code-modal .code-modal-close').click(); return 'true'; })()`); await pause(200);
+
+
+// Every colour of every mode, run by run (CAP-T10TOKENS.json, CAP-T10MODES.json, CAP-T10FOLD.json).
+const lastSet = (f) => { const m = {}; let t; for (const st of f.steps) { if (st[0] === 'setCode') t = st[1]; if (st[0] === 'read') m[st[1]] = t; } return m; };
+const inMode = (els) => els.slice(els.findIndex((e) => e.cls.includes('focus-visible'))).filter((e) => !e.cls.includes('atchingBracket'));
+const TOKENS = read('CAP-T10TOKENS'), MODES = read('CAP-T10MODES'), FOLD = read('CAP-T10FOLD');
+const sameRuns = (what, cut) => { const mine = runsOf(lookIn().spans), want = runsOf(cut); return (name) => want.forEach((o, n) => { const m = mine[n], last = what && n === want.length - 1; add(`${name} ${n + 1}: ${o.text.slice(0, 20)}`, !!m && m.st === o.st && (last ? m.text.startsWith(o.text) : m.text === o.text), m && `${JSON.stringify(m)} wants ${JSON.stringify(o)}`); }); };
+await freshMd();
+const tokenSet = lastSet(TOKENS);
+for (const k of ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7']) {
+  await setMd(tokenSet[k]); caret(0); await pause(120);
+  sameRuns(false, oRows(TOKENS.reads[k].panelCss))(`Markdown ${k}`);
+}
+await key('Escape'); await pause(200);
+const codeBlock = evalJs(S, `(async () => { fe.addBlock(fe.model.sections[1].id, 'Code'); await new Promise((res) => setTimeout(res, 300)); return JSON.stringify(fe.model.sections[1].blocks.at(-1).id); })()`);
+await openPanel(codeBlock);
+const modeSet = lastSet(MODES);
+const modeIs = async (v) => { evalJs(S, `(() => { const q = document.querySelector('#block-panel select[data-content="codeMode"]'); q.value = '${v}'; q.dispatchEvent(new Event('change', { bubbles: true })); return 'true'; })()`); await pause(200); };
+for (const [k, v, cut] of [['CSS', 'css'], ['JavaScript', 'javascript', true], ['Plain Text', 'plain'], ['Markdown', 'markdown'], ['HTML', 'html']]) {
+  await modeIs(v); await setText(CODE_FIELD, modeSet[k]); await pause(120);
+  evalJs(S, `(() => { const f = document.querySelector('#block-panel ${CODE_FIELD}'); f.setSelectionRange(0, 0); f.dispatchEvent(new Event('select')); return 'true'; })()`); await pause(100);
+  sameRuns(cut, oRows(inMode(MODES.reads[k].panelCss)))(`Code ${k}`);
+}
+await setText(CODE_FIELD, lastSet(FOLD)['code html']); await pause(150);
+evalJs(S, `(() => { const f = document.querySelector('#block-panel ${CODE_FIELD}'); f.setSelectionRange(0, 0); f.dispatchEvent(new Event('select')); return 'true'; })()`); await pause(100);
+sameRuns(false, oRows(FOLD.reads['code html'].panelCss))('Code HTML, all kinds');
+// Which modes wrap.
+const WRAP_TEXT = modeSet['CSS long'];
+for (const [k, v, wraps] of [['CSS', 'css', false], ['JavaScript', 'javascript', false], ['Plain Text', 'plain', false], ['HTML', 'html', true], ['Markdown', 'markdown', true]]) {
+  await modeIs(v); await setText(CODE_FIELD, WRAP_TEXT); await pause(120);
+  add(`${k} ${wraps ? 'wraps' : 'doesn\'t wrap'}`, (lookIn().wrap === 'break-spaces') === wraps, lookIn().wrap);
+}
+
+// Matching marks by the caret: as the oracle's, by text and colour.
+const matchOf = () => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#block-panel .bp-code-hl .c-match, #block-panel .bp-code-hl .c-nomatch')].map((e) => [e.textContent, getComputedStyle(e).backgroundColor])))()`);
+const oMatch = (els) => { const m = els.filter((e) => /atchingBracket/.test(e.cls)); return m.slice(-2).filter((e, n, a) => a.length < 2 || /onmatch/.test(e.cls) === false || n === a.length - 1).map((e) => [e.text, e.bg]); };
+const fCaret = (at, q = CODE_FIELD) => evalJs(S, `(() => { const f = document.querySelector('#block-panel ${q}'); f.focus(); f.setSelectionRange(${at}, ${at}); f.dispatchEvent(new Event('select')); return 'true'; })()`);
+const matchCase = async (what, mode, text, at, els, only) => { await modeIs(mode); await setText(CODE_FIELD, text); fCaret(at); await pause(120); const want = oMatch(els).slice(only ? -only : 0), got = matchOf(); add(`Match: ${what}`, JSON.stringify(got) === JSON.stringify(want), `${JSON.stringify(got)} wants ${JSON.stringify(want)}`); };
+await matchCase('CSS', 'css', 'a { color: red }', 3, MODES.reads['css match'].panelCss);
+await matchCase('JavaScript', 'javascript', 'f(x)', 2, MODES.reads['js match'].panelCss);
+await matchCase('HTML, the bracket', 'html', '<p>x</p>', 1, MODES.reads['html match, by the bracket'].panelCss);
+await matchCase('HTML, the name', 'html', '<p>x</p>', 2, MODES.reads['html match, by the name'].panelCss);
+await matchCase('HTML, the end', 'html', '<p>x</p>', 8, MODES.reads['html match, the end'].panelCss);
+await modeIs('html'); await setText(CODE_FIELD, '<p>x</p>'); evalJs(S, `(() => { document.querySelector('#block-panel ${CODE_FIELD}').select(); return 'true'; })()`); await pause(120);
+add('Match: a selection marks nothing (inferred)', matchOf().length === 0, JSON.stringify(matchOf()));
+await freshMd();
+for (const [what, text, at, name, only] of [['Markdown, a bracket', '[a](/x)', 1, 'caret after a bracket', 2], ['Markdown, a tag\'s name', '<b>x</b>', 2, 'caret in a tag', 1], ['Markdown, none to match', '(a', 1, 'no match', 1]]) {
+  await setMd(text); caret(at); evalJs(S, `(() => { document.querySelector('#block-panel ${MD_FIELD}').dispatchEvent(new Event('select')); return 'true'; })()`); await pause(120);
+  const want = oMatch(TOKENS.reads[name].panelCss).slice(-only), got = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#block-panel .bp-code-hl .c-match, #block-panel .bp-code-hl .c-nomatch')].map((e) => [e.textContent, getComputedStyle(e).backgroundColor])))()`);
+  add(`Match: ${what}`, JSON.stringify(got) === JSON.stringify(want), `${JSON.stringify(got)} wants ${JSON.stringify(want)}`);
+}
+
+// Each read edit, pressed for real on the same text and selection, predictions first (CAP-T10EDITS*.json, CAP-T10WRAP.json).
+const casesOf = (f) => { const out = []; let text = null, a = 0, b = 0, press = [];
+  for (const [op, v] of f.steps) {
+    if (op === 'setCode') { text = v; a = b = v.length; press = []; }
+    else if (text === null) continue;
+    else if (op === 'press') {
+      if (v === 'Meta+ArrowUp') a = b = 0; else if (v === 'Meta+a') { a = 0; b = text.length; } else if (v === 'ArrowRight') a = b = a === b ? Math.min(text.length, b + 1) : b;
+      else if (v === 'Shift+ArrowRight') b = Math.min(text.length, b + 1); else if (v === 'Home') a = b = text.lastIndexOf('\n', a - 1) + 1; else if (v === 'Enter') press.push('Enter');
+    } else if (op === 'pressNamed') press.push(v);
+    else if (op === 'read') out.push({ name: v, text, a, b, press, read: f.reads[v] });
+  }
+  return out; };
+const setSel = (a, b) => evalJs(S, `(() => { const f = document.querySelector('#block-panel ${MD_FIELD}'); f.focus(); f.setSelectionRange(${a}, ${b}); f.dispatchEvent(new Event('select')); return 'true'; })()`);
+const BAR = ['Bold', 'Italic', 'Link', 'Bulleted List', 'Numbered List', 'Quote'];
+const barNow = () => evalJs(S, `(() => { const on = {}; for (const l of ${JSON.stringify(BAR)}) { const e = document.querySelector('${mdBtn('X')}'.replace('X', l)); on[l] = [e.classList.contains('is-on'), e.classList.contains('is-dim')]; } return JSON.stringify({ on, heading: document.querySelector('#block-panel .bp-md-heading span').textContent }); })()`);
+const barWants = (read) => { const els = read.panelCss, want = {}; for (const l of BAR) { const n = els.findIndex((e) => e.label === l); if (n < 0) return null; want[l] = [els[n].bg === 'rgb(231, 231, 231)', els[n + 1]?.label === '' && els[n + 1].color === 'rgb(183, 183, 183)']; } return { on: want, heading: els.find((e) => e.label === 'Heading')?.text }; };
+await freshMd();
+let edits = 0, bars = 0;
+for (const n of ['CAP-T10EDITS', 'CAP-T10EDITS2', 'CAP-T10EDITS3', 'CAP-T10WRAP', 'CAP-T10STATE']) {
+  for (const c of casesOf(read(n))) {
+    if (c.read.controls || c.read.block || /^(tip|L\d+ before|selection|before the view|typed|after Close|one undo)/.test(c.name) || c.press.some((p) => !['Enter', 'Bold', 'Italic'].includes(p))) continue;
+    if (c.press.length > 1 && !c.press.every((p) => p === c.press[0])) continue;
+    if (c.read.panelCss?.some((e) => e.label === 'Bold')) {
+      await setMd(c.text); setSel(c.a, c.b); await pause(60);
+      if (c.press.length && c.read.codeText === undefined) continue;
+      for (const p of c.press) { if (p === 'Enter') await key('Enter'); else await pressAt(mdBtn(p)); }
+      const want = barWants(c.read), got = barNow();
+      if (want && want.heading) { bars++; add(`Bar, ${n.slice(7)} ${c.name.replace(/\n/g, ' ').slice(0, 32)}`, JSON.stringify(got.on) === JSON.stringify(want.on) && (c.press.length > 0 || got.heading === want.heading), `${JSON.stringify(got)} wants ${JSON.stringify(want)}`); }
+    } else if (c.press.length) {
+      await setMd(c.text); setSel(c.a, c.b); await pause(60);
+      for (const p of c.press) { if (p === 'Enter') await key('Enter'); else await pressAt(mdBtn(p)); }
+    } else continue;
+    if (c.read.codeText !== undefined && c.press.length) { edits++; const v = mdVal(); add(`Edit, ${n.slice(7)} ${c.name.replace(/\n/g, ' ').slice(0, 32)}`, v === c.read.codeText, `${JSON.stringify(v)} wants ${JSON.stringify(c.read.codeText)}`); }
+  }
+}
+add('All the reads were walked', edits >= 60 && bars >= 20, `${edits} edits, ${bars} bars`);
+
+// Link, by what the press shows on the oracle: the first link touched, or the Add Link form.
+const LINKS = [['CAP-T10STATE', /^L\d+$/], ['CAP-T10EDITS3', / press$/]]; // EDITS2's press reads ran on after a failed reselect: round 3 redid them
+let linkReads = 0;
+for (const [n, re] of LINKS) {
+  for (const c of casesOf(read(n))) {
+    if (!re.test(c.name)) continue;
+    const row = c.read.controls.map((x) => x.label), at = row.indexOf('Edit'), href = at > 0 ? row[at - 1] : null;
+    await setMd(c.text); setSel(c.a, c.b); await pause(60); await pressAt(mdBtn('Link'));
+    const got = evalJs(S, `(() => JSON.stringify(document.querySelector('#link-popover .lk-md-href')?.textContent ?? null))()`);
+    add(`Link shows, ${n.slice(7)} ${c.name.slice(0, 32)}`, got === href, `${got} wants ${href}`);
+    linkReads++;
+    await key('Escape'); await pause(180);
+    const P = evalJs(S, `(() => JSON.stringify(document.getElementById('block-panel').hidden))()`);
+    if (P) { await openPanel(evalJs(S, `(() => JSON.stringify(fe.model.sections[1].blocks.at(-1).id))()`)); }
+  }
+}
+add('Link: all the reads walked', linkReads >= 8, linkReads);
+
+// A press while dim does nothing; the dim colour and the lit one.
+await setMd('# h\nplain'); selAll(); await pause(120);
+const dimLook = () => evalJs(S, `(() => { const b = document.querySelector('${mdBtn('Bold')}'); return JSON.stringify({ svg: getComputedStyle(b.querySelector('svg')).color, label: b.getAttribute('aria-disabled') }); })()`);
+add('Dim: its colour, and not disabled', dimLook().svg === 'rgb(183, 183, 183)' && dimLook().label !== 'true', JSON.stringify(dimLook()));
+await pressAt(mdBtn('Bold'));
+add('Dim: a press does nothing', mdVal() === '# h\nplain', JSON.stringify(mdVal()));
+await setMd('**b**'); setSel(2, 3); await pause(120);
+add('Lit: its colour', evalJs(S, `(() => JSON.stringify(getComputedStyle(document.querySelector('${mdBtn('Bold')}')).backgroundColor))()`) === 'rgb(231, 231, 231)', 'no');
+
+// Two rows meet halfway, and a selection loses its colour with the focus (CAP-T10STATE.json).
+await setMd('one\ntwo'); selAll(); await pause(120);
+const oAway = read('CAP-T10STATE').reads['selection, focus away'].panelCss, oP = oAway.filter((e) => e.cls === 'cm-selectionBackground'), oL2 = oAway.find((e) => e.cls.includes('cm-activeLine'));
+const two = lookIn(), twoBase = two.band; // the caret's line is the second
+add('Two rows: two pieces', two.sels.length === 2, JSON.stringify(two.sels));
+oP.forEach((o, n) => add(`Two rows: piece ${n + 1}`, !!two.sels[n] && Math.abs(two.sels[n][1] - (o.box[1] - oL2.box[1] + twoBase[1])) <= 0.6 && Math.abs(two.sels[n][3] - o.box[3]) <= 0.6 && Math.abs(two.sels[n][2] - o.box[2]) <= 1, `${JSON.stringify(two.sels[n])} wants ${JSON.stringify(o.box)}`));
+await pressAt('#block-panel .sp-tab'); await pause(120);
+add('Focus away: its colour', lookIn().sels[0]?.[4] === oP[0].bg, JSON.stringify(lookIn().sels));
+
+// Tips on the bar: the place, the height, the width near the oracle's (its font isn't ours), and none on Expand.
+const tips = read('CAP-T10STATE').reads;
+for (const l of ['Heading', 'Bold', 'Italic', 'Link', 'Bulleted List', 'Numbered List', 'Quote']) {
+  const b = mdBox(mdBtn(l)); mouse(S, 'move', b[0] + b[2] / 2, b[1] + b[3] / 2); await pause(150);
+  const t = evalJs(S, `(() => { const c = getComputedStyle(document.querySelector('${mdBtn(l)}'), '::after'); return JSON.stringify({ text: c.content, w: parseFloat(c.width), h: parseFloat(c.height), top: parseFloat(c.top), bg: c.backgroundColor }); })()`), o = tips[`tip: ${l}`].panelCss[0];
+  add(`Tip: ${l}`, t.text === `"${l}"` && t.bg === o.bg && t.h === o.box[3] && t.top === 47 && Math.abs(t.w + 22 - o.box[2]) <= 5, `${JSON.stringify(t)} wants ${JSON.stringify(o.box)}`);
+}
+mouse(S, 'move', 5, 500);
+
+// Text typed in the view waits for Close, then one undo takes it back (CAP-T10STATE.json).
+const VIEWB = read('CAP-T10STATE'), vSet = lastSet(VIEWB), wait = await freshMd();
+await setMd('start'); await pause(200);
+await pressAt('#block-panel [data-code-expand]'); await pause(250);
+const before = areasOf(wait).join();
+evalJs(S, `(() => { const f = document.querySelector('#code-modal ${MD_FIELD}'); f.focus(); f.select(); document.execCommand('insertText', false, ${JSON.stringify(vSet['typed in the view'])}); return 'true'; })()`); await pause(250);
+add('View: the block waits', norm(mdBlock(wait)) === norm(VIEWB.reads['typed in the view'].htmlOf) && areasOf(wait).join() === before, `${mdBlock(wait)} ${areasOf(wait).join()}`);
+await pressAt('#code-modal .code-modal-close'); await pause(300);
+add('View: Close brings it', norm(mdBlock(wait)) === norm(VIEWB.reads['after Close'].htmlOf) && areasOf(wait)[0] === VIEWB.reads['after Close'].areas[0][0], `${mdBlock(wait)} ${areasOf(wait).join()}`);
+await pressBar('Undo'); await pause(300);
+add('View: one undo takes it back', norm(mdBlock(wait)) === norm(VIEWB.reads['one undo'].htmlOf) && areasOf(wait).join() === before, `${mdBlock(wait)} ${areasOf(wait).join()}`);
+
+// Preview: an empty block keeps its text at full black, in the same place (CAP-T10MD9.json).
+const pv = await freshMd();
+const pvRead = () => evalJs(S, `(() => { const e = document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="${pv}"] .sqs-blockStatus'); if (!e) return 'null'; const c = getComputedStyle(e), r = e.getBoundingClientRect(); return JSON.stringify({ color: c.color, display: c.display, box: [r.left, r.top, r.width, r.height] }); })()`);
+const pvEdit = pvRead();
+await pressAt('#preview'); await pause(350);
+const pvOn = pvRead();
+add('Preview: the placeholder stays', pvOn?.display === 'block' && nearBox(pvOn.box, pvEdit.box), JSON.stringify([pvEdit, pvOn]));
+add('Preview: full black', pvOn?.color === 'rgb(0, 0, 0)', pvOn?.color);
+add('Preview: rows kept', areasOf(pv).join() === read('CAP-T10MD9').reads['in preview'].areas?.[0]?.join() || areasOf(pv).join() === read('CAP-T10MD9').reads.back.areas[0].join(), areasOf(pv).join());
+await pressAt('#preview'); await pause(300);
+add('Back from Preview: pale again', pvRead()?.color === pvEdit.color, pvRead()?.color);
+
+// The phone: the same bar in the same order and place, and the rows of each chain, new block each.
+const ph = read('CAP-T10PHONEA');
+await freshMd();
+evalJs(S, `(async () => { fe.setBp('mobile'); await new Promise((res) => setTimeout(res, 300)); return 'true'; })()`); await pause(200);
+const phId = evalJs(S, `(() => JSON.stringify(fe.model.sections[1].blocks.at(-1).id))()`);
+await openPanel(phId);
+const phEl = (l) => ph.reads.start.panelCss.find((e) => e.label === l).box, phEd = ph.reads.start.panelCss.find((e) => e.cls.startsWith('cm-editor')).box, phP = mdBox('#block-panel .bp-code.is-look');
+for (const l of ['Heading', 'Bold', 'Italic', 'Link', 'Bulleted List', 'Numbered List', 'Quote']) {
+  const b = mdBox(mdBtn(l)), o = phEl(l);
+  add(`Phone bar: ${l}`, !!b && Math.abs(b[0] - phP[0] - (o[0] - phEd[0])) <= 1 && Math.abs(b[1] - phP[1] - (o[1] - phEd[1])) <= 1, `${b} ${phP} wants ${o} ${phEd}`);
+}
+evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(200);
+for (const n of 'ABCDE') {
+  const f = read(`CAP-T10PHONE${n}`), id = await freshMd();
+  evalJs(S, `(async () => { fe.setBp('mobile'); await new Promise((res) => setTimeout(res, 300)); return 'true'; })()`); await pause(200);
+  await openPanel(id);
+  for (let k = 0; k < f.steps.length; k++) {
+    const [op, a] = f.steps[k];
+    if (op === 'setCode') await setMd(a);
+    if (op === 'press' && a === 'Backspace') await empty();
+    if (op === 'read' && a !== 'start') { await pause(120); const want = f.reads[a].areas[0].join(), got = areasOf(id).join(); add(`Phone ${n}${a}: ${want}`, got === want, got); }
+  }
+  evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(200);
+}
 
 console.log(`Code and embed: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/code-check.json', import.meta.url), JSON.stringify({ check: 'code and embed panels', pass, total, results }, null, 2) + '\n');

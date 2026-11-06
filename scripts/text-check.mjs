@@ -144,7 +144,7 @@ for (const [name, body, want] of [['one burst', `type('one'); await sleep(50); t
 // Named misses, not built: after one Escape the oracle's bar is gone but letters still go into the text.
 const noRun = [];
 const KNOWN = ['color, Escape, typed', 'empty, color, typed', 'typed, Escape, typed'];
-for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS', 'CAP-E4SCORE', 'CAP-E4GAP', 'CAP-E4GAP2'] : ['CAP-E4CARET']) {
+for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS', 'CAP-E4SCORE', 'CAP-E4GAP', 'CAP-E4GAP2', 'CAP-E4ENTER'] : ['CAP-E4CARET']) {
   await replay(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (what, ok, detail) => {
     if (ok === null) { noRun.push(`${name} ${what}`); console.log(`could not run: ${name} ${what}: ${detail}`); return; }
     if (!ok && KNOWN.includes(what)) { console.log(`known miss: ${what}`); return; }

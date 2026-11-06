@@ -1,0 +1,860 @@
+{
+  "item": "CAP-ACCPHONE2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T12: panel edits on a new Accordion on the phone: Add Item, then a new title. Made in this session on a probe page.",
+  "answer": "Phone Add Item: 1/2/13/10, 409 high, rows back to 24, 18 in the section; the next block moves to 13/2/19/10; the new item is New Item. Desktop stays 1/2/9/10, 401 high, stretched. The two errors in this run are the title steps, redone in CAP-ACCPHONE4.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Accordion"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Add Item"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone, Add Item",
+      {
+        "stack": 0,
+        "section": 0,
+        "gridEls": ".fe-block"
+      }
+    ],
+    [
+      "pressNamed",
+      "Navigate to Accordion Item 1"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "phone, item view",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "fillRow",
+      "Title",
+      0,
+      "A rather long new title for this first accordion item, to run onto more lines than before"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone, new title",
+      {
+        "stack": 0,
+        "section": 0,
+        "gridEls": ".fe-block"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "desktop after",
+      {
+        "stack": 0,
+        "section": 0,
+        "gridEls": ".fe-block"
+      }
+    ]
+  ],
+  "reads": {
+    "phone, Add Item": {
+      "gridEls": [
+        {
+          "cls": "fe-block-yui_3_17_2_1_1793971906044_438 fe-block fluid-engin",
+          "area": "1 / 2 / 13 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            150.7,
+            376.7,
+            409
+          ]
+        },
+        {
+          "cls": "fe-block-yui_3_17_2_1_1793971906044_713 fe-block fluid-engin",
+          "area": "13 / 2 / 19 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            570.7,
+            376.7,
+            199
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-636b96b2b096a118b7d6",
+          "area": "2 / 2 / 3 / 8",
+          "op": "1",
+          "box": [
+            25.7,
+            876.5,
+            279.8,
+            100.6
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-724a557167add4725645",
+          "area": "3 / 2 / 4 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            988.1,
+            376.7,
+            112
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-46d09ab909e7089f1593",
+          "area": "5 / 2 / 6 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            1146.2,
+            376.7,
+            24
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-40ffcb52ae3969b1440b",
+          "area": "6 / 2 / 7 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            1181.2,
+            376.7,
+            24
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-1bdd29a0afeafea2acac",
+          "area": "7 / 2 / 8 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            1216.2,
+            376.7,
+            24
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-924bd17097b231469d10",
+          "area": "11 / 2 / 12 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            1356.2,
+            376.7,
+            24
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-a18a88473610da2ad87e",
+          "area": "12 / 2 / 13 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            1391.2,
+            376.7,
+            105.6
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-27bbe12ff290dc052639",
+          "area": "13 / 2 / 14 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            1507.8,
+            376.7,
+            24
+          ]
+        }
+      ],
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          832.1
+        ],
+        "rows": 18,
+        "rowSizes": "24x18",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "4_438",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/13/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "4_713",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone, item view": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            1036,
+            208,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            1058,
+            208,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1126.8,
+            208,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 1",
+          "box": [
+            1036,
+            269,
+            320,
+            59
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 1",
+          "box": [
+            1036,
+            269,
+            320,
+            58
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Delete Accordion Item 1",
+          "box": [
+            1277,
+            280,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 2",
+          "box": [
+            1036,
+            328,
+            320,
+            59
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 2",
+          "box": [
+            1036,
+            328,
+            320,
+            58
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Delete Accordion Item 2",
+          "box": [
+            1277,
+            339,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 3",
+          "box": [
+            1036,
+            387,
+            320,
+            59
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Accordion Item 3",
+          "box": [
+            1036,
+            387,
+            320,
+            58
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Delete Accordion Item 3",
+          "box": [
+            1277,
+            398,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "New Item",
+          "box": [
+            1036,
+            446,
+            320,
+            59
+          ]
+        },
+        {
+          "role": "button",
+          "label": "New Item",
+          "box": [
+            1036,
+            446,
+            320,
+            58
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Delete New Item",
+          "box": [
+            1277,
+            457,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Item",
+          "box": [
+            1058,
+            505,
+            276,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone, new title": {
+      "gridEls": [
+        {
+          "cls": "fe-block-yui_3_17_2_1_1793971906044_438 fe-block fluid-engin",
+          "area": "1 / 2 / 13 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            150.7,
+            376.7,
+            409
+          ]
+        },
+        {
+          "cls": "fe-block-yui_3_17_2_1_1793971906044_713 fe-block fluid-engin",
+          "area": "13 / 2 / 19 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            570.7,
+            376.7,
+            199
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-636b96b2b096a118b7d6",
+          "area": "2 / 2 / 3 / 8",
+          "op": "1",
+          "box": [
+            25.7,
+            876.5,
+            279.8,
+            100.6
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-724a557167add4725645",
+          "area": "3 / 2 / 4 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            988.1,
+            376.7,
+            112
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-46d09ab909e7089f1593",
+          "area": "5 / 2 / 6 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            1146.2,
+            376.7,
+            24
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-40ffcb52ae3969b1440b",
+          "area": "6 / 2 / 7 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            1181.2,
+            376.7,
+            24
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-1bdd29a0afeafea2acac",
+          "area": "7 / 2 / 8 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            1216.2,
+            376.7,
+            24
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-924bd17097b231469d10",
+          "area": "11 / 2 / 12 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            1356.2,
+            376.7,
+            24
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-a18a88473610da2ad87e",
+          "area": "12 / 2 / 13 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            1391.2,
+            376.7,
+            105.6
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-27bbe12ff290dc052639",
+          "area": "13 / 2 / 14 / 10",
+          "op": "1",
+          "box": [
+            25.7,
+            1507.8,
+            376.7,
+            24
+          ]
+        }
+      ],
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          832.1
+        ],
+        "rows": 18,
+        "rowSizes": "24x18",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "4_438",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/13/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "4_713",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "desktop after": {
+      "gridEls": [
+        {
+          "cls": "fe-block-yui_3_17_2_1_1793971906044_438 fe-block fluid-engin",
+          "area": "1 / 2 / 9 / 10",
+          "op": "1",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            401
+          ]
+        },
+        {
+          "cls": "fe-block-yui_3_17_2_1_1793971906044_713 fe-block fluid-engin",
+          "area": "1 / 2 / 7 / 8",
+          "op": "1",
+          "box": [
+            100.1,
+            244.2,
+            341.7,
+            235.6
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-636b96b2b096a118b7d6",
+          "area": "3 / 2 / 7 / 11",
+          "op": "1",
+          "box": [
+            100.1,
+            849,
+            518,
+            153.4
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-724a557167add4725645",
+          "area": "7 / 2 / 8 / 11",
+          "op": "1",
+          "box": [
+            100.1,
+            1013.4,
+            518,
+            89.6
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-46d09ab909e7089f1593",
+          "area": "3 / 16 / 4 / 20",
+          "op": "1",
+          "box": [
+            923.1,
+            849,
+            224.1,
+            30.1
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-40ffcb52ae3969b1440b",
+          "area": "5 / 16 / 6 / 20",
+          "op": "1",
+          "box": [
+            923.1,
+            931.2,
+            224.1,
+            30.1
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-1bdd29a0afeafea2acac",
+          "area": "4 / 16 / 5 / 20",
+          "op": "1",
+          "box": [
+            923.1,
+            890.1,
+            224.1,
+            30.1
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-924bd17097b231469d10",
+          "area": "13 / 2 / 14 / 8",
+          "op": "1",
+          "box": [
+            100.1,
+            1319.5,
+            341.7,
+            30.1
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-a18a88473610da2ad87e",
+          "area": "3 / 21 / 7 / 26",
+          "op": "1",
+          "box": [
+            1217,
+            849,
+            282.9,
+            153.4
+          ]
+        },
+        {
+          "cls": "fe-block fe-block-27bbe12ff290dc052639",
+          "area": "10 / 21 / 11 / 25",
+          "op": "1",
+          "box": [
+            1217,
+            1196.2,
+            224.1,
+            30.1
+          ]
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          750.8
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x6 71.7x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "4_438",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/13/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "4_713",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "pressNamed [\"Navigate to Accordion Item 1\"]: nothing labelled Navigate to Accordion Item 1",
+    "fillRow [\"Title\",0,\"A rather long new title for this first accordion: no row Title"
+  ],
+  "leftDirty": true
+}

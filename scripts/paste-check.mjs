@@ -1,11 +1,14 @@
 // E5: paste each sample from parity/findings/PASTE.json over the whole paragraph block in
 // our editor (demo section 2, block 2) and compare the HTML with the oracle's result.
-// Writes parity/paste-check.json. Usage: npm run paste-check (dev server on 5178).
+// Usage: npm run paste-check (dev server on 5178), under 2 min, writes nothing.
+// npm run paste-check -- --full also replays the other pastes with real presses, about 3 min, and writes parity/paste-check.json.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
+import { replay } from './lib/text-replay.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
+const FULL = process.argv.includes('--full');
 const F = JSON.parse(readFileSync(new URL('../parity/findings/PASTE.json', import.meta.url))).samples;
 const norm = (h) => h.replace(/ data-rte-preserve-empty="true"/g, '').replace(/ style="white-space: ?pre-wrap;?"/g, '');
 
@@ -68,7 +71,17 @@ for (const [name, o] of Object.entries(F)) {
     if (!ok) console.log(`DIFF split ${name}\n  oracle ${r.html} | ${r.beforeCaret}\n  ours   ${plain(got.html)} | ${got.before}`);
   }
 }
+// Into a heading, a list item, a quote and monospace and over a selection, typing after, with real keys and
+// presses. CAP-E5WHERE's selections held Shift, so they stop at its first pasteHere; CAP-E5WHERE2 has them.
+for (const name of FULL ? ['CAP-E5HEAD', 'CAP-E5HEAD2', 'CAP-E5WHERE', 'CAP-E5WHERE2'] : ['CAP-E5HEAD']) {
+  const f = JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url)));
+  const cut = name === 'CAP-E5WHERE' ? f.steps.findIndex((x) => x[0] === 'pasteHere') : f.steps.length;
+  await replay(S, { ...f, steps: f.steps.slice(0, cut) }, (what, ok, d) => {
+    results.push({ name: `${name} ${what}`, ok: !!ok });
+    if (!ok) console.log(`DIFF ${name} ${what}\n  ${d}`);
+  });
+}
 const pass = results.filter((r) => r.ok).length;
 console.log(`Paste: ${pass} of ${results.length} samples match`);
-writeFileSync(new URL('../parity/paste-check.json', import.meta.url), JSON.stringify({ check: 'paste cleanup HTML', pass, total: results.length, results }, null, 2) + '\n');
+if (FULL) writeFileSync(new URL('../parity/paste-check.json', import.meta.url), JSON.stringify({ check: 'paste cleanup HTML', pass, total: results.length, results }, null, 2) + '\n');
 process.exit(pass === results.length ? 0 : 1);

@@ -121,7 +121,7 @@ add('A picked picture becomes the poster', q(`const c = document.createElement('
 thumb(false);
 
 // Corner on the player, one undo step for a change.
-q(`document.querySelector('[data-btab="Design"]').click(); await sleep(150); const c = panel.querySelector('input[data-design="corner"]'); c.value = 20; c.dispatchEvent(new Event('input', { bubbles: true })); c.dispatchEvent(new Event('change', { bubbles: true })); await sleep(250); return 'true';`);
+q(`document.querySelector('[data-btab="Design"]').click(); await sleep(150); const c = panel.querySelector('input[data-stack-field="corner"]'); c.value = 20; c.dispatchEvent(new Event('change', { bubbles: true })); await sleep(250); return 'true';`);
 const corner = q(`const i = block().querySelector('.intrinsic'); const s = getComputedStyle(i); const rad = (x) => getComputedStyle(x).borderTopLeftRadius; return JSON.stringify({ cls: i.classList.contains('sqs-border-radius-enabled'), radius: s.borderTopLeftRadius, overflow: s.overflow, block: rad(block().querySelector('.sqs-block')), content: rad(block().querySelector('.sqs-block-content')) });`);
 add('Corner 20 clips the player', corner.cls && corner.radius === '20px' && corner.overflow === 'hidden', JSON.stringify(corner));
 add('Corner 20 on the block and its content too', corner.block === '20px' && corner.content === '20px', JSON.stringify(corner));
@@ -152,6 +152,79 @@ await openPanel();
 const undoOne = q(`const was = model().video.loop; panel.querySelector('[data-video-toggle="loop"]').click(); await sleep(200); const off = model().video.loop; fe.undo(); await sleep(250); return JSON.stringify(off === false && model().video?.loop === was);`);
 add('A setting is one undo step', undoOne);
 
+// T7, 25. The player's Settings, in preview only (CAP-T7SETTINGS.json). The look is ours; the sizes are the oracle's.
+await openPanel();
+await setSelect('controls', 'full');
+const shown = () => q(`const s = (x) => { const c = getComputedStyle(block().querySelector(x)); return [c.opacity, c.pointerEvents]; }; return JSON.stringify({ play: s('.vp-play'), bar: s('.vp-bar') });`);
+add('Edit mode: the controls do not show', shown().play.join() === '0,none' && shown().bar.join() === '0,none', JSON.stringify(shown()));
+const inPlayer = (body) => q(`const d = document.getElementById('site-frame').contentDocument, p = block().querySelector('.native-video-player'), v = p.querySelector('video'), m = p.querySelector('.vp-menu'), set = p.querySelector('[data-vp="settings"]'), box = (x) => { const r = x.getBoundingClientRect(); return [r.left, r.top, r.width, r.height, r.right, r.bottom]; }, press = async (x) => { p.querySelector(x).click(); await sleep(120); }; ${body}`);
+q(`document.getElementById('preview').click(); await sleep(350); return 'true';`);
+add('Preview: the controls show and take a press', inPlayer(`v.pause(); set.scrollIntoView({ block: 'center' }); await sleep(150); const r = set.getBoundingClientRect(), on = d.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return JSON.stringify(!!on?.closest('[data-vp="settings"]') && getComputedStyle(p.querySelector('.vp-bar')).opacity === '1');`));
+const home = inPlayer(`v.pause(); await sleep(100); await press('[data-vp="settings"]'); const M = box(m), b = box(p.querySelector('.vp-bar')), last = box([...p.querySelectorAll('.vp-bar .vp-btn')].pop()), row = m.querySelector('.vp-home .vp-row'); return JSON.stringify({ open: !m.hidden, exp: set.getAttribute('aria-expanded'), w: M[2], h: M[3], right: M[4] - last[4], above: last[1] - M[5], row: row.getBoundingClientRect().height, rowAt: row.getBoundingClientRect().top - M[1], text: row.innerText.split(/\\s+/).join(' '), playing: !v.paused });`);
+add('Settings opens a menu, expanded', home.open && home.exp === 'true', JSON.stringify(home));
+add('Menu 164 by 48.4, one row 32.4 at +8', near(home.w, 164) && near(home.h, 48.4) && near(home.row, 32.4) && near(home.rowAt, 8), JSON.stringify(home));
+add('Its right edge is the last button\'s, 12 above', near(home.right, 0) && near(home.above, 12), JSON.stringify(home));
+add('The row says Speed Normal, and play stays off', home.text === 'Speed Normal' && !home.playing, JSON.stringify(home));
+const list = inPlayer(`await press('[data-vp-menu="speed"]'); const M = box(m); return JSON.stringify({ w: M[2], h: M[3], labels: [...m.querySelectorAll('.vp-speeds [data-vp-rate]')].map((x) => x.textContent), on: m.querySelector('[aria-checked="true"]').textContent, home: m.querySelector('.vp-home').hidden, back: !!m.querySelector('.vp-back'), open: !m.hidden, playing: !v.paused });`);
+add('Speed swaps to the list, 160 by 275.1', list.home && list.back && near(list.w, 160) && near(list.h, 275.1), JSON.stringify(list));
+add('The speeds, Normal on', list.labels.join() === '0.5x,0.75x,Normal,1.25x,1.5x,1.75x,2x' && list.on === 'Normal' && list.open && !list.playing, JSON.stringify(list));
+const picked = inPlayer(`await press('[data-vp-rate="1.5"]'); const r = v.playbackRate, t = m.querySelector('.vp-home .vp-row').innerText.split(/\\s+/).join(' '), shownHome = !m.querySelector('.vp-home').hidden; await press('[data-vp-rate="1"]'); return JSON.stringify({ r, t, shownHome, back: v.playbackRate });`);
+add('A pick sets the speed and goes home (inferred)', picked.r === 1.5 && picked.t === 'Speed 1.5x' && picked.shownHome && picked.back === 1, JSON.stringify(picked));
+const esc = inPlayer(`d.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(120); return JSON.stringify({ open: !m.hidden, exp: set.getAttribute('aria-expanded'), preview: document.body.classList.contains('is-preview') });`);
+add('Escape closes the menu', !esc.open && esc.exp === 'false', JSON.stringify(esc));
+mouse(S, 'move', 2, 2); await pause(200);
+const run = inPlayer(`v.muted = true; await v.play(); await sleep(250); const c = getComputedStyle(p.querySelector('.vp-bar')).opacity, big = getComputedStyle(p.querySelector('.vp-play')).display, cls = p.classList.contains('is-playing'); v.pause(); await sleep(150); const c2 = getComputedStyle(p.querySelector('.vp-bar')).opacity, big2 = getComputedStyle(p.querySelector('.vp-play')).display; v.muted = false; return JSON.stringify({ c, big, cls, c2, big2 });`);
+add('Playing hides them, paused shows them', run.cls && run.c === '0' && run.big === 'none' && run.c2 === '1' && run.big2 !== 'none', JSON.stringify(run));
+q(`document.getElementById('preview').click(); await sleep(350); return 'true';`);
+add('Back in edit mode a press selects: no menu, no play', inPlayer(`p.querySelector('[data-vp="settings"]').click(); await sleep(120); return JSON.stringify(m.hidden && v.paused);`));
+await openPanel();
+await setSelect('controls', 'minimal');
+add('Minimal controls have no Settings menu', q(`return JSON.stringify(!block().querySelector('.vp-menu'));`));
+
+// T7, 24. The ? by Video Storage (CAP-T7TIP.json, CAP-T7TIP2.json). The words are ours.
+await openPanel();
+const tip = (body) => q(`const t = panel.querySelector('.bp-video-store [aria-label="Open storage dialog"]'), o = () => document.querySelector('.video-tip-over'), x = () => document.querySelector('.video-tip-box'); ${body}`);
+const tipAt = tip(`const P = panel.getBoundingClientRect(), r = t.getBoundingClientRect(); t.focus(); return JSON.stringify({ x: r.left - P.left, w: r.width, h: r.height, tip: !!o() });`);
+add('The ? is a named button, 36 by 36', tipAt.w === 36 && tipAt.h === 36 && near(tipAt.x, 247), JSON.stringify(tipAt));
+const store = tip(`const b = panel.querySelector('.bp-video-store'), B = b.getBoundingClientRect(), r = t.getBoundingClientRect(), left = b.querySelectorAll('span')[1].getBoundingClientRect(), line = getComputedStyle(b, '::after'); return JSON.stringify({ y: r.top - B.top, gap: r.left - left.right, tall: B.height, line: line.height, under: B.height - parseFloat(line.bottom) });`);
+add('The ? sits 9 down, clear of the minutes left', near(store.y, 9) && store.gap >= 0, JSON.stringify(store));
+add('A line under the text, as tall as the store is', near(store.tall, 78) && store.line === '1px' && near(store.under, 56), JSON.stringify(store));
+const tipOpen = tip(`t.click(); await sleep(150); const P = panel.getBoundingClientRect(), r = t.getBoundingClientRect(), b = x().getBoundingClientRect(), O = o().getBoundingClientRect(), c = getComputedStyle(o()); return JSON.stringify({ over: [O.left, O.top, O.width === innerWidth, O.height === innerHeight], bg: c.backgroundColor, top: !!document.elementFromPoint(20, 20)?.closest('.video-tip-over'), left: b.left - P.left, w: b.width, h: b.height, past: b.bottom - r.top, words: x().textContent });`);
+add('A press: a dark overlay over everything', tipOpen.over.join() === '0,0,true,true' && tipOpen.bg === 'rgba(43, 43, 43, 0.6)' && tipOpen.top, JSON.stringify(tipOpen));
+add('The tip sits on the button, 320 by 66', near(tipOpen.left, 10) && tipOpen.w === 320 && tipOpen.h === 66 && near(tipOpen.past, 2), JSON.stringify(tipOpen));
+add('The tip has no Learn more, and our words', !/learn more/i.test(tipOpen.words) && tipOpen.words.length > 0, tipOpen.words);
+const tipEsc = tip(`document.activeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(150); return JSON.stringify({ tip: !!o() || !!x(), panel: !panel.hidden, focus: document.activeElement === panel.querySelector('[aria-label="Open storage dialog"]'), sel: !!block().closest('.fe-block') });`);
+add('Escape closes it; the panel and the focus stay', !tipEsc.tip && tipEsc.panel && tipEsc.focus, JSON.stringify(tipEsc));
+const tipOver = tip(`const was = JSON.stringify(fe.model); t.click(); await sleep(100); o().click(); await sleep(100); return JSON.stringify({ tip: !!o() || !!x(), panel: !panel.hidden, same: was === JSON.stringify(fe.model) });`);
+add('A press on the overlay closes it (inferred); nothing changes', !tipOver.tip && tipOver.panel && tipOver.same, JSON.stringify(tipOver));
+
+// T7, with a file (CAP-T7DESIGN3.json): 929.5 wide, 14 rows. Blocks below are pushed by the rows it gains.
+const design = async (area, others = []) => {
+  q(`const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1], b = s.blocks.find((x) => x.id === '${id}'); delete b.design; delete b.designMobile; b.layout.desktop.area = ${JSON.stringify(area)}; const mk = (a, n) => ({ ...JSON.parse(JSON.stringify(next.sections[0].blocks.find((x) => x.type === 'text'))), id: 'below' + n, layout: { desktop: { area: a, zIndex: 1 }, mobile: { area: a, zIndex: 1 } } }); s.blocks = [b, ...${JSON.stringify(others)}.map(mk)]; s.rows.desktop = 60; fe.load(next); await sleep(300); return 'true';`);
+  await openPanel();
+  q(`document.querySelector('[data-btab="Design"]').click(); await sleep(150); return 'true';`);
+};
+const vr = () => q(`const bk = block(), B = bk.getBoundingClientRect(), i = bk.querySelector('.intrinsic'), R = i.getBoundingClientRect(), c = getComputedStyle(i), in_ = bk.querySelector('.sqs-block-video-placeholder--empty, .embed-block-wrapper').getBoundingClientRect(), sb = bk.querySelector('.sqs-block'), rad = (x) => getComputedStyle(x).borderRadius; return JSON.stringify({ area: model().layout.desktop.area.join('/'), phone: model().layout.mobile.area.join('/'), block: [B.width, B.height], sqs: sb.getBoundingClientRect().height, box: [R.width, R.height], border: c.borderTopWidth + ' ' + c.borderTopStyle + ' ' + c.borderTopColor, bg: c.backgroundColor, radius: [rad(i), rad(sb), rad(bk.querySelector('.sqs-block-content'))], overflow: c.overflow, cls: i.className, inner: [in_.left - B.left, in_.top - B.top, in_.width, in_.height], rows: [...panel.querySelectorAll('.bp-pane .sp-label, .sp-label')].map((x) => x.textContent), others: fe.model.sections[1].blocks.filter((x) => x.id !== '${id}').map((x) => x.layout.desktop.area.join('/')) });`);
+const press = (label) => q(`const c = panel.querySelector('[aria-label="${label}"]'); if (!c) return JSON.stringify('no ${label}'); c.click(); await sleep(250); return 'true';`);
+const typeIn = (sel, v) => q(`const c = panel.querySelector('${sel}'); if (!c) return JSON.stringify('no field'); c.value = '${v}'; c.dispatchEvent(new Event('change', { bubbles: true })); await sleep(250); return 'true';`);
+const nearAll = (a, b, tol = 0.7) => a.length === b.length && a.every((v, i) => near(v, b[i], tol));
+const startArea = size().area;
+await design([6, 6, 20, 22], [[20, 9, 21, 19], [22, 11, 24, 17]]);
+let r = vr();
+add('File: 929.5 by 522.8, 14 rows', near(r.block[0], 929.5) && near(r.box[1], 522.8) && r.area === '6/6/20/22', JSON.stringify(r));
+press('Solid Stroke'); r = vr();
+add('File, Solid: .intrinsic 576.9, a 6px line', near(r.box[1], 576.9) && r.border === '6px solid rgb(255, 255, 255)', JSON.stringify(r));
+add('File, Solid: the player 806 by 453.3, 61.7 in', nearAll(r.inner, [61.7, 61.7, 806, 453.3]), JSON.stringify(r.inner));
+add('File, Solid: one row more, blocks below pushed', r.area === '6/6/21/22' && r.others.join() === '21/9/22/19,23/11/25/17', JSON.stringify([r.area, r.others]));
+const undone = q(`fe.undo(); await sleep(300); const b = model(); return JSON.stringify({ a: b.layout.desktop.area.join('/'), s: b.design?.stroke ?? null, o: fe.model.sections[1].blocks.filter((x) => x.id !== '${id}').map((x) => x.layout.desktop.area.join('/')) });`);
+add('One undo takes back the line, its row and the push', undone.a === '6/6/20/22' && undone.s === null && undone.o.join() === '20/9/21/19,22/11/24/17', JSON.stringify(undone));
+await design([6, 6, 20, 22]);
+press('Add fill'); r = vr();
+add('File, fill: .intrinsic 571.6', near(r.box[1], 571.6) && r.bg === 'rgb(255, 255, 255)', JSON.stringify(r));
+add('File, fill: the player 818 by 460.1, 55.7 in', nearAll(r.inner, [55.7, 55.7, 818, 460.1]), JSON.stringify(r.inner));
+await design(startArea);
+q(`document.querySelector('[data-btab="Content"]').click(); await sleep(150); return 'true';`);
+
 // Remove: back to the placeholder, Lazy Loading kept.
 await openPanel();
 await setSelect('lazy', 'eager');
@@ -161,6 +234,78 @@ add('Remove brings the placeholder back', gone.ph && !gone.player && gone.add, J
 add('The empty block goes to the oracle\'s size', near(gone.w, F.remove.box[0]) && near(gone.h, F.remove.box[1]), `${gone.w} by ${gone.h}`);
 add('Lazy Loading keeps its value', gone.lazy === 'eager', gone.lazy);
 add('Aspect, buttons and controls go', !gone.aspect && !gone.toggles && !gone.controls, JSON.stringify(gone));
+
+// T7, 22 and 23. The empty block's Design tab, 459.3 wide, 1/2/9/10 (CAP-T7CORNER.json, CAP-T7DESIGN.json, CAP-T7DESIGN2.json).
+await design([1, 2, 9, 10]);
+r = vr();
+const fresh = { phone: r.phone };
+const places = q(`const P = panel.getBoundingClientRect(), at = (x) => { const e = panel.querySelector(x); if (!e) return null; const c = e.getBoundingClientRect(); return [c.left - P.left, c.width, c.height, c.top - P.top]; }; return JSON.stringify({ fill: at('[aria-label="Add fill"]'), seg: at('[aria-label="No Stroke"]'), uni: at('[aria-label="Uniform corner radii"]'), ind: at('[aria-label="Individual corner radii"]'), field: at('input[data-stack-field="corner"]')?.length && at('.st-corner-field'), val: panel.querySelector('input[data-stack-field="corner"]')?.value, sw: !!panel.querySelector('[data-design="background"], [data-design="stroke"]'), lone: !!panel.querySelector('input[type="number"][data-design="corner"]'), reset: !!panel.querySelector('.st-corner-field [aria-label="Reset to default value"]'), segs: [...panel.querySelectorAll('[aria-label$="Stroke"]')].map((x) => x.getAttribute('aria-label')) });`);
+add('Empty: 459.3 wide, .sqs-block 298.5, 1/2/9/10', near(r.block[0], 459.3) && near(r.sqs, 298.5) && r.area === '1/2/9/10', JSON.stringify(r));
+add('Empty: Background, Stroke, Corner, in that order', r.rows.filter((x) => ['Background', 'Padding', 'Stroke', 'Thickness', 'Color', 'Corner'].includes(x)).join() === 'Background,Stroke,Corner', r.rows.join());
+add('Background is a + button, no switch', places.fill && places.fill[1] === 36 && places.fill[2] === 36 && near(places.fill[0], 262) && !places.sw, JSON.stringify(places));
+add('Stroke is three segments', places.segs.join() === 'No Stroke,Solid Stroke,Dashed Stroke' && places.seg && near(places.seg[0], 119) && near(places.seg[1], 56.7) && near(places.seg[2], 38), JSON.stringify(places));
+add('Corner: Uniform, Individual and a 0px field', places.uni && near(places.uni[0], 119) && places.uni[1] === 41 && places.uni[2] === 38 && places.ind && places.val === '0px' && near(places.field[0], 210) && places.field[1] === 88 && places.field[2] === 44 && !places.lone, JSON.stringify(places));
+add('The rows sit at the oracle\'s heights: 114, 164, 215, 212', places.fill && near(places.fill[3], 114, 1) && near(places.seg[3], 164, 1) && near(places.uni[3], 215, 1) && near(places.field[3], 212, 1), JSON.stringify(places));
+add('Corner 0: no note', !q(`return JSON.stringify(!!panel.querySelector('.bp-vhint'));`));
+add('No Reset while the corner is 0', !places.reset, JSON.stringify(places));
+
+typeIn('input[data-stack-field="corner"]', '20'); r = vr();
+add('Corner 20 rounds the dark placeholder', r.radius.join() === '20px,20px,20px' && r.cls.includes('sqs-border-radius-enabled') && r.overflow === 'hidden', JSON.stringify(r));
+const hint = () => q(`return JSON.stringify(panel.querySelector('.bp-vhint')?.textContent ?? null);`);
+add('Corner above 0: the note about the controls', hint() === 'Design settings may obscure video controls.', hint());
+add('Corner 20 keeps its rows, and shows Reset', r.area === '1/2/9/10' && q(`return JSON.stringify(!!panel.querySelector('.st-corner-field [aria-label="Reset to default value"]') && panel.querySelector('input[data-stack-field="corner"]').value === '20px');`), r.area);
+press('Individual corner radii');
+const each = q(`const f = [...panel.querySelectorAll('.st-corners input')]; const vals = f.map((x) => x.value), names = f.map((x) => x.getAttribute('aria-label')); f[1].value = '5'; f[1].dispatchEvent(new Event('change', { bubbles: true })); await sleep(250); const g = panel.querySelectorAll('.st-corners input')[2]; g.value = '40'; g.dispatchEvent(new Event('change', { bubbles: true })); await sleep(250); return JSON.stringify({ vals, names, main: panel.querySelector('input[data-stack-field="corner"]').value, r: getComputedStyle(block().querySelector('.intrinsic')).borderRadius });`);
+add('Individual: four fields from the one value', each.vals.join() === '20,20,20,20' && each.names.join() === 'Top left corner radius,Top right corner radius,Bottom right corner radius,Bottom left corner radius', JSON.stringify(each));
+add('20, 5, 40, 20 on the placeholder, the field says Mixed', each.r === '20px 5px 40px' + ' 20px' && each.main === 'Mixed', JSON.stringify(each));
+press('Uniform corner radii'); r = vr();
+add('Uniform: back to the first value', r.radius[0] === '20px', JSON.stringify(r.radius));
+
+press('Solid Stroke'); r = vr();
+add('Solid: 1/2/10/10, the phone stays', r.area === '1/2/10/10' && r.phone === fresh.phone, JSON.stringify([r.area, r.phone, fresh.phone]));
+add('Solid: 459.3 by 322, a white 6px line', nearAll(r.box, [459.3, 322]) && r.border === '6px solid rgb(255, 255, 255)' && r.cls.includes('sqs-stroke-enabled'), JSON.stringify(r));
+add('Solid: the placeholder 33.6 in, 392.2 by 254.9', nearAll(r.inner, [33.6, 33.6, 392.2, 254.9]), JSON.stringify(r.inner));
+add('Solid: the block is 358.8, the corner stays', near(r.block[1], 358.8) && r.radius[0] === '20px', JSON.stringify(r));
+add('Solid: Padding, Thickness and Color rows', r.rows.filter((x) => ['Background', 'Padding', 'Stroke', 'Thickness', 'Color', 'Corner'].includes(x)).join() === 'Background,Padding,Stroke,Thickness,Color,Corner', r.rows.join());
+const rowsAt = q(`const P = panel.getBoundingClientRect(), at = (x) => { const c = panel.querySelector(x).getBoundingClientRect(); return [c.left - P.left, c.top - P.top, c.width, c.height]; }; return JSON.stringify({ y: at('input[data-design="padY"]').slice(0, 1), pad: at('.st-pads .st-pad'), thick: at('.bp-vfield'), color: at('[aria-label="Color"]'), solid: at('[aria-label="Solid Stroke"]'), field: at('.st-corner-field') });`);
+add('Solid: a row every 51, Thickness 182 wide, Color 44', nearAll(rowsAt.pad, [116, 161, 88, 44], 1) && near(rowsAt.solid[1], 215, 1) && nearAll(rowsAt.thick, [116, 263, 182, 44], 1) && nearAll(rowsAt.color, [254, 314, 44, 44], 1) && near(rowsAt.field[1], 365, 1), JSON.stringify(rowsAt));
+add('Padding reads 6% 6%, Thickness 6px', q(`return JSON.stringify(panel.querySelector('input[data-design="padY"]').value === '6%' && panel.querySelector('input[data-design="padX"]').value === '6%' && panel.querySelector('input[data-design="strokePx"]').value === '6px');`));
+press('Dashed Stroke'); r = vr();
+add('Dashed: the same with dashes', r.border === '6px dashed rgb(255, 255, 255)' && r.area === '1/2/10/10' && near(r.box[1], 322), JSON.stringify(r));
+press('Solid Stroke');
+typeIn('input[data-design="strokePx"]', '10'); r = vr();
+add('Thickness 10: 324.8, 37.6 in, same rows', near(r.box[1], 324.8) && nearAll(r.inner, [37.6, 37.6, 384.2, 249.7]) && r.area === '1/2/10/10', JSON.stringify(r));
+press('No Stroke'); r = vr();
+add('No Stroke: back to 1/2/9/10, corner kept', r.area === '1/2/9/10' && r.radius[0] === '20px' && near(r.box[1], 298.5), JSON.stringify(r));
+add('No Stroke: Padding and Thickness rows go', !r.rows.includes('Padding') && !r.rows.includes('Thickness'), r.rows.join());
+
+await design([1, 2, 9, 10]);
+press('Add fill'); r = vr();
+add('Add fill opens the colours at once', q(`const p = document.getElementById('shape-pop'), x = panel.getBoundingClientRect(), c = p.getBoundingClientRect(); return JSON.stringify(!p.hidden && p.classList.contains('is-color') && c.left >= x.right - 1);`));
+add('Fill: white, 317.8, rows stay 8', r.bg === 'rgb(255, 255, 255)' && near(r.box[1], 317.8) && near(r.sqs, 317.8) && r.area === '1/2/9/10', JSON.stringify(r));
+add('Fill: the placeholder 27.6 in, 404.2 by 262.7', nearAll(r.inner, [27.6, 27.6, 404.2, 262.7]), JSON.stringify(r.inner));
+add('Fill: a Padding row, a swatch named Color, Remove color', r.rows.includes('Padding') && q(`return JSON.stringify(!!panel.querySelector('button[aria-label="Color"]') && !!panel.querySelector('button[aria-label="Remove color"]') && !panel.querySelector('[aria-label="Add fill"]'));`), r.rows.join());
+add('The Design tab closes the colours', q(`document.querySelector('[data-btab="Design"]').click(); await sleep(200); return JSON.stringify(document.getElementById('shape-pop').hidden);`));
+typeIn('input[data-design="padY"]', '10'); r = vr();
+add('Padding 10: 354.6, one row more', near(r.box[1], 354.6) && r.area === '1/2/10/10', JSON.stringify(r));
+typeIn('input[data-design="padX"]', '20'); r = vr();
+add('Padding 20 across: 271, 1/2/7/10', near(r.box[1], 271) && r.area === '1/2/7/10', JSON.stringify(r));
+add('Padding 10 20: the placeholder', nearAll(r.inner, [91.9, 45.9, 275.6, 179.1]), JSON.stringify(r.inner));
+press('Show individual padding controls');
+const four = q(`const f = [...panel.querySelectorAll('.st-pads-four input')]; return JSON.stringify({ v: f.map((x) => x.value), names: f.map((x) => x.getAttribute('aria-label')), back: !!panel.querySelector('[aria-label="Show vertical and horizontal padding controls"]') });`);
+add('Four fields: top, left, bottom, right', four.v.join() === '10%,20%,10%,20%' && four.names.join() === 'Padding top,Padding left,Padding bottom,Padding right' && four.back, JSON.stringify(four));
+typeIn('input[data-design="padT"]', '0'); r = vr();
+add('A field of the four moves its side alone', near(r.inner[1], 0) && near(r.inner[0], 91.9), JSON.stringify(r.inner));
+press('Show vertical and horizontal padding controls');
+add('Back to two fields (inferred)', q(`return JSON.stringify(!!panel.querySelector('input[data-design="padY"]') && !panel.querySelector('.st-pads-four'));`));
+press('Remove color'); r = vr();
+add('Remove color: + again, no white, no Padding (inferred)', r.bg === 'rgba(0, 0, 0, 0)' && !r.rows.includes('Padding') && q(`return JSON.stringify(!!panel.querySelector('[aria-label="Add fill"]'));`), JSON.stringify(r));
+typeIn('input[data-stack-field="corner"]', '20'); q(`panel.querySelector('.st-corner-field [aria-label="Reset to default value"]').click(); await sleep(250); return 'true';`); r = vr();
+add('Reset takes the corner back to 0', r.radius[0] === '0px' && !r.cls.includes('sqs-border-radius-enabled') && q(`return JSON.stringify(panel.querySelector('input[data-stack-field="corner"]').value === '0px');`), JSON.stringify(r.radius));
+typeIn('input[data-stack-field="corner"]', '20');
+q(`document.getElementById('preview').click(); await sleep(350); return 'true';`);
+add('Preview: the placeholder stays, rounded', q(`const e = block().querySelector('.sqs-block-video-placeholder--empty'), c = getComputedStyle(e); return JSON.stringify(c.display !== 'none' && e.getBoundingClientRect().height > 100 && getComputedStyle(block().querySelector('.intrinsic')).borderRadius === '20px');`));
+q(`document.getElementById('preview').click(); await sleep(350); return 'true';`);
 
 writeFileSync(new URL('../parity/video-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nVideo: ${pass}/${total}`);

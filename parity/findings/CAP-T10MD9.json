@@ -1,0 +1,826 @@
+{
+  "item": "CAP-T10MD9",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: an empty Markdown block in Preview; what the reader writes for mixed and further samples",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "empty on the page",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "frameEls": ".sqs-block-markdown, .sqs-block-markdown .sqs-blockStatus, .sqs-block-markdown p",
+        "areas": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Toggle preview mode"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "in preview",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "frameEls": ".sqs-block-markdown, .sqs-block-markdown .sqs-blockStatus, .sqs-block-markdown p",
+        "areas": 0,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "preview"
+    ],
+    [
+      "pressNamed",
+      "Toggle preview mode"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "back",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "setCode",
+      "1. item\n> quote"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s0",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "* item\n> quote"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s1",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "* item\n---"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s2",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "1. item\n---"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s3",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "> quote\n---"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s4",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "a\n[r]: /z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s5",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "[r]: /z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s6",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "<b>x</b>\n[r]: /z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s7",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "[a][r]\n\n[r]: /z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s8",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "[a]\n\n[a]: /z \"t\""
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s9",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "* a\n  * b\n    1. c"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s10",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "> > q"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s11",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "| a | b |\n|---|---|\n| c | d |"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s12",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "- [ ] t\n- [x] d"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s13",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "h\n===\nh2\n---"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s14",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "    indented"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s15",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "~~~js\nx\n~~~"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s16",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "***\n___"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s17",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "_it_ __bo__ ***bi*** ~~s~~ \\*esc\\* <x@y.z> [a][r] &amp;"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s18",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "<!-- c -->\n<div class=\"x\" id=y>t</div>"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s19",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "1) c\n+ b"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s20",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "&copy; a &amp; b"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s21",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "# h1\n## h2\nplain **bold** *ital* `code` [a](/x) ~~del~~\n* item\n1. item\n> quote\n---\n```js\nfence\n```\n<b>html</b>\n![i](/y)\n[r]: /z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s22",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "[**word**](/x)\n**a *b* c**\n*a **b** c*\n**[a](/x)**\n`**x**`\n![**i**](/y \"t\")\n[a](/x \"title\")"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s23",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "# **b**\n> **b** [a](/x)\n* **b** `c`"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "s24",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ]
+  ],
+  "reads": {
+    "empty on the page": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Double-click to edit...\n    Markdown",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            235.6
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Double-click to edit...",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            22.4
+          ]
+        },
+        {
+          "tag": "p",
+          "label": "Double-click to edit...",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "in preview": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reload page preview",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        }
+      ],
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Double-click to edit...\n    Markdown",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            235.6
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Double-click to edit...",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            22.4
+          ]
+        },
+        {
+          "tag": "p",
+          "label": "Double-click to edit...",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "back": {
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s0": {
+      "codeText": "1. item\n> quote",
+      "htmlOf": "<ol>\n<li>item<blockquote>\n<p>quote</p>\n</blockquote>\n</li>\n</ol>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s1": {
+      "codeText": "* item\n> quote",
+      "htmlOf": "<ul>\n<li>item<blockquote>\n<p>quote</p>\n</blockquote>\n</li>\n</ul>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s2": {
+      "codeText": "* item\n---",
+      "htmlOf": "<ul>\n<li>item</li>\n</ul><hr>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s3": {
+      "codeText": "1. item\n---",
+      "htmlOf": "<ol>\n<li>item</li>\n</ol><hr>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s4": {
+      "codeText": "> quote\n---",
+      "htmlOf": "<blockquote>\n<p>quote</p>\n</blockquote><hr>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s5": {
+      "codeText": "a\n[r]: /z",
+      "htmlOf": "<p>a\n[r]: /z</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s6": {
+      "codeText": "[r]: /z",
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s7": {
+      "codeText": "<b>x</b>\n[r]: /z",
+      "htmlOf": "<p><b data-preserve-html-node=\"true\">x</b>\n[r]: /z</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s8": {
+      "codeText": "[a][r]\n\n[r]: /z",
+      "htmlOf": "<p><a href=\"/z\">a</a></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s9": {
+      "codeText": "[a]\n\n[a]: /z \"t\"",
+      "htmlOf": "<p><a href=\"/z\" title=\"t\">a</a></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s10": {
+      "codeText": "* a\n  * b\n    1. c",
+      "htmlOf": "<ul>\n<li>a<ul>\n<li>b<ol>\n<li>c</li>\n</ol>\n</li>\n</ul>\n</li>\n</ul>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s11": {
+      "codeText": "> > q",
+      "htmlOf": "<blockquote>\n<blockquote>\n<p>q</p>\n</blockquote>\n</blockquote>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s12": {
+      "codeText": "| a | b |\n|---|---|\n| c | d |",
+      "htmlOf": "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>c</td>\n<td>d</td>\n</tr>\n</tbody></table>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s13": {
+      "codeText": "- [ ] t\n- [x] d",
+      "htmlOf": "<ul>\n<li><input disabled=\"\" type=\"checkbox\"> t</li>\n<li><input checked=\"\" disabled=\"\" type=\"checkbox\"> d</li>\n</ul>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s14": {
+      "codeText": "h\n===\nh2\n---",
+      "htmlOf": "<h1>h</h1><h2>h2</h2>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s15": {
+      "codeText": "    indented",
+      "htmlOf": "<pre><code>indented\n</code></pre>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s16": {
+      "codeText": "~~~js\nx\n~~~",
+      "htmlOf": "<pre><code class=\"language-js\">x\n</code></pre>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s17": {
+      "codeText": "***\n___",
+      "htmlOf": "<hr><hr>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s18": {
+      "codeText": "_it_ __bo__ ***bi*** ~~s~~ \\*esc\\* <x@y.z> [a][r] &amp;",
+      "htmlOf": "<p><em>it</em> <strong>bo</strong> <em><strong>bi</strong></em> <del>s</del> *esc* &lt;<a href=\"mailto:x@y.z\">x@y.z</a> data-preserve-html-node=\"true\"&gt; [a][r] &amp;</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s19": {
+      "codeText": "<!-- c -->\n<div class=\"x\" id=y>t</div>",
+      "htmlOf": "<p>&lt;! data-preserve-html-node=\"true\"-- c --&gt;</p><div data-preserve-html-node=\"true\" class=\"x\" id=\"y\">t</div>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s20": {
+      "codeText": "1) c\n+ b",
+      "htmlOf": "<ol>\n<li>c</li>\n</ol><ul>\n<li>b</li>\n</ul>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s21": {
+      "codeText": "&copy; a &amp; b",
+      "htmlOf": "<p>© a &amp; b</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s22": {
+      "codeText": "# h1\n## h2\nplain **bold** *ital* `code` [a](/x) ~~del~~\n* item\n1. item\n> quote\n---\n```js\nfence\n```\n<b>html</b>\n![i](/y)\n[r]: /z",
+      "htmlOf": "<h1>h1</h1><h2>h2</h2><p>plain <strong>bold</strong> <em>ital</em> <code>code</code> <a href=\"/x\">a</a> <del>del</del></p><ul>\n<li>item</li>\n</ul><ol>\n<li>item<blockquote>\n<p>quote</p>\n</blockquote>\n</li>\n</ol><hr><pre><code class=\"language-js\">fence\n</code></pre><p><b data-preserve-html-node=\"true\">html</b>\n<img src=\"/y\" alt=\"i\">\n[r]: /z</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s23": {
+      "codeText": "[**word**](/x)\n**a *b* c**\n*a **b** c*\n**[a](/x)**\n`**x**`\n![**i**](/y \"t\")\n[a](/x \"title\")",
+      "htmlOf": "<p><a href=\"/x\"><strong>word</strong></a>\n<strong>a <em>b</em> c</strong>\n<em>a <strong>b</strong> c</em>\n<strong><a href=\"/x\">a</a></strong>\n<code>**x**</code>\n<img src=\"/y\" alt=\"**i**\" title=\"t\">\n<a href=\"/x\" title=\"title\">a</a></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s24": {
+      "codeText": "# **b**\n> **b** [a](/x)\n* **b** `c`",
+      "htmlOf": "<h1><strong>b</strong></h1><blockquote>\n<p><strong>b</strong> <a href=\"/x\">a</a></p>\n</blockquote><ul>\n<li><strong>b</strong> <code>c</code></li>\n</ul>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "An empty Markdown block in Preview keeps its text, at the block's own colour, in the same place, rows kept: my guess that it holds no text missed. The published page itself needs a Save: inferred hidden. Samples: a quote straight under a list item stays in the item; a reference line under a paragraph is its text; a reference line alone leaves the placeholder; a comment on its own line comes out as text with the mark raw HTML gets; data-preserve-html-node comes first on all raw tags. check-markdown walks all 25."
+}

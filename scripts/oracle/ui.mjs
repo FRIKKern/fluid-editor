@@ -83,8 +83,8 @@ export async function removeBlock(i, id) {
 // Add a block of a menu type ("Text", "Shape", "Button", …) to section i; returns its id.
 // The editor can hold two block menus at once; the item nearest the clicked button is ours.
 // A block that lands in another section anyway is removed.
-export async function addBlock(i, type) {
-  const before = new Set(allIds().flat());
+// Add Block's menu open on section i, nothing pressed in it. Returns the button's top.
+export async function openAddBlock(i) {
   await escape();
   await deselect(i);
   // The section toolbar does not always appear on the first hover: hover the section
@@ -102,6 +102,12 @@ export async function addBlock(i, type) {
   }
   cmux('click', '#fx-target');
   await pause(1300);
+  return btnTop;
+}
+
+export async function addBlock(i, type) {
+  const before = new Set(allIds().flat());
+  const btnTop = await openAddBlock(i);
   const leaf = `[...document.querySelectorAll('div,span,button,li')].filter((x) => x.childElementCount === 0 && x.getBoundingClientRect().width > 0 && !x.closest('.fe-block') && !/label-tag/.test(x.className) && x.textContent.trim() === ${JSON.stringify(type)})`;
   const visible = evalJs(SURFACE, `(() => { ${FRAME} return JSON.stringify(${leaf.replace('document', 'd')}.length); })()`);
   if (!visible) {
@@ -115,7 +121,16 @@ export async function addBlock(i, type) {
     await pause(900);
     if (process.env.SHOTS) cmux('screenshot', '--out', `${process.env.SHOTS}/addblock-search-${type}.png`);
   }
-  await click(`() => ${leaf}.sort((a, b) => Math.abs(a.getBoundingClientRect().top - ${btnTop}) - Math.abs(b.getBoundingClientRect().top - ${btnTop}))[0]`, { inFrame: true, wait: 1500 });
+  const tile = `${leaf}.sort((a, b) => Math.abs(a.getBoundingClientRect().top - ${btnTop}) - Math.abs(b.getBoundingClientRect().top - ${btnTop}))[0]`;
+  // A low tile: move the menu's own list, as a wheel would. scrollIntoView moves the frame too, and a new block lands by the frame's scroll (CAP-T14MENU.json).
+  cmux('frame', '#sqs-site-frame');
+  try {
+    evalJs(SURFACE, `(() => { const t = ${tile}; let sc = t && t.parentElement; while (sc && sc !== document.body && !(['auto', 'scroll'].includes(getComputedStyle(sc).overflowY) && sc.scrollHeight > sc.clientHeight + 1)) sc = sc.parentElement; if (t && sc && sc !== document.body) { const q = t.getBoundingClientRect(), s = sc.getBoundingClientRect(); if (q.top < s.top || q.bottom > s.bottom) sc.scrollTo({ top: sc.scrollTop + q.top - s.top - s.height / 2, behavior: 'instant' }); } return 'true'; })()`);
+  } finally {
+    cmux('frame', 'main');
+  }
+  await pause(300);
+  await click(`() => ${tile}`, { inFrame: true, wait: 1500 });
   let mine = null;
   for (let t = 0; t < 10 && !mine; t++) {
     const now = allIds();

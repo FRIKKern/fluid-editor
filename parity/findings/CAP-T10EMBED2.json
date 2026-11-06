@@ -1,0 +1,626 @@
+{
+  "item": "CAP-T10EMBED2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: an embed after a real mouse pull, and on the phone",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "start",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      164.4
+    ],
+    [
+      "read",
+      "pulled 4 rows taller",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "tall 3 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "tall 1 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "tall 12 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "tall 1 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "desktop 4 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone start",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone panel",
+      {
+        "panelEls": ".cm-content",
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "clickIf",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "clickIf",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "phone 6 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "phone 20 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "phone 2 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "back on desktop",
+      {
+        "areas": 0
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "pulled 4 rows taller": {
+      "areas": [
+        [
+          "1/2/13/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tall 3 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            99.2
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/13/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tall 1 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            425,
+            459.3,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tall 12 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            444.9
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/13/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "desktop 4 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            137.6
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone start": {
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone panel": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            611.7,
+            292.5,
+            376.7,
+            137.6
+          ]
+        }
+      ],
+      "panelEls": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone 6 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            611.7,
+            292.5,
+            376.7,
+            214.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone 20 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            611.7,
+            221.7,
+            376.7,
+            752.1
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/24/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone 2 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            611.7,
+            380.6,
+            376.7,
+            60.8
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "back on desktop": {
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "no Code Snippet",
+    "no Navigate to Embed data"
+  ],
+  "leftDirty": true,
+  "answer": "A new Embed on the phone. Start 8 rows, 6 lines stays 8, 20 lines 1/2/24/10, 23 rows, then 2 lines 1/2/3/10, 2 rows. Desktop stays 1/2/9/10. This run's pull part is overwritten: a read name was used twice and the panel was already on Embed data, which gave the two errors. CAP-T10EMBED3.json redoes it.",
+  "ours": "Ours on the phone: 6 lines 8 rows, 20 lines still 8 rows, 2 lines 1/2/2/10, 1 row. Desktop the same. Same on desktop: a new Embed fills all 8 of its section's rows, and 10 lines keep 1/2/9/10 where the oracle has 1/2/11/10 (CAP-T10EMBED.json's first reads). Cause, measured: after the content goes in, the grid's rows stretch around it, so measure's pitch reads 99.4 and not 41.1, and the rows it asks for come out as 8. The check doesn't catch it because its Embed sits in a section with more rows than it has.",
+  "differs": [
+    "An Embed that fills its section: the oracle grows with its content, ours keeps its rows until a fall has shrunk it. 20 lines on the phone: oracle 23 rows, ours 8. 2 lines after: oracle 2 rows, ours 1."
+  ],
+  "pressed": "Real mouse clicks and pulls on blocks made in the session. Add Block tiles and panel rows by name. No Save, no upload, no Reset, no tile or row pressed by place."
+}

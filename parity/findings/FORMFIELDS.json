@@ -95,7 +95,20 @@
    "Message(required)",
    "Email(required)",
    "Dropdown"
-  ]
+  ],
+  "option": {
+   "note": "A hold and drag on an option's grip moves the option, in the panel and on the form. Option 1 to below Option 3:",
+   "before": [
+    "Option 1",
+    "Option 2",
+    "Option 3"
+   ],
+   "after": [
+    "Option 2",
+    "Option 3",
+    "Option 1"
+   ]
+  }
  },
  "addField": {
   "tiles": [
@@ -1664,7 +1677,536 @@
     ],
     "area": "1 / 2 / 16 / 11"
    }
-  ]
+  ],
+  "rule": {
+   "note": "The rows settle one step late. A step is any change: an add, a toggle even if it changes nothing on the form, each input while typing, a press on a design row. Opening a field or Back is not a step. A step reads the form as the step before it left it. If that height is the same as the step before that, the rows stay. If it rose, the rows grow to hold it and never shrink. If it fell, they go down to the least that holds it only when more than one row is spare. The first step on a new form has nothing before it, so its rows stay. Each view keeps its own. Delete is left out, as ruled (lightbox.deleteThenOn).",
+   "formula": {
+    "pitch": "41.094 on desktop at 1600, 35 on the phone",
+    "rise": "ceil((h + 11 - 2) / pitch)",
+    "fall": "ceil((h - 11) / pitch), taken when rows > that + 1"
+   },
+   "inferred": "The 2px on a rise is a range from reads: 1.13 to 2.8. The 11 on a fall is a range: 10.9 to 18.5. Moves and follow-ups are assumed to be steps like the rest: not read.",
+   "tested": "A plain rule (rows = the fit of the height one step back) was pushed first on 17 steps: 14 held. Its misses gave the same-height and fall parts. Those predicted 21 of 22, then 18 of 19, then 25 of 25 steps. The phone run's misses were my pitch read off stretched rows and one fall target. With both in the formula, two fresh runs written down before they ran: desktop 20 of 20, phone 17 of 17.",
+   "desktop": {
+    "text": {
+     "long": "A description long enough to wrap onto a second and a third line in the form, and then some more words to fill it.",
+     "short": "One line"
+    },
+    "start": [
+     16,
+     560.9
+    ],
+    "steps": [
+     [
+      "open Name"
+     ],
+     [
+      "short",
+      16,
+      598.7
+     ],
+     [
+      "show",
+      16,
+      598.7
+     ],
+     [
+      "long",
+      16,
+      618.4
+     ],
+     [
+      "show",
+      16,
+      618.4
+     ],
+     [
+      "empty",
+      16,
+      560.9
+     ],
+     [
+      "show",
+      14,
+      560.9
+     ],
+     [
+      "show",
+      14,
+      560.9
+     ],
+     [
+      "back"
+     ],
+     [
+      "add Text",
+      14,
+      655.7
+     ],
+     [
+      "add Radio",
+      17,
+      785.5
+     ],
+     [
+      "open Radio"
+     ],
+     [
+      "long",
+      20,
+      843
+     ],
+     [
+      "req",
+      21,
+      843
+     ],
+     [
+      "short",
+      21,
+      823.3
+     ],
+     [
+      "req",
+      21,
+      823.3
+     ],
+     [
+      "empty",
+      21,
+      785.5
+     ],
+     [
+      "req",
+      19,
+      785.5
+     ],
+     [
+      "req",
+      19,
+      785.5
+     ],
+     [
+      "back"
+     ],
+     [
+      "add Checkbox",
+      19,
+      907.4
+     ],
+     [
+      "open Checkbox"
+     ],
+     [
+      "short",
+      23,
+      945.2
+     ],
+     [
+      "req",
+      24,
+      945.2
+     ],
+     [
+      "req",
+      24,
+      945.2
+     ]
+    ]
+   },
+   "phone": {
+    "start": [
+     16,
+     562.7
+    ],
+    "steps": [
+     [
+      "add Text",
+      16,
+      657.5
+     ],
+     [
+      "add Radio",
+      20,
+      788.5
+     ],
+     [
+      "open Radio"
+     ],
+     [
+      "long",
+      23,
+      870.1
+     ],
+     [
+      "req",
+      26,
+      870.1
+     ],
+     [
+      "empty",
+      26,
+      788.5
+     ],
+     [
+      "req",
+      23,
+      788.5
+     ],
+     [
+      "opt",
+      23,
+      832.9
+     ],
+     [
+      "req",
+      25,
+      832.9
+     ],
+     [
+      "back"
+     ],
+     [
+      "add Checkbox",
+      25,
+      955.9
+     ],
+     [
+      "open Checkbox"
+     ],
+     [
+      "short",
+      28,
+      995.7
+     ],
+     [
+      "req",
+      29,
+      995.7
+     ],
+     [
+      "empty",
+      29,
+      955.9
+     ],
+     [
+      "req",
+      27,
+      955.9
+     ],
+     [
+      "req",
+      27,
+      955.9
+     ]
+    ]
+   },
+   "afterTallMessage": {
+    "note": "Edit Post-Submit, 30 Enters, then Position twice, Back, Edit Form Fields, two adds.",
+    "reads": [
+     [
+      "30 Enters",
+      30,
+      1226.6
+     ],
+     [
+      "position",
+      31,
+      1226.6
+     ],
+     [
+      "position",
+      31,
+      1226.6
+     ],
+     [
+      "back",
+      31,
+      560.9
+     ],
+     [
+      "add Text",
+      14,
+      655.7
+     ],
+     [
+      "add Radio",
+      17,
+      785.5
+     ]
+    ]
+   },
+   "freshDesktop": {
+    "start": [
+     16,
+     560.9
+    ],
+    "steps": [
+     [
+      "add Email",
+      16,
+      655.7
+     ],
+     [
+      "open Email"
+     ],
+     [
+      "req",
+      17,
+      655.7
+     ],
+     [
+      "long",
+      17,
+      713.2
+     ],
+     [
+      "req",
+      18,
+      713.2
+     ],
+     [
+      "short",
+      18,
+      693.5
+     ],
+     [
+      "empty",
+      18,
+      655.7
+     ],
+     [
+      "req",
+      16,
+      655.7
+     ],
+     [
+      "back"
+     ],
+     [
+      "add Radio",
+      16,
+      785.5
+     ],
+     [
+      "open Radio"
+     ],
+     [
+      "opt",
+      20,
+      829.3
+     ],
+     [
+      "opt",
+      21,
+      873
+     ],
+     [
+      "req",
+      22,
+      873
+     ],
+     [
+      "long",
+      22,
+      930.5
+     ],
+     [
+      "req",
+      23,
+      930.5
+     ],
+     [
+      "empty",
+      23,
+      873
+     ],
+     [
+      "req",
+      21,
+      873
+     ],
+     [
+      "back"
+     ],
+     [
+      "add Text",
+      21,
+      967.8
+     ]
+    ]
+   },
+   "freshPhone": {
+    "start": [
+     16,
+     562.7
+    ],
+    "steps": [
+     [
+      "add Radio",
+      16,
+      693.7
+     ],
+     [
+      "open Radio"
+     ],
+     [
+      "req",
+      21,
+      693.7
+     ],
+     [
+      "long",
+      21,
+      775.3
+     ],
+     [
+      "empty",
+      23,
+      693.7
+     ],
+     [
+      "req",
+      20,
+      693.7
+     ],
+     [
+      "opt",
+      20,
+      738
+     ],
+     [
+      "req",
+      22,
+      738
+     ],
+     [
+      "back"
+     ],
+     [
+      "add Text",
+      22,
+      832.9
+     ],
+     [
+      "open Text"
+     ],
+     [
+      "short",
+      25,
+      872.7
+     ],
+     [
+      "req",
+      26,
+      872.7
+     ],
+     [
+      "long",
+      26,
+      914.4
+     ],
+     [
+      "req",
+      27,
+      914.4
+     ],
+     [
+      "empty",
+      27,
+      832.9
+     ],
+     [
+      "req",
+      24,
+      832.9
+     ]
+    ]
+   }
+  },
+  "boxed": {
+   "note": "A Background or Stroke going on a form drops its rows to a few and the block hugs what it holds. The form takes the padding, as a text block's does: M 6%, S 3%, L 12% of the width. The rows those presses leave have no rule I could find, so ours gives 3 when one goes on, the most common read, and keeps them while it stays on. Going off follows the rule from the block's height.",
+   "new": {
+    "background": {
+     "rows": 3,
+     "block": 623,
+     "inner": 456
+    },
+    "padL": {
+     "rows": 3,
+     "block": 685
+    },
+    "padS": {
+     "rows": 1,
+     "block": 592
+    },
+    "padM": {
+     "rows": 1,
+     "block": 623
+    },
+    "off": {
+     "rows": 16,
+     "block": 647
+    },
+    "blurOn": {
+     "rows": 14,
+     "block": 564
+    },
+    "backgroundAgain": {
+     "rows": 1,
+     "block": 623
+    },
+    "offAgain": {
+     "rows": 16,
+     "block": 647
+    }
+   },
+   "withFields": {
+    "start": {
+     "rows": 20,
+     "block": 907
+    },
+    "background": {
+     "rows": 2,
+     "block": 970
+    },
+    "off": {
+     "rows": 24,
+     "block": 975
+    },
+    "backgroundAgain": {
+     "rows": 1,
+     "block": 970
+    }
+   },
+   "stroke": {
+    "solid": {
+     "rows": 3,
+     "block": 627,
+     "inner": 452
+    },
+    "dashed": {
+     "rows": 2,
+     "block": 627
+    },
+    "thicknessL": {
+     "rows": 2,
+     "block": 649
+    },
+    "paddingL": {
+     "rows": 4,
+     "block": 708
+    },
+    "none": {
+     "rows": 18,
+     "block": 729
+    },
+    "background": {
+     "rows": 3,
+     "block": 685
+    }
+   }
+  }
  },
  "postSubmit": {
   "view": {
@@ -1798,27 +2340,322 @@
    }
   },
   "messageBox": {
-   "note": "The Message box is rich text with the Text block's bar: Squarespace AI (never pressed), Text Style with Heading 1 to 4, Paragraph 1 to 3 and Monospace, Bold, Italic, Underline, Link, Clear Formatting. The bar is 376 by 36, above the box. Bold, italic and underline draw <strong>, <em> and <u> inside a p. Text Style's rows were read and none pressed, Link and Clear Formatting not pressed.",
-   "bar": {
-    "box": [
-     663,
-     169.78125,
-     376.109375,
-     36
+   "note": "The Message box is rich text with a short bar, on a new form on the probe page, not saved. Squarespace AI was never pressed.",
+   "box": {
+    "size": [
+     276,
+     110
     ],
-    "kids": [
-     "DIV|Squarespace AI||663|170|36|36",
-     "DIV|Text Style|Paragraph 2|708|170|121|36",
-     "DIV|Bold||838|170|36|36",
-     "DIV|Italic||878|170|36|36",
-     "DIV|Underline||918|170|36|36",
-     "DIV|Link||958|170|36|36",
-     "DIV|Clear Formatting||1003|170|36|36"
-    ]
+    "background": "rgb(249, 249, 249)",
+    "padding": "0.1px 11px",
+    "color": "rgb(62, 62, 62)",
+    "focus": "2px solid rgb(14, 14, 14), and none after leaving",
+    "grows": "A second and third line take the inner box from 22 to 58 and 80. Its outer height with many lines is not read."
    },
-   "html": {
-    "html": "<div tabindex=\"-1\" class=\"form-submission-text form-submission-text--align-left\"><p data-rte-preserve-empty=\"true\" style=\"white-space:pre-wrap;\"><strong><em><u>Thanks a lot</u></em></strong></p></div>",
-    "cs": "16px 700 italic underline rgb(0, 0, 0) 22.4px"
+   "bar": {
+    "shows": "On focus, gone on leaving the box.",
+    "box": [
+     384,
+     44
+    ],
+    "fromBox": [
+     0,
+     -54
+    ],
+    "background": "rgb(255, 255, 255)",
+    "radius": 6,
+    "shadow": "rgba(0, 0, 0, 0.12) 0 6px 24px",
+    "controls": {
+     "Squarespace AI": [
+      4,
+      4,
+      36,
+      36
+     ],
+     "Text Style": [
+      49,
+      4,
+      121,
+      36
+     ],
+     "Bold": [
+      179,
+      4,
+      36,
+      36
+     ],
+     "Italic": [
+      219,
+      4,
+      36,
+      36
+     ],
+     "Underline": [
+      259,
+      4,
+      36,
+      36
+     ],
+     "Link": [
+      299,
+      4,
+      36,
+      36
+     ],
+     "Clear Formatting": [
+      344,
+      4,
+      36,
+      36
+     ]
+    },
+    "on": "rgb(231, 231, 231)",
+    "hover": "rgb(242, 242, 242)",
+    "styleWidths": {
+     "Heading 1": 106,
+     "Heading 4": 108,
+     "Paragraph 1": 119,
+     "Paragraph 2": 121,
+     "Paragraph 3": 121,
+     "Monospace": 120
+    }
+   },
+   "marks": {
+    "selection": "Bold draws strong, Italic em, Underline u, inside the p, nested strong > em > u. A second press takes the mark off. The selection stays.",
+    "boldCaret": "Bold at a caret marks all the text. Italic at a caret marks it and takes it off.",
+    "underlineCaret": "Underline at a caret changes no text: the next letter typed is not underlined when the caret was in underlined text. The other way round is inferred from Strike in a Text block.",
+    "clear": "Clear Formatting takes all marks off the selection and leaves it.",
+    "enter": "Enter makes a new p. Shift+Enter a br in it."
+   },
+   "styles": {
+    "order": [
+     "Heading 1",
+     "Heading 2",
+     "Heading 3",
+     "Heading 4",
+     "Paragraph 1",
+     "Paragraph 2",
+     "Paragraph 3",
+     "Monospace"
+    ],
+    "menu": "Rows 44 high with the keys, as the Text block lists them, under the bar. The current one has a tick. Pressing a row keeps the selection and closes the list.",
+    "html": {
+     "Heading 1": "h1",
+     "Heading 4": "h4",
+     "Paragraph 1": "p.sqsrte-large",
+     "Paragraph 2": "p",
+     "Paragraph 3": "p.sqsrte-small",
+     "Monospace": "pre > code"
+    },
+    "inBox": {
+     "Heading 1": [
+      "28px",
+      700,
+      "18.76px"
+     ],
+     "Heading 4": [
+      "14px",
+      700,
+      "18.62px"
+     ],
+     "Paragraph 1": [
+      "16.8px",
+      400,
+      "16.8px"
+     ],
+     "Paragraph 2": [
+      "14px",
+      400,
+      "14px"
+     ],
+     "Paragraph 3": [
+      "11.2px",
+      400,
+      "11.2px"
+     ],
+     "Monospace": [
+      "14px",
+      400,
+      "14px"
+     ]
+    },
+    "onCanvas": {
+     "Heading 1": [
+      "66.4px",
+      "32px",
+      140
+     ],
+     "Heading 2": [
+      "58px",
+      "32px",
+      132
+     ],
+     "Heading 3": [
+      "41.2px",
+      "32px",
+      114
+     ],
+     "Heading 4": [
+      "26.08px",
+      "32px",
+      97
+     ],
+     "Paragraph 1": [
+      "24.4px",
+      "16px",
+      66
+     ],
+     "Paragraph 2": [
+      "16px",
+      "16px",
+      54
+     ],
+     "Paragraph 3": [
+      "14.08px",
+      "16px",
+      52
+     ],
+     "Monospace": [
+      "16px",
+      "16px",
+      54
+     ]
+    }
+   },
+   "link": {
+    "press": "The same link menu as a Text block, 328 wide, centred under the Link button and 6 below it, with the list open. Link shows pressed while it is open.",
+    "write": "Enter leaves the menu open, with the list gone, and writes nothing yet. A press away closes it, writes the a around the marks, gives the box its focus and selection back, and the bar stays. Link shows pressed on the selection, and not at a caret in the link."
+   },
+   "empty": "Emptied, the box shows Thank you! as a faded placeholder and Link fades. The block draws no message at all.",
+   "escape": "Escape in the box closes the whole panel.",
+   "shape": "The stored html carries attributes of their editor. Ours keeps the tags and the two paragraph classes.",
+   "notRead": "Heading 2 and 3 in the box (browser defaults assumed). Cmd+I and Cmd+U: Cmd+B was read, the others assumed.",
+   "earlier": {
+    "barBox": {
+     "box": [
+      663,
+      169.78125,
+      376.109375,
+      36
+     ],
+     "kids": [
+      "DIV|Squarespace AI||663|170|36|36",
+      "DIV|Text Style|Paragraph 2|708|170|121|36",
+      "DIV|Bold||838|170|36|36",
+      "DIV|Italic||878|170|36|36",
+      "DIV|Underline||918|170|36|36",
+      "DIV|Link||958|170|36|36",
+      "DIV|Clear Formatting||1003|170|36|36"
+     ]
+    },
+    "html": {
+     "html": "<div tabindex=\"-1\" class=\"form-submission-text form-submission-text--align-left\"><p data-rte-preserve-empty=\"true\" style=\"white-space:pre-wrap;\"><strong><em><u>Thanks a lot</u></em></strong></p></div>",
+     "cs": "16px 700 italic underline rgb(0, 0, 0) 22.4px"
+    }
+   },
+   "paste": {
+    "note": "One read on a new form on the probe page, not saved: a paste event with a clipboard of HTML or text, in the box. The rules are the Text block's (PASTE.json) with no list, quote or strike: a list item and a quote come in as paragraphs, a strike as its letters. A mark stays. h5 and h6 are paragraphs. A table runs its cells together. {link} stands for the address pasted. The empty paragraph's br is drawn by the editor there.",
+    "reads": [
+     [
+      "",
+      "Plain one",
+      "<p>Plain one</p>"
+     ],
+     [
+      "",
+      "Line one\nLine two\n\nLine four",
+      "<p>Line one</p><p>Line two</p><p>Line four</p>"
+     ],
+     [
+      "<p>Some <strong>bold</strong> and <em>italic</em> and <u>under</u> and <a href=\"{link}\">link</a> and <span style=\"color:red\">red</span></p><h2>Head</h2><ul><li>One</li></ul>",
+      "x",
+      "<p>Some <strong>bold</strong> and <em>italic</em> and <u>under</u> and <a href=\"{link}\">link</a> and red</p><h2>Head</h2><p>One</p>"
+     ],
+     [
+      "<h1>H one</h1><h3>H three</h3><h4>H four</h4><blockquote>Quote</blockquote><pre>Pre  two</pre><ol><li>Num</li></ol><p>a<br>b <s>strike</s> <code>code</code> <sub>sub</sub> <sup>sup</sup> <b>b</b> <i>i</i></p><p></p><p>end</p>",
+      "x",
+      "<h1>H one</h1><h3>H three</h3><h4>H four</h4><p>Quote</p><pre><code>Pre  two</code></pre><p>Num</p><p>a<br>b strike code sub sup <strong>b</strong> <em>i</em></p><p><br></p><p>end</p>"
+     ],
+     [
+      "<div>Div one</div><div>Div <span style=\"font-weight:700\">two</span></div><a href=\"{link}\" target=\"_blank\">solo</a>",
+      "y",
+      "<p>Div one</p><p>Div <strong>two</strong></p><p><a target=\"_blank\" href=\"{link}\">solo</a></p>"
+     ],
+     [
+      "<h5>H five</h5><h6>H six</h6><p><mark>marked</mark></p><table><tr><td>a</td><td>b</td></tr><tr><td>c</td></tr></table><p>  sp   aced  </p>",
+      "z",
+      "<p>H five</p><p>H six</p><p><mark style=\"background: #7676764D; padding: 3px 0px; margin: -3px 0px; color: inherit;\">marked</mark></p><p>abc</p><p>sp aced</p>"
+     ],
+     [
+      "<p><span style=\"font-weight:700\">w700</span> <span style=\"font-weight:bold\">wbold</span> <span style=\"font-weight:400\">w400</span> <span style=\"font-weight:500\">w500</span> <span style=\"font-weight:600\">w600</span> <span style=\"font-style:italic\">ital</span> <span style=\"text-decoration:underline\">und</span> <span style=\"text-decoration:line-through\">str</span> <b style=\"font-weight:normal\">bnorm</b> <i style=\"font-style:normal\">inorm</i></p>",
+      "x",
+      "<p><strong>w700</strong> <strong>wbold</strong> w400 <strong>w500</strong> <strong>w600</strong> <em>ital</em> <u>und</u> str bnorm inorm</p>"
+     ],
+     [
+      "<h2>Head</h2>",
+      "Head",
+      "<h2>Head</h2>"
+     ],
+     [
+      "",
+      "Plain over head",
+      "<p>Plain over head</p>"
+     ]
+    ],
+    "atCaret": {
+     "note": "Each at the caret at the end of the box, one after the other from <p>Start</p>.",
+     "reads": [
+      [
+       "",
+       "x",
+       "<p>Startx</p>"
+      ],
+      [
+       "<p>y</p><p>z</p>",
+       "y\nz",
+       "<p>Startxy</p><p>z</p>"
+      ],
+      [
+       "",
+       "one\ntwo",
+       "<p>Startxy</p><p>zone</p><p>two</p>"
+      ]
+     ]
+    }
+   }
+  },
+  "tall": {
+   "note": "A message taller than the form. The panel's box stays 110 and scrolls inside. On the canvas the form takes its height from the message once that passes the form's own: 20 plus the text. Top, Middle and Bottom then draw the same. Back draws the form again at 560.9 and the rows stay until the next step.",
+   "reads": [
+    {
+     "ps": 6,
+     "text": 246.4,
+     "form": 560.9,
+     "rows": 16
+    },
+    {
+     "ps": 13,
+     "text": 515.3,
+     "form": 560.9,
+     "rows": 16
+    },
+    {
+     "ps": 21,
+     "text": 822.5,
+     "form": 842.5,
+     "rows": 21
+    },
+    {
+     "ps": 36,
+     "text": 1398.6,
+     "form": 1418.6,
+     "rows": 35
+    }
+   ],
+   "back": {
+    "form": 560.9,
+    "rows": 35,
+    "block": 1427.3
    }
   }
  },
@@ -2170,7 +3007,7 @@
    "contentTab": "The Content tab does not change: Form Name, its own Button Text, Edit Form Fields and the rest.",
    "colorPop": "The five swatches, the plus and the Opacity slider. White is chosen at the start and no Reset to theme shows."
   },
-  "rowRule": "On: the rows lose ceil((form height - button height) / row pitch), with a floor of 1. Read four times: 16 rows and a 560.9 form to 3, 14 and 560.9 to 1, 11 and 410.5 to 2, and 16 and 410.5 to 3. That last one had a field deleted with the rows not yet settled, so the rule fits it only if the height is the one from before the delete. Off: the rows stay until the next change. Typing moves the rows only when the button's height changes, then to the least that hold it. Alignment never shrinks them.",
+  "rowRule": "On: the rows lose ceil((form height - button height) / row pitch), with a floor of 1. Read four times: 16 rows and a 560.9 form to 3, 14 and 560.9 to 1, 11 and 410.5 to 2, and 16 and 410.5 to 3. That last one had a field deleted with the rows not yet settled, so the rule fits it only if the height is the one from before the delete. Off: the rows stay until the next press on a design row (offThenPress). Typing moves the rows only when the button's height changes, then to the least that hold it. Alignment never shrinks them.",
   "deleteThenOn": {
    "note": "Tested on the lead's question: does the older height count? One delete holds: 16 rows and a 410.5 form go to 3 like a 560.9 form, also after waiting 8 seconds. More deletes don't fit it. Two deletes: 12 rows, form 315.7, go to 2, a loss of 10, while the older heights give 13, 9 or 7. Three deletes: 9 rows, form 189.1, go to 1. No height before the delete explains all of them, so it isn't built.",
    "reads": {
@@ -2195,6 +3032,68 @@
      "on": 1
     }
    }
+  },
+  "offThenPress": {
+   "note": "After Lightbox off, the first press on Button Alignment or Button Style grows the rows to hold the form. It never shrinks them. Without a Lightbox off first, a press does nothing to the rows, also when they are short. It is one view at a time.",
+   "desktop": {
+    "from26": {
+     "on": 13,
+     "off": 13,
+     "press": 14
+    },
+    "from25": {
+     "on": 12,
+     "off": 12,
+     "press": 14
+    },
+    "from27": {
+     "on": 14,
+     "off": 14,
+     "press": 14
+    },
+    "from30": {
+     "on": 17,
+     "off": 17,
+     "press": 17
+    },
+    "styleFirst": {
+     "on": 3,
+     "off": 3,
+     "buttonStylePress": 14
+    }
+   },
+   "phone": {
+    "newForm": {
+     "rows": 16,
+     "press": 16
+    },
+    "cycle": {
+     "on": 1,
+     "off": 1,
+     "press": 17
+    },
+    "afterDesktopOn": {
+     "off": "16 or 15",
+     "press": 17
+    },
+    "fieldsAddedOnDesktop": {
+     "rows": 16,
+     "block": 752.3,
+     "press": 16
+    },
+    "desktopAfterPhoneCycle": {
+     "rows": 16,
+     "press": 16
+    }
+   }
+  },
+  "designSet": {
+   "note": "Lightbox on a form with a design value set, on a new form on the probe page.",
+   "background": "Lightbox on hides it and Lightbox off leaves its switch off: it is gone. The rows were 3, then 2, then 2 with a 561 block.",
+   "stroke": "It stays. The button's block draws it: 518 by 71, 2px solid, with no padding. Off brings the form back with its stroke and padding, 627 tall, and all its rows.",
+   "blur": "It stays, off as it was on. 16 rows, on 3, off 3.",
+   "blend": "Multiply stays on the block while on and after off.",
+   "ours": "Ours does all four. The rows from a Background or Stroke differ: ours gives 1 where the oracle gives 2, and the block looks the same."
   }
  },
  "submissions": {
@@ -2217,6 +3116,17 @@
    "box": {
     "rows": "220 wide, 45 per row, text 22 in",
     "position": "Right edge 4 left of the button, top 40 under the button's top. It may run past the panel's bottom."
+   },
+   "tip": {
+    "text": "Open menu",
+    "box": [
+     109.25,
+     44
+    ],
+    "from": "Centred under the button, 11 below it.",
+    "look": "rgb(14, 14, 14), radius 3, padding 11 16, white, 14px weight 400",
+    "role": "tooltip",
+    "note": "Read 1.5 seconds after the hover. How soon it shows is not read: ours shows at once. Ours is 105 wide by the font, not 109: same text, same padding."
    }
   },
   "delete": {
@@ -3234,6 +4144,31 @@
      "tick": "mask-position 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0.1s, -webkit-mask-position 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0.1s",
      "edge": "border-width 0.075s cubic-bezier(0.33, 1, 0.68, 1), border-color 0.2s cubic-bezier(0.33, 1, 0.68, 1), transform 0.15s cubic-bezier(0.33, 1, 0.68, 1)"
     }
+   },
+   "ringByTheme": {
+    "note": "The focus ring read in Preview on a new form on the probe page, on a checkbox and a radio, on all ten section themes. Checkbox and radio read the same. That the two Bright colors are the palette colors of those values is inferred: one palette was read.",
+    "Lightest 1": "rgb(242, 184, 180)",
+    "Lightest 2": "rgb(242, 184, 180)",
+    "Light 1": "rgb(242, 184, 180)",
+    "Light 2": "rgb(242, 184, 180)",
+    "Bright 1": "rgb(255, 207, 90)",
+    "Bright 2": "rgb(181, 100, 247)",
+    "Dark 1": "rgb(242, 184, 180)",
+    "Dark 2": "rgb(242, 184, 180)",
+    "Darkest 1": "rgb(242, 184, 180)",
+    "Darkest 2": "rgb(242, 184, 180)",
+    "attr": {
+     "Lightest 1": "white",
+     "Lightest 2": "white-bold",
+     "Light 1": "light",
+     "Light 2": "light-bold",
+     "Bright 1": "bright-inverse",
+     "Bright 2": "bright",
+     "Dark 1": "dark",
+     "Dark 2": "dark-bold",
+     "Darkest 1": "black",
+     "Darkest 2": "black-bold"
+    }
    }
   },
   "rowFont": {
@@ -3292,7 +4227,8 @@
      "tt": "none"
     }
    ]
-  }
+  },
+  "backFromMenu": "Back from Add Follow-Up, reached by an option's menu, goes to the field's view, as ours does."
  },
  "undo": "Undo did not step back a field's change. After adding a Dropdown one Undo left it there; after typing a label and a description one Undo left both, and the next removed the whole Form block. Ours takes one step per change.",
  "presses": [
@@ -3305,10 +4241,7 @@
   "What a form's open lightbox draws: the preview opens nothing on an unsaved form, and it needs a Save (under 0005).",
   "What the Message, Alignment, Position, HTML and Redirect do after a submit: a submit writes to form storage.",
   "Send confirmation email and SMS Marketing Opt-in: not pressed. View plans: not pressed.",
-  "Email Notification, Additional Storage, reCAPTCHA: not pressed.",
-  "Field label typed empty.",
-  "Background Color on the phone, and the form's own Button Text on the phone: not read, so ours shares them across views.",
-  "Button Style on the phone: not pressed there. Ours shares it."
+  "Email Notification, Additional Storage, reCAPTCHA: not pressed, under 0005."
  ],
  "drawn": {
   "note": "Item height and control boxes (x, y from the item top, width, height) at 1600 wide, a form 518 wide. plain: Subject has a description and placeholder, every other field as added. withDescription: every added field has a description, Required on where it has one, Phone shows its country code, a Dropdown has its own placeholder and a third option left empty.",
@@ -3693,7 +4626,7 @@
      [
       "INPUT",
       0,
-      192.0,
+      192,
       518,
       44.4
      ],
@@ -3871,29 +4804,20 @@
   "file": "Back\nFile Upload\nLABEL\nDESCRIPTION\n\nRequired\n\nFILE DETAILS\n\nAllow only specific file types\n\nImage (.png, .jpg, .tiff, .heic)\n\nDocument (.docx, .doc, .pdf, .txt)\n\nPresentation (.pptx, .pdf)\n\nVideo (.mp4, .avi, .avchd, .flv)\n\nAudio (.mp3, .wav, .aac, .mp4, .alac)\n\nMax Number of Files\nDUPLICATE\nDELETE"
  },
  "oursDiffers": [
-  "The block's rows fit in the same step as a change. The oracle settles a step late on add, duplicate, delete and toggles: reads in blockFits.",
-  "A typed value fits when the field is left. The oracle did not change rows for typing while the panel stayed in the field.",
   "One undo step per change. The oracle's Undo did not step field changes back: reads in undo.",
-  "The Country list is the browser's region names, 251 of them, with Norway chosen. The oracle has 245. The Phone prefix stays +47.",
   "The field and tile icons are our own drawings.",
-  "Ours' Message box is plain text: a new line is a new paragraph. The oracle's is rich text with the Text block's bar (postSubmit.messageBox).",
-  "Ours' HTML box has no colours or code editor. It takes the same text.",
   "In ours' Preview frame a redirect shows the message, so the editor stays open. On the page itself it follows the link.",
   "A form with a field just deleted: ours has already fit its rows, so Lightbox on reads from there. The oracle's rows had not settled (lightbox, reads.otherForm.fewerFields: 3 rows where ours gives 2).",
   "What the Lightbox button opens is ours, with no read behind it: a dark page, a 640 wide box in the chosen Background Color, the form and a close button. A press beside the box or on the close button ends it. The text and submit button turn black or white to read on the color.",
-  "Ours has no tooltip Open menu on an option's menu button.",
-  "On the phone too the rows fit in the same step. The oracle's fit is one step late there as well.",
-  "Lightbox off from the phone, read once at 15 rows from 16 with no press between. Ours keeps the 16."
+  "Lightbox off from the phone keeps 16 rows every time. The oracle read 15 in two of six reads on the same route, and a press gives 17 either way.",
+  "A phone form turned on from desktop, off and on again from the phone: ours goes to 1 row by the height it draws, the oracle to 2 by the 549 block.",
+  "A delete fits the rows at once. Its reads found no rule to build (lightbox.deleteThenOn).",
+  "The rows a Background or Stroke leaves: ours gives 3 and keeps them while it is on. The oracle read 1 to 4 with no rule (blockFits.boxed). The block looks the same when nothing sits under it.",
+  "Learn More. on a Hidden field is underlined text with no link: on the oracle it goes to a help page outside the editor."
  ],
  "inferred": [
-  "Hidden's Variable follows the Label: only SQF_HIDDEN for the label Hidden was read.",
-  "A grip on an option moves the option: only the field list's drag was read.",
-  "The Name part hidden by Show keeps its Require value for when it comes back.",
   "A real submit draws the message as the view does, and the Submit word goes.",
-  "A message taller than the form: not read.",
   "Background Color belongs to what the Lightbox button opens: nothing on the canvas changes when it is picked, and the open view is not read.",
-  "Lightbox on leaves a Background, Stroke, Blend Mode or Blur set earlier on the block as it was: only new forms were read, with none of them set.",
-  "Back from Add Follow-Up goes where it came from: read from Option Details, inferred from the menu.",
   "Ours hides the follow-ups again on leaving Preview, and a field's picks stay."
  ],
  "checkboxGap": {
@@ -3914,8 +4838,8 @@
  "phone": {
   "note": "Phone view, 428 wide. A new form is 16 rows there too, 376.7 wide. Fields keep their order and draw at the column's width. Address stacks Postal Code and City / Town. Fields work the same in the phone's panel.",
   "rows": "Rows are per view. A field added on the phone moves only the phone's rows, one step late as on desktop, and desktop's rows stay and stretch to hold the form. A field added on desktop leaves the phone's rows, which stretch.",
-  "perView": "Lightbox, its Button Text and Button Alignment are per view, one key at a time. The phone follows desktop on a key until the phone changes that key, and then keeps it. A desktop change leaves a key the phone has changed. Read: phone Right, then desktop Center keeps phone Right; phone Lightbox on leaves desktop's off; phone Right, then desktop Lightbox on: the phone shows the button, on the right; desktop's Button Text reaches a phone that has not typed one; a phone's Go stays when desktop's is Open Form.",
-  "lightboxRows": "Lightbox on from the phone: the rule as on desktop, with the phone's pitch of 35: 16 rows and 562.7 go to 1 by the floor. Desktop's rows stay. Lightbox on from desktop: the phone's rows stay at 16 and the button sits at the top of a 549 block. Off from the phone: 16 rows stay after an alignment press; read once at 15 with no press between, named in oursDiffers.",
+  "perView": "Lightbox, its Button Text and Background Color, Button Alignment and Button Style are per view, one key at a time. The phone follows desktop on a key until the phone changes that key, and then keeps it. A desktop change leaves a key the phone has changed. Read: phone Right, then desktop Center keeps phone Right; phone Lightbox on leaves desktop's off; phone Right, then desktop Lightbox on: the phone shows the button, on the right; desktop's Button Text reaches a phone that has not typed one; a phone's Go stays when desktop's is Open Form; phone Secondary leaves desktop Primary and desktop Tertiary leaves phone Secondary; desktop Secondary reaches a phone that has not chosen; a phone swatch leaves desktop white and a desktop swatch leaves the phone's.",
+  "lightboxRows": "Lightbox on from the phone: the rule as on desktop, with the phone's pitch of 35: 16 rows and 562.7 go to 1 by the floor. Desktop's rows stay. Lightbox on from desktop: the phone's rows stay at 16 and the button sits at the top of a 549 block. Off from the phone, with Lightbox on from desktop: read six times with no press between, 16 rows four times and 15 twice, on the same route. No wait explains it, and a press gives 17 from either. On again after that: 2 rows, not 1, the 549 height counting. Both are named in oursDiffers.",
   "new": {
    "canvas": {
     "area": "1 / 2 / 17 / 10",
@@ -5134,6 +6058,111 @@
     "INPUT text 209.3 686.4 167.3 44.4"
    ],
    "note": "In Preview on the phone: 20 under the radio field, 32 in, the column less 32 wide. The block's rows stayed at 16 and stretched."
+  },
+  "buttonText": "The form's own Button Text, on the Content tab, is one value: PhoneGo typed on the phone shows on desktop, and DeskHey typed on desktop shows on the phone."
+ },
+ "hiddenVariable": {
+  "note": "The Variable follows the Label. SQF_, then the label in upper case. Letters and digits of any alphabet stay; each other run is one _.",
+  "reads": {
+   "Hidden": "SQF_HIDDEN",
+   "My Track Code": "SQF_MY_TRACK_CODE",
+   "a-b c!": "SQF_A_B_C_",
+   "hidden": "SQF_HIDDEN",
+   "Æøå 1": "SQF_ÆØÅ_1",
+   "first.last": "SQF_FIRST_LAST",
+   "": "SQF_"
+  }
+ },
+ "emptyLabel": {
+  "note": "A field's label typed empty. The panel's title stays the kind's name and the box shows it as the placeholder. In the list its row is Item and its place, counted from 1. Hidden was read too, its list row Item 5.",
+  "list": [
+   "Item 1",
+   "Email",
+   "Subject",
+   "Message",
+   "Item 5",
+   "Item 6"
+  ],
+  "text": {
+   "title": "Text",
+   "label": [
+    0,
+    30.4
+   ],
+   "note": "A label keeps its 30.4 with nothing in it."
+  },
+  "radio": {
+   "title": "Radio",
+   "legend": [
+    0,
+    8
+   ]
+  },
+  "name": {
+   "title": "Name",
+   "legend": [
+    0,
+    8
+   ]
+  },
+  "form": {
+   "before": 785.5,
+   "afterText": 785.5,
+   "afterRadioAndName": 740.7
+  },
+  "required": {
+   "note": "A required field typed empty keeps its (required), now at the left edge, and its 30.4.",
+   "label": [
+    0,
+    30.4
+   ],
+   "mark": [
+    0,
+    2,
+    72.3,
+    19.7
+   ],
+   "list": "Item 2"
+  }
+ },
+ "nameRequire": {
+  "note": "A Name part's Show off takes its Require row away. Show on brings it back with the value it had, on or off: read both ways, on the Last Name part."
+ },
+ "country": {
+  "note": "The Address field's list: 245 names, Norway chosen, in the oracle's order, with each value and dial code: app/src/form-countries.js. The Phone field's list has the same 245 with one place moved: Northern Mariana Islands comes after North Macedonia there, and before North Korea on the Address field. The browser's region names were 251, and 245 is 8 fewer and 2 more, so a net of 6.",
+  "onlyInBrowser": [
+   "Antarctica",
+   "Bouvet Island",
+   "Sark",
+   "South Georgia & South Sandwich Islands",
+   "Heard & McDonald Islands",
+   "Pitcairn Islands",
+   "French Southern Territories",
+   "U.S. Outlying Islands"
+  ],
+  "onlyOnOracle": [
+   "Ascension Island",
+   "Tristan da Cunha"
+  ],
+  "values": "Each option's value on the oracle is its two-letter code, and ours has the same 245 values. Norway is NO.",
+  "dial": {
+   "note": "Show Country Code on a Phone field draws the same 245 options. A pick sets the Number's prefix: read for all 245 on a new form on the probe page, not saved, in edit mode and in Preview. The picks were made by setting the select and firing input and change, not by a person's press.",
+   "examples": {
+    "NO": "+47",
+    "US": "+1",
+    "SE": "+46",
+    "DE": "+49",
+    "AC": "+247",
+    "AX": "+358",
+    "ZW": "+263"
+   },
+   "prefixWidth": {
+    "+1": 46.06,
+    "+47": 59.73,
+    "+355": 70.45
+   },
+   "layout": "The prefix is as wide as its text with padding 10 10 10 20, 0.55 opacity. The input's left padding follows that width.",
+   "late": "The oracle's prefix follows a pick after a moment, over 350 ms on some picks. Ours changes at once. A pick's value is not in the model, as a visitor's pick isn't."
   }
  }
 }

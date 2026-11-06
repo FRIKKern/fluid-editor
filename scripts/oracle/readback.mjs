@@ -43,3 +43,16 @@ export function compareView(view, rows, stored = STYLES.views[view]) {
   }
   return out;
 }
+
+// Reads until two reads in a row agree, since a list read during a slow load can move with nothing changed on the site.
+// What it settles on still goes to the comparison, and a list that never settles is a difference.
+export async function settledRead(read, wait, tries = 6) {
+  let last = read();
+  for (let n = 1; n < tries; n++) {
+    await wait();
+    const next = read();
+    if (JSON.stringify(next) === JSON.stringify(last)) return { rows: next, settled: true };
+    last = next;
+  }
+  return { rows: last, settled: false };
+}

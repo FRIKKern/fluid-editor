@@ -705,11 +705,10 @@
   },
   "errors": [],
   "leftDirty": true,
-  "answer": "The outline's border color fades in and out, width and color fixed at 3 px rgb(72, 148, 255). Alpha 0.01, 0.055, 0.13, 0.23, 0.36, 0.5, 0.64, 0.77, 0.87, 0.945, 0.99, 1 at about 16.6 ms steps: about 0.2 s, an ease-in-out, and the same reversed going out. The clock starts at the watch, so about 100 ms of it is the move's latency. Add Section's opacity read flat 1 at top 193.6, even with the pointer away, so this read does not establish its fade. It may go another way, such as a parent or a clip.",
-  "ours": "The outline shows at once, and goes at once: its effective opacity reads 1 from the first frame in, and 0 at the first change out, about 52 ms after the move. Its color stays solid. Add Section fades in about 0.17 s and out about 0.15 s, as the other parts do.",
-  "differs": [
-    "Outline: oracle fades over about 0.2 s both ways, ours is on and off at once."
-  ],
+  "answer": "The outline's border color fades in and out, width and color fixed at 3 px rgb(72, 148, 255). Alpha 0.01, 0.055, 0.13, 0.23, 0.36, 0.5, 0.64, 0.77, 0.87, 0.945, 0.99, 1 at about 16.6 ms steps: about 0.2 s, an ease-in-out, and the same reversed going out. The clock starts at the watch, so about 100 ms of it is the move's latency. Add Section's opacity read flat 1 at top 193.6, even with the pointer away, so this read does not establish its fade. That read found the outer wrapper, which holds the text and does not fade. CAP-U9ADDFADE.json reads it.",
+  "ours": "The outline fades on its border color over 0.2 s, ease-in-out, both ways. Read in Chrome: 0.01, 0.055, 0.13, 0.23, 0.357, 0.5, 0.643, 0.77, 0.87, 0.945, 0.99 in, and the same reversed out, at the same 3 px rgb(72, 148, 255). Before this it showed and went at once. Add Section fades in about 0.17 s and out about 0.15 s, as the other parts do.",
+  "differs": [],
+  "inferred": "The curve is named from its numbers: CSS ease-in-out over 12 frames of 16.67 ms gives 0.014, 0.056, 0.129, 0.232, 0.359, 0.5, 0.641, 0.768, 0.871, 0.944, 0.986, 1, within 0.004 of each value read. The four cases not read here, moving straight to another section, coming back during the fade, a gesture, and a rebuild on selecting a block, are read in CAP-U9CLOSE.json. Ours matched on coming back and on a rebuild, and was built to match on the other two.",
   "notEstablished": "Add Section's fade on the oracle.",
   "pressed": "Named presses with an on-top check. Panel opens go through hover and press by name. Escape closed each panel and the Exit dialog. No Save, no upload, no Reset."
 }

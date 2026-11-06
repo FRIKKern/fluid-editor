@@ -1,0 +1,300 @@
+{
+  "item": "CAP-A2ZREACH",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "A2: can two blocks on a section get the same z? Add, overlap, duplicate, paste, forward and backward, stack.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "added",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "stubClipboard"
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Duplicate"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "duplicated",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "synthClip",
+      "copy"
+    ],
+    [
+      "synthClip",
+      "paste",
+      "top"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "pasted",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickIf",
+      "Move Forward"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "forward",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "added": {
+      "stack": [
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_647",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "duplicated": {
+      "stack": [
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_647",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "76da1",
+          "type": "csr",
+          "desktop": "2/3/8/9",
+          "phone": "9/2/15/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "pasted": {
+      "stack": [
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_647",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "76da1",
+          "type": "csr",
+          "desktop": "2/3/8/9",
+          "phone": "9/2/15/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        },
+        {
+          "id": "0a51b",
+          "type": "csr",
+          "desktop": "3/4/9/10",
+          "phone": "15/2/21/10",
+          "z": [
+            "4",
+            "4"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "forward": {
+      "stack": [
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_647",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "3",
+            "2"
+          ]
+        },
+        {
+          "id": "76da1",
+          "type": "csr",
+          "desktop": "2/3/8/9",
+          "phone": "9/2/15/10",
+          "z": [
+            "2",
+            "3"
+          ]
+        },
+        {
+          "id": "0a51b",
+          "type": "csr",
+          "desktop": "3/4/9/10",
+          "phone": "15/2/21/10",
+          "z": [
+            "4",
+            "4"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Same z was not reached: added blocks 1, 2, then Duplicate 3, then a paste 4, and a Forward swaps two values on desktop only. So two blocks with the same z were not found on the page or by these acts, and the paint order and overrun questions could not be asked. Other acts, like Stack and undo, not tried.",
+  "pressed": "Named presses with an on-top check. Typing by real keys in the search and link fields. Unnamed: real clicks on blocks and a drag, the box Edit by Enter since it opens focused. No Save, no upload, no Reset, no tile or row pressed, Copy and Remove Link not pressed."
+}

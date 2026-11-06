@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 76 changes
-  - U4: Move Forward and Backward step past the next block they overlap ([#254](https://github.com/FRIKKern/fluid-editor/pull/254))
-  - A2: unread edits, no aim in the replay, long drag fixed, corpus pass, saved section to 0005 ([#253](https://github.com/FRIKKern/fluid-editor/pull/253))
+- **Today** · 101 changes
+  - X6: width floors per type, a Video's corner rows, an Accordion's rows when narrow ([#279](https://github.com/FRIKKern/fluid-editor/pull/279))
+  - T6: Color, Stroke and Stroke Color per layout, Reset on a phone follows desktop ([#278](https://github.com/FRIKKern/fluid-editor/pull/278))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed

@@ -87,7 +87,7 @@ async function clickAt(p, times = 1) {
     if (n < times) await sleep(40);
   }
 }
-const KEYS = { '.': 190, Escape: 27, Enter: 13, Tab: 9, Backspace: 8, Delete: 46, ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40, Home: 36, End: 35, PageUp: 33, PageDown: 34, ' ': 32 };
+const KEYS = { Shift: 16, '.': 190, Escape: 27, Enter: 13, Tab: 9, Backspace: 8, Delete: 46, ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40, Home: 36, End: 35, PageUp: 33, PageDown: 34, ' ': 32 };
 const TEXT = { Enter: '\r', ' ': ' ' };
 // A real key press. "Shift+Tab", "Meta+a". Chrome on a Mac runs editing commands only when asked.
 const COMMANDS = { 'Meta+a': 'selectAll', 'Meta+z': 'undo', 'Meta+Shift+z': 'redo', 'Meta+x': 'cut', 'Meta+c': 'copy', 'Meta+v': 'paste' };
@@ -97,7 +97,8 @@ async function press(combo) {
   const named = key === 'Space' ? ' ' : key;
   const char = named.length === 1;
   const code = named === ' ' ? 'Space' : named === '.' ? 'Period' : char ? (/[a-z]/i.test(named) ? `Key${named.toUpperCase()}` : /\d/.test(named) ? `Digit${named}` : '') : named;
-  const keyCode = KEYS[named] ?? (char ? named.toUpperCase().charCodeAt(0) : 0);
+  // Only letters and digits are their own key codes: & and ' as char codes are the arrow keys.
+  const keyCode = KEYS[named] ?? (char && /[a-z0-9]/i.test(named) ? named.toUpperCase().charCodeAt(0) : 0);
   const modifiers = modBits(parts);
   const plain = !(modifiers & (MODS.Control | MODS.Meta | MODS.Alt));
   const text = plain ? (TEXT[named] ?? (char ? named : undefined)) : undefined;
@@ -170,7 +171,7 @@ try {
   if (cmd.op === 'dblclick') await clickAt(await centerOf(cmd.sel, { guard: true }), 2);
   if (cmd.op === 'hover') await mouseEvent('mouseMoved', await centerOf(cmd.sel));
   if (cmd.op === 'press') await press(cmd.key);
-  if (cmd.op === 'presses') for (const key of cmd.keys) await press(key);
+  if (cmd.op === 'presses') for (const [n, key] of cmd.keys.entries()) { if (n && cmd.gapMs) await new Promise((r) => setTimeout(r, cmd.gapMs)); await press(key); }
   if (cmd.op === 'fill') await fill(cmd.sel, cmd.text);
   if (cmd.op === 'dialog') { await send('Page.enable'); const r = await send('Page.handleJavaScriptDialog', { accept: cmd.accept !== false }); if (r.error) throw new Error(r.error.message); }
   if (cmd.op === 'mouse') {

@@ -1,0 +1,475 @@
+{
+  "item": "PRED-T10READS2",
+  "question": "T10: round 2, from the rule refit to CAP-T10EDITS and CAP-T10STATE, written before these are read",
+  "edit": {
+    "R1 Italic on all of an Italic": {
+      "text": "*word*",
+      "sel": [
+        0,
+        6
+      ],
+      "press": "Italic",
+      "value": "**word**"
+    },
+    "R2 Bold on all of an Italic": {
+      "text": "*word*",
+      "sel": [
+        0,
+        6
+      ],
+      "press": "Bold",
+      "value": "***word***"
+    },
+    "R3 Bold on all of a Bold Italic": {
+      "text": "***word***",
+      "sel": [
+        0,
+        10
+      ],
+      "press": "Bold",
+      "value": "*****word*****"
+    },
+    "R4 Bold on a word with marks only before": {
+      "text": "**word",
+      "sel": [
+        2,
+        6
+      ],
+      "press": "Bold",
+      "value": "****word**"
+    },
+    "R5 Bold on a word with marks only after": {
+      "text": "word**",
+      "sel": [
+        0,
+        4
+      ],
+      "press": "Bold",
+      "value": "**word****"
+    },
+    "E6 Enter on a bare > under a quote": {
+      "text": "> a\n>",
+      "sel": [
+        5,
+        5
+      ],
+      "press": "Enter",
+      "value": "> a\n>\n>"
+    },
+    "E7 Enter on a bare > under a bare >": {
+      "text": ">\n>",
+      "sel": [
+        3,
+        3
+      ],
+      "press": "Enter",
+      "value": "\n"
+    },
+    "E8 Enter on an empty bullet under plain text": {
+      "text": "a\n* ",
+      "sel": [
+        4,
+        4
+      ],
+      "press": "Enter",
+      "value": "a\n\n* "
+    },
+    "E9 Enter at the end of a first quote": {
+      "text": "> x",
+      "sel": [
+        3,
+        3
+      ],
+      "press": "Enter",
+      "value": "> x\n> "
+    },
+    "E10 Enter on a lone star": {
+      "text": "*",
+      "sel": [
+        1,
+        1
+      ],
+      "press": "Enter",
+      "value": "*\n"
+    },
+    "E11 Enter on > with a space, under a bare >": {
+      "text": ">\n> ",
+      "sel": [
+        4,
+        4
+      ],
+      "press": "Enter",
+      "value": "\n"
+    }
+  },
+  "look": {
+    "D1 a heading, all": {
+      "text": "# h",
+      "sel": [
+        0,
+        3
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Heading 1",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "D2 a bullet, all": {
+      "text": "* i",
+      "sel": [
+        0,
+        3
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Paragraph",
+      "bullet": true,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "D3 a quote, all": {
+      "text": "> q",
+      "sel": [
+        0,
+        3
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Paragraph",
+      "bullet": false,
+      "number": false,
+      "quote": true,
+      "shows": null
+    },
+    "D4 the word in a heading": {
+      "text": "# word",
+      "sel": [
+        2,
+        6
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Heading 1",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "D5 plain then a heading, all": {
+      "text": "plain\n# h",
+      "sel": [
+        0,
+        9
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Heading 1",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "D6 two headings, all": {
+      "text": "# a\n# b",
+      "sel": [
+        0,
+        7
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Heading 1",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "D7 two bullets, all": {
+      "text": "* a\n* b",
+      "sel": [
+        0,
+        7
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Paragraph",
+      "bullet": true,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "D8 a number then plain, all": {
+      "text": "1. a\nb",
+      "sel": [
+        0,
+        6
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Paragraph",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "D9 mid heading to plain": {
+      "text": "# h\nplain",
+      "sel": [
+        2,
+        9
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Paragraph",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "D10 plain up to a heading line": {
+      "text": "plain\n# h",
+      "sel": [
+        0,
+        5
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Paragraph",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "D11 a caret in a heading": {
+      "text": "# h",
+      "sel": [
+        3,
+        3
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Heading 1",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "D12 an indented bullet, all": {
+      "text": "  * i\nb",
+      "sel": [
+        0,
+        7
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Paragraph",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "D13 a line then a heading, all": {
+      "text": "---\n# h",
+      "sel": [
+        0,
+        7
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Heading 1",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "D14 half a heading mark": {
+      "text": "## h",
+      "sel": [
+        0,
+        1
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Heading 2",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "C1 a caret before a link": {
+      "text": "[a](/x)",
+      "sel": [
+        0,
+        0
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Paragraph",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "C2 a caret after a link": {
+      "text": "[a](/x)",
+      "sel": [
+        7,
+        7
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Paragraph",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "C3 a word after a link": {
+      "text": "[a](/x) z",
+      "sel": [
+        7,
+        9
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Paragraph",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "C4 words before a link": {
+      "text": "x [a](/y)",
+      "sel": [
+        0,
+        2
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Paragraph",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "C5 an image, all": {
+      "text": "![i](/y)",
+      "sel": [
+        0,
+        8
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": true,
+      "heading": "Paragraph",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": "/y"
+    },
+    "C6 a link in a fence, all": {
+      "text": "```\n[a](/x)\n```",
+      "sel": [
+        0,
+        15
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Paragraph",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "C7 a reference line, all": {
+      "text": "[r]: /z",
+      "sel": [
+        0,
+        7
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Paragraph",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    },
+    "C8 two links, all": {
+      "text": "[a](/x) [b](/y)",
+      "sel": [
+        0,
+        15
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": true,
+      "heading": "Paragraph",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": "/x"
+    },
+    "C9 a raw link, all": {
+      "text": "<a href=\"/x\">t</a>",
+      "sel": [
+        0,
+        18
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "heading": "Paragraph",
+      "bullet": false,
+      "number": false,
+      "quote": false,
+      "shows": null
+    }
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "item": "CAP-T10EMBED3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: an embed after a real mouse pull, each step read",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      164.4
+    ],
+    [
+      "read",
+      "pulled",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "3 lines",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "then 1 line",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "then 12 lines",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "then 1 line again",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "pulled": {
+      "areas": [
+        [
+          "1/2/13/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "3 lines": {
+      "areas": [
+        [
+          "1/2/13/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "then 1 line": {
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "then 12 lines": {
+      "areas": [
+        [
+          "1/2/13/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "then 1 line again": {
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "After a real mouse pull from 8 rows to 12: 3 lines keep 12, then 1 line 9, then 12 lines 12, then 1 line 1. So a pull holds as code does, and the fall follows the same rule.",
+  "ours": "The same: 1/2/13/10, 1/2/13/10, 1/2/10/10, 1/2/13/10, 1/2/2/10. Measured on 5210.",
+  "differs": [],
+  "pressed": "Real mouse clicks and pulls on blocks made in the session. Add Block tiles and panel rows by name. No Save, no upload, no Reset, no tile or row pressed by place."
+}

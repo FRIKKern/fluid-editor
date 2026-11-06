@@ -2,7 +2,8 @@
 //   blocks   p, div -> <p>; h1-h4 stay; h5, h6 -> <p>; ul/ol -> data-rte-list="default" with
 //            li > p; blockquote -> blockquote > p; pre -> pre > code (whitespace kept);
 //            a table -> one <p> with the cell text run together
-//   inline   b, strong -> <strong>; i, em -> <em>; u stays; s, strike, del -> line-through span;
+//   inline   b, strong -> <strong>; i, em -> <em>; u stays; s, strike, del -> line-through span; a style
+//            on any tag does the same, weight 500 up (PASTE.json, samples, marks by style), and b or i set to normal are none;
 //            a keeps target and href only; br stays; mark gets the editor's highlight style;
 //            img is dropped; every other tag (span, font, code, sup, sub, o:p) keeps only its text
 //   text     inline styles, classes and alignment are dropped; runs of white space collapse
@@ -12,26 +13,30 @@ const STRIKE = 'text-decoration: line-through;';
 const MARK = 'background: #7676764D; padding: 3px 0px; margin: -3px 0px; color: inherit;';
 const BLOCK_TAGS = new Set(['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'UL', 'OL', 'LI', 'BLOCKQUOTE', 'PRE', 'TABLE', 'SECTION', 'ARTICLE', 'HEADER', 'FOOTER']);
 
+// A style carries a mark on any tag, and a b or i set to normal has none. Weight 500 up is bold.
+const WEIGHT = /^(bold(er)?|[5-9]\d\d)$/;
 function inline(doc, node, out) {
   if (node.nodeType === 3) { out.push(doc.createTextNode(node.textContent.replace(/\s+/g, ' '))); return; }
   if (node.nodeType !== 1) return;
   const tag = node.tagName.toUpperCase();
-  const kids = () => { const a = []; for (const c of node.childNodes) inline(doc, c, a); return a; };
-  const wrap = (el) => { el.append(...kids()); out.push(el); };
-  if (tag === 'B' || tag === 'STRONG') return wrap(doc.createElement('strong'));
-  if (tag === 'I' || tag === 'EM') return wrap(doc.createElement('em'));
-  if (tag === 'U') return wrap(doc.createElement('u'));
-  if (tag === 'S' || tag === 'STRIKE' || tag === 'DEL') { const s = doc.createElement('span'); s.setAttribute('style', STRIKE); return wrap(s); }
-  if (tag === 'MARK') { const m = doc.createElement('mark'); m.setAttribute('style', MARK); return wrap(m); }
+  if (tag === 'BR') { out.push(doc.createElement('br')); return; }
+  if (tag === 'IMG' || tag === 'SCRIPT' || tag === 'STYLE') return;
+  let nodes = [];
+  for (const c of node.childNodes) inline(doc, c, nodes);
+  const wrap = (el) => { el.append(...nodes); nodes = [el]; };
+  const st = node.style, deco = st?.textDecoration || '';
+  if (tag === 'S' || tag === 'STRIKE' || tag === 'DEL' || deco.includes('line-through')) { const s = doc.createElement('span'); s.setAttribute('style', STRIKE); wrap(s); }
+  if (tag === 'U' || deco.includes('underline')) wrap(doc.createElement('u'));
+  if (st?.fontStyle ? st.fontStyle === 'italic' : tag === 'I' || tag === 'EM') wrap(doc.createElement('em'));
+  if (st?.fontWeight ? WEIGHT.test(st.fontWeight) : tag === 'B' || tag === 'STRONG') wrap(doc.createElement('strong'));
+  if (tag === 'MARK') { const m = doc.createElement('mark'); m.setAttribute('style', MARK); wrap(m); }
   if (tag === 'A') {
     const a = doc.createElement('a');
     if (node.getAttribute('target')) a.setAttribute('target', node.getAttribute('target'));
     if (node.getAttribute('href')) a.setAttribute('href', node.getAttribute('href'));
-    return wrap(a);
+    wrap(a);
   }
-  if (tag === 'BR') { out.push(doc.createElement('br')); return; }
-  if (tag === 'IMG' || tag === 'SCRIPT' || tag === 'STYLE') return;
-  out.push(...kids());
+  out.push(...nodes);
 }
 
 // Trim a block's edges and drop the space left where two spaces met across tags.
@@ -103,15 +108,16 @@ export function cleanPaste(doc, html, text) {
 }
 
 // Insert the cleaned blocks at the selection. Measured on the oracle for a paste over the whole
-// content and into a paragraph; other content goes after the block.
+// content and into a paragraph or heading; other content goes after the block.
 const insideParagraph = (range, root) => {
   const at = range.startContainer.nodeType === 1 ? range.startContainer : range.startContainer.parentElement;
-  const p = at.closest('p');
+  const p = at.closest('p, h1, h2, h3, h4');
   return p && root.contains(p) ? p : null;
 };
-// A paste into a paragraph (PASTESPLIT.json): the first block loses its type and joins the text
-// before the caret, for a list that is its first item. The last block keeps its type and takes the
-// text after the caret. Blocks between stay whole. The caret ends right after the pasted text.
+// A paste into a paragraph (PASTESPLIT.json) or a heading (CAP-E5HEAD.json): the first block loses its
+// type and joins the text before the caret, for a list that is its first item. The last block keeps its
+// type and takes the text after the caret. Blocks between stay whole. The caret ends right after the
+// pasted text.
 const textHome = (block) => {
   if (!block.matches('ul, ol')) return block;
   const li = block.lastElementChild;
@@ -135,19 +141,46 @@ function splitInto(doc, para, range, nodes, sel) {
     blocks.shift();
   }
   para.append(...joins);
-  para.after(...blocks);
   const home = blocks.length ? textHome(blocks.at(-1)) : para;
+  // A list into a list item adds items beside it, whatever its own kind (CAP-E5WHERE.json).
+  const item = para.parentElement.tagName === 'LI' ? para.parentElement : null;
+  if (item && nodes.length === 1 && blocks.length && first.matches('ul, ol')) item.after(...first.children);
+  else para.after(...blocks);
   const at = home.childNodes.length;
   home.append(...rest);
   sel.collapse(home, at);
 }
-export function insertPaste(doc, root, sel, nodes) {
+// A selection over several blocks closes up: the first block keeps its type and takes what's left of the last.
+const blockOf = (node, root) => {
+  const b = (node.nodeType === 1 ? node : node.parentElement).closest('p, h1, h2, h3, h4, pre');
+  return b && root.contains(b) ? b : null;
+};
+function closeUp(range, root, from, to) {
+  const home = from.querySelector('code') ?? from;
+  const at = home.childNodes.length;
+  home.append(...to.childNodes);
+  let gone = to;
+  while (gone.parentElement !== root && gone.parentElement.children.length === 1) gone = gone.parentElement;
+  gone.remove();
+  range.setStart(home, at);
+  range.collapse(true);
+}
+export function insertPaste(doc, root, sel, nodes, plain = '') {
   if (!sel.rangeCount || !nodes.length) return;
   const range = sel.getRangeAt(0);
   const all = doc.createRange();
   all.selectNodeContents(root);
   const whole = range.compareBoundaryPoints(Range.START_TO_START, all) <= 0 && range.compareBoundaryPoints(Range.END_TO_END, all) >= 0;
+  const from = blockOf(range.startContainer, root), to = blockOf(range.endContainer, root);
   range.deleteContents();
+  if (!whole && from && to && from !== to) closeUp(range, root, from, to);
+  // Monospace takes the plain text as it is, in place (CAP-E5WHERE.json).
+  if (!whole && from?.matches('pre') && plain) {
+    const text = doc.createTextNode(plain);
+    range.insertNode(text);
+    sel.collapse(text, text.length);
+    return;
+  }
   if (whole || !root.textContent.trim()) {
     root.replaceChildren(...nodes);
   } else if (insideParagraph(range, root) && nodes.every((n) => n.matches('p, h1, h2, h3, h4, ul, ol'))) {

@@ -46,6 +46,51 @@ for (const r of F.readings) {
     results.push({ kind: r.kind, section: r.section, block: r.block, leg, ok });
   }
 }
+// From a margin, on desktop and a phone, on a block made here: CAP-G4MARGIN.json, CAP-G4PHONE.json, CAP-G4MARGIN2.json to CAP-G4MARGIN6.json.
+const WALKS = [
+  ['CAP-G4MARGIN', 'se, left margin', 'desktop', [1, 1, 7, 7], 110],
+  ['CAP-G4MARGIN', 'move, left margin', 'desktop', [1, 1, 7, 7], 110],
+  ['CAP-G4MARGIN2', 'se, left margin, to 200', 'desktop', [1, 1, 7, 7], 200],
+  ['CAP-G4MARGIN2', 'phone, move, left margin', 'mobile', [1, 1, 7, 9], 110],
+  ['CAP-G4MARGIN2', 'phone, se, left margin', 'mobile', [1, 1, 7, 9], 110],
+  ['CAP-G4MARGIN3', 'move', 'mobile', [1, 1, 7, 7], 220],
+  ['CAP-G4MARGIN4', 'move', 'mobile', [1, 1, 7, 5], 300],
+  ['CAP-G4MARGIN5', 'move', 'desktop', [1, 1, 7, 22], 300],
+  ['CAP-G4MARGIN5', 'se', 'desktop', [1, 1, 7, 22], 300],
+  ['CAP-G4MARGIN6', 'se', 'desktop', [1, 1, 7, 22], 400],
+  ['CAP-G4PHONE', 'move', 'mobile', [1, 2, 7, 10], 110],
+  ['CAP-G4PHONE', 'se', 'mobile', [1, 2, 7, 10], 110],
+];
+for (const [file, name, view, area, mx] of WALKS) {
+  const R = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url))).reads[name].walk;
+  const part = R.part === 'middle' ? null : R.part, phone = view === 'mobile';
+  const got = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const f = document.getElementById('site-frame');
+    fe.setBp('desktop');
+    fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 12, mobile: 12 }, phoneFollows: false, blocks: [{ id: 'a', type: 'shape', layout: { desktop: { area: ${JSON.stringify(phone ? [1, 2, 7, 8] : area)} }, mobile: { area: ${JSON.stringify(phone ? area : [1, 2, 7, 10])} } }, content: {} }] }] });
+    await sleep(250); fe.setBp('${view}'); await sleep(500);
+    const d = f.contentDocument, W = f.contentWindow, b = d.querySelector('.fe-block[data-block-id="a"]');
+    fe.select('s', 'a'); await sleep(150);
+    const el = ${part ? `d.querySelector('.fe-handle[data-dir="${part}"]')` : 'b'};
+    const q = el.getBoundingClientRect(), cx = q.left + q.width / 2, cy = q.top + q.height / 2, o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 };
+    el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, clientX: cx, clientY: cy, buttons: 1 }));
+    const read = () => { const e = d.querySelector('.fe-transform-indicator'); return e ? W.getComputedStyle(e).gridArea : null; };
+    const move = (x) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x, clientY: cy, buttons: 1 }));
+    move(cx + 14); await sleep(20); move(cx); await sleep(20);
+    const walk = async (from, to) => { const seen = []; let last = read(); const step = from < to ? 1 : -1; for (let v = from; v !== to + step; v += step) { move(cx + v); await sleep(2); const a = read(); if (a !== last) { seen.push([v, a]); last = a; } } return seen; };
+    const out = { xOut: await walk(0, ${mx}), xBack: await walk(${mx}, ${R.xHome.length ? -mx : 0}) };
+    d.dispatchEvent(new W.PointerEvent('pointercancel', { ...o, buttons: 0 }));
+    d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    await sleep(100); fe.setBp('desktop'); return JSON.stringify(out); })()`);
+  for (const leg of ['xOut', 'xBack']) {
+    // The walk can go further back on the oracle: compare what ours walked. The first step only notes the target appearing.
+    const start = area.join(' / '), low = Math.min(...got[leg].map((x) => x[0]), 0);
+    const want = R[leg].filter(([v, a], k) => !(k === 0 && a === start && leg === 'xOut') && v <= mx && v >= (leg === 'xBack' && !R.xHome.length ? 0 : -mx)), have = got[leg];
+    total++;
+    const ok = low <= 0 && want.length === have.length && want.every(([v, a], k) => Math.abs(v - have[k][0]) <= 1 && a === have[k][1]);
+    if (ok) pass++; else console.log(`DIFF ${file} ${name} ${leg}: oracle ${JSON.stringify(want)} ours ${JSON.stringify(have)}`);
+    results.push({ kind: `${file} ${name}`, leg, ok });
+  }
+}
 console.log(`Snap points: ${pass} of ${total} walks match`);
 writeFileSync(new URL('../parity/snap-check.json', import.meta.url), JSON.stringify({ check: 'where a held drag or resize takes the next line', tolerance: 1, pass, total, results }, null, 2) + '\n');
 process.exit(pass === total ? 0 : 1);
