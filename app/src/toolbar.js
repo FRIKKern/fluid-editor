@@ -73,6 +73,7 @@ export function toolbarItems(type, bp, z, fit = false, inStack = false) {
     const moves = z.first && z.last ? [] : ['up', 'down'];
     if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', ...zs, ...moves, '|', 'remove'];
     if (type === 'line') return ['edit', 'align', 'pin', ...zs, ...moves, '|', 'remove']; // CAP-U4LINE.json: no line after Edit
+    if (type === 'accordion') return ['edit', '|', 'align', 'pin', ...zs, ...moves, '|', 'remove']; // CAP-ACCPHONE.json
     return ['edit', '|', 'pin', ...zs, ...moves, '|', 'remove'];
   }
   if (type === 'stack') return ['edit', '|', 'link', 'stackopts', 'pin', ...zs, 'duplicate', 'remove'];
@@ -80,7 +81,7 @@ export function toolbarItems(type, bp, z, fit = false, inStack = false) {
   // A video with a file gains Align Vertically (VIDEOPLAYER.json).
   if (type === 'video' && fit) return ['edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove'];
   if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove'];
-  if (type === 'markdown') return ['edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove']; // CAP-T10PRE.json
+  if (type === 'markdown' || type === 'accordion') return ['edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove']; // CAP-T10PRE.json, CAP-ACCBAR.json
   if (type === 'line') return ['edit', 'align', 'pin', ...zs, '|', 'duplicate', 'remove']; // CAP-U4LINE.json: no line after Edit
   if (type === 'button') return ['edit', '|', 'primary', 'link', 'pin', 'duplicate', 'remove'];
   return ['edit', '|', 'pin', ...zs, '|', 'duplicate', 'remove'];

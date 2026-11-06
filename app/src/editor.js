@@ -2858,12 +2858,20 @@ function showAccordionItem(b) {
   lis?.forEach((li, k) => { const on = k === n || (k === 0 && !!b.expandFirst); if (on) li.setAttribute('data-is-open', 'true'); else li.removeAttribute('data-is-open'); li.querySelector('button').setAttribute('aria-expanded', String(on)); });
 }
 function setAccordion(change, label, before = JSON.stringify(model)) {
-  const b = B(sel.sid, sel.bid);
+  const b = B(sel.sid, sel.bid), s = S(sel.sid), was = contentRows(b, measure(feEl(sel.sid)));
   change(b);
   renderSectionDom(sel.sid);
   showAccordionItem(b);
-  const L = lay(b), need = contentRows(b, measure(feEl(sel.sid)));
-  if (L.area[2] - L.area[0] !== need) { L.area = [L.area[0], L.area[1], L.area[0] + need, L.area[3]]; renderSectionDom(sel.sid); showAccordionItem(b); }
+  const L = lay(b), rows = L.area[2] - L.area[0], need = contentRows(b, measure(feEl(sel.sid)));
+  // It follows its content, and what's below it moves with it. Content that shrinks doesn't grow a block that was
+  // already short of it: a new one's 5 phone rows stay at 2 items (CAP-ACCPHONE.json to CAP-ACCPHONE6.json).
+  if (rows !== need && !(need < was && need > rows)) {
+    const end = L.area[2], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), lowest = low();
+    L.area = [L.area[0], L.area[1], L.area[0] + need, L.area[3]];
+    for (const o of s.blocks) { const a = o.layout[bp].area; if (o !== b && a[0] >= end && a[1] < L.area[3] && L.area[1] < a[3]) o.layout[bp].area = [a[0] + need - rows, a[1], a[2] + need - rows, a[3]]; }
+    if (need < rows) s.rows[bp] -= lowest - low(); else growRows(s);
+    renderSectionDom(sel.sid); showAccordionItem(b);
+  }
   commit(before, label);
   renderBlockPanel();
 }
@@ -4207,14 +4215,15 @@ for (const host of [panel, sectionPanel]) {
   });
 }
 function chromeSid() { return editSid || sel?.sid || hoverSid; }
-// The chrome fades out over 0.15s when the mouse leaves; a gesture takes it away at once (SECTIONBAR.json, fade).
+// The chrome fades out over 0.15s when the mouse leaves, and the outline over 0.2s; a gesture takes it away at once
+// (SECTIONBAR.json, fade; CAP-U9FADE.json).
 let chromeOut = 0;
 function hideChrome(fade) {
   if (chrome.hidden || (fade && chromeOut)) return;
   clearTimeout(chromeOut); chromeOut = 0;
   if (!fade) { chrome.classList.remove('is-out'); chrome.hidden = true; return; }
-  chrome.classList.add('is-out');
-  chromeOut = setTimeout(() => { chromeOut = 0; chrome.classList.remove('is-out'); chrome.hidden = true; }, 150);
+  chrome.classList.remove('is-outline-in'); chrome.classList.add('is-out');
+  chromeOut = setTimeout(() => { chromeOut = 0; chrome.classList.remove('is-out'); chrome.hidden = true; }, 200);
 }
 function placeChrome() {
   const sid = chromeSid();
@@ -4226,10 +4235,13 @@ function placeChrome() {
   const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length && !marquee;
   const hasLayouts = !phone && !!sectionMix(S(sid));
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}|${hasLayouts}`;
-  const appears = chrome.hidden || !!chromeOut || chrome.dataset.key?.split('|')[0] !== sid;
+  const newSection = chrome.hidden || chrome.dataset.key?.split('|')[0] !== sid;
+  const appears = newSection || !!chromeOut;
   if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); }
-  if (chrome.dataset.key !== key) { chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
+  // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
+  if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
+  if (newSection) { chrome.classList.remove('is-outline-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in'); }
   const header = k === 0 ? doc.getElementById('header') : null;
   const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
   // The Add Section buttons sit on the sum of the rounded heights above, not on the section's edge

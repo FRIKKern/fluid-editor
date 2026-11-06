@@ -1,0 +1,239 @@
+{
+  "item": "CAP-ACCPHONE6",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T12: Add Item on desktop on a new Accordion with a Shape right below it: does the Shape move? Made in this session on a probe page.",
+  "answer": "Desktop with a Shape below: Accordion 1/2/9/10, Shape 10/2/16/8, 15 rows. Add Item: 1/2/12/10, Shape 13/2/19/8, 18 rows. Delete New Item: back, 15 rows. So what's below moves with it, and the section follows. Inferred: a block in other columns stays, and a block already overlapping stays, as neither was read.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      380
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Accordion"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "start",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Add Item"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "Add Item",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Delete New Item"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "Delete it",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          955.2
+        ],
+        "rows": 15,
+        "rowSizes": "30.1x15",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "1_665",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/6/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "1_438",
+          "type": "csr",
+          "desktop": "10/2/16/8",
+          "phone": "6/2/12/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Add Item": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1078.5
+        ],
+        "rows": 18,
+        "rowSizes": "30.1x18",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "1_665",
+          "type": "csr",
+          "desktop": "1/2/12/10",
+          "phone": "1/2/6/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "1_438",
+          "type": "csr",
+          "desktop": "13/2/19/8",
+          "phone": "6/2/12/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Delete it": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          955.2
+        ],
+        "rows": 15,
+        "rowSizes": "30.1x15",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "1_665",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/6/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "1_438",
+          "type": "csr",
+          "desktop": "10/2/16/8",
+          "phone": "6/2/12/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

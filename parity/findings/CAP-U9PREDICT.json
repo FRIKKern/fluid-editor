@@ -1,0 +1,45 @@
+{
+  "item": "U9",
+  "capturedAt": "2026-11-06",
+  "question": "Differences 52 and 53: predictions for an open section panel while the frame scrolls, at two section heights and one other frame not read before, pushed before any read.",
+  "from": "CAP-U9SCROLL.json and CAP-U9SCROLL2.json, one section at height 623.7, frame 945: band on top plus scroll 771 to 824, opened at 801 (top 213, scroll 588), closed with the bottom at 118 to 98. CAP-VIEWLAYOUTS.json has panels opening outside +48.4 to +101.4 from the section top, so a band fixed to the section top seems wrong.",
+  "rule": {
+    "band": "Inferred. On top plus scroll the panel holds inside a band 53 wide, 30 below and 23 above where it opened. Past an edge it goes 1:1 with the page.",
+    "holds": "Inferred. Top never below 0, nor above window - 477.",
+    "closes": "Inferred. It closes when the section's bottom in the window passes 108, at any height and frame, and stays closed scrolling back. Not claimed as the rule for 44: growing a section doesn't move its bottom up."
+  },
+  "hit": {
+    "band edge": "within 6 px, read in steps of 5",
+    "holds at top": "reads 0 and stays",
+    "holds at bottom": "within 2 px, or not reached, which counts as not tested",
+    "closes": "the last open and first closed reads, in steps of 20, hold a bottom within 10 of 108",
+    "scrolling back": "closed for all of 20 steps back"
+  },
+  "predictions": {
+    "Custom 50, window 1000": {
+      "band low": "top at opening + scroll at opening - 30",
+      "band high": "top at opening + scroll at opening + 23",
+      "holds at top": 0,
+      "holds at bottom": 523,
+      "closes": "section's bottom in the window at 108, within 10",
+      "scrolling back": "stays closed"
+    },
+    "Custom 150, window 1000": {
+      "band low": "top at opening + scroll at opening - 30",
+      "band high": "top at opening + scroll at opening + 23",
+      "holds at top": 0,
+      "holds at bottom": 523,
+      "closes": "section's bottom in the window at 108, within 10",
+      "scrolling back": "stays closed"
+    },
+    "default height, window 1200": {
+      "band low": "top at opening + scroll at opening - 30",
+      "band high": "top at opening + scroll at opening + 23",
+      "holds at top": 0,
+      "holds at bottom": 723,
+      "closes": "section's bottom in the window at 108, within 10",
+      "scrolling back": "stays closed"
+    }
+  },
+  "count": 18
+}
