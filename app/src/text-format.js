@@ -97,6 +97,7 @@ export function setStyle(doc, root, sel, style) {
 const MARKS = {
   bold: { tag: 'strong', test: (e) => e.tagName === 'STRONG' },
   italic: { tag: 'em', test: (e) => e.tagName === 'EM' },
+  underline: { tag: 'u', test: (e) => e.tagName === 'U' }, // the form's Message box only (FORMFIELDS.json, postSubmit.messageBox)
   strike: { tag: 'span', style: 'text-decoration: line-through;', test: (e) => e.tagName === 'SPAN' && /line-through/.test(e.getAttribute('style') || '') },
 };
 
@@ -111,7 +112,7 @@ const leavesOf = (block) => {
   return out;
 };
 // The nesting, outermost first (CAP-E4FRESH.json).
-const OUTER_FIRST = [(e) => e.tagName === 'A', (e) => e.tagName === 'SPAN' && isColor(e), (e) => e.classList.contains('sqsrte-text-highlight'), (e) => e.tagName === 'STRONG', (e) => e.tagName === 'EM', (e) => MARKS.strike.test(e)];
+const OUTER_FIRST = [(e) => e.tagName === 'A', (e) => e.tagName === 'SPAN' && isColor(e), (e) => e.classList.contains('sqsrte-text-highlight'), (e) => e.tagName === 'STRONG', (e) => e.tagName === 'EM', (e) => e.tagName === 'U', (e) => MARKS.strike.test(e)];
 const rank = (e) => { const k = OUTER_FIRST.findIndex((test) => test(e)); return k < 0 ? OUTER_FIRST.length : k; };
 const sameMark = (a, b) => a.cloneNode(false).isEqualNode(b.cloneNode(false));
 function layOut(block, marksFor) {
