@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 5 changes
+- **Today** · 6 changes
+  - U11: Copy Properties > Animations, Paste Properties rows, read and built ([#184](https://github.com/FRIKKern/fluid-editor/pull/184))
   - T9: back to partial, the form's Design rows and field editors are not built ([#183](https://github.com/FRIKKern/fluid-editor/pull/183))
-  - T9: Add Block > Form makes a real form, the default look re-read ([#182](https://github.com/FRIKKern/fluid-editor/pull/182))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
