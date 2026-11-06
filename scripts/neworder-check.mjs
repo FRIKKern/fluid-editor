@@ -67,9 +67,10 @@ for (const file of ['CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-ORDER']) {
       const r = F.reads[step[1]], rows = r.stack ? r.stack.map((b) => [b.desktop, b.phone]) : r.areas;
       const ours = evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.map((b) => [b.layout.desktop.area.join('/'), b.layout.mobile.area.join('/')]).sort((a, b) => parseInt(a[1]) - parseInt(b[1])))`);
       const same = JSON.stringify(ours) === JSON.stringify(rows);
-      // The phone drag lands 2 rows lower in this replay only, the order is the same; from a loaded model the same drag lands on 7, as on the oracle. Not explained.
-      const known = !same && file === 'CAP-ORDER' && /phone|back on desktop/.test(step[1]);
-      cases.push({ name: `${file} ${step[1]}`, same, known, diffs: same ? [] : [`oracle ${JSON.stringify(rows)}, ours ${JSON.stringify(ours)}`] });
+      // What the phone draws, not only what the model says: stale CSS put a drag 2 rows off (task-62dadddadb37e31f).
+      const drawn = evalJs(S, `(async () => { const bp = fe.bp; fe.setBp('mobile'); await new Promise((r) => setTimeout(r, 120)); const d = document.getElementById('site-frame').contentDocument, out = fe.model.sections[0].blocks.filter((b) => { const c = d.defaultView.getComputedStyle(d.querySelector('.fe-block[data-block-id="' + b.id + '"]')); return parseInt(c.gridRowStart) !== b.layout.mobile.area[0]; }).map((b) => b.id); fe.setBp(bp); await new Promise((r) => setTimeout(r, 120)); return JSON.stringify(out); })()`);
+      const ok = same && !drawn.length;
+      cases.push({ name: `${file} ${step[1]}`, same: ok, known: false, diffs: ok ? [] : [`oracle ${JSON.stringify(rows)}, ours ${JSON.stringify(ours)}, phone draws other rows for ${drawn}`] });
     }
   }
 }
