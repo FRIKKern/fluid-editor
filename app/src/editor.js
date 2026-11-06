@@ -613,6 +613,16 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
   }
   if (b.type === 'code' || b.type === 'embed' || b.type === 'markdown') return Math.max(1, codeRowsFor(codeHeight(b), m));
   const root = blockEl(b.id);
+  // Alone on a phone a new Accordion stretches every row, so the pitch is read with it out, as a form's is (CAP-X6FLOORSPHONE.json).
+  if (b.type === 'accordion') {
+    const list = root?.querySelector('.accordion-items-container');
+    if (!list) return 1;
+    const h = list.offsetHeight;
+    list.style.display = 'none';
+    const free = measure(list.closest('.fluid-engine'));
+    list.style.display = '';
+    return Math.max(1, Math.ceil((h + free.rg) / free.pitch - 0.02));
+  }
   // A Fit button in the view on screen: its height is its own (BUTTONDESIGN.json).
   const fit = b.type === 'button' ? [...(root?.querySelectorAll('.sqs-block-button-container:not(.sqs-stretched)') || [])].find((e) => e.offsetHeight) : null;
   // Fill resizes down to 1 row even when its text wraps; normalize still keeps the text (CAP-NORMALIZE.json).
@@ -3826,7 +3836,7 @@ const ADD_TYPES = [
     .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}) })]),
 ];
 // A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6).
-const PHONE_ROWS = { Accordion: 5 };
+const PHONE_ROWS = { Accordion: 5, Scheduling: 5 }; // CAP-X6FLOORSPHONE.json for Scheduling
 // A new Line sits in the middle of its block, in each view (CAP-U4LINE.json).
 const NEW_ALIGN = { Line: 'center' };
 function addBlock(sid, name) {
