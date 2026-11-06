@@ -73,6 +73,7 @@ To ask the oracle one question, use one command. It never saves, and it leaves t
 ORACLE_SURFACE=cdp:<port> node scripts/oracle-capture.mjs --list     the questions in scripts/oracle/recipes.mjs
 ORACLE_SURFACE=cdp:<port> node scripts/oracle-capture.mjs CAP-LINK   writes parity/findings/CAP-LINK.json
 ... --again to replace a finding, SHOTS=<dir> for screenshots, --name X --steps '[...]' for a new question
+ORACLE_SURFACE=cdp:<port> node scripts/oracle-readback.mjs           after a probe: palette and every theme row against CAP-THEMEROWS
 ```
 
 `npm run review` runs all four in order.
