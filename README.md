@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 85 changes
+- **Today** · 86 changes
+  - T9: a form's focus ring follows the section theme, read on all ten ([#264](https://github.com/FRIKKern/fluid-editor/pull/264))
   - E5: paste into a list item, a quote, monospace and over a selection ([#263](https://github.com/FRIKKern/fluid-editor/pull/263))
-  - T9: the Message box is rich text; Button Style and Background Color per view; rows after Lightbox off as read; Form Style under 0005 ([#262](https://github.com/FRIKKern/fluid-editor/pull/262))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
