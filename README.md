@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 82 changes
+- **Today** · 83 changes
+  - U5, U11, Y2, E7, A2, U3: all search strings, in-edit undo corrected, link box reopened, paste on another page ([#261](https://github.com/FRIKKern/fluid-editor/pull/261))
   - U9: test of differences 52 and 53 scored 6 of 18, predictions pushed first ([#260](https://github.com/FRIKKern/fluid-editor/pull/260))
-  - U9: the section outline fades over 0.2 s both ways on its border color ([#259](https://github.com/FRIKKern/fluid-editor/pull/259))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
