@@ -3663,6 +3663,30 @@ panel.addEventListener('click', (e) => {
   commit(before, `${btn.textContent} on ${b.id}`);
 });
 
+// The custom height reads a whole number each time its slider or field changes, and the section follows at
+// once; the undo step comes on let go or Enter (parity/findings/CAP-P3FIELD.json). No number shows NaN with
+// the slider at its middle, and the height stays. The slider stops at 1 to 100, the field keeps what it read.
+let heightBefore = null;
+function showHeight(n) {
+  const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
+  if (field.value !== String(n)) field.value = String(n);
+  range.value = String(n);
+}
+function followHeight(input) {
+  const s = S(secSid()), n = parseInt(input.value, 10);
+  showHeight(n);
+  if (Number.isNaN(n) || n === s.customHeight) return;
+  heightBefore ??= JSON.stringify(model);
+  s.customHeight = n;
+  renderSectionDom(s.id);
+}
+function settleHeight(shown) {
+  const before = heightBefore, sid = secSid();
+  heightBefore = null;
+  if (before && before !== JSON.stringify(model)) commit(before, `Section ${sid} customHeight set to ${shown}`);
+  if (Number.isNaN(parseInt(shown, 10)) && sectionPanel.querySelector('.sp-custom-height')) showHeight(NaN);
+}
+
 function onSectionChange(e) {
   const input = e.target.closest('input[data-act]');
   if (!input || !secSid()) return;
@@ -3684,6 +3708,10 @@ function onSectionChange(e) {
     if (input.checked) s.divider = true; else { delete s.divider; for (const k of ['dividerStroke', 'dividerThickness', 'dividerShape', 'dividerWidth', 'dividerHeight', 'dividerFlip', 'dividerFlipY', 'dividerAlign', 'dividerColor']) delete s[k]; }
   } else if (act === 'fill') {
     if (input.checked) { s.height = 'medium'; delete s.customHeight; } else { s.height = 'custom'; delete s.customHeight; }
+  } else if (act === 'customHeight') {
+    followHeight(input);
+    settleHeight(input.value);
+    return;
   } else {
     const v = Math.round(input.type === 'text' ? parseFloat(input.value) : Number(input.value));
     if (!Number.isFinite(v)) return;
@@ -3695,8 +3723,6 @@ function onSectionChange(e) {
     if (act === 'rows') s.rows[bp] = Math.min(10000, Math.max(Number(input.min), v));
     if (act === 'gap') { s.rowGap = s.rowGap ?? s.gap; s.gap = Math.min(50, Math.max(0, v)); }
     if (act === 'rowGap') s.rowGap = Math.min(50, Math.max(0, v));
-    // The slider runs 1 to 100; the field also takes 0 and more than 100 (parity/findings/P3.json, range).
-    if (act === 'customHeight') s.customHeight = Math.max(0, v);
   }
   if (JSON.stringify(model) === before) return;
   renderSectionDom(s.id);
@@ -3727,9 +3753,9 @@ sectionPanel.addEventListener('change', async (e) => {
   commit(before, 'Art image set');
   renderPanel(); if (editSid) renderSectionPanel();
 });
-// The slider's number follows the drag; the section itself changes on release.
+// A slider's number follows the drag; the section changes on release, but for the custom height.
 sectionPanel.addEventListener('input', (e) => {
-  if (e.target.matches('.sp-custom-height input[type="range"]')) e.target.nextElementSibling.value = e.target.value;
+  if (e.target.matches('.sp-custom-height input')) followHeight(e.target);
   if (e.target.matches('.sp-slide input[type="range"]')) e.target.nextElementSibling.value = e.target.value + (e.target.dataset.unit || '');
   if (e.target.matches('.ar-range input[type="range"], .ar-inline input[type="range"]')) e.target.style.setProperty('--p', `${((e.target.value - e.target.min) / (e.target.max - e.target.min)) * 100}%`);
   if (e.target.matches('.ar-range input[type="range"]')) e.target.parentElement.querySelector('input[type="text"]').value = String(+(+e.target.value).toFixed(2));
@@ -3881,7 +3907,7 @@ function renderSectionPanel() {
   sectionPanel.hidden = false;
   sectionPanel.scrollTop = top;
 }
-function closeSectionPanel() { if (!editSid) return; editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
+function closeSectionPanel() { if (!editSid) return; settleHeight(''); editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
 const layoutsPanel = $('layouts-panel');
 let layoutsPlace = null;
