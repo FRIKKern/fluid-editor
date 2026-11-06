@@ -132,7 +132,13 @@ function phoneFollowsMove(s, was) {
     if (changed('mobile', (a) => a.slice(0, 2))) s.phoneFollows = false;
     return false;
   }
-  return changed('desktop', (a) => a) && followDesktopEdit(s);
+  // A block taken away on desktop: the stack closes up (CAP-TURNTEST4 d1, order and rows, one case).
+  const gone = was.blocks.filter((o) => !s.blocks.some((b) => b.id === o.id)).map((o) => o.layout.mobile.area);
+  if (gone.length) for (const b of s.blocks) {
+    const a = b.layout.mobile.area, up = gone.reduce((n, g) => n + (g[2] <= a[0] ? g[2] - g[0] : 0), 0);
+    b.layout.mobile.area = [a[0] - up, a[1], a[2] - up, a[3]];
+  }
+  return (changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
 }
 
 function undo() {
