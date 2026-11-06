@@ -24,6 +24,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { browser, evalJs, mouse, cdp, goto, pause, reload, waitFor, engine, viewport } from './lib/cmux.mjs';
 import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock, openAddBlock, addSection, blockIds, escape, select } from './oracle/ui.mjs';
 import { RECIPES } from './oracle/recipes.mjs';
+import { takesText } from './oracle/takes-text.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S?.startsWith('cdp:')) { console.error('oracle-capture drives a headless Chrome: set ORACLE_SURFACE=cdp:<port> (scripts/oracle-headless.mjs).'); process.exit(2); }
@@ -202,6 +203,8 @@ const ROWPARTS = (L) => `(() => { const vis = (e) => { const q = e.getBoundingCl
 const RESETOF = (L, n) => `(() => { const f = ${ROWINPUTS(L)}; const e = f && f[${n}]; if (!e) return null; const q = e.getBoundingClientRect(); const all = [...document.querySelectorAll('[aria-label="Reset to default value"], [title="Reset to default value"]')].filter((b) => { const r = b.getBoundingClientRect(); return r.width > 0 && Math.abs(r.top + r.height / 2 - q.top - q.height / 2) < 14; }); all.sort((x, y) => Math.abs(x.getBoundingClientRect().left - q.right) - Math.abs(y.getBoundingClientRect().left - q.right)); return all[0] || null; })()`;
 const ROWINPUTS = (L) => `(() => { const vis = (e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'); const leaf = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && e.textContent.trim() === ${JSON.stringify(L)} && vis(e)); if (!leaf) return null; let r = leaf; while (r && r !== document.body && ![...r.querySelectorAll('input:not([type=radio]):not([type=checkbox])')].some(vis)) r = r.parentElement; return r && r !== document.body ? [...r.querySelectorAll('input:not([type=radio]):not([type=checkbox])')].filter(vis) : null; })()`;
 let heldClip = [];
+let noWrite = false;
+const needTextEditor = () => { if (evalJs(S, takesText('sqs-site-frame')) !== true) throw new Error('keys not pressed: no text editor has focus'); };
 // Each row text, the blue slot and the blocks' z, and the middle of a row by its name, for the row steps.
 const rowSnap = (names) => evalJs(S, `(() => { ${FRAME} const N = ${JSON.stringify(names)}; const texts = [...document.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && N.includes(e.textContent.trim()) && e.getBoundingClientRect().width > 0).map((e) => { const q = e.getBoundingClientRect(); let o = 1; for (let p = e; p; p = p.parentElement) o *= +getComputedStyle(p).opacity; return [e.textContent.trim(), Math.round(q.left), Math.round(q.top), Math.round(o * 100) / 100]; }); const slots = [...document.querySelectorAll('*')].filter((e) => getComputedStyle(e).backgroundColor === 'rgb(72, 148, 255)' && e.getBoundingClientRect().width > 100).map((e) => { const q = e.getBoundingClientRect(); return [Math.round(q.left), Math.round(q.top), Math.round(q.width), Math.round(q.height)]; }); return JSON.stringify({ texts, slots, z: [...d.querySelectorAll('main#page .fe-block')].map((e) => W.getComputedStyle(e).zIndex).join() }); })()`);
 const rowAt = (label) => evalJs(S, `(() => { const t = [...document.querySelectorAll('*')].find((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(label)} && x.getBoundingClientRect().left > 70 && x.getBoundingClientRect().left < 100); const b = t.closest('button') || t.parentElement; const q = b.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
@@ -260,7 +263,8 @@ const STEPS = {
   editText: async (i, k) => { point(i, k); await inFrame(() => browser(S, 'dblclick', '#fx-b')); await pause(1000); },
   click: async (label) => { if (!tag(LABEL(label))) throw new Error(`nothing labelled ${label}`); browser(S, 'click', '#fx-target'); await pause(1200); },
   clickIf: async (label) => { if (tag(LABEL(label))) { browser(S, 'click', '#fx-target'); await pause(1200); } else finding.errors.push(`no ${label}`); },
-  press: async (key) => { browser(S, 'press', key); await pause(500); },
+  // After a Write that found no Write, a block is selected: Meta+a then Backspace would delete it.
+  press: async (key) => { if (noWrite && key !== 'Escape') throw new Error(`${key} not pressed: the last Write found nothing, so a block may be selected`); browser(S, 'press', key); await pause(500); },
   // Holds a Layers row with the real pointer and moves 1px at a time, keeping each change of the rows, the ghost, the slot and the blocks' z. dx and dy are walked one after the other, x first.
   rowWalk: async (label, names, dx, dy, name, drop = true) => {
     const snap = () => rowSnap(names);
@@ -309,12 +313,12 @@ const STEPS = {
   pressRow: async (name, i = 0) => { const vis = () => evalJs(S, `(() => { const b = [...document.querySelectorAll('button')].find((x) => (x.getAttribute('aria-label') === ${JSON.stringify(name)} || x.textContent.trim() === ${JSON.stringify(name)}) && x.getBoundingClientRect().left < 60 && x.getBoundingClientRect().height === 44); return JSON.stringify(!!b); })()`); const edit = () => evalJs(S, `JSON.stringify(!![...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Edit' && x.getBoundingClientRect().width > 0))`); if (!vis()) { await STEPS.hover(i); await STEPS.clickIf('Open Layers Panel'); await pause(700); if (!vis() && name !== 'Stack') { await STEPS.pressNamed('Stack'); await pause(500); } } await STEPS.pressNamed(name); await pause(400); if (!edit()) { await STEPS.pressNamed(name); await pause(400); } },
   pressCombo: async (n) => { if (!tag(`() => [...document.querySelectorAll('[role=combobox]')].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'))[${n}]`)) throw new Error(`no combobox ${n}`); const at = evalJs(S, `(() => { const q = document.getElementById('fx-target').getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); mouse(S, 'move', at[0], at[1]); await pause(200); mouse(S, 'down', at[0], at[1]); mouse(S, 'up', at[0], at[1]); await pause(500); },
   // A long run of keys in one process: `keys` starts one per key.
-  keysFast: async (text) => { cdp(S, { op: 'presses', keys: [...text].map((c) => (c === ' ' ? 'Space' : c)) }); await pause(1500); },
+  keysFast: async (text) => { needTextEditor(); cdp(S, { op: 'presses', keys: [...text].map((c) => (c === ' ' ? 'Space' : c)) }); await pause(1500); },
   // Keys with no wait between them, so a Cmd+B is inside one burst of typing.
-  keysList: async (keys) => { cdp(S, { op: 'presses', keys }); await pause(300); },
+  keysList: async (keys) => { needTextEditor(); cdp(S, { op: 'presses', keys }); await pause(300); },
   // Real keys with an exact gap between them, all in one process.
-  keysGap: async (gapMs, keys) => { cdp(S, { op: 'presses', keys, gapMs }); await pause(300); },
-  keys: async (text) => { for (const c of text) browser(S, 'press', c === ' ' ? 'Space' : c); await pause(300); },
+  keysGap: async (gapMs, keys) => { needTextEditor(); cdp(S, { op: 'presses', keys, gapMs }); await pause(300); },
+  keys: async (text) => { needTextEditor(); for (const c of text) browser(S, 'press', c === ' ' ? 'Space' : c); await pause(300); },
   fill: async (label, value) => {
     const ok = tag(`() => { const L = ${JSON.stringify(label)}; const vis = (e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'); const direct = [...document.querySelectorAll('input, textarea')].filter(vis).find((e) => e.getAttribute('aria-label') === L || e.getAttribute('placeholder') === L); if (direct) return direct; const t = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.textContent.trim() === L && vis(e)).pop(); let n = t; for (let u = 0; n && u < 6; u++, n = n.parentElement) { const i = [...n.querySelectorAll('input:not([type=checkbox]):not([type=radio]), textarea')].find(vis); if (i) return i; } return null; }`);
     if (!ok) throw new Error(`no field ${label}`);
@@ -555,7 +559,9 @@ try {
       const at = wrongPage();
       if (at !== null) { finding.errors.push(`stopped before ${op}: the frame is on ${at}, not ${pathOf(pageTitle)}`); console.log('  error:', finding.errors.at(-1)); break; }
     }
+    if (['pick', 'select', 'enter', 'blank', 'editText'].includes(op)) noWrite = false;
     try { await STEPS[op](...a); } catch (e) {
+      if (op === 'click' && a[0] === 'Write') noWrite = true;
       finding.errors.push(`${op} ${JSON.stringify(a).slice(0, 60)}: ${String(e.stderr || e.message).trim().split('\n')[0].slice(0, 160)}`);
       console.log('  error:', finding.errors.at(-1));
       if (op === 'enter') break;

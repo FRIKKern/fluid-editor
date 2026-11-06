@@ -1212,13 +1212,30 @@ body.is-preview #reload-preview { display: inline-flex; }
 .code-modal-box .bp-code { flex: 0 0 471px; }
 
 /* A shape's Design tab and popups (parity/findings/SHAPESTYLES.json). */
-.sh-head { margin: 8px 0 6px; font-weight: 500; }
+.sh-head { margin: 13px 0 10px; font-weight: 500; }
+/* A new Shape's rows, under the panel's top (CAP-L6ROWS.json): Stretch 274, Styling 363, Color 379, Blend Mode 427, Stroke 473, Transforms' line 619 across the panel, Opacity 682. */
+.bp-shape-rows { margin-top: 17px; }
+.bp-shape-rows > .sp-row, .bp-shape-rows > .st-row { min-height: 45px; }
+.bp-shape-rows > .bp-thead { margin: 44px 0 0; padding: 0; border-top: 0; line-height: 16px; }
+.bp-shape-rows > .sp-row:has(.sh-swatch-btn) { min-height: 49px; box-sizing: border-box; }
+.bp-shape-rows > .sp-row:has(.sh-swatch-btn) + * { margin-top: -1px; }
+.bp-shape-rows > .bp-blend-wrap, .bp-shape-rows > .bp-blend-wrap > .sp-row { min-height: 46px; box-sizing: border-box; }
+.bp-shape-rows + .bp-thead { margin: 11px -22px 0; padding: 15px 22px 4px; }
+.bp-shape-rows > .sp-row:last-child { border-bottom: 0; }
 .sh-style { position: relative; display: flex; align-items: center; justify-content: center; width: 276px; height: 103px; padding: 0; border: 0; border-radius: 3px; background: #f2f2f2; cursor: pointer; }
 .sh-chev { position: absolute; right: 16px; top: 42px; color: #0e0e0e; }
 .sh-thumb { display: block; fill: #666; }
 .sh-radii { display: flex; gap: 6px; align-items: center; border: 0; padding-top: 6px; }
 .sh-radii .bp-radius { flex: 1; }
 .sh-radii .bp-radii { display: flex; gap: 2px; padding: 4px; border-radius: 3px; background: #f2f2f2; }
+/* Corner's field on focus: a 2px ring and a black Reset (screenshots, CAP-L6CORNER.json). */
+.bp-radius input { outline: 0; }
+.bp-radius:focus-within { background: none; box-shadow: inset 0 0 0 2px #0e0e0e; }
+.bp-radius .sc-reset { border-radius: 3px; background: #0e0e0e; color: #fff; }
+.bp-radius .sc-reset svg { display: none; }
+.bp-radius .sc-reset::before { content: "\00d7"; font-size: 16px; line-height: 16px; }
+.sh-head ~ .sh-radii .bp-radii { gap: 0; padding: 3px; }
+.sh-head ~ .sh-radii .sp-seg { width: 41px; height: 38px; }
 .sh-radii .sp-seg.is-on { background: #fff; }
 .sh-corners { display: flex; justify-content: flex-end; gap: 2px; border: 0; }
 .sh-corner { width: 44px; height: 44px; box-sizing: border-box; padding: 0; border: 0; border-radius: 3px; background: #f2f2f2; text-align: center; font: inherit; }
@@ -1244,6 +1261,19 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 #shape-pop.is-more button:hover { background: #f6f6f6; }
 #shape-pop { position: fixed; z-index: 90000; box-sizing: border-box; background: #fff; border-radius: 11px; box-shadow: 0 8px 40px rgba(0, 0, 0, .18); font: 14px/22px Poppins, sans-serif; color: #0e0e0e; }
 #shape-pop[hidden] { display: none; }
+/* Anchor's button and its Position popup (CAP-L6ANCHOR.json). */
+.bp-anchor { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 6px; background: #f2f2f2; cursor: pointer; }
+.bp-anchor[aria-expanded="true"] { background: #e7e7e7; }
+#shape-pop.is-anchor { width: 300px; padding: 6px 0 0; box-shadow: 0 6px 24px rgba(0, 0, 0, .12), 0 0 1px rgba(0, 0, 0, .08); }
+.an-anchor-head { padding: 0 11px; font-weight: 500; }
+.an-anchor-xy { display: flex; gap: 6px; padding: 11px 11px 6px; }
+.an-anchor-box { width: 136px; height: 44px; border-radius: 6px; }
+.an-anchor-box input { width: 100%; height: 44px; padding: 0 44px 0 11px; box-sizing: border-box; border: 0; border-radius: 6px; background: none; font: inherit; color: #0e0e0e; outline: 0; }
+.an-anchor-box .an-axis { right: 24px; top: 0; line-height: 44px; font-size: 12px; color: rgb(148, 148, 148); }
+.an-anchor-box:focus-within { background: none; box-shadow: inset 0 0 0 2px #0e0e0e; }
+.an-anchor-row { display: flex; align-items: center; gap: 11px; width: 100%; height: 44px; padding: 11px; box-sizing: border-box; border: 0; background: none; font: inherit; color: #0e0e0e; text-align: left; cursor: pointer; outline: 0; }
+.an-anchor-row.is-on, .an-anchor-row:hover { background: #f2f2f2; }
+.an-anchor-row:last-child { border-radius: 0 0 11px 11px; }
 #shape-pop.is-style { width: 276px; overflow-y: auto; border-radius: 3px; }
 .sh-grid { display: grid; grid-template-columns: repeat(3, 77px); justify-content: space-between; padding: 11px 16px; }
 .sh-tile { display: flex; align-items: center; justify-content: center; width: 77px; height: 77px; margin: 0.5px 0; padding: 0; border: 1px solid transparent; border-radius: 3px; background: none; cursor: pointer; }
@@ -1800,8 +1830,12 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
    layer of the same text in colour, so the selection sits behind the colours. */
 .bp-code.is-look .bp-code-lines { flex: 0 0 31.4px; padding: 0; overflow: hidden; color: #666; }
 .bp-code.is-look .bp-code-lines::before, .bp-code.is-look .bp-code-lines::after { content: ""; display: block; height: 11px; }
-.bp-code-n { box-sizing: border-box; padding-right: 13.4px; text-align: right; }
+.bp-code-n { position: relative; box-sizing: border-box; padding-right: 13.4px; text-align: right; }
 .bp-code-n.is-on { background: rgba(211, 211, 211, 0.267); }
+/* Folding (CAP-T10FOLD.json, CAP-T10FOLD3.json): a chevron beside the number; a placeholder ending the row, over the field, whose
+   wide clear character holds its place. */
+.bp-code-chev { position: absolute; right: 1px; top: 3px; box-sizing: border-box; width: 10.4px; height: 16px; padding: 0 1px; color: #666; line-height: 16px; text-align: center; cursor: pointer; }
+.bp-code-ph { display: inline-block; box-sizing: border-box; width: 12.4px; height: 18px; margin: 2px 0 0 1px; padding: 0 1px; border: 1px solid #ddd; border-radius: .2em; background: #eee; color: #888; line-height: 16px; vertical-align: top; pointer-events: auto; cursor: pointer; }
 .bp-code-edit { position: relative; flex: 1; min-width: 0; overflow: hidden; isolation: isolate; }
 .bp-code.is-look textarea { position: absolute; inset: 0; z-index: 1; box-sizing: border-box; width: 100%; height: 100%; color: transparent; caret-color: #0e0e0e; scrollbar-width: none; }
 /* A focused editor's corners: one dark pixel each at three of them, what's left of an outline (CAP-T10SCORE3.json). */
