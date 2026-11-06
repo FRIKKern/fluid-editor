@@ -1,7 +1,7 @@
 {
  "check": "Add Block > Form",
- "pass": 755,
- "total": 755,
+ "pass": 763,
+ "total": 763,
  "results": [
   {
    "what": "The menu makes a form block",
@@ -2456,6 +2456,10 @@
    "ok": true
   },
   {
+   "what": "The row's two lines: their fonts, as read",
+   "ok": true
+  },
+  {
    "what": "Add option moves up 4 for it",
    "ok": true
   },
@@ -2644,15 +2648,43 @@
    "ok": true
   },
   {
-   "what": "A picked checkbox draws a tick, the other none",
+   "what": "A picked checkbox shows its tick, the other none",
    "ok": true
   },
   {
-   "what": "The sign-up checkbox draws its tick",
+   "what": "The tick: a 12px box, the text color, our own drawing",
    "ok": true
   },
   {
-   "what": "A picked rating draws its dot, the other none",
+   "what": "The tick wipes in: 0.2s after 0.1s",
+   "ok": true
+  },
+  {
+   "what": "The sign-up checkbox shows its tick",
+   "ok": true
+  },
+  {
+   "what": "A picked rating shows its dot, the other none",
+   "ok": true
+  },
+  {
+   "what": "The dot scales in: 0.1s after 0.1s",
+   "ok": true
+  },
+  {
+   "what": "The circle at rest: 1px, the text color",
+   "ok": true
+  },
+  {
+   "what": "A hover: 2px inward, the text color",
+   "ok": true
+  },
+  {
+   "what": "Focus: 2px in the accent, as read",
+   "ok": true
+  },
+  {
+   "what": "Focus gone: back to 1px",
    "ok": true
   },
   {
