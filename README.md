@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 91 changes
+- **Today** · 92 changes
+  - T9: rows settle one step late, HTML box's look, the 245 countries, the last reads ([#270](https://github.com/FRIKKern/fluid-editor/pull/270))
   - T10, T14, X6, E4, S3, L6, U9: rest of the order read ([#269](https://github.com/FRIKKern/fluid-editor/pull/269))
-  - U9: read-back reads until the list settles, so a slow load isn't a difference ([#268](https://github.com/FRIKKern/fluid-editor/pull/268))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
