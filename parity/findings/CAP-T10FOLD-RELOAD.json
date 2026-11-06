@@ -1,0 +1,30 @@
+{
+  "item": "CAP-T10FOLD-RELOAD",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "reload",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "read",
+      "after reload",
+      {
+        "sections": true
+      }
+    ]
+  ],
+  "reads": {
+    "after reload": {
+      "sections": [],
+      "path": "/gestures-probe",
+      "save": "clean"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false
+}

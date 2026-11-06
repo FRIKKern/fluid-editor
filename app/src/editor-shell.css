@@ -1799,8 +1799,12 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
    layer of the same text in colour, so the selection sits behind the colours. */
 .bp-code.is-look .bp-code-lines { flex: 0 0 31.4px; padding: 0; overflow: hidden; color: #666; }
 .bp-code.is-look .bp-code-lines::before, .bp-code.is-look .bp-code-lines::after { content: ""; display: block; height: 11px; }
-.bp-code-n { box-sizing: border-box; padding-right: 13.4px; text-align: right; }
+.bp-code-n { position: relative; box-sizing: border-box; padding-right: 13.4px; text-align: right; }
 .bp-code-n.is-on { background: rgba(211, 211, 211, 0.267); }
+/* Folding (CAP-T10FOLD.json, CAP-T10FOLD3.json): a chevron beside the number; a placeholder ending the row, over the field, whose
+   wide clear character holds its place. */
+.bp-code-chev { position: absolute; right: 1px; top: 3px; box-sizing: border-box; width: 10.4px; height: 16px; padding: 0 1px; color: #666; line-height: 16px; text-align: center; cursor: pointer; }
+.bp-code-ph { display: inline-block; box-sizing: border-box; width: 12.4px; height: 18px; margin: 2px 0 0 1px; padding: 0 1px; border: 1px solid #ddd; border-radius: .2em; background: #eee; color: #888; line-height: 16px; vertical-align: top; pointer-events: auto; cursor: pointer; }
 .bp-code-edit { position: relative; flex: 1; min-width: 0; overflow: hidden; isolation: isolate; }
 .bp-code.is-look textarea { position: absolute; inset: 0; z-index: 1; box-sizing: border-box; width: 100%; height: 100%; color: transparent; caret-color: #0e0e0e; scrollbar-width: none; }
 /* A focused editor's corners: one dark pixel each at three of them, what's left of an outline (CAP-T10SCORE3.json). */

@@ -45,5 +45,11 @@
     "html unclosed": "`<div>…` to the end",
     "css unclosed": "to the end",
     "markdown comment": "`<!-- x…\\nz`"
+  },
+  "result": {
+    "beside": "8 of 13. Wrong: a chevron press takes focus, so the key is lost; Right from the near side goes in and opens the fold, so does Left from the far side; Delete takes the first hidden letter and opens it; new text from the view opens the panel's fold",
+    "markdown": "all right",
+    "modes": "Wrong: a CSS comment takes no chevron; a fold outlasts changing Mode",
+    "second": "Wrong: chevrons inside a script and a style; an unclosed JavaScript brace takes none. Not read: the else's own fold, which shows no chevron beside a fold before it"
   }
 }
