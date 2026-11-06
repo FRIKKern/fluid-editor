@@ -1,0 +1,753 @@
+{
+  "item": "UNREAD",
+  "capturedAt": "2026-11-06",
+  "question": "What is still unread on the oracle, so the facts outlive the trial?",
+  "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here.",
+  "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it. ask: the lead rules.",
+  "counts": {
+    "total": 82,
+    "yes": 69,
+    "no": 11,
+    "ask": 2
+  },
+  "entries": [
+    {
+      "item": "P3",
+      "what": "Section height typed above 1000",
+      "source": "P3.json",
+      "safeRead": "yes",
+      "how": "custom height field on a probe section",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "P3",
+      "what": "A negative number and words typed in the height field",
+      "source": "P3.json",
+      "safeRead": "yes",
+      "how": "same field",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "P3",
+      "what": "The slider's live drag: does the section follow before release",
+      "source": "P3.json",
+      "safeRead": "yes",
+      "how": "hold the slider with real mouse, read the section each move",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T5",
+      "what": "The w and n handles on a Fit button, and the 3 column stop on w",
+      "source": "BUTTONDESIGN.json",
+      "safeRead": "yes",
+      "how": "new button on a probe page, pull with the real mouse",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T5",
+      "what": "The phone's least width and rows for a button, and its container under the grid rule",
+      "source": "BUTTONDESIGN.json",
+      "safeRead": "yes",
+      "how": "same, in Mobile View",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T5",
+      "what": "Other button packs and a button text size other than 16px",
+      "source": "BUTTONDESIGN.json",
+      "safeRead": "no",
+      "why": "needs a pick in Site Styles, which reaches the whole site; read only",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "T6",
+      "what": "Stretch off for the shapes with no box read",
+      "source": "SHAPESTYLES.json",
+      "safeRead": "yes",
+      "how": "pick each shape on a probe page, read the box",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T6",
+      "what": "Where the three-dot range for stroke ends",
+      "source": "SHAPESTYLES.json",
+      "safeRead": "yes",
+      "how": "type high values, read back",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T6",
+      "what": "Where the shape picker and the color popup sit on screen",
+      "source": "SHAPESTYLES.json",
+      "safeRead": "yes",
+      "how": "read their boxes at a few block places",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T6",
+      "what": "A section theme's own shape color",
+      "source": "SHAPESTYLES.json",
+      "safeRead": "yes",
+      "how": "section theme on a probe section, read the fill",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T6",
+      "what": "A stroke and a color per layout",
+      "source": "SHAPESTYLES.json",
+      "safeRead": "yes",
+      "how": "set each on Mobile View, read Desktop",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T6",
+      "what": "Reset on Stroke Color",
+      "source": "SHAPESTYLES.json",
+      "safeRead": "ask",
+      "why": "the brief lists Reset as read only. This one acts on one block, not the site",
+      "lane": "lead to rule",
+      "state": "open"
+    },
+    {
+      "item": "T6",
+      "what": "Swatches after a palette change",
+      "source": "SHAPESTYLES.json",
+      "safeRead": "no",
+      "why": "a palette change reaches the whole site",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "T7",
+      "what": "The ? by Video Storage: its tip on hover",
+      "source": "VIDEOPLAYER.json",
+      "safeRead": "yes",
+      "how": "hover only; an earlier click changed nothing",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T7",
+      "what": "The player's Settings button",
+      "source": "VIDEOPLAYER.json",
+      "safeRead": "yes",
+      "how": "press it on a new video block on a probe page",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T7",
+      "what": "Corner on a video block with no video",
+      "source": "VIDEOPLAYER.json",
+      "safeRead": "yes",
+      "how": "Design tab on an empty block, if it can be emptied without an upload",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T10",
+      "what": "Code block rows after other steps than those read, the rule behind them",
+      "source": "CODEMODAL.json",
+      "safeRead": "yes",
+      "how": "type more line counts, read rows",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T10",
+      "what": "Code and embed rows after a pull with the mouse, and on the phone",
+      "source": "CODEMODAL.json",
+      "safeRead": "yes",
+      "how": "real mouse, then Mobile View",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T10",
+      "what": "What Mode does in the full-screen view, and the full-screen button",
+      "source": "CODEMODAL.json, CODEEMBED.json",
+      "safeRead": "yes",
+      "how": "press them on a new code block",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T10",
+      "what": "Whether Display Source Code set in the view reaches the block on closing",
+      "source": "CODEMODAL.json",
+      "safeRead": "yes",
+      "how": "turn on, close, read",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T10",
+      "what": "Why an embed went from 8 to 6 rows after a short snippet",
+      "source": "CODEEMBED.json",
+      "safeRead": "yes",
+      "how": "repeat with several lengths",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T10",
+      "what": "Markdown beyond what ours reads",
+      "source": "item T10",
+      "safeRead": "yes",
+      "how": "a list of syntax samples in a new Markdown block",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T10",
+      "what": "The page Learn More opens",
+      "source": "CODEMODAL.json",
+      "safeRead": "no",
+      "why": "a help page in a new tab, which also takes the CDP target; not an editor fact",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "T11",
+      "what": "Typing anything but a whole number in Map Zoom",
+      "source": "T11.json",
+      "safeRead": "yes",
+      "how": "new map block, Zoom field only, no address field",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T11",
+      "what": "A social block's rows through a handle pull",
+      "source": "T11.json",
+      "safeRead": "yes",
+      "how": "new block, pull handles only, no press on the rows",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T11",
+      "what": "A phone's Line Style and Thickness against a later desktop press",
+      "source": "T11.json",
+      "safeRead": "yes",
+      "how": "new Line block",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T11",
+      "what": "A toggle rewriting a social label, seen once",
+      "source": "T11.json",
+      "safeRead": "no",
+      "why": "the toggle writes the site-wide list (0005)",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "T14",
+      "what": "Zola and Bandsintown landing: the helper added no block, two tries",
+      "source": "CAP-LANDING.json",
+      "safeRead": "yes",
+      "how": "add from the menu on a probe page, read the area. Content stays 0005",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T14",
+      "what": "OpenTable's landing, whose size moves as its content loads",
+      "source": "CAP-LANDING.json",
+      "safeRead": "yes",
+      "how": "read at several times after adding",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "G4",
+      "what": "Snap threshold and dead zone on phones",
+      "source": "item G4",
+      "safeRead": "yes",
+      "how": "real mouse, px by px, Mobile View",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "G4",
+      "what": "Snap with a start inside a margin",
+      "source": "item G4",
+      "safeRead": "yes",
+      "how": "same, from a margin track",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "G4",
+      "what": "Snap at other gaps",
+      "source": "item G4",
+      "safeRead": "yes",
+      "how": "if a probe section can change its gap; else report none",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "X6",
+      "what": "Handle drags on block types beyond Line, Shape, Text and Image",
+      "source": "item X6",
+      "safeRead": "yes",
+      "how": "one pull per type on a probe page, compare with ours",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "X11",
+      "what": "A touch on a handle faster than 15px a move",
+      "source": "TOUCHHOLD.json",
+      "safeRead": "yes",
+      "how": "touch events on a probe page",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "X11",
+      "what": "A real touch device",
+      "source": "TOUCHHOLD.json",
+      "safeRead": "no",
+      "why": "no device in this setup",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "X11",
+      "what": "Why the two quick reads in CAP-TOUCH.json differed",
+      "source": "TOUCHHOLD.json",
+      "safeRead": "no",
+      "why": "they ran on the demo page, which is no longer allowed (0006)",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "X13",
+      "what": "A marquee under 30px with a selection, then release",
+      "source": "X13.json",
+      "safeRead": "yes",
+      "how": "real mouse on a probe page",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "X13",
+      "what": "A marquee with a selection that touched a block and left it",
+      "source": "X13.json",
+      "safeRead": "yes",
+      "how": "same",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "X13",
+      "what": "The small type label a hovered block shows, TEXT in the shot",
+      "source": "X13.json",
+      "safeRead": "yes",
+      "how": "hover each type, read the label",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "E4",
+      "what": "Whether typing around a toolbar action in one burst is 1 or 3 undo steps",
+      "source": "TEXTUNDO.json",
+      "safeRead": "yes",
+      "how": "press the named button with real mouse, count undos",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "E4",
+      "what": "The oracle's list of real endings for an auto-link",
+      "source": "TEXTUNDO.json",
+      "safeRead": "yes",
+      "how": "type a list of endings, read which link. Ours has about 90",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "E4",
+      "what": "The last hue stops and the list marker alignment, now from a shot",
+      "source": "TEXTCOLOR.json",
+      "safeRead": "yes",
+      "how": "read the computed gradient in full and the marker style",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "E4",
+      "what": "The published look of the text styles",
+      "source": "TEXTCOLOR.json",
+      "safeRead": "no",
+      "why": "needs a Save",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "E5",
+      "what": "A paste into a heading",
+      "source": "item E5",
+      "safeRead": "yes",
+      "how": "synthetic paste event, own DataTransfer, no clipboard",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "Z3",
+      "what": "Moving up in Layers: only -72 was tried",
+      "source": "item Z3",
+      "safeRead": "yes",
+      "how": "real mouse on rows, several distances",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "Z3",
+      "what": "Whether the ghost follows in x",
+      "source": "LAYERS.json",
+      "safeRead": "yes",
+      "how": "hold a row, move in x, read the ghost",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "Z3",
+      "what": "The distance before a press on a row is a drag",
+      "source": "LAYERS.json",
+      "safeRead": "yes",
+      "how": "px by px",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "Z3",
+      "what": "Whether the page's blocks change while a row is held",
+      "source": "LAYERS.json",
+      "safeRead": "yes",
+      "how": "read z while held",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "L5",
+      "what": "Hide on the block types beyond Image, Button, Line, Form and Shape",
+      "source": "item L5",
+      "safeRead": "yes",
+      "how": "right-click menu on each, read class and rows",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "L6",
+      "what": "Scale, Offset, Skew, Anchor, Stroke thickness and Corner set on a phone",
+      "source": "PERLAYOUT.json",
+      "safeRead": "yes",
+      "how": "set each in Mobile View, read Desktop",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "L6",
+      "what": "Reset to default value on a transform field: the click changed nothing, 3 of 3",
+      "source": "PERLAYOUT.json",
+      "safeRead": "ask",
+      "why": "the brief lists Reset as read only. This one acts on one block field",
+      "lane": "lead to rule",
+      "state": "open"
+    },
+    {
+      "item": "S3",
+      "what": "Align Vertically on a stack child beyond the one case",
+      "source": "item S3",
+      "safeRead": "yes",
+      "how": "a stack on a probe page, read boxes",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "S3",
+      "what": "A child's Hug on phones",
+      "source": "item S3",
+      "safeRead": "yes",
+      "how": "same, Mobile View",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "S3",
+      "what": "Scale, Offset, Skew and Anchor on a child",
+      "source": "item S3",
+      "safeRead": "yes",
+      "how": "same",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "S3",
+      "what": "Stack divider Thickness M and L",
+      "source": "item S3",
+      "safeRead": "yes",
+      "how": "press each, read",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U3",
+      "what": "A stack's pill",
+      "source": "MARKS.json",
+      "safeRead": "yes",
+      "how": "hover or select a stack, read the label",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U3",
+      "what": "The group's handle hit box beyond the top left corner",
+      "source": "MARKS.json",
+      "safeRead": "yes",
+      "how": "hit test around each handle",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U3",
+      "what": "The guide marks on block types other than text and shape",
+      "source": "GUIDES.json",
+      "safeRead": "yes",
+      "how": "one hold per type on a probe page",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U4",
+      "what": "Forward and Backward counting only overlapping blocks when nothing is pinned",
+      "source": "item U4",
+      "safeRead": "yes",
+      "how": "three blocks, some not overlapping",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U4",
+      "what": "Forward and Backward showing for a pinned block alone in its section",
+      "source": "item U4",
+      "safeRead": "yes",
+      "how": "read the toolbar",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U4",
+      "what": "The tip's delay, now between 100 and 400 ms",
+      "source": "item U4",
+      "safeRead": "yes",
+      "how": "hover, read at steps",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U4",
+      "what": "A slider move after a non-px value drops to px",
+      "source": "item U4",
+      "safeRead": "yes",
+      "how": "set a percent, move the slider",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U4",
+      "what": "The group toolbar sharing the block toolbar shadow",
+      "source": "item U4",
+      "safeRead": "yes",
+      "how": "read computed shadow",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U4",
+      "what": "The tip saying Button Type on a block that is not Primary",
+      "source": "item U4",
+      "safeRead": "yes",
+      "how": "read the tip",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U5",
+      "what": "The words behind Add Block search other than the one query read",
+      "source": "item U5",
+      "safeRead": "yes",
+      "how": "type a list of queries, read the tiles. Press no tile",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U2",
+      "what": "The 20 once seen on a first hold of a fresh session",
+      "source": "item U2",
+      "safeRead": "no",
+      "why": "needs a hold on a saved section (0006)",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "U6",
+      "what": "Cmd+S",
+      "source": "TOPBAR.json",
+      "safeRead": "no",
+      "why": "it would Save",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "U6",
+      "what": "Redo's hover while it can redo",
+      "source": "TOPBAR.json",
+      "safeRead": "yes",
+      "how": "undo once on a probe page, hover Redo, read colors",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U6",
+      "what": "The overlay color, now fitted from pixels",
+      "source": "TOPBAR.json",
+      "safeRead": "yes",
+      "how": "read computed styles if the element holds them",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U6",
+      "what": "The tooltip placement rule at more window widths",
+      "source": "TOPBAR.json",
+      "safeRead": "yes",
+      "how": "read seven tooltips at other widths",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U9",
+      "what": "The steps seen scrolling an open section panel",
+      "source": "SECTIONBAR.json",
+      "safeRead": "yes",
+      "how": "scroll in fine steps on a probe page with tall sections",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U9",
+      "what": "The fade of Add Section and the outline",
+      "source": "SECTIONBAR.json",
+      "safeRead": "yes",
+      "how": "read opacity at steps after hover",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U9",
+      "what": "The phone panel's top: one reading",
+      "source": "SECTIONBAR.json",
+      "safeRead": "yes",
+      "how": "a second and third reading",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U9",
+      "what": "The canvas shadow, fit from pixels",
+      "source": "SECTIONBAR.json",
+      "safeRead": "yes",
+      "how": "read computed box-shadow if an element holds it",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U9",
+      "what": "What the panel rule's numbers mean, and why chrome tops step down the page",
+      "source": "item U9, SECTIONBAR.json",
+      "safeRead": "no",
+      "why": "a meaning, not a measure: nothing on the page states it",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "U11",
+      "what": "A paste on another page: one reading",
+      "source": "item U11",
+      "safeRead": "yes",
+      "how": "synthetic events only, by ruling. Second reading on the other probe page",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "Y2",
+      "what": "The split between 900 and 1000 ms, and second readings of the in-edit undo",
+      "source": "item Y2, TEXTUNDO.json",
+      "safeRead": "yes",
+      "how": "real keys, gaps at 25 ms steps. Cmd+Z only, no clipboard keys",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "A2",
+      "what": "Paint order of two blocks with the same z",
+      "source": "item A2",
+      "safeRead": "yes",
+      "how": "overlap on a probe page, elementFromPoint",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "A2",
+      "what": "Paint where a block's content runs outside its box onto a neighbour with the same z",
+      "source": "item A2",
+      "safeRead": "yes",
+      "how": "same",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "E7",
+      "what": "A page name matching in the link list as a path does",
+      "source": "item E7",
+      "safeRead": "yes",
+      "how": "type names in the link box, read the list. Press no row",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "E7",
+      "what": "The link box on reopening a button in the same session",
+      "source": "LINKBOX.json",
+      "safeRead": "yes",
+      "how": "reopen with no Save",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "H4",
+      "what": "WebKit, not run since the move to Chrome",
+      "source": "item H4, U6, U9",
+      "safeRead": "no",
+      "why": "a WebKit tab needs the owner's window in front",
+      "lane": "none",
+      "state": "open"
+    }
+  ]
+}
