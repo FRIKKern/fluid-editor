@@ -20,7 +20,7 @@ html { overflow-anchor: none; }
 .fe-indicator:not(.is-member, .is-group)::before { inset: -1px; }
 .fe-indicator:not(.is-member, .is-group)::after { inset: -2px; border-color: rgb(108, 164, 244); }
 /* Handles (parity/findings/MARKS.json, handles): a 34px box takes the pointer, with a 10px white square, 2px rgb(2, 122, 255), in its middle. */
-.fe-handle { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; pointer-events: auto; touch-action: none; z-index: 2; }
+.fe-handle { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; pointer-events: auto; z-index: 2; }
 .fe-handle::before { content: ""; position: absolute; left: 12px; top: 12px; width: 10px; height: 10px; box-sizing: border-box; background: #fff; border: 2px solid rgb(2, 122, 255); }
 .fe-handle[data-dir="nw"] { left: -1px; top: -1px; cursor: nw-resize; }
 .fe-handle[data-dir="n"]  { left: 50%; top: -1px; cursor: row-resize; }

@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 652,
+  "pass": 660,
   "known": [
     "group south by 4",
     "hold phone, full width -24,12",
@@ -12,7 +12,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 661,
+  "total": 669,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -2479,6 +2479,38 @@
     },
     {
       "name": "a touch on a handle resizes",
+      "diffs": []
+    },
+    {
+      "name": "touch on a handle 240,0 after 0 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch on a handle 240,0 after 60 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch on a handle 240,0 after 100 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch on a handle 240,0 after 300 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch on a handle 0,240 after 0 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch on a handle 0,240 after 100 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch on a handle -240,0 after 0 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch on a handle -120,0 after 100 ms",
       "diffs": []
     },
     {

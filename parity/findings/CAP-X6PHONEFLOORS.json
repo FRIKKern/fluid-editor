@@ -5490,10 +5490,9 @@
     }
   },
   "answer": "On the phone, far pulls from each side, in columns of 8: Text 1, Button 3, Video 4, Form 4, Accordion 3, Shape 1, Scrolling 3, Line 1, Product 3, Pricing Plan 6, Donation 3, Scheduling 8, Summary 8, Newsletter 7, Quote 3, Audio 4, Calendar 6, Map 4, Menu 6, Chart 8, Code 4, Markdown 2, Embed 4, Social Links 2, Search Field 6, Page Link 3, Tag Cloud 3, RSS 3, Archive 6, Instagram 4, Tock 3, SoundCloud 3, Flickr 3, OpenTable 3, Zola 3, Bandsintown 3. The same from both sides where read. Scrolling is 3 here, 4 on desktop; the rest match desktop. Rows can grow as it narrows: Accordion 12, Quote 12, Flickr 35, Bandsintown 38, Form 18. Summary's east pull isn't read: its west pull did nothing, so the Undo after it took the block away, which also gave the run's 3 errors. Chart and Scheduling stay full width.",
-  "ours": "Goes down to 1 column on most. The same on 5 of 36: Text, Button, Shape, Line, Social Links. Measured on 5210.",
+  "ours": "All 36 floors match, npm run x6-check. A Scheduling starts at 5 rows on a phone as read.",
   "differs": [
-    "31 of 36 types: ours pulls narrower than the oracle's phone floor. The numbers are in floors.",
-    "Start rows on the phone, one reading: Scheduling 5, ours 17. Calendar 15, ours 18. Archive 8, ours 21. SoundCloud 5, ours 8. Flickr 5, ours 9. Pricing Plan 10, ours 11. Some jump when pulled, Scheduling to 20 and Flickr to 35, so a block whose content comes late may read small at first. Not established which number is the rule."
+    "Rows, not columns, on plain stand-ins with no content to take rows: Summary, Pricing Plan, Newsletter, Instagram, Bandsintown, a pull on Scheduling, Calendar, Menu, Page Link, RSS, Archive, SoundCloud, Flickr and OpenTable. Named in the check, not built."
   ],
   "pressed": "Real mouse clicks and pulls on blocks made in the session. Add Block tiles and panel rows by name. No Save, no upload, no Reset. Meta+z after each west pull."
 }

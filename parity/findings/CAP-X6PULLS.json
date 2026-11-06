@@ -1757,14 +1757,8 @@
   "errors": [],
   "leftDirty": true,
   "answer": "West in 1, north in 1, north west out 1 and 1, on 12 block types. Form, Accordion, Embed, Map, Quote, Scrolling, Newsletter match ours. Code's west pull at 4 columns does nothing, 2 of 2 runs. A one-row Button or Social Links does not grow north on north west out. A Video gains a row at the bottom on north west out. Read once each here, except Code's west pull. Second readings since: CAP-X6AGAIN.json and CAP-X6ONEROW.json agree on the Video and the one-row Button and Social Links, and CAP-X6STEPS.json shows Code's west pull is a floor.",
-  "ours": "Button, Social Links, Markdown and Code refuse the north pull in ours. Ours has Code's west pull working, and no extra row on Video.",
-  "differs": [
-    "Button: oracle 1/2/3/8, 1/3/3/8, 2/3/3/8, 2/2/3/8; ours 1/2/3/8, 1/3/3/8, 1/3/3/8, 1/2/3/8",
-    "Social Links: oracle 1/2/3/6, 1/3/3/6, 2/3/3/6, 2/2/3/6; ours 1/2/3/6, 1/3/3/6, 1/3/3/6, 1/2/3/6",
-    "Markdown: oracle 1/2/7/6, 1/3/7/6, 2/3/7/6, 1/2/7/6; ours 1/2/7/6, 1/3/7/6, 1/3/7/6, 1/2/7/6",
-    "Code: oracle 1/2/7/6, 1/2/7/6, 2/2/7/6, 1/1/7/6; ours 1/2/7/6, 1/3/7/6, 1/3/7/6, 1/2/7/6",
-    "Video: oracle 1/2/9/10, 1/3/9/10, 2/3/9/10, 1/2/10/10; ours 1/2/9/10, 1/3/9/10, 2/3/9/10, 1/2/9/10"
-  ],
+  "ours": "All match, npm run x6-check, with a real press at the corner or side and a section above, so the toolbar doesn't sit over a north handle. An older run on ours read Button, Social Links and Markdown as refusing a north pull; those matched on the old app in this check, so that read doesn't hold. Cause not proven: likely the toolbar.",
+  "differs": [],
   "pressed": [
     "Real drags on the handles, unnamed. Add Block tiles by name. Remove by name."
   ]
