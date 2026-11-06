@@ -7,7 +7,8 @@
   1000
  ],
  "question": "Art's rows behind Edit Settings for each of the nine tiles, and the Aa chips in Edit Color Theme.",
- "page": "Blocks Probe, unsaved, a new blank section. Left by Exit Without Saving; site styles printed after a reload, not compared by code: page fonts, the values in Fonts, Headings, Paragraphs, Spacing and Animations, and the palette hex labels. It read no theme rows, so it hid none, and it compared nothing. On 2026-11-06 oracle-readback.mjs compared those views, the palette and every theme row: the same. Page fonts were not read again. Custom image read only, nothing uploaded. Reset Color Theme not pressed.",
+ "siteStylesBefore": {"read": "2026-11-05 06:57 UTC, before the Art probes, the one full print of these values. Compared by scripts/check-readback.mjs.", "base": "16", "headings": ["1.3em", "0.01rem", "4rem", "3.5rem", "2.5rem", "1.6rem"], "paragraphs": ["1.4em", "0em", "1.5rem", "1rem", "0.9rem"], "spacing": ["1400px", "4vw"], "animations": [true, false, false, false, false, false], "palette": ["#FFFFFF", "#FFCF5A", "#F2B8B4", "#B564F7", "#000000"]},
+ "page": "Blocks Probe, unsaved, a new blank section. Left by Exit Without Saving; a script printed site styles after a reload, but my own command cut that line at 400 characters, so only page fonts were seen, and nothing compared them by code. It read no theme rows, so it hid none. On 2026-11-06 oracle-readback.mjs compared Fonts, Headings, Paragraphs, Spacing, Animations, the palette and every theme row: the same, and they match the full print in siteStylesBefore. Page fonts were not read again. Custom image read only, nothing uploaded. Reset Color Theme not pressed.",
  "tiles": {
   "surface": {
    "boxes": [
