@@ -3837,8 +3837,19 @@ const ADD_TYPES = [
   ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Menu: [12, 28], Chart: [8, 8], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
     .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}) })]),
 ];
-// A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6).
-const PHONE_ROWS = { Accordion: 5, Scheduling: 5 }; // CAP-X6FLOORSPHONE.json for Scheduling
+// A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6, CAP-X6FLOORSPHONE.json, CAP-T14CONTROL.json, CAP-T14LAND.json, CAP-T14HEIGHTS2.json).
+const PHONE_ROWS = { Accordion: 5, Scheduling: 5, Flickr: 5, SoundCloud: 5, Archive: 8 };
+// A new block lands by how far its section's top sits above the frame; past the section's last row it
+// lands on row 1, with the frame back at the section (CAP-T14FRAME.json, CAP-T14FRAME2.json: inferred, 8 of 8
+// on predictions). Read on desktop only, so the phone view stays on row 1.
+function landingRow(s) {
+  const el = sectionEl(s.id), fe = feEl(s.id);
+  if (bp !== 'desktop' || !el || !fe) return 1;
+  const above = -el.getBoundingClientRect().top, row = 1 + Math.max(0, Math.floor(above / measure(fe).pitch));
+  if (row <= s.rows.desktop) return row;
+  win.scrollBy({ top: -above, behavior: 'instant' });
+  return 1;
+}
 // A new Line sits in the middle of its block, in each view (CAP-U4LINE.json).
 const NEW_ALIGN = { Line: 'center' };
 function addBlock(sid, name) {
@@ -3848,13 +3859,14 @@ function addBlock(sid, name) {
   // Phone (L3.json, CAP-NEWORDER*.json): the new block takes its place in the phone stack by
   // size, and the blocks after it move down by its height.
   const stack = [...s.blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
-  const slot = s.phoneFollows ? 0 : newBlockSlot(stack, w, h);
+  const row = landingRow(s);
+  const slot = s.phoneFollows ? 0 : newBlockSlot(stack, w, h, [row, 2]);
   const mobileEnd = slot ? Math.max(...stack.slice(0, slot).map((b) => b.layout.mobile.area[2])) : 1;
   const phoneH = PHONE_ROWS[name] ?? h;
   const at = NEW_ALIGN[name] ?? 'flex-start';
   const zTop = (bpName) => Math.max(0, ...s.blocks.map((b) => b.layout[bpName].z)) + 1;
   const block = { id, ...make(), layout: {
-    desktop: { area: [1, 2, 1 + h, 2 + w], z: zTop('desktop'), justify: at, align: at },
+    desktop: { area: [row, 2, row + h, 2 + w], z: zTop('desktop'), justify: at, align: at },
     mobile: { area: [mobileEnd, 2, mobileEnd + phoneH, 10], z: zTop('mobile'), justify: at, align: at },
   } };
   if (s.phoneFollows) followNewBlock(s, block);
