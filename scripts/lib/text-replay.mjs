@@ -1,7 +1,7 @@
 // Replays a stored text finding's steps in our editor with real keys and real presses, at the
 // the oracle's side of the undo clock: undo steps go by time. Each `read` and `undoWalk` is compared with the oracle's.
 // add(what, ok, detail): ok is null when a run's timing was off and it could not run.
-import { browser, cdp, evalJs, goto, pause } from './cmux.mjs';
+import { browser, cdp, evalJs, goto, mouse, pause } from './cmux.mjs';
 import { BASE } from './base.mjs';
 
 const TRAILING = / class="is-empty( is-editor-empty)?"| is-empty( is-editor-empty)?(?=")| data-placeholder="[^"]*"| class="ProseMirror-trailingBreak"| data-rte-preserve-empty="true"| ?style="white-space: ?pre-wrap;?"/g;
@@ -12,7 +12,7 @@ export const textNorm = (h) => (h == null ? h : h.replace(TRAILING, '').replace(
 const WAITS = { click: 1200, clickIf: 1200, fill: 1200, press: 500, keys: 300, keysList: 300, keysFast: 1500 };
 const COST = { click: 200, clickIf: 200, fill: 200, press: 100, keys: 100, keysList: 100, keysFast: 100 };
 const MENUS = ['Text Color', 'Text Style', 'Text Alignment', 'Write', 'Custom'];
-const changesIn = ([op, ...a]) => (op === 'keys' || op === 'keysFast' ? a[0].length : op === 'keysList' ? a[0].filter((x) => x !== 'Meta+a').length : op === 'press' ? (/^(Enter|Backspace|Meta\+[bi])$/.test(a[0]) ? 1 : 0) : op === 'click' || op === 'clickIf' ? (MENUS.includes(a[0]) ? 0 : 1) : 0);
+const changesIn = ([op, ...a]) => (op === 'keys' || op === 'keysFast' ? a[0].length : op === 'keysList' ? a[0].filter((x) => x !== 'Meta+a').length : op === 'press' ? (/^(Enter|Shift\+Enter|Backspace|Meta\+[biz])$/.test(a[0]) ? 1 : 0) : op === 'click' || op === 'clickIf' ? (MENUS.includes(a[0]) ? 0 : 1) : 0);
 // A second splits an undo step (app/src/editor.js). gapsOf gives, per step that changes something, the gap
 // it had from the last change on the oracle. The replay aims clearly at that side of a second.
 const SPLIT = 1000, MARGIN = 100, INSIDE = 800, OUTSIDE = 1300;
@@ -42,9 +42,10 @@ function wrongGap(steps, stamps) {
 }
 // Stamps each change in the page: letters and Enter, Cmd+B and Cmd+I, and a press on a toolbar action.
 const STAMP = (ce) => `(() => { window.__stamps = []; const ce = ${ce}; const stamp = () => window.__stamps.push(Date.now());
-  ce.addEventListener('input', stamp);
-  ce.ownerDocument.addEventListener('keydown', (e) => { if (e.metaKey && (e.code === 'KeyB' || e.code === 'KeyI')) stamp(); }, true);
-  document.getElementById('text-bar').addEventListener('click', (e) => { const b = e.target.closest('button[data-fmt], input[data-fmt]'); if (b && !b.dataset.fmt.endsWith('-menu')) stamp(); }, true);
+  window.__stampOff?.abort(); const off = window.__stampOff = new AbortController(); const signal = off.signal;
+  ce.addEventListener('input', stamp, { signal });
+  ce.ownerDocument.addEventListener('keydown', (e) => { if ((e.metaKey && (e.code === 'KeyB' || e.code === 'KeyI')) || (e.shiftKey && e.key === 'Enter')) stamp(); }, { capture: true, signal });
+  document.getElementById('text-bar').addEventListener('click', (e) => { const b = e.target.closest('button[data-fmt], input[data-fmt]'); if (b && !b.dataset.fmt.endsWith('-menu')) stamp(); }, { capture: true, signal });
   return 1; })()`;
 
 export async function replay(S, finding, add) {
@@ -90,8 +91,15 @@ export async function replay(S, finding, add) {
     else if (op === 'pasteHere') { evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const W = ce.ownerDocument.defaultView; const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(a[2])}); dt.setData('text/plain', ${JSON.stringify(a[2].replace(/<[^>]+>/g, ' '))}); ce.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return 1; })()`); await wait(300); }
     // A paste at the middle of the first text, as oracle-capture.mjs does it.
     else if (op === 'pasteMid') { evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const d = ce.ownerDocument, W = d.defaultView; ce.focus(); const t = d.createTreeWalker(ce, 4).nextNode(); const r = d.createRange(); r.setStart(t, Math.floor(t.length / 2)); r.collapse(true); const s = W.getSelection(); s.removeAllRanges(); s.addRange(r); const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(a[2])}); dt.setData('text/plain', ${JSON.stringify(a[2].replace(/<[^>]+>/g, ' '))}); ce.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return 1; })()`); await wait(300); }
+    else if (op === 'pick') { const s = sid(); evalJs(S, `(() => { fe.select(${JSON.stringify(s)}, ${JSON.stringify(id)}); return 1; })()`); await pause(60); }
+    // A real press on the block's middle.
+    else if (op === 'select') { const [x, y] = evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const b = ce.closest('.fe-block'); b.scrollIntoView({ block: 'center' }); const f = document.getElementById('site-frame').getBoundingClientRect(); const q = b.getBoundingClientRect(); return JSON.stringify([f.left + q.left + q.width / 2, f.top + q.top + q.height / 2]); })()`); mouse(S, 'move', x, y); mouse(S, 'down', x, y, { buttons: 1 }); mouse(S, 'up', x, y); await pause(150); }
     else if (op === 'view') { browser(S, 'click', a[0] === 'Mobile' ? '#bp-mobile' : '#bp-desktop'); await pause(300); }
-    else if (op === 'pressNamed' && (a[0] === 'Toggle preview mode' || a[0] === 'Undo')) { browser(S, 'click', a[0] === 'Undo' ? '#undo' : '#preview'); await pause(300); }
+    else if (op === 'pressNamed' && !['Toggle preview mode', 'Undo'].includes(a[0])) { browser(S, 'click', `#block-toolbar [aria-label="${a[0]}"], #layers-btn, [aria-label="${a[0]}"]`); await pause(300); }
+    else if (op === 'pressNamed') { browser(S, 'click', a[0] === 'Undo' ? '#undo' : '#preview'); await pause(300); }
+    // A real drag by the block's middle, and a real press at a place in the window.
+    else if (op === 'drag') { const [x, y] = evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const b = ce.closest('.fe-block'); b.scrollIntoView({ block: 'center' }); const f = document.getElementById('site-frame').getBoundingClientRect(); const q = b.getBoundingClientRect(); return JSON.stringify([f.left + q.left + q.width / 2, f.top + q.top + q.height / 2]); })()`); cdp(S, { op: 'drag', from: [x, y], to: [x + a[3], y + a[4]], steps: 12, holdMs: 200, mods: [] }); await pause(200); }
+    else if (op === 'clickAt') { cdp(S, { op: 'drag', from: [a[0], a[1]], to: [a[0], a[1]], steps: 1, holdMs: 50, mods: [] }); await pause(200); }
     else if (op === 'beforeOf' || op === 'hintOf') {
       const read = finding.reads[a[0]]; if (read === undefined) continue;
       const want = (Array.isArray(read) ? read : []).filter((x) => /Write here/.test(x.content)).map(({ box, ...rest }) => rest), got = hintHere();
@@ -104,7 +112,14 @@ export async function replay(S, finding, add) {
       const names = typed.trim().split(/\s+/), wrong = names.filter((n) => got.has(n) !== want.has(n));
       add(`${a[0]}: ${names.length - wrong.length} of ${names.length} names`, !wrong.length, `${wrong.length} differ: ${wrong.slice(0, 12).join(' ')}`);
     }
-    else if (op === 'read') { const want = finding.reads[a[0]]?.html; if (want === undefined) continue; const got = q('innerHTML'); add(a[0], textNorm(got) === textNorm(want), `oracle ${textNorm(want)}, ours ${textNorm(got)}`); }
+    else if (op === 'read') {
+      const want = finding.reads[a[0]]?.html; if (want === undefined) continue;
+      const got = q('innerHTML');
+      // has: is the text bar's Bold showing, is the toolbar's Write?
+      const hasWant = finding.reads[a[0]]?.has, hasGot = hasWant && evalJs(S, `JSON.stringify({ Bold: !document.getElementById('text-bar').hidden, Write: !document.getElementById('block-toolbar').hidden && !!document.querySelector('#block-toolbar [aria-label="Write"]') })`);
+      const hasSame = !hasWant || Object.keys(hasWant).every((k) => hasWant[k] === hasGot[k]);
+      add(a[0], textNorm(got) === textNorm(want) && hasSame, `oracle ${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}`);
+    }
     else if (op === 'undoWalk') await undoHere(a[0], finding.reads[a[0]] || { undo: [] }, k);
     if (paced && changesIn([op, ...a])) lastChange = Date.now();
   }

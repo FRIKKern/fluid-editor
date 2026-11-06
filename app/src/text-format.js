@@ -78,6 +78,44 @@ function keepSelection(root, sel, change) {
 }
 
 // Enter at the end of a heading gives a heading (CAP-E4SCORE.json). The browser makes a div there.
+// Shift+Enter: a br, and at the very end of a line a second one to hold the new line open, with the caret on it.
+// Monospace takes a newline instead (CAP-E4BREAK.json).
+export function insertLineBreak(doc, root, sel) {
+  if (!sel.isCollapsed) doc.execCommand('delete');
+  const r = sel.getRangeAt(0);
+  const at = r.endContainer.nodeType === 1 ? r.endContainer : r.endContainer.parentElement;
+  const block = at.closest('pre, p, h1, h2, h3, h4');
+  if (!block || !root.contains(block)) return false;
+  const rest = doc.createRange();
+  rest.setStart(r.endContainer, r.endOffset);
+  rest.setEnd(block, block.childNodes.length);
+  const left = rest.cloneContents();
+  const atEnd = !left.textContent && !left.querySelector('br');
+  const mono = block.tagName === 'PRE';
+  const line = mono ? doc.createTextNode('\n') : doc.createElement('br');
+  r.insertNode(line);
+  r.setStartAfter(line);
+  r.collapse(true);
+  if (atEnd) r.insertNode(mono ? doc.createTextNode('\n') : doc.createElement('br'));
+  if (!mono) block.normalize();
+  r.setStartAfter(line);
+  r.collapse(true);
+  sel.removeAllRanges();
+  sel.addRange(r);
+  return true;
+}
+
+// Deleting back to one br after the text leaves a br that shows nothing: it goes (CAP-E4BREAK.json).
+export function dropEndBreak(root, sel) {
+  const at = sel.anchorNode?.nodeType === 1 ? sel.anchorNode : sel.anchorNode?.parentElement;
+  const block = at?.closest('p, h1, h2, h3, h4');
+  const last = block && root.contains(block) ? block.lastChild : null;
+  if (last?.nodeName !== 'BR' || !last.previousSibling || last.previousSibling.nodeName === 'BR') return;
+  const onIt = sel.anchorNode === block && sel.anchorOffset === block.childNodes.length;
+  last.remove();
+  if (onIt) sel.collapse(block, block.childNodes.length);
+}
+
 export function enterInHeading(doc, root, sel) {
   const at = sel.focusNode?.nodeType === 1 ? sel.focusNode : sel.focusNode?.parentElement;
   const div = at?.closest('div');

@@ -163,7 +163,8 @@ function undo() {
   note('Undo');
   renderAll();
   syncLayouts();
-  if (ed && B(ed.sid, ed.bid)?.type === 'text') startTextEdit(ed.sid, ed.bid);
+  if (ed?.soft) select(null); // Undo after one Escape lets the block go (CAP-ESC1.json)
+  else if (ed && B(ed.sid, ed.bid)?.type === 'text') startTextEdit(ed.sid, ed.bid);
 }
 function redo() {
   if (!redoStack.length) return;
@@ -456,8 +457,8 @@ function placeGroupToolbar() {
 function placeToolbar() {
   if (marquee) { toolbar.hidden = true; return; }
   toolbar.classList.toggle('is-group', !!sel?.more?.length);
-  if (sel?.more?.length && !gesture?.type?.match(/move|resize/) && !editing && doc && !document.body.classList.contains('is-preview')) { placeGroupToolbar(); return; }
-  if (!sel || sel.more?.length || gesture?.type === 'move' || gesture?.type === 'resize' || editing || !doc || designOpen === sel.bid) { toolbar.hidden = true; return; }
+  if (sel?.more?.length && !gesture?.type?.match(/move|resize/) && !(editing && !editing.soft) && doc && !document.body.classList.contains('is-preview')) { placeGroupToolbar(); return; }
+  if (!sel || sel.more?.length || gesture?.type === 'move' || gesture?.type === 'resize' || (editing && !editing.soft) || !doc || designOpen === sel.bid) { toolbar.hidden = true; return; }
   const b = B(sel.sid, sel.bid);
   const el = blockEl(sel.bid);
   if (!b || !el) { toolbar.hidden = true; return; }
@@ -868,8 +869,9 @@ function onDown(e) {
   const handle = e.target.closest('.fe-handle');
   const blk = e.target.closest('.fe-block');
   if (editing) {
-    if (blk && blk.dataset.blockId === editing.bid) return;
-    finishTextEdit();
+    const same = blk && blk.dataset.blockId === editing.bid;
+    if (same && !editing.soft) return;
+    if (!same) finishTextEdit();
   }
   const gapBand = e.target.closest('.stack-gap-handle');
   if (gapBand && sel) { e.preventDefault(); startGapDrag(e, gapBand.classList.contains('is-row')); return; }
@@ -919,6 +921,7 @@ function onMove(e) {
       gesture.armed = Math.hypot(e.clientX - gesture.x0, e.clientY - gesture.y0) > 10;
       return;
     }
+    if (editing?.soft) finishTextEdit();
     if (gesture.resizeDir) startResize(e, gesture.resizeDir);
     else beginMove(e);
   }
@@ -1297,9 +1300,16 @@ const ARROWS = { ArrowLeft: [0, -1], ArrowRight: [0, 1], ArrowUp: [-1, 0], Arrow
 function onKey(e) {
   const mod = e.metaKey || e.ctrlKey;
   if (editing) {
-    if (e.key === 'Escape') {
+    // One Escape takes the text bar and leaves the block selected, and keys still reach the text. The next Escape,
+    // or Tab then, lets the block go (CAP-ESC1.json).
+    if (e.key === 'Escape' || (e.key === 'Tab' && editing.soft)) {
       e.preventDefault();
-      finishTextEdit();
+      if (editing.soft) { finishTextEdit(); select(null); } else softenTextEdit();
+      return;
+    }
+    if (e.key === 'Enter' && e.shiftKey && !mod && !e.altKey) {
+      e.preventDefault();
+      if (fmt.insertLineBreak(doc, editing.ce, win.getSelection())) { joinOrStep(editing); onTextInput(); }
       return;
     }
     // The oracle's text shortcuts: Cmd+Opt+6..3 Heading 1..4, Cmd+Opt+2..0 Paragraph 1..3,
@@ -1430,6 +1440,7 @@ const pathFrom = (root, node) => { const path = []; for (let n = node; n !== roo
 const nodeAtPath = (root, path) => path.reduce((n, k) => n?.childNodes[k], root);
 
 function startTextEdit(sid, bid) {
+  if (editing?.soft && editing.bid === bid) { editing.soft = false; blockEl(bid).classList.add('is-text-editing'); editing.ce.focus(); renderTextBar(); placeToolbar(); return; }
   const b = B(sid, bid);
   if (!b || b.type !== 'text' || editing) return;
   select({ sid, bid: b.id });
@@ -3657,7 +3668,7 @@ function currentColorKey() {
   return (fmt.TEXT_COLORS.find(([, , c]) => c === rgb) || [])[1] || null;
 }
 function renderTextBar() {
-  if (!editing || document.body.classList.contains('is-preview')) { textBar.hidden = true; textMenu = null; return; }
+  if (!editing || editing.soft || document.body.classList.contains('is-preview')) { textBar.hidden = true; textMenu = null; return; }
   textBar.innerHTML = textBarHtml(fmt.currentStyle(editing.ce, win.getSelection()), textMenu, textMenu === 'color' ? currentColorKey() : null, textMenu === 'color' ? customColor : null);
   paintCustomColor();
   // The color popover is centred under its button, 6px below it (TEXTCOLOR.json).
@@ -3867,6 +3878,7 @@ function onTextInput(e) {
   else if (e?.inputType) {
     joinOrStep(ed);
     if (e.inputType === 'insertParagraph') fmt.enterInHeading(doc, ed.ce, win.getSelection());
+    if (e.inputType.startsWith('delete')) fmt.dropEndBreak(ed.ce, win.getSelection());
     autoLink(ed, e.inputType, e.data);
     // Enter carries a pending Strike to the next line, anything else ends it (CAP-E4FRESH.json).
     if (ed.strikeNext) {
@@ -3946,6 +3958,9 @@ function finishTextEdit() {
   growRows(S(ed.sid));
   feEl(ed.sid).style.gridAutoRows = '';
   renderSectionDom(ed.sid);
+  commitTextSteps(ed);
+}
+function commitTextSteps(ed) {
   const now = JSON.stringify(model);
   // A step can look like where the edit ended (Bold, then Clear Formatting): it's still a step (CAP-E4SCORE.json).
   const steps = ed.marks.at(-1) === now ? ed.marks.slice(0, -1) : ed.marks;
@@ -3953,6 +3968,21 @@ function finishTextEdit() {
   if (first > ed.height0) steps[0] = undoTextFalls(ed, steps[1] ?? now, first);
   for (const m of steps.slice(0, -1)) undoStack.push(m);
   commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`);
+  return now;
+}
+// The text stays open and holds the keys, with no bar and the block's toolbar back. What was typed is in the model now.
+function softenTextEdit() {
+  const ed = editing, b = B(ed.sid, ed.bid);
+  closeLinkPopover();
+  b.html = ed.ce.innerHTML;
+  lay(b).area = [...ed.area];
+  growRows(S(ed.sid));
+  const now = commitTextSteps(ed);
+  Object.assign(ed, { soft: true, before: now, marks: [now], lastInput: 0, prevHtml: b.html, prevArea: [...ed.area] });
+  blockEl(ed.bid).classList.remove('is-text-editing');
+  renderTextBar();
+  placeToolbar();
+  placeBlockPanel();
 }
 
 // Undoing an edit whose text got taller: the old text comes back and the rows fall by the height it
@@ -5751,6 +5781,8 @@ function onHover(e) {
 // ---------- top bar ----------
 // The mouse on the bar has left every section; on the canvas's white sides it has not (SECTIONBAR.json, fade).
 document.querySelector('.bar').addEventListener('pointerenter', () => { if (hoverSid) { hoverSid = null; placeChrome(); } });
+// A press on the editor's own controls ends the keys' way into the text, Write and Undo aside.
+document.addEventListener('click', (e) => { if (editing?.soft && !e.target.closest?.('#undo, [data-tb="write"]')) finishTextEdit(); }, true);
 $('undo').addEventListener('click', undo);
 $('redo').addEventListener('click', redo);
 $('save').addEventListener('click', () => {
