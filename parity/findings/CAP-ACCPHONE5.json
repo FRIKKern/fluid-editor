@@ -1,0 +1,317 @@
+{
+  "item": "CAP-ACCPHONE5",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T12: a new Accordion on the phone: Delete an item, then a long title and back through the views. Made in this session on a probe page.",
+  "answer": "Phone Delete on a new one: stays 1/2/6/10, rows 29.4 by 5, next stays: content that shrinks doesn't shrink a block already short of it. Then a long title: 1/2/12/10, next 12/2/18/10, and that holds through Desktop View and back.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Accordion"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Delete Accordion Item 3"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone, 2 items",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Accordion Item 1"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "fillRow",
+      "Title",
+      0,
+      "A rather long new title for this first accordion item, to run onto more lines than before and more"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone, long title",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "desktop view",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone again",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ]
+  ],
+  "reads": {
+    "phone, 2 items": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          623.7
+        ],
+        "rows": 11,
+        "rowSizes": "29.4x5 24x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "0_420",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/6/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_695",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "6/2/12/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone, long title": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          797.1
+        ],
+        "rows": 17,
+        "rowSizes": "24x17",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "0_420",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/12/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_695",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "12/2/18/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "desktop view": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          720.2
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x6 56.4x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "0_420",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/12/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_695",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "12/2/18/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone again": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          797.1
+        ],
+        "rows": 17,
+        "rowSizes": "24x17",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "0_420",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/12/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_695",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "12/2/18/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
