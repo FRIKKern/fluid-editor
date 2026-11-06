@@ -413,7 +413,7 @@ const dragged = await crossWatch(async () => { mouse(S, 'down', gx, gy, { button
 add('a gesture: the chrome goes at once and the outline fades', dragged.gone >= 6 && dragged.falling && dragged.end[2] === true && dragged.left === 0, JSON.stringify(dragged));
 const dropped = await crossWatch(async () => { mouse(S, 'move', gx, gy, { buttons: 1 }); await pause(150); mouse(S, 'up', gx, gy); }, 500);
 add('let go: the outline fades back', dropped.lit >= 6 && dropped.rising && dropped.end[2] === false, JSON.stringify(dropped));
-evalJs(S, `(() => { fe.select(null); return 'true'; })()`); await hoverBar(800, 20); await pause(300);
+await fresh(); await hoverBar(800, 20); await pause(300);
 // Scrolled up past its section, the panel closes and stays closed (CAP-U9CLOSE.json). Ours by its own band: 52 is named.
 {
   const { sectionPanelGone, PANEL_CLOSES_AT } = await import('../app/src/section-chrome.js');
