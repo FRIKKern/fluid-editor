@@ -143,7 +143,8 @@ export function siteStylesCss(styles) {
     // A popover's pick also ends the demo site's own mapping of Light 1 and Dark 2 (measured after a
     // pick). An edit in Edit Palette, a preset among them, leaves that mapping as it is.
     if (picked) css += `.page-section[data-section-theme=""], .page-section[data-section-theme="light"] { --section-bg: hsla(var(--lightAccent-hsl), 1); --heading-color: hsla(var(--black-hsl), 1); --section-ink: hsla(var(--black-hsl), 1); --button-bg: hsla(var(--safeDarkAccent-hsl), 1); --button-ink: hsla(var(--safeInverseDarkAccent-hsl), 1); }\n`
-      + `.page-section[data-section-theme="dark-bold"] { --heading-color: hsla(var(--safeLightAccent-hsl), 1); }\n`;
+      + `.page-section[data-section-theme="dark-bold"] { --heading-color: hsla(var(--safeLightAccent-hsl), 1); }\n`
+      + `.site-header[data-section-theme="dark-bold"] { color: hsla(var(--safeDarkAccent-hsl), 1); }\n`;
   }
   if (font) {
     css += `:root { --heading-font-line-height: 1.2em; --body-font-line-height: 1.5em; --heading-font-letter-spacing: ${font.ls}em; }\n`

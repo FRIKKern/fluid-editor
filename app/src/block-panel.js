@@ -416,7 +416,7 @@ function formContentHtml(c) {
   const head = (t) => `<div class="bp-subhead">${t}</div>`;
   const go = `<button type="button" class="bp-form-nav" aria-label="Navigate to Edit Form Fields" data-ff="list"><span>Edit Form Fields</span>${pi('<path d="M9 6l6 6-6 6"/>')}</button>`;
   return f('formName', 'Form Name', c.formName) + f('button', 'Button Text', c.button) + go
-    + head('Submissions') + row('Edit Post-Submit') + act('Manage Submissions') + act('Export Form Submissions')
+    + head('Submissions') + go.replace(/Edit Form Fields/g, 'Edit Post-Submit').replace('data-ff="list"', 'data-ff="post"') + act('Manage Submissions') + act('Export Form Submissions')
     + head('Email Notification') + row('Additional Storage') + row('Google reCAPTCHA', 'On');
 }
 // A form's own Design rows (parity/findings/FORMADD.json). Form Style reaches every form on the site:
@@ -449,7 +449,7 @@ function mapDesignHtml(c, pairs) {
 export function blockPanelHtml(d, tab, content = null, open = null, shape = null, image = null, stack = null, button = null, kid = null) {
   if (image && open?.startsWith('image-shape:')) return imageShapeHtml(image.shapeId, open.slice(12));
   if (image && open === 'image-fx') return effectPanelHtml(image);
-  if (content?.kind === 'form' && open?.startsWith('ff-')) return formFieldsPanelHtml(content.fields, open);
+  if (content?.kind === 'form' && open?.startsWith('ff-')) return formFieldsPanelHtml(content, open, linkField);
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
