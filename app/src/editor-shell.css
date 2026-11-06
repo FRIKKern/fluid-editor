@@ -135,6 +135,7 @@ body:has(#layers-panel:not([hidden])) .sc-layers { background: #e7e7e7; }
 #section-chrome.is-outline-in > .sc-outline { animation: sc-outline-in 0.2s ease-in-out; }
 @keyframes sc-outline-in { from { border-color: transparent; } }
 .sc-outline-gone { position: absolute; box-sizing: border-box; z-index: 8; }
+.sc-add-gone { position: absolute; box-sizing: border-box; z-index: 8; pointer-events: none; }
 @keyframes sc-in { from { opacity: 0; translate: 0 -11px; } }
 @keyframes sc-out { to { opacity: 0; translate: 0 -11px; } }
 .sc-layers { width: 38px; padding: 8px; }
@@ -565,8 +566,12 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 .bp-vsegs { box-sizing: border-box; width: 182px; height: 44px; padding: 3px; gap: 3px; background: #f2f2f2; border-radius: 4px; }
 .bp-vsegs .sp-seg { flex: 1; min-width: 0; height: 38px; padding: 0; }
 .bp-vsegs .sp-seg.is-on { background: #fff; }
-.bp-vfield { display: block; width: 182px; height: 44px; border-radius: 4px; background: #f2f2f2; }
-.bp-vfield input { box-sizing: border-box; width: 100%; height: 100%; padding: 0 11px; border: 0; background: transparent; font: inherit; }
+.bp-vfield { position: relative; display: block; width: 182px; height: 44px; border-radius: 4px; background: #f2f2f2; }
+/* The <> shows on a hover or a focus and takes a pull (CAP-T7THICK.json); a focused field has a dark line round it. */
+.bp-vfield:focus-within { outline: 2px solid #0e0e0e; outline-offset: -1px; }
+.bp-vscrub { position: absolute; top: 0; right: 0; display: none; align-items: center; justify-content: center; width: 44px; height: 44px; color: #888; cursor: ew-resize; touch-action: none; }
+.bp-vfield:hover .bp-vscrub, .bp-vfield:focus-within .bp-vscrub { display: flex; }
+.bp-vfield input { box-sizing: border-box; width: 100%; height: 100%; padding: 0 11px; border: 0; outline: 0; background: transparent; font: inherit; }
 .bp-video-store { display: flex; justify-content: space-between; box-sizing: border-box; width: 276px; height: 78px; margin-top: 11px; padding: 20px 57px 20px 22px; background: #f2f2f2; border-radius: 3px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #6f6f6f; }
 .bp-help { margin: 12px 0 0; font-size: 12px; line-height: 16px; color: #6f6f6f; }
 .sp-body > .bp-thead:first-child { border-top: 0; margin-top: 0; }
@@ -677,6 +682,16 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 .bp-drag { position: absolute; left: 0; top: 0; right: 0; height: 71px; cursor: grab; }
 /* The tabs and a Back row stay; only what is under them scrolls (FORMFIELDS.json) */
 .block-panel .sp-tabs { position: sticky; top: 0; z-index: 3; background: #fff; cursor: grab; }
+.bp-phone-btn { position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; padding: 0; border: 0; background: none; color: #0e0e0e; cursor: pointer; }
+.bp-phone-btn span { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; }
+.bp-phone-btn:hover:not(:disabled) span, .bp-phone-btn:focus-visible span { background: #e7e7e7; }
+.bp-phone-btn:disabled { color: #b7b7b7; cursor: not-allowed; }
+.is-phone-set { text-decoration: underline dotted 2.24px rgb(49, 49, 49); text-underline-offset: 6px; }
+.phone-menu { position: fixed; z-index: 30023; box-sizing: border-box; width: 166.75px; margin: 0; padding: 0; list-style: none; background: #fff; box-shadow: rgba(0, 0, 0, 0.12) 0 4px 16px, rgba(0, 0, 0, 0.08) 0 0 1px; }
+.phone-menu[hidden] { display: none; }
+.phone-menu li { box-sizing: border-box; height: 46px; padding: 12px 22px; font: 500 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; white-space: nowrap; cursor: pointer; }
+.phone-menu li:hover { background: #f2f2f2; }
+.phone-menu [role=separator] { height: 1px; background: #e7e7e7; }
 .block-panel .bp-sub { position: sticky; top: 0; z-index: 3; background: #fff; }
 /* A row moved into view, by Tab or a scroll, stops below the tabs (the oracle's scroller starts below them). A Back row replaces the tabs here and is no taller. */
 .block-panel { scroll-padding-top: 55px; }

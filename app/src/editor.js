@@ -33,6 +33,7 @@ import { demoModel } from './demo.js';
 import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
+import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -1547,7 +1548,44 @@ function renderBlockPanel() {
   paintCode(lookNow); // measures, so it must be showing
   if (blockPanel.dataset.bid !== b.id) { blockPanel.dataset.bid = b.id; blockPanel.scrollTop = 0; } // another block starts at the top
   if (shapeUi) renderShapePop(); // undo can change what an open popup shows
+  drawPhoneControls(b);
 }
+// A phone's dotted labels and its button right of the Animation tab, on any block with that tab.
+const phoneMenu = $('phone-menu');
+phoneMenu.innerHTML = PHONE_MENU_HTML;
+const closePhoneMenu = () => { phoneMenu.hidden = true; };
+function drawPhoneControls(b) {
+  const tabs = blockPanel.querySelector('.sp-tabs');
+  if (bp !== 'mobile') { closePhoneMenu(); return; }
+  markPhoneLabels(blockPanel, b);
+  if (tabs?.querySelector('[data-btab="Animation"]')) tabs.insertAdjacentHTML('beforeend', phoneButtonHtml(hasOverrides(b)));
+  else closePhoneMenu();
+}
+blockPanel.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-phone-btn]');
+  if (!btn) return;
+  if (!phoneMenu.hidden) { closePhoneMenu(); return; }
+  const at = phoneMenuPlace(btn.getBoundingClientRect());
+  phoneMenu.style.left = `${at.left}px`;
+  phoneMenu.style.top = `${at.top}px`;
+  phoneMenu.hidden = false;
+});
+document.addEventListener('pointerdown', (e) => { if (!phoneMenu.hidden && !e.target.closest('#phone-menu, [data-phone-btn]')) closePhoneMenu(); }, true);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !phoneMenu.hidden) { e.preventDefault(); e.stopPropagation(); closePhoneMenu(); } }, true);
+phoneMenu.addEventListener('click', (e) => {
+  const act = e.target.closest('[data-phone-act]')?.dataset.phoneAct;
+  if (!act || !sel) return;
+  closePhoneMenu();
+  if (act === 'go') { setBp('desktop'); return; }
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), top = blockPanel.scrollTop;
+  // The form coming back is a rise the next step answers, as Lightbox off (FORMFIELDS.json, lightbox.offThenPress).
+  if (act === 'reset' && b.type === 'form' && formView(b, 'mobile').lightbox && !formView(b, 'desktop').lightbox) b.formH = { ...b.formH, [bp]: formHeight(b) };
+  (act === 'reset' ? resetOverrides : pushOverrides)(b);
+  renderSectionDom(sel.sid);
+  commit(before, act === 'reset' ? 'Reset all overrides' : 'Push to desktop');
+  renderBlockPanel();
+  blockPanel.scrollTop = top;
+});
 function syncAnimView(b) {
   const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' ? b.animations?.[anim.i] : null, key = a && poseKey(anim.tab);
   if (animPosed && (animPosed !== el || !key)) { releasePose(animPosed); animPosed = null; }
@@ -1877,7 +1915,7 @@ function setButtonView(key, v) {
 // fall by what the fit fell. A block made taller by hand keeps the rest: 8 rows, fit 3 to 2, gives 7.
 const FIT_KEYS = new Set(['background', 'stroke', 'strokeSize', 'strokePx', 'pad', 'padY', 'padX', 'padT', 'padB', 'padL', 'padR']);
 function designChange(b, keys, change, fitBefore = null) {
-  // A video's rows follow its height by the rule of a code block's, and a rise pushes what is below it (CAP-T7DESIGN2.json, CAP-T7DESIGN3.json).
+  // A video's rows follow its height by the rule of a code block's, and what is below it goes along (CAP-T7DESIGN2.json, CAP-T7DESIGN3.json, CAP-T7ORDER.json).
   if (b.type === 'video' && keys.some((k) => FIT_KEYS.has(k))) {
     const was = codeHeight(b);
     change();
@@ -2708,18 +2746,30 @@ function codeHeight(b) {
 // rows than it needs leaves it alone, so a block can stay well below what its content needs.
 const codeRowsFor = (h, m) => Math.ceil((h + m.rg - 1) / m.pitch);
 const rowsNow = (b) => codeHeight(b);
+// A row's own height: content taller than its section stretches every row, and rows follow the content
+// only by the height a row has with none of that (CAP-T10EMBED2.json).
+function rowFloor(fe) {
+  const probe = doc.createElement('div');
+  probe.style.cssText = 'position:absolute;visibility:hidden;height:calc(var(--container-width, 0px) * var(--row-height-scaling-factor, 0))';
+  fe.append(probe);
+  const h = probe.getBoundingClientRect().height;
+  probe.remove();
+  return h || 24; // the phone's rows are 24 tall at the least (render.js)
+}
 function fitRows(b, was) {
   if (b.type === 'code' && !String(b.html || '').trim()) return;
   const h = codeHeight(b);
   if (h === was) return;
-  const m = measure(feEl(sel.sid)), L = lay(b), rows = L.area[2] - L.area[0], need = Math.max(1, codeRowsFor(h, m));
+  const fe = feEl(sel.sid), found = measure(fe), m = { ...found, pitch: rowFloor(fe) + found.rg }, L = lay(b), rows = L.area[2] - L.area[0], need = Math.max(1, codeRowsFor(h, m));
   const next = h > was ? Math.max(rows, need) : need >= rows ? rows : Math.max(1, rows - codeRowsFor(was - h, m));
   if (next === rows) return;
   const bottom = L.area[2];
   L.area = [L.area[0], L.area[1], L.area[0] + next, L.area[3]];
   const s = S(sel.sid);
-  if (b.type === 'video' && next > rows) for (const o of s.blocks) { const A = o !== b && o.layout?.[bp]?.area; if (A && A[0] >= bottom) { A[0] += next - rows; A[2] += next - rows; } }
-  s.rows[bp] = Math.max(s.rows[bp], ...s.blocks.map((o) => (o.layout?.[bp]?.area?.[2] ?? 1) - 1)); // or the rows past the section's end collapse
+  // A video takes what is below it along, up or down (CAP-T7ORDER.json). The section's rows move by the same
+  // number, keeping any spare below (CAP-T7THICK.json), but never past a block's end, or the rows past it collapse.
+  if (b.type === 'video') for (const o of s.blocks) { const A = o !== b && o.layout?.[bp]?.area; if (A && A[0] >= bottom) { A[0] += next - rows; A[2] += next - rows; } }
+  s.rows[bp] = Math.max(s.rows[bp] + next - rows, ...s.blocks.map((o) => (o.layout?.[bp]?.area?.[2] ?? 1) - 1));
   renderSectionDom(sel.sid);
 }
 // The Markdown block's toolbar and keys, in the panel and in the Code Editor view (markdown-edit.js).
@@ -3123,14 +3173,15 @@ blockPanel.addEventListener('change', (e) => {
 }, true);
 // A video's settings (VIDEOPLAYER.json): one undo step each. The file stays in this tab only: the
 // browser's storage holds a few MB, so after a reload the block keeps its name but not its picture.
-function setVideo(change, label) {
+function setVideo(change, label, fit = false) {
   const b = sel && B(sel.sid, sel.bid);
   if (!b || b.type !== 'video') return;
-  const before = JSON.stringify(model);
+  const before = JSON.stringify(model), was = codeHeight(b);
   b.video = { ...(b.video || {}) };
   change(b.video);
   if (!Object.keys(b.video).length) delete b.video;
   renderSectionDom(sel.sid);
+  if (fit) fitRows(b, was); // an Aspect ratio takes whole rows by a Code block's rule (CAP-T7ORDER.json)
   commit(before, label);
   renderBlockPanel();
 }
@@ -3150,7 +3201,7 @@ blockPanel.addEventListener('change', async (e) => {
   if (s) {
     e.stopImmediatePropagation();
     const k = s.dataset.video;
-    setVideo((v) => { if (k === 'thumb') { if (s.checked) v.thumb = true; else { delete v.thumb; delete v.thumbSrc; } } else v[k] = s.value; }, `Video ${k}`);
+    setVideo((v) => { if (k === 'thumb') { if (s.checked) v.thumb = true; else { delete v.thumb; delete v.thumbSrc; } } else v[k] = s.value; }, `Video ${k}`, k === 'aspect');
     return;
   }
   const tf = e.target.closest('input[data-video-thumb-file]');
@@ -3447,6 +3498,29 @@ blockPanel.addEventListener('input', (e) => {
   renderSectionDom(sel.sid);
   const t = r.parentElement.querySelector('input[type="text"]');
   if (t) t.value = t.value.replace(/^[\d.]+/, r.value);
+});
+// The <> on a Thickness field: a pull moves the value 0.4 a pixel, down to 0, with the block following; letting go
+// is the same as typing it, so one undo step and the same rows (CAP-T7THICK3.json, CAP-T7THICK4.json).
+const SCRUB_PER_PX = 0.4;
+blockPanel.addEventListener('pointerdown', (e) => {
+  const grip = e.target.closest('[data-scrub]');
+  if (!grip || !sel) return;
+  e.preventDefault();
+  const input = grip.parentElement.querySelector('input[data-design]'), b = B(sel.sid, sel.bid), bag = designBag(bp), k = grip.dataset.scrub;
+  const start = parseFloat(input.value) || 0, x0 = e.clientX, had = b[bag]?.[k], valueAt = (x) => Math.min(RANGE_LIMITS[k], Math.max(0, start + Math.round((x - x0) * SCRUB_PER_PX)));
+  const show = (v) => { b[bag] = { ...(b[bag] || {}), [k]: v }; renderSectionDom(sel.sid); input.value = `${v}px`; };
+  const move = (m) => show(valueAt(m.clientX));
+  const up = (m) => {
+    removeEventListener('pointermove', move); removeEventListener('pointerup', up);
+    const v = valueAt(m.clientX);
+    b[bag] = { ...(b[bag] || {}) };
+    if (had === undefined) delete b[bag][k]; else b[bag][k] = had;
+    renderSectionDom(sel.sid);
+    if (v === start) { input.value = `${start}px`; return; }
+    input.value = String(v);
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  };
+  addEventListener('pointermove', move); addEventListener('pointerup', up);
 });
 function onDesignChange(e) {
   const input = e.target.closest('input[data-design]');
@@ -4384,17 +4458,26 @@ for (const host of [panel, sectionPanel]) {
 }
 function chromeSid() { return editSid || sel?.sid || hoverSid; }
 // The chrome fades out over 0.15s when the mouse leaves, and the outline over 0.2s; a gesture takes it away at once
-// (SECTIONBAR.json, fade; CAP-U9FADE.json). Add Section takes 0.2s too, on its opacity (CAP-U9ADDFADE.json). The outline fades there too: moving to another section and in a gesture, the
-// old one fades as a copy left behind (CAP-U9CLOSE.json). A copy doesn't follow a scroll during its 0.2 s, ours only.
+// (SECTIONBAR.json, fade; CAP-U9FADE.json). Add Section takes 0.2s too, on its opacity (CAP-U9ADDFADE.json). Those two fade
+// there too, moving to another section and in a gesture, and Add Section on selecting a block: each as a copy left behind
+// (CAP-U9CLOSE.json, CAP-U9ADDFADE2.json, CAP-U9ADDFADE3.json). A copy doesn't follow a scroll during its 0.2 s, ours only.
 let chromeOut = 0;
+function leaveCopy(o, cls, frames) {
+  const gone = o.cloneNode(true);
+  gone.classList.add(cls);
+  for (const n of ['data-sc-part', 'data-sc']) gone.removeAttribute(n);
+  chrome.after(gone);
+  gone.animate(frames, { duration: 200, easing: 'ease-in-out', fill: 'forwards' }).onfinish = () => gone.remove();
+}
+function addSectionAway() {
+  if (chrome.hidden) return;
+  for (const o of chrome.querySelectorAll('.sc-add-section')) leaveCopy(o, 'sc-add-gone', [{ opacity: getComputedStyle(o).opacity }, { opacity: 0 }]);
+}
 function outlineAway() {
   const o = chrome.hidden ? null : chrome.querySelector('.sc-outline');
   if (!o) return;
-  const gone = o.cloneNode(false);
-  gone.classList.add('sc-outline-gone');
-  gone.removeAttribute('data-sc-part');
-  chrome.after(gone);
-  gone.animate([{ borderColor: getComputedStyle(o).borderTopColor }, { borderColor: 'transparent' }], { duration: 200, easing: 'ease-in-out', fill: 'forwards' }).onfinish = () => gone.remove();
+  leaveCopy(o, 'sc-outline-gone', [{ borderColor: getComputedStyle(o).borderTopColor }, { borderColor: 'transparent' }]);
+  addSectionAway();
 }
 function hideChrome(fade) {
   if (chrome.hidden || (fade && chromeOut)) return;
@@ -4418,6 +4501,8 @@ function placeChrome() {
   if (newSection) outlineAway();
   if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); }
   // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
+  // Selecting a block takes Add Section away, and letting the block go brings it back: both over 0.2 s (CAP-U9ADDFADE3.json).
+  if (chrome.dataset.key !== key && !newSection) { if (blockSelected) addSectionAway(); chrome.classList.toggle('is-add-in', chrome.dataset.key?.split('|')[4] === 'true' && !blockSelected); }
   if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
   if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in', 'is-add-in'); }
@@ -5660,8 +5745,8 @@ function setBp(next) {
   // Phones use overlay scrollbars, so the preview must not lose width to one.
   doc.documentElement.style.scrollbarWidth = bp === 'mobile' ? 'none' : '';
   for (const sec of model.sections) drawLabels(sec.id);
-  // A form's panel shows this view's own values (FORMFIELDS.json, phone).
-  if (sel && designOpen === sel.bid && B(sel.sid, sel.bid)?.type === 'form') { const top = blockPanel.scrollTop; renderBlockPanel(); blockPanel.scrollTop = top; }
+  // The panel shows this view's own values (FORMFIELDS.json, phone; CAP-L6GOTO.json).
+  if (sel && designOpen === sel.bid) { const top = blockPanel.scrollTop; renderBlockPanel(); blockPanel.scrollTop = top; }
   requestAnimationFrame(() => {
     drawSelection();
     updateUi();

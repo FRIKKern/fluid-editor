@@ -1,0 +1,442 @@
+{
+ "item": "L6",
+ "kind": "read",
+ "oracle": "probe page, Blocks Probe",
+ "capturedAt": "2026-11-06",
+ "question": "L6: the phone button's and menu's look, which blocks show the button, and which phone values count as overrides",
+ "how": "Headless Chrome on new blocks on Blocks Probe, not saved, left by Exit Without Saving. Reset all overrides and Push to desktop were pressed on a Button and a Form made in the session.",
+ "button": {
+  "grey": {
+   "box": [
+    735,
+    311,
+    36,
+    36
+   ],
+   "color": "rgb(62, 62, 62)",
+   "backgroundColor": "rgba(0, 0, 0, 0)",
+   "opacity": "1",
+   "cursor": "not-allowed",
+   "fontSize": "12px",
+   "fontWeight": "400",
+   "lineHeight": "22px",
+   "padding": "0px",
+   "borderRadius": "0px",
+   "boxShadow": "none",
+   "border": "0px none rgb(62, 62, 62)",
+   "textAlign": "center",
+   "tag": "BUTTON",
+   "role": null,
+   "disabled": true,
+   "aria": []
+  },
+  "lit": {
+   "box": [
+    735,
+    309,
+    36,
+    36
+   ],
+   "color": "rgb(62, 62, 62)",
+   "backgroundColor": "rgba(0, 0, 0, 0)",
+   "opacity": "1",
+   "cursor": "pointer",
+   "fontSize": "12px",
+   "fontWeight": "400",
+   "lineHeight": "22px",
+   "padding": "0px",
+   "borderRadius": "0px",
+   "boxShadow": "none",
+   "border": "0px none rgb(62, 62, 62)",
+   "textAlign": "center",
+   "tag": "BUTTON",
+   "role": null,
+   "disabled": false,
+   "aria": []
+  },
+  "icon": "22 by 22. A stroke of #B7B7B7 when disabled and #0E0E0E when on. Ours draws its own.",
+  "hover": "The inner span, round, 36 by 36, turns rgb(231, 231, 231). The same held down.",
+  "panelPlace": "10 from the panel's right, 10 from its top. 36 by 36.",
+  "label": "None, on the oracle. Ours has an aria-label so a screen reader can name it."
+ },
+ "label": {
+  "box": [
+   483,
+   772,
+   42.234375,
+   22
+  ],
+  "color": "rgb(14, 14, 14)",
+  "backgroundColor": "rgba(0, 0, 0, 0)",
+  "opacity": "1",
+  "cursor": "default",
+  "fontSize": "14px",
+  "fontWeight": "400",
+  "lineHeight": "22px",
+  "padding": "0px",
+  "borderRadius": "0px",
+  "boxShadow": "none",
+  "border": "0px none rgb(14, 14, 14)",
+  "textAlign": "start",
+  "textDecoration": "underline 2.24px dotted rgb(49, 49, 49)",
+  "textDecorationStyle": "dotted",
+  "textDecorationColor": "rgb(49, 49, 49)",
+  "textDecorationThickness": "2.24px",
+  "textUnderlineOffset": "6px",
+  "display": "block",
+  "tag": "LABEL",
+  "role": null,
+  "aria": []
+ },
+ "menu": {
+  "list": {
+   "box": [
+    675.625,
+    181.5,
+    166.75,
+    139
+   ],
+   "color": "rgb(62, 62, 62)",
+   "backgroundColor": "rgb(255, 255, 255)",
+   "opacity": "1",
+   "cursor": "auto",
+   "fontSize": "12px",
+   "fontWeight": "400",
+   "lineHeight": "22px",
+   "padding": "0px",
+   "borderRadius": "0px",
+   "boxShadow": "none",
+   "border": "0px none rgb(62, 62, 62)",
+   "textAlign": "start",
+   "tag": "UL",
+   "role": "menu",
+   "aria": []
+  },
+  "rows": [
+   {
+    "t": "Reset all overrides",
+    "box": [
+     675.625,
+     181.5,
+     166.75,
+     46
+    ],
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(14, 14, 14)",
+    "size": "14px",
+    "weight": "500",
+    "lh": "22px",
+    "text": [
+     697.625,
+     193.5,
+     122.75,
+     22
+    ],
+    "pad": "6px 22px"
+   },
+   {
+    "t": "Push to desktop",
+    "box": [
+     675.625,
+     227.5,
+     166.75,
+     46
+    ],
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(14, 14, 14)",
+    "size": "14px",
+    "weight": "500",
+    "lh": "22px",
+    "text": [
+     697.625,
+     239.5,
+     107.53125,
+     22
+    ],
+    "pad": "6px 22px"
+   },
+   {
+    "t": "Go to desktop",
+    "box": [
+     675.625,
+     274.5,
+     166.75,
+     46
+    ],
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(14, 14, 14)",
+    "size": "14px",
+    "weight": "500",
+    "lh": "22px",
+    "text": [
+     697.625,
+     286.5,
+     94.421875,
+     22
+    ],
+    "pad": "6px 22px"
+   }
+  ],
+  "rowHover": "rgb(242, 242, 242)",
+  "shadow": "rgba(0, 0, 0, 0.12) 0px 4px 16px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px",
+  "z": "30023",
+  "separator": "A 1 high rgb(231, 231, 231) line between Push to desktop and Go to desktop.",
+  "kids": [
+   [
+    "LI",
+    194.5,
+    46,
+    "rgba(0, 0, 0, 0)",
+    "0px none rgb(14, 14, 14)",
+    "0px none rgb(14, 14, 14)",
+    "menuitem"
+   ],
+   [
+    "LI",
+    240.5,
+    46,
+    "rgba(0, 0, 0, 0)",
+    "0px none rgb(14, 14, 14)",
+    "0px none rgb(14, 14, 14)",
+    "menuitem"
+   ],
+   [
+    "DIV",
+    286.5,
+    1,
+    "rgb(231, 231, 231)",
+    "0px none rgb(62, 62, 62)",
+    "0px none rgb(62, 62, 62)",
+    "separator"
+   ],
+   [
+    "LI",
+    287.5,
+    46,
+    "rgba(0, 0, 0, 0)",
+    "0px none rgb(14, 14, 14)",
+    "0px none rgb(14, 14, 14)",
+    "menuitem"
+   ]
+  ],
+  "place": "Its left is 59.4 left of the button's, and its bottom 11.5 under the button's top, read at the frame's middle and right. Near the top of the screen is not read: ours stops 8 from the top.",
+  "close": {
+   "Escape": "Closes the menu, the panel stays.",
+   "pressAway": "Closes the menu, the panel stays. Read on the empty page beside the phone."
+  }
+ },
+ "blocks": {
+  "note": "The button shows on a block with an Animation tab.",
+  "read": {
+   "Text": {
+    "tabs": [
+     "Design",
+     "Animation"
+    ],
+    "btn": {
+     "box": [
+      1310,
+      394,
+      36,
+      36
+     ],
+     "disabled": true
+    }
+   },
+   "Button": {
+    "tabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "btn": {
+     "box": [
+      1310,
+      394,
+      36,
+      36
+     ],
+     "disabled": true
+    }
+   },
+   "Form": {
+    "tabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "btn": {
+     "box": [
+      1310,
+      218,
+      36,
+      36
+     ],
+     "disabled": true
+    }
+   },
+   "Code": {
+    "tabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "btn": {
+     "box": [
+      1534,
+      324,
+      36,
+      36
+     ],
+     "disabled": true
+    }
+   },
+   "Line": {
+    "tabs": [
+     "Design",
+     "Animation"
+    ],
+    "btn": {
+     "box": [
+      1310,
+      394,
+      36,
+      36
+     ],
+     "disabled": true
+    }
+   },
+   "Accordion": {
+    "tabs": [
+     "Content",
+     "Design"
+    ],
+    "btn": null
+   },
+   "Video": {
+    "tabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "btn": {
+     "box": [
+      1310,
+      289,
+      36,
+      36
+     ],
+     "disabled": true
+    }
+   }
+  },
+  "imageNotRead": "Image was not read, to keep away from its Upload row. Ours shows it there, as any block with the tab."
+ },
+ "overrides": {
+  "button": {
+   "note": "On a Button, Layout Fit on the phone turns the button on and dots Layout. Reset goes back to Fill. Push makes desktop Fit.",
+   "fit": [
+    {
+     "disabled": false,
+     "dotted": [
+      "Layout"
+     ]
+    },
+    {
+     "cls": "sqs-block-button-container s_mobile sqs-block-button-container--center ",
+     "justify": "center",
+     "w": 207,
+     "W": 377,
+     "n": 5
+    }
+   ],
+   "reset": [
+    {
+     "disabled": true,
+     "dotted": []
+    },
+    {
+     "cls": "sqs-block-button-container s_desktop sqs-block-button-container--center sqs-stretched",
+     "justify": "center",
+     "w": 377,
+     "W": 377,
+     "n": 4
+    }
+   ],
+   "push": [
+    {
+     "disabled": true,
+     "dotted": []
+    },
+    {
+     "cls": "sqs-block-button-container s_desktop sqs-block-button-container--center ",
+     "justify": "center",
+     "w": 207,
+     "W": 377,
+     "n": 4
+    }
+   ],
+   "desktop": {
+    "cls": "sqs-block-button-container s_desktop sqs-block-button-container--center ",
+    "justify": "center",
+    "w": 207,
+    "W": 342,
+    "n": 4
+   }
+  },
+  "form": {
+   "note": "On a Form, Lightbox on the phone turns the button on and dots Lightbox. Reset gives the form back at 563. Push puts Lightbox on desktop, whose rows stay at 647, with the phone's 67.",
+   "on": [
+    {
+     "disabled": false,
+     "dotted": [
+      "Lightbox"
+     ]
+    },
+    {
+     "h": 67,
+     "text": ".fe-block-yui_3_17_2_1_1793993618374_420",
+     "visForm": 0
+    }
+   ],
+   "reset": [
+    {
+     "disabled": true,
+     "dotted": []
+    },
+    {
+     "h": 563,
+     "text": ".fe-block-yui_3_17_2_1_1793993618374_420",
+     "visForm": 562.65625
+    },
+    [
+     "INPUT|checkbox|Lightbox||||||272,486,12,12"
+    ]
+   ],
+   "push": [
+    {
+     "disabled": true,
+     "dotted": []
+    },
+    {
+     "h": 67,
+     "text": ".fe-block-yui_3_17_2_1_1793993618374_420",
+     "visForm": 0
+    },
+    [
+     "INPUT|checkbox|Lightbox|||on|||284,486,12,12"
+    ]
+   ],
+   "desktop": {
+    "h": 647,
+    "text": ".fe-block-yui_3_17_2_1_1793993618374_420",
+    "visForm": 0
+   }
+  },
+  "notRead": "A Social block's phone values, an Animation set on the phone, and the dotted labels for Opacity, Scale, Skew, Blend Mode, Drop Shadow, Blur, Background, Button Text, Background Color, Button Alignment, Button Style and Alignment. Ours treats them all as the read ones."
+ },
+ "ours": "Built: scripts/shape-check.mjs and form-check.mjs against this.",
+ "differs": [
+  "Text in the menu is our font."
+ ]
+}

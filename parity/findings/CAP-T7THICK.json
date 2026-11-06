@@ -1,0 +1,2192 @@
+{
+  "item": "CAP-T7THICK",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T7, T10: the <> on a focused Thickness field; Code, Markdown and Embed that fill their section, rise after rise and a fall, predictions pushed first in PRED-T7ROWS.json",
+  "answer": "Thickness: a dim <> shows at the field's right on a hover and on a focus, and a focus adds a dark line round the field. Code, Markdown and Embed in a blank section: every area matches its prediction, 12 of 12, so the rule for rows holds with rows that fill the section. The section's rows missed 8 of 12: they aren't kept at the most they reached. They move by as many rows as the block, up and down, keeping the spare rows it started with: Code 6 rows in 8 goes to 28 in 30, 38 in 40, 2 in 4. That fits all 12, but no fresh read tests it. The phone starts with no spare.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressFrame",
+      "button",
+      1
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Intro"
+    ],
+    [
+      "pause",
+      1800
+    ],
+    [
+      "pressTile",
+      0
+    ],
+    [
+      "pause",
+      7000
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "hoverRow",
+      "Thickness"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "shot",
+      "thick-hover"
+    ],
+    [
+      "read",
+      "thickness, hovered",
+      {
+        "controls": true,
+        "rows": [
+          "Thickness"
+        ]
+      }
+    ],
+    [
+      "pressPart",
+      "Thickness",
+      0
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "shot",
+      "thick-focus"
+    ],
+    [
+      "read",
+      "thickness, focused",
+      {
+        "controls": true,
+        "rows": [
+          "Thickness"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Code desktop start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>\n<p>row 19</p>\n<p>row 20</p>\n<p>row 21</p>\n<p>row 22</p>\n<p>row 23</p>\n<p>row 24</p>\n<p>row 25</p>\n<p>row 26</p>\n<p>row 27</p>\n<p>row 28</p>\n<p>row 29</p>\n<p>row 30</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code desktop 30",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>\n<p>row 19</p>\n<p>row 20</p>\n<p>row 21</p>\n<p>row 22</p>\n<p>row 23</p>\n<p>row 24</p>\n<p>row 25</p>\n<p>row 26</p>\n<p>row 27</p>\n<p>row 28</p>\n<p>row 29</p>\n<p>row 30</p>\n<p>row 31</p>\n<p>row 32</p>\n<p>row 33</p>\n<p>row 34</p>\n<p>row 35</p>\n<p>row 36</p>\n<p>row 37</p>\n<p>row 38</p>\n<p>row 39</p>\n<p>row 40</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code desktop 40",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code desktop 2",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Code phone start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>\n<p>row 19</p>\n<p>row 20</p>\n<p>row 21</p>\n<p>row 22</p>\n<p>row 23</p>\n<p>row 24</p>\n<p>row 25</p>\n<p>row 26</p>\n<p>row 27</p>\n<p>row 28</p>\n<p>row 29</p>\n<p>row 30</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code phone 30",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>\n<p>row 19</p>\n<p>row 20</p>\n<p>row 21</p>\n<p>row 22</p>\n<p>row 23</p>\n<p>row 24</p>\n<p>row 25</p>\n<p>row 26</p>\n<p>row 27</p>\n<p>row 28</p>\n<p>row 29</p>\n<p>row 30</p>\n<p>row 31</p>\n<p>row 32</p>\n<p>row 33</p>\n<p>row 34</p>\n<p>row 35</p>\n<p>row 36</p>\n<p>row 37</p>\n<p>row 38</p>\n<p>row 39</p>\n<p>row 40</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code phone 40",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code phone 2",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Markdown desktop start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "row 1\n\nrow 2\n\nrow 3\n\nrow 4\n\nrow 5\n\nrow 6\n\nrow 7\n\nrow 8\n\nrow 9\n\nrow 10\n\nrow 11\n\nrow 12\n\nrow 13\n\nrow 14\n\nrow 15\n\nrow 16\n\nrow 17\n\nrow 18\n\nrow 19\n\nrow 20"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Markdown desktop 20",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "row 1\n\nrow 2\n\nrow 3\n\nrow 4\n\nrow 5\n\nrow 6\n\nrow 7\n\nrow 8\n\nrow 9\n\nrow 10\n\nrow 11\n\nrow 12\n\nrow 13\n\nrow 14\n\nrow 15\n\nrow 16\n\nrow 17\n\nrow 18\n\nrow 19\n\nrow 20\n\nrow 21\n\nrow 22\n\nrow 23\n\nrow 24\n\nrow 25\n\nrow 26\n\nrow 27\n\nrow 28\n\nrow 29\n\nrow 30"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Markdown desktop 30",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "row 1\n\nrow 2"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Markdown desktop 2",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Markdown phone start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "row 1\n\nrow 2\n\nrow 3\n\nrow 4\n\nrow 5\n\nrow 6\n\nrow 7\n\nrow 8\n\nrow 9\n\nrow 10\n\nrow 11\n\nrow 12\n\nrow 13\n\nrow 14\n\nrow 15\n\nrow 16\n\nrow 17\n\nrow 18\n\nrow 19\n\nrow 20"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Markdown phone 20",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "row 1\n\nrow 2\n\nrow 3\n\nrow 4\n\nrow 5\n\nrow 6\n\nrow 7\n\nrow 8\n\nrow 9\n\nrow 10\n\nrow 11\n\nrow 12\n\nrow 13\n\nrow 14\n\nrow 15\n\nrow 16\n\nrow 17\n\nrow 18\n\nrow 19\n\nrow 20\n\nrow 21\n\nrow 22\n\nrow 23\n\nrow 24\n\nrow 25\n\nrow 26\n\nrow 27\n\nrow 28\n\nrow 29\n\nrow 30"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Markdown phone 30",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "row 1\n\nrow 2"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Markdown phone 2",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Embed desktop start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Embed desktop 10",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>\n<p>row 19</p>\n<p>row 20</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Embed desktop 20",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Embed desktop 2",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "thickness, hovered": {
+      "rows": {
+        "Thickness": [
+          "6px"
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            1260,
+            255,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            1282,
+            255,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1350.8,
+            255,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            1412.8,
+            255,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add fill",
+          "box": [
+            1522,
+            362,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Show individual padding controls",
+          "box": [
+            1348,
+            409,
+            28,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            1410,
+            409,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            409,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            442,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1453,
+            409,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            409,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            1504,
+            409,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            409,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            442,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1547,
+            409,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            409,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "No Stroke",
+          "box": [
+            1379,
+            463,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Solid Stroke",
+          "box": [
+            1438.7,
+            463,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Dashed Stroke",
+          "box": [
+            1498.3,
+            463,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6px",
+          "box": [
+            1387,
+            511,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            511,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            544,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            511,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1514,
+            511,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            1514,
+            562,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            1481,
+            613,
+            66,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            613,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            646,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            613,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            1379,
+            616,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            1420,
+            616,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            1519.5,
+            684,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            1387,
+            731,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            731,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            731,
+            11,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "thickness, focused": {
+      "rows": {
+        "Thickness": [
+          "6px"
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            1260,
+            255,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            1282,
+            255,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1350.8,
+            255,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            1412.8,
+            255,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add fill",
+          "box": [
+            1522,
+            362,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Show individual padding controls",
+          "box": [
+            1348,
+            409,
+            28,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            1410,
+            409,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            409,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            442,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1453,
+            409,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            409,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            1504,
+            409,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            409,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            442,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1547,
+            409,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            409,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "No Stroke",
+          "box": [
+            1379,
+            463,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Solid Stroke",
+          "box": [
+            1438.7,
+            463,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Dashed Stroke",
+          "box": [
+            1498.3,
+            463,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6px",
+          "box": [
+            1387,
+            511,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            511,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            544,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            511,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1514,
+            511,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            1514,
+            562,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            1481,
+            613,
+            66,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            613,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            646,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1470,
+            613,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            1379,
+            616,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            1420,
+            616,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            1519.5,
+            684,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            1387,
+            731,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            731,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            731,
+            11,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code desktop start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code desktop 30": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1571.6
+        ],
+        "rows": 30,
+        "rowSizes": "30.1x30",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/29/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code desktop 40": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1982.6
+        ],
+        "rows": 40,
+        "rowSizes": "30.1x40",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/39/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code desktop 2": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          623.7
+        ],
+        "rows": 4,
+        "rowSizes": "30.1x4",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code phone start": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          623.7
+        ],
+        "rows": 6,
+        "rowSizes": "24x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code phone 30": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          1357.1
+        ],
+        "rows": 33,
+        "rowSizes": "24x33",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/34/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code phone 40": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          1742.1
+        ],
+        "rows": 44,
+        "rowSizes": "24x44",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/45/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code phone 2": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          623.7
+        ],
+        "rows": 2,
+        "rowSizes": "24.9x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Markdown desktop start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Markdown desktop 20": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1201.8
+        ],
+        "rows": 21,
+        "rowSizes": "30.1x21",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/20/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Markdown desktop 30": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1571.6
+        ],
+        "rows": 30,
+        "rowSizes": "30.1x30",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/29/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Markdown desktop 2": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          623.7
+        ],
+        "rows": 3,
+        "rowSizes": "60.8 30.1x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Markdown phone start": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          623.7
+        ],
+        "rows": 6,
+        "rowSizes": "24x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Markdown phone 20": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          972.1
+        ],
+        "rows": 22,
+        "rowSizes": "24x22",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/23/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Markdown phone 30": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          1357.1
+        ],
+        "rows": 33,
+        "rowSizes": "24x33",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/34/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Markdown phone 2": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          623.7
+        ],
+        "rows": 2,
+        "rowSizes": "24.9x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Embed desktop start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Embed desktop 10": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          749.9
+        ],
+        "rows": 10,
+        "rowSizes": "30.1x10",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/11/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Embed desktop 20": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1160.7
+        ],
+        "rows": 20,
+        "rowSizes": "30.1x20",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/21/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Embed desktop 2": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          623.7
+        ],
+        "rows": 2,
+        "rowSizes": "40.9x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}
