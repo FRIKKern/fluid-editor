@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, shapeFill, phoneOwn, FOLLOW_DESKTOP } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -613,6 +613,16 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
   }
   if (b.type === 'code' || b.type === 'embed' || b.type === 'markdown') return Math.max(1, codeRowsFor(codeHeight(b), m));
   const root = blockEl(b.id);
+  // Alone on a phone a new Accordion stretches every row, so the pitch is read with it out, as a form's is (CAP-X6FLOORSPHONE.json).
+  if (b.type === 'accordion') {
+    const list = root?.querySelector('.accordion-items-container');
+    if (!list) return 1;
+    const h = list.offsetHeight;
+    list.style.display = 'none';
+    const free = measure(list.closest('.fluid-engine'));
+    list.style.display = '';
+    return Math.max(1, Math.ceil((h + free.rg) / free.pitch - 0.02));
+  }
   // A Fit button in the view on screen: its height is its own (BUTTONDESIGN.json).
   const fit = b.type === 'button' ? [...(root?.querySelectorAll('.sqs-block-button-container:not(.sqs-stretched)') || [])].find((e) => e.offsetHeight) : null;
   // Fill resizes down to 1 row even when its text wraps; normalize still keeps the text (CAP-NORMALIZE.json).
@@ -1177,9 +1187,9 @@ function updateGroupResize(e) {
   if (r1 - 1 > g.shownRows) showGrid(g.sid, r1 - 1);
 }
 
-// Where a side pull stops, on both layouts. A button at 3 columns whatever its text (BUTTONDESIGN.json,
-// CAP-T5PHONE.json), Social Links at 2 (CAP-T11SOCIAL.json).
-const LEAST_COLS = { button: 3, social: 2 };
+// Where a side pull stops, the same from each side, by type or by a stand-in's name (CAP-X6FLOORS.json, on desktop;
+// a button whatever its text, BUTTONDESIGN.json; CAP-T5PHONE.json, CAP-T11SOCIAL.json). Text, Shape and Line stop at 1.
+const LEAST_COLS = { markdown: 2, social: 2, button: 3, accordion: 3, Product: 3, Donation: 3, Quote: 3, 'Page Link': 3, 'Tag Cloud': 3, RSS: 3, Tock: 3, SoundCloud: 3, Flickr: 3, OpenTable: 3, Zola: 3, Bandsintown: 3, video: 4, form: 4, scrolling: 4, Audio: 4, map: 4, code: 4, embed: 4, Instagram: 4, 'Pricing Plan': 6, Calendar: 6, Menu: 6, 'Search Field': 6, Archive: 6, Newsletter: 7, Scheduling: 8, Summary: 8, Chart: 8 };
 
 function updateResize(e) {
   const g = gesture;
@@ -1189,17 +1199,18 @@ function updateResize(e) {
   let [r0, c0, r1, c1] = g.orig;
   const x = e.clientX;
   const y = e.clientY;
-  const leastCols = LEAST_COLS[B(g.sid, g.bid).type] ?? 1;
+  const held = B(g.sid, g.bid), leastCols = LEAST_COLS[held.label] ?? LEAST_COLS[held.type] ?? 1;
   const q = fe.getBoundingClientRect();
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(v, hi));
-  // While held the block's own box follows the pointer and only the ring snaps (HOLD.json). It is
-  // one column wide at the least and stops at the sides of the grid, with no 4px on the right.
+  // While held the block's own box follows the pointer and only the ring snaps (HOLD.json). It stops at
+  // its floor and at the sides of the grid, with no 4px on the right.
   const dx = x - g.x0, dy = y - top - g.py0;
   const left0 = m.colStart[c0 - 1];
   let L = left0, R = m.colEnd[c1 - 2];
-  const oneCol = m.colEnd[1] - m.colStart[1];
-  if (g.dir.includes('e')) R = clamp(R + dx, L + oneCol, q.right);
-  if (g.dir.includes('w')) L = clamp(L + dx, q.left, R - oneCol);
+  // Its floor in pixels, so what it needs is measured at no less than the width it can end at (CAP-X6FLOORS.json: Accordion 11 rows, Quote 9).
+  const leastPx = m.colEnd[leastCols] - m.colStart[1];
+  if (g.dir.includes('e')) R = clamp(R + dx, L + leastPx, q.right);
+  if (g.dir.includes('w')) L = clamp(L + dx, q.left, R - leastPx);
   const el = blockEl(g.bid);
   // Out of the flow, so its height does not push the grid's rows. Its area is still its place.
   Object.assign(el.style, { position: 'absolute', left: '0', top: '0', width: `${R - L}px` });
@@ -1218,6 +1229,8 @@ function updateResize(e) {
   if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, y - (top + (r0 - 1) * m.pitch))));
   // Guard: a target cannot be shorter than the content at the width the block has now.
   const need = contentRows(B(g.sid, g.bid), m, false, /[ew]/.test(g.dir));
+  // A Video on a corner pull: the rows its new width takes go on the bottom, whatever the top does (CAP-X6PULLS.json, CAP-X6AGAIN.json).
+  if (held.type === 'video' && g.dir.includes('n') && /[ew]/.test(g.dir) && g.orig[2] - g.orig[0] < need) r1 = g.orig[0] + need;
   if (r1 - r0 < need) {
     if (g.dir.includes('n')) {
       r0 = Math.max(1, r1 - need);
@@ -1501,7 +1514,7 @@ function renderBlockPanel() {
   if (mdField && mdField === document.activeElement && mdField.value !== (b.text || '')) { mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
   if (codeCommit) return; // the field's own text changed nothing else here, and a redraw would take a press on Mode from under it
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
-  const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
+  const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: parseFloat(b.radius) || 0, corners: b.corners, empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
@@ -2400,13 +2413,15 @@ function themeInk(b, which) {
   probe.remove();
   return c;
 }
-const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? b.color || b.fill || themeInk(b, 'fill') : key === 'lightboxBg' ? formView(b, bp).lightboxBg : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || (b.type === 'video' ? 'rgb(255, 255, 255)' : b.type === 'shape' ? themeInk(b, 'stroke') : 'rgb(0, 0, 0)'));
+const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? shapeFill(b, bp) || themeInk(b, 'fill') : key === 'lightboxBg' ? formView(b, bp).lightboxBg : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || (b.type === 'video' ? 'rgb(255, 255, 255)' : b.type === 'shape' ? themeInk(b, 'stroke') : 'rgb(0, 0, 0)'));
+// On a phone a color set means its own: one that flows down from desktop shows no Reset and no Opacity (CAP-T6RESET.json).
+const strokeColorSet = (b) => (bp === 'mobile' ? phoneOwn(b, 'strokeColor') : !!b.design?.strokeColor);
 function writeShapeColor(b, key, css) {
-  if (key === 'color') { if (css) b.color = css; else delete b.color; return; }
+  if (key === 'color' && bp !== 'mobile') { if (css) b.color = css; else delete b.color; return; }
   if (key === 'overlay') { if (css) b.overlayColor = css; else delete b.overlayColor; return; }
   if (key === 'lightboxBg') { setFormView(b, bp, key, css); return; }
   const bag = designBag(bp), d = { ...(b[bag] || {}) };
-  if (css) d[key] = css; else if (bag === 'designMobile') d[key] = ''; else delete d[key];
+  if (css) d[key] = css; else if (bag === 'designMobile') d[key] = b.type === 'shape' ? FOLLOW_DESKTOP : ''; else delete d[key];
   if (Object.keys(d).length) b[bag] = d; else delete b[bag];
 }
 // The section panel's color rows: the divider stroke, or an Art color. Null writes the default back.
@@ -2487,7 +2502,7 @@ function renderShapePop() {
     const c = colorParts(shapeColorOf(b, kind));
     const custom = shapeUi.custom && (shapeUi.custom.hex === toHex(c.rgb) ? shapeUi.custom : { ...shapeUi.custom, ...hexToHsv(toHex(c.rgb)), hex: toHex(c.rgb) });
     if (custom) shapeUi.custom = custom;
-    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? !!b.color : kind === 'lightboxBg' ? !!b.lightboxBg : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? !!designFor(b, bp).strokeColor : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') || !!designFor(b, bp).strokeColor });
+    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? (bp === 'mobile' ? phoneOwn(b, 'color') : !!b.color) : kind === 'lightboxBg' ? !!b.lightboxBg : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? strokeColorSet(b) : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') || strokeColorSet(b) });
     const anchor = blockPanel.querySelector(`[data-shape-act="${kind}"]`)?.getBoundingClientRect();
     shapePop.hidden = false;
     const h = shapePop.offsetHeight;
@@ -3823,7 +3838,7 @@ const ADD_TYPES = [
     .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}) })]),
 ];
 // A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6).
-const PHONE_ROWS = { Accordion: 5 };
+const PHONE_ROWS = { Accordion: 5, Scheduling: 5 }; // CAP-X6FLOORSPHONE.json for Scheduling
 // A new Line sits in the middle of its block, in each view (CAP-U4LINE.json).
 const NEW_ALIGN = { Line: 'center' };
 function addBlock(sid, name) {
