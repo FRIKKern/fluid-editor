@@ -1,0 +1,26 @@
+{
+  "item": "CAP-FIXES-PREDICTED",
+  "note": "What I expect before the oracle is read, pushed first. Values are from our build with the fix for 32 and 33 in the tree, and a press at the block's corner counts 1 px from ours at the handle's centre. Answers go in the findings named here.",
+  "capturedAt": "2026-11-06",
+  "predicted": {
+    "CAP-G4MARGIN2": {
+      "south east from the left margin, walked to 200": "Out at 51, 135, 194, left-edge steps. Back at 193, 134, 50, then -35, -94, -153. Home -152, -93, -34.",
+      "on a phone, from the left margin, south east": "Out at 14, 56. Back 55, 13, -30, -79. Home -78, -29.",
+      "on a phone, from the left margin, a move": "Goes out late, at 46 or 47, as the existing last-step rule says at this width. Least sure of these."
+    },
+    "CAP-ACCPHONE7": {
+      "hypothesis": "The 13 phone rows that read 11 later (CAP-ACCPHONE4) drop when the panel closes on Escape, not when the view changes. CAP-ACCPHONE5 held because it changed view with the panel open.",
+      "3 items, long title": "1/2/14/10, next 14/2/20/10, 444 high.",
+      "then Escape, on the phone": "1/2/12/10, next 12/2/18/10. Ours stays 14: that would be a difference.",
+      "then Desktop View and back": "Stays 1/2/12/10.",
+      "2 items, long title, Escape": "Long title 1/2/12/10. Escape: fewer rows, about 1/2/10/10. Ours stays 12."
+    },
+    "CAP-ACCBELOW": {
+      "a Shape in other columns below": "Add Item: Accordion 1/2/12/10, Shape stays, section rows stay. Delete: back.",
+      "a Shape already overlapping": "Add Item: Accordion 1/2/12/10, Shape stays, section grows only to fit the Accordion. Delete: back."
+    },
+    "CAP-U4ZPHONE": {
+      "three Shapes at one place on a phone, top one selected": "One press goes one step, as on desktop. Only the phone's z numbers change, the desktop's stay. Forward off at the top, Backward off at the bottom. 1, 2, 3 kept."
+    }
+  }
+}
