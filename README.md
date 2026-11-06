@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 65 changes
+- **Today** · 66 changes
+  - U5: back to partial, Add Block search has words behind its tiles ([#245](https://github.com/FRIKKern/fluid-editor/pull/245))
   - U3, U4, U5: read a stack's pill, group handles, held marks, z order, tips, Pin's unit and search words ([#244](https://github.com/FRIKKern/fluid-editor/pull/244))
-  - E4: last score, 38 of 45, misses named; a replay with an off gap could not run ([#241](https://github.com/FRIKKern/fluid-editor/pull/241))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
