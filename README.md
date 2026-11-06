@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 42 changes
+- **Today** · 43 changes
+  - P5: done, Reset Color Theme under 0005; U12: note what the theme rows' read-backs covered ([#221](https://github.com/FRIKKern/fluid-editor/pull/221))
   - T10: a Markdown reader of our own, all 19 samples; scripts leave a note under a status box; CSS holds the source switch on ([#219](https://github.com/FRIKKern/fluid-editor/pull/219))
-  - E4, E5, Z3: back to partial, new reads show parts that differ ([#220](https://github.com/FRIKKern/fluid-editor/pull/220))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
