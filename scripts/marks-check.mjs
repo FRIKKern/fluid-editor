@@ -362,13 +362,38 @@ evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(600);
 }
 evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(600);
 await frameScroll(0); await hoverInSection(700);
-// Fade: the parts run their animation, the outline does not; it goes after the mouse leaves.
-await hoverBar(800, 20); await pause(220);
+// Fade: the parts run their animation, and the outline fades on its border color (CAP-U9FADE.json).
+await hoverBar(800, 20); await pause(300);
 add('chrome gone after the mouse leaves', evalJs(S, `(() => JSON.stringify(document.getElementById('section-chrome').hidden))()`));
 evalJs(S, `(() => { window.__fade = []; const t0 = performance.now(); const id = setInterval(() => { const c = document.querySelector('#section-chrome:not([hidden]) .sc-card'); if (c) window.__fade.push(+getComputedStyle(c).opacity); if (performance.now() - t0 > 20000) clearInterval(id); }, 16); return 'ok'; })()`);
 mouse(S, 'move', 60, 400); mouse(S, 'move', 62, 401); await pause(1000);
 const fading = evalJs(S, `(() => { const c = getComputedStyle(document.querySelector('.sc-card')), o = getComputedStyle(document.querySelector('.sc-outline')); const seen = window.__fade; return JSON.stringify({ name: c.animationName, time: c.animationDuration, outline: o.animationName, least: Math.min(...seen), last: seen.at(-1) }); })()`);
-add('chrome slides in over 0.17s', fading.name === 'sc-in' && fading.time === '0.17s' && fading.outline === 'none' && fading.least < 0.9 && fading.last === 1, JSON.stringify(fading));
+add('chrome slides in over 0.17s', fading.name === 'sc-in' && fading.time === '0.17s' && fading.outline === 'sc-outline-in' && fading.least < 0.9 && fading.last === 1, JSON.stringify(fading));
+// The outline's border color, frame by frame, one way and back: alpha only, in about 0.2 s, against CAP-U9FADE.json.
+const outlineWatch = async (x, y) => {
+  evalJs(S, `(() => { const T = window.__ow = { t0: performance.now(), seen: [], stop: false }; const tick = () => { if (T.stop) return; const e = document.querySelector('#section-chrome:not([hidden]) .sc-outline'); T.seen.push([Math.round(performance.now() - T.t0), e ? getComputedStyle(e).borderTopColor : null]); requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
+  mouse(S, 'move', x, y); mouse(S, 'move', x + 2, y + 1); await pause(700);
+  const seen = evalJs(S, `(() => { const T = window.__ow; T.stop = true; return JSON.stringify(T.seen); })()`);
+  const part = seen.filter(([, c]) => c).map(([t, c]) => { const n = c.match(/[\d.]+/g).map(Number); return [t, n.length > 3 ? n[3] : 1, n.slice(0, 3).join()]; });
+  const mid = part.filter(([, a]) => a > 0 && a < 1);
+  return { frames: mid.length, span: mid.length ? mid.at(-1)[0] - mid[0][0] : 0, hue: [...new Set(mid.map((r) => r[2]))], rising: mid.every((r, i) => !i || r[1] >= mid[i - 1][1]), falling: mid.every((r, i) => !i || r[1] <= mid[i - 1][1]), near: mid.some(([, a]) => Math.abs(a - 0.5) < 0.12) };
+};
+await hoverBar(800, 20); await pause(300);
+const outIn = await outlineWatch(60, 400);
+add('outline fades in over 0.2 s on its alpha', outIn.frames >= 6 && outIn.span >= 110 && outIn.span <= 230 && outIn.hue.join() === '72,148,255' && outIn.rising && outIn.near, JSON.stringify(outIn));
+const outOut = await outlineWatch(800, 20);
+add('outline fades out over 0.2 s on its alpha', outOut.frames >= 6 && outOut.span >= 110 && outOut.span <= 230 && outOut.hue.join() === '72,148,255' && outOut.falling && outOut.near, JSON.stringify(outOut));
+add('chrome gone after the outline', evalJs(S, `(() => JSON.stringify(document.getElementById('section-chrome').hidden))()`));
+// Back on the section during the fade, the outline runs back: no new fade from nothing.
+mouse(S, 'move', 60, 400); mouse(S, 'move', 62, 401); await pause(500);
+mouse(S, 'move', 800, 20); mouse(S, 'move', 802, 21); await pause(40);
+mouse(S, 'move', 60, 400); mouse(S, 'move', 62, 401); await pause(350);
+const backOn = evalJs(S, `(() => { const c = document.getElementById('section-chrome'); const o = getComputedStyle(c.querySelector('.sc-outline')); return JSON.stringify({ hidden: c.hidden, name: o.animationName, color: o.borderTopColor }); })()`);
+add('outline back on during its fade runs back', !backOn.hidden && backOn.name === 'none' && backOn.color === 'rgb(72, 148, 255)', JSON.stringify(backOn));
+// A rebuild in place, on selecting a block, keeps the outline lit.
+await pause(300);
+const lit = evalJs(S, `(() => { const c = document.getElementById('section-chrome'); const id = c.dataset.key.split('|')[0]; const sec = fe.model.sections.find((x) => x.id === id); fe.select(id, sec.blocks[0].id); const o = getComputedStyle(c.querySelector('.sc-outline')); const r = { rebuilt: c.dataset.key.split('|')[4], name: o.animationName, color: o.borderTopColor }; fe.select(null); return JSON.stringify(r); })()`);
+add('outline stays lit through a rebuild', lit.rebuilt === 'true' && lit.name === 'none' && lit.color === 'rgb(72, 148, 255)', JSON.stringify(lit));
 // Hover colors.
 const hoverColor = async (label) => { await hoverInSection(400); const b = chromeBox(label); mouse(S, 'move', b[0] + 10, b[1] + 10); await pause(100); return evalJs(S, `(() => { const x = [...document.querySelectorAll('#section-chrome button')].find((b) => b.getAttribute('aria-label') === '${label}'); return JSON.stringify(getComputedStyle(x).backgroundColor); })()`); };
 for (const [label, ours] of [['Open Layers Panel', 'Layers'], ['Add Block', 'Add Block'], ['Edit Section', 'Edit Section'], ['Duplicate Section', 'Duplicate Section'], ['Remove Section', 'Remove Section']]) {

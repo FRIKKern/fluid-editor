@@ -4,7 +4,7 @@ import { ART, DIVIDER_FLIPS, DIVIDER_SHAPES, DIVIDER_SHAPE_NAMES, DIVIDER_WIDTHS
 // Section chrome (U9, U10), measured on the oracle at a 1600 by 1000 window
 // (parity/findings/SECTIONBAR.json). Positions are relative to the section's top left in the
 // page, in px:
-//   outline       3px solid #4894ff around the hovered section
+//   outline       3px solid #4894ff around the hovered section; its color's alpha fades over 0.2s both ways
 //   left          Layers 38 by 36 at (26, 25.1), Add Block 129.6 by 36 at (83, 25.1); white,
 //                 #313131, 3px radius, label 12px 500 uppercase; each in a white box 4px larger
 //                 on every side with an 8px radius and shadows 0 4px 16px rgba(0,0,0,.12) and
