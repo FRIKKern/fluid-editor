@@ -405,6 +405,9 @@ body.is-preview .image-lightbox img { cursor: pointer; }
   display: block; width: 100%; box-sizing: border-box; font: inherit; font-size: 16px; line-height: 22.4px;
   padding: 10px 20px; border: 1px solid currentColor; background: transparent; color: inherit; border-radius: 24.784px;
 }
+/* Hover & Focus, Accent, the default: the edge goes from 1 to 2 inward (CAP-FORMSUBS.json). */
+.fe-form input[type=text], .fe-form input[type=email], .fe-form textarea, .fe-form select { transition: box-shadow .075s cubic-bezier(.33, 1, .68, 1); }
+.fe-form input[type=text]:hover, .fe-form input[type=email]:hover, .fe-form textarea:hover, .fe-form select:hover { box-shadow: inset 0 0 0 1px currentColor; }
 .fe-form textarea { height: 100px; resize: vertical; }
 .fe-form select { height: 44.4px; padding: 10px 42px; }
 .fe-form .name-parts { display: flex; gap: 10px; }

@@ -303,15 +303,7 @@
     "fields": 20,
     "cols": 10
   },
-  "subPanelsReadNotBuilt": {
-    "Effects": "Hover and Focus tiles Outline, Accent, Opacity, Scale; Submit Button Validation tiles Label, Spinner, Ellipsis, Bar, Circle",
-    "Selection Options": "Field Options: Checkbox, Radio and Survey, each with Field Shape, Field Fill, Border Thickness, Field Size, Space Between Icon and Text, Selection Color, Space Between Rows",
-    "Fonts": "Title, Description, Caption, Input, Placeholder, Select Dropdown, Option, Survey Title: each Paragraph, a popover with Size",
-    "Colors": "A theme picker plus Field Background, Field Border, Field Accent, Field Accessory, Button Background and the same on Background, Background, Stroke Color, Title, Description, Caption, Input, Option, Survey Title"
-  },
   "inferred": [
-    "Fill and edge colors on a pack: from the pack's tile. Only padding, border width and radius were read on the page for each pack.",
-    "A fill color follows Lightest 1's white, as read on one theme. On other themes it comes from the Field Background row, not built.",
     "The highest Border Thickness and typed thickness: not read; ours sets no top limit.",
     "Space Below Description: no default form field has a description, so nothing moved on the page when it changed.",
     "A form with no pick keeps what T9 measured (47 tall, square, on the Contact form); the new Form block on the probe page read 44.4 tall, pill. Not settled which the demo should show; ours only changes once a row or pack is picked.",
@@ -320,5 +312,6 @@
   "notRead": [
     "What Reset Form Pack does (decision 0005). Ours clears the pack and the rows.",
     "Tile and toggle colors come from screenshots."
-  ]
+  ],
+  "subPanels": "Read and built: parity/findings/CAP-FORMSUBS.json."
 }

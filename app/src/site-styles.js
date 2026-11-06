@@ -7,12 +7,13 @@
 // the site's current styles. A 44px disclosure swaps the panel for that pack's view, with a back
 // button. Works: Base Size and Reset in Fonts and Buttons, Headings, Paragraphs, Animations, Spacing and
 // the packs we hold in each list panel (parity/findings/CAP-SITESTYLEROWS.json), Edit Palette and Edit
-// Color Theme's rows (CAP-THEMEROWS.json), each button type's rows (CAP-BUTTONROWS.json), the Forms rows, Form Spacing and pack picks (CAP-FORMROWS.json). Faded and not built (data-unbuilt): the other rows of a view, Customize.
+// Color Theme's rows (CAP-THEMEROWS.json), each button type's rows (CAP-BUTTONROWS.json), the Forms rows, Form Spacing and pack picks (CAP-FORMROWS.json), Forms' sub panels (CAP-FORMSUBS.json, form-panels.js). Faded and not built (data-unbuilt): the other rows of a view, Customize.
 import { PALETTES, FONT_PACKS, BUTTON_PACKS, FORM_PACKS, THEMES, VARS, TYPE_DEFAULTS, SPACE_DEFAULTS, BASE_VARS, resolveSiteStyles, fontLink, baseSize } from './site-style-packs.js';
 import { paletteHtml } from './site-palette.js';
 import { ROW_GROUPS, rowValue, rowCss } from './theme-rows.js';
 import { TIERS, TIER_NAMES, SHAPES, tierValues, sameTier, tierSample } from './button-tiers.js';
-import { FORM_SHAPES, formValues, formRadius, formFill } from './form-rows.js';
+import { FORM_SHAPES, formValues, formRadius, FORM_KINDS } from './form-rows.js';
+import { formEffectsHtml, formOptionsHtml, formOptionHtml, formFontsHtml, formFontHtml, formColorsHtml } from './form-panels.js';
 
 const svg = (d, s = 16) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const CHEV = '<path d="M9 6l6 6-6 6"/>';
@@ -24,7 +25,7 @@ const q = (s) => s.replace(/"/g, '&quot;');
 // The panel. view is null for the cards, or Fonts, Colors, Buttons, Forms or Miscellaneous; rows are
 // the section color themes for Colors: { name, bg, ink, used }.
 // The views a level down (parity/findings/CAP-SITESTYLEROWS.json): the view, its parent and its title.
-export const SUB = { ButtonTier: ['Buttons', 'Buttons'], FontPacks: ['Fonts', 'Font Packs'], Headings: ['Fonts', 'Headings'], Paragraphs: ['Fonts', 'Paragraphs'], ButtonPacks: ['Buttons', 'Button Packs'], FormPacks: ['Forms', 'Form Packs'], FormSpacing: ['Forms', 'Form Spacing'], EditPalette: ['Colors', 'Edit Palette'], ThemeRows: ['Colors', 'Edit Color Theme'], Animations: ['Miscellaneous', 'Animations'], Spacing: ['Miscellaneous', 'Spacing'] };
+export const SUB = { ButtonTier: ['Buttons', 'Buttons'], FontPacks: ['Fonts', 'Font Packs'], Headings: ['Fonts', 'Headings'], Paragraphs: ['Fonts', 'Paragraphs'], ButtonPacks: ['Buttons', 'Button Packs'], FormPacks: ['Forms', 'Form Packs'], FormSpacing: ['Forms', 'Form Spacing'], FormEffects: ['Forms', 'Effects'], FormOptions: ['Forms', 'Field Options'], FormOption: ['FormOptions', ''], FormFonts: ['Forms', 'Fonts'], FormFont: ['FormFonts', ''], FormColors: ['Forms', 'Colors'], EditPalette: ['Colors', 'Edit Palette'], ThemeRows: ['Colors', 'Edit Color Theme'], Animations: ['Miscellaneous', 'Animations'], Spacing: ['Miscellaneous', 'Spacing'] };
 const CHEV_DOWN = '<path d="M6 9l6 6 6-6"/>';
 // What a font pack sets, shown in its rows: the readings in site-style-packs.js.
 function packValue(font, k, n) {
@@ -65,6 +66,13 @@ function subHtml(view, styles, font, opts) {
   const select = (key, label, now, options) => `<div class="ss-sel-row"><span>${label}</span><button type="button" class="ss-sel" data-ss-select="${key}" aria-label="${label}" aria-expanded="${open === key}"><span>${now}</span>${svg(CHEV_DOWN)}</button>${open === key ? `<div class="ss-options" role="listbox" style="top:${1 - 44 * options.indexOf(now)}px">${options.map((o) => `<button type="button" role="option" class="ss-option${o === now ? ' is-on' : ''}" aria-selected="${o === now}" data-ss-set="${key}" data-v="${o}">${o}</button>`).join('')}</div>` : ''}</div>`;
   const slide = (key, label, now, min, max, step, unit) => `<div class="ss-slide"><span>${label}</span><input type="text" data-ss-set="${key}" aria-label="${label} value" value="${now}${unit}"><input type="range" data-ss-set="${key}" data-unit="${unit}" aria-label="${label}" min="${min}" max="${max}" step="${step}" value="${now}" style="--p:${(100 * (now - min)) / (max - min)}%"></div>`;
   if (view === 'ButtonTier') return tierHtml(styles, font, slide, opts);
+  const parts = { svg, slide, CHEV, CHEV_DOWN, CHECK };
+  if (view === 'FormEffects') return formEffectsHtml(styles);
+  if (view === 'FormOptions') return formOptionsHtml(parts);
+  if (view === 'FormOption') return formOptionHtml(styles, opts, parts);
+  if (view === 'FormFonts') return formFontsHtml(styles, parts);
+  if (view === 'FormFont') return formFontHtml(styles, opts, parts);
+  if (view === 'FormColors') return formColorsHtml(styles, opts, resolveSiteStyles(styles).vars || BASE_VARS, VARS, parts);
   if (view === 'FormSpacing') { const f = formValues(styles); return `<div class="ss-spacing">${[['label', 'Space Below Label'], ['desc', 'Space Below Description'], ['cap', 'Space Below Caption'], ['fields', 'Space Between Fields'], ['cols', 'Space Between Columns']].map(([k, l]) => slide(`forms.${k}`, l, f[k], 1, 40, 1, 'px')).join('')}</div>`; }
   if (view === 'Headings' || view === 'Paragraphs') {
     const k = view === 'Headings' ? 'h' : 'p', d = TYPE_DEFAULTS[k], t = styles?.type?.[k] || {}, v = (n) => t[n] ?? packValue(font, k, n) ?? d[n];
@@ -129,7 +137,7 @@ export function siteStylesHtml(styles, view = null, rows = [], opts = {}) {
     <h1 class="ss-title">Edit Color Theme</h1><p class="ss-theme-help">Changes you make will affect all sections that use this color theme.</p><button type="button" class="ss-theme-reset" data-ss-theme-reset>Reset Color Theme</button>`;
   }
   if (SUB[view]) {
-    const [parent, title] = SUB[view];
+    const parent = SUB[SUB[view][0]]?.[1] || SUB[view][0], title = view === 'FormOption' ? FORM_KINDS[opts.formKind] : view === 'FormFont' ? opts.formFont : SUB[view][1];
     return `${close}<button type="button" class="ss-back" data-ss-back aria-label="Back to ${parent}">${svg('<path d="M15 4l-8 8 8 8"/>', 18)}<span>${parent}</span></button>
     <h2 class="ss-title">${title}</h2>${subHtml(view, styles, font, opts)}`;
   }
@@ -197,7 +205,7 @@ function viewHtml(view, { styles, font, colors, bg, ink, btnStyle, rows, opts })
     <div class="ss-fline"><span>Border</span><span class="ss-border-set" role="radiogroup"><button type="button" role="radio" aria-label="No border" aria-checked="${!f.border}" class="ss-pad${f.border ? '' : ' is-on'}" data-ss-fborder="0">${svg('<circle cx="12" cy="12" r="8"/><path d="M6.5 6.5l11 11"/>', 20)}</button><button type="button" role="radio" aria-label="Border" aria-checked="${f.border}" class="ss-pad${f.border ? ' is-on' : ''}" data-ss-fborder="1">${svg('<rect x="6" y="6" width="12" height="12"/>', 20)}</button></span></div>
     <div class="ss-fline ss-fline-thick"><span>Border Thickness</span><input type="text" class="ss-thick-in" aria-label="Border Thickness" data-ss-fthickin value="${f.thick}px"><button type="button" class="ss-fstep" aria-label="decrement" data-ss-fthick="-1">${svg('<path d="M5 12h14"/>', 18)}</button><button type="button" class="ss-fstep" aria-label="increment" data-ss-fthick="1">${svg('<path d="M12 5v14M5 12h14"/>', 18)}</button></div>
     <div class="ss-fline ss-form-pads"><span>Padding</span><span class="ss-pad-set" role="radiogroup">${pad('S', 'Small', 'S')}${pad('M', 'Medium', 'M')}${pad('L', 'Large', 'L')}${pad('custom', 'Custom', '<b>...</b>')}</span></div>${sides}
-    <div class="ss-forms-more">${disRow('Effects')}${disRow('Selection Options')}${disRow('Fonts')}${disRow('Colors')}${disRow('Form Spacing', '', 'FormSpacing')}</div>
+    <div class="ss-forms-more">${disRow('Effects', '', 'FormEffects')}${disRow('Selection Options', '', 'FormOptions')}${disRow('Fonts', '', 'FormFonts')}${disRow('Colors', '', 'FormColors')}${disRow('Form Spacing', '', 'FormSpacing')}</div>
     ${reset('Reset Form Pack', 'data-ss-reset="form"', 'ss-reset-forms')}`;
   }
   return `<div class="ss-miscs">${['Animations', 'Spacing', 'Image Blocks'].map((n) => `<button type="button" class="ss-mrow"${n === 'Image Blocks' ? ' data-unbuilt' : ` data-ss-view="${n}"`}>${n}${svg(CHEV)}</button>`).join('')}</div>`;
