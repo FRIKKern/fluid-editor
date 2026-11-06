@@ -1,0 +1,424 @@
+{
+  "item": "L6",
+  "kind": "read",
+  "oracle": "probe page, Blocks Probe",
+  "capturedAt": "2026-11-06",
+  "question": "L6: the Anchor row, its Position popup, its nine places, X and Y, and how Anchor behaves per layout",
+  "how": "Headless Chrome on new blocks on Blocks Probe, not saved, left by Exit Without Saving. Ours draws its own dots.",
+  "row": {
+    "button": {
+      "inPanel": [
+        254,
+        937,
+        44,
+        44
+      ],
+      "radius": "6px",
+      "bgClosed": "rgb(242, 242, 242)",
+      "bgOpen": "rgb(231, 231, 231)"
+    },
+    "label": "Anchor, dotted on a phone that set it"
+  },
+  "glyph": {
+    "size": 22,
+    "dots": {
+      "r": 2,
+      "at": [
+        2,
+        11,
+        20
+      ],
+      "fill": "#B7B7B7"
+    },
+    "on": {
+      "r": 2.5,
+      "fill": "#0E0E0E",
+      "travels": "18 by 18, from 2 to 20 in each axis, by the percent"
+    },
+    "note": "The button shows the block's value, a typed 25% too. A place row shows its own place."
+  },
+  "popup": {
+    "box": [
+      792,
+      316,
+      300,
+      485
+    ],
+    "legend": [
+      803,
+      322,
+      278,
+      22
+    ],
+    "panel": [
+      461,
+      301,
+      320,
+      500
+    ],
+    "buttonBottom": 801,
+    "rule": "Its bottom on the button's bottom, 11 right of the panel. With no room, 11 left of the panel.",
+    "shadow": "rgba(0, 0, 0, 0.12) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px",
+    "radius": "11px",
+    "legendFont": "14px/22px 500",
+    "focusOnOpen": "X",
+    "fields": {
+      "X": [
+        814,
+        355,
+        114,
+        44
+      ],
+      "Y": [
+        956,
+        355,
+        114,
+        44
+      ],
+      "boxes": [
+        [
+          803,
+          355,
+          136,
+          44
+        ],
+        [
+          945,
+          355,
+          136,
+          44
+        ]
+      ],
+      "focus": [
+        "rgba(0, 0, 0, 0)",
+        "6px",
+        "rgb(14, 14, 14) solid 2px",
+        "none"
+      ],
+      "font": "14px rgb(14, 14, 14)",
+      "unit": [
+        "rgb(148, 148, 148)",
+        "12px",
+        "ew-resize",
+        "X"
+      ]
+    },
+    "rows": {
+      "height": 44,
+      "padding": "11px",
+      "gap": "11px",
+      "text": "14px/22px 400",
+      "color": "rgb(14, 14, 14)",
+      "glyph": [
+        803,
+        416,
+        22,
+        22
+      ],
+      "on": "rgb(242, 242, 242)",
+      "hover": "rgb(242, 242, 242)",
+      "off": "rgba(0, 0, 0, 0)"
+    },
+    "lineOnly": {
+      "panel": [
+        343,
+        301,
+        320,
+        500
+      ],
+      "popup": [
+        674,
+        232,
+        300,
+        485
+      ],
+      "buttonTop": 673
+    },
+    "noRoom": {
+      "panel": [
+        1180,
+        301,
+        320,
+        500
+      ],
+      "popup": [
+        869,
+        232,
+        300,
+        485
+      ]
+    }
+  },
+  "places": {
+    "Top Left": {
+      "x": "0%",
+      "y": "0%",
+      "origin": [
+        "0%",
+        "0%"
+      ],
+      "row": [
+        792,
+        405,
+        300,
+        44
+      ],
+      "open": true
+    },
+    "Top Center": {
+      "x": "50%",
+      "y": "0%",
+      "origin": [
+        "50%",
+        "0%"
+      ],
+      "row": [
+        792,
+        449,
+        300,
+        44
+      ],
+      "open": true
+    },
+    "Top Right": {
+      "x": "100%",
+      "y": "0%",
+      "origin": [
+        "100%",
+        "0%"
+      ],
+      "row": [
+        792,
+        493,
+        300,
+        44
+      ],
+      "open": true
+    },
+    "Center Left": {
+      "x": "0%",
+      "y": "50%",
+      "origin": [
+        "0%",
+        "50%"
+      ],
+      "row": [
+        792,
+        537,
+        300,
+        44
+      ],
+      "open": true
+    },
+    "Center": {
+      "x": "50%",
+      "y": "50%",
+      "origin": [
+        "50%",
+        "50%"
+      ],
+      "row": [
+        792,
+        581,
+        300,
+        44
+      ],
+      "open": true
+    },
+    "Center Right": {
+      "x": "100%",
+      "y": "50%",
+      "origin": [
+        "100%",
+        "50%"
+      ],
+      "row": [
+        792,
+        625,
+        300,
+        44
+      ],
+      "open": true
+    },
+    "Bottom Left": {
+      "x": "0%",
+      "y": "100%",
+      "origin": [
+        "0%",
+        "100%"
+      ],
+      "row": [
+        792,
+        669,
+        300,
+        44
+      ],
+      "open": true
+    },
+    "Bottom Center": {
+      "x": "50%",
+      "y": "100%",
+      "origin": [
+        "50%",
+        "100%"
+      ],
+      "row": [
+        792,
+        713,
+        300,
+        44
+      ],
+      "open": true
+    },
+    "Bottom Right": {
+      "x": "100%",
+      "y": "100%",
+      "origin": [
+        "100%",
+        "100%"
+      ],
+      "row": [
+        792,
+        757,
+        300,
+        44
+      ],
+      "open": true
+    }
+  },
+  "typed": {
+    "25": "25%",
+    "150": "150%",
+    "-20": "-20%",
+    "33.3": "33.3%",
+    "abc from 50%": "50%",
+    "30px": "30%",
+    "empty from 30%": "30%",
+    "100000": "100,000%",
+    "-100000": "-100,000%",
+    "33.456": "33.456%"
+  },
+  "originFromTyped": {
+    "100000": {
+      "ox": "100000%",
+      "oy": "0%",
+      "origin": "341688px 0px",
+      "tf": "none"
+    },
+    "33.456 shown": "33.456%"
+  },
+  "drag": {
+    "note": "A drag of 50 left on X's edge, from 100%: 0.4 per pixel.",
+    "mid": "80%",
+    "after": "80%"
+  },
+  "reset": {
+    "note": "X and Y have a Reset that stays at opacity 0 with pointer-events none, focused or hovered, at 25%. Pressed by its place on desktop and on a phone, it changes nothing. Ours has none.",
+    "read": {
+      "box": [
+        932,
+        369,
+        16,
+        16
+      ],
+      "op": "0",
+      "vis": "visible",
+      "ev": "none",
+      "top": "DIV",
+      "same": false,
+      "focused": "X"
+    },
+    "pressed": "25%"
+  },
+  "close": {
+    "Escape": "Closes the popup, the panel stays.",
+    "button": "A second press closes it.",
+    "panelLabel": "A press on the panel's Anchor label closes it.",
+    "page": "A press on the page closes the popup and the panel.",
+    "aPlace": "A press on a place leaves it open."
+  },
+  "perLayout": {
+    "flows": {
+      "ox": "100%",
+      "oy": "100%",
+      "origin": "376.656px 199px",
+      "tf": "none"
+    },
+    "phoneSet": {
+      "ox": "0%",
+      "oy": "0%",
+      "origin": "0px 0px",
+      "tf": "none"
+    },
+    "desktopKeeps": {
+      "ox": "100%",
+      "oy": "100%",
+      "origin": "341.688px 235.562px",
+      "tf": "none"
+    },
+    "desktopSet": {
+      "ox": "100%",
+      "oy": "50%",
+      "origin": "341.688px 117.781px",
+      "tf": "none"
+    },
+    "phoneKeeps": {
+      "ox": "0%",
+      "oy": "0%",
+      "origin": "0px 0px",
+      "tf": "none"
+    },
+    "oneAxis": {
+      "note": "X typed on a phone holds Y too: a later desktop Y does not reach it.",
+      "after": {
+        "ox": "10%",
+        "oy": "0%",
+        "origin": "37.6656px 0px",
+        "tf": "none"
+      }
+    },
+    "dotted": "Anchor is dotted on the phone (screenshot).",
+    "buttonOn": [
+      false,
+      ""
+    ],
+    "resetAll": {
+      "ox": "25%",
+      "oy": "50%",
+      "origin": "94.1641px 99.5px",
+      "tf": "none"
+    },
+    "push": {
+      "ox": "0%",
+      "oy": "0%",
+      "origin": "0px 0px",
+      "tf": "none"
+    }
+  },
+  "clip": {
+    "note": "Copy transforms carries Anchor: copied at Top Left, moved to Bottom Right, Paste gives Top Left.",
+    "copied": {
+      "ox": "0%",
+      "oy": "0%",
+      "origin": "0px 0px",
+      "tf": "none"
+    },
+    "moved": {
+      "ox": "100%",
+      "oy": "100%",
+      "origin": "341.688px 235.562px",
+      "tf": "none"
+    },
+    "pasted": {
+      "ox": "0%",
+      "oy": "0%",
+      "origin": "0px 0px",
+      "tf": "none"
+    }
+  },
+  "ours": "Built: scripts/shape-check.mjs against this.",
+  "differs": [
+    "Text in the popup is our font."
+  ],
+  "notRead": "The undo steps of a place: ours takes one per change, as the lead ruled."
+}

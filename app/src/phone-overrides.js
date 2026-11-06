@@ -14,6 +14,8 @@ export function pushOverrides(b) {
   for (const [k, v] of Object.entries(b.designMobile || {})) {
     if (v === FOLLOW_DESKTOP) continue;
     if (k === 'color') b.color = v;
+    else if ((b.type === 'shape' || b.type === 'image') && k === 'corner') { delete b.corners; if (v) b.radius = `${v}px`; else delete b.radius; }
+    else if ((b.type === 'shape' || b.type === 'image') && k === 'corners') { b.corners = v; delete b.radius; }
     else if (v === '' || v === false || v == null || v === DESIGN_DEFAULTS[k] || (k === 'blend' && v === 'normal')) delete design[k];
     else design[k] = v;
   }
@@ -30,7 +32,7 @@ export function pushOverrides(b) {
 
 // The rows the phone set. Read: Rotate, Offset, Anchor, Stroke, Thickness, Color, Stroke Color, Lightbox, Layout.
 // The others follow from those (CAP-L6MENU.json, inferred).
-const LABELS = { opacity: 'Opacity', rotate: 'Rotate', sx: 'Scale', sy: 'Scale', tx: 'Offset', ty: 'Offset', kx: 'Skew', ky: 'Skew', ox: 'Anchor', oy: 'Anchor', stroke: 'Stroke', strokeSize: 'Thickness', strokePx: 'Thickness', strokeColor: 'Stroke Color', color: 'Color', bgColor: 'Color', blend: 'Blend Mode', shadow: 'Drop Shadow', blur: 'Blur', background: 'Background' };
+const LABELS = { opacity: 'Opacity', rotate: 'Rotate', sx: 'Scale', sy: 'Scale', tx: 'Offset', ty: 'Offset', kx: 'Skew', ky: 'Skew', ox: 'Anchor', oy: 'Anchor', corner: 'Corner', corners: 'Corner', stroke: 'Stroke', strokeSize: 'Thickness', strokePx: 'Thickness', strokeColor: 'Stroke Color', color: 'Color', bgColor: 'Color', blend: 'Blend Mode', shadow: 'Drop Shadow', blur: 'Blur', background: 'Background' };
 const FORM_LABELS = { lightbox: 'Lightbox', lightboxText: 'Button Text', lightboxBg: 'Background Color', buttonAlign: 'Button Alignment', buttonStyle: 'Button Style' };
 export function phoneLabels(b) {
   const out = new Set(Object.keys(b.designMobile || {}).map((k) => LABELS[k]));
