@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 3 changes
+- **Today** · 4 changes
+  - T9: Add Block > Form makes a real form, the default look re-read ([#182](https://github.com/FRIKKern/fluid-editor/pull/182))
   - U2: phone hold rows read on the probe page, 14 is the rule's, 20 unexplained ([#181](https://github.com/FRIKKern/fluid-editor/pull/181))
-  - T12: Quote, Chart, SoundCloud, Flickr, Instagram content follows the width ([#180](https://github.com/FRIKKern/fluid-editor/pull/180))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
