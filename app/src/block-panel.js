@@ -525,7 +525,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
         + '<div class="bp-thead"><span>Styling</span></div>'
         + row('Color', `<button type="button" class="bp-swatch sh-swatch-btn" data-shape-act="color" aria-label="Color"><i style="background:${esc(shape.color)}"></i></button>`)
         + blendRow(d.blend || 'normal', open === 'blend')
-        + strokeRows(d, false, true)
+        + strokeRows({ ...d, strokeColor: d.strokeColor || shape.strokeInk }, false, true)
         + row('Drop Shadow', sw('shadow', d.shadow, 'Drop Shadow'))
         + blurRows(d)
         + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`
