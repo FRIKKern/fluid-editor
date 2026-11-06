@@ -3854,7 +3854,8 @@ function openLayouts(sid) {
   layoutsPanel.hidden = false;
   // The same place as Edit Section's panel (CAP-VIEWLAYOUTS.json, panelTop).
   const fr = frame.getBoundingClientRect(), q = sectionEl(sid).getBoundingClientRect();
-  const editAt = chrome.querySelector('[data-sc-part="card"]').getBoundingClientRect().top + 7;
+  // From the card's set place: it may still be sliding in.
+  const editAt = stage.getBoundingClientRect().top + parseFloat(chrome.querySelector('[data-sc-part="card"]').style.top) + 7;
   layoutsPlace = { top: Math.round(sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom })), secTop: fr.top + q.top, h: q.height, moved: false };
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
   readLayoutsLook();
