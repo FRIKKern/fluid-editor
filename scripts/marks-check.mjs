@@ -354,7 +354,7 @@ evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(600);
   const n = heights.findIndex((_, k) => k > 0 && Math.abs(sum(k)) > 0.2);
   add('phone: a section with drift to test', n > 0, JSON.stringify(heights));
   const at = evalJs(S, `(() => { const W = document.querySelector('iframe').contentWindow, s = W.document.querySelectorAll('main#page .page-section')[${n}]; return JSON.stringify(s.getBoundingClientRect().top + W.scrollY); })()`);
-  await frameScroll(Math.round(at - 100)); await hoverInSection(sectionTop(n) + 100); await pause(250);
+  await frameScroll(Math.round(at - 100)); await hoverInSection(sectionTop(n) + 100, 800); await pause(250);
   const top = sectionTop(n), e = preciseTop('Edit Section') - top, l = preciseTop('Open Layers Panel') - top;
   add('phone: Edit Section 29 plus the sum above, Layers 3 less', Math.abs(e - 29 - sum(n)) <= 0.05 && Math.abs(l - 26 - sum(n)) <= 0.05, JSON.stringify([e, l, sum(n)]));
   const adds = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-chrome button')].filter((b) => b.textContent.trim() === 'Add Section').map((b) => b.getBoundingClientRect().top)))()`).map((v) => v - top);
