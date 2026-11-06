@@ -172,6 +172,44 @@ add('Delete moves it back', stack() === pair(P6['Delete it']), stack());
 add('The section is 15 rows again', Q(`return JSON.stringify(fe.model.sections[0].rows.desktop);`) === P6['Delete it'].section.rows, Q(`return JSON.stringify(fe.model.sections[0].rows.desktop);`));
 Q(`fe.undo(); await sleep(300); return 'true';`);
 add('One undo for edit and move', stack() === pair(P6['Add Item']), stack());
+// Where the other block is: lower in other columns, overlapping, at the same row, above (CAP-ACCBELOW*.json). A step shows every
+// block as it read, in the read's order.
+const seed = (rows, shape, accRow) => Q(`fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 2 }, phoneFollows: true, blocks: [] }] }); await sleep(200); fe.addBlock('s', 'Accordion'); await sleep(150); fe.addBlock('s', 'Shape'); await sleep(250); const m = JSON.parse(JSON.stringify(fe.model)), s = m.sections[0], a = s.blocks[0], o = s.blocks[1]; o.layout.desktop.area = ${JSON.stringify(shape)}; if (${accRow} > 1) a.layout.desktop.area = [${accRow}, 2, ${accRow + 8}, 10]; s.rows.desktop = ${rows}; fe.load(m); await sleep(300); return 'true';`);
+const areas = () => JSON.stringify(Q(`return JSON.stringify([...blocks()].map((b) => [b.type, b.layout.desktop.area.join('/')]).sort());`));
+const wantAreas = (r, types) => JSON.stringify(r.stack.map((b, k) => [types[k], b.desktop]).sort());
+for (const [file, accAt, shape, rows, accRow] of [['CAP-ACCBELOW', 0, [10, 12, 16, 18], 15, 1], ['CAP-ACCBELOW2', 0, [5, 6, 11, 12], 10, 1], ['CAP-ACCBELOW3', 0, [1, 12, 7, 18], 8, 1], ['CAP-ACCBELOW4', 1, [1, 6, 7, 12], 10, 3]]) {
+  const R = FIND(file), types = accAt ? ['shape', 'accordion'] : ['accordion', 'shape'], secRows = () => Q(`return JSON.stringify(fe.model.sections[0].rows.desktop);`);
+  seed(rows, shape, accRow);
+  add(`${file}: the start`, areas() === wantAreas(R.start, types), areas());
+  await openPanel(); await pressAcc('add');
+  add(`${file}: Add Item`, areas() === wantAreas(R['Add Item'], types) && secRows() === R['Add Item'].section.rows, `${areas()} ${secRows()}`);
+  await pressAcc('del:3');
+  add(`${file}: Delete`, areas() === wantAreas(R['Delete it'], types) && secRows() === R['Delete it'].section.rows, `${areas()} ${secRows()}`);
+}
+// A long title on the phone, then Escape or Back (CAP-ACCPHONE7.json to CAP-ACCPHONE10.json).
+const LONG = 'A rather long new title for this first accordion item, to run onto more lines than before and more';
+const longTitle = () => Q(`const t = panel.querySelector('[data-content="accTitle"]'); t.value = '${LONG}'; t.dispatchEvent(new Event('input', { bubbles: true })); t.dispatchEvent(new Event('change', { bubbles: true })); await sleep(450); return 'true';`);
+const esc = async () => { browser(S, 'press', 'Escape'); await pause(400); };
+const P7 = FIND('CAP-ACCPHONE7'), P8 = FIND('CAP-ACCPHONE8'), P9 = FIND('CAP-ACCPHONE9'), P10 = FIND('CAP-ACCPHONE10');
+await start('mobile'); await openPanel(); await pressAcc('open:0'); longTitle();
+add('Long title, 3 items', stack() === pair(P7['long title']), stack());
+await esc();
+add('Then Escape gives rows back', stack() === pair(P7['then Escape']), stack());
+add('Then 388 high, rows stretched', near(height(), 25.3 * 11 + 110, 2), height());
+Q(`fe.setBp('desktop'); await sleep(400); fe.setBp('mobile'); await sleep(400); return 'true';`);
+add('The views keep it', stack() === pair(P7['phone again']), stack());
+await start('mobile'); await openPanel(); await pressAcc('del:2'); await pressAcc('open:0'); longTitle();
+add('Long title, 2 items', stack() === pair(P8['long title']), stack());
+await esc();
+add('Then Escape, 2 items', stack() === pair(P8['then Escape']), stack());
+await start('mobile'); await openPanel(); await pressAcc('open:0'); longTitle(); await pressAcc('back');
+add('Back keeps the rows', stack() === pair(P9['then Back']), stack());
+await esc();
+add('Back, then Escape keeps them', stack() === pair(P9['then Escape']), stack());
+await start('mobile'); await openPanel(); await pressAcc('add'); await pressAcc('open:0');
+add('Add Item, an item opened', stack() === pair(P10['item view']), stack());
+await esc();
+add('Escape with no edit keeps them', stack() === pair(P10['then Escape']), stack());
 // The toolbar.
 await start('desktop', true); await pick();
 add('Desktop bar and spacing', ours() === theirs(BAR['desktop bar'], 90), ours());

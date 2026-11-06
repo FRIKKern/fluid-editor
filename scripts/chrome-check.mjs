@@ -83,13 +83,14 @@ for (const i of ['0', '7']) {
 // the next of all with a pin (CAP-U4ZPRESS.json, CAP-U4ZSTACK.json, CAP-U4ZPIN.json).
 const SEC = 1;
 const press = async (tb) => { const c = evalJs(S, `(() => { const q = document.querySelector('#block-toolbar [data-tb="${tb}"]').getBoundingClientRect(); return JSON.stringify([q.left + 18, q.top + 18]); })()`); mouse(S, 'move', c[0], c[1]); await pause(40); mouse(S, 'down', c[0], c[1], { buttons: 1 }); await pause(30); mouse(S, 'up', c[0], c[1]); await pause(200); };
-for (const [file, pin] of [['CAP-U4ZPRESS', false], ['CAP-U4ZSTACK', false], ['CAP-U4ZPIN', true]]) {
+for (const [file, pin, phone] of [['CAP-U4ZPRESS', false], ['CAP-U4ZSTACK', false], ['CAP-U4ZPIN', true], ['CAP-U4ZPHONE', false, true]]) {
+  const zAt = phone ? 1 : 0, view = phone ? 'mobile' : 'desktop';
   const Z = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url)));
-  const first = Object.values(Z.reads).find((r) => r.stack?.length), ids = first.stack.map((_, k) => `z${k}`);
-  const top = ids[first.stack.findIndex((b) => Number(b.z[0]) === Math.max(...first.stack.map((x) => Number(x.z[0]))))];
+  const first = Object.values(Z.reads).find((r) => r.stack?.length && r.btnState), ids = first.stack.map((_, k) => `z${k}`);
+  const top = ids[first.stack.findIndex((b) => Number(b.z[zAt]) === Math.max(...first.stack.map((x) => Number(x.z[zAt]))))];
   const grid = (t) => t.split('/').map(Number);
   const blocks = first.stack.map((b, k) => ({ id: ids[k], type: 'shape', layout: { desktop: { area: grid(b.desktop), z: Number(b.z[0]), justify: 'flex-start', align: 'flex-start', ...(pin && ids[k] === top ? { sticky: { anchor: 'top', offset: 0 } } : {}) }, mobile: { area: grid(b.phone), z: Number(b.z[1]), justify: 'flex-start', align: 'flex-start' } } }));
-  evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[${SEC}]; s.blocks = ${JSON.stringify(blocks)}; s.rows = { desktop: 30, mobile: 30 }; fe.setBp('desktop'); fe.load(next); await new Promise((r) => setTimeout(r, 250)); fe.select(s.id, '${top}'); await new Promise((r) => setTimeout(r, 250)); return 1; })()`);
+  evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[${SEC}]; s.blocks = ${JSON.stringify(blocks)}; s.rows = { desktop: 30, mobile: 30 }; fe.setBp('desktop'); fe.load(next); await new Promise((r) => setTimeout(r, 250)); fe.setBp('${view}'); await new Promise((r) => setTimeout(r, 400)); fe.select(s.id, '${top}'); await new Promise((r) => setTimeout(r, 250)); return 1; })()`);
   const bad = []; let presses = 0;
   for (const [at, step] of Z.steps.entries()) {
     if (step[0] !== 'pressNamed' || !/^Move (Forward|Backward)$/.test(step[1])) continue;
@@ -97,9 +98,9 @@ for (const [file, pin] of [['CAP-U4ZPRESS', false], ['CAP-U4ZSTACK', false], ['C
     const name = Z.steps.slice(at).find((x) => x[0] === 'read')?.[1], R = Z.reads[name];
     if (!R?.btnState) continue;
     presses++;
-    const ours = evalJs(S, `(() => JSON.stringify({ z: Object.fromEntries(fe.model.sections[${SEC}].blocks.map((b) => [b.id, b.layout.desktop.z])), off: ['z+', 'z-'].map((t) => document.querySelector('#block-toolbar [data-tb="' + t + '"]')?.classList.contains('is-off')) }))()`);
-    const want = R.stack.map((b) => Number(b.z[0])), got = ids.map((id) => ours.z[id]);
-    if (want.join() !== got.join() || ours.off[0] !== R.btnState['Move Forward'].disabled || ours.off[1] !== R.btnState['Move Backward'].disabled) bad.push(`${name}: oracle z ${want} off ${R.btnState['Move Forward'].disabled},${R.btnState['Move Backward'].disabled}; ours z ${got} off ${ours.off}`);
+    const ours = evalJs(S, `(() => JSON.stringify({ z: Object.fromEntries(fe.model.sections[${SEC}].blocks.map((b) => [b.id, b.layout.${view}.z])), desk: fe.model.sections[${SEC}].blocks.map((b) => b.layout.desktop.z).join(), off: ['z+', 'z-'].map((t) => document.querySelector('#block-toolbar [data-tb="' + t + '"]')?.classList.contains('is-off')) }))()`);
+    const want = R.stack.map((b) => Number(b.z[zAt])), got = ids.map((id) => ours.z[id]);
+    if (want.join() !== got.join() || (phone && ours.desk !== R.stack.map((b) => Number(b.z[0])).join()) || ours.off[0] !== R.btnState['Move Forward'].disabled || ours.off[1] !== R.btnState['Move Backward'].disabled) bad.push(`${name}: oracle z ${want} off ${R.btnState['Move Forward'].disabled},${R.btnState['Move Backward'].disabled}; ours z ${got} off ${ours.off}`);
   }
   total++; if (!bad.length && presses >= 4) pass++; else console.log(`DIFF ${file}, ${presses} presses: ${bad.join(' ; ')}`);
   results.push({ name: `${file}: Forward and Backward, ${presses} presses`, same: !bad.length && presses >= 4 });
