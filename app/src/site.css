@@ -188,11 +188,12 @@ svg.sqs-shape:not(.is-square) { position: absolute; inset: 0; }
   font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; line-height: 1.5;
 }
 .sqs-block-code .sqs-code-container { line-height: var(--body-font-line-height); } /* bare text, 22.4 a line (CAP-T10FRESH.json) */
-/* Display Source Code on the oracle: plain text in the page's colour, clipped at the block's edge (CAP-T10PRE.json). */
-.sqs-block-code .sqs-code-container pre.source-code {
+/* A pre in a code block is plain: page colour, no box, clipped at the block's edge (CAP-T10PRE.json). Source is in monospace. */
+.sqs-block-code .sqs-code-container pre {
   padding: 0; overflow: hidden; background: none; color: inherit; border-radius: 0;
-  font-family: monospace; font-size: 1rem; line-height: var(--body-font-line-height); white-space: pre;
+  font-family: inherit; font-size: 1rem; line-height: var(--body-font-line-height); white-space: pre;
 }
+.sqs-block-code .sqs-code-container pre.source-code { font-family: monospace; }
 
 /* Stacks (S3), values from the oracle (parity/findings/S3.json) */
 .sqs-block-stack { box-sizing: border-box; }
@@ -576,7 +577,7 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .page-section .sqs-block-button-element, .page-section .form-submit { background: var(--button-bg); color: var(--button-ink); }
 
 /* Embed and video placeholders (T7, T10): the editor shows them, the published page does not. */
-.sqs-embed-container .sqs-blockStatus, .sqs-block-video-placeholder--empty, .fluid-image-component-empty-state-node { display: none; }
+.sqs-embed-container .sqs-blockStatus, .sqs-code-container .sqs-blockStatus, .removed-script, .sqs-block-video-placeholder--empty, .fluid-image-component-empty-state-node { display: none; }
 .sqs-block-code .sqs-code-container > :first-child { margin-top: 0; } /* the first paragraph sits at the top of the block (CAP-T10PULL.json) */
 .sqs-block-code .sqs-code-container > :last-child { margin-bottom: 0; }
 

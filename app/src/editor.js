@@ -2462,12 +2462,15 @@ function codeHeight(b) {
   if (b.type === 'embed' && !b.html) return 95;
   const c = blockEl(b.id)?.querySelector(b.type === 'code' ? '.sqs-code-container' : '.sqs-embed-container');
   if (!c) return 0;
-  if (b.type === 'code') return c.offsetHeight;
-  // Its elements' boxes, or a range for bare text: a range counts the text's own 23px runs, 1px over ten paragraphs.
-  const kids = [...c.children].map((e) => e.getBoundingClientRect());
+  // Its elements' boxes, or a range for bare text: a range counts the text's own 23px runs, 1px over ten
+  // paragraphs. A script's status box doesn't count (CAP-T10MD2.json).
+  const status = c.querySelector(':scope > .sqs-blockStatus');
+  if (b.type === 'code' && !status) return c.offsetHeight;
+  const kids = [...c.children].filter((e) => e !== status).map((e) => e.getBoundingClientRect());
   const range = doc.createRange();
   range.selectNodeContents(c);
   const inner = kids.length ? Math.max(...kids.map((r) => r.bottom)) - Math.min(...kids.map((r) => r.top)) : range.getBoundingClientRect().height;
+  if (b.type === 'code') return Math.round(inner);
   const margin = (e, side) => (e ? parseFloat(getComputedStyle(e)[side]) || 0 : 0);
   return Math.round(inner + margin(c.firstElementChild, 'marginTop') + margin(c.lastElementChild, 'marginBottom'));
 }

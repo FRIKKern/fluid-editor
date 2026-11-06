@@ -197,6 +197,43 @@ for (const [what, change, want] of [['CSS', pickMode('css'), 'closed on CSS'], [
   add(`View, closed on ${what}: ${r.areas[0][0]}`, got === r.areas[0].join() && norm(html) === norm(r.htmlOf), `${got} ${html}`);
 }
 
+// Markdown through the Code block's mode, on the real page, against the oracle's HTML for each
+// sample (CAP-T10MD.json; the parser alone runs in npm run check, node scripts/check-markdown.mjs).
+const MD = read('CAP-T10MD');
+const mdId = fresh('code', `html: '<p>Hello, World!</p>',`);
+await setMode('markdown');
+const htmlNorm = (h) => String(h).replace(/\s+/g, ' ').replace(/> /g, '>').replace(/ </g, '<').trim();
+for (let k = 0; k < MD.steps.length; k++) {
+  if (MD.steps[k][0] !== 'setCode') continue;
+  const name = MD.steps.slice(k + 1, k + 4).find((x) => x[0] === 'read')[1];
+  await setText(CODE_FIELD, MD.steps[k][1]);
+  const want = MD.reads[name].htmlOf, script = name === 'html' ? (h) => h.replace(/<div class="sqs-blockStatus">.*?Preview in safe mode<\/div><\/div><\/div>/s, '').replace('<div class="removed-script">Script Disabled</div>', '') : (h) => h;
+  const got = script(htmlOf(mdId, '.sqs-code-container'));
+  add(`Markdown ${name}`, htmlNorm(got) === htmlNorm(want), got);
+}
+
+// A script (CAP-T10MD2.json): a note in its place under a status box, rows as if the box weren't there.
+const MD2 = read('CAP-T10MD2');
+const scriptId = fresh('code', `html: '<p>Hello, World!</p>',`);
+await setText(CODE_FIELD, MD2.steps.find((x) => x[0] === 'setCode')[1]);
+const inScript = MD2.reads['code html with script'];
+add('Script: note under a status box', norm(htmlOf(scriptId, '.sqs-code-container')) === norm(inScript.htmlOf), htmlOf(scriptId, '.sqs-code-container'));
+add('Script: the box takes no rows', areasOf(scriptId).join() === inScript.areas[0].join(), areasOf(scriptId).join());
+const boxes = evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument, b = d.querySelector('.fe-block[data-block-id="${scriptId}"]').getBoundingClientRect(), q = (s) => { const r = d.querySelector('.fe-block[data-block-id="${scriptId}"] ' + s).getBoundingClientRect(); return [r.x - b.x, r.y - b.y, r.width, r.height]; }; return JSON.stringify(['.sqs-blockStatus', '.sqs-blockStatus-box', '.sqs-blockStatus-box-title', '.sqs-blockStatus-box-message', '.sqs-blockStatus-box-button', '.removed-script'].map(q)); })()`);
+inScript.sel.forEach((e, i) => { const o = inScript.sel[0].box, w = [e.box[0] - o[0], e.box[1] - o[1], e.box[2], e.box[3]]; add(`Script: box of ${e.cls}`, w.every((v, j) => Math.abs(v - boxes[i][j]) <= 1.5), `${boxes[i]} want ${w}`); });
+const handler = MD2.steps.filter((x) => x[0] === 'setCode')[1][1];
+await setText(CODE_FIELD, handler);
+add('A handler stays in HTML mode', norm(htmlOf(scriptId, '.sqs-code-container')) === norm(MD2.reads['code html with handler'].htmlOf), htmlOf(scriptId, '.sqs-code-container'));
+blur(); await pause(150);
+await setMode('css');
+const locked = evalJs(S, `(() => { const c = document.querySelector('#block-panel input[aria-label="Display Source Code"]'); c.click(); return JSON.stringify({ on: c.checked, disabled: c.disabled, html: document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="${scriptId}"] .sqs-code-container').innerHTML }); })()`);
+add('CSS holds the switch on', locked.on && locked.disabled && norm(locked.html) === norm(MD2.reads['css switch pressed'].htmlOf), JSON.stringify(locked));
+const embedScript = fresh('embed', '');
+evalJs(S, `(() => { ${toEmbedData} return 'true'; })()`); await pause(200);
+await setText('textarea[data-content="embedHtml"]', MD2.steps.filter((x) => x[0] === 'setCode')[2][1]);
+add('Embed: a script, its rows', areasOf(embedScript)[0] === MD2.reads['embed with script'].block.desktop, areasOf(embedScript)[0]);
+add('Embed: a note under a status box', htmlNorm(htmlOf(embedScript, '.sqs-embed-container')) === htmlNorm(MD2.reads['embed with script'].htmlOf), htmlOf(embedScript, '.sqs-embed-container'));
+
 // Expand: a full-screen view with its own copy of the code. Real keys and clicks.
 const code3 = start('code', `html: '<p>Hello, World!</p>',`);
 const blockText = () => htmlOf(code3, '.sqs-code-container');
