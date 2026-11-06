@@ -3,6 +3,8 @@
 // Runs in the browser and in Node.
 import { siteStylesHead } from './site-style-packs.js';
 import { shapeById } from './shapes.js';
+import { markdownParts } from './markdown.js';
+import { formFieldHtml, formPostHtml, formSubmitJs } from './form-fields.js';
 import { imageShapeById } from './image-shapes.js';
 import { effectData, IMAGE_EFFECT_SCRIPT } from './image-effects.js';
 
@@ -148,21 +150,25 @@ export function sectionCss(s) {
   return sectionGridCss(s) + '\n' + s.blocks.map(blockCss).join('');
 }
 
-// What a code block shows (parity/findings/CODEEMBED.json): HTML as it is, Markdown rendered, and
-// with Display Source Code the text in <pre class="source-code">, which CSS, JavaScript and Plain
-// Text always use. Only headings, paragraphs, emphasis, strong and inline code are read from
-// Markdown here; the oracle's other Markdown is not measured.
-export function markdownHtml(text) {
-  const inline = (t) => escapeHtml(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>').replace(/`(.+?)`/g, '<code>$1</code>');
-  return text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean).map((p) => {
-    const h = p.match(/^(#{1,6})\s+(.*)$/);
-    return h ? `<h${h[1].length}>${inline(h[2])}</h${h[1].length}>` : `<p>${inline(p)}</p>`;
-  }).join(' ');
+// A script in a code or embed block doesn't run while editing: a note stands in its place, under a
+// status box. Handlers stay, as they do on the oracle (CAP-T10MD2.json). Both show in the editor only.
+const SCRIPT_NOTE = '<div class="removed-script">Script Disabled</div>';
+const SCRIPT_STATUS = `<div class="sqs-blockStatus"><div class="sqs-blockStatus-box"><div class="sqs-blockStatus-box-title">Embedded Scripts</div><div class="sqs-blockStatus-box-message">This block contains embedded scripts. Embedded scripts are disabled while you're logged in and editing your site.</div><div class="sqs-blockStatus-box-button" role="button">Preview in safe mode</div></div></div>`;
+function withoutScripts(html) {
+  let found = false;
+  const out = String(html).replace(/<script\b[^>]*>[\s\S]*?(?:<\/script\s*>|$)/gi, () => { found = true; return SCRIPT_NOTE; });
+  return found ? SCRIPT_STATUS + out : out;
 }
+// What a code block shows (parity/findings/CODEEMBED.json): HTML as it is, Markdown read
+// (app/src/markdown.js), and with Display Source Code the text in <pre class="source-code">, which
+// CSS, JavaScript and Plain Text always use.
 function codeOutput(b) {
   const mode = b.codeMode || 'html';
   if (b.showSource || (mode !== 'html' && mode !== 'markdown')) return `<pre class="source-code">${escapeHtml(b.html)}</pre>`;
-  return mode === 'markdown' ? markdownHtml(b.html) : b.html;
+  if (mode !== 'markdown') return withoutScripts(b.html);
+  let found = false;
+  const parts = markdownParts(b.html, { scriptNote: SCRIPT_NOTE, onScript: () => { found = true; } });
+  return (found ? SCRIPT_STATUS : '') + parts.join('');
 }
 
 // Accordion block (T12, parity/findings/ACCORDION.json): the oracle's list. Icon size S 14, M 24,
@@ -363,15 +369,7 @@ function blockInner(b, model) {
       // First Input Highlight (FORMADD.json): a layer over the form's first control only.
       let fx = b.highlight;
       const ctl = (html) => { if (!fx) return html; const k = fx; fx = null; return `<span class="form-fx-box">${html}<span class="form-input-effects"><span class="form-fx form-fx--${k}"></span></span></span>`; };
-      const field = (f) => {
-        const req = (t) => { const m = t.match(/^(.*?)(\(required\))$/); return m ? `${e(m[1])}<span class="req">${e(m[2])}</span>` : e(t); };
-        if (f.kind === 'name') return `<fieldset class="form-item form-name"><legend>${e(f.label)}</legend><div class="name-parts">${(f.parts || []).map((p) => `<div class="field"><label class="caption"><span class="caption-row">${req(p)}</span></label>${ctl(`<input type="text">`)}</div>`).join('')}</div></fieldset>`;
-        if (f.kind === 'textarea') return `<div class="form-item"><label class="title">${req(f.label)}</label>${ctl('<textarea></textarea>')}</div>`;
-        if (f.kind === 'checkbox') return `<fieldset class="form-item form-checkbox"><legend>${e(f.label)}</legend>${(f.options || []).map((o) => `<div class="option"><label><input type="checkbox"><span>${e(o)}</span></label></div>`).join('')}</fieldset>`;
-        if (f.kind === 'select') return `<div class="form-item form-select"><label class="title">${req(f.label)}</label>${ctl(`<select>${(f.options || []).map((o) => `<option>${e(o)}</option>`).join('')}</select>`)}</div>`;
-        return `<div class="form-item"><label class="title">${req(f.label)}</label>${ctl(`<input type="${f.kind === 'email' ? 'email' : 'text'}">`)}${f.signup ? `<div class="form-signup"><label><input type="checkbox"><span>${e(f.signup)}</span></label></div>` : ''}</div>`;
-      };
-      return `<div class="sqs-block form-block sqs-block-form" id="block-${b.id}"><div class="sqs-block-content"><form class="fe-form" onsubmit="return false">${(b.fields || []).map(field).join('')}<div class="form-button-wrapper form-button-wrapper--align-${b.buttonAlign || 'left'}"><button class="form-submit sqs-button-element--${b.buttonStyle || 'primary'}" type="submit">${e(b.button || 'Send')}</button></div></form></div></div>`;
+      return `<div class="sqs-block form-block sqs-block-form" id="block-${b.id}"><div class="sqs-block-content"><div class="form-wrapper">${formPostHtml(b)}<form class="fe-form" onsubmit="${formSubmitJs(b).replace(/"/g, '&quot;')}">${(b.fields || []).map((f) => formFieldHtml(f, ctl)).join('')}<div class="form-button-wrapper form-button-wrapper--align-${b.buttonAlign || 'left'}"><button class="form-submit sqs-button-element--${b.buttonStyle || 'primary'}" type="submit">${e(b.button || 'Send')}</button></div></form></div></div></div>`;
     }
     case 'scrolling': {
       // Scrolling text (T12): the oracle draws the line along a wave path; its height is
@@ -389,7 +387,7 @@ function blockInner(b, model) {
     // show a placeholder in the editor only. Our demo's code blocks show source text in <pre>.
     case 'embed': {
       const status = `<div class="sqs-blockStatus"${b.embedInvalid ? ' data-state="invalid"' : ''}><div class="sqs-blockStatus-box"><div class="sqs-blockStatus-box-title">Embed Block</div><div class="sqs-blockStatus-box-message">${b.embedInvalid ? 'Enter a valid embed URL or code.' : 'Add an embed URL or code.'}</div></div></div>`;
-      return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-embed embed-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-embed-container">${b.html || status}</div></div></div>`;
+      return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-embed embed-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-embed-container">${b.html ? withoutScripts(b.html) : status}</div></div></div>`;
     }
     case 'video':
       {
@@ -651,11 +649,13 @@ export function renderSection(s, model) {
 // title, menu and actions no longer fit, and pads the first section by the header's
 // height, as the oracle's own script does. Spacing: 4vw sides, 1.3vw between menu
 // items, 2vw before the actions.
-export function renderHeader(h) {
+// The header takes the first section's theme (parity/findings/CAP-HEADERTHEME.json).
+export const headerTheme = (model) => (model.sections?.[0]?.theme || '').replace(/^theme-/, '');
+export function renderHeader(h, theme = '') {
   if (!h) return '';
   const nav = (h.nav || []).map((n) => `<a class="header-nav-item" href="${escapeHtml(n.href || '#')}">${escapeHtml(n.label)}</a>`).join('');
   const actions = (h.actions || []).map((n) => `<a class="header-action" href="${escapeHtml(n.href || '#')}">${escapeHtml(n.label)}</a>`).join('');
-  return `<header class="site-header" id="header" data-collapse-below="${h.collapseBelow || 817}"><div class="header-inner"><a class="header-title" href="/">${escapeHtml(h.title)}</a><nav class="header-nav">${nav}</nav><div class="header-actions">${actions}</div><button class="header-burger" type="button" aria-label="Open Menu"><span></span><span></span></button></div></header>`;
+  return `<header class="site-header" id="header" data-section-theme="${escapeHtml(theme)}" data-collapse-below="${h.collapseBelow || 817}"><div class="header-inner"><a class="header-title" href="/">${escapeHtml(h.title)}</a><nav class="header-nav">${nav}</nav><div class="header-actions">${actions}</div><button class="header-burger" type="button" aria-label="Open Menu"><span></span><span></span></button></div></header>`;
 }
 
 export const HEADER_SCRIPT = `(() => {
@@ -729,7 +729,7 @@ export function exportHtml(model, siteCss) {
 ${siteStylesHead(model.siteStyles)}
 </head>
 <body>
-${renderHeader(model.header)}
+${renderHeader(model.header, headerTheme(model))}
 <main id="page">
 ${renderPage(model)}
 </main>

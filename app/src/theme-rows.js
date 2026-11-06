@@ -33,6 +33,7 @@ export function themeRowsCss(styles) {
   for (const [theme, rows] of Object.entries(styles?.themeRows || {})) {
     const sel = sections(THEME_KEYS[theme]);
     const on = (part) => sel.map((s) => `${s} ${part}`).join(', ');
+    const head = (part) => (THEME_KEYS[theme] === 'light' ? ['', 'light'] : [THEME_KEYS[theme]]).map((k) => `.site-header[data-section-theme="${k}"]${part}`).join(', ');
     let vars = '';
     for (const [k, v] of Object.entries(rows)) {
       const c = rowCss(v), i = Number(k);
@@ -40,9 +41,9 @@ export function themeRowsCss(styles) {
       else if (PARTS[i]) css += `${on(PARTS[i])} { color: ${c}; }\n`;
       else if (i === STROKE) css += `${on('.section-divider-stroke path')} { stroke: ${c}; }\n`;
       else if (i === INSET) css += `${sel.map((s) => `${s}.background-width--inset`).join(', ')} { background: ${c}; }\n`;
-      // The site header on the demo site uses Light 1 (measured there only).
-      else if (i === TITLE && theme === 'Light 1') css += `.header-title { color: ${c}; }\n`;
-      else if (i === NAV && theme === 'Light 1') css += `.header-nav-item, .header-action { color: ${c}; }\n`;
+      // The header takes the first section's theme (CAP-HEADERTHEME.json), so its rows follow that theme.
+      else if (i === TITLE) css += `${head(' .header-title')} { color: ${c}; }\n`;
+      else if (i === NAV) css += `${head(' .header-nav-item')}, ${head(' .header-action')} { color: ${c}; }\n`;
     }
     if (vars) css += `${sel.join(', ')} {${vars} }\n`;
   }

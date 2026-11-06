@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="914" viewBox="0 0 1200 914" role="img" aria-labelledby="t d">
 <title id="t">Fluid editor parity</title>
-<desc id="d">101 of 118 items done, 17 partial, 0 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 6 of 8 done. Block types: 8 of 15 done. Geometry and snapping: 8 of 8 done. Gestures: 11 of 13 done. Row stretch: 4 of 5 done. Text editing: 7 of 7 done. Overlap and layers: 5 of 5 done. Phone layout: 7 of 8 done. Section settings and Stacks: 4 of 4 done. Editor chrome: 10 of 12 done. History, save and publish: 5 of 5 done. Accessibility and order: 2 of 3 done.</desc>
+<desc id="d">93 of 118 items done, 25 partial, 0 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 7 of 8 done. Block types: 8 of 15 done. Geometry and snapping: 7 of 8 done. Gestures: 8 of 13 done. Row stretch: 4 of 5 done. Text editing: 5 of 7 done. Overlap and layers: 4 of 5 done. Phone layout: 7 of 8 done. Section settings and Stacks: 4 of 4 done. Editor chrome: 8 of 12 done. History, save and publish: 5 of 5 done. Accessibility and order: 2 of 3 done.</desc>
 <style>
   svg { --bg:#fbfaf7; --card:#ffffff; --line:#e3e0d6; --ink:#1f1e1b; --muted:#6c6a63; --done:#2c7a4b; --now:#b26b00; --todo:#a3a097; --nowbg:#fff6e5; --partbg:#fdf0d8; --unk:#8a6fb0; }
   @media (prefers-color-scheme: dark) {
@@ -21,11 +21,11 @@
 <rect class="bg" width="1200" height="914" rx="16"/>
 <text x="40" y="70" font-size="36" font-weight="700" letter-spacing="-0.8">Parity</text>
 <text x="40" y="102" font-size="19" class="muted">Everything that has to match Fluid Engine, one cell per item.</text>
-<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">101<tspan class="muted" font-weight="400"> / 118</tspan></text>
+<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">93<tspan class="muted" font-weight="400"> / 118</tspan></text>
 <text x="1160" y="102" font-size="16" text-anchor="end" class="muted">items done</text>
-<rect x="40" y="124" width="958.6440677966102" height="10" class="s-done"/>
-<rect x="998.6440677966102" y="124" width="161.35593220338984" height="10" class="s-partial"/>
-<text x="40" y="172" font-size="16"><tspan class="done">✓ 101 done</tspan><tspan class="now" dx="24">◐ 17 partial</tspan><tspan class="todo" dx="24">○ 0 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
+<rect x="40" y="124" width="882.7118644067797" height="10" class="s-done"/>
+<rect x="922.7118644067797" y="124" width="237.28813559322035" height="10" class="s-partial"/>
+<text x="40" y="172" font-size="16"><tspan class="done">✓ 93 done</tspan><tspan class="now" dx="24">◐ 25 partial</tspan><tspan class="todo" dx="24">○ 0 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
 <text x="1160" y="172" font-size="16" text-anchor="end" class="muted">unknown: needs a trace on the oracle before it can be built</text>
 <path d="M40 190H1160" class="rule"/>
 <g data-area="Harness and oracle">
@@ -88,13 +88,13 @@
 </g>
 <g data-area="Page and site context">
 <text x="40" y="326" font-size="15" font-weight="600">Page and site context</text>
-<text x="324" y="326" font-size="14" text-anchor="end" class="muted">6/8</text>
+<text x="324" y="326" font-size="14" text-anchor="end" class="muted">7/8</text>
 <rect x="340" y="306" width="50" height="30" rx="6" class="c-done"><title>P1 Site variables for the trial site: done</title></rect>
 <text x="365" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-done">P1</text>
 <rect x="396" y="306" width="50" height="30" rx="6" class="c-done"><title>P2 Section wrapper styles: done</title></rect>
 <text x="421" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-done">P2</text>
-<rect x="452" y="306" width="50" height="30" rx="6" class="c-partial"><title>P3 Section height settings and padding: partial</title></rect>
-<text x="477" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">P3</text>
+<rect x="452" y="306" width="50" height="30" rx="6" class="c-done"><title>P3 Section height settings and padding: done</title></rect>
+<text x="477" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-done">P3</text>
 <rect x="508" y="306" width="50" height="30" rx="6" class="c-done"><title>P4 Section content width, full or inset: done</title></rect>
 <text x="533" y="326" font-size="13" font-weight="700" text-anchor="middle" class="t-done">P4</text>
 <rect x="564" y="306" width="50" height="30" rx="6" class="c-partial"><title>P5 Section alignment, color themes, background image and video, dividers: partial</title></rect>
@@ -142,15 +142,15 @@
 </g>
 <g data-area="Geometry and snapping">
 <text x="40" y="418" font-size="15" font-weight="600">Geometry and snapping</text>
-<text x="324" y="418" font-size="14" text-anchor="end" class="done">8/8</text>
+<text x="324" y="418" font-size="14" text-anchor="end" class="muted">7/8</text>
 <rect x="340" y="398" width="50" height="30" rx="6" class="c-done"><title>G1 Snap to measured column lines, gutter tracks included: done</title></rect>
 <text x="365" y="418" font-size="13" font-weight="700" text-anchor="middle" class="t-done">G1</text>
 <rect x="396" y="398" width="50" height="30" rx="6" class="c-done"><title>G2 Uniform row pitch after normalization: done</title></rect>
 <text x="421" y="418" font-size="13" font-weight="700" text-anchor="middle" class="t-done">G2</text>
 <rect x="452" y="398" width="50" height="30" rx="6" class="c-done"><title>G3 Grab offset kept during a drag: done</title></rect>
 <text x="477" y="418" font-size="13" font-weight="700" text-anchor="middle" class="t-done">G3</text>
-<rect x="508" y="398" width="50" height="30" rx="6" class="c-done"><title>G4 Snap threshold and dead zone: done</title></rect>
-<text x="533" y="418" font-size="13" font-weight="700" text-anchor="middle" class="t-done">G4</text>
+<rect x="508" y="398" width="50" height="30" rx="6" class="c-partial"><title>G4 Snap threshold and dead zone: partial</title></rect>
+<text x="533" y="418" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">G4</text>
 <rect x="564" y="398" width="50" height="30" rx="6" class="c-done"><title>G5 Snap to other blocks' edges and centers, `data-is-matching-width` and `data-is-matching-height`: done</title></rect>
 <text x="589" y="418" font-size="13" font-weight="700" text-anchor="middle" class="t-done">G5</text>
 <rect x="620" y="398" width="50" height="30" rx="6" class="c-done"><title>G6 Alignment guide lines: done</title></rect>
@@ -162,7 +162,7 @@
 </g>
 <g data-area="Gestures">
 <text x="40" y="464" font-size="15" font-weight="600">Gestures</text>
-<text x="324" y="464" font-size="14" text-anchor="end" class="muted">11/13</text>
+<text x="324" y="464" font-size="14" text-anchor="end" class="muted">8/13</text>
 <rect x="340" y="444" width="50" height="30" rx="6" class="c-done"><title>X1 Move threshold before a drag starts, 4px in the prototype: done</title></rect>
 <text x="365" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X1</text>
 <rect x="396" y="444" width="50" height="30" rx="6" class="c-partial"><title>X2 How the block follows the pointer and how the target shows: partial</title></rect>
@@ -173,8 +173,8 @@
 <text x="533" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X4</text>
 <rect x="564" y="444" width="50" height="30" rx="6" class="c-done"><title>X5 Resize from 8 handles with the opposite edge fixed: done</title></rect>
 <text x="589" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X5</text>
-<rect x="620" y="444" width="50" height="30" rx="6" class="c-done"><title>X6 Which handles each block type shows: done</title></rect>
-<text x="645" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X6</text>
+<rect x="620" y="444" width="50" height="30" rx="6" class="c-partial"><title>X6 Which handles each block type shows: partial</title></rect>
+<text x="645" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">X6</text>
 <rect x="676" y="444" width="50" height="30" rx="6" class="c-done"><title>X7 Shift and Alt modifiers: done</title></rect>
 <text x="701" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X7</text>
 <rect x="732" y="444" width="50" height="30" rx="6" class="c-partial"><title>X8 Multi-select and group move: partial</title></rect>
@@ -183,10 +183,10 @@
 <text x="813" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X9</text>
 <rect x="844" y="444" width="50" height="30" rx="6" class="c-done"><title>X10 Locked blocks, `data-is-locked`: done</title></rect>
 <text x="869" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X10</text>
-<rect x="900" y="444" width="50" height="30" rx="6" class="c-done"><title>X11 Touch and pen input: done</title></rect>
-<text x="925" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X11</text>
-<rect x="956" y="444" width="50" height="30" rx="6" class="c-done"><title>X13 Marquee selection: drag over an empty area to select the blocks inside: done</title></rect>
-<text x="981" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X13</text>
+<rect x="900" y="444" width="50" height="30" rx="6" class="c-partial"><title>X11 Touch and pen input: partial</title></rect>
+<text x="925" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">X11</text>
+<rect x="956" y="444" width="50" height="30" rx="6" class="c-partial"><title>X13 Marquee selection: drag over an empty area to select the blocks inside: partial</title></rect>
+<text x="981" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">X13</text>
 <rect x="1012" y="444" width="50" height="30" rx="6" class="c-done"><title>X12 Esc cancels, one gesture is one undo step: done</title></rect>
 <text x="1037" y="464" font-size="13" font-weight="700" text-anchor="middle" class="t-done">X12</text>
 </g>
@@ -206,17 +206,17 @@
 </g>
 <g data-area="Text editing">
 <text x="40" y="556" font-size="15" font-weight="600">Text editing</text>
-<text x="324" y="556" font-size="14" text-anchor="end" class="done">7/7</text>
+<text x="324" y="556" font-size="14" text-anchor="end" class="muted">5/7</text>
 <rect x="340" y="536" width="50" height="30" rx="6" class="c-done"><title>E1 How editing starts: double-click or click on a selected block: done</title></rect>
 <text x="365" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E1</text>
 <rect x="396" y="536" width="50" height="30" rx="6" class="c-done"><title>E2 End row grows while typing: done</title></rect>
 <text x="421" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E2</text>
 <rect x="452" y="536" width="50" height="30" rx="6" class="c-done"><title>E3 Whether the block shrinks when text is deleted: done</title></rect>
 <text x="477" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E3</text>
-<rect x="508" y="536" width="50" height="30" rx="6" class="c-done"><title>E4 Text toolbar: styles, bold, italic, links, alignment, color, size: done</title></rect>
-<text x="533" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E4</text>
-<rect x="564" y="536" width="50" height="30" rx="6" class="c-done"><title>E5 Paste handling and HTML cleanup: done</title></rect>
-<text x="589" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E5</text>
+<rect x="508" y="536" width="50" height="30" rx="6" class="c-partial"><title>E4 Text toolbar: styles, bold, italic, links, alignment, color, size: partial</title></rect>
+<text x="533" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">E4</text>
+<rect x="564" y="536" width="50" height="30" rx="6" class="c-partial"><title>E5 Paste handling and HTML cleanup: partial</title></rect>
+<text x="589" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">E5</text>
 <rect x="620" y="536" width="50" height="30" rx="6" class="c-done"><title>E6 Whether a desktop text edit changes the phone layout's height: done</title></rect>
 <text x="645" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E6</text>
 <rect x="676" y="536" width="50" height="30" rx="6" class="c-done"><title>E7 Link editor for buttons and text: done</title></rect>
@@ -224,13 +224,13 @@
 </g>
 <g data-area="Overlap and layers">
 <text x="40" y="602" font-size="15" font-weight="600">Overlap and layers</text>
-<text x="324" y="602" font-size="14" text-anchor="end" class="done">5/5</text>
+<text x="324" y="602" font-size="14" text-anchor="end" class="muted">4/5</text>
 <rect x="340" y="582" width="50" height="30" rx="6" class="c-done"><title>Z1 Overlap allowed: done</title></rect>
 <text x="365" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Z1</text>
 <rect x="396" y="582" width="50" height="30" rx="6" class="c-done"><title>Z2 How Bring forward and Send backward change z: done</title></rect>
 <text x="421" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Z2</text>
-<rect x="452" y="582" width="50" height="30" rx="6" class="c-done"><title>Z3 Bring to front and Send to back: done</title></rect>
-<text x="477" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Z3</text>
+<rect x="452" y="582" width="50" height="30" rx="6" class="c-partial"><title>Z3 Bring to front and Send to back: partial</title></rect>
+<text x="477" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">Z3</text>
 <rect x="508" y="582" width="50" height="30" rx="6" class="c-done"><title>Z4 Selecting a block covered by another: done</title></rect>
 <text x="533" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Z4</text>
 <rect x="564" y="582" width="50" height="30" rx="6" class="c-done"><title>Z5 Editor layer z-index of about 10000 + z and 100000 + z: done</title></rect>
@@ -270,15 +270,15 @@
 </g>
 <g data-area="Editor chrome">
 <text x="40" y="740" font-size="15" font-weight="600">Editor chrome</text>
-<text x="324" y="740" font-size="14" text-anchor="end" class="muted">10/12</text>
+<text x="324" y="740" font-size="14" text-anchor="end" class="muted">8/12</text>
 <rect x="340" y="720" width="50" height="30" rx="6" class="c-done"><title>U1 Grid overlay only during a gesture: done</title></rect>
 <text x="365" y="740" font-size="13" font-weight="700" text-anchor="middle" class="t-done">U1</text>
 <rect x="396" y="720" width="50" height="30" rx="6" class="c-done"><title>U2 Grid look: SVG pattern, `#B7B7B7`, `#F2F2F240`, radius 3: done</title></rect>
 <text x="421" y="740" font-size="13" font-weight="700" text-anchor="middle" class="t-done">U2</text>
-<rect x="452" y="720" width="50" height="30" rx="6" class="c-done"><title>U3 Hover and selection outlines, handles, label pill: done</title></rect>
-<text x="477" y="740" font-size="13" font-weight="700" text-anchor="middle" class="t-done">U3</text>
-<rect x="508" y="720" width="50" height="30" rx="6" class="c-done"><title>U4 Block toolbar: edit, design, duplicate, delete, layers: done</title></rect>
-<text x="533" y="740" font-size="13" font-weight="700" text-anchor="middle" class="t-done">U4</text>
+<rect x="452" y="720" width="50" height="30" rx="6" class="c-partial"><title>U3 Hover and selection outlines, handles, label pill: partial</title></rect>
+<text x="477" y="740" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">U3</text>
+<rect x="508" y="720" width="50" height="30" rx="6" class="c-partial"><title>U4 Block toolbar: edit, design, duplicate, delete, layers: partial</title></rect>
+<text x="533" y="740" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">U4</text>
 <rect x="564" y="720" width="50" height="30" rx="6" class="c-done"><title>U5 Add block menu and default placement: done</title></rect>
 <text x="589" y="740" font-size="13" font-weight="700" text-anchor="middle" class="t-done">U5</text>
 <rect x="620" y="720" width="50" height="30" rx="6" class="c-done"><title>U6 Top bar: Save, Exit, undo, redo, device toggle, preview: done</title></rect>

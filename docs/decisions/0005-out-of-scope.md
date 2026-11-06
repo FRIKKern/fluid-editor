@@ -34,6 +34,8 @@ Out of scope now:
 - **The social rows' writes on the trial site (T11).** The rows are one list for the whole site, written at once with no Save. What Add, edit, hide, delete and reorder do there beyond the reads in `parity/findings/T11.json` stays unread. Ours keeps the list in the browser.
 - **Zola and Bandsintown's content (T12).** Zola is a frame from its service and Bandsintown a tour list from its own, and real content needs an account or listing. The same pull reads differently from run to run: Zola `s -2` kept 17 rows on 2026-11-04 and went to 18 on 2026-11-06; Bandsintown `se +2,+1` read 22 rows on 2026-11-04 and 5 on 2026-11-06. Ours are stand-ins of the right size. Their 5 misses stay named in resize-check, marked out of scope.
 - **A form's Additional Storage and reCAPTCHA (T9).** Outside services, and storage writes outside the page, so a probe reads them and never presses them. Ours shows both rows faded.
+- **A form's stored submissions (T9).** Manage Submissions and Export need stored submissions, which ours does not have, and a submit writes to form storage. Ours shows both rows faded.
+- **What a form draws after a real submit (T9).** Reading it means a submit, which writes to form storage. The editor's Edit Post-Submit view is read and built. Ours draws the same after a submit, or follows the redirect, and that part is inferred.
 - **Edit with AI and Reshoot on an image (T4).** They need an AI service, and the dialog's OK accepts AI Terms on the owner's account, so a probe never presses it and nothing past the dialog is read. Ours shows both rows faded.
 
 ## Considered

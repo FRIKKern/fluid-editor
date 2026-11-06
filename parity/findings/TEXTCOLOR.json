@@ -181,7 +181,7 @@
         22
       ],
       "rule": "x over the whole bar is the hue; a click at 60 gives hue 84.47, #668040 from #804040. The thumb centre moves from 11 to 245",
-      "gradient": "to left, rgb(255, 0, 0) 0%, rgb(255, 0, 153) 10%, rgb(205, 0, 255) 20%, rgb(50, 0, 255) 30%, rgb(0, 102 ... read this far; the rest of the stops are inferred from the look"
+      "gradient": "to left, rgb(255, 0, 0) 0%, rgb(255, 0, 153) 10%, rgb(205, 0, 255) 20%, rgb(50, 0, 255) 30%, rgb(0, 102, 255) 40%, rgb(0, 255, 253) 50%, rgb(0, 255, 102) 60%, rgb(53, 255, 0) 70%, rgb(205, 255, 0) 80%, rgb(255, 153, 0) 90%, rgb(255, 0, 0) 100%"
     },
     "fields": {
       "Hex": {
@@ -271,7 +271,8 @@
         "width": "40px",
         "marginLeft": "-40px",
         "paddingRight": "10px",
-        "whiteSpace": "pre"
+        "whiteSpace": "pre",
+        "textAlign": "right"
       }
     },
     "numbered": {
@@ -293,7 +294,8 @@
         "width": "40px",
         "marginLeft": "-40px",
         "paddingRight": "0px",
-        "whiteSpace": "pre"
+        "whiteSpace": "pre",
+        "textAlign": "right"
       }
     },
     "mono": {
@@ -311,7 +313,6 @@
         "lineHeight": "16px",
         "letterSpacing": "0.16px"
       }
-    },
-    "inferred": "the marker's text-align: right, from the shot"
+    }
   }
 }

@@ -1,0 +1,2150 @@
+{
+  "item": "CAP-T10MD2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: script and handlers in Code and Embed, the source switch on CSS, and what the Markdown block's toolbar writes",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "setCode",
+      "<p>a</p><script>0</script><p>b</p>"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "code html with script",
+      {
+        "htmlOf": ".sqs-code-container",
+        "areas": 0,
+        "frameEls": ".sqs-code-container",
+        "sel": ".sqs-blockStatus, .sqs-blockStatus *, .removed-script"
+      }
+    ],
+    [
+      "shot",
+      "code-script"
+    ],
+    [
+      "setCode",
+      "<p onclick=\"0\" title=\"t\">x</p>"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "code html with handler",
+      {
+        "htmlOf": ".sqs-code-container",
+        "areas": 0
+      }
+    ],
+    [
+      "clickIf",
+      "Expand"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "clickAt",
+      585,
+      306
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "CSS"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "clickIf",
+      "Close"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "css switch",
+      {
+        "checks": true,
+        "panelEls": "input[type=checkbox]",
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "css-switch"
+    ],
+    [
+      "pressNamed",
+      "Display Source Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "css switch pressed",
+      {
+        "checks": true,
+        "htmlOf": ".sqs-code-container"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "<p onclick=\"0\">a</p><script>0</script>"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "embed with script",
+      {
+        "htmlOf": ".sqs-embed-container",
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "embed-script"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "md panel",
+      {
+        "has": [
+          "Paragraph",
+          "Heading"
+        ],
+        "panelEls": ".cm-content"
+      }
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "bold empty",
+      {
+        "panelEls": ".cm-content",
+        "has": [
+          "Paragraph",
+          "Heading"
+        ]
+      }
+    ],
+    [
+      "keys",
+      "x"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "bold empty typed",
+      {
+        "panelEls": ".cm-content",
+        "has": [
+          "Paragraph",
+          "Heading"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      ""
+    ],
+    [
+      "pressNamed",
+      "Italic"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "keys",
+      "x"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "italic empty typed",
+      {
+        "panelEls": ".cm-content",
+        "has": [
+          "Paragraph",
+          "Heading"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      ""
+    ],
+    [
+      "pressNamed",
+      "Bulleted List"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "keys",
+      "x"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "bullet empty typed",
+      {
+        "panelEls": ".cm-content",
+        "has": [
+          "Paragraph",
+          "Heading"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      ""
+    ],
+    [
+      "pressNamed",
+      "Numbered List"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "keys",
+      "x"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "number empty typed",
+      {
+        "panelEls": ".cm-content",
+        "has": [
+          "Paragraph",
+          "Heading"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      ""
+    ],
+    [
+      "pressNamed",
+      "Quote"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "keys",
+      "x"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "quote empty typed",
+      {
+        "panelEls": ".cm-content",
+        "has": [
+          "Paragraph",
+          "Heading"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "bold selected",
+      {
+        "panelEls": ".cm-content",
+        "has": [
+          "Paragraph",
+          "Heading"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "bold again",
+      {
+        "panelEls": ".cm-content",
+        "has": [
+          "Paragraph",
+          "Heading"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Italic"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "italic selected",
+      {
+        "panelEls": ".cm-content",
+        "has": [
+          "Paragraph",
+          "Heading"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "one\ntwo"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Bulleted List"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "bullets selected",
+      {
+        "panelEls": ".cm-content",
+        "has": [
+          "Paragraph",
+          "Heading"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Bulleted List"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "bullets again",
+      {
+        "panelEls": ".cm-content",
+        "has": [
+          "Paragraph",
+          "Heading"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "one\ntwo"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Numbered List"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "numbers selected",
+      {
+        "panelEls": ".cm-content",
+        "has": [
+          "Paragraph",
+          "Heading"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "one\ntwo"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Quote"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "quote selected",
+      {
+        "panelEls": ".cm-content",
+        "has": [
+          "Paragraph",
+          "Heading"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "link selected",
+      {
+        "panelEls": ".cm-content",
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "md-link"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "after link",
+      {
+        "panelEls": ".cm-content"
+      }
+    ],
+    [
+      "clickIf",
+      "Paragraph"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "block list",
+      {
+        "controls": true,
+        "panelEls": ".cm-content"
+      }
+    ],
+    [
+      "shot",
+      "md-blocklist"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "after list",
+      {
+        "controls": true,
+        "panelEls": ".cm-content"
+      }
+    ]
+  ],
+  "reads": {
+    "code html with script": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Embedded ScriptsThis block contains embe",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            378
+          ]
+        }
+      ],
+      "htmlOf": "<div class=\"sqs-blockStatus\"><div class=\"sqs-blockStatus-box\"><div class=\"sqs-blockStatus-box-title\">Embedded Scripts</div><div class=\"sqs-blockStatus-box-message\">This block contains embedded scripts. Embedded scripts are disabled while you're logged in and editing your site.</div><div class=\"sqs-blockStatus-box-button\" role=\"button\">Preview in safe mode</div></div></div><p>a</p><div class=\"removed-script\">Script Disabled</div><p>b</p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "sqs-blockStatus",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            262.7
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "1001",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-blockStatus-box",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            262.7
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(62, 62, 62)",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderTopWidth": "1px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgb(208, 208, 208)",
+            "borderRadius": "4px",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(62, 62, 62)",
+            "boxShadow": "rgba(0, 0, 0, 0.1) -2px 1px 6px 1px",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-blockStatus-box-title",
+          "box": [
+            123.1,
+            267.2,
+            144.1,
+            19.8
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(62, 62, 62)",
+            "borderTopColor": "rgb(62, 62, 62)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(62, 62, 62)",
+            "fontSize": "12px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-blockStatus-box-message",
+          "box": [
+            123.1,
+            298,
+            144.1,
+            108.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(62, 62, 62)",
+            "borderTopColor": "rgb(62, 62, 62)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(62, 62, 62)",
+            "fontSize": "11px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-blockStatus-box-button",
+          "box": [
+            123.1,
+            418,
+            144.1,
+            66
+          ],
+          "css": {
+            "display": "inline-block",
+            "opacity": "1",
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(62, 62, 62)",
+            "borderTopColor": "rgb(255, 255, 255)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 255, 255)",
+            "fontSize": "11px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "removed-script",
+          "box": [
+            100.1,
+            561.4,
+            224.1,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "0.6",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "code html with handler": {
+      "htmlOf": "<p onclick=\"0\" title=\"t\">x</p>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "css switch": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            301,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            433.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            495.8,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "",
+          "value": true,
+          "box": [
+            882,
+            410,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            743,
+            36,
+            36
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "box": [
+            882,
+            410,
+            12,
+            12
+          ],
+          "checked": true,
+          "text": "Display Source Code"
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "cls": "css-1co9i8d",
+          "label": "true",
+          "lines": 0,
+          "box": [
+            882,
+            410,
+            12,
+            12
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "css switch pressed": {
+      "checks": [
+        {
+          "box": [
+            882,
+            410,
+            12,
+            12
+          ],
+          "checked": true,
+          "text": "Display Source Code"
+        }
+      ],
+      "htmlOf": "<pre class=\"source-code\">&lt;p onclick=\"0\" title=\"t\"&gt;x&lt;/p&gt;</pre>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "embed with script": {
+      "block": {
+        "desktop": "1/2/7/10",
+        "mobile": "1/2/9/10",
+        "box": [
+          100.1,
+          258.7,
+          459.3,
+          244.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793954726487_683",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,117.5",
+          "col 10x10 at 455.3,117.5",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,240.9",
+          "se 10x10 at 455.3,240.9",
+          "sw 10x10 at -6,240.9"
+        ]
+      },
+      "htmlOf": "<div class=\"sqs-blockStatus\"><div class=\"sqs-blockStatus-box\"><div class=\"sqs-blockStatus-box-title\">Embedded Scripts</div><div class=\"sqs-blockStatus-box-message\">This block contains embedded scripts. Embedded scripts are disabled while you're logged in and editing your site.</div><div class=\"sqs-blockStatus-box-button\" role=\"button\">Preview in safe mode</div></div></div>\n  \n  \n    \n    \n      \n        \n        \n        \n        \n          <p onclick=\"0\">a</p><div class=\"removed-script\">Script Disabled</div>\n        \n        \n        \n      \n    \n  \n  \n    \n\n\n\n  \n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "md panel": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping",
+          "label": "Add markdown…",
+          "lines": 1,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "has": {
+        "Paragraph": true,
+        "Heading": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bold empty": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "****",
+          "lines": 1,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "has": {
+        "Paragraph": true,
+        "Heading": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bold empty typed": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "**x**",
+          "lines": 1,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "has": {
+        "Paragraph": true,
+        "Heading": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "italic empty typed": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "*x*",
+          "lines": 1,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "has": {
+        "Paragraph": true,
+        "Heading": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bullet empty typed": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "* x",
+          "lines": 1,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "has": {
+        "Paragraph": true,
+        "Heading": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "number empty typed": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "1. x",
+          "lines": 1,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "has": {
+        "Paragraph": true,
+        "Heading": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "quote empty typed": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "> x",
+          "lines": 1,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "has": {
+        "Paragraph": true,
+        "Heading": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bold selected": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "**word**",
+          "lines": 1,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "has": {
+        "Paragraph": true,
+        "Heading": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bold again": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "word",
+          "lines": 1,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "has": {
+        "Paragraph": true,
+        "Heading": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "italic selected": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "*word*",
+          "lines": 1,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "has": {
+        "Paragraph": true,
+        "Heading": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bullets selected": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "* one* two",
+          "lines": 2,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "has": {
+        "Paragraph": true,
+        "Heading": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bullets again": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "onetwo",
+          "lines": 2,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "has": {
+        "Paragraph": true,
+        "Heading": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "numbers selected": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "1. one1. two",
+          "lines": 2,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "has": {
+        "Paragraph": true,
+        "Heading": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "quote selected": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "> one> two",
+          "lines": 2,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "has": {
+        "Paragraph": true,
+        "Heading": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "link selected": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            316,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            316,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            381,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            381,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            381,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            381,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            381,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            381,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            381,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            731,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "URL",
+          "box": [
+            448.1,
+            449,
+            96,
+            28
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Enter link, search, or add files",
+          "value": "",
+          "box": [
+            448.1,
+            488,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Services/services",
+          "box": [
+            450,
+            587,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "About/about",
+          "box": [
+            450,
+            648,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Contact/contact",
+          "box": [
+            450,
+            709,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Gestures Probe/gestures-probe",
+          "box": [
+            450,
+            819,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Blocks Probe/blocks-probe",
+          "box": [
+            450,
+            880,
+            257,
+            61
+          ]
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping",
+          "label": "word",
+          "lines": 1,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after link": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping",
+          "label": "word",
+          "lines": 1,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "block list": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            316,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            316,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            381,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            381,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            381,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            381,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            381,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            381,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            381,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            731,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            793,
+            148.5,
+            16
+          ]
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping",
+          "label": "word",
+          "lines": 1,
+          "box": [
+            396.4,
+            427,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after list": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            219.6,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            222.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            374.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            661,
+            111.1,
+            36
+          ]
+        }
+      ],
+      "panelEls": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "answer": "In HTML, Markdown and Embed a script leaves <div class=removed-script>Script Disabled</div> in its place, under an Embedded Scripts status box 262.7 tall. Rows go as if the box weren't there. A handler stays in the HTML. On CSS the source switch is on, grey, and a press does nothing. The panel also shows an Upgrade note about premium features when a script is in the code, which is the trial's plan. The Markdown block's toolbar: Bold and Italic wrap the selection in ** and * and take it off again, or leave the caret between them; Bulleted List, Numbered List and Quote start each line with * , 1. and > , and take it off. Link opens the link popover.",
+  "notPressed": [
+    "Preview in safe mode",
+    "Learn More",
+    "See the syntax cheatsheet",
+    "Premium Feature"
+  ],
+  "leftDirty": true
+}

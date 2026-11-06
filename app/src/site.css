@@ -187,11 +187,13 @@ svg.sqs-shape:not(.is-square) { position: absolute; inset: 0; }
   background: #0f0f0f; color: #e8e8e8; border-radius: 10px;
   font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; line-height: 1.5;
 }
-/* Display Source Code on the oracle: plain text in the page's colour, clipped at the block's edge (CAP-T10PRE.json). */
-.sqs-block-code .sqs-code-container pre.source-code {
+.sqs-block-code .sqs-code-container { line-height: var(--body-font-line-height); } /* bare text, 22.4 a line (CAP-T10FRESH.json) */
+/* A pre in a code block is plain: page colour, no box, clipped at the block's edge (CAP-T10PRE.json). Source is in monospace. */
+.sqs-block-code .sqs-code-container pre {
   padding: 0; overflow: hidden; background: none; color: inherit; border-radius: 0;
-  font-family: monospace; font-size: 1rem; line-height: var(--body-font-line-height); white-space: pre;
+  font-family: inherit; font-size: 1rem; line-height: var(--body-font-line-height); white-space: pre;
 }
+.sqs-block-code .sqs-code-container pre.source-code { font-family: monospace; }
 
 /* Stacks (S3), values from the oracle (parity/findings/S3.json) */
 .sqs-block-stack { box-sizing: border-box; }
@@ -241,6 +243,14 @@ svg.sqs-shape:not(.is-square) { position: absolute; inset: 0; }
 /* Site header (P7), see renderHeader in render.js */
 body { position: relative; }
 .site-header { position: absolute; top: 0; left: 0; right: 0; z-index: 10; }
+/* The header takes the first section's theme: each theme's Site Title and Navigation Links rows
+   (parity/findings/CAP-HEADERTHEME.json, CAP-THEMEROWS.json). */
+.site-header { color: hsla(var(--black-hsl), 1); }
+.site-header[data-section-theme="white-bold"] .header-title, .site-header[data-section-theme="light-bold"] .header-title { color: hsla(var(--safeDarkAccent-hsl), 1); }
+.site-header[data-section-theme="bright-inverse"] { color: hsla(var(--accent-hsl), 1); }
+.site-header[data-section-theme="bright"] { color: hsla(var(--safeInverseAccent-hsl), 1); }
+.site-header[data-section-theme="dark"], .site-header[data-section-theme="black"] { color: hsla(var(--white-hsl), 1); }
+.site-header[data-section-theme="black-bold"] { color: hsla(var(--safeLightAccent-hsl), 1); }
 /* P8: above about 1520px the content stays in a centred 1400px box (one reading: title at 92, menu
    end at 1491 in a 1583px canvas); 4vw sides below that (P7). */
 .header-inner { display: flex; align-items: center; padding: 3vw max(4vw, calc((100% - 1400px) / 2)); }
@@ -254,7 +264,7 @@ body { position: relative; }
 .header-nav-item, .header-action { color: inherit; text-decoration: none; font-size: 16px; }
 .header-actions { display: flex; gap: 1.3vw; white-space: nowrap; padding-left: 2vw; line-height: 1.4; }
 /* The button keeps the browser's own padding, as on the oracle: 35px + 1px + 1px in Chrome. */
-.header-burger { display: none; box-sizing: content-box; width: 35px; height: 35px; margin-left: auto; padding: revert; border: 0; background: none; cursor: pointer; flex-direction: column; justify-content: center; gap: 8px; }
+.header-burger { display: none; color: inherit; box-sizing: content-box; width: 35px; height: 35px; margin-left: auto; padding: revert; border: 0; background: none; cursor: pointer; flex-direction: column; justify-content: center; gap: 8px; }
 .header-burger span { display: block; height: 1px; width: 35px; background: currentColor; }
 .site-header.is-collapsed .header-inner { padding: 6vw; }
 .site-header.is-collapsed .header-nav, .site-header.is-collapsed .header-actions { display: none; }
@@ -403,41 +413,101 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .fe-form label.title { display: block; font-size: 16px; line-height: 22.4px; padding-bottom: 8px; }
 .fe-form label.caption { display: block; padding-bottom: 4px; }
 /* Name sub-labels and checkbox labels use the small text size (value 0.9). */
-.fe-form .caption-row, .fe-form .form-checkbox .option {
+.fe-form .caption-row, .fe-form .form-checkbox .option, .fe-form .description, .fe-form .caption-text, .fe-form .likert-options .option {
   --v: var(--small-text-size-value);
   font-size: min(calc((var(--v) - 1) * 1.2vw + 1rem), max(calc((var(--v) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--v) * 1rem)));
   line-height: 1.4em;
 }
 @media screen and (max-width: 767px) and (orientation: portrait) {
-  .fe-form .caption-row, .fe-form .form-checkbox .option { font-size: calc((var(--v) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
+  .fe-form .caption-row, .fe-form .form-checkbox .option, .fe-form .description, .fe-form .caption-text, .fe-form .likert-options .option { font-size: calc((var(--v) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
 }
 .fe-form .caption-row { display: flex; flex-wrap: wrap; align-items: baseline; padding-bottom: 4px; }
 .fe-form .caption-row .req { display: block; line-height: 1em; }
-.fe-form input[type=text], .fe-form input[type=email], .fe-form textarea, .fe-form select {
+.fe-form input[type=text], .fe-form input[type=email], .fe-form input[type=date], .fe-form input[type=time], .fe-form textarea, .fe-form select {
   display: block; width: 100%; box-sizing: border-box; font: inherit; font-size: 16px; line-height: 22.4px;
   padding: 10px 20px; border: 1px solid currentColor; background: transparent; color: inherit; border-radius: 24.784px;
 }
 /* Hover & Focus, Accent, the default: the edge goes from 1 to 2 inward (CAP-FORMSUBS.json). */
-.fe-form input[type=text], .fe-form input[type=email], .fe-form textarea, .fe-form select { transition: box-shadow .075s cubic-bezier(.33, 1, .68, 1); }
-.fe-form input[type=text]:hover, .fe-form input[type=email]:hover, .fe-form textarea:hover, .fe-form select:hover { box-shadow: inset 0 0 0 1px currentColor; }
+.fe-form input[type=text], .fe-form input[type=email], .fe-form input[type=date], .fe-form input[type=time], .fe-form .form-affix, .fe-form textarea, .fe-form select { transition: box-shadow .075s cubic-bezier(.33, 1, .68, 1); }
+.fe-form input[type=text]:hover, .fe-form input[type=email]:hover, .fe-form input[type=date]:hover, .fe-form input[type=time]:hover, .fe-form .form-affix:hover, .fe-form textarea:hover, .fe-form select:hover { box-shadow: inset 0 0 0 1px currentColor; }
 .fe-form textarea { height: 100px; resize: vertical; }
-.fe-form select { height: 44.4px; padding: 10px 42px; }
+.fe-form select { height: 44.4px; padding: 10px 42px 10px 20px; appearance: none; -webkit-appearance: none; }
+.fe-form select.is-empty, .fe-form ::placeholder { color: color-mix(in srgb, currentColor 55%, transparent); }
+.fe-form ::placeholder { color: currentColor; opacity: .55; }
 .fe-form .name-parts { display: flex; gap: 10px; }
-.fe-form .name-parts .field { flex: 1; min-width: 0; }
+.fe-form .name-parts .field { flex: 0 1 50%; min-width: 0; }
 .fe-form .form-checkbox .option { margin-top: 14px; }
+.fe-form .form-checkbox--loose { padding-bottom: 4px; }
+.fe-form .form-checkbox--loose .option { margin-top: 18px; }
 .fe-form .form-checkbox legend + .option { margin-top: 6px; }
+.fe-form .form-checkbox .description + .option { margin-top: 10px; }
+.fe-form .form-radio .option { min-height: 25.7px; }
 .fe-form .form-checkbox label { display: inline-flex; align-items: center; gap: 11px; vertical-align: baseline; }
 .fe-form .form-checkbox input, .fe-form .form-signup input {
   appearance: none; -webkit-appearance: none; box-sizing: border-box;
   display: flex; align-items: center; justify-content: center; font-size: 16px; line-height: 22.4px;
-  width: 20px; height: 20px; margin: 0; flex: none; border: 2px solid currentColor; border-radius: 300px;
+  width: 20px; height: 20px; margin: 0; flex: none; border: 2px solid transparent; outline: 1px solid currentColor; outline-offset: -1px; border-radius: 300px;
 }
 /* A 12px mark box, empty until checked. It sets the row's baseline, so a one-line row is 21.2 to 22.3 tall as on the oracle. */
 .fe-form .form-checkbox input::before { content: ''; width: 12px; height: 12px; }
 .fe-form .form-signup { margin-top: 6px; font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); line-height: 1.4em; }
 .fe-form .form-signup label { display: inline-flex; align-items: center; gap: 11px; }
-.fe-form label.title .req { margin-left: 8px; line-height: 1; font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); opacity: .7; }
-.fe-form .caption-row .req { margin-left: 8px; line-height: 1; opacity: .7; }
+.fe-form label.title .req { margin-left: 8.768px; line-height: 1; font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); opacity: .7; }
+.fe-form .caption-row .req { margin-left: .548em; line-height: 1; opacity: .7; }
+/* After a submit (parity/findings/FORMFIELDS.json, postSubmit): the form keeps its place and sets the height. */
+.form-wrapper { display: grid; grid-template-columns: minmax(0, 1fr); }
+.form-wrapper > * { grid-area: 1 / 1; }
+.form-post { display: none; flex-direction: column; font-size: 16px; line-height: 22.4px; }
+.form-post--middle { justify-content: center; }
+.form-post--bottom { justify-content: flex-end; }
+.form-submission-text { margin-top: 20px; }
+.form-submission-text--align-center { text-align: center; }
+.form-submission-text--align-right { text-align: right; }
+.form-submission-text p { margin: 16px 0; }
+.form-wrapper.is-post-view > .form-post, .form-wrapper.is-submitted > .form-post { display: flex; }
+.form-wrapper.is-post-view > .fe-form, .form-wrapper.is-submitted > .fe-form { visibility: hidden; }
+/* The oracle's view leaves the button's word showing, and only that. */
+.form-wrapper.is-post-view > .fe-form .form-submit { visibility: visible; background: transparent; box-shadow: none; pointer-events: none; }
+/* The kinds a form can add (parity/findings/FORMFIELDS.json). */
+.fe-form legend .req { margin-left: 8.768px; line-height: 1; font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); opacity: .7; }
+.fe-form .description { margin: 0 0 4px; padding: 7.04px 0; line-height: 1.4em; opacity: .7; }
+.fe-form .form-select-box, .fe-form .form-pick { display: block; position: relative; }
+.fe-form .form-chevron { position: absolute; right: 21px; top: 16.2px; pointer-events: none; }
+.fe-form .form-affix { display: flex; align-items: center; box-sizing: border-box; height: 44.4px; border: 1px solid currentColor; border-radius: 24.784px; }
+.fe-form .form-affix--short { width: 200px; }
+.fe-form .form-input-prefix { flex: none; padding: 0 10px 0 20px; font-size: 16px; line-height: 22.4px; opacity: .55; }
+.fe-form .form-affix input[type=text], .fe-form .form-affix input[type=text]:hover { flex: 1; min-width: 0; height: 42.4px; padding: 0 20px 0 0; border: 0; border-radius: 0 24.784px 24.784px 0; box-shadow: none; }
+.fe-form .form-pick { width: 200px; }
+.fe-form .form-pick input { height: 46.4px; }
+.fe-form .form-pick input::-webkit-calendar-picker-indicator { opacity: 0; }
+.fe-form .form-pick svg { position: absolute; right: 20px; top: 15.2px; pointer-events: none; }
+.fe-form .form-time { display: flow-root; }
+.fe-form .caption-text { margin: 4px 0; padding: 4px 0; line-height: 1.4em; }
+.fe-form .form-phone, .fe-form .form-address { margin: 0; }
+.fe-form .phone-parts { display: flex; gap: 7px; }
+.fe-form .phone-parts .field { flex: 1; min-width: 0; margin-bottom: 20px; }
+.fe-form .phone-parts .field-country { flex: 0 0 204.4px; }
+.fe-form .form-address > .field, .fe-form .address-row .field { margin-bottom: 20px; }
+.fe-form .address-row { display: flex; gap: 10px; }
+.fe-form .address-row .field { flex: 1; min-width: 0; }
+.fe-form .caption-row--lead { padding-top: 4px; }
+.fe-form .form-line { margin: 32px 0; padding: 0 0 4.32px; font-size: 14.4px; }
+.fe-form .form-line.underline { border-bottom: 1px solid currentColor; }
+.fe-form .form-line .title { padding-bottom: 8px; font-size: 16px; line-height: 22.4px; }
+.fe-form .form-line .description { margin: 0; }
+.fe-form .form-survey { margin: 0; padding-bottom: 12px; }
+.fe-form .form-survey .item { margin: 25.6px 0; padding: 0; border: 0; min-width: 0; }
+.fe-form .form-survey legend.question { padding: 0 0 8px; }
+.fe-form .likert-options { display: flex; align-items: flex-start; }
+.fe-form .likert-options .option { flex: 0 0 20%; box-sizing: border-box; margin: 6px 0 4px; border-top: 1px solid currentColor; line-height: 1.4em; }
+.fe-form .likert-options label { display: block; padding: 10px 0 0 1px; font-size: .9em; line-height: 19.712px; }
+.fe-form .likert-options input { appearance: none; -webkit-appearance: none; display: block; box-sizing: border-box; width: 20px; height: 20px; margin: 0 0 10px; border: 2px solid transparent; outline: 1px solid currentColor; outline-offset: -1px; border-radius: 50%; }
+.fe-form .file-upload { box-sizing: border-box; height: 112px; border: 1px dashed currentColor; border-radius: 24.784px; }
+.fe-form .file-upload label { position: relative; display: block; }
+.fe-form .file-upload input { position: absolute; inset: 0; opacity: 0; }
+.fe-form .file-upload-in { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 22px 0; }
+.fe-form .file-upload-ic { display: flex; align-items: center; justify-content: center; width: 33px; height: 33px; margin-bottom: 11px; border-radius: 50%; background: #fff; color: #000; }
+.fe-form .file-upload-in > span:last-child { line-height: 22px; }
 .fe-form .form-button-wrapper { margin: 0; }
 .fe-form .form-button-wrapper--align-center { text-align: center; }
 .fe-form .form-button-wrapper--align-right { text-align: right; }
@@ -507,7 +577,8 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .page-section .sqs-block-button-element, .page-section .form-submit { background: var(--button-bg); color: var(--button-ink); }
 
 /* Embed and video placeholders (T7, T10): the editor shows them, the published page does not. */
-.sqs-embed-container .sqs-blockStatus, .sqs-block-video-placeholder--empty, .fluid-image-component-empty-state-node { display: none; }
+.sqs-embed-container .sqs-blockStatus, .sqs-code-container .sqs-blockStatus, .removed-script, .sqs-block-video-placeholder--empty, .fluid-image-component-empty-state-node { display: none; }
+.sqs-block-code .sqs-code-container > :first-child { margin-top: 0; } /* the first paragraph sits at the top of the block (CAP-T10PULL.json) */
 .sqs-block-code .sqs-code-container > :last-child { margin-bottom: 0; }
 
 /* Text colors of the trial site palette (parity/findings/TEXTCOLOR.json). */

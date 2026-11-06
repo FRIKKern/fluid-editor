@@ -5,12 +5,12 @@ import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
-import { socialLook, ACCORDION_STYLES, ACCORDION_ICON, ACCORDION_LINE, ACCORDION_PAD, ACCORDION_WIDTH, BLEND_MODES, renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
+import { socialLook, ACCORDION_STYLES, ACCORDION_ICON, ACCORDION_LINE, ACCORDION_PAD, ACCORDION_WIDTH, BLEND_MODES, renderPage, renderSection, renderHeader, headerTheme, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
 import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
-import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPanelTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
+import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock } from './phone-order.js';
@@ -29,6 +29,7 @@ import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
 import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
+import { newField, writeFieldText, writeFieldSet, postOf } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
 const $ = (id) => document.getElementById(id);
@@ -188,13 +189,13 @@ function fitHeader() {
 // The header follows the model: a model without one (a replayed trace) shows none.
 let headerJson = null;
 function renderHeaderOnce() {
-  const json = JSON.stringify(model.header || null);
-  if (json === headerJson) return;
+  const json = JSON.stringify(model.header || null), theme = headerTheme(model);
+  if (json === headerJson) { const on = doc.getElementById('header'); if (on) on.dataset.sectionTheme = theme; return; }
   headerJson = json;
   const old = doc.getElementById('header') || doc.getElementById('header-slot');
   if (!old) return;
   if (!model.header) { old.outerHTML = '<div id="header-slot"></div>'; return; }
-  old.outerHTML = renderHeader(model.header);
+  old.outerHTML = renderHeader(model.header, theme);
   new win.Function(HEADER_SCRIPT)();
 }
 // Site Styles picks (U12): their fonts and rules sit at the end of the canvas's head.
@@ -228,6 +229,7 @@ function renderSectionDom(sid) {
     sectionEl(id).replaceWith(tmp.firstElementChild);
     decorate(id);
   }
+  renderHeaderOnce();
   fitHeader();
   drawSelection();
 }
@@ -594,6 +596,17 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
     return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
   }
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
+  // A form: the least rows that hold it, with no give (FORMFIELDS.json, blockFits).
+  // A form taller than its block stretches the grid's rows, so the pitch is read with the form out of it.
+  if (b.type === 'form') {
+    const f = blockEl(b.id)?.querySelector('.fe-form');
+    if (!f) return 1;
+    const h = f.getBoundingClientRect().height;
+    f.style.display = 'none';
+    const free = measure(f.closest('.fluid-engine'));
+    f.style.display = '';
+    return Math.max(1, Math.ceil((h + free.rg) / free.pitch));
+  }
   if (b.type === 'code' || b.type === 'embed') return Math.max(1, codeRowsFor(codeHeight(b), m));
   const root = blockEl(b.id);
   // A Fit button in the view on screen: its height is its own (BUTTONDESIGN.json).
@@ -1440,7 +1453,7 @@ function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
-  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; accView = null; imageView = null; fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; accView = null; imageView = null; ffView = null; showFormPost(null); fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'image' || b.mode !== 'shape' || designTab !== 'Design') imageView = null; // undo can leave Shape
   if (b.type !== 'image' || b.empty || designTab !== 'Design') fxView = null;
   if (fxView === 'settings' && !b.effect) fxView = 'list'; // undo can take the effect away
@@ -1452,11 +1465,13 @@ function renderBlockPanel() {
     : b.type === 'line' ? { kind: 'line' }
     : b.type === 'social' ? (() => { const l = socialLook(b, bp === 'mobile'); return { kind: 'social', links: socialList(), err: socErr, iconBorder: l.iconBorder, iconStyle: l.iconStyle, iconThick: l.iconThick, iconSize: l.iconSize, align: l.align }; })()
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
-    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', buttonAlign: b.buttonAlign || 'left', highlight: b.highlight || 'none', fihOpen }
+    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', buttonAlign: b.buttonAlign || 'left', highlight: b.highlight || 'none', fihOpen, fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
-  if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield]')) return; // keep a field being typed in
+  if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffView?.startsWith('ff-edit:') && !b.fields?.[Number(ffView.slice(8))]) ffView = 'ff-list'; // undo can take the field away
+  showFormPost(b);
+  if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || '#ffffff' } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: parseFloat(b.radius) || 0, corners: b.corners, empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
@@ -1464,7 +1479,7 @@ function renderBlockPanel() {
   const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
   const buttonView = b.type !== 'button' ? null : bp === 'mobile' && b.btnMobile ? b.btnMobile : { fit: b.fit, align: b.halign };
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
-  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
   if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, b.animations?.[anim.i], anim.menu) : animEditorHtml(b.animations[anim.i], anim.tab);
   if (fxView) paintEffectTiles(blockPanel, b.src);
@@ -2023,6 +2038,91 @@ function setMap(change, label) {
   commit(before, label);
   renderBlockPanel();
 }
+// Edit Form Fields (FORMFIELDS.json): one undo step per change. The block's rows follow the form.
+let ffView = null, ffBefore = null;
+function fitForm(b, s) {
+  const need = contentRows(b, measure(feEl(sel.sid))), a = lay(b).area, rows = a[2] - a[0];
+  if (need === rows) return;
+  const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), low = lowest();
+  a[2] = a[0] + need;
+  if (need < rows) s.rows[bp] -= low - lowest(); else growRows(s);
+  renderSectionDom(sel.sid);
+}
+function setForm(change, label, fit = true) {
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  b.fields ||= [];
+  change(b);
+  renderSectionDom(sel.sid);
+  if (fit) fitForm(b, S(sel.sid));
+  commit(before, label);
+  renderBlockPanel();
+  blockPanel.scrollTop = Math.min(blockPanel.scrollTop, blockPanel.scrollHeight);
+}
+const ffField = (b) => b.fields[Number(ffView.slice(8))];
+// While Edit Post-Submit is open the block shows what comes after a submit (FORMFIELDS.json, postSubmit).
+function showFormPost(b) {
+  const on = b?.type === 'form' && ffView === 'ff-post' ? blockEl(b.id)?.querySelector('.form-wrapper') : null;
+  for (const w of on ? [on] : doc?.querySelectorAll('.form-wrapper.is-post-view') || []) w.classList.toggle('is-post-view', !!on);
+  if (on) for (const w of doc.querySelectorAll('.form-wrapper.is-post-view')) if (w !== on) w.classList.remove('is-post-view');
+}
+const setPost = (k, v, label) => setForm((b) => { b.post = { ...b.post, [k]: v }; }, label, false); // the block's rows stay: read
+function showFf(view) { ffView = view; renderBlockPanel(); blockPanel.scrollTop = 0; }
+blockPanel.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-ff]');
+  if (!a || !sel || e.target.closest('.bp-ff-grip')) return;
+  const [act, arg] = a.dataset.ff.split(':'), n = Number(arg);
+  if (act === 'list') showFf('ff-list');
+  else if (act === 'post') showFf('ff-post');
+  else if (act === 'post-mode') setPost('redirect', arg === 'redirect', 'After Submission');
+  else if (act === 'post-align') setPost('align', arg, 'Message alignment');
+  else if (act === 'post-position') setPost('position', arg, 'Message position');
+  else if (act === 'back') { closeLinkPopover(); showFf(ffView === 'ff-list' || ffView === 'ff-post' ? null : 'ff-list'); }
+  else if (act === 'add') showFf('ff-add');
+  else if (act === 'edit') showFf(`ff-edit:${n}`);
+  else if (act === 'tile') { ffView = 'ff-list'; setForm((b) => b.fields.push(newField(arg)), `${arg} field added`); blockPanel.scrollTop = 0; }
+  else if (act === 'delete' || act === 'del') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n, 1), 'Field deleted'); blockPanel.scrollTop = 0; }
+  else if (act === 'dup') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n + 1, 0, JSON.parse(JSON.stringify(b.fields[n]))), 'Field duplicated'); blockPanel.scrollTop = 0; }
+  else if (act === 'opt-add') setForm((b) => { const o = b.fields[n].options; o.push(`Option ${o.length + 1}`); }, 'Option added');
+  else if (act === 'max') setForm((b) => { const f = ffField(b); f.maxFiles = Math.max(1, (f.maxFiles || 1) + n); }, 'Max files');
+});
+// A typed value shows at once and makes its undo step when the field is left.
+blockPanel.addEventListener('input', (e) => {
+  const q = e.target.closest('[data-ff-post]');
+  if (q && sel) {
+    ffBefore ??= JSON.stringify(model);
+    const b = B(sel.sid, sel.bid);
+    b.post = { ...b.post, [q.dataset.ffPost]: q.value };
+    renderSectionDom(sel.sid);
+    showFormPost(b);
+    if (q.dataset.ffPost === 'html') blockPanel.querySelector('.bp-ffp-code .bp-code-lines').innerHTML = Array.from({ length: Math.max(1, q.value.split('\n').length) }, (_, n) => n + 1).join('<br>');
+    return;
+  }
+  const t = e.target.closest('[data-ff-field],[data-ff-opt]');
+  if (!t || !sel || !ffView?.startsWith('ff-edit:')) return;
+  ffBefore ??= JSON.stringify(model);
+  const f = ffField(B(sel.sid, sel.bid));
+  if (t.dataset.ffOpt != null) f.options[Number(t.dataset.ffOpt)] = t.value;
+  else writeFieldText(f, t.dataset.ffField, t.value);
+  renderSectionDom(sel.sid);
+  if (t.dataset.ffField === 'label') blockPanel.querySelector('.bp-ff-title').textContent = t.value;
+});
+blockPanel.addEventListener('change', (e) => {
+  if (sel && e.target.closest('[data-ff-post]')) {
+    const before = ffBefore;
+    ffBefore = null;
+    if (before) commit(before, 'Post-submit changed');
+    return;
+  }
+  if (!sel || !ffView?.startsWith('ff-edit:')) return;
+  if (e.target.closest('[data-ff-field],[data-ff-opt]')) {
+    const before = ffBefore;
+    ffBefore = null;
+    if (before) { fitForm(B(sel.sid, sel.bid), S(sel.sid)); commit(before, 'Field changed'); }
+    return;
+  }
+  const t = e.target.closest('[data-ff-set]');
+  if (t) setForm((b) => writeFieldSet(ffField(b), t.dataset.ffSet, t.checked), 'Field changed');
+});
 function addSocialLink(field) {
   if (!socialKind(field.value.trim())) { socErr = 'URL not found'; const v = field.value; renderBlockPanel(); const f = blockPanel.querySelector('[data-soc-add]'); if (f) { f.value = v; f.focus(); } return; }
   socView = null; socErr = '';
@@ -2204,10 +2304,12 @@ function renderShapePop() {
     const c = colorParts(shapeColorOf(b, kind));
     const custom = shapeUi.custom && (shapeUi.custom.hex === toHex(c.rgb) ? shapeUi.custom : { ...shapeUi.custom, ...hexToHsv(toHex(c.rgb)), hex: toHex(c.rgb) });
     if (custom) shapeUi.custom = custom;
-    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? !!b.color : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? !!designFor(b, bp).strokeColor : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') });
+    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? !!b.color : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? !!designFor(b, bp).strokeColor : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') || !!designFor(b, bp).strokeColor });
     const anchor = blockPanel.querySelector(`[data-shape-act="${kind}"]`)?.getBoundingClientRect();
-    const h = shapePop.hidden ? 200 : shapePop.offsetHeight;
-    shapePop.style.cssText = `left:${P.right + 11}px;top:${Math.max(60, Math.min((anchor?.top ?? P.top) - 60, innerHeight - h - 8))}px`;
+    shapePop.hidden = false;
+    const h = shapePop.offsetHeight;
+    // 11 right of the panel, 311 left of it with no room (CAP-T6PLACE.json); its middle 16.5 above the row's (CAP-T6RANGE.json).
+    shapePop.style.cssText = `left:${P.right + 311 > innerWidth ? P.left - 311 : P.right + 11}px;top:${Math.max(60, Math.min((anchor?.top ?? P.top) + 1.5 - h / 2, innerHeight - h - 8))}px`;
   }
   shapePop.hidden = false;
 }
@@ -2359,31 +2461,36 @@ blockPanel.addEventListener('change', (e) => {
 // Code and embed (parity/findings/CODEEMBED.json, CODEMODAL.json). The canvas follows the typing; a
 // text is one undo step when the field is left.
 let codeBefore = null;
-// Rows follow the height of what is in the block (CAP-T10ROWS.json, CAP-T10DOWN.json, CAP-T10PULL.json,
-// CAP-T10EMBED.json, CAP-T10VIEW.json). An embed's height is that of what is in it, margins included,
-// and an empty one's is its 95 tall placeholder.
+// Rows follow the height of what is in the block, in whole pixels (CAP-T10ROWS.json, CAP-T10DOWN.json,
+// CAP-T10PULL.json, CAP-T10EMBED.json, CAP-T10VIEW.json, CAP-T10FRESH.json). An embed's height is that of
+// what is in it, margins included, and an empty one's is its 95 tall placeholder.
 function codeHeight(b) {
   if (b.type === 'embed' && !b.html) return 95;
   const c = blockEl(b.id)?.querySelector(b.type === 'code' ? '.sqs-code-container' : '.sqs-embed-container');
   if (!c) return 0;
-  if (b.type === 'code') return c.getBoundingClientRect().height;
+  // Its elements' boxes, or a range for bare text: a range counts the text's own 23px runs, 1px over ten
+  // paragraphs. A script's status box doesn't count (CAP-T10MD2.json).
+  const status = c.querySelector(':scope > .sqs-blockStatus');
+  if (b.type === 'code' && !status) return c.offsetHeight;
+  const kids = [...c.children].filter((e) => e !== status).map((e) => e.getBoundingClientRect());
   const range = doc.createRange();
   range.selectNodeContents(c);
+  const inner = kids.length ? Math.max(...kids.map((r) => r.bottom)) - Math.min(...kids.map((r) => r.top)) : range.getBoundingClientRect().height;
+  if (b.type === 'code') return Math.round(inner);
   const margin = (e, side) => (e ? parseFloat(getComputedStyle(e)[side]) || 0 : 0);
-  return range.getBoundingClientRect().height + margin(c.firstElementChild, 'marginTop') + margin(c.lastElementChild, 'marginBottom');
+  return Math.round(inner + margin(c.firstElementChild, 'marginTop') + margin(c.lastElementChild, 'marginBottom'));
 }
-// Inferred from all of those readings: content runs over by up to 2px before it takes a row, and a
-// fall in height gives up rows by the same sum, so a block can end below what its content needs.
-const codeRowsFor = (h, m) => Math.ceil((h + m.rg - 2) / m.pitch);
+// Inferred from those readings. A height takes ceil((height + gap - 1) / pitch) rows, and a fall gives
+// up the same sum of the fall. A rise takes what it needs. A fall from a block that doesn't have more
+// rows than it needs leaves it alone, so a block can stay well below what its content needs.
+const codeRowsFor = (h, m) => Math.ceil((h + m.rg - 1) / m.pitch);
 const rowsNow = (b) => codeHeight(b);
 function fitRows(b, was) {
   if (b.type === 'code' && !String(b.html || '').trim()) return;
   const h = codeHeight(b);
   if (h === was) return;
   const m = measure(feEl(sel.sid)), L = lay(b), rows = L.area[2] - L.area[0], need = Math.max(1, codeRowsFor(h, m));
-  // Rows the content needs are taken, or kept when the block has just that many. More rows than that
-  // stay until the height falls. An embed stays at 2 rows or more.
-  const next = need >= rows ? need : h < was ? Math.max(b.type === 'embed' ? 2 : 1, rows - codeRowsFor(was - h, m)) : rows;
+  const next = h > was ? Math.max(rows, need) : need >= rows ? rows : Math.max(1, rows - codeRowsFor(was - h, m));
   if (next === rows) return;
   L.area = [L.area[0], L.area[1], L.area[0] + next, L.area[3]];
   const s = S(sel.sid);
@@ -2571,7 +2678,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
   if (!g || !sel || e.button) return;
   e.preventDefault();
   // A social row's grip moves a row of the site-wide list: same drag, not read on the oracle (T11.json).
-  const social = g.classList.contains('bp-soc-grip'), kind = social ? '.bp-soc-row' : '.bp-acc-row';
+  const social = g.classList.contains('bp-soc-grip'), ffRow = g.classList.contains('bp-ff-grip'), ffOpt = g.classList.contains('bp-ffo-grip'), kind = social ? '.bp-soc-row' : ffRow ? '.bp-ff-row' : ffOpt ? '.bp-ffo-row' : '.bp-acc-row';
   const row = g.closest(kind), rows = [...blockPanel.querySelectorAll(kind)], from = rows.indexOf(row), h = row.offsetHeight, y0 = e.clientY;
   let to = from;
   row.classList.add('is-moving');
@@ -2581,6 +2688,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
     g.removeEventListener('pointermove', move); g.removeEventListener('pointerup', up); g.removeEventListener('pointercancel', up);
     if (to === from) { renderBlockPanel(); return; }
     if (social) changeSocialList((l) => { const [it] = l.splice(from, 1); l.splice(to, 0, it); }, `Social link moved to ${to + 1}`);
+    else if (ffRow || ffOpt) setForm((b) => { const l = ffRow ? b.fields : ffField(b).options, [it] = l.splice(from, 1); l.splice(to, 0, it); }, `Field moved to ${to + 1}`);
     else setAccordion((b) => { const [it] = b.items.splice(from, 1); b.items.splice(to, 0, it); }, `Item moved to ${to + 1}`);
   };
   g.addEventListener('pointermove', move); g.addEventListener('pointerup', up); g.addEventListener('pointercancel', up);
@@ -2737,6 +2845,15 @@ function siteLinkGroups() {
 }
 function onLinkAction(act, el) {
   const b = B(sel.sid, sel.bid);
+  // A form's redirect (FORMFIELDS.json, postSubmit): the same link menu, read as far as its list.
+  if (b.type === 'form') {
+    const href = postOf(b).href;
+    if (act === 'copy') { navigator.clipboard?.writeText(href).catch(() => {}); note('Link copied'); updateUi(); return; }
+    if (act === 'remove') { closeLinkPopover(); setPost('href', '', 'Link removed'); return; }
+    const panelBox = blockPanel.getBoundingClientRect(), box = el.getBoundingClientRect();
+    openLinkPopover(b, (st, height) => linkPopoverPosition(panelBox, box, st, height), { href, newTab: !!postOf(b).newTab, apply: (v) => setPost('href', v, v ? 'Link set' : 'Link removed'), setNewTab: (on) => { if (on !== !!postOf(B(sel.sid, sel.bid)).newTab) setPost('newTab', on, 'Link new tab'); } });
+    return;
+  }
   if (act === 'copy') { navigator.clipboard?.writeText(b.href || '').catch(() => {}); note('Link copied'); updateUi(); return; }
   if (act === 'remove') { closeLinkPopover(); setButton((x) => { delete x.href; delete x.newTab; }, 'Link removed'); return; }
   // open or edit: the panel is redrawn while the editor is open, so the place is read once.
@@ -3596,6 +3713,30 @@ panel.addEventListener('click', (e) => {
   commit(before, `${btn.textContent} on ${b.id}`);
 });
 
+// The custom height reads a whole number each time its slider or field changes, and the section follows at
+// once; the undo step comes on let go or Enter (parity/findings/CAP-P3FIELD.json). No number shows NaN with
+// the slider at its middle, and the height stays. The slider stops at 1 to 100, the field keeps what it read.
+let heightBefore = null;
+function showHeight(n) {
+  const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
+  if (field.value !== String(n)) field.value = String(n);
+  range.value = String(n);
+}
+function followHeight(input) {
+  const s = S(secSid()), n = parseInt(input.value, 10);
+  showHeight(n);
+  if (Number.isNaN(n) || n === s.customHeight) return;
+  heightBefore ??= JSON.stringify(model);
+  s.customHeight = n;
+  renderSectionDom(s.id);
+}
+function settleHeight(shown) {
+  const before = heightBefore, sid = secSid();
+  heightBefore = null;
+  if (before && before !== JSON.stringify(model)) commit(before, `Section ${sid} customHeight set to ${shown}`);
+  if (Number.isNaN(parseInt(shown, 10)) && sectionPanel.querySelector('.sp-custom-height')) showHeight(NaN);
+}
+
 function onSectionChange(e) {
   const input = e.target.closest('input[data-act]');
   if (!input || !secSid()) return;
@@ -3617,6 +3758,10 @@ function onSectionChange(e) {
     if (input.checked) s.divider = true; else { delete s.divider; for (const k of ['dividerStroke', 'dividerThickness', 'dividerShape', 'dividerWidth', 'dividerHeight', 'dividerFlip', 'dividerFlipY', 'dividerAlign', 'dividerColor']) delete s[k]; }
   } else if (act === 'fill') {
     if (input.checked) { s.height = 'medium'; delete s.customHeight; } else { s.height = 'custom'; delete s.customHeight; }
+  } else if (act === 'customHeight') {
+    followHeight(input);
+    settleHeight(input.value);
+    return;
   } else {
     const v = Math.round(input.type === 'text' ? parseFloat(input.value) : Number(input.value));
     if (!Number.isFinite(v)) return;
@@ -3628,8 +3773,6 @@ function onSectionChange(e) {
     if (act === 'rows') s.rows[bp] = Math.min(10000, Math.max(Number(input.min), v));
     if (act === 'gap') { s.rowGap = s.rowGap ?? s.gap; s.gap = Math.min(50, Math.max(0, v)); }
     if (act === 'rowGap') s.rowGap = Math.min(50, Math.max(0, v));
-    // The slider runs 1 to 100; the field also takes 0 and more than 100 (parity/findings/P3.json, range).
-    if (act === 'customHeight') s.customHeight = Math.max(0, v);
   }
   if (JSON.stringify(model) === before) return;
   renderSectionDom(s.id);
@@ -3660,9 +3803,9 @@ sectionPanel.addEventListener('change', async (e) => {
   commit(before, 'Art image set');
   renderPanel(); if (editSid) renderSectionPanel();
 });
-// The slider's number follows the drag; the section itself changes on release.
+// A slider's number follows the drag; the section changes on release, but for the custom height.
 sectionPanel.addEventListener('input', (e) => {
-  if (e.target.matches('.sp-custom-height input[type="range"]')) e.target.nextElementSibling.value = e.target.value;
+  if (e.target.matches('.sp-custom-height input')) followHeight(e.target);
   if (e.target.matches('.sp-slide input[type="range"]')) e.target.nextElementSibling.value = e.target.value + (e.target.dataset.unit || '');
   if (e.target.matches('.ar-range input[type="range"], .ar-inline input[type="range"]')) e.target.style.setProperty('--p', `${((e.target.value - e.target.min) / (e.target.max - e.target.min)) * 100}%`);
   if (e.target.matches('.ar-range input[type="range"]')) e.target.parentElement.querySelector('input[type="text"]').value = String(+(+e.target.value).toFixed(2));
@@ -3814,9 +3957,10 @@ function renderSectionPanel() {
   sectionPanel.hidden = false;
   sectionPanel.scrollTop = top;
 }
-function closeSectionPanel() { if (!editSid) return; editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
+function closeSectionPanel() { if (!editSid) return; settleHeight(''); editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
 const layoutsPanel = $('layouts-panel');
+let layoutsPlace = null;
 let layoutsSid = null, layoutsMix = null, layoutsPicked = null, layoutsOrder = [], layoutsBase = null, layoutsLook = null, layoutsPress = false;
 // Roles stay with the blocks as they were on opening: a pick puts them in phone order.
 const openedMix = () => sectionMix({ blocks: [...S(layoutsSid).blocks].sort((a, b) => layoutsOrder.indexOf(a.id) - layoutsOrder.indexOf(b.id)) });
@@ -3856,7 +4000,12 @@ function openLayouts(sid) {
   closeFloating();
   layoutsSid = sid; layoutsOrder = S(sid).blocks.map((b) => b.id); layoutsBase = sectionLook(S(sid)); layoutsMix = openedMix(); layoutsPicked = null;
   layoutsPanel.hidden = false;
-  layoutsPanel.style.top = `${layoutsPanelTop(sectionEl(sid).getBoundingClientRect().height)}px`;
+  // The same place as Edit Section's panel (CAP-VIEWLAYOUTS.json, panelTop).
+  const fr = frame.getBoundingClientRect(), q = sectionEl(sid).getBoundingClientRect();
+  // From the card's set place: it may still be sliding in.
+  const editAt = stage.getBoundingClientRect().top + parseFloat(chrome.querySelector('[data-sc-part="card"]').style.top) + 7;
+  layoutsPlace = { top: Math.round(sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom })), secTop: fr.top + q.top, h: q.height, moved: false };
+  layoutsPanel.style.top = `${layoutsPlace.top}px`;
   readLayoutsLook();
   renderLayouts();
 }
@@ -3867,6 +4016,7 @@ layoutsPanel.addEventListener('click', (e) => {
   if (!mix) return;
   const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
   layoutsPicked = Number(t.dataset.layout);
+  if (!layoutsPlace.moved) { layoutsPlace.moved = true; layoutsPanel.style.top = `${layoutsPickTop(layoutsPlace)}px`; }
   applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase);
   if (sel?.sid === layoutsSid) select(null);
   commit(before, `Layout ${layoutsPicked + 1}`);

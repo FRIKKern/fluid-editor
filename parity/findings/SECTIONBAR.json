@@ -1253,7 +1253,7 @@
     ],
     "readings": 59,
     "worstFit": 0.6,
-    "rule": "edit = top of the Edit Section button, H = window height, both from the window's top. On opening: edit + 49 while edit + 525 <= H - 170; else min(H - 476, max(H - 520, section top + 1)) while edit < H - 240; else H - 267 + 1.087 * (edit - (H - 240)), so the panel hangs out of the window. It stays in its section: if the result is more than section bottom + 1 - 476, it takes that value, but never above the section's top or the window's top. Inferred: this is a fit to the readings, with no meaning read for the numbers. Section 1 mostly, sections 0, 2 and 3 too; nothing about the section's own height changes it except the bottom limit.",
+    "rule": "edit = top of the Edit Section button, H = window height, both from the window's top. On opening: edit + 49 while edit + 525 <= H - 170; else min(H - 476, max(H - 520, section top + 1)) while edit < H - 245; else H - 267 + 1.087 * (edit - (H - 240)), so the panel hangs out of the window. It stays in its section: if the result is more than section bottom + 1 - 476, it takes that value, but never above the section's top or the window's top. Inferred: this is a fit to the readings, with no meaning read for the numbers. Section 1 mostly, sections 0, 2 and 3 too; nothing about the section's own height changes it except the bottom limit. Short sections: CAP-VIEWLAYOUTS.json, panelTop, which also moved the step from H - 240 to H - 245.",
     "samples": {
       "H1000": [
         [

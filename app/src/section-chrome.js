@@ -107,10 +107,11 @@ export function sectionPanelTop({ edit, H, secTop, secBottom, prev = null }) {
   let p;
   if (prev != null) p = Math.max(prev, Math.min(edit - 3, H - 476));
   else if (edit + 49 + 476 <= H - 170) p = edit + 49;
-  else if (edit < H - 240) p = Math.min(H - 476, Math.max(H - 520, secTop + 1));
+  else if (edit < H - 245) p = Math.min(H - 476, Math.max(H - 520, secTop + 1));
   else p = H - 267 + 1.087 * (edit - (H - 240));
-  // It stays inside its section, but never above the section's top or the window's.
-  const inside = secBottom + 1 - 476;
+  // It stays inside its section, but never above the section's top or the window's. A short section
+  // lets it hang out by more: 121 under the section's top at 562 tall, 134 at 603.1 (CAP-VIEWLAYOUTS.json).
+  const inside = Math.max(secBottom + 1 - 476, secTop + 121 + 0.316 * (secBottom - secTop - 562));
   return p > inside ? Math.max(secTop, 0, inside) : p;
 }
 

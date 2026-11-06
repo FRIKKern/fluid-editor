@@ -10,6 +10,7 @@ import { ACCORDION_STYLES, escapeHtml as esc, DESIGN_DEFAULTS, BLEND_MODES, STRO
 import { linkKind, linkSummary, parseMail, parsePhone } from './link-kinds.js';
 import { HITS, resetBtn } from './anim-panel.js';
 import { effectPanelHtml } from './effect-panel.js';
+import { formFieldsPanelHtml } from './form-fields.js';
 
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
 
@@ -85,7 +86,7 @@ const EXPAND = `<button type="button" class="bp-code-expand" data-code-expand ar
 const codeEditor = (key, value, placeholder = '', expand = false) => `<div class="bp-code">${expand ? EXPAND : ''}<div class="bp-code-lines" aria-hidden="true">${Array.from({ length: Math.max(1, String(value || '').split('\n').length) }, (_, n) => n + 1).join('<br>')}</div><textarea spellcheck="false" aria-label="Code" data-content="${key}" placeholder="${placeholder}">${esc(value || '')}</textarea></div>`;
 function codeContentHtml(c, expand = true) {
   return `<div class="bp-code-top"><label class="bp-field bp-code-mode"><span class="bp-flabel">Mode</span><select aria-label="Mode" data-content="codeMode">${CODE_MODES.map(([l, v]) => `<option value="${v}"${c.mode === v ? ' selected' : ''}>${l}</option>`).join('')}</select></label>`
-    + `<div class="sp-row bp-code-source"><span class="sp-label">Display Source Code</span><label class="sp-switch"><input type="checkbox" aria-label="Display Source Code" data-content="showSource" ${c.showSource ? 'checked' : ''}><span aria-hidden="true"></span></label></div></div>`
+    + `<div class="sp-row bp-code-source${c.mode === 'html' || c.mode === 'markdown' ? '' : ' is-locked'}"><span class="sp-label">Display Source Code</span><label class="sp-switch"><input type="checkbox" aria-label="Display Source Code" data-content="showSource" ${c.showSource ? 'checked' : ''}${c.mode === 'html' || c.mode === 'markdown' ? '' : ' disabled'}><span aria-hidden="true"></span></label></div></div>`
     + codeEditor('code', c.html, '', expand);
 }
 export const codeModalHtml = (c) => `<div class="code-modal-scrim" data-code-modal="close"></div><div class="code-modal-box" role="dialog" aria-label="Code Editor"><div class="code-modal-head"><button type="button" class="code-modal-close" data-code-modal="close">Close</button><span>Code Editor</span></div>${codeContentHtml(c, false)}</div>`;
@@ -413,8 +414,9 @@ function formContentHtml(c) {
   const row = (label, v = '') => `<button type="button" class="bp-form-nav" disabled data-unbuilt title="Not built yet"><span>${label}</span>${v ? `<em>${v}</em>` : ''}${pi('<path d="M9 6l6 6-6 6"/>')}</button>`;
   const act = (label) => `<button type="button" class="bp-form-act" disabled data-unbuilt title="Not built yet">${label}</button>`;
   const head = (t) => `<div class="bp-subhead">${t}</div>`;
-  return f('formName', 'Form Name', c.formName) + f('button', 'Button Text', c.button) + row('Edit Form Fields')
-    + head('Submissions') + row('Edit Post-Submit') + act('Manage Submissions') + act('Export Form Submissions')
+  const go = `<button type="button" class="bp-form-nav" aria-label="Navigate to Edit Form Fields" data-ff="list"><span>Edit Form Fields</span>${pi('<path d="M9 6l6 6-6 6"/>')}</button>`;
+  return f('formName', 'Form Name', c.formName) + f('button', 'Button Text', c.button) + go
+    + head('Submissions') + go.replace(/Edit Form Fields/g, 'Edit Post-Submit').replace('data-ff="list"', 'data-ff="post"') + act('Manage Submissions') + act('Export Form Submissions')
     + head('Email Notification') + row('Additional Storage') + row('Google reCAPTCHA', 'On');
 }
 // A form's own Design rows (parity/findings/FORMADD.json). Form Style reaches every form on the site:
@@ -447,6 +449,7 @@ function mapDesignHtml(c, pairs) {
 export function blockPanelHtml(d, tab, content = null, open = null, shape = null, image = null, stack = null, button = null, kid = null) {
   if (image && open?.startsWith('image-shape:')) return imageShapeHtml(image.shapeId, open.slice(12));
   if (image && open === 'image-fx') return effectPanelHtml(image);
+  if (content?.kind === 'form' && open?.startsWith('ff-')) return formFieldsPanelHtml(content, open, linkField);
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
@@ -536,12 +539,11 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   return `<div class="bp-drag" role="button" aria-label="Click and drag to reposition block editor form" data-drag-panel></div><div class="sp-tabs" role="tablist">${tabs.map(tabBtn).join('')}</div><div class="sp-body">${body}</div>`;
 }
 
-// 18px right of the block and 3px below its top, in the stage's coordinates; left of the block
-// when there is no room on the right, and always inside the stage.
+// 18px right of the block and 3px below its top, in the stage's coordinates. With no room on the
+// right it stays 20px from the stage's edge, over the block (parity/findings/CAP-T6PLACE.json).
 export function blockPanelPosition(block, frame, stage, width = 320) {
   const ox = frame.left - stage.left, oy = frame.top - stage.top;
-  let left = ox + block.right + 18;
-  if (left + width > stage.width) left = Math.max(0, ox + block.left - 18 - width);
+  const left = Math.max(0, Math.min(ox + block.right + 18, stage.width - width - 20));
   const top = Math.max(oy + 8, Math.min(oy + block.top + 3, stage.height - 500 - 8));
   return { left, top };
 }
