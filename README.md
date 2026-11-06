@@ -25,7 +25,8 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 1 change
+- **Today** · 2 changes
+  - T12: Quote, Chart, SoundCloud, Flickr, Instagram content follows the width ([#180](https://github.com/FRIKKern/fluid-editor/pull/180))
   - T11: a new block takes its phone place by size, as read on the oracle ([#179](https://github.com/FRIKKern/fluid-editor/pull/179))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
