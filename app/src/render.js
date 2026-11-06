@@ -250,6 +250,17 @@ export const MAP_ZOOMS = [0, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8,
 // Our own palettes: land, water, park, hill, road, ink.
 export const MAP_PALETTES = { 1: ['#f2efe6', '#a6d3ea', '#c8e3b4', '#d7cdb2', '#fff', '#444'], 2: ['#f8f8f8', '#6e6e6e', '#e4e4e4', '#cfcfcf', '#d0d0d0', '#333'], 3: ['#4d5a3c', '#16302f', '#33482d', '#6a6647', '#a59a7c', '#fff'], 4: ['#fbfbfb', '#ececec', '#f3f3f3', '#e6e6e6', '#f0f0f0', '#8a8a8a'], 5: ['#2a2a2a', '#121212', '#333', '#3d3d3d', '#3f3f3f', '#bbb'], 6: ['#f7f9fb', '#c6dff0', '#e8f0f5', '#dbe6ed', '#fff', '#54687a'] };
 export const mapVars = (style) => ['land', 'water', 'park', 'hill', 'road', 'ink'].map((k, i) => `--m-${k}:${MAP_PALETTES[style][i]}`).join(';');
+// Five menu types whose content sets the height and follows the width (STANDINS.json). The words and
+// the 12 plain tiles are local; no picture or service is behind them.
+const STANDIN = {
+  quote: () => '<figure class="sqs-quote-block-contents"><blockquote><span>“</span>Whatever it is, the way you tell your story online can make all the difference.<span>”</span></blockquote><figcaption class="source">— Quote Source</figcaption></figure>',
+  chart: () => `<div class="fe-chart"><svg viewBox="0 0 459 229" preserveAspectRatio="none" aria-hidden="true">${[32, 88, 144, 200].map((y) => `<path d="M60 ${y}H448" class="fe-chart-rule"/>`).join('')}${[[66, 118, 125], [189, 62, 181], [313, 118, 125]].map(([x, y, h]) => `<rect x="${x}" y="${y + 19}" width="111" height="${h}" class="fe-chart-bar"/>`).join('')}</svg></div>`,
+  soundcloud: () => '<div class="fe-status"><div class="fe-status-title">SoundCloud Block</div><div class="fe-status-message">Enter a SoundCloud track, playlist, or profile URL.</div></div>',
+  gallery: () => `<div class="fe-tiles">${'<span></span>'.repeat(12)}</div>`,
+};
+const STANDIN_BLOCK = { quote: 'sqs-block-quote quote-block', chart: 'sqs-block-chart chart-block', soundcloud: 'sqs-block-soundcloud soundcloud-block', flickr: 'sqs-block-flickr flickr-block', instagram: 'sqs-block-instagram instagram-block' };
+export const standinHtml = (b) => `<div class="sqs-block ${STANDIN_BLOCK[b.standin]}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${(STANDIN[b.standin] || STANDIN.gallery)()}</div></div>`;
+
 export const mapOf = (b) => ({ style: b.mapStyle ?? 2, labels: b.mapLabels !== false, terrain: !!b.mapTerrain, controls: !!b.mapControls, zoom: b.mapZoom ?? 12 });
 export const mapArt = (labels = true, terrain = false) => `<rect class="m-land" x="-400" y="-400" width="1200" height="1200"/>${terrain ? '<g class="m-hill"><ellipse cx="90" cy="110" rx="90" ry="60"/><ellipse cx="320" cy="310" rx="110" ry="70"/><ellipse cx="310" cy="70" rx="70" ry="45"/></g>' : ''}<path class="m-park" d="M250 150l60-14 22 58-58 20zM60 300l58-10 14 50-60 14z"/><path class="m-water" d="M-400 330C40 300 90 240 150 170S210 30 250-400H330C300 40 260 130 210 200S120 340-400 480z"/><g class="m-road"><path d="M-400 90L800 40M-400 250L800 210M-400 370L800 330M60-400L110 800M300-400L340 800"/><path class="m-thin" d="M-400 150L800 110M-400 310L800 270M-400 30L800-10M10-400L50 800M180-400L220 800M250-400L290 800M370-400L410 800"/></g>${labels ? '<g class="m-label"><text x="262" y="122">Harbor</text><text x="42" y="214">Old Town</text><text x="238" y="286">Riverside</text><text x="120" y="368">South Park</text></g>' : ''}`;
 function mapHtml(b) {
@@ -292,6 +303,7 @@ function blockInner(b, model) {
         return `<div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-${b.id}"><div class="sqs-block-content">${box('desktop', { fit: b.fit, align: b.halign })}${b.btnMobile ? box('mobile', b.btnMobile) : ''}</div></div>`;
       }
     case 'shape': {
+      if (b.standin) return standinHtml(b);
       const kind = shapeById(b.shape), rect = !kind.d, stretched = b.stretch !== false, dg = b.design || {};
       const fill = b.color || b.fill || 'var(--accent)';
       const radius = b.corners ? b.corners.map((v) => `${v}px`).join(' ') : b.radius || '0';
@@ -346,10 +358,10 @@ function blockInner(b, model) {
       const field = (f) => {
         const req = (t) => { const m = t.match(/^(.*?)(\(required\))$/); return m ? `${e(m[1])}<span class="req">${e(m[2])}</span>` : e(t); };
         if (f.kind === 'name') return `<fieldset class="form-item form-name"><legend>${e(f.label)}</legend><div class="name-parts">${(f.parts || []).map((p) => `<div class="field"><label class="caption"><span class="caption-row">${req(p)}</span></label><input type="text"></div>`).join('')}</div></fieldset>`;
-        if (f.kind === 'textarea') return `<div class="form-item"><label class="title">${e(f.label)}</label><textarea></textarea></div>`;
+        if (f.kind === 'textarea') return `<div class="form-item"><label class="title">${req(f.label)}</label><textarea></textarea></div>`;
         if (f.kind === 'checkbox') return `<fieldset class="form-item form-checkbox"><legend>${e(f.label)}</legend>${(f.options || []).map((o) => `<div class="option"><label><input type="checkbox"><span>${e(o)}</span></label></div>`).join('')}</fieldset>`;
-        if (f.kind === 'select') return `<div class="form-item form-select"><label class="title">${e(f.label)}</label><select>${(f.options || []).map((o) => `<option>${e(o)}</option>`).join('')}</select></div>`;
-        return `<div class="form-item"><label class="title">${e(f.label)}</label><input type="${f.kind === 'email' ? 'email' : 'text'}"></div>`;
+        if (f.kind === 'select') return `<div class="form-item form-select"><label class="title">${req(f.label)}</label><select>${(f.options || []).map((o) => `<option>${e(o)}</option>`).join('')}</select></div>`;
+        return `<div class="form-item"><label class="title">${req(f.label)}</label><input type="${f.kind === 'email' ? 'email' : 'text'}">${f.signup ? `<div class="form-signup"><label><input type="checkbox"><span>${e(f.signup)}</span></label></div>` : ''}</div>`;
       };
       return `<div class="sqs-block form-block sqs-block-form" id="block-${b.id}"><div class="sqs-block-content"><form class="fe-form" onsubmit="return false">${(b.fields || []).map(field).join('')}<div class="form-button-wrapper"><button class="form-submit" type="submit">${e(b.button || 'Send')}</button></div></form></div></div>`;
     }

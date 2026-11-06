@@ -11,7 +11,7 @@ import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHt
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPanelTop, sectionLook } from './section-layouts.js';
 import { artSeg, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
-import { phoneOrder } from './phone-order.js';
+import { phoneOrder, newBlockSlot } from './phone-order.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
@@ -473,7 +473,7 @@ toolbar.addEventListener('click', (e) => {
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
-  if (act === 'edit') { designOpen = bid; designTab = b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && (b.type === 'button' || b.type === 'stack')) { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
@@ -558,7 +558,15 @@ function measure(fe) {
 }
 
 // Rows a block needs so its content fits without stretching a row.
-function contentRows(b, m, normalizing = false) {
+function contentRows(b, m, normalizing = false, widthPull = false) {
+  // Content that follows the width (STANDINS.json). A pull that changes the width lets it run over by
+  // less than the gap until the next gesture; one that changes only the height does not.
+  if (b.standin) {
+    const c = blockEl(b.id)?.querySelector('.sqs-block-content');
+    if (!c) return 1;
+    const h = c.getBoundingClientRect().height;
+    return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
+  }
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
   if (b.type === 'embed' && !b.html) return 3; // an empty embed's box fills its block: the 3 rows it needs (CODEMODAL.json)
   const root = blockEl(b.id);
@@ -1073,7 +1081,7 @@ function startResize(e, dir) {
   }
   prepare(e, 'resize', { dir });
   const held = B(gesture.sid, gesture.bid), span = lay(held).area[2] - lay(held).area[0];
-  gesture.fits = held.type === 'text' && !gesture.members && span === Math.max(2, contentRows(held, gesture.m));
+  gesture.fits = (held.type === 'text' || held.standin === 'instagram') && !gesture.members && span === Math.max(2, contentRows(held, gesture.m));
   gesture.bottom0 = blockEl(held.id).getBoundingClientRect().bottom;
 }
 
@@ -1150,7 +1158,7 @@ function updateResize(e) {
   if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, y - (top + (r1 - 1) * m.pitch - m.rg)));
   if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, y - (top + (r0 - 1) * m.pitch))));
   // Guard: a target cannot be shorter than the content at the width the block has now.
-  const need = contentRows(B(g.sid, g.bid), m);
+  const need = contentRows(B(g.sid, g.bid), m, false, /[ew]/.test(g.dir));
   if (r1 - r0 < need) {
     if (g.dir.includes('n')) {
       r0 = Math.max(1, r1 - need);
@@ -1410,6 +1418,7 @@ function renderBlockPanel() {
     : b.type === 'line' ? { kind: 'line' }
     : b.type === 'social' ? (() => { const l = socialLook(b, bp === 'mobile'); return { kind: 'social', links: socialList(), err: socErr, iconBorder: l.iconBorder, iconStyle: l.iconStyle, iconThick: l.iconThick, iconSize: l.iconSize, align: l.align }; })()
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
+    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send' }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
@@ -1957,7 +1966,7 @@ blockPanel.addEventListener('change', (e) => {
   if (m) { const k = m.dataset.mapSet, on = m.checked; setMap((b) => { b[k] = on; }, `${k} ${on}`); return; }
   const zf = e.target.closest('[data-map-zoomfield]');
   if (zf) { const v = parseFloat(zf.value); if (Number.isFinite(v)) setMap((b) => { b.mapZoom = Math.max(0, Math.min(MAP_ZOOMS.length - 1, Math.round(v))); }, 'Map zoom'); else renderBlockPanel(); return; }
-  const c = e.target.closest('input[data-content^="map"]');
+  const c = e.target.closest('input[data-content^="map"], input[data-content="formName"], input[data-content="button"]');
   if (c) { const k = c.dataset.content, v = c.value; c.blur(); setMap((b) => { if (v) b[k] = v; else delete b[k]; }, `${k} changed`); }
 });
 function closeSocialConfirm() { styleConfirm.hidden = true; styleConfirm.classList.remove('is-social'); socConfirmRow = null; }
@@ -3081,14 +3090,17 @@ function renderPanel() {
 }
 
 // Add Block (U5, T13): each type lands at the top left of the section with the size
-// the oracle gives it (parity/findings/T13.json). The phone placement is ours: the
-// bottom of the phone stack, full content width (not measured yet).
+// the oracle gives it (parity/findings/T13.json). On phones it is full content width, and its
+// place in the stack goes by size (CAP-NEWORDER*.json).
+const pageTitle = () => document.querySelector('.page-name')?.textContent.trim() || 'Page';
+const STANDIN_TYPES = ['Quote', 'Chart', 'SoundCloud', 'Flickr', 'Instagram']; // their content follows the width (STANDINS.json)
 const ADD_TYPES = [
   ['Text', 8, 2, () => ({ type: 'text', html: '<p data-rte-preserve-empty="true"></p>' })],
   ['Image', 6, 6, () => ({ type: 'image', alt: '', empty: true, mode: 'fit' })],
   ['Button', 6, 2, () => ({ type: 'button', label: 'Learn more' })],
   ['Video', 8, 8, () => ({ type: 'video' })],
-  ['Form', 9, 16, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: 'form' })],
+  // A new form's fields (FORMADD.json).
+  ['Form', 9, 16, () => ({ type: 'form', button: 'Submit', formName: `${pageTitle()} Form`, fields: [{ kind: 'name', label: 'Name', parts: ['First Name(required)', 'Last Name(required)'] }, { kind: 'email', label: 'Email(required)', signup: 'Sign up for news and updates' }, { kind: 'text', label: 'Subject(required)' }, { kind: 'textarea', label: 'Message(required)' }] })],
   ['Accordion', 8, 8, () => ({ type: 'accordion', items: [1, 2, 3].map((n) => ({ title: `Accordion Item ${n}`, description: ACCORDION_DESCRIPTION })) })],
   ['Shape', 6, 6, () => ({ type: 'shape', fill: '#ffffff', radius: '0' })],
   ['Scrolling', 24, 2, () => ({ type: 'scrolling', text: 'Dream it 〰️', size: 1.5, wave: 0 })],
@@ -3100,26 +3112,25 @@ const ADD_TYPES = [
   ['Embed', 8, 8, () => ({ type: 'embed' })],
   // Not built yet (T11, T12): a stand-in of the size the oracle gives (parity/findings/U5.json sizes).
   ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Menu: [12, 28], Chart: [8, 8], Markdown: [4, 6], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
-    .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name })]),
+    .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}) })]),
 ];
 function addBlock(sid, name) {
   const [, w, h, make] = ADD_TYPES.find((t) => t[0] === name);
   const s = S(sid);
   const id = `${name.toLowerCase().replace(/ /g, '-')}-${Date.now().toString(36)}`;
-  // Phone (L3, parity/findings/L3.json): the new block joins the phone stack in desktop
-  // reading order (row, then column; after blocks that start at the same place) and the
-  // blocks after it move down by its height.
-  const key = (a) => a[0] * 100 + a[1];
-  const before = s.blocks.filter((b) => key(b.layout.desktop.area) <= key([1, 2]));
-  const mobileEnd = before.length ? Math.max(...before.map((b) => b.layout.mobile.area[2])) : 1;
+  // Phone (L3.json, CAP-NEWORDER*.json): the new block takes its place in the phone stack by
+  // size, and the blocks after it move down by its height.
+  const stack = [...s.blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
+  const slot = newBlockSlot(stack, w, h);
+  const mobileEnd = slot ? Math.max(...stack.slice(0, slot).map((b) => b.layout.mobile.area[2])) : 1;
   const zTop = (bpName) => Math.max(0, ...s.blocks.map((b) => b.layout[bpName].z)) + 1;
   const block = { id, ...make(), layout: {
     desktop: { area: [1, 2, 1 + h, 2 + w], z: zTop('desktop'), justify: 'flex-start', align: 'flex-start' },
     mobile: { area: [mobileEnd, 2, mobileEnd + h, 10], z: zTop('mobile'), justify: 'flex-start', align: 'flex-start' },
   } };
-  for (const b of s.blocks) {
+  for (const b of stack.slice(slot)) {
     const a = b.layout.mobile.area;
-    if (!before.includes(b) && a[0] >= mobileEnd) b.layout.mobile.area = [a[0] + h, a[1], a[2] + h, a[3]];
+    b.layout.mobile.area = [a[0] + h, a[1], a[2] + h, a[3]];
   }
   s.blocks.push(block);
   // The blocks that moved down can grow the phone section too (CAP-PHONE.json: 10 to 11 rows).

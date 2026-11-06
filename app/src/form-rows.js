@@ -1,5 +1,5 @@
 // The Forms view's rows (U12, parity/findings/CAP-FORMROWS.json). A pack sets them all; a row changes one,
-// kept in styles.forms. Until something is picked the form block keeps what it was measured with (T9).
+// kept in styles.forms. With nothing picked the form block's own CSS draws these same defaults (FORMADD.json).
 export const FORM_SHAPES = [['Square', '0px'], ['Rounded Rectangle', '6.4px'], ['Pill', '24.784px']];
 export const FORM_PADS = { S: [5, 10], M: [8, 15], L: [10, 20] };
 export const FORM_CUSTOM_RADIUS = 5;

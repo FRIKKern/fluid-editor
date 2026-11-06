@@ -1,23 +1,11 @@
 {
   "check": "block types resize as on the oracle",
-  "pass": 123,
+  "pass": 135,
   "total": 143,
   "named": [
-    "Quote s 0,-2",
-    "Quote e -2,0",
     "Summary se 2,1",
     "Summary s 0,-2",
     "Summary e -2,0",
-    "Chart s 0,-2",
-    "Chart e -2,0",
-    "Instagram s 0,-2",
-    "Instagram e -2,0",
-    "SoundCloud se 2,1",
-    "SoundCloud s 0,-2",
-    "SoundCloud e -2,0",
-    "Flickr se 2,1",
-    "Flickr s 0,-2",
-    "Flickr e -2,0",
     "Zola s 0,-2",
     "Zola e -2,0",
     "Bandsintown se 2,1",
@@ -227,13 +215,11 @@
     },
     {
       "what": "Quote s 0,-2",
-      "ok": false,
-      "named": true
+      "ok": true
     },
     {
       "what": "Quote e -2,0",
-      "ok": false,
-      "named": true
+      "ok": true
     },
     {
       "what": "Social Links lands where the oracle's does",
@@ -360,13 +346,11 @@
     },
     {
       "what": "Chart s 0,-2",
-      "ok": false,
-      "named": true
+      "ok": true
     },
     {
       "what": "Chart e -2,0",
-      "ok": false,
-      "named": true
+      "ok": true
     },
     {
       "what": "Search Field lands where the oracle's does",
@@ -458,13 +442,11 @@
     },
     {
       "what": "Instagram s 0,-2",
-      "ok": false,
-      "named": true
+      "ok": true
     },
     {
       "what": "Instagram e -2,0",
-      "ok": false,
-      "named": true
+      "ok": true
     },
     {
       "what": "Tock lands where the oracle's does",
@@ -488,18 +470,15 @@
     },
     {
       "what": "SoundCloud se 2,1",
-      "ok": false,
-      "named": true
+      "ok": true
     },
     {
       "what": "SoundCloud s 0,-2",
-      "ok": false,
-      "named": true
+      "ok": true
     },
     {
       "what": "SoundCloud e -2,0",
-      "ok": false,
-      "named": true
+      "ok": true
     },
     {
       "what": "Flickr lands where the oracle's does",
@@ -507,18 +486,15 @@
     },
     {
       "what": "Flickr se 2,1",
-      "ok": false,
-      "named": true
+      "ok": true
     },
     {
       "what": "Flickr s 0,-2",
-      "ok": false,
-      "named": true
+      "ok": true
     },
     {
       "what": "Flickr e -2,0",
-      "ok": false,
-      "named": true
+      "ok": true
     },
     {
       "what": "OpenTable lands where the oracle's does",
@@ -547,12 +523,14 @@
     {
       "what": "Zola s 0,-2",
       "ok": false,
-      "named": true
+      "named": true,
+      "outOfScope": "0005"
     },
     {
       "what": "Zola e -2,0",
       "ok": false,
-      "named": true
+      "named": true,
+      "outOfScope": "0005"
     },
     {
       "what": "Bandsintown lands where the oracle's does",
@@ -561,17 +539,20 @@
     {
       "what": "Bandsintown se 2,1",
       "ok": false,
-      "named": true
+      "named": true,
+      "outOfScope": "0005"
     },
     {
       "what": "Bandsintown s 0,-2",
       "ok": false,
-      "named": true
+      "named": true,
+      "outOfScope": "0005"
     },
     {
       "what": "Bandsintown e -2,0",
       "ok": false,
-      "named": true
+      "named": true,
+      "outOfScope": "0005"
     },
     {
       "what": "Fill picture se +2 +1",
