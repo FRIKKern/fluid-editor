@@ -336,6 +336,17 @@ for (const [sy, y] of [[914, 300], [1214, 300], [1700, 80]]) {
 }
 await frameScroll(0); await hoverInSection(700);
 add('first section under its header', Math.abs(chromeBox('Edit Section')[1] - 222.6) <= 1 && Math.abs(chromeBox('Open Layers Panel')[1] - 219.6) <= 1);
+// Edit Section sits on the sum of the rounded heights above, 29 under it; Layers 3 less. Exact, against each section's read.
+const preciseTop = (label) => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-chrome button')].find((b) => b.getAttribute('aria-label') === '${label}').getBoundingClientRect().top))()`);
+await pause(250);
+add('first section: Edit Section exact', Math.abs(preciseTop('Edit Section') - 222.6) <= 0.1, String(preciseTop('Edit Section')));
+for (const [n, want] of Object.entries(SB.sticky.offsets.Edit)) {
+  const at = evalJs(S, `(() => { const W = document.querySelector('iframe').contentWindow, s = W.document.querySelectorAll('main#page .page-section')[${n}]; return JSON.stringify(s.getBoundingClientRect().top + W.scrollY); })()`);
+  await frameScroll(Math.round(at - 100)); await hoverInSection(sectionTop(Number(n)) + 100); await pause(250);
+  const top = sectionTop(Number(n)), e = preciseTop('Edit Section') - top, l = preciseTop('Open Layers Panel') - top;
+  add(`section ${n}: Edit Section ${want} under its top, Layers 3 less`, Math.abs(e - want) <= 0.05 && Math.abs(l - (want - 3)) <= 0.05, JSON.stringify([e, l]));
+}
+await frameScroll(0); await hoverInSection(700);
 // Fade: the parts run their animation, the outline does not; it goes after the mouse leaves.
 await hoverBar(800, 20); await pause(220);
 add('chrome gone after the mouse leaves', evalJs(S, `(() => JSON.stringify(document.getElementById('section-chrome').hidden))()`));
@@ -2299,7 +2310,8 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const top0 = js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`), h0 = now().h;
   add('Panel top: reads as the section\'s height', top0 === Math.min(272, Math.round(55 + h0 + 1 - 476)), JSON.stringify([top0, h0]));
   await pick(1); browser(S, 'press', 'Escape'); await pause(150); await open();
-  add('Panel top stops at 272', Math.abs(js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`) - 272) <= 1);
+  const stop272 = js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`);
+  add('Panel top stops at 272', stop272 === 272, String(stop272));
 
   // A pick from each start theme.
   for (const [from, to] of Object.entries(Q.themeTurn)) {

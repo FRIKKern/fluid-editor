@@ -49,21 +49,43 @@ export function newBlockSlot(blocks, w, h, place = [1, 2]) {
   return blocks.reduce((last, b, k) => (key(b.layout.desktop.area) <= key(place) ? k + 1 : last), 0);
 }
 
-// How a section built here sets its phone order again (CAP-DESKMOVE3 to 9, CAP-NEWORDER4 to 6). Inferred
-// from those reads; the turn held on reads taken after it was written down. Sort by the desktop: no
-// column in common, left first; otherwise top first, then left first; one place keeps its order. If
-// the old stack starts with a block one row high on the phone, turn the sorted list so that block
-// lands last. So it goes last, then first on the next edit, whichever block moved.
+// How a section built here sets its phone order again (CAP-DESKMOVE*, CAP-NEWORDER*, CAP-CYCLE*,
+// CAP-TURNTEST*). Inferred from those reads. A smaller block with at least 80% of its area inside a
+// bigger one (read between 75 and 83%) belongs to the first of the smallest such blocks, and comes
+// right after it with the others it holds. Blocks taken in that order, top first, then left first,
+// each go after the last block they share columns with, and past blocks to their left that they
+// share none with. If the old stack starts at phone row 1 with a block one row high, the order turns
+// so that block lands last: it goes last, then first on the next edit, whichever block was edited.
 const stackOf = (blocks) => [...blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
-const oneRow = (b) => b.layout.mobile.area[2] - b.layout.mobile.area[0] === 1;
-const desktopSort = (stack) => [...stack].sort((a, b) => {
-  const A = a.layout.desktop.area, B = b.layout.desktop.area;
-  if (A[3] <= B[1]) return -1;
-  if (B[3] <= A[1]) return 1;
-  return A[0] - B[0] || A[1] - B[1];
-});
+const startsOneRow = (b) => b.layout.mobile.area[0] === 1 && b.layout.mobile.area[2] === 2;
+const box = (b) => b.layout.desktop.area;
+const shareColumns = (A, B) => A[3] > B[1] && B[3] > A[1];
+const boxArea = (A) => (A[3] - A[1]) * (A[2] - A[0]);
+const inside = (a, b) => {
+  const A = box(a), B = box(b);
+  const w = Math.min(A[3], B[3]) - Math.max(A[1], B[1]), h = Math.min(A[2], B[2]) - Math.max(A[0], B[0]);
+  return w > 0 && h > 0 && boxArea(A) < boxArea(B) && w * h >= 0.8 * boxArea(A);
+};
+function desktopOrder(stack) {
+  const sorted = [...stack].sort((p, q) => box(p)[0] - box(q)[0] || box(p)[1] - box(q)[1]);
+  // The first of the smallest blocks this one sits inside.
+  const host = (b) => sorted.filter((o) => inside(b, o)).reduce((best, o) => (!best || boxArea(box(o)) < boxArea(box(best)) ? o : best), null);
+  const tops = [];
+  const place = (b) => {
+    tops.push(b);
+    sorted.filter((x) => host(x) === b).forEach(place);
+  };
+  sorted.filter((b) => !host(b)).forEach(place);
+  const out = [];
+  for (const b of tops) {
+    let at = out.reduce((far, o, k) => (shareColumns(box(o), box(b)) ? k + 1 : far), 0);
+    while (at < out.length && box(out[at])[1] < box(b)[1] && !shareColumns(box(out[at]), box(b))) at++;
+    out.splice(at, 0, b);
+  }
+  return out;
+}
 const turned = (order, first) => {
-  if (!first || !oneRow(first)) return order;
+  if (!first || !startsOneRow(first)) return order;
   const k = order.indexOf(first);
   return [...order.slice(k + 1), ...order.slice(0, k + 1)];
 };
@@ -85,27 +107,12 @@ function layStack(s, old, order) {
 // Any desktop move or resize, of one block or a group. Returns true if a block moved on the phone.
 export function followDesktopEdit(s) {
   const old = stackOf(s.blocks);
-  return layStack(s, old, turned(desktopSort(old), old[0]));
+  return layStack(s, old, turned(desktopOrder(old), old[0]));
 }
 
-// A new block in such a section; it isn't in s.blocks yet. With no turn it takes its place by size.
-// With a turn the first block still goes last, and before it, at the new block's place, come the
-// one-row blocks, then the others. A one-row block joins the first lot, last. Another goes first among
-// the others at its place if one has its size; if not, taller first, then wider. It goes after blocks
-// elsewhere. Not ruled: a same-size pair among the others can swap on the next add (CAP-NEWORDER5 w5).
-export function followNewBlock(s, block, w, h, place = [1, 2]) {
-  const old = stackOf(s.blocks), order = desktopSort(old), first = old[0];
-  if (!first || !oneRow(first)) {
-    order.splice(newBlockSlot(order, w, h, place), 0, block);
-    return layStack(s, old, order);
-  }
-  const here = (b) => b.layout.desktop.area[0] === place[0] && b.layout.desktop.area[1] === place[1];
-  const rest = turned(order, first).slice(0, -1);
-  const small = rest.filter((b) => here(b) && oneRow(b)), others = rest.filter((b) => !small.includes(b));
-  const size = (b) => { const a = b.layout.desktop.area; return [a[3] - a[1], a[2] - a[0]]; };
-  const twin = others.some((b) => here(b) && size(b)[0] === w && size(b)[1] === h);
-  const behind = (b) => { const [x, y] = size(b); return here(b) && (twin || y < h || (y === h && x < w)); };
-  if (h === 1) small.push(block);
-  else { const k = others.findIndex(behind); others.splice(k < 0 ? others.length : k, 0, block); }
-  return layStack(s, old, [...small, ...others, first]);
+// A new block in such a section; it isn't in s.blocks yet. It comes last in the old stack, so it
+// goes behind blocks at its own place with no holder, then the same rule runs.
+export function followNewBlock(s, block) {
+  const old = stackOf(s.blocks);
+  return layStack(s, old, turned(desktopOrder([...old, block]), old[0]));
 }

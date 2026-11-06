@@ -1,0 +1,663 @@
+{
+ "item": "CAP-LONGDRAG",
+ "oracle": "/gestures-probe",
+ "capturedAt": "2026-11-06",
+ "engine": "chrome",
+ "question": "How far a long drag lands, and whether the page scrolled while it ran. Same drag sizes as the misses in the phone reads.",
+ "steps": [
+  [
+   "toPage",
+   "Gestures Probe"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Shape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "328 before",
+   {
+    "stack": 0,
+    "section": 0
+   }
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   328
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "328 after",
+   {
+    "stack": 0,
+    "section": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Shape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "492 before",
+   {
+    "stack": 0,
+    "section": 0
+   }
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   492
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "492 after",
+   {
+    "stack": 0,
+    "section": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Shape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "600 before",
+   {
+    "stack": 0,
+    "section": 0
+   }
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   600
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "600 after",
+   {
+    "stack": 0,
+    "section": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Shape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "800 before",
+   {
+    "stack": 0,
+    "section": 0
+   }
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   800
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "800 after",
+   {
+    "stack": 0,
+    "section": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Shape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   800
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "-400 before",
+   {
+    "stack": 0,
+    "section": 0
+   }
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   -400
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "-400 after",
+   {
+    "stack": 0,
+    "section": 0
+   }
+  ]
+ ],
+ "reads": {
+  "328 before": {
+   "section": {
+    "frame": [
+     1600,
+     945
+    ],
+    "box": [
+     0,
+     0,
+     1600,
+     667.6
+    ],
+    "rows": 8,
+    "rowSizes": "30.1x8",
+    "rowGap": "11px",
+    "columnGap": "11px",
+    "scrollY": 0,
+    "blocks": 1
+   },
+   "stack": [
+    {
+     "id": "2_420",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "328 after": {
+   "section": {
+    "frame": [
+     1600,
+     945
+    ],
+    "box": [
+     0,
+     0,
+     1600,
+     914.1
+    ],
+    "rows": 14,
+    "rowSizes": "30.1x14",
+    "rowGap": "11px",
+    "columnGap": "11px",
+    "scrollY": 0,
+    "blocks": 1
+   },
+   "stack": [
+    {
+     "id": "2_420",
+     "type": "csr",
+     "desktop": "9/2/15/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "492 before": {
+   "section": {
+    "frame": [
+     1600,
+     945
+    ],
+    "box": [
+     0,
+     0,
+     1600,
+     667.6
+    ],
+    "rows": 8,
+    "rowSizes": "30.1x8",
+    "rowGap": "11px",
+    "columnGap": "11px",
+    "scrollY": 0,
+    "blocks": 1
+   },
+   "stack": [
+    {
+     "id": "8_420",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "492 after": {
+   "section": {
+    "frame": [
+     1600,
+     945
+    ],
+    "box": [
+     0,
+     0,
+     1600,
+     1078.5
+    ],
+    "rows": 18,
+    "rowSizes": "30.1x18",
+    "rowGap": "11px",
+    "columnGap": "11px",
+    "scrollY": 0,
+    "blocks": 1
+   },
+   "stack": [
+    {
+     "id": "8_420",
+     "type": "csr",
+     "desktop": "13/2/19/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "600 before": {
+   "section": {
+    "frame": [
+     1600,
+     945
+    ],
+    "box": [
+     0,
+     0,
+     1600,
+     667.6
+    ],
+    "rows": 8,
+    "rowSizes": "30.1x8",
+    "rowGap": "11px",
+    "columnGap": "11px",
+    "scrollY": 0,
+    "blocks": 1
+   },
+   "stack": [
+    {
+     "id": "9_420",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "600 after": {
+   "section": {
+    "frame": [
+     1600,
+     945
+    ],
+    "box": [
+     0,
+     -10,
+     1600,
+     1201.8
+    ],
+    "rows": 21,
+    "rowSizes": "30.1x21",
+    "rowGap": "11px",
+    "columnGap": "11px",
+    "scrollY": 10,
+    "blocks": 1
+   },
+   "stack": [
+    {
+     "id": "9_420",
+     "type": "csr",
+     "desktop": "16/2/22/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "800 before": {
+   "section": {
+    "frame": [
+     1600,
+     945
+    ],
+    "box": [
+     0,
+     0,
+     1600,
+     667.6
+    ],
+    "rows": 8,
+    "rowSizes": "30.1x8",
+    "rowGap": "11px",
+    "columnGap": "11px",
+    "scrollY": 0,
+    "blocks": 1
+   },
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "800 after": {
+   "section": {
+    "frame": [
+     1600,
+     945
+    ],
+    "box": [
+     0,
+     -10,
+     1600,
+     1407.3
+    ],
+    "rows": 26,
+    "rowSizes": "30.1x26",
+    "rowGap": "11px",
+    "columnGap": "11px",
+    "scrollY": 10,
+    "blocks": 1
+   },
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "21/2/27/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "-400 before": {
+   "section": {
+    "frame": [
+     1600,
+     945
+    ],
+    "box": [
+     0,
+     -10,
+     1600,
+     1407.3
+    ],
+    "rows": 26,
+    "rowSizes": "30.1x26",
+    "rowGap": "11px",
+    "columnGap": "11px",
+    "scrollY": 10,
+    "blocks": 1
+   },
+   "stack": [
+    {
+     "id": "8_420",
+     "type": "csr",
+     "desktop": "21/2/27/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "-400 after": {
+   "section": {
+    "frame": [
+     1600,
+     945
+    ],
+    "box": [
+     0,
+     -847,
+     1600,
+     1407.3
+    ],
+    "rows": 26,
+    "rowSizes": "30.1x26",
+    "rowGap": "11px",
+    "columnGap": "11px",
+    "scrollY": 847,
+    "blocks": 1
+   },
+   "stack": [
+    {
+     "id": "8_420",
+     "type": "csr",
+     "desktop": "11/2/17/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  }
+ },
+ "errors": [],
+ "visited": "Gestures Probe",
+ "leftDirty": true,
+ "ours": {
+  "how": "Our editor, Shape at rows 4 to 10, pressed at y 305 in a 945 frame, 12 mouse steps, 200 ms held before letting go, 436px of room to scroll. The oracle's press height was not read.",
+  "reads": {
+   "328": {
+    "scroll": 0,
+    "rows": 8
+   },
+   "492": {
+    "scroll": 0,
+    "rows": 12
+   },
+   "600": {
+    "scroll": 30,
+    "rows": 15
+   },
+   "800": {
+    "scroll": 0,
+    "rows": 19
+   }
+  },
+  "against": "Oracle rows moved 8, 12, 15, 20 with scroll 0, 0, 10, 10. 800 differs: the pointer left our window with no scroll, 19 against 20."
+ }
+}

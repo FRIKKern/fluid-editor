@@ -134,7 +134,13 @@ function phoneFollowsMove(s, was) {
     if (changed('mobile', (a) => a.slice(0, 2))) s.phoneFollows = false;
     return false;
   }
-  return changed('desktop', (a) => a) && followDesktopEdit(s);
+  // A block taken away on desktop: the stack closes up (CAP-TURNTEST4 d1, order and rows, one case).
+  const gone = was.blocks.filter((o) => !s.blocks.some((b) => b.id === o.id)).map((o) => o.layout.mobile.area);
+  if (gone.length) for (const b of s.blocks) {
+    const a = b.layout.mobile.area, up = gone.reduce((n, g) => n + (g[2] <= a[0] ? g[2] - g[0] : 0), 0);
+    b.layout.mobile.area = [a[0] - up, a[1], a[2] - up, a[3]];
+  }
+  return (changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
 }
 
 function undo() {
@@ -3548,7 +3554,7 @@ function addBlock(sid, name) {
     desktop: { area: [1, 2, 1 + h, 2 + w], z: zTop('desktop'), justify: 'flex-start', align: 'flex-start' },
     mobile: { area: [mobileEnd, 2, mobileEnd + h, 10], z: zTop('mobile'), justify: 'flex-start', align: 'flex-start' },
   } };
-  if (s.phoneFollows) followNewBlock(s, block, w, h);
+  if (s.phoneFollows) followNewBlock(s, block);
   else for (const b of stack.slice(slot)) {
     const a = b.layout.mobile.area;
     b.layout.mobile.area = [a[0] + h, a[1], a[2] + h, a[3]];
@@ -4165,7 +4171,7 @@ function openLayouts(sid) {
   const fr = frame.getBoundingClientRect(), q = sectionEl(sid).getBoundingClientRect();
   // From the card's set place: it may still be sliding in.
   const editAt = stage.getBoundingClientRect().top + parseFloat(chrome.querySelector('[data-sc-part="card"]').style.top) + 7;
-  layoutsPlace = { top: Math.round(sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom })), secTop: fr.top + q.top, h: q.height, moved: false };
+  layoutsPlace = { top: sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom }), secTop: fr.top + q.top, h: q.height, moved: false };
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
   readLayoutsLook();
   renderLayouts();
