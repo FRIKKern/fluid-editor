@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 94 changes
+- **Today** · 95 changes
+  - T6: a new Shape's color and stroke follow the section theme, read on all ten ([#273](https://github.com/FRIKKern/fluid-editor/pull/273))
   - Y2, E7: back to partial, new reads show undo and link box parts we have not built ([#272](https://github.com/FRIKKern/fluid-editor/pull/272))
-  - Oracle tools: oracle-headless refuses without CDP_PORT ([#271](https://github.com/FRIKKern/fluid-editor/pull/271))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
