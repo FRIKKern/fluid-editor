@@ -1,0 +1,591 @@
+{
+  "item": "CAP-T10VIEW",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: Mode and Display Source Code in the Code Editor view. One unnamed press opens Mode's list at its place in the view.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+      "read",
+      "panel start",
+      {
+        "checks": true,
+        "htmlOf": ".sqs-code-container",
+        "areas": 0
+      }
+    ],
+    [
+      "clickIf",
+      "Expand"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "clickAt",
+      585,
+      306
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "mode list",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "mode-list"
+    ],
+    [
+      "pressNamed",
+      "CSS"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "view on CSS",
+      {
+        "checks": true,
+        "htmlOf": ".sqs-code-container",
+        "areas": 0,
+        "panelEls": ".cm-content"
+      }
+    ],
+    [
+      "shot",
+      "view-css"
+    ],
+    [
+      "clickIf",
+      "Close"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "closed on CSS",
+      {
+        "checks": true,
+        "htmlOf": ".sqs-code-container",
+        "areas": 0,
+        "panelEls": ".cm-content"
+      }
+    ],
+    [
+      "shot",
+      "closed-css"
+    ],
+    [
+      "clickIf",
+      "Expand"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "clickAt",
+      585,
+      306
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Markdown"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "view on Markdown",
+      {
+        "checks": true,
+        "htmlOf": ".sqs-code-container"
+      }
+    ],
+    [
+      "shot",
+      "view-md"
+    ],
+    [
+      "clickIf",
+      "Close"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "closed on Markdown",
+      {
+        "checks": true,
+        "htmlOf": ".sqs-code-container",
+        "areas": 0
+      }
+    ],
+    [
+      "clickIf",
+      "Expand"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "clickAt",
+      585,
+      306
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "HTML"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "view on HTML",
+      {
+        "checks": true
+      }
+    ],
+    [
+      "clickAt",
+      1203,
+      311
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "switch on in view",
+      {
+        "checks": true,
+        "htmlOf": ".sqs-code-container",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "view-switch"
+    ],
+    [
+      "clickIf",
+      "Close"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "closed, switch on",
+      {
+        "checks": true,
+        "htmlOf": ".sqs-code-container",
+        "areas": 0,
+        "frameEls": ".sqs-code-container, .sqs-code-container pre"
+      }
+    ],
+    [
+      "shot",
+      "closed-switch"
+    ]
+  ],
+  "reads": {
+    "panel start": {
+      "checks": [
+        {
+          "box": [
+            870,
+            410,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": "Display Source Code"
+        }
+      ],
+      "htmlOf": "<p>row 1</p><p>row 2</p><p>row 3</p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "mode list": {
+      "controls": [
+        {
+          "role": "option",
+          "label": "CSS",
+          "box": [
+            383,
+            340,
+            406,
+            44
+          ]
+        },
+        {
+          "role": "option",
+          "label": "HTML",
+          "box": [
+            383,
+            384,
+            406,
+            44
+          ]
+        },
+        {
+          "role": "option",
+          "label": "JavaScript",
+          "box": [
+            383,
+            428,
+            406,
+            44
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Markdown",
+          "box": [
+            383,
+            472,
+            406,
+            44
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Plain Text",
+          "box": [
+            383,
+            516,
+            406,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "view on CSS": {
+      "checks": [
+        {
+          "box": [
+            870,
+            410,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": "Display Source Code"
+        },
+        {
+          "box": [
+            1203,
+            305,
+            12,
+            12
+          ],
+          "checked": true,
+          "text": "Display Source Code"
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content",
+          "label": "<p>row 1</p><p>row 2</p><p>row 3</p>",
+          "lines": 1,
+          "box": [
+            396.4,
+            439,
+            499.6,
+            344
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-content",
+          "label": "<p>row 1</p><p>row 2</p><p>row 3</p>",
+          "lines": 1,
+          "box": [
+            414.4,
+            333.5,
+            802.6,
+            471
+          ]
+        }
+      ],
+      "htmlOf": "<p>row 1</p><p>row 2</p><p>row 3</p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "closed on CSS": {
+      "checks": [
+        {
+          "box": [
+            882,
+            410,
+            12,
+            12
+          ],
+          "checked": true,
+          "text": "Display Source Code"
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content",
+          "label": "<p>row 1</p><p>row 2</p><p>row 3</p>",
+          "lines": 1,
+          "box": [
+            396.4,
+            439,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<pre class=\"source-code\">&lt;p&gt;row 1&lt;/p&gt;&lt;p&gt;row 2&lt;/p&gt;&lt;p&gt;row 3&lt;/p&gt;</pre>",
+      "areas": [
+        [
+          "1/2/4/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "view on Markdown": {
+      "checks": [
+        {
+          "box": [
+            882,
+            410,
+            12,
+            12
+          ],
+          "checked": true,
+          "text": "Display Source Code"
+        },
+        {
+          "box": [
+            1203,
+            305,
+            12,
+            12
+          ],
+          "checked": true,
+          "text": "Display Source Code"
+        }
+      ],
+      "htmlOf": "<pre class=\"source-code\">&lt;p&gt;row 1&lt;/p&gt;&lt;p&gt;row 2&lt;/p&gt;&lt;p&gt;row 3&lt;/p&gt;</pre>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "closed on Markdown": {
+      "checks": [
+        {
+          "box": [
+            882,
+            410,
+            12,
+            12
+          ],
+          "checked": true,
+          "text": "Display Source Code"
+        }
+      ],
+      "htmlOf": "<pre class=\"source-code\">&lt;p&gt;row 1&lt;/p&gt;&lt;p&gt;row 2&lt;/p&gt;&lt;p&gt;row 3&lt;/p&gt;</pre>",
+      "areas": [
+        [
+          "1/2/4/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "view on HTML": {
+      "checks": [
+        {
+          "box": [
+            882,
+            410,
+            12,
+            12
+          ],
+          "checked": true,
+          "text": "Display Source Code"
+        },
+        {
+          "box": [
+            1203,
+            305,
+            12,
+            12
+          ],
+          "checked": true,
+          "text": "Display Source Code"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "switch off in view": {
+      "checks": [
+        {
+          "box": [
+            882,
+            410,
+            12,
+            12
+          ],
+          "checked": true,
+          "text": "Display Source Code"
+        },
+        {
+          "box": [
+            1191,
+            305,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": "Display Source Code"
+        }
+      ],
+      "htmlOf": "<pre class=\"source-code\">&lt;p&gt;row 1&lt;/p&gt;&lt;p&gt;row 2&lt;/p&gt;&lt;p&gt;row 3&lt;/p&gt;</pre>",
+      "areas": [
+        [
+          "1/2/4/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "closed, switch off": {
+      "checks": [
+        {
+          "box": [
+            870,
+            410,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": "Display Source Code"
+        }
+      ],
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            338.9,
+            224.1,
+            99.2
+          ]
+        }
+      ],
+      "htmlOf": "<p>row 1</p><p>row 2</p><p>row 3</p>",
+      "areas": [
+        [
+          "1/2/4/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Mode in the view lists CSS, HTML, JavaScript, Markdown, Plain Text. Picking CSS turns the view's Display Source Code on at once, the panel's and the block wait. Markdown or HTML leave the switch as it was. On Close the block takes the mode and the switch, both ways: switch on shows the pre, switch off in the view and Close renders the HTML again, and the panel follows. So yes, it reaches the block on closing. It also gives rows up: 3 lines of HTML in 6 rows become the source in 3 rows. The old note said a change adds rows but never gives them up: that's wrong.",
+  "ours": "The same but for the rows.",
+  "differs": [
+    "closing on CSS: oracle 3 rows, ours 5"
+  ],
+  "pressed": [
+    "one unnamed press opening Mode's list, three times, at its place in the view",
+    "one unnamed press on the view's switch"
+  ],
+  "notPressed": [
+    "Learn More"
+  ]
+}

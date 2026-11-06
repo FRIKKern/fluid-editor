@@ -5,11 +5,11 @@
   "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here.",
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it. ask: the lead rules.",
   "counts": {
-    "total": 84,
-    "yes": 70,
+    "total": 87,
+    "yes": 73,
     "no": 11,
     "ask": 3,
-    "read": 17,
+    "read": 28,
     "notPressed": 0
   },
   "entries": [
@@ -159,7 +159,9 @@
       "safeRead": "yes",
       "how": "hover only; an earlier click changed nothing",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T7TIP.json",
+      "result": "Hover shows no tip. A press opens one, Escape closes it. Ours has no ?."
     },
     {
       "item": "T7",
@@ -168,7 +170,9 @@
       "safeRead": "yes",
       "how": "press it on a new video block on a probe page",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T7SETTINGS.json",
+      "result": "A Speed menu with seven options, in preview only. Ours does nothing."
     },
     {
       "item": "T7",
@@ -177,7 +181,9 @@
       "safeRead": "yes",
       "how": "Design tab on an empty block, if it can be emptied without an upload",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T7CORNER.json",
+      "result": "It rounds the placeholder. Ours stays square."
     },
     {
       "item": "T10",
@@ -186,7 +192,9 @@
       "safeRead": "yes",
       "how": "type more line counts, read rows",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T10ROWS.json, CAP-T10DOWN.json",
+      "result": "Rises and falls from a fit block follow a rule, inferred. A block its content overruns does not."
     },
     {
       "item": "T10",
@@ -195,7 +203,9 @@
       "safeRead": "yes",
       "how": "real mouse, then Mobile View",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T10PULL.json",
+      "result": "Read for code. Phone rows move alone. An embed after a pull or on the phone is not read."
     },
     {
       "item": "T10",
@@ -204,7 +214,9 @@
       "safeRead": "yes",
       "how": "press them on a new code block",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T10VIEW.json",
+      "result": "The view waits; Close applies it. CSS turns the switch on."
     },
     {
       "item": "T10",
@@ -213,7 +225,9 @@
       "safeRead": "yes",
       "how": "turn on, close, read",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T10VIEW.json",
+      "result": "Yes, both ways, and rows fall."
     },
     {
       "item": "T10",
@@ -222,7 +236,9 @@
       "safeRead": "yes",
       "how": "repeat with several lengths",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T10EMBED.json",
+      "result": "The placeholder is 95 tall: a fall in content height gives rows up."
     },
     {
       "item": "T10",
@@ -231,7 +247,9 @@
       "safeRead": "yes",
       "how": "a list of syntax samples in a new Markdown block",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T10MD.json",
+      "result": "A full reader. Ours matches 1 of 19."
     },
     {
       "item": "T10",
@@ -291,7 +309,9 @@
       "safeRead": "yes",
       "how": "add from the menu on a probe page, read the area. Content stays 0005",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T14ZOLA.json, CAP-T14BANDS.json",
+      "result": "Rows 3 and 4, right sizes. The helper pressed while the menu scrolled."
     },
     {
       "item": "T14",
@@ -300,7 +320,9 @@
       "safeRead": "yes",
       "how": "read at several times after adding",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T14OPENTABLE.json",
+      "result": "Row 3, same size for 20 seconds. The move was the helper hitting a neighbour."
     },
     {
       "item": "G4",
@@ -800,6 +822,33 @@
       "source": "CAP-L6PHONE2.json",
       "safeRead": "yes",
       "how": "hover on a block made in the session on a probe page, read, shot",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T10",
+      "what": "The rows of a code block its content already overruns, when the content falls",
+      "source": "found reading",
+      "safeRead": "yes",
+      "how": "more walks with several sizes (CAP-T10DOWN.json)",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T10",
+      "what": "An embed after a mouse pull and on the phone",
+      "source": "found reading",
+      "safeRead": "yes",
+      "how": "real mouse, then Mobile View (CAP-T10PULL.json covers code only)",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "T14",
+      "what": "Why Zola, Bandsintown and OpenTable start below row 1, when others start on it",
+      "source": "found reading",
+      "safeRead": "yes",
+      "how": "try other pages and window heights",
       "lane": "recorder",
       "state": "open"
     }

@@ -1,0 +1,574 @@
+{
+  "item": "CAP-T7SETTINGS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T7: the player's Settings button in preview, on the template's video with Player controls All. Three unnamed presses add the section: its button, Intro, the first tile. One unnamed press on the video pauses it.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "clickAt",
+      800,
+      312
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "clickAt",
+      228,
+      273
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "clickAt",
+      745,
+      340
+    ],
+    [
+      "pause",
+      7000
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "scrollTo",
+      "Player controls"
+    ],
+    [
+      "read",
+      "edit mode",
+      {
+        "frameEls": ".plyr__controls, .plyr__controls button"
+      }
+    ],
+    [
+      "pressNamed",
+      "Minimal"
+    ],
+    [
+      "pressNamed",
+      "All"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "click",
+      "Toggle preview mode"
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "moveFrame",
+      ".plyr__controls button[data-plyr=settings]"
+    ],
+    [
+      "read",
+      "playing, mouse over",
+      {
+        "frameEls": ".plyr__controls, .plyr__controls button"
+      }
+    ],
+    [
+      "clickAt",
+      800,
+      516
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "paused",
+      {
+        "frameEls": ".plyr__controls, .plyr__controls button, .plyr__control--overlaid"
+      }
+    ],
+    [
+      "shot",
+      "paused"
+    ],
+    [
+      "pressFrame",
+      ".plyr__controls button[data-plyr=settings]"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "settings open",
+      {
+        "frameEls": ".plyr__menu__container, .plyr__menu__container button, [data-plyr=settings]"
+      }
+    ],
+    [
+      "shot",
+      "settings"
+    ],
+    [
+      "pressFrame",
+      ".plyr__menu__container button"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "speed open",
+      {
+        "frameEls": ".plyr__menu__container, .plyr__menu__container button"
+      }
+    ],
+    [
+      "shot",
+      "speed"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "after Escape",
+      {
+        "frameEls": ".plyr__menu__container, [data-plyr=settings]"
+      }
+    ],
+    [
+      "click",
+      "Toggle preview mode"
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "read",
+      "back",
+      {
+        "has": [
+          "Exit",
+          "Save"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "edit mode": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "% buffered00:00",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "none",
+          "box": [
+            335.3,
+            254.9,
+            929.5,
+            553.8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "playing, mouse over": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "00:0700:07UnmuteMuteSettingsSpeedNormalS",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            335.3,
+            196.9,
+            929.5,
+            580.8
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "UnmuteMute",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1132.8,
+            720.3,
+            24,
+            24
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "Settings",
+          "expanded": "false",
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1176.8,
+            720.3,
+            24,
+            24
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "Exit fullscreenEnter fullscreen",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1220.8,
+            720.3,
+            24,
+            24
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "paused": {
+      "frameEls": [
+        {
+          "tag": "button",
+          "label": "Play",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            740,
+            456.3,
+            120,
+            120
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "00:0700:07UnmuteMuteSettingsSpeedNormalS",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            335.3,
+            196.9,
+            929.5,
+            580.8
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "UnmuteMute",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1132.8,
+            720.3,
+            24,
+            24
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "Settings",
+          "expanded": "false",
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1176.8,
+            720.3,
+            24,
+            24
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "Exit fullscreenEnter fullscreen",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1220.8,
+            720.3,
+            24,
+            24
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "settings open": {
+      "frameEls": [
+        {
+          "tag": "button",
+          "label": "Settings",
+          "expanded": "true",
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1176.8,
+            720.3,
+            24,
+            24
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "SpeedNormalSpeedGo back to previous menu",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1080.8,
+            659.9,
+            164,
+            48.4
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "SpeedNormal",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1080.8,
+            667.9,
+            164,
+            32.4
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "speed open": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "SpeedNormalSpeedGo back to previous menu",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1084.8,
+            433.1,
+            160,
+            275.1
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "SpeedGo back to previous menu",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1084.8,
+            441.1,
+            160,
+            32.4
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "0.5x",
+          "expanded": null,
+          "checked": "false",
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1084.8,
+            473.5,
+            160,
+            32.4
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "0.75x",
+          "expanded": null,
+          "checked": "false",
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1084.8,
+            505.9,
+            160,
+            32.4
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "Normal",
+          "expanded": null,
+          "checked": "true",
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1084.8,
+            538.3,
+            160,
+            32.4
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "1.25x",
+          "expanded": null,
+          "checked": "false",
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1084.8,
+            570.7,
+            160,
+            32.4
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "1.5x",
+          "expanded": null,
+          "checked": "false",
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1084.8,
+            603.1,
+            160,
+            32.4
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "1.75x",
+          "expanded": null,
+          "checked": "false",
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1084.8,
+            635.5,
+            160,
+            32.4
+          ]
+        },
+        {
+          "tag": "button",
+          "label": "2x",
+          "expanded": null,
+          "checked": "false",
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1084.8,
+            667.9,
+            160,
+            32.4
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after Escape": {
+      "frameEls": [
+        {
+          "tag": "button",
+          "label": "Settings",
+          "expanded": "false",
+          "checked": null,
+          "opacity": "1",
+          "pointer": "auto",
+          "box": [
+            1176.8,
+            720.3,
+            24,
+            24
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "back": {
+      "has": {
+        "Exit": true,
+        "Save": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "In edit mode the player's controls do not show: opacity 0, no pointer events, so Settings can't be pressed there. In preview it can. Settings opens a menu 164 by 48.4, right edge 1244.8, its bottom 12 above the button, with one row, Speed Normal. Speed swaps it for a menu 160 by 275.1 with a back row and seven options, 32.4 high: 0.5x, 0.75x, Normal (checked), 1.25x, 1.5x, 1.75x, 2x. Escape closes it. The controls hide while the video plays and show when it's paused or ended; the clip is 7 seconds long.",
+  "ours": "Our Settings button has no handler, so a press does nothing.",
+  "differs": true,
+  "pressed": [
+    "three unnamed presses add the template section: its button, Intro, the first tile",
+    "one unnamed press on the video, since the overlaid button lies under another element. The clip had ended, and the controls stayed on"
+  ]
+}

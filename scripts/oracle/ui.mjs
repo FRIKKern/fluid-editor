@@ -13,6 +13,9 @@ export async function click(find, { inFrame = false, wait = 1200 } = {}) {
   try {
     const ok = evalJs(SURFACE, `(() => { const el = (${find})(); document.querySelectorAll('#fx-target').forEach((x) => x.removeAttribute('id')); if (!el) return JSON.stringify(false); { const q = el.getBoundingClientRect(); if (q.top < 0 || q.bottom > innerHeight) el.scrollIntoView({ block: 'center' }); } el.id = 'fx-target'; return JSON.stringify(true); })()`);
     if (ok !== true) throw new Error(`click: nothing found for ${find.slice(0, 120)}`);
+    // A list may still be scrolling smoothly: a press now lands on its neighbour (OpenTable made a Bandsintown block).
+    let was = null;
+    for (let t = 0; t < 12; t++) { const now = evalJs(SURFACE, `(() => JSON.stringify(document.getElementById('fx-target').getBoundingClientRect().top))()`); if (now === was) break; was = now; await pause(150); }
     cmux('click', '#fx-target');
   } finally {
     if (inFrame) cmux('frame', 'main');

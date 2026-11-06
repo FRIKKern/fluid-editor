@@ -1,0 +1,1067 @@
+{
+  "item": "CAP-T10DOWN",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: a code block's rows from 12 lines down to each smaller count and back, with a longer wait, and one line-by-line walk down",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "at 12 before 11",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "12 to 11",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "at 12 before 10",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "12 to 10",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "at 12 before 9",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "12 to 9",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "at 12 before 8",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "12 to 8",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "at 12 before 7",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "12 to 7",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "at 12 before 6",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "12 to 6",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "at 12 before 5",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "12 to 5",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "at 12 before 4",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "12 to 4",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "at 12 before 3",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "12 to 3",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "at 12 before 2",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "12 to 2",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "at 12 before 1",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "12 to 1",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "walk 11",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "walk 10",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "walk 9",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "walk 8",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "walk 7",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "walk 6",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "walk 5",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "walk 4",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "walk 3",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "walk 2",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "walk 1",
+      {
+        "areas": 0
+      }
+    ]
+  ],
+  "reads": {
+    "at 12 before 11": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "12 to 11": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            406.5
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/11/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "at 12 before 10": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "12 to 10": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            368.1
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/10/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "at 12 before 9": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "12 to 9": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            329.7
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/9/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "at 12 before 8": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "12 to 8": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            291.3
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/9/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "at 12 before 7": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "12 to 7": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            252.8
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/8/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "at 12 before 6": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "12 to 6": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            214.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "at 12 before 5": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "12 to 5": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            176
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/6/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "at 12 before 4": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "12 to 4": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            318.4,
+            224.1,
+            137.6
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/5/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "at 12 before 3": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "12 to 3": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            338.9,
+            224.1,
+            99.2
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/4/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "at 12 before 2": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "12 to 2": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            359.5,
+            224.1,
+            60.8
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "at 12 before 1": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "12 to 1": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            380,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "walk 11": {
+      "areas": [
+        [
+          "1/2/11/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "walk 10": {
+      "areas": [
+        [
+          "1/2/11/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "walk 9": {
+      "areas": [
+        [
+          "1/2/9/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "walk 8": {
+      "areas": [
+        [
+          "1/2/9/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "walk 7": {
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "walk 6": {
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "walk 5": {
+      "areas": [
+        [
+          "1/2/5/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "walk 4": {
+      "areas": [
+        [
+          "1/2/5/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "walk 3": {
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "walk 2": {
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "walk 1": {
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "From 12 lines in 12 rows, straight to each smaller count: 11:10, 10:9, 9:8, 8:8, 7:7, 6:6, 5:5, 4:4, 3:3, 2:2, 1:1. Each gives up ceil((fall in content height + 9) / 41.1) rows, which fits all 11, and pulled tall blocks too (CAP-T10PULL). Walking down one line at a time gives 10,10,8,8,6,6,4,4,2,2,1: a block its content overruns doesn't follow that rule, and I found no rule for it. Inferred from these readings, not read from any code.",
+  "ours": "Ours goes to what the content needs: 11:11, 10:10, 9:9, and the walk 11,10,9,8,7,6,5,4,3,2,1.",
+  "differs": [
+    "12 to 11, 10, 9: oracle one row fewer",
+    "the walk: oracle 10,10,8,8,6,6,4,4,2,2,1; ours one row per line"
+  ]
+}

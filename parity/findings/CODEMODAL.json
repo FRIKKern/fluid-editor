@@ -26,7 +26,8 @@
     "embed": { "start": [1, 2, 9, 10], "steps": [["<p>a</p>", 6], ["<p>b</p>", 4], ["", 4], ["<p>c</p>", 2], ["three", 4], ["eight", 9], ["tall", 9], ["<p>e</p>", 2]] },
     "embedAgain": { "start": [1, 2, 9, 10], "steps": [["<p>x</p>", 6], ["twelve", 12], ["thirty", 29], ["<p>y</p>", 2], ["", 3]] },
     "lines": "three, eight, twelve and thirty are that many lines of <p>row n</p>; tall is one <p style=height:300px>.",
+    "ruleReread": "Wrong on falls and on closing the view: CAP-T10DOWN.json, CAP-T10VIEW.json.",
     "rule": "Inferred from these readings, it holds for all of them: a block that its content outgrows takes just the rows the content needs; when the content needs fewer rows, the block gives up that many and keeps the rest. Empty code changes nothing. An embed stays at 2 rows or more."
   },
-  "notMeasured": ["what Mode does in the full-screen view: the control was located, not pressed", "whether Display Source Code set in the view reaches the block on closing: on then off left it as it was", "the page Learn More opens", "rows after a pull with the mouse, or on the phone"]
+  "notMeasured": ["the page Learn More opens", "an embed after a pull or on the phone"]
 }
