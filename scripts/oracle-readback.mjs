@@ -7,7 +7,8 @@
 // Exit 0: the same. Exit 1: differences, listed. Exit 2: it could not read, so it says nothing about the site.
 import { writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause } from './lib/cmux.mjs';
-import { pressOnTop, leaveChecked } from './oracle/press.mjs';
+import { pressOnTop } from './oracle/press.mjs';
+import { exitWithoutSaving } from './oracle/ui.mjs';
 import { THEMES, NAMES, compareRows, comparePalette, compareView, STYLES, STYLE_FILE } from './oracle/readback.mjs';
 import { VIEWS, DEEP, DEEP_BACK, READ_VIEW } from './oracle/style-views.mjs';
 
@@ -91,12 +92,12 @@ try {
     await goBack('Site Styles');
   }
   if (process.argv.includes('--store')) writeFileSync(STYLE_FILE, `${JSON.stringify({ ...STYLES, views: read }, null, 1)}\n`);
-  if (await leaveChecked(S)) diffs.push('Exit asked about unsaved changes');
+  if (await exitWithoutSaving()) diffs.push('Exit asked about unsaved changes');
   await pause(1500);
   if (!closed()) diffs.push(`the page is still being edited after Exit: ${JSON.stringify(topBar())}`);
 } catch (e) {
   console.error(`oracle-readback: could not read: ${e.message}`);
-  if (topBar().exit) await leaveChecked(S).catch(() => {});
+  if (topBar().exit) await exitWithoutSaving().catch((x) => console.error(x.message));
   goto(S, PAGES);
   process.exit(2);
 }
