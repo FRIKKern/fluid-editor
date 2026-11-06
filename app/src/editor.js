@@ -3,6 +3,7 @@
 // on commit; during a gesture we change inline styles and editor layers.
 import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults } from './render.js';
 import { imageShapeById } from './image-shapes.js';
+import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
 import { socialLook, ACCORDION_STYLES, ACCORDION_ICON, ACCORDION_LINE, ACCORDION_PAD, ACCORDION_WIDTH, BLEND_MODES, renderPage, renderSection, renderHeader, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
 import * as fmt from './text-format.js';
@@ -2146,11 +2147,16 @@ function renderSectionPop() {
 function renderShapePop() {
   if (shapeUi.section) { renderSectionPop(); return; }
   const b = B(sel.sid, sel.bid), P = blockPanel.getBoundingClientRect(), { kind } = shapeUi;
-  shapePop.className = kind === 'fxmenu' ? 'is-fxmenu' : kind === 'accmenu' ? 'is-accmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
+  shapePop.className = kind === 'editmenu' ? 'is-editmenu' : kind === 'fxmenu' ? 'is-fxmenu' : kind === 'accmenu' ? 'is-accmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
   if (kind === 'animopts') {
     const u = shapeUi, one = u.mode === 'row' ? ' animation' : ' animations', a = animRows()[anim.i];
     if (u.mode === 'sel') { shapePop.innerHTML = animOptionsHtml(u.key, a?.[u.key]); shapePop.style.cssText = `left:${u.rect.left - 9}px;top:${u.rect.top}px`; }
     else { shapePop.innerHTML = `<button type="button" role="option" data-an-clip="copy">Copy${one}</button><button type="button" role="option" data-an-clip="paste"${animClip ? '' : ' disabled'}>Paste${one}</button>`; shapePop.style.cssText = `left:${u.rect.left - 54}px;top:${u.rect.top - 6}px`; }
+  } else if (kind === 'editmenu') {
+    // Edit (IMAGEEDITOR.json). The two AI rows need an AI service behind them: not built.
+    const icon = (d) => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">${d}</svg>`, ai = '<em>AI</em>';
+    shapePop.innerHTML = `<button type="button" role="menuitem" disabled data-unbuilt title="Needs an AI service">${icon('<path d="M4 20l1-4L16 5l3 3L8 19z"/>')}Edit with AI ${ai}</button><button type="button" role="menuitem" disabled data-unbuilt title="Needs an AI service">${icon('<path d="M4 8h4l2-3h4l2 3h4v11H4z"/><circle cx="12" cy="13" r="3"/>')}Reshoot ${ai}</button><button type="button" role="menuitem" data-image-edit>${icon('<rect x="4" y="5" width="16" height="14"/><path d="M4 16l5-5 4 4 3-3 4 4"/>')}Edit image</button>`;
+    shapePop.style.cssText = `left:${shapeUi.rect.left - 315.5}px;top:${shapeUi.rect.top + 40}px`;
   } else if (kind === 'fxmenu') {
     // Interaction (IMAGEEFFECT.json): a list over its row, the current one on the row with a check.
     shapePop.innerHTML = EFFECTS[b.effect.kind].groups.flatMap(([, rows]) => rows).find((r) => r[2] === shapeUi.key)[3].map((o) => `<button type="button" role="option" class="${o === b.effect[shapeUi.key] ? 'is-cur' : ''}" data-fx-opt="${o}">${o}${o === b.effect[shapeUi.key] ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 12l4 4 8-9"/></svg>' : ''}</button>`).join('');
@@ -2209,6 +2215,12 @@ shapePop.addEventListener('click', (e) => {
     return;
   }
   if (!sel || !shapeUi) return;
+  if (e.target.closest('[data-image-edit]')) {
+    const { sid, bid } = sel, b = B(sid, bid);
+    closeShapePop();
+    openImageEditor({ src: b.src, onFail: () => note('The picture could not be opened'), onSave: ({ src, aspect }) => { if (sel?.bid === bid) setShape((x) => { x.src = src; x.aspect = aspect; }, `image edit on ${bid}`); } });
+    return;
+  }
   const fxo = e.target.closest('[data-fx-opt]');
   if (fxo) {
     const { key } = shapeUi, v = fxo.dataset.fxOpt;
@@ -2633,6 +2645,12 @@ blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-image-act]');
   if (!a || !sel) return;
   if (a.dataset.imageAct === 'replace') { blockPanel.querySelector('[data-image-file]').click(); return; }
+  if (a.dataset.imageAct === 'edit') {
+    if (shapeUi?.kind === 'editmenu') { closeShapePop(); return; }
+    shapeUi = { kind: 'editmenu', key: 'edit', bid: sel.bid, custom: null, rect: a.getBoundingClientRect() };
+    renderShapePop();
+    return;
+  }
   setButton((b) => { delete b.src; delete b.aspect; b.empty = true; }, 'Image removed');
   renderBlockPanel();
 });

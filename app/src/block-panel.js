@@ -44,7 +44,7 @@ function imageContentHtml(c) {
   const h = c.src ? Math.min(125, 276 / (c.aspect || 1.5)) : 0, w = h * (c.aspect || 1.5), [fx, fy] = c.focal || [0.5, 0.5];
   const pic = c.src ? `<div class="bp-pic-stage"><div class="bp-pic-frame" style="width:${w}px;height:${h}px"><img class="bp-pic-img" alt="" src="${esc(c.src)}"><div class="bp-focal" role="button" tabindex="0" aria-label="Focal point" style="left:${fx * 100}%;bottom:${(1 - fy) * 100}%"></div></div></div><div class="bp-pic-name">${esc(c.filename || '')}</div><div class="bp-pic-kind">Image</div>` : '';
   const trash = pi('<path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12M10 10v6M14 10v6"/>');
-  return `<div class="bp-pic">${pic}<div class="bp-pic-actions"><button type="button" data-image-act="replace">Replace</button><button type="button" data-unbuilt disabled title="Not built yet">Edit</button><button type="button" class="bp-link-remove" data-image-act="remove" aria-label="Remove"${c.src ? '' : ' disabled'}>${trash}<span class="bp-sr">Remove</span></button></div><input class="bp-pic-file" type="file" accept="image/*" hidden data-image-file></div>`
+  return `<div class="bp-pic">${pic}<div class="bp-pic-actions"><button type="button" data-image-act="replace">Replace</button><button type="button" data-image-act="edit"${c.src ? '' : ' disabled'}>Edit</button><button type="button" class="bp-link-remove" data-image-act="remove" aria-label="Remove"${c.src ? '' : ' disabled'}>${trash}<span class="bp-sr">Remove</span></button></div><input class="bp-pic-file" type="file" accept="image/*" hidden data-image-file></div>`
     + (c.lightbox ? '' : linkField(c.href, c.pages))
     + text('filename', 'Alternate Filename', c.filename)
     + text('alt', 'Image alt text', c.alt);
