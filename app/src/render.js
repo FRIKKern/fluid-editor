@@ -644,11 +644,13 @@ export function renderSection(s, model) {
 // title, menu and actions no longer fit, and pads the first section by the header's
 // height, as the oracle's own script does. Spacing: 4vw sides, 1.3vw between menu
 // items, 2vw before the actions.
-export function renderHeader(h) {
+// The header takes the first section's theme (parity/findings/CAP-HEADERTHEME.json).
+export const headerTheme = (model) => (model.sections?.[0]?.theme || '').replace(/^theme-/, '');
+export function renderHeader(h, theme = '') {
   if (!h) return '';
   const nav = (h.nav || []).map((n) => `<a class="header-nav-item" href="${escapeHtml(n.href || '#')}">${escapeHtml(n.label)}</a>`).join('');
   const actions = (h.actions || []).map((n) => `<a class="header-action" href="${escapeHtml(n.href || '#')}">${escapeHtml(n.label)}</a>`).join('');
-  return `<header class="site-header" id="header" data-collapse-below="${h.collapseBelow || 817}"><div class="header-inner"><a class="header-title" href="/">${escapeHtml(h.title)}</a><nav class="header-nav">${nav}</nav><div class="header-actions">${actions}</div><button class="header-burger" type="button" aria-label="Open Menu"><span></span><span></span></button></div></header>`;
+  return `<header class="site-header" id="header" data-section-theme="${escapeHtml(theme)}" data-collapse-below="${h.collapseBelow || 817}"><div class="header-inner"><a class="header-title" href="/">${escapeHtml(h.title)}</a><nav class="header-nav">${nav}</nav><div class="header-actions">${actions}</div><button class="header-burger" type="button" aria-label="Open Menu"><span></span><span></span></button></div></header>`;
 }
 
 export const HEADER_SCRIPT = `(() => {
@@ -722,7 +724,7 @@ export function exportHtml(model, siteCss) {
 ${siteStylesHead(model.siteStyles)}
 </head>
 <body>
-${renderHeader(model.header)}
+${renderHeader(model.header, headerTheme(model))}
 <main id="page">
 ${renderPage(model)}
 </main>

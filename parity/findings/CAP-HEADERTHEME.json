@@ -1,0 +1,138 @@
+{
+  "item": "P7",
+  "capturedAt": "2026-11-06",
+  "engine": "the oracle, Blocks Probe, unsaved",
+  "window": [
+    1600,
+    1000
+  ],
+  "question": "Does the site header follow a first section turned dark?",
+  "answer": "Yes. The header carries the first section's theme as its own data-section-theme, and the title, menu and Login take that theme's color. The header's background stays clear. Its theme follows whichever section is first.",
+  "themes": {
+    "none": {
+      "theme": "",
+      "title": "rgb(0, 0, 0)",
+      "nav": "rgb(0, 0, 0)",
+      "login": "rgb(0, 0, 0)",
+      "sectionBackground": "rgb(181, 100, 247)"
+    },
+    "Lightest 1": {
+      "theme": "white",
+      "title": "rgb(0, 0, 0)",
+      "nav": "rgb(0, 0, 0)",
+      "login": "rgb(0, 0, 0)",
+      "sectionBackground": "rgb(255, 255, 255)"
+    },
+    "Lightest 2": {
+      "theme": "white-bold",
+      "title": "rgb(0, 0, 0)",
+      "nav": "rgb(0, 0, 0)",
+      "login": "rgb(0, 0, 0)",
+      "sectionBackground": "rgb(255, 255, 255)"
+    },
+    "Light 1": {
+      "theme": "light",
+      "title": "rgb(0, 0, 0)",
+      "nav": "rgb(0, 0, 0)",
+      "login": "rgb(0, 0, 0)",
+      "sectionBackground": "rgb(181, 100, 247)"
+    },
+    "Light 2": {
+      "theme": "light-bold",
+      "title": "rgb(0, 0, 0)",
+      "nav": "rgb(0, 0, 0)",
+      "login": "rgb(0, 0, 0)",
+      "sectionBackground": "rgb(255, 207, 90)"
+    },
+    "Bright 1": {
+      "theme": "bright-inverse",
+      "title": "rgb(242, 184, 180)",
+      "nav": "rgb(242, 184, 180)",
+      "login": "rgb(242, 184, 180)",
+      "sectionBackground": "rgb(0, 0, 0)"
+    },
+    "Bright 2": {
+      "theme": "bright",
+      "title": "rgb(0, 0, 0)",
+      "nav": "rgb(0, 0, 0)",
+      "login": "rgb(0, 0, 0)",
+      "sectionBackground": "rgb(242, 184, 180)"
+    },
+    "Dark 1": {
+      "theme": "dark",
+      "title": "rgb(255, 255, 255)",
+      "nav": "rgb(255, 255, 255)",
+      "login": "rgb(255, 255, 255)",
+      "sectionBackground": "rgb(181, 100, 247)"
+    },
+    "Dark 2": {
+      "theme": "dark-bold",
+      "title": "rgb(0, 0, 0)",
+      "nav": "rgb(0, 0, 0)",
+      "login": "rgb(0, 0, 0)",
+      "sectionBackground": "rgb(181, 100, 247)"
+    },
+    "Darkest 1": {
+      "theme": "black",
+      "title": "rgb(255, 255, 255)",
+      "nav": "rgb(255, 255, 255)",
+      "login": "rgb(255, 255, 255)",
+      "sectionBackground": "rgb(0, 0, 0)"
+    },
+    "Darkest 2": {
+      "theme": "black-bold",
+      "title": "rgb(242, 184, 180)",
+      "nav": "rgb(242, 184, 180)",
+      "login": "rgb(242, 184, 180)",
+      "sectionBackground": "rgb(0, 0, 0)"
+    }
+  },
+  "rowsAgree": "The colors fit the table of the Site Title and Navigation Links rows (CAP-THEMEROWS.json) for all ten themes. Inferred, not read: which row colors which part, since on this palette the two rows give the same color wherever they differ by role (Lightest 2 and Light 2). Rows were not changed: they write site-wide.",
+  "follows": {
+    "secondSectionTurned": {
+      "first": "black",
+      "second": "bright-inverse",
+      "header": "black",
+      "title": "rgb(255, 255, 255)"
+    },
+    "undoOfSecondSection": {
+      "header": "black",
+      "secs": [
+        "black",
+        ""
+      ]
+    },
+    "redo": {
+      "header": "black",
+      "secs": [
+        "black",
+        "bright-inverse"
+      ]
+    },
+    "moveFirstDown": {
+      "header": "bright-inverse",
+      "title": "rgb(242, 184, 180)",
+      "nav": "rgb(242, 184, 180)",
+      "secs": [
+        "bright-inverse",
+        "black"
+      ]
+    },
+    "moveSecondUp": {
+      "note": "A black second section moved up turned the header black, title white (a separate run)."
+    },
+    "phone": {
+      "width": 428,
+      "header": "bright-inverse",
+      "title": "rgb(242, 184, 180)",
+      "burger": "Seen in a screenshot, the same pink as the title. Not read as a number."
+    },
+    "layoutPick": {
+      "note": "A layout that turns the section's theme turns the header too: from Lightest 1, tile 8 made both dark, title white. Tiles 1 to 7 kept white, title black."
+    }
+  },
+  "notRead": [
+    "Removing the first section: ours follows the model, so it takes the next section's theme, as a move does. Inferred.",
+    "A palette other than the probe's."
+  ]
+}

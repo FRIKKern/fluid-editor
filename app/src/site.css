@@ -242,6 +242,14 @@ svg.sqs-shape:not(.is-square) { position: absolute; inset: 0; }
 /* Site header (P7), see renderHeader in render.js */
 body { position: relative; }
 .site-header { position: absolute; top: 0; left: 0; right: 0; z-index: 10; }
+/* The header takes the first section's theme: each theme's Site Title and Navigation Links rows
+   (parity/findings/CAP-HEADERTHEME.json, CAP-THEMEROWS.json). */
+.site-header { color: hsla(var(--black-hsl), 1); }
+.site-header[data-section-theme="white-bold"] .header-title, .site-header[data-section-theme="light-bold"] .header-title { color: hsla(var(--safeDarkAccent-hsl), 1); }
+.site-header[data-section-theme="bright-inverse"] { color: hsla(var(--accent-hsl), 1); }
+.site-header[data-section-theme="bright"] { color: hsla(var(--safeInverseAccent-hsl), 1); }
+.site-header[data-section-theme="dark"], .site-header[data-section-theme="black"] { color: hsla(var(--white-hsl), 1); }
+.site-header[data-section-theme="black-bold"] { color: hsla(var(--safeLightAccent-hsl), 1); }
 /* P8: above about 1520px the content stays in a centred 1400px box (one reading: title at 92, menu
    end at 1491 in a 1583px canvas); 4vw sides below that (P7). */
 .header-inner { display: flex; align-items: center; padding: 3vw max(4vw, calc((100% - 1400px) / 2)); }
@@ -255,7 +263,7 @@ body { position: relative; }
 .header-nav-item, .header-action { color: inherit; text-decoration: none; font-size: 16px; }
 .header-actions { display: flex; gap: 1.3vw; white-space: nowrap; padding-left: 2vw; line-height: 1.4; }
 /* The button keeps the browser's own padding, as on the oracle: 35px + 1px + 1px in Chrome. */
-.header-burger { display: none; box-sizing: content-box; width: 35px; height: 35px; margin-left: auto; padding: revert; border: 0; background: none; cursor: pointer; flex-direction: column; justify-content: center; gap: 8px; }
+.header-burger { display: none; color: inherit; box-sizing: content-box; width: 35px; height: 35px; margin-left: auto; padding: revert; border: 0; background: none; cursor: pointer; flex-direction: column; justify-content: center; gap: 8px; }
 .header-burger span { display: block; height: 1px; width: 35px; background: currentColor; }
 .site-header.is-collapsed .header-inner { padding: 6vw; }
 .site-header.is-collapsed .header-nav, .site-header.is-collapsed .header-actions { display: none; }
