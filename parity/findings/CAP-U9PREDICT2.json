@@ -1,0 +1,14 @@
+{
+  "item": "U9",
+  "capturedAt": "2026-11-06",
+  "question": "Difference 53: predictions for the one candidate named in CAP-U9SCROLL3.json, at a new height and a new frame, and on another section, pushed before any read.",
+  "rule": "Inferred. Take band high as the highest top plus scroll read while the top is above 0, and band high minus scroll as the panel's unheld top. The panel closes once its unheld top passes -421, where the bottom of the 476 tall panel meets the top bar at 55. Band high is read in the same walk, not predicted: 52 is named, with no rule for it.",
+  "hit": "Scrolling down by 5 from where it opened, the first closed read is within 6 px of band high + 421. Also closed for all of 20 steps back by 20.",
+  "predictions": {
+    "section 1, Custom 75, window 1400, frame 1345": "first closed scroll = band high + 421",
+    "section 2, Custom 125, window 1100, frame 1045": "first closed scroll = band high + 421",
+    "section 2, default height, window 1000, frame 945": "first closed scroll = band high + 421"
+  },
+  "count": 3,
+  "ifItMisses": "Lead's ruling: name it, no more rounds on it."
+}
