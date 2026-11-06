@@ -3,7 +3,7 @@
 // Runs in the browser and in Node.
 import { siteStylesHead } from './site-style-packs.js';
 import { shapeById } from './shapes.js';
-import { markdownParts } from './markdown.js';
+import { markdownHtml, markdownParts } from './markdown.js';
 import { formFieldHtml, formLightboxHtml, formPostHtml, formSubmitJs } from './form-fields.js';
 import { imageShapeById } from './image-shapes.js';
 import { effectData, IMAGE_EFFECT_SCRIPT } from './image-effects.js';
@@ -396,6 +396,9 @@ function blockInner(b, model) {
       const radius = b.design?.corner ? ` style="border-radius:${b.design.corner}px"` : '';
       return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-video video-block" data-block-type="1337" id="block-${b.id}"${radius}><div class="sqs-block-content"${radius}><div>${b.html || (b.video?.src ? videoPlayerHtml(b) : VIDEO_PLACEHOLDER)}</div></div></div>`;
     }
+    // A Markdown block (parity/findings/CAP-T10PRE.json, CAP-T10MD.json): its placeholder shows in the editor only.
+    case 'markdown':
+      return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-markdown markdown-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${markdownHtml(b.text || '') || '<div class="sqs-blockStatus sqs-html-content">\n      <p>Double-click to edit...</p>\n    </div>'}</div></div>`;
     case 'code': {
       if (b.html != null) return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-code code-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-code-container">${codeOutput(b)}</div></div></div>`;
       const src = b.codeOf ? sectionGridCss(model.sections.find((s) => s.id === b.codeOf)).trim() : b.code;

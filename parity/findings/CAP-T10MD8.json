@@ -1,0 +1,1293 @@
+{
+  "item": "CAP-T10MD8",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: a third Enter on a list, Backspace on a new number or quote, Enter in the middle of a line, Link in the Code Editor view, Escape in the view",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "setCode",
+      "* a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "b"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Enter three times on a bullet",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "1. a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "b"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Enter three times on a number",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "> a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "b"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Enter three times on a quote",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "1. a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "keys",
+      "b"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Backspace on a new number",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "> a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "keys",
+      "b"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Backspace on a new quote",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "* ab"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "ArrowLeft"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "c"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Enter mid line",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "* a"
+    ],
+    [
+      "press",
+      "Home"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Enter at the start of a bullet",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "plain"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "b"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Enter on plain",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "a long line of words that runs on for much longer than the width of this editor panel can hold on one line so that it has to wrap"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "long line",
+      {
+        "panelEls": ".cm-line, .cm-gutterElement"
+      }
+    ],
+    [
+      "shot",
+      "md8-long"
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickAt",
+      874,
+      734
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "view",
+      {
+        "panelEls": ".cm-line",
+        "controls": true
+      }
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "view link",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "md8-view-link"
+    ],
+    [
+      "pressNamed",
+      "/services"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "view link written",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "shot",
+      "md8-view-written"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "view escape",
+      {
+        "panelEls": ".cm-line",
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "md8-view-escape"
+    ]
+  ],
+  "reads": {
+    "Enter three times on a bullet": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "* a",
+          "lines": 1,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "b",
+          "lines": 0,
+          "box": [
+            396.4,
+            467,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Enter three times on a number": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "1. a",
+          "lines": 1,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "b",
+          "lines": 0,
+          "box": [
+            396.4,
+            467,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Enter three times on a quote": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "> a",
+          "lines": 1,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "b",
+          "lines": 0,
+          "box": [
+            396.4,
+            467,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Backspace on a new number": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "1. a",
+          "lines": 1,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "b",
+          "lines": 0,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Backspace on a new quote": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "> a",
+          "lines": 1,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "b",
+          "lines": 0,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Enter mid line": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "* a",
+          "lines": 1,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "* cb",
+          "lines": 1,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Enter at the start of a bullet": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "* a",
+          "lines": 1,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Enter on plain": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "plain",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "b",
+          "lines": 0,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "long line": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-gutterElement",
+          "label": "9",
+          "lines": 0,
+          "box": [
+            365,
+            412,
+            20,
+            0
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-gutterElement cm-activeLineGutter",
+          "label": "1",
+          "lines": 0,
+          "box": [
+            365,
+            423,
+            20,
+            66
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-gutterElement",
+          "label": "›",
+          "lines": 1,
+          "box": [
+            385,
+            412,
+            10.4,
+            0
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-gutterElement cm-activeLineGutter",
+          "label": "",
+          "lines": 0,
+          "box": [
+            385,
+            423,
+            10.4,
+            66
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "a long line of words that runs on for mu",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            66
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "view": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Close",
+          "box": [
+            383,
+            179,
+            41.9,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            387,
+            260.5,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            506.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            546.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            586.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            631.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            671.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            716.1,
+            260.5,
+            36,
+            36
+          ]
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "word",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "word",
+          "lines": 0,
+          "box": [
+            414.4,
+            317.5,
+            802.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "view link": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Close",
+          "box": [
+            383,
+            179,
+            41.9,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            387,
+            260.5,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            506.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            546.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            586.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            631.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            671.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            716.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "URL",
+          "box": [
+            466.1,
+            328.5,
+            96,
+            28
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Enter link, search, or add files",
+          "value": "",
+          "box": [
+            466.1,
+            367.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Services/services",
+          "box": [
+            468,
+            467,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "About/about",
+          "box": [
+            468,
+            528,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Contact/contact",
+          "box": [
+            468,
+            589,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Gestures Probe/gestures-probe",
+          "box": [
+            468,
+            699,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Blocks Probe/blocks-probe",
+          "box": [
+            468,
+            760,
+            257,
+            61
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "view link written": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "word",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "[/services](/services)word",
+          "lines": 6,
+          "box": [
+            414.4,
+            317.5,
+            802.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p>word</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "view escape": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            301,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            716,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            778,
+            148.5,
+            16
+          ]
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "[/services](/services)word",
+          "lines": 6,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "A third Enter takes the marks off: * a, blank, then b; a quote's bare > goes too. Backspace on a new number or quote takes the whole mark. Enter mid line carries the rest under a new mark. Enter at a bullet's start only adds a line above. A long line wraps under one line number, and the active-line band covers all of it. In the Code Editor view Link's popover sits 6 below the button, a link written there waits for Close, and Escape closes the view with the panel left open and the text carried over."
+}

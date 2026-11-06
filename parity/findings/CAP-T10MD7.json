@@ -1,0 +1,1099 @@
+{
+  "item": "CAP-T10MD7",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: Markdown toolbar state on the caret, Remove Link and Edit on an existing link, a link with a caret or on an empty block, bold over lines, undo",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "setCode",
+      "**bold**"
+    ],
+    [
+      "press",
+      "Home"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "shot",
+      "md7-bold"
+    ],
+    [
+      "setCode",
+      "*ital*"
+    ],
+    [
+      "press",
+      "Home"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "shot",
+      "md7-ital"
+    ],
+    [
+      "setCode",
+      "1. a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "shot",
+      "md7-number"
+    ],
+    [
+      "setCode",
+      "> a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "shot",
+      "md7-quote"
+    ],
+    [
+      "setCode",
+      "[a](/x)"
+    ],
+    [
+      "press",
+      "Home"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Remove Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "remove link",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "md7-removed"
+    ],
+    [
+      "setCode",
+      "see [a](/x) now"
+    ],
+    [
+      "press",
+      "Home"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Remove Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "remove link mid line",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "[a](/x)"
+    ],
+    [
+      "press",
+      "Home"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "edit link",
+      {
+        "panelEls": ".cm-line, input",
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "md7-edit"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "keys",
+      "/y"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "edit link written",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "md7-edit-written"
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Home"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "keys",
+      "/z"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "caret mid word, typed",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "/about"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "empty, option, Enter",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "one\ntwo"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "bold over two lines",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "one"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickAt",
+      700,
+      329
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "undo after typing",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Redo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "redo after typing",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "two"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "undo after bold",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "undo twice",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ]
+  ],
+  "reads": {
+    "remove link": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "a",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p>a</p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "remove link mid line": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "see a now",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p>see a now</p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "edit link": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            301,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            716,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            778,
+            148.5,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "URL",
+          "box": [
+            448.1,
+            434,
+            96,
+            28
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Enter link, search, or add files",
+          "value": "/x",
+          "box": [
+            448.1,
+            473,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Clear selected page",
+          "box": [
+            684.1,
+            477,
+            36,
+            36
+          ]
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "[a](/x)",
+          "lines": 6,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "cls": "css-2q8xxh",
+          "label": "/x",
+          "lines": 0,
+          "box": [
+            448.1,
+            473,
+            276,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "edit link written": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "[a](/y)",
+          "lines": 6,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p><a href=\"/y\">a</a></p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "caret mid word, typed": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "wo[/z](/z)rd",
+          "lines": 6,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p>wo<a href=\"/z\">/z</a>rd</p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "empty, option, Enter": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "[/about](/about)",
+          "lines": 6,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p><a href=\"/about\">/about</a></p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bold over two lines": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "**one",
+          "lines": 2,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "two**",
+          "lines": 2,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "undo after typing": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "**one",
+          "lines": 2,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "two**",
+          "lines": 2,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p><strong>one\ntwo</strong></p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "redo after typing": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "one",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p>one</p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "undo after bold": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "two",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p>two</p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "undo twice": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "one",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p>one</p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Toolbar state: Numbered List and Quote light on their lines. Remove Link leaves the words, also mid line. Edit shows the field holding the link, and Enter writes the new address. A caret mid word puts the link there. An empty block gets [/about](/about). Bold over two lines wraps the whole selection. A toolbar press is one undo step, and what was typed before it another."
+}

@@ -268,6 +268,225 @@ open(); await pause(100);
 const r0 = evalJs(S, `(() => { document.querySelector('.code-modal-scrim').click(); return JSON.stringify({ gone: document.getElementById('code-modal').hidden, panel: !document.getElementById('block-panel').hidden }); })()`);
 add('A scrim click closes it, the panel stays', r0.gone && r0.panel, JSON.stringify(r0));
 
+// Add Block > Markdown (CAP-T10PRE.json, CAP-T10MD*.json): a type of its own, with real presses and keys.
+const PRE = read('CAP-T10PRE'), MD3 = read('CAP-T10MD3'), MD5 = read('CAP-T10MD5'), MD6 = read('CAP-T10MD6'), MD7 = read('CAP-T10MD7');
+const MD_FIELD = 'textarea[data-content="markdown"]';
+const mdBlock = (id, what = 'innerHTML') => evalJs(S, `(() => { const e = document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="${id}"] .sqs-block-markdown .sqs-block-content'); return JSON.stringify(e ? e.${what} : null); })()`);
+const mdBox = (q) => evalJs(S, `(() => { const e = document.querySelector(${JSON.stringify(q)}); if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify([r.left, r.top, r.width, r.height]); })()`);
+const pressAt = async (q) => { const b = mdBox(q); if (!b) throw new Error(`nothing at ${q}`); drag(S, [b[0] + b[2] / 2, b[1] + b[3] / 2], [b[0] + b[2] / 2, b[1] + b[3] / 2], { steps: 1, holdMs: 30 }); await pause(220); };
+const key = async (k) => { browser(S, 'press', k); await pause(120); };
+const mdVal = (root = '#block-panel') => evalJs(S, `(() => JSON.stringify(document.querySelector('${root} ${MD_FIELD}').value))()`);
+const setMd = async (t) => { await setText(MD_FIELD, t); evalJs(S, `(() => { document.querySelector('#block-panel ${MD_FIELD}').focus(); return 'true'; })()`); await pause(80); };
+const caret = (at) => evalJs(S, `(() => { const f = document.querySelector('#block-panel ${MD_FIELD}'); f.focus(); f.setSelectionRange(${at}, ${at}); return 'true'; })()`);
+const selAll = () => evalJs(S, `(() => { const f = document.querySelector('#block-panel ${MD_FIELD}'); f.focus(); f.select(); return 'true'; })()`);
+const mdBtn = (label) => `#block-panel .bp-md-bar [aria-label="${label}"]`;
+const line = (name, f = MD5) => f.reads[name].panelEls.map((p) => p.label).filter((l) => l !== 'Toggle visibility' && l !== 'Add markdown…').join('\n');
+const freshMd = async () => {
+  evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; s.blocks = []; s.rows = { desktop: 16, mobile: 16 }; fe.setBp('desktop'); fe.load(next); await new Promise((res) => setTimeout(res, 200)); return 'true'; })()`);
+  const id = evalJs(S, `(async () => { const sid = fe.model.sections[1].id; fe.addBlock(sid, 'Markdown'); await new Promise((res) => setTimeout(res, 300)); return JSON.stringify(fe.model.sections[1].blocks.at(-1).id); })()`);
+  await openPanel(id);
+  return id;
+};
+const md = await freshMd();
+const land = PRE.reads['markdown selected'].block;
+add('Markdown lands in its place', areasOf(md).join() === [land.desktop, land.mobile].join(), areasOf(md).join());
+add('Markdown holds its placeholder', norm(mdBlock(md)) === norm(MD.reads.start.htmlOf), mdBlock(md));
+const mdLook = evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument, b = d.querySelector('.fe-block[data-block-id="${md}"]'), st = b.querySelector('.sqs-blockStatus'), P = document.getElementById('block-panel'); return JSON.stringify({ cls: b.querySelector('.sqs-block').className, type: b.querySelector('.sqs-block').dataset.blockType, color: b.ownerDocument.defaultView.getComputedStyle(st).color, z: b.ownerDocument.defaultView.getComputedStyle(st).zIndex, h: st.getBoundingClientRect().height, tabs: [...P.querySelectorAll('[role=tab]')].map((e) => e.textContent), bar: [...document.querySelectorAll('#block-toolbar button')].map((e) => e.getAttribute('aria-label')), ph: P.querySelector('${MD_FIELD}').placeholder }); })()`);
+add('Markdown class and type', mdLook.cls.includes('sqs-block-markdown') && mdLook.cls.includes('markdown-block') && mdLook.type === '1337', mdLook.cls);
+add('Placeholder colour, z, height', mdLook.color === 'rgba(0, 0, 0, 0.3)' && mdLook.z === '1001' && Math.abs(mdLook.h - 22.4) < 0.6, JSON.stringify(mdLook));
+add('Content tab alone', mdLook.tabs.join() === 'Content', mdLook.tabs.join());
+add('Markdown toolbar', mdLook.bar.join() === PRE.reads['markdown selected'].controls.slice(9).map((c) => c.label).filter((l) => !l.startsWith('Move')).join(), mdLook.bar.join());
+add('Editor placeholder', mdLook.ph === 'Add markdown…', mdLook.ph);
+// The panel's parts, from its corner (the oracle's is at 343, 301).
+const pBox = mdBox('#block-panel'), inP = (b) => [b[0] - pBox[0] + 343, b[1] - pBox[1] + 301, b[2], b[3]];
+add('Panel 575 by 500', pBox[2] === 575 && pBox[3] === 500, pBox);
+const readBar = PRE.reads['markdown panel'].controls;
+for (const l of ['Heading', 'Bold', 'Italic', 'Link', 'Bulleted List', 'Numbered List', 'Quote']) {
+  const w = readBar.find((c) => c.label === l).box, g = inP(mdBox(`#block-panel .bp-md-bar [aria-label="${l}"]`));
+  add(`${l} in its place`, g.every((v, i) => Math.abs(v - w[i]) <= 1.5), `${g} want ${w}`);
+}
+const wantExp = readBar.find((c) => c.label === '' && c.box[2] === 36).box, gotExp = inP(mdBox('#block-panel .bp-code-expand'));
+add('Expand in its place', gotExp.every((v, i) => Math.abs(v - wantExp[i]) <= 1.5), `${gotExp} want ${wantExp}`);
+const gotEd = inP(mdBox('#block-panel .bp-code')), wantEd = PRE.reads['markdown panel'].panelEls[0].box;
+add('Editor in its place', gotEd.every((v, i) => Math.abs(v - wantEd[i]) <= 1.5), `${gotEd} want ${wantEd}`);
+const wantA = readBar.find((c) => c.role === 'a').box, gotA = inP(mdBox('#block-panel .bp-md-note a'));
+add('Cheatsheet link in its place', Math.abs(gotA[0] - wantA[0]) <= 3 && Math.abs(gotA[1] - wantA[1]) <= 2, `${gotA} want ${wantA}`);
+add('Cheatsheet is our own note', evalJs(S, `(() => JSON.stringify(document.querySelector('#block-panel .bp-md-note a').getAttribute('href')))()`) === 'help-markdown.html');
+
+// All 19 samples through the block, with the rows each left on the oracle.
+for (let k = 0; k < MD.steps.length; k++) {
+  if (MD.steps[k][0] !== 'setCode') continue;
+  const name = MD.steps.slice(k + 1, k + 4).find((x) => x[0] === 'read')[1];
+  await setMd(MD.steps[k][1]);
+  add(`Block ${name}`, htmlNorm(mdBlock(md)) === htmlNorm(MD.reads[name].htmlOf), mdBlock(md));
+  if (MD.reads[name].areas) add(`Block ${name} rows`, areasOf(md)[0] === MD.reads[name].areas[0][0], `${areasOf(md)[0]} want ${MD.reads[name].areas[0][0]}`);
+}
+
+// Rows on emptying (CAP-T10MD6.json): its placeholder is 22 tall like any line, so the rule stays the same.
+const mdRows = await freshMd();
+const checkRows = (name) => add(`Rows: ${name}`, areasOf(mdRows)[0] === MD6.reads[name].areas[0][0], `${areasOf(mdRows)[0]} want ${MD6.reads[name].areas[0][0]}`);
+const empty = async () => { selAll(); await key('Backspace'); await pause(150); };
+const TEN = 'a\n\nb\n\nc\n\nd\n\ne\n\nf\n\ng\n\nh\n\ni\n\nj';
+checkRows('fresh');
+await setMd('a'); checkRows('one letter');
+await empty(); checkRows('emptied from 6'); add('Emptied: the placeholder is back', norm(mdBlock(mdRows)) === norm(MD6.reads['emptied from 6'].htmlOf), mdBlock(mdRows));
+await setMd('a'); checkRows('a after empty');
+await empty(); checkRows('emptied from 2');
+await setMd(TEN); checkRows('ten paragraphs');
+await empty(); checkRows('emptied from ten');
+await setMd('# a'); checkRows('h1');
+await empty(); checkRows('emptied from h1');
+await setMd(TEN); checkRows('ten again');
+await setMd('a'); checkRows('ten to one');
+await empty(); checkRows('emptied after the fall');
+
+// The toolbar, by real presses (CAP-T10MD2.json, CAP-T10MD3.json, CAP-T10MD6.json).
+const MD2R = MD2.reads, firstLabel = (r) => r.panelEls.map((p) => p.label).join('');
+const m = await freshMd();
+const pressOn = async (btn, text, name, want) => { await setMd(text); selAll(); await pressAt(mdBtn(btn)); add(name, mdVal() === want, JSON.stringify(mdVal())); };
+for (const [btn, x] of [['Bold', 'bold empty typed'], ['Italic', 'italic empty typed'], ['Bulleted List', 'bullet empty typed'], ['Numbered List', 'number empty typed'], ['Quote', 'quote empty typed']]) {
+  await empty(); await pressAt(mdBtn(btn)); await key('x');
+  add(`${btn} on nothing, then a letter`, mdVal() === firstLabel(MD2R[x]), JSON.stringify(mdVal()));
+}
+await pressOn('Bold', 'word', 'Bold wraps a selection', firstLabel(MD2R['bold selected']));
+await pressAt(mdBtn('Bold')); add('Bold again takes it off', mdVal() === firstLabel(MD2R['bold again']), JSON.stringify(mdVal()));
+await pressOn('Italic', 'word', 'Italic wraps a selection', firstLabel(MD2R['italic selected']));
+await pressOn('Bold', 'one\ntwo', 'Bold over two lines', line('bold over two lines', MD7));
+await pressOn('Bulleted List', 'one\ntwo', 'Bullets on two lines', '* one\n* two');
+await pressAt(mdBtn('Bulleted List')); add('Bullets again', mdVal() === 'one\ntwo', JSON.stringify(mdVal()));
+await pressOn('Numbered List', 'one\ntwo', 'Numbers on two lines', '1. one\n1. two');
+await pressOn('Quote', 'one\ntwo', 'Quote on two lines', '> one\n> two');
+await pressOn('Quote', 'word', 'Quote', '> word'); await pressAt(mdBtn('Quote')); add('Quote twice', mdVal() === line('quote twice', MD6), JSON.stringify(mdVal()));
+await pressOn('Numbered List', 'word', 'Number', '1. word'); await pressAt(mdBtn('Numbered List')); add('Number twice', mdVal() === line('number twice', MD6), JSON.stringify(mdVal()));
+await pressOn('Bulleted List', 'word', 'Bullet', '* word'); await pressAt(mdBtn('Numbered List')); add('Bullet then number', mdVal() === line('bullet then number', MD6), JSON.stringify(mdVal()));
+// Heading's list.
+await setMd('word'); selAll(); await pressAt(mdBtn('Heading'));
+const hList = evalJs(S, `(() => { const l = document.querySelector('#block-panel .bp-md-list'); const r = l.getBoundingClientRect(), P = document.getElementById('block-panel').getBoundingClientRect(); return JSON.stringify({ names: [...l.children].map((e) => e.textContent), box: [r.left - P.left + 343, r.top - P.top + 301, r.width, r.height], on: document.querySelector('#block-panel .bp-md-heading').classList.contains('is-on') }); })()`);
+add('Heading lists five', hList.names.join() === 'Paragraph,Heading 1,Heading 2,Heading 3,Heading 4', hList.names.join());
+add('The list in its place', Math.abs(hList.box[0] - 384) <= 1 && Math.abs(hList.box[1] - 408) <= 1 && Math.abs(hList.box[2] - 80) <= 1 && Math.abs(hList.box[3] - 220) <= 1 && hList.on, JSON.stringify(hList));
+const pickH = async (n) => { await pressAt(`#block-panel .bp-md-list button:nth-child(${n + 1})`); };
+await pickH(1);
+add('Heading 1', mdVal() === firstLabel(MD3.reads['h1 picked']) && norm(mdBlock(m)) === MD3.reads['h1 picked'].htmlOf, `${mdVal()} ${mdBlock(m)}`);
+const headWide = mdBox(mdBtn('Heading'));
+add('The button follows its name', Math.abs(headWide[2] - MD3.reads['h1 picked'].controls.find((c) => c.label === 'Heading').box[2]) <= 3 && evalJs(S, `(() => JSON.stringify(document.querySelector('#block-panel .bp-md-heading span').textContent))()`) === 'Heading 1', headWide);
+await pressAt(mdBtn('Heading')); await pickH(2); add('Heading 2 takes over', mdVal() === firstLabel(MD3.reads['h2 picked']), JSON.stringify(mdVal()));
+await pressAt(mdBtn('Heading')); await pickH(0); add('Paragraph takes it off', mdVal() === firstLabel(MD3.reads['paragraph picked']), JSON.stringify(mdVal()));
+await setMd('## one\nline two'); selAll(); await pressAt(mdBtn('Heading')); await pickH(3); add('Heading on two lines', mdVal() === line('heading on two lines', MD6), JSON.stringify(mdVal()));
+await setMd('word'); selAll(); await pressAt(mdBtn('Heading')); await pressAt('#block-panel .bp-md-note'); add('A press away closes the list', evalJs(S, `(() => JSON.stringify(document.querySelector('#block-panel .bp-md-list').hidden))()`) === true);
+// The toolbar follows the caret; Bold and Italic never show.
+const onBtns = () => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#block-panel .bp-md-btn.is-on')].map((e) => e.getAttribute('aria-label'))))()`).join();
+for (const [text, at, want] of [['* a', 3, 'Bulleted List'], ['1. a', 4, 'Numbered List'], ['> a', 3, 'Quote'], ['**bold**', 4, ''], ['*ital*', 3, '']]) { await setMd(text); caret(at); await pause(120); add(`On ${text}: ${want || 'nothing'} shows`, onBtns() === want, onBtns()); }
+await setMd('## h'); caret(4); await pause(120);
+add('On a heading its name shows', evalJs(S, `(() => JSON.stringify(document.querySelector('#block-panel .bp-md-heading span').textContent))()`) === 'Heading 2');
+// No shortcuts (CAP-T10MD5.json).
+for (const k of ['Meta+b', 'Meta+i', 'Meta+k']) { await setMd('word'); selAll(); await key(k); add(`${k} does nothing`, mdVal() === line(k) && evalJs(S, `(() => JSON.stringify(document.getElementById('link-popover').hidden))()`) === true, JSON.stringify(mdVal())); }
+// Enter and Backspace on a list line (CAP-T10MD5.json, CAP-T10MD6.json).
+const keysOn = async (text, keys, want, name) => { await setMd(text); caret(text.length); for (const k of keys) await key(k); add(name, mdVal() === want, JSON.stringify(mdVal())); };
+await keysOn('* a', ['Enter', 'b'], line('Enter on bullet'), 'Enter on a bullet');
+await keysOn('1. a', ['Enter', 'b'], line('Enter on number'), 'Enter on a number');
+await keysOn('> a', ['Enter', 'b'], line('Enter on quote'), 'Enter on a quote');
+await keysOn('* a', ['Enter', 'Enter', 'b'], line('Enter twice on a bullet', MD6), 'Enter twice on a bullet');
+await keysOn('1. a', ['Enter', 'Enter', 'b'], line('Enter twice on a number', MD6), 'Enter twice on a number');
+await keysOn('> a', ['Enter', 'Enter', 'b'], line('Enter twice on a quote', MD6), 'Enter twice on a quote');
+await keysOn('* a', ['Enter', 'Backspace', 'b'], line('Backspace on a new bullet', MD6), 'Backspace on a new bullet');
+const MD8 = read('CAP-T10MD8');
+await keysOn('* a', ['Enter', 'Enter', 'Enter', 'b'], line('Enter three times on a bullet', MD8), 'Enter three times on a bullet');
+await keysOn('1. a', ['Enter', 'Enter', 'Enter', 'b'], line('Enter three times on a number', MD8), 'Enter three times on a number');
+await keysOn('> a', ['Enter', 'Enter', 'Enter', 'b'], line('Enter three times on a quote', MD8), 'Enter three times on a quote');
+await keysOn('1. a', ['Enter', 'Backspace', 'b'], line('Backspace on a new number', MD8), 'Backspace on a new number');
+await keysOn('> a', ['Enter', 'Backspace', 'b'], line('Backspace on a new quote', MD8), 'Backspace on a new quote');
+await keysOn('plain', ['Enter', 'b'], line('Enter on plain', MD8), 'Enter on plain');
+await setMd('* ab'); caret(3); await key('Enter'); await key('c'); add('Enter mid line', mdVal() === line('Enter mid line', MD8), JSON.stringify(mdVal()));
+await setMd('* a'); caret(0); await key('Enter'); add('Enter at the start of a bullet', mdVal() === line('Enter at the start of a bullet', MD8), JSON.stringify(mdVal()));
+
+// Link (CAP-T10MD3.json, CAP-T10MD4.json, CAP-T10MD5.json, CAP-T10MD7.json).
+const linkOpen = () => evalJs(S, `(() => JSON.stringify(!document.getElementById('link-popover').hidden))()`);
+const page = (href) => `#link-popover .lk-page[data-href="${href}"]`;
+const noUrl = (s) => s.replace(/<https>/g, 'https://');
+await setMd('word'); selAll(); await pressAt(mdBtn('Link'));
+const inPanel = (b) => { const P = mdBox('#block-panel'); return [b[0] - P[0] + 343, b[1] - P[1] + 301, b[2], b[3]]; };
+const lr = MD3.reads['link services'].controls, lk = (l) => lr.find((c) => c.label === l).box;
+add('Link: URL pill in its place', inPanel(mdBox('#link-popover .lk-pill')).slice(0, 2).every((v, i) => Math.abs(v - lk('URL')[i]) <= 2), inPanel(mdBox('#link-popover .lk-pill')));
+add('Link: field in its place', inPanel(mdBox('#link-popover .lk-row')).every((v, i) => Math.abs(v - lk('Enter link, search, or add files')[i]) <= 2), inPanel(mdBox('#link-popover .lk-row')));
+add('Link: first page in its place', inPanel(mdBox(page('/services'))).every((v, i) => Math.abs(v - lk('Services/services')[i]) <= 5), `${inPanel(mdBox(page('/services')))} want ${lk('Services/services')}`);
+add('Link: no new tab box here', evalJs(S, `(() => JSON.stringify(document.querySelector('#link-popover .lk-newtab').offsetHeight))()`) === 0);
+add('Link: the button stays lit', mdBox('#block-panel .bp-md-btn.is-on') !== null);
+await pressAt(page('/services'));
+add('A page fills the field and stays', evalJs(S, `(() => JSON.stringify(document.querySelector('#link-popover .lk-input').value))()`) === '/services' && linkOpen() && mdVal() === 'word', JSON.stringify(mdVal()));
+await key('Enter');
+add('Enter writes it and closes', mdVal() === line('option then Enter') && !linkOpen() && htmlNorm(mdBlock(m)) === MD5.reads['option then Enter'].htmlOf, `${mdVal()} ${mdBlock(m)}`);
+await setMd('word'); selAll(); await pressAt(mdBtn('Link')); await pressAt(page('/services')); await pressAt('#block-panel .sp-tab');
+add('A press away writes it too', mdVal() === line('option then press away') && !linkOpen(), JSON.stringify(mdVal()));
+const onCaret = async (text, at, how, want, name) => { await setMd(text); caret(at); await pressAt(mdBtn('Link')); if (typeof how === 'string') await pressAt(page(how)); else { for (const c of how) await key(c); } await key('Enter'); add(name, mdVal() === want, JSON.stringify(mdVal())); };
+await onCaret('word', 4, '/about', line('caret at end, option, Enter'), 'A caret at the end: the address is the words');
+await onCaret('word more', 0, '/about', line('caret at start, option, Enter'), 'A caret at the start');
+await empty(); await pressAt(mdBtn('Link')); await pressAt(page('/about')); await key('Enter');
+add('An empty block', mdVal() === line('empty, option, Enter', MD7), JSON.stringify(mdVal()));
+await setMd('word'); selAll(); await pressAt(mdBtn('Link')); for (const c of 'example.test') await key(c); await key('Enter');
+add('A typed domain gains https', mdVal() === noUrl(line('typed domain')), JSON.stringify(mdVal()));
+// A caret in a link: the link, with Edit, Copy and Remove Link.
+await setMd('[a](/x)'); caret(2); await pressAt(mdBtn('Link'));
+const sum = evalJs(S, `(() => JSON.stringify({ href: document.querySelector('#link-popover .lk-md-href')?.textContent, acts: [...document.querySelectorAll('#link-popover [data-md-link]')].map((e) => e.textContent) }))()`);
+add('A link shows with Edit, Copy, Remove Link', sum.href === '/x' && sum.acts.join() === 'Edit,Copy,Remove Link', JSON.stringify(sum));
+await pressAt('#block-panel .sp-tab'); add('A press away leaves it', mdVal() === '[a](/x)' && !linkOpen(), JSON.stringify(mdVal()));
+caret(2); await pressAt(mdBtn('Link')); await pressAt('#link-popover [data-md-link="remove"]');
+add('Remove Link', mdVal() === line('remove link', MD7) && !linkOpen(), JSON.stringify(mdVal()));
+await setMd('see [a](/x) now'); caret(5); await pressAt(mdBtn('Link')); await pressAt('#link-popover [data-md-link="remove"]');
+add('Remove Link mid line', mdVal() === line('remove link mid line', MD7), JSON.stringify(mdVal()));
+await setMd('[a](/x)'); caret(2); await pressAt(mdBtn('Link')); await pressAt('#link-popover [data-md-link="edit"]');
+add('Edit shows the field with the link', evalJs(S, `(() => JSON.stringify(document.querySelector('#link-popover .lk-input')?.value))()`) === '/x', 'no field');
+await key('Meta+a'); await key('/'); await key('y'); await key('Enter');
+add('Edit writes the new address', mdVal() === line('edit link written', MD7), JSON.stringify(mdVal()));
+await onCaret('word', 2, ['/', 'z'], line('caret mid word, typed', MD7), 'A caret mid word');
+await setMd('word'); selAll(); await pressAt(mdBtn('Link')); await pressAt(page('/services')); await key('Escape'); await pause(200);
+const esc = evalJs(S, `(() => JSON.stringify({ text: fe.model.sections[1].blocks.find((x) => x.id === '${m}').text, panel: document.getElementById('block-panel').hidden, bar: document.getElementById('block-toolbar').hidden, pop: document.getElementById('link-popover').hidden }))()`);
+add('Escape drops it and lets the block go', esc.text === 'word' && esc.panel && esc.pop, JSON.stringify(esc));
+
+// Undo: a press is one step, and typing before it another (CAP-T10MD7.json).
+const mu = await freshMd();
+const pressBar = (l) => pressAt(`[aria-label="${l}"]:not(#block-panel *)`);
+await setMd('**one\ntwo**'); await pressAt('#block-panel .sp-tab');
+await setMd('one'); await pressAt('#block-panel .sp-tab');
+await pressBar('Undo'); await pause(250);
+add('Undo after typing', mdVal() === line('undo after typing', MD7) && htmlNorm(mdBlock(mu)) === htmlNorm(MD7.reads['undo after typing'].htmlOf), `${mdVal()} ${mdBlock(mu)}`);
+await pressBar('Redo'); await pause(250);
+add('Redo after typing', mdVal() === line('redo after typing', MD7), JSON.stringify(mdVal()));
+await setMd('two'); selAll(); await pressAt(mdBtn('Bold')); await pressBar('Undo'); await pause(250);
+add('Undo after Bold', mdVal() === line('undo after bold', MD7), JSON.stringify(mdVal()));
+await pressBar('Undo'); await pause(250);
+add('Undo takes the typing next', mdVal() === line('undo twice', MD7), JSON.stringify(mdVal()));
+
+// Double-click, and the Code Editor view (CAP-T10MD3.json).
+evalJs(S, `(async () => { fe.select(null); await new Promise((r) => setTimeout(r, 200)); const d = document.getElementById('site-frame').contentDocument; d.querySelector('.fe-block[data-block-id="${mu}"]').dispatchEvent(new MouseEvent('dblclick', { bubbles: true })); await new Promise((r) => setTimeout(r, 300)); return 'true'; })()`); await pause(350);
+add('A double-click opens the panel', evalJs(S, `(() => JSON.stringify(!document.getElementById('block-panel').hidden && !!document.querySelector('#block-panel ${MD_FIELD}')))()`) === true);
+await setMd('word');
+await pressAt('#block-panel .bp-code-expand'); // straight from typing, so the press mustn't lose its button
+const view = { close: mdBox('.code-modal-close'), bar: mdBox('#code-modal .bp-md-bar [aria-label="Heading"]'), ed: mdBox('#code-modal .bp-code'), text: mdVal('#code-modal') };
+const vr = MD3.reads['md view'].panelEls.find((p) => p.box[0] > 410).box;
+add('The view: the same text', view.text === 'word', view.text);
+add('The view: Close in its place', Math.abs(view.close[0] - 383) <= 1 && Math.abs(view.close[1] - 179) <= 2, view.close);
+add('The view: the toolbar in its place', Math.abs(view.bar[1] - 260.5) <= 1.5, view.bar);
+add('The view: the editor in its place', Math.abs(view.ed[0] + 31.4 - vr[0]) <= 1.5 && Math.abs(view.ed[1] - vr[1]) <= 1.5 && Math.abs(view.ed[3] - vr[3]) <= 1, `${view.ed} want ${vr}`);
+evalJs(S, `(() => { const f = document.querySelector('#code-modal ${MD_FIELD}'); f.focus(); f.select(); return 'true'; })()`);
+await pressAt('#code-modal .bp-md-bar [aria-label="Bold"]');
+add('The view: Bold writes there', mdVal('#code-modal') === '**word**', mdVal('#code-modal'));
+add('The view: the block waits', norm(mdBlock(mu)) === '<p>word</p>', mdBlock(mu));
+evalJs(S, `(() => { const f = document.querySelector('#code-modal ${MD_FIELD}'); f.focus(); f.setSelectionRange(0, 8); return 'true'; })()`);
+await pressAt('#code-modal .bp-md-bar [aria-label="Link"]');
+const viewPill = mdBox('#link-popover .lk-pill'), wantPill = MD8.reads['view link'].controls.find((c) => c.label === 'URL').box;
+add('The view: Link in its place', Math.abs(viewPill[0] - wantPill[0]) <= 1.5 && Math.abs(viewPill[1] - wantPill[1]) <= 1.5, `${viewPill} want ${wantPill}`);
+await pressAt(page('/about')); await key('Enter');
+add('The view: Link writes there', mdVal('#code-modal') === '[**word**](/about)', mdVal('#code-modal'));
+await pressAt('.code-modal-close'); await pause(200);
+add('Close writes the block', mdVal() === '[**word**](/about)' && mdBlock(mu).includes('<strong>word</strong>'), mdBlock(mu));
+await pressBar('Undo'); await pause(250);
+add('One undo takes the view back', mdVal() === 'word', JSON.stringify(mdVal()));
+await setMd('word'); selAll(); await pressAt(mdBtn('Link'));
+add('An empty link field has no clear button', mdBox('#link-popover .lk-clear')?.[2] === 0, mdBox('#link-popover .lk-clear'));
+await pressAt(page('/about'));
+add('A filled one has', mdBox('#link-popover .lk-clear')?.[2] > 0, mdBox('#link-popover .lk-clear'));
+await key('Escape'); await pause(150);
+
 console.log(`Code and embed: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/code-check.json', import.meta.url), JSON.stringify({ check: 'code and embed panels', pass, total, results }, null, 2) + '\n');
 if (!total || pass !== total) process.exitCode = 1;

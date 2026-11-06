@@ -14,7 +14,8 @@ import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook,
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock } from './phone-order.js';
-import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
+import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkAt, mdSetLink, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
+import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -247,7 +248,7 @@ function decorate(sid) {
 
 // The label pill of every block (U3, parity/findings/MARKS.json, labels): 22px above the block, seen
 // only on hover. Its box is in the page all the time and takes the pointer, even at opacity 0.
-const LABELS = { text: 'Text', button: 'Button', shape: 'Shape', image: 'Image', video: 'Video', form: 'Form', accordion: 'Accordion', scrolling: 'Scrolling', line: 'Line', map: 'Map', code: 'Code', embed: 'Embed', social: 'Social Links', stack: 'Stack' };
+const LABELS = { text: 'Text', button: 'Button', shape: 'Shape', image: 'Image', video: 'Video', form: 'Form', accordion: 'Accordion', scrolling: 'Scrolling', line: 'Line', map: 'Map', code: 'Code', markdown: 'Markdown', embed: 'Embed', social: 'Social Links', stack: 'Stack' };
 function drawLabels(sid) {
   const fe = feEl(sid);
   for (const el of fe.querySelectorAll(':scope > .fe-label')) el.remove();
@@ -495,7 +496,7 @@ toolbar.addEventListener('click', (e) => {
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
-  if (act === 'edit') { designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && (b.type === 'button' || b.type === 'stack')) { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
@@ -601,7 +602,7 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
     f.style.display = '';
     return Math.max(1, Math.ceil((h + free.rg) / free.pitch));
   }
-  if (b.type === 'code' || b.type === 'embed') return Math.max(1, codeRowsFor(codeHeight(b), m));
+  if (b.type === 'code' || b.type === 'embed' || b.type === 'markdown') return Math.max(1, codeRowsFor(codeHeight(b), m));
   const root = blockEl(b.id);
   // A Fit button in the view on screen: its height is its own (BUTTONDESIGN.json).
   const fit = b.type === 'button' ? [...(root?.querySelectorAll('.sqs-block-button-container:not(.sqs-stretched)') || [])].find((e) => e.offsetHeight) : null;
@@ -1379,7 +1380,10 @@ function onKey(e) {
 function onDblClick(e) {
   const blk = e.target.closest('.fe-block');
   if (!blk || editing) return;
-  startTextEdit(blk.closest('section').dataset.sectionId, blk.dataset.blockId);
+  const sid = blk.closest('section').dataset.sectionId, b = B(sid, blk.dataset.blockId);
+  // A double-click on a Markdown block opens its panel (CAP-T10MD3.json).
+  if (b?.type === 'markdown') { select({ sid, bid: b.id }); designOpen = b.id; designTab = 'Content'; updateUi(); return; }
+  startTextEdit(sid, blk.dataset.blockId);
 }
 
 function startTextEdit(sid, bid) {
@@ -1454,6 +1458,7 @@ function renderBlockPanel() {
   if (b.type !== 'accordion' || (accView?.startsWith('acc-item:') && !b.items[Number(accView.slice(9))])) accView = null; // undo can take the item away
   const content = b.type === 'button' ? { label: b.label, href: b.href, pages: siteLinkGroups() } : b.type === 'image' ? { src: b.src, href: b.href, pages: siteLinkGroups(), alt: b.alt, filename: b.filename, empty: !!b.empty, focal: b.focal, aspect: b.aspect, lightbox: !!b.lightbox }
     : b.type === 'video' && !b.html ? { kind: 'video', description: b.description, video: b.video }
+    : b.type === 'markdown' ? { kind: 'markdown', text: b.text || '' }
     : b.type === 'code' && b.html != null ? { kind: 'code', html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource }
     : b.type === 'accordion' ? { kind: 'accordion', items: b.items, expandFirst: b.expandFirst, multiple: b.multiple, dividers: b.dividers, showFirst: b.showFirst, showLast: b.showLast, iconSize: b.iconSize, iconThickness: b.iconThickness, iconLeft: b.iconLeft, rowPadding: b.rowPadding, icon: b.icon, titleStyle: b.titleStyle, titleAlign: b.titleAlign, descStyle: b.descStyle, descWidth: b.descWidth, descPad: b.descPad, descAlign: b.descAlign, descPlace: b.descPlace, dividerSize: b.dividerSize, dividerOpacity: b.dividerOpacity }
     : b.type === 'line' ? { kind: 'line' }
@@ -1462,9 +1467,12 @@ function renderBlockPanel() {
     : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', buttonAlign: b.buttonAlign || 'left', highlight: b.highlight || 'none', fihOpen, lightbox: !!b.lightbox, lightboxText: b.lightboxText || '', lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
+  if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
   if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffView?.startsWith('ff-edit:') && !b.fields?.[Number(ffView.slice(8))]) ffView = 'ff-list'; // undo can take the field away
   showFormPost(b);
+  const mdField = b.type === 'markdown' && blockPanel.querySelector('textarea[data-content="markdown"]');
+  if (mdField && mdField === document.activeElement && mdField.value !== (b.text || '')) { mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || '#ffffff' } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: parseFloat(b.radius) || 0, corners: b.corners, empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
@@ -1477,7 +1485,8 @@ function renderBlockPanel() {
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
   if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, b.animations?.[anim.i], anim.menu) : animEditorHtml(b.animations[anim.i], anim.tab);
   if (fxView) paintEffectTiles(blockPanel, b.src);
-  blockPanel.style.width = b.type === 'code' && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
+  if (b.type === 'markdown') paintMdBar(blockPanel.querySelector('textarea[data-content="markdown"]'));
+  blockPanel.style.width = (b.type === 'code' || b.type === 'markdown') && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
   syncAnimView(b);
   // An item's view holds that item open on the canvas (ACCORDION.json).
   if (b.type === 'accordion') showAccordionItem(b);
@@ -2500,6 +2509,7 @@ let codeBefore = null;
 // what is in it, margins included, and an empty one's is its 95 tall placeholder.
 function codeHeight(b) {
   if (b.type === 'embed' && !b.html) return 95;
+  if (b.type === 'markdown') return blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0; // its placeholder too (CAP-T10MD6.json)
   const c = blockEl(b.id)?.querySelector(b.type === 'code' ? '.sqs-code-container' : '.sqs-embed-container');
   if (!c) return 0;
   // Its elements' boxes, or a range for bare text: a range counts the text's own 23px runs, 1px over ten
@@ -2531,6 +2541,67 @@ function fitRows(b, was) {
   s.rows[bp] = Math.max(s.rows[bp], L.area[2] - 1); // or the rows past the section's end collapse
   renderSectionDom(sel.sid);
 }
+// The Markdown block's toolbar and keys, in the panel and in the Code Editor view (markdown-edit.js).
+const mdLines = (f) => { f.parentElement.querySelector('.bp-code-lines').innerHTML = Array.from({ length: f.value.split('\n').length }, (_, n) => n + 1).join('<br>'); };
+function paintMdBar(f) {
+  const bar = f?.closest('#block-panel, #code-modal')?.querySelector('.bp-md-bar');
+  if (!bar) return;
+  const st = mdState(f.value, f.selectionStart);
+  bar.querySelector('.bp-md-heading span').textContent = st.heading;
+  for (const k of ['bullet', 'number', 'quote']) { const q = bar.querySelector(`[data-md="${k}"]`); q.classList.toggle('is-on', st[k]); q.setAttribute('aria-checked', String(st[k])); }
+}
+// A toolbar press is one undo step, and typing before it another (CAP-T10MD7.json).
+function flushMdStep() { if (codeBefore != null) { commit(codeBefore, 'Markdown changed'); codeBefore = null; } }
+// Through the field's own edit, so its undo keeps working. The input event carries it to the block.
+function writeMd(f, r) {
+  f.focus();
+  f.setSelectionRange(0, f.value.length);
+  if (r.value) document.execCommand('insertText', false, r.value); else document.execCommand('delete');
+  f.setSelectionRange(r.start, r.end);
+  paintMdBar(f);
+}
+const mdRootField = (root) => root.querySelector('textarea[data-content="markdown"]');
+function pressMdBar(root, btn) {
+  const f = mdRootField(root), v = f.value, s = f.selectionStart, e = f.selectionEnd, k = btn.dataset.md;
+  const list = root.querySelector('.bp-md-list');
+  if (k === 'heading') { list.hidden = !list.hidden; btn.setAttribute('aria-expanded', String(!list.hidden)); btn.classList.toggle('is-on', !list.hidden); return; }
+  if (k === 'link') { openMdLink(root, btn, s, e); return; }
+  flushMdStep();
+  writeMd(f, k === 'bold' ? mdWrap(v, s, e, '**') : k === 'italic' ? mdWrap(v, s, e, '*') : mdLinesEdit(v, s, e, k));
+  flushMdStep();
+}
+function pickMdHeading(root, level) {
+  const f = mdRootField(root);
+  closeMdList(root);
+  flushMdStep();
+  writeMd(f, mdHeading(f.value, f.selectionStart, f.selectionEnd, level));
+  flushMdStep();
+}
+function closeMdList(root) {
+  const list = root.querySelector('.bp-md-list'), head = root.querySelector('.bp-md-heading');
+  if (!list || list.hidden) return;
+  list.hidden = true; head.classList.remove('is-on'); head.setAttribute('aria-expanded', 'false');
+}
+// Link (CAP-T10MD4.json, CAP-T10MD5.json, CAP-T10MD7.json): the popover under the button, 6px below it. A caret in a
+// link shows that link with Edit, Copy and Remove Link. A page fills the field, and Enter or a press away writes it.
+function openMdLink(root, btn, s, e) {
+  const f = mdRootField(root), link = mdLinkAt(f.value, s), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
+  flushMdStep();
+  const target = { markdown: true, summary: !!link, href: link?.href || '', newTab: false, setNewTab() {},
+    apply: (v) => {
+      const q = mdRootField(root), at = mdLinkAt(q.value, s);
+      if (!v && !at) return;
+      flushMdStep();
+      writeMd(q, at ? (v ? mdChangeLink(q.value, at, v) : mdRemoveLink(q.value, at)) : mdSetLink(q.value, s, e, v));
+      flushMdStep();
+    },
+    remove: () => { const q = mdRootField(root), at = mdLinkAt(q.value, s); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(q.value, at)); flushMdStep(); } },
+    done: () => { btn.classList.remove('is-on'); if (document.activeElement === document.body) mdRootField(root)?.focus(); },
+  };
+  openLinkPopover(b, (st) => ({ left: r.left + r.width / 2 - 164 - st.left, top: r.bottom + 6 - st.top }), target);
+  btn.classList.add('is-on');
+  if (link) { linkPop.innerHTML = mdLinkSummaryHtml(link.href); linkPop.classList.add('is-summary'); }
+}
 // The code editor's full-screen view: its own copy of the code, which reaches the block on closing.
 const codeModal = document.createElement('div');
 codeModal.id = 'code-modal';
@@ -2538,15 +2609,29 @@ codeModal.hidden = true;
 document.body.append(codeModal);
 let codeDraft = null;
 function openCodeModal(b) {
-  codeDraft = { html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource };
-  codeModal.innerHTML = codeModalHtml(codeDraft);
+  if (b.type === 'markdown') flushMdStep();
+  codeDraft = b.type === 'markdown' ? { html: b.text || '' } : { html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource };
+  codeModal.innerHTML = b.type === 'markdown' ? mdModalHtml(codeDraft.html) : codeModalHtml(codeDraft);
   codeModal.hidden = false;
   codeModal.querySelector('textarea').focus();
+  if (b.type === 'markdown') paintMdBar(codeModal.querySelector('textarea'));
 }
 function closeCodeModal() {
   const d = codeDraft, b = sel && B(sel.sid, sel.bid);
   codeModal.hidden = true;
   codeDraft = null;
+  if (b?.type === 'markdown') {
+    if (d.html !== (b.text || '')) {
+      const before = JSON.stringify(model), was = rowsNow(b);
+      b.text = d.html;
+      renderSectionDom(sel.sid);
+      fitRows(b, was);
+      commit(before, 'Markdown changed');
+    }
+    const f = blockPanel.querySelector('textarea[data-content="markdown"]');
+    if (f) { f.value = b.text || ''; mdLines(f); f.focus(); paintMdBar(f); }
+    return;
+  }
   if (!b || b.type !== 'code') return;
   if (d.html !== b.html || d.mode !== (b.codeMode || 'html') || d.showSource !== !!b.showSource) {
     const before = JSON.stringify(model), was = rowsNow(b);
@@ -2565,7 +2650,8 @@ codeModal.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key ==
 codeModal.addEventListener('input', (e) => {
   if (!e.target.matches('textarea')) return;
   codeDraft.html = e.target.value;
-  e.target.parentElement.querySelector('.bp-code-lines').innerHTML = Array.from({ length: e.target.value.split('\n').length }, (_, n) => n + 1).join('<br>');
+  mdLines(e.target);
+  if (e.target.dataset.content === 'markdown') paintMdBar(e.target);
 });
 codeModal.addEventListener('change', (e) => {
   const c = e.target.dataset.content;
@@ -2573,24 +2659,42 @@ codeModal.addEventListener('change', (e) => {
   if (c === 'showSource') codeDraft.showSource = e.target.checked;
   if (c === 'codeMode') codeModal.innerHTML = codeModalHtml(codeDraft);
 });
+for (const root of [blockPanel, codeModal]) {
+  // The selection stays, and leaving the field doesn't redraw the panel under the press.
+  root.addEventListener('mousedown', (e) => { if (e.target.closest('.bp-md-bar button, .bp-code-expand')) e.preventDefault(); });
+  root.addEventListener('click', (e) => {
+    const level = e.target.closest('[data-md-level]');
+    if (level) { pickMdHeading(root, Number(level.dataset.mdLevel)); return; }
+    const btn = e.target.closest('[data-md]');
+    if (btn && sel) pressMdBar(root, btn);
+  });
+  root.addEventListener('keydown', (e) => {
+    if (!e.target.matches('textarea[data-content="markdown"]') || e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+    const f = e.target, r = e.key === 'Enter' ? mdEnter(f.value, f.selectionStart, f.selectionEnd) : e.key === 'Backspace' ? mdBackspace(f.value, f.selectionStart, f.selectionEnd) : null;
+    if (r) { e.preventDefault(); writeMd(f, r); }
+  });
+}
+document.addEventListener('pointerdown', (e) => { if (!e.target.closest?.('.bp-md-head')) { closeMdList(blockPanel); closeMdList(codeModal); } }, true);
+document.addEventListener('selectionchange', () => { const f = document.activeElement; if (f?.matches?.('textarea[data-content="markdown"]')) paintMdBar(f); });
 blockPanel.addEventListener('click', (e) => { if (sel && e.target.closest('[data-code-expand]')) openCodeModal(B(sel.sid, sel.bid)); });
 blockPanel.addEventListener('input', (e) => {
-  const f = e.target.closest('textarea[data-content="code"], textarea[data-content="embedHtml"]');
+  const f = e.target.closest('textarea[data-content="code"], textarea[data-content="embedHtml"], textarea[data-content="markdown"]');
   if (!f || !sel) return;
   const b = B(sel.sid, sel.bid);
   codeBefore ??= JSON.stringify(model);
   const was = rowsNow(b);
   if (f.dataset.content === 'code') b.html = f.value;
+  else if (f.dataset.content === 'markdown') b.text = f.value;
   else if (f.value) { b.html = f.value; delete b.embedInvalid; } else delete b.html;
   renderSectionDom(sel.sid);
   fitRows(b, was);
-  const lines = f.parentElement.querySelector('.bp-code-lines');
-  lines.innerHTML = Array.from({ length: f.value.split('\n').length }, (_, n) => n + 1).join('<br>');
+  mdLines(f);
+  if (f.dataset.content === 'markdown') paintMdBar(f);
   placeBlockPanel();
 });
 blockPanel.addEventListener('change', (e) => {
-  const f = e.target.closest('[data-content="code"], [data-content="embedHtml"]');
-  if (f) { if (codeBefore != null) commit(codeBefore, f.dataset.content === 'code' ? 'Code changed' : 'Embed data changed'); codeBefore = null; return; }
+  const f = e.target.closest('[data-content="code"], [data-content="embedHtml"], [data-content="markdown"]');
+  if (f) { if (codeBefore != null) commit(codeBefore, f.dataset.content === 'code' ? 'Code changed' : f.dataset.content === 'markdown' ? 'Markdown changed' : 'Embed data changed'); codeBefore = null; return; }
   const c = e.target.closest('[data-content="codeMode"], [data-content="showSource"], [data-content="embedUrl"], [data-content="description"]');
   if (!c || !sel) return;
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model), was = rowsNow(b);
@@ -2854,6 +2958,8 @@ function closeLinkPopover() {
   const t = linkTarget;
   linkTarget = null;
   flushLinkStep();
+  if (t?.markdown) t.done();
+  if (t?.summary) return;
   if (!t) {
     // What is typed counts without Enter too (LINKMENU.json).
     const v = linkPop.dataset.kind === 'url' ? linkValue(linkPop.querySelector('.lk-input').value) : '';
@@ -2913,6 +3019,8 @@ function openLinkPopover(b, place, target = null) {
   closeLinkPopover();
   linkTarget = target;
   linkPlace = place;
+  linkPop.classList.toggle('is-md', !!target?.markdown);
+  linkPop.classList.remove('is-summary');
   linkPop.dataset.bid = b.id;
   linkPop.hidden = false;
   const href = target ? target.href : b.href;
@@ -2936,6 +3044,7 @@ function applyLink(href) {
   const input = linkPop.querySelector('.lk-input');
   input.value = v;
   showLinkList(false);
+  if (linkTarget?.markdown) { input.focus(); return; } // written on Enter or a press away (CAP-T10MD5.json)
   if (linkTarget) { linkTarget.apply(v); linkTarget.href = v; }
   else setLinkOnButton(v, linkPop.querySelector('.lk-box').checked);
   input.focus();
@@ -2979,7 +3088,10 @@ linkPop.addEventListener('input', (e) => {
   writeLinkForm();
 });
 linkPop.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && e.target.matches('.lk-input')) { e.preventDefault(); applyLink(e.target.value); }
+  if (e.key === 'Enter' && e.target.matches('.lk-input')) {
+    e.preventDefault();
+    if (linkTarget?.markdown) { e.target.value = linkValue(e.target.value); closeLinkPopover(); } else applyLink(e.target.value);
+  }
   // Enter stays in the form on Email, closes on a number, and an empty Phone goes back to URL.
   if (e.key === 'Enter' && e.target.matches('input[data-f]')) {
     e.preventDefault();
@@ -2988,6 +3100,8 @@ linkPop.addEventListener('keydown', (e) => {
   // With the list showing, Escape takes the list; the next one closes the editor (LINKMENU.json).
   if (e.key === 'Escape') {
     e.stopPropagation();
+    // On a Markdown block Escape drops what is in the field, closes the panel and lets the block go (CAP-T10MD4.json).
+    if (linkTarget?.markdown) { const t = linkTarget; linkTarget = null; linkPop.hidden = true; t.done(); if (codeModal.hidden) { designOpen = null; select(null); } return; }
     if (linkPop.querySelector('.lk-pages:not([hidden])')) showLinkList(false);
     else closeLinkPopover();
   }
@@ -2997,6 +3111,16 @@ linkPop.addEventListener('mousedown', (e) => {
   if (e.target.matches('.lk-input')) showLinkList(true);
 });
 linkPop.addEventListener('click', (e) => {
+  const mdAct = e.target.closest('[data-md-link]');
+  if (mdAct) {
+    const t = linkTarget, act = mdAct.dataset.mdLink;
+    if (act === 'copy') { navigator.clipboard?.writeText(t.href).catch(() => {}); note('Link copied'); updateUi(); return; }
+    if (act === 'remove') { t.remove(); closeLinkPopover(); return; }
+    t.summary = false;
+    linkPop.classList.remove('is-summary');
+    drawLinkPop(linkKind(t.href), t.href, false);
+    return;
+  }
   const menu = linkPop.querySelector('.lk-menu');
   const pill = e.target.closest('.lk-pill');
   menu.hidden = pill ? !menu.hidden : true;
@@ -3405,8 +3529,9 @@ const ADD_TYPES = [
   // From the menu search (parity/findings/T10.json): Code 4 by 6, Embed 8 by 8.
   ['Code', 4, 6, () => ({ type: 'code', html: '<p>Hello, World!</p>' })],
   ['Embed', 8, 8, () => ({ type: 'embed' })],
+  ['Markdown', 4, 6, () => ({ type: 'markdown', text: '' })], // CAP-T10PRE.json
   // Not built yet (T11, T12): a stand-in of the size the oracle gives (parity/findings/U5.json sizes).
-  ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Menu: [12, 28], Chart: [8, 8], Markdown: [4, 6], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
+  ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Menu: [12, 28], Chart: [8, 8], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
     .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}) })]),
 ];
 function addBlock(sid, name) {
