@@ -7,6 +7,7 @@ import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/BUTTONDESIGN.json', import.meta.url)));
+const finding = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads;
 let pass = 0, total = 0;
 const results = [];
 const add = (what, ok, detail) => { total++; if (ok) pass++; results.push({ what, ok }); console.log(`${what.padEnd(40)} ${ok ? 'match' : `DIFF ${detail}`}`); };
@@ -104,6 +105,30 @@ add('Phone Fit, Align Left', x.cls[1].includes('--left') && near(x.a.slice(0, 1)
 evalJs(S, `(() => { fe.select(null); document.getElementById('bp-desktop').click(); return 'true'; })()`); await pause(700);
 await openDesign(); await press('Align Right'); x = read();
 add('Desktop change leaves the phone', x.cls[0].includes('--right') && x.cls[1].includes('--left') && near(x.a, F.box.fitRight.a), JSON.stringify(x));
+
+// A phone's least size, Fit and Fill (CAP-T5HANDLES.json, CAP-T5PHONE.json).
+const oracleLink = (r) => { const b = r.block.box, a = (r.sel || r.inside).find((e) => e.tag === 'a').box; return [a[0] - b[0], a[1] - b[1], a[2], a[3]]; };
+const phoneView = async () => { evalJs(S, `(() => { fe.select(null); document.getElementById('bp-mobile').click(); return 'true'; })()`); await pause(700); viewport(S, 1600, 1000); };
+const deskView = async () => { evalJs(S, `(() => { fe.select(null); document.getElementById('bp-desktop').click(); return 'true'; })()`); await pause(700); };
+const P5 = finding('CAP-T5PHONE'), H5 = finding('CAP-T5HANDLES');
+const area = (x) => x.area.join('/');
+await restore(); await deskView(); await openDesign(); await press('Fit');
+await phoneView();
+for (let n = 1; n <= 7; n++) {
+  x = await pull('e', -1, 0); const o = H5[`phone e in ${n}`];
+  add(`Phone Fit e in ${n}`, area(x) === o.block.mobile && near(x.a, oracleLink(o), 1.5), `${JSON.stringify(x)} ${o.block.mobile} ${oracleLink(o)}`);
+}
+x = await pull('s', 0, -1);
+add('Phone Fit that wraps stays at 3 rows', area(x) === H5['phone s up 1'].block.mobile, JSON.stringify(x));
+await deskView(); await restore(); await openDesign(); await press('Fit'); await press('Fill');
+await phoneView();
+for (let n = 1; n <= 8; n++) {
+  x = await pull('e', -1, 0); const o = P5[`fill e in ${n}`];
+  add(`Phone Fill e in ${n}`, area(x) === o.block.mobile && near(x.a, oracleLink(o), 1.5), `${JSON.stringify(x)} ${o.block.mobile} ${oracleLink(o)}`);
+}
+x = await pull('s', 0, -1); const o1 = P5['fill s up 1'];
+add('Phone Fill s up: 1 row, 50 high', area(x) === o1.block.mobile && near(x.block, [o1.block.box[2], o1.block.box[3]], 1), `${JSON.stringify(x)} ${o1.block.mobile}`);
+await deskView();
 
 console.log(`Button: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/button-check.json', import.meta.url), `${JSON.stringify({ check: 'button design tab as on the oracle', pass, total, results }, null, 2)}\n`);

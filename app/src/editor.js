@@ -1152,6 +1152,10 @@ function updateGroupResize(e) {
   if (r1 - 1 > g.shownRows) showGrid(g.sid, r1 - 1);
 }
 
+// Where a side pull stops, on both layouts. A button at 3 columns whatever its text (BUTTONDESIGN.json,
+// CAP-T5PHONE.json), Social Links at 2 (CAP-T11SOCIAL.json).
+const LEAST_COLS = { button: 3, social: 2 };
+
 function updateResize(e) {
   const g = gesture;
   const fe = feEl(g.sid);
@@ -1160,8 +1164,7 @@ function updateResize(e) {
   let [r0, c0, r1, c1] = g.orig;
   const x = e.clientX;
   const y = e.clientY;
-  // A button stops at 3 columns on the desktop, whatever its text (BUTTONDESIGN.json).
-  const leastCols = B(g.sid, g.bid).type === 'button' && bp === 'desktop' ? 3 : 1;
+  const leastCols = LEAST_COLS[B(g.sid, g.bid).type] ?? 1;
   const q = fe.getBoundingClientRect();
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(v, hi));
   // While held the block's own box follows the pointer and only the ring snaps (HOLD.json). It is
@@ -2044,12 +2047,18 @@ blockPanel.addEventListener('keydown', (e) => {
 });
 blockPanel.addEventListener('input', (e) => {
   const t = e.target.closest('[data-soc-thick]');
-  if (t) { const v = blockPanel.querySelector('.bp-soc-tv'); if (v) v.textContent = `${t.value}px`; blockEl(sel.bid)?.querySelector('.sqs-svg-icon--outer')?.style.setProperty('--si-thick', `${t.value}px`); }
+  if (t) { const v = blockPanel.querySelector('[data-soc-thickfield]'); if (v) v.value = `${t.value}px`; blockEl(sel.bid)?.querySelector('.sqs-svg-icon--outer')?.style.setProperty('--si-thick', `${t.value}px`); }
 });
 blockPanel.addEventListener('change', (e) => {
   if (!sel) return;
   const t = e.target.closest('[data-soc-thick]');
-  if (t) { const v = Number(t.value); setSocial((b) => { if (bp === 'mobile') (b.socialMobile ||= {}).iconThick = v; else b.iconThick = v; }, `Thickness ${v}`); return; }
+  const tf = e.target.closest('[data-soc-thickfield]');
+  if (t || tf) {
+    // The field keeps the slider's range and a fraction, as the stroke field does (CAP-T6RANGE.json).
+    const n = parseFloat((t || tf).value), v = Math.max(1, Math.min(5, n));
+    if (Number.isFinite(n)) setSocial((b) => { if (bp === 'mobile') (b.socialMobile ||= {}).iconThick = v; else b.iconThick = v; }, `Thickness ${v}`); else renderBlockPanel();
+    return;
+  }
   const show = e.target.closest('[data-soc-show]');
   if (show) { const n = Number(show.dataset.socShow), on = show.checked; changeSocialList((l) => { if (on) delete l[n].hidden; else l[n].hidden = true; delete l[n].aria; }, 'Social icon shown or hidden'); return; }
   const url = e.target.closest('[data-soc-url]');
@@ -2062,7 +2071,7 @@ blockPanel.addEventListener('change', (e) => {
   const m = e.target.closest('[data-map-set]');
   if (m) { const k = m.dataset.mapSet, on = m.checked; setMap((b) => { b[k] = on; }, `${k} ${on}`); return; }
   const zf = e.target.closest('[data-map-zoomfield]');
-  if (zf) { const v = parseFloat(zf.value); if (Number.isFinite(v)) setMap((b) => { b.mapZoom = Math.max(0, Math.min(MAP_ZOOMS.length - 1, Math.round(v))); }, 'Map zoom'); else renderBlockPanel(); return; }
+  if (zf) { const v = parseFloat(zf.value); if (Number.isFinite(v)) setMap((b) => { b.mapZoom = Math.trunc(v); }, 'Map zoom'); else renderBlockPanel(); return; }
   const c = e.target.closest('input[data-content^="map"], input[data-content="formName"], input[data-content="button"]');
   if (c) { const k = c.dataset.content, v = c.value; c.blur(); setMap((b) => { if (v) b[k] = v; else delete b[k]; }, `${k} changed`); }
 });
