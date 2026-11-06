@@ -2,7 +2,7 @@
 // CAP-ORDER) with the real mouse and keys, and compares every read: which block (by z), its desktop and
 // phone area, in order, and that the phone draws those rows. Usage: npm run neworder-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, mouse, drag, browser } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, mouse, drag, browser, cdp } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -68,6 +68,16 @@ for (const file of FILES) {
       held = false; quiet = false;
       const p = point(id, part), [dx, dy] = view === 'mobile' ? [step[4], step[5]] : aim(F, at, id, part, step[4], step[5]);
       drag(S, p, [p[0] + dx, p[1] + dy], { steps: 4, holdMs: 60 }); await pause(150);
+    } else if (op === 'groupDrag') {
+      const at = evalJs(S, `(() => { const f = document.getElementById('site-frame'), fr = f.getBoundingClientRect(), qs = [...f.contentDocument.querySelectorAll('.fe-block.is-group-member, .fe-block[data-is-selected="true"]')].map((b) => b.getBoundingClientRect()); return JSON.stringify([fr.left + Math.max(...qs.map((q) => q.right)), fr.top + Math.max(...qs.map((q) => q.bottom))]); })()`);
+      held = false; quiet = false;
+      drag(S, at, [at[0] + step[2], at[1] + step[3]], { steps: 4, holdMs: 60 }); await pause(150);
+    } else if (op === 'editText') {
+      press('Escape'); await pause(40); const id = pick(step[2]); await click(id); await pause(120); await click(id); await pause(200); quiet = false;
+    } else if (op === 'keysFast') {
+      cdp(S, { op: 'presses', keys: [...step[1]].map((c) => (c === ' ' ? 'Space' : c)) }); await pause(300); quiet = false;
+    } else if (op === 'stubClipboard') {
+      // the oracle needs one; ours keeps its own
     } else if (op === 'read') {
       const r = F.reads[step[1]];
       if (!r.stack && !r.areas) continue;
