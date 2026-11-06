@@ -1,0 +1,321 @@
+{
+  "item": "CAP-T3EMPTY3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T3: two empty lines, left: does the hint stay deselected, selected, on the phone and when the edit is opened again? Predicted first.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "press",
+      "ArrowUp"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "hintOf",
+      "caret on the first, left"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "hintOf",
+      "caret on the first, deselected"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "hintOf",
+      "caret on the first, phone"
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "hintOf",
+      "caret on the first, selected"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "hintOf",
+      "caret on the first, opened again"
+    ],
+    [
+      "keys",
+      "x"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "caret on the first, opened again, typed",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "hintOf",
+      "caret on the second, left"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "hintOf",
+      "caret on the second, opened again"
+    ],
+    [
+      "keys",
+      "x"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "caret on the second, opened again, typed",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "caret on the first, left": [
+      {
+        "tag": "p",
+        "content": "\"Write here...\"",
+        "color": "rgb(183, 183, 183)",
+        "opacity": "1",
+        "font": "16px Poppins",
+        "float": "left",
+        "height": "0px",
+        "pointer": "none",
+        "weight": "400",
+        "lineHeight": "22.4px",
+        "letterSpacing": "normal",
+        "transform": "none"
+      }
+    ],
+    "caret on the first, deselected": [
+      {
+        "tag": "p",
+        "content": "\"Write here...\"",
+        "color": "rgb(183, 183, 183)",
+        "opacity": "1",
+        "font": "16px Poppins",
+        "float": "left",
+        "height": "0px",
+        "pointer": "none",
+        "weight": "400",
+        "lineHeight": "22.4px",
+        "letterSpacing": "normal",
+        "transform": "none"
+      }
+    ],
+    "caret on the first, phone": [
+      {
+        "tag": "p",
+        "content": "\"Write here...\"",
+        "color": "rgb(183, 183, 183)",
+        "opacity": "1",
+        "font": "16px Poppins",
+        "float": "left",
+        "height": "0px",
+        "pointer": "none",
+        "weight": "400",
+        "lineHeight": "22.4px",
+        "letterSpacing": "normal",
+        "transform": "none"
+      }
+    ],
+    "caret on the first, selected": [
+      {
+        "tag": "p",
+        "content": "\"Write here...\"",
+        "color": "rgb(183, 183, 183)",
+        "opacity": "1",
+        "font": "16px Poppins",
+        "float": "left",
+        "height": "0px",
+        "pointer": "none",
+        "weight": "400",
+        "lineHeight": "22.4px",
+        "letterSpacing": "normal",
+        "transform": "none"
+      }
+    ],
+    "caret on the first, opened again": [
+      {
+        "tag": "p",
+        "content": "\"Write here...\"",
+        "color": "rgb(183, 183, 183)",
+        "opacity": "1",
+        "font": "16px Poppins",
+        "float": "left",
+        "height": "0px",
+        "pointer": "none",
+        "weight": "400",
+        "lineHeight": "22.4px",
+        "letterSpacing": "normal",
+        "transform": "none"
+      }
+    ],
+    "caret on the first, opened again, typed": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">x</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "caret on the second, left": [],
+    "caret on the second, opened again": [],
+    "caret on the second, opened again, typed": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">x</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

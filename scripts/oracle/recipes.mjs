@@ -21,6 +21,53 @@ const Z2 = ['Move Forward', 'Move Backward'];
 const UR = ['Undo', 'Redo'];
 const BARTIPS = ['Save', 'Desktop View', 'Mobile View', 'Toggle Site Styles editing', 'Toggle preview mode'];
 export const RECIPES = {
+  'CAP-E4REOPEN3': { question: 'E4: after a Preview, where does the caret start in two lines and once more after that?', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['keys', 'one'], ['press', 'Enter'], ['keys', 'two'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pressNamed', 'Toggle preview mode'], ['pause', 1500], ['pressNamed', 'Toggle preview mode'], ['pause', 1200], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'two lines', H], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'Y'], ['pause', 300], ['read', 'two lines, opened once more', H],
+  ] },
+  'CAP-E4REOPEN2': { question: 'E4: is the selection kept when an edit is opened again after a change of view, a Preview, or an Undo? Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['view', 'Mobile'], ['pause', 700], ['view', 'Desktop'], ['pause', 500], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'after the phone view', H],
+    ...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pressNamed', 'Toggle preview mode'], ['pause', 1500], ['pressNamed', 'Toggle preview mode'], ['pause', 1200], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'after Preview', H],
+    ...NEWTEXT, ['keys', 'aa'], ['pause', 1300], ['keys', 'bb'], ['press', 'ArrowLeft'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pressNamed', 'Undo'], ['pause', 500], ['read', 'Undo, left', H], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'after an Undo', H],
+  ] },
+  'CAP-E4REOPEN': { question: 'E4: an edit left and opened again: where is the caret?', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['keys', 'one'], ['press', 'Enter'], ['keys', 'two'], ['press', 'ArrowUp'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'caret on the first line, opened again, typed', H],
+    ...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'caret mid word, opened again, typed', H],
+    ...NEWTEXT, ['keys', 'abcdef'], ['press', 'Shift+ArrowLeft'], ['press', 'Shift+ArrowLeft'], ['press', 'Shift'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'two letters selected, opened again, typed', H],
+    ...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Enter'], ['pause', 500], ['keys', 'X'], ['pause', 300], ['read', 'caret mid word, Enter to open, typed', H],
+  ] },
+  'CAP-T3EMPTY3': { question: 'T3: two empty lines, left: does the hint stay deselected, selected, on the phone and when the edit is opened again? Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['press', 'Enter'], ['press', 'ArrowUp'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['hintOf', 'caret on the first, left'], ['press', 'Escape'], ['pause', 300], ['hintOf', 'caret on the first, deselected'], ['view', 'Mobile'], ['pause', 700], ['hintOf', 'caret on the first, phone'], ['view', 'Desktop'], ['pause', 500], ['pick', 0, 'new'], ['pause', 300], ['hintOf', 'caret on the first, selected'], ['click', 'Write'], ['pause', 400], ['hintOf', 'caret on the first, opened again'], ['keys', 'x'], ['pause', 300], ['read', 'caret on the first, opened again, typed', H],
+    ...NEWTEXT, ['press', 'Enter'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['hintOf', 'caret on the second, left'], ['press', 'Escape'], ['pause', 300], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['hintOf', 'caret on the second, opened again'], ['keys', 'x'], ['pause', 300], ['read', 'caret on the second, opened again, typed', H],
+  ] },
+  'CAP-T3EMPTY2': { question: 'T3: the hint with more than one empty line: which caret place shows it, leaving, a word below, a heading beside it. Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['press', 'Enter'], ['press', 'Enter'], ['pause', 300], ['hintOf', 'three lines, caret on the third'], ['press', 'ArrowUp'], ['pause', 300], ['hintOf', 'three lines, caret on the second'], ['press', 'ArrowUp'], ['pause', 300], ['hintOf', 'three lines, caret on the first'], ['press', 'Escape'], ['pause', 300], ['hintOf', 'three lines, caret on the first, left'], ['read', 'three lines, left, html', H],
+    ...NEWTEXT, ['press', 'Enter'], ['press', 'ArrowUp'], ['pause', 200], ['press', 'Meta+a'], ['pause', 300], ['hintOf', 'two lines, select all'],
+    ...NEWTEXT, ['press', 'Enter'], ['press', 'ArrowUp'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['hintOf', 'two lines, caret on the first, left'],
+    ...NEWTEXT, ['press', 'Enter'], ['keys', 'word'], ['pause', 200], ['press', 'ArrowUp'], ['pause', 300], ['hintOf', 'first empty, a word below, caret on the first'], ['press', 'Escape'], ['pause', 300], ['hintOf', 'first empty, a word below, left'], ['read', 'first empty, a word below, html', H],
+    ...NEWTEXT, ['keys', 'word'], ['press', 'Enter'], ['pause', 300], ['hintOf', 'a word, then an empty line'],
+    ...NEWTEXT, ['press', 'Enter'], ['click', 'Text Style'], ['click', 'Heading 2'], ['pause', 200], ['hintOf', 'empty, then empty H2, caret on the H2'], ['press', 'ArrowUp'], ['pause', 300], ['hintOf', 'empty, then empty H2, caret on the first'], ['read', 'empty, then empty H2, html', H],
+    ...NEWTEXT, ['click', 'Text Style'], ['click', 'Heading 2'], ['press', 'Enter'], ['pause', 300], ['hintOf', 'empty H2, then empty, caret on the second'], ['read', 'empty H2, then empty, html', H],
+    ...NEWTEXT, ['press', 'Enter'], ['keys', 'x'], ['press', 'Backspace'], ['pause', 300], ['hintOf', 'second line typed and emptied'],
+  ] },
+  'CAP-T3EMPTY': { question: 'T3: the Write here... hint past one empty paragraph: other styles, lists, two empty lines, a space, undo, emptied by select all, Preview. Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...['Heading 1', 'Heading 2', 'Heading 3', 'Heading 4', 'Paragraph 1', 'Paragraph 3', 'Monospace'].flatMap((n) => [...NEWTEXT, ['click', 'Text Style'], ['click', n], ['pause', 300], ['hintOf', n], ['read', `${n}, html`, H], ['press', 'Escape'], ['pause', 300], ['hintOf', `${n}, left`]]),
+    ...['Quote', 'Bullet List', 'Numbered List'].flatMap((n) => [...NEWTEXT, ['click', n], ['pause', 300], ['hintOf', n], ['read', `${n}, html`, H], ['press', 'Escape'], ['pause', 300], ['hintOf', `${n}, left`]]),
+    ...NEWTEXT, ['click', 'Text Alignment'], ['pause', 300], ['read', 'alignment menu', { controls: true }], ['clickIf', 'Text align: center'], ['pause', 300], ['shot', 'centred'], ['hintOf', 'centred'], ['read', 'centred, html', H],
+    ...NEWTEXT, ['press', 'Enter'], ['pause', 300], ['shot', 'two lines'], ['hintOf', 'two empty lines'], ['read', 'two empty lines, html', H], ['press', 'ArrowUp'], ['pause', 300], ['hintOf', 'two empty lines, caret on the first'], ['press', 'ArrowDown'], ['press', 'Backspace'], ['pause', 300], ['hintOf', 'one line again'], ['read', 'one line again, html', H],
+    ...NEWTEXT, ['press', 'Enter'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['hintOf', 'two empty lines, left'],
+    ...NEWTEXT, ['press', 'Shift+Enter'], ['pause', 300], ['hintOf', 'line break'], ['read', 'line break, html', H],
+    ...NEWTEXT, ['keys', ' '], ['pause', 300], ['hintOf', 'a space'], ['read', 'a space, html', H],
+    ...NEWTEXT, ['keys', 'a'], ['pause', 300], ['press', 'Meta+z'], ['pause', 300], ['hintOf', 'a letter, undone'], ['read', 'a letter, undone, html', H],
+    ...NEWTEXT, ['keys', 'word'], ['press', 'Meta+a'], ['press', 'Backspace'], ['pause', 300], ['hintOf', 'word, select all, Backspace'], ['read', 'word, select all, Backspace, html', H],
+    ...NEWTEXT, ['keys', 'word'], ['click', 'Text Style'], ['click', 'Heading 2'], ['press', 'Meta+a'], ['press', 'Backspace'], ['pause', 300], ['hintOf', 'H2 word, select all, Backspace'], ['read', 'H2 word, select all, Backspace, html', H],
+    ...NEWTEXT, ['press', 'Escape'], ['pause', 300], ['pressNamed', 'Toggle preview mode'], ['pause', 1500], ['hintOf', 'preview'], ['shot', 'preview'], ['pressNamed', 'Toggle preview mode'], ['pause', 1200], ['hintOf', 'back from preview'],
+  ] },
   'CAP-TOUCH': { question: 'X11: what do touch and pen do on a block: tap, drag, a long press, a handle?', steps: [
     ['enter'], ['listen'],
     ['touch', 2, 2, 'middle', 0, 0], ['read', 'after tap', { block: [2, 2], section: 2, controls: true }],
@@ -497,6 +544,57 @@ export const RECIPES = {
   ] },
   'CAP-L5TYPES': { page: 'Gestures Probe', question: 'L5: Hide on desktop and on mobile on block types beyond Image, Button, Line, Form and Shape', steps: [
     ['enter'], ['blank'], ...['Text', 'Video', 'Accordion', 'Scrolling', 'Quote', 'Map', 'Code', 'Markdown', 'Embed', 'Social Links', 'Newsletter', 'Chart', 'Calendar', 'Menu', 'Audio', 'Search Field', 'Page Link', 'Tag Cloud', 'RSS', 'Archive', 'Instagram', 'Tock', 'SoundCloud', 'Flickr', 'OpenTable', 'Zola', 'Bandsintown', 'Summary'].flatMap((t) => [['add', 0, t], ['pause', 700], ['press', 'Escape'], ['rightClick', 0, 'new'], ['click', 'Hide on desktop'], ['read', `${t} hidden on desktop`, { block: [0, 'new'], section: 0 }], ['press', 'Meta+z'], ['pause', 300], ['rightClick', 0, 'new'], ['click', 'Hide on mobile'], ['read', `${t} hidden on mobile`, { block: [0, 'new'], section: 0 }], ['view', 'Mobile'], ['read', `${t} phone view`, { block: [0, 'new'], section: 0 }], ['view', 'Desktop'], ['press', 'Meta+z'], ['pause', 300], ['press', 'Escape'], ['select', 0, 'new'], ['pressNamed', 'Remove'], ['pause', 300]]),
+  ] },
+  'CAP-Z3AFTER': { page: 'Gestures Probe', question: 'Z3: is the next press lost after a row drag given up by Escape or a release over the page? Against a normal drop. Layers has to open on the first press or the second.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['add', 0, 'Button'], ['press', 'Escape'], ['add', 0, 'Shape'], ['press', 'Escape'], ['hover', 0], ['click', 'Open Layers Panel'], ['pause', 800], ['read', 'open at the start', { has: ['Layers'] }],
+    ...[['Escape', [[0, -40], ['esc']]], ['a release over the page', [[400, 0], [400, 30]]]].flatMap(([n, path]) => [
+      ['rowPath', 'Button', ['Line', 'Button', 'Shape'], path, `held, ${n}`], ['read', `after ${n}`, { has: ['Layers'] }],
+      ['hover', 0], ['click', 'Open Layers Panel'], ['read', `after ${n}, one press`, { has: ['Layers'] }], ['click', 'Open Layers Panel'], ['read', `after ${n}, two presses`, { has: ['Layers'] }],
+      ['pause', 300], ['read', `after ${n}, settled`, { has: ['Layers'] }],
+    ]),
+    ['read', 'before the normal drop', { has: ['Layers'] }],
+  ] },
+  'CAP-Z3SCORE': { page: 'Gestures Probe', question: 'Z3: fresh cases for the last rules, no fitting after. Rows held by the real mouse, frames of moves and drops. Unnamed presses on the rows.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['add', 0, 'Button'], ['press', 'Escape'], ['add', 0, 'Shape'], ['press', 'Escape'], ['hover', 0], ['click', 'Open Layers Panel'], ['pause', 800], ['read', 'start', { zs: 0 }],
+    ...[['Line', -23, 'Line up 80, down to 23', [-80]], ['Line', -71, 'Line up 80, back to 70, up to 71', [-80, -70]], ['Shape', 70, 'Shape down 80, back to 70', [80]], ['Shape', 71, 'Shape down 80, back to 70, down to 71', [80, 70]], ['Shape', 23, 'Shape down 30, back to 23', [30]], ['Button', 24, 'Button down 30, back to 0, down to 24', [30, 0]], ['Button', -24, 'Button down 30, up to 24 above', [30]], ['Button', -23, 'Button up 30, back to 23', [-30]]]
+      .map(([l, dy, n, pre]) => ['rowFrames', l, ['Line', 'Button', 'Shape'], dy, `frames, ${n}`, pre]),
+    ['read', 'nothing dropped', { zs: 0 }],
+    ['rowFrames', 'Line', ['Line', 'Button', 'Shape'], -5, 'frames, Line up 30, back to 5, dropped', [-30], true], ['read', 'dropped at 5, z', { zs: 0 }],
+    ['rowFrames', 'Line', ['Line', 'Button', 'Shape'], 9, 'frames, Line down 9, dropped', [], true], ['read', 'dropped at 9, z', { zs: 0 }],
+    ['rowFrames', 'Line', ['Line', 'Button', 'Shape'], -80, 'frames, Line up 80, dropped', [], true], ['read', 'dropped up 80, z', { zs: 0 }],
+    ['rowFrames', 'Line', ['Line', 'Button', 'Shape'], 25, 'frames, Line down 25, dropped', [], true], ['read', 'dropped down 25, z', { zs: 0 }],
+    ['rowFrames', 'Shape', ['Line', 'Button', 'Shape'], 100, 'frames, Shape down 100, dropped', [], true], ['read', 'dropped down 100, z', { zs: 0 }],
+    ...[['Button', [[3, 8]], 'right 3, down 8'], ['Button', [[4, 8]], 'right 4, down 8'], ['Button', [[7, 5]], 'right 7, down 5'], ['Button', [[7, 4]], 'right 7, down 4'], ['Button', [[-8, 0], [-8, -1]], 'left 8, up 1']]
+      .map(([l, path, n]) => ['rowPath', l, ['Line', 'Button', 'Shape'], path, n, false]),
+    ['rowPath', 'Button', ['Line', 'Button', 'Shape'], [[0, -40], ['esc']], 'Button up 40, Escape, released'], ['read', 'Escape, z', { zs: 0 }],
+  ] },
+  'CAP-Z3PATH2': { page: 'Gestures Probe', question: 'Z3: beyond CAP-Z3PATH: frames of rows moving back and of a drop, a second move after the one that starts it, out over the page and back, Escape while held. Unnamed presses on the rows.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['add', 0, 'Button'], ['press', 'Escape'], ['add', 0, 'Shape'], ['press', 'Escape'], ['hover', 0], ['click', 'Open Layers Panel'], ['pause', 800], ['read', 'start', { zs: 0 }],
+    ['rowFrames', 'Line', ['Line', 'Button', 'Shape'], -23, 'frames, Line up 30, back to 23', [-30]], ['rowFrames', 'Line', ['Line', 'Button', 'Shape'], -70, 'frames, Line up 80, back to 70', [-80]], ['rowFrames', 'Line', ['Line', 'Button', 'Shape'], -24, 'frames, Line up 30, back to 23, up to 24', [-30, -23]], ['rowFrames', 'Button', ['Line', 'Button', 'Shape'], 24, 'frames, Button up 30, down to 24', [-30]],
+    ...[['Line', [[0, -30, 'jump'], [0, -31]], 'one move up 30, then 1px'], ['Line', [[0, -30, 'jump'], [0, -80, 'jump']], 'one move up 30, one to 80'], ['Shape', [[0, 30, 'jump'], [0, 31]], 'one move down 30, then 1px'], ['Button', [[400, 0], [0, 0], [0, -30]], 'out over the page and back, up 30']]
+      .map(([l, path, n]) => ['rowPath', l, ['Line', 'Button', 'Shape'], path, n, false]),
+    ['read', 'nothing dropped', { zs: 0 }],
+    ['rowPath', 'Shape', ['Line', 'Button', 'Shape'], [[0, 30, 'jump']], 'one move down 30, dropped'], ['read', 'one move down 30, dropped, z', { zs: 0 }],
+    ['rowFrames', 'Line', ['Line', 'Button', 'Shape'], -30, 'frames, Line dropped up 30', [], true], ['read', 'frames drop, z', { zs: 0 }],
+    ['rowPath', 'Button', ['Line', 'Button', 'Shape'], [[0, -30], ['esc'], [0, -35]], 'up 30, Escape, up to 35, dropped'], ['read', 'Escape, dropped, z', { zs: 0 }],
+  ] },
+  'CAP-Z3PATH': { page: 'Gestures Probe', question: 'Z3: a Layers row held by the real mouse along paths beyond CAP-Z3WALK: slants, x then y, back again, single jumps, a drop near a limit and outside the panel. And each frame around a pass. Unnamed presses on the rows.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['add', 0, 'Button'], ['press', 'Escape'], ['add', 0, 'Shape'], ['press', 'Escape'], ['hover', 0], ['click', 'Open Layers Panel'], ['pause', 800], ['read', 'start', { zs: 0 }],
+    ...[['Button', [[6, 0], [6, 8]], 'right 6, down 8'], ['Button', [[5, 0], [5, 8]], 'right 5, down 8'], ['Button', [[8, 0], [8, 8]], 'right 8, down 8'], ['Button', [[-6, 0], [-6, -8]], 'left 6, up 8'], ['Button', [[6, -7, 'jump']], 'one move to 6 and 7'], ['Button', [[6, -6, 'jump']], 'one move to 6 and 6'],
+      ['Shape', [[9, 0], [9, 30]], 'right 9, down 30'], ['Shape', [[30, 0], [30, 80]], 'right 30, down 80'], ['Line', [[0, -30], [0, -5]], 'up 30, back to 5'], ['Line', [[0, -80], [0, 0]], 'up 80, back home'], ['Button', [[0, -30], [0, 30]], 'up 30, down to 30'],
+      ['Line', [[0, -30, 'jump']], 'one move up 30'], ['Line', [[0, -80, 'jump']], 'one move up 80'], ['Button', [[0, -8, 'jump']], 'one move up 8'], ['Shape', [[0, 400, 'jump']], 'one move far down']]
+      .map(([l, path, n]) => ['rowPath', l, ['Line', 'Button', 'Shape'], path, n, false]),
+    ['read', 'nothing dropped', { zs: 0 }],
+    ['rowFrames', 'Line', ['Line', 'Button', 'Shape'], -24, 'frames, Line to 24'], ['rowFrames', 'Line', ['Line', 'Button', 'Shape'], -71, 'frames, Line to 71'], ['rowFrames', 'Shape', ['Line', 'Button', 'Shape'], 24, 'frames, Shape to 24'], ['rowFrames', 'Line', ['Line', 'Button', 'Shape'], -9, 'frames, Line to 9'],
+    ['read', 'still nothing dropped', { zs: 0 }],
+    ['rowPath', 'Line', ['Line', 'Button', 'Shape'], [[0, -9]], 'dropped at 9'], ['read', 'dropped at 9, z', { zs: 0 }],
+    ['rowPath', 'Line', ['Line', 'Button', 'Shape'], [[0, -23]], 'dropped at 23'], ['read', 'dropped at 23, z', { zs: 0 }],
+    ['rowPath', 'Line', ['Line', 'Button', 'Shape'], [[0, -30], [0, 0]], 'up 30, dropped at home'], ['read', 'dropped at home, z', { zs: 0 }],
+    ['rowPath', 'Button', ['Line', 'Button', 'Shape'], [[20, 0]], 'right 20, dropped'], ['read', 'right 20, dropped, z', { zs: 0 }],
+    ['rowPath', 'Button', ['Line', 'Button', 'Shape'], [[20, 0], [20, -30]], 'right 20, up 30, dropped'], ['read', 'right 20, up 30, dropped, z', { zs: 0 }],
+    ['rowPath', 'Button', ['Line', 'Button', 'Shape'], [[400, 0], [400, 30]], 'outside the panel, dropped'], ['read', 'outside the panel, dropped, z', { zs: 0 }],
+    ['rowPath', 'Shape', ['Line', 'Button', 'Shape'], [[0, 0, 'jump'], [0, 30, 'jump']], 'one move down 30, dropped'], ['read', 'one move down 30, dropped, z', { zs: 0 }],
+    ['rowPath', 'Line', ['Line', 'Button', 'Shape'], [[0, -30], ['esc'], [0, -35]], 'up 30, Escape, up to 35, dropped'], ['read', 'Escape, dropped, z', { zs: 0 }],
   ] },
   'CAP-Z3WALK': { page: 'Gestures Probe', question: 'Z3: a Layers row held by the real mouse, 1px at a time. Unnamed presses on the rows. Up, down, in x, and the blocks z while held.', steps: [
     ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['add', 0, 'Button'], ['press', 'Escape'], ['add', 0, 'Shape'], ['press', 'Escape'], ['hover', 0], ['click', 'Open Layers Panel'], ['pause', 800], ['read', 'start', { zs: 0 }],

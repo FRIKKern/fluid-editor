@@ -1,0 +1,293 @@
+{
+  "item": "CAP-T7THICK3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T7: a pull on the <> of a Thickness field, by position, on a block made in the session",
+  "answer": "The <> takes a pull. From 6px, pulled right 30 with the mouse not yet over the field: no change, unexplained. Then left 20: 0px, as the floor. Pulling the field's text from 0px does nothing. Pressed by position, not by name: the block was made in this session.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressFrame",
+      "button",
+      1
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Intro"
+    ],
+    [
+      "pause",
+      1800
+    ],
+    [
+      "pressTile",
+      0
+    ],
+    [
+      "pause",
+      7000
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "start",
+      {
+        "rows": [
+          "Thickness",
+          "Corner"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "dragAt",
+      1536,
+      542,
+      1566,
+      542
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "chevrons pulled right 30",
+      {
+        "rows": [
+          "Thickness"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "right"
+    ],
+    [
+      "dragAt",
+      1536,
+      542,
+      1516,
+      542
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "chevrons pulled left 20",
+      {
+        "rows": [
+          "Thickness"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "dragAt",
+      1440,
+      542,
+      1470,
+      542
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "the field pulled right 30",
+      {
+        "rows": [
+          "Thickness"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "field"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ]
+  ],
+  "reads": {
+    "start": {
+      "rows": {
+        "Thickness": [
+          "6px"
+        ],
+        "Corner": [
+          "0px"
+        ]
+      },
+      "areas": [
+        [
+          "2/7/6/21",
+          "2/2/7/10"
+        ],
+        [
+          "6/6/21/22",
+          "7/2/14/10"
+        ],
+        [
+          "21/9/22/19",
+          "14/2/15/10"
+        ],
+        [
+          "23/11/25/17",
+          "16/2/18/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "chevrons pulled right 30": {
+      "rows": {
+        "Thickness": [
+          "6px"
+        ]
+      },
+      "areas": [
+        [
+          "2/7/6/21",
+          "2/2/7/10"
+        ],
+        [
+          "6/6/21/22",
+          "7/2/14/10"
+        ],
+        [
+          "21/9/22/19",
+          "14/2/15/10"
+        ],
+        [
+          "23/11/25/17",
+          "16/2/18/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "chevrons pulled left 20": {
+      "rows": {
+        "Thickness": [
+          "0px"
+        ]
+      },
+      "areas": [
+        [
+          "2/7/6/21",
+          "2/2/7/10"
+        ],
+        [
+          "6/6/21/22",
+          "7/2/14/10"
+        ],
+        [
+          "21/9/22/19",
+          "14/2/15/10"
+        ],
+        [
+          "23/11/25/17",
+          "16/2/18/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "the field pulled right 30": {
+      "rows": {
+        "Thickness": [
+          "0px"
+        ]
+      },
+      "areas": [
+        [
+          "2/7/6/21",
+          "2/2/7/10"
+        ],
+        [
+          "6/6/21/22",
+          "7/2/14/10"
+        ],
+        [
+          "21/9/22/19",
+          "14/2/15/10"
+        ],
+        [
+          "23/11/25/17",
+          "16/2/18/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}

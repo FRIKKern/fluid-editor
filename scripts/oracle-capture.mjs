@@ -5,12 +5,12 @@
 //   ... node scripts/oracle-capture.mjs --list
 //   ... node scripts/oracle-capture.mjs --name WHAT --question '...' --steps '[["enter"],["select",2,2],["read","a",{"block":[2,2],"controls":true}]]'
 // Steps: enter | exit | view Mobile|Desktop | window w h (the real window, for a block taller than it) | frame w h | unframe | pause ms | listen
-//   hover i | hoverBlock i k [part] | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
+//   hover i | hoverBlock i k [part] | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | rowPath label names path name drop | rowFrames label names dy name [pre] [drop] | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
 //   addFromMenu i type name {frameBy, menu} | handleDrag i k part dx dy name | beforeOf name selector
-//   hoverNamed label | moveAt x y (skips the page check: it presses nothing, and its timing matters) | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | addSectionWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
+//   hoverNamed label | moveAt x y (skips the page check: it presses nothing, and its timing matters) | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | addStart | addStop name (every Add Section, per frame, between the two) | addSectionWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
 //   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | keysGap ms [keys] | fill label value | fillValue shown value | rightClick i k
-//   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clipHold | clipGive | clickAt x y | walk i k part mx my | pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillRow label n value | hoverRow label [n] | pressTile [n] | pressEl selector [n] | hoverEl selector [n] | pressNamed label | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
+//   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clipHold | clipGive | clickAt x y | walk i k part mx my | pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillRow label n value | hoverRow label [n] | pressTile [n] | pressEl selector [n] | hoverEl selector [n] | pressNamed label | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | scrollFrame y | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
 //   hold i k part dx dy [mods] | holdRaw i k part dx dy | shiftClick i k | move dx dy | release [home] | drag i k part dx dy {pointerType}
 //   touch i k part dx dy {holdMs} | pasteMid i k html | pasteHere i k html (over the selection as it is) | undoWalk name [n] [html] | stamp i k | shot name
 //   read name { stamps: true, codeText: true, block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], range: true, rows: [labels], parts: [labels], boxes: [labels], shape: [i,k], reset: [label,n], leaves: [labels], afterBtn: label, gridEls: selector, cursorEls: true, shadowOf: label, btnState: [labels], shadowChain: selector, fullEls: true, panelBox: true or i, panelState: true, kids: [i, k] (a stack's children), linkTexts: [i, k], gradients: true, marker: [i, k], hits: [i, k], htmlOf: selector, frameEls: selector, panelEls: selector, panelCss: selector, textBox: [text], radii: [i, k], icon: true, style: [i,k], textH: [i,k], checks: true, sel: selector, layers: i, controls: true, thin: true }
@@ -198,6 +198,9 @@ const ROWPARTS = (L) => `(() => { const vis = (e) => { const q = e.getBoundingCl
 const RESETOF = (L, n) => `(() => { const f = ${ROWINPUTS(L)}; const e = f && f[${n}]; if (!e) return null; const q = e.getBoundingClientRect(); const all = [...document.querySelectorAll('[aria-label="Reset to default value"], [title="Reset to default value"]')].filter((b) => { const r = b.getBoundingClientRect(); return r.width > 0 && Math.abs(r.top + r.height / 2 - q.top - q.height / 2) < 14; }); all.sort((x, y) => Math.abs(x.getBoundingClientRect().left - q.right) - Math.abs(y.getBoundingClientRect().left - q.right)); return all[0] || null; })()`;
 const ROWINPUTS = (L) => `(() => { const vis = (e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'); const leaf = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && e.textContent.trim() === ${JSON.stringify(L)} && vis(e)); if (!leaf) return null; let r = leaf; while (r && r !== document.body && ![...r.querySelectorAll('input:not([type=radio]):not([type=checkbox])')].some(vis)) r = r.parentElement; return r && r !== document.body ? [...r.querySelectorAll('input:not([type=radio]):not([type=checkbox])')].filter(vis) : null; })()`;
 let heldClip = [];
+// Each row text, the blue slot and the blocks' z, and the middle of a row by its name, for the row steps.
+const rowSnap = (names) => evalJs(S, `(() => { ${FRAME} const N = ${JSON.stringify(names)}; const texts = [...document.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && N.includes(e.textContent.trim()) && e.getBoundingClientRect().width > 0).map((e) => { const q = e.getBoundingClientRect(); let o = 1; for (let p = e; p; p = p.parentElement) o *= +getComputedStyle(p).opacity; return [e.textContent.trim(), Math.round(q.left), Math.round(q.top), Math.round(o * 100) / 100]; }); const slots = [...document.querySelectorAll('*')].filter((e) => getComputedStyle(e).backgroundColor === 'rgb(72, 148, 255)' && e.getBoundingClientRect().width > 100).map((e) => { const q = e.getBoundingClientRect(); return [Math.round(q.left), Math.round(q.top), Math.round(q.width), Math.round(q.height)]; }); return JSON.stringify({ texts, slots, z: [...d.querySelectorAll('main#page .fe-block')].map((e) => W.getComputedStyle(e).zIndex).join() }); })()`);
+const rowAt = (label) => evalJs(S, `(() => { const t = [...document.querySelectorAll('*')].find((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(label)} && x.getBoundingClientRect().left > 70 && x.getBoundingClientRect().left < 100); const b = t.closest('button') || t.parentElement; const q = b.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
 const STEPS = {
   // The Mobile view outlives Exit, so a step could read the wrong layout: always start on Desktop.
   // After many runs Edit can open the bar and leave the canvas not editing: leave, reload, enter again.
@@ -238,6 +241,8 @@ const STEPS = {
   },
   // What a ::before says and how it looks, on each element in the frame that matches. Reads only.
   beforeOf: (name, sel) => { finding.reads[name] = evalJs(S, `(() => { ${FRAME} return JSON.stringify([...d.querySelectorAll(${JSON.stringify(sel)})].map((e) => { const c = W.getComputedStyle(e, '::before'); const q = e.getBoundingClientRect(); return { tag: e.tagName.toLowerCase(), box: [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10), content: c.content, color: c.color, opacity: c.opacity, font: c.fontSize + ' ' + c.fontFamily.slice(0, 40), float: c.float, height: c.height, pointer: c.pointerEvents }; })); })()`); },
+  // Every ::before with content inside the block last added, with the font it carries.
+  hintOf: (name) => { finding.reads[name] = evalJs(S, `(() => { ${FRAME} const b = d.querySelector('main#page .fe-block[data-block-id="${added}"]'); const ce = b && b.querySelector('.sqs-html-content'); if (!ce) return JSON.stringify(null); return JSON.stringify([ce, ...ce.querySelectorAll('*')].map((e) => { const c = W.getComputedStyle(e, '::before'); return { tag: e.tagName.toLowerCase(), content: c.content, color: c.color, opacity: c.opacity, font: c.fontSize + ' ' + c.fontFamily.slice(0, 40), float: c.float, height: c.height, pointer: c.pointerEvents, weight: c.fontWeight, lineHeight: c.lineHeight, letterSpacing: c.letterSpacing, transform: c.textTransform }; }).filter((x) => x.content !== 'none' && x.content !== 'normal')); })()`); },
   // A drag from a block's handle, only if what is under the pointer is a handle by its size and resize cursor. Otherwise named, not pressed.
   handleDrag: async (i, k, part, dx, dy, name) => {
     const [x, y] = point(i, k, part);
@@ -254,8 +259,8 @@ const STEPS = {
   press: async (key) => { browser(S, 'press', key); await pause(500); },
   // Holds a Layers row with the real pointer and moves 1px at a time, keeping each change of the rows, the ghost, the slot and the blocks' z. dx and dy are walked one after the other, x first.
   rowWalk: async (label, names, dx, dy, name, drop = true) => {
-    const snap = () => evalJs(S, `(() => { ${FRAME} const N = ${JSON.stringify(names)}; const texts = [...document.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && N.includes(e.textContent.trim()) && e.getBoundingClientRect().width > 0).map((e) => { const q = e.getBoundingClientRect(); let o = 1; for (let p = e; p; p = p.parentElement) o *= +getComputedStyle(p).opacity; return [e.textContent.trim(), Math.round(q.left), Math.round(q.top), Math.round(o * 100) / 100]; }); const slots = [...document.querySelectorAll('*')].filter((e) => getComputedStyle(e).backgroundColor === 'rgb(72, 148, 255)' && e.getBoundingClientRect().width > 100).map((e) => { const q = e.getBoundingClientRect(); return [Math.round(q.left), Math.round(q.top), Math.round(q.width), Math.round(q.height)]; }); return JSON.stringify({ texts, slots, z: [...d.querySelectorAll('main#page .fe-block')].map((e) => W.getComputedStyle(e).zIndex).join() }); })()`);
-    const at = evalJs(S, `(() => { const t = [...document.querySelectorAll('*')].find((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(label)} && x.getBoundingClientRect().left > 70 && x.getBoundingClientRect().left < 100); const b = t.closest('button') || t.parentElement; const q = b.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
+    const snap = () => rowSnap(names);
+    const at = rowAt(label);
     mouse(S, 'move', at[0], at[1]); mouse(S, 'down', at[0], at[1]); await pause(150);
     const seen = [['pressed', snap()]]; let last = JSON.stringify(seen[0][1]); let x = 0, y = 0;
     const go = () => { mouse(S, 'move', at[0] + x, at[1] + y, { buttons: 1 }); const n = snap(); const t = JSON.stringify(n); if (t !== last) { seen.push([[x, y], n]); last = t; } };
@@ -263,6 +268,38 @@ const STEPS = {
     for (let k = 1; k <= Math.abs(dy); k++) { y = Math.sign(dy) * k; go(); }
     if (drop) { mouse(S, 'up', at[0] + x, at[1] + y); await pause(500); } else { for (; y; y -= Math.sign(y)) mouse(S, 'move', at[0], at[1] + y, { buttons: 1 }); for (; x; x -= Math.sign(x)) mouse(S, 'move', at[0] + x, at[1], { buttons: 1 }); mouse(S, 'move', at[0], at[1], { buttons: 1 }); await pause(200); mouse(S, 'up', at[0], at[1]); await pause(500); }
     finding.reads[name] = { from: at, seen, after: snap() };
+  },
+  // Like rowWalk along a path of [x, y] points from the press, 1px at a time, x first. [x, y, 'jump'] goes there in one move, ['esc'] presses Escape.
+  rowPath: async (label, names, path, name, drop = true) => {
+    const snap = () => rowSnap(names);
+    const at = rowAt(label);
+    mouse(S, 'move', at[0], at[1]); mouse(S, 'down', at[0], at[1]); await pause(150);
+    const seen = [['pressed', snap()]]; let last = JSON.stringify(seen[0][1]); let x = 0, y = 0;
+    const go = () => { mouse(S, 'move', at[0] + x, at[1] + y, { buttons: 1 }); const n = snap(); const t = JSON.stringify(n); if (t !== last) { seen.push([[x, y], n]); last = t; } };
+    for (const p of path) {
+      if (p[0] === 'esc') { browser(S, 'press', 'Escape'); await pause(300); const n = snap(); const t = JSON.stringify(n); if (t !== last) { seen.push([['esc', x, y], n]); last = t; } continue; }
+      if (p[2] === 'jump') { [x, y] = p; go(); await pause(100); const n = snap(); const t = JSON.stringify(n); if (t !== last) { seen.push([[x, y, 'settled'], n]); last = t; } continue; }
+      while (x !== p[0]) { x += Math.sign(p[0] - x); go(); }
+      while (y !== p[1]) { y += Math.sign(p[1] - y); go(); }
+    }
+    if (drop) { mouse(S, 'up', at[0] + x, at[1] + y); await pause(500); } else { for (; y; y -= Math.sign(y)) mouse(S, 'move', at[0], at[1] + y, { buttons: 1 }); for (; x; x -= Math.sign(x)) mouse(S, 'move', at[0] + x, at[1], { buttons: 1 }); await pause(200); mouse(S, 'up', at[0], at[1]); await pause(500); }
+    finding.reads[name] = { from: at, seen, after: snap() };
+  },
+  // A row walked through the y's in pre, then up to 1px before dy, then the last px with each animation frame kept for 600ms: the time, the slot's top and every row text's top. With drop, the frames are of the release at dy.
+  rowFrames: async (label, names, dy, name, pre = [], drop = false) => {
+    const at = rowAt(label);
+    mouse(S, 'move', at[0], at[1]); mouse(S, 'down', at[0], at[1]); await pause(150);
+    let y = 0;
+    const to = (v) => { while (y !== v) { y += Math.sign(v - y); mouse(S, 'move', at[0], at[1] + y, { buttons: 1 }); } };
+    for (const v of pre) to(v);
+    to(dy - (drop ? 0 : Math.sign(dy - y)));
+    await pause(400);
+    evalJs(S, `(() => { const N = ${JSON.stringify(names)}; const out = window.__fxFrames = []; const t0 = performance.now(); const tick = () => { const slot = [...document.querySelectorAll('*')].find((e) => getComputedStyle(e).backgroundColor === 'rgb(72, 148, 255)' && e.getBoundingClientRect().width > 100); out.push([Math.round(performance.now() - t0), slot ? Math.round(slot.getBoundingClientRect().top * 10) / 10 : null, [...document.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && N.includes(e.textContent.trim()) && e.getBoundingClientRect().width > 0).map((e) => [e.textContent.trim(), Math.round(e.getBoundingClientRect().top * 10) / 10])]); if (performance.now() - t0 < 600) requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 1; })()`);
+    if (drop) mouse(S, 'up', at[0], at[1] + y); else to(dy);
+    await pause(800);
+    const frames = evalJs(S, `JSON.stringify(window.__fxFrames)`);
+    if (!drop) { to(0); await pause(200); mouse(S, 'up', at[0], at[1]); await pause(500); }
+    finding.reads[name] = { from: at, frames };
   },
   // A row in Layers by name, selected whatever its state: opens Layers if an action closed it, selects the stack if its children are folded, and presses again if the press took the selection off.
   pressRow: async (name, i = 0) => { const vis = () => evalJs(S, `(() => { const b = [...document.querySelectorAll('button')].find((x) => (x.getAttribute('aria-label') === ${JSON.stringify(name)} || x.textContent.trim() === ${JSON.stringify(name)}) && x.getBoundingClientRect().left < 60 && x.getBoundingClientRect().height === 44); return JSON.stringify(!!b); })()`); const edit = () => evalJs(S, `JSON.stringify(!![...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Edit' && x.getBoundingClientRect().width > 0))`); if (!vis()) { await STEPS.hover(i); await STEPS.clickIf('Open Layers Panel'); await pause(700); if (!vis() && name !== 'Stack') { await STEPS.pressNamed('Stack'); await pause(500); } } await STEPS.pressNamed(name); await pause(400); if (!edit()) { await STEPS.pressNamed(name); await pause(400); } },
@@ -318,6 +355,7 @@ const STEPS = {
   // The first button after a heading with this label, by a real press, only if nothing lies over its middle.
   pressAfter: async (label) => { if (!tag(`() => { const leaf = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && e.textContent.trim() === ${JSON.stringify(label)} && e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')); if (!leaf) return null; const all = [...document.querySelectorAll('button, [role=button]')].filter((e) => e.getBoundingClientRect().width > 0); return all.find((e) => leaf.compareDocumentPosition(e) & 4); }`)) throw new Error(`no button after ${label}`); const at = evalJs(S, `(() => { const e = document.getElementById('fx-target'); e.scrollIntoView({ block: 'nearest' }); const q = e.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2; const top = document.elementFromPoint(x, y); return JSON.stringify({ x, y, onTop: !!top && (top === e || e.contains(top) || top.contains(e)) }); })()`); if (!at.onTop) throw new Error(`something lies over the button after ${label}`); mouse(S, 'move', at.x, at.y); mouse(S, 'down', at.x, at.y); mouse(S, 'up', at.x, at.y); await pause(1000); },
   // Scrolls the page so a block's top sits this many px below the frame's top.
+  scrollFrame: async (y) => { evalJs(S, `(() => { ${FRAME} W.scrollTo({ top: ${y}, behavior: 'instant' }); return 'true'; })()`); await pause(500); },
   scrollBlock: async (i, k, gap) => { const id = blockId(i, k); evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; W.scrollBy({ top: b.getBoundingClientRect().top - ${gap}, behavior: 'instant' }); return 'true'; })()`); await pause(700); },
   scrollTo: async (label) => { if (!tag(LABEL(label))) throw new Error(`nothing labelled ${label}`); evalJs(S, `(() => { document.getElementById('fx-target').scrollIntoView({ block: 'center' }); return 'true'; })()`); await pause(400); },
   // A real press on the n-th part of a panel row, only if nothing lies over its middle.
@@ -451,6 +489,8 @@ const STEPS = {
     finding.reads[name] = { columns: ['ms', 'Add Section opacity', 'outline opacity', 'outline border', 'Add Section top', 'its document'], on, away };
   },
   // Every element whose text is Add Section, in both documents, each frame while the mouse goes on and off a section. Reads only.
+  addStart: () => { evalJs(S, `(() => { const T = window.__as = { t0: performance.now(), seen: [], stop: false, key: '' }; const eff = (e) => { let o = 1; for (let x = e; x && x.nodeType === 1; x = x.parentElement) o *= Number(getComputedStyle(x).opacity); return Math.round(o * 1000) / 1000; }; const tick = () => { if (T.stop) return; const row = [...document.querySelectorAll('div')].filter((e) => e.childElementCount <= 2 && e.textContent.trim() === 'Add Section' && e.getBoundingClientRect().left > 700 && e.getBoundingClientRect().width < 200).map((e) => [Math.round(e.getBoundingClientRect().top), eff(e), getComputedStyle(e).visibility]); const key = JSON.stringify(row); if (key !== T.key) { T.key = key; T.seen.push([Math.round(performance.now() - T.t0), row]); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`); },
+  addStop: (name) => { const seen = evalJs(S, `(() => { const T = window.__as; T.stop = true; return JSON.stringify(T.seen); })()`); finding.reads[name] = { columns: ['ms', 'each Add Section: top, opacity with its parents, visibility'], seen }; },
   addSectionWatch: async (i, name) => {
     const sec = evalJs(S, `(() => { ${FRAME} const fr = f.getBoundingClientRect(), s = d.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return JSON.stringify([fr.left + s.left + s.width / 2, fr.top + s.top + s.height / 2]); })()`);
     const off = [800, 28];

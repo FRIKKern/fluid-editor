@@ -1,7 +1,11 @@
 // The read-back's comparison can't pass a narrowed read: oracle-readback.mjs is only as honest as this.
 import { readFileSync } from 'node:fs';
-import { THEMES, NAMES, colorsOf, compareRows, comparePalette, compareView, settledRead, STYLES, FINDING } from './oracle/readback.mjs';
-import { VIEWS, DEEP } from './oracle/style-views.mjs';
+import { THEMES, NAMES, colorsOf, compareRows, comparePalette, compareView, compareLists, compareFamilies, settledRead, STYLES, FINDING } from './oracle/readback.mjs';
+import { VIEWS, DEEP, LISTS } from './oracle/style-views.mjs';
+import { siteStylesHtml } from '../app/src/site-styles.js';
+import { THEMES as OUR_THEMES } from '../app/src/site-style-packs.js';
+import { SHAPES } from '../app/src/button-tiers.js';
+import { FORM_SHAPES } from '../app/src/form-rows.js';
 
 const finding = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url)));
 
@@ -77,5 +81,26 @@ const formColor = Object.fromEntries(views['Forms > Colors'].map((c) => [c[0], c
 is('form colors hold CAP-FORMSUBS\' Darkest 2', fs.colors.rows.every((n, i) => formColor[n] === `rgb(${hsl2rgb(LETTER[fs.colors.themes['Darkest 2'][i]].split(',').map((x) => Number.parseFloat(x)))})`));
 const on = views['Forms > Effects'].filter((c) => c[5] === 'rgb(0, 0, 0)').map((c) => c[0]);
 is('Effects tiles on hold CAP-FORMSUBS\' defaults', JSON.stringify(on) === JSON.stringify([fs.effects.defaults.hover, fs.effects.defaults.submit]));
+// The Themes popover and the closed lists: stored, a change fails, and ours offers the same.
+const lists = STYLES.lists, eq = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+is('every closed list stored, and the Themes popover', Object.keys(LISTS).every((k) => lists[k]) && lists.Themes?.tiles.length === 14);
+const heads = lists['Fonts > Headings'];
+is('stored lists pass', compareLists('Fonts > Headings', heads).length === 0);
+is('a list missing an option fails', compareLists('Fonts > Headings', { ...heads, combos: heads.combos.map((c, i) => (i ? c : [c[0], c[1].slice(1)])) }).length > 0);
+is('a list with another pick on fails', compareLists('Fonts > Headings', { ...heads, combos: heads.combos.map((c, i) => (i ? c : [c[0], c[1].map(([n, on]) => [n, on === 'true' ? 'false' : 'true'])])) }).length > 0);
+is('a list nothing is stored for fails', compareLists('Nowhere', heads).length > 0);
+is('the stored font names pass', compareFamilies(STYLES.families).length === 0);
+is('a font list short by a name fails', compareFamilies(STYLES.families.slice(0, -1)).length > 0);
+is('a renamed font fails', compareFamilies(STYLES.families.map((n, i) => (i === 700 ? 'x' : n))).length > 0);
+is('the font list starts with the first screen', eq(STYLES.families.slice(0, heads.family.first.length), heads.family.first));
+const ourOptions = (view, key) => [...siteStylesHtml(null, view, [], { select: key }).matchAll(/role="option"[^>]*data-v="([^"]+)"/g)].map((m) => m[1]);
+for (const [view, k] of [['Headings', 'h'], ['Paragraphs', 'p']]) {
+  const read = lists[`Fonts > ${view}`].combos.map((c) => c[1].map(([n]) => n));
+  is(`our ${view} lists offer what the oracle's do`, eq(read, ['style', 'weight', 'tt'].map((n) => ourOptions(view, `type.${k}.${n}`))));
+}
+const tileNames = (rows) => rows.filter((r) => r[0]).map((r) => r[0]);
+for (const t of ['Primary', 'Secondary', 'Tertiary']) is(`our ${t} button Shape list offers the oracle's tiles`, eq(tileNames(lists[`Buttons > ${t} Button`].shape), SHAPES.map(([n]) => n)));
+is('our Field Shape list offers the oracle\'s tiles', eq(tileNames(lists.Forms.shape), FORM_SHAPES.map(([n]) => n)));
+is('our Themes popover holds the oracle\'s tiles and groups', eq(lists.Themes.tiles.map((x) => x[0]), OUR_THEMES.map((t) => `Site theme ${t.id}`)) && eq(lists.Themes.heads.slice(1), [...new Set(OUR_THEMES.map((t) => t.group))]));
 if (bad.length) { console.error(`read-back compare: ${bad.join('; ')}`); process.exit(1); }
-console.log(`read-back compare ok: ${NAMES.length} rows, ${THEMES.length} themes, ${expected.length} views`);
+console.log(`read-back compare ok: ${NAMES.length} rows, ${THEMES.length} themes, ${expected.length} views, ${Object.keys(lists).length} sets of lists, ${STYLES.families.length} font names`);

@@ -1,12 +1,15 @@
 // T10: type into our code and embed Edit panels and compare what the block holds with what the
 // oracle's did (parity/findings/CODEEMBED.json): the HTML of each mode, Display Source Code, the
 // panel's rows and size, growth, Embed data, the bad-link error, one undo step. Keys are real
-// input, so a Backspace in the code must stay in the code. Writes parity/code-check.json.
-// Usage: FLUID_SURFACE=cdp:<port> npm run code-check.
+// input, so a Backspace in the code must stay in the code.
+// Usage: FLUID_SURFACE=cdp:<port> npm run code-check. Under 2 min; `-- --full` also replays the row
+// walks, every read edit and Link press, the last score, tips and the phone chains, 10 to 12 min,
+// and writes the result file.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible, browser, drag, mouse } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
+const FULL = process.argv.includes('--full');
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/CODEEMBED.json', import.meta.url)));
 const M = JSON.parse(readFileSync(new URL('../parity/findings/CODEMODAL.json', import.meta.url)));
@@ -97,11 +100,18 @@ const learn = evalJs(S, `(() => { const a = [...document.querySelectorAll('#bloc
 add('Learn More ends the note, new tab', learn?.target === '_blank' && learn.last && learn.font[0] === M.learnMore.font[0] && learn.font[1] === M.learnMore.font[1] && learn.font[2] === M.learnMore.font[3], JSON.stringify(learn));
 add('Embed data has no Expand', evalJs(S, `(() => { document.querySelector('#block-panel [data-embed="code"]').click(); document.querySelector('#block-panel [data-embed="data"]').click(); return JSON.stringify(!document.querySelector('#block-panel [data-code-expand]')); })()`));
 
+const setText = async (sel, text, through) => { evalJs(S, `(() => { const t = document.querySelector('#block-panel ${sel}'); t.focus(); t.select(); if (${!!through} || !${JSON.stringify(text)}) document.execCommand('delete'); if (${JSON.stringify(text)}) { t.select(); document.execCommand('insertText', false, ${JSON.stringify(text)}); } return 'true'; })()`); await pause(120); };
+const CODE_FIELD = 'textarea[data-content="code"]';
+const fresh = (type, extra) => { evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; s.blocks = []; s.rows = { desktop: 40, mobile: 40 }; fe.setBp('desktop'); fe.load(next); await new Promise((res) => setTimeout(res, 200)); return 'true'; })()`); return start(type, extra); };
+const areasOf = (id) => evalJs(S, `(() => { const l = fe.model.sections[1].blocks.find((x) => x.id === '${id}').layout; return JSON.stringify([l.desktop.area.join('/'), l.mobile.area.join('/')]); })()`);
+const toEmbedData = `document.querySelector('#block-panel [data-embed="code"]').click(); document.querySelector('#block-panel [data-embed="data"]').click();`;
+const modeIn = (v) => `{ const m = document.querySelector('#code-modal select'); m.value = '${v}'; m.dispatchEvent(new Event('change', { bubbles: true })); }`;
+const openPanel = async (id, embed) => { evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const P = document.getElementById('block-panel'); if (P.hidden || !P.querySelector('textarea[data-content]')) { fe.select(fe.model.sections[1].id, '${id}'); await sleep(150); document.querySelector('#block-toolbar button[data-tb="edit"]').click(); await sleep(200); ${embed ? toEmbedData : ''} } return 'true'; })()`); await pause(150); };
+if (FULL) { // the row walks
 // The rows of a block as its content changes, step by step as the oracle's did.
 const LINES = (n) => Array.from({ length: n }, (_, k) => `<p>row ${k}</p>`).join('\n');
 const STEP = { thirty: LINES(30), twelve: LINES(12), eight: LINES(8), three: LINES(3), tall: '<p style="height:300px">d</p>' };
 const rowsOf = (id) => evalJs(S, `(() => { const a = fe.model.sections[1].blocks.find((x) => x.id === '${id}').layout.desktop.area; return JSON.stringify(a[2] - a[0]); })()`);
-const setText = async (sel, text, through) => { evalJs(S, `(() => { const t = document.querySelector('#block-panel ${sel}'); t.focus(); t.select(); if (${!!through} || !${JSON.stringify(text)}) document.execCommand('delete'); if (${JSON.stringify(text)}) { t.select(); document.execCommand('insertText', false, ${JSON.stringify(text)}); } return 'true'; })()`); await pause(120); };
 const walk = async (name, id, sel, list, through) => {
   for (const [key, want] of list) {
     await setText(sel, STEP[key] ?? key, through);
@@ -120,11 +130,6 @@ for (const [name, seq] of [['Embed', M.rows.embed], ['Embed again', M.rows.embed
 
 // More line counts, falls, a real pull and the phone, step by step as the oracle's walk went
 // (CAP-T10ROWS.json, CAP-T10DOWN.json, CAP-T10PULL.json), each in a section of its own.
-const CODE_FIELD = 'textarea[data-content="code"]';
-const fresh = (type, extra) => { evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; s.blocks = []; s.rows = { desktop: 40, mobile: 40 }; fe.setBp('desktop'); fe.load(next); await new Promise((res) => setTimeout(res, 200)); return 'true'; })()`); return start(type, extra); };
-const areasOf = (id) => evalJs(S, `(() => { const l = fe.model.sections[1].blocks.find((x) => x.id === '${id}').layout; return JSON.stringify([l.desktop.area.join('/'), l.mobile.area.join('/')]); })()`);
-const toEmbedData = `document.querySelector('#block-panel [data-embed="code"]').click(); document.querySelector('#block-panel [data-embed="data"]').click();`;
-const openPanel = async (id, embed) => { evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const P = document.getElementById('block-panel'); if (P.hidden || !P.querySelector('textarea[data-content]')) { fe.select(fe.model.sections[1].id, '${id}'); await sleep(150); document.querySelector('#block-toolbar button[data-tb="edit"]').click(); await sleep(200); ${embed ? toEmbedData : ''} } return 'true'; })()`); await pause(150); };
 // A pull is real mouse, by rows. The phone pull is not compared (CAP-T10PULL.json's notCompared): 6 rows
 // from a block its 2 lines overrun land where the oracle's did, so the step after it can be compared.
 const pullPx = async (id, dir, dx, dy) => {
@@ -165,7 +170,6 @@ for (const n of [1, 2, 3, 4, 6, 8, 10, 14]) {
 // Sequences the rule hadn't seen when their predictions were pushed (CAP-T10FRESH.json).
 const FRESH = read('CAP-T10FRESH');
 const inViewNow = async (change) => { evalJs(S, `(() => { document.querySelector('#block-panel [data-code-expand]').click(); ${change} document.querySelector('#code-modal .code-modal-close').click(); return 'true'; })()`); await pause(250); };
-const modeIn = (v) => `{ const m = document.querySelector('#code-modal select'); m.value = '${v}'; m.dispatchEvent(new Event('change', { bubbles: true })); }`;
 for (const [name, q] of Object.entries(FRESH.sequences)) {
   const embed = q.type === 'Embed', field = embed ? 'textarea[data-content="embedHtml"]' : CODE_FIELD;
   viewport(S, q.width || 1600, q.width ? 900 : 1000);
@@ -184,6 +188,38 @@ for (const [name, q] of Object.entries(FRESH.sequences)) {
 }
 viewport(S, 1600, 1000);
 evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(200);
+
+}
+// A block that fills its section: its content stretches every row, and rows still go by a row's own height (CAP-T10EMBED2.json).
+const EMBED2 = read('CAP-T10EMBED2'), P_LINES = (n) => Array.from({ length: n }, (_, k) => `<p>row ${k + 1}</p>`).join('');
+const fills = async (bp, type = 'Embed') => {
+  const id = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; s.blocks = []; s.rows = { desktop: 8, mobile: 8 }; fe.setBp('desktop'); fe.load(next); await sleep(200); const sid = fe.model.sections[1].id; fe.addBlock(sid, '${type}'); fe.setBp('${bp}'); await sleep(250); return JSON.stringify(fe.model.sections[1].blocks.at(-1).id); })()`);
+  await openPanel(id, type === 'Embed');
+  return id;
+};
+const fillsD = await fills('desktop');
+await setText('textarea[data-content="embedHtml"]', P_LINES(10));
+add('Fills its section, 10 lines: 10 rows', areasOf(fillsD)[0] === '1/2/11/10', areasOf(fillsD)[0]);
+const fillsP = await fills('mobile'), onPhone = (name) => EMBED2.reads[name].areas[0][1];
+for (const [lines, name] of [[6, 'phone 6 lines'], [20, 'phone 20 lines'], [2, 'phone 2 lines']]) {
+  await setText('textarea[data-content="embedHtml"]', P_LINES(lines));
+  add(`Fills its section on the phone, ${lines} lines: ${onPhone(name)}`, areasOf(fillsP)[1] === onPhone(name), areasOf(fillsP)[1]);
+}
+add('The desktop stays', areasOf(fillsP)[0] === EMBED2.reads['back on desktop'].areas[0][0], areasOf(fillsP)[0]);
+evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(150);
+// Rise after rise and a fall, where the section's rows move by the block's, spare rows kept (CAP-T7THICK.json, predictions first).
+const THICK = read('CAP-T7THICK'), MD_LINES = (n) => Array.from({ length: n }, (_, k) => `row ${k + 1}`).join('\n\n');
+const secRows = (bp) => evalJs(S, `(() => JSON.stringify(fe.model.sections[1].rows.${bp}))()`);
+for (const [tag, type, bp, field, text, ns] of [['Code desktop', 'Code', 'desktop', CODE_FIELD, P_LINES, [30, 40, 2]], ...(FULL ? [['Code phone', 'Code', 'mobile', CODE_FIELD, P_LINES, [30, 40, 2]], ['Markdown desktop', 'Markdown', 'desktop', 'textarea[data-content="markdown"]', MD_LINES, [20, 30, 2]], ['Markdown phone', 'Markdown', 'mobile', 'textarea[data-content="markdown"]', MD_LINES, [20, 30, 2]], ['Embed desktop', 'Embed', 'desktop', 'textarea[data-content="embedHtml"]', P_LINES, [10, 20, 2]]] : [])]) {
+  const fid = await fills(bp, type), side = bp === 'desktop' ? 0 : 1, start = THICK.reads[`${tag} start`].section.rows;
+  evalJs(S, `(() => { fe.model.sections[1].rows.${bp} = ${start}; return 'true'; })()`);
+  for (const n of ns) {
+    await setText(field, text(n).replace(/<\/p><p>/g, '</p>\n<p>'));
+    const r = THICK.reads[`${tag} ${n}`], want = r.areas[0][side], rows = secRows(bp);
+    add(`Fills, ${tag} ${n}: ${want}, ${r.section.rows} rows`, areasOf(fid)[side] === want && rows === r.section.rows, `${areasOf(fid)[side]}, ${rows}`);
+  }
+  evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(100);
+}
 
 // Mode and the switch in the Code Editor view reach the block on closing, and give rows up (CAP-T10VIEW.json).
 const VIEW = read('CAP-T10VIEW');
@@ -212,8 +248,9 @@ for (let k = 0; k < MD.steps.length; k++) {
   add(`Markdown ${name}`, htmlNorm(got) === htmlNorm(want), got);
 }
 
-// A script (CAP-T10MD2.json): a note in its place under a status box, rows as if the box weren't there.
 const MD2 = read('CAP-T10MD2');
+if (FULL) { // scripts in a Code and an Embed block
+// A script (CAP-T10MD2.json): a note in its place under a status box, rows as if the box weren't there.
 const scriptId = fresh('code', `html: '<p>Hello, World!</p>',`);
 await setText(CODE_FIELD, MD2.steps.find((x) => x[0] === 'setCode')[1]);
 const inScript = MD2.reads['code html with script'];
@@ -234,6 +271,7 @@ await setText('textarea[data-content="embedHtml"]', MD2.steps.filter((x) => x[0]
 add('Embed: a script, its rows', areasOf(embedScript)[0] === MD2.reads['embed with script'].block.desktop, areasOf(embedScript)[0]);
 add('Embed: a note under a status box', htmlNorm(htmlOf(embedScript, '.sqs-embed-container')) === htmlNorm(MD2.reads['embed with script'].htmlOf), htmlOf(embedScript, '.sqs-embed-container'));
 
+}
 // Expand: a full-screen view with its own copy of the code. Real keys and clicks.
 const code3 = start('code', `html: '<p>Hello, World!</p>',`);
 const blockText = () => htmlOf(code3, '.sqs-code-container');
@@ -313,6 +351,7 @@ const wantA = readBar.find((c) => c.role === 'a').box, gotA = inP(mdBox('#block-
 add('Cheatsheet link in its place', Math.abs(gotA[0] - wantA[0]) <= 3 && Math.abs(gotA[1] - wantA[1]) <= 2, `${gotA} want ${wantA}`);
 add('Cheatsheet is our own note', evalJs(S, `(() => JSON.stringify(document.querySelector('#block-panel .bp-md-note a').getAttribute('href')))()`) === 'help-markdown.html');
 
+if (FULL) { // all 19 samples through the block
 // All 19 samples through the block, with the rows each left on the oracle.
 for (let k = 0; k < MD.steps.length; k++) {
   if (MD.steps[k][0] !== 'setCode') continue;
@@ -322,10 +361,12 @@ for (let k = 0; k < MD.steps.length; k++) {
   if (MD.reads[name].areas) add(`Block ${name} rows`, areasOf(md)[0] === MD.reads[name].areas[0][0], `${areasOf(md)[0]} want ${MD.reads[name].areas[0][0]}`);
 }
 
+}
+const empty = async () => { selAll(); await key('Backspace'); await pause(150); };
+if (FULL) { // rows on emptying
 // Rows on emptying (CAP-T10MD6.json): its placeholder is 22 tall like any line, so the rule stays the same.
 const mdRows = await freshMd();
 const checkRows = (name) => add(`Rows: ${name}`, areasOf(mdRows)[0] === MD6.reads[name].areas[0][0], `${areasOf(mdRows)[0]} want ${MD6.reads[name].areas[0][0]}`);
-const empty = async () => { selAll(); await key('Backspace'); await pause(150); };
 const TEN = 'a\n\nb\n\nc\n\nd\n\ne\n\nf\n\ng\n\nh\n\ni\n\nj';
 checkRows('fresh');
 await setMd('a'); checkRows('one letter');
@@ -340,6 +381,7 @@ await setMd(TEN); checkRows('ten again');
 await setMd('a'); checkRows('ten to one');
 await empty(); checkRows('emptied after the fall');
 
+}
 // The toolbar, by real presses (CAP-T10MD2.json, CAP-T10MD3.json, CAP-T10MD6.json).
 const MD2R = MD2.reads, firstLabel = (r) => r.panelEls.map((p) => p.label).join('');
 const m = await freshMd();
@@ -359,6 +401,7 @@ await pressOn('Quote', 'one\ntwo', 'Quote on two lines', '> one\n> two');
 await pressOn('Quote', 'word', 'Quote', '> word'); await pressAt(mdBtn('Quote')); add('Quote twice', mdVal() === line('quote twice', MD6), JSON.stringify(mdVal()));
 await pressOn('Numbered List', 'word', 'Number', '1. word'); await pressAt(mdBtn('Numbered List')); add('Number twice', mdVal() === line('number twice', MD6), JSON.stringify(mdVal()));
 await pressOn('Bulleted List', 'word', 'Bullet', '* word'); await pressAt(mdBtn('Numbered List')); add('Bullet then number', mdVal() === line('bullet then number', MD6), JSON.stringify(mdVal()));
+if (FULL) { // Heading's list, the bar following the caret, no shortcuts
 // Heading's list.
 await setMd('word'); selAll(); await pressAt(mdBtn('Heading'));
 const hList = evalJs(S, `(() => { const l = document.querySelector('#block-panel .bp-md-list'); const r = l.getBoundingClientRect(), P = document.getElementById('block-panel').getBoundingClientRect(); return JSON.stringify({ names: [...l.children].map((e) => e.textContent), box: [r.left - P.left + 343, r.top - P.top + 301, r.width, r.height], on: document.querySelector('#block-panel .bp-md-heading').classList.contains('is-on') }); })()`);
@@ -380,6 +423,11 @@ await setMd('## h'); caret(4); await pause(120);
 add('On a heading its name shows', evalJs(S, `(() => JSON.stringify(document.querySelector('#block-panel .bp-md-heading span').textContent))()`) === 'Heading 2');
 // No shortcuts (CAP-T10MD5.json).
 for (const k of ['Meta+b', 'Meta+i', 'Meta+k']) { await setMd('word'); selAll(); await key(k); add(`${k} does nothing`, mdVal() === line(k) && evalJs(S, `(() => JSON.stringify(document.getElementById('link-popover').hidden))()`) === true, JSON.stringify(mdVal())); }
+}
+const MD8 = read('CAP-T10MD8');
+const page = (href) => `#link-popover .lk-page[data-href="${href}"]`;
+const lr = MD3.reads['link services'].controls, lk = (l) => lr.find((c) => c.label === l).box;
+if (FULL) { // list keys and Link, each press
 // Enter and Backspace on a list line (CAP-T10MD5.json, CAP-T10MD6.json).
 const keysOn = async (text, keys, want, name) => { await setMd(text); caret(text.length); for (const k of keys) await key(k); add(name, mdVal() === want, JSON.stringify(mdVal())); };
 await keysOn('* a', ['Enter', 'b'], line('Enter on bullet'), 'Enter on a bullet');
@@ -389,7 +437,6 @@ await keysOn('* a', ['Enter', 'Enter', 'b'], line('Enter twice on a bullet', MD6
 await keysOn('1. a', ['Enter', 'Enter', 'b'], line('Enter twice on a number', MD6), 'Enter twice on a number');
 await keysOn('> a', ['Enter', 'Enter', 'b'], line('Enter twice on a quote', MD6), 'Enter twice on a quote');
 await keysOn('* a', ['Enter', 'Backspace', 'b'], line('Backspace on a new bullet', MD6), 'Backspace on a new bullet');
-const MD8 = read('CAP-T10MD8');
 await keysOn('* a', ['Enter', 'Enter', 'Enter', 'b'], line('Enter three times on a bullet', MD8), 'Enter three times on a bullet');
 await keysOn('1. a', ['Enter', 'Enter', 'Enter', 'b'], line('Enter three times on a number', MD8), 'Enter three times on a number');
 await keysOn('> a', ['Enter', 'Enter', 'Enter', 'b'], line('Enter three times on a quote', MD8), 'Enter three times on a quote');
@@ -401,11 +448,9 @@ await setMd('* a'); caret(0); await key('Enter'); add('Enter at the start of a b
 
 // Link (CAP-T10MD3.json, CAP-T10MD4.json, CAP-T10MD5.json, CAP-T10MD7.json).
 const linkOpen = () => evalJs(S, `(() => JSON.stringify(!document.getElementById('link-popover').hidden))()`);
-const page = (href) => `#link-popover .lk-page[data-href="${href}"]`;
 const noUrl = (s) => s.replace(/<https>/g, 'https://');
 await setMd('word'); selAll(); await pressAt(mdBtn('Link'));
 const inPanel = (b) => { const P = mdBox('#block-panel'); return [b[0] - P[0] + 343, b[1] - P[1] + 301, b[2], b[3]]; };
-const lr = MD3.reads['link services'].controls, lk = (l) => lr.find((c) => c.label === l).box;
 add('Link: URL pill in its place', inPanel(mdBox('#link-popover .lk-pill')).slice(0, 2).every((v, i) => Math.abs(v - lk('URL')[i]) <= 2), inPanel(mdBox('#link-popover .lk-pill')));
 add('Link: field in its place', inPanel(mdBox('#link-popover .lk-row')).every((v, i) => Math.abs(v - lk('Enter link, search, or add files')[i]) <= 2), inPanel(mdBox('#link-popover .lk-row')));
 add('Link: first page in its place', inPanel(mdBox(page('/services'))).every((v, i) => Math.abs(v - lk('Services/services')[i]) <= 5), `${inPanel(mdBox(page('/services')))} want ${lk('Services/services')}`);
@@ -442,6 +487,7 @@ await setMd('word'); selAll(); await pressAt(mdBtn('Link')); await pressAt(page(
 const esc = evalJs(S, `(() => JSON.stringify({ text: fe.model.sections[1].blocks.find((x) => x.id === '${m}').text, panel: document.getElementById('block-panel').hidden, bar: document.getElementById('block-toolbar').hidden, pop: document.getElementById('link-popover').hidden }))()`);
 add('Escape drops it and lets the block go', esc.text === 'word' && esc.panel && esc.pop, JSON.stringify(esc));
 
+}
 // Undo: a press is one step, and typing before it another (CAP-T10MD7.json).
 const mu = await freshMd();
 const pressBar = (l) => pressAt(`[aria-label="${l}"]:not(#block-panel *)`);
@@ -456,6 +502,7 @@ add('Undo after Bold', mdVal() === line('undo after bold', MD7), JSON.stringify(
 await pressBar('Undo'); await pause(250);
 add('Undo takes the typing next', mdVal() === line('undo twice', MD7), JSON.stringify(mdVal()));
 
+if (FULL) { // a double-click, and the Code Editor view by real keys
 // Double-click, and the Code Editor view (CAP-T10MD3.json).
 evalJs(S, `(async () => { fe.select(null); await new Promise((r) => setTimeout(r, 200)); const d = document.getElementById('site-frame').contentDocument; d.querySelector('.fe-block[data-block-id="${mu}"]').dispatchEvent(new MouseEvent('dblclick', { bubbles: true })); await new Promise((r) => setTimeout(r, 300)); return 'true'; })()`); await pause(350);
 add('A double-click opens the panel', evalJs(S, `(() => JSON.stringify(!document.getElementById('block-panel').hidden && !!document.querySelector('#block-panel ${MD_FIELD}')))()`) === true);
@@ -487,6 +534,7 @@ await pressAt(page('/about'));
 add('A filled one has', mdBox('#link-popover .lk-clear')?.[2] > 0, mdBox('#link-popover .lk-clear'));
 await key('Escape'); await pause(150);
 
+}
 // The editors' look, against CAP-T10LOOK: every coloured span of the same text, the number column, the band, the selection.
 const LOOK = read('CAP-T10LOOK'), LOOK_TEXT = '# h1\n## h2\nplain **bold** *ital* `code` [a](/x) ~~del~~\n* item\n1. item\n> quote\n---\n```js\nfence\n```\n<b>html</b>\n![i](/y)\n[r]: /z';
 const lookIn = (root = '#block-panel') => evalJs(S, `(() => {
@@ -636,6 +684,21 @@ for (const [k, v, cut] of [['CSS', 'css'], ['JavaScript', 'javascript', true], [
 await setText(CODE_FIELD, lastSet(FOLD)['code html']); await pause(150);
 evalJs(S, `(() => { const f = document.querySelector('#block-panel ${CODE_FIELD}'); f.setSelectionRange(0, 0); f.dispatchEvent(new Event('select')); return 'true'; })()`); await pause(100);
 sameRuns(false, oRows(FOLD.reads['code html'].panelCss))('Code HTML, all kinds');
+// JavaScript past the first read's limit: let, undefined, export default and the rest (CAP-T10SCORE3.json).
+const SCORE3 = read('CAP-T10SCORE3'), jsSet = lastSet(SCORE3);
+await modeIs('javascript');
+for (const k of ['J1', 'J2', 'J3']) {
+  const name = Object.keys(jsSet).find((x) => x.startsWith(`${k} `));
+  await setText(CODE_FIELD, jsSet[name]); await pause(120);
+  evalJs(S, `(() => { const f = document.querySelector('#block-panel ${CODE_FIELD}'); f.setSelectionRange(0, 0); f.dispatchEvent(new Event('select')); return 'true'; })()`); await pause(100);
+  sameRuns(false, oRows(inMode(SCORE3.reads[name].panelCss)))(`Code JavaScript ${k}`);
+}
+// A focused editor's corners, none with the focus away (CAP-T10SCORE3.json's shots).
+const corners = () => evalJs(S, `(() => { const c = getComputedStyle(document.querySelector('#block-panel .bp-code'), '::after'); return JSON.stringify({ content: c.content, spots: (c.backgroundImage.match(/gradient/g) || []).length, size: c.backgroundSize, at: c.backgroundPosition }); })()`);
+evalJs(S, `(() => { document.querySelector('#block-panel ${CODE_FIELD}').focus(); return 'true'; })()`); await pause(80);
+{ const c = corners(); add('Focused: a pixel at three corners', c.spots === 3 && /1px 1px/.test(c.size) && c.at.startsWith('0px 0px, 100% 0px, 100% 100%'), JSON.stringify(c)); }
+evalJs(S, `(() => { document.activeElement.blur(); return 'true'; })()`); await pause(80);
+add('Focus away: none', corners().content === 'none', JSON.stringify(corners()));
 // Which modes wrap.
 const WRAP_TEXT = modeSet['CSS long'];
 for (const [k, v, wraps] of [['CSS', 'css', false], ['JavaScript', 'javascript', false], ['Plain Text', 'plain', false], ['HTML', 'html', true], ['Markdown', 'markdown', true]]) {
@@ -643,6 +706,7 @@ for (const [k, v, wraps] of [['CSS', 'css', false], ['JavaScript', 'javascript',
   add(`${k} ${wraps ? 'wraps' : 'doesn\'t wrap'}`, (lookIn().wrap === 'break-spaces') === wraps, lookIn().wrap);
 }
 
+if (FULL) { // matching marks by the caret
 // Matching marks by the caret: as the oracle's, by text and colour.
 const matchOf = () => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#block-panel .bp-code-hl .c-match, #block-panel .bp-code-hl .c-nomatch')].map((e) => [e.textContent, getComputedStyle(e).backgroundColor])))()`);
 const oMatch = (els) => { const m = els.filter((e) => /atchingBracket/.test(e.cls)); return m.slice(-2).filter((e, n, a) => a.length < 2 || /onmatch/.test(e.cls) === false || n === a.length - 1).map((e) => [e.text, e.bg]); };
@@ -662,7 +726,7 @@ for (const [what, text, at, name, only] of [['Markdown, a bracket', '[a](/x)', 1
   add(`Match: ${what}`, JSON.stringify(got) === JSON.stringify(want), `${JSON.stringify(got)} wants ${JSON.stringify(want)}`);
 }
 
-// Each read edit, pressed for real on the same text and selection, predictions first (CAP-T10EDITS*.json, CAP-T10WRAP.json).
+}
 const casesOf = (f) => { const out = []; let text = null, a = 0, b = 0, press = [];
   for (const [op, v] of f.steps) {
     if (op === 'setCode') { text = v; a = b = v.length; press = []; }
@@ -678,6 +742,8 @@ const setSel = (a, b) => evalJs(S, `(() => { const f = document.querySelector('#
 const BAR = ['Bold', 'Italic', 'Link', 'Bulleted List', 'Numbered List', 'Quote'];
 const barNow = () => evalJs(S, `(() => { const on = {}; for (const l of ${JSON.stringify(BAR)}) { const e = document.querySelector('${mdBtn('X')}'.replace('X', l)); on[l] = [e.classList.contains('is-on'), e.classList.contains('is-dim')]; } return JSON.stringify({ on, heading: document.querySelector('#block-panel .bp-md-heading span').textContent }); })()`);
 const barWants = (read) => { const els = read.panelCss, want = {}; for (const l of BAR) { const n = els.findIndex((e) => e.label === l); if (n < 0) return null; want[l] = [els[n].bg === 'rgb(231, 231, 231)', els[n + 1]?.label === '' && els[n + 1].color === 'rgb(183, 183, 183)']; } return { on: want, heading: els.find((e) => e.label === 'Heading')?.text }; };
+if (FULL) { // every read edit and Link press
+// Each read edit, pressed for real on the same text and selection, predictions first (CAP-T10EDITS*.json, CAP-T10WRAP.json).
 await freshMd();
 let edits = 0, bars = 0;
 for (const n of ['CAP-T10EDITS', 'CAP-T10EDITS2', 'CAP-T10EDITS3', 'CAP-T10WRAP', 'CAP-T10STATE']) {
@@ -717,7 +783,38 @@ for (const [n, re] of LINKS) {
 }
 add('Link: all the reads walked', linkReads >= 8, linkReads);
 
+// The last score, no refit (PRED-T10READS4.json, CAP-T10SCORE.json, CAP-T10SCORE2.json): the count is in
+// T10, each miss named. A miss that starts matching means a new fresh round, not a higher count.
+const LAST = read('PRED-T10READS4'), LAST1 = read('CAP-T10SCORE').reads, LAST2 = read('CAP-T10SCORE2').reads;
+const MISSES = ['Z7', 'Z8', 'Z17', 'W10', 'R1', 'R2', 'R3', 'R4', 'R5', 'R8'];
+let lastHits = 0, lastAll = 0;
+const scored = (name, same, detail) => { const id = name.split(' ')[0]; lastAll++; if (same) lastHits++; add(`Score ${id}${MISSES.includes(id) ? ', named miss' : ''}`, same !== MISSES.includes(id), detail); };
+for (const [name, c] of Object.entries(LAST.edit)) {
+  await setMd(c.text); setSel(...c.sel); await pause(60);
+  if (c.press === 'Enter') await key('Enter'); else await pressAt(mdBtn(c.press));
+  const v = mdVal();
+  scored(name, v === LAST1[name].codeText, `${JSON.stringify(v)} wants ${JSON.stringify(LAST1[name].codeText)}`);
+}
+for (const [name, c] of Object.entries(LAST.look)) {
+  await setMd(c.text); setSel(...c.sel); await pause(60);
+  const got = barNow().on, want = barWants(LAST2[name]).on, flags = (o) => JSON.stringify([o.Bold, o.Italic, o.Link]);
+  let same = flags(got) === flags(want), detail = `${flags(got)} wants ${flags(want)}`;
+  const pressed = LAST2[`${name} press`]; // W's Link press wasn't read: see CAP-T10SCORE2's answer
+  if (pressed) {
+    const row = pressed.controls.map((x) => x.label), at = row.indexOf('Edit'), href = at > 0 ? row[at - 1] : null;
+    await pressAt(mdBtn('Link'));
+    const shows = evalJs(S, `(() => JSON.stringify(document.querySelector('#link-popover .lk-md-href')?.textContent ?? null))()`);
+    same = same && shows === href; detail += `, shows ${shows} wants ${href}`;
+    await key('Escape'); await pause(180);
+    if (evalJs(S, `(() => JSON.stringify(document.getElementById('block-panel').hidden))()`)) await openPanel(evalJs(S, `(() => JSON.stringify(fe.model.sections[1].blocks.at(-1).id))()`));
+  }
+  scored(name, same, detail);
+}
+add('Score: 29 of 39', lastHits === 29 && lastAll === 39, `${lastHits} of ${lastAll}`);
+
+}
 // A press while dim does nothing; the dim colour and the lit one.
+if (!FULL) await freshMd();
 await setMd('# h\nplain'); selAll(); await pause(120);
 const dimLook = () => evalJs(S, `(() => { const b = document.querySelector('${mdBtn('Bold')}'); return JSON.stringify({ svg: getComputedStyle(b.querySelector('svg')).color, label: b.getAttribute('aria-disabled') }); })()`);
 add('Dim: its colour, and not disabled', dimLook().svg === 'rgb(183, 183, 183)' && dimLook().label !== 'true', JSON.stringify(dimLook()));
@@ -735,6 +832,7 @@ oP.forEach((o, n) => add(`Two rows: piece ${n + 1}`, !!two.sels[n] && Math.abs(t
 await pressAt('#block-panel .sp-tab'); await pause(120);
 add('Focus away: its colour', lookIn().sels[0]?.[4] === oP[0].bg, JSON.stringify(lookIn().sels));
 
+if (FULL) { // tips, the view waiting, Preview and the phone chains
 // Tips on the bar: the place, the height, the width near the oracle's (its font isn't ours), and none on Expand.
 const tips = read('CAP-T10STATE').reads;
 for (const l of ['Heading', 'Bold', 'Italic', 'Link', 'Bulleted List', 'Numbered List', 'Quote']) {
@@ -793,6 +891,7 @@ for (const n of 'ABCDE') {
   evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(200);
 }
 
+}
 console.log(`Code and embed: ${pass} of ${total} checks match`);
-writeFileSync(new URL('../parity/code-check.json', import.meta.url), JSON.stringify({ check: 'code and embed panels', pass, total, results }, null, 2) + '\n');
+if (FULL) writeFileSync(new URL('../parity/code-check.json', import.meta.url), JSON.stringify({ check: 'code and embed panels', pass, total, results }, null, 2) + '\n');
 if (!total || pass !== total) process.exitCode = 1;

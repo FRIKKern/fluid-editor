@@ -16,6 +16,7 @@ import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
 import { codeLines, gutterWidth } from './code-look.js';
+import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
@@ -33,6 +34,7 @@ import { demoModel } from './demo.js';
 import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
+import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -1422,6 +1424,10 @@ function onDblClick(e) {
 }
 
 const textHeight = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0;
+const selectionLeft = new Map(); // block id: the html it was left with and where its selection was
+let previewed = false;
+const pathFrom = (root, node) => { const path = []; for (let n = node; n !== root; n = n.parentNode) path.unshift([...n.parentNode.childNodes].indexOf(n)); return path; };
+const nodeAtPath = (root, path) => path.reduce((n, k) => n?.childNodes[k], root);
 
 function startTextEdit(sid, bid) {
   const b = B(sid, bid);
@@ -1434,12 +1440,16 @@ function startTextEdit(sid, bid) {
   ce.contentEditable = 'true';
   ce.focus();
   // The caret starts inside the last text, so a press finds its block even when it's empty (CAP-E4ENTER.json).
+  // Opened again, the selection is where it was left (CAP-E4REOPEN.json), unless the text changed since. A Preview
+  // forgets it and the caret starts at the very start (CAP-E4REOPEN2.json).
   const range = doc.createRange();
-  range.selectNodeContents([...ce.querySelectorAll('h1, h2, h3, h4, p, pre')].at(-1) ?? ce);
-  range.collapse(false);
+  range.selectNodeContents([...ce.querySelectorAll('h1, h2, h3, h4, p, pre')].at(previewed ? 0 : -1) ?? ce);
+  range.collapse(previewed);
   const s = win.getSelection();
   s.removeAllRanges();
   s.addRange(range);
+  const kept = selectionLeft.get(b.id), keptA = kept?.html === ce.innerHTML && nodeAtPath(ce, kept.anchor), keptF = keptA && nodeAtPath(ce, kept.focus);
+  if (keptF) s.setBaseAndExtent(keptA, kept.anchorOffset, keptF, kept.focusOffset);
   const fe = feEl(sid);
   const m = measure(fe);
   fe.style.gridAutoRows = `${m.rowMin}px`;
@@ -1513,7 +1523,7 @@ function renderBlockPanel() {
   if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffOpen() && !(ffField(b) && (!ffView.startsWith('ff-opt:') || followOf(ffField(b), ffView.split(':')[2]).length))) ffView = 'ff-list'; // undo can take the field away
   showFormPost(b);
   const mdField = b.type === 'markdown' && blockPanel.querySelector('textarea[data-content="markdown"]');
-  if (mdField && mdField === document.activeElement && mdField.value !== (b.text || '')) { mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
+  if (mdField && mdField === document.activeElement && fullOf(mdField) !== (b.text || '')) { dropFolds(mdField); mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
   if (codeCommit) return; // the field's own text changed nothing else here, and a redraw would take a press on Mode from under it
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
@@ -1523,8 +1533,8 @@ function renderBlockPanel() {
   const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
   const buttonView = b.type !== 'button' ? null : bp === 'mobile' && b.btnMobile ? b.btnMobile : { fit: b.fit, align: b.halign };
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
-  const lookWas = blockPanel.dataset.bid === b.id ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
-  const lookKeep = lookWas && { value: lookWas.value, start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
+  const lookWas = blockPanel.dataset.bid === b.id && !blockPanel.hidden ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
+  const lookKeep = lookWas && { value: fullOf(lookWas), folds: foldsOf(lookWas), start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
   blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
   if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, b.animations?.[anim.i], anim.menu) : animEditorHtml(b.animations[anim.i], anim.tab);
@@ -1537,11 +1547,48 @@ function renderBlockPanel() {
   placeBlockPanel();
   blockPanel.hidden = false;
   const lookNow = blockPanel.querySelector('.bp-code.is-look textarea');
-  if (lookNow && lookKeep?.value === lookNow.value) { lookNow.setSelectionRange(lookKeep.start, lookKeep.end, lookKeep.dir); lookNow.scrollTop = lookKeep.top; } // the band stays when focus leaves (CAP-T10LOOK.json)
+  if (lookNow && lookKeep?.value === lookNow.value) { adoptFolds(lookNow, lookKeep.folds); lookNow.setSelectionRange(lookKeep.start, lookKeep.end, lookKeep.dir); lookNow.scrollTop = lookKeep.top; } // the band stays when focus leaves (CAP-T10LOOK.json)
   paintCode(lookNow); // measures, so it must be showing
   if (blockPanel.dataset.bid !== b.id) { blockPanel.dataset.bid = b.id; blockPanel.scrollTop = 0; } // another block starts at the top
   if (shapeUi) renderShapePop(); // undo can change what an open popup shows
+  drawPhoneControls(b);
 }
+// A phone's dotted labels and its button right of the Animation tab, on any block with that tab.
+const phoneMenu = $('phone-menu');
+phoneMenu.innerHTML = PHONE_MENU_HTML;
+const closePhoneMenu = () => { phoneMenu.hidden = true; };
+function drawPhoneControls(b) {
+  const tabs = blockPanel.querySelector('.sp-tabs');
+  if (bp !== 'mobile') { closePhoneMenu(); return; }
+  markPhoneLabels(blockPanel, b);
+  if (tabs?.querySelector('[data-btab="Animation"]')) tabs.insertAdjacentHTML('beforeend', phoneButtonHtml(hasOverrides(b)));
+  else closePhoneMenu();
+}
+blockPanel.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-phone-btn]');
+  if (!btn) return;
+  if (!phoneMenu.hidden) { closePhoneMenu(); return; }
+  const at = phoneMenuPlace(btn.getBoundingClientRect());
+  phoneMenu.style.left = `${at.left}px`;
+  phoneMenu.style.top = `${at.top}px`;
+  phoneMenu.hidden = false;
+});
+document.addEventListener('pointerdown', (e) => { if (!phoneMenu.hidden && !e.target.closest('#phone-menu, [data-phone-btn]')) closePhoneMenu(); }, true);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !phoneMenu.hidden) { e.preventDefault(); e.stopPropagation(); closePhoneMenu(); } }, true);
+phoneMenu.addEventListener('click', (e) => {
+  const act = e.target.closest('[data-phone-act]')?.dataset.phoneAct;
+  if (!act || !sel) return;
+  closePhoneMenu();
+  if (act === 'go') { setBp('desktop'); return; }
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), top = blockPanel.scrollTop;
+  // The form coming back is a rise the next step answers, as Lightbox off (FORMFIELDS.json, lightbox.offThenPress).
+  if (act === 'reset' && b.type === 'form' && formView(b, 'mobile').lightbox && !formView(b, 'desktop').lightbox) b.formH = { ...b.formH, [bp]: formHeight(b) };
+  (act === 'reset' ? resetOverrides : pushOverrides)(b);
+  renderSectionDom(sel.sid);
+  commit(before, act === 'reset' ? 'Reset all overrides' : 'Push to desktop');
+  renderBlockPanel();
+  blockPanel.scrollTop = top;
+});
 function syncAnimView(b) {
   const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' ? b.animations?.[anim.i] : null, key = a && poseKey(anim.tab);
   if (animPosed && (animPosed !== el || !key)) { releasePose(animPosed); animPosed = null; }
@@ -1871,7 +1918,7 @@ function setButtonView(key, v) {
 // fall by what the fit fell. A block made taller by hand keeps the rest: 8 rows, fit 3 to 2, gives 7.
 const FIT_KEYS = new Set(['background', 'stroke', 'strokeSize', 'strokePx', 'pad', 'padY', 'padX', 'padT', 'padB', 'padL', 'padR']);
 function designChange(b, keys, change, fitBefore = null) {
-  // A video's rows follow its height by the rule of a code block's, and a rise pushes what is below it (CAP-T7DESIGN2.json, CAP-T7DESIGN3.json).
+  // A video's rows follow its height by the rule of a code block's, and what is below it goes along (CAP-T7DESIGN2.json, CAP-T7DESIGN3.json, CAP-T7ORDER.json).
   if (b.type === 'video' && keys.some((k) => FIT_KEYS.has(k))) {
     const was = codeHeight(b);
     change();
@@ -2702,18 +2749,30 @@ function codeHeight(b) {
 // rows than it needs leaves it alone, so a block can stay well below what its content needs.
 const codeRowsFor = (h, m) => Math.ceil((h + m.rg - 1) / m.pitch);
 const rowsNow = (b) => codeHeight(b);
+// A row's own height: content taller than its section stretches every row, and rows follow the content
+// only by the height a row has with none of that (CAP-T10EMBED2.json).
+function rowFloor(fe) {
+  const probe = doc.createElement('div');
+  probe.style.cssText = 'position:absolute;visibility:hidden;height:calc(var(--container-width, 0px) * var(--row-height-scaling-factor, 0))';
+  fe.append(probe);
+  const h = probe.getBoundingClientRect().height;
+  probe.remove();
+  return h || 24; // the phone's rows are 24 tall at the least (render.js)
+}
 function fitRows(b, was) {
   if (b.type === 'code' && !String(b.html || '').trim()) return;
   const h = codeHeight(b);
   if (h === was) return;
-  const m = measure(feEl(sel.sid)), L = lay(b), rows = L.area[2] - L.area[0], need = Math.max(1, codeRowsFor(h, m));
+  const fe = feEl(sel.sid), found = measure(fe), m = { ...found, pitch: rowFloor(fe) + found.rg }, L = lay(b), rows = L.area[2] - L.area[0], need = Math.max(1, codeRowsFor(h, m));
   const next = h > was ? Math.max(rows, need) : need >= rows ? rows : Math.max(1, rows - codeRowsFor(was - h, m));
   if (next === rows) return;
   const bottom = L.area[2];
   L.area = [L.area[0], L.area[1], L.area[0] + next, L.area[3]];
   const s = S(sel.sid);
-  if (b.type === 'video' && next > rows) for (const o of s.blocks) { const A = o !== b && o.layout?.[bp]?.area; if (A && A[0] >= bottom) { A[0] += next - rows; A[2] += next - rows; } }
-  s.rows[bp] = Math.max(s.rows[bp], ...s.blocks.map((o) => (o.layout?.[bp]?.area?.[2] ?? 1) - 1)); // or the rows past the section's end collapse
+  // A video takes what is below it along, up or down (CAP-T7ORDER.json). The section's rows move by the same
+  // number, keeping any spare below (CAP-T7THICK.json), but never past a block's end, or the rows past it collapse.
+  if (b.type === 'video') for (const o of s.blocks) { const A = o !== b && o.layout?.[bp]?.area; if (A && A[0] >= bottom) { A[0] += next - rows; A[2] += next - rows; } }
+  s.rows[bp] = Math.max(s.rows[bp] + next - rows, ...s.blocks.map((o) => (o.layout?.[bp]?.area?.[2] ?? 1) - 1));
   renderSectionDom(sel.sid);
 }
 // The Markdown block's toolbar and keys, in the panel and in the Code Editor view (markdown-edit.js).
@@ -2725,13 +2784,19 @@ function paintCode(f) {
   const box = f?.closest('.bp-code.is-look');
   if (!box) return;
   const hl = box.querySelector('.bp-code-hl'), nums = box.querySelector('.bp-code-lines'), band = box.querySelector('.bp-code-band');
-  const lines = codeLines(f.value, box.dataset.lang, f.selectionStart === f.selectionEnd ? f.selectionStart : null);
-  hl.innerHTML = lines.map((l) => `<div class="bp-code-l">${l || '<br>'}</div>`).join('');
-  const on = f.value.slice(0, headOf(f)).split('\n').length - 1, rows = [...hl.children];
-  nums.style.flexBasis = `${gutterWidth(lines.length)}px`;
-  nums.innerHTML = rows.map((r, n) => `<div class="bp-code-n${n === on ? ' is-on' : ''}" style="height:${r.offsetHeight}px">${n + 1}</div>`).join('');
-  band.style.top = `${rows[on].offsetTop}px`;
-  band.style.height = `${rows[on].offsetHeight}px`;
+  const full = fullOf(f), lang = box.dataset.lang, head = realOf(f, headOf(f));
+  const colour = codeLines(full, lang, f.selectionStart === f.selectionEnd ? head : null), shown = foldRows(f, colour);
+  hl.innerHTML = shown.map((r) => `<div class="bp-code-l">${r.html || '<br>'}</div>`).join('');
+  // The band and the number's mark are on the caret's line: none when a fold hides that line (CAP-T10FOLD5.json).
+  const headLine = lineOf(full, head), on = shown.findIndex((r) => r.line === headLine), rows = [...hl.children], can = foldRanges(full, lang);
+  nums.style.flexBasis = `${gutterWidth(colour.length)}px`;
+  nums.innerHTML = rows.map((r, n) => {
+    const line = shown[n].line, folded = foldedLine(f, line), fold = !folded && can.get(line);
+    const chev = folded ? `<span class="bp-code-chev" title="Unfold line" data-fold-open="${folded.from}">›</span>` : fold ? `<span class="bp-code-chev" title="Fold line" data-fold="${fold[0]},${fold[1]}">⌄</span>` : '';
+    return `<div class="bp-code-n${n === on ? ' is-on' : ''}" style="height:${r.offsetHeight}px">${line + 1}${chev}</div>`;
+  }).join('');
+  band.hidden = on < 0;
+  if (on >= 0) { band.style.top = `${rows[on].offsetTop}px`; band.style.height = `${rows[on].offsetHeight}px`; }
   paintCodeSelection(f, hl, box.querySelector('.bp-code-sel'));
   scrollCode(f);
 }
@@ -2744,22 +2809,37 @@ function paintCodeSelection(f, hl, layer) {
   const at = (i) => {
     const before = f.value.slice(0, i).split('\n'), row = hl.children[before.length - 1];
     let left = before.at(-1).length;
+    // A row with a placeholder is that much taller to select (CAP-T10FOLD5.json).
+    const ph = row.querySelector('.bp-code-ph'), rowTop = row.getBoundingClientRect().top - base.top;
     const walk = document.createTreeWalker(row, NodeFilter.SHOW_TEXT);
     for (let t = walk.nextNode(); t; t = walk.nextNode()) {
-      if (left <= t.length) { range.setStart(t, left); range.collapse(true); const q = range.getBoundingClientRect(); return { x: q.left - base.left, top: q.top + (q.height - 16) / 2 - base.top }; }
+      if (left <= t.length) { range.setStart(t, left); range.collapse(true); const q = range.getBoundingClientRect(); return { x: q.left - base.left, top: ph ? rowTop + 2 : q.top + (q.height - 16) / 2 - base.top, h: ph ? 18 : 16 }; }
       left -= t.length;
     }
     const q = row.getBoundingClientRect(); // an empty line
-    return { x: q.left - base.left, top: q.top + 3 - base.top };
+    return { x: q.left - base.left, top: q.top + 3 - base.top, h: 16 };
   };
   const a = at(f.selectionStart), b = at(f.selectionEnd), L = 6, R = f.clientWidth - 2;
   const rect = (x, top, w, h) => { const e = document.createElement('div'); e.style.cssText = `left:${x}px;top:${top}px;width:${w}px;height:${h}px`; layer.append(e); };
-  if (a.top === b.top) { rect(a.x, a.top, b.x - a.x, 16); return; }
+  if (a.top === b.top) { rect(a.x, a.top, b.x - a.x, a.h); cutForFolds(hl, layer, base); return; }
   // Two rows side by side meet halfway across the gap between their letters.
-  const near = b.top - a.top < 2 * 22, mid = (a.top + 16 + b.top) / 2;
-  rect(a.x, a.top, R - a.x, near ? mid - a.top : 16);
-  if (!near) rect(L, a.top + 16, R - L, b.top - a.top - 16);
-  rect(L, near ? mid : b.top, b.x - L, near ? b.top + 16 - mid : 16);
+  const near = b.top - a.top < 2 * 22, mid = (a.top + a.h + b.top) / 2;
+  rect(a.x, a.top, R - a.x, near ? mid - a.top : a.h);
+  if (!near) rect(L, a.top + a.h, R - L, b.top - a.top - a.h);
+  rect(L, near ? mid : b.top, b.x - L, near ? b.top + b.h - mid : b.h);
+  cutForFolds(hl, layer, base);
+}
+// A selection leaves a gap for a placeholder (CAP-T10FOLD5.json): to 1px before it, and on from its right edge.
+function cutForFolds(hl, layer, base) {
+  for (const ph of hl.querySelectorAll('.bp-code-ph')) {
+    const q = ph.getBoundingClientRect(), left = q.left - base.left - 1, right = q.right - base.left, y = q.top - base.top + 9;
+    for (const e of [...layer.children]) {
+      const x = parseFloat(e.style.left), w = parseFloat(e.style.width), top = parseFloat(e.style.top), h = parseFloat(e.style.height);
+      if (y < top || y > top + h || x >= right || x + w <= left) continue;
+      if (x + w > right) { const rest = e.cloneNode(); rest.style.left = `${right}px`; rest.style.width = `${x + w - right}px`; layer.append(rest); }
+      if (x < left) e.style.width = `${left - x}px`; else e.remove();
+    }
+  }
 }
 function scrollCode(f) {
   const box = f.closest('.bp-code.is-look');
@@ -2771,7 +2851,7 @@ function scrollCode(f) {
 function paintMdBar(f) {
   const bar = f?.closest('#block-panel, #code-modal')?.querySelector('.bp-md-bar');
   if (!bar) return;
-  const st = mdState(f.value, f.selectionStart, f.selectionEnd, headOf(f));
+  const st = mdState(fullOf(f), realOf(f, f.selectionStart), realOf(f, f.selectionEnd), realOf(f, headOf(f)));
   bar.querySelector('.bp-md-heading span').textContent = st.heading;
   for (const k of ['bold', 'italic']) bar.querySelector(`[data-md="${k}"]`).classList.toggle('is-dim', st.dim);
   for (const k of ['bold', 'italic', 'bullet', 'number', 'quote']) { const q = bar.querySelector(`[data-md="${k}"]`); q.classList.toggle('is-on', st[k]); q.setAttribute('aria-checked', String(st[k])); }
@@ -2784,6 +2864,7 @@ function flushMdStep() { if (codeBefore != null) { commit(codeBefore, 'Markdown 
 // Through the field's own edit, so its undo keeps working. The input event carries it to the block.
 function writeMd(f, r) {
   f.focus();
+  if (foldsOf(f)) { foldReplace(f, r); f.dispatchEvent(new Event('input', { bubbles: true })); paintMdBar(f); return; }
   f.setSelectionRange(0, f.value.length);
   if (r.value) document.execCommand('insertText', false, r.value); else document.execCommand('delete');
   f.setSelectionRange(r.start, r.end);
@@ -2791,7 +2872,7 @@ function writeMd(f, r) {
 }
 const mdRootField = (root) => root.querySelector('textarea[data-content="markdown"]');
 function pressMdBar(root, btn) {
-  const f = mdRootField(root), v = f.value, s = f.selectionStart, e = f.selectionEnd, k = btn.dataset.md;
+  const f = mdRootField(root), v = fullOf(f), s = realOf(f, f.selectionStart), e = realOf(f, f.selectionEnd), k = btn.dataset.md;
   const list = root.querySelector('.bp-md-list');
   if (k === 'heading') { list.hidden = !list.hidden; btn.setAttribute('aria-expanded', String(!list.hidden)); btn.classList.toggle('is-on', !list.hidden); return; }
   if (k === 'link') { openMdLink(root, btn, s, e); return; }
@@ -2804,7 +2885,7 @@ function pickMdHeading(root, level) {
   const f = mdRootField(root);
   closeMdList(root);
   flushMdStep();
-  writeMd(f, mdHeading(f.value, f.selectionStart, f.selectionEnd, level));
+  writeMd(f, mdHeading(fullOf(f), realOf(f, f.selectionStart), realOf(f, f.selectionEnd), level));
   flushMdStep();
 }
 function closeMdList(root) {
@@ -2815,17 +2896,17 @@ function closeMdList(root) {
 // Link (CAP-T10MD4.json, CAP-T10MD5.json, CAP-T10MD7.json): the popover under the button, 6px below it. A caret in a
 // link shows that link with Edit, Copy and Remove Link. A page fills the field, and Enter or a press away writes it.
 function openMdLink(root, btn, s, e) {
-  const f = mdRootField(root), link = mdLinkIn(f.value, s, e), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
+  const f = mdRootField(root), link = mdLinkIn(fullOf(f), s, e), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
   flushMdStep();
   const target = { markdown: true, summary: !!link, href: link?.href || '', newTab: false, setNewTab() {},
     apply: (v) => {
-      const q = mdRootField(root), at = mdLinkIn(q.value, s, e);
+      const q = mdRootField(root), at = mdLinkIn(fullOf(q), s, e);
       if (!v && !at) return;
       flushMdStep();
-      writeMd(q, at ? (v ? mdChangeLink(q.value, at, v) : mdRemoveLink(q.value, at)) : mdSetLink(q.value, s, e, v));
+      writeMd(q, at ? (v ? mdChangeLink(fullOf(q), at, v) : mdRemoveLink(fullOf(q), at)) : mdSetLink(fullOf(q), s, e, v));
       flushMdStep();
     },
-    remove: () => { const q = mdRootField(root), at = mdLinkIn(q.value, s, e); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(q.value, at)); flushMdStep(); } },
+    remove: () => { const q = mdRootField(root), at = mdLinkIn(fullOf(q), s, e); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(fullOf(q), at)); flushMdStep(); } },
     done: () => { const q = mdRootField(root); if (q) { if (document.activeElement === document.body) q.focus(); paintMdBar(q); } },
   };
   openLinkPopover(b, (st) => ({ left: r.left + r.width / 2 - 164 - st.left, top: r.bottom + 6 - st.top }), target);
@@ -2852,7 +2933,8 @@ function closeCodeModal() {
   codeModal.hidden = true;
   codeDraft = null;
   if (b?.type === 'markdown') {
-    if (d.html !== (b.text || '')) {
+    const textWas = b.text || '';
+    if (d.html !== textWas) {
       const before = JSON.stringify(model), was = rowsNow(b);
       b.text = d.html;
       renderSectionDom(sel.sid);
@@ -2860,7 +2942,7 @@ function closeCodeModal() {
       commit(before, 'Markdown changed');
     }
     const f = blockPanel.querySelector('textarea[data-content="markdown"]');
-    if (f) { f.value = b.text || ''; mdLines(f); f.focus(); paintMdBar(f); }
+    if (f) { if (d.html !== textWas) f.setSelectionRange(d.html.length, d.html.length); else if (fullOf(f) !== (b.text || '')) { dropFolds(f); f.value = b.text || ''; } mdLines(f); f.focus(); paintMdBar(f); } // new text from the view: the caret ends it (CAP-T10FOLD5.json)
     return;
   }
   if (!b || b.type !== 'code') return;
@@ -2880,7 +2962,7 @@ codeModal.addEventListener('click', (e) => { e.stopPropagation(); if (e.target.c
 codeModal.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Escape') { e.preventDefault(); closeCodeModal(); } });
 codeModal.addEventListener('input', (e) => {
   if (!e.target.matches('textarea')) return;
-  codeDraft.html = e.target.value;
+  codeDraft.html = fullOf(e.target);
   mdLines(e.target);
   if (e.target.dataset.content === 'markdown') paintMdBar(e.target);
 });
@@ -2888,7 +2970,7 @@ codeModal.addEventListener('change', (e) => {
   const c = e.target.dataset.content;
   if (c === 'codeMode') { codeDraft.mode = e.target.value; if (!['html', 'markdown'].includes(e.target.value)) codeDraft.showSource = true; }
   if (c === 'showSource') codeDraft.showSource = e.target.checked;
-  if (c === 'codeMode') { codeModal.innerHTML = codeModalHtml(codeDraft); paintCode(codeModal.querySelector('textarea')); }
+  if (c === 'codeMode') { const folds = foldsOf(codeModal.querySelector('textarea')); codeModal.innerHTML = codeModalHtml(codeDraft); adoptFolds(codeModal.querySelector('textarea'), folds); paintCode(codeModal.querySelector('textarea')); }
 });
 for (const root of [blockPanel, codeModal]) {
   // The selection stays, and leaving the field doesn't redraw the panel under the press.
@@ -2901,12 +2983,50 @@ for (const root of [blockPanel, codeModal]) {
   });
   root.addEventListener('keydown', (e) => {
     if (!e.target.matches('textarea[data-content="markdown"]') || e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
-    const f = e.target, r = e.key === 'Enter' ? mdEnter(f.value, f.selectionStart, f.selectionEnd) : e.key === 'Backspace' ? mdBackspace(f.value, f.selectionStart, f.selectionEnd) : null;
+    const f = e.target, v = fullOf(f), s = realOf(f, f.selectionStart), en = realOf(f, f.selectionEnd), r = e.key === 'Enter' ? mdEnter(v, s, en) : e.key === 'Backspace' ? mdBackspace(v, s, en) : null;
     if (r) { e.preventDefault(); writeMd(f, r); }
   });
 }
 document.addEventListener('pointerdown', (e) => { if (!e.target.closest?.('.bp-md-head')) { closeMdList(blockPanel); closeMdList(codeModal); } }, true);
 document.addEventListener('selectionchange', () => { const f = document.activeElement; if (!f?.matches?.('.bp-code.is-look textarea')) return; paintCode(f); if (f.dataset.content === 'markdown') paintMdBar(f); });
+// Folding (code-fold.js). A press on the column leaves the field, as a press on the page does; a press on a placeholder stays
+// in it, and puts the caret at the fold's far end (CAP-T10FOLD7.json).
+const lookField = (e) => e.target.matches?.('.bp-code.is-look textarea') ? e.target : null;
+const foldChanged = (f) => { f.dispatchEvent(new Event('input', { bubbles: true })); paintCode(f); };
+for (const root of [blockPanel, codeModal]) {
+  root.addEventListener('mousedown', (e) => { if (e.target.closest('.bp-code-ph')) e.preventDefault(); });
+  root.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-fold], [data-fold-open]');
+    if (!t) return;
+    const f = t.closest('.bp-code').querySelector('textarea');
+    if (t.dataset.fold) { const [from, to] = t.dataset.fold.split(',').map(Number); toggleFold(f, from, to); } else {
+      const onText = t.classList.contains('bp-code-ph');
+      openFold(f, Number(t.dataset.foldOpen), onText);
+      if (onText) f.focus();
+    }
+    paintCode(f);
+    if (f.dataset.content === 'markdown') paintMdBar(f);
+  });
+  root.addEventListener('beforeinput', (e) => {
+    const f = lookField(e);
+    if (!f || !foldsOf(f)) return;
+    noteSelection(f);
+    const way = /^delete\w*(Forward|Backward)$/.exec(e.inputType)?.[1];
+    if (way && foldDelete(f, way === 'Forward')) { e.preventDefault(); foldChanged(f); }
+  });
+  root.addEventListener('input', (e) => { const f = lookField(e); if (f) syncFolds(f); }, true);
+  root.addEventListener('keydown', (e) => {
+    const f = lookField(e);
+    if (!f || !foldsOf(f)) return;
+    if ((e.key === 'z' || e.key === 'Z') && (e.metaKey || e.ctrlKey)) { e.preventDefault(); e.stopPropagation(); foldUndo(f, e.shiftKey); foldChanged(f); return; }
+    if ((e.key === 'ArrowRight' || e.key === 'ArrowLeft') && !e.metaKey && !e.ctrlKey && !e.altKey && foldArrow(f, e.key === 'ArrowRight', e.shiftKey)) { e.preventDefault(); paintCode(f); }
+  }, true);
+  // Copying takes the hidden lines too.
+  root.addEventListener('copy', (e) => { const f = lookField(e), text = f && foldCopy(f); if (text != null) { e.preventDefault(); e.clipboardData.setData('text/plain', text); } });
+  root.addEventListener('cut', (e) => { const f = lookField(e), text = f && foldCopy(f); if (text != null) { e.preventDefault(); e.clipboardData.setData('text/plain', text); foldCut(f); foldChanged(f); } });
+  // The field's own change never fires for an edit written from here.
+  root.addEventListener('focusout', (e) => { const f = lookField(e); if (f && foldsOf(f) && codeBefore != null && root === blockPanel) f.dispatchEvent(new Event('change', { bubbles: true })); });
+}
 for (const root of [blockPanel, codeModal]) root.addEventListener('scroll', (e) => { if (e.target.matches?.('.bp-code.is-look textarea')) scrollCode(e.target); }, true);
 blockPanel.addEventListener('click', (e) => { if (sel && e.target.closest('[data-code-expand]')) openCodeModal(B(sel.sid, sel.bid)); });
 blockPanel.addEventListener('input', (e) => {
@@ -2915,8 +3035,8 @@ blockPanel.addEventListener('input', (e) => {
   const b = B(sel.sid, sel.bid);
   codeBefore ??= JSON.stringify(model);
   const was = rowsNow(b);
-  if (f.dataset.content === 'code') b.html = f.value;
-  else if (f.dataset.content === 'markdown') b.text = f.value;
+  if (f.dataset.content === 'code') b.html = fullOf(f);
+  else if (f.dataset.content === 'markdown') b.text = fullOf(f);
   else if (f.value) { b.html = f.value; delete b.embedInvalid; } else delete b.html;
   renderSectionDom(sel.sid);
   fitRows(b, was);
@@ -3117,14 +3237,15 @@ blockPanel.addEventListener('change', (e) => {
 }, true);
 // A video's settings (VIDEOPLAYER.json): one undo step each. The file stays in this tab only: the
 // browser's storage holds a few MB, so after a reload the block keeps its name but not its picture.
-function setVideo(change, label) {
+function setVideo(change, label, fit = false) {
   const b = sel && B(sel.sid, sel.bid);
   if (!b || b.type !== 'video') return;
-  const before = JSON.stringify(model);
+  const before = JSON.stringify(model), was = codeHeight(b);
   b.video = { ...(b.video || {}) };
   change(b.video);
   if (!Object.keys(b.video).length) delete b.video;
   renderSectionDom(sel.sid);
+  if (fit) fitRows(b, was); // an Aspect ratio takes whole rows by a Code block's rule (CAP-T7ORDER.json)
   commit(before, label);
   renderBlockPanel();
 }
@@ -3144,7 +3265,7 @@ blockPanel.addEventListener('change', async (e) => {
   if (s) {
     e.stopImmediatePropagation();
     const k = s.dataset.video;
-    setVideo((v) => { if (k === 'thumb') { if (s.checked) v.thumb = true; else { delete v.thumb; delete v.thumbSrc; } } else v[k] = s.value; }, `Video ${k}`);
+    setVideo((v) => { if (k === 'thumb') { if (s.checked) v.thumb = true; else { delete v.thumb; delete v.thumbSrc; } } else v[k] = s.value; }, `Video ${k}`, k === 'aspect');
     return;
   }
   const tf = e.target.closest('input[data-video-thumb-file]');
@@ -3441,6 +3562,29 @@ blockPanel.addEventListener('input', (e) => {
   renderSectionDom(sel.sid);
   const t = r.parentElement.querySelector('input[type="text"]');
   if (t) t.value = t.value.replace(/^[\d.]+/, r.value);
+});
+// The <> on a Thickness field: a pull moves the value 0.4 a pixel, down to 0, with the block following; letting go
+// is the same as typing it, so one undo step and the same rows (CAP-T7THICK3.json, CAP-T7THICK4.json).
+const SCRUB_PER_PX = 0.4;
+blockPanel.addEventListener('pointerdown', (e) => {
+  const grip = e.target.closest('[data-scrub]');
+  if (!grip || !sel) return;
+  e.preventDefault();
+  const input = grip.parentElement.querySelector('input[data-design]'), b = B(sel.sid, sel.bid), bag = designBag(bp), k = grip.dataset.scrub;
+  const start = parseFloat(input.value) || 0, x0 = e.clientX, had = b[bag]?.[k], valueAt = (x) => Math.min(RANGE_LIMITS[k], Math.max(0, start + Math.round((x - x0) * SCRUB_PER_PX)));
+  const show = (v) => { b[bag] = { ...(b[bag] || {}), [k]: v }; renderSectionDom(sel.sid); input.value = `${v}px`; };
+  const move = (m) => show(valueAt(m.clientX));
+  const up = (m) => {
+    removeEventListener('pointermove', move); removeEventListener('pointerup', up);
+    const v = valueAt(m.clientX);
+    b[bag] = { ...(b[bag] || {}) };
+    if (had === undefined) delete b[bag][k]; else b[bag][k] = had;
+    renderSectionDom(sel.sid);
+    if (v === start) { input.value = `${start}px`; return; }
+    input.value = String(v);
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  };
+  addEventListener('pointermove', move); addEventListener('pointerup', up);
 });
 function onDesignChange(e) {
   const input = e.target.closest('input[data-design]');
@@ -3796,6 +3940,8 @@ function finishTextEdit() {
   const b = B(ed.sid, ed.bid);
   const height = textHeight(b);
   b.html = ed.ce.innerHTML;
+  const left = win.getSelection();
+  if (ed.ce.contains(left.anchorNode) && ed.ce.contains(left.focusNode)) selectionLeft.set(b.id, { html: b.html, anchor: pathFrom(ed.ce, left.anchorNode), anchorOffset: left.anchorOffset, focus: pathFrom(ed.ce, left.focusNode), focusOffset: left.focusOffset });
   lay(b).area = ed.area;
   growRows(S(ed.sid));
   feEl(ed.sid).style.gridAutoRows = '';
@@ -3895,8 +4041,19 @@ const ADD_TYPES = [
   ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Menu: [12, 28], Chart: [8, 8], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
     .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}) })]),
 ];
-// A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6).
-const PHONE_ROWS = { Accordion: 5, Scheduling: 5 }; // CAP-X6FLOORSPHONE.json for Scheduling
+// A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6, CAP-X6FLOORSPHONE.json, CAP-T14CONTROL.json, CAP-T14LAND.json, CAP-T14HEIGHTS2.json).
+const PHONE_ROWS = { Accordion: 5, Scheduling: 5, Flickr: 5, SoundCloud: 5, Archive: 8 };
+// A new block lands by how far its section's top sits above the frame; past the section's last row it
+// lands on row 1, with the frame back at the section (CAP-T14FRAME.json, CAP-T14FRAME2.json: inferred, 8 of 8
+// on predictions). Read on desktop only, so the phone view stays on row 1.
+function landingRow(s) {
+  const el = sectionEl(s.id), fe = feEl(s.id);
+  if (bp !== 'desktop' || !el || !fe) return 1;
+  const above = -el.getBoundingClientRect().top, row = 1 + Math.max(0, Math.floor(above / measure(fe).pitch));
+  if (row <= s.rows.desktop) return row;
+  win.scrollBy({ top: -above, behavior: 'instant' });
+  return 1;
+}
 // A new Line sits in the middle of its block, in each view (CAP-U4LINE.json).
 const NEW_ALIGN = { Line: 'center' };
 function addBlock(sid, name) {
@@ -3906,13 +4063,14 @@ function addBlock(sid, name) {
   // Phone (L3.json, CAP-NEWORDER*.json): the new block takes its place in the phone stack by
   // size, and the blocks after it move down by its height.
   const stack = [...s.blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
-  const slot = s.phoneFollows ? 0 : newBlockSlot(stack, w, h);
+  const row = landingRow(s);
+  const slot = s.phoneFollows ? 0 : newBlockSlot(stack, w, h, [row, 2]);
   const mobileEnd = slot ? Math.max(...stack.slice(0, slot).map((b) => b.layout.mobile.area[2])) : 1;
   const phoneH = PHONE_ROWS[name] ?? h;
   const at = NEW_ALIGN[name] ?? 'flex-start';
   const zTop = (bpName) => Math.max(0, ...s.blocks.map((b) => b.layout[bpName].z)) + 1;
   const block = { id, ...make(), layout: {
-    desktop: { area: [1, 2, 1 + h, 2 + w], z: zTop('desktop'), justify: at, align: at },
+    desktop: { area: [row, 2, row + h, 2 + w], z: zTop('desktop'), justify: at, align: at },
     mobile: { area: [mobileEnd, 2, mobileEnd + phoneH, 10], z: zTop('mobile'), justify: at, align: at },
   } };
   if (s.phoneFollows) followNewBlock(s, block);
@@ -4420,17 +4578,26 @@ for (const host of [panel, sectionPanel]) {
 }
 function chromeSid() { return editSid || sel?.sid || hoverSid; }
 // The chrome fades out over 0.15s when the mouse leaves, and the outline over 0.2s; a gesture takes it away at once
-// (SECTIONBAR.json, fade; CAP-U9FADE.json). Add Section takes 0.2s too, on its opacity (CAP-U9ADDFADE.json). The outline fades there too: moving to another section and in a gesture, the
-// old one fades as a copy left behind (CAP-U9CLOSE.json). A copy doesn't follow a scroll during its 0.2 s, ours only.
+// (SECTIONBAR.json, fade; CAP-U9FADE.json). Add Section takes 0.2s too, on its opacity (CAP-U9ADDFADE.json). Those two fade
+// there too, moving to another section and in a gesture, and Add Section on selecting a block: each as a copy left behind
+// (CAP-U9CLOSE.json, CAP-U9ADDFADE2.json, CAP-U9ADDFADE3.json). A copy doesn't follow a scroll during its 0.2 s, ours only.
 let chromeOut = 0;
+function leaveCopy(o, cls, frames) {
+  const gone = o.cloneNode(true);
+  gone.classList.add(cls);
+  for (const n of ['data-sc-part', 'data-sc']) gone.removeAttribute(n);
+  chrome.after(gone);
+  gone.animate(frames, { duration: 200, easing: 'ease-in-out', fill: 'forwards' }).onfinish = () => gone.remove();
+}
+function addSectionAway() {
+  if (chrome.hidden) return;
+  for (const o of chrome.querySelectorAll('.sc-add-section')) leaveCopy(o, 'sc-add-gone', [{ opacity: getComputedStyle(o).opacity }, { opacity: 0 }]);
+}
 function outlineAway() {
   const o = chrome.hidden ? null : chrome.querySelector('.sc-outline');
   if (!o) return;
-  const gone = o.cloneNode(false);
-  gone.classList.add('sc-outline-gone');
-  gone.removeAttribute('data-sc-part');
-  chrome.after(gone);
-  gone.animate([{ borderColor: getComputedStyle(o).borderTopColor }, { borderColor: 'transparent' }], { duration: 200, easing: 'ease-in-out', fill: 'forwards' }).onfinish = () => gone.remove();
+  leaveCopy(o, 'sc-outline-gone', [{ borderColor: getComputedStyle(o).borderTopColor }, { borderColor: 'transparent' }]);
+  addSectionAway();
 }
 function hideChrome(fade) {
   if (chrome.hidden || (fade && chromeOut)) return;
@@ -4454,6 +4621,8 @@ function placeChrome() {
   if (newSection) outlineAway();
   if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); }
   // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
+  // Selecting a block takes Add Section away, and letting the block go brings it back: both over 0.2 s (CAP-U9ADDFADE3.json).
+  if (chrome.dataset.key !== key && !newSection) { if (blockSelected) addSectionAway(); chrome.classList.toggle('is-add-in', chrome.dataset.key?.split('|')[4] === 'true' && !blockSelected); }
   if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
   if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in', 'is-add-in'); }
@@ -5368,31 +5537,63 @@ layersPanel.addEventListener('pointerdown', (e) => {
   const from = rows.indexOf(li);
   const box = li.getBoundingClientRect();
   const pitch = rows.length > 1 ? rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().top : box.height;
-  const y0 = e.clientY;
+  const x0 = e.clientX, y0 = e.clientY;
   let ghost = null;
+  // A row leaving its own place jumps. Any other move slides, the slot's too (CAP-Z3PATH.json, CAP-Z3PATH2.json).
+  let places = [...rows];
+  const placeRow = (to) => {
+    const others = rows.filter((r) => r !== li);
+    const next = others[to] || (li.dataset.kidOf ? others[others.length - 1].nextSibling : null);
+    if (li.nextSibling === next || li === next) return;
+    const tops = new Map(rows.map((r) => [r, r.getBoundingClientRect().top]));
+    const was = places;
+    list.insertBefore(li, next);
+    places = [...list.children].filter((r) => r.dataset.kidOf === li.dataset.kidOf);
+    for (const r of rows) {
+      if (was.indexOf(r) === places.indexOf(r)) continue;
+      r.getAnimations().forEach((a) => a.cancel());
+      if (was.indexOf(r) !== rows.indexOf(r)) r.animate([{ transform: `translateY(${tops.get(r) - r.getBoundingClientRect().top}px)` }, { transform: 'none' }], { duration: 200, easing: 'ease' });
+    }
+  };
   const move = (ev) => {
     const d = ev.clientY - y0;
-    if (!ghost && Math.abs(d) < 4) return;
+    // It starts past 8px on the slant. The move that starts it does nothing else (CAP-Z3PATH.json).
     if (!ghost) {
+      if (Math.hypot(ev.clientX - x0, d) <= 8) return;
       ghost = li.cloneNode(true);
       ghost.classList.add('lp-ghost');
-      Object.assign(ghost.style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px` });
+      Object.assign(ghost.style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px`, fontFamily: getComputedStyle(li).fontFamily });
       document.body.append(ghost);
       li.classList.add('is-slot');
+      return;
     }
     ghost.style.transform = `translateY(${d}px)`;
-    const passed = Math.floor((Math.abs(d) + box.height / 2) / pitch);
-    const to = Math.max(0, Math.min(rows.length - 1, from + Math.sign(d) * passed));
-    const others = rows.filter((r) => r !== li);
-    list.insertBefore(li, others[to] || (li.dataset.kidOf ? others[others.length - 1].nextSibling : null));
+    const passed = Math.floor((Math.abs(d) + box.height / 2 + 1) / pitch);
+    placeRow(Math.max(0, Math.min(rows.length - 1, from + Math.sign(d) * passed)));
   };
-  const up = () => {
+  const stop = () => {
     document.removeEventListener('pointermove', move);
     document.removeEventListener('pointerup', up);
     document.removeEventListener('pointercancel', up);
+    doc.removeEventListener('pointerup', giveUp);
+    document.removeEventListener('keydown', onEscape, true);
+    doc.removeEventListener('keydown', onEscape, true);
+    li.classList.remove('is-slot');
+    rows.forEach((r) => r.getAnimations().forEach((a) => a.cancel()));
+  };
+  // The page's frame keeps its own moves and release. Let go over it, or press Escape: nothing moves and the
+  // panel closes (CAP-Z3PATH.json, CAP-Z3PATH2.json).
+  const giveUp = () => {
+    stop();
     if (!ghost) return;
     ghost.remove();
-    li.classList.remove('is-slot');
+    renderLayersPanel();
+    closeFloating();
+  };
+  const onEscape = (ev) => { if (ev.key === 'Escape') giveUp(); };
+  const up = () => {
+    stop();
+    if (!ghost) return;
     rowDragged = true;
     const before = JSON.stringify(model);
     const order = [...list.children].filter((r) => r.dataset.kidOf === li.dataset.kidOf).map((r) => r.dataset.layer);
@@ -5402,10 +5603,17 @@ layersPanel.addEventListener('pointerdown', (e) => {
     if (moved) { renderSectionDom(sid); commit(before, 'Reordered layers'); }
     else model = JSON.parse(before);
     renderLayersPanel();
+    // The ghost flies to where the row now is, over the row (CAP-Z3PATH2.json).
+    const home = layersPanel.querySelector(`li[data-layer="${li.dataset.layer}"]`);
+    const end = home ? home.getBoundingClientRect().top - box.top : 0;
+    ghost.animate([{ transform: getComputedStyle(ghost).transform }, { transform: `translateY(${end}px)` }], { duration: 250, easing: 'ease' }).finished.then(() => ghost.remove(), () => ghost.remove());
   };
   document.addEventListener('pointermove', move);
   document.addEventListener('pointerup', up);
   document.addEventListener('pointercancel', up);
+  doc.addEventListener('pointerup', giveUp);
+  document.addEventListener('keydown', onEscape, true);
+  doc.addEventListener('keydown', onEscape, true);
 });
 function onContextMenu(e) {
   if (document.body.classList.contains('is-preview')) return;
@@ -5657,8 +5865,8 @@ function setBp(next) {
   // Phones use overlay scrollbars, so the preview must not lose width to one.
   doc.documentElement.style.scrollbarWidth = bp === 'mobile' ? 'none' : '';
   for (const sec of model.sections) drawLabels(sec.id);
-  // A form's panel shows this view's own values (FORMFIELDS.json, phone).
-  if (sel && designOpen === sel.bid && B(sel.sid, sel.bid)?.type === 'form') { const top = blockPanel.scrollTop; renderBlockPanel(); blockPanel.scrollTop = top; }
+  // The panel shows this view's own values (FORMFIELDS.json, phone; CAP-L6GOTO.json).
+  if (sel && designOpen === sel.bid) { const top = blockPanel.scrollTop; renderBlockPanel(); blockPanel.scrollTop = top; }
   requestAnimationFrame(() => {
     drawSelection();
     updateUi();
@@ -5672,6 +5880,7 @@ document.getElementById('reload-preview').addEventListener('click', () => { rend
 document.addEventListener('keydown', (e) => { if (e.ctrlKey && e.shiftKey && e.code === 'KeyD') { e.preventDefault(); document.body.classList.toggle('dev-tools'); } });
 
 function setPreview(on) {
+  if (on) { selectionLeft.clear(); previewed = true; }
   document.body.classList.toggle('is-preview', on);
   doc?.body.classList.toggle('is-preview', on);
   if (!on) doc?.querySelectorAll('.cdk-image-lightbox, body > .form-lightbox').forEach((x) => x.remove());
@@ -5689,7 +5898,29 @@ $('bp-mobile').addEventListener('click', () => setBp('mobile'));
 document.addEventListener('keydown', onKey);
 
 // ---------- boot ----------
+// An empty Text shows its hint in the editor: added, left, selected, in an edit, on the phone, and it goes on
+// the first letter (CAP-TEXTEMPTY.json). The hint sits on the first line, and only while it is a paragraph. With more
+// empty lines, only while the caret is or last was on that first one (CAP-T3EMPTY.json, CAP-T3EMPTY2.json).
+// A mark on the content box, outside the block's HTML, so the model stays clean.
+const caretOnFirstLine = new Set();
+function markEmptyText(doc) {
+  const at = doc.getSelection()?.anchorNode;
+  for (const ce of doc.querySelectorAll('.sqs-block-html .sqs-html-content')) {
+    const first = ce.firstElementChild, id = ce.closest('.fe-block')?.dataset.blockId;
+    if (at && ce.contains(at)) { if (first?.contains(at)) caretOnFirstLine.add(id); else caretOnFirstLine.delete(id); }
+    const empty = first?.tagName === 'P' && !ce.textContent && first.querySelectorAll('br').length < 2;
+    ce.classList.toggle('is-text-empty', !!empty && (ce.children.length === 1 || caretOnFirstLine.has(id)));
+  }
+}
+function watchEmptyText() {
+  const doc = frame.contentDocument;
+  markEmptyText(doc);
+  new MutationObserver(() => markEmptyText(doc)).observe(doc.body, { childList: true, characterData: true, subtree: true });
+  doc.addEventListener('selectionchange', () => markEmptyText(doc));
+}
+
 function boot() {
+  watchEmptyText();
   frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
   // The canvas changes width when the layout switches; place the overlays again once it has.
   // Watch the canvas page itself: it reflows after the canvas element changes width.
