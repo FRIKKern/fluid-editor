@@ -1,0 +1,508 @@
+{
+ "item": "A2",
+ "question": "What do simple tests say about the corpus sections whose block rules do not follow the phone rows? Other people's saved pages, unknown history. The fixtures hold CSS only: rule order stands in for DOM order. Not a fresh test, and nothing is fitted to it.",
+ "sections": 304,
+ "follow": 265,
+ "exceptions": 39,
+ "countsInExceptions": {
+  "overlap on desktop": 21,
+  "overlap on the phone": 29,
+  "a block 80% inside a bigger one on desktop": 14,
+  "one-row block first on the phone": 1,
+  "two blocks with one z on the phone": 9,
+  "phone gaps (rows with no block)": 28,
+  "a phone height unlike the desktop height": 38,
+  "blocks that share a phone row": 39,
+  "rules follow desktop top, then left": 4,
+  "rules follow the A2 rule, run on the phone stack": 0,
+  "every pair out of phone order shares a phone row": 34,
+  "rules follow the phone rows, with blocks that share rows left first": 19
+ },
+ "countsInTheOthers": {
+  "overlap on desktop": 40,
+  "overlap on the phone": 33,
+  "a block 80% inside a bigger one on desktop": 21,
+  "one-row block first on the phone": 13,
+  "two blocks with one z on the phone": 27,
+  "phone gaps (rows with no block)": 194,
+  "a phone height unlike the desktop height": 245,
+  "blocks that share a phone row": 59,
+  "rules follow desktop top, then left": 169,
+  "rules follow the A2 rule, run on the phone stack": 192,
+  "every pair out of phone order shares a phone row": 265,
+  "rules follow the phone rows, with blocks that share rows left first": 263
+ },
+ "noTestApplies": 0,
+ "cases": [
+  {
+   "section": "65d772970f2ab552d8cf11ee",
+   "blocks": 5,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "65ca9fbe4df1167387c69472",
+   "blocks": 5,
+   "tests": [
+    "overlap on the phone",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "631a46173da20e084e06090a",
+   "blocks": 7,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a block 80% inside a bigger one on desktop",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "64de84809185a52fbf9d6fa3",
+   "blocks": 3,
+   "tests": [
+    "overlap on the phone",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "rules follow desktop top, then left",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "6255df8088b4e2faac67fe5c",
+   "blocks": 4,
+   "tests": [
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "6662256b2f43f47372aae014",
+   "blocks": 6,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a block 80% inside a bigger one on desktop",
+    "two blocks with one z on the phone",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "rules follow desktop top, then left",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "664cac5ee6666774cf24917c",
+   "blocks": 7,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a block 80% inside a bigger one on desktop",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "rules follow desktop top, then left",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "664cb567e124e77cc085ccde",
+   "blocks": 4,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a block 80% inside a bigger one on desktop",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "68b9c6b6a40c8b1e9e9829ab",
+   "blocks": 10,
+   "tests": [
+    "two blocks with one z on the phone",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row"
+   ]
+  },
+  {
+   "section": "68b9cf133f8a11491e78b9b2",
+   "blocks": 4,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a block 80% inside a bigger one on desktop",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "68b9d0ac0f7c7f095c606c79",
+   "blocks": 3,
+   "tests": [
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "rules follow desktop top, then left",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "68b9fa2288dabe584c4d4b70",
+   "blocks": 4,
+   "tests": [
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "64efbfb663354f465ff75717",
+   "blocks": 5,
+   "tests": [
+    "overlap on the phone",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "64efc0fb80522b7b34b63311",
+   "blocks": 5,
+   "tests": [
+    "overlap on the phone",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "64ee27153493067c20dbe233",
+   "blocks": 16,
+   "tests": [
+    "overlap on the phone",
+    "one-row block first on the phone",
+    "two blocks with one z on the phone",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "626ad7f1baf49a91cc48985a",
+   "blocks": 4,
+   "tests": [
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "64b944327fdae8708d5cd95d",
+   "blocks": 5,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "64f7598970afd8318b709c77",
+   "blocks": 7,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a block 80% inside a bigger one on desktop",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "64f8df835d6634233d0c8a23",
+   "blocks": 8,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "two blocks with one z on the phone",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "64fb4301307fd13bea393470",
+   "blocks": 5,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a block 80% inside a bigger one on desktop",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "64fb5838ea0b9858c83c6bb1",
+   "blocks": 7,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a block 80% inside a bigger one on desktop",
+    "two blocks with one z on the phone",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "627e9ce07f351b3de53d2f7d",
+   "blocks": 3,
+   "tests": [
+    "phone gaps (rows with no block)",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "627e964fbe10aa6936abd0dd",
+   "blocks": 5,
+   "tests": [
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "6255ed83da124c08ec65b546",
+   "blocks": 12,
+   "tests": [
+    "overlap on the phone",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "6257238f178dadcdfa1ce5f7",
+   "blocks": 24,
+   "tests": [
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "6282a29d37e1a72d27ef6672",
+   "blocks": 3,
+   "tests": [
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "69c42563db85a22018ec5641",
+   "blocks": 10,
+   "tests": [
+    "overlap on the phone",
+    "two blocks with one z on the phone",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "6984e4a5c72c21352a94220a",
+   "blocks": 11,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "67367682c121685980f80eda",
+   "blocks": 6,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a block 80% inside a bigger one on desktop",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row"
+   ]
+  },
+  {
+   "section": "69545c8373a3ed36d1b10747",
+   "blocks": 15,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a block 80% inside a bigger one on desktop",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row"
+   ]
+  },
+  {
+   "section": "62710c68dce740286c68eb91",
+   "blocks": 10,
+   "tests": [
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "6542cb1f4c1e061cdce78bc0",
+   "blocks": 10,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "two blocks with one z on the phone",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "6542d5ac165ab937844b14c0",
+   "blocks": 4,
+   "tests": [
+    "overlap on the phone",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "660caf86aa2424f130f1ef8e",
+   "blocks": 4,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  },
+  {
+   "section": "65b07b1c99767c5b133e9c49",
+   "blocks": 5,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a block 80% inside a bigger one on desktop",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "65b0bd7f4b2ef179e8698b77",
+   "blocks": 3,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a block 80% inside a bigger one on desktop",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row"
+   ]
+  },
+  {
+   "section": "65e7f4ffda05a20d757d3c0c",
+   "blocks": 5,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "two blocks with one z on the phone",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row"
+   ]
+  },
+  {
+   "section": "6ad90479608c7f6357e2eefc",
+   "blocks": 11,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a block 80% inside a bigger one on desktop",
+    "two blocks with one z on the phone",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row"
+   ]
+  },
+  {
+   "section": "6ae35c85908fad60b011d409",
+   "blocks": 7,
+   "tests": [
+    "overlap on desktop",
+    "overlap on the phone",
+    "a block 80% inside a bigger one on desktop",
+    "phone gaps (rows with no block)",
+    "a phone height unlike the desktop height",
+    "blocks that share a phone row",
+    "every pair out of phone order shares a phone row",
+    "rules follow the phone rows, with blocks that share rows left first"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,524 @@
+{
+ "item": "CAP-A2TYPED",
+ "oracle": "/gestures-probe",
+ "capturedAt": "2026-11-06",
+ "engine": "chrome",
+ "question": "How to get typed text into a new text block on the oracle: which press starts writing, and does the block grow.",
+ "steps": [
+  [
+   "toPage",
+   "Gestures Probe"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "editText",
+   0,
+   "new"
+  ],
+  [
+   "pause",
+   1000
+  ],
+  [
+   "keys",
+   "hello world"
+  ],
+  [
+   "read",
+   "a slow keys",
+   {
+    "html": [
+     0,
+     "new"
+    ],
+    "stack": 0
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a closed",
+   {
+    "html": [
+     0,
+     "new"
+    ],
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "keys",
+   "hello world"
+  ],
+  [
+   "read",
+   "b two clicks",
+   {
+    "html": [
+     0,
+     "new"
+    ],
+    "stack": 0
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "b closed",
+   {
+    "html": [
+     0,
+     "new"
+    ],
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "press",
+   "Enter"
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "keys",
+   "hello world"
+  ],
+  [
+   "read",
+   "c enter",
+   {
+    "html": [
+     0,
+     "new"
+    ],
+    "stack": 0
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "c closed",
+   {
+    "html": [
+     0,
+     "new"
+    ],
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "pause",
+   1000
+  ],
+  [
+   "keys",
+   "hello world"
+  ],
+  [
+   "read",
+   "d right after add",
+   {
+    "html": [
+     0,
+     "new"
+    ],
+    "stack": 0
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "d closed",
+   {
+    "html": [
+     0,
+     "new"
+    ],
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "editText",
+   0,
+   "new"
+  ],
+  [
+   "pasteMid",
+   0,
+   "new",
+   "<p>lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit</p>"
+  ],
+  [
+   "read",
+   "e pasted",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "e closed",
+   {
+    "html": [
+     0,
+     "new"
+    ],
+    "stack": 0
+   }
+  ]
+ ],
+ "reads": {
+  "a slow keys": {
+   "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+   "stack": [
+    {
+     "id": "8_438",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "a closed": {
+   "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+   "stack": [
+    {
+     "id": "8_438",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "b two clicks": {
+   "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+   "stack": [
+    {
+     "id": "7_420",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "b closed": {
+   "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+   "stack": [
+    {
+     "id": "7_420",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c enter": {
+   "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c closed": {
+   "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "d right after add": {
+   "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+   "stack": [
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "d closed": {
+   "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+   "stack": [
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "e pasted": {
+   "stack": [
+    {
+     "id": "2_420",
+     "type": "csr",
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "e closed": {
+   "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit</p>",
+   "stack": [
+    {
+     "id": "2_420",
+     "type": "csr",
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  }
+ },
+ "errors": [],
+ "visited": "Gestures Probe",
+ "leftDirty": true,
+ "note": "Real keys did not reach a new text block in any of the four ways tried; a fifth try, a real press on the open editor, was refused because something lies over it. So growth is read with text pasted into the open block (e). Why keys do not land is not known."
+}

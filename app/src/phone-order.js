@@ -116,3 +116,19 @@ export function followNewBlock(s, block) {
   const old = stackOf(s.blocks);
   return layStack(s, old, turned(desktopOrder([...old, block]), old[0]));
 }
+
+// A block taken away: the blocks below move up by its height, but no higher than where it started.
+export function closeUp(s, gone) {
+  for (const g of [...gone].sort((p, q) => q[0] - p[0])) for (const b of s.blocks) {
+    const a = b.layout.mobile.area;
+    if (a[0] <= g[0]) continue;
+    const at = Math.max(g[0], a[0] - (g[2] - g[0]));
+    b.layout.mobile.area = [at, a[1], at + a[2] - a[0], a[3]];
+  }
+}
+
+// Blocks that overlap on the phone: from then on it no longer follows the desktop (CAP-A2EDITS2 o, CAP-A2ROUND1 b).
+export function phoneOverlaps(s) {
+  const all = s.blocks;
+  return all.some((b, k) => all.slice(k + 1).some((o) => overlaps(b.layout.mobile.area, o.layout.mobile.area)));
+}

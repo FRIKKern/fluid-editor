@@ -2,47 +2,39 @@
 // CAP-ORDER) with the real mouse and keys, and compares every read: which block (by z), its desktop and
 // phone area, in order, and that the phone draws those rows. Usage: npm run neworder-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, mouse, drag, browser } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, mouse, drag, browser, cdp } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
-viewport(S, 1600, 3400); // room below, so a long drag does not scroll the page
+viewport(S, 1600, 1000);
 goto(S, `${BASE}/index.html`);
 await pause(1200);
 
 // Named misses, with no rule read yet.
 const KNOWN = new Set(JSON.parse(readFileSync(new URL('../parity/neworder-known.json', import.meta.url))));
 const ONLY = process.argv[2]?.split(',');
-const FILES = ONLY ?? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST', 'CAP-TURNTEST2', 'CAP-CYCLE', 'CAP-CYCLE2', 'CAP-CYCLE3', 'CAP-TURNTEST3', 'CAP-CYCLE4', 'CAP-NEWORDER7', 'CAP-TURNTEST4'];
+const FILES = ONLY ?? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST', 'CAP-TURNTEST2', 'CAP-CYCLE', 'CAP-CYCLE2', 'CAP-CYCLE3', 'CAP-TURNTEST3', 'CAP-CYCLE4', 'CAP-NEWORDER7', 'CAP-TURNTEST4', 'CAP-A2EDITS', 'CAP-A2EDITS2', 'CAP-A2ROUND1', 'CAP-A2ROUND2', 'CAP-A2TYPED3', 'CAP-LONGDRAG'];
 let quiet = false; // nothing selected since the last Escape, so another one is a wasted call
-const press = (k) => { if (k === 'Escape' && quiet) return; browser(S, 'press', k); quiet = k === 'Escape'; };
+// After typing, the first Escape only closes the editor, so the next one counts too.
+let loud = 0;
+const press = (k) => { if (k === 'Escape' && quiet && loud <= 0) return; loud--; browser(S, 'press', k); quiet = k === 'Escape'; };
 // The oracle's blocks sit in phone order in the page, and a step names one by its place there.
 const blockAt = (k) => evalJs(S, `JSON.stringify([...fe.model.sections[0].blocks].sort((a, b) => a.layout.mobile.area[0] - b.layout.mobile.area[0])[${k}].id)`);
-const point = (id, part) => evalJs(S, `(() => { const part = ${JSON.stringify(part)}, f = document.getElementById('site-frame'), q = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect(), r = f.getBoundingClientRect(); return JSON.stringify([r.left + q.left + q.width * (part === 'middle' ? 0.5 : part.includes('w') ? 0 : part.includes('e') ? 1 : 0.5), r.top + q.top + q.height * (part === 'middle' ? 0.5 : part.includes('n') ? 0 : part.includes('s') ? 1 : 0.5)]); })()`);
-// A long drag on the oracle runs near the window edge and scrolls a little, so it can land a row further
-// than the same pixels here. The rows of a drag are other checks' work: aim at the row the oracle reached.
-const PITCH = [58.79, 41.09];
-function aim(F, at, id, part, dx, dy) {
-  if (part !== 'middle') return [dx, dy];
-  const a = evalJs(S, `JSON.stringify((() => { const b = fe.model.sections[0].blocks.find((x) => x.id === '${id}'); return [b.layout.desktop.z, ...b.layout.desktop.area]; })())`);
-  const rest = F.steps.slice(at + 1), k = rest.findIndex((x) => x[0] === 'read'), read = k >= 0 && F.reads[rest[k][1]];
-  // Another drag of this block before the read means the read can't aim this one.
-  let added = false;
-  for (const x of rest.slice(0, k)) { if (x[0] === 'add') added = true; if (x[0] === 'drag' && !(x[2] === 'new' && added)) return [dx, dy]; }
-  if (!read?.stack?.[0]?.z) return [dx, dy];
-  const to = read.stack.find((b) => Number(b.z[0]) === a[0]);
-  if (!to) return [dx, dy];
-  const [r, c] = to.desktop.split('/').map(Number);
-  return [(c - a[2]) * PITCH[0] || (c === a[2] ? 0 : dx), (r - a[1]) * PITCH[1]];
-}
+const point = (id, part) => evalJs(S, `(() => { const part = ${JSON.stringify(part)}, f = document.getElementById('site-frame'), W = f.contentWindow, b = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]'), r = f.getBoundingClientRect(); let q = b.getBoundingClientRect(); if (q.top < 150 || q.bottom > W.innerHeight - 150) { W.scrollTo({ top: W.scrollY + q.top - 200, behavior: 'instant' }); q = b.getBoundingClientRect(); } return JSON.stringify([r.left + q.left + q.width * (part === 'middle' ? 0.5 : part.includes('w') ? 0 : part.includes('e') ? 1 : 0.5), r.top + q.top + q.height * (part === 'middle' ? 0.5 : part.includes('n') ? 0 : part.includes('s') ? 1 : 0.5)]); })()`);
+const pasteIn = (html) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, t = d.activeElement; const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(html)}); dt.setData('text/plain', ${JSON.stringify(html)}.replace(/<[^>]+>/g, '')); t.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return 1; })()`);
+const writeOn = () => { const p = evalJs(S, `(() => { const q = document.querySelector('[data-tb="write"]').getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); mouse(S, 'move', p[0], p[1]); mouse(S, 'down', p[0], p[1], { buttons: 1 }); mouse(S, 'up', p[0], p[1]); };
 const click = async (id, mods = []) => { const p = point(id, 'middle'); mouse(S, 'move', p[0], p[1], { mods }); mouse(S, 'down', p[0], p[1], { buttons: 1, mods }); await pause(30); mouse(S, 'up', p[0], p[1], { mods }); quiet = false; await pause(80); };
 
+// The capture's drag, with the block as far down the frame as on the probe page: a long drag runs
+// near the window edge, the page scrolls a little, and it lands a row further (CAP-LONGDRAG).
+const DRAG = { steps: 12, holdMs: 200 };
+evalJs(S, `(() => { document.getElementById('site-frame').contentDocument.body.style.paddingTop = '185px'; return 1; })()`);
 const cases = [];
 for (const file of FILES) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url)));
-  let last = null, view = 'desktop', held = false; // held: a group or a handle waits for the next drag, so no Escape first
+  let last = null, view = 'desktop', held = false, writing = false; // held: a group or a handle waits for the next drag, so no Escape first
   const pick = (k) => (k === 'new' ? last : blockAt(k));
-  for (const [at, step] of F.steps.entries()) {
+  for (const step of F.steps) {
     const [op] = step;
     if (op === 'blank') {
       view = 'desktop';
@@ -66,8 +58,25 @@ for (const file of FILES) {
       const id = pick(step[2]), part = view === 'mobile' && step[3] === 's' ? 'se' : step[3];
       if (!held) { press('Escape'); await pause(40); }
       held = false; quiet = false;
-      const p = point(id, part), [dx, dy] = view === 'mobile' ? [step[4], step[5]] : aim(F, at, id, part, step[4], step[5]);
-      drag(S, p, [p[0] + dx, p[1] + dy], { steps: 4, holdMs: 60 }); await pause(150);
+      const p = point(id, part);
+      drag(S, p, [p[0] + step[4], p[1] + step[5]], DRAG); await pause(150);
+    } else if (op === 'groupDrag') {
+      const at = evalJs(S, `(() => { const f = document.getElementById('site-frame'), fr = f.getBoundingClientRect(), qs = [...f.contentDocument.querySelectorAll('.fe-block.is-group-member, .fe-block[data-is-selected="true"]')].map((b) => b.getBoundingClientRect()); return JSON.stringify([fr.left + Math.max(...qs.map((q) => q.right)), fr.top + Math.max(...qs.map((q) => q.bottom))]); })()`);
+      held = false; quiet = false;
+      drag(S, at, [at[0] + step[2], at[1] + step[3]], DRAG); await pause(150);
+    } else if (op === 'editText') {
+      press('Escape'); await pause(40); const id = pick(step[2]); await click(id); await pause(120); await click(id); await pause(200); quiet = false;
+    } else if (op === 'pasteMid') {
+      pasteIn(step[3]); await pause(200); quiet = false;
+    } else if (op === 'click' && step[1] === 'Write') {
+      writeOn(); await pause(250); writing = true; quiet = false;
+    } else if (op === 'keysFast') {
+      // Keys after a double click never landed on the oracle (CAP-A2TYPED): those reads have no typing. After Write they do (CAP-A2TYPED3).
+      if (writing) { cdp(S, { op: 'presses', keys: [...step[1]].map((c) => (c === ' ' ? 'Space' : c)) }); await pause(300); }
+      if (writing) loud = 2;
+      writing = false; quiet = false;
+    } else if (op === 'stubClipboard') {
+      // the oracle needs one; ours keeps its own
     } else if (op === 'read') {
       const r = F.reads[step[1]];
       if (!r.stack && !r.areas) continue;
