@@ -21,6 +21,19 @@ const Z2 = ['Move Forward', 'Move Backward'];
 const UR = ['Undo', 'Redo'];
 const BARTIPS = ['Save', 'Desktop View', 'Mobile View', 'Toggle Site Styles editing', 'Toggle preview mode'];
 export const RECIPES = {
+  'CAP-E4REOPEN2': { question: 'E4: is the selection kept when an edit is opened again after a change of view, a Preview, or an Undo? Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['view', 'Mobile'], ['pause', 700], ['view', 'Desktop'], ['pause', 500], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'after the phone view', H],
+    ...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pressNamed', 'Toggle preview mode'], ['pause', 1500], ['pressNamed', 'Toggle preview mode'], ['pause', 1200], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'after Preview', H],
+    ...NEWTEXT, ['keys', 'aa'], ['pause', 1300], ['keys', 'bb'], ['press', 'ArrowLeft'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pressNamed', 'Undo'], ['pause', 500], ['read', 'Undo, left', H], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'after an Undo', H],
+  ] },
+  'CAP-E4REOPEN': { question: 'E4: an edit left and opened again: where is the caret?', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['keys', 'one'], ['press', 'Enter'], ['keys', 'two'], ['press', 'ArrowUp'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'caret on the first line, opened again, typed', H],
+    ...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'caret mid word, opened again, typed', H],
+    ...NEWTEXT, ['keys', 'abcdef'], ['press', 'Shift+ArrowLeft'], ['press', 'Shift+ArrowLeft'], ['press', 'Shift'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'two letters selected, opened again, typed', H],
+    ...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Enter'], ['pause', 500], ['keys', 'X'], ['pause', 300], ['read', 'caret mid word, Enter to open, typed', H],
+  ] },
   'CAP-T3EMPTY3': { question: 'T3: two empty lines, left: does the hint stay deselected, selected, on the phone and when the edit is opened again? Predicted first.', page: 'Gestures Probe', steps: [
     ['enter'], ['blank'],
     ...NEWTEXT, ['press', 'Enter'], ['press', 'ArrowUp'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['hintOf', 'caret on the first, left'], ['press', 'Escape'], ['pause', 300], ['hintOf', 'caret on the first, deselected'], ['view', 'Mobile'], ['pause', 700], ['hintOf', 'caret on the first, phone'], ['view', 'Desktop'], ['pause', 500], ['pick', 0, 'new'], ['pause', 300], ['hintOf', 'caret on the first, selected'], ['click', 'Write'], ['pause', 400], ['hintOf', 'caret on the first, opened again'], ['keys', 'x'], ['pause', 300], ['read', 'caret on the first, opened again, typed', H],

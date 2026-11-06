@@ -91,7 +91,7 @@ export async function replay(S, finding, add) {
     // A paste at the middle of the first text, as oracle-capture.mjs does it.
     else if (op === 'pasteMid') { evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const d = ce.ownerDocument, W = d.defaultView; ce.focus(); const t = d.createTreeWalker(ce, 4).nextNode(); const r = d.createRange(); r.setStart(t, Math.floor(t.length / 2)); r.collapse(true); const s = W.getSelection(); s.removeAllRanges(); s.addRange(r); const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(a[2])}); dt.setData('text/plain', ${JSON.stringify(a[2].replace(/<[^>]+>/g, ' '))}); ce.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return 1; })()`); await wait(300); }
     else if (op === 'view') { browser(S, 'click', a[0] === 'Mobile' ? '#bp-mobile' : '#bp-desktop'); await pause(300); }
-    else if (op === 'pressNamed' && a[0] === 'Toggle preview mode') { browser(S, 'click', '#preview'); await pause(300); }
+    else if (op === 'pressNamed' && (a[0] === 'Toggle preview mode' || a[0] === 'Undo')) { browser(S, 'click', a[0] === 'Undo' ? '#undo' : '#preview'); await pause(300); }
     else if (op === 'beforeOf' || op === 'hintOf') {
       const read = finding.reads[a[0]]; if (read === undefined) continue;
       const want = (Array.isArray(read) ? read : []).filter((x) => /Write here/.test(x.content)).map(({ box, ...rest }) => rest), got = hintHere();

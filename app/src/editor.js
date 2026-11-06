@@ -1421,6 +1421,9 @@ function onDblClick(e) {
   startTextEdit(sid, blk.dataset.blockId);
 }
 
+const selectionLeft = new Map(); // block id: the html it was left with and where its selection was
+const pathFrom = (root, node) => { const path = []; for (let n = node; n !== root; n = n.parentNode) path.unshift([...n.parentNode.childNodes].indexOf(n)); return path; };
+const nodeAtPath = (root, path) => path.reduce((n, k) => n?.childNodes[k], root);
 function startTextEdit(sid, bid) {
   const b = B(sid, bid);
   if (!b || b.type !== 'text' || editing) return;
@@ -1432,12 +1435,15 @@ function startTextEdit(sid, bid) {
   ce.contentEditable = 'true';
   ce.focus();
   // The caret starts inside the last text, so a press finds its block even when it's empty (CAP-E4ENTER.json).
+  // Opened again, the selection is where it was left (CAP-E4REOPEN.json), unless the text changed since.
   const range = doc.createRange();
   range.selectNodeContents([...ce.querySelectorAll('h1, h2, h3, h4, p, pre')].at(-1) ?? ce);
   range.collapse(false);
   const s = win.getSelection();
   s.removeAllRanges();
   s.addRange(range);
+  const kept = selectionLeft.get(b.id), keptA = kept?.html === ce.innerHTML && nodeAtPath(ce, kept.anchor), keptF = keptA && nodeAtPath(ce, kept.focus);
+  if (keptF) s.setBaseAndExtent(keptA, kept.anchorOffset, keptF, kept.focusOffset);
   const fe = feEl(sid);
   const m = measure(fe);
   fe.style.gridAutoRows = `${m.rowMin}px`;
@@ -3754,6 +3760,8 @@ function finishTextEdit() {
   renderTextBar();
   const b = B(ed.sid, ed.bid);
   b.html = ed.ce.innerHTML;
+  const left = win.getSelection();
+  if (ed.ce.contains(left.anchorNode) && ed.ce.contains(left.focusNode)) selectionLeft.set(b.id, { html: b.html, anchor: pathFrom(ed.ce, left.anchorNode), anchorOffset: left.anchorOffset, focus: pathFrom(ed.ce, left.focusNode), focusOffset: left.focusOffset });
   lay(b).area = ed.area;
   growRows(S(ed.sid));
   feEl(ed.sid).style.gridAutoRows = '';
