@@ -104,6 +104,7 @@ body.show-inspector:not(.is-replay) .panel { display: block; }
 .tb-btn.is-off:hover { background: transparent; }
 .tb-btn.tb-remove { color: #db3642; }
 .tb-btn.tb-flush { margin-left: -4px; }
+.tb-btn[data-tb="edit"]:first-child + .tb-sep + .tb-btn.tb-flush { margin-left: 0; } /* Markdown's and an Accordion's Align Vertically: only Text's sits close (CAP-T10PRE.json, CAP-ACCBAR.json) */
 .tb-sep + .tb-btn[data-tb="link"], .tb-btn[data-tb="halign"] + .tb-btn.tb-flush, .tb-btn[data-tb="align"]:has(+ .tb-sep) { margin-left: 0; } /* A stack's link, a fit button's Align Vertically (S3.json). */
 .tb-btn.tb-open, .tb-btn.tb-open:hover { background: #e7e7e7; }
 .tb-vmenu { position: absolute; top: 46px; display: flex; gap: 4px; padding: 4px; box-sizing: border-box; width: 124px; height: 44px; background: #fff; border-radius: 6px; box-shadow: 0 6px 24px rgba(0, 0, 0, .12), 0 0 1px rgba(0, 0, 0, .08); }
@@ -641,7 +642,6 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 /* The tabs and a Back row stay; only what is under them scrolls (FORMFIELDS.json) */
 .block-panel .sp-tabs { position: sticky; top: 0; z-index: 3; background: #fff; cursor: grab; }
 .block-panel .bp-sub { position: sticky; top: 0; z-index: 3; background: #fff; }
-.block-panel .sp-tabs ~ .sp-body .bp-sub { top: 55px; z-index: 2; }
 /* A row moved into view, by Tab or a scroll, stops below the tabs (the oracle's scroller starts below them). A Back row replaces the tabs here and is no taller. */
 .block-panel { scroll-padding-top: 55px; }
 
