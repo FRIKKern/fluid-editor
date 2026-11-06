@@ -1,0 +1,268 @@
+{
+  "item": "CAP-U11PAGE2",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U11: a paste on another page, by synthetic events: copy on Blocks Probe, carry the event's own data in memory, paste on Gestures Probe. No keys, nothing near the clipboard.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "stubClipboard"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "synthClip",
+      "copy"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "after copy",
+      {
+        "clip": true,
+        "areas": 0
+      }
+    ],
+    [
+      "clipHold"
+    ],
+    [
+      "synthClip",
+      "paste",
+      "top"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "control: pasted on the same page",
+      {
+        "clip": true,
+        "areas": 0
+      }
+    ],
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "other page before",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "stubClipboard"
+    ],
+    [
+      "clipGive"
+    ],
+    [
+      "synthClip",
+      "paste",
+      "top"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "pasted, nothing selected",
+      {
+        "clip": true,
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "synthClip",
+      "paste",
+      "top"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "pasted, block selected",
+      {
+        "clip": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "after copy": {
+      "clip": {
+        "top": [],
+        "frame": [
+          "copy:frame:taken:text/plain"
+        ],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/3/8",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "heldTypes": [
+      "text/plain"
+    ],
+    "control: pasted on the same page": {
+      "clip": {
+        "top": [],
+        "frame": [
+          "copy:frame:taken:text/plain",
+          "paste:top:not taken:text/plain"
+        ],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/3/8",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/6",
+          "3/2/4/10"
+        ],
+        [
+          "2/3/4/9",
+          "4/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "other page before": {
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "pasted, nothing selected": {
+      "clip": {
+        "top": [],
+        "frame": [
+          "paste:top:not taken:text/plain"
+        ],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "pasted, block selected": {
+      "clip": {
+        "top": [],
+        "frame": [
+          "paste:top:not taken:text/plain",
+          "paste:top:not taken:text/plain"
+        ],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "answer": "The other way round, Blocks Probe to Gestures Probe: the same. Control added at 2/3/4/9, phone 4/2/6/10. The other page added nothing, twice. With CAP-COPYPASTE.json's reading that is 3 of 3: the clip doesn't reach another page.",
+  "inferred": "The page may ignore this text alone once the page has loaded again, so a reload on the same page may do the same. Not read.",
+  "pressed": "Named presses with an on-top check. Typing by real keys in the search and link fields. Unnamed: real clicks on blocks and a drag, the box Edit by Enter since it opens focused. No Save, no upload, no Reset, no tile or row pressed, Copy and Remove Link not pressed."
+}
