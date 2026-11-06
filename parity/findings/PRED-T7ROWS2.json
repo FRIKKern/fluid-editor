@@ -344,6 +344,13 @@
     "below, sharing some columns": "moves with it, both ways",
     "across the line, top inside": "end moves on a rise, nothing on a fall",
     "phone, the second under the first": "moves with it, both ways",
-    "Markdown over a Text, Embed over a Code": "the same"
+    "Markdown over a Text, Embed over a Code": "the same",
+    "result": "Section rows by the lowest end: right. Phone: right. Wrong: below in other columns moves too; across the line with its top inside moves whole, not by its end, and comes back on a fall, to the risen block's new end."
+  },
+  "sixth": {
+    "written after CAP-T10ROWS5, before CAP-T10ROWS6": true,
+    "rule": "With L the block's old end and t its top. Top at or below L: moves by n, any columns. Sharing columns, end at or below L: top after t moves by n, and on a fall stops at the block's new end; otherwise, on a rise its end moves by n and on a fall nothing. Otherwise stays.",
+    "across, a fall first": "B 4/2/10/6 under A 1/2/7/6, A falling to 3 lines: B stays at 4, since the new end is at or above it and n would take it to 2 or above... moves to the new end if that is below it",
+    "inside, wholly": "a block wholly inside A, end above L, stays on a rise and on a fall until A's new end"
   }
 }
