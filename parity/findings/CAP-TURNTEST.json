@@ -2993,5 +2993,10 @@
    "p6 add text",
    "p6 add code"
   ]
+ },
+ "causes": {
+  "p8 shape lower, wider west, nudged": "The desktop sort has a cycle: Shape and Line start at one place, Line is left of Code with no column in common, Code is above Shape. No single order. Oracle Code, Shape, Line; ours Shape, Line, Code. No rule read.",
+  "p6 add embed, add line, add button, add text, add code": "A new Accordion is 5 rows high on the oracle's phone (desktop 8); ours is 8, so every row after it is off. Order alone is right in all but add code.",
+  "p6 add code": "Also order: Code lands inside two 8 by 8 blocks of one size. The oracle puts it after the blocks before the second, ours right after the first. T11's size rule."
  }
 }
