@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 59 changes
+- **Today** · 60 changes
+  - P3: re-read real keys 12.5 with a real period; the sweep for periods typed by the old key ([#239](https://github.com/FRIKKern/fluid-editor/pull/239))
   - E4: the 680 endings the oracle links; text-check under 2 min, replays behind --full ([#238](https://github.com/FRIKKern/fluid-editor/pull/238))
-  - T9: our own tick, the marks' timing, the circle's hover and focus, the row's fonts ([#236](https://github.com/FRIKKern/fluid-editor/pull/236))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
