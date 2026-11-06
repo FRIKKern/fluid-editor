@@ -1,8 +1,9 @@
 // The oracle in a headless Chrome that never shows on screen:
-//   CDP_PORT=9371 eval "$(node scripts/oracle-headless.mjs)"
+//   eval "$(CDP_PORT=9371 node scripts/oracle-headless.mjs)"
 // prints: export ORACLE_SURFACE=cdp:9371, and ORACLE_CHROME_PID when this profile's Chrome was
 // started here (stop that pid when your lane ends). Starts or reuses the Chrome on CDP_PORT and
 // opens the editor's page list at 1600 by 1000.
+// CDP_PORT is required, with no default: every lane copies the recorder's profile, so nothing may start on it by accident.
 // The login comes from the owner's cmux tab: only *.squarespace.com cookies, read once and set
 // over the DevTools protocol. Values are never printed or written to a file by this script
 // (Chrome keeps them in its profile under /tmp). --from surface:N names the tab, otherwise the
@@ -13,8 +14,9 @@ import { evalJs, goto, viewport, pause } from './lib/cmux.mjs';
 
 const ORACLE = 'https://halibut-keyboard-jlhd.squarespace.com/config/pages';
 const args = process.argv.slice(2);
-const port = Number(process.env.CDP_PORT || 9350);
+const port = Number(process.env.CDP_PORT);
 const say = (m) => console.error(`oracle-headless: ${m}`);
+if (!port) { say('set CDP_PORT to your lane\'s oracle port: eval "$(CDP_PORT=<port> node scripts/oracle-headless.mjs)"'); process.exit(2); }
 
 function findTab() {
   if (args.includes('--from')) return args[args.indexOf('--from') + 1];
