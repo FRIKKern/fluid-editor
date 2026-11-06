@@ -11,7 +11,7 @@ import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHt
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPanelTop, sectionLook } from './section-layouts.js';
 import { artSeg, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
-import { phoneOrder, newBlockSlot } from './phone-order.js';
+import { phoneOrder, newBlockSlot, followDesktopMove } from './phone-order.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
@@ -103,8 +103,9 @@ function followPhoneRows(before) {
   for (const s of model.sections) {
     const was = old.sections.find((o) => o.id === s.id);
     if (!was || editing?.sid === s.id || JSON.stringify(was.blocks) === JSON.stringify(s.blocks)) continue;
+    const reflowed = phoneFollowsMove(s, was);
     const next = phoneOrder(s.blocks);
-    if (next.every((b, k) => b === s.blocks[k])) continue;
+    if (next.every((b, k) => b === s.blocks[k])) { if (reflowed) renderSectionDom(s.id); continue; }
     s.blocks.splice(0, s.blocks.length, ...next);
     const fe = sectionEl(s.id) && feEl(s.id);
     if (!fe) continue;
@@ -115,6 +116,21 @@ function followPhoneRows(before) {
       if (el === at) { do at = at.nextElementSibling; while (at && !at.matches('.fe-block')); } else fe.insertBefore(el, at);
     }
   }
+}
+
+// A section built here follows a single desktop move on the phone until the phone is moved by hand
+// (CAP-DESKMOVE*.json). A saved page has no flag: a saved section can't be read (0006), so it stays.
+function phoneFollowsMove(s, was) {
+  if (!s.phoneFollows) return false;
+  const start = (x, name) => x.layout[name].area.slice(0, 2).join();
+  const size = (x) => { const a = x.layout.desktop.area; return `${a[2] - a[0]},${a[3] - a[1]}`; };
+  const same = s.blocks.flatMap((b) => { const o = was.blocks.find((x) => x.id === b.id); return o ? [[b, o]] : []; });
+  if (bp === 'mobile') {
+    if (same.some(([b, o]) => start(b, 'mobile') !== start(o, 'mobile'))) s.phoneFollows = false;
+    return false;
+  }
+  const moved = same.filter(([b, o]) => start(b, 'desktop') !== start(o, 'desktop') && size(b) === size(o));
+  return moved.length === 1 && followDesktopMove(s, moved[0][0].id);
 }
 
 function undo() {

@@ -42,5 +42,5 @@ export function addSectionPanelHtml(current = 'Intro', saved = [], size = 'mediu
 // A blank section as the oracle's Add Blank made it (ADDSECTION.json, CAP-BLANKSECTION.json): no theme,
 // medium height, 8 rows, 2 on phones, no blocks. The gap was not measured: the one most demo sections use.
 export function blankSection(id) {
-  return { id, theme: '', height: 'medium', valign: 'middle', contentWidth: 'wide', halign: 'center', gap: 11, rows: { mobile: 2, desktop: 8 }, blocks: [] };
+  return { id, theme: '', height: 'medium', valign: 'middle', contentWidth: 'wide', halign: 'center', gap: 11, rows: { mobile: 2, desktop: 8 }, phoneFollows: true, blocks: [] };
 }

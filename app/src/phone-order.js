@@ -48,3 +48,31 @@ export function newBlockSlot(blocks, w, h, place = [1, 2]) {
   if (inside >= 0) return inside;
   return blocks.reduce((last, b, k) => (key(b.layout.desktop.area) <= key(place) ? k + 1 : last), 0);
 }
+
+// A desktop move in a section built here, whose phone nobody moved by hand, sets the phone order
+// again (CAP-DESKMOVE*.json, CAP-ORDER.json): blocks with no column in common go left first, the
+// others top first, then left first, and blocks at one place keep their order. A moved Line goes
+// after the blocks it shares columns with. Inferred from those reads. Rows run on from 1 and each
+// block keeps its height. Returns true if a block moved.
+export function followDesktopMove(s, movedId) {
+  const box = (b) => b.layout.desktop.area;
+  const before = (a, b) => {
+    const A = box(a), B = box(b);
+    if (A[3] <= B[1]) return -1;
+    if (B[3] <= A[1]) return 1;
+    if (a.id === movedId && a.type === 'line') return 1;
+    if (b.id === movedId && b.type === 'line') return -1;
+    return A[0] - B[0] || A[1] - B[1];
+  };
+  const stack = [...s.blocks].sort((a, b) => a.layout.mobile.area[0] - b.layout.mobile.area[0]);
+  stack.sort(before);
+  let row = 1, changed = false;
+  for (const b of stack) {
+    const a = b.layout.mobile.area, h = a[2] - a[0];
+    if (a[0] !== row) changed = true;
+    b.layout.mobile.area = [row, a[1], row + h, a[3]];
+    row += h;
+  }
+  s.rows.mobile = Math.max(s.rows.mobile, row - 1);
+  return changed;
+}
