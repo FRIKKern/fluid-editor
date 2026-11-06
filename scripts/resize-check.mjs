@@ -16,10 +16,12 @@ const FRESH = (name) => LANDING.fromU5[name] ?? LANDING.fresh[name]?.area;
 // Named misses: on the oracle these types hold live content whose reads change from run to run
 // (STANDINS.json). Ours are stand-ins of the right size with no such content.
 const CONTENT = { Summary: ['se', 's', 'e'], Zola: ['s', 'e'], Bandsintown: ['se', 's', 'e'] };
+// Under 0005: the content needs an outside service and a real account or listing. Still named, never dropped.
+const OUT_OF_SCOPE = ['Zola', 'Bandsintown'];
 const named = [];
 let pass = 0, total = 0;
 const results = [];
-const add = (what, ok, detail, known = false) => { total++; if (ok) pass++; else if (known) named.push(what); results.push({ what, ok, ...(!ok && known ? { named: true } : {}) }); console.log(`${what.padEnd(34)} ${ok ? 'match' : `${known ? 'NAMED' : 'DIFF'} ${detail}`}`); };
+const add = (what, ok, detail, known = false) => { total++; if (ok) pass++; else if (known) named.push(what); results.push({ what, ok, ...(!ok && known ? { named: true, ...(OUT_OF_SCOPE.includes(what.split(' ')[0]) ? { outOfScope: '0005' } : {}) } : {}) }); console.log(`${what.padEnd(34)} ${ok ? 'match' : `${known ? 'NAMED' : 'DIFF'} ${detail}`}`); };
 const same = (a, b) => a.join() === b.join();
 
 ensureVisible(S);

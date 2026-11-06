@@ -1104,7 +1104,7 @@
  },
  "unsteady": {
   "Summary": {
-   "why": "Its three items, pictures and layout come from the site's collections. The same first pull up gave 11 rows in one run and 14 in another; its reads move as its pictures load.",
+   "why": "A new Summary gets different items each time, with different picture and text heights. The same first pull gave 11 rows in one run and 14 in another, settled, with all pictures loaded.",
    "walk": [
     [
      "start",
@@ -1243,6 +1243,236 @@
      1047.1,
      564.3
     ]
+   },
+   "settled": {
+    "how": "The same setup, four new blocks on 2026-11-06. Before each read, area and content stayed the same for 6 s with all three pictures loaded.",
+    "runs": [
+     {
+      "fresh": {
+       "area": [
+        1,
+        2,
+        12,
+        20
+       ],
+       "thumbs": [
+        309,
+        309,
+        309
+       ],
+       "content": 427
+      },
+      "steps": [
+       [
+        "s,0,-30",
+        [
+         1,
+         2,
+         12,
+         20
+        ],
+        [
+         309,
+         309,
+         309
+        ],
+        [
+         427,
+         427,
+         427
+        ]
+       ]
+      ]
+     },
+     {
+      "fresh": {
+       "area": [
+        1,
+        2,
+        12,
+        20
+       ],
+       "thumbs": [
+        206,
+        206,
+        412
+       ],
+       "content": 530
+      },
+      "steps": [
+       [
+        "s,0,-30",
+        [
+         1,
+         2,
+         15,
+         20
+        ],
+        [
+         206,
+         206,
+         412
+        ],
+        [
+         324,
+         324,
+         530
+        ]
+       ]
+      ]
+     },
+     {
+      "fresh": {
+       "area": [
+        1,
+        2,
+        12,
+        20
+       ],
+       "thumbs": [
+        309,
+        309,
+        206
+       ],
+       "content": 427
+      },
+      "steps": [
+       [
+        "se,2,1",
+        [
+         1,
+         2,
+         13,
+         22
+        ],
+        [
+         246,
+         246,
+         164
+        ],
+        [
+         383,
+         383,
+         325
+        ]
+       ],
+       [
+        "s,0,-2",
+        [
+         1,
+         2,
+         11,
+         22
+        ],
+        [
+         246,
+         246,
+         164
+        ],
+        [
+         383,
+         383,
+         325
+        ]
+       ],
+       [
+        "e,-2,0",
+        [
+         1,
+         2,
+         11,
+         20
+        ],
+        [
+         309,
+         309,
+         206
+        ],
+        [
+         427,
+         427,
+         324
+        ]
+       ]
+      ]
+     },
+     {
+      "fresh": {
+       "area": [
+        1,
+        2,
+        12,
+        20
+       ],
+       "thumbs": [
+        309,
+        309,
+        206
+       ],
+       "content": 427
+      },
+      "steps": [
+       [
+        "se,2,1",
+        [
+         1,
+         2,
+         13,
+         22
+        ],
+        [
+         246,
+         246,
+         164
+        ],
+        [
+         383,
+         407,
+         301
+        ]
+       ],
+       [
+        "s,0,-2",
+        [
+         1,
+         2,
+         12,
+         22
+        ],
+        [
+         246,
+         246,
+         164
+        ],
+        [
+         383,
+         407,
+         301
+        ]
+       ],
+       [
+        "e,-2,0",
+        [
+         1,
+         2,
+         12,
+         20
+        ],
+        [
+         309,
+         309,
+         206
+        ],
+        [
+         427,
+         427,
+         324
+        ]
+       ]
+      ]
+     }
+    ],
+    "result": "They differ. s far up from fresh: 11 rows, then 14. se +2,+1, s -2, e -2: 12, 10, 10 rows, then 12, 11, 11 rows. A new Summary gets different items each time, with different picture and text heights, so it is not load timing. Neither run gave the 15, 13, 13 rows of 2026-11-04."
    }
   },
   "Zola": {

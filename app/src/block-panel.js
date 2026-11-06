@@ -402,6 +402,16 @@ function socialDesignHtml(c, d, open, pairs) {
 // Map (T11.json): the map's values stay on the block.
 const mapThumb = (id) => `<svg class="bp-map-thumb" viewBox="0 0 400 400" style="${mapVars(id)}" aria-hidden="true">${mapArt(false)}</svg>`;
 export const mapStylesHtml = (cur) => MAP_STYLES.map(([name, id]) => `<button type="button" role="option" aria-selected="${id === cur}" class="bp-map-opt${id === cur ? ' is-on' : ''}" data-map-pick="${id}">${mapThumb(id)}<span>${name}</span>${id === cur ? pi('<path d="M5 12l5 5 9-10"/>') : ''}</button>`).join('');
+// A form's Content tab (FORMADD.json). Form Name and Button Text work; the others are shown faded.
+function formContentHtml(c) {
+  const f = (key, label, v) => `<label class="bp-form-f"><span>${label}</span><input type="text" aria-label="${label}" data-content="${key}" value="${esc(v)}"></label>`;
+  const row = (label, v = '') => `<button type="button" class="bp-form-nav" disabled data-unbuilt title="Not built yet"><span>${label}</span>${v ? `<em>${v}</em>` : ''}${pi('<path d="M9 6l6 6-6 6"/>')}</button>`;
+  const act = (label) => `<button type="button" class="bp-form-act" disabled data-unbuilt title="Not built yet">${label}</button>`;
+  const head = (t) => `<div class="bp-subhead">${t}</div>`;
+  return f('formName', 'Form Name', c.formName) + f('button', 'Button Text', c.button) + row('Edit Form Fields')
+    + head('Submissions') + row('Edit Post-Submit') + act('Manage Submissions') + act('Export Form Submissions')
+    + head('Email Notification') + row('Additional Storage') + row('Google reCAPTCHA', 'On');
+}
 function mapContentHtml(c) {
   const f = (key, label, ph) => `<label class="bp-mapf"><span class="bp-soccap">${label}</span><input class="bp-socf" type="text" aria-label="${label}" placeholder="${ph}" data-content="${key}" value="${esc(c[key] || '')}"></label>`;
   return f('mapName', 'Business Name', 'Squarespace') + f('mapAddress', 'Address', '8 Clarkson St') + f('mapCity', 'City, State, Zip Code', 'New York, NY, 10014') + f('mapCountry', 'Country', 'United States');
@@ -424,7 +434,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   const box = ([k, l, u, min, max, axis]) => `<label class="bp-box sc-box"><input type="number" data-design="${k}" aria-label="${axis ? `${l} ${axis}` : l}" min="${min}" max="${max}" value="${d[k]}"><span class="bp-unit">${u}${axis ? ` <b>${axis}</b>` : ''}</span>${HITS}${resetBtn(`data-design-reset="${k}"`, Number(d[k]) !== DESIGN_DEFAULTS[k])}</label>`;
   let body;
   if (tab === 'Content' && content) {
-    body = image ? imageContentHtml(content) : content.kind === 'social' ? socialContentHtml(content, open) : content.kind === 'map' ? mapContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
+    body = image ? imageContentHtml(content) : content.kind === 'social' ? socialContentHtml(content, open) : content.kind === 'form' ? formContentHtml(content) : content.kind === 'map' ? mapContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
   } else if (tab === 'Design' && content?.kind === 'accordion') {
     body = accordionDesignHtml(content, open, d);
   } else if (tab === 'Design') {
