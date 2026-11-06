@@ -91,9 +91,9 @@
   "errors": [],
   "leftDirty": false,
   "answer": "rgba(0, 0, 0, 0.11) 0px 0px 25px 0px on the canvas host (phone: 586, 55, 428, 945), and on a 0, 0, 1600, 1000 box in both views. The old fit from pixels said 24 px.",
-  "ours": "Phone: rgba(0, 0, 0, 0.11) 0px 0px 24px 0px on #site-frame. Desktop: none. The desktop box fills the window, so its shadow has nowhere to show; not checked by pixels.",
+  "ours": "Phone: rgba(0, 0, 0, 0.11) 0px 0px 25px 0px on #site-frame (24 px when read). Desktop: none. The desktop box fills the window, so its shadow has nowhere to show; not checked by pixels.",
   "differs": [
-    "Phone canvas shadow: oracle blur 25 px, ours 24 px."
+    "Phone canvas shadow: oracle blur 25 px, ours 24 px, until ours moved to 25 px."
   ],
   "pressed": "Named presses with an on-top check. Panel opens go through hover and press by name. Escape closed each panel and the Exit dialog. No Save, no upload, no Reset."
 }
