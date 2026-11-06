@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 26 changes
+- **Today** · 27 changes
+  - T7, T10, T14: the player's Settings, Corner on an empty video, code and embed rows, Mode in the view, Markdown, three landings ([#205](https://github.com/FRIKKern/fluid-editor/pull/205))
   - T4: done, every part outside 0005 is built ([#204](https://github.com/FRIKKern/fluid-editor/pull/204))
-  - T4: Edit with AI and Reshoot under 0005; enterEdit reads an empty page and leaves the phone view ([#203](https://github.com/FRIKKern/fluid-editor/pull/203))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
