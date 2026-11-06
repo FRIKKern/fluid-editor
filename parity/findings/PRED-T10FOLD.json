@@ -1,0 +1,33 @@
+{
+  "item": "PRED-T10FOLD",
+  "question": "T10: written and pushed before reading CAP-T10FOLD5 and CAP-T10FOLD6. What folding does beside a fold, and what folds in each Mode.",
+  "beside": {
+    "chevron then a key": "the key lands: the press doesn't take focus away",
+    "click right of the fold, key": "`# a…Z`: text after the hidden lines, on the fold's own row",
+    "key before the fold": "`# aZ…`",
+    "one right, key": "`# a…Z`: a fold is one stop for the arrow keys",
+    "enter before the fold": "row 1 `# a`, row 2 holds the fold",
+    "delete before the fold": "the hidden lines go, `# a` stays, row 2 `# d`",
+    "backspace after the fold": "the hidden lines go, as above",
+    "backspace on the next line": "`# a…# d`: the fold stays, the next line joins it",
+    "up from below, key": "the key lands on the fold's row",
+    "selection over a fold deleted": "the hidden lines go with it",
+    "quote over a fold": "every line under the selection gets `> `, hidden ones too",
+    "key below a fold": "fold kept, and Meta+z keeps it",
+    "view with new text": "no fold in the view, and its own fold on closing doesn't reach the panel: the panel's fold stays when the text starts the same"
+  },
+  "markdown": {
+    "a heading": "folds to the last thing before the next heading of its level or higher: blank lines there stay shown",
+    "a setext heading": "folds the same way as `#`: `a\\n===\\nb\\nc` shows `a…`",
+    "setext stops atx": "`# a` with a level 1 setext under it has no chevron",
+    "a list": "each item with more than one line has one, a nested item too",
+    "a quote": "one on its first line; a paragraph of several lines further in has its own",
+    "a rule, a link definition": "`---` none; a link definition `[a]: b` none, and `c\\nd` under it one"
+  },
+  "modes": {
+    "css": "`a {…}`, the `}` stays beside the placeholder and whatever follows it; a comment of several lines folds too",
+    "javascript": "`function f() {…};`, `[…]` inside, a comment of several lines, `if (x) {…} else {`",
+    "html": "`<div>…</div>`: the closing tag stays beside it; a tag across lines folds to its own `>`",
+    "plain": "no chevrons; a fold doesn't survive changing Mode"
+  }
+}
