@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 28 changes
+- **Today** · 29 changes
+  - A2: back to partial: the fresh test found a cycle in the desktop sort ([#207](https://github.com/FRIKKern/fluid-editor/pull/207))
   - T7, T10, T14: back to partial, new reads show parts that differ ([#206](https://github.com/FRIKKern/fluid-editor/pull/206))
-  - T7, T10, T14: the player's Settings, Corner on an empty video, code and embed rows, Mode in the view, Markdown, three landings ([#205](https://github.com/FRIKKern/fluid-editor/pull/205))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
