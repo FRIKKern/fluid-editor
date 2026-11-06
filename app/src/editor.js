@@ -4202,14 +4202,15 @@ for (const host of [panel, sectionPanel]) {
   });
 }
 function chromeSid() { return editSid || sel?.sid || hoverSid; }
-// The chrome fades out over 0.15s when the mouse leaves; a gesture takes it away at once (SECTIONBAR.json, fade).
+// The chrome fades out over 0.15s when the mouse leaves, and the outline over 0.2s; a gesture takes it away at once
+// (SECTIONBAR.json, fade; CAP-U9FADE.json).
 let chromeOut = 0;
 function hideChrome(fade) {
   if (chrome.hidden || (fade && chromeOut)) return;
   clearTimeout(chromeOut); chromeOut = 0;
   if (!fade) { chrome.classList.remove('is-out'); chrome.hidden = true; return; }
-  chrome.classList.add('is-out');
-  chromeOut = setTimeout(() => { chromeOut = 0; chrome.classList.remove('is-out'); chrome.hidden = true; }, 150);
+  chrome.classList.remove('is-outline-in'); chrome.classList.add('is-out');
+  chromeOut = setTimeout(() => { chromeOut = 0; chrome.classList.remove('is-out'); chrome.hidden = true; }, 200);
 }
 function placeChrome() {
   const sid = chromeSid();
@@ -4221,10 +4222,13 @@ function placeChrome() {
   const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length && !marquee;
   const hasLayouts = !phone && !!sectionMix(S(sid));
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}|${hasLayouts}`;
-  const appears = chrome.hidden || !!chromeOut || chrome.dataset.key?.split('|')[0] !== sid;
+  const newSection = chrome.hidden || chrome.dataset.key?.split('|')[0] !== sid;
+  const appears = newSection || !!chromeOut;
   if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); }
-  if (chrome.dataset.key !== key) { chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
+  // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
+  if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
+  if (newSection) { chrome.classList.remove('is-outline-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in'); }
   const header = k === 0 ? doc.getElementById('header') : null;
   const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
   // The Add Section buttons sit on the sum of the rounded heights above, not on the section's edge
