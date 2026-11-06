@@ -50,12 +50,12 @@ export function newBlockSlot(blocks, w, h, place = [1, 2]) {
 }
 
 // How a section built here sets its phone order again (CAP-DESKMOVE*, CAP-NEWORDER*, CAP-CYCLE*,
-// CAP-TURNTEST*). Inferred from those reads. Blocks are placed one at a time, top first, then left
-// first: each goes after the last block it shares columns with, and past blocks to its left that it
-// shares none with. A smaller block with at least 80% of its area inside a bigger one (read between
-// 75 and 83%) waits for the first of the smallest such blocks. If the old stack starts at phone row 1 with a block one row high, the
-// order turns so that block lands last: it goes last, then first on the next edit, whichever block
-// was edited.
+// CAP-TURNTEST*). Inferred from those reads. A smaller block with at least 80% of its area inside a
+// bigger one (read between 75 and 83%) belongs to the first of the smallest such blocks, and comes
+// right after it with the others it holds. Blocks taken in that order, top first, then left first,
+// each go after the last block they share columns with, and past blocks to their left that they
+// share none with. If the old stack starts at phone row 1 with a block one row high, the order turns
+// so that block lands last: it goes last, then first on the next edit, whichever block was edited.
 const stackOf = (blocks) => [...blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
 const startsOneRow = (b) => b.layout.mobile.area[0] === 1 && b.layout.mobile.area[2] === 2;
 const box = (b) => b.layout.desktop.area;
@@ -70,15 +70,12 @@ function desktopOrder(stack) {
   const sorted = [...stack].sort((p, q) => box(p)[0] - box(q)[0] || box(p)[1] - box(q)[1]);
   // The first of the smallest blocks this one sits inside.
   const host = (b) => sorted.filter((o) => inside(b, o)).reduce((best, o) => (!best || boxArea(box(o)) < boxArea(box(best)) ? o : best), null);
-  const tops = [], waiting = [];
+  const tops = [];
   const place = (b) => {
     tops.push(b);
-    for (const w of waiting.filter((x) => host(x) === b)) { waiting.splice(waiting.indexOf(w), 1); place(w); }
+    sorted.filter((x) => host(x) === b).forEach(place);
   };
-  for (const b of sorted) {
-    if (host(b) && !tops.includes(host(b))) waiting.push(b);
-    else place(b);
-  }
+  sorted.filter((b) => !host(b)).forEach(place);
   const out = [];
   for (const b of tops) {
     let at = out.reduce((far, o, k) => (shareColumns(box(o), box(b)) ? k + 1 : far), 0);
@@ -113,21 +110,9 @@ export function followDesktopEdit(s) {
   return layStack(s, old, turned(desktopOrder(old), old[0]));
 }
 
-// A new block in such a section; it isn't in s.blocks yet. It takes its place by size, then the order
-// turns. When it will turn, a block taller than one row goes before the first block at its place
-// that is shorter, or as tall and narrower, or before the first there if one has its size; or else
-// after the last there. Not ruled: a same-size pair can swap on the next add (CAP-NEWORDER5 w5).
-export function followNewBlock(s, block, w, h, place = [1, 2]) {
-  const old = stackOf(s.blocks), order = desktopOrder(old), first = old[0];
-  const here = (b) => box(b)[0] === place[0] && box(b)[1] === place[1];
-  const size = (b) => [box(b)[3] - box(b)[1], box(b)[2] - box(b)[0]];
-  let k = -1;
-  if (first && startsOneRow(first) && h > 1) {
-    const twin = order.some((b) => here(b) && size(b)[0] === w && size(b)[1] === h);
-    k = order.findIndex((b) => here(b) && (twin || size(b)[1] < h || (size(b)[1] === h && size(b)[0] < w)));
-    if (k < 0) k = order.reduce((far, b, j) => (here(b) ? j + 1 : far), -1);
-  }
-  if (k < 0) k = newBlockSlot(order, w, h, place);
-  order.splice(k, 0, block);
-  return layStack(s, old, turned(order, first));
+// A new block in such a section; it isn't in s.blocks yet. It comes last in the old stack, so it
+// goes behind blocks at its own place with no holder, then the same rule runs.
+export function followNewBlock(s, block) {
+  const old = stackOf(s.blocks);
+  return layStack(s, old, turned(desktopOrder([...old, block]), old[0]));
 }

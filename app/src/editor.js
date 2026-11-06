@@ -3264,7 +3264,7 @@ function addBlock(sid, name) {
     desktop: { area: [1, 2, 1 + h, 2 + w], z: zTop('desktop'), justify: 'flex-start', align: 'flex-start' },
     mobile: { area: [mobileEnd, 2, mobileEnd + h, 10], z: zTop('mobile'), justify: 'flex-start', align: 'flex-start' },
   } };
-  if (s.phoneFollows) followNewBlock(s, block, w, h);
+  if (s.phoneFollows) followNewBlock(s, block);
   else for (const b of stack.slice(slot)) {
     const a = b.layout.mobile.area;
     b.layout.mobile.area = [a[0] + h, a[1], a[2] + h, a[3]];

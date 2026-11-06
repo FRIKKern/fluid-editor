@@ -1,12 +1,16 @@
 {
- "item": "A2",
+ "item": "CAP-NEWORDER7",
+ "oracle": "/gestures-probe",
+ "capturedAt": "2026-11-06",
+ "engine": "chrome",
  "question": "New blocks on a big first block, on a two-row first block, and on Map and Scrolling. Predictions written before any of these is read.",
- "ruleAt": "8dc77e19e437d049bf133fe03b6c25d738e68bf0",
- "scoring": "A case hits when the read has the same blocks by z in the same phone order with the same phone rows. A different desktop area is a setup difference, listed apart.",
  "steps": [
   [
    "toPage",
    "Gestures Probe"
+  ],
+  [
+   "enter"
   ],
   [
    "blank"
@@ -359,6 +363,527 @@
    }
   ]
  ],
+ "reads": {
+  "c11 add video": {
+   "stack": [
+    {
+     "id": "3_438",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/9/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c11 add line": {
+   "stack": [
+    {
+     "id": "3_438",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/9/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "3_697",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "9/2/10/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c11 add embed": {
+   "stack": [
+    {
+     "id": "3_438",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/9/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "3_697",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "9/2/10/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "3_912",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "10/2/18/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c11 add code": {
+   "stack": [
+    {
+     "id": "3_438",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/9/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "_1141",
+     "type": "csr",
+     "desktop": "1/2/7/6",
+     "phone": "9/2/15/10",
+     "z": [
+      "4",
+      "4"
+     ]
+    },
+    {
+     "id": "3_697",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "15/2/16/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "3_912",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "16/2/24/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c11 add text": {
+   "stack": [
+    {
+     "id": "3_438",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/9/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "_1141",
+     "type": "csr",
+     "desktop": "1/2/7/6",
+     "phone": "9/2/15/10",
+     "z": [
+      "4",
+      "4"
+     ]
+    },
+    {
+     "id": "_1370",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "15/2/17/10",
+     "z": [
+      "5",
+      "5"
+     ]
+    },
+    {
+     "id": "3_697",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "17/2/18/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "3_912",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "18/2/26/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c12 add button": {
+   "stack": [
+    {
+     "id": "4_420",
+     "type": "csr",
+     "desktop": "1/2/3/8",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c12 add code": {
+   "stack": [
+    {
+     "id": "4_420",
+     "type": "csr",
+     "desktop": "1/2/3/8",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "4_644",
+     "type": "csr",
+     "desktop": "1/2/7/6",
+     "phone": "3/2/9/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c12 add text": {
+   "stack": [
+    {
+     "id": "4_644",
+     "type": "csr",
+     "desktop": "1/2/7/6",
+     "phone": "1/2/7/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "4_865",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "7/2/9/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "4_420",
+     "type": "csr",
+     "desktop": "1/2/3/8",
+     "phone": "9/2/11/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c12 add image": {
+   "stack": [
+    {
+     "id": "4_865",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "4_420",
+     "type": "csr",
+     "desktop": "1/2/3/8",
+     "phone": "3/2/5/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "_1082",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "5/2/11/10",
+     "z": [
+      "4",
+      "4"
+     ]
+    },
+    {
+     "id": "4_644",
+     "type": "csr",
+     "desktop": "1/2/7/6",
+     "phone": "11/2/17/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c12 add video": {
+   "stack": [
+    {
+     "id": "_1320",
+     "type": "csr",
+     "desktop": "1/2/9/10",
+     "phone": "1/2/9/10",
+     "z": [
+      "5",
+      "5"
+     ]
+    },
+    {
+     "id": "4_865",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "9/2/11/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "4_420",
+     "type": "csr",
+     "desktop": "1/2/3/8",
+     "phone": "11/2/13/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "_1082",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "13/2/19/10",
+     "z": [
+      "4",
+      "4"
+     ]
+    },
+    {
+     "id": "4_644",
+     "type": "csr",
+     "desktop": "1/2/7/6",
+     "phone": "19/2/25/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c13 add map": {
+   "stack": [
+    {
+     "id": "0_420",
+     "type": "csr",
+     "desktop": "1/2/13/10",
+     "phone": "1/2/13/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c13 add code": {
+   "stack": [
+    {
+     "id": "0_420",
+     "type": "csr",
+     "desktop": "1/2/13/10",
+     "phone": "1/2/13/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "0_778",
+     "type": "csr",
+     "desktop": "1/2/7/6",
+     "phone": "13/2/19/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c13 add line": {
+   "stack": [
+    {
+     "id": "0_420",
+     "type": "csr",
+     "desktop": "1/2/13/10",
+     "phone": "1/2/13/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "0_778",
+     "type": "csr",
+     "desktop": "1/2/7/6",
+     "phone": "13/2/19/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "_1004",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "19/2/20/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c14 add scrolling": {
+   "stack": [
+    {
+     "id": "3_420",
+     "type": "csr",
+     "desktop": "1/2/3/26",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c14 add line": {
+   "stack": [
+    {
+     "id": "3_420",
+     "type": "csr",
+     "desktop": "1/2/3/26",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "3_712",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "c14 add text": {
+   "stack": [
+    {
+     "id": "3_420",
+     "type": "csr",
+     "desktop": "1/2/3/26",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "3_927",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "3/2/5/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "3_712",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "5/2/6/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  }
+ },
+ "errors": [],
+ "visited": "Gestures Probe",
+ "leftDirty": true,
  "predicted": {
   "c11 add video": [
    {
@@ -645,5 +1170,20 @@
    }
   ]
  },
- "reads": {}
+ "ruleAt": "8dc77e19e437d049bf133fe03b6c25d738e68bf0",
+ "scoring": "A case hits when the read has the same blocks by z in the same phone order with the same phone rows. A different desktop area is a setup difference, listed apart.",
+ "score": {
+  "strict": 12,
+  "orderOnly": 12,
+  "cases": 16,
+  "turnCasesKnown": 0,
+  "turnHits": 0,
+  "misses": [
+   "c11 add text",
+   "c12 add text",
+   "c12 add image",
+   "c12 add video"
+  ],
+  "desktopDiffers": []
+ }
 }

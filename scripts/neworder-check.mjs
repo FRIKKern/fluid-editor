@@ -13,7 +13,7 @@ await pause(1200);
 // Named misses, with no rule read yet.
 const KNOWN = new Set(JSON.parse(readFileSync(new URL('../parity/neworder-known.json', import.meta.url))));
 const ONLY = process.argv[2]?.split(',');
-const FILES = ONLY ?? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST', 'CAP-TURNTEST2', 'CAP-CYCLE', 'CAP-CYCLE2', 'CAP-CYCLE3'];
+const FILES = ONLY ?? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST', 'CAP-TURNTEST2', 'CAP-CYCLE', 'CAP-CYCLE2', 'CAP-CYCLE3', 'CAP-TURNTEST3', 'CAP-CYCLE4', 'CAP-NEWORDER7'];
 let quiet = false; // nothing selected since the last Escape, so another one is a wasted call
 const press = (k) => { if (k === 'Escape' && quiet) return; browser(S, 'press', k); quiet = k === 'Escape'; };
 // The oracle's blocks sit in phone order in the page, and a step names one by its place there.
