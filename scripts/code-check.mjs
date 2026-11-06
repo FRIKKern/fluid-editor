@@ -487,6 +487,126 @@ await pressAt(page('/about'));
 add('A filled one has', mdBox('#link-popover .lk-clear')?.[2] > 0, mdBox('#link-popover .lk-clear'));
 await key('Escape'); await pause(150);
 
+// The editors' look, against CAP-T10LOOK: every coloured span of the same text, the number column, the band, the selection.
+const LOOK = read('CAP-T10LOOK'), LOOK_TEXT = '# h1\n## h2\nplain **bold** *ital* `code` [a](/x) ~~del~~\n* item\n1. item\n> quote\n---\n```js\nfence\n```\n<b>html</b>\n![i](/y)\n[r]: /z';
+const lookIn = (root = '#block-panel') => evalJs(S, `(() => {
+  const B = document.querySelector('${root} .bp-code.is-look'), R = B.getBoundingClientRect(), f = B.querySelector('textarea');
+  const rel = (e) => { const q = e.getBoundingClientRect(); return [q.left - R.left, q.top - R.top, q.width, q.height]; };
+  const hl = B.querySelector('.bp-code-hl'), on = B.querySelector('.bp-code-n.is-on');
+  return JSON.stringify({
+    box: [R.width, R.height], bg: getComputedStyle(B).backgroundColor, value: f.value, scrollH: f.scrollHeight, hlH: hl.offsetHeight, wrap: getComputedStyle(hl).whiteSpace,
+    under: [...hl.children].map((l) => l.textContent).join('\\n'),
+    spans: [...hl.querySelectorAll('span')].map((e) => { const c = getComputedStyle(e); return [e.textContent, c.color, c.fontWeight, c.fontStyle, c.textDecorationLine, e.getBoundingClientRect().left - R.left]; }),
+    gutter: rel(B.querySelector('.bp-code-lines')), gutterColor: getComputedStyle(B.querySelector('.bp-code-lines')).color, rows: [...B.querySelectorAll('.bp-code-n')].map((e) => [e.textContent, ...rel(e)]),
+    on: on && rel(on), onBg: on && getComputedStyle(on).backgroundColor, band: rel(B.querySelector('.bp-code-band')), bandBg: getComputedStyle(B.querySelector('.bp-code-band')).backgroundColor,
+    sels: [...B.querySelectorAll('.bp-code-sel div')].map((e) => [...rel(e), getComputedStyle(e).backgroundColor]), placeholder: getComputedStyle(f, '::placeholder').color,
+    hlMove: hl.style.transform, line3: hl.children[2] ? rel(hl.children[2]) : null, row3: B.querySelectorAll('.bp-code-n')[2] ? rel(B.querySelectorAll('.bp-code-n')[2]) : null,
+  });
+})()`);
+const nearBox = (a, b, by = 0.6) => a.length === b.length && a.every((n, i) => Math.abs(n - b[i]) <= by);
+const lookRead = (name, cls) => LOOK.reads[name].panelCss.filter((e) => e.cls.split(' ').includes(cls));
+const lk0 = await freshMd();
+const emptyLook = lookIn();
+const edEl = lookRead('empty', 'cm-editor')[0];
+add('Editor box and colour', nearBox(emptyLook.box, edEl.box.slice(2)) && emptyLook.bg === edEl.bg, JSON.stringify([emptyLook.box, emptyLook.bg]));
+add('One digit: the numbers\' width', Math.abs(emptyLook.gutter[2] - lookRead('empty', 'cm-gutters')[0].box[2]) < 0.1, emptyLook.gutter[2]);
+add('Number colour', emptyLook.gutterColor === lookRead('empty', 'cm-gutters')[0].color, emptyLook.gutterColor);
+add('Placeholder colour', emptyLook.placeholder === lookRead('empty', 'cm-placeholder')[0].color, emptyLook.placeholder);
+add('The empty field has its band', emptyLook.band[3] === 22 && emptyLook.rows.length === 1, JSON.stringify(emptyLook.band));
+await setMd(LOOK_TEXT); await pause(150);
+const marks = lookIn(), oSpans = LOOK.reads.marks.panelCss.filter((e) => !e.cls.startsWith('cm-'));
+add('Marks: as many spans', marks.spans.length === oSpans.length, `${marks.spans.length} of ${oSpans.length}`);
+oSpans.forEach((o, n) => {
+  const m = marks.spans[n], want = [o.text, o.color, o.weight, o.style, o.deco];
+  add(`Mark ${n + 1}: ${o.text}`, !!m && want.join() === m.slice(0, 5).join() && Math.abs(m[5] - (o.box[0] - edEl.box[0])) <= 0.6, m && `${m.join()} wants ${want.join()} at ${o.box[0] - edEl.box[0]}`);
+});
+add('Two digits: the numbers\' width', Math.abs(marks.gutter[2] - lookRead('marks', 'cm-gutters')[0].box[2]) < 0.1, marks.gutter[2]);
+add('Under the colours, the same text', marks.under === LOOK_TEXT && marks.value === LOOK_TEXT, JSON.stringify(marks.under));
+const oLast = lookRead('selected', 'cm-activeLineGutter'), oLine = lookRead('selected', 'cm-activeLine')[0];
+add('The band is on the caret\'s line', nearBox(marks.band, [oLine.box[0] - edEl.box[0], oLine.box[1] - edEl.box[1], oLine.box[2], oLine.box[3]]), JSON.stringify(marks.band));
+add('Its number is lit the same', nearBox(marks.on, [0, oLast[0].box[1] - edEl.box[1], oLast[0].box[2] + oLast[1].box[2], 22]), JSON.stringify(marks.on));
+add('Band colour', marks.bandBg === oLine.bg && marks.onBg === oLast[0].bg, `${marks.bandBg} ${marks.onBg}`);
+selAll(); await pause(120);
+const allSel = lookIn(), oSel = lookRead('selected', 'cm-selectionBackground');
+add('The selection: as many pieces', allSel.sels.length === oSel.length, JSON.stringify(allSel.sels));
+oSel.forEach((o, n) => add(`The selection: piece ${n + 1}`, !!allSel.sels[n] && nearBox(allSel.sels[n].slice(0, 4), [o.box[0] - edEl.box[0], o.box[1] - edEl.box[1], o.box[2], o.box[3]]) && allSel.sels[n][4] === o.bg, JSON.stringify(allSel.sels[n])));
+caret(0); await pause(120);
+add('A caret draws none', lookIn().sels.length === 0, JSON.stringify(lookIn().sels));
+await pressBar('Undo'); await pause(250);
+const afterUndo = lookIn();
+add('Undo redraws the colours', afterUndo.under === afterUndo.value, JSON.stringify(afterUndo.under));
+await setMd('word'); selAll(); await pressAt(mdBtn('Bold'));
+const afterBold = lookIn();
+add('A bar press redraws them', afterBold.value === '**word**' && afterBold.under === '**word**' && afterBold.spans.length === 3, JSON.stringify(afterBold.spans));
+await setMd('a < b & c > d'); await pause(100);
+add('Marks in the text stay text', lookIn().under === 'a < b & c > d', lookIn().under);
+
+const LONG = 'a long line of words that runs on for much longer than the width of this editor panel can hold on one line so that it has to wrap\nnext';
+await setMd(LONG); caret(3); await pause(150);
+const wr = lookIn(), oWrap = LOOK.reads.wrapped.panelCss, oN1 = oWrap.find((e) => e.text === '1'), oN2 = oWrap.find((e) => e.text === '2');
+add('A wrapped line: one number that tall', wr.rows.length === 2 && wr.rows[0][4] === oN1.box[3] && wr.rows[1][4] === oN2.box[3], JSON.stringify(wr.rows));
+add('Its top', Math.abs(wr.rows[0][2] - (oN1.box[1] - edEl.box[1])) <= 0.6, wr.rows[0][2]);
+add('The band covers the whole line', wr.band[3] === oN1.box[3], JSON.stringify(wr.band));
+add('Field and colours wrap alike', wr.scrollH === Math.max(344, wr.hlH), `${wr.scrollH} ${wr.hlH}`);
+await setMd(`${'word '.repeat(60)}\n${'x'.repeat(200)}\n  two  spaces  `); await pause(150);
+const wrHard = lookIn();
+add('And on long words and spaces', wrHard.scrollH === Math.max(344, wrHard.hlH) && wrHard.hlH > 44, `${wrHard.scrollH} ${wrHard.hlH}`);
+await setMd(LONG); caret(3); await pause(150);
+caret(LONG.length); await pause(150);
+const wr2 = lookIn(), oLn2 = lookRead('caret on the second', 'cm-activeLine')[0];
+add('The band follows the caret', nearBox(wr2.band, [oLn2.box[0] - edEl.box[0], oLn2.box[1] - edEl.box[1], oLn2.box[2], oLn2.box[3]]), JSON.stringify(wr2.band));
+evalJs(S, `(() => { document.querySelector('#block-panel ${MD_FIELD}').blur(); return 'true'; })()`); await pause(120);
+add('It stays when focus leaves', lookIn().on?.[3] === 22, JSON.stringify(lookIn().on));
+
+await setMd(Array.from({ length: 30 }, (_, n) => n + 1).join('\n')); await pause(150);
+const many = lookIn(), oCont = lookRead('focus away', 'cm-content')[0];
+add('Thirty lines: the numbers\' width', Math.abs(many.gutter[2] - lookRead('many lines', 'cm-gutters')[0].box[2]) < 0.1, many.gutter[2]);
+add('Its full height', many.scrollH === oCont.box[3], many.scrollH);
+evalJs(S, `(async () => { const f = document.querySelector('#block-panel ${MD_FIELD}'); f.scrollTop = 100; await new Promise((res) => setTimeout(res, 120)); return 'true'; })()`);
+const sc = lookIn();
+add('Numbers and colours scroll together', Math.abs(sc.line3[1] - sc.row3[1]) <= 0.6, JSON.stringify([sc.line3, sc.row3]));
+add('The field scrolled them', Math.abs(sc.line3[1] - (11 + 44 - 100)) <= 0.6, sc.line3[1]);
+evalJs(S, `(() => { const f = document.querySelector('#block-panel ${MD_FIELD}'); f.setSelectionRange(0, 0); f.scrollTop = 0; return 'true'; })()`); await pause(120);
+
+// When Link lights (CAP-T10LOOK2's shots).
+const linkOn = () => evalJs(S, `(() => JSON.stringify(document.querySelector('${mdBtn('Link')}').classList.contains('is-on')))()`);
+const barLabel = () => evalJs(S, `(() => JSON.stringify(document.querySelector('#block-panel .bp-md-heading span').textContent))()`);
+for (const [what, text, at, want] of [['two plain lines', 'one\ntwo', 'all', false], ['a selected word', 'word', 'all', false], ['the caret in a link', '[a](/x)', 2, true], ['a selected link', '[a](/x)', 'all', true], ['lines ending in a link', 'one\n[a](/x)', 'all', true], ['a heading', '# h', 'all', false], ['a fence', '```\nfence\n```', 5, false], ['inline code', '`code`', 2, false]]) {
+  await setMd(text); if (at === 'all') selAll(); else caret(at); await pause(140);
+  add(`Link ${want ? 'lit' : 'dark'}: ${what}`, linkOn() === want, linkOn());
+}
+await setMd('# h'); selAll(); await pause(140);
+add('A selected heading names itself', barLabel() === 'Heading 1', barLabel());
+await pressAt(mdBtn('Link')); await pause(120);
+add('Link is lit while its form is open', linkOn() === true, linkOn());
+await key('Escape'); await pause(150);
+await openPanel(lk0);
+await setMd('word'); caret(1); await pause(140);
+add('And dark when it closes', linkOn() === false, linkOn());
+
+// The view has the same look, and so does a Code block, by its mode.
+await setMd('# h'); evalJs(S, `(() => { document.querySelector('#block-panel [data-code-expand]').click(); return 'true'; })()`); await pause(200);
+const inModal = lookIn('#code-modal');
+add('The view: Markdown has its colours', inModal.spans.length === 2 && inModal.band[3] === 22 && inModal.rows.length === 1, JSON.stringify(inModal.spans));
+await pressAt('.code-modal-close'); await pause(200);
+await key('Escape'); await pause(200);
+const codeId = evalJs(S, `(async () => { const sid = fe.model.sections[1].id; fe.addBlock(sid, 'Code'); await new Promise((res) => setTimeout(res, 300)); return JSON.stringify(fe.model.sections[1].blocks.at(-1).id); })()`);
+await openPanel(codeId);
+const setCodeMode = async (v) => { evalJs(S, `(() => { document.querySelector('#block-panel select[data-content="codeMode"]').focus(); return 'true'; })()`); await pause(150); add(`The Mode list holds its press: ${v}`, evalJs(S, `(() => JSON.stringify(document.activeElement?.dataset?.content === 'codeMode'))()`) === true, evalJs(S, `(() => JSON.stringify(document.activeElement?.tagName))()`)); evalJs(S, `(() => { const m = document.querySelector('#block-panel select[data-content="codeMode"]'); m.value = '${v}'; m.dispatchEvent(new Event('change', { bubbles: true })); return 'true'; })()`); await pause(250); };
+await setCodeMode('html');
+await setText(CODE_FIELD, '<b>x</b>'); await pause(150);
+const htmlLook = lookIn();
+add('HTML: tag names green, brackets plain', htmlLook.spans.map((q) => `${q[0]} ${q[1]}`).join() === '< rgb(14, 14, 14),b rgb(0, 136, 85),> rgb(14, 14, 14),</ rgb(14, 14, 14),b rgb(0, 136, 85),> rgb(14, 14, 14)', JSON.stringify(htmlLook.spans));
+await setText(CODE_FIELD, LONG); await pause(150);
+add('HTML wraps', lookIn().rows[0][4] === 66 && lookIn().wrap === 'break-spaces', JSON.stringify(lookIn().rows));
+await setCodeMode('css'); await pause(100);
+const cssLook = lookIn();
+add('CSS doesn\'t wrap', cssLook.rows[0][4] === 22 && cssLook.wrap === 'pre', JSON.stringify(cssLook.rows));
+add('CSS locks the source switch at once', evalJs(S, `(() => { const r = document.querySelector('#block-panel .bp-code-source'); return JSON.stringify(r.classList.contains('is-locked') && r.querySelector('input').checked); })()`) === true, 'not locked');
+evalJs(S, `(() => { document.querySelector('#block-panel [data-code-expand]').click(); ${modeIn('html')} return 'true'; })()`); await pause(250);
+add('The view: changing the mode redraws', lookIn('#code-modal').wrap === 'break-spaces' && lookIn('#code-modal').rows.length === 2, JSON.stringify(lookIn('#code-modal').rows));
+evalJs(S, `(() => { document.querySelector('#code-modal .code-modal-close').click(); return 'true'; })()`); await pause(200);
+
 console.log(`Code and embed: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/code-check.json', import.meta.url), JSON.stringify({ check: 'code and embed panels', pass, total, results }, null, 2) + '\n');
 if (!total || pass !== total) process.exitCode = 1;
