@@ -33,6 +33,7 @@ Out of scope now:
 - **Map tiles and the address lookup (T11).** A hosted service. Ours draws a plain local map with a pin, copies nothing from the host's or the service's tiles and leaves out their legal note; every panel control works. Whether the address fields write outside the block is unknown: nobody read it, and they are not typed into on the trial site.
 - **The social rows' writes on the trial site (T11).** The rows are one list for the whole site, written at once with no Save. What Add, edit, hide, delete and reorder do there beyond the reads in `parity/findings/T11.json` stays unread. Ours keeps the list in the browser.
 - **Zola and Bandsintown's content (T12).** Zola is a frame from its service and Bandsintown a tour list from its own, and real content needs an account or listing. The same pull reads differently from run to run: Zola `s -2` kept 17 rows on 2026-11-04 and went to 18 on 2026-11-06; Bandsintown `se +2,+1` read 22 rows on 2026-11-04 and 5 on 2026-11-06. Ours are stand-ins of the right size. Their 5 misses stay named in resize-check, marked out of scope.
+- **A form's Additional Storage and reCAPTCHA (T9).** Outside services, and storage writes outside the page, so a probe reads them and never presses them. Ours shows both rows faded.
 
 ## Considered
 
