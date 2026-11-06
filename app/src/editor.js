@@ -3421,8 +3421,7 @@ function addBlock(sid, name) {
   // Phone (L3.json, CAP-NEWORDER*.json): the new block takes its place in the phone stack by
   // size, and the blocks after it move down by its height.
   const stack = [...s.blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
-  // A phone that stopped following: the new block goes below everything (CAP-A2ROUND1 b).
-  const slot = s.phoneFollows ? 0 : s.phoneFollows === false ? stack.length : newBlockSlot(stack, w, h);
+  const slot = s.phoneFollows ? 0 : newBlockSlot(stack, w, h);
   const mobileEnd = slot ? Math.max(...stack.slice(0, slot).map((b) => b.layout.mobile.area[2])) : 1;
   const zTop = (bpName) => Math.max(0, ...s.blocks.map((b) => b.layout[bpName].z)) + 1;
   const block = { id, ...make(), layout: {
