@@ -183,6 +183,57 @@ add('Blurred, hovered on the spot: nothing to press', !onIt.on && !onIt.onTop, J
 await realPress(onIt.at);
 add('Blurred, a press there leaves 30', rstOf('rotate').v === '30', rstOf('rotate').v);
 
+// The panel's tabs, a Back row and Animation's foot stay put, so a row moved into view must not land under them:
+// by Tab, and by a scroll to it (FORMFIELDS.json panelTabs: the oracle's scroller starts below them).
+const STAYS = '.sp-tabs, .bp-sub, .bp-ishape-head, .an-foot';
+const covered = `const stays = [...panel.querySelectorAll(${JSON.stringify(STAYS)})]; const coverOf = (e) => { const r = e.getBoundingClientRect(); if (!r.width || !r.height) return null; const o = stays.find((t) => { if (t.contains(e)) return false; const q = t.getBoundingClientRect(); return Math.min(r.bottom, q.bottom) - Math.max(r.top, q.top) > 1 && r.left < q.right && r.right > q.left; }); return o ? (e.getAttribute('aria-label') || e.dataset.design || e.dataset.afield || e.textContent.trim().slice(0, 20) || e.tagName) + ' under ' + o.className : null; };`;
+const FOCUSABLE = `[...panel.querySelectorAll('button, input:not([type=hidden]), select, textarea, [tabindex="0"]')].filter((e) => e.getBoundingClientRect().width > 0 && !e.disabled)`;
+async function neverUnder(name, overflow = true) {
+  const scrolls = q(`return JSON.stringify(panel.scrollHeight - panel.clientHeight);`);
+  if (overflow) add(`${name}: the panel scrolls`, scrolls > 0, scrolls);
+  const bad = q(`${covered} const out = []; for (const e of ${FOCUSABLE}) { if (e.closest(${JSON.stringify(STAYS)})) continue; panel.scrollTop = panel.scrollHeight; e.scrollIntoView({ block: 'nearest' }); await sleep(10); const a = coverOf(e); if (a) out.push(a); panel.scrollTop = 0; e.scrollIntoView({ block: 'nearest' }); await sleep(10); const b = coverOf(e); if (b) out.push(b); } panel.scrollTop = 0; return JSON.stringify(out);`);
+  add(`${name}: a scroll to a row`, !bad.length, bad.slice(0, 3).join(' ; '));
+  // Keyboard Tab through the rows, from the top.
+  q(`panel.scrollTop = 0; const f = ${FOCUSABLE}[0]; f.focus(); await sleep(30); return 'true';`);
+  const under = []; let steps = 0;
+  for (; steps < 80; steps++) {
+    browser(S, 'press', 'Tab'); await pause(35);
+    const h = q(`${covered} const e = document.activeElement; if (!panel.contains(e)) return JSON.stringify({ out: true }); await sleep(0); return JSON.stringify({ c: coverOf(e) });`);
+    if (h.out) break;
+    if (h.c) under.push(h.c);
+  }
+  add(`${name}: Tab, ${steps} stops`, !under.length && steps > 2, under.slice(0, 3).join(' ; '));
+  // And back up with Shift+Tab, from the bottom: that is where a row can meet the tabs.
+  q(`const all = ${FOCUSABLE}; all.at(-1).focus(); await sleep(30); return 'true';`);
+  const back = []; let up = 0;
+  for (; up < 80; up++) {
+    browser(S, 'press', 'Shift+Tab'); await pause(35);
+    const h = q(`${covered} const e = document.activeElement; if (!panel.contains(e)) return JSON.stringify({ out: true }); return JSON.stringify({ c: coverOf(e) });`);
+    if (h.out) break;
+    if (h.c) back.push(h.c);
+  }
+  add(`${name}: Shift+Tab, ${up} stops`, !back.length && up > 2, back.slice(0, 3).join(' ; '));
+  q(`document.activeElement?.blur?.(); panel.scrollTop = 0; return 'true';`);
+}
+const addOpen = (name) => q(`const s = fe.model.sections[1]; fe.addBlock(s.id, ${JSON.stringify(name)}); await sleep(300); const b = s.blocks.at(-1); fe.select(s.id, b.id); await sleep(150); if (panel.hidden) document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(350); return JSON.stringify(b.id);`);
+openDesign(); await pause(200);
+await neverUnder('Text Design, tabs alone');
+addOpen('Form');
+q(`const b = fe.model.sections[1].blocks.at(-1); const f = b.fields[0]; for (let k = 0; k < 10; k++) b.fields.push(JSON.parse(JSON.stringify(f))); return 'true';`);
+await click(`panel.querySelector('[data-btab="Content"]')`);
+await click(`panel.querySelector('[data-ff="list"]')`);
+await neverUnder('Form field list, a Back row, no tabs');
+addOpen('Image');
+q(`fe.model.sections[1].blocks.at(-1).mode = 'shape'; const s = fe.model.sections[1]; fe.select(s.id, s.blocks[0].id); await sleep(100); fe.select(s.id, s.blocks.at(-1).id); await sleep(150); if (panel.hidden) document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); panel.querySelector('[data-btab="Design"]')?.click(); await sleep(200); return 'true';`);
+await click(`panel.querySelector('[data-image-nav="shape"]')`);
+await neverUnder('Image Shape, a Back row, no tabs');
+addOpen('Shape');
+await click(`panel.querySelector('[data-btab="Animation"]')`);
+await click(`panel.querySelector('[data-anim="add"]')`);
+await click(`panel.querySelector('[data-anim-tile="hover-1"]')`);
+await click(`panel.querySelector('[data-anim="gear"]')`);
+await click(`[...panel.querySelectorAll('.an-tab')].find((e) => e.textContent === 'End')`);
+await neverUnder('Animation End, a foot below', false);
 writeFileSync(new URL('../parity/block-design-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nBlock design: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);
