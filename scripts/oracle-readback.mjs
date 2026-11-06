@@ -9,7 +9,7 @@ import { writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause } from './lib/cmux.mjs';
 import { pressOnTop, leaveChecked } from './oracle/press.mjs';
 import { THEMES, NAMES, compareRows, comparePalette, compareView, STYLES, STYLE_FILE } from './oracle/readback.mjs';
-import { VIEWS, READ_VIEW } from './oracle/style-views.mjs';
+import { VIEWS, DEEP, DEEP_BACK, READ_VIEW } from './oracle/style-views.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S) { console.error('oracle-readback: set ORACLE_SURFACE'); process.exit(2); }
@@ -17,7 +17,7 @@ const PAGES = 'https://halibut-keyboard-jlhd.squarespace.com/config/pages', PAGE
 const VARS = ['white', 'black', 'accent', 'lightAccent', 'darkAccent', 'safeLightAccent', 'safeDarkAccent', 'safeInverseAccent', 'safeInverseLightAccent', 'safeInverseDarkAccent'];
 // All it may press. The panel's back button has no label: its words are the view it goes back to.
 const PRESS = new Set([PAGE, 'Toggle Site Styles editing', 'Open Colors style disclosure', 'Colors', 'Site Styles', ...THEMES.map((t) => `AA ${t}`),
-  ...Object.keys(VIEWS), ...Object.keys(VIEWS).map((v) => `Open ${v} style disclosure`), ...Object.entries(VIEWS).flatMap(([v, rs]) => rs.map((r) => `${v} > ${r}`))]);
+  ...Object.keys(VIEWS), ...Object.keys(VIEWS).map((v) => `Open ${v} style disclosure`), ...Object.entries(VIEWS).flatMap(([v, rs]) => rs.map((r) => `${v} > ${r}`)), ...Object.entries(DEEP).flatMap(([v, rs]) => [DEEP_BACK[v], ...rs.map((r) => `${v} > ${r}`)])]);
 const js = (body) => evalJs(S, `(() => { ${body} })()`);
 const frame = `const f = document.getElementById('sqs-site-frame'), d = f && f.contentDocument, W = f && f.contentWindow;`;
 const FIND = {
@@ -82,7 +82,12 @@ try {
     if (view === 'Miscellaneous') await press(view, FIND.row(view), 1300);
     else await press(`Open ${view} style disclosure`, FIND.named(`Open ${view} style disclosure`), 1300);
     await take(view);
-    for (const r of rs) { await press(`${view} > ${r}`, FIND.row(r), 1200); await take(`${view} > ${r}`); await goBack(view); }
+    for (const r of rs) {
+      const at = `${view} > ${r}`;
+      await press(at, FIND.row(r), 1200); await take(at);
+      for (const d of DEEP[at] || []) { await press(`${at} > ${d}`, FIND.row(d), 1200); await take(`${at} > ${d}`); await goBack(DEEP_BACK[at]); }
+      await goBack(view);
+    }
     await goBack('Site Styles');
   }
   if (process.argv.includes('--store')) writeFileSync(STYLE_FILE, `${JSON.stringify({ ...STYLES, views: read }, null, 1)}\n`);
