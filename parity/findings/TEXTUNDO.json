@@ -22,7 +22,7 @@
   "backspace": "typing then Backspace: 1 step",
   "rule": "a pause between 900 and 1000ms starts a new step. Ours: 1000"
  },
- "actions": "Bold then Italic in one edit are 2 (CAP-UNDOTYPE.json), two color picks 2 (TEXTCOLOR.json). Whether typing around a toolbar action in one burst is 1 or 3 is not read: the button click in this probe found no button and Cmd+B sent by the protocol did nothing. Ours treats an action as a step on both sides, inferred.",
+ "actions": "Bold then Italic in one edit are 2 (CAP-UNDOTYPE.json), two color picks 2 (TEXTCOLOR.json). Typing around a toolbar action in one burst is 2 for one action and 3 for two (CAP-E4BURST.json).",
  "dropAtHome": "a drag of a lone block let go at home leaves the block where it was and is an undo step: one undo later the block is still there, and Undo still on.",
  "links": {
   "rule": "on a space or Enter after it, a word that reads as a domain or a mail address becomes a link with the http scheme or mailto. The text stays as typed. Typing goes on after the link.",
@@ -60,7 +60,7 @@
    "foo.no?"
   ],
   "oneOf": "in brackets or quotes the link goes around foo.no only. A comma or other mark after it means no link.",
-  "list": "the word's ending must be a real one: foo.bar yes, foo.comma no. The oracle's list is not read. Ours is a short list of its own, so a rare ending does not link.",
+  "list": "the word's ending must be a real one: foo.bar yes, foo.comma no. The oracle's list is read in CAP-E4ENDS.json. Ours is a short list of its own, so a rare ending does not link.",
   "wrapped": [
    "(foo.no)",
    "\"foo.no\""

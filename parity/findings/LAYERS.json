@@ -114,19 +114,17 @@
       }
     ]
   },
-  "crossing": "moving down, a row passes the next one when its bottom edge crosses that row's center: 10px no, 30px yes, and 72px passes two. Up is taken to be the same with the top edge; only -72 was tried",
+  "crossing": "a row passes the next one when the pointer has moved 24px, and the one after at 71px, up and down alike, read 1px at a time (CAP-Z3WALK.json). 10px no, 30px yes, 72px passes two.",
   "hold": {
-    "ghost": "the row follows the pointer in y, over everything, read from the shot: over white rgb(232, 241, 254), over the page color rgb(201, 178, 249), so about rgb(215, 230, 253) at .57, with a soft shadow",
+    "ghost": "the row follows the pointer in y, over everything, read from the shot: over white rgb(232, 241, 254), over the page color rgb(201, 178, 249), so about rgb(215, 230, 253) at .57, with a soft shadow. It does not follow in x, and it starts following y at 10px (CAP-Z3WALK.json)",
     "slot": "where it would land: a blue row rgb(72, 148, 255) with no content",
     "others": "make way while held",
-    "panel": "stays put, the layers order in the section does not need a reload"
+    "panel": "stays put, the layers order in the section does not need a reload",
+    "drag": "a drag starts at 9px in x or y (CAP-Z3WALK.json)",
+    "blocks": "the blocks' z do not change while held (CAP-Z3WALK.json)"
   },
   "undo": "one undo per drop, back to Save disabled after one drop",
-  "notMeasured": [
-    "whether the ghost also follows the pointer in x: ours does not",
-    "the distance before a press counts as a drag: ours uses 4px",
-    "whether the page's blocks change while held: ours changes them on the drop"
-  ],
+  "notMeasured": [],
   "panel": {
     "box": "240 by 500, 11px under the Layers button: 22,279 with the button at 224 to 268, and 22,132 with it at 77 to 121",
     "rows": "text not selectable while dragging",

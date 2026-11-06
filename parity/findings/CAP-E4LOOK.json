@@ -1,0 +1,212 @@
+{
+  "item": "CAP-E4LOOK",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "E4: the hue bar's whole gradient, and the list marker's style",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "one"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "two"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "click",
+      "Bullet List"
+    ],
+    [
+      "read",
+      "bullet",
+      {
+        "marker": [
+          0,
+          "new"
+        ],
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "click",
+      "Numbered List"
+    ],
+    [
+      "read",
+      "numbered",
+      {
+        "marker": [
+          0,
+          "new"
+        ],
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "click",
+      "Text Color"
+    ],
+    [
+      "clickIf",
+      "Custom"
+    ],
+    [
+      "read",
+      "custom",
+      {
+        "gradients": true
+      }
+    ],
+    [
+      "shot",
+      "custom"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "bullet": {
+      "html": "<ul data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">one</p></li><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">two</p></li></ul>",
+      "marker": [
+        {
+          "content": "\"•\"",
+          "display": "inline-block",
+          "width": "40px",
+          "marginLeft": "-40px",
+          "paddingRight": "10px",
+          "textAlign": "right",
+          "whiteSpace": "pre",
+          "fontSize": "16px",
+          "color": "rgb(0, 0, 0)",
+          "direction": "ltr"
+        },
+        {
+          "content": "\"•\"",
+          "display": "inline-block",
+          "width": "40px",
+          "marginLeft": "-40px",
+          "paddingRight": "10px",
+          "textAlign": "right",
+          "whiteSpace": "pre",
+          "fontSize": "16px",
+          "color": "rgb(0, 0, 0)",
+          "direction": "ltr"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "numbered": {
+      "html": "<ol data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">one</p></li><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">two</p></li></ol>",
+      "marker": [
+        {
+          "content": "\"  \" counter(rte-list) \". \"",
+          "display": "inline-block",
+          "width": "40px",
+          "marginLeft": "-40px",
+          "paddingRight": "0px",
+          "textAlign": "right",
+          "whiteSpace": "pre",
+          "fontSize": "16px",
+          "color": "rgb(0, 0, 0)",
+          "direction": "ltr"
+        },
+        {
+          "content": "\"  \" counter(rte-list) \". \"",
+          "display": "inline-block",
+          "width": "40px",
+          "marginLeft": "-40px",
+          "paddingRight": "0px",
+          "textAlign": "right",
+          "whiteSpace": "pre",
+          "fontSize": "16px",
+          "color": "rgb(0, 0, 0)",
+          "direction": "ltr"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "custom": {
+      "gradients": [
+        {
+          "box": [
+            369.2,
+            261.2,
+            16,
+            16
+          ],
+          "image": "linear-gradient(45deg, rgb(231, 231, 231) 25%, rgba(0, 0, 0, 0) 25%), linear-gradient(-45deg, rgb(231, 231, 231) 25%, rgba(0, 0, 0, 0) 25%), linear-gradient(45deg, rgba(0, 0, 0, 0) 75%, rgb(231, 231, 231) 75%), linear-gradient(-45deg, rgba(0, 0, 0, 0) 75%, rgb(231, 231, 231) 75%)"
+        },
+        {
+          "box": [
+            250.2,
+            610.2,
+            254,
+            22
+          ],
+          "image": "linear-gradient(to left, rgb(255, 0, 0) 0%, rgb(255, 0, 153) 10%, rgb(205, 0, 255) 20%, rgb(50, 0, 255) 30%, rgb(0, 102, 255) 40%, rgb(0, 255, 253) 50%, rgb(0, 255, 102) 60%, rgb(53, 255, 0) 70%, rgb(205, 255, 0) 80%, rgb(255, 153, 0) 90%, rgb(255, 0, 0) 100%)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "The hue bar's whole gradient: to left, red 0%, then 10% stops ending on red at 100%, as read in reads.custom. The marker: a 40px inline block, right aligned, bullet with 10px padding on the right, number with 0.",
+  "ours": "Ours has the same 11 stops and the same marker, both taken from a shot before. Compared with the css in the repo, not in a browser.",
+  "differs": [],
+  "pressed": [
+    "Text bar buttons by name, real keys."
+  ]
+}

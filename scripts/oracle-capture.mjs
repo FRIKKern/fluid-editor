@@ -4,18 +4,18 @@
 //   ORACLE_SURFACE=cdp:<port> node scripts/oracle-capture.mjs <recipe> [--again]
 //   ... node scripts/oracle-capture.mjs --list
 //   ... node scripts/oracle-capture.mjs --name WHAT --question '...' --steps '[["enter"],["select",2,2],["read","a",{"block":[2,2],"controls":true}]]'
-// Steps: enter | exit | view Mobile|Desktop | frame w h | unframe | pause ms | listen
-//   hover i | hoverBlock i k | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
+// Steps: enter | exit | view Mobile|Desktop | window w h (the real window, for a block taller than it) | frame w h | unframe | pause ms | listen
+//   hover i | hoverBlock i k | rowWalk label names dx dy name drop | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
-//   click label | clickIf label | press key | keys text | fill label value | fillValue shown value | rightClick i k
+//   click label | clickIf label | press key | keys text | keysFast text | fill label value | fillValue shown value | rightClick i k
 //   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clickAt x y | walk i k part mx my | pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillRow label n value | hoverRow label [n] | pressNamed label | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
 //   hold i k part dx dy [mods] | holdRaw i k part dx dy | shiftClick i k | move dx dy | release [home] | drag i k part dx dy {pointerType}
 //   touch i k part dx dy {holdMs} | pasteMid i k html | undoWalk name [n] | shot name
-//   read name { block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], range: true, rows: [labels], parts: [labels], boxes: [labels], shape: [i,k], reset: [label,n], leaves: [labels], afterBtn: label, gridEls: selector, hits: [i, k], htmlOf: selector, frameEls: selector, panelEls: selector, textBox: [text], radii: [i, k], icon: true, style: [i,k], textH: [i,k], checks: true, sel: selector, layers: i, controls: true, thin: true }
+//   read name { block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], range: true, rows: [labels], parts: [labels], boxes: [labels], shape: [i,k], reset: [label,n], leaves: [labels], afterBtn: label, gridEls: selector, linkTexts: [i, k], gradients: true, marker: [i, k], hits: [i, k], htmlOf: selector, frameEls: selector, panelEls: selector, textBox: [text], radii: [i, k], icon: true, style: [i,k], textH: [i,k], checks: true, sel: selector, layers: i, controls: true, thin: true }
 // k is a block's place in its section, or "new" for the block `add` made. part is "middle", a handle, or fractions [x, y] of the block.
 // A recipe that changes content names its page ({ page: 'Gestures Probe' }, 0006). Nothing is saved on any page.
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
-import { browser, evalJs, mouse, cdp, goto, pause, reload, waitFor, engine } from './lib/cmux.mjs';
+import { browser, evalJs, mouse, cdp, goto, pause, reload, waitFor, engine, viewport } from './lib/cmux.mjs';
 import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock, addSection, blockIds, escape, select } from './oracle/ui.mjs';
 import { RECIPES } from './oracle/recipes.mjs';
 
@@ -124,6 +124,9 @@ function read(what) {
   if (what.stack !== undefined) {
     out.stack = evalJs(S, `(() => { ${FRAME} const fe = d.querySelectorAll('main#page .fluid-engine')[${what.stack}]; return JSON.stringify([...fe.querySelectorAll(':scope > .fe-block')].map((b) => { const st = b.querySelector('style[data-test="fluid-engine-grid-css"]'); const [m, dk] = st ? st.textContent.split('@media (min-width: 768px)') : ['', '']; const a = (t) => (t.match(/grid-area:\\s*([\\d/ -]+)/) || [])[1]?.trim(); const z = (t) => (t.match(/z-index:\\s*(\\d+)/) || [])[1]; return { id: b.dataset.blockId?.slice(-5), type: (b.querySelector('.sqs-block')?.className.match(/sqs-block-(?!alignment|content|html-)([a-z-]+)/) || [])[1], desktop: a(dk), phone: a(m), z: [z(dk), z(m)] }; })); })()`);
   }
+  if (what.linkTexts) { const [i, k] = what.linkTexts; const id = blockId(i, k); out.linkTexts = evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; return JSON.stringify(b ? [...b.querySelectorAll('a')].map((a) => a.textContent) : null); })()`); }
+  if (what.gradients) out.gradients = evalJs(S, `(() => { ${round} return JSON.stringify([...document.querySelectorAll('*')].filter((e) => e.getBoundingClientRect().width > 0 && /gradient/.test(getComputedStyle(e).backgroundImage)).slice(0, 12).map((e) => ({ box: box(e), image: getComputedStyle(e).backgroundImage }))); })()`);
+  if (what.marker) { const [i, k] = what.marker; const id = blockId(i, k); out.marker = evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; return JSON.stringify(b ? [...b.querySelectorAll('li > p')].slice(0, 2).map((p) => { const c = W.getComputedStyle(p, '::before'); return Object.fromEntries(['content', 'display', 'width', 'marginLeft', 'paddingRight', 'textAlign', 'whiteSpace', 'fontSize', 'color', 'direction'].map((n) => [n, c[n]])); }) : null); })()`); }
   if (what.sel) {
     out.sel = evalJs(S, `(() => { ${FRAME} ${round} ${CSS} ${cls} return JSON.stringify([...d.querySelectorAll(${JSON.stringify(what.sel)})].filter((e) => e.getBoundingClientRect().width > 0).slice(0, 30).map((e) => ({ tag: e.tagName.toLowerCase(), cls: cls(e), box: box(e), css: css(W.getComputedStyle(e)) }))); })()`);
   }
@@ -159,6 +162,7 @@ const STEPS = {
   // After many runs Edit can open the bar and leave the canvas not editing: leave, reload, enter again.
   enter: async () => { booted(); const editing = () => tag(`() => [...document.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Exit' && x.getBoundingClientRect().width > 0)`); try { await enterEdit(pageTitle); } catch (e) { if (!editing()) { await exitWithoutSaving().catch(() => {}); reload(S); booted(); await enterEdit(pageTitle); } } await desktop(); }, exit: () => exitWithoutSaving(), pause: (ms) => pause(ms),
   view: async (v) => { if (!tag(LABEL(`${v} View`))) throw new Error(`no ${v} View`); browser(S, 'click', '#fx-target'); await pause(2500); },
+  window: async (w, h) => { viewport(S, w, h); await pause(1200); },
   frame: async (w, h) => { evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame'); for (const [k, v] of [['width', '${w}px'], ['height', '${h}px'], ['max-width', 'none'], ['min-width', '0'], ['flex', 'none']]) f.style.setProperty(k, v, 'important'); return 'true'; })()`); await pause(1500); },
   unframe: async () => { evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame'); for (const k of ['width', 'height', 'max-width', 'min-width', 'flex']) f.style.removeProperty(k); return 'true'; })()`); await pause(800); },
   listen: () => evalJs(S, `(() => { ${FRAME} W.__fxEvents = []; if (!W.__fxListen) { W.__fxListen = true; for (const t of ['pointerdown', 'pointermove', 'pointerup', 'pointercancel', 'touchstart', 'touchend', 'contextmenu', 'dragstart']) d.addEventListener(t, (e) => { const last = W.__fxEvents.at(-1); const name = t + (e.pointerType ? ':' + e.pointerType : ''); if (last && last[0] === name) last[1]++; else W.__fxEvents.push([name, 1]); }, true); } return 'true'; })()`),
@@ -177,6 +181,20 @@ const STEPS = {
   click: async (label) => { if (!tag(LABEL(label))) throw new Error(`nothing labelled ${label}`); browser(S, 'click', '#fx-target'); await pause(1200); },
   clickIf: async (label) => { if (tag(LABEL(label))) { browser(S, 'click', '#fx-target'); await pause(1200); } else finding.errors.push(`no ${label}`); },
   press: async (key) => { browser(S, 'press', key); await pause(500); },
+  // Holds a Layers row with the real pointer and moves 1px at a time, keeping each change of the rows, the ghost, the slot and the blocks' z. dx and dy are walked one after the other, x first.
+  rowWalk: async (label, names, dx, dy, name, drop = true) => {
+    const snap = () => evalJs(S, `(() => { ${FRAME} const N = ${JSON.stringify(names)}; const texts = [...document.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && N.includes(e.textContent.trim()) && e.getBoundingClientRect().width > 0).map((e) => { const q = e.getBoundingClientRect(); let o = 1; for (let p = e; p; p = p.parentElement) o *= +getComputedStyle(p).opacity; return [e.textContent.trim(), Math.round(q.left), Math.round(q.top), Math.round(o * 100) / 100]; }); const slots = [...document.querySelectorAll('*')].filter((e) => getComputedStyle(e).backgroundColor === 'rgb(72, 148, 255)' && e.getBoundingClientRect().width > 100).map((e) => { const q = e.getBoundingClientRect(); return [Math.round(q.left), Math.round(q.top), Math.round(q.width), Math.round(q.height)]; }); return JSON.stringify({ texts, slots, z: [...d.querySelectorAll('main#page .fe-block')].map((e) => W.getComputedStyle(e).zIndex).join() }); })()`);
+    const at = evalJs(S, `(() => { const t = [...document.querySelectorAll('*')].find((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(label)} && x.getBoundingClientRect().left > 70 && x.getBoundingClientRect().left < 100); const b = t.closest('button') || t.parentElement; const q = b.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
+    mouse(S, 'move', at[0], at[1]); mouse(S, 'down', at[0], at[1]); await pause(150);
+    const seen = [['pressed', snap()]]; let last = JSON.stringify(seen[0][1]); let x = 0, y = 0;
+    const go = () => { mouse(S, 'move', at[0] + x, at[1] + y, { buttons: 1 }); const n = snap(); const t = JSON.stringify(n); if (t !== last) { seen.push([[x, y], n]); last = t; } };
+    for (let k = 1; k <= Math.abs(dx); k++) { x = Math.sign(dx) * k; go(); }
+    for (let k = 1; k <= Math.abs(dy); k++) { y = Math.sign(dy) * k; go(); }
+    if (drop) { mouse(S, 'up', at[0] + x, at[1] + y); await pause(500); } else { for (; y; y -= Math.sign(y)) mouse(S, 'move', at[0], at[1] + y, { buttons: 1 }); for (; x; x -= Math.sign(x)) mouse(S, 'move', at[0] + x, at[1], { buttons: 1 }); mouse(S, 'move', at[0], at[1], { buttons: 1 }); await pause(200); mouse(S, 'up', at[0], at[1]); await pause(500); }
+    finding.reads[name] = { from: at, seen, after: snap() };
+  },
+  // A long run of keys in one process: `keys` starts one per key.
+  keysFast: async (text) => { cdp(S, { op: 'presses', keys: [...text].map((c) => (c === ' ' ? 'Space' : c)) }); await pause(1500); },
   keys: async (text) => { for (const c of text) browser(S, 'press', c === ' ' ? 'Space' : c); await pause(300); },
   fill: async (label, value) => {
     const ok = tag(`() => { const L = ${JSON.stringify(label)}; const vis = (e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'); const direct = [...document.querySelectorAll('input, textarea')].filter(vis).find((e) => e.getAttribute('aria-label') === L || e.getAttribute('placeholder') === L); if (direct) return direct; const t = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.textContent.trim() === L && vis(e)).pop(); let n = t; for (let u = 0; n && u < 6; u++, n = n.parentElement) { const i = [...n.querySelectorAll('input:not([type=checkbox]):not([type=radio]), textarea')].find(vis); if (i) return i; } return null; }`);
@@ -250,7 +268,7 @@ const STEPS = {
   // Undo by the top bar button until it stops, with the block's text at each step.
   undoWalk: async (label, i, k, n = 12) => {
     const id = blockId(i, k); const seen = [];
-    const text = () => evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; const t = b && (b.querySelector('.ProseMirror') || b.querySelector('.sqs-html-content')); return JSON.stringify(t ? t.textContent.replace(/\\s+/g, ' ').trim().slice(-60) : null); })()`);
+    const text = () => evalJs(S, `(() => { ${FRAME} const b = d.querySelector('main#page .fe-block[data-block-id="${id}"]'); const t = b && (b.querySelector('.ProseMirror') || b.querySelector('.sqs-html-content')); return JSON.stringify(t ? t.textContent.replace(/\\s+/g, ' ').trim().slice(-60) : null); })()`);
     const can = () => evalJs(S, `(() => { const b = [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Undo'); return JSON.stringify(!!b && !b.disabled); })()`);
     seen.push(['start', text()]);
     for (let u = 1; u <= n && can() === true; u++) { if (!tag(LABEL('Undo'))) break; browser(S, 'click', '#fx-target'); await pause(900); seen.push([u, text()]); }
