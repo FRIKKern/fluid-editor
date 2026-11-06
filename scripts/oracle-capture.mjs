@@ -15,6 +15,10 @@
 //   read name { block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], range: true, rows: [labels], parts: [labels], boxes: [labels], shape: [i,k], reset: [label,n], leaves: [labels], afterBtn: label, gridEls: selector, cursorEls: true, shadowOf: label, btnState: [labels], panelState: true, kids: [i, k] (a stack's children), linkTexts: [i, k], gradients: true, marker: [i, k], hits: [i, k], htmlOf: selector, frameEls: selector, panelEls: selector, panelCss: selector, textBox: [text], radii: [i, k], icon: true, style: [i,k], textH: [i,k], checks: true, sel: selector, layers: i, controls: true, thin: true }
 // k is a block's place in its section, or "new" for the block `add` made. part is "middle", a handle, or fractions [x, y] of the block.
 // A recipe that changes content names its page ({ page: 'Gestures Probe' }, 0006). Nothing is saved on any page.
+// The page (0006): --steps needs --page or a first toPage, and toPage sets the page a later enter comes back to. The demo
+// page takes only steps that can't write: a recipe with no page may read it, and --steps needs --demo-read-only as well.
+// Every step that acts stops the run if the frame is on another page, before it presses.
+// clickAt is by position: Custom's place moves with the window, so a press on a control goes by name (click label).
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { browser, evalJs, mouse, cdp, goto, pause, reload, waitFor, engine, viewport } from './lib/cmux.mjs';
 import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock, addSection, blockIds, escape, select } from './oracle/ui.mjs';
@@ -28,6 +32,23 @@ if (args.includes('--list')) { for (const [k, r] of Object.entries(RECIPES)) con
 const name = opt('name') || args[0];
 const recipe = opt('steps') ? { question: opt('question') || name, steps: JSON.parse(opt('steps')) } : RECIPES[name];
 if (!recipe) { console.error(`no recipe ${name}; --list shows them`); process.exit(2); }
+// 0006: what may run where, settled before anything opens.
+const DEMO = 'How Fluid Engine works';
+const fromSteps = !!opt('steps');
+let pageTitle = recipe.page || opt('page') || (fromSteps ? null : DEMO);
+const READS_ONLY = new Set(['enter', 'exit', 'toPage', 'pause', 'read', 'shot', 'view', 'window', 'frame', 'unframe', 'listen', 'hover', 'hoverBlock', 'tipDelay', 'tipRead']);
+const refuse = (why) => { console.error(`oracle-capture refused, nothing ran: ${why}`); process.exit(2); };
+if (!pageTitle && recipe.steps[0]?.[0] !== 'toPage') refuse('--steps needs --page or toPage as its first step.');
+{
+  let page = pageTitle;
+  for (const [op, ...a] of recipe.steps) {
+    if (op === 'toPage') page = a[0];
+    if (page !== DEMO) continue;
+    if (fromSteps && !args.includes('--demo-read-only')) refuse(`--steps on the demo page needs --demo-read-only (step ${op}).`);
+    if (!READS_ONLY.has(op)) refuse(`step ${op} can write, and the demo page takes only steps that read (0006). Name a probe page with --page.`);
+  }
+}
+const pathOf = (title) => '/' + title.toLowerCase().replace(/\s+/g, '-');
 const file = new URL(`../parity/findings/${name}.json`, import.meta.url);
 if (existsSync(file) && !args.includes('--again')) { console.error(`parity/findings/${name}.json exists; pass --again only if it is yours to replace.`); process.exit(2); }
 
@@ -150,13 +171,10 @@ function read(what) {
   return out;
 }
 
-// 0006: anything that changes content runs on a page made for it. A recipe names that page by its
-// title; with no title the step list only reads, on the demo page.
-const pageTitle = recipe.page || opt('page') || 'How Fluid Engine works';
-const pagePath = '/' + pageTitle.toLowerCase().replace(/\s+/g, '-');
+const pagePath = pageTitle ? pathOf(pageTitle) : null;
 // enter opens the page from the page list. If it times out the tab has hung, which happens now and then after leaving the editor: open a new tab in the same Chrome and close the old one.
 { const here = evalJs(S, 'JSON.stringify(location.href)'); if (/^http/.test(here)) { goto(S, new URL(here).origin + '/config/pages'); await pause(6000); } }
-const finding = { item: name, oracle: pagePath, capturedAt: new Date().toISOString().slice(0, 10), engine: engine(S), question: recipe.question, steps: recipe.steps, reads: {}, errors: [] };
+const finding = { item: name, oracle: pagePath || pathOf(recipe.steps[0][1]), capturedAt: new Date().toISOString().slice(0, 10), engine: engine(S), question: recipe.question, steps: recipe.steps, reads: {}, errors: [] };
 const LABEL = (label) => `() => { const L = ${JSON.stringify(label)}; const hits = [...document.querySelectorAll('[aria-label], [title], body *')].filter((e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && !e.closest('#sqs-site-frame') && (e.getAttribute('aria-label') === L || e.getAttribute('title') === L || (e.childElementCount === 0 && e.textContent.trim() === L)); }); const onTop = (e) => { const q = e.getBoundingClientRect(); const t = document.elementFromPoint(q.left + q.width / 2, q.top + q.height / 2); return t && (e === t || e.contains(t) || t.contains(e)); }; const hit = hits.filter(onTop).pop() || hits.pop(); return hit && (hit.closest('button, a, label, [role=radio], [role=button], [role=switch], [role=tab], [role=option], [role=menuitem]') || hit); }`;
 // A tip: the small dark box with the buttons' words, in either document.
 const TIPFIND = `const tipOf = (docs) => { for (const D of docs) { const V = D.defaultView; for (const e of D.querySelectorAll('div,span')) { const q = e.getBoundingClientRect(); if (q.height < 20 || q.height > 60 || q.width < 20 || q.width > 320) continue; const c = V.getComputedStyle(e); if (c.backgroundColor === 'rgb(14, 14, 14)' && c.borderRadius === '3px' && e.textContent.trim()) return { el: e, view: V }; } } return null; };`;
@@ -180,7 +198,7 @@ const STEPS = {
   listen: () => evalJs(S, `(() => { ${FRAME} W.__fxEvents = []; if (!W.__fxListen) { W.__fxListen = true; for (const t of ['pointerdown', 'pointermove', 'pointerup', 'pointercancel', 'touchstart', 'touchend', 'contextmenu', 'dragstart']) d.addEventListener(t, (e) => { const last = W.__fxEvents.at(-1); const name = t + (e.pointerType ? ':' + e.pointerType : ''); if (last && last[0] === name) last[1]++; else W.__fxEvents.push([name, 1]); }, true); } return 'true'; })()`),
   blank: () => addSection(),
   // Leaves the page without saving and enters another probe page: does a copied block survive it?
-  toPage: async (title) => { await exitWithoutSaving().catch((e) => { if (!e.message.includes('not in edit mode')) throw e; }); const o = evalJs(S, 'JSON.stringify(location.origin)'); goto(S, o + '/config/pages'); await pause(6000); booted(); try { await enterEdit(title); } catch { /* an empty page has no editing grid */ } finding.visited = title; await desktop(); },
+  toPage: async (title) => { pageTitle = title; await exitWithoutSaving().catch((e) => { if (!e.message.includes('not in edit mode')) throw e; }); const o = evalJs(S, 'JSON.stringify(location.origin)'); goto(S, o + '/config/pages'); await pause(6000); booted(); try { await enterEdit(title); } catch { /* an empty page has no editing grid */ } finding.visited = title; await desktop(); },
   hover: (i) => hoverSection(i),
   hoverBlock: async (i, k) => { const [x, y] = point(i, k); await inFrame(() => mouse(S, 'move', x, y)); await pause(600); },
   sectionDrag: async (i, dy) => { const at = evalJs(S, `(() => { ${FRAME} const h = ${SECTION_HANDLE(i)}; if (!h) return JSON.stringify(null); const q = h.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); if (!at) throw new Error('no section handle'); const [x, y] = at; await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x, y + dy], steps: 12, holdMs: 200, mods: [] })); await pause(800); },
@@ -332,10 +350,17 @@ const STEPS = {
   read: (label, what) => { finding.reads[label] = read(what); },
 };
 
+// These don't act on the page, or are how it gets there.
+const NO_PAGE_NEEDED = new Set(['enter', 'toPage', 'exit', 'pause', 'window', 'frame', 'unframe']);
+const wrongPage = () => { const at = evalJs(S, `(() => { ${FRAME} return JSON.stringify(d.location.pathname); })()`); return at === pathOf(pageTitle) ? null : at; };
 try {
   for (const [op, ...a] of recipe.steps) {
     if (!STEPS[op]) throw new Error(`no step ${op}`);
     console.log(op, JSON.stringify(a).slice(0, 80));
+    if (!NO_PAGE_NEEDED.has(op)) {
+      const at = wrongPage();
+      if (at !== null) { finding.errors.push(`stopped before ${op}: the frame is on ${at}, not ${pathOf(pageTitle)}`); console.log('  error:', finding.errors.at(-1)); break; }
+    }
     try { await STEPS[op](...a); } catch (e) {
       finding.errors.push(`${op} ${JSON.stringify(a).slice(0, 60)}: ${String(e.stderr || e.message).trim().split('\n')[0].slice(0, 160)}`);
       console.log('  error:', finding.errors.at(-1));
@@ -346,7 +371,7 @@ try {
   }
 } finally {
   await desktop().catch(() => {});
-  finding.leftDirty = await exitWithoutSaving().catch((e) => `exit failed: ${e.message}`);
+  finding.leftDirty = await exitWithoutSaving().catch((e) => (/not in edit mode/.test(e.message) ? false : `exit failed: ${e.message}`));
 }
 const text = JSON.stringify(finding, null, 2).replace(/(https?):\/\/([^"' )]+)/g, (m, sch, rest) => (/squarespace|sqsp/.test(rest) ? '<url>' : `<${sch}>${rest}`)) + '\n';
 writeFileSync(file, text);
