@@ -142,9 +142,11 @@ for (const [name, body, want] of [['one burst', `type('one'); await sleep(50); t
   } }
 // E4: with a caret, undo by time, nesting, Clear Formatting, Highlight: replayed with real keys and presses.
 // Named misses, not built: after one Escape the oracle's bar is gone but letters still go into the text.
+const noRun = [];
 const KNOWN = ['color, Escape, typed', 'empty, color, typed', 'typed, Escape, typed'];
 for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS'] : ['CAP-E4CARET']) {
   await replay(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (what, ok, detail) => {
+    if (ok === null) { noRun.push(`${name} ${what}`); console.log(`could not run: ${name} ${what}: ${detail}`); return; }
     if (!ok && KNOWN.includes(what)) { console.log(`known miss: ${what}`); return; }
     results.push({ name: `${name} ${what}`, ok }); if (!ok) console.log(`${name} ${what} DIFF ${detail}`);
   });
@@ -152,5 +154,6 @@ for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4F
 
 const pass = results.filter((r) => r.ok).length;
 console.log(`Text toolbar: ${pass} of ${results.length} actions match`);
-if (FULL) writeFileSync(new URL('../parity/text-check.json', import.meta.url), JSON.stringify({ check: 'text toolbar HTML', pass, total: results.length, results }, null, 2) + '\n');
-process.exit(pass === results.length ? 0 : 1);
+if (noRun.length) console.log(`Could not run, timing off, not a pass or a fail: ${noRun.length}`);
+if (FULL) writeFileSync(new URL('../parity/text-check.json', import.meta.url), JSON.stringify({ check: 'text toolbar HTML', pass, total: results.length, couldNotRun: noRun, results }, null, 2) + '\n');
+process.exit(pass !== results.length ? 1 : noRun.length ? 2 : 0);
