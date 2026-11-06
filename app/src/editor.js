@@ -1422,6 +1422,10 @@ function onDblClick(e) {
   startTextEdit(sid, blk.dataset.blockId);
 }
 
+const selectionLeft = new Map(); // block id: the html it was left with and where its selection was
+let previewed = false;
+const pathFrom = (root, node) => { const path = []; for (let n = node; n !== root; n = n.parentNode) path.unshift([...n.parentNode.childNodes].indexOf(n)); return path; };
+const nodeAtPath = (root, path) => path.reduce((n, k) => n?.childNodes[k], root);
 function startTextEdit(sid, bid) {
   const b = B(sid, bid);
   if (!b || b.type !== 'text' || editing) return;
@@ -1433,12 +1437,16 @@ function startTextEdit(sid, bid) {
   ce.contentEditable = 'true';
   ce.focus();
   // The caret starts inside the last text, so a press finds its block even when it's empty (CAP-E4ENTER.json).
+  // Opened again, the selection is where it was left (CAP-E4REOPEN.json), unless the text changed since. A Preview
+  // forgets it and the caret starts at the very start (CAP-E4REOPEN2.json).
   const range = doc.createRange();
-  range.selectNodeContents([...ce.querySelectorAll('h1, h2, h3, h4, p, pre')].at(-1) ?? ce);
-  range.collapse(false);
+  range.selectNodeContents([...ce.querySelectorAll('h1, h2, h3, h4, p, pre')].at(previewed ? 0 : -1) ?? ce);
+  range.collapse(previewed);
   const s = win.getSelection();
   s.removeAllRanges();
   s.addRange(range);
+  const kept = selectionLeft.get(b.id), keptA = kept?.html === ce.innerHTML && nodeAtPath(ce, kept.anchor), keptF = keptA && nodeAtPath(ce, kept.focus);
+  if (keptF) s.setBaseAndExtent(keptA, kept.anchorOffset, keptF, kept.focusOffset);
   const fe = feEl(sid);
   const m = measure(fe);
   fe.style.gridAutoRows = `${m.rowMin}px`;
@@ -3828,6 +3836,8 @@ function finishTextEdit() {
   renderTextBar();
   const b = B(ed.sid, ed.bid);
   b.html = ed.ce.innerHTML;
+  const left = win.getSelection();
+  if (ed.ce.contains(left.anchorNode) && ed.ce.contains(left.focusNode)) selectionLeft.set(b.id, { html: b.html, anchor: pathFrom(ed.ce, left.anchorNode), anchorOffset: left.anchorOffset, focus: pathFrom(ed.ce, left.focusNode), focusOffset: left.focusOffset });
   lay(b).area = ed.area;
   growRows(S(ed.sid));
   feEl(ed.sid).style.gridAutoRows = '';
@@ -5750,6 +5760,7 @@ document.getElementById('reload-preview').addEventListener('click', () => { rend
 document.addEventListener('keydown', (e) => { if (e.ctrlKey && e.shiftKey && e.code === 'KeyD') { e.preventDefault(); document.body.classList.toggle('dev-tools'); } });
 
 function setPreview(on) {
+  if (on) { selectionLeft.clear(); previewed = true; }
   document.body.classList.toggle('is-preview', on);
   doc?.body.classList.toggle('is-preview', on);
   if (!on) doc?.querySelectorAll('.cdk-image-lightbox, body > .form-lightbox').forEach((x) => x.remove());
@@ -5767,7 +5778,29 @@ $('bp-mobile').addEventListener('click', () => setBp('mobile'));
 document.addEventListener('keydown', onKey);
 
 // ---------- boot ----------
+// An empty Text shows its hint in the editor: added, left, selected, in an edit, on the phone, and it goes on
+// the first letter (CAP-TEXTEMPTY.json). The hint sits on the first line, and only while it is a paragraph. With more
+// empty lines, only while the caret is or last was on that first one (CAP-T3EMPTY.json, CAP-T3EMPTY2.json).
+// A mark on the content box, outside the block's HTML, so the model stays clean.
+const caretOnFirstLine = new Set();
+function markEmptyText(doc) {
+  const at = doc.getSelection()?.anchorNode;
+  for (const ce of doc.querySelectorAll('.sqs-block-html .sqs-html-content')) {
+    const first = ce.firstElementChild, id = ce.closest('.fe-block')?.dataset.blockId;
+    if (at && ce.contains(at)) { if (first?.contains(at)) caretOnFirstLine.add(id); else caretOnFirstLine.delete(id); }
+    const empty = first?.tagName === 'P' && !ce.textContent && first.querySelectorAll('br').length < 2;
+    ce.classList.toggle('is-text-empty', !!empty && (ce.children.length === 1 || caretOnFirstLine.has(id)));
+  }
+}
+function watchEmptyText() {
+  const doc = frame.contentDocument;
+  markEmptyText(doc);
+  new MutationObserver(() => markEmptyText(doc)).observe(doc.body, { childList: true, characterData: true, subtree: true });
+  doc.addEventListener('selectionchange', () => markEmptyText(doc));
+}
+
 function boot() {
+  watchEmptyText();
   frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
   // The canvas changes width when the layout switches; place the overlays again once it has.
   // Watch the canvas page itself: it reflows after the canvas element changes width.

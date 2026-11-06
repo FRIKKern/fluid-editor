@@ -1,0 +1,360 @@
+{
+  "item": "CAP-E4REOPEN2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "E4: is the selection kept when an edit is opened again after a change of view, a Preview, or an Undo? Predicted first.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "abcdef"
+    ],
+    [
+      "press",
+      "ArrowLeft"
+    ],
+    [
+      "press",
+      "ArrowLeft"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "keys",
+      "X"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "after the phone view",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "abcdef"
+    ],
+    [
+      "press",
+      "ArrowLeft"
+    ],
+    [
+      "press",
+      "ArrowLeft"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Toggle preview mode"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Toggle preview mode"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "keys",
+      "X"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "after Preview",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "aa"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keys",
+      "bb"
+    ],
+    [
+      "press",
+      "ArrowLeft"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Undo, left",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "keys",
+      "X"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "after an Undo",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "after the phone view": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abcdXef</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after Preview": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Xabcdef</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Undo, left": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">aa</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after an Undo": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">aaX</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

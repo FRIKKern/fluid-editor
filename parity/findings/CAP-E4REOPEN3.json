@@ -1,0 +1,185 @@
+{
+  "item": "CAP-E4REOPEN3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "E4: after a Preview, where does the caret start in two lines and once more after that?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "one"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "two"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Toggle preview mode"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Toggle preview mode"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "keys",
+      "X"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "two lines",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "keys",
+      "Y"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "two lines, opened once more",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "two lines": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Xone</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">two</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "two lines, opened once more": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">XYone</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">two</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
