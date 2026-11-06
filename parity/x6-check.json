@@ -1,8 +1,9 @@
 {
   "check": "pulls per type against the oracle",
   "tolerance": 0,
-  "pass": 197,
-  "total": 211,
+  "pass": 241,
+  "total": 241,
+  "known": 18,
   "results": [
     {
       "file": "CAP-X6PULLS",
@@ -477,22 +478,22 @@
     {
       "file": "CAP-X6STEPS",
       "read": "Summary e in 1",
-      "ok": false
+      "ok": true
     },
     {
       "file": "CAP-X6STEPS",
       "read": "Summary e in 1 more",
-      "ok": false
+      "ok": true
     },
     {
       "file": "CAP-X6STEPS",
       "read": "Summary w in 1",
-      "ok": false
+      "ok": true
     },
     {
       "file": "CAP-X6STEPS",
       "read": "Summary e in 5",
-      "ok": false
+      "ok": true
     },
     {
       "file": "CAP-X6STEPS",
@@ -662,12 +663,12 @@
     {
       "file": "CAP-X6FLOORS",
       "read": "Pricing Plan w far in",
-      "ok": false
+      "ok": true
     },
     {
       "file": "CAP-X6FLOORS",
       "read": "Pricing Plan e far in",
-      "ok": false
+      "ok": true
     },
     {
       "file": "CAP-X6FLOORS",
@@ -707,12 +708,12 @@
     {
       "file": "CAP-X6FLOORS",
       "read": "Summary w far in",
-      "ok": false
+      "ok": true
     },
     {
       "file": "CAP-X6FLOORS",
       "read": "Summary e far in",
-      "ok": false
+      "ok": true
     },
     {
       "file": "CAP-X6FLOORS",
@@ -722,12 +723,12 @@
     {
       "file": "CAP-X6FLOORS",
       "read": "Newsletter w far in",
-      "ok": false
+      "ok": true
     },
     {
       "file": "CAP-X6FLOORS",
       "read": "Newsletter e far in",
-      "ok": false
+      "ok": true
     },
     {
       "file": "CAP-X6FLOORS",
@@ -962,12 +963,12 @@
     {
       "file": "CAP-X6FLOORS",
       "read": "Instagram w far in",
-      "ok": false
+      "ok": true
     },
     {
       "file": "CAP-X6FLOORS",
       "read": "Instagram e far in",
-      "ok": false
+      "ok": true
     },
     {
       "file": "CAP-X6FLOORS",
@@ -1052,12 +1053,162 @@
     {
       "file": "CAP-X6FLOORS",
       "read": "Bandsintown w far in",
-      "ok": false
+      "ok": true
     },
     {
       "file": "CAP-X6FLOORS",
       "read": "Bandsintown e far in",
-      "ok": false
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Text start",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Text w far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Text e far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Markdown start",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Markdown w far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Markdown e far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Button start",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Button w far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Button e far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Accordion start",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Accordion w far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Accordion e far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Video start",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Video w far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Video e far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Code start",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Code w far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Code e far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Search Field start",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Search Field w far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Search Field e far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Newsletter start",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Newsletter w far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Newsletter e far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Chart start",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Chart w far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Chart e far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Scheduling start",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Scheduling w far in",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6FLOORSPHONE",
+      "read": "Scheduling e far in",
+      "ok": true
     }
   ]
 }
