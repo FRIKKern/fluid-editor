@@ -3799,13 +3799,18 @@ function pasteTransforms(sid, ids) {
 
 // Align Group, as on the oracle (traces T0018, T0019): blocks line up on the group's
 // bounding box; centers round to the nearest line.
-// Like the oracle's Move Forward / Move Backward (traces T0011, T0012): swap z-index
-// with the block next above or below in z order.
 function zSwap(sid, b, up) {
-  const L = lay(b);
-  const others = S(sid).blocks.filter((o) => o !== b).map((o) => lay(o));
-  const next = others.filter((o) => (up ? o.z > L.z : o.z < L.z)).sort((x, y) => (up ? x.z - y.z : y.z - x.z))[0];
-  if (next) [L.z, next.z] = [next.z, L.z];
+  // The toolbar's one step: just past the next block it overlaps on that side, over any that it doesn't,
+  // and the section is numbered again. With a pin every block counts (CAP-U4ZPRESS.json, CAP-U4ZSTACK.json,
+  // CAP-U4ZPIN.json). The right-click Arrange goes past all it overlaps.
+  const s = S(sid), all = [...s.blocks].sort((x, y) => lay(x).z - lay(y).z), mine = all.indexOf(b);
+  const pinned = s.blocks.some((o) => o.layout[bp]?.sticky);
+  const side = up ? all.slice(mine + 1) : all.slice(0, mine).reverse();
+  const hit = side.find((o) => pinned || overlaps(lay(o).area, lay(b).area));
+  if (!hit) return;
+  const order = all.filter((x) => x !== b);
+  order.splice(order.indexOf(hit) + (up ? 1 : 0), 0, b);
+  order.forEach((x, n) => { lay(x).z = n + 1; });
 }
 
 // Phone Move Up and Move Down (traces T0020, T0021): the phone toolbar has these instead of
