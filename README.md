@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 70 changes
+- **Today** · 71 changes
+  - U9: back to partial, new reads show panel and outline parts we have not built ([#249](https://github.com/FRIKKern/fluid-editor/pull/249))
   - U6, U9: Redo, overlay, tips, panel band, outline fade, shadow read; Gate B file has 767 ([#248](https://github.com/FRIKKern/fluid-editor/pull/248))
-  - 0006: inventory refuses unless the lead asks, like oracle-probe ([#247](https://github.com/FRIKKern/fluid-editor/pull/247))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
