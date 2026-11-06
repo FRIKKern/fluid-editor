@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 15 changes
+- **Today** · 16 changes
+  - T6, L6, P3: back to partial, new reads show parts that differ ([#194](https://github.com/FRIKKern/fluid-editor/pull/194))
   - P3, L6, T6: read the unread facts on probe pages ([#193](https://github.com/FRIKKern/fluid-editor/pull/193))
-  - A2: a phone reflow redraws the section, so a phone drag lands where the oracle's does ([#192](https://github.com/FRIKKern/fluid-editor/pull/192))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
