@@ -1582,7 +1582,30 @@
     "BUTTON|submit||||||Duplicate|22,576,71,36",
     "BUTTON|submit||||||Delete|251,576,47,36"
    ]
-  }
+  },
+  "requireOnFieldset": "Required on Phone, Checkbox, Radio and Address adds (required) to the title, read by the title growing 8.8 + 72.3 wide; the item keeps no required class.",
+  "optionCleared": [
+   "INPUT|text|Label|Dropdown|Dropdown||||22,53,276,44",
+   "INPUT|text|Placeholder|Add placeholder text|Pick one||||22,241,276,44",
+   "INPUT|text||Option 1|Option 1||||44,409,218,22",
+   "INPUT|text||Option 2|Option 2||||44,474,218,22",
+   "INPUT|text||Option 3|||||44,539,218,22"
+  ],
+  "selects": [
+   [
+    "Norway",
+    245
+   ],
+   [
+    "Pick one",
+    4
+   ],
+   [
+    "Norway",
+    245
+   ]
+  ],
+  "fileMaxOnPage": "Max Number of Files at 2 and specific types on: the page still says Add a File."
  },
  "blockFits": {
   "note": "The block's rows follow the form: rows grow and shrink so the form fits, and the section grows with them. The block can read tall for a moment before it settles.",
@@ -1659,7 +1682,7 @@
     "HTML @0,409,320,16",
     "9 @22,429,20,0",
     "1 @22,440,20,22",
-    "\u203a @42,432,10,16",
+    "› @42,432,10,16",
     "Add @59,440,25,22",
     "HTML to be rendered in addition to the Post-Submit Message. @11,585,298,32"
    ],
@@ -1763,7 +1786,7 @@
     "BUTTON|submit|||||||116,468,11,44",
     "BUTTON|submit|||||||254,468,44,44",
     "BUTTON|submit|Reset to default value||||||291,482,16,16",
-    "INPUT|text|||0\u00b0||||127,519,160,44",
+    "INPUT|text|||0°||||127,519,160,44",
     "BUTTON|submit|||||||116,519,182,11",
     "BUTTON|submit|||||||116,552,182,11",
     "BUTTON|submit|||||||116,519,11,44",
@@ -1793,13 +1816,13 @@
     "BUTTON|submit|||||||210,621,11,44",
     "BUTTON|submit|||||||254,621,44,44",
     "BUTTON|submit|Reset to default value||||||291,635,16,16",
-    "INPUT|text|||0\u00b0||||127,672,66,44",
+    "INPUT|text|||0°||||127,672,66,44",
     "BUTTON|submit|||||||116,672,88,11",
     "BUTTON|submit|||||||116,705,88,11",
     "BUTTON|submit|||||||116,672,11,44",
     "BUTTON|submit|||||||160,672,44,44",
     "BUTTON|submit|Reset to default value||||||197,686,16,16",
-    "INPUT|text|||0\u00b0||||221,672,66,44",
+    "INPUT|text|||0°||||221,672,66,44",
     "BUTTON|submit|||||||210,672,88,11",
     "BUTTON|submit|||||||210,705,88,11",
     "BUTTON|submit|||||||210,672,11,44",
@@ -1960,6 +1983,595 @@
   "Follow-up questions past Add Follow-Up: no tile pressed.",
   "Send confirmation email and SMS Marketing Opt-in: not pressed. View plans: not pressed.",
   "Fields on the phone.",
-  "Email Notification, Additional Storage, reCAPTCHA: not pressed."
- ]
+  "Email Notification, Additional Storage, reCAPTCHA: not pressed.",
+  "How an option is removed: its menu has one row, and an emptied option stays as an empty row.",
+  "Field label typed empty."
+ ],
+ "drawn": {
+  "note": "Item height and control boxes (x, y from the item top, width, height) at 1600 wide, a form 518 wide. plain: Subject has a description and placeholder, every other field as added. withDescription: every added field has a description, Required on where it has one, Phone shows its country code, a Dropdown has its own placeholder and a third option left empty.",
+  "plain": [
+   {
+    "k": "name",
+    "h": 122.5,
+    "top": 0,
+    "c": [
+     [
+      "INPUT",
+      0,
+      58.1,
+      254,
+      44.4
+     ],
+     [
+      "INPUT",
+      264,
+      58.1,
+      254,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "email",
+    "h": 106.5,
+    "top": 122.5,
+    "c": [
+     [
+      "INPUT",
+      0,
+      30.4,
+      518,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "text",
+    "h": 112.6,
+    "top": 249.1,
+    "c": [
+     [
+      "INPUT",
+      0,
+      68.2,
+      518,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "textarea",
+    "h": 130.4,
+    "top": 381.7,
+    "c": [
+     [
+      "TEXTAREA",
+      0,
+      30.4,
+      518,
+      100
+     ]
+    ]
+   },
+   {
+    "k": "phone",
+    "h": 94.8,
+    "top": 532.1,
+    "c": [
+     [
+      "INPUT",
+      0,
+      30.4,
+      518,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "select",
+    "h": 74.8,
+    "top": 626.9,
+    "c": [
+     [
+      "SELECT",
+      0,
+      30.4,
+      518,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "checkbox",
+    "h": 101.8,
+    "top": 721.7,
+    "c": []
+   },
+   {
+    "k": "radio",
+    "h": 109.8,
+    "top": 843.5,
+    "c": []
+   },
+   {
+    "k": "likert",
+    "h": 360.9,
+    "top": 973.4,
+    "c": []
+   },
+   {
+    "k": "address",
+    "h": 402.9,
+    "top": 1334.3,
+    "c": [
+     [
+      "SELECT",
+      0,
+      62.1,
+      518,
+      44.4
+     ],
+     [
+      "INPUT",
+      0,
+      154.2,
+      518,
+      44.4
+     ],
+     [
+      "INPUT",
+      0,
+      246.3,
+      518,
+      44.4
+     ],
+     [
+      "INPUT",
+      0,
+      338.5,
+      254,
+      44.4
+     ],
+     [
+      "INPUT",
+      264,
+      338.5,
+      254,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "line-field",
+    "h": 35.7,
+    "top": 1769.2,
+    "c": []
+   },
+   {
+    "k": "website",
+    "h": 74.8,
+    "top": 1836.9,
+    "c": [
+     [
+      "INPUT",
+      0,
+      30.4,
+      518,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "date",
+    "h": 76.8,
+    "top": 1931.7,
+    "c": [
+     [
+      "INPUT",
+      0,
+      30.4,
+      200,
+      46.4
+     ]
+    ]
+   },
+   {
+    "k": "number",
+    "h": 74.8,
+    "top": 2028.5,
+    "c": [
+     [
+      "INPUT",
+      0,
+      30.4,
+      518,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "time",
+    "h": 112.5,
+    "top": 2123.3,
+    "c": [
+     [
+      "INPUT",
+      0,
+      30.4,
+      200,
+      46.4
+     ]
+    ]
+   },
+   {
+    "k": "currency",
+    "h": 74.8,
+    "top": 2255.8,
+    "c": [
+     [
+      "INPUT",
+      0,
+      30.5,
+      200,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "twitter",
+    "h": 74.8,
+    "top": 2350.7,
+    "c": [
+     [
+      "INPUT",
+      0,
+      30.4,
+      200,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "file",
+    "h": 142.4,
+    "top": 2445.5,
+    "c": []
+   }
+  ],
+  "withDescription": [
+   {
+    "k": "name",
+    "h": 122.5,
+    "top": 0,
+    "c": [
+     [
+      "INPUT",
+      0,
+      58.1,
+      254,
+      44.4
+     ],
+     [
+      "INPUT",
+      264,
+      58.1,
+      254,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "email",
+    "h": 106.5,
+    "top": 122.5,
+    "c": [
+     [
+      "INPUT",
+      0,
+      30.4,
+      518,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "text",
+    "h": 74.8,
+    "top": 249.1,
+    "c": [
+     [
+      "INPUT",
+      0,
+      30.4,
+      518,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "textarea",
+    "h": 130.4,
+    "top": 343.9,
+    "c": [
+     [
+      "TEXTAREA",
+      0,
+      30.4,
+      518,
+      100
+     ]
+    ]
+   },
+   {
+    "k": "phone",
+    "h": 160.3,
+    "top": 494.3,
+    "c": [
+     [
+      "SELECT",
+      0,
+      95.9,
+      204.4,
+      44.4
+     ],
+     [
+      "INPUT",
+      211.4,
+      95.9,
+      306.6,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "select",
+    "h": 112.6,
+    "top": 654.6,
+    "c": [
+     [
+      "SELECT",
+      0,
+      68.2,
+      518,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "checkbox",
+    "h": 139.6,
+    "top": 787.2,
+    "c": []
+   },
+   {
+    "k": "radio",
+    "h": 147.6,
+    "top": 946.8,
+    "c": []
+   },
+   {
+    "k": "likert",
+    "h": 394.7,
+    "top": 1114.4,
+    "c": []
+   },
+   {
+    "k": "address",
+    "h": 440.7,
+    "top": 1509.1,
+    "c": [
+     [
+      "SELECT",
+      0,
+      99.9,
+      518,
+      44.4
+     ],
+     [
+      "INPUT",
+      0,
+      192.0,
+      518,
+      44.4
+     ],
+     [
+      "INPUT",
+      0,
+      284.2,
+      518,
+      44.4
+     ],
+     [
+      "INPUT",
+      0,
+      376.3,
+      254,
+      44.4
+     ],
+     [
+      "INPUT",
+      264,
+      376.3,
+      254,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "line-field",
+    "h": 69.5,
+    "top": 1981.8,
+    "c": []
+   },
+   {
+    "k": "website",
+    "h": 112.6,
+    "top": 2083.3,
+    "c": [
+     [
+      "INPUT",
+      0,
+      68.2,
+      518,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "date",
+    "h": 114.6,
+    "top": 2215.9,
+    "c": [
+     [
+      "INPUT",
+      0,
+      68.2,
+      200,
+      46.4
+     ]
+    ]
+   },
+   {
+    "k": "number",
+    "h": 112.6,
+    "top": 2350.5,
+    "c": [
+     [
+      "INPUT",
+      0,
+      68.2,
+      518,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "time",
+    "h": 150.3,
+    "top": 2483.1,
+    "c": [
+     [
+      "INPUT",
+      0,
+      68.2,
+      200,
+      46.4
+     ]
+    ]
+   },
+   {
+    "k": "currency",
+    "h": 112.6,
+    "top": 2653.4,
+    "c": [
+     [
+      "INPUT",
+      0,
+      68.2,
+      200,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "twitter",
+    "h": 112.6,
+    "top": 2786,
+    "c": [
+     [
+      "INPUT",
+      0,
+      68.2,
+      200,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "file",
+    "h": 180.2,
+    "top": 2918.6,
+    "c": []
+   },
+   {
+    "k": "text",
+    "h": 112.6,
+    "top": 3118.8,
+    "c": [
+     [
+      "INPUT",
+      0,
+      68.1,
+      518,
+      44.4
+     ]
+    ]
+   },
+   {
+    "k": "textarea",
+    "h": 168.2,
+    "top": 3251.3,
+    "c": [
+     [
+      "TEXTAREA",
+      0,
+      68.2,
+      518,
+      100
+     ]
+    ]
+   },
+   {
+    "k": "email",
+    "h": 112.6,
+    "top": 3439.5,
+    "c": [
+     [
+      "INPUT",
+      0,
+      68.2,
+      518,
+      44.4
+     ]
+    ]
+   }
+  ]
+ },
+ "formHeights": {
+  "plain": 2674.5,
+  "withDescription": 3638.7
+ },
+ "panelText": {
+  "emailDefault": "Back\nEmail\nLABEL\nDESCRIPTION\nPLACEHOLDER\n\nRequired\n\nThis email address will be stored in Contacts as the contact for the form submission.\n\nEmail Signup\n\nAllow form submitters to sign up for your marketing emails. Subscribers will be automatically stored in Contacts.\nVERIFICATION\n\nSend confirmation email\n\nDUPLICATE\nDELETE",
+  "phone": "Back\nPhone\nLABEL\nDESCRIPTION\n\nShow Country Code\n\nSMS Marketing Opt-in\n\nAllow people to sign up for SMS marketing through this form. SMS Subscribers are automatically stored in Contacts.\n\nSMS subscription required\n\nSelect a plan to set up SMS marketing and start collecting opt-ins through this form.\n\nView plans\n\nRequired\n\nDUPLICATE\nDELETE",
+  "hidden": "Back\nHidden\nHidden fields can be used to track which URL your form traffic originates from. Learn More.\nLABEL\nVARIABLE\n\nSQF_HIDDEN\n\nTo fill in this field, include the variable from the box above in the query string for this page.\n\nVALUE\nIf no value is passed through the query string, the default value above will be used.\nDELETE FIELD\nDUPLICATE\nDELETE",
+  "file": "Back\nFile Upload\nLABEL\nDESCRIPTION\n\nRequired\n\nFILE DETAILS\n\nAllow only specific file types\n\nImage (.png, .jpg, .tiff, .heic)\n\nDocument (.docx, .doc, .pdf, .txt)\n\nPresentation (.pptx, .pdf)\n\nVideo (.mp4, .avi, .avchd, .flv)\n\nAudio (.mp3, .wav, .aac, .mp4, .alac)\n\nMax Number of Files\nDUPLICATE\nDELETE"
+ },
+ "oursDiffers": [
+  "The block's rows fit in the same step as a change. The oracle settles a step late on add, duplicate, delete and toggles: reads in blockFits.",
+  "A typed value fits when the field is left. The oracle did not change rows for typing while the panel stayed in the field.",
+  "One undo step per change. The oracle's Undo did not step field changes back: reads in undo.",
+  "The Country list is the browser's region names, 251 of them, with Norway chosen. The oracle has 245. The Phone prefix stays +47.",
+  "The field and tile icons are our own drawings."
+ ],
+ "inferred": [
+  "Hidden's Variable follows the Label: only SQF_HIDDEN for the label Hidden was read.",
+  "A grip on an option moves the option: only the field list's drag was read.",
+  "The Name part hidden by Show keeps its Require value for when it comes back."
+ ],
+ "checkboxGap": {
+  "contact": {
+   "optionMargin": "6px 0 0",
+   "rowGap": 8,
+   "apart": 14,
+   "optionHigh": 21.2
+  },
+  "newOnProbe": {
+   "optionMargin": "6px 0 4px",
+   "rowGap": 8,
+   "apart": 18,
+   "optionHigh": 21.7
+  },
+  "note": "Read on the Contact page and on a form added to a probe page. Ours: imported fields keep 14, tile-made Checkbox and Radio use 18. Why they differ, and which a Checkbox added to the Contact form takes, is not read."
+ }
 }
