@@ -1422,6 +1422,7 @@ function onDblClick(e) {
 }
 
 const selectionLeft = new Map(); // block id: the html it was left with and where its selection was
+let previewed = false;
 const pathFrom = (root, node) => { const path = []; for (let n = node; n !== root; n = n.parentNode) path.unshift([...n.parentNode.childNodes].indexOf(n)); return path; };
 const nodeAtPath = (root, path) => path.reduce((n, k) => n?.childNodes[k], root);
 function startTextEdit(sid, bid) {
@@ -1435,10 +1436,11 @@ function startTextEdit(sid, bid) {
   ce.contentEditable = 'true';
   ce.focus();
   // The caret starts inside the last text, so a press finds its block even when it's empty (CAP-E4ENTER.json).
-  // Opened again, the selection is where it was left (CAP-E4REOPEN.json), unless the text changed since.
+  // Opened again, the selection is where it was left (CAP-E4REOPEN.json), unless the text changed since. A Preview
+  // forgets it and the caret starts at the very start (CAP-E4REOPEN2.json).
   const range = doc.createRange();
-  range.selectNodeContents([...ce.querySelectorAll('h1, h2, h3, h4, p, pre')].at(-1) ?? ce);
-  range.collapse(false);
+  range.selectNodeContents([...ce.querySelectorAll('h1, h2, h3, h4, p, pre')].at(previewed ? 0 : -1) ?? ce);
+  range.collapse(previewed);
   const s = win.getSelection();
   s.removeAllRanges();
   s.addRange(range);
@@ -5673,6 +5675,7 @@ document.getElementById('reload-preview').addEventListener('click', () => { rend
 document.addEventListener('keydown', (e) => { if (e.ctrlKey && e.shiftKey && e.code === 'KeyD') { e.preventDefault(); document.body.classList.toggle('dev-tools'); } });
 
 function setPreview(on) {
+  if (on) { selectionLeft.clear(); previewed = true; }
   document.body.classList.toggle('is-preview', on);
   doc?.body.classList.toggle('is-preview', on);
   if (!on) doc?.querySelectorAll('.cdk-image-lightbox, body > .form-lightbox').forEach((x) => x.remove());

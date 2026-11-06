@@ -21,6 +21,10 @@ const Z2 = ['Move Forward', 'Move Backward'];
 const UR = ['Undo', 'Redo'];
 const BARTIPS = ['Save', 'Desktop View', 'Mobile View', 'Toggle Site Styles editing', 'Toggle preview mode'];
 export const RECIPES = {
+  'CAP-E4REOPEN3': { question: 'E4: after a Preview, where does the caret start in two lines and once more after that?', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['keys', 'one'], ['press', 'Enter'], ['keys', 'two'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pressNamed', 'Toggle preview mode'], ['pause', 1500], ['pressNamed', 'Toggle preview mode'], ['pause', 1200], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'two lines', H], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'Y'], ['pause', 300], ['read', 'two lines, opened once more', H],
+  ] },
   'CAP-E4REOPEN2': { question: 'E4: is the selection kept when an edit is opened again after a change of view, a Preview, or an Undo? Predicted first.', page: 'Gestures Probe', steps: [
     ['enter'], ['blank'],
     ...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['view', 'Mobile'], ['pause', 700], ['view', 'Desktop'], ['pause', 500], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'after the phone view', H],
