@@ -1,0 +1,1519 @@
+{
+  "item": "CAP-T10MD5",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: Markdown Link through Enter or a press away, no selection, an existing link; emptying; shortcuts; Enter on a list line; toolbar state on the caret",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "/services"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "option then Enter",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "md5-a"
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "/services"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "clickAt",
+      700,
+      329
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "option then press away",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "md5-b"
+    ],
+    [
+      "setCode",
+      ""
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "/about"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "empty, option, Enter",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "/about"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "caret at end, option, Enter",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "word more"
+    ],
+    [
+      "press",
+      "Home"
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "/about"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "caret at start, option, Enter",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "keys",
+      "example.test"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "typed domain",
+      {
+        "panelEls": ".cm-line",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "[a](/x)"
+    ],
+    [
+      "press",
+      "Home"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "Link on existing",
+      {
+        "panelEls": ".cm-line, input",
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "md5-existing"
+    ],
+    [
+      "clickAt",
+      700,
+      329
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "press",
+      "Meta+b"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Meta+b",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "press",
+      "Meta+i"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Meta+i",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "press",
+      "Meta+k"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "Meta+k",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "shot",
+      "md5-metak"
+    ],
+    [
+      "clickAt",
+      700,
+      329
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "setCode",
+      "* a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "b"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Enter on bullet",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "1. a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "b"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Enter on number",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "> a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "b"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Enter on quote",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "**b**"
+    ],
+    [
+      "press",
+      "Home"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "caret in bold",
+      {
+        "checks": true,
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "shot",
+      "md5-caret-bold"
+    ],
+    [
+      "setCode",
+      "## h"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "caret in h2",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "md5-caret-h2"
+    ],
+    [
+      "setCode",
+      "* a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "shot",
+      "md5-caret-bullet"
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "emptied",
+      {
+        "panelEls": ".cm-line, .cm-placeholder",
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0,
+        "frameEls": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "shot",
+      "md5-emptied"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "emptied, deselected",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "md5-emptied-off"
+    ]
+  ],
+  "reads": {
+    "option then Enter": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "[word](/services)",
+          "lines": 6,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p><a href=\"/services\">word</a></p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "option then press away": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "[word](/services)",
+          "lines": 6,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p><a href=\"/services\">word</a></p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "empty, option, Enter": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "[word](/services)",
+          "lines": 6,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p><a href=\"/services\">word</a></p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "caret at end, option, Enter": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "word[/about](/about)",
+          "lines": 6,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p>word<a href=\"/about\">/about</a></p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "caret at start, option, Enter": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "[/about](/about)word more",
+          "lines": 6,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p><a href=\"/about\">/about</a>word more</p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed domain": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "[word](<https>example.test)",
+          "lines": 6,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p><a href=\"<https>example.test\">word</a></p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Link on existing": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            301,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            716,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            778,
+            148.5,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "/x",
+          "box": [
+            442.1,
+            412,
+            288,
+            66
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            442.1,
+            478,
+            28.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Copy",
+          "box": [
+            492.6,
+            478,
+            35.6,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Link",
+          "box": [
+            643.4,
+            478,
+            86.7,
+            55
+          ]
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "[a](/x)",
+          "lines": 6,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Meta+b": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "word",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Meta+i": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "word",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Meta+k": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "word",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Enter on bullet": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "* a",
+          "lines": 1,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "* b",
+          "lines": 1,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Enter on number": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "1. a",
+          "lines": 1,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "2. b",
+          "lines": 1,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Enter on quote": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "> a",
+          "lines": 1,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "> b",
+          "lines": 1,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "caret in bold": {
+      "checks": [],
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "**b**",
+          "lines": 3,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "caret in h2": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            301,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            366,
+            108.6,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            486.6,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            526.6,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            566.6,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            611.6,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            651.6,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            696.6,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            716,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            778,
+            148.5,
+            16
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "emptied": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Double-click to edit...",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            359.5,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "Add markdown…",
+          "lines": 3,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "span",
+          "cls": "cm-placeholder",
+          "label": "Add markdown…",
+          "lines": 0,
+          "box": [
+            402.4,
+            423,
+            109.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "emptied, deselected": {
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "pressNamed [\"/about\"]: nothing labelled /about"
+  ],
+  "leftDirty": true,
+  "answer": "Enter or a press away writes [word](/services) and closes the popover. With only a caret the address is its own words: word[/about](/about). A typed domain gains https. A caret in a link shows the link with Edit, Copy and Remove Link. Meta+B, I and K do nothing. Enter carries a list or quote on, the number going up. The toolbar lights Bulleted List, Numbered List or Quote for the caret's line, and Heading shows the line's name; Bold and Italic stay dark. An emptied block shows its placeholder again and rows follow."
+}

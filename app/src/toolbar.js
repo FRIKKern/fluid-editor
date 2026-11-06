@@ -79,6 +79,7 @@ export function toolbarItems(type, bp, z, fit = false, inStack = false) {
   // A video with a file gains Align Vertically (VIDEOPLAYER.json).
   if (type === 'video' && fit) return ['edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove'];
   if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove'];
+  if (type === 'markdown') return ['edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove']; // CAP-T10PRE.json
   if (type === 'button') return ['edit', '|', 'primary', 'link', 'pin', 'duplicate', 'remove'];
   return ['edit', '|', 'pin', ...zs, '|', 'duplicate', 'remove'];
 }

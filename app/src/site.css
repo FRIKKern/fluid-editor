@@ -187,10 +187,10 @@ svg.sqs-shape:not(.is-square) { position: absolute; inset: 0; }
   background: #0f0f0f; color: #e8e8e8; border-radius: 10px;
   font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; line-height: 1.5;
 }
-.sqs-block-code .sqs-code-container { line-height: var(--body-font-line-height); } /* bare text, 22.4 a line (CAP-T10FRESH.json) */
+.sqs-block-code .sqs-code-container, .sqs-block-markdown .sqs-block-content { line-height: var(--body-font-line-height); } /* bare text, 22.4 a line (CAP-T10FRESH.json) */
 /* A pre in a code block is plain: page colour, no box, clipped at the block's edge (CAP-T10PRE.json). Source is in monospace. */
-.sqs-block-code .sqs-code-container pre {
-  padding: 0; overflow: hidden; background: none; color: inherit; border-radius: 0;
+.sqs-block-code .sqs-code-container pre, .sqs-block-markdown pre {
+  margin: 0; padding: 0; overflow: hidden; background: none; color: inherit; border-radius: 0;
   font-family: inherit; font-size: 1rem; line-height: var(--body-font-line-height); white-space: pre;
 }
 .sqs-block-code .sqs-code-container pre.source-code { font-family: monospace; }
@@ -591,9 +591,12 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .page-section .sqs-block-button-element, .page-section .form-submit { background: var(--button-bg); color: var(--button-ink); }
 
 /* Embed and video placeholders (T7, T10): the editor shows them, the published page does not. */
-.sqs-embed-container .sqs-blockStatus, .sqs-code-container .sqs-blockStatus, .removed-script, .sqs-block-video-placeholder--empty, .fluid-image-component-empty-state-node { display: none; }
-.sqs-block-code .sqs-code-container > :first-child { margin-top: 0; } /* the first paragraph sits at the top of the block (CAP-T10PULL.json) */
-.sqs-block-code .sqs-code-container > :last-child { margin-bottom: 0; }
+.sqs-embed-container .sqs-blockStatus, .sqs-code-container .sqs-blockStatus, .sqs-block-markdown .sqs-blockStatus, .removed-script, .sqs-block-video-placeholder--empty, .fluid-image-component-empty-state-node { display: none; }
+.sqs-block-code .sqs-code-container > :first-child, .sqs-block-markdown .sqs-block-content > :first-child { margin-top: 0; } /* the first paragraph sits at the top of the block (CAP-T10PULL.json) */
+.sqs-block-code .sqs-code-container > :last-child, .sqs-block-markdown .sqs-block-content > :last-child { margin-bottom: 0; }
+/* What a quote holds doesn't push out of it: a nested quote of 60.8 takes 2 rows (CAP-T10MD.json). Inferred for a Code block in Markdown mode. */
+.sqs-block-code .sqs-code-container blockquote > :first-child, .sqs-block-markdown blockquote > :first-child { margin-top: 0; }
+.sqs-block-code .sqs-code-container blockquote > :last-child, .sqs-block-markdown blockquote > :last-child { margin-bottom: 0; }
 
 /* Text colors of the trial site palette (parity/findings/TEXTCOLOR.json). */
 .sqsrte-text-color--white { color: rgb(255, 255, 255); }

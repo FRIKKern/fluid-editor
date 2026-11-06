@@ -1,0 +1,1621 @@
+{
+  "item": "CAP-T10MD6",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: what emptying a Markdown block does to its rows; Enter twice on a list line; a selected word given a link from Heading",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "fresh",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "a"
+    ],
+    [
+      "read",
+      "one letter",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "emptied from 6",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "a"
+    ],
+    [
+      "read",
+      "a after empty",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "emptied from 2",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "a\n\nb\n\nc\n\nd\n\ne\n\nf\n\ng\n\nh\n\ni\n\nj"
+    ],
+    [
+      "read",
+      "ten paragraphs",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "emptied from ten",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "# a"
+    ],
+    [
+      "read",
+      "h1",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "emptied from h1",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "a\n\nb\n\nc\n\nd\n\ne\n\nf\n\ng\n\nh\n\ni\n\nj"
+    ],
+    [
+      "read",
+      "ten again",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "a"
+    ],
+    [
+      "read",
+      "ten to one",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "emptied after the fall",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "* a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "b"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Enter twice on a bullet",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "1. a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "b"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Enter twice on a number",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "> a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "b"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Enter twice on a quote",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "* a"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "keys",
+      "b"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Backspace on a new bullet",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "## one\nline two"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Heading"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressNamed",
+      "Heading 3"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "heading on two lines",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Quote"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Quote"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "quote twice",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Numbered List"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Numbered List"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "number twice",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Bulleted List"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Numbered List"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "bullet then number",
+      {
+        "panelEls": ".cm-line"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "phone fresh",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "setCode",
+      "a"
+    ],
+    [
+      "read",
+      "phone a",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "phone emptied",
+      {
+        "panelEls": ".cm-line",
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "shot",
+      "md6-phone"
+    ]
+  ],
+  "reads": {
+    "fresh": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "Add markdown…",
+          "lines": 3,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "one letter": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "a",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p>a</p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "emptied from 6": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "Add markdown…",
+          "lines": 3,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "a after empty": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "a",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p>a</p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "emptied from 2": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "Add markdown…",
+          "lines": 3,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "ten paragraphs": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "a",
+          "lines": 0,
+          "box": [
+            402.3,
+            336,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            358,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "b",
+          "lines": 0,
+          "box": [
+            402.3,
+            380,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            402,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "c",
+          "lines": 0,
+          "box": [
+            402.3,
+            424,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            446,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "d",
+          "lines": 0,
+          "box": [
+            402.3,
+            468,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            490,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "e",
+          "lines": 0,
+          "box": [
+            402.3,
+            512,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            534,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "f",
+          "lines": 0,
+          "box": [
+            402.3,
+            556,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            578,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "g",
+          "lines": 0,
+          "box": [
+            402.3,
+            600,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            622,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "h",
+          "lines": 0,
+          "box": [
+            402.3,
+            644,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            666,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "i",
+          "lines": 0,
+          "box": [
+            402.3,
+            688,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            710,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "j",
+          "lines": 0,
+          "box": [
+            402.3,
+            732,
+            493.7,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p>a</p><p>b</p><p>c</p><p>d</p><p>e</p><p>f</p><p>g</p><p>h</p><p>i</p><p>j</p>",
+      "areas": [
+        [
+          "1/2/11/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "emptied from ten": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "Add markdown…",
+          "lines": 3,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "h1": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "# a",
+          "lines": 2,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<h1>a</h1>",
+      "areas": [
+        [
+          "1/2/4/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "emptied from h1": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "Add markdown…",
+          "lines": 3,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "ten again": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "a",
+          "lines": 0,
+          "box": [
+            402.3,
+            336,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            358,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "b",
+          "lines": 0,
+          "box": [
+            402.3,
+            380,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            402,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "c",
+          "lines": 0,
+          "box": [
+            402.3,
+            424,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            446,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "d",
+          "lines": 0,
+          "box": [
+            402.3,
+            468,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            490,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "e",
+          "lines": 0,
+          "box": [
+            402.3,
+            512,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            534,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "f",
+          "lines": 0,
+          "box": [
+            402.3,
+            556,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            578,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "g",
+          "lines": 0,
+          "box": [
+            402.3,
+            600,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            622,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "h",
+          "lines": 0,
+          "box": [
+            402.3,
+            644,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            666,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "i",
+          "lines": 0,
+          "box": [
+            402.3,
+            688,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            402.3,
+            710,
+            493.7,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "j",
+          "lines": 0,
+          "box": [
+            402.3,
+            732,
+            493.7,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p>a</p><p>b</p><p>c</p><p>d</p><p>e</p><p>f</p><p>g</p><p>h</p><p>i</p><p>j</p>",
+      "areas": [
+        [
+          "1/2/11/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "ten to one": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "a",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p>a</p>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "emptied after the fall": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "Add markdown…",
+          "lines": 3,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Enter twice on a bullet": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "* a",
+          "lines": 1,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "* b",
+          "lines": 1,
+          "box": [
+            396.4,
+            467,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Enter twice on a number": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "1. a",
+          "lines": 1,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "",
+          "lines": 1,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "2. b",
+          "lines": 1,
+          "box": [
+            396.4,
+            467,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Enter twice on a quote": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "> a",
+          "lines": 1,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": ">",
+          "lines": 1,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "> b",
+          "lines": 1,
+          "box": [
+            396.4,
+            467,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Backspace on a new bullet": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "* a",
+          "lines": 1,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "b",
+          "lines": 0,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "heading on two lines": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line",
+          "label": "### one",
+          "lines": 2,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "### line two",
+          "lines": 2,
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "quote twice": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "word",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "number twice": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "word",
+          "lines": 0,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bullet then number": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "1. * word",
+          "lines": 2,
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone fresh": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "1. * word",
+          "lines": 2,
+          "box": [
+            1058.4,
+            436,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<ol>\n<li><ul>\n<li>word</li>\n</ul>\n</li>\n</ol>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone a": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "a",
+          "lines": 0,
+          "box": [
+            1058.4,
+            436,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<p>a</p>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone emptied": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-line cm-activeLine",
+          "label": "Add markdown…",
+          "lines": 3,
+          "box": [
+            1058.4,
+            436,
+            499.6,
+            22
+          ]
+        }
+      ],
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "The placeholder counts as 22 tall, so emptying follows the same rows rule: from 6 rows with one line nothing changes, from ten paragraphs (10 rows) or an h1 (3 rows) it goes to 1. A second Enter on an empty item leaves a blank line, or a bare >, and the mark below. Backspace on a new bullet takes the whole mark. Heading writes on every selected line. Pressing Quote or Numbered List twice takes it off; Bulleted then Numbered gives 1. * word."
+}

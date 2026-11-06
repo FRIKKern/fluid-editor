@@ -1637,3 +1637,36 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .bp-ffp-link { margin-top: 0; }
 .bp-ffp-link .bp-field { padding-top: 22px; gap: 6px; }
 .bp-ffp-link + .bp-ffp-help { margin-top: 2px; }
+
+/* The Markdown block's panel and view (CAP-T10PRE.json, CAP-T10MD3.json, CAP-T10MD5.json). */
+.bp-md-bar { display: flex; align-items: center; flex: none; height: 36px; margin: 2px 0 10px; padding-left: 4px; }
+.bp-md-head { position: relative; }
+.bp-md-heading { display: flex; align-items: center; justify-content: space-between; gap: 11.65px; height: 36px; padding: 0 8px 0 7px; border: 0; border-radius: 3px; background: none; color: #0e0e0e; font-size: 14px; font-weight: 500; cursor: pointer; }
+.bp-md-heading svg { width: 16px; height: 16px; }
+.bp-md-heading.is-on, .bp-md-btn.is-on { background: #e9e9e9; }
+.bp-md-list { position: absolute; left: 15px; top: 42px; z-index: 5; width: 80px; padding: 0; background: #fff; border-radius: 4px; box-shadow: 0 2px 12px rgba(0, 0, 0, .18); }
+.bp-md-list[hidden] { display: none; }
+.bp-md-list button { display: block; width: 100%; height: 44px; padding: 0; border: 0; background: none; color: #0e0e0e; font-size: 12px; line-height: 44px; text-align: center; cursor: pointer; }
+.bp-md-list button:hover { background: #f2f2f2; }
+.bp-md-sep { flex: none; width: 1px; height: 20px; margin: 0 4px; background: #dcdcdc; }
+.bp-md-btn { position: relative; display: flex; align-items: center; justify-content: center; flex: none; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 3px; background: none; color: #0e0e0e; cursor: pointer; }
+.bp-md-btn + .bp-md-btn { margin-left: 4px; }
+.bp-md-btn svg { width: 22px; height: 22px; }
+.bp-md-btn:hover::after { content: attr(aria-label); position: absolute; left: 50%; top: 47px; z-index: 6; transform: translateX(-50%); padding: 0 11px; border-radius: 3px; background: #0e0e0e; color: #fff; font-size: 12px; line-height: 34px; white-space: nowrap; pointer-events: none; }
+.bp-md-note { margin: 22px 0 0; color: #5e5e5e; font-size: 12.5px; line-height: 16px; }
+.bp-md-note a { color: inherit; }
+.sp-body:has(> .bp-md-bar) { padding-bottom: 7px; }
+.code-modal-box.is-md .bp-md-bar { margin: auto 0 4px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.code-modal-box.is-md .bp-code { flex: 0 0 498px; }
+.link-popover.is-md { z-index: 100001; width: 328px; min-height: 0; padding: 0 26px 27px; }
+.link-popover.is-md .lk-head { height: 54px; padding-top: 26px; }
+.link-popover.is-md .lk-newtab, .link-popover.is-md .lk-input:placeholder-shown + .lk-clear { display: none; }
+.link-popover.is-md .lk-pages { left: 26px; margin-top: 7px; }
+.link-popover.is-md .lk-page { width: 257px; margin-left: 2px; }
+.link-popover.is-summary { height: 131px; padding: 0; }
+.lk-md-sum { display: flex; align-items: center; gap: 16px; padding: 19px 20px 0; }
+.lk-md-icon { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 3px; background: #f2f2f2; }
+.lk-md-href { font-size: 14px; font-weight: 500; }
+.lk-md-acts { position: absolute; left: 20px; right: 20px; bottom: 22px; display: flex; gap: 22px; }
+.lk-md-acts button { padding: 0; border: 0; background: none; color: #0e0e0e; font-size: 12px; font-weight: 500; line-height: 16px; letter-spacing: .5px; text-transform: uppercase; cursor: pointer; }
+.lk-md-acts button:last-child { margin-left: auto; }
