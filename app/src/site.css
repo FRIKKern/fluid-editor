@@ -178,6 +178,8 @@ svg.sqs-shape:not(.is-square) { position: absolute; inset: 0; }
 /* Absolute, so the square adds nothing to the row height (rows grow to fit content). */
 .sqs-block-shape .sqs-block-content { position: relative; height: 100%; }
 .sqs-shape-block-outer-container { width: 100%; height: 100%; }
+@media (min-width: 768px) { .sqs-shape-block-container-system_mobile { display: none !important; } }
+@media (max-width: 767px) { .sqs-shape-block-container-system_desktop:has(+ .sqs-shape-block-container-system_mobile) { display: none !important; } }
 .sqs-shape-block-outer-container:has(> .is-contained) { container-type: size; }
 .fe-block .sqs-shape-block-container.is-contained { display: flex; flex-direction: row; align-items: center; justify-content: center; width: 100%; height: 100%; }
 .sqs-shape.is-square { flex: none; width: min(100cqw, calc(100cqh * var(--shape-ratio, 1))); height: auto; aspect-ratio: var(--shape-ratio, 1); }
