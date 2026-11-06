@@ -4636,8 +4636,9 @@ function placeLayouts() {
   if (!el) return;
   const fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect(), secTop = fr.top + q.top, secBottom = fr.top + q.bottom;
   if (sectionPanelGone({ secTop, secBottom })) { closeLayouts(); return; }
-  // Read on the first section only (the one under the header).
-  layoutsPlace.top = sectionPanelTop({ edit: secTop + 143, H: window.innerHeight, secTop, secBottom, prev: layoutsPlace.top });
+  // Up: top + 140 under the header, top + 1.4 on other sections on 2 walks of 3. Those sections' way down has no rule (CAP-U10SECOND2.json).
+  const edit = secTop + (model.sections[0].id === layoutsSid ? 143 : 4);
+  layoutsPlace.top = sectionPanelTop({ edit, H: window.innerHeight, secTop, secBottom, prev: layoutsPlace.top });
   layoutsPlace.secTop = secTop;
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
 }

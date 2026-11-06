@@ -1,9 +1,14 @@
 {
- "item": "CAP-U10UNDO",
+ "item": "U10",
+ "name": "CAP-U10UNDOPAST",
+ "question": "Undo past the panel's opening.",
+ "answer": "The panel stays, no mark, the section is as it was before the opening, and a pick then starts from that look. Undo to 0 blocks: the panel stays with no tiles until Escape. A step on the way read 7 rows, 626.5 tall, where 8 rows came before: an oddity with no rule.",
+ "ours": "Now the same. The oddity isn't built.",
+ "differs": "The 7 rows oddity.",
+ "pressed": "Tiles and the View Layouts button by data-test with an on-top check (pressLayout, pressEl). Undo and Redo by name. Moves by coordinates, never a press. Selecting a block by its middle. Paste over the text the tool selected. Nothing saved: Exit Without Saving.",
  "oracle": "/blocks-probe",
  "capturedAt": "2026-11-06",
  "engine": "chrome",
- "question": "CAP-U10UNDO",
  "steps": [
   [
    "window",
@@ -1830,6 +1835,5 @@
   "pressLayout [3]: js_error: TypeError: Cannot read properties of null (reading 'parentElement')",
   "pressLayout [0]: js_error: TypeError: Cannot read properties of null (reading 'parentElement')"
  ],
- "leftDirty": false,
- "name": "CAP-U10UNDOPAST"
+ "leftDirty": false
 }

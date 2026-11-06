@@ -1,846 +1,851 @@
 {
-  "item": "SCOUTSEQ",
-  "oracle": "/blocks-probe",
-  "capturedAt": "2026-11-06",
-  "engine": "chrome",
-  "question": "SCOUTSEQ",
-  "steps": [
-    [
-      "window",
-      1600,
-      1000
-    ],
-    [
-      "enter"
-    ],
-    [
-      "blank"
-    ],
-    [
-      "add",
-      0,
-      "Text"
-    ],
-    [
-      "editText",
-      0,
-      "new"
-    ],
-    [
-      "pasteHere",
-      0,
-      "new",
-      "<p>Paragraph words for a probe</p>"
-    ],
-    [
-      "press",
-      "Escape"
-    ],
-    [
-      "press",
-      "Escape"
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      600
-    ],
-    [
-      "read",
-      "00 start",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      300
-    ],
-    [
-      "frameTo",
-      0
-    ],
-    [
-      "moveAt",
-      800,
-      300
-    ],
-    [
-      "pause",
-      800
-    ],
-    [
-      "pressEl",
-      "[data-test=\"toolbar-layout-switcher\"]"
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "pressLayout",
-      1
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "01 layout 1",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      1
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "02 layout 1",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      0
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "03 layout 0",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      1
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "04 layout 1",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      2
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "05 layout 2",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      1
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "06 layout 1",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      3
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "07 layout 3",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      1
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "08 layout 1",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      4
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "09 layout 4",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      1
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "10 layout 1",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      5
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "11 layout 5",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      1
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "12 layout 1",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      0
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "13 layout 0",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      0
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "14 layout 0",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      2
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "15 layout 2",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      2
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "16 layout 2",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      3
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "17 layout 3",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      3
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "18 layout 3",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      4
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "19 layout 4",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      4
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "20 layout 4",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      5
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "21 layout 5",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "pressLayout",
-      5
-    ],
-    [
-      "moveAt",
-      800,
-      28
-    ],
-    [
-      "pause",
-      500
-    ],
-    [
-      "read",
-      "22 layout 5",
-      {
-        "look": 0
-      }
-    ],
-    [
-      "press",
-      "Escape"
-    ],
-    [
-      "pause",
-      500
-    ]
+ "item": "U10",
+ "name": "CAP-U10ROWSEQ",
+ "question": "Are a layout's rows fixed?",
+ "answer": "No. Rows vary by one with what came before and with the words. On p1 with one run of picks: 1 gives 13 or 14, 0 gives 9 or 10, 2 gives 8 or 9, 3 gives 7 or 8, 4 gives 7 or 8, 5 gives 5 or 6. Our table is fixed at 9, 13, 8, 9, 9, 7.",
+ "ours": "A fixed table.",
+ "differs": "By one row, with no rule read. Named, not built.",
+ "pressed": "Tiles and the View Layouts button by data-test with an on-top check (pressLayout, pressEl). Undo and Redo by name. Moves by coordinates, never a press. Selecting a block by its middle. Paste over the text the tool selected. Nothing saved: Exit Without Saving.",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-06",
+ "engine": "chrome",
+ "steps": [
+  [
+   "window",
+   1600,
+   1000
   ],
-  "reads": {
-    "00 start": {
-      "look": {
-        "th": "",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 667.6,
-        "rows": 8,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "01 layout 1": {
-      "look": {
-        "th": "dark",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 914.1,
-        "rows": 14,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "02 layout 1": {
-      "look": {
-        "th": "dark",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 914.1,
-        "rows": 14,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "03 layout 0": {
-      "look": {
-        "th": "",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 708.7,
-        "rows": 9,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "04 layout 1": {
-      "look": {
-        "th": "dark",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 873,
-        "rows": 13,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "05 layout 2": {
-      "look": {
-        "th": "",
-        "ht": "medium",
-        "dv": true,
-        "d": "M0, 0.876 l0,0 c0,0.093 0.015,0.124 0.06,0.1",
-        "h": 763.6,
-        "rows": 8,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "06 layout 1": {
-      "look": {
-        "th": "dark",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 914.1,
-        "rows": 14,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "07 layout 3": {
-      "look": {
-        "th": "dark",
-        "ht": "medium",
-        "dv": true,
-        "d": "M-1, 0.869 L-1, 0.869 l0,0 c0,0 0.25,0.131 0",
-        "h": 722.5,
-        "rows": 7,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "08 layout 1": {
-      "look": {
-        "th": "dark",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 914.1,
-        "rows": 14,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "09 layout 4": {
-      "look": {
-        "th": "",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 626.5,
-        "rows": 7,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "10 layout 1": {
-      "look": {
-        "th": "dark",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 873,
-        "rows": 13,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "11 layout 5": {
-      "look": {
-        "th": "dark",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 623.7,
-        "rows": 5,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "12 layout 1": {
-      "look": {
-        "th": "dark",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 873,
-        "rows": 13,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "13 layout 0": {
-      "look": {
-        "th": "",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 708.7,
-        "rows": 9,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "14 layout 0": {
-      "look": {
-        "th": "",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 749.8,
-        "rows": 10,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "15 layout 2": {
-      "look": {
-        "th": "",
-        "ht": "medium",
-        "dv": true,
-        "d": "M0, 0.882 l0,0 c0,0.0885 0.015,0.118 0.06,0.",
-        "h": 804.7,
-        "rows": 9,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "16 layout 2": {
-      "look": {
-        "th": "",
-        "ht": "medium",
-        "dv": true,
-        "d": "M0, 0.882 l0,0 c0,0.0885 0.015,0.118 0.06,0.",
-        "h": 804.7,
-        "rows": 9,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "17 layout 3": {
-      "look": {
-        "th": "dark",
-        "ht": "medium",
-        "dv": true,
-        "d": "M-1, 0.876 L-1, 0.876 l0,0 c0,0 0.25,0.124 0",
-        "h": 763.6,
-        "rows": 8,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "18 layout 3": {
-      "look": {
-        "th": "dark",
-        "ht": "medium",
-        "dv": true,
-        "d": "M-1, 0.876 L-1, 0.876 l0,0 c0,0 0.25,0.124 0",
-        "h": 763.6,
-        "rows": 8,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "19 layout 4": {
-      "look": {
-        "th": "",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 667.6,
-        "rows": 8,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "20 layout 4": {
-      "look": {
-        "th": "",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 667.6,
-        "rows": 8,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "21 layout 5": {
-      "look": {
-        "th": "dark",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 623.7,
-        "rows": 6,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "22 layout 5": {
-      "look": {
-        "th": "dark",
-        "ht": "medium",
-        "dv": false,
-        "d": null,
-        "h": 623.7,
-        "rows": 6,
-        "blocks": 1
-      },
-      "path": "/blocks-probe",
-      "save": "changed"
-    }
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "editText",
+   0,
+   "new"
+  ],
+  [
+   "pasteHere",
+   0,
+   "new",
+   "<p>Paragraph words for a probe</p>"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "read",
+   "00 start",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "frameTo",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "pressEl",
+   "[data-test=\"toolbar-layout-switcher\"]"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "pressLayout",
+   1
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "01 layout 1",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   1
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "02 layout 1",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "03 layout 0",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   1
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "04 layout 1",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   2
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "05 layout 2",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   1
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "06 layout 1",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   3
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "07 layout 3",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   1
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "08 layout 1",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   4
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "09 layout 4",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   1
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "10 layout 1",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   5
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "11 layout 5",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   1
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "12 layout 1",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "13 layout 0",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "14 layout 0",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   2
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "15 layout 2",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   2
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "16 layout 2",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   3
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "17 layout 3",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   3
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "18 layout 3",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   4
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "19 layout 4",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   4
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "20 layout 4",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   5
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "21 layout 5",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   5
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "22 layout 5",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ]
+ ],
+ "reads": {
+  "00 start": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 667.6,
+    "rows": 8,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
   },
-  "errors": [],
-  "leftDirty": true
+  "01 layout 1": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 914.1,
+    "rows": 14,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "02 layout 1": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 914.1,
+    "rows": 14,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "03 layout 0": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 708.7,
+    "rows": 9,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "04 layout 1": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 873,
+    "rows": 13,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "05 layout 2": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M0, 0.876 l0,0 c0,0.093 0.015,0.124 0.06,0.1",
+    "h": 763.6,
+    "rows": 8,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "06 layout 1": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 914.1,
+    "rows": 14,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "07 layout 3": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1, 0.869 L-1, 0.869 l0,0 c0,0 0.25,0.131 0",
+    "h": 722.5,
+    "rows": 7,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "08 layout 1": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 914.1,
+    "rows": 14,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "09 layout 4": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 626.5,
+    "rows": 7,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "10 layout 1": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 873,
+    "rows": 13,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "11 layout 5": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 623.7,
+    "rows": 5,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "12 layout 1": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 873,
+    "rows": 13,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "13 layout 0": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 708.7,
+    "rows": 9,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "14 layout 0": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 749.8,
+    "rows": 10,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "15 layout 2": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M0, 0.882 l0,0 c0,0.0885 0.015,0.118 0.06,0.",
+    "h": 804.7,
+    "rows": 9,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "16 layout 2": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M0, 0.882 l0,0 c0,0.0885 0.015,0.118 0.06,0.",
+    "h": 804.7,
+    "rows": 9,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "17 layout 3": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1, 0.876 L-1, 0.876 l0,0 c0,0 0.25,0.124 0",
+    "h": 763.6,
+    "rows": 8,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "18 layout 3": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1, 0.876 L-1, 0.876 l0,0 c0,0 0.25,0.124 0",
+    "h": 763.6,
+    "rows": 8,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "19 layout 4": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 667.6,
+    "rows": 8,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "20 layout 4": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 667.6,
+    "rows": 8,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "21 layout 5": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 623.7,
+    "rows": 6,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "22 layout 5": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 623.7,
+    "rows": 6,
+    "blocks": 1
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  }
+ },
+ "errors": [],
+ "leftDirty": true
 }
