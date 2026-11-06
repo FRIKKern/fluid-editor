@@ -36,9 +36,9 @@ export async function replay(S, finding, add) {
     else if (op === 'click' || op === 'clickIf') { browser(S, 'click', `#text-bar [aria-label="${a[0]}"], #text-bar [data-ctab="${a[0]}"]`); await wait(1200); }
     else if (op === 'fill') { browser(S, 'fill', `#text-bar input[aria-label="${a[0]}"]`, a[1]); await wait(1200); }
     else if (op === 'press') { browser(S, 'press', a[0]); await wait(500); }
-    else if (op === 'keys' || op === 'keysFast') { cdp(S, { op: 'presses', keys: [...a[0]].map((c) => (c === ' ' ? 'Space' : c)) }, 300000); typed = a[0]; await wait(300); }
+    else if (op === 'keys' || op === 'keysFast') { cdp(S, { op: 'presses', keys: [...a[0]].map((c) => (c === ' ' ? 'Space' : c)) }, 300000); typed = a[0]; await wait(200); }
     else if (op === 'keysList') { cdp(S, { op: 'presses', keys: a[0] }); await wait(300); }
-    else if (op === 'pause') await wait(a[0]);
+    else if (op === 'pause') await wait(a[0] - 150); // starting the next process takes about that long
     else if (op === 'read' && finding.reads[a[0]]?.linkTexts) {
       const got = new Set(evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; return JSON.stringify([...ce.querySelectorAll('a')].map((e) => e.textContent)); })()`));
       const want = new Set(finding.reads[a[0]].linkTexts);
