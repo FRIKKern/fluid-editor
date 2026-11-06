@@ -2927,7 +2927,8 @@
      }
     ]
    },
-   "note": "In Preview. They draw at once after the field, 32 in and 486 wide, 20 apart, in option order however they were picked. Another radio takes them away. The select was set by script with a change event, not by a press."
+   "note": "In Preview. They draw at once after the field, 32 in and 486 wide, 20 apart, in option order however they were picked. Another radio takes them away. The select was set by script with a change event, not by a press.",
+   "dropdownPress": "A real press on the Dropdown in Preview focuses it and shows no list in the page: nothing new in the document, not :open, and arrow keys and Enter after it left the first option picked. It's a native select, whose list a headless Chrome doesn't draw. So what the list looks like is unread. Picking by script with a change event is how the option rule was read."
   },
   "survey": {
    "menu": [
@@ -2989,9 +2990,308 @@
   },
   "blockRows": "While a tile is pressed the rows can read tall for a moment, as in blockFits.",
   "marks": {
-   "radio": "Picked: an 8px dot in the middle of the 20px circle, in the text color, scaled from 0 to 1. A rating draws the same dot. Read on Radio; the rating's mark is the same element.",
-   "checkbox": "Picked: a 12px tick in the 20px circle, in the text color. Its shape was read as a clip-path of about (13% 49%, 4% 60%, 41% 90%, 97% 21%, 87% 13%, 39% 70%) and it wipes in over 0.2s after 0.1s.",
-   "focusRing": "A pressed checkbox that holds the focus shows a 16px ring, 2px, rgb(242, 184, 180). Read once, on the checkbox pressed last: a picked radio without the focus has none. That it goes with the focus is inferred."
+   "tick": "A picked checkbox shows a tick in a 12px box in the 20px circle, in the text color. Ours draws its own tick: the shape is ours, not the oracle's. It wipes in from the left: 0.2s, after 0.1s, cubic-bezier(0.33, 1, 0.68, 1), read frame by frame to end at about 0.3s.",
+   "dot": "A picked radio or rating shows an 8px dot in the middle, in the text color. It scales from 0 to 1 over 0.1s, after 0.1s, on the same curve, read frame by frame to end at about 0.2s.",
+   "circle": "At rest 1px in the text color, 20 across. Hover, without focus: 2px inward, the same color. Focus, with or without a hover, by a press or by script, picked or not: 2px inward in the site's accent, rgb(242, 184, 180) here. Radio and checkbox read alike. A radio's and a checkbox's edge move over border-width 0.075s and border-color 0.2s. Focus elsewhere puts it back.",
+   "reads": {
+    "rOnAway": {
+     "checked": true,
+     "active": false,
+     "hover": false,
+     "edge": {
+      "w": "18px",
+      "h": "18px",
+      "bw": "1px",
+      "bc": "rgb(0, 0, 0)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "cOnHoverFocus": {
+     "checked": true,
+     "active": true,
+     "hover": true,
+     "edge": {
+      "w": "16px",
+      "h": "16px",
+      "bw": "2px",
+      "bc": "rgb(242, 184, 180)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "cOnFocusAway": {
+     "checked": true,
+     "active": true,
+     "hover": false,
+     "edge": {
+      "w": "16px",
+      "h": "16px",
+      "bw": "2px",
+      "bc": "rgb(242, 184, 180)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "c0OnNoFocus": {
+     "checked": true,
+     "active": false,
+     "hover": false,
+     "edge": {
+      "w": "18px",
+      "h": "18px",
+      "bw": "1px",
+      "bc": "rgb(0, 0, 0)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "r1OnFocusAway": {
+     "checked": true,
+     "active": true,
+     "hover": false,
+     "edge": {
+      "w": "16px",
+      "h": "16px",
+      "bw": "2px",
+      "bc": "rgb(242, 184, 180)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "c0OnHoverNoFocus": {
+     "checked": true,
+     "active": false,
+     "hover": true,
+     "edge": {
+      "w": "16px",
+      "h": "16px",
+      "bw": "2px",
+      "bc": "rgb(0, 0, 0)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "c1OffHoverNoFocus": {
+     "checked": false,
+     "active": false,
+     "hover": true,
+     "edge": {
+      "w": "16px",
+      "h": "16px",
+      "bw": "2px",
+      "bc": "rgb(0, 0, 0)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "c1OffScriptFocus": {
+     "checked": false,
+     "active": true,
+     "hover": false,
+     "edge": {
+      "w": "16px",
+      "h": "16px",
+      "bw": "2px",
+      "bc": "rgb(242, 184, 180)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "c1OffPressedFocus": {
+     "checked": false,
+     "active": true,
+     "hover": false,
+     "edge": {
+      "w": "16px",
+      "h": "16px",
+      "bw": "2px",
+      "bc": "rgb(242, 184, 180)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    }
+   },
+   "timing": {
+    "dot": [
+     [
+      117,
+      "matrix(0.421016, 0, 0, 0.421016, -4, -4)"
+     ],
+     [
+      133,
+      "matrix(0.701706, 0, 0, 0.701706, -4, -4)"
+     ],
+     [
+      150,
+      "matrix(0.872427, 0, 0, 0.872427, -4, -4)"
+     ],
+     [
+      167,
+      "matrix(0.961088, 0, 0, 0.961088, -4, -4)"
+     ],
+     [
+      183,
+      "matrix(0.994986, 0, 0, 0.994986, -4, -4)"
+     ],
+     [
+      201,
+      "matrix(1, 0, 0, 1, -4, -4)"
+     ],
+     [
+      216,
+      "matrix(1, 0, 0, 1, -4, -4)"
+     ]
+    ],
+    "tick": [
+     [
+      113,
+      "-22.9726% 0px"
+     ],
+     [
+      130,
+      "-42.0146% 0px"
+     ],
+     [
+      146,
+      "-57.6304% 0px"
+     ],
+     [
+      163,
+      "-70.1151% 0px"
+     ],
+     [
+      180,
+      "-79.8551% 0px"
+     ],
+     [
+      197,
+      "-87.1735% 0px"
+     ],
+     [
+      213,
+      "-92.4991% 0px"
+     ],
+     [
+      229,
+      "-96.0944% 0px"
+     ],
+     [
+      247,
+      "-98.3262% 0px"
+     ],
+     [
+      262,
+      "-99.4948% 0px"
+     ],
+     [
+      279,
+      "-99.9354% 0px"
+     ],
+     [
+      296,
+      "-100% 0px"
+     ]
+    ],
+    "transitions": {
+     "dot": "transform 0.1s cubic-bezier(0.33, 1, 0.68, 1) 0.1s",
+     "tick": "mask-position 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0.1s, -webkit-mask-position 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0.1s",
+     "edge": "border-width 0.075s cubic-bezier(0.33, 1, 0.68, 1), border-color 0.2s cubic-bezier(0.33, 1, 0.68, 1), transform 0.15s cubic-bezier(0.33, 1, 0.68, 1)"
+    }
+   }
+  },
+  "rowFont": {
+   "name": "14px, 400, line 22, letter spacing -0.14px, rgb(14, 14, 14)",
+   "followUps": "12px, 400, line 16, letter spacing normal, rgb(102, 102, 102)",
+   "read": [
+    {
+     "t": "Options",
+     "tag": "LABEL",
+     "box": [
+      0,
+      299,
+      320,
+      16
+     ],
+     "font": "Clarkson, \"Helvetica Neue\", He",
+     "size": "11px",
+     "weight": "500",
+     "line": "16px",
+     "ls": "0.75px",
+     "color": "rgb(102, 102, 102)",
+     "tt": "uppercase"
+    },
+    {
+     "t": "Option 1",
+     "tag": "P",
+     "box": [
+      44,
+      326,
+      221,
+      22
+     ],
+     "font": "Clarkson, \"Helvetica Neue\", He",
+     "size": "14px",
+     "weight": "400",
+     "line": "22px",
+     "ls": "-0.14px",
+     "color": "rgb(14, 14, 14)",
+     "tt": "none"
+    },
+    {
+     "t": "1 follow-up",
+     "tag": "P",
+     "box": [
+      44,
+      348,
+      221,
+      16
+     ],
+     "font": "Clarkson, \"Helvetica Neue\", He",
+     "size": "12px",
+     "weight": "400",
+     "line": "16px",
+     "ls": "normal",
+     "color": "rgb(102, 102, 102)",
+     "tt": "none"
+    }
+   ]
   }
  },
  "undo": "Undo did not step back a field's change. After adding a Dropdown one Undo left it there; after typing a label and a description one Undo left both, and the next removed the whole Form block. Ours takes one step per change.",
@@ -2999,7 +3299,7 @@
   "The press on the lightbox button in the preview checked the element on top inside the frame.",
   "The row drag in the list checked the row was on top at its start.",
   "The bottom edge drag on the Lightbox block was by coordinates, read from the block's box. Every other press in the Lightbox reads checked the element on top; the Button Style list was pressed on the element found on top at the label's center.",
-  "Follow-up reads: radio and checkbox presses in Preview checked the label on top inside the frame. Survey ratings checked the input on top and that its place had stopped moving. The Dropdown in Preview was set by script. Every other press used the on-top helper."
+  "Follow-up reads: radio, checkbox, rating and Dropdown presses in Preview checked the control on top inside the frame and that its place had stopped moving. A hover read moved the pointer to the same place. Every other press used the on-top helper."
  ],
  "notRead": [
   "What a form's open lightbox draws: the preview opens nothing on an unsaved form, and it needs a Save (under 0005).",
@@ -3582,7 +3882,6 @@
   "A form with a field just deleted: ours has already fit its rows, so Lightbox on reads from there. The oracle's rows had not settled (lightbox, reads.otherForm.fewerFields: 3 rows where ours gives 2).",
   "What the Lightbox button opens is ours, with no read behind it: a dark page, a 640 wide box in the chosen Background Color, the form and a close button. A press beside the box or on the close button ends it. The text and submit button turn black or white to read on the color.",
   "Ours has no tooltip Open menu on an option's menu button.",
-  "A picked checkbox's tick draws at once, with no wipe, and a picked radio's dot with no scale. Ours has no focus ring on a pressed checkbox.",
   "On the phone too the rows fit in the same step. The oracle's fit is one step late there as well.",
   "Lightbox off from the phone, read once at 15 rows from 16 with no press between. Ours keeps the 16."
  ],
