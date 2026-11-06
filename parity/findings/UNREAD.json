@@ -9,8 +9,8 @@
     "yes": 70,
     "no": 11,
     "ask": 3,
-    "read": 10,
-    "notPressed": 1
+    "read": 12,
+    "notPressed": 0
   },
   "entries": [
     {
@@ -135,9 +135,9 @@
       "safeRead": "ask",
       "why": "the brief lists Reset as read only. This one acts on one block, not the site",
       "lane": "lead to rule",
-      "state": "not pressed",
-      "finding": "CAP-T6RANGE.json",
-      "result": "Label read: Reset to theme. Names a theme, so not pressed under the ruling."
+      "state": "read",
+      "finding": "CAP-T6RESET.json",
+      "result": "Goes to the section theme's stroke; on a phone, to desktop's value."
     },
     {
       "item": "T6",
@@ -780,7 +780,9 @@
       "safeRead": "ask",
       "why": "looks like a block-level reset to desktop, has no label, and the ruling covers only Reset to default value and Stroke Color",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-L6PHONEBTN.json, CAP-L6RESETALL.json, CAP-L6PUSH.json, CAP-L6GOTO.json",
+      "result": "A menu: Reset all overrides, Push to desktop, Go to desktop. Not in ours."
     },
     {
       "item": "L6",
