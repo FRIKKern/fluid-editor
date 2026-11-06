@@ -1,0 +1,1602 @@
+{
+  "item": "CAP-Z3AFTER",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "Z3: is the next press lost after a row drag given up by Escape or a release over the page? Against a normal drop. Layers has to open on the first press or the second.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "hover",
+      0
+    ],
+    [
+      "click",
+      "Open Layers Panel"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "open at the start",
+      {
+        "has": [
+          "Layers"
+        ]
+      }
+    ],
+    [
+      "rowPath",
+      "Button",
+      [
+        "Line",
+        "Button",
+        "Shape"
+      ],
+      [
+        [
+          0,
+          -40
+        ],
+        [
+          "esc"
+        ]
+      ],
+      "held, Escape"
+    ],
+    [
+      "read",
+      "after Escape",
+      {
+        "has": [
+          "Layers"
+        ]
+      }
+    ],
+    [
+      "hover",
+      0
+    ],
+    [
+      "click",
+      "Open Layers Panel"
+    ],
+    [
+      "read",
+      "after Escape, one press",
+      {
+        "has": [
+          "Layers"
+        ]
+      }
+    ],
+    [
+      "click",
+      "Open Layers Panel"
+    ],
+    [
+      "read",
+      "after Escape, two presses",
+      {
+        "has": [
+          "Layers"
+        ]
+      }
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "after Escape, settled",
+      {
+        "has": [
+          "Layers"
+        ]
+      }
+    ],
+    [
+      "rowPath",
+      "Button",
+      [
+        "Line",
+        "Button",
+        "Shape"
+      ],
+      [
+        [
+          400,
+          0
+        ],
+        [
+          400,
+          30
+        ]
+      ],
+      "held, a release over the page"
+    ],
+    [
+      "read",
+      "after a release over the page",
+      {
+        "has": [
+          "Layers"
+        ]
+      }
+    ],
+    [
+      "hover",
+      0
+    ],
+    [
+      "click",
+      "Open Layers Panel"
+    ],
+    [
+      "read",
+      "after a release over the page, one press",
+      {
+        "has": [
+          "Layers"
+        ]
+      }
+    ],
+    [
+      "click",
+      "Open Layers Panel"
+    ],
+    [
+      "read",
+      "after a release over the page, two presses",
+      {
+        "has": [
+          "Layers"
+        ]
+      }
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "after a release over the page, settled",
+      {
+        "has": [
+          "Layers"
+        ]
+      }
+    ],
+    [
+      "read",
+      "before the normal drop",
+      {
+        "has": [
+          "Layers"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "open at the start": {
+      "has": {
+        "Layers": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "held, Escape": {
+      "from": [
+        142,
+        394
+      ],
+      "seen": [
+        [
+          "pressed",
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Button",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ]
+            ],
+            "slots": [],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -9
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                383,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -10
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                373,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -11
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                372,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -12
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                371,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -13
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                370,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -14
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                369,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -15
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                368,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -16
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                367,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -17
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                366,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -18
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                365,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -19
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                364,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -20
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                363,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -21
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                362,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -22
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                361,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -23
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                336,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                360,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                372,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -24
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                359,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -25
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                358,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -26
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                357,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -27
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                356,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -28
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                355,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -29
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                354,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -30
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                353,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -31
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                352,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -32
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                351,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -33
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                350,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -34
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                349,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -35
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                348,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -36
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                347,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -37
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                346,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -38
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                345,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -39
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                344,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            0,
+            -40
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                343,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "3,2,1"
+          }
+        ],
+        [
+          [
+            "esc",
+            0,
+            -40
+          ],
+          {
+            "texts": [],
+            "slots": [],
+            "z": "3,2,1"
+          }
+        ]
+      ],
+      "after": {
+        "texts": [],
+        "slots": [],
+        "z": "3,2,1"
+      }
+    },
+    "after Escape": {
+      "has": {
+        "Layers": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after Escape, one press": {
+      "has": {
+        "Layers": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after Escape, two presses": {
+      "has": {
+        "Layers": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after Escape, settled": {
+      "has": {
+        "Layers": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "held, a release over the page": {
+      "from": [
+        142,
+        347
+      ],
+      "seen": [
+        [
+          "pressed",
+          {
+            "texts": [
+              [
+                "Button",
+                83,
+                336,
+                1
+              ],
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ]
+            ],
+            "slots": [],
+            "z": "2,3,1"
+          }
+        ],
+        [
+          [
+            9,
+            0
+          ],
+          {
+            "texts": [
+              [
+                "Shape",
+                83,
+                383,
+                1
+              ],
+              [
+                "Line",
+                83,
+                430,
+                1
+              ],
+              [
+                "Button",
+                83,
+                336,
+                1
+              ]
+            ],
+            "slots": [
+              [
+                33,
+                325,
+                218,
+                44
+              ]
+            ],
+            "z": "2,3,1"
+          }
+        ]
+      ],
+      "after": {
+        "texts": [],
+        "slots": [],
+        "z": "2,3,1"
+      }
+    },
+    "after a release over the page": {
+      "has": {
+        "Layers": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after a release over the page, one press": {
+      "has": {
+        "Layers": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after a release over the page, two presses": {
+      "has": {
+        "Layers": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after a release over the page, settled": {
+      "has": {
+        "Layers": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "before the normal drop": {
+      "has": {
+        "Layers": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
