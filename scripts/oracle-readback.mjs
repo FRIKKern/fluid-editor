@@ -6,8 +6,8 @@
 // --store replaces CAP-STYLEROWS.json's views with what it reads. Only for a site known to be as it should be.
 // Exit 0: the same. Exit 1: differences, listed. Exit 2: it could not read, so it says nothing about the site.
 import { writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, mouse } from './lib/cmux.mjs';
-import { exitWithoutSaving } from './oracle/ui.mjs';
+import { evalJs, goto, viewport, pause } from './lib/cmux.mjs';
+import { pressOnTop, leaveChecked } from './oracle/press.mjs';
 import { THEMES, NAMES, compareRows, comparePalette, compareView, STYLES, STYLE_FILE } from './oracle/readback.mjs';
 import { VIEWS, READ_VIEW } from './oracle/style-views.mjs';
 
@@ -30,9 +30,7 @@ const FIND = {
 // A real press on a named element that is on top, or it stops.
 async function press(name, find, wait = 1000) {
   if (!PRESS.has(name)) throw new Error(`refused ${name}`);
-  const q = js(`const e = ${find}; if (!e) return JSON.stringify('none'); if (/reset|save|delete|remove/i.test((e.getAttribute('aria-label') || '') + ' ' + e.textContent)) return JSON.stringify('refused'); e.scrollIntoView({ block: 'center' }); const r = e.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2, t = document.elementFromPoint(x, y); return JSON.stringify(t && (t === e || e.contains(t)) ? [x, y] : 'covered');`);
-  if (!Array.isArray(q)) throw new Error(`${name}: ${q}`);
-  mouse(S, 'move', q[0], q[1]); await pause(90); mouse(S, 'down', q[0], q[1], { buttons: 1 }); await pause(30); mouse(S, 'up', q[0], q[1]); await pause(wait);
+  await pressOnTop(S, find, wait).catch((e) => { throw new Error(`${name}: ${e.message}`); });
 }
 // No upper limit near a row's height: names on two lines make a row 66 tall, not 44.
 const rows = () => js(`const pan = [...document.querySelectorAll('button')].filter((x) => { const r = x.getBoundingClientRect(); return r.left >= 1285 && r.width > 270 && r.height >= 40 && r.height <= 200; }); return JSON.stringify(pan.map((x) => { const dot = [...x.querySelectorAll('*')].filter((e) => { const q = e.getBoundingClientRect(); return q.width > 10 && q.width < 30 && q.height === q.width; }).map((e) => getComputedStyle(e).backgroundColor).filter((c) => c !== 'rgba(0, 0, 0, 0)'); return [x.getAttribute('aria-label') || x.innerText.trim().slice(0, 30), dot[0] || '']; }));`);
@@ -88,12 +86,12 @@ try {
     await goBack('Site Styles');
   }
   if (process.argv.includes('--store')) writeFileSync(STYLE_FILE, `${JSON.stringify({ ...STYLES, views: read }, null, 1)}\n`);
-  if (await exitWithoutSaving()) diffs.push('Exit asked about unsaved changes');
+  if (await leaveChecked(S)) diffs.push('Exit asked about unsaved changes');
   await pause(1500);
   if (!closed()) diffs.push(`the page is still being edited after Exit: ${JSON.stringify(topBar())}`);
 } catch (e) {
   console.error(`oracle-readback: could not read: ${e.message}`);
-  if (topBar().exit) await exitWithoutSaving().catch(() => {});
+  if (topBar().exit) await leaveChecked(S).catch(() => {});
   goto(S, PAGES);
   process.exit(2);
 }
