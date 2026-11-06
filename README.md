@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 10 changes
+- **Today** · 11 changes
+  - U12: a form with no pick has a settled look, since T9's re-read ([#189](https://github.com/FRIKKern/fluid-editor/pull/189))
   - U10: Layouts panel closing and picks on a section with a look, read and built; P5: Edit Color Theme back ([#188](https://github.com/FRIKKern/fluid-editor/pull/188))
-  - U12: Forms sub panels Effects, Selection Options, Fonts, Colors, read and built ([#187](https://github.com/FRIKKern/fluid-editor/pull/187))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
