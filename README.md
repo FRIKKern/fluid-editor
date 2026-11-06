@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 52 changes
+- **Today** · 53 changes
+  - S3, P3: back to partial, new reads show parts we have not built ([#231](https://github.com/FRIKKern/fluid-editor/pull/231))
   - T9: follow-up questions, Delete Option, and a mark on a picked option ([#230](https://github.com/FRIKKern/fluid-editor/pull/230))
-  - S3, P3: read a child's align, Hug, transforms and stroke, and why the section panel closes and moves ([#229](https://github.com/FRIKKern/fluid-editor/pull/229))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
