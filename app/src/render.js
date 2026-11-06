@@ -358,10 +358,10 @@ function blockInner(b, model) {
       const field = (f) => {
         const req = (t) => { const m = t.match(/^(.*?)(\(required\))$/); return m ? `${e(m[1])}<span class="req">${e(m[2])}</span>` : e(t); };
         if (f.kind === 'name') return `<fieldset class="form-item form-name"><legend>${e(f.label)}</legend><div class="name-parts">${(f.parts || []).map((p) => `<div class="field"><label class="caption"><span class="caption-row">${req(p)}</span></label><input type="text"></div>`).join('')}</div></fieldset>`;
-        if (f.kind === 'textarea') return `<div class="form-item"><label class="title">${e(f.label)}</label><textarea></textarea></div>`;
+        if (f.kind === 'textarea') return `<div class="form-item"><label class="title">${req(f.label)}</label><textarea></textarea></div>`;
         if (f.kind === 'checkbox') return `<fieldset class="form-item form-checkbox"><legend>${e(f.label)}</legend>${(f.options || []).map((o) => `<div class="option"><label><input type="checkbox"><span>${e(o)}</span></label></div>`).join('')}</fieldset>`;
-        if (f.kind === 'select') return `<div class="form-item form-select"><label class="title">${e(f.label)}</label><select>${(f.options || []).map((o) => `<option>${e(o)}</option>`).join('')}</select></div>`;
-        return `<div class="form-item"><label class="title">${e(f.label)}</label><input type="${f.kind === 'email' ? 'email' : 'text'}"></div>`;
+        if (f.kind === 'select') return `<div class="form-item form-select"><label class="title">${req(f.label)}</label><select>${(f.options || []).map((o) => `<option>${e(o)}</option>`).join('')}</select></div>`;
+        return `<div class="form-item"><label class="title">${req(f.label)}</label><input type="${f.kind === 'email' ? 'email' : 'text'}">${f.signup ? `<div class="form-signup"><label><input type="checkbox"><span>${e(f.signup)}</span></label></div>` : ''}</div>`;
       };
       return `<div class="sqs-block form-block sqs-block-form" id="block-${b.id}"><div class="sqs-block-content"><form class="fe-form" onsubmit="return false">${(b.fields || []).map(field).join('')}<div class="form-button-wrapper"><button class="form-submit" type="submit">${e(b.button || 'Send')}</button></div></form></div></div>`;
     }

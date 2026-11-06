@@ -1,0 +1,1809 @@
+{
+  "item": "T9",
+  "kind": "Add Block > Form and the default look",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "how": "Contact read on the published page from the sidebar, no edit mode. A new Form through the Add Block menu on Blocks Probe, unsaved, left with Exit Without Saving. Only the panel's tabs were pressed. Form storage, Reset and Form Style were not pressed.",
+  "question": "What does Add Block > Form make, and what look does a form have with nothing picked?",
+  "look": {
+    "input": {
+      "height": 44.4,
+      "padding": [
+        10,
+        20
+      ],
+      "border": 1,
+      "radius": "24.784px"
+    },
+    "textarea": {
+      "height": 100,
+      "radius": "24.784px"
+    },
+    "select": {
+      "height": 44.4,
+      "padding": [
+        10,
+        42
+      ]
+    },
+    "check": {
+      "size": 20,
+      "border": 2,
+      "radius": "300px"
+    },
+    "button": {
+      "height": 66.6,
+      "padding": [
+        20.8,
+        56
+      ],
+      "radius": "300px",
+      "weight": 500
+    },
+    "note": "T9's 47 tall and square, read 2026-11-03, no longer holds: Contact and a new Form both read this today."
+  },
+  "area": [
+    1,
+    2,
+    17,
+    11
+  ],
+  "default": {
+    "formName": "The page's title and Form: Blocks Probe Form",
+    "button": "Submit",
+    "fields": [
+      "Name: First Name (required), Last Name (required)",
+      "Email (required), with a Sign up for news and updates checkbox below it",
+      "Subject (required)",
+      "Message (required)"
+    ]
+  },
+  "new": {
+    "path": "/blocks-probe",
+    "block": [
+      518,
+      646.5
+    ],
+    "form": [
+      0,
+      0,
+      518,
+      560.9
+    ],
+    "items": [
+      {
+        "t": "FIELDSET",
+        "c": "form-item fields  name",
+        "box": [
+          0,
+          0,
+          518,
+          122.5
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "flex"
+        }
+      },
+      {
+        "t": "LEGEND",
+        "c": "",
+        "box": [
+          0,
+          0,
+          48.5,
+          30.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "title",
+        "box": [
+          0,
+          0,
+          48.5,
+          30.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "8px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "field first-name",
+        "box": [
+          0,
+          30.4,
+          254,
+          72.1
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "20px",
+          "marginTop": "0px",
+          "display": "grid"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "caption",
+        "box": [
+          0,
+          30.4,
+          254,
+          27.7
+        ],
+        "st": {
+          "fontSize": "12px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "caption-text",
+        "box": [
+          0,
+          34.4,
+          254,
+          23.7
+        ],
+        "text": "First Name",
+        "st": {
+          "fontSize": "14.08px",
+          "lineHeight": "19.712px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "4px",
+          "marginBottom": "0px",
+          "marginTop": "4px",
+          "display": "flex"
+        }
+      },
+      {
+        "t": "SPAN",
+        "c": "description required",
+        "box": [
+          82.4,
+          36.4,
+          72.3,
+          14.1
+        ],
+        "text": "(required)",
+        "st": {
+          "fontSize": "14.08px",
+          "lineHeight": "14.08px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "INPUT:text",
+        "c": "",
+        "box": [
+          0,
+          58.1,
+          254,
+          44.4
+        ],
+        "st": {
+          "height": "44.4062px",
+          "paddingTop": "10px",
+          "paddingRight": "20px",
+          "paddingBottom": "10px",
+          "paddingLeft": "20px",
+          "borderTopWidth": "1px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "24.784px",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "field last-name",
+        "box": [
+          264,
+          30.4,
+          254,
+          72.1
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "20px",
+          "marginTop": "0px",
+          "display": "grid"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "caption",
+        "box": [
+          264,
+          30.4,
+          254,
+          27.7
+        ],
+        "st": {
+          "fontSize": "12px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "caption-text",
+        "box": [
+          264,
+          34.4,
+          254,
+          23.7
+        ],
+        "text": "Last Name",
+        "st": {
+          "fontSize": "14.08px",
+          "lineHeight": "19.712px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "4px",
+          "marginBottom": "0px",
+          "marginTop": "4px",
+          "display": "flex"
+        }
+      },
+      {
+        "t": "SPAN",
+        "c": "description required",
+        "box": [
+          346.2,
+          36.4,
+          72.3,
+          14.1
+        ],
+        "text": "(required)",
+        "st": {
+          "fontSize": "14.08px",
+          "lineHeight": "14.08px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "INPUT:text",
+        "c": "",
+        "box": [
+          264,
+          58.1,
+          254,
+          44.4
+        ],
+        "st": {
+          "height": "44.4062px",
+          "paddingTop": "10px",
+          "paddingRight": "20px",
+          "paddingBottom": "10px",
+          "paddingLeft": "20px",
+          "borderTopWidth": "1px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "24.784px",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "form-item field email required",
+        "box": [
+          0,
+          122.5,
+          518,
+          106.5
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "20px",
+          "marginTop": "0px",
+          "display": "grid"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "title",
+        "box": [
+          0,
+          122.5,
+          518,
+          30.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "8px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "SPAN",
+        "c": "description required",
+        "box": [
+          52.2,
+          124.5,
+          72.3,
+          19.7
+        ],
+        "text": "(required)",
+        "st": {
+          "fontSize": "14.08px",
+          "lineHeight": "19.712px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "INPUT:email",
+        "c": "",
+        "box": [
+          0,
+          152.9,
+          518,
+          44.4
+        ],
+        "st": {
+          "height": "44.4062px",
+          "paddingTop": "10px",
+          "paddingRight": "20px",
+          "paddingBottom": "10px",
+          "paddingLeft": "20px",
+          "borderTopWidth": "1px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "24.784px",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "",
+        "box": [
+          0,
+          203.3,
+          244.9,
+          20
+        ],
+        "st": {
+          "fontSize": "14.08px",
+          "lineHeight": "19.712px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "inline-flex"
+        }
+      },
+      {
+        "t": "INPUT:checkbox",
+        "c": "",
+        "box": [
+          0,
+          203.3,
+          20,
+          20
+        ],
+        "st": {
+          "height": "20px",
+          "paddingTop": "0px",
+          "paddingRight": "0px",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "borderTopWidth": "2px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "300px",
+          "backgroundColor": "rgba(255, 255, 255, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "form-item field text required",
+        "box": [
+          0,
+          249.1,
+          518,
+          74.8
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "20px",
+          "marginTop": "0px",
+          "display": "grid"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "title",
+        "box": [
+          0,
+          249.1,
+          518,
+          30.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "8px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "SPAN",
+        "c": "description required",
+        "box": [
+          68.6,
+          251.1,
+          72.3,
+          19.7
+        ],
+        "text": "(required)",
+        "st": {
+          "fontSize": "14.08px",
+          "lineHeight": "19.712px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "INPUT:text",
+        "c": "",
+        "box": [
+          0,
+          279.5,
+          518,
+          44.4
+        ],
+        "st": {
+          "height": "44.4062px",
+          "paddingTop": "10px",
+          "paddingRight": "20px",
+          "paddingBottom": "10px",
+          "paddingLeft": "20px",
+          "borderTopWidth": "1px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "24.784px",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "form-item field textarea required",
+        "box": [
+          0,
+          343.9,
+          518,
+          130.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "20px",
+          "marginTop": "0px",
+          "display": "grid"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "title",
+        "box": [
+          0,
+          343.9,
+          518,
+          30.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "8px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "SPAN",
+        "c": "description required",
+        "box": [
+          80.7,
+          345.9,
+          72.3,
+          19.7
+        ],
+        "text": "(required)",
+        "st": {
+          "fontSize": "14.08px",
+          "lineHeight": "19.712px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "TEXTAREA:textarea",
+        "c": "",
+        "box": [
+          0,
+          374.3,
+          518,
+          100
+        ],
+        "st": {
+          "height": "100px",
+          "paddingTop": "10px",
+          "paddingRight": "20px",
+          "paddingBottom": "10px",
+          "paddingLeft": "20px",
+          "borderTopWidth": "1px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "24.784px",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "BUTTON:submit",
+        "c": "button sqs-system-button sqs-editable-bu",
+        "box": [
+          0,
+          494.3,
+          171.6,
+          66.6
+        ],
+        "st": {
+          "height": "66.5938px",
+          "paddingTop": "20.8px",
+          "paddingRight": "56px",
+          "paddingBottom": "20.8px",
+          "paddingLeft": "56px",
+          "borderTopWidth": "0px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgb(255, 255, 255)",
+          "borderRadius": "300px",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "500"
+        }
+      },
+      {
+        "t": "SPAN",
+        "c": "form-submit-button-state",
+        "box": [
+          56,
+          515.1,
+          59.6,
+          25
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "500",
+          "color": "rgb(255, 255, 255)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "grid"
+        }
+      }
+    ]
+  },
+  "contact": {
+    "path": "/contact",
+    "block": [
+      565.8,
+      1049
+    ],
+    "form": [
+      0,
+      0,
+      565.8,
+      1049
+    ],
+    "items": [
+      {
+        "t": "FIELDSET",
+        "c": "form-item fields  name",
+        "box": [
+          0,
+          0,
+          565.8,
+          123
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "flex"
+        }
+      },
+      {
+        "t": "LEGEND",
+        "c": "",
+        "box": [
+          0,
+          0,
+          48.5,
+          30.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "title",
+        "box": [
+          0,
+          0,
+          48.5,
+          30.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "8px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "field first-name",
+        "box": [
+          0,
+          30.4,
+          277.9,
+          72.6
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "20px",
+          "marginTop": "0px",
+          "display": "grid"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "caption",
+        "box": [
+          0,
+          30.4,
+          277.9,
+          28.2
+        ],
+        "st": {
+          "fontSize": "12px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "caption-text",
+        "box": [
+          0,
+          34.4,
+          277.9,
+          24.2
+        ],
+        "text": "First Name",
+        "st": {
+          "fontSize": "14.4px",
+          "lineHeight": "20.16px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "4px",
+          "marginBottom": "0px",
+          "marginTop": "4px",
+          "display": "flex"
+        }
+      },
+      {
+        "t": "SPAN",
+        "c": "description required",
+        "box": [
+          84.3,
+          37.4,
+          73.9,
+          14.4
+        ],
+        "text": "(required)",
+        "st": {
+          "fontSize": "14.4px",
+          "lineHeight": "14.4px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "INPUT:text",
+        "c": "",
+        "box": [
+          0,
+          58.6,
+          277.9,
+          44.4
+        ],
+        "st": {
+          "height": "44.4062px",
+          "paddingTop": "10px",
+          "paddingRight": "20px",
+          "paddingBottom": "10px",
+          "paddingLeft": "20px",
+          "borderTopWidth": "1px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "24.784px",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "field last-name",
+        "box": [
+          287.9,
+          30.4,
+          277.9,
+          72.6
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "20px",
+          "marginTop": "0px",
+          "display": "grid"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "caption",
+        "box": [
+          287.9,
+          30.4,
+          277.9,
+          28.2
+        ],
+        "st": {
+          "fontSize": "12px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "caption-text",
+        "box": [
+          287.9,
+          34.4,
+          277.9,
+          24.2
+        ],
+        "text": "Last Name",
+        "st": {
+          "fontSize": "14.4px",
+          "lineHeight": "20.16px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "4px",
+          "marginBottom": "0px",
+          "marginTop": "4px",
+          "display": "flex"
+        }
+      },
+      {
+        "t": "SPAN",
+        "c": "description required",
+        "box": [
+          372,
+          37.4,
+          73.9,
+          14.4
+        ],
+        "text": "(required)",
+        "st": {
+          "fontSize": "14.4px",
+          "lineHeight": "14.4px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "INPUT:text",
+        "c": "",
+        "box": [
+          287.9,
+          58.6,
+          277.9,
+          44.4
+        ],
+        "st": {
+          "height": "44.4062px",
+          "paddingTop": "10px",
+          "paddingRight": "20px",
+          "paddingBottom": "10px",
+          "paddingLeft": "20px",
+          "borderTopWidth": "1px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "24.784px",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "form-item field email required",
+        "box": [
+          0,
+          123,
+          565.8,
+          74.8
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "20px",
+          "marginTop": "0px",
+          "display": "grid"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "title",
+        "box": [
+          0,
+          123,
+          565.8,
+          30.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "8px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "SPAN",
+        "c": "description required",
+        "box": [
+          52.2,
+          124,
+          73.9,
+          20.2
+        ],
+        "text": "(required)",
+        "st": {
+          "fontSize": "14.4px",
+          "lineHeight": "20.16px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "INPUT:email",
+        "c": "",
+        "box": [
+          0,
+          153.4,
+          565.8,
+          44.4
+        ],
+        "st": {
+          "height": "44.4062px",
+          "paddingTop": "10px",
+          "paddingRight": "20px",
+          "paddingBottom": "10px",
+          "paddingLeft": "20px",
+          "borderTopWidth": "1px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "24.784px",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "form-item field textarea required",
+        "box": [
+          0,
+          217.8,
+          565.8,
+          130.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "20px",
+          "marginTop": "0px",
+          "display": "grid"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "title",
+        "box": [
+          0,
+          217.8,
+          565.8,
+          30.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "8px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "SPAN",
+        "c": "description required",
+        "box": [
+          80.7,
+          218.8,
+          73.9,
+          20.2
+        ],
+        "text": "(required)",
+        "st": {
+          "fontSize": "14.4px",
+          "lineHeight": "20.16px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "TEXTAREA:textarea",
+        "c": "",
+        "box": [
+          0,
+          248.2,
+          565.8,
+          100
+        ],
+        "st": {
+          "height": "100px",
+          "paddingTop": "10px",
+          "paddingRight": "20px",
+          "paddingBottom": "10px",
+          "paddingLeft": "20px",
+          "borderTopWidth": "1px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "24.784px",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "FIELDSET",
+        "c": "form-item field checkbox",
+        "box": [
+          0,
+          368.2,
+          565.8,
+          198.6
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "20px",
+          "marginTop": "0px",
+          "display": "flex"
+        }
+      },
+      {
+        "t": "LEGEND",
+        "c": "",
+        "box": [
+          0,
+          368.2,
+          465.6,
+          30.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "title",
+        "box": [
+          0,
+          368.2,
+          465.6,
+          30.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "8px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "",
+        "box": [
+          0,
+          404.6,
+          239.2,
+          20.2
+        ],
+        "st": {
+          "fontSize": "14.4px",
+          "lineHeight": "20.16px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "inline-flex"
+        }
+      },
+      {
+        "t": "INPUT:checkbox",
+        "c": "",
+        "box": [
+          0,
+          404.7,
+          20,
+          20
+        ],
+        "st": {
+          "height": "20px",
+          "paddingTop": "0px",
+          "paddingRight": "0px",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "borderTopWidth": "2px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "300px",
+          "backgroundColor": "rgba(255, 207, 90, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "",
+        "box": [
+          0,
+          439.8,
+          261.1,
+          20.2
+        ],
+        "st": {
+          "fontSize": "14.4px",
+          "lineHeight": "20.16px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "inline-flex"
+        }
+      },
+      {
+        "t": "INPUT:checkbox",
+        "c": "",
+        "box": [
+          0,
+          439.9,
+          20,
+          20
+        ],
+        "st": {
+          "height": "20px",
+          "paddingTop": "0px",
+          "paddingRight": "0px",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "borderTopWidth": "2px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "300px",
+          "backgroundColor": "rgba(255, 207, 90, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "",
+        "box": [
+          0,
+          475.1,
+          265.9,
+          20.2
+        ],
+        "st": {
+          "fontSize": "14.4px",
+          "lineHeight": "20.16px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "inline-flex"
+        }
+      },
+      {
+        "t": "INPUT:checkbox",
+        "c": "",
+        "box": [
+          0,
+          475.1,
+          20,
+          20
+        ],
+        "st": {
+          "height": "20px",
+          "paddingTop": "0px",
+          "paddingRight": "0px",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "borderTopWidth": "2px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "300px",
+          "backgroundColor": "rgba(255, 207, 90, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "",
+        "box": [
+          0,
+          510.3,
+          439.4,
+          20.2
+        ],
+        "st": {
+          "fontSize": "14.4px",
+          "lineHeight": "20.16px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "inline-flex"
+        }
+      },
+      {
+        "t": "INPUT:checkbox",
+        "c": "",
+        "box": [
+          0,
+          510.4,
+          20,
+          20
+        ],
+        "st": {
+          "height": "20px",
+          "paddingTop": "0px",
+          "paddingRight": "0px",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "borderTopWidth": "2px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "300px",
+          "backgroundColor": "rgba(255, 207, 90, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "",
+        "box": [
+          0,
+          545.5,
+          307.4,
+          20.2
+        ],
+        "st": {
+          "fontSize": "14.4px",
+          "lineHeight": "20.16px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "inline-flex"
+        }
+      },
+      {
+        "t": "INPUT:checkbox",
+        "c": "",
+        "box": [
+          0,
+          545.6,
+          20,
+          20
+        ],
+        "st": {
+          "height": "20px",
+          "paddingTop": "0px",
+          "paddingRight": "0px",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "borderTopWidth": "2px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "300px",
+          "backgroundColor": "rgba(255, 207, 90, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "form-item field textarea",
+        "box": [
+          0,
+          586.8,
+          565.8,
+          130.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "20px",
+          "marginTop": "0px",
+          "display": "grid"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "title",
+        "box": [
+          0,
+          586.8,
+          565.8,
+          30.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "8px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "TEXTAREA:textarea",
+        "c": "",
+        "box": [
+          0,
+          617.2,
+          565.8,
+          100
+        ],
+        "st": {
+          "height": "100px",
+          "paddingTop": "10px",
+          "paddingRight": "20px",
+          "paddingBottom": "10px",
+          "paddingLeft": "20px",
+          "borderTopWidth": "1px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "24.784px",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "form-item field select",
+        "box": [
+          0,
+          737.2,
+          565.8,
+          74.8
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "20px",
+          "marginTop": "0px",
+          "display": "grid"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "title",
+        "box": [
+          0,
+          737.2,
+          565.8,
+          30.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "8px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "SELECT:select-one",
+        "c": "show-placeholder",
+        "box": [
+          0,
+          767.6,
+          565.8,
+          44.4
+        ],
+        "st": {
+          "height": "44.4062px",
+          "paddingTop": "10px",
+          "paddingRight": "42px",
+          "paddingBottom": "10px",
+          "paddingLeft": "20px",
+          "borderTopWidth": "1px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "24.784px",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgba(0, 0, 0, 0.55)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "DIV",
+        "c": "form-item field textarea",
+        "box": [
+          0,
+          832,
+          565.8,
+          130.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "0px",
+          "marginBottom": "20px",
+          "marginTop": "0px",
+          "display": "grid"
+        }
+      },
+      {
+        "t": "LABEL",
+        "c": "title",
+        "box": [
+          0,
+          832,
+          565.8,
+          30.4
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400",
+          "color": "rgb(0, 0, 0)",
+          "paddingBottom": "8px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "block"
+        }
+      },
+      {
+        "t": "TEXTAREA:textarea",
+        "c": "",
+        "box": [
+          0,
+          862.4,
+          565.8,
+          100
+        ],
+        "st": {
+          "height": "100px",
+          "paddingTop": "10px",
+          "paddingRight": "20px",
+          "paddingBottom": "10px",
+          "paddingLeft": "20px",
+          "borderTopWidth": "1px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderRadius": "24.784px",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "fontWeight": "400"
+        }
+      },
+      {
+        "t": "BUTTON:submit",
+        "c": "button sqs-system-button sqs-editable-bu",
+        "box": [
+          0,
+          982.4,
+          154.1,
+          66.6
+        ],
+        "st": {
+          "height": "66.5938px",
+          "paddingTop": "20.8px",
+          "paddingRight": "56px",
+          "paddingBottom": "20.8px",
+          "paddingLeft": "56px",
+          "borderTopWidth": "0px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgb(255, 255, 255)",
+          "borderRadius": "300px",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "500"
+        }
+      },
+      {
+        "t": "SPAN",
+        "c": "form-submit-button-state",
+        "box": [
+          56,
+          1003.2,
+          42.1,
+          25
+        ],
+        "st": {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "fontWeight": "500",
+          "color": "rgb(255, 255, 255)",
+          "paddingBottom": "0px",
+          "marginBottom": "0px",
+          "marginTop": "0px",
+          "display": "grid"
+        }
+      }
+    ]
+  },
+  "panel": {
+    "box": [
+      637,
+      301,
+      320,
+      500
+    ],
+    "Content": {
+      "box": [
+        637,
+        301,
+        320,
+        500
+      ],
+      "text": [
+        "Content @22,19,53,18",
+        "Design @91,19,46,18",
+        "Animation @153,19,67,18",
+        "Form Name @22,91,105,16",
+        "Button Text @22,136,105,16",
+        "Edit Form Fields @22,178,106,22",
+        "Submissions @0,240,320,16",
+        "Edit Post-Submit @22,267,110,22",
+        "Manage Submissions @20,315,149,15",
+        "Export Form Submissions @20,360,182,15",
+        "Learn more @22,402,65,16",
+        "Email Notification @22,456,276,16",
+        "<owner address> @22,483,232,22",
+        "Receive an email for each form response. @22,523,276,16",
+        "Email notifications are disabled during trial @42,545,241,16",
+        "Additional Storage @22,594,123,22",
+        "Google reCAPTCHA @22,639,133,22",
+        "On @256,639,20,22"
+      ],
+      "c": [
+        "BUTTON|button|Content|Content|0||22,0,53,55",
+        "BUTTON|button|Design|Design|1||91,0,46,55",
+        "BUTTON|button|Animation|Animation|2||153,0,67,55",
+        "INPUT|text|Form Name||Blocks Probe Form||127,77,149,44",
+        "INPUT|text|Button Text||Submit||127,122,171,44",
+        "BUTTON|submit|Navigate to Edit Form Fields||||282,181,16,16",
+        "BUTTON|submit|Navigate to Edit Post-Submit||||282,270,16,16",
+        "BUTTON|submit||<owner address>|||22,472,276,45",
+        "BUTTON|submit|Navigate to Additional Storage||||282,597,16,16",
+        "BUTTON|submit|Navigate to Google reCAPTCHA||||282,642,16,16"
+      ]
+    },
+    "Design": [
+      "Content @22,19,53,18",
+      "Design @91,19,46,18",
+      "Animation @153,19,67,18",
+      "Form Style @0,77,320,16",
+      "Text @87,158,124,13",
+      "Form style affects all forms on your site. @22,223,222,26",
+      "Button Style @0,275,320,16",
+      "Aa @34,330,53,22",
+      "Primary Button @99,330,155,22",
+      "Button Alignment @0,406,320,16",
+      "First Input Highlight @22,499,207,22",
+      "None @240,499,36,22",
+      "Lightbox @22,544,58,22",
+      "Background @22,589,80,22",
+      "Stroke @22,634,42,22",
+      "Blend Mode @22,681,81,18",
+      "Blur @22,724,26,22",
+      "Transforms @22,781,182,44",
+      "Opacity @22,832,52,44",
+      "Rotate @22,883,43,44",
+      "Scale @22,934,88,44",
+      "Offset @22,985,88,44",
+      "Skew @22,1036,88,44",
+      "Anchor @22,1087,49,44"
+    ],
+    "Animation": [
+      "Content @22,19,53,18",
+      "Design @91,19,46,18",
+      "Animation @153,19,67,18",
+      "Triggers @22,66,182,44",
+      "Press + to get started @87,188,147,22",
+      "Use a preset or customize @87,213,147,15"
+    ]
+  },
+  "notRead": [
+    "What Edit Form Fields, Edit Post-Submit, Additional Storage, reCAPTCHA and the export do: not pressed. Form storage writes outside the page.",
+    "Form Style's list on the block, which says it affects all forms on the site: not pressed.",
+    "Button Style, Button Alignment, First Input Highlight: their defaults only.",
+    "The hidden spam field off to the left."
+  ],
+  "inferred": [
+    "The form name follows the page title: read on one page.",
+    "Ours fades every row but Form Name and Button Text.",
+    "The opacity .7 of (required) is from a screenshot, not read.",
+    "The 12px empty mark box in an option's checkbox is inferred: the row's parts were read, the box inside the checkbox was not. With it, Contact's rows match at 5 widths; without it, each is 4 px too tall. The sign-up row on a new form matches without it."
+  ],
+  "contactChrome": {
+    "engine": "headless Chrome, both sides",
+    "widths": [
+      375,
+      767,
+      768,
+      1280,
+      1920
+    ],
+    "boxes": "65 of 65"
+  }
+}

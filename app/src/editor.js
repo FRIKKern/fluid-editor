@@ -473,7 +473,7 @@ toolbar.addEventListener('click', (e) => {
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
-  if (act === 'edit') { designOpen = bid; designTab = b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && (b.type === 'button' || b.type === 'stack')) { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
@@ -1418,6 +1418,7 @@ function renderBlockPanel() {
     : b.type === 'line' ? { kind: 'line' }
     : b.type === 'social' ? (() => { const l = socialLook(b, bp === 'mobile'); return { kind: 'social', links: socialList(), err: socErr, iconBorder: l.iconBorder, iconStyle: l.iconStyle, iconThick: l.iconThick, iconSize: l.iconSize, align: l.align }; })()
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
+    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send' }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
@@ -1965,7 +1966,7 @@ blockPanel.addEventListener('change', (e) => {
   if (m) { const k = m.dataset.mapSet, on = m.checked; setMap((b) => { b[k] = on; }, `${k} ${on}`); return; }
   const zf = e.target.closest('[data-map-zoomfield]');
   if (zf) { const v = parseFloat(zf.value); if (Number.isFinite(v)) setMap((b) => { b.mapZoom = Math.max(0, Math.min(MAP_ZOOMS.length - 1, Math.round(v))); }, 'Map zoom'); else renderBlockPanel(); return; }
-  const c = e.target.closest('input[data-content^="map"]');
+  const c = e.target.closest('input[data-content^="map"], input[data-content="formName"], input[data-content="button"]');
   if (c) { const k = c.dataset.content, v = c.value; c.blur(); setMap((b) => { if (v) b[k] = v; else delete b[k]; }, `${k} changed`); }
 });
 function closeSocialConfirm() { styleConfirm.hidden = true; styleConfirm.classList.remove('is-social'); socConfirmRow = null; }
@@ -3091,13 +3092,15 @@ function renderPanel() {
 // Add Block (U5, T13): each type lands at the top left of the section with the size
 // the oracle gives it (parity/findings/T13.json). On phones it is full content width, and its
 // place in the stack goes by size (CAP-NEWORDER*.json).
+const pageTitle = () => document.querySelector('.page-name')?.textContent.trim() || 'Page';
 const STANDIN_TYPES = ['Quote', 'Chart', 'SoundCloud', 'Flickr', 'Instagram']; // their content follows the width (STANDINS.json)
 const ADD_TYPES = [
   ['Text', 8, 2, () => ({ type: 'text', html: '<p data-rte-preserve-empty="true"></p>' })],
   ['Image', 6, 6, () => ({ type: 'image', alt: '', empty: true, mode: 'fit' })],
   ['Button', 6, 2, () => ({ type: 'button', label: 'Learn more' })],
   ['Video', 8, 8, () => ({ type: 'video' })],
-  ['Form', 9, 16, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: 'form' })],
+  // A new form's fields (FORMADD.json).
+  ['Form', 9, 16, () => ({ type: 'form', button: 'Submit', formName: `${pageTitle()} Form`, fields: [{ kind: 'name', label: 'Name', parts: ['First Name(required)', 'Last Name(required)'] }, { kind: 'email', label: 'Email(required)', signup: 'Sign up for news and updates' }, { kind: 'text', label: 'Subject(required)' }, { kind: 'textarea', label: 'Message(required)' }] })],
   ['Accordion', 8, 8, () => ({ type: 'accordion', items: [1, 2, 3].map((n) => ({ title: `Accordion Item ${n}`, description: ACCORDION_DESCRIPTION })) })],
   ['Shape', 6, 6, () => ({ type: 'shape', fill: '#ffffff', radius: '0' })],
   ['Scrolling', 24, 2, () => ({ type: 'scrolling', text: 'Dream it 〰️', size: 1.5, wave: 0 })],
