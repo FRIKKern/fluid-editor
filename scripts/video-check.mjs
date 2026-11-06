@@ -291,7 +291,7 @@ add('Thickness 10: 324.8, 37.6 in, same rows', near(r.box[1], 324.8) && nearAll(
 // The <> on Thickness: shows on a hover, a pull moves the value 0.4 a pixel, down to 0 (CAP-T7THICK.json, CAP-T7THICK4.json).
 const THICK4 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T7THICK4.json', import.meta.url)));
 const thickAt = () => q(`const f = panel.querySelector('input[data-design="strokePx"]').parentElement.getBoundingClientRect(); return JSON.stringify([f.left + 40, f.top + f.height / 2]);`);
-const grip = () => q(`const g = panel.querySelector('.bp-vscrub'); const c = g.getBoundingClientRect(); return JSON.stringify({ shown: getComputedStyle(g).display !== 'none', x: c.left + c.width / 2, y: c.top + c.height / 2, w: c.width, h: c.height }); `);
+const grip = () => q(`const g = panel.querySelector('.bp-vfield .bp-vscrub'); const c = g.getBoundingClientRect(); return JSON.stringify({ shown: getComputedStyle(g).display !== 'none', x: c.left + c.width / 2, y: c.top + c.height / 2, w: c.width, h: c.height }); `);
 mouse(S, 'move', 5, 5); q(`document.activeElement?.blur(); await sleep(60); return 'true';`);
 add('<>: none with no hover or focus', !grip().shown, JSON.stringify(grip()));
 { const [x, y] = thickAt(); mouse(S, 'move', x, y); await pause(150); }
@@ -355,6 +355,16 @@ q(`document.getElementById('preview').click(); await sleep(350); return 'true';`
   await pull('padding 2, 863, right 30', '.st-pad:nth-child(2)', 863 - 788, 30);
   await pull('padding 2, 871 on the edge, right 30', '.st-pad:nth-child(2)', 871 - 788, 30);
   add('No <> on Corner or Padding', q(`const c = panel.querySelector('.st-corner-field .bp-vscrub'), p = panel.querySelector('.st-pad .bp-vscrub'); return JSON.stringify(!c.textContent && !p.textContent && !c.children.length && !p.children.length);`), 'a glyph');
+  // The last pull left the panel for the video's own frame, and still ended at the right value above.
+  for (const [what, sel, along, key, was] of [['Corner', '.st-corner-field', 862 - 788, 'corner', 8], ['Padding', '.st-pad:nth-child(2)', 871 - 788, 'padX', 18]]) {
+    const [x, y] = fieldBox(sel);
+    drag(S, [x + along, y], [x + along - 5, y], { steps: 4, holdMs: 60 });
+    await pause(200);
+    const r = q(`const d = () => model().design['${key}']; const pulled = d(); fe.undo(); await sleep(300); return JSON.stringify([pulled, d()]);`);
+    add(`A pull on ${what} is one undo step`, r[0] === was - 2 && r[1] === was, JSON.stringify(r));
+    await openPanel();
+    q(`document.querySelector('[data-btab="Design"]').click(); await sleep(150); return 'true';`);
+  }
   mouse(S, 'move', 5, 5);
 }
 

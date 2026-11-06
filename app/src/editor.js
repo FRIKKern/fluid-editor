@@ -3583,6 +3583,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
   const grip = e.target.closest('[data-scrub]');
   if (!grip || !sel) return;
   e.preventDefault();
+  grip.setPointerCapture(e.pointerId); // or a pull off the panel, over a video's frame, never hears the rest
   const input = grip.parentElement.querySelector('input[data-design], input[data-stack-field]'), b = B(sel.sid, sel.bid), bag = designBag(bp), k = grip.dataset.scrub;
   const unit = input.value.endsWith('%') ? '%' : 'px', start = parseFloat(input.value) || 0, x0 = e.clientX, had = b[bag]?.[k], valueAt = (x) => Math.min(RANGE_LIMITS[k] ?? 1000, Math.max(0, start + Math.round((x - x0) * SCRUB_PER_PX)));
   const show = (v) => { b[bag] = { ...(b[bag] || {}), [k]: v }; renderSectionDom(sel.sid); input.value = `${v}${unit}`; };
