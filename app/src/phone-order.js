@@ -30,7 +30,8 @@ export function phoneOrder(blocks) {
 // the place the new block takes. It lands at the top left on desktop, so only blocks that start
 // there compare by size: same size, it goes after that block and what sits inside it; inside bigger
 // ones, right after the smallest; around smaller ones, before the first. Anything else goes after
-// the blocks at or above its place.
+// the blocks at or above its place. Three types land lower (CAP-T14LAND.json): a block that holds
+// the new one counts as bigger even if it starts above, which fits those reads and is inferred.
 export function newBlockSlot(blocks, w, h, place = [1, 2]) {
   const key = (a) => a[0] * 100 + a[1];
   const size = (b) => { const a = b.layout.desktop.area; return [a[3] - a[1], a[2] - a[0]]; };
@@ -42,7 +43,8 @@ export function newBlockSlot(blocks, w, h, place = [1, 2]) {
     while (k < blocks.length && here(blocks[k]) && fits(blocks[k], w, h)) k++;
     return k;
   }
-  const bigger = blocks.flatMap((b, k) => { const [x, y] = size(b); return here(b) && x >= w && y >= h ? [[x * y, k]] : []; });
+  const holds = (a) => a[1] === place[1] && a[0] <= place[0] && a[2] >= place[0] + h && a[3] >= place[1] + w;
+  const bigger = blocks.flatMap((b, k) => { const [x, y] = size(b); return holds(b.layout.desktop.area) ? [[x * y, k]] : []; });
   if (bigger.length) return bigger.reduce((best, c) => (c[0] < best[0] ? c : best))[1] + 1;
   const inside = blocks.findIndex((b) => here(b) && fits(b, w, h));
   if (inside >= 0) return inside;

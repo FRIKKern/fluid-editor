@@ -157,6 +157,7 @@ function markJs(p, from, to) {
         if (w === 'function') declaring = 'function';
         if (w === 'class') classNext = true;
       } else if (classNext) { p.add(i, end, 'c-cls'); classNext = false; }
+      else if (prev === 'import') p.add(i, end, 'c-def');
       else if (declaring === 'function') { p.add(i, end, 'c-def'); declaring = null; paramsAt = depth; }
       else if (paramsAt >= 0 && paramsAt === depth - 1 && prev !== '.' && prev !== '=') p.add(i, end, 'c-def');
       else if (declaring === depth && (prev === 'const' || prev === 'let' || prev === 'var' || prev === ',')) p.add(i, end, 'c-def');

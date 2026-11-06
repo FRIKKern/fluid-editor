@@ -1,0 +1,991 @@
+{
+  "item": "CAP-T10SCORE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: one last score, the edits: fresh cases around the last refit, predictions pushed first in PRED-T10READS4.json",
+  "answer": "Predictions pushed first (PRED-T10READS4.json), no refit after. 14 of 17 edits match. Misses: an empty bullet under a quote (Enter on '> q\\n* ': the oracle leaves '> q\\n*\\n> ', ours '> q\\n'); an empty bullet under a setext heading (the oracle's 'h\\n===\\n', ours 'h\\n===\\n* \\n'); Bold on a selection starting at a line's end (the oracle's '# h\\n**p**lain', ours '# h**\\np**lain'). Replayed by code-check --full, which fails if a named miss starts matching: that needs a new round, not a higher count.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "setCode",
+      "## h\n* "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z1 an empty bullet under a heading of two",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "# h\n- "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z2 an empty dash under a heading",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "# h\n1. "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z3 an empty number under a heading",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "***\n* "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z4 an empty bullet under stars",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "___\n1. "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z5 an empty number under a rule",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "text\n* "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z6 an empty bullet under a paragraph",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "> q\n* "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z7 an empty bullet under a quote",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "h\n===\n* "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z8 an empty bullet under a setext heading",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "```\nc\n```\n* "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z9 an empty bullet under a fence",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "# h\n* a\n* "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z10 an empty bullet two under a heading",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "# h\n\n* "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z11 an empty bullet under a blank under a heading",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "# h\n> "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z12 an empty quote under a heading",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "# h\nplain"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z13 Bold on a heading and the newline",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "* a\nplain"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z14 Bold on a bullet and the newline",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "word\nplain"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Italic"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z15 Italic on a word and the newline",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "## h\nplain"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z16 Bold on a heading's end to the next line",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "# h\nplain"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      350
+    ],
+    [
+      "read",
+      "Z17 Bold on a heading's end and one letter",
+      {
+        "codeText": true
+      }
+    ]
+  ],
+  "reads": {
+    "Z1 an empty bullet under a heading of two": {
+      "codeText": "## h\n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z2 an empty dash under a heading": {
+      "codeText": "# h\n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z3 an empty number under a heading": {
+      "codeText": "# h\n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z4 an empty bullet under stars": {
+      "codeText": "***\n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z5 an empty number under a rule": {
+      "codeText": "___\n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z6 an empty bullet under a paragraph": {
+      "codeText": "text\n* \n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z7 an empty bullet under a quote": {
+      "codeText": "> q\n*\n> ",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z8 an empty bullet under a setext heading": {
+      "codeText": "h\n===\n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z9 an empty bullet under a fence": {
+      "codeText": "```\nc\n```\n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z10 an empty bullet two under a heading": {
+      "codeText": "# h\n* a\n\n* ",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z11 an empty bullet under a blank under a heading": {
+      "codeText": "# h\n\n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z12 an empty quote under a heading": {
+      "codeText": "# h\n>\n> ",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z13 Bold on a heading and the newline": {
+      "codeText": "# **h**\nplain",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z14 Bold on a bullet and the newline": {
+      "codeText": "* **a**\nplain",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z15 Italic on a word and the newline": {
+      "codeText": "*word*\nplain",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z16 Bold on a heading's end to the next line": {
+      "codeText": "## h****\nplain",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Z17 Bold on a heading's end and one letter": {
+      "codeText": "# h\n**p**lain",
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}
