@@ -1,0 +1,385 @@
+{
+  "item": "CAP-X11FAST",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "X11: a touch on a handle faster than 15px a move, after several holds",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "start",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "e",
+      240,
+      0,
+      {
+        "holdMs": 0
+      }
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "step 0 hold 0 by 240,0",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "e",
+      240,
+      0,
+      {
+        "holdMs": 60
+      }
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "step 1 hold 60 by 240,0",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "e",
+      240,
+      0,
+      {
+        "holdMs": 100
+      }
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "step 2 hold 100 by 240,0",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "e",
+      240,
+      0,
+      {
+        "holdMs": 300
+      }
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "step 3 hold 300 by 240,0",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "s",
+      0,
+      240,
+      {
+        "holdMs": 0
+      }
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "step 4 hold 0 by 0,240",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "s",
+      0,
+      240,
+      {
+        "holdMs": 100
+      }
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "step 5 hold 100 by 0,240",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "e",
+      -240,
+      0,
+      {
+        "holdMs": 0
+      }
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "step 6 hold 0 by -240,0",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "e",
+      -240,
+      0,
+      {
+        "holdMs": 100
+      }
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "step 7 hold 100 by -240,0",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "start": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 0 hold 0 by 240,0": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 1 hold 60 by 240,0": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 2 hold 100 by 240,0": {
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 3 hold 300 by 240,0": {
+      "areas": [
+        [
+          "1/2/7/16",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 4 hold 0 by 0,240": {
+      "areas": [
+        [
+          "1/2/7/16",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 5 hold 100 by 0,240": {
+      "areas": [
+        [
+          "1/2/13/16",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 6 hold 0 by -240,0": {
+      "areas": [
+        [
+          "1/2/13/16",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 7 hold 100 by -240,0": {
+      "areas": [
+        [
+          "1/2/13/12",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "A touch on a handle at 20 px a move follows the body's 100 ms rule. Held 0 or 60 ms: nothing. Held 100 or 300: it resizes. East, south and a shrink all alike. So the earlier 'a touch on a handle resizes' holds only under about 15 px a move.",
+  "ours": "Ours resizes at hold 0 and 60 too.",
+  "differs": [
+    "a fast touch on a handle held under 100 ms: oracle does nothing, ours resizes"
+  ],
+  "pressed": [
+    "Touch events over the debug protocol on the handles, unnamed. No real device."
+  ]
+}
