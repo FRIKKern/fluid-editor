@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 78 changes
+- **Today** · 79 changes
+  - T10: colours of every mode, matching marks, wrap and dim rules, tips, Preview, further reader samples ([#256](https://github.com/FRIKKern/fluid-editor/pull/256))
   - E5: a paste into a heading splits it like a paragraph ([#257](https://github.com/FRIKKern/fluid-editor/pull/257))
-  - U9: phone canvas shadow blur 25 px as read, and the demo page check in decision 0006 ([#255](https://github.com/FRIKKern/fluid-editor/pull/255))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
