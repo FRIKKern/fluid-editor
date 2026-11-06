@@ -348,11 +348,15 @@ export async function release({ shift = false, alt = false } = {}) {
 // Open a page by its title in the page list and enter edit mode. Real clicks.
 export async function enterEdit(title = 'How Fluid Engine works') {
   const titled = `() => [...document.querySelectorAll('*')].filter((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(title)} && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().left < 400)[0]`;
-  const framePath = () => evalJs(SURFACE, `(() => { ${FRAME} return JSON.stringify(d ? d.querySelectorAll('.fluid-engine.is-editing').length : -1); })()`);
-  if (framePath() > 0) return;
+  // An empty page has no editing section until one is touched, so the top bar's Exit counts too.
+  const editing = () => evalJs(SURFACE, `(() => { ${FRAME} return JSON.stringify((d && d.querySelectorAll('.fluid-engine.is-editing').length > 0) || [...document.querySelectorAll('button')].some((x) => x.textContent.trim() === 'Exit' && x.getBoundingClientRect().width > 0)); })()`);
+  if (editing()) return;
   await click(titled, { wait: 5000 });
   await click(byText('button', 'Edit'), { wait: 6000 });
-  if (!(framePath() > 0)) throw new Error(`enterEdit: ${title} is not in edit mode`);
+  for (let i = 0; i < 20 && !editing(); i++) await pause(1000);
+  if (!editing()) throw new Error(`enterEdit: ${title} is not in edit mode`);
+  // The editor keeps the phone view across an exit (a page reload resets it), so a read would land on phone positions.
+  await click(`() => document.querySelector('[aria-label="Desktop View"]')`, { wait: 900 });
 }
 
 // Leave edit mode and throw away unsaved work: Exit, then the Exit inside "Exit Without Saving?".
