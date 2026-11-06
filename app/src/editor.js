@@ -3586,24 +3586,24 @@ function onTextInput(e) {
   ed.prevArea = [...ed.area];
 }
 
-// Text that grows or shrinks moves other blocks by one amount, in this view only. Growing: blocks in
-// shared columns whose bottom reaches the old end, and any block whose top is past it. No chains.
-// Shrinking: the same test against the new end, and the highest of them stops at the new end.
-// The section takes the change of its lowest block (CAP-TEXTPUSH.json to CAP-TEXTPUSH4.json).
+// Text that grows or shrinks moves other blocks, in this view only. Growing: blocks in shared columns
+// whose bottom reaches the old end, and any block whose top is past it, all by the growth, no chains.
+// Shrinking: up to that many rows with nothing in them go, highest first, below the new end, and
+// blocks close up over them. The section takes the change of its lowest block
+// (CAP-TEXTPUSH.json to CAP-TEXTPUSH6.json).
 function moveWithText(s, b, a, d) {
-  const others = s.blocks.filter((o) => o !== b && o.id !== b.id);
-  const end = d > 0 ? a[2] : a[2] + d;
-  const moved = others.filter((o) => {
-    const q = o.layout[bp].area;
-    return q[0] > end || (q[1] < a[3] && q[3] > a[1] && q[2] >= end);
-  });
-  const by = d > 0 ? d : Math.min(0, Math.max(d, end - Math.min(...moved.map((o) => o.layout[bp].area[0]))));
-  const lowest = (own) => Math.max(own, ...others.map((o) => o.layout[bp].area[2]));
-  const low = lowest(a[2]);
-  for (const o of moved) {
-    const q = o.layout[bp].area;
-    q[0] += by;
-    q[2] += by;
+  const others = s.blocks.filter((o) => o.id !== b.id), areas = others.map((o) => o.layout[bp].area);
+  const lowest = (own) => Math.max(own, ...areas.map((q) => q[2]));
+  const low = lowest(a[2]), moved = [];
+  if (d > 0) {
+    for (const [k, q] of areas.entries()) if (q[0] > a[2] || (q[1] < a[3] && q[3] > a[1] && q[2] >= a[2])) { q[0] += d; q[2] += d; moved.push(others[k]); }
+  } else {
+    const gone = [];
+    for (let row = a[2] + d; gone.length < -d && row < low; row++) if (!areas.some((q) => q[0] <= row && row < q[2])) gone.push(row);
+    for (const [k, q] of areas.entries()) {
+      const by = gone.filter((row) => row < q[0]).length;
+      if (by) { q[0] -= by; q[2] -= by; moved.push(others[k]); }
+    }
   }
   s.rows[bp] += lowest(a[2] + d) - low;
   return moved;
