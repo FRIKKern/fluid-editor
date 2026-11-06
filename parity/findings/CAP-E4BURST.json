@@ -1,0 +1,393 @@
+{
+  "item": "CAP-E4BURST",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "E4: typing around a toolbar action in one burst, undo steps counted with the Undo button",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "one"
+    ],
+    [
+      "click",
+      "Bold"
+    ],
+    [
+      "keys",
+      "two"
+    ],
+    [
+      "read",
+      "around Bold",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "around Bold, walk",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "one"
+    ],
+    [
+      "click",
+      "Bold"
+    ],
+    [
+      "keys",
+      "two"
+    ],
+    [
+      "click",
+      "Italic"
+    ],
+    [
+      "keys",
+      "three"
+    ],
+    [
+      "read",
+      "around two",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "around two, walk",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "one"
+    ],
+    [
+      "click",
+      "Bold"
+    ],
+    [
+      "click",
+      "Bold"
+    ],
+    [
+      "keys",
+      "two"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "Bold on and off between, walk",
+      0,
+      "new"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "one"
+    ],
+    [
+      "pause",
+      3000
+    ],
+    [
+      "click",
+      "Bold"
+    ],
+    [
+      "pause",
+      3000
+    ],
+    [
+      "keys",
+      "two"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "with 3 s around, walk",
+      0,
+      "new"
+    ]
+  ],
+  "reads": {
+    "around Bold": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><strong>onetwo</strong></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "around Bold, walk": {
+      "undo": [
+        [
+          "start",
+          "onetwo"
+        ],
+        [
+          1,
+          "one"
+        ],
+        [
+          2,
+          ""
+        ],
+        [
+          3,
+          null
+        ],
+        [
+          4,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "around two": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><strong><em>onetwothree</em></strong></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "around two, walk": {
+      "undo": [
+        [
+          "start",
+          "onetwothree"
+        ],
+        [
+          1,
+          "onetwo"
+        ],
+        [
+          2,
+          "one"
+        ],
+        [
+          3,
+          ""
+        ],
+        [
+          4,
+          null
+        ],
+        [
+          5,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "Bold on and off between, walk": {
+      "undo": [
+        [
+          "start",
+          "onetwo"
+        ],
+        [
+          1,
+          "one"
+        ],
+        [
+          2,
+          "one"
+        ],
+        [
+          3,
+          ""
+        ],
+        [
+          4,
+          null
+        ],
+        [
+          5,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "with 3 s around, walk": {
+      "undo": [
+        [
+          "start",
+          "onetwo"
+        ],
+        [
+          1,
+          "one"
+        ],
+        [
+          2,
+          "one"
+        ],
+        [
+          3,
+          ""
+        ],
+        [
+          4,
+          null
+        ],
+        [
+          5,
+          null
+        ]
+      ],
+      "stillCan": false
+    }
+  },
+  "errors": [],
+  "leftDirty": false,
+  "answer": "Typing around a toolbar action. one, Bold, two in a burst: 2 steps, two then one, so Bold goes with the typing. one, Bold, two, Italic, three: 3 steps, one for each word. Bold on and off between: 3, with a step that changes no text. 3 s around Bold: 3, with the same empty step. Counted with the Undo button; one more undo takes the block.",
+  "ours": "Ours: 2, 3, 2, 2. Its typing came from execCommand, its button from .click().",
+  "differs": [
+    "Bold on and off between: oracle 3, ours 2",
+    "3 s around Bold: oracle 3, ours 2"
+  ],
+  "pressed": [
+    "Text bar buttons by name, real keys."
+  ]
+}

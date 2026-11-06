@@ -5,11 +5,11 @@
   "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here.",
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it. ask: the lead rules.",
   "counts": {
-    "total": 90,
-    "yes": 76,
+    "total": 91,
+    "yes": 77,
     "no": 11,
     "ask": 3,
-    "read": 36,
+    "read": 45,
     "notPressed": 0
   },
   "entries": [
@@ -435,7 +435,9 @@
       "safeRead": "yes",
       "how": "press the named button with real mouse, count undos",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-E4BURST.json",
+      "result": "2 for one action, 3 for two: an action goes with the typing after it. Ours differs when Bold goes on and off, or after 3 s."
     },
     {
       "item": "E4",
@@ -444,7 +446,9 @@
       "safeRead": "yes",
       "how": "type a list of endings, read which link. Ours has about 90",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-E4ENDS.json",
+      "result": "248 two letter names and 432 of 443 longer ones link. Ours has 79."
     },
     {
       "item": "E4",
@@ -453,7 +457,9 @@
       "safeRead": "yes",
       "how": "read the computed gradient in full and the marker style",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-E4LOOK.json",
+      "result": "Read, and ours has them right."
     },
     {
       "item": "E4",
@@ -471,7 +477,9 @@
       "safeRead": "yes",
       "how": "synthetic paste event, own DataTransfer, no clipboard",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-E5HEAD.json",
+      "result": "Several blocks split the heading. Ours keeps it whole and puts them after."
     },
     {
       "item": "Z3",
@@ -480,7 +488,9 @@
       "safeRead": "yes",
       "how": "real mouse on rows, several distances",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-Z3WALK.json",
+      "result": "Up is as down: 24 and 71. Ours 25 and 72."
     },
     {
       "item": "Z3",
@@ -489,7 +499,9 @@
       "safeRead": "yes",
       "how": "hold a row, move in x, read the ghost",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-Z3WALK.json",
+      "result": "No, as ours."
     },
     {
       "item": "Z3",
@@ -498,7 +510,9 @@
       "safeRead": "yes",
       "how": "px by px",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-Z3WALK.json",
+      "result": "9 px in x or y. Ours 4 in y."
     },
     {
       "item": "Z3",
@@ -507,7 +521,9 @@
       "safeRead": "yes",
       "how": "read z while held",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-Z3WALK.json",
+      "result": "No, as ours."
     },
     {
       "item": "L5",
@@ -516,7 +532,9 @@
       "safeRead": "yes",
       "how": "right-click menu on each, read class and rows",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-L5TYPES.json",
+      "result": "The same on 28 more. Ours matches."
     },
     {
       "item": "L6",
@@ -862,7 +880,7 @@
       "what": "Why Zola, Bandsintown and OpenTable start below row 1, when others start on it",
       "source": "found reading",
       "safeRead": "yes",
-      "how": "try other pages and window heights",
+      "how": "In a window 1900 high Zola and Bandsintown land on row 1 (CAP-LOWMENU2.json), so height matters. Read each height from 1000 up to find the rule, with OpenTable too.",
       "lane": "recorder",
       "state": "open"
     },
@@ -892,6 +910,15 @@
       "source": "found reading",
       "safeRead": "yes",
       "how": "repeat with other starts (CAP-X6PULLS.json, read once)",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "E4",
+      "what": "Whether every real longer ending links, past the 443 tried",
+      "source": "found reading",
+      "safeRead": "yes",
+      "how": "more names: CAP-E4ENDS.json read a sample",
       "lane": "recorder",
       "state": "open"
     }
