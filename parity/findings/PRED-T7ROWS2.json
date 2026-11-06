@@ -311,5 +311,19 @@
         "rows": 8
       }
     }
+  },
+  "count": {
+    "cases right": "6 of 8",
+    "steps right": "18 of 23",
+    "code a, code b, code phone, embed desktop, embed phone, markdown": "each 3 of 3, areas and rows",
+    "a section pulled taller": "0 of 3: the pull moved the block's top to row 6 instead and the section stayed at 8. From that start the rows still moved by the block's: 20, 30, 10",
+    "second code": "0 of 2: the first Code also rose to 18 when the second did, and stayed when the second fell, with the section at 19; ours left the first alone and took the section to 9"
+  },
+  "third": {
+    "written after CAP-T10ROWS2, before CAP-T10ROWS3": true,
+    "a section pulled taller, before the block goes in": "rows move by the block's, so 8 rows pulled up keeps that spare",
+    "the lowest block": "a section's rows move by how far its lowest block's end moves, not the block in hand: that fits Second Code's 19",
+    "two blocks at the same place": "the first rising with the second is read as: a block sharing the risen one's bottom row goes with it on a rise, and neither on a fall",
+    "blocks not sharing a bottom row": "stay where they are, whether side by side, above or below"
   }
 }
