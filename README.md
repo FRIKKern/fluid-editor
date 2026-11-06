@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 30 changes
+- **Today** · 31 changes
+  - T10: code and embed rows follow the content's height, on rises, falls and closing the view; plain source pre ([#208](https://github.com/FRIKKern/fluid-editor/pull/208))
   - T9: the panel's tabs and Back row stay when it scrolls; the oracle's form field, post-submit and lightbox reads ([#209](https://github.com/FRIKKern/fluid-editor/pull/209))
-  - A2: back to partial: the fresh test found a cycle in the desktop sort ([#207](https://github.com/FRIKKern/fluid-editor/pull/207))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
