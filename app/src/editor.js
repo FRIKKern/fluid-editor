@@ -1395,6 +1395,8 @@ function onDblClick(e) {
   startTextEdit(sid, blk.dataset.blockId);
 }
 
+const textHeight = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0;
+
 function startTextEdit(sid, bid) {
   const b = B(sid, bid);
   if (!b || b.type !== 'text' || editing) return;
@@ -1414,7 +1416,7 @@ function startTextEdit(sid, bid) {
   const fe = feEl(sid);
   const m = measure(fe);
   fe.style.gridAutoRows = `${m.rowMin}px`;
-  editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], need: contentRows(b, m), need0: contentRows(b, m), marks: [before], prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
+  editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], need: contentRows(b, m), height0: textHeight(b), prevHeight: textHeight(b), marks: [before], prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
   ce.addEventListener('input', onTextInput);
   ce.addEventListener('paste', onPaste);
   ce.addEventListener('focus', () => { if (editing) editing.keysOff = false; });
@@ -3519,7 +3521,10 @@ function textStep(ed, html, area) {
   growRows(S(ed.sid));
   const snap = JSON.stringify(model);
   [b.html, lay(b).area] = keep;
-  if (snap !== ed.marks.at(-1)) ed.marks.push(snap);
+  if (snap !== ed.marks.at(-1)) {
+    ed.marks.push(snap);
+    if (ed.marks.length === 2) ed.height1 = ed.prevHeight;
+  }
 }
 // A word that reads as a domain or a mail address links when a space or Enter follows it
 // (TEXTUNDO.json, links), with the http scheme. No path and no end mark.
@@ -3584,29 +3589,38 @@ function onTextInput(e) {
   }
   ed.prevHtml = ed.ce.innerHTML;
   ed.prevArea = [...ed.area];
+  ed.prevHeight = textHeight(b);
 }
 
-// Text that grows or shrinks moves other blocks, in this view only. Growing: blocks in shared columns
-// whose bottom reaches the old end, and any block whose top is past it, all by the growth, no chains.
-// Shrinking: up to that many rows with nothing in them go, highest first, below the new end, and
-// blocks close up over them. The section takes the change of its lowest block
-// (CAP-TEXTPUSH.json to CAP-TEXTPUSH6.json).
+// Text that grows or shrinks moves other blocks, in this view only (CAP-TEXTPUSH.json to CAP-TEXTPUSH7.json).
+// Growing: blocks in shared columns whose bottom reaches the old end, and any block whose top is past
+// it, all by the growth, no chains.
+// Shrinking, from the old end to the new, among blocks starting at the new end or lower: those starting
+// above the old end rise to the new end, stacking only on blocks in shared columns. Those at the old
+// end or lower rise by one amount: the rows from the new end to the old end, both counted, with no such
+// block in them, at most the fall.
+// The section takes the change of its lowest block.
 function moveWithText(s, b, a, d) {
-  const others = s.blocks.filter((o) => o.id !== b.id), areas = others.map((o) => o.layout[bp].area);
-  const lowest = (own) => Math.max(own, ...areas.map((q) => q[2]));
-  const low = lowest(a[2]), moved = [];
+  const others = s.blocks.filter((o) => o.id !== b.id), lows = others.map((o) => o.layout[bp].area);
+  const lowest = (own) => Math.max(own, ...lows.map((q) => q[2]));
+  const low = lowest(a[2]);
+  const was = others.map((o) => [...o.layout[bp].area]);
   if (d > 0) {
-    for (const [k, q] of areas.entries()) if (q[0] > a[2] || (q[1] < a[3] && q[3] > a[1] && q[2] >= a[2])) { q[0] += d; q[2] += d; moved.push(others[k]); }
+    for (const q of lows) if (q[0] > a[2] || (q[1] < a[3] && q[3] > a[1] && q[2] >= a[2])) { q[0] += d; q[2] += d; }
   } else {
-    const gone = [];
-    for (let row = a[2] + d; gone.length < -d && row < low; row++) if (!areas.some((q) => q[0] <= row && row < q[2])) gone.push(row);
-    for (const [k, q] of areas.entries()) {
-      const by = gone.filter((row) => row < q[0]).length;
-      if (by) { q[0] -= by; q[2] -= by; moved.push(others[k]); }
+    const end = a[2], top = end + d, under = lows.filter((q) => q[0] >= top);
+    let free = 0;
+    for (let row = top; row <= end; row++) if (!under.some((q) => q[0] <= row && row < q[2])) free++;
+    const by = Math.min(-d, free), placed = [];
+    for (const q of [...under].sort((p, r) => p[0] - r[0])) {
+      const at = q[0] >= end ? q[0] - by : Math.max(top, ...placed.filter((o) => o[1] < q[3] && o[3] > q[1]).map((o) => o[2]));
+      q[2] += at - q[0];
+      q[0] = at;
+      if (at < end) placed.push(q);
     }
   }
   s.rows[bp] += lowest(a[2] + d) - low;
-  return moved;
+  return others.filter((o, k) => !same(o.layout[bp].area, was[k]));
 }
 
 function onTextSelection() {
@@ -3621,6 +3635,7 @@ function finishTextEdit() {
   doc.removeEventListener('selectionchange', onTextSelection);
   renderTextBar();
   const b = B(ed.sid, ed.bid);
+  const height = textHeight(b);
   b.html = ed.ce.innerHTML;
   lay(b).area = ed.area;
   growRows(S(ed.sid));
@@ -3629,18 +3644,20 @@ function finishTextEdit() {
   const now = JSON.stringify(model);
   // A step can look like where the edit ended (Bold, then Clear Formatting): it's still a step (CAP-E4SCORE.json).
   const steps = ed.marks.at(-1) === now ? ed.marks.slice(0, -1) : ed.marks;
-  if (steps.length === 1 && ed.need > ed.need0) steps[0] = undoTextFalls(ed, now);
+  const first = steps.length > 1 ? ed.height1 : height;
+  if (first > ed.height0) steps[0] = undoTextFalls(ed, steps[1] ?? now, first);
   for (const m of steps.slice(0, -1)) undoStack.push(m);
   commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`);
 }
 
-// Undoing an edit whose text needed more rows: the old text comes back, and the rows fall by what
-// the text needs less. Spare rows at the start of the edit are not given back (CAP-TEXTPUSH2.json q8).
-function undoTextFalls(ed, now) {
+// Undoing an edit whose text got taller: the old text comes back and the rows fall by the height it
+// lost, rounded up, which can leave the text a row short. Spare rows are not given back
+// (CAP-TEXTPUSH2.json q8, CAP-TEXTPUSH5.json t13 and t14, CAP-TEXTPUSH6.json v7 and v8).
+function undoTextFalls(ed, now, height) {
   const m = JSON.parse(now), s = m.sections.find((o) => o.id === ed.sid);
   const b = s.blocks.find((o) => o.id === ed.bid);
   if (!b) return ed.before;
-  const a = b.layout[bp].area, fall = ed.need - ed.need0;
+  const a = b.layout[bp].area, fall = Math.min(a[2] - a[0] - 1, Math.ceil((height - ed.height0) / ed.m.pitch));
   moveWithText(s, b, a, -fall);
   a[2] -= fall;
   b.html = JSON.parse(ed.before).sections.find((o) => o.id === ed.sid).blocks.find((o) => o.id === ed.bid).html;
