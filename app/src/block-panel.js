@@ -398,7 +398,7 @@ function socialDesignHtml(c, d, open, pairs) {
   const border = c.iconBorder || '';
   return `<div class="bp-soccap bp-soccap-first">Border</div>` + group(4, [['None', ''], ['Square', 'square'], ['Circle', 'circle'], ['Rounded', 'rounded']].map(([l, v]) => seg('iconBorder', v, border === v, l, true)).join(''))
     + (border ? group(3, Object.entries(SOCIAL_STYLES).map(([l, v]) => seg('iconStyle', v, (c.iconStyle || 'knockout') === v, l)).join('')) : '')
-    + (border && c.iconStyle === 'border' ? `<label class="bp-soc-thick"><span class="sp-label">Thickness</span><span class="bp-soc-tv">${c.iconThick ?? 2}px</span><input type="range" aria-label="Thickness" min="1" max="5" step="1" value="${c.iconThick ?? 2}" data-soc-thick></label>` : '')
+    + (border && c.iconStyle === 'border' ? `<div class="bp-soc-thick"><span class="sp-label">Thickness</span><input type="text" class="bp-soc-tv" aria-label="Thickness" value="${c.iconThick ?? 2}px" data-soc-thickfield><input type="range" aria-label="Thickness" min="1" max="5" step="1" value="${c.iconThick ?? 2}" data-soc-thick></div>` : '')
     + '<div class="bp-soccap">Alignment</div>' + group(3, [['Left', 'left'], ['Center', 'center'], ['Right', 'right']].map(([l, v]) => seg('align', v, (c.align || 'left') === v, l, true)).join(''))
     + '<div class="bp-soccap">Size</div>' + group(5, Object.keys(SOCIAL_SIZES).map((k) => seg('iconSize', k, (c.iconSize || 'S') === k, k)).join(''))
     + appearanceRows(d) + blendRow(d.blend || 'normal', open === 'blend') + blurRows(d)
@@ -439,7 +439,7 @@ function mapDesignHtml(c, pairs) {
   const sw = (key, on, label) => `<div class="sp-row"><span class="sp-label">${label}</span><label class="sp-switch"><input type="checkbox" aria-label="${label}" data-map-set="${key}"${on ? ' checked' : ''}><span aria-hidden="true"></span></label></div>`;
   return `<button type="button" class="bp-map-style" data-shape-act="mapstyle" aria-haspopup="listbox" aria-label="${name}">${mapThumb(c.style)}<span>${name}</span>${pi('<path d="M7 10l5 5 5-5"/>')}</button>`
     + '<div class="bp-soccap bp-map-cap">Elements</div>'
-    + `<div class="bp-map-zoom"><span class="sp-label">Zoom</span><input type="text" aria-label="Zoom" data-map-zoomfield value="${MAP_ZOOMS[c.zoom]}"><span class="bp-map-x">x</span><button type="button" aria-label="decrement" data-map-zoom="-1"${c.zoom <= 0 ? ' disabled' : ''}>${pi('<path d="M5 12h14"/>')}</button><button type="button" aria-label="increment" data-map-zoom="1"${c.zoom >= MAP_ZOOMS.length - 1 ? ' disabled' : ''}>${pi('<path d="M12 5v14M5 12h14"/>')}</button></div>`
+    + `<div class="bp-map-zoom"><span class="sp-label">Zoom</span><input type="text" aria-label="Zoom" data-map-zoomfield value="${MAP_ZOOMS[c.zoom] ?? c.zoom}"><span class="bp-map-x">x</span><button type="button" aria-label="decrement" data-map-zoom="-1"${c.zoom <= 0 ? ' disabled' : ''}>${pi('<path d="M5 12h14"/>')}</button><button type="button" aria-label="increment" data-map-zoom="1"${c.zoom >= MAP_ZOOMS.length - 1 ? ' disabled' : ''}>${pi('<path d="M12 5v14M5 12h14"/>')}</button></div>`
     + sw('mapLabels', c.labels, 'Labels') + sw('mapTerrain', c.terrain, 'Terrain') + sw('mapControls', c.controls, 'Controls')
     + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs}`;
 }

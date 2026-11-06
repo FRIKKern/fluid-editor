@@ -1,7 +1,7 @@
 // T11: a new Line, Map and Social Links through the real menu, against parity/findings/T11.json.
 // Writes parity/t11-check.json. Usage: FLUID_SURFACE=cdp:<port> npm run t11-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, mouse } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, mouse, drag, browser } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -295,6 +295,82 @@ await socPress('iconSize', 'L'); await socPress('iconBorder', 'circle');
 const deskLC = soc();
 await phoneView(); r = soc();
 add('An untouched phone follows the desktop', near(r.first[2], deskLC.first[2]) && r.gap === deskLC.gap && r.radius === '50%', `${r.first} ${r.gap} ${r.radius}`);
+
+// Read 2026-11-06: typed Zoom, how narrow Social Links goes, its Thickness field, with real keys and pulls.
+const read26 = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads;
+const ZR = read26('CAP-T11ZOOM'), SR = read26('CAP-T11SOCIAL');
+const typeIn = async (sel, text) => { browser(S, 'fill', sel, text); browser(S, 'press', 'Enter'); await pause(260); };
+const fieldV = (sel) => q(`return JSON.stringify(document.querySelector(${JSON.stringify(sel)}).value);`);
+({ id } = await fresh('Map'));
+await tab('Design');
+const ZF = '#block-panel [data-map-zoomfield]';
+const zoomWas = (t) => ZR[`typed "${t}"`].parts.Zoom[1].value;
+for (const [t, z] of [['5', 5], ['2.5', 2], ['12.5', 12], ['abc', 12], ['', 12], ['-1', -1], ['99', 99], ['0.3', 0], ['1.2', 1], ['12', 12]]) {
+  await typeIn(ZF, t);
+  const v = fieldV(ZF), c = map().ctx.location.mapZoom;
+  add(`Zoom typed "${t}": field ${zoomWas(t)}, zoom ${z}`, v === zoomWas(t) && c === z, `${v} ${c}`);
+}
+await typeIn(ZF, '2.5'); await click(`panel.querySelector('[aria-label="increment"]')`, 120);
+add('Zoom: increment from a cut 2.5', fieldV(ZF) === ZR['increment from 2.5'].parts.Zoom[1].value, fieldV(ZF));
+await click(`panel.querySelector('[aria-label="decrement"]')`, 120); await click(`panel.querySelector('[aria-label="decrement"]')`, 120);
+add('Zoom: decrement twice', fieldV(ZF) === ZR['decrement twice'].parts.Zoom[1].value, fieldV(ZF));
+// Not read on the oracle, ours: a zoom past the ladder draws at the ladder's end and the buttons step back onto it.
+const drawn = () => q(`return JSON.stringify(block('${id}').querySelector('.fe-map g').getAttribute('transform'));`);
+await typeIn(ZF, '22'); const at22 = drawn();
+await typeIn(ZF, '99');
+add('Ours: 99 draws as 22, increment off', drawn() === at22 && q(`return JSON.stringify(panel.querySelector('[aria-label="increment"]').disabled);`), drawn());
+await click(`panel.querySelector('[aria-label="decrement"]')`, 120);
+add('Ours: decrement from 99 lands on 7', fieldV(ZF) === '7', fieldV(ZF));
+await typeIn(ZF, '-1');
+await click(`panel.querySelector('[aria-label="increment"]')`, 120);
+add('Ours: increment from -1 lands on 0', fieldV(ZF) === '0', fieldV(ZF));
+
+const socPull = async (cols) => {
+  const p = q(`fe.select(fe.model.sections[1].id, '${id}'); await sleep(150); const o = fr.getBoundingClientRect(), r = fr.contentDocument.querySelector('.fe-handle[data-dir="e"]').getBoundingClientRect(), m = fe.measure(fe.model.sections[1].id); return JSON.stringify({ x: o.left + r.x + r.width / 2, y: o.top + r.y + r.height / 2, col: m.colStart[2] - m.colStart[1] });`);
+  drag(S, [p.x, p.y], [p.x + cols * p.col, p.y]); await pause(350);
+};
+const areaOf = (view) => q(`return JSON.stringify(fe.model.sections[1].blocks.find((b) => b.id === '${id}').layout.${view}.area.join('/'));`);
+({ id } = await fresh('Social Links'));
+for (const n of [1, 2, 3, 4]) {
+  await socPull(-1);
+  const want = SR[`e in ${n}`].block.desktop.split('/').map((v, i) => (i === 2 ? null : v)).join('/');
+  const got = areaOf('desktop').split('/').map((v, i) => (i === 2 ? null : v)).join('/');
+  add(`Social e in ${n}: columns as read`, got === want, `${got} ${want}`);
+}
+await phoneView();
+for (let n = 1; n <= 7; n++) {
+  await socPull(-1);
+  add(`Social phone e in ${n}`, areaOf('mobile') === SR[`phone e in ${n}`].block.mobile, `${areaOf('mobile')} ${SR[`phone e in ${n}`].block.mobile}`);
+}
+const nb = boxOf();
+add('Social phone: 2 columns wide as read', near(nb[0], SR['phone e in 7'].block.box[2], 1), nb);
+await deskView();
+
+({ id } = await fresh('Social Links'));
+await tab('Design');
+await set('iconBorder', 'circle'); await set('iconStyle', 'border');
+const TF = '#block-panel [data-soc-thickfield]';
+const thick = () => q(`const t = panel.querySelector('[data-soc-thickfield]'), rg = panel.querySelector('[data-soc-thick]'), seg = panel.querySelector('[data-soc-set="iconStyle"]'), row = rg.getBoundingClientRect(), f = t.getBoundingClientRect(), s = seg.getBoundingClientRect(); return JSON.stringify({ tag: t.tagName, v: t.value, range: rg.value, f: [f.right - (row.left + row.width), f.top - s.bottom, f.width, f.height], r: [row.top - s.bottom, row.width], shadow: W.getComputedStyle(block('${id}').querySelector('nav a')).boxShadow });`);
+// The oracle's boxes (CAP-T11SOCIAL.json): the field's right edge 6 in from the slider's, 28 or 29 under the Style row, 22 high.
+const oc = (k) => Object.fromEntries(SR[k].controls.filter((c) => /Thickness|Solid/.test(c.label)).map((c) => [c.role + c.label, c]));
+const O1 = oc('desktop Circle Outline 1');
+const sb = O1['radioSolid'].box, of = O1['input:textThickness'].box, ofr = O1['input:rangeThickness'].box;
+let tk = thick();
+add('Thickness: a text field, 2px', tk.tag === 'INPUT' && tk.v === '2px', JSON.stringify(tk));
+const lab = q(`const t = panel.querySelector('[data-soc-thickfield]').getBoundingClientRect(), l = panel.querySelector('.bp-soc-thick .sp-label').getBoundingClientRect(); return JSON.stringify((l.top + l.height / 2) - (t.top + t.height / 2));`);
+add('Thickness: label level with the field', near(lab, 0, 0.6), lab);
+add('Thickness: the field box by the slider', near(tk.f[0], of[0] + of[2] - (ofr[0] + ofr[2]), 1) && near(tk.f[1], of[1] - (sb[1] + sb[3]), 1.5) && near(tk.f[2], 28, 2) && near(tk.f[3], of[3], 0.5), JSON.stringify(tk.f));
+await typeIn(TF, '4'); tk = thick();
+add('Thickness: typed 4 reads 4px, slider 4, inset 4', tk.v === SR['phone Square Outline'].controls.find((c) => c.role === 'input:text').value && tk.range === '4' && /4px/.test(tk.shadow), JSON.stringify(tk));
+q(`const t = panel.querySelector('[data-soc-thick]'); t.value = 3; t.dispatchEvent(new Event('input', { bubbles: true })); await sleep(60); return 'true';`);
+add('Thickness: the slider drives the field while held', thick().v === '3px', thick().v);
+q(`const t = panel.querySelector('[data-soc-thick]'); t.dispatchEvent(new Event('change', { bubbles: true })); await sleep(220); return 'true';`);
+await typeIn(TF, 'abc'); add('Thickness: words keep the old value', thick().v === '3px', thick().v);
+await typeIn(TF, '99'); add('Ours: 99 stops at 5px, as the stroke field stops', thick().v === '5px', thick().v);
+await typeIn(TF, '-5'); add('Ours: -5 stops at 1px', thick().v === '1px', thick().v);
+await typeIn(TF, '3.5'); tk = thick(); add('Ours: 3.5 stays, slider 4', tk.v === '3.5px' && tk.range === '4', JSON.stringify(tk));
+q(`fe.undo(); await sleep(260); return 'true';`);
+add('Thickness: one undo step', thick().v === '1px', thick().v);
 
 writeFileSync(new URL('../parity/t11-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nT11: ${pass}/${total}`);

@@ -1219,8 +1219,9 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .bp-sgrp + .bp-sgrp { margin-top: 8px; }
 .bp-sgrp-5 + .sp-row { margin-top: -1px; }
 .bp-soc-thick { position: relative; display: block; box-sizing: border-box; height: 87px; padding-top: 22px; border-bottom: 1px solid #e7e7e7; }
-.bp-soc-thick .bp-soc-tv { position: absolute; right: 16px; top: 22px; }
-.bp-soc-thick input { position: absolute; left: 0; top: 56px; width: 276px; margin: 0; accent-color: #0e0e0e; }
+.bp-soc-thick .sp-label { display: block; line-height: 22px; }
+.bp-soc-thick .bp-soc-tv { position: absolute; right: 6px; top: 22px; box-sizing: border-box; width: 28px; height: 22px; padding: 0; border: 0; background: none; font: inherit; text-align: right; }
+.bp-soc-thick input[type="range"] { position: absolute; left: 0; top: 56px; width: 276px; margin: 0; accent-color: #0e0e0e; }
 .bp-soc-thick + .bp-soccap { margin-top: 23px; }
 .bp-socf { display: block; box-sizing: border-box; width: 276px; height: 44px; padding: 0; border: 0; border-bottom: 1px solid #e7e7e7; border-radius: 0; background: none; color: #0e0e0e; font: inherit; outline: none; }
 .bp-socf::placeholder { color: #8a8a8a; }
