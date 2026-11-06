@@ -30,7 +30,7 @@ import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
 import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
-import { newField, writeFieldText, writeFieldSet, postOf } from './form-fields.js';
+import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
 const $ = (id) => document.getElementById(id);
@@ -1475,7 +1475,7 @@ function renderBlockPanel() {
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
-  if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffView?.startsWith('ff-edit:') && !b.fields?.[Number(ffView.slice(8))]) ffView = 'ff-list'; // undo can take the field away
+  if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffOpen() && !(ffField(b) && (!ffView.startsWith('ff-opt:') || followOf(ffField(b), ffView.split(':')[2]).length))) ffView = 'ff-list'; // undo can take the field away
   showFormPost(b);
   const mdField = b.type === 'markdown' && blockPanel.querySelector('textarea[data-content="markdown"]');
   if (mdField && mdField === document.activeElement && mdField.value !== (b.text || '')) { mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
@@ -2106,7 +2106,10 @@ blockPanel.addEventListener('input', (e) => {
   renderSectionDom(sel.sid);
   if (blockEl(b.id).querySelector('.lightbox-handle').offsetHeight !== h) fitForm(b, S(sel.sid));
 });
-const ffField = (b) => b.fields[Number(ffView.slice(8))];
+// The field the open view edits: a field, or a follow-up of one of its options.
+const ffField = (b) => { const [v, n, i, k] = ffView.split(':'); return v === 'ff-fu' ? followOf(b.fields[n], i)[k] : b.fields[n]; };
+const ffOpen = () => /^ff-(edit|fu|opt):/.test(ffView || '');
+let ffReturn = null; // where Back goes from Add Follow-Up and from a follow-up's editor
 // While Edit Post-Submit is open the block shows what comes after a submit (FORMFIELDS.json, postSubmit).
 function showFormPost(b) {
   const on = b?.type === 'form' && ffView === 'ff-post' ? blockEl(b.id)?.querySelector('.form-wrapper') : null;
@@ -2117,20 +2120,34 @@ const setPost = (k, v, label) => setForm((b) => { b.post = { ...b.post, [k]: v }
 function showFf(view) { ffView = view; renderBlockPanel(); blockPanel.scrollTop = 0; }
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-ff]');
-  if (!a || !sel || e.target.closest('.bp-ff-grip')) return;
-  const [act, arg] = a.dataset.ff.split(':'), n = Number(arg);
+  if (!a || !sel || e.target.closest('.bp-ff-grip, .bp-ffo-grip')) return;
+  const [act, arg, arg2, arg3] = a.dataset.ff.split(':'), n = Number(arg), o = Number(arg2);
   if (act === 'list') showFf('ff-list');
   else if (act === 'post') showFf('ff-post');
   else if (act === 'post-mode') setPost('redirect', arg === 'redirect', 'After Submission');
   else if (act === 'post-align') setPost('align', arg, 'Message alignment');
   else if (act === 'post-position') setPost('position', arg, 'Message position');
-  else if (act === 'back') { closeLinkPopover(); showFf(ffView === 'ff-list' || ffView === 'ff-post' ? null : 'ff-list'); }
+  else if (act === 'back') {
+    closeLinkPopover();
+    const [v, fn] = (ffView || '').split(':');
+    showFf(v === 'ff-fu' || v === 'ff-fuadd' ? ffReturn : v === 'ff-opt' ? `ff-edit:${fn}` : ffView === 'ff-list' || ffView === 'ff-post' ? null : 'ff-list');
+  }
+  else if (act === 'opt') showFf(`ff-opt:${n}:${o}`);
+  else if (act === 'fu') { ffReturn = `ff-opt:${n}:${o}`; showFf(`ff-fu:${n}:${o}:${arg3}`); }
+  else if (act === 'fu-add') { ffReturn = `ff-opt:${n}:${o}`; showFf(`ff-fuadd:${n}:${o}`); }
+  else if (act === 'fu-tile') {
+    const [, fn, oi] = ffView.split(':');
+    setForm((b) => { ffView = `ff-fu:${fn}:${oi}:${addFollow(b.fields[fn], Number(oi), arg)}`; }, `${arg} follow-up added`);
+    blockPanel.scrollTop = 0;
+  }
+  else if (act === 'fu-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteFollow(b.fields[n], o, Number(arg3)), 'Follow-up deleted'); blockPanel.scrollTop = 0; }
+  else if (act === 'opt-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteOption(b.fields[n], o), 'Option deleted'); blockPanel.scrollTop = 0; }
   else if (act === 'add') showFf('ff-add');
   else if (act === 'edit') showFf(`ff-edit:${n}`);
   else if (act === 'tile') { ffView = 'ff-list'; setForm((b) => b.fields.push(newField(arg)), `${arg} field added`); blockPanel.scrollTop = 0; }
   else if (act === 'delete' || act === 'del') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n, 1), 'Field deleted'); blockPanel.scrollTop = 0; }
   else if (act === 'dup') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n + 1, 0, JSON.parse(JSON.stringify(b.fields[n]))), 'Field duplicated'); blockPanel.scrollTop = 0; }
-  else if (act === 'opt-add') setForm((b) => { const o = b.fields[n].options; o.push(`Option ${o.length + 1}`); }, 'Option added');
+  else if (act === 'opt-add') setForm((b) => { const l = ffField(b).options; l.push(`Option ${l.length + 1}`); }, 'Option added');
   else if (act === 'max') setForm((b) => { const f = ffField(b); f.maxFiles = Math.max(1, (f.maxFiles || 1) + n); }, 'Max files');
 });
 // A typed value shows at once and makes its undo step when the field is left.
@@ -2146,7 +2163,7 @@ blockPanel.addEventListener('input', (e) => {
     return;
   }
   const t = e.target.closest('[data-ff-field],[data-ff-opt]');
-  if (!t || !sel || !ffView?.startsWith('ff-edit:')) return;
+  if (!t || !sel || !ffOpen()) return;
   ffBefore ??= JSON.stringify(model);
   const f = ffField(B(sel.sid, sel.bid));
   if (t.dataset.ffOpt != null) f.options[Number(t.dataset.ffOpt)] = t.value;
@@ -2161,7 +2178,7 @@ blockPanel.addEventListener('change', (e) => {
     if (before) commit(before, 'Post-submit changed');
     return;
   }
-  if (!sel || !ffView?.startsWith('ff-edit:')) return;
+  if (!sel || !ffOpen()) return;
   if (e.target.closest('[data-ff-field],[data-ff-opt]')) {
     const before = ffBefore;
     ffBefore = null;
@@ -2309,7 +2326,7 @@ function renderSectionPop() {
 function renderShapePop() {
   if (shapeUi.section) { renderSectionPop(); return; }
   const b = B(sel.sid, sel.bid), P = blockPanel.getBoundingClientRect(), { kind } = shapeUi;
-  shapePop.className = kind === 'editmenu' ? 'is-editmenu' : kind === 'fxmenu' ? 'is-fxmenu' : kind === 'accmenu' ? 'is-accmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
+  shapePop.className = kind === 'editmenu' ? 'is-editmenu' : kind === 'fxmenu' ? 'is-fxmenu' : kind === 'accmenu' ? 'is-accmenu' : kind === 'ffmenu' ? 'is-ffmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
   if (kind === 'animopts') {
     const u = shapeUi, one = u.mode === 'row' ? ' animation' : ' animations', a = animRows()[anim.i];
     if (u.mode === 'sel') { shapePop.innerHTML = animOptionsHtml(u.key, a?.[u.key]); shapePop.style.cssText = `left:${u.rect.left - 9}px;top:${u.rect.top}px`; }
@@ -2329,6 +2346,10 @@ function renderShapePop() {
     const cur = blend ? BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')) : b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay';
     shapePop.innerHTML = list.map((o) => `<button type="button" role="option" class="${o === cur ? 'is-cur' : ''}" data-image-opt="${o}">${o}</button>`).join('');
     shapePop.style.cssText = `left:${shapeUi.rect.left - 9}px;top:${shapeUi.rect.top}px;max-height:${innerHeight - shapeUi.rect.top - 8}px;overflow:auto`;
+  } else if (kind === 'ffmenu') {
+    // An option's menu (followUp.menu): its right edge 4 left of the button, 40 below the button's top.
+    shapePop.innerHTML = `${ffView.startsWith('ff-fu:') ? '' : '<button type="button" data-ff-pop="follow">Add follow-up question</button>'}<button type="button" class="is-red" data-ff-pop="delete">Delete Option</button>`;
+    shapePop.style.cssText = `right:${innerWidth - shapeUi.rect.left + 4}px;top:${shapeUi.rect.top + 40}px`;
   } else if (kind === 'accmenu') {
     const key = shapeUi.key, list = key === 'icon' ? [['plus', 'Plus'], ['arrow', 'Arrow']] : Object.entries(ACCORDION_STYLES).filter(([k]) => key === 'titleStyle' || k[0] === 'p');
     const cur = key === 'icon' ? b.icon || 'plus' : b[key] || (key === 'titleStyle' ? 'h4' : 'p2'), at = list.findIndex(([k]) => k === cur);
@@ -2372,7 +2393,22 @@ blockPanel.addEventListener('click', (e) => {
   shapeUi = { kind: act, bid: sel.bid, custom: null };
   renderShapePop();
 });
+blockPanel.addEventListener('click', (e) => {
+  const m = e.target.closest('[data-ff-menu]');
+  if (!m || !sel) return;
+  if (shapeUi?.kind === 'ffmenu' && shapeUi.key === m.dataset.ffMenu) { closeShapePop(); return; }
+  shapeUi = { kind: 'ffmenu', key: m.dataset.ffMenu, bid: sel.bid, custom: null, rect: m.getBoundingClientRect() };
+  renderShapePop();
+});
 shapePop.addEventListener('click', (e) => {
+  const fp = e.target.closest('[data-ff-pop]');
+  if (fp) {
+    const i = Number(shapeUi.key.split(':')[1]), [, n] = ffView.split(':');
+    closeShapePop();
+    if (fp.dataset.ffPop === 'follow') { ffReturn = ffView; showFf(`ff-fuadd:${n}:${i}`); }
+    else setForm((b) => deleteOption(ffField(b), i), 'Option deleted');
+    return;
+  }
   if (shapeUi?.section) {
     if (e.target.closest('[data-color-custom]')) { const hex = toHex(colorParts(secColorOf(shapeUi)).rgb); shapeUi.custom = { ...hexToHsv(hex), hex, format: 'rgb' }; renderShapePop(); return; }
     if (e.target.closest('[data-color-reset]')) { setSecColor(null); renderShapePop(); }
@@ -2487,7 +2523,7 @@ shapePop.addEventListener('pointerdown', (e) => {
 });
 for (const t of ['mousedown']) shapePop.addEventListener(t, (e) => e.stopPropagation());
 shapePop.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Escape') closeShapePop(); });
-document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-acc-menu], [data-sp-color], [data-image-sel]')) closeShapePop(); }, true);
+document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-acc-menu], [data-ff-menu], [data-sp-color], [data-image-sel]')) closeShapePop(); }, true);
 // Button and image Content tabs: the text and the link (parity/findings/BUTTONEDIT.json). The
 // text is one undo step when the field is left; each link change is one step.
 function setButton(change, label) {
@@ -2832,7 +2868,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
     g.removeEventListener('pointermove', move); g.removeEventListener('pointerup', up); g.removeEventListener('pointercancel', up);
     if (to === from) { renderBlockPanel(); return; }
     if (social) changeSocialList((l) => { const [it] = l.splice(from, 1); l.splice(to, 0, it); }, `Social link moved to ${to + 1}`);
-    else if (ffRow || ffOpt) setForm((b) => { const l = ffRow ? b.fields : ffField(b).options, [it] = l.splice(from, 1); l.splice(to, 0, it); }, `Field moved to ${to + 1}`);
+    else if (ffRow || ffOpt) setForm((b) => { if (ffOpt) { moveOption(ffField(b), from, to); return; } const [it] = b.fields.splice(from, 1); b.fields.splice(to, 0, it); }, `Field moved to ${to + 1}`);
     else setAccordion((b) => { const [it] = b.items.splice(from, 1); b.items.splice(to, 0, it); }, `Item moved to ${to + 1}`);
   };
   g.addEventListener('pointermove', move); g.addEventListener('pointerup', up); g.addEventListener('pointercancel', up);
@@ -5273,6 +5309,7 @@ function setPreview(on) {
   document.body.classList.toggle('is-preview', on);
   doc?.body.classList.toggle('is-preview', on);
   if (!on) doc?.querySelectorAll('.cdk-image-lightbox, body > .form-lightbox').forEach((x) => x.remove());
+  if (!on) doc?.querySelectorAll('.followup-question-container').forEach((x) => { x.hidden = true; });
   $('preview').setAttribute('aria-pressed', String(on));
   $('page-state').textContent = on ? 'Previewing' : 'Page · Published';
   if (on) { closeFloating(); closeSectionPanel(); designOpen = null; if (editing) finishTextEdit(); select(null); }
