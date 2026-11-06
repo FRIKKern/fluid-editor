@@ -5322,31 +5322,63 @@ layersPanel.addEventListener('pointerdown', (e) => {
   const from = rows.indexOf(li);
   const box = li.getBoundingClientRect();
   const pitch = rows.length > 1 ? rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().top : box.height;
-  const y0 = e.clientY;
+  const x0 = e.clientX, y0 = e.clientY;
   let ghost = null;
+  // A row leaving its own place jumps. Any other move slides, the slot's too (CAP-Z3PATH.json, CAP-Z3PATH2.json).
+  let places = [...rows];
+  const placeRow = (to) => {
+    const others = rows.filter((r) => r !== li);
+    const next = others[to] || (li.dataset.kidOf ? others[others.length - 1].nextSibling : null);
+    if (li.nextSibling === next || li === next) return;
+    const tops = new Map(rows.map((r) => [r, r.getBoundingClientRect().top]));
+    const was = places;
+    list.insertBefore(li, next);
+    places = [...list.children].filter((r) => r.dataset.kidOf === li.dataset.kidOf);
+    for (const r of rows) {
+      if (was.indexOf(r) === places.indexOf(r)) continue;
+      r.getAnimations().forEach((a) => a.cancel());
+      if (was.indexOf(r) !== rows.indexOf(r)) r.animate([{ transform: `translateY(${tops.get(r) - r.getBoundingClientRect().top}px)` }, { transform: 'none' }], { duration: 200, easing: 'ease' });
+    }
+  };
   const move = (ev) => {
     const d = ev.clientY - y0;
-    if (!ghost && Math.abs(d) < 4) return;
+    // It starts past 8px on the slant. The move that starts it does nothing else (CAP-Z3PATH.json).
     if (!ghost) {
+      if (Math.hypot(ev.clientX - x0, d) <= 8) return;
       ghost = li.cloneNode(true);
       ghost.classList.add('lp-ghost');
-      Object.assign(ghost.style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px` });
+      Object.assign(ghost.style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px`, fontFamily: getComputedStyle(li).fontFamily });
       document.body.append(ghost);
       li.classList.add('is-slot');
+      return;
     }
     ghost.style.transform = `translateY(${d}px)`;
-    const passed = Math.floor((Math.abs(d) + box.height / 2) / pitch);
-    const to = Math.max(0, Math.min(rows.length - 1, from + Math.sign(d) * passed));
-    const others = rows.filter((r) => r !== li);
-    list.insertBefore(li, others[to] || (li.dataset.kidOf ? others[others.length - 1].nextSibling : null));
+    const passed = Math.floor((Math.abs(d) + box.height / 2 + 1) / pitch);
+    placeRow(Math.max(0, Math.min(rows.length - 1, from + Math.sign(d) * passed)));
   };
-  const up = () => {
+  const stop = () => {
     document.removeEventListener('pointermove', move);
     document.removeEventListener('pointerup', up);
     document.removeEventListener('pointercancel', up);
+    doc.removeEventListener('pointerup', giveUp);
+    document.removeEventListener('keydown', onEscape, true);
+    doc.removeEventListener('keydown', onEscape, true);
+    li.classList.remove('is-slot');
+    rows.forEach((r) => r.getAnimations().forEach((a) => a.cancel()));
+  };
+  // The page's frame keeps its own moves and release. Let go over it, or press Escape: nothing moves and the
+  // panel closes (CAP-Z3PATH.json, CAP-Z3PATH2.json).
+  const giveUp = () => {
+    stop();
     if (!ghost) return;
     ghost.remove();
-    li.classList.remove('is-slot');
+    renderLayersPanel();
+    closeFloating();
+  };
+  const onEscape = (ev) => { if (ev.key === 'Escape') giveUp(); };
+  const up = () => {
+    stop();
+    if (!ghost) return;
     rowDragged = true;
     const before = JSON.stringify(model);
     const order = [...list.children].filter((r) => r.dataset.kidOf === li.dataset.kidOf).map((r) => r.dataset.layer);
@@ -5356,10 +5388,17 @@ layersPanel.addEventListener('pointerdown', (e) => {
     if (moved) { renderSectionDom(sid); commit(before, 'Reordered layers'); }
     else model = JSON.parse(before);
     renderLayersPanel();
+    // The ghost flies to where the row now is, over the row (CAP-Z3PATH2.json).
+    const home = layersPanel.querySelector(`li[data-layer="${li.dataset.layer}"]`);
+    const end = home ? home.getBoundingClientRect().top - box.top : 0;
+    ghost.animate([{ transform: getComputedStyle(ghost).transform }, { transform: `translateY(${end}px)` }], { duration: 250, easing: 'ease' }).finished.then(() => ghost.remove(), () => ghost.remove());
   };
   document.addEventListener('pointermove', move);
   document.addEventListener('pointerup', up);
   document.addEventListener('pointercancel', up);
+  doc.addEventListener('pointerup', giveUp);
+  document.addEventListener('keydown', onEscape, true);
+  doc.addEventListener('keydown', onEscape, true);
 });
 function onContextMenu(e) {
   if (document.body.classList.contains('is-preview')) return;

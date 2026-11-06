@@ -5,7 +5,7 @@
 //   ... node scripts/oracle-capture.mjs --list
 //   ... node scripts/oracle-capture.mjs --name WHAT --question '...' --steps '[["enter"],["select",2,2],["read","a",{"block":[2,2],"controls":true}]]'
 // Steps: enter | exit | view Mobile|Desktop | window w h (the real window, for a block taller than it) | frame w h | unframe | pause ms | listen
-//   hover i | hoverBlock i k [part] | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
+//   hover i | hoverBlock i k [part] | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | rowPath label names path name drop | rowFrames label names dy name [pre] [drop] | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
 //   addFromMenu i type name {frameBy, menu} | handleDrag i k part dx dy name | beforeOf name selector
 //   hoverNamed label | moveAt x y (skips the page check: it presses nothing, and its timing matters) | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | addSectionWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
@@ -198,6 +198,9 @@ const ROWPARTS = (L) => `(() => { const vis = (e) => { const q = e.getBoundingCl
 const RESETOF = (L, n) => `(() => { const f = ${ROWINPUTS(L)}; const e = f && f[${n}]; if (!e) return null; const q = e.getBoundingClientRect(); const all = [...document.querySelectorAll('[aria-label="Reset to default value"], [title="Reset to default value"]')].filter((b) => { const r = b.getBoundingClientRect(); return r.width > 0 && Math.abs(r.top + r.height / 2 - q.top - q.height / 2) < 14; }); all.sort((x, y) => Math.abs(x.getBoundingClientRect().left - q.right) - Math.abs(y.getBoundingClientRect().left - q.right)); return all[0] || null; })()`;
 const ROWINPUTS = (L) => `(() => { const vis = (e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'); const leaf = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && e.textContent.trim() === ${JSON.stringify(L)} && vis(e)); if (!leaf) return null; let r = leaf; while (r && r !== document.body && ![...r.querySelectorAll('input:not([type=radio]):not([type=checkbox])')].some(vis)) r = r.parentElement; return r && r !== document.body ? [...r.querySelectorAll('input:not([type=radio]):not([type=checkbox])')].filter(vis) : null; })()`;
 let heldClip = [];
+// Each row text, the blue slot and the blocks' z, and the middle of a row by its name, for the row steps.
+const rowSnap = (names) => evalJs(S, `(() => { ${FRAME} const N = ${JSON.stringify(names)}; const texts = [...document.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && N.includes(e.textContent.trim()) && e.getBoundingClientRect().width > 0).map((e) => { const q = e.getBoundingClientRect(); let o = 1; for (let p = e; p; p = p.parentElement) o *= +getComputedStyle(p).opacity; return [e.textContent.trim(), Math.round(q.left), Math.round(q.top), Math.round(o * 100) / 100]; }); const slots = [...document.querySelectorAll('*')].filter((e) => getComputedStyle(e).backgroundColor === 'rgb(72, 148, 255)' && e.getBoundingClientRect().width > 100).map((e) => { const q = e.getBoundingClientRect(); return [Math.round(q.left), Math.round(q.top), Math.round(q.width), Math.round(q.height)]; }); return JSON.stringify({ texts, slots, z: [...d.querySelectorAll('main#page .fe-block')].map((e) => W.getComputedStyle(e).zIndex).join() }); })()`);
+const rowAt = (label) => evalJs(S, `(() => { const t = [...document.querySelectorAll('*')].find((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(label)} && x.getBoundingClientRect().left > 70 && x.getBoundingClientRect().left < 100); const b = t.closest('button') || t.parentElement; const q = b.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
 const STEPS = {
   // The Mobile view outlives Exit, so a step could read the wrong layout: always start on Desktop.
   // After many runs Edit can open the bar and leave the canvas not editing: leave, reload, enter again.
@@ -254,8 +257,8 @@ const STEPS = {
   press: async (key) => { browser(S, 'press', key); await pause(500); },
   // Holds a Layers row with the real pointer and moves 1px at a time, keeping each change of the rows, the ghost, the slot and the blocks' z. dx and dy are walked one after the other, x first.
   rowWalk: async (label, names, dx, dy, name, drop = true) => {
-    const snap = () => evalJs(S, `(() => { ${FRAME} const N = ${JSON.stringify(names)}; const texts = [...document.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && N.includes(e.textContent.trim()) && e.getBoundingClientRect().width > 0).map((e) => { const q = e.getBoundingClientRect(); let o = 1; for (let p = e; p; p = p.parentElement) o *= +getComputedStyle(p).opacity; return [e.textContent.trim(), Math.round(q.left), Math.round(q.top), Math.round(o * 100) / 100]; }); const slots = [...document.querySelectorAll('*')].filter((e) => getComputedStyle(e).backgroundColor === 'rgb(72, 148, 255)' && e.getBoundingClientRect().width > 100).map((e) => { const q = e.getBoundingClientRect(); return [Math.round(q.left), Math.round(q.top), Math.round(q.width), Math.round(q.height)]; }); return JSON.stringify({ texts, slots, z: [...d.querySelectorAll('main#page .fe-block')].map((e) => W.getComputedStyle(e).zIndex).join() }); })()`);
-    const at = evalJs(S, `(() => { const t = [...document.querySelectorAll('*')].find((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(label)} && x.getBoundingClientRect().left > 70 && x.getBoundingClientRect().left < 100); const b = t.closest('button') || t.parentElement; const q = b.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
+    const snap = () => rowSnap(names);
+    const at = rowAt(label);
     mouse(S, 'move', at[0], at[1]); mouse(S, 'down', at[0], at[1]); await pause(150);
     const seen = [['pressed', snap()]]; let last = JSON.stringify(seen[0][1]); let x = 0, y = 0;
     const go = () => { mouse(S, 'move', at[0] + x, at[1] + y, { buttons: 1 }); const n = snap(); const t = JSON.stringify(n); if (t !== last) { seen.push([[x, y], n]); last = t; } };
@@ -263,6 +266,38 @@ const STEPS = {
     for (let k = 1; k <= Math.abs(dy); k++) { y = Math.sign(dy) * k; go(); }
     if (drop) { mouse(S, 'up', at[0] + x, at[1] + y); await pause(500); } else { for (; y; y -= Math.sign(y)) mouse(S, 'move', at[0], at[1] + y, { buttons: 1 }); for (; x; x -= Math.sign(x)) mouse(S, 'move', at[0] + x, at[1], { buttons: 1 }); mouse(S, 'move', at[0], at[1], { buttons: 1 }); await pause(200); mouse(S, 'up', at[0], at[1]); await pause(500); }
     finding.reads[name] = { from: at, seen, after: snap() };
+  },
+  // Like rowWalk along a path of [x, y] points from the press, 1px at a time, x first. [x, y, 'jump'] goes there in one move, ['esc'] presses Escape.
+  rowPath: async (label, names, path, name, drop = true) => {
+    const snap = () => rowSnap(names);
+    const at = rowAt(label);
+    mouse(S, 'move', at[0], at[1]); mouse(S, 'down', at[0], at[1]); await pause(150);
+    const seen = [['pressed', snap()]]; let last = JSON.stringify(seen[0][1]); let x = 0, y = 0;
+    const go = () => { mouse(S, 'move', at[0] + x, at[1] + y, { buttons: 1 }); const n = snap(); const t = JSON.stringify(n); if (t !== last) { seen.push([[x, y], n]); last = t; } };
+    for (const p of path) {
+      if (p[0] === 'esc') { browser(S, 'press', 'Escape'); await pause(300); const n = snap(); const t = JSON.stringify(n); if (t !== last) { seen.push([['esc', x, y], n]); last = t; } continue; }
+      if (p[2] === 'jump') { [x, y] = p; go(); await pause(100); const n = snap(); const t = JSON.stringify(n); if (t !== last) { seen.push([[x, y, 'settled'], n]); last = t; } continue; }
+      while (x !== p[0]) { x += Math.sign(p[0] - x); go(); }
+      while (y !== p[1]) { y += Math.sign(p[1] - y); go(); }
+    }
+    if (drop) { mouse(S, 'up', at[0] + x, at[1] + y); await pause(500); } else { for (; y; y -= Math.sign(y)) mouse(S, 'move', at[0], at[1] + y, { buttons: 1 }); for (; x; x -= Math.sign(x)) mouse(S, 'move', at[0] + x, at[1], { buttons: 1 }); await pause(200); mouse(S, 'up', at[0], at[1]); await pause(500); }
+    finding.reads[name] = { from: at, seen, after: snap() };
+  },
+  // A row walked through the y's in pre, then up to 1px before dy, then the last px with each animation frame kept for 600ms: the time, the slot's top and every row text's top. With drop, the frames are of the release at dy.
+  rowFrames: async (label, names, dy, name, pre = [], drop = false) => {
+    const at = rowAt(label);
+    mouse(S, 'move', at[0], at[1]); mouse(S, 'down', at[0], at[1]); await pause(150);
+    let y = 0;
+    const to = (v) => { while (y !== v) { y += Math.sign(v - y); mouse(S, 'move', at[0], at[1] + y, { buttons: 1 }); } };
+    for (const v of pre) to(v);
+    to(dy - (drop ? 0 : Math.sign(dy - y)));
+    await pause(400);
+    evalJs(S, `(() => { const N = ${JSON.stringify(names)}; const out = window.__fxFrames = []; const t0 = performance.now(); const tick = () => { const slot = [...document.querySelectorAll('*')].find((e) => getComputedStyle(e).backgroundColor === 'rgb(72, 148, 255)' && e.getBoundingClientRect().width > 100); out.push([Math.round(performance.now() - t0), slot ? Math.round(slot.getBoundingClientRect().top * 10) / 10 : null, [...document.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && N.includes(e.textContent.trim()) && e.getBoundingClientRect().width > 0).map((e) => [e.textContent.trim(), Math.round(e.getBoundingClientRect().top * 10) / 10])]); if (performance.now() - t0 < 600) requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 1; })()`);
+    if (drop) mouse(S, 'up', at[0], at[1] + y); else to(dy);
+    await pause(800);
+    const frames = evalJs(S, `JSON.stringify(window.__fxFrames)`);
+    if (!drop) { to(0); await pause(200); mouse(S, 'up', at[0], at[1]); await pause(500); }
+    finding.reads[name] = { from: at, frames };
   },
   // A row in Layers by name, selected whatever its state: opens Layers if an action closed it, selects the stack if its children are folded, and presses again if the press took the selection off.
   pressRow: async (name, i = 0) => { const vis = () => evalJs(S, `(() => { const b = [...document.querySelectorAll('button')].find((x) => (x.getAttribute('aria-label') === ${JSON.stringify(name)} || x.textContent.trim() === ${JSON.stringify(name)}) && x.getBoundingClientRect().left < 60 && x.getBoundingClientRect().height === 44); return JSON.stringify(!!b); })()`); const edit = () => evalJs(S, `JSON.stringify(!![...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Edit' && x.getBoundingClientRect().width > 0))`); if (!vis()) { await STEPS.hover(i); await STEPS.clickIf('Open Layers Panel'); await pause(700); if (!vis() && name !== 'Stack') { await STEPS.pressNamed('Stack'); await pause(500); } } await STEPS.pressNamed(name); await pause(400); if (!edit()) { await STEPS.pressNamed(name); await pause(400); } },
