@@ -1,0 +1,1003 @@
+{
+ "item": "T4",
+ "capturedAt": "2026-11-06",
+ "engine": "headless Chrome",
+ "oracle": "new page Blocks Probe, a section from the second Intro template, its picture, never saved; each run ended with Exit Without Saving and a reload that showed 0 blocks",
+ "question": "What does Image Effect offer on an image with a picture, and what does each choice change?",
+ "row": {
+  "where": "Design tab, on Fit, Fill and Shape; not on an empty image",
+  "aria": "Navigate to Image Effect",
+  "value": "none shown, whichever effect is on"
+ },
+ "list": {
+  "panel": [
+   320,
+   500
+  ],
+  "back": [
+   11,
+   5,
+   54,
+   46
+  ],
+  "title": {
+   "text": "Image Effect",
+   "centreY": 28
+  },
+  "order": [
+   "None",
+   "Liquid",
+   "Film grain",
+   "Parallax",
+   "Circles",
+   "Lines"
+  ],
+  "tiles": [
+   [
+    25,
+    57,
+    127,
+    110
+   ],
+   [
+    168,
+    57,
+    127,
+    110
+   ],
+   [
+    25,
+    180,
+    127,
+    110
+   ],
+   [
+    168,
+    180,
+    127,
+    110
+   ],
+   [
+    25,
+    303,
+    127,
+    110
+   ],
+   [
+    168,
+    303,
+    127,
+    110
+   ]
+  ],
+  "noneText": "NONE",
+  "note": {
+   "text": "Image effects will only appear in browsers that support WebGL.",
+   "box": [
+    22,
+    440,
+    212,
+    40
+   ]
+  },
+  "chosen": {
+   "border": "dark",
+   "picture": "top 57px",
+   "buttons": {
+    "Shuffle Settings": [
+     12,
+     68,
+     46,
+     36
+    ],
+    "Edit Settings": [
+     69,
+     68,
+     46,
+     36
+    ]
+   }
+  },
+  "start": "None on a new picture; a picture's tile shows that effect on its own picture"
+ },
+ "pick": {
+  "resets": "Picking a tile starts it from its defaults: after Lines and back, and after None and back, Liquid read 2, 10, 100",
+  "undo": "One undo step per pick and per Shuffle; the view stays"
+ },
+ "canvas": {
+  "order": "img, then .imageEffectContainer, then .fluidImageOverlay, in the picture's box; the img goes visibility hidden and None brings it back with no canvas",
+  "boxes": {
+   "Fill": "block box",
+   "Fit": [
+    694,
+    929
+   ],
+   "Shape": [
+    694,
+    694
+   ],
+   "note": "Same box as the picture in each mode on a 694 wide block; read with Circles."
+  },
+  "overlay": "The overlay stays above the effect, with Overlay on",
+  "phone": "The effect stays on the phone view, in the picture's box [377, 374]"
+ },
+ "settings": {
+  "Liquid": {
+   "groups": [
+    "Shape and Size",
+    "Motion",
+    "Texture"
+   ],
+   "rows": [
+    [
+     "group",
+     "Shape and Size",
+     null,
+     22,
+     55,
+     276,
+     44
+    ],
+    [
+     "range",
+     "Complexity",
+     0,
+     100,
+     2,
+     132
+    ],
+    [
+     "range",
+     "Intensity",
+     0,
+     100,
+     10,
+     209
+    ],
+    [
+     "range",
+     "Seed",
+     0,
+     100,
+     100,
+     286
+    ],
+    [
+     "group",
+     "Motion",
+     null,
+     22,
+     331,
+     276,
+     44
+    ],
+    [
+     "text",
+     "Speed",
+     0,
+     397
+    ],
+    [
+     "seg",
+     ".5x",
+     false,
+     18,
+     419,
+     71,
+     32
+    ],
+    [
+     "seg",
+     "1x",
+     true,
+     89,
+     419,
+     71,
+     32
+    ],
+    [
+     "seg",
+     "2x",
+     false,
+     160,
+     419,
+     71,
+     32
+    ],
+    [
+     "seg",
+     "Speed",
+     false,
+     231,
+     419,
+     71,
+     32
+    ],
+    [
+     "group",
+     "Texture",
+     null,
+     22,
+     458,
+     276,
+     44
+    ],
+    [
+     "range",
+     "Smoothness",
+     0,
+     100,
+     100,
+     535
+    ],
+    [
+     "range",
+     "Shadow",
+     0,
+     100,
+     8,
+     612
+    ],
+    [
+     "button",
+     "Shuffle Settings",
+     null,
+     22,
+     668,
+     276,
+     55
+    ]
+   ]
+  },
+  "Film grain": {
+   "groups": [],
+   "rows": [
+    [
+     "text",
+     "Intensity",
+     0,
+     77
+    ],
+    [
+     "seg",
+     "Low",
+     false,
+     18,
+     99,
+     95,
+     32
+    ],
+    [
+     "seg",
+     "High",
+     false,
+     113,
+     99,
+     95,
+     32
+    ],
+    [
+     "seg",
+     "Intensity",
+     true,
+     207,
+     99,
+     95,
+     32
+    ],
+    [
+     "range",
+     "Intensity",
+     0,
+     100,
+     50,
+     170
+    ],
+    [
+     "range",
+     "Depth",
+     0,
+     100,
+     0,
+     247
+    ],
+    [
+     "text",
+     "Animation",
+     0,
+     313
+    ],
+    [
+     "seg",
+     "Off",
+     false,
+     18,
+     335,
+     142,
+     32
+    ],
+    [
+     "seg",
+     "On",
+     true,
+     160,
+     335,
+     142,
+     32
+    ],
+    [
+     "button",
+     "Shuffle Settings",
+     null,
+     22,
+     384,
+     276,
+     55
+    ]
+   ]
+  },
+  "Parallax": {
+   "groups": [
+    "Parallax",
+    "Zoom"
+   ],
+   "rows": [
+    [
+     "group",
+     "Parallax",
+     null,
+     22,
+     55,
+     276,
+     44
+    ],
+    [
+     "range",
+     "Intensity",
+     0,
+     100,
+     20,
+     132
+    ],
+    [
+     "range",
+     "Angle",
+     0,
+     360,
+     45,
+     209
+    ],
+    [
+     "group",
+     "Zoom",
+     null,
+     22,
+     254,
+     276,
+     44
+    ],
+    [
+     "range",
+     "Zoom start",
+     0,
+     50,
+     2,
+     331
+    ],
+    [
+     "range",
+     "Zoom end",
+     0,
+     50,
+     0,
+     408
+    ],
+    [
+     "button",
+     "Shuffle Settings",
+     null,
+     22,
+     464,
+     276,
+     55
+    ]
+   ]
+  },
+  "Circles": {
+   "groups": [
+    "Shape and Size",
+    "Motion"
+   ],
+   "rows": [
+    [
+     "group",
+     "Shape and Size",
+     null,
+     22,
+     55,
+     276,
+     44
+    ],
+    [
+     "text",
+     "Scale",
+     0,
+     121
+    ],
+    [
+     "seg",
+     "Low",
+     false,
+     18,
+     143,
+     95,
+     32
+    ],
+    [
+     "seg",
+     "High",
+     false,
+     113,
+     143,
+     95,
+     32
+    ],
+    [
+     "seg",
+     "Scale",
+     true,
+     207,
+     143,
+     95,
+     32
+    ],
+    [
+     "range",
+     "Center offset",
+     0,
+     100,
+     20,
+     214
+    ],
+    [
+     "range",
+     "Ring size",
+     1,
+     200,
+     100,
+     291
+    ],
+    [
+     "switch",
+     "Limit rings",
+     false,
+     351
+    ],
+    [
+     "text",
+     "Complexity",
+     0,
+     402
+    ],
+    [
+     "seg",
+     "Low",
+     true,
+     18,
+     424,
+     95,
+     32
+    ],
+    [
+     "seg",
+     "High",
+     false,
+     113,
+     424,
+     95,
+     32
+    ],
+    [
+     "seg",
+     "Complexity",
+     false,
+     207,
+     424,
+     95,
+     32
+    ],
+    [
+     "switch",
+     "Flip rotation",
+     false,
+     478
+    ],
+    [
+     "switch",
+     "Flip X",
+     false,
+     523
+    ],
+    [
+     "switch",
+     "Flip Y",
+     false,
+     568
+    ],
+    [
+     "group",
+     "Motion",
+     null,
+     22,
+     598,
+     276,
+     44
+    ],
+    [
+     "select",
+     "InteractionMouse",
+     641
+    ],
+    [
+     "text",
+     "Interaction",
+     22,
+     655
+    ],
+    [
+     "text",
+     "Mouse",
+     231,
+     655
+    ],
+    [
+     "range",
+     "Intensity",
+     0,
+     100,
+     40,
+     720
+    ],
+    [
+     "range",
+     "Speed",
+     0,
+     100,
+     20,
+     797
+    ],
+    [
+     "button",
+     "Shuffle Settings",
+     null,
+     22,
+     853,
+     276,
+     55
+    ]
+   ]
+  },
+  "Lines": {
+   "groups": [
+    "Shape and Size",
+    "Motion"
+   ],
+   "rows": [
+    [
+     "group",
+     "Shape and Size",
+     null,
+     22,
+     55,
+     276,
+     44
+    ],
+    [
+     "text",
+     "Scale",
+     0,
+     121
+    ],
+    [
+     "seg",
+     "Low",
+     false,
+     18,
+     143,
+     95,
+     32
+    ],
+    [
+     "seg",
+     "High",
+     false,
+     113,
+     143,
+     95,
+     32
+    ],
+    [
+     "seg",
+     "Scale",
+     true,
+     207,
+     143,
+     95,
+     32
+    ],
+    [
+     "range",
+     "Line size",
+     1,
+     200,
+     100,
+     214
+    ],
+    [
+     "range",
+     "Image scale",
+     -50,
+     150,
+     60,
+     291
+    ],
+    [
+     "text",
+     "Complexity",
+     0,
+     357
+    ],
+    [
+     "seg",
+     "Low",
+     true,
+     18,
+     379,
+     95,
+     32
+    ],
+    [
+     "seg",
+     "High",
+     false,
+     113,
+     379,
+     95,
+     32
+    ],
+    [
+     "seg",
+     "Complexity",
+     false,
+     207,
+     379,
+     95,
+     32
+    ],
+    [
+     "range",
+     "Angle",
+     0,
+     360,
+     135,
+     450
+    ],
+    [
+     "group",
+     "Motion",
+     null,
+     22,
+     495,
+     276,
+     44
+    ],
+    [
+     "select",
+     "InteractionScroll",
+     538
+    ],
+    [
+     "text",
+     "Interaction",
+     22,
+     552
+    ],
+    [
+     "text",
+     "Scroll",
+     239,
+     552
+    ],
+    [
+     "range",
+     "Intensity",
+     0,
+     100,
+     25,
+     617
+    ],
+    [
+     "range",
+     "Speed",
+     0,
+     100,
+     10,
+     694
+    ],
+    [
+     "button",
+     "Shuffle Settings",
+     null,
+     22,
+     750,
+     276,
+     55
+    ]
+   ]
+  }
+ },
+ "settingsNotes": {
+  "open": "Groups start closed; Back stays while the panel scrolls; a group header is a 276 by 44 button with its line under it",
+  "closedRows": {
+   "Liquid": [
+    "Shape and Size",
+    "Motion",
+    "Texture"
+   ],
+   "Parallax": [
+    "Parallax",
+    "Zoom"
+   ],
+   "Circles": [
+    "Shape and Size",
+    "Motion"
+   ],
+   "Lines": [
+    "Shape and Size",
+    "Motion"
+   ],
+   "Film grain": []
+  },
+  "lastSeg": "The last choice of a seg is drawn as three dots, and its aria label names the row; it shows the rows below",
+  "slider": "The line fills from zero: Taper even 30 from the middle to the right, Taper odd -30 from the left of the middle to the middle",
+  "menu": {
+   "width": 298,
+   "left": 11,
+   "overRow": -5,
+   "padding": 6,
+   "rowHeight": 45,
+   "items": [
+    "Mouse",
+    "Scroll",
+    "None"
+   ],
+   "note": "Over its row, read from a screenshot: Mouse, the current one, sat on the row, shaded, with a check. Only read with Mouse on. None hides Intensity and Speed."
+  },
+  "ringCount": {
+   "appears": "with Limit rings on",
+   "start": "5"
+  }
+ },
+ "presets": {
+  "Liquid.Speed": {
+   ".5x": {
+    "Morph Speed": 20,
+    "Speed": 20,
+    "Direction": 270
+   },
+   "1x": {
+    "Morph Speed": 5,
+    "Speed": 50,
+    "Direction": 270
+   },
+   "2x": {
+    "Morph Speed": 50,
+    "Speed": 60,
+    "Direction": 270
+   }
+  },
+  "Film grain.Intensity": {
+   "Low": {
+    "Intensity": 25,
+    "Depth": 0
+   },
+   "High": {
+    "Intensity": 75,
+    "Depth": 75
+   }
+  },
+  "Circles.Scale": {
+   "Low": {
+    "Center offset": 20,
+    "Ring size": 75
+   },
+   "High": {
+    "Center offset": 55,
+    "Ring size": 150
+   }
+  },
+  "Circles.Complexity": {
+   "Low": {
+    "Scale even": 100,
+    "Scale odd": 90,
+    "Taper even": 10,
+    "Taper odd": -10
+   },
+   "High": {
+    "Scale even": 120,
+    "Scale odd": 70,
+    "Taper even": 30,
+    "Taper odd": -30
+   }
+  },
+  "Lines.Scale": {
+   "Low": {
+    "Line size": 120,
+    "Image scale": 80
+   },
+   "High": {
+    "Line size": 200,
+    "Image scale": 120
+   }
+  },
+  "Lines.Complexity": {
+   "Low": {
+    "Intensity": -25,
+    "Offset scale X": 50,
+    "Offset scale Y": 50
+   },
+   "High": {
+    "Intensity": -50,
+    "Offset scale X": 75,
+    "Offset scale Y": 75
+   }
+  }
+ },
+ "shuffle": {
+  "samples": 24,
+  "seen": {
+   "Liquid": {
+    "Complexity": [
+     1,
+     5
+    ],
+    "Intensity": [
+     10,
+     99
+    ],
+    "Seed": [
+     0,
+     87
+    ],
+    "Smoothness": [
+     60,
+     98
+    ],
+    "Shadow": [
+     1,
+     18
+    ]
+   },
+   "Film grain": {
+    "Intensity": [
+     5,
+     96
+    ],
+    "Depth": [
+     2,
+     94
+    ]
+   },
+   "Parallax": {
+    "Intensity": [
+     0,
+     47
+    ],
+    "Angle": [
+     5,
+     345
+    ],
+    "Zoom start": [
+     0,
+     21
+    ],
+    "Zoom end": [
+     0,
+     24
+    ]
+   },
+   "Circles": {
+    "Center offset": [
+     0,
+     97
+    ],
+    "Ring size": [
+     100,
+     100
+    ],
+    "Ring count": [
+     1,
+     19
+    ],
+    "Scale even": [
+     51,
+     182
+    ],
+    "Scale odd": [
+     55,
+     188
+    ],
+    "Taper even": [
+     -50,
+     49
+    ],
+    "Taper odd": [
+     -48,
+     49
+    ],
+    "Intensity": [
+     40,
+     40
+    ],
+    "Speed": [
+     20,
+     20
+    ]
+   },
+   "Lines": {
+    "Line size": [
+     8,
+     199
+    ],
+    "Image scale": [
+     2,
+     98
+    ],
+    "Intensity": [
+     25,
+     25
+    ],
+    "Offset scale X": [
+     3,
+     99
+    ],
+    "Offset scale Y": [
+     0,
+     99
+    ],
+    "Angle": [
+     29,
+     333
+    ],
+    "Speed": [
+     10,
+     10
+    ]
+   }
+  },
+  "rule": "Shuffle changes Shape and Size and Texture values and leaves Motion alone. On Film grain, Circles and Lines it moves each seg to its custom choice; Ring size stays. Circles also changes Limit rings and the three flips. The ranges are what 24 presses gave, so the true limits may be wider."
+ },
+ "motion": {
+  "changeWhileStill": [
+   "Liquid",
+   "Film grain",
+   "Circles"
+  ],
+  "stillUntilScroll": [
+   "Parallax",
+   "Lines"
+  ],
+  "how": "Screenshot hash with nothing moving, then after a scroll. Parallax and Lines still differed between shots after a scroll, so how long they settle is not read."
+ },
+ "drawing": "Ours, not pixel matched (O2): plain WebGL written from what each effect looks like. Rows, ranges, defaults and presets are the oracle's; what a value does to the drawing is judged by eye.",
+ "notMeasured": [
+  "Which rows change the drawing by how much: no pixel comparison.",
+  "What Mouse moves on Circles and Lines: ours moves by the pointer, Scroll by the page.",
+  "Whether the tiles move.",
+  "Whether a change on the phone view reaches the desktop view: ours has one effect for both.",
+  "An effect on a published page: that needs a Save.",
+  "Corner on an effect: ours clips the canvas with the picture's box.",
+  "Whether No WebGL leaves the plain picture: ours does.",
+  "An effect with no picture: ours has no row, as an empty image has none."
+ ]
+}
