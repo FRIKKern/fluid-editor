@@ -67,7 +67,7 @@ add('The rows, in the oracle\'s order', order.every((v, i) => v >= 0 && (i === 0
 const ys = P(`(() => { const t = P.getBoundingClientRect().top, y = (s) => P.querySelector(s).getBoundingClientRect().top - t; return { 'Form Style tile': y('.bp-form-style'), 'Button Style tile': y('.bp-bs-cur'), 'Alignment control': y('.bp-form-seg .sp-seg'), 'First Input Highlight row': y('.bp-fih-row') }; })()`);
 for (const [k, v] of Object.entries(D.panelY)) add(`Panel: ${k} at ${v}`, Math.abs(ys[k] - v) <= 2.5, ys[k]);
 add('Form Style\'s note', P(`P.querySelector('.bp-form-note').textContent`) === D.formStyle.note);
-add('Form Style and Lightbox do nothing yet', P(`P.querySelector('.bp-form-style').hasAttribute('data-unbuilt') && !P.querySelector('.bp-form-style button, .bp-form-style input') && P.querySelector('input[aria-label="Lightbox"]').disabled`) === true);
+add('Form Style does nothing yet', P(`P.querySelector('.bp-form-style').hasAttribute('data-unbuilt') && !P.querySelector('.bp-form-style button, .bp-form-style input')`) === true);
 add('Alignment: the four, left on', P(`[...P.querySelectorAll('[data-form-set="buttonAlign"]')].map((e) => e.getAttribute('aria-label') + (e.getAttribute('aria-checked') === 'true' ? '*' : '')).join()`) === 'left*,center,right,stretch');
 for (const a of ['center', 'right', 'stretch', 'left']) {
   press(`[data-form-set="buttonAlign"][data-v="${a}"]`);
@@ -106,6 +106,69 @@ evalJs(S, `(() => { document.getElementById('undo').click(); return 'true'; })()
 add('Highlight: one undo step back', evalJs(S, `(() => JSON.stringify(${B}.highlight))()`) === 'double');
 press('[data-form-set="highlight"][data-v="none"]');
 add('Highlight None: the layer is gone', fxRead().n === 0 && evalJs(S, `(() => JSON.stringify(${B}.highlight === undefined))()`) === true);
+
+// Lightbox (FORMFIELDS.json, lightbox): the reads came from a new form like this one.
+const LB = JSON.parse(readFileSync(new URL('../parity/findings/FORMFIELDS.json', import.meta.url))).lightbox;
+const snap = evalJs(S, `(() => JSON.stringify(JSON.stringify(${B})))()`);
+const lbRead = () => evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument, W = d.defaultView, bl = d.getElementById('block-${id}').closest('.fe-block'), q = bl.getBoundingClientRect(), h = bl.querySelector('.lightbox-handle'), m = ${B}, r = h && h.getBoundingClientRect(), f = bl.querySelector('.fe-form'); return JSON.stringify({ area: m.layout.desktop.area, block: [q.width, q.height], form: f ? f.getClientRects().length : 0, handle: h && [r.left - q.left, r.top - q.top, r.width, r.height], text: h && h.textContent, cls: h && h.className, bg: h && W.getComputedStyle(h).backgroundColor, ink: h && W.getComputedStyle(h).color }); })()`);
+const lbType = (v) => evalJs(S, `(async () => { const i = document.querySelector('#block-panel [data-form-lbtext]'); i.focus(); i.value = ${JSON.stringify(v)}; i.dispatchEvent(new Event('input', { bubbles: true })); i.dispatchEvent(new Event('change', { bubbles: true })); i.blur(); await new Promise((res) => setTimeout(res, 120)); return 'true'; })()`);
+const lbUndo = async () => { evalJs(S, `(() => { document.getElementById('undo').click(); return 'true'; })()`); await pause(200); };
+press('[data-form-lightbox]'); await pause(200);
+let lb = lbRead();
+add('Lightbox on: the form gives way to the button', lb.form === 0 && lb.text === 'Open Form', JSON.stringify(lb));
+add('Lightbox on: the button as read', near(lb.handle, LB.reads.on.handle, 0.6), JSON.stringify(lb.handle));
+add('Lightbox on: its colors as read', lb.bg === LB.reads.on.bg && lb.ink === LB.reads.on.color, `${lb.bg} ${lb.ink}`);
+add('Lightbox on: 16 rows lose 13', lb.area.join() === LB.reads.on.area.join() && near(lb.block, LB.reads.on.block, 0.6), JSON.stringify([lb.area, lb.block]));
+const lbRows = P(`[...P.querySelectorAll('.sp-label, .bp-thead > span')].map((e) => e.textContent.trim())`);
+add('Lightbox on: the rows it adds and takes away', ['Button Text', 'Background Color', 'Transforms'].every((t) => lbRows.includes(t)) && !['Background', 'Stroke', 'Blend Mode', 'Blur'].some((t) => lbRows.includes(t)), lbRows.join());
+add('Lightbox on: Button Text is empty, Open Form shows', P(`(() => { const i = P.querySelector('[data-form-lbtext]'); return i.value === '' && i.placeholder === 'Open Form'; })()`) === true);
+for (const [v, x] of Object.entries(LB.reads.align)) { press(`[data-form-set="buttonAlign"][data-v="${v}"]`); await pause(120); const r = lbRead(); add(`Lightbox ${v}: the button at ${x}, its own width`, near(r.handle.slice(0, 1).concat(r.handle[2]), [x, LB.reads.on.handle[2]], 0.6) && r.area.join() === LB.reads.on.area.join(), JSON.stringify(r.handle)); }
+lbType('Write to us'); lb = lbRead();
+add('Lightbox: its word, the same height keeps the rows', lb.text === 'Write to us' && near(lb.handle.slice(2), LB.reads.typed.handle, 0.6) && lb.area.join() === LB.reads.on.area.join(), JSON.stringify([lb.handle, lb.area]));
+lbType(LB.reads.long.text); lb = lbRead();
+add('Lightbox: a long word wraps and the rows grow', near(lb.handle.slice(2), LB.reads.long.handle, 0.6) && lb.area.join() === LB.reads.long.area.join(), JSON.stringify([lb.handle, lb.area]));
+lbType('Write to us'); lb = lbRead();
+add('Lightbox: back to a short word, the least rows', lb.area.join() === LB.reads.short.area.join(), JSON.stringify(lb.area));
+const lbPanel = () => evalJs(S, `(async () => { fe.select(fe.model.sections[1].id, ${JSON.stringify(id)}); await new Promise((res) => setTimeout(res, 150)); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await new Promise((res) => setTimeout(res, 200)); document.querySelector('#block-panel [data-btab="Design"]').click(); await new Promise((res) => setTimeout(res, 150)); return 'true'; })()`);
+const lbEdge = () => evalJs(S, `(() => { const f = document.getElementById('site-frame'), r = f.contentDocument.getElementById('block-${id}').closest('.fe-block').getBoundingClientRect(), o = f.getBoundingClientRect(); return JSON.stringify([Math.round(o.left + r.left + r.width / 2), Math.round(o.top + r.bottom)]); })()`);
+let edge = lbEdge(); drag(S, edge, [edge[0], edge[1] - 70]); await pause(250);
+add('Lightbox: a drag up stops at the rows that hold the button', lbRead().area.join() === LB.reads.drag.up70.area.join(), JSON.stringify(lbRead().area));
+edge = lbEdge(); drag(S, edge, [edge[0], edge[1] + 140]); await pause(250);
+add('Lightbox: a drag down gives it more rows', lbRead().area.join() === LB.reads.drag.down140.area.join(), JSON.stringify(lbRead().area));
+while (lbRead().area.join() !== LB.reads.short.area.join()) await lbUndo();
+lbPanel();
+press('[data-shape-act="lightboxBg"]'); await pause(150);
+add('Background Color: white chosen, no Reset yet', evalJs(S, `(() => { const c = document.querySelector('[data-color-pick="#FFFFFF"]'); return JSON.stringify(!!c && c.checked && !document.querySelector('[data-color-reset]')); })()`) === true);
+evalJs(S, `(() => { document.querySelector('[data-color-pick="#FFCF5A"]').click(); return 'true'; })()`); await pause(150);
+add('Background Color: the row shows it, the button does not', P(`getComputedStyle(P.querySelector('[data-shape-act="lightboxBg"] i')).backgroundColor`) === LB.reads.picked.swatch && lbRead().bg === LB.reads.on.bg && evalJs(S, `(() => JSON.stringify(!!document.querySelector('[data-color-reset]')))()`) === true);
+evalJs(S, `(() => { document.querySelector('[data-shape-act="lightboxBg"]').click(); return 'true'; })()`); await pause(120);
+for (const k of ['secondary', 'tertiary']) { press('[data-bpstyle-toggle]'); press(`[data-bpstyle="${k}"]`); await pause(120); lb = lbRead(); add(`Lightbox: ${k} changes the class, not the box`, lb.cls.includes(`sqs-button-element--${k}`) && near(lb.handle.slice(2), LB.reads.typed.handle, 0.6), lb.cls); await lbUndo(); }
+const lbArea = lbRead().area.join();
+press('[data-btab="Content"]'); press('[data-ff="list"]'); press('[data-ff="delete:3"]'); await pause(150);
+add('Lightbox: a field deleted while on leaves the rows', lbRead().area.join() === lbArea && evalJs(S, `(() => JSON.stringify(${B}.fields.length))()`) === 3, lbRead().area.join());
+await lbUndo(); press('[data-ff="back"]'); press('[data-btab="Design"]');
+// While editing a press does nothing; in preview it opens ours, which ends with its close button.
+evalJs(S, `(() => { document.getElementById('site-frame').contentDocument.querySelector('#block-${id} .lightbox-handle').click(); return 'true'; })()`); await pause(100);
+const lbOpen = () => evalJs(S, `(() => JSON.stringify(document.getElementById('site-frame').contentDocument.querySelectorAll('body > .form-lightbox.is-open').length))()`);
+add('Lightbox: a press while editing opens nothing', lbOpen() === 0, String(lbOpen()));
+evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); document.getElementById('preview').click(); await sleep(250); document.getElementById('site-frame').contentDocument.querySelector('#block-${id} .lightbox-handle').click(); await sleep(150); return 'true'; })()`);
+const lbBox = evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument, x = d.querySelector('body > .form-lightbox.is-open .form-lightbox-box'); return JSON.stringify(x && [d.defaultView.getComputedStyle(x).backgroundColor, x.querySelectorAll('.fe-form input').length]); })()`);
+add('Lightbox in preview: ours opens with the color and the form', !!lbBox && lbBox[0] === LB.reads.picked.swatch && lbBox[1] > 0, JSON.stringify(lbBox));
+evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); document.getElementById('site-frame').contentDocument.querySelector('body > .form-lightbox .form-lightbox-close').click(); await sleep(100); const n = document.getElementById('site-frame').contentDocument.querySelectorAll('body > .form-lightbox').length; document.getElementById('preview').click(); await sleep(300); return JSON.stringify(n); })()`);
+add('Lightbox in preview: the close button ends it', lbOpen() === 0);
+lbPanel();
+press('[data-form-lightbox]'); await pause(200); lb = lbRead();
+add('Lightbox off: the form is back, its rows stay', lb.form === 1 && lb.area.join() === LB.reads.short.area.join() && near(lb.block.slice(1), [LB.reads.off.formH], 0.6), JSON.stringify([lb.area, lb.block]));
+press('[data-form-set="buttonAlign"][data-v="center"]'); await pause(150); lb = lbRead();
+add('Lightbox off: the next change gives the form its rows', lb.area.join() === LB.reads.refit.area.join(), JSON.stringify(lb.area));
+press('[data-form-set="buttonAlign"][data-v="left"]'); await pause(120);
+const lbAreaOff = lbRead().area;
+press('[data-form-lightbox]'); await pause(200); lb = lbRead();
+add('Lightbox on again: 14 rows lose 13', lb.area.join() === LB.reads.on2.area.join() && near(lb.block, LB.reads.on2.block, 0.6), JSON.stringify([lb.area, lb.block]));
+await lbUndo();
+add('Lightbox: one undo step back', evalJs(S, `(() => JSON.stringify(${B}.lightbox === undefined))()`) === true && lbRead().area.join() === lbAreaOff.join());
+for (let i = 0; i < 20 && evalJs(S, `(() => JSON.stringify(JSON.stringify(${B})))()`) !== snap; i++) await lbUndo();
+add('Lightbox: undo reaches the form as it was', evalJs(S, `(() => JSON.stringify(JSON.stringify(${B})))()`) === snap);
 
 // The panel's tabs stay while what is under them scrolls (FORMFIELDS.json). A press on a tab still lands.
 const tabs = (top) => evalJs(S, `(() => { const P = document.getElementById('block-panel'); if (${top} !== null) P.scrollTop = ${top}; const t = P.querySelector('.sp-tab'), r = t.getBoundingClientRect(), o = P.getBoundingClientRect(); const on = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return JSON.stringify({ scrolled: P.scrollTop, at: r.top - o.top, tab: !!on && !!on.closest('.sp-tab') }); })()`);

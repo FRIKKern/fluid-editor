@@ -4,7 +4,7 @@
 import { siteStylesHead } from './site-style-packs.js';
 import { shapeById } from './shapes.js';
 import { markdownParts } from './markdown.js';
-import { formFieldHtml, formPostHtml, formSubmitJs } from './form-fields.js';
+import { formFieldHtml, formLightboxHtml, formPostHtml, formSubmitJs } from './form-fields.js';
 import { imageShapeById } from './image-shapes.js';
 import { effectData, IMAGE_EFFECT_SCRIPT } from './image-effects.js';
 
@@ -369,7 +369,8 @@ function blockInner(b, model) {
       // First Input Highlight (FORMADD.json): a layer over the form's first control only.
       let fx = b.highlight;
       const ctl = (html) => { if (!fx) return html; const k = fx; fx = null; return `<span class="form-fx-box">${html}<span class="form-input-effects"><span class="form-fx form-fx--${k}"></span></span></span>`; };
-      return `<div class="sqs-block form-block sqs-block-form" id="block-${b.id}"><div class="sqs-block-content"><div class="form-wrapper">${formPostHtml(b)}<form class="fe-form" onsubmit="${formSubmitJs(b).replace(/"/g, '&quot;')}">${(b.fields || []).map((f) => formFieldHtml(f, ctl)).join('')}<div class="form-button-wrapper form-button-wrapper--align-${b.buttonAlign || 'left'}"><button class="form-submit sqs-button-element--${b.buttonStyle || 'primary'}" type="submit">${e(b.button || 'Send')}</button></div></form></div></div></div>`;
+      const form = `<div class="form-wrapper">${formPostHtml(b)}<form class="fe-form" onsubmit="${formSubmitJs(b).replace(/"/g, '&quot;')}">${(b.fields || []).map((f) => formFieldHtml(f, ctl)).join('')}<div class="form-button-wrapper form-button-wrapper--align-${b.buttonAlign || 'left'}"><button class="form-submit sqs-button-element--${b.buttonStyle || 'primary'}" type="submit">${e(b.button || 'Send')}</button></div></form></div>`;
+      return `<div class="sqs-block form-block sqs-block-form" id="block-${b.id}"><div class="sqs-block-content">${b.lightbox ? formLightboxHtml(b, form) : form}</div></div>`;
     }
     case 'scrolling': {
       // Scrolling text (T12): the oracle draws the line along a wave path; its height is
