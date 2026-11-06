@@ -67,6 +67,8 @@ export async function replay(S, finding, add) {
       add(`${name} ${u[0]}`, ok, `oracle ${u[2] ? textNorm(u[2]) : u[1]}, ours ${u[2] ? textNorm(html[k]) : walk[k]}`);
     });
   };
+  // The hint on an empty Text, read as oracle-capture.mjs reads it (beforeOf, hintOf). Where it sits is not compared.
+  const hintHere = () => evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const W = ce.ownerDocument.defaultView; return JSON.stringify([ce, ...ce.querySelectorAll('*')].map((e) => { const c = W.getComputedStyle(e, '::before'); return { tag: e.tagName.toLowerCase(), content: c.content, color: c.color, opacity: c.opacity, font: c.fontSize + ' ' + c.fontFamily.slice(0, 40), float: c.float, height: c.height, pointer: c.pointerEvents, weight: c.fontWeight, lineHeight: c.lineHeight, letterSpacing: c.letterSpacing, transform: c.textTransform }; }).filter((x) => /Write here/.test(x.content))); })()`);
   await fresh();
   const untilEnd = (k) => { const n = finding.steps.findIndex((x, j) => j > k && x[0] === 'undoWalk'); return n < 0 ? finding.steps.length : n; };
   const untilNextEnter = (k) => { const n = finding.steps.findIndex((x, j) => j > k && x[0] === 'enter'); return finding.steps.slice(k, n < 0 ? undefined : n); };
@@ -88,6 +90,14 @@ export async function replay(S, finding, add) {
     else if (op === 'pasteHere') { evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const W = ce.ownerDocument.defaultView; const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(a[2])}); dt.setData('text/plain', ${JSON.stringify(a[2].replace(/<[^>]+>/g, ' '))}); ce.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return 1; })()`); await wait(300); }
     // A paste at the middle of the first text, as oracle-capture.mjs does it.
     else if (op === 'pasteMid') { evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const d = ce.ownerDocument, W = d.defaultView; ce.focus(); const t = d.createTreeWalker(ce, 4).nextNode(); const r = d.createRange(); r.setStart(t, Math.floor(t.length / 2)); r.collapse(true); const s = W.getSelection(); s.removeAllRanges(); s.addRange(r); const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(a[2])}); dt.setData('text/plain', ${JSON.stringify(a[2].replace(/<[^>]+>/g, ' '))}); ce.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return 1; })()`); await wait(300); }
+    else if (op === 'view') { browser(S, 'click', a[0] === 'Mobile' ? '#bp-mobile' : '#bp-desktop'); await pause(300); }
+    else if (op === 'pressNamed' && a[0] === 'Toggle preview mode') { browser(S, 'click', '#preview'); await pause(300); }
+    else if (op === 'beforeOf' || op === 'hintOf') {
+      const read = finding.reads[a[0]]; if (read === undefined) continue;
+      const want = (Array.isArray(read) ? read : []).filter((x) => /Write here/.test(x.content)).map(({ box, ...rest }) => rest), got = hintHere();
+      const first = (v) => String(v).split(',')[0]; // Of the font stack, its first name: the rest is ours
+      add(a[0], want.length === got.length && want.every((w, n) => Object.keys(w).every((key) => (key === 'font' ? first(w[key]) === first(got[n][key]) : w[key] === got[n][key]))), `oracle ${JSON.stringify(want)}, ours ${JSON.stringify(got)}`);
+    }
     else if (op === 'read' && finding.reads[a[0]]?.linkTexts) {
       const got = new Set(evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; return JSON.stringify([...ce.querySelectorAll('a')].map((e) => e.textContent)); })()`));
       const want = new Set(finding.reads[a[0]].linkTexts);

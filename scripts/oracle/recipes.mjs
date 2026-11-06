@@ -21,6 +21,20 @@ const Z2 = ['Move Forward', 'Move Backward'];
 const UR = ['Undo', 'Redo'];
 const BARTIPS = ['Save', 'Desktop View', 'Mobile View', 'Toggle Site Styles editing', 'Toggle preview mode'];
 export const RECIPES = {
+  'CAP-T3EMPTY': { question: 'T3: the Write here... hint past one empty paragraph: other styles, lists, two empty lines, a space, undo, emptied by select all, Preview. Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...['Heading 1', 'Heading 2', 'Heading 3', 'Heading 4', 'Paragraph 1', 'Paragraph 3', 'Monospace'].flatMap((n) => [...NEWTEXT, ['click', 'Text Style'], ['click', n], ['pause', 300], ['hintOf', n], ['read', `${n}, html`, H], ['press', 'Escape'], ['pause', 300], ['hintOf', `${n}, left`]]),
+    ...['Quote', 'Bullet List', 'Numbered List'].flatMap((n) => [...NEWTEXT, ['click', n], ['pause', 300], ['hintOf', n], ['read', `${n}, html`, H], ['press', 'Escape'], ['pause', 300], ['hintOf', `${n}, left`]]),
+    ...NEWTEXT, ['click', 'Text Alignment'], ['pause', 300], ['read', 'alignment menu', { controls: true }], ['clickIf', 'Text align: center'], ['pause', 300], ['shot', 'centred'], ['hintOf', 'centred'], ['read', 'centred, html', H],
+    ...NEWTEXT, ['press', 'Enter'], ['pause', 300], ['shot', 'two lines'], ['hintOf', 'two empty lines'], ['read', 'two empty lines, html', H], ['press', 'ArrowUp'], ['pause', 300], ['hintOf', 'two empty lines, caret on the first'], ['press', 'ArrowDown'], ['press', 'Backspace'], ['pause', 300], ['hintOf', 'one line again'], ['read', 'one line again, html', H],
+    ...NEWTEXT, ['press', 'Enter'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['hintOf', 'two empty lines, left'],
+    ...NEWTEXT, ['press', 'Shift+Enter'], ['pause', 300], ['hintOf', 'line break'], ['read', 'line break, html', H],
+    ...NEWTEXT, ['keys', ' '], ['pause', 300], ['hintOf', 'a space'], ['read', 'a space, html', H],
+    ...NEWTEXT, ['keys', 'a'], ['pause', 300], ['press', 'Meta+z'], ['pause', 300], ['hintOf', 'a letter, undone'], ['read', 'a letter, undone, html', H],
+    ...NEWTEXT, ['keys', 'word'], ['press', 'Meta+a'], ['press', 'Backspace'], ['pause', 300], ['hintOf', 'word, select all, Backspace'], ['read', 'word, select all, Backspace, html', H],
+    ...NEWTEXT, ['keys', 'word'], ['click', 'Text Style'], ['click', 'Heading 2'], ['press', 'Meta+a'], ['press', 'Backspace'], ['pause', 300], ['hintOf', 'H2 word, select all, Backspace'], ['read', 'H2 word, select all, Backspace, html', H],
+    ...NEWTEXT, ['press', 'Escape'], ['pause', 300], ['pressNamed', 'Toggle preview mode'], ['pause', 1500], ['hintOf', 'preview'], ['shot', 'preview'], ['pressNamed', 'Toggle preview mode'], ['pause', 1200], ['hintOf', 'back from preview'],
+  ] },
   'CAP-TOUCH': { question: 'X11: what do touch and pen do on a block: tap, drag, a long press, a handle?', steps: [
     ['enter'], ['listen'],
     ['touch', 2, 2, 'middle', 0, 0], ['read', 'after tap', { block: [2, 2], section: 2, controls: true }],

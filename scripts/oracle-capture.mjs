@@ -241,6 +241,8 @@ const STEPS = {
   },
   // What a ::before says and how it looks, on each element in the frame that matches. Reads only.
   beforeOf: (name, sel) => { finding.reads[name] = evalJs(S, `(() => { ${FRAME} return JSON.stringify([...d.querySelectorAll(${JSON.stringify(sel)})].map((e) => { const c = W.getComputedStyle(e, '::before'); const q = e.getBoundingClientRect(); return { tag: e.tagName.toLowerCase(), box: [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10), content: c.content, color: c.color, opacity: c.opacity, font: c.fontSize + ' ' + c.fontFamily.slice(0, 40), float: c.float, height: c.height, pointer: c.pointerEvents }; })); })()`); },
+  // Every ::before with content inside the block last added, with the font it carries.
+  hintOf: (name) => { finding.reads[name] = evalJs(S, `(() => { ${FRAME} const b = d.querySelector('main#page .fe-block[data-block-id="${added}"]'); const ce = b && b.querySelector('.sqs-html-content'); if (!ce) return JSON.stringify(null); return JSON.stringify([ce, ...ce.querySelectorAll('*')].map((e) => { const c = W.getComputedStyle(e, '::before'); return { tag: e.tagName.toLowerCase(), content: c.content, color: c.color, opacity: c.opacity, font: c.fontSize + ' ' + c.fontFamily.slice(0, 40), float: c.float, height: c.height, pointer: c.pointerEvents, weight: c.fontWeight, lineHeight: c.lineHeight, letterSpacing: c.letterSpacing, transform: c.textTransform }; }).filter((x) => x.content !== 'none' && x.content !== 'normal')); })()`); },
   // A drag from a block's handle, only if what is under the pointer is a handle by its size and resize cursor. Otherwise named, not pressed.
   handleDrag: async (i, k, part, dx, dy, name) => {
     const [x, y] = point(i, k, part);

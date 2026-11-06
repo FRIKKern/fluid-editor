@@ -5682,7 +5682,19 @@ $('bp-mobile').addEventListener('click', () => setBp('mobile'));
 document.addEventListener('keydown', onKey);
 
 // ---------- boot ----------
+// An empty Text shows its hint in the editor: added, left, selected, in an edit, on the phone, and it goes on
+// the first letter (CAP-TEXTEMPTY.json). A mark on the content box, outside the block's HTML, so the model stays clean.
+function markEmptyText(doc) {
+  for (const ce of doc.querySelectorAll('.sqs-block-html .sqs-html-content')) ce.classList.toggle('is-text-empty', ce.children.length === 1 && !ce.textContent);
+}
+function watchEmptyText() {
+  const doc = frame.contentDocument;
+  markEmptyText(doc);
+  new MutationObserver(() => markEmptyText(doc)).observe(doc.body, { childList: true, characterData: true, subtree: true });
+}
+
 function boot() {
+  watchEmptyText();
   frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
   // The canvas changes width when the layout switches; place the overlays again once it has.
   // Watch the canvas page itself: it reflows after the canvas element changes width.
