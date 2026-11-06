@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 64 changes
-  - E4: last score, 38 of 45, misses named; a replay with an off gap could not run ([#241](https://github.com/FRIKKern/fluid-editor/pull/241))
-  - U9: exitWithoutSaving has an on-top check on both Exits for every lane ([#242](https://github.com/FRIKKern/fluid-editor/pull/242))
+- **Today** · 69 changes
+  - 0006: inventory refuses unless the lead asks, like oracle-probe ([#247](https://github.com/FRIKKern/fluid-editor/pull/247))
+  - 0006: oracle-capture holds to the asked page and keeps writes off the demo page ([#246](https://github.com/FRIKKern/fluid-editor/pull/246))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed

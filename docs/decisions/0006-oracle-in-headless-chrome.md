@@ -24,6 +24,10 @@ Every oracle script drives either kind of surface through `browser()` in `script
 
 **New page, never edit an old one.** Old pages feed Gate B and the traces, so a stray change there breaks the gates. A new experiment that changes content is run on a new page made for it. The stored recorders (`oracle-record`, `oracle-probe`) keep the demo page because the traces name its blocks, and they end with nothing saved. No old page is ever saved.
 
+**Enforced since 2026-11-06.** `oracle-capture --steps` needs `--page` or a first `toPage`, and `toPage` sets the page a later `enter` returns to. The demo page takes only steps that can't write, and `--steps` needs `--demo-read-only` for it. Every step that acts stops the run if the frame is on another page. `oracle-probe`, `oracle-record` and `inventory` on the demo page need `ORACLE_DEMO_WRITES=1`, and only the lead sets it. `enterEdit` has no default page.
+
+**Break, 2026-11-06.** The chrome lane ran `oracle-capture --steps` with a first `toPage` and no `--page`. After `exit`, `enter` fell back to the demo page, so four runs added a section and pressed one control by position there. Nothing was saved: each left through Exit Without Saving. Checked on a fresh load outside edit mode: 8 sections, blocks as before, and `oracle-readback` the same. The result of `recorder`'s Gate B check goes here when it is in.
+
 ## Considered
 
 - **One Chrome shared by all lanes.** Rejected: lanes would fight over selection, pointer and edit mode.

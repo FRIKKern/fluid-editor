@@ -1,0 +1,315 @@
+{
+  "item": "CAP-U4BTNTIP",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U4: the tip on a Button that is not Primary",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Primary"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "menu",
+      {
+        "controls": true,
+        "thin": true
+      }
+    ],
+    [
+      "shot",
+      "btnmenu"
+    ],
+    [
+      "click",
+      "Secondary"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "secondary",
+      {
+        "controls": true,
+        "thin": true
+      }
+    ],
+    [
+      "tipRead",
+      "Secondary",
+      "tip on Secondary"
+    ],
+    [
+      "shot",
+      "tipsec"
+    ]
+  ],
+  "reads": {
+    "menu": {
+      "controls": [
+        {
+          "role": "option",
+          "label": "AaPrimary",
+          "value": 0,
+          "box": [
+            116,
+            290,
+            170.8,
+            55
+          ]
+        },
+        {
+          "role": "option",
+          "label": "AaSecondary",
+          "value": 0,
+          "box": [
+            116,
+            345,
+            170.8,
+            55
+          ]
+        },
+        {
+          "role": "option",
+          "label": "AaTertiary",
+          "value": 0,
+          "box": [
+            116,
+            400,
+            170.8,
+            55
+          ]
+        }
+      ],
+      "thin": [
+        {
+          "box": [
+            148.1,
+            250.2,
+            1,
+            20
+          ],
+          "bg": "rgb(231, 231, 231)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "secondary": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Secondary",
+          "box": [
+            153.1,
+            242.2,
+            117,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open link editor popover",
+          "box": [
+            270.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            310.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            350.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            390.1,
+            242.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "thin": [
+        {
+          "box": [
+            148.1,
+            250.2,
+            1,
+            20
+          ],
+          "bg": "rgb(231, 231, 231)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tip on Secondary": {
+      "label": "Secondary",
+      "text": "Button Type",
+      "box": [
+        157.1,
+        289.2,
+        108.9,
+        44
+      ]
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "The tip on a Button that is not Primary says Button Type too: Secondary reads Button Type, 108.9 by 44. The toolbar button takes the type's name, Secondary.",
+  "ours": "Same: Secondary, tip Button Type. Read on 5210, 2026-11-06.",
+  "differs": [],
+  "pressed": [
+    "Primary and Secondary by name. Real moves."
+  ]
+}

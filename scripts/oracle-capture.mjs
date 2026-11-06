@@ -7,13 +7,18 @@
 // Steps: enter | exit | view Mobile|Desktop | window w h (the real window, for a block taller than it) | frame w h | unframe | pause ms | listen
 //   hover i | hoverBlock i k | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
+//   tipDelay label name [tries] | tipRead label name | searchWords name [words] | rangeKey key
 //   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | fill label value | fillValue shown value | rightClick i k
 //   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clickAt x y | walk i k part mx my | pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillRow label n value | hoverRow label [n] | pressNamed label | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
 //   hold i k part dx dy [mods] | holdRaw i k part dx dy | shiftClick i k | move dx dy | release [home] | drag i k part dx dy {pointerType}
 //   touch i k part dx dy {holdMs} | pasteMid i k html | undoWalk name [n] [html] | shot name
-//   read name { block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], range: true, rows: [labels], parts: [labels], boxes: [labels], shape: [i,k], reset: [label,n], leaves: [labels], afterBtn: label, gridEls: selector, panelState: true, kids: [i, k] (a stack's children), linkTexts: [i, k], gradients: true, marker: [i, k], hits: [i, k], htmlOf: selector, frameEls: selector, panelEls: selector, panelCss: selector, textBox: [text], radii: [i, k], icon: true, style: [i,k], textH: [i,k], checks: true, sel: selector, layers: i, controls: true, thin: true }
+//   read name { block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], range: true, rows: [labels], parts: [labels], boxes: [labels], shape: [i,k], reset: [label,n], leaves: [labels], afterBtn: label, gridEls: selector, cursorEls: true, shadowOf: label, btnState: [labels], panelState: true, kids: [i, k] (a stack's children), linkTexts: [i, k], gradients: true, marker: [i, k], hits: [i, k], htmlOf: selector, frameEls: selector, panelEls: selector, panelCss: selector, textBox: [text], radii: [i, k], icon: true, style: [i,k], textH: [i,k], checks: true, sel: selector, layers: i, controls: true, thin: true }
 // k is a block's place in its section, or "new" for the block `add` made. part is "middle", a handle, or fractions [x, y] of the block.
 // A recipe that changes content names its page ({ page: 'Gestures Probe' }, 0006). Nothing is saved on any page.
+// The page (0006): --steps needs --page or a first toPage, and toPage sets the page a later enter comes back to. The demo
+// page takes only steps that can't write: a recipe with no page may read it, and --steps needs --demo-read-only as well.
+// Every step that acts stops the run if the frame is on another page, before it presses.
+// clickAt is by position: Custom's place moves with the window, so a press on a control goes by name (click label).
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { browser, evalJs, mouse, cdp, goto, pause, reload, waitFor, engine, viewport } from './lib/cmux.mjs';
 import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock, addSection, blockIds, escape, select } from './oracle/ui.mjs';
@@ -27,6 +32,23 @@ if (args.includes('--list')) { for (const [k, r] of Object.entries(RECIPES)) con
 const name = opt('name') || args[0];
 const recipe = opt('steps') ? { question: opt('question') || name, steps: JSON.parse(opt('steps')) } : RECIPES[name];
 if (!recipe) { console.error(`no recipe ${name}; --list shows them`); process.exit(2); }
+// 0006: what may run where, settled before anything opens.
+const DEMO = 'How Fluid Engine works';
+const fromSteps = !!opt('steps');
+let pageTitle = recipe.page || opt('page') || (fromSteps ? null : DEMO);
+const READS_ONLY = new Set(['enter', 'exit', 'toPage', 'pause', 'read', 'shot', 'view', 'window', 'frame', 'unframe', 'listen', 'hover', 'hoverBlock', 'tipDelay', 'tipRead']);
+const refuse = (why) => { console.error(`oracle-capture refused, nothing ran: ${why}`); process.exit(2); };
+if (!pageTitle && recipe.steps[0]?.[0] !== 'toPage') refuse('--steps needs --page or toPage as its first step.');
+{
+  let page = pageTitle;
+  for (const [op, ...a] of recipe.steps) {
+    if (op === 'toPage') page = a[0];
+    if (page !== DEMO) continue;
+    if (fromSteps && !args.includes('--demo-read-only')) refuse(`--steps on the demo page needs --demo-read-only (step ${op}).`);
+    if (!READS_ONLY.has(op)) refuse(`step ${op} can write, and the demo page takes only steps that read (0006). Name a probe page with --page.`);
+  }
+}
+const pathOf = (title) => '/' + title.toLowerCase().replace(/\s+/g, '-');
 const file = new URL(`../parity/findings/${name}.json`, import.meta.url);
 if (existsSync(file) && !args.includes('--again')) { console.error(`parity/findings/${name}.json exists; pass --again only if it is yours to replace.`); process.exit(2); }
 
@@ -96,11 +118,17 @@ function read(what) {
   if (what.leaves) out.leaves = Object.fromEntries(what.leaves.map((L) => [L, evalJs(S, `(() => { const e = [...document.querySelectorAll('body *')].find((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(L)} && x.getBoundingClientRect().width > 0 && !x.closest('#sqs-site-frame')); if (!e) return JSON.stringify(null); let line = null; for (let n = e; n && !line; n = n.parentElement) { const c = getComputedStyle(n); if (c.textDecorationLine !== 'none') line = c.textDecorationLine + ' ' + c.textDecorationStyle; else if (c.borderBottomStyle !== 'none' && c.borderBottomWidth !== '0px') line = 'border ' + c.borderBottomStyle + ' ' + c.borderBottomWidth; if (n.tagName === 'LABEL') break; } return JSON.stringify(line); })()`)]));
   if (what.afterBtn) out.afterBtn = evalJs(S, `(() => { const leaf = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && e.textContent.trim() === ${JSON.stringify(what.afterBtn)} && e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')); if (!leaf) return JSON.stringify(null); const e = [...document.querySelectorAll('button, [role=button]')].filter((x) => x.getBoundingClientRect().width > 0).find((x) => leaf.compareDocumentPosition(x) & 4); if (!e) return JSON.stringify(null); const q = e.getBoundingClientRect(); const c = getComputedStyle(e); const i = e.querySelector('svg'); return JSON.stringify({ label: e.getAttribute('aria-label') || e.getAttribute('title') || e.textContent.trim(), disabled: e.disabled, ariaDisabled: e.getAttribute('aria-disabled'), opacity: c.opacity, pointer: c.pointerEvents, color: c.color, iconOpacity: i ? getComputedStyle(i).opacity : null, box: [q.left, q.top, q.width, q.height].map(Math.round) }); })()`);
   if (what.icon) out.icon = evalJs(S, `(() => { ${FRAME} const vis = [...d.querySelectorAll('.sqs-svg-icon--wrapper')].filter((e) => e.getBoundingClientRect().width > 0); const e = vis[0]; const o = [...d.querySelectorAll('.sqs-svg-icon--outer')].find((x) => x.getBoundingClientRect().width > 0); if (!e) return JSON.stringify(null); const c = W.getComputedStyle(e); const q = e.getBoundingClientRect(); return JSON.stringify({ outer: o ? o.className : null, shadow: c.boxShadow, bg: c.backgroundColor, radius: c.borderRadius, box: [q.width, q.height].map((v) => Math.round(v * 10) / 10) }); })()`);
+  // Every element in the frame that shows a resize cursor, in window pixels, and whether it takes the pointer up to its edge.
+  if (what.cursorEls) out.cursorEls = evalJs(S, `(() => { ${FRAME} const ff = f.getBoundingClientRect(); return JSON.stringify([...d.querySelectorAll('*')].filter((e) => /-resize/.test(W.getComputedStyle(e).cursor) && W.getComputedStyle(e).cursor !== W.getComputedStyle(e.parentElement).cursor && e.getBoundingClientRect().width > 0).slice(0, 30).map((e) => { const q = e.getBoundingClientRect(), cx = q.left + q.width / 2, cy = q.top + q.height / 2; const on = (x, y) => { const h = d.elementFromPoint(x, y); return h === e || e.contains(h); }; const ring = (r, s) => [[cx - r, cy], [cx + r, cy], [cx, cy - s], [cx, cy + s]].map(([x, y]) => on(x, y)); return { cursor: W.getComputedStyle(e).cursor, box: [q.left + ff.left, q.top + ff.top, q.width, q.height].map((v) => Math.round(v * 10) / 10), center: on(cx, cy), inside: ring(q.width / 2 - 1, q.height / 2 - 1), outside: ring(q.width / 2 + 1, q.height / 2 + 1) }; })); })()`);
+  // The first element at or above a labelled button that has a shadow: the toolbar's own.
+  if (what.shadowOf) out.shadowOf = evalJs(S, `(() => { ${FRAME} const L = ${JSON.stringify(what.shadowOf)}; for (const [D, V] of [[document, window], [d, W]]) { const b = [...D.querySelectorAll('button')].find((e) => e.getAttribute('aria-label') === L && e.getBoundingClientRect().width > 0); if (!b) continue; for (let e = b; e && e !== D.body; e = e.parentElement) { const c = V.getComputedStyle(e); if (c.boxShadow !== 'none') { const q = e.getBoundingClientRect(); const pq = b.parentElement.getBoundingClientRect(); return JSON.stringify({ doc: D === document ? 'top' : 'frame', shadow: c.boxShadow, radius: c.borderRadius, bg: c.backgroundColor, box: [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10), row: [pq.left, pq.top, pq.width, pq.height].map((v) => Math.round(v * 10) / 10) }); } } return JSON.stringify({ doc: D === document ? 'top' : 'frame', shadow: null }); } return JSON.stringify(null); })()`);
+  // Whether named toolbar buttons are on or off: their disabled state, opacity and icon color.
+  if (what.btnState) out.btnState = evalJs(S, `(() => JSON.stringify(Object.fromEntries(${JSON.stringify(what.btnState)}.map((L) => { const b = [...document.querySelectorAll('button')].find((e) => e.getAttribute('aria-label') === L && e.getBoundingClientRect().width > 0); if (!b) return [L, null]; const c = getComputedStyle(b), g = b.querySelector('svg'), gc = g && getComputedStyle(g); return [L, { disabled: b.disabled, aria: b.getAttribute('aria-disabled'), opacity: c.opacity, color: c.color, icon: gc && [gc.color, gc.fill, gc.stroke], cursor: c.cursor, pointer: c.pointerEvents }]; }))))()`);
   if (what.frameEls) out.frameEls = evalJs(S, `(() => { ${FRAME} const ff = document.getElementById('sqs-site-frame').getBoundingClientRect(); return JSON.stringify([...d.querySelectorAll(${JSON.stringify(what.frameEls)})].filter((e) => e.getBoundingClientRect().width > 0).slice(0, 40).map((e) => { const q = e.getBoundingClientRect(); const c = W.getComputedStyle(e); return { tag: e.tagName.toLowerCase(), label: e.getAttribute('aria-label') || e.getAttribute('title') || e.textContent.trim().slice(0, 40), expanded: e.getAttribute('aria-expanded'), checked: e.getAttribute('aria-checked'), opacity: c.opacity, pointer: c.pointerEvents, box: [q.left + ff.left, q.top + ff.top, q.width, q.height].map((v) => Math.round(v * 10) / 10) }; })); })()`);
   if (what.textBox) out.textBox = Object.fromEntries(what.textBox.map((t) => [t, evalJs(S, `(() => { const hit = [...document.querySelectorAll('body *')].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame') && e.textContent.includes(${JSON.stringify(t)})); const e = hit[hit.length - 1]; if (!e) return JSON.stringify(null); const q = e.getBoundingClientRect(); return JSON.stringify({ text: e.textContent.trim().slice(0, 200), box: [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10) }); })()`)]));
   if (what.radii) { const [i, k] = what.radii; const id = blockId(i, k); out.radii = evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; if (!b) return JSON.stringify(null); return JSON.stringify([b, ...b.querySelectorAll('*')].filter((e) => W.getComputedStyle(e).borderTopLeftRadius !== '0px').map((e) => { const q = e.getBoundingClientRect(); const c = W.getComputedStyle(e); return { tag: e.tagName.toLowerCase(), cls: String(e.className.baseVal === undefined ? e.className : e.className.baseVal).slice(0, 60), radius: c.borderTopLeftRadius, overflow: c.overflow, box: [q.width, q.height].map((v) => Math.round(v * 10) / 10) }; })); })()`); }
   if (what.panelCss) out.panelCss = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll(${JSON.stringify(what.panelCss)})].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')).slice(0, 80).map((e) => { const q = e.getBoundingClientRect(), c = getComputedStyle(e); return { cls: String(e.className).slice(0, 40), text: e.textContent.slice(0, 40), box: [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10), color: c.color, bg: c.backgroundColor, weight: c.fontWeight, style: c.fontStyle, deco: c.textDecorationLine, font: c.fontFamily.slice(0, 40), size: c.fontSize, line: c.lineHeight, pad: c.paddingLeft, opacity: c.opacity }; })))()`);
-  if (what.panelEls) out.panelEls = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll(${JSON.stringify(what.panelEls)})].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')).slice(0, 40).map((e) => { const q = e.getBoundingClientRect(); return { tag: e.tagName.toLowerCase(), cls: String(e.className.baseVal === undefined ? e.className : e.className.baseVal).slice(0, 50), label: e.getAttribute('aria-label') || e.getAttribute('title') || e.value || e.textContent.trim().slice(0, 40), lines: e.childElementCount, box: [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10) }; })))()`);
+  if (what.panelEls) out.panelEls = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll(${JSON.stringify(what.panelEls)})].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')).slice(0, 40).map((e) => { const q = e.getBoundingClientRect(); return { tag: e.tagName.toLowerCase(), value: e.value, cls: String(e.className.baseVal === undefined ? e.className : e.className.baseVal).slice(0, 50), label: e.getAttribute('aria-label') || e.getAttribute('title') || e.value || e.textContent.trim().slice(0, 40), lines: e.childElementCount, box: [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10) }; })))()`);
   if (what.htmlOf) out.htmlOf = evalJs(S, `(() => { ${FRAME} const e = [...d.querySelectorAll(${JSON.stringify(what.htmlOf)})].filter((x) => x.getBoundingClientRect().width > 0).pop(); return JSON.stringify(e ? e.innerHTML.slice(0, 1500) : null); })()`);
   // What a press would hit at a block's eight handles, the page's chrome first, then inside the frame.
   if (what.hits) { const [i, k] = what.hits; const id = blockId(i, k); out.hits = evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; if (!b) return JSON.stringify(null); const fr = f.getBoundingClientRect(); const q = b.getBoundingClientRect(); const name = (e) => e ? (e.closest('button') ? 'in button ' + (e.closest('button').getAttribute('aria-label') || e.closest('button').textContent.trim()) + ': ' : '') + e.tagName.toLowerCase() + ' ' + (e.getAttribute('aria-label') || e.getAttribute('data-test') || String(e.className.baseVal === undefined ? e.className : e.className.baseVal).slice(0, 40)) : null; const at = { nw: [q.left, q.top], n: [q.left + q.width / 2, q.top], ne: [q.right, q.top], e: [q.right, q.top + q.height / 2], se: [q.right, q.bottom], s: [q.left + q.width / 2, q.bottom], sw: [q.left, q.bottom], w: [q.left, q.top + q.height / 2] }; const out = { block: [q.left + fr.left, q.top + fr.top, q.width, q.height].map((v) => Math.round(v * 10) / 10), scrollY: Math.round(W.scrollY), frameTop: fr.top }; for (const [n, [x, y]] of Object.entries(at)) { const X = x + fr.left, Y = y + fr.top; const top = document.elementFromPoint(X, Y); if (top && top !== f) out[n] = 'page: ' + name(top); else { const e = d.elementFromPoint(x, y); out[n] = 'frame: ' + name(e); } } return JSON.stringify(out); })()`); }
@@ -143,14 +171,13 @@ function read(what) {
   return out;
 }
 
-// 0006: anything that changes content runs on a page made for it. A recipe names that page by its
-// title; with no title the step list only reads, on the demo page.
-const pageTitle = recipe.page || opt('page') || 'How Fluid Engine works';
-const pagePath = '/' + pageTitle.toLowerCase().replace(/\s+/g, '-');
+const pagePath = pageTitle ? pathOf(pageTitle) : null;
 // enter opens the page from the page list. If it times out the tab has hung, which happens now and then after leaving the editor: open a new tab in the same Chrome and close the old one.
 { const here = evalJs(S, 'JSON.stringify(location.href)'); if (/^http/.test(here)) { goto(S, new URL(here).origin + '/config/pages'); await pause(6000); } }
-const finding = { item: name, oracle: pagePath, capturedAt: new Date().toISOString().slice(0, 10), engine: engine(S), question: recipe.question, steps: recipe.steps, reads: {}, errors: [] };
+const finding = { item: name, oracle: pagePath || pathOf(recipe.steps[0][1]), capturedAt: new Date().toISOString().slice(0, 10), engine: engine(S), question: recipe.question, steps: recipe.steps, reads: {}, errors: [] };
 const LABEL = (label) => `() => { const L = ${JSON.stringify(label)}; const hits = [...document.querySelectorAll('[aria-label], [title], body *')].filter((e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && !e.closest('#sqs-site-frame') && (e.getAttribute('aria-label') === L || e.getAttribute('title') === L || (e.childElementCount === 0 && e.textContent.trim() === L)); }); const onTop = (e) => { const q = e.getBoundingClientRect(); const t = document.elementFromPoint(q.left + q.width / 2, q.top + q.height / 2); return t && (e === t || e.contains(t) || t.contains(e)); }; const hit = hits.filter(onTop).pop() || hits.pop(); return hit && (hit.closest('button, a, label, [role=radio], [role=button], [role=switch], [role=tab], [role=option], [role=menuitem]') || hit); }`;
+// A tip: the small dark box with the buttons' words, in either document.
+const TIPFIND = `const tipOf = (docs) => { for (const D of docs) { const V = D.defaultView; for (const e of D.querySelectorAll('div,span')) { const q = e.getBoundingClientRect(); if (q.height < 20 || q.height > 60 || q.width < 20 || q.width > 320) continue; const c = V.getComputedStyle(e); if (c.backgroundColor === 'rgb(14, 14, 14)' && c.borderRadius === '3px' && e.textContent.trim()) return { el: e, view: V }; } } return null; };`;
 const tag = (find) => evalJs(S, `(() => { const el = (${find})(); document.querySelectorAll('#fx-target').forEach((x) => x.removeAttribute('id')); if (!el) return JSON.stringify(false); el.id = 'fx-target'; return JSON.stringify(true); })()`) === true;
 let held = null; let heldAt = null;
 const booted = () => waitFor(S, `(() => { const f = document.getElementById('sqs-site-frame'); return !!(f && f.contentDocument && f.contentDocument.querySelector('.fluid-engine .fe-block')); })()`, 60);
@@ -171,7 +198,7 @@ const STEPS = {
   listen: () => evalJs(S, `(() => { ${FRAME} W.__fxEvents = []; if (!W.__fxListen) { W.__fxListen = true; for (const t of ['pointerdown', 'pointermove', 'pointerup', 'pointercancel', 'touchstart', 'touchend', 'contextmenu', 'dragstart']) d.addEventListener(t, (e) => { const last = W.__fxEvents.at(-1); const name = t + (e.pointerType ? ':' + e.pointerType : ''); if (last && last[0] === name) last[1]++; else W.__fxEvents.push([name, 1]); }, true); } return 'true'; })()`),
   blank: () => addSection(),
   // Leaves the page without saving and enters another probe page: does a copied block survive it?
-  toPage: async (title) => { await exitWithoutSaving().catch((e) => { if (!e.message.includes('not in edit mode')) throw e; }); const o = evalJs(S, 'JSON.stringify(location.origin)'); goto(S, o + '/config/pages'); await pause(6000); booted(); try { await enterEdit(title); } catch { /* an empty page has no editing grid */ } finding.visited = title; await desktop(); },
+  toPage: async (title) => { pageTitle = title; await exitWithoutSaving().catch((e) => { if (!e.message.includes('not in edit mode')) throw e; }); const o = evalJs(S, 'JSON.stringify(location.origin)'); goto(S, o + '/config/pages'); await pause(6000); booted(); try { await enterEdit(title); } catch { /* an empty page has no editing grid */ } finding.visited = title; await desktop(); },
   hover: (i) => hoverSection(i),
   hoverBlock: async (i, k) => { const [x, y] = point(i, k); await inFrame(() => mouse(S, 'move', x, y)); await pause(600); },
   sectionDrag: async (i, dy) => { const at = evalJs(S, `(() => { ${FRAME} const h = ${SECTION_HANDLE(i)}; if (!h) return JSON.stringify(null); const q = h.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); if (!at) throw new Error('no section handle'); const [x, y] = at; await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x, y + dy], steps: 12, holdMs: 200, mods: [] })); await pause(800); },
@@ -268,6 +295,42 @@ const STEPS = {
   holdAt: async (x, y) => { mouse(S, 'move', x, y); mouse(S, 'down', x, y); await pause(300); heldAt = [x, y]; },
   moveAt: async (x, y) => { mouse(S, 'move', x, y, { buttons: 1 }); await pause(400); heldAt = [x, y]; },
   releaseAt: async () => { mouse(S, 'up', heldAt[0], heldAt[1]); await pause(600); },
+  // How long a tip takes: a real move onto a named button, then from the page's own clock the first frame the tip shows and the first it is fully on. Reads only.
+  tipDelay: async (label, name, tries = 4) => {
+    const seen = [];
+    for (let t = 0; t < tries; t++) {
+      mouse(S, 'move', 800, 500); await pause(900);
+      if (!tag(LABEL(label))) throw new Error(`nothing labelled ${label}`);
+      const at = evalJs(S, `(() => { ${TIPFIND} const e = document.getElementById('fx-target'); const q = e.getBoundingClientRect(); const out = window.__tip = { on: null, first: null, full: null, firstOpacity: null, text: null, stop: false }; const docs = [document, document.getElementById('sqs-site-frame').contentDocument]; const hit = () => { if (out.on === null) out.on = performance.now(); }; e.addEventListener('mouseover', hit, { capture: true, once: true }); e.addEventListener('mouseenter', hit, { capture: true, once: true }); const tick = () => { if (out.stop) return; const tip = tipOf(docs); if (tip && out.on !== null) { const o = Number(tip.view.getComputedStyle(tip.el).opacity); if (o > 0 && out.first === null) { out.first = performance.now(); out.firstOpacity = o; out.text = tip.el.textContent.trim().slice(0, 60); } if (o >= 1 && out.full === null) out.full = performance.now(); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
+      mouse(S, 'move', at[0], at[1]); await pause(1200);
+      seen.push(evalJs(S, `(() => { const o = window.__tip; o.stop = true; return JSON.stringify({ first: o.first === null ? null : Math.round(o.first - o.on), full: o.full === null ? null : Math.round(o.full - o.on), firstOpacity: o.firstOpacity, text: o.text }); })()`));
+    }
+    mouse(S, 'move', 800, 500); await pause(300);
+    finding.reads[name] = { label, seen };
+  },
+  // The words on a tip, and its box, after a real move onto a named button.
+  tipRead: async (label, name) => {
+    mouse(S, 'move', 800, 500); await pause(600);
+    if (!tag(LABEL(label))) throw new Error(`nothing labelled ${label}`);
+    const at = evalJs(S, `(() => { const q = document.getElementById('fx-target').getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
+    mouse(S, 'move', at[0], at[1]); await pause(900);
+    finding.reads[name] = evalJs(S, `(() => { ${TIPFIND} const t = tipOf([document, document.getElementById('sqs-site-frame').contentDocument]); if (!t) return JSON.stringify(null); const q = t.el.getBoundingClientRect(); return JSON.stringify({ label: ${JSON.stringify(label)}, text: t.el.textContent.trim().slice(0, 60), box: [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10) }); })()`);
+    mouse(S, 'move', 800, 500); await pause(300);
+  },
+  // Add Block must be open. Types each word by real keys into its search and lists the tiles. Presses no tile, and no Enter.
+  searchWords: async (name, words) => {
+    const box = `(() => { ${FRAME} for (const D of [d, document]) { const i = [...D.querySelectorAll('input')].find((x) => /search/i.test(x.placeholder || '') && x.getBoundingClientRect().width > 0); if (i) return { i, D }; } return null; })()`;
+    const at = evalJs(S, `(() => { const { i, D } = ${box}; const q = i.getBoundingClientRect(); const o = D === document ? { left: 0, top: 0 } : document.getElementById('sqs-site-frame').getBoundingClientRect(); return JSON.stringify([o.left + q.left + q.width / 2, o.top + q.top + q.height / 2]); })()`);
+    cdp(S, { op: 'drag', from: at, to: at, steps: 1, holdMs: 50, mods: [] }); await pause(400);
+    const out = {};
+    for (const w of words) {
+      cdp(S, { op: 'presses', keys: ['Meta+a', ...w] }); await pause(450);
+      out[w] = evalJs(S, `(() => { const { i } = ${box}; let c = i; while (c.parentElement && c.getBoundingClientRect().height < 150) c = c.parentElement; return JSON.stringify([...c.querySelectorAll('*')].filter((x) => x.childElementCount === 0 && x.tagName !== 'INPUT' && x.getBoundingClientRect().width > 0 && x.textContent.trim()).map((x) => x.textContent.trim())); })()`);
+    }
+    finding.reads[name] = out;
+  },
+  // Focus the panel's visible slider and press a real key on it.
+  rangeKey: async (key) => { if (!tag(`() => [...document.querySelectorAll('input[type=range]')].find((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'))`)) throw new Error('no slider'); evalJs(S, `(() => { document.getElementById('fx-target').focus(); return 'true'; })()`); browser(S, 'press', key); await pause(500); },
   clickAt: async (x, y) => { cdp(S, { op: 'drag', from: [x, y], to: [x, y], steps: 1, holdMs: 50, mods: [] }); await pause(1000); },
   dragAt: async (x, y, x2, y2) => { cdp(S, { op: 'drag', from: [x, y], to: [x2, y2], steps: 12, holdMs: 200, mods: [] }); await pause(1000); },
   drag: async (i, k, part, dx, dy, o = {}) => { const [x, y] = point(i, k, part); await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x + dx, y + dy], steps: 12, holdMs: 200, mods: [], pointerType: o.pointerType })); await pause(800); },
@@ -287,10 +350,17 @@ const STEPS = {
   read: (label, what) => { finding.reads[label] = read(what); },
 };
 
+// These don't act on the page, or are how it gets there.
+const NO_PAGE_NEEDED = new Set(['enter', 'toPage', 'exit', 'pause', 'window', 'frame', 'unframe']);
+const wrongPage = () => { const at = evalJs(S, `(() => { ${FRAME} return JSON.stringify(d.location.pathname); })()`); return at === pathOf(pageTitle) ? null : at; };
 try {
   for (const [op, ...a] of recipe.steps) {
     if (!STEPS[op]) throw new Error(`no step ${op}`);
     console.log(op, JSON.stringify(a).slice(0, 80));
+    if (!NO_PAGE_NEEDED.has(op)) {
+      const at = wrongPage();
+      if (at !== null) { finding.errors.push(`stopped before ${op}: the frame is on ${at}, not ${pathOf(pageTitle)}`); console.log('  error:', finding.errors.at(-1)); break; }
+    }
     try { await STEPS[op](...a); } catch (e) {
       finding.errors.push(`${op} ${JSON.stringify(a).slice(0, 60)}: ${String(e.stderr || e.message).trim().split('\n')[0].slice(0, 160)}`);
       console.log('  error:', finding.errors.at(-1));
@@ -301,7 +371,7 @@ try {
   }
 } finally {
   await desktop().catch(() => {});
-  finding.leftDirty = await exitWithoutSaving().catch((e) => `exit failed: ${e.message}`);
+  finding.leftDirty = await exitWithoutSaving().catch((e) => (/not in edit mode/.test(e.message) ? false : `exit failed: ${e.message}`));
 }
 const text = JSON.stringify(finding, null, 2).replace(/(https?):\/\/([^"' )]+)/g, (m, sch, rest) => (/squarespace|sqsp/.test(rest) ? '<url>' : `<${sch}>${rest}`)) + '\n';
 writeFileSync(file, text);

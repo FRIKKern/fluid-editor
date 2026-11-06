@@ -1,0 +1,214 @@
+{
+  "item": "CAP-U4PINDRAG",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U4: a real drag of the Pin offset slider after a value that is not in px. Unnamed presses: real clicks on the block, a drag on the slider by its place.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "fillValue",
+      "0px",
+      "5vh"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "5vh",
+      {
+        "panelEls": "input[aria-label=\"Offset\"]"
+      }
+    ],
+    [
+      "shot",
+      "fivevh"
+    ],
+    [
+      "dragAt",
+      79,
+      394,
+      150,
+      394
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "dragged",
+      {
+        "panelEls": "input[aria-label=\"Offset\"]",
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "dragged"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ]
+  ],
+  "reads": {
+    "5vh": {
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "5vh",
+          "cls": "css-1ct4fc focus-visible",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "dragged": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          326.4,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793968772193_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "sticky",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,118.8",
+          "col 10x10 at 337.7,118.8",
+          "ne 10x10 at 337.7,0",
+          "nw 10x10 at -6,0",
+          "row 10x10 at 165.8,0",
+          "row 10x10 at 165.8,237.6",
+          "se 10x10 at 337.7,237.6",
+          "sw 10x10 at -6,237.6"
+        ]
+      },
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "96vh",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            445.4,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "96",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            478.4,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "A real drag of the slider keeps the unit too: 5vh dragged to 96vh.",
+  "ours": "Not dragged in ours: the key read in CAP-U4PINUNIT.json is enough, and it goes by the same input handler.",
+  "differs": [
+    "As CAP-U4PINUNIT.json."
+  ],
+  "pressed": [
+    "A drag at 79,394 to 150,394, the slider by its place. Unnamed presses: real clicks on blocks, a drag on a block. All else by name with an on-top check."
+  ]
+}

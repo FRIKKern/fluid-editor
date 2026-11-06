@@ -1,0 +1,301 @@
+{
+  "item": "CAP-S3ALIGN2",
+  "oracle": "/how-fluid-engine-works",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "S3: Align Center on a Shape child, W 100, H 200, Stretch off, in a column: the read CAP-S3ALIGN.json did not have. On blocks made in this session on a probe page. The stack is dragged 300 right first, so Layers does not cover the toolbar.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Stack Options"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Stack Vertically"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      300,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Align Vertically"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Align Center"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1404,
+      527,
+      "200"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Stretch"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1407,
+      479,
+      "100"
+    ],
+    [
+      "read",
+      "Align Center, W 100, H 200, Stretch off, in a column",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "Align Center, W 100, H 200, Stretch off, in a column": {
+      "kids": {
+        "dir": "sqs-stack-container direction-column",
+        "box": [
+          394,
+          244.2,
+          1206,
+          329
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              1206,
+              22.4
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              0,
+              1206,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              42.4,
+              100,
+              200
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              42.4,
+              100,
+              200
+            ],
+            "shape": [
+              0,
+              92.4,
+              100,
+              100
+            ],
+            "wrap": [
+              0,
+              42.4,
+              100,
+              200,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              262.4,
+              1206,
+              66.6
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              262.4,
+              1206,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}
