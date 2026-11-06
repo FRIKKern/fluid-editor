@@ -107,6 +107,8 @@ function followPhoneRows(before) {
     const next = phoneOrder(s.blocks);
     if (next.every((b, k) => b === s.blocks[k])) { if (reflowed) renderSectionDom(s.id); continue; }
     s.blocks.splice(0, s.blocks.length, ...next);
+    // New phone rows need new CSS, or the phone shows the old stack and a press lands on the old place.
+    if (reflowed) { renderSectionDom(s.id); continue; }
     const fe = sectionEl(s.id) && feEl(s.id);
     if (!fe) continue;
     const els = next.map((b) => fe.querySelector(`:scope > .fe-block[data-block-id="${b.id}"]`));
