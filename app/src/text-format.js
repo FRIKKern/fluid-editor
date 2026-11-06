@@ -70,6 +70,8 @@ function keepSelection(root, sel, change) {
     let left = letters;
     const walk = root.ownerDocument.createTreeWalker(now[k], 4);
     for (let t = walk.nextNode(); t; t = walk.nextNode()) { if (left <= t.length) return [t, left]; left -= t.length; }
+    // An empty block needs a line for the caret to sit on, or Enter finds no caret.
+    if (!now[k].firstChild) now[k].append(root.ownerDocument.createElement('br'));
     return [now[k], 0];
   };
   sel.setBaseAndExtent(...spot(from), ...spot(to));
