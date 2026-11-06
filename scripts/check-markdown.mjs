@@ -13,6 +13,18 @@ for (let k = 0; k < steps.length; k++) {
   if (got !== want) { bad++; console.error(`Markdown ${name}:\n  ours   ${JSON.stringify(got)}\n  oracle ${JSON.stringify(want)}`); }
 }
 if (n !== 19) { bad++; console.error(`expected 19 samples, read ${n}`); }
+// Further samples, mixed ones among them (CAP-T10MD9.json). Whitespace between tags aside, as the block's HTML is read.
+const F9 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T10MD9.json', import.meta.url)));
+const squeeze = (t) => t.replace(/\s+/g, ' ').replace(/> </g, '><').trim();
+let n9 = 0;
+for (let k = 0; k < F9.steps.length; k++) {
+  if (F9.steps[k][0] !== 'setCode') continue;
+  const name = F9.steps.slice(k + 1).find((s) => s[0] === 'read')[1], want = F9.reads[name].htmlOf.replace(/©/g, '&copy;');
+  const got = markdownHtml(F9.steps[k][1]) || F9.reads['empty on the page'].htmlOf; // nothing to show is the placeholder, and the block writes that
+  n9++; n++;
+  if (squeeze(got) !== squeeze(want)) { bad++; console.error(`Markdown ${name}:\n  ours   ${JSON.stringify(got)}\n  oracle ${JSON.stringify(want)}`); }
+}
+if (n9 !== 25) { bad++; console.error(`expected 25 further samples, read ${n9}`); }
 // Nothing here may reach a page as live markup: not one of these is read on the oracle.
 const UNSAFE = [
   '<script>alert(1)</script>', '<SCRIPT SRC=x></SCRIPT>', 'a <script>alert(1)</script> b', '<script>alert(1)', '<style>x{}</style>',

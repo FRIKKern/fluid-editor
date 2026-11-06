@@ -2606,7 +2606,7 @@ function paintCode(f) {
   const box = f?.closest('.bp-code.is-look');
   if (!box) return;
   const hl = box.querySelector('.bp-code-hl'), nums = box.querySelector('.bp-code-lines'), band = box.querySelector('.bp-code-band');
-  const lines = codeLines(f.value, box.dataset.lang);
+  const lines = codeLines(f.value, box.dataset.lang, f.selectionStart === f.selectionEnd ? f.selectionStart : null);
   hl.innerHTML = lines.map((l) => `<div class="bp-code-l">${l || '<br>'}</div>`).join('');
   const on = f.value.slice(0, headOf(f)).split('\n').length - 1, rows = [...hl.children];
   nums.style.flexBasis = `${gutterWidth(lines.length)}px`;
@@ -2636,9 +2636,11 @@ function paintCodeSelection(f, hl, layer) {
   const a = at(f.selectionStart), b = at(f.selectionEnd), L = 6, R = f.clientWidth - 2;
   const rect = (x, top, w, h) => { const e = document.createElement('div'); e.style.cssText = `left:${x}px;top:${top}px;width:${w}px;height:${h}px`; layer.append(e); };
   if (a.top === b.top) { rect(a.x, a.top, b.x - a.x, 16); return; }
-  rect(a.x, a.top, R - a.x, 16);
-  if (b.top > a.top + 16) rect(L, a.top + 16, R - L, b.top - a.top - 16);
-  rect(L, b.top, b.x - L, 16);
+  // Two rows side by side meet halfway across the gap between their letters.
+  const near = b.top - a.top < 2 * 22, mid = (a.top + 16 + b.top) / 2;
+  rect(a.x, a.top, R - a.x, near ? mid - a.top : 16);
+  if (!near) rect(L, a.top + 16, R - L, b.top - a.top - 16);
+  rect(L, near ? mid : b.top, b.x - L, near ? b.top + 16 - mid : 16);
 }
 function scrollCode(f) {
   const box = f.closest('.bp-code.is-look');

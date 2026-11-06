@@ -67,6 +67,7 @@ html { overflow-anchor: none; }
 /* A new Markdown block's placeholder (CAP-T10PRE.json). */
 .fluid-engine .sqs-block-markdown .sqs-blockStatus { display: block; position: relative; z-index: 1001; color: rgba(0, 0, 0, 0.3); }
 .fluid-engine .sqs-block-markdown .sqs-blockStatus p { margin: 0; color: inherit; }
+body.is-preview .fluid-engine .sqs-block-markdown .sqs-blockStatus { color: inherit; } /* Preview keeps it, at the block's own colour (CAP-T10MD9.json) */
 /* A script's status box and note (CAP-T10MD2.json). */
 .fluid-engine .sqs-code-container .sqs-blockStatus, .fluid-engine .sqs-embed-container .sqs-blockStatus:has(.sqs-blockStatus-box-button) { display: block; color: #3e3e3e; position: relative; z-index: 1001; background: none; border-radius: 0; box-shadow: none; font: inherit; }
 .fluid-engine .sqs-blockStatus:has(.sqs-blockStatus-box-button) .sqs-blockStatus-box { height: auto; padding: 22px 56px 22px 22px; background: #fff; border: 1px solid #d0d0d0; border-radius: 4px; box-shadow: -2px 1px 6px 1px rgba(0, 0, 0, 0.1); }

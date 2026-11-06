@@ -402,7 +402,7 @@ function blockInner(b, model) {
       const radius = b.design?.corner ? ` style="border-radius:${b.design.corner}px"` : '';
       return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-video video-block" data-block-type="1337" id="block-${b.id}"${radius}><div class="sqs-block-content"${radius}><div>${b.html || (b.video?.src ? videoPlayerHtml(b) : VIDEO_PLACEHOLDER)}</div></div></div>`;
     }
-    // A Markdown block (parity/findings/CAP-T10PRE.json, CAP-T10MD.json): its placeholder shows in the editor only.
+    // A Markdown block (parity/findings/CAP-T10PRE.json, CAP-T10MD.json): its placeholder shows in the editor and in Preview (CAP-T10MD9.json); hidden on the published page, inferred.
     case 'markdown':
       return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-markdown markdown-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${markdownHtml(b.text || '') || '<div class="sqs-blockStatus sqs-html-content">\n      <p>Double-click to edit...</p>\n    </div>'}</div></div>`;
     case 'code': {
