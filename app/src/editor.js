@@ -5297,20 +5297,20 @@ layersPanel.addEventListener('pointerdown', (e) => {
   const pitch = rows.length > 1 ? rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().top : box.height;
   const x0 = e.clientX, y0 = e.clientY;
   let ghost = null;
-  // A row's first move in a drag jumps, its later moves slide (CAP-Z3PATH.json).
-  const movedOnce = new Set();
+  // A row leaving its own place jumps. Any other move slides, the slot's too (CAP-Z3PATH.json, CAP-Z3PATH2.json).
+  let places = [...rows];
   const placeRow = (to) => {
     const others = rows.filter((r) => r !== li);
     const next = others[to] || (li.dataset.kidOf ? others[others.length - 1].nextSibling : null);
     if (li.nextSibling === next || li === next) return;
     const tops = new Map(rows.map((r) => [r, r.getBoundingClientRect().top]));
+    const was = places;
     list.insertBefore(li, next);
+    places = [...list.children].filter((r) => r.dataset.kidOf === li.dataset.kidOf);
     for (const r of rows) {
-      const by = tops.get(r) - r.getBoundingClientRect().top;
-      if (!by) continue;
+      if (was.indexOf(r) === places.indexOf(r)) continue;
       r.getAnimations().forEach((a) => a.cancel());
-      if (movedOnce.has(r)) r.animate([{ transform: `translateY(${tops.get(r) - r.getBoundingClientRect().top}px)` }, { transform: 'none' }], { duration: 200, easing: 'ease' });
-      movedOnce.add(r);
+      if (was.indexOf(r) !== rows.indexOf(r)) r.animate([{ transform: `translateY(${tops.get(r) - r.getBoundingClientRect().top}px)` }, { transform: 'none' }], { duration: 200, easing: 'ease' });
     }
   };
   const move = (ev) => {
@@ -5320,7 +5320,7 @@ layersPanel.addEventListener('pointerdown', (e) => {
       if (Math.hypot(ev.clientX - x0, d) <= 8) return;
       ghost = li.cloneNode(true);
       ghost.classList.add('lp-ghost');
-      Object.assign(ghost.style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px` });
+      Object.assign(ghost.style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px`, fontFamily: getComputedStyle(li).fontFamily });
       document.body.append(ghost);
       li.classList.add('is-slot');
       return;
@@ -5333,17 +5333,22 @@ layersPanel.addEventListener('pointerdown', (e) => {
     document.removeEventListener('pointermove', move);
     document.removeEventListener('pointerup', up);
     document.removeEventListener('pointercancel', up);
-    doc.removeEventListener('pointerup', upOverPage);
-    ghost?.remove();
+    doc.removeEventListener('pointerup', giveUp);
+    document.removeEventListener('keydown', onEscape, true);
+    doc.removeEventListener('keydown', onEscape, true);
     li.classList.remove('is-slot');
+    rows.forEach((r) => r.getAnimations().forEach((a) => a.cancel()));
   };
-  // The page's frame keeps its own moves and release. Let go over it, nothing moves and the panel closes (CAP-Z3PATH.json).
-  const upOverPage = () => {
+  // The page's frame keeps its own moves and release. Let go over it, or press Escape: nothing moves and the
+  // panel closes (CAP-Z3PATH.json, CAP-Z3PATH2.json).
+  const giveUp = () => {
     stop();
     if (!ghost) return;
+    ghost.remove();
     renderLayersPanel();
     closeFloating();
   };
+  const onEscape = (ev) => { if (ev.key === 'Escape') giveUp(); };
   const up = () => {
     stop();
     if (!ghost) return;
@@ -5356,11 +5361,17 @@ layersPanel.addEventListener('pointerdown', (e) => {
     if (moved) { renderSectionDom(sid); commit(before, 'Reordered layers'); }
     else model = JSON.parse(before);
     renderLayersPanel();
+    // The ghost flies to where the row now is, over the row (CAP-Z3PATH2.json).
+    const home = layersPanel.querySelector(`li[data-layer="${li.dataset.layer}"]`);
+    const end = home ? home.getBoundingClientRect().top - box.top : 0;
+    ghost.animate([{ transform: getComputedStyle(ghost).transform }, { transform: `translateY(${end}px)` }], { duration: 250, easing: 'ease' }).finished.then(() => ghost.remove(), () => ghost.remove());
   };
   document.addEventListener('pointermove', move);
   document.addEventListener('pointerup', up);
   document.addEventListener('pointercancel', up);
-  doc.addEventListener('pointerup', upOverPage);
+  doc.addEventListener('pointerup', giveUp);
+  document.addEventListener('keydown', onEscape, true);
+  doc.addEventListener('keydown', onEscape, true);
 });
 function onContextMenu(e) {
   if (document.body.classList.contains('is-preview')) return;
