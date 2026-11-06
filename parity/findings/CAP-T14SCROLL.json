@@ -1,0 +1,249 @@
+{
+  "item": "CAP-T14SCROLL",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T14: does the page's scroll set where a new block lands",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Zola"
+    ],
+    [
+      "pause",
+      3000
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "scrollWalk",
+      "frame after Zola",
+      0,
+      1
+    ],
+    [
+      "read",
+      "Zola",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "scrollWalk",
+      "scrolled down first",
+      100,
+      1
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text after a scroll of 100",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "scrollWalk",
+      "frame after Text",
+      0,
+      1
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "scrollWalk",
+      "scrolled down first, tall",
+      300,
+      1
+    ],
+    [
+      "add",
+      1,
+      "Text"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Text in section 1 after a scroll of 300",
+      {
+        "areas": 1
+      }
+    ],
+    [
+      "scrollWalk",
+      "frame after Text in 1",
+      0,
+      1
+    ]
+  ],
+  "reads": {
+    "frame after Zola": {
+      "columns": [
+        "scroll",
+        "panel top",
+        "Edit Section y",
+        "section top"
+      ],
+      "seen": [
+        [
+          87,
+          null,
+          135.6,
+          -32
+        ]
+      ]
+    },
+    "Zola": {
+      "areas": [
+        [
+          "3/2/19/10",
+          "1/2/17/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "scrolled down first": {
+      "columns": [
+        "scroll",
+        "panel top",
+        "Edit Section y",
+        "section top"
+      ],
+      "seen": [
+        [
+          100,
+          null,
+          122.6,
+          -45
+        ]
+      ]
+    },
+    "Text after a scroll of 100": {
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "frame after Text": {
+      "columns": [
+        "scroll",
+        "panel top",
+        "Edit Section y",
+        "section top"
+      ],
+      "seen": [
+        [
+          0,
+          null,
+          222.6,
+          55
+        ]
+      ]
+    },
+    "scrolled down first, tall": {
+      "columns": [
+        "scroll",
+        "panel top",
+        "Edit Section y",
+        "section top"
+      ],
+      "seen": [
+        [
+          913,
+          null,
+          -172,
+          -858
+        ]
+      ]
+    },
+    "Text in section 1 after a scroll of 300": {
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "frame after Text in 1": {
+      "columns": [
+        "scroll",
+        "panel top",
+        "Edit Section y",
+        "section top"
+      ],
+      "seen": [
+        [
+          588,
+          null,
+          73,
+          -533
+        ]
+      ]
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Scroll alone does not set the row. After Zola at 1000 high the frame sits scrolled 87. A Text added after a scroll of 100 lands on row 1 and the frame goes back to 0. In section 1, after a scroll of 300, a Text lands on row 1 and the frame ends at 588. So why the three start lower is still not read. A guess, not measured: it has to do with where those tiles sit, low in the menu, and the menu or the frame scrolling for them.",
+  "ours": "Row 1.",
+  "differs": [],
+  "pressed": "Real mouse clicks and pulls on blocks made in the session. Add Block tiles and panel rows by name. No Save, no upload, no Reset, no tile or row pressed by place."
+}
