@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 103 changes
+- **Today** · 104 changes
+  - T3, U11: back to partial, new reads show a placeholder and a paste we have not built ([#282](https://github.com/FRIKKern/fluid-editor/pull/282))
   - T14, T10: a new block lands by the section's scroll; last score; code-check split ([#281](https://github.com/FRIKKern/fluid-editor/pull/281))
-  - Z3: Layers row drag start, pass, slide, drop and Escape (items 42, 43) ([#280](https://github.com/FRIKKern/fluid-editor/pull/280))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
