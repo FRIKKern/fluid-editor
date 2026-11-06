@@ -1,0 +1,1551 @@
+{
+  "item": "CAP-P3FIELD",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "P3: the custom height field above 1000, with a negative number and words, and the slider while held",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "read",
+      "custom",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "typeAt",
+      1542,
+      526,
+      "abc"
+    ],
+    [
+      "read",
+      "real keys \"abc\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "typeAt",
+      1542,
+      526,
+      "-1"
+    ],
+    [
+      "read",
+      "real keys \"-1\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "typeAt",
+      1542,
+      526,
+      "7"
+    ],
+    [
+      "read",
+      "real keys \"7\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "typeAt",
+      1542,
+      526,
+      "12.5"
+    ],
+    [
+      "read",
+      "real keys \"12.5\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "12.5"
+    ],
+    [
+      "read",
+      "typed \"12.5\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "12abc"
+    ],
+    [
+      "read",
+      "typed \"12abc\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "abc"
+    ],
+    [
+      "read",
+      "typed \"abc\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "-1"
+    ],
+    [
+      "read",
+      "typed \"-1\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "-5"
+    ],
+    [
+      "read",
+      "typed \"-5\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      ""
+    ],
+    [
+      "read",
+      "typed \"\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "0"
+    ],
+    [
+      "read",
+      "typed \"0\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "200"
+    ],
+    [
+      "read",
+      "typed \"200\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "50"
+    ],
+    [
+      "read",
+      "back at 50",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "holdAt",
+      1397,
+      526
+    ],
+    [
+      "read",
+      "slider held",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "moveAt",
+      1440,
+      526
+    ],
+    [
+      "read",
+      "slider moved right, held",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "moveAt",
+      1340,
+      526
+    ],
+    [
+      "read",
+      "slider moved left, held",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "releaseAt"
+    ],
+    [
+      "read",
+      "slider let go",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "300"
+    ],
+    [
+      "read",
+      "typed \"300\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "fillRange",
+      "400"
+    ],
+    [
+      "read",
+      "typed \"400\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "fillRange",
+      "600"
+    ],
+    [
+      "read",
+      "typed \"600\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "fillRange",
+      "800"
+    ],
+    [
+      "read",
+      "typed \"800\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "fillRange",
+      "1000"
+    ],
+    [
+      "read",
+      "typed \"1000\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "fillRange",
+      "1001"
+    ],
+    [
+      "read",
+      "typed \"1001\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "fillRange",
+      "5000"
+    ],
+    [
+      "read",
+      "typed \"5000\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "fillRange",
+      "100000"
+    ],
+    [
+      "read",
+      "typed \"100000\"",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "panel after 100000",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "shot",
+      "after"
+    ]
+  ],
+  "reads": {
+    "custom": {
+      "range": {
+        "slider": "1",
+        "field": "1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 459.6
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          459.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "real keys \"abc\"": {
+      "range": {
+        "slider": "51",
+        "field": "NaN",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 459.6
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          459.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "real keys \"-1\"": {
+      "range": {
+        "slider": "51",
+        "field": "NaN",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 459.6
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          459.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "real keys \"7\"": {
+      "range": {
+        "slider": "7",
+        "field": "7",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 478.8
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          478.8
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "real keys \"12.5\"": {
+      "range": {
+        "slider": "100",
+        "field": "125",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          677
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 1181.3
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1181.3
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"12.5\"": {
+      "range": {
+        "slider": "12",
+        "field": "12",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 494.8
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          494.8
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"12abc\"": {
+      "range": {
+        "slider": "12",
+        "field": "12",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 494.8
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          494.8
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"abc\"": {
+      "range": {
+        "slider": "51",
+        "field": "NaN",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 494.8
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          494.8
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"-1\"": {
+      "range": {
+        "slider": "1",
+        "field": "-1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 456.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          456.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"-5\"": {
+      "range": {
+        "slider": "1",
+        "field": "-5",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 456.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          456.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"\"": {
+      "range": {
+        "slider": "51",
+        "field": "NaN",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 456.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          456.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"0\"": {
+      "range": {
+        "slider": "1",
+        "field": "0",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 456.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          456.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"200\"": {
+      "range": {
+        "slider": "100",
+        "field": "200",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 1890
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1890
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "back at 50": {
+      "range": {
+        "slider": "50",
+        "field": "50",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 616.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          616.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "slider held": {
+      "range": {
+        "slider": "50",
+        "field": "50",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 616.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          616.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "slider moved right, held": {
+      "range": {
+        "slider": "68",
+        "field": "68",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 674
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          674
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "slider moved left, held": {
+      "range": {
+        "slider": "25",
+        "field": "25",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 536.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          536.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "slider let go": {
+      "range": {
+        "slider": "25",
+        "field": "25",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 536.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          536.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"300\"": {
+      "range": {
+        "slider": "100",
+        "field": "300",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 2835
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          2835
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"400\"": {
+      "range": {
+        "slider": "100",
+        "field": "400",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          762
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 3780
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -934,
+          1600,
+          3780
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 934,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"600\"": {
+      "range": {
+        "slider": "100",
+        "field": "600",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          844
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 5670
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -1407,
+          1600,
+          5670
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 1407,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"800\"": {
+      "range": {
+        "slider": "100",
+        "field": "800",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          442
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 7560
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -2352,
+          1600,
+          7560
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 2352,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"1000\"": {
+      "range": {
+        "slider": "100",
+        "field": "1000",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          442
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 9450
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -3297,
+          1600,
+          9450
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 3297,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"1001\"": {
+      "range": {
+        "slider": "100",
+        "field": "1001",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          443
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 9459.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -4242,
+          1600,
+          9459.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 4242,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"5000\"": {
+      "range": null,
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 47250
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -4246,
+          1600,
+          47250
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 4246,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"100000\"": {
+      "range": null,
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 945000
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -23142,
+          1600,
+          945000
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 23142,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "panel after 100000": {
+      "range": {
+        "slider": "100",
+        "field": "100000",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          442
+        ]
+      },
+      "sections": [
+        {
+          "id": "4d2bb8",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 945000
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -472017,
+          1600,
+          945000
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 472017,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": {
+    "above1000": "No cap read. 1001 gives min-height 9459.4, 5000 gives 47250, 100000 gives 945000 (value times 9.45). The panel stays open at some jumps and is gone in reads at 5000, 100000 and a jump from 200 to 999; Edit Section brings it back. Why is not read.",
+    "heldSlider": "The section follows while the slider is held: 50 h 616.4, moved right to 68 h 674, moved left to 25 h 536.4, let go 536.4.",
+    "fill": "12.5 gives 12, 12abc gives 12, abc and empty show NaN with slider 51 and the height kept, -1 and -5 stay in the field with slider 1 and the height of 0, 0 gives 456.4, 200 gives 1890.",
+    "realKeys": "abc gives NaN, slider 51. -1 then stays NaN. 7 gives 7. 12.5 gives 125, the dot is dropped."
+  },
+  "ours": "Same for 1000, 1001, 5000, 100000, 200, 50, 0, 12abc and real keys 12.5. Ours measured with the same field on 5210, 2026-11-06.",
+  "differs": [
+    "Slider held: ours moves the field and slider only; the section keeps its height until let go.",
+    "Fill 12.5: ours rounds to 13, the oracle cuts to 12.",
+    "Words or empty: the oracle shows NaN and slider 51, ours keeps the text and the old slider.",
+    "Negative: the oracle field keeps -1, ours shows 0 for -1 and keeps -5."
+  ]
+}

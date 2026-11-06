@@ -1,0 +1,1976 @@
+{
+  "item": "CAP-L6PHONE2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "L6: Anchor, Stroke thickness and Corner set on a phone, and desktop values of Scale, Offset, Skew, Anchor, Thickness and Corner flowing to the phone",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "phone start",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillValue",
+      "0px",
+      "12"
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "scrollTo",
+      "Thickness"
+    ],
+    [
+      "pressPart",
+      "Thickness",
+      1
+    ],
+    [
+      "scrollTo",
+      "Anchor"
+    ],
+    [
+      "pressNamed",
+      "Position"
+    ],
+    [
+      "pressNamed",
+      "Top Left"
+    ],
+    [
+      "pressNamed",
+      "Position"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "phone set",
+      {
+        "style": [
+          0,
+          "new"
+        ],
+        "leaves": [
+          "Anchor",
+          "Rotate",
+          "Scale",
+          "Stroke",
+          "Thickness"
+        ]
+      }
+    ],
+    [
+      "moveAfter",
+      "Animation"
+    ],
+    [
+      "read",
+      "phone icon hovered",
+      {
+        "controls": true,
+        "thin": true
+      }
+    ],
+    [
+      "shot",
+      "phone-icon"
+    ],
+    [
+      "scrollTo",
+      "Shape style"
+    ],
+    [
+      "read",
+      "phone corner",
+      {
+        "controls": true,
+        "leaves": [
+          "Stretch",
+          "Color",
+          "Stroke"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "phone-set"
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "desktop after phone set",
+      {
+        "style": [
+          0,
+          "new"
+        ],
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "desktop-after"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "fillValue",
+      "0px",
+      "8"
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "scrollTo",
+      "Thickness"
+    ],
+    [
+      "pressPart",
+      "Thickness",
+      3
+    ],
+    [
+      "fillRow",
+      "Scale",
+      0,
+      "120"
+    ],
+    [
+      "fillRow",
+      "Offset",
+      0,
+      "5"
+    ],
+    [
+      "fillRow",
+      "Skew",
+      0,
+      "3"
+    ],
+    [
+      "scrollTo",
+      "Anchor"
+    ],
+    [
+      "pressNamed",
+      "Position"
+    ],
+    [
+      "pressNamed",
+      "Bottom Right"
+    ],
+    [
+      "read",
+      "desktop second",
+      {
+        "controls": true,
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "desktop-second"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "phone second flows",
+      {
+        "controls": true,
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "phone-second"
+    ]
+  ],
+  "reads": {
+    "phone start": {
+      "style": {
+        "transform": "none",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          376.7,
+          199
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone set": {
+      "style": {
+        "transform": "none",
+        "origin": "0px 0px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 2px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          376.7,
+          199
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 0%; --origin-y: 0%;"
+      },
+      "leaves": {
+        "Anchor": "underline dotted",
+        "Rotate": null,
+        "Scale": null,
+        "Stroke": "underline dotted",
+        "Thickness": "underline dotted"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone icon hovered": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            1036,
+            312,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1058,
+            312,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            1120,
+            312,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1310,
+            322,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            1047,
+            380,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            1047,
+            428,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Stroke Color",
+          "box": [
+            1047,
+            519,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Drop Shadow",
+          "value": false,
+          "box": [
+            1308,
+            628.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": false,
+          "box": [
+            1308,
+            673.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            1163,
+            777,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1152,
+            777,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1152,
+            777,
+            11,
+            44
+          ]
+        }
+      ],
+      "thin": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone corner": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            1036,
+            314,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1058,
+            314,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            1120,
+            314,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1310,
+            324,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1036,
+            418,
+            320,
+            103
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "12px",
+          "box": [
+            1163,
+            527,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1152,
+            527,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1152,
+            560,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1152,
+            527,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset to default value",
+          "box": [
+            1327,
+            541,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            1061,
+            530,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            1102,
+            530,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Stretch",
+          "value": true,
+          "box": [
+            1320,
+            603.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            1047,
+            693,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            1047,
+            741,
+            298,
+            46
+          ]
+        }
+      ],
+      "leaves": {
+        "Stretch": "border solid 1px",
+        "Color": null,
+        "Stroke": "underline dotted"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "desktop after phone set": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            1036,
+            314,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1058,
+            314,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            1120,
+            314,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1036,
+            418,
+            320,
+            103
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            1163,
+            527,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1152,
+            527,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1152,
+            560,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1152,
+            527,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            1061,
+            530,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            1102,
+            530,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Stretch",
+          "value": true,
+          "box": [
+            1320,
+            603.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            1047,
+            693,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            1047,
+            741,
+            298,
+            46
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "desktop second": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ],
+        "Scale": [
+          "120%",
+          "100%"
+        ],
+        "Offset": [
+          "5px",
+          "0px"
+        ],
+        "Skew": [
+          "3°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.2, 0, 0.0628893, 1, 5, 0)",
+        "origin": "341.688px 235.562px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 15px",
+        "rx": null,
+        "tagName": "path",
+        "inner": [
+          424.8,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 5px; --translate-y: 0px; --rotation: 0deg; --scale-x: 120%; --scale-y: 100%; --skew-x: 3deg; --skew-y: 0deg; --origin-x: 100%; --origin-y: 100%;"
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            483,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            545,
+            299,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": false,
+          "box": [
+            733,
+            376.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            720.5,
+            433,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            588,
+            480,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            480,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            513,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            480,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0°",
+          "box": [
+            588,
+            531,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            531,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            564,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            531,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            582,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            582,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset to default value",
+          "box": [
+            658,
+            596,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            582,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            582,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            633,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            633,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset to default value",
+          "box": [
+            658,
+            647,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            633,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            633,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            684,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            684,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset to default value",
+          "box": [
+            658,
+            698,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            684,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            684,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Position",
+          "box": [
+            715,
+            735,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "X",
+          "value": "100%",
+          "box": [
+            814,
+            333,
+            114,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            803,
+            333,
+            136,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            803,
+            366,
+            136,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            803,
+            333,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "X",
+          "box": [
+            895,
+            333,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Y",
+          "value": "100%",
+          "box": [
+            956,
+            333,
+            114,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            945,
+            333,
+            136,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            945,
+            366,
+            136,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            945,
+            333,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Y",
+          "box": [
+            1037,
+            333,
+            44,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone second flows": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ],
+        "Scale": [
+          "120%",
+          "100%"
+        ],
+        "Offset": [
+          "5px",
+          "0px"
+        ],
+        "Skew": [
+          "3°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.2, 0, 0.0628893, 1, 5, 0)",
+        "origin": "376.656px 199px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 15px",
+        "rx": null,
+        "tagName": "path",
+        "inner": [
+          464.5,
+          199
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 5px; --translate-y: 0px; --rotation: 0deg; --scale-x: 120%; --scale-y: 100%; --skew-x: 3deg; --skew-y: 0deg; --origin-x: 100%; --origin-y: 100%;"
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            483,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            545,
+            299,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            735,
+            309,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": false,
+          "box": [
+            733,
+            376.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            588,
+            480,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            480,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            513,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            480,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0°",
+          "box": [
+            588,
+            531,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            531,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            564,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            531,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            582,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            582,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset to default value",
+          "box": [
+            658,
+            596,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            582,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            582,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            633,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            633,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset to default value",
+          "box": [
+            658,
+            647,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            633,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            633,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            684,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            684,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset to default value",
+          "box": [
+            658,
+            698,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            684,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            684,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Position",
+          "box": [
+            715,
+            735,
+            44,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": {
+    "perLayout": "Anchor, Thickness and Corner set on a phone stay on the phone: Top Left gives origin 0 0, desktop keeps its centre. S gives 2px, desktop has no stroke. Corner field 12px, desktop 0px.",
+    "flows": "Desktop Scale, Offset, Skew, Anchor Bottom Right and Thickness L reach a phone that set none of them; the origin scales with the phone box (376.656 199). Desktop corner 8 shows rounded on the phone in phone-second.png; no number read for it because a stroked rectangle is a path.",
+    "phoneMarks": "New fact. On a phone, the label of a row the phone set has a dotted underline (Anchor, Stroke, Thickness, Color, Stroke Color). A row following desktop has none.",
+    "phoneButton": "New fact. On a phone only, a button with no label sits right of the Animation tab, showing a monitor and an arrow. Dark while the block has phone values, grey with none. No tooltip on hover. Not pressed: not covered by the ruling."
+  },
+  "ours": "No dotted label and no such button in ours. Ours has no Anchor control. Corner and Color are one value per block.",
+  "differs": [
+    "Anchor: ours has no control.",
+    "Dotted label on phone rows: not in ours.",
+    "Phone button: not in ours.",
+    "Corner on a phone: ours writes one value for both layouts."
+  ]
+}
