@@ -65,11 +65,11 @@ export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = fal
     // Phone view (oracle screenshot): the canvas is 428 wide in the middle; Layers sits 68px left
     // of it and the card 22px right of it, both at the same height as on desktop.
     const top = Math.max(sec.top, headerBottom);
-    const cardTop = Math.max(top, 0) + 21.3;
+    const cardTop = Math.max(top, 0) + 22;
     const midX = sec.left + sec.width / 2 - 111.1 / 2;
     return {
       outline: { left: ox + sec.left, top: oy + sec.top, width: sec.width, height: sec.height },
-      layers: { left: ox - 68, top: oy + Math.max(top, 0) + 21.3 },
+      layers: { left: ox - 68, top: oy + Math.max(top, 0) + 22 },
       card: { left: ox + frame.width + 22, top: oy + cardTop },
       'add-top': { left: ox + midX, top: oy + Math.max(sec.top, headerBottom) - 18 },
       'add-bottom': { left: ox + midX, top: oy + sec.bottom - 18 },
@@ -77,12 +77,12 @@ export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = fal
       ...(grid ? { rows: { left: ox + grid.right - 88, top: oy + grid.bottom - 16 } } : {}),
     };
   }
-  const top = Math.max(sec.top, headerBottom);
-  // 21.3 below the section's top or the canvas's top, whichever is lower, and past the section's
-  // bottom if it comes to that (parity/findings/SECTIONBAR.json, sticky). The oracle lands on whole
-  // pixels, so its Edit Section reads 27.5 to 29.2 below the top depending on the section.
-  const cardTop = Math.max(top, 0) + 21.3;
-  const leftTop = Math.max(top, 0) + 25.3;
+  // 22 below the section's top or the canvas's top, whichever is lower, and past the section's bottom
+  // if it comes to that. As with Add Section, the top is the sum of the rounded heights above, so
+  // Edit Section reads 27.5 to 29.2 below the true top (parity/findings/SECTIONBAR.json, sticky).
+  const top = Math.max(sec.top + drift[0], headerBottom);
+  const cardTop = Math.max(top, 0) + 22;
+  const leftTop = Math.max(top, 0) + 26;
   const midX = sec.left + sec.width / 2 - 111.1 / 2;
   return {
     outline: { left: ox + sec.left, top: oy + sec.top, width: sec.width, height: sec.height },
@@ -112,7 +112,8 @@ export function sectionPanelTop({ edit, H, secTop, secBottom, prev = null }) {
   // It stays inside its section, but never above the section's top or the window's. A short section
   // lets it hang out by more: 121 under the section's top at 562 tall, 134 at 603.1 (CAP-VIEWLAYOUTS.json).
   const inside = Math.max(secBottom + 1 - 476, secTop + 121 + 0.316 * (secBottom - secTop - 562));
-  return p > inside ? Math.max(secTop, 0, inside) : p;
+  // The oracle's panel reads whole pixels.
+  return Math.round(p > inside ? Math.max(secTop, 0, inside) : p);
 }
 
 // The Edit Section panel (U9), drawn like the oracle's (parity/findings/PANEL.json,
