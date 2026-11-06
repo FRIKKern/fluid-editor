@@ -29,7 +29,7 @@ import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
 import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
-import { newField, writeFieldText, writeFieldSet } from './form-fields.js';
+import { newField, writeFieldText, writeFieldSet, postOf } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
 const $ = (id) => document.getElementById(id);
@@ -1446,7 +1446,7 @@ function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
-  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; accView = null; imageView = null; ffView = null; fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; accView = null; imageView = null; ffView = null; showFormPost(null); fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'image' || b.mode !== 'shape' || designTab !== 'Design') imageView = null; // undo can leave Shape
   if (b.type !== 'image' || b.empty || designTab !== 'Design') fxView = null;
   if (fxView === 'settings' && !b.effect) fxView = 'list'; // undo can take the effect away
@@ -1458,12 +1458,13 @@ function renderBlockPanel() {
     : b.type === 'line' ? { kind: 'line' }
     : b.type === 'social' ? (() => { const l = socialLook(b, bp === 'mobile'); return { kind: 'social', links: socialList(), err: socErr, iconBorder: l.iconBorder, iconStyle: l.iconStyle, iconThick: l.iconThick, iconSize: l.iconSize, align: l.align }; })()
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
-    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', buttonAlign: b.buttonAlign || 'left', highlight: b.highlight || 'none', fihOpen, fields: b.fields || [] }
+    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', buttonAlign: b.buttonAlign || 'left', highlight: b.highlight || 'none', fihOpen, fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
   if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffView?.startsWith('ff-edit:') && !b.fields?.[Number(ffView.slice(8))]) ffView = 'ff-list'; // undo can take the field away
-  if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt]')) return; // keep a field being typed in
+  showFormPost(b);
+  if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || '#ffffff' } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: parseFloat(b.radius) || 0, corners: b.corners, empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
@@ -2040,24 +2041,35 @@ function fitForm(b, s) {
   if (need < rows) s.rows[bp] -= low - lowest(); else growRows(s);
   renderSectionDom(sel.sid);
 }
-function setForm(change, label) {
+function setForm(change, label, fit = true) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   b.fields ||= [];
   change(b);
   renderSectionDom(sel.sid);
-  fitForm(b, S(sel.sid));
+  if (fit) fitForm(b, S(sel.sid));
   commit(before, label);
   renderBlockPanel();
   blockPanel.scrollTop = Math.min(blockPanel.scrollTop, blockPanel.scrollHeight);
 }
 const ffField = (b) => b.fields[Number(ffView.slice(8))];
+// While Edit Post-Submit is open the block shows what comes after a submit (FORMFIELDS.json, postSubmit).
+function showFormPost(b) {
+  const on = b?.type === 'form' && ffView === 'ff-post' ? blockEl(b.id)?.querySelector('.form-wrapper') : null;
+  for (const w of on ? [on] : doc?.querySelectorAll('.form-wrapper.is-post-view') || []) w.classList.toggle('is-post-view', !!on);
+  if (on) for (const w of doc.querySelectorAll('.form-wrapper.is-post-view')) if (w !== on) w.classList.remove('is-post-view');
+}
+const setPost = (k, v, label) => setForm((b) => { b.post = { ...b.post, [k]: v }; }, label, false); // the block's rows stay: read
 function showFf(view) { ffView = view; renderBlockPanel(); blockPanel.scrollTop = 0; }
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-ff]');
   if (!a || !sel || e.target.closest('.bp-ff-grip')) return;
   const [act, arg] = a.dataset.ff.split(':'), n = Number(arg);
   if (act === 'list') showFf('ff-list');
-  else if (act === 'back') showFf(ffView === 'ff-list' ? null : 'ff-list');
+  else if (act === 'post') showFf('ff-post');
+  else if (act === 'post-mode') setPost('redirect', arg === 'redirect', 'After Submission');
+  else if (act === 'post-align') setPost('align', arg, 'Message alignment');
+  else if (act === 'post-position') setPost('position', arg, 'Message position');
+  else if (act === 'back') { closeLinkPopover(); showFf(ffView === 'ff-list' || ffView === 'ff-post' ? null : 'ff-list'); }
   else if (act === 'add') showFf('ff-add');
   else if (act === 'edit') showFf(`ff-edit:${n}`);
   else if (act === 'tile') { ffView = 'ff-list'; setForm((b) => b.fields.push(newField(arg)), `${arg} field added`); blockPanel.scrollTop = 0; }
@@ -2068,6 +2080,16 @@ blockPanel.addEventListener('click', (e) => {
 });
 // A typed value shows at once and makes its undo step when the field is left.
 blockPanel.addEventListener('input', (e) => {
+  const q = e.target.closest('[data-ff-post]');
+  if (q && sel) {
+    ffBefore ??= JSON.stringify(model);
+    const b = B(sel.sid, sel.bid);
+    b.post = { ...b.post, [q.dataset.ffPost]: q.value };
+    renderSectionDom(sel.sid);
+    showFormPost(b);
+    if (q.dataset.ffPost === 'html') blockPanel.querySelector('.bp-ffp-code .bp-code-lines').innerHTML = Array.from({ length: Math.max(1, q.value.split('\n').length) }, (_, n) => n + 1).join('<br>');
+    return;
+  }
   const t = e.target.closest('[data-ff-field],[data-ff-opt]');
   if (!t || !sel || !ffView?.startsWith('ff-edit:')) return;
   ffBefore ??= JSON.stringify(model);
@@ -2078,6 +2100,12 @@ blockPanel.addEventListener('input', (e) => {
   if (t.dataset.ffField === 'label') blockPanel.querySelector('.bp-ff-title').textContent = t.value;
 });
 blockPanel.addEventListener('change', (e) => {
+  if (sel && e.target.closest('[data-ff-post]')) {
+    const before = ffBefore;
+    ffBefore = null;
+    if (before) commit(before, 'Post-submit changed');
+    return;
+  }
   if (!sel || !ffView?.startsWith('ff-edit:')) return;
   if (e.target.closest('[data-ff-field],[data-ff-opt]')) {
     const before = ffBefore;
@@ -2803,6 +2831,15 @@ function siteLinkGroups() {
 }
 function onLinkAction(act, el) {
   const b = B(sel.sid, sel.bid);
+  // A form's redirect (FORMFIELDS.json, postSubmit): the same link menu, read as far as its list.
+  if (b.type === 'form') {
+    const href = postOf(b).href;
+    if (act === 'copy') { navigator.clipboard?.writeText(href).catch(() => {}); note('Link copied'); updateUi(); return; }
+    if (act === 'remove') { closeLinkPopover(); setPost('href', '', 'Link removed'); return; }
+    const panelBox = blockPanel.getBoundingClientRect(), box = el.getBoundingClientRect();
+    openLinkPopover(b, (st, height) => linkPopoverPosition(panelBox, box, st, height), { href, newTab: !!postOf(b).newTab, apply: (v) => setPost('href', v, v ? 'Link set' : 'Link removed'), setNewTab: (on) => { if (on !== !!postOf(B(sel.sid, sel.bid)).newTab) setPost('newTab', on, 'Link new tab'); } });
+    return;
+  }
   if (act === 'copy') { navigator.clipboard?.writeText(b.href || '').catch(() => {}); note('Link copied'); updateUi(); return; }
   if (act === 'remove') { closeLinkPopover(); setButton((x) => { delete x.href; delete x.newTab; }, 'Link removed'); return; }
   // open or edit: the panel is redrawn while the editor is open, so the place is read once.

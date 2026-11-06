@@ -444,6 +444,20 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .fe-form .form-signup label { display: inline-flex; align-items: center; gap: 11px; }
 .fe-form label.title .req { margin-left: 8.768px; line-height: 1; font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); opacity: .7; }
 .fe-form .caption-row .req { margin-left: .548em; line-height: 1; opacity: .7; }
+/* After a submit (parity/findings/FORMFIELDS.json, postSubmit): the form keeps its place and sets the height. */
+.form-wrapper { display: grid; grid-template-columns: minmax(0, 1fr); }
+.form-wrapper > * { grid-area: 1 / 1; }
+.form-post { display: none; flex-direction: column; font-size: 16px; line-height: 22.4px; }
+.form-post--middle { justify-content: center; }
+.form-post--bottom { justify-content: flex-end; }
+.form-submission-text { margin-top: 20px; }
+.form-submission-text--align-center { text-align: center; }
+.form-submission-text--align-right { text-align: right; }
+.form-submission-text p { margin: 16px 0; }
+.form-wrapper.is-post-view > .form-post, .form-wrapper.is-submitted > .form-post { display: flex; }
+.form-wrapper.is-post-view > .fe-form, .form-wrapper.is-submitted > .fe-form { visibility: hidden; }
+/* The oracle's view leaves the button's word showing, and only that. */
+.form-wrapper.is-post-view > .fe-form .form-submit { visibility: visible; background: transparent; box-shadow: none; pointer-events: none; }
 /* The kinds a form can add (parity/findings/FORMFIELDS.json). */
 .fe-form legend .req { margin-left: 8.768px; line-height: 1; font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); opacity: .7; }
 .fe-form .description { margin: 0 0 4px; padding: 7.04px 0; line-height: 1.4em; opacity: .7; }
