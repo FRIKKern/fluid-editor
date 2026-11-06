@@ -2361,10 +2361,13 @@ function codeHeight(b) {
   const c = blockEl(b.id)?.querySelector(b.type === 'code' ? '.sqs-code-container' : '.sqs-embed-container');
   if (!c) return 0;
   if (b.type === 'code') return c.offsetHeight;
+  // Its elements' boxes, or a range for bare text: a range counts the text's own 23px runs, 1px over ten paragraphs.
+  const kids = [...c.children].map((e) => e.getBoundingClientRect());
   const range = doc.createRange();
   range.selectNodeContents(c);
+  const inner = kids.length ? Math.max(...kids.map((r) => r.bottom)) - Math.min(...kids.map((r) => r.top)) : range.getBoundingClientRect().height;
   const margin = (e, side) => (e ? parseFloat(getComputedStyle(e)[side]) || 0 : 0);
-  return Math.round(range.getBoundingClientRect().height + margin(c.firstElementChild, 'marginTop') + margin(c.lastElementChild, 'marginBottom'));
+  return Math.round(inner + margin(c.firstElementChild, 'marginTop') + margin(c.lastElementChild, 'marginBottom'));
 }
 // Inferred from those readings. A height takes ceil((height + gap - 1) / pitch) rows, and a fall gives
 // up the same sum of the fall. A rise takes what it needs. A fall from a block that doesn't have more
