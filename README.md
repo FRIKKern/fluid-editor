@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 32 changes
+- **Today** · 33 changes
+  - G4, X6, X11, X13, U3, U4: back to partial, new reads show parts that differ ([#211](https://github.com/FRIKKern/fluid-editor/pull/211))
   - G4, X6, X11, X13, U3, U4: read phones, margins, pulls on 12 types, fast touches, boxes with a selection, hover labels, and the toolbar with no room above ([#210](https://github.com/FRIKKern/fluid-editor/pull/210))
-  - T10: code and embed rows follow the content's height, on rises, falls and closing the view; plain source pre ([#208](https://github.com/FRIKKern/fluid-editor/pull/208))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
