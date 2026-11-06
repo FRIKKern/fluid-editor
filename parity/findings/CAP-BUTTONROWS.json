@@ -2,7 +2,7 @@
   "item": "U12",
   "kind": "site styles: a button type's rows",
   "date": "2026-11-05",
-  "how": "Headless Chrome, 1600 by 1000. A section with one Button block on a page made for the probe, nothing saved, left through Exit Without Saving; site styles read back the same after a reload. No Undo: each pick overwrites the last. Reset was never pressed.",
+  "how": "Headless Chrome, 1600 by 1000. A section with one Button block on a page made for the probe, nothing saved, left through Exit Without Saving; after a reload a script compared Light 1 and Darkest 1 on 306 of 313 rows, and the palette was printed, not compared by code. Button and font pack values were not read back. Its filter hid the same 7 theme rows as CAP-THEMEROWS. On 2026-11-06 oracle-readback.mjs read all 313 rows on ten themes and each button type: the same, and Font, Shape, Outline and custom padding match defaultsEachType on all three. No Undo: each pick overwrites the last. Reset was never pressed.",
   "boxes": {
     "cards": [
       [

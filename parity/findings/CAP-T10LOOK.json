@@ -1,0 +1,2414 @@
+{
+  "item": "CAP-T10LOOK",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: the Markdown editor: the look of each kind of mark, the active line, the selection, a wrapped line",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "empty",
+      {
+        "panelCss": ".cm-editor, .cm-scroller, .cm-content, .cm-gutters, .cm-gutterElement, .cm-line, .cm-line span, .cm-selectionBackground, .cm-placeholder"
+      }
+    ],
+    [
+      "shot",
+      "look-empty"
+    ],
+    [
+      "setCode",
+      "# h1\n## h2\nplain **bold** *ital* `code` [a](/x) ~~del~~\n* item\n1. item\n> quote\n---\n```js\nfence\n```\n<b>html</b>\n![i](/y)\n[r]: /z"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "marks",
+      {
+        "panelCss": ".cm-editor, .cm-scroller, .cm-content, .cm-gutters, .cm-gutterElement, .cm-line, .cm-line span, .cm-selectionBackground, .cm-placeholder"
+      }
+    ],
+    [
+      "shot",
+      "look-marks"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "selected",
+      {
+        "panelCss": ".cm-selectionBackground, .cm-activeLine, .cm-activeLineGutter"
+      }
+    ],
+    [
+      "shot",
+      "look-selected"
+    ],
+    [
+      "setCode",
+      "a long line of words that runs on for much longer than the width of this editor panel can hold on one line so that it has to wrap\nnext"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "wrapped",
+      {
+        "panelCss": ".cm-line, .cm-gutterElement, .cm-activeLine, .cm-activeLineGutter"
+      }
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "caret on the second",
+      {
+        "panelCss": ".cm-line, .cm-activeLine, .cm-activeLineGutter"
+      }
+    ],
+    [
+      "shot",
+      "look-wrapped"
+    ],
+    [
+      "setCode",
+      "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "many lines",
+      {
+        "panelCss": ".cm-scroller, .cm-gutters"
+      }
+    ],
+    [
+      "shot",
+      "look-many"
+    ],
+    [
+      "clickAt",
+      700,
+      329
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "focus away",
+      {
+        "panelCss": ".cm-activeLine, .cm-activeLineGutter, .cm-content"
+      }
+    ],
+    [
+      "shot",
+      "look-away"
+    ]
+  ],
+  "reads": {
+    "empty": {
+      "panelCss": [
+        {
+          "cls": "cm-editor ͼ1 ͼ2 ͼ4 ͼ3u",
+          "text": "91›Add markdown…",
+          "box": [
+            365,
+            412,
+            531,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(242, 242, 242)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-scroller",
+          "text": "91›Add markdown…",
+          "box": [
+            365,
+            412,
+            531,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutters cm-gutters-before",
+          "text": "91›",
+          "box": [
+            365,
+            412,
+            31.4,
+            344
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgb(242, 242, 242)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "9",
+          "box": [
+            365,
+            412,
+            20,
+            0
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement cm-activeLineGutter",
+          "text": "1",
+          "box": [
+            365,
+            423,
+            20,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "›",
+          "box": [
+            385,
+            412,
+            10.4,
+            0
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement cm-activeLineGutter",
+          "text": "",
+          "box": [
+            385,
+            423,
+            10.4,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-content cm-lineWrapping",
+          "text": "Add markdown…",
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "Add markdown…",
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-placeholder",
+          "text": "Add markdown…",
+          "box": [
+            402.4,
+            423,
+            109.6,
+            22
+          ],
+          "color": "rgb(136, 136, 136)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "marks": {
+      "panelCss": [
+        {
+          "cls": "cm-editor cm-focused ͼ1 ͼ2 ͼ4 ͼ3u",
+          "text": "9912345678910111213›⌄⌄⌄⌄# h1## h2plain *",
+          "box": [
+            365,
+            412,
+            531,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(242, 242, 242)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-scroller",
+          "text": "9912345678910111213›⌄⌄⌄⌄# h1## h2plain *",
+          "box": [
+            365,
+            412,
+            531,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutters cm-gutters-before",
+          "text": "9912345678910111213›⌄⌄⌄⌄",
+          "box": [
+            365,
+            412,
+            37.3,
+            344
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgb(242, 242, 242)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "99",
+          "box": [
+            365,
+            412,
+            25.9,
+            0
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "1",
+          "box": [
+            365,
+            423,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "2",
+          "box": [
+            365,
+            445,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "3",
+          "box": [
+            365,
+            467,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "4",
+          "box": [
+            365,
+            489,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "5",
+          "box": [
+            365,
+            511,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "6",
+          "box": [
+            365,
+            533,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "7",
+          "box": [
+            365,
+            555,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "8",
+          "box": [
+            365,
+            577,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "9",
+          "box": [
+            365,
+            599,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "10",
+          "box": [
+            365,
+            621,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "11",
+          "box": [
+            365,
+            643,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "12",
+          "box": [
+            365,
+            665,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement cm-activeLineGutter",
+          "text": "13",
+          "box": [
+            365,
+            687,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "›",
+          "box": [
+            390.9,
+            412,
+            10.4,
+            0
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "⌄",
+          "box": [
+            390.9,
+            423,
+            10.4,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "⌄",
+          "box": [
+            390.9,
+            445,
+            10.4,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "⌄",
+          "box": [
+            390.9,
+            577,
+            10.4,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "⌄",
+          "box": [
+            390.9,
+            643,
+            10.4,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement cm-activeLineGutter",
+          "text": "",
+          "box": [
+            390.9,
+            687,
+            10.4,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "text": "# h1## h2plain **bold** *ital* `code` [a",
+          "box": [
+            402.3,
+            412,
+            493.7,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line",
+          "text": "# h1",
+          "box": [
+            402.3,
+            423,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-heading ͼ8 tok-meta ͼ6",
+          "text": "#",
+          "box": [
+            408.3,
+            426,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "700",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-heading ͼ8",
+          "text": " h1",
+          "box": [
+            416.7,
+            426,
+            25.3,
+            16
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "700",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line",
+          "text": "## h2",
+          "box": [
+            402.3,
+            445,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-heading ͼ8 tok-meta ͼ6",
+          "text": "##",
+          "box": [
+            408.3,
+            448,
+            16.9,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "700",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-heading ͼ8",
+          "text": " h2",
+          "box": [
+            425.2,
+            448,
+            25.3,
+            16
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "700",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line",
+          "text": "plain **bold** *ital* `code` [a](/x) ~~d",
+          "box": [
+            402.3,
+            467,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-strong ͼa tok-meta ͼ6",
+          "text": "**",
+          "box": [
+            458.9,
+            470,
+            16.9,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "700",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-strong ͼa",
+          "text": "bold",
+          "box": [
+            475.7,
+            470,
+            33.7,
+            16
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "700",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-strong ͼa tok-meta ͼ6",
+          "text": "**",
+          "box": [
+            509.5,
+            470,
+            16.9,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "700",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-emphasis ͼ9 tok-meta ͼ6",
+          "text": "*",
+          "box": [
+            534.8,
+            470,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "italic",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-emphasis ͼ9",
+          "text": "ital",
+          "box": [
+            543.2,
+            470,
+            33.7,
+            16
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "italic",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-emphasis ͼ9 tok-meta ͼ6",
+          "text": "*",
+          "box": [
+            576.9,
+            470,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "italic",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-meta ͼ6",
+          "text": "`",
+          "box": [
+            593.8,
+            470,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-meta ͼ6",
+          "text": "`",
+          "box": [
+            635.9,
+            470,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7 tok-meta ͼ6",
+          "text": "[",
+          "box": [
+            652.8,
+            470,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7",
+          "text": "a",
+          "box": [
+            661.3,
+            470,
+            8.4,
+            16
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7 tok-meta ͼ6",
+          "text": "]",
+          "box": [
+            669.7,
+            470,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7 tok-meta ͼ6",
+          "text": "(",
+          "box": [
+            678.1,
+            470,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7 tok-url ͼd",
+          "text": "/x",
+          "box": [
+            686.6,
+            470,
+            16.9,
+            16
+          ],
+          "color": "rgb(34, 17, 153)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7 tok-meta ͼ6",
+          "text": ")",
+          "box": [
+            703.4,
+            470,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line",
+          "text": "* item",
+          "box": [
+            402.3,
+            489,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-meta ͼ6",
+          "text": "*",
+          "box": [
+            408.3,
+            492,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line",
+          "text": "1. item",
+          "box": [
+            402.3,
+            511,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-meta ͼ6",
+          "text": "1.",
+          "box": [
+            408.3,
+            514,
+            16.9,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line",
+          "text": "> quote",
+          "box": [
+            402.3,
+            533,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-meta ͼ6",
+          "text": ">",
+          "box": [
+            408.3,
+            536,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line",
+          "text": "---",
+          "box": [
+            402.3,
+            555,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "ͼd",
+          "text": "---",
+          "box": [
+            408.3,
+            558,
+            25.3,
+            16
+          ],
+          "color": "rgb(34, 17, 153)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line",
+          "text": "```js",
+          "box": [
+            402.3,
+            577,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-meta ͼ6",
+          "text": "```",
+          "box": [
+            408.3,
+            580,
+            25.3,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-labelName ͼd",
+          "text": "js",
+          "box": [
+            433.6,
+            580,
+            16.9,
+            16
+          ],
+          "color": "rgb(34, 17, 153)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line",
+          "text": "fence",
+          "box": [
+            402.3,
+            599,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line",
+          "text": "```",
+          "box": [
+            402.3,
+            621,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-meta ͼ6",
+          "text": "```",
+          "box": [
+            408.3,
+            624,
+            25.3,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line",
+          "text": "<b>html</b>",
+          "box": [
+            402.3,
+            643,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-punctuation",
+          "text": "<",
+          "box": [
+            408.3,
+            646,
+            8.4,
+            16
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-typeName ͼj",
+          "text": "b",
+          "box": [
+            416.7,
+            646,
+            8.4,
+            16
+          ],
+          "color": "rgb(0, 136, 85)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-punctuation",
+          "text": ">",
+          "box": [
+            425.2,
+            646,
+            8.4,
+            16
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-punctuation",
+          "text": "</",
+          "box": [
+            467.3,
+            646,
+            16.9,
+            16
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-typeName ͼj",
+          "text": "b",
+          "box": [
+            484.2,
+            646,
+            8.4,
+            16
+          ],
+          "color": "rgb(0, 136, 85)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-punctuation",
+          "text": ">",
+          "box": [
+            492.6,
+            646,
+            8.4,
+            16
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line",
+          "text": "![i](/y)",
+          "box": [
+            402.3,
+            665,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7 tok-meta ͼ6",
+          "text": "![",
+          "box": [
+            408.3,
+            668,
+            16.9,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7",
+          "text": "i",
+          "box": [
+            425.2,
+            668,
+            8.4,
+            16
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7 tok-meta ͼ6",
+          "text": "]",
+          "box": [
+            433.6,
+            668,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7 tok-meta ͼ6",
+          "text": "(",
+          "box": [
+            442,
+            668,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7 tok-url ͼd",
+          "text": "/y",
+          "box": [
+            450.5,
+            668,
+            16.9,
+            16
+          ],
+          "color": "rgb(34, 17, 153)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7 tok-meta ͼ6",
+          "text": ")",
+          "box": [
+            467.3,
+            668,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "[r]: /z",
+          "box": [
+            402.3,
+            687,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7 tok-meta ͼ6",
+          "text": "[",
+          "box": [
+            408.3,
+            690,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7",
+          "text": "r",
+          "box": [
+            416.7,
+            690,
+            8.4,
+            16
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "tok-link ͼ7 tok-meta ͼ6",
+          "text": "]",
+          "box": [
+            425.2,
+            690,
+            8.4,
+            16
+          ],
+          "color": "rgb(64, 71, 64)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "underline",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "selected": {
+      "panelCss": [
+        {
+          "cls": "cm-gutterElement cm-activeLineGutter",
+          "text": "13",
+          "box": [
+            365,
+            687,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement cm-activeLineGutter",
+          "text": "",
+          "box": [
+            390.9,
+            687,
+            10.4,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "[r]: /z",
+          "box": [
+            402.3,
+            687,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-selectionBackground",
+          "text": "",
+          "box": [
+            408.3,
+            426,
+            485.7,
+            16
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(215, 212, 240)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-selectionBackground",
+          "text": "",
+          "box": [
+            408.3,
+            442,
+            485.7,
+            248
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(215, 212, 240)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-selectionBackground",
+          "text": "",
+          "box": [
+            408.3,
+            690,
+            59,
+            16
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(215, 212, 240)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "wrapped": {
+      "panelCss": [
+        {
+          "cls": "cm-gutterElement",
+          "text": "9",
+          "box": [
+            365,
+            412,
+            20,
+            0
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement cm-activeLineGutter",
+          "text": "1",
+          "box": [
+            365,
+            423,
+            20,
+            66
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "2",
+          "box": [
+            365,
+            489,
+            20,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement",
+          "text": "›",
+          "box": [
+            385,
+            412,
+            10.4,
+            0
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement cm-activeLineGutter",
+          "text": "⌄",
+          "box": [
+            385,
+            423,
+            10.4,
+            66
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "a long line of words that runs on for mu",
+          "box": [
+            396.4,
+            423,
+            499.6,
+            66
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line",
+          "text": "next",
+          "box": [
+            396.4,
+            489,
+            499.6,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "caret on the second": {
+      "panelCss": [
+        {
+          "cls": "cm-gutterElement cm-activeLineGutter",
+          "text": "2",
+          "box": [
+            365,
+            489,
+            20,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement cm-activeLineGutter",
+          "text": "",
+          "box": [
+            385,
+            489,
+            10.4,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line",
+          "text": "a long line of words that runs on for mu",
+          "box": [
+            396.4,
+            423,
+            499.6,
+            66
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "next",
+          "box": [
+            396.4,
+            489,
+            499.6,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "many lines": {
+      "panelCss": [
+        {
+          "cls": "cm-scroller",
+          "text": "9912345678910111213141516171819202122232",
+          "box": [
+            365,
+            412,
+            531,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutters cm-gutters-before",
+          "text": "9912345678910111213141516171819202122232",
+          "box": [
+            365,
+            83,
+            37.3,
+            682
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgb(242, 242, 242)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "focus away": {
+      "panelCss": [
+        {
+          "cls": "cm-gutterElement cm-activeLineGutter",
+          "text": "30",
+          "box": [
+            365,
+            732,
+            25.9,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-gutterElement cm-activeLineGutter",
+          "text": "",
+          "box": [
+            390.9,
+            732,
+            10.4,
+            22
+          ],
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-content cm-lineWrapping",
+          "text": "1234567891011121314151617181920212223242",
+          "box": [
+            402.3,
+            83,
+            493.7,
+            682
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "30",
+          "box": [
+            402.3,
+            732,
+            493.7,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "The Markdown editor is 531 by 344 on rgb(242, 242, 242). Numbers rgb(102, 102, 102), right aligned in a column 20 wide for one digit and 25.9 for two, beside a 10.4 fold column, so the gutter is 31.4 or 37.3 and the text moves right with it. Text starts 11 below the top and 6 in from the gutter; lines are 22. The band is rgba(211, 211, 211, 0.267) on the line and both gutter columns, covers a whole wrapped line under one number (66 for three rows), shows on the empty field and stays when focus leaves. Placeholder rgb(136, 136, 136). A selection is rgb(215, 212, 240) in up to three pieces: 16 tall on its first row, down to the last row, then 16 tall on the last, as wide as the editor but for the last, with the text over it. Marks rgb(64, 71, 64); url, a --- line and a fence's language rgb(34, 17, 153); tag names rgb(0, 136, 85); brackets plain. A heading is bold and underlined, marks too. Strong bold, emphasis italic, both with their marks. Backticks are marks and what they hold is plain. A link or image is underlined throughout, its text plain, its url blue. In [r]: /z only the [r] is a link. A list mark and a quote's > are marks, the text after has no span. ~~del~~ has no spans. Seen, not measured: a fold chevron in the fold column on headings, fences and HTML lines. With everything selected over mixed lines Bold and Italic dim: the cause is unread."
+}

@@ -1351,4 +1351,4 @@ if (which === 'KEYS') {
 
 // O1: nothing a probe did survives. The reload some probes end with has already dropped it, then
 // this finds nothing to do.
-try { await exitWithoutSaving(); } catch {}
+try { await exitWithoutSaving(); } catch (e) { console.error(e.message); }

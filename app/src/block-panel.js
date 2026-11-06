@@ -84,12 +84,32 @@ export const CODE_MODES = [['CSS', 'css'], ['HTML', 'html'], ['JavaScript', 'jav
 export const CODE_PANEL_WIDTH = 575;
 const EXPAND = `<button type="button" class="bp-code-expand" data-code-expand aria-label="Expand">${pi('<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>')}</button>`;
 const codeEditor = (key, value, placeholder = '', expand = false) => `<div class="bp-code">${expand ? EXPAND : ''}<div class="bp-code-lines" aria-hidden="true">${Array.from({ length: Math.max(1, String(value || '').split('\n').length) }, (_, n) => n + 1).join('<br>')}</div><textarea spellcheck="false" aria-label="Code" data-content="${key}" placeholder="${placeholder}">${esc(value || '')}</textarea></div>`;
+// The editors with a look of their own (CAP-T10LOOK.json): a band on the caret's line, a layer of colours over a field whose
+// own text is clear, wrapped lines on HTML and Markdown. editor.js paints them.
+const lookEditor = (key, value, lang, placeholder = '', expand = false) => `<div class="bp-code is-look${lang === 'html' || lang === 'markdown' ? ' is-wrap' : ''}" data-lang="${lang}">${expand ? EXPAND : ''}<div class="bp-code-lines" aria-hidden="true"></div><div class="bp-code-edit"><div class="bp-code-band"></div><div class="bp-code-sel"></div><textarea spellcheck="false" aria-label="Code" data-content="${key}" placeholder="${placeholder}">${esc(value || '')}</textarea><div class="bp-code-hl" aria-hidden="true"></div></div></div>`;
 function codeContentHtml(c, expand = true) {
   return `<div class="bp-code-top"><label class="bp-field bp-code-mode"><span class="bp-flabel">Mode</span><select aria-label="Mode" data-content="codeMode">${CODE_MODES.map(([l, v]) => `<option value="${v}"${c.mode === v ? ' selected' : ''}>${l}</option>`).join('')}</select></label>`
     + `<div class="sp-row bp-code-source${c.mode === 'html' || c.mode === 'markdown' ? '' : ' is-locked'}"><span class="sp-label">Display Source Code</span><label class="sp-switch"><input type="checkbox" aria-label="Display Source Code" data-content="showSource" ${c.showSource ? 'checked' : ''}${c.mode === 'html' || c.mode === 'markdown' ? '' : ' disabled'}><span aria-hidden="true"></span></label></div></div>`
-    + codeEditor('code', c.html, '', expand);
+    + lookEditor('code', c.html, c.mode, '', expand);
 }
 export const codeModalHtml = (c) => `<div class="code-modal-scrim" data-code-modal="close"></div><div class="code-modal-box" role="dialog" aria-label="Code Editor"><div class="code-modal-head"><button type="button" class="code-modal-close" data-code-modal="close">Close</button><span>Code Editor</span></div>${codeContentHtml(c, false)}</div>`;
+
+// Content tab of a Markdown block (CAP-T10PRE.json, CAP-T10MD3.json): a toolbar over the editor, Expand, and
+// the note. Expand opens the same toolbar and editor in the Code Editor view. The cheatsheet is our own note.
+const MD_ICONS = {
+  bold: '<path d="M7 5h6.5a3.5 3.5 0 0 1 0 7H7zM7 12h7.5a3.5 3.5 0 0 1 0 7H7z" stroke-width="3"/>',
+  italic: '<path d="M10 5h7M7 19h7M13.5 5l-3 14"/>',
+  link: '<path d="M10 8H7a4 4 0 0 0 0 8h3M14 8h3a4 4 0 0 1 0 8h-3M8 12h8"/>',
+  bullet: '<path d="M9 6h12M9 12h12M9 18h12M4 6h.01M4 12h.01M4 18h.01" stroke-width="2.2"/>',
+  number: '<path d="M10 6h11M10 12h11M10 18h11M3.5 4.5 5 4v5M3 15h3l-3 4h3"/>',
+  quote: '<path d="M4 11h5v7H4zM4 11c0-3 1-4 4-5M14 11h5v7h-5zM14 11c0-3 1-4 4-5" fill="currentColor"/>',
+};
+const MD_HEADINGS = ['Paragraph', 'Heading 1', 'Heading 2', 'Heading 3', 'Heading 4'];
+const mdButton = (key, label, role = 'checkbox') => `<button type="button" role="${role}"${role === 'checkbox' ? ' aria-checked="false"' : ''} class="bp-md-btn" aria-label="${label}" data-md="${key}">${pi(MD_ICONS[key])}</button>`;
+const mdBar = () => `<div class="bp-md-bar"><div class="bp-md-head"><button type="button" class="bp-md-heading" aria-label="Heading" aria-expanded="false" data-md="heading"><span>Paragraph</span>${pi('<path d="M6 9l6 6 6-6"/>')}</button><div class="bp-md-list" hidden>${MD_HEADINGS.map((h, n) => `<button type="button" data-md-level="${n}">${h}</button>`).join('')}</div></div><i class="bp-md-sep"></i>${mdButton('bold', 'Bold')}${mdButton('italic', 'Italic')}${mdButton('link', 'Link', 'button')}<i class="bp-md-sep"></i>${mdButton('bullet', 'Bulleted List')}${mdButton('number', 'Numbered List')}<i class="bp-md-sep"></i>${mdButton('quote', 'Quote')}</div>`;
+const markdownContentHtml = (c) => mdBar() + lookEditor('markdown', c.text, 'markdown', 'Add markdown…', true) + '<p class="bp-md-note">New to Markdown? <a href="help-markdown.html" target="_blank" rel="noopener">See the syntax cheatsheet</a>.</p>';
+export const mdModalHtml = (text) => `<div class="code-modal-scrim" data-code-modal="close"></div><div class="code-modal-box is-md" role="dialog" aria-label="Code Editor"><div class="code-modal-head"><button type="button" class="code-modal-close" data-code-modal="close">Close</button><span>Code Editor</span></div>${mdBar()}${lookEditor('markdown', text, 'markdown', 'Add markdown…')}</div>`;
+export const mdLinkSummaryHtml = (href) => `<div class="lk-md-sum"><span class="lk-md-icon">${LINK_ICONS.url}</span><span class="lk-md-href">${esc(href)}</span></div><div class="lk-md-acts"><button type="button" data-md-link="edit">Edit</button><button type="button" data-md-link="copy">Copy</button><button type="button" data-md-link="remove">Remove Link</button></div>`;
 
 // Content tab of an embed block (CODEEMBED.json): Embed as Link or Code Snippet. A link goes
 // through a lookup service of the host, which we do not have, so every link ends in its error
@@ -457,7 +477,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   const box = ([k, l, u, min, max, axis]) => `<label class="bp-box sc-box"><input type="number" data-design="${k}" aria-label="${axis ? `${l} ${axis}` : l}" min="${min}" max="${max}" value="${d[k]}"><span class="bp-unit">${u}${axis ? ` <b>${axis}</b>` : ''}</span>${HITS}${resetBtn(`data-design-reset="${k}"`, Number(d[k]) !== DESIGN_DEFAULTS[k])}</label>`;
   let body;
   if (tab === 'Content' && content) {
-    body = image ? imageContentHtml(content) : content.kind === 'social' ? socialContentHtml(content, open) : content.kind === 'form' ? formContentHtml(content) : content.kind === 'map' ? mapContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
+    body = image ? imageContentHtml(content) : content.kind === 'social' ? socialContentHtml(content, open) : content.kind === 'form' ? formContentHtml(content) : content.kind === 'map' ? mapContentHtml(content) : content.kind === 'markdown' ? markdownContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
   } else if (tab === 'Design' && content?.kind === 'accordion') {
     body = accordionDesignHtml(content, open, d);
   } else if (tab === 'Design') {
@@ -535,7 +555,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   if (kid && tab === 'Design') body = kidSizeHtml(kid) + body;
   if (content?.kind === 'form' && tab === 'Design') body = formDesignHtml(content, open === 'bstyle') + body;
   if ((tab === 'Content' && (open === 'embed-data' || open?.startsWith('acc-item:') || open?.startsWith('soc-row:'))) || open === 'acc-dividers' || open === 'acc-title' || open === 'acc-desc') return `<div class="sp-body">${body}</div>`;
-  const tabs = content?.kind === 'accordion' ? ['Content', 'Design'] : content?.kind === 'line' ? ['Design', 'Animation'] : content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
+  const tabs = content?.kind === 'markdown' ? ['Content'] : content?.kind === 'accordion' ? ['Content', 'Design'] : content?.kind === 'line' ? ['Design', 'Animation'] : content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
   // The header is also the drag handle (U13): the oracle labels it Click and drag to reposition block editor form.
   return `<div class="bp-drag" role="button" aria-label="Click and drag to reposition block editor form" data-drag-panel></div><div class="sp-tabs" role="tablist">${tabs.map(tabBtn).join('')}</div><div class="sp-body">${body}</div>`;
 }

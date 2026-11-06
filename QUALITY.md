@@ -14,7 +14,7 @@ Two narrower checks run beside the gates:
 |---|---|---|
 | `scripts/color-diff.mjs` | Section background, heading, paragraph and button colors on each oracle page against ours | Equal for every section |
 | `npm run section-check` | Each Edit Section option measured on the oracle (`parity/findings/SETTINGS.json`, `VALIGN-TOP.json`, `FILL-SCREEN.json`) against our section with the same setting | Section height, wrapper padding and grid height within 1px, theme colors equal |
-| `npm run text-check` | The HTML of each text toolbar action on the oracle (`parity/findings/TEXTOPS.json`), the Custom color tab and the look of quotes, lists and monospace (`parity/findings/TEXTCOLOR.json`) against the same action in our editor | Equal after dropping a bare `white-space: pre-wrap` style |
+| `npm run text-check` | The HTML of each text toolbar action on the oracle (`parity/findings/TEXTOPS.json`), the Custom color tab and the look of quotes, lists and monospace (`parity/findings/TEXTCOLOR.json`) and, with real keys and presses, a caret, nesting, Clear Formatting and undo steps by time (`CAP-E4*.json`, all of them with `npm run text-check -- --full`, 5 to 10 min; the default run has CAP-E4CARET and is under 2 min) against the same action in our editor | Equal after dropping a bare `white-space: pre-wrap` style |
 | `npm run paste-check` | The HTML the oracle keeps from 15 pasted samples (`parity/findings/PASTE.json`) against our paste of the same samples | Equal after dropping a bare `white-space: pre-wrap` style |
 | `npm run autoscroll-check` | The oracle's auto-scroll total for 29 held pointer positions (`parity/findings/AUTOSCROLL.json`) against the same holds in our editor | Within one 10px step |
 | `npm run near-check` | Which blocks the oracle flags near a held drag (`parity/findings/NEAR.json`) against our flags for the same holds | Equal for every block |
@@ -73,6 +73,7 @@ To ask the oracle one question, use one command. It never saves, and it leaves t
 ORACLE_SURFACE=cdp:<port> node scripts/oracle-capture.mjs --list     the questions in scripts/oracle/recipes.mjs
 ORACLE_SURFACE=cdp:<port> node scripts/oracle-capture.mjs CAP-LINK   writes parity/findings/CAP-LINK.json
 ... --again to replace a finding, SHOTS=<dir> for screenshots, --name X --steps '[...]' for a new question
+ORACLE_SURFACE=cdp:<port> node scripts/oracle-readback.mjs           after a probe: palette, theme rows, Fonts, Buttons, Forms against stored lists
 ```
 
 `npm run review` runs all four in order.

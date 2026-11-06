@@ -7,6 +7,7 @@ import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
 import { socialLook, ACCORDION_STYLES, ACCORDION_ICON, ACCORDION_LINE, ACCORDION_PAD, ACCORDION_WIDTH, BLEND_MODES, renderPage, renderSection, renderHeader, headerTheme, HEADER_SCRIPT, exportHtml, LAST_LINE, COLS, DESIGN_DEFAULTS, STROKE_PX, designBag, designFor, ACCORDION_DESCRIPTION, stackAxes, kidSize, kidSizeKey, DEFAULT_SOCIAL, socialKind, mapOf, MAP_ZOOMS } from './render.js';
 import * as fmt from './text-format.js';
+import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
@@ -14,7 +15,9 @@ import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook,
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
-import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
+import { codeLines, gutterWidth } from './code-look.js';
+import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkAt, mdSetLink, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
+import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -29,7 +32,7 @@ import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
 import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
-import { newField, writeFieldText, writeFieldSet, postOf } from './form-fields.js';
+import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
 const $ = (id) => document.getElementById(id);
@@ -251,7 +254,7 @@ function decorate(sid) {
 
 // The label pill of every block (U3, parity/findings/MARKS.json, labels): 22px above the block, seen
 // only on hover. Its box is in the page all the time and takes the pointer, even at opacity 0.
-const LABELS = { text: 'Text', button: 'Button', shape: 'Shape', image: 'Image', video: 'Video', form: 'Form', accordion: 'Accordion', scrolling: 'Scrolling', line: 'Line', map: 'Map', code: 'Code', embed: 'Embed', social: 'Social Links', stack: 'Stack' };
+const LABELS = { text: 'Text', button: 'Button', shape: 'Shape', image: 'Image', video: 'Video', form: 'Form', accordion: 'Accordion', scrolling: 'Scrolling', line: 'Line', map: 'Map', code: 'Code', markdown: 'Markdown', embed: 'Embed', social: 'Social Links', stack: 'Stack' };
 function drawLabels(sid) {
   const fe = feEl(sid);
   for (const el of fe.querySelectorAll(':scope > .fe-label')) el.remove();
@@ -499,7 +502,7 @@ toolbar.addEventListener('click', (e) => {
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
-  if (act === 'edit') { designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && (b.type === 'button' || b.type === 'stack')) { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
@@ -584,6 +587,8 @@ function measure(fe) {
 }
 
 // Rows a block needs so its content fits without stretching a row.
+// The form on the page, not the copy a Lightbox holds to open.
+const FORM_ON_PAGE = '.fe-form:not(.form-lightbox .fe-form)';
 function contentRows(b, m, normalizing = false, widthPull = false) {
   // Content that follows the width (STANDINS.json). A pull that changes the width lets it run over by
   // less than the gap until the next gesture; one that changes only the height does not.
@@ -597,7 +602,7 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
   // A form: the least rows that hold it, with no give (FORMFIELDS.json, blockFits).
   // A form taller than its block stretches the grid's rows, so the pitch is read with the form out of it.
   if (b.type === 'form') {
-    const f = blockEl(b.id)?.querySelector(b.lightbox ? '.lightbox-handle-wrapper' : '.fe-form');
+    const f = blockEl(b.id)?.querySelector(formView(b, bp).lightbox ? '.lightbox-handle-wrapper' : FORM_ON_PAGE);
     if (!f) return 1;
     const h = f.getBoundingClientRect().height;
     f.style.display = 'none';
@@ -605,7 +610,7 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
     f.style.display = '';
     return Math.max(1, Math.ceil((h + free.rg) / free.pitch));
   }
-  if (b.type === 'code' || b.type === 'embed') return Math.max(1, codeRowsFor(codeHeight(b), m));
+  if (b.type === 'code' || b.type === 'embed' || b.type === 'markdown') return Math.max(1, codeRowsFor(codeHeight(b), m));
   const root = blockEl(b.id);
   // A Fit button in the view on screen: its height is its own (BUTTONDESIGN.json).
   const fit = b.type === 'button' ? [...(root?.querySelectorAll('.sqs-block-button-container:not(.sqs-stretched)') || [])].find((e) => e.offsetHeight) : null;
@@ -1384,7 +1389,10 @@ function onKey(e) {
 function onDblClick(e) {
   const blk = e.target.closest('.fe-block');
   if (!blk || editing) return;
-  startTextEdit(blk.closest('section').dataset.sectionId, blk.dataset.blockId);
+  const sid = blk.closest('section').dataset.sectionId, b = B(sid, blk.dataset.blockId);
+  // A double-click on a Markdown block opens its panel (CAP-T10MD3.json).
+  if (b?.type === 'markdown') { select({ sid, bid: b.id }); designOpen = b.id; designTab = 'Content'; updateUi(); return; }
+  startTextEdit(sid, blk.dataset.blockId);
 }
 
 function startTextEdit(sid, bid) {
@@ -1409,6 +1417,7 @@ function startTextEdit(sid, bid) {
   editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], marks: [before], prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
   ce.addEventListener('input', onTextInput);
   ce.addEventListener('paste', onPaste);
+  ce.addEventListener('focus', () => { if (editing) editing.keysOff = false; });
   doc.addEventListener('selectionchange', onTextSelection);
   renderPanel();
   renderTextBar();
@@ -1447,6 +1456,7 @@ let fxView = null; // the Image Effect panel: 'list', 'settings' or null
 let fxOpen = []; // its settings groups that are open: they all start closed
 const blockPanel = $('block-panel');
 let shapeUi = null; // the open popup of a shape's Design tab: { kind, bid, custom }
+let codeCommit = false;
 function renderBlockPanel() {
   if (shapeUi && !shapeUi.section && (!sel || shapeUi.bid !== sel.bid || designOpen !== sel.bid)) closeShapePop();
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
@@ -1459,17 +1469,22 @@ function renderBlockPanel() {
   if (b.type !== 'accordion' || (accView?.startsWith('acc-item:') && !b.items[Number(accView.slice(9))])) accView = null; // undo can take the item away
   const content = b.type === 'button' ? { label: b.label, href: b.href, pages: siteLinkGroups() } : b.type === 'image' ? { src: b.src, href: b.href, pages: siteLinkGroups(), alt: b.alt, filename: b.filename, empty: !!b.empty, focal: b.focal, aspect: b.aspect, lightbox: !!b.lightbox }
     : b.type === 'video' && !b.html ? { kind: 'video', description: b.description, video: b.video }
+    : b.type === 'markdown' ? { kind: 'markdown', text: b.text || '' }
     : b.type === 'code' && b.html != null ? { kind: 'code', html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource }
     : b.type === 'accordion' ? { kind: 'accordion', items: b.items, expandFirst: b.expandFirst, multiple: b.multiple, dividers: b.dividers, showFirst: b.showFirst, showLast: b.showLast, iconSize: b.iconSize, iconThickness: b.iconThickness, iconLeft: b.iconLeft, rowPadding: b.rowPadding, icon: b.icon, titleStyle: b.titleStyle, titleAlign: b.titleAlign, descStyle: b.descStyle, descWidth: b.descWidth, descPad: b.descPad, descAlign: b.descAlign, descPlace: b.descPlace, dividerSize: b.dividerSize, dividerOpacity: b.dividerOpacity }
     : b.type === 'line' ? { kind: 'line' }
     : b.type === 'social' ? (() => { const l = socialLook(b, bp === 'mobile'); return { kind: 'social', links: socialList(), err: socErr, iconBorder: l.iconBorder, iconStyle: l.iconStyle, iconThick: l.iconThick, iconSize: l.iconSize, align: l.align }; })()
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
-    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', buttonAlign: b.buttonAlign || 'left', highlight: b.highlight || 'none', fihOpen, lightbox: !!b.lightbox, lightboxText: b.lightboxText || '', lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
+    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
+  if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
-  if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffView?.startsWith('ff-edit:') && !b.fields?.[Number(ffView.slice(8))]) ffView = 'ff-list'; // undo can take the field away
+  if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffOpen() && !(ffField(b) && (!ffView.startsWith('ff-opt:') || followOf(ffField(b), ffView.split(':')[2]).length))) ffView = 'ff-list'; // undo can take the field away
   showFormPost(b);
+  const mdField = b.type === 'markdown' && blockPanel.querySelector('textarea[data-content="markdown"]');
+  if (mdField && mdField === document.activeElement && mdField.value !== (b.text || '')) { mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
+  if (codeCommit) return; // the field's own text changed nothing else here, and a redraw would take a press on Mode from under it
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || '#ffffff' } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: parseFloat(b.radius) || 0, corners: b.corners, empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
@@ -1478,16 +1493,22 @@ function renderBlockPanel() {
   const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
   const buttonView = b.type !== 'button' ? null : bp === 'mobile' && b.btnMobile ? b.btnMobile : { fit: b.fit, align: b.halign };
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
+  const lookWas = blockPanel.dataset.bid === b.id ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
+  const lookKeep = lookWas && { value: lookWas.value, start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
   blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
   if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, b.animations?.[anim.i], anim.menu) : animEditorHtml(b.animations[anim.i], anim.tab);
   if (fxView) paintEffectTiles(blockPanel, b.src);
-  blockPanel.style.width = b.type === 'code' && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
+  if (b.type === 'markdown') paintMdBar(blockPanel.querySelector('textarea[data-content="markdown"]'));
+  blockPanel.style.width = (b.type === 'code' || b.type === 'markdown') && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
   syncAnimView(b);
   // An item's view holds that item open on the canvas (ACCORDION.json).
   if (b.type === 'accordion') showAccordionItem(b);
   placeBlockPanel();
   blockPanel.hidden = false;
+  const lookNow = blockPanel.querySelector('.bp-code.is-look textarea');
+  if (lookNow && lookKeep?.value === lookNow.value) { lookNow.setSelectionRange(lookKeep.start, lookKeep.end, lookKeep.dir); lookNow.scrollTop = lookKeep.top; } // the band stays when focus leaves (CAP-T10LOOK.json)
+  paintCode(lookNow); // measures, so it must be showing
   if (blockPanel.dataset.bid !== b.id) { blockPanel.dataset.bid = b.id; blockPanel.scrollTop = 0; } // another block starts at the top
   if (shapeUi) renderShapePop(); // undo can change what an open popup shows
 }
@@ -1773,10 +1794,12 @@ function setFormDesign(key, v) {
   if (!b) return;
   const before = JSON.stringify(model);
   const top = blockPanel.scrollTop;
-  if (v === 'left' || v === 'none') delete b[key]; else b[key] = v;
+  if (key === 'buttonAlign') setFormView(b, bp, key, v === 'left' && bp !== 'mobile' ? '' : v);
+  else if (v === 'none') delete b[key]; else b[key] = v;
   renderSectionDom(sel.sid);
   // A form the Lightbox left too small gets its rows back on the next change (FORMFIELDS.json, lightbox).
-  if (!b.lightbox && contentRows(b, measure(feEl(sel.sid))) > lay(b).area[2] - lay(b).area[0]) fitForm(b, S(sel.sid));
+  // One row short isn't that: a new form on the phone is 16 rows and stretches, and a press leaves it (phone).
+  if (!formView(b, bp).lightbox && contentRows(b, measure(feEl(sel.sid))) > lay(b).area[2] - lay(b).area[0] + 1) fitForm(b, S(sel.sid));
   commit(before, `Form ${key} ${v}`);
   blockPanel.scrollTop = top;
 }
@@ -2056,7 +2079,7 @@ function setForm(change, label, fit = true) {
   b.fields ||= [];
   change(b);
   renderSectionDom(sel.sid);
-  if (fit && !b.lightbox) fitForm(b, S(sel.sid));
+  if (fit && !formView(b, bp).lightbox) fitForm(b, S(sel.sid));
   commit(before, label);
   renderBlockPanel();
   blockPanel.scrollTop = Math.min(blockPanel.scrollTop, blockPanel.scrollHeight);
@@ -2065,8 +2088,8 @@ function setForm(change, label, fit = true) {
 // the count depends on the rows it had. Off: the rows stay until the next change (FORMFIELDS.json, lightbox).
 function setFormLightbox(on) {
   const b = B(sel.sid, sel.bid), s = S(sel.sid), before = JSON.stringify(model), top = blockPanel.scrollTop;
-  const h = blockEl(b.id).querySelector('.fe-form').getBoundingClientRect().height;
-  if (on) b.lightbox = true; else delete b.lightbox;
+  const h = on ? blockEl(b.id).querySelector(FORM_ON_PAGE).getBoundingClientRect().height : 0;
+  setFormView(b, bp, 'lightbox', on);
   renderSectionDom(sel.sid);
   if (on) {
     const w = blockEl(b.id).querySelector('.lightbox-handle-wrapper'), hh = w.getBoundingClientRect().height;
@@ -2092,11 +2115,14 @@ blockPanel.addEventListener('input', (e) => {
   if (!t || !sel) return;
   ffBefore ??= JSON.stringify(model);
   const b = B(sel.sid, sel.bid), h = blockEl(b.id).querySelector('.lightbox-handle').offsetHeight;
-  if (t.value) b.lightboxText = t.value; else delete b.lightboxText;
+  setFormView(b, bp, 'lightboxText', t.value);
   renderSectionDom(sel.sid);
   if (blockEl(b.id).querySelector('.lightbox-handle').offsetHeight !== h) fitForm(b, S(sel.sid));
 });
-const ffField = (b) => b.fields[Number(ffView.slice(8))];
+// The field the open view edits: a field, or a follow-up of one of its options.
+const ffField = (b) => { const [v, n, i, k] = ffView.split(':'); return v === 'ff-fu' ? followOf(b.fields[n], i)[k] : b.fields[n]; };
+const ffOpen = () => /^ff-(edit|fu|opt):/.test(ffView || '');
+let ffReturn = null; // where Back goes from Add Follow-Up and from a follow-up's editor
 // While Edit Post-Submit is open the block shows what comes after a submit (FORMFIELDS.json, postSubmit).
 function showFormPost(b) {
   const on = b?.type === 'form' && ffView === 'ff-post' ? blockEl(b.id)?.querySelector('.form-wrapper') : null;
@@ -2107,20 +2133,34 @@ const setPost = (k, v, label) => setForm((b) => { b.post = { ...b.post, [k]: v }
 function showFf(view) { ffView = view; renderBlockPanel(); blockPanel.scrollTop = 0; }
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-ff]');
-  if (!a || !sel || e.target.closest('.bp-ff-grip')) return;
-  const [act, arg] = a.dataset.ff.split(':'), n = Number(arg);
+  if (!a || !sel || e.target.closest('.bp-ff-grip, .bp-ffo-grip')) return;
+  const [act, arg, arg2, arg3] = a.dataset.ff.split(':'), n = Number(arg), o = Number(arg2);
   if (act === 'list') showFf('ff-list');
   else if (act === 'post') showFf('ff-post');
   else if (act === 'post-mode') setPost('redirect', arg === 'redirect', 'After Submission');
   else if (act === 'post-align') setPost('align', arg, 'Message alignment');
   else if (act === 'post-position') setPost('position', arg, 'Message position');
-  else if (act === 'back') { closeLinkPopover(); showFf(ffView === 'ff-list' || ffView === 'ff-post' ? null : 'ff-list'); }
+  else if (act === 'back') {
+    closeLinkPopover();
+    const [v, fn] = (ffView || '').split(':');
+    showFf(v === 'ff-fu' || v === 'ff-fuadd' ? ffReturn : v === 'ff-opt' ? `ff-edit:${fn}` : ffView === 'ff-list' || ffView === 'ff-post' ? null : 'ff-list');
+  }
+  else if (act === 'opt') showFf(`ff-opt:${n}:${o}`);
+  else if (act === 'fu') { ffReturn = `ff-opt:${n}:${o}`; showFf(`ff-fu:${n}:${o}:${arg3}`); }
+  else if (act === 'fu-add') { ffReturn = `ff-opt:${n}:${o}`; showFf(`ff-fuadd:${n}:${o}`); }
+  else if (act === 'fu-tile') {
+    const [, fn, oi] = ffView.split(':');
+    setForm((b) => { ffView = `ff-fu:${fn}:${oi}:${addFollow(b.fields[fn], Number(oi), arg)}`; }, `${arg} follow-up added`);
+    blockPanel.scrollTop = 0;
+  }
+  else if (act === 'fu-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteFollow(b.fields[n], o, Number(arg3)), 'Follow-up deleted'); blockPanel.scrollTop = 0; }
+  else if (act === 'opt-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteOption(b.fields[n], o), 'Option deleted'); blockPanel.scrollTop = 0; }
   else if (act === 'add') showFf('ff-add');
   else if (act === 'edit') showFf(`ff-edit:${n}`);
   else if (act === 'tile') { ffView = 'ff-list'; setForm((b) => b.fields.push(newField(arg)), `${arg} field added`); blockPanel.scrollTop = 0; }
   else if (act === 'delete' || act === 'del') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n, 1), 'Field deleted'); blockPanel.scrollTop = 0; }
   else if (act === 'dup') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n + 1, 0, JSON.parse(JSON.stringify(b.fields[n]))), 'Field duplicated'); blockPanel.scrollTop = 0; }
-  else if (act === 'opt-add') setForm((b) => { const o = b.fields[n].options; o.push(`Option ${o.length + 1}`); }, 'Option added');
+  else if (act === 'opt-add') setForm((b) => { const l = ffField(b).options; l.push(`Option ${l.length + 1}`); }, 'Option added');
   else if (act === 'max') setForm((b) => { const f = ffField(b); f.maxFiles = Math.max(1, (f.maxFiles || 1) + n); }, 'Max files');
 });
 // A typed value shows at once and makes its undo step when the field is left.
@@ -2136,7 +2176,7 @@ blockPanel.addEventListener('input', (e) => {
     return;
   }
   const t = e.target.closest('[data-ff-field],[data-ff-opt]');
-  if (!t || !sel || !ffView?.startsWith('ff-edit:')) return;
+  if (!t || !sel || !ffOpen()) return;
   ffBefore ??= JSON.stringify(model);
   const f = ffField(B(sel.sid, sel.bid));
   if (t.dataset.ffOpt != null) f.options[Number(t.dataset.ffOpt)] = t.value;
@@ -2151,11 +2191,11 @@ blockPanel.addEventListener('change', (e) => {
     if (before) commit(before, 'Post-submit changed');
     return;
   }
-  if (!sel || !ffView?.startsWith('ff-edit:')) return;
+  if (!sel || !ffOpen()) return;
   if (e.target.closest('[data-ff-field],[data-ff-opt]')) {
     const before = ffBefore;
     ffBefore = null;
-    if (before) { if (!B(sel.sid, sel.bid).lightbox) fitForm(B(sel.sid, sel.bid), S(sel.sid)); commit(before, 'Field changed'); }
+    if (before) { if (!formView(B(sel.sid, sel.bid), bp).lightbox) fitForm(B(sel.sid, sel.bid), S(sel.sid)); commit(before, 'Field changed'); }
     return;
   }
   const t = e.target.closest('[data-ff-set]');
@@ -2299,7 +2339,7 @@ function renderSectionPop() {
 function renderShapePop() {
   if (shapeUi.section) { renderSectionPop(); return; }
   const b = B(sel.sid, sel.bid), P = blockPanel.getBoundingClientRect(), { kind } = shapeUi;
-  shapePop.className = kind === 'editmenu' ? 'is-editmenu' : kind === 'fxmenu' ? 'is-fxmenu' : kind === 'accmenu' ? 'is-accmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
+  shapePop.className = kind === 'editmenu' ? 'is-editmenu' : kind === 'fxmenu' ? 'is-fxmenu' : kind === 'accmenu' ? 'is-accmenu' : kind === 'ffmenu' ? 'is-ffmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
   if (kind === 'animopts') {
     const u = shapeUi, one = u.mode === 'row' ? ' animation' : ' animations', a = animRows()[anim.i];
     if (u.mode === 'sel') { shapePop.innerHTML = animOptionsHtml(u.key, a?.[u.key]); shapePop.style.cssText = `left:${u.rect.left - 9}px;top:${u.rect.top}px`; }
@@ -2319,6 +2359,10 @@ function renderShapePop() {
     const cur = blend ? BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')) : b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay';
     shapePop.innerHTML = list.map((o) => `<button type="button" role="option" class="${o === cur ? 'is-cur' : ''}" data-image-opt="${o}">${o}</button>`).join('');
     shapePop.style.cssText = `left:${shapeUi.rect.left - 9}px;top:${shapeUi.rect.top}px;max-height:${innerHeight - shapeUi.rect.top - 8}px;overflow:auto`;
+  } else if (kind === 'ffmenu') {
+    // An option's menu (followUp.menu): its right edge 4 left of the button, 40 below the button's top.
+    shapePop.innerHTML = `${ffView.startsWith('ff-fu:') ? '' : '<button type="button" data-ff-pop="follow">Add follow-up question</button>'}<button type="button" class="is-red" data-ff-pop="delete">Delete Option</button>`;
+    shapePop.style.cssText = `right:${innerWidth - shapeUi.rect.left + 4}px;top:${shapeUi.rect.top + 40}px`;
   } else if (kind === 'accmenu') {
     const key = shapeUi.key, list = key === 'icon' ? [['plus', 'Plus'], ['arrow', 'Arrow']] : Object.entries(ACCORDION_STYLES).filter(([k]) => key === 'titleStyle' || k[0] === 'p');
     const cur = key === 'icon' ? b.icon || 'plus' : b[key] || (key === 'titleStyle' ? 'h4' : 'p2'), at = list.findIndex(([k]) => k === cur);
@@ -2362,7 +2406,22 @@ blockPanel.addEventListener('click', (e) => {
   shapeUi = { kind: act, bid: sel.bid, custom: null };
   renderShapePop();
 });
+blockPanel.addEventListener('click', (e) => {
+  const m = e.target.closest('[data-ff-menu]');
+  if (!m || !sel) return;
+  if (shapeUi?.kind === 'ffmenu' && shapeUi.key === m.dataset.ffMenu) { closeShapePop(); return; }
+  shapeUi = { kind: 'ffmenu', key: m.dataset.ffMenu, bid: sel.bid, custom: null, rect: m.getBoundingClientRect() };
+  renderShapePop();
+});
 shapePop.addEventListener('click', (e) => {
+  const fp = e.target.closest('[data-ff-pop]');
+  if (fp) {
+    const i = Number(shapeUi.key.split(':')[1]), [, n] = ffView.split(':');
+    closeShapePop();
+    if (fp.dataset.ffPop === 'follow') { ffReturn = ffView; showFf(`ff-fuadd:${n}:${i}`); }
+    else setForm((b) => deleteOption(ffField(b), i), 'Option deleted');
+    return;
+  }
   if (shapeUi?.section) {
     if (e.target.closest('[data-color-custom]')) { const hex = toHex(colorParts(secColorOf(shapeUi)).rgb); shapeUi.custom = { ...hexToHsv(hex), hex, format: 'rgb' }; renderShapePop(); return; }
     if (e.target.closest('[data-color-reset]')) { setSecColor(null); renderShapePop(); }
@@ -2477,7 +2536,7 @@ shapePop.addEventListener('pointerdown', (e) => {
 });
 for (const t of ['mousedown']) shapePop.addEventListener(t, (e) => e.stopPropagation());
 shapePop.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Escape') closeShapePop(); });
-document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-acc-menu], [data-sp-color], [data-image-sel]')) closeShapePop(); }, true);
+document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-acc-menu], [data-ff-menu], [data-sp-color], [data-image-sel]')) closeShapePop(); }, true);
 // Button and image Content tabs: the text and the link (parity/findings/BUTTONEDIT.json). The
 // text is one undo step when the field is left; each link change is one step.
 function setButton(change, label) {
@@ -2505,6 +2564,7 @@ let codeBefore = null;
 // what is in it, margins included, and an empty one's is its 95 tall placeholder.
 function codeHeight(b) {
   if (b.type === 'embed' && !b.html) return 95;
+  if (b.type === 'markdown') return blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0; // its placeholder too (CAP-T10MD6.json)
   const c = blockEl(b.id)?.querySelector(b.type === 'code' ? '.sqs-code-container' : '.sqs-embed-container');
   if (!c) return 0;
   // Its elements' boxes, or a range for bare text: a range counts the text's own 23px runs, 1px over ten
@@ -2536,6 +2596,118 @@ function fitRows(b, was) {
   s.rows[bp] = Math.max(s.rows[bp], L.area[2] - 1); // or the rows past the section's end collapse
   renderSectionDom(sel.sid);
 }
+// The Markdown block's toolbar and keys, in the panel and in the Code Editor view (markdown-edit.js).
+const mdLines = (f) => { const box = f.closest('.bp-code'); if (box.classList.contains('is-look')) paintCode(f); else box.querySelector('.bp-code-lines').innerHTML = Array.from({ length: f.value.split('\n').length }, (_, n) => n + 1).join('<br>'); };
+const headOf = (f) => (f.selectionDirection === 'backward' ? f.selectionStart : f.selectionEnd);
+// The look of an editor (CAP-T10LOOK.json): colours over the clear text, a number per line however it wraps, and
+// the band on the line of the selection's moving end.
+function paintCode(f) {
+  const box = f?.closest('.bp-code.is-look');
+  if (!box) return;
+  const hl = box.querySelector('.bp-code-hl'), nums = box.querySelector('.bp-code-lines'), band = box.querySelector('.bp-code-band');
+  const lines = codeLines(f.value, box.dataset.lang);
+  hl.innerHTML = lines.map((l) => `<div class="bp-code-l">${l || '<br>'}</div>`).join('');
+  const on = f.value.slice(0, headOf(f)).split('\n').length - 1, rows = [...hl.children];
+  nums.style.flexBasis = `${gutterWidth(lines.length)}px`;
+  nums.innerHTML = rows.map((r, n) => `<div class="bp-code-n${n === on ? ' is-on' : ''}" style="height:${r.offsetHeight}px">${n + 1}</div>`).join('');
+  band.style.top = `${rows[on].offsetTop}px`;
+  band.style.height = `${rows[on].offsetHeight}px`;
+  paintCodeSelection(f, hl, box.querySelector('.bp-code-sel'));
+  scrollCode(f);
+}
+// A selection is drawn behind the colours: 16 tall on its first and last row, and as wide as the editor but for
+// the last row, which stops at its end (CAP-T10LOOK.json).
+function paintCodeSelection(f, hl, layer) {
+  layer.textContent = '';
+  if (f.selectionStart === f.selectionEnd) return;
+  const base = hl.getBoundingClientRect(), range = document.createRange();
+  const at = (i) => {
+    const before = f.value.slice(0, i).split('\n'), row = hl.children[before.length - 1];
+    let left = before.at(-1).length;
+    const walk = document.createTreeWalker(row, NodeFilter.SHOW_TEXT);
+    for (let t = walk.nextNode(); t; t = walk.nextNode()) {
+      if (left <= t.length) { range.setStart(t, left); range.collapse(true); const q = range.getBoundingClientRect(); return { x: q.left - base.left, top: q.top + (q.height - 16) / 2 - base.top }; }
+      left -= t.length;
+    }
+    const q = row.getBoundingClientRect(); // an empty line
+    return { x: q.left - base.left, top: q.top + 3 - base.top };
+  };
+  const a = at(f.selectionStart), b = at(f.selectionEnd), L = 6, R = f.clientWidth - 2;
+  const rect = (x, top, w, h) => { const e = document.createElement('div'); e.style.cssText = `left:${x}px;top:${top}px;width:${w}px;height:${h}px`; layer.append(e); };
+  if (a.top === b.top) { rect(a.x, a.top, b.x - a.x, 16); return; }
+  rect(a.x, a.top, R - a.x, 16);
+  if (b.top > a.top + 16) rect(L, a.top + 16, R - L, b.top - a.top - 16);
+  rect(L, b.top, b.x - L, 16);
+}
+function scrollCode(f) {
+  const box = f.closest('.bp-code.is-look');
+  if (!box) return;
+  box.querySelector('.bp-code-hl').style.transform = box.querySelector('.bp-code-sel').style.transform = `translate(${-f.scrollLeft}px, ${-f.scrollTop}px)`;
+  box.querySelector('.bp-code-band').style.transform = `translateY(${-f.scrollTop}px)`;
+  box.querySelector('.bp-code-lines').scrollTop = f.scrollTop;
+}
+function paintMdBar(f) {
+  const bar = f?.closest('#block-panel, #code-modal')?.querySelector('.bp-md-bar');
+  if (!bar) return;
+  const st = mdState(f.value, headOf(f));
+  bar.querySelector('.bp-md-heading span').textContent = st.heading;
+  for (const k of ['bullet', 'number', 'quote']) { const q = bar.querySelector(`[data-md="${k}"]`); q.classList.toggle('is-on', st[k]); q.setAttribute('aria-checked', String(st[k])); }
+  // Link stays lit while its popover is open.
+  const lk = bar.querySelector('[data-md="link"]');
+  lk.classList.toggle('is-on', st.link || (!linkPop.hidden && !!linkTarget?.markdown));
+}
+// A toolbar press is one undo step, and typing before it another (CAP-T10MD7.json).
+function flushMdStep() { if (codeBefore != null) { commit(codeBefore, 'Markdown changed'); codeBefore = null; } }
+// Through the field's own edit, so its undo keeps working. The input event carries it to the block.
+function writeMd(f, r) {
+  f.focus();
+  f.setSelectionRange(0, f.value.length);
+  if (r.value) document.execCommand('insertText', false, r.value); else document.execCommand('delete');
+  f.setSelectionRange(r.start, r.end);
+  paintMdBar(f);
+}
+const mdRootField = (root) => root.querySelector('textarea[data-content="markdown"]');
+function pressMdBar(root, btn) {
+  const f = mdRootField(root), v = f.value, s = f.selectionStart, e = f.selectionEnd, k = btn.dataset.md;
+  const list = root.querySelector('.bp-md-list');
+  if (k === 'heading') { list.hidden = !list.hidden; btn.setAttribute('aria-expanded', String(!list.hidden)); btn.classList.toggle('is-on', !list.hidden); return; }
+  if (k === 'link') { openMdLink(root, btn, s, e); return; }
+  flushMdStep();
+  writeMd(f, k === 'bold' ? mdWrap(v, s, e, '**') : k === 'italic' ? mdWrap(v, s, e, '*') : mdLinesEdit(v, s, e, k));
+  flushMdStep();
+}
+function pickMdHeading(root, level) {
+  const f = mdRootField(root);
+  closeMdList(root);
+  flushMdStep();
+  writeMd(f, mdHeading(f.value, f.selectionStart, f.selectionEnd, level));
+  flushMdStep();
+}
+function closeMdList(root) {
+  const list = root.querySelector('.bp-md-list'), head = root.querySelector('.bp-md-heading');
+  if (!list || list.hidden) return;
+  list.hidden = true; head.classList.remove('is-on'); head.setAttribute('aria-expanded', 'false');
+}
+// Link (CAP-T10MD4.json, CAP-T10MD5.json, CAP-T10MD7.json): the popover under the button, 6px below it. A caret in a
+// link shows that link with Edit, Copy and Remove Link. A page fills the field, and Enter or a press away writes it.
+function openMdLink(root, btn, s, e) {
+  const f = mdRootField(root), link = mdLinkAt(f.value, s), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
+  flushMdStep();
+  const target = { markdown: true, summary: !!link, href: link?.href || '', newTab: false, setNewTab() {},
+    apply: (v) => {
+      const q = mdRootField(root), at = mdLinkAt(q.value, s);
+      if (!v && !at) return;
+      flushMdStep();
+      writeMd(q, at ? (v ? mdChangeLink(q.value, at, v) : mdRemoveLink(q.value, at)) : mdSetLink(q.value, s, e, v));
+      flushMdStep();
+    },
+    remove: () => { const q = mdRootField(root), at = mdLinkAt(q.value, s); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(q.value, at)); flushMdStep(); } },
+    done: () => { const q = mdRootField(root); if (q) { if (document.activeElement === document.body) q.focus(); paintMdBar(q); } },
+  };
+  openLinkPopover(b, (st) => ({ left: r.left + r.width / 2 - 164 - st.left, top: r.bottom + 6 - st.top }), target);
+  btn.classList.add('is-on');
+  if (link) { linkPop.innerHTML = mdLinkSummaryHtml(link.href); linkPop.classList.add('is-summary'); }
+}
 // The code editor's full-screen view: its own copy of the code, which reaches the block on closing.
 const codeModal = document.createElement('div');
 codeModal.id = 'code-modal';
@@ -2543,15 +2715,30 @@ codeModal.hidden = true;
 document.body.append(codeModal);
 let codeDraft = null;
 function openCodeModal(b) {
-  codeDraft = { html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource };
-  codeModal.innerHTML = codeModalHtml(codeDraft);
+  if (b.type === 'markdown') flushMdStep();
+  codeDraft = b.type === 'markdown' ? { html: b.text || '' } : { html: b.html, mode: b.codeMode || 'html', showSource: !!b.showSource };
+  codeModal.innerHTML = b.type === 'markdown' ? mdModalHtml(codeDraft.html) : codeModalHtml(codeDraft);
   codeModal.hidden = false;
   codeModal.querySelector('textarea').focus();
+  paintCode(codeModal.querySelector('textarea'));
+  if (b.type === 'markdown') paintMdBar(codeModal.querySelector('textarea'));
 }
 function closeCodeModal() {
   const d = codeDraft, b = sel && B(sel.sid, sel.bid);
   codeModal.hidden = true;
   codeDraft = null;
+  if (b?.type === 'markdown') {
+    if (d.html !== (b.text || '')) {
+      const before = JSON.stringify(model), was = rowsNow(b);
+      b.text = d.html;
+      renderSectionDom(sel.sid);
+      fitRows(b, was);
+      commit(before, 'Markdown changed');
+    }
+    const f = blockPanel.querySelector('textarea[data-content="markdown"]');
+    if (f) { f.value = b.text || ''; mdLines(f); f.focus(); paintMdBar(f); }
+    return;
+  }
   if (!b || b.type !== 'code') return;
   if (d.html !== b.html || d.mode !== (b.codeMode || 'html') || d.showSource !== !!b.showSource) {
     const before = JSON.stringify(model), was = rowsNow(b);
@@ -2570,32 +2757,52 @@ codeModal.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key ==
 codeModal.addEventListener('input', (e) => {
   if (!e.target.matches('textarea')) return;
   codeDraft.html = e.target.value;
-  e.target.parentElement.querySelector('.bp-code-lines').innerHTML = Array.from({ length: e.target.value.split('\n').length }, (_, n) => n + 1).join('<br>');
+  mdLines(e.target);
+  if (e.target.dataset.content === 'markdown') paintMdBar(e.target);
 });
 codeModal.addEventListener('change', (e) => {
   const c = e.target.dataset.content;
   if (c === 'codeMode') { codeDraft.mode = e.target.value; if (!['html', 'markdown'].includes(e.target.value)) codeDraft.showSource = true; }
   if (c === 'showSource') codeDraft.showSource = e.target.checked;
-  if (c === 'codeMode') codeModal.innerHTML = codeModalHtml(codeDraft);
+  if (c === 'codeMode') { codeModal.innerHTML = codeModalHtml(codeDraft); paintCode(codeModal.querySelector('textarea')); }
 });
+for (const root of [blockPanel, codeModal]) {
+  // The selection stays, and leaving the field doesn't redraw the panel under the press.
+  root.addEventListener('mousedown', (e) => { if (e.target.closest('.bp-md-bar button, .bp-code-expand')) e.preventDefault(); });
+  root.addEventListener('click', (e) => {
+    const level = e.target.closest('[data-md-level]');
+    if (level) { pickMdHeading(root, Number(level.dataset.mdLevel)); return; }
+    const btn = e.target.closest('[data-md]');
+    if (btn && sel) pressMdBar(root, btn);
+  });
+  root.addEventListener('keydown', (e) => {
+    if (!e.target.matches('textarea[data-content="markdown"]') || e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+    const f = e.target, r = e.key === 'Enter' ? mdEnter(f.value, f.selectionStart, f.selectionEnd) : e.key === 'Backspace' ? mdBackspace(f.value, f.selectionStart, f.selectionEnd) : null;
+    if (r) { e.preventDefault(); writeMd(f, r); }
+  });
+}
+document.addEventListener('pointerdown', (e) => { if (!e.target.closest?.('.bp-md-head')) { closeMdList(blockPanel); closeMdList(codeModal); } }, true);
+document.addEventListener('selectionchange', () => { const f = document.activeElement; if (!f?.matches?.('.bp-code.is-look textarea')) return; paintCode(f); if (f.dataset.content === 'markdown') paintMdBar(f); });
+for (const root of [blockPanel, codeModal]) root.addEventListener('scroll', (e) => { if (e.target.matches?.('.bp-code.is-look textarea')) scrollCode(e.target); }, true);
 blockPanel.addEventListener('click', (e) => { if (sel && e.target.closest('[data-code-expand]')) openCodeModal(B(sel.sid, sel.bid)); });
 blockPanel.addEventListener('input', (e) => {
-  const f = e.target.closest('textarea[data-content="code"], textarea[data-content="embedHtml"]');
+  const f = e.target.closest('textarea[data-content="code"], textarea[data-content="embedHtml"], textarea[data-content="markdown"]');
   if (!f || !sel) return;
   const b = B(sel.sid, sel.bid);
   codeBefore ??= JSON.stringify(model);
   const was = rowsNow(b);
   if (f.dataset.content === 'code') b.html = f.value;
+  else if (f.dataset.content === 'markdown') b.text = f.value;
   else if (f.value) { b.html = f.value; delete b.embedInvalid; } else delete b.html;
   renderSectionDom(sel.sid);
   fitRows(b, was);
-  const lines = f.parentElement.querySelector('.bp-code-lines');
-  lines.innerHTML = Array.from({ length: f.value.split('\n').length }, (_, n) => n + 1).join('<br>');
+  mdLines(f);
+  if (f.dataset.content === 'markdown') paintMdBar(f);
   placeBlockPanel();
 });
 blockPanel.addEventListener('change', (e) => {
-  const f = e.target.closest('[data-content="code"], [data-content="embedHtml"]');
-  if (f) { if (codeBefore != null) commit(codeBefore, f.dataset.content === 'code' ? 'Code changed' : 'Embed data changed'); codeBefore = null; return; }
+  const f = e.target.closest('[data-content="code"], [data-content="embedHtml"], [data-content="markdown"]');
+  if (f) { codeCommit = true; if (codeBefore != null) commit(codeBefore, f.dataset.content === 'code' ? 'Code changed' : f.dataset.content === 'markdown' ? 'Markdown changed' : 'Embed data changed'); codeCommit = false; codeBefore = null; return; }
   const c = e.target.closest('[data-content="codeMode"], [data-content="showSource"], [data-content="embedUrl"], [data-content="description"]');
   if (!c || !sel) return;
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model), was = rowsNow(b);
@@ -2611,6 +2818,15 @@ blockPanel.addEventListener('change', (e) => {
   if (b.type === 'code') fitRows(b, was); // read in the Code Editor view, inferred for the panel's own controls
   commit(before, `${c.dataset.content} changed on ${b.id}`);
   renderBlockPanel();
+  if (c.dataset.content === 'codeMode') { // the Mode list keeps the focus, so the panel doesn't redraw round it
+    const box = blockPanel.querySelector('.bp-code.is-look'), open = ['html', 'markdown'].includes(c.value), src = blockPanel.querySelector('.bp-code-source');
+    box.dataset.lang = c.value;
+    box.classList.toggle('is-wrap', open);
+    paintCode(box.querySelector('textarea'));
+    src.classList.toggle('is-locked', !open);
+    src.querySelector('input').checked = !!b.showSource;
+    src.querySelector('input').disabled = !open;
+  }
 });
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-embed]');
@@ -2727,7 +2943,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
     g.removeEventListener('pointermove', move); g.removeEventListener('pointerup', up); g.removeEventListener('pointercancel', up);
     if (to === from) { renderBlockPanel(); return; }
     if (social) changeSocialList((l) => { const [it] = l.splice(from, 1); l.splice(to, 0, it); }, `Social link moved to ${to + 1}`);
-    else if (ffRow || ffOpt) setForm((b) => { const l = ffRow ? b.fields : ffField(b).options, [it] = l.splice(from, 1); l.splice(to, 0, it); }, `Field moved to ${to + 1}`);
+    else if (ffRow || ffOpt) setForm((b) => { if (ffOpt) { moveOption(ffField(b), from, to); return; } const [it] = b.fields.splice(from, 1); b.fields.splice(to, 0, it); }, `Field moved to ${to + 1}`);
     else setAccordion((b) => { const [it] = b.items.splice(from, 1); b.items.splice(to, 0, it); }, `Item moved to ${to + 1}`);
   };
   g.addEventListener('pointermove', move); g.addEventListener('pointerup', up); g.addEventListener('pointercancel', up);
@@ -2859,6 +3075,8 @@ function closeLinkPopover() {
   const t = linkTarget;
   linkTarget = null;
   flushLinkStep();
+  if (t?.markdown) t.done();
+  if (t?.summary) return;
   if (!t) {
     // What is typed counts without Enter too (LINKMENU.json).
     const v = linkPop.dataset.kind === 'url' ? linkValue(linkPop.querySelector('.lk-input').value) : '';
@@ -2918,6 +3136,8 @@ function openLinkPopover(b, place, target = null) {
   closeLinkPopover();
   linkTarget = target;
   linkPlace = place;
+  linkPop.classList.toggle('is-md', !!target?.markdown);
+  linkPop.classList.remove('is-summary');
   linkPop.dataset.bid = b.id;
   linkPop.hidden = false;
   const href = target ? target.href : b.href;
@@ -2941,6 +3161,7 @@ function applyLink(href) {
   const input = linkPop.querySelector('.lk-input');
   input.value = v;
   showLinkList(false);
+  if (linkTarget?.markdown) { input.focus(); return; } // written on Enter or a press away (CAP-T10MD5.json)
   if (linkTarget) { linkTarget.apply(v); linkTarget.href = v; }
   else setLinkOnButton(v, linkPop.querySelector('.lk-box').checked);
   input.focus();
@@ -2984,7 +3205,10 @@ linkPop.addEventListener('input', (e) => {
   writeLinkForm();
 });
 linkPop.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && e.target.matches('.lk-input')) { e.preventDefault(); applyLink(e.target.value); }
+  if (e.key === 'Enter' && e.target.matches('.lk-input')) {
+    e.preventDefault();
+    if (linkTarget?.markdown) { e.target.value = linkValue(e.target.value); closeLinkPopover(); } else applyLink(e.target.value);
+  }
   // Enter stays in the form on Email, closes on a number, and an empty Phone goes back to URL.
   if (e.key === 'Enter' && e.target.matches('input[data-f]')) {
     e.preventDefault();
@@ -2993,6 +3217,8 @@ linkPop.addEventListener('keydown', (e) => {
   // With the list showing, Escape takes the list; the next one closes the editor (LINKMENU.json).
   if (e.key === 'Escape') {
     e.stopPropagation();
+    // On a Markdown block Escape drops what is in the field, closes the panel and lets the block go (CAP-T10MD4.json).
+    if (linkTarget?.markdown) { const t = linkTarget; linkTarget = null; linkPop.hidden = true; t.done(); if (codeModal.hidden) { designOpen = null; select(null); } return; }
     if (linkPop.querySelector('.lk-pages:not([hidden])')) showLinkList(false);
     else closeLinkPopover();
   }
@@ -3002,6 +3228,16 @@ linkPop.addEventListener('mousedown', (e) => {
   if (e.target.matches('.lk-input')) showLinkList(true);
 });
 linkPop.addEventListener('click', (e) => {
+  const mdAct = e.target.closest('[data-md-link]');
+  if (mdAct) {
+    const t = linkTarget, act = mdAct.dataset.mdLink;
+    if (act === 'copy') { navigator.clipboard?.writeText(t.href).catch(() => {}); note('Link copied'); updateUi(); return; }
+    if (act === 'remove') { t.remove(); closeLinkPopover(); return; }
+    t.summary = false;
+    linkPop.classList.remove('is-summary');
+    drawLinkPop(linkKind(t.href), t.href, false);
+    return;
+  }
   const menu = linkPop.querySelector('.lk-menu');
   const pill = e.target.closest('.lk-pill');
   menu.hidden = pill ? !menu.hidden : true;
@@ -3126,20 +3362,23 @@ function applyFormat(act, value) {
   if (!ed) return;
   const sel = win.getSelection();
   const [kind, arg] = act.split(':');
-  textStep(ed, ed.ce.innerHTML, ed.area);
+  const was = ed.ce.innerHTML;
   if (kind === 'style') fmt.setStyle(doc, ed.ce, sel, value);
-  if (kind === 'bold' || kind === 'italic' || kind === 'strike') fmt.toggleMark(doc, ed.ce, sel, kind);
+  if (kind === 'strike' && sel.isCollapsed) { ed.strikeNext = ed.strikeNext ? null : { on: !fmt.caretInMark(ed.ce, sel, 'strike'), at: String(fmt.caretPlace(ed.ce, sel)) }; ed.ce.focus(); return; }
+  if (kind === 'bold' || kind === 'italic') { ed.strikeNext = null; fmt.toggleMark(ed.ce, sel, kind); }
+  if (kind === 'strike') fmt.toggleMark(ed.ce, sel, kind);
   if (kind === 'quote' || kind === 'bullet' || kind === 'numbered') fmt.toggleWrap(doc, ed.ce, sel, kind);
   if (kind === 'indent') fmt.indent(ed.ce, sel, 1);
   if (kind === 'outdent') fmt.indent(ed.ce, sel, -1);
   if (kind === 'align') fmt.align(ed.ce, sel, arg);
   if (kind === 'clear') fmt.clearFormatting(ed.ce, sel);
-  if (kind === 'color') fmt.setTextColor(doc, ed.ce, sel, value);
-  if (kind === 'highlight') fmt.addHighlight(doc, ed.ce, sel);
+  // Highlight takes the keys from the text: arrows and letters do nothing, a color does nothing, and
+  // Bold still acts on the word (CAP-E4FRESH3.json).
+  if (kind === 'color' && !ed.keysOff) fmt.setTextColor(ed.ce, sel, value);
+  if (kind === 'highlight' && fmt.addHighlight(doc, ed.ce, sel)) { ed.ce.blur(); ed.keysOff = true; }
   if (kind === 'scaled') fmt.toggleScaled(doc, ed.ce, sel);
-  ed.ce.focus();
-  onTextInput();
-  textStep(ed, ed.ce.innerHTML, ed.area);
+  if (!ed.keysOff) ed.ce.focus();
+  if (ed.ce.innerHTML !== was) { ed.strikeNext = null; joinOrStep(ed); onTextInput(); }
 }
 // The Custom tab of Text Color (parity/findings/TEXTCOLOR.json, custom). A color map, a hue bar and a
 // Hex field. Each pick is written at once and the popover stays open. null is the Palette tab.
@@ -3180,7 +3419,9 @@ function paintCustomColor() {
 }
 function pickCustomColor() {
   if (!editing) return;
-  fmt.setCustomColor(doc, editing.ce, win.getSelection(), customColor.hex);
+  const was = editing.ce.innerHTML;
+  fmt.setCustomColor(editing.ce, win.getSelection(), customColor.hex);
+  if (editing.ce.innerHTML !== was) joinOrStep(editing);
   onTextInput();
   paintCustomColor();
 }
@@ -3257,9 +3498,14 @@ function openTextLink(btnEl) {
 
 // When an edit makes the text taller, move the block's end row instead of
 // letting the row stretch.
-// Undo steps inside one edit (parity/findings/TEXTUNDO.json): a toolbar action is a step of its own,
-// and so is typing after a pause of about a second. Enter and Backspace do not split a burst.
+// Undo steps inside one edit (parity/findings/TEXTUNDO.json, CAP-E4BURST.json): a change joins the one
+// before it unless about a second has passed, whether typed or pressed on the toolbar.
 const TYPING_PAUSE = 1000;
+function joinOrStep(ed) {
+  const now = performance.now();
+  if (ed.lastInput && now - ed.lastInput >= TYPING_PAUSE) textStep(ed, ed.prevHtml, ed.prevArea);
+  ed.lastInput = now;
+}
 function textStep(ed, html, area) {
   const b = B(ed.sid, ed.bid), keep = [b.html, lay(b).area];
   b.html = html;
@@ -3270,9 +3516,9 @@ function textStep(ed, html, area) {
   if (snap !== ed.marks.at(-1)) ed.marks.push(snap);
 }
 // A word that reads as a domain or a mail address links when a space or Enter follows it
-// (TEXTUNDO.json, links), with the http scheme. No path and no end mark. The list of endings is ours.
-const LINK_ENDS = /\.(com|org|net|edu|gov|mil|int|info|biz|name|pro|io|co|ai|app|dev|me|tv|cc|ws|xyz|site|online|store|shop|blog|tech|cloud|world|one|bar|art|club|live|news|page|link|space|website|design|agency|studio|no|se|dk|fi|is|uk|ie|de|fr|es|it|nl|be|ch|at|pl|pt|cz|gr|ru|ua|tr|us|ca|mx|br|ar|cl|au|nz|jp|kr|cn|in|sg|za|eu)$/i;
-const linkFor = (w) => (/^[^\s@]+@[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(w) && LINK_ENDS.test(w) ? `mailto:${w}` : /^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(w) && LINK_ENDS.test(w) ? `http://${w}` : null);
+// (TEXTUNDO.json, links), with the http scheme. No path and no end mark.
+const endsReal = (w) => LINK_ENDINGS.has(w.slice(w.lastIndexOf('.') + 1).toLowerCase());
+const linkFor = (w) => (/^[^\s@]+@[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(w) && endsReal(w) ? `mailto:${w}` : /^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(w) && endsReal(w) ? `http://${w}` : null);
 function autoLink(ed, inputType, data) {
   const s = win.getSelection();
   if (!s.isCollapsed || !s.focusNode) return;
@@ -3305,10 +3551,16 @@ function onTextInput(e) {
   // Cmd+Z in an edit is the browser's. After it the edit is one step again (TEXTUNDO.json).
   if (e?.inputType?.startsWith('history')) ed.marks.length = 1;
   else if (e?.inputType) {
-    const now = performance.now();
-    if (ed.lastInput && now - ed.lastInput >= TYPING_PAUSE) textStep(ed, ed.prevHtml, ed.prevArea);
-    ed.lastInput = now;
+    joinOrStep(ed);
     autoLink(ed, e.inputType, e.data);
+    // Enter carries a pending Strike to the next line, anything else ends it (CAP-E4FRESH.json).
+    if (ed.strikeNext) {
+      if (e.inputType === 'insertParagraph') ed.strikeNext.at = String(fmt.caretPlace(ed.ce, win.getSelection()));
+      else {
+        if (e.inputType === 'insertText' && e.data) fmt.markTyped(ed.ce, win.getSelection(), e.data.length, 'strike', ed.strikeNext.on);
+        ed.strikeNext = null;
+      }
+    }
   }
   // The end row follows the text both ways, but not below 2 rows
   // (parity/findings/E3.json: a one-line paragraph ended at 2 rows).
@@ -3323,7 +3575,10 @@ function onTextInput(e) {
   ed.prevArea = [...ed.area];
 }
 
-function onTextSelection() { if (editing && !textMenu) renderTextBar(); }
+function onTextSelection() {
+  if (editing?.strikeNext && String(fmt.caretPlace(editing.ce, win.getSelection())) !== editing.strikeNext.at) editing.strikeNext = null;
+  if (editing && !textMenu) renderTextBar();
+}
 function finishTextEdit() {
   const ed = editing;
   if (!ed) return;
@@ -3395,7 +3650,7 @@ function renderPanel() {
 const pageTitle = () => document.querySelector('.page-name')?.textContent.trim() || 'Page';
 const STANDIN_TYPES = ['Quote', 'Chart', 'SoundCloud', 'Flickr', 'Instagram']; // their content follows the width (STANDINS.json)
 const ADD_TYPES = [
-  ['Text', 8, 2, () => ({ type: 'text', html: '<p data-rte-preserve-empty="true"></p>' })],
+  ['Text', 8, 2, () => ({ type: 'text', html: '<p style="white-space:pre-wrap;" data-rte-preserve-empty="true"></p>' })],
   ['Image', 6, 6, () => ({ type: 'image', alt: '', empty: true, mode: 'fit' })],
   ['Button', 6, 2, () => ({ type: 'button', label: 'Learn more' })],
   ['Video', 8, 8, () => ({ type: 'video' })],
@@ -3410,10 +3665,13 @@ const ADD_TYPES = [
   // From the menu search (parity/findings/T10.json): Code 4 by 6, Embed 8 by 8.
   ['Code', 4, 6, () => ({ type: 'code', html: '<p>Hello, World!</p>' })],
   ['Embed', 8, 8, () => ({ type: 'embed' })],
+  ['Markdown', 4, 6, () => ({ type: 'markdown', text: '' })], // CAP-T10PRE.json
   // Not built yet (T11, T12): a stand-in of the size the oracle gives (parity/findings/U5.json sizes).
-  ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Menu: [12, 28], Chart: [8, 8], Markdown: [4, 6], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
+  ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Menu: [12, 28], Chart: [8, 8], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
     .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}) })]),
 ];
+// A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6).
+const PHONE_ROWS = { Accordion: 5 };
 function addBlock(sid, name) {
   const [, w, h, make] = ADD_TYPES.find((t) => t[0] === name);
   const s = S(sid);
@@ -3423,15 +3681,16 @@ function addBlock(sid, name) {
   const stack = [...s.blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
   const slot = s.phoneFollows ? 0 : newBlockSlot(stack, w, h);
   const mobileEnd = slot ? Math.max(...stack.slice(0, slot).map((b) => b.layout.mobile.area[2])) : 1;
+  const phoneH = PHONE_ROWS[name] ?? h;
   const zTop = (bpName) => Math.max(0, ...s.blocks.map((b) => b.layout[bpName].z)) + 1;
   const block = { id, ...make(), layout: {
     desktop: { area: [1, 2, 1 + h, 2 + w], z: zTop('desktop'), justify: 'flex-start', align: 'flex-start' },
-    mobile: { area: [mobileEnd, 2, mobileEnd + h, 10], z: zTop('mobile'), justify: 'flex-start', align: 'flex-start' },
+    mobile: { area: [mobileEnd, 2, mobileEnd + phoneH, 10], z: zTop('mobile'), justify: 'flex-start', align: 'flex-start' },
   } };
   if (s.phoneFollows) followNewBlock(s, block);
   else for (const b of stack.slice(slot)) {
     const a = b.layout.mobile.area;
-    b.layout.mobile.area = [a[0] + h, a[1], a[2] + h, a[3]];
+    b.layout.mobile.area = [a[0] + phoneH, a[1], a[2] + phoneH, a[3]];
   }
   s.blocks.push(block);
   // The blocks that moved down can grow the phone section too (CAP-PHONE.json: 10 to 11 rows).
@@ -5144,6 +5403,8 @@ function setBp(next) {
   // Phones use overlay scrollbars, so the preview must not lose width to one.
   doc.documentElement.style.scrollbarWidth = bp === 'mobile' ? 'none' : '';
   for (const sec of model.sections) drawLabels(sec.id);
+  // A form's panel shows this view's own values (FORMFIELDS.json, phone).
+  if (sel && designOpen === sel.bid && B(sel.sid, sel.bid)?.type === 'form') { const top = blockPanel.scrollTop; renderBlockPanel(); blockPanel.scrollTop = top; }
   requestAnimationFrame(() => {
     drawSelection();
     updateUi();
@@ -5160,6 +5421,7 @@ function setPreview(on) {
   document.body.classList.toggle('is-preview', on);
   doc?.body.classList.toggle('is-preview', on);
   if (!on) doc?.querySelectorAll('.cdk-image-lightbox, body > .form-lightbox').forEach((x) => x.remove());
+  if (!on) doc?.querySelectorAll('.followup-question-container').forEach((x) => { x.hidden = true; });
   $('preview').setAttribute('aria-pressed', String(on));
   $('page-state').textContent = on ? 'Previewing' : 'Page · Published';
   if (on) { closeFloating(); closeSectionPanel(); designOpen = null; if (editing) finishTextEdit(); select(null); }

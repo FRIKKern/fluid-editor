@@ -1796,6 +1796,30 @@
     ],
     "note": "The link menu with URL and the site list. What the row shows after a link is set: not read."
    }
+  },
+  "messageBox": {
+   "note": "The Message box is rich text with the Text block's bar: Squarespace AI (never pressed), Text Style with Heading 1 to 4, Paragraph 1 to 3 and Monospace, Bold, Italic, Underline, Link, Clear Formatting. The bar is 376 by 36, above the box. Bold, italic and underline draw <strong>, <em> and <u> inside a p. Text Style's rows were read and none pressed, Link and Clear Formatting not pressed.",
+   "bar": {
+    "box": [
+     663,
+     169.78125,
+     376.109375,
+     36
+    ],
+    "kids": [
+     "DIV|Squarespace AI||663|170|36|36",
+     "DIV|Text Style|Paragraph 2|708|170|121|36",
+     "DIV|Bold||838|170|36|36",
+     "DIV|Italic||878|170|36|36",
+     "DIV|Underline||918|170|36|36",
+     "DIV|Link||958|170|36|36",
+     "DIV|Clear Formatting||1003|170|36|36"
+    ]
+   },
+   "html": {
+    "html": "<div tabindex=\"-1\" class=\"form-submission-text form-submission-text--align-left\"><p data-rte-preserve-empty=\"true\" style=\"white-space:pre-wrap;\"><strong><em><u>Thanks a lot</u></em></strong></p></div>",
+    "cs": "16px 700 italic underline rgb(0, 0, 0) 22.4px"
+   }
   }
  },
  "lightbox": {
@@ -2146,7 +2170,32 @@
    "contentTab": "The Content tab does not change: Form Name, its own Button Text, Edit Form Fields and the rest.",
    "colorPop": "The five swatches, the plus and the Opacity slider. White is chosen at the start and no Reset to theme shows."
   },
-  "rowRule": "On: the rows lose ceil((form height - button height) / row pitch), with a floor of 1. Read four times: 16 rows and a 560.9 form to 3, 14 and 560.9 to 1, 11 and 410.5 to 2, and 16 and 410.5 to 3. That last one had a field deleted with the rows not yet settled, so the rule fits it only if the height is the one from before the delete. Off: the rows stay until the next change. Typing moves the rows only when the button's height changes, then to the least that hold it. Alignment never shrinks them."
+  "rowRule": "On: the rows lose ceil((form height - button height) / row pitch), with a floor of 1. Read four times: 16 rows and a 560.9 form to 3, 14 and 560.9 to 1, 11 and 410.5 to 2, and 16 and 410.5 to 3. That last one had a field deleted with the rows not yet settled, so the rule fits it only if the height is the one from before the delete. Off: the rows stay until the next change. Typing moves the rows only when the button's height changes, then to the least that hold it. Alignment never shrinks them.",
+  "deleteThenOn": {
+   "note": "Tested on the lead's question: does the older height count? One delete holds: 16 rows and a 410.5 form go to 3 like a 560.9 form, also after waiting 8 seconds. More deletes don't fit it. Two deletes: 12 rows, form 315.7, go to 2, a loss of 10, while the older heights give 13, 9 or 7. Three deletes: 9 rows, form 189.1, go to 1. No height before the delete explains all of them, so it isn't built.",
+   "reads": {
+    "one": {
+     "rows": 16,
+     "form": 410.47,
+     "on": 3
+    },
+    "oneAfter8s": {
+     "rows": 16,
+     "form": 410.47,
+     "on": 3
+    },
+    "two": {
+     "rows": 12,
+     "form": 315.66,
+     "on": 2
+    },
+    "three": {
+     "rows": 9,
+     "form": 189.13,
+     "on": 1
+    }
+   }
+  }
  },
  "submissions": {
   "manage": "A link to the Contacts page's form submitters, in a new tab. Read by going there: an empty list with Email, First Name, Last Name, Total Submissions, Last Submission and Email Subscribed.",
@@ -2156,7 +2205,286 @@
   "export": "A press fades the row for a moment. No dialog, nothing else on screen. No submissions are stored on the trial site."
  },
  "followUp": {
-  "menu": "An option's ... menu has one row, Add Follow-Up Question. It opens Add Follow-Up with the same 19 tiles.",
+  "menu": {
+   "rows": [
+    "Add follow-up question",
+    "Delete Option"
+   ],
+   "inFollowUp": [
+    "Delete Option"
+   ],
+   "note": "An option's menu has two rows on every field kind read: Radio, Checkbox, Dropdown and Survey. An option left alone still has Delete Option. Capitals, 12px, weight 500, letter spacing 0.5px. Delete Option is rgb(195, 45, 56). The earlier note of one row in this finding was my wrong read of a menu that runs past the panel's bottom: the screenshot from that run shows both rows.",
+   "box": {
+    "rows": "220 wide, 45 per row, text 22 in",
+    "position": "Right edge 4 left of the button, top 40 under the button's top. It may run past the panel's bottom."
+   }
+  },
+  "delete": {
+   "note": "Delete Option removes the option at once, with no dialog, from the menu or from Option Details. Its follow-ups go with it. Options can all go: the field then draws its legend alone, 30.4 high. Add option then adds Option 1.",
+   "noOptions": [
+    0,
+    494.3,
+    518,
+    30.4
+   ]
+  },
+  "option": {
+   "withFollowUp": "A row to open in place of the field and the menu: name, then n follow-up under it, 16 high, and an arrow. 61 high, so Add option moves up 4.",
+   "views": {
+    "text": [
+     "Back @33,20,32,14",
+     "Option Details @113,17,95,22",
+     "Option @16,59,46,20",
+     "Follow-up @16,149,72,16",
+     "Text @71,187,200,22",
+     "Add follow-up @16,261,107,22",
+     "Delete Option @16,341,100,22"
+    ],
+    "c": [
+     "BUTTON|button||||||Back|11,5,54,46",
+     "INPUT|text|||Option 1||||27,88,266,22",
+     "BUTTON|submit||||||Text|16,165,288,66",
+     "BUTTON|submit||||||Add follow-up|16,254,107,36",
+     "BUTTON|submit||||||Delete Option|16,334,100,36"
+    ]
+   },
+   "css": [
+    "Back|33|20|32|14|14px|500|rgb(14, 14, 14)|-0.14px|none",
+    "Option Details|113|17|95|22|14px|500|rgb(62, 62, 62)|normal|none",
+    "Option|16|59|46|20|11px|400|rgb(102, 102, 102)|0.55px|uppercase",
+    "Follow-up|16|149|72|16|11px|500|rgb(102, 102, 102)|0.75px|uppercase",
+    "Text|71|187|200|22|14px|400|rgb(14, 14, 14)|-0.14px|none",
+    "Add follow-up|16|261|107|22|12px|500|rgb(14, 14, 14)|0.5px|uppercase",
+    "Delete Option|16|341|100|22|12px|500|rgb(195, 45, 56)|0.5px|uppercase"
+   ],
+   "boxes": [
+    "BUTTON||Back|11|5|54|46|rgba(0, 0, 0, 0)",
+    "svg|||11|16|22|22|rgba(0, 0, 0, 0)",
+    "INPUT||Option 1|27|88|266|22|rgba(0, 0, 0, 0)",
+    "BUTTON||Text|16|165|288|66|rgba(0, 0, 0, 0)",
+    "svg|||27|187|22|22|rgba(0, 0, 0, 0)",
+    "svg|||282|187|22|22|rgba(0, 0, 0, 0)",
+    "BUTTON||Add follow-up|16|254|107|36|rgba(0, 0, 0, 0)",
+    "BUTTON||Delete Option|16|334|100|36|rgba(0, 0, 0, 0)"
+   ],
+   "plural": "Follow-up with one, Follow-ups with more. Rows 67 apart."
+  },
+  "tile": "A tile adds the follow-up and opens its editor. Nothing new draws on the canvas while editing.",
+  "back": {
+   "fromMenuRoute": "Back goes to the field.",
+   "fromDetailsRoute": "Back goes to Option Details.",
+   "deleteField": "Delete Field goes to the field, from either route.",
+   "lastDeleted": "With its last follow-up gone the option is a plain row with its menu again."
+  },
+  "editors": {
+   "Name": [
+    "Back @27,20,32,14",
+    "Name @140,17,40,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "First Name @16,279,288,16",
+    "Show @16,306,249,22",
+    "Require @16,351,249,22",
+    "Last Name @16,407,288,16",
+    "Show @16,434,249,22",
+    "Require @16,479,249,22",
+    "At least one name field must be showing. @16,522,232,15",
+    "Delete Field @16,559,86,22"
+   ],
+   "Email": [
+    "Back @27,20,32,14",
+    "Email @142,17,37,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "Placeholder @16,261,87,20",
+    "Required @16,340,249,22",
+    "Delete Field @16,380,86,22"
+   ],
+   "Phone": [
+    "Back @27,20,32,14",
+    "Phone @139,17,43,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "Country dropdown @16,268,249,22",
+    "Required @16,312,249,22",
+    "Delete Field @16,352,86,22"
+   ],
+   "Text Area": [
+    "Back @27,20,32,14",
+    "Text Area @129,17,62,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "Placeholder @16,261,87,20",
+    "Required @16,340,249,22",
+    "Delete Field @16,380,86,22"
+   ],
+   "Checkbox": [
+    "Back @27,20,32,14",
+    "Checkbox @126,17,67,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "Required @16,268,249,22",
+    "Options @0,323,320,16",
+    "Add option @22,476,81,22",
+    "Delete Field @16,534,86,22"
+   ],
+   "Radio": [
+    "Back @27,20,32,14",
+    "Radio @141,17,38,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "Required @16,268,249,22",
+    "Options @0,323,320,16",
+    "Add option @22,476,81,22",
+    "Delete Field @16,534,86,22"
+   ],
+   "Survey": [
+    "Back @27,18,32,14",
+    "Survey @137,15,46,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Required @16,266,249,22",
+    "Options @0,321,320,16",
+    "Add option @22,474,81,22",
+    "Delete Field @16,532,86,22"
+   ],
+   "Address": [
+    "Back @27,18,32,14",
+    "Address @132,15,56,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Required @16,266,249,22",
+    "Delete Field @16,306,86,22"
+   ],
+   "Line": [
+    "Back @27,18,32,14",
+    "Line @146,15,28,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Underline @16,266,249,22",
+    "Delete Field @16,307,86,22"
+   ],
+   "Website": [
+    "Back @27,18,32,14",
+    "Website @133,15,55,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Placeholder @16,259,87,20",
+    "Required @16,338,249,22",
+    "Delete Field @16,378,86,22"
+   ],
+   "Date": [
+    "Back @27,18,32,14",
+    "Date @144,15,31,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Required @16,266,249,22",
+    "Delete Field @16,306,86,22"
+   ],
+   "Number": [
+    "Back @27,18,32,14",
+    "Number @133,15,55,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Placeholder @16,259,87,20",
+    "Required @16,338,249,22",
+    "Delete Field @16,378,86,22"
+   ],
+   "Time": [
+    "Back @27,18,32,14",
+    "Time @144,15,33,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Required @16,266,249,22",
+    "Delete Field @16,306,86,22"
+   ],
+   "Currency": [
+    "Back @27,18,32,14",
+    "Currency @129,15,62,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Currency symbol @16,259,117,20",
+    "Required @16,338,249,22",
+    "Delete Field @16,378,86,22"
+   ],
+   "Hidden": [
+    "Back @27,18,32,14",
+    "Hidden @136,15,49,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Learn More. @172,133,68,15",
+    "Label @16,153,37,20",
+    "Variable @16,225,57,20",
+    "To fill in this field, include the variable from the box above in the  @16,293,288,32",
+    "Value @16,329,38,20",
+    "Delete Field @16,404,86,22"
+   ],
+   "X Username": [
+    "Back @27,18,32,14",
+    "X Username @119,15,81,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Required @16,266,249,22",
+    "Delete Field @16,306,86,22"
+   ],
+   "File Upload": [
+    "Back @27,18,32,14",
+    "File Upload @122,15,75,22",
+    "Follows-ups appear when visitors select one of your form field options @0,53,320,44",
+    "Label @16,115,37,20",
+    "Description @16,187,80,20",
+    "Required @16,266,249,22",
+    "Allow only specific file types @16,310,249,22",
+    "Max number of files @17,354,136,22",
+    "Delete Field @16,395,86,22"
+   ],
+   "Text": [
+    "Back @27,20,32,14",
+    "Text @146,17,27,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "Placeholder @16,261,87,20",
+    "Required @16,340,249,22",
+    "Delete Field @16,380,86,22"
+   ],
+   "Dropdown": [
+    "Back @27,20,32,14",
+    "Dropdown @125,17,70,22",
+    "Follows-ups appear when visitors select one of your form field options @0,55,320,44",
+    "Label @16,117,37,20",
+    "Description @16,189,80,20",
+    "Required @16,268,249,22",
+    "Options @0,323,320,16",
+    "Add option @22,476,81,22",
+    "Delete Field @16,534,86,22"
+   ]
+  },
+  "editorCss": [
+   "Back|27|20|32|14|14px|500|rgb(14, 14, 14)|-0.14px|none",
+   "Dropdown|125|17|70|22|14px|500|rgb(62, 62, 62)|normal|none",
+   "Follows-ups appear when visito|0|55|320|44|14px|400|rgb(14, 14, 14)|normal|none",
+   "Label|16|117|37|20|11px|400|rgb(102, 102, 102)|0.55px|uppercase",
+   "Description|16|189|80|20|11px|400|rgb(102, 102, 102)|0.55px|uppercase",
+   "Required|16|268|249|22|14px|400|rgb(14, 14, 14)|-0.14px|none",
+   "Options|0|323|320|16|11px|500|rgb(102, 102, 102)|0.75px|uppercase",
+   "Add option|22|476|81|22|12px|500|rgb(14, 14, 14)|0.5px|uppercase",
+   "Delete Field|16|534|86|22|12px|500|rgb(195, 45, 56)|0.5px|uppercase"
+  ],
   "view": {
    "text": [
     "Back @33,20,32,14",
@@ -2203,24 +2531,784 @@
     "BUTTON|submit||||||X Username|168,407,119,66",
     "BUTTON|submit||||||File Upload|33,473,119,44"
    ]
+  },
+  "drawn": {
+   "all": {
+    "h": 3229.1,
+    "c": [
+     {
+      "cls": "form-item.field.text",
+      "box": [
+       32,
+       624.1,
+       486,
+       74.8
+      ],
+      "txt": "Text",
+      "parts": [
+       "INPUT text 32 654.5 486 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.select",
+      "box": [
+       32,
+       718.9,
+       486,
+       74.8
+      ],
+      "txt": "Dropdown|Select an option|Option 1|Option 2",
+      "parts": [
+       "SELECT select-one 32 749.3 486 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.fields.name",
+      "box": [
+       32,
+       813.8,
+       486,
+       122.5
+      ],
+      "txt": "Name|First Name|Last Name",
+      "parts": [
+       "INPUT text 32 871.9 238 44.4",
+       "INPUT text 280 871.9 238 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.email",
+      "box": [
+       32,
+       936.3,
+       486,
+       74.8
+      ],
+      "txt": "Email",
+      "parts": [
+       "INPUT email 32 966.7 486 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.fields.phone",
+      "box": [
+       32,
+       1031.1,
+       486,
+       94.8
+      ],
+      "txt": "Phone",
+      "parts": [
+       "INPUT text 32 1061.5 486 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.textarea",
+      "box": [
+       32,
+       1125.9,
+       486,
+       130.4
+      ],
+      "txt": "Text Area",
+      "parts": [
+       "TEXTAREA textarea 32 1156.3 486 100"
+      ]
+     },
+     {
+      "cls": "form-item.field.checkbox",
+      "box": [
+       32,
+       1276.3,
+       486,
+       101.8
+      ],
+      "txt": "Checkbox|Option 1|Option 2",
+      "parts": [
+       "INPUT checkbox 32 1312.7 20 20",
+       "INPUT checkbox 32 1352.4 20 20"
+      ]
+     },
+     {
+      "cls": "form-item.field.radio",
+      "box": [
+       32,
+       1398.2,
+       486,
+       109.8
+      ],
+      "txt": "Radio|Option 1|Option 2",
+      "parts": [
+       "INPUT radio 32 1434.6 20 20",
+       "INPUT radio 32 1478.3 20 20"
+      ]
+     },
+     {
+      "cls": "form-item.field.likert",
+      "box": [
+       32,
+       1528,
+       486,
+       360.9
+      ],
+      "txt": "Survey|Option 1|Strongly Disagree|Disagree|Neutral|Agree|Str",
+      "parts": [
+       "INPUT radio 33 1631.4 20 20",
+       "INPUT radio 130.2 1631.4 20 20",
+       "INPUT radio 227.4 1631.4 20 20",
+       "INPUT radio 324.6 1631.4 20 20",
+       "INPUT radio 421.8 1631.4 20 20",
+       "INPUT radio 33 1777.8 20 20",
+       "INPUT radio 130.2 1777.8 20 20",
+       "INPUT radio 227.4 1777.8 20 20"
+      ]
+     },
+     {
+      "cls": "form-item.fields.address",
+      "box": [
+       32,
+       1888.9,
+       486,
+       402.9
+      ],
+      "txt": "Address|Country|Afghanistan|Åland Islands|Albania|Algeria|Am",
+      "parts": [
+       "SELECT select-one 32 1951 486 44.4",
+       "INPUT text 32 2043.1 486 44.4",
+       "INPUT text 32 2135.3 486 44.4",
+       "INPUT text 32 2227.4 238 44.4",
+       "INPUT text 280 2227.4 238 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.section.line-field.underline",
+      "box": [
+       32,
+       2323.8,
+       486,
+       35.7
+      ],
+      "txt": "Line",
+      "parts": []
+     },
+     {
+      "cls": "form-item.field.website",
+      "box": [
+       32,
+       2391.5,
+       486,
+       74.8
+      ],
+      "txt": "Website|(a web prefix)",
+      "parts": [
+       "INPUT text 32 2421.9 486 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.date",
+      "box": [
+       32,
+       2486.3,
+       486,
+       76.8
+      ],
+      "txt": "Date",
+      "parts": [
+       "INPUT date 32 2516.7 200 46.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.number",
+      "box": [
+       32,
+       2583.1,
+       486,
+       74.8
+      ],
+      "txt": "Number",
+      "parts": [
+       "INPUT text 32 2613.5 486 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.time",
+      "box": [
+       32,
+       2677.9,
+       486,
+       112.5
+      ],
+      "txt": "Time|in Central European Time",
+      "parts": [
+       "INPUT time 32 2708.3 200 46.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.currency",
+      "box": [
+       32,
+       2810.5,
+       486,
+       74.8
+      ],
+      "txt": "Currency|$",
+      "parts": [
+       "INPUT text 32 2840.9 200 44.4"
+      ]
+     },
+     {
+      "cls": "",
+      "box": [
+       32,
+       2905.3,
+       486,
+       0
+      ],
+      "txt": "",
+      "parts": [
+       "INPUT hidden -100.1 67.8 0 0"
+      ]
+     },
+     {
+      "cls": "form-item.field.twitter",
+      "box": [
+       32,
+       2905.3,
+       486,
+       74.8
+      ],
+      "txt": "X Username|@",
+      "parts": [
+       "INPUT text 32 2935.7 200 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.file",
+      "box": [
+       32,
+       3000.1,
+       486,
+       142.4
+      ],
+      "txt": "File Upload|Add a File",
+      "parts": [
+       "INPUT file 33 3031.5 486 46"
+      ]
+     }
+    ]
+   },
+   "radioOne": {
+    "h0": 690.71875,
+    "h1": 880.34375,
+    "tree": [
+     "DIV.followup-question-container [32,624.1,486,74.8]",
+     " DIV.form-item.field.text [32,624.1,486,74.8]",
+     "  LABEL.title.YB_rseKyzcQ64VtF [32,624.1,486,30.4]",
+     "   DIV.KBeHkQJXlg4N1Ujt [32,624.1,32.1,22.4]",
+     "    DIV.SP08ZLkhAnk2Rqaf [32,624.1,32.1,22.4]",
+     "     SPAN [32,624.1,32.1,22.4] \"Text\"",
+     "  INPUT.ngonnDl0lqs7ZArA [32,654.5,486,44.4] type=text",
+     "  SPAN.V60Xg8ZMr2Q9qLks.form-input-effects [32,654.5,486,44.4]",
+     "   SPAN.form-input-effects-border [32,654.5,486,44.4]",
+     "DIV.followup-question-container [32,718.9,486,74.8]",
+     " DIV.form-item.field.select [32,718.9,486,74.8]",
+     "  LABEL.title.YB_rseKyzcQ64VtF [32,718.9,486,30.4]",
+     "   DIV.KBeHkQJXlg4N1Ujt [32,718.9,82.8,22.4]",
+     "    DIV.SP08ZLkhAnk2Rqaf [32,718.9,82.8,22.4]",
+     "     SPAN [32,718.9,82.8,22.4] \"Dropdown\"",
+     "  DIV.AqFl_fiEKw4guqD2 [32,749.3,486,44.4]",
+     "   SELECT.WRQLXcvkXgAPo369.show-placeholder [32,749.3,486,44.4] type=select-one",
+     "   SPAN.V60Xg8ZMr2Q9qLks.form-input-effects [32,749.3,486,44.4]",
+     "    SPAN.form-input-effects-border [32,749.3,486,44.4]",
+     "   DIV.QeVRMFrE3dDozGvZ [479,765.5,18,12]",
+     "    svg [479,765.5,18,12]",
+     "DIV.btIyKrvyA6dTrftg [-5000,813.8,1,1]",
+     " INPUT.ngonnDl0lqs7ZArA [-5000,813.8,22,44.4] type=text",
+     " SPAN.V60Xg8ZMr2Q9qLks.form-input-effects [-100.1,-0.2,0,0] NONE"
+    ]
+   },
+   "checkbox": {
+    "second": {
+     "h": 1319.3,
+     "c": [
+      {
+       "cls": "form-item.field.email",
+       "box": [
+        32,
+        702.3,
+        486,
+        74.8
+       ],
+       "txt": "Email",
+       "parts": [
+        "INPUT email 32 732.7 486 44.4"
+       ]
+      }
+     ]
+    },
+    "thenFirst": {
+     "h": 1414.2,
+     "c": [
+      {
+       "cls": "form-item.field.text",
+       "box": [
+        32,
+        702.3,
+        486,
+        74.8
+       ],
+       "txt": "Text",
+       "parts": [
+        "INPUT text 32 732.7 486 44.4"
+       ]
+      },
+      {
+       "cls": "form-item.field.email",
+       "box": [
+        32,
+        797.1,
+        486,
+        74.8
+       ],
+       "txt": "Email",
+       "parts": [
+        "INPUT email 32 827.5 486 44.4"
+       ]
+      }
+     ]
+    },
+    "secondOff": {
+     "h": 1319.3,
+     "c": [
+      {
+       "cls": "form-item.field.text",
+       "box": [
+        32,
+        702.3,
+        486,
+        74.8
+       ],
+       "txt": "Text",
+       "parts": [
+        "INPUT text 32 732.7 486 44.4"
+       ]
+      }
+     ]
+    }
+   },
+   "dropdown": {
+    "h": 1414.2,
+    "c": [
+     {
+      "cls": "form-item.field.text",
+      "box": [
+       32,
+       702.3,
+       486,
+       74.8
+      ],
+      "txt": "Text",
+      "parts": [
+       "INPUT text 32 732.7 486 44.4"
+      ]
+     },
+     {
+      "cls": "form-item.field.number",
+      "box": [
+       32,
+       891.9,
+       486,
+       74.8
+      ],
+      "txt": "Number",
+      "parts": [
+       "INPUT text 32 922.3 486 44.4"
+      ]
+     }
+    ]
+   },
+   "note": "In Preview. They draw at once after the field, 32 in and 486 wide, 20 apart, in option order however they were picked. Another radio takes them away. The select was set by script with a change event, not by a press.",
+   "dropdownPress": "A real press on the Dropdown in Preview focuses it and shows no list in the page: nothing new in the document, not :open, and arrow keys and Enter after it left the first option picked. It's a native select, whose list a headless Chrome doesn't draw. So what the list looks like is unread. Picking by script with a change event is how the option rule was read."
+  },
+  "survey": {
+   "menu": [
+    "Add follow-up question",
+    "Delete Option"
+   ],
+   "note": "A survey's option offers follow-ups and draws them. A rating on an option's row draws that option's follow-ups, after the whole survey, in option order however they were rated. A survey has no way to unpick a rating, so they stay. An earlier note here said a first rating drew nothing: that press missed, because the page was still scrolling when I measured. The later reads checked the rating was checked.",
+   "reads": {
+    "secondRowFirst": {
+     "checked": [
+      5
+     ],
+     "follow": [
+      [
+       "Email",
+       32,
+       855.2,
+       486.03125,
+       74.8,
+       "-item field likert",
+       "field-list"
+      ]
+     ],
+     "h": 1016.6
+    },
+    "thenFirstRow": {
+     "checked": [
+      0,
+      5
+     ],
+     "follow": [
+      [
+       "Text",
+       32,
+       855.2,
+       486.03125,
+       74.8,
+       "-item field likert",
+       "field-list"
+      ],
+      [
+       "Email",
+       32,
+       950,
+       486.03125,
+       74.8,
+       "question-container",
+       "field-list"
+      ]
+     ],
+     "h": 1111.4
+    },
+    "before": {
+     "checked": [],
+     "follow": [],
+     "h": 921.8
+    }
+   }
+  },
+  "blockRows": "While a tile is pressed the rows can read tall for a moment, as in blockFits.",
+  "marks": {
+   "tick": "A picked checkbox shows a tick in a 12px box in the 20px circle, in the text color. Ours draws its own tick: the shape is ours, not the oracle's. It wipes in from the left: 0.2s, after 0.1s, cubic-bezier(0.33, 1, 0.68, 1), read frame by frame to end at about 0.3s.",
+   "dot": "A picked radio or rating shows an 8px dot in the middle, in the text color. It scales from 0 to 1 over 0.1s, after 0.1s, on the same curve, read frame by frame to end at about 0.2s.",
+   "circle": "At rest 1px in the text color, 20 across. Hover, without focus: 2px inward, the same color. Focus, with or without a hover, by a press or by script, picked or not: 2px inward in the site's accent, rgb(242, 184, 180) here. Radio and checkbox read alike. A radio's and a checkbox's edge move over border-width 0.075s and border-color 0.2s. Focus elsewhere puts it back.",
+   "reads": {
+    "rOnAway": {
+     "checked": true,
+     "active": false,
+     "hover": false,
+     "edge": {
+      "w": "18px",
+      "h": "18px",
+      "bw": "1px",
+      "bc": "rgb(0, 0, 0)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "cOnHoverFocus": {
+     "checked": true,
+     "active": true,
+     "hover": true,
+     "edge": {
+      "w": "16px",
+      "h": "16px",
+      "bw": "2px",
+      "bc": "rgb(242, 184, 180)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "cOnFocusAway": {
+     "checked": true,
+     "active": true,
+     "hover": false,
+     "edge": {
+      "w": "16px",
+      "h": "16px",
+      "bw": "2px",
+      "bc": "rgb(242, 184, 180)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "c0OnNoFocus": {
+     "checked": true,
+     "active": false,
+     "hover": false,
+     "edge": {
+      "w": "18px",
+      "h": "18px",
+      "bw": "1px",
+      "bc": "rgb(0, 0, 0)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "r1OnFocusAway": {
+     "checked": true,
+     "active": true,
+     "hover": false,
+     "edge": {
+      "w": "16px",
+      "h": "16px",
+      "bw": "2px",
+      "bc": "rgb(242, 184, 180)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "c0OnHoverNoFocus": {
+     "checked": true,
+     "active": false,
+     "hover": true,
+     "edge": {
+      "w": "16px",
+      "h": "16px",
+      "bw": "2px",
+      "bc": "rgb(0, 0, 0)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "c1OffHoverNoFocus": {
+     "checked": false,
+     "active": false,
+     "hover": true,
+     "edge": {
+      "w": "16px",
+      "h": "16px",
+      "bw": "2px",
+      "bc": "rgb(0, 0, 0)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "c1OffScriptFocus": {
+     "checked": false,
+     "active": true,
+     "hover": false,
+     "edge": {
+      "w": "16px",
+      "h": "16px",
+      "bw": "2px",
+      "bc": "rgb(242, 184, 180)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    },
+    "c1OffPressedFocus": {
+     "checked": false,
+     "active": true,
+     "hover": false,
+     "edge": {
+      "w": "16px",
+      "h": "16px",
+      "bw": "2px",
+      "bc": "rgb(242, 184, 180)",
+      "bs": "solid",
+      "os": "none",
+      "oc": "rgb(0, 0, 0)",
+      "ow": "3px",
+      "sh": "none",
+      "op": "1"
+     }
+    }
+   },
+   "timing": {
+    "dot": [
+     [
+      117,
+      "matrix(0.421016, 0, 0, 0.421016, -4, -4)"
+     ],
+     [
+      133,
+      "matrix(0.701706, 0, 0, 0.701706, -4, -4)"
+     ],
+     [
+      150,
+      "matrix(0.872427, 0, 0, 0.872427, -4, -4)"
+     ],
+     [
+      167,
+      "matrix(0.961088, 0, 0, 0.961088, -4, -4)"
+     ],
+     [
+      183,
+      "matrix(0.994986, 0, 0, 0.994986, -4, -4)"
+     ],
+     [
+      201,
+      "matrix(1, 0, 0, 1, -4, -4)"
+     ],
+     [
+      216,
+      "matrix(1, 0, 0, 1, -4, -4)"
+     ]
+    ],
+    "tick": [
+     [
+      113,
+      "-22.9726% 0px"
+     ],
+     [
+      130,
+      "-42.0146% 0px"
+     ],
+     [
+      146,
+      "-57.6304% 0px"
+     ],
+     [
+      163,
+      "-70.1151% 0px"
+     ],
+     [
+      180,
+      "-79.8551% 0px"
+     ],
+     [
+      197,
+      "-87.1735% 0px"
+     ],
+     [
+      213,
+      "-92.4991% 0px"
+     ],
+     [
+      229,
+      "-96.0944% 0px"
+     ],
+     [
+      247,
+      "-98.3262% 0px"
+     ],
+     [
+      262,
+      "-99.4948% 0px"
+     ],
+     [
+      279,
+      "-99.9354% 0px"
+     ],
+     [
+      296,
+      "-100% 0px"
+     ]
+    ],
+    "transitions": {
+     "dot": "transform 0.1s cubic-bezier(0.33, 1, 0.68, 1) 0.1s",
+     "tick": "mask-position 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0.1s, -webkit-mask-position 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0.1s",
+     "edge": "border-width 0.075s cubic-bezier(0.33, 1, 0.68, 1), border-color 0.2s cubic-bezier(0.33, 1, 0.68, 1), transform 0.15s cubic-bezier(0.33, 1, 0.68, 1)"
+    }
+   }
+  },
+  "rowFont": {
+   "name": "14px, 400, line 22, letter spacing -0.14px, rgb(14, 14, 14)",
+   "followUps": "12px, 400, line 16, letter spacing normal, rgb(102, 102, 102)",
+   "read": [
+    {
+     "t": "Options",
+     "tag": "LABEL",
+     "box": [
+      0,
+      299,
+      320,
+      16
+     ],
+     "font": "Clarkson, \"Helvetica Neue\", He",
+     "size": "11px",
+     "weight": "500",
+     "line": "16px",
+     "ls": "0.75px",
+     "color": "rgb(102, 102, 102)",
+     "tt": "uppercase"
+    },
+    {
+     "t": "Option 1",
+     "tag": "P",
+     "box": [
+      44,
+      326,
+      221,
+      22
+     ],
+     "font": "Clarkson, \"Helvetica Neue\", He",
+     "size": "14px",
+     "weight": "400",
+     "line": "22px",
+     "ls": "-0.14px",
+     "color": "rgb(14, 14, 14)",
+     "tt": "none"
+    },
+    {
+     "t": "1 follow-up",
+     "tag": "P",
+     "box": [
+      44,
+      348,
+      221,
+      16
+     ],
+     "font": "Clarkson, \"Helvetica Neue\", He",
+     "size": "12px",
+     "weight": "400",
+     "line": "16px",
+     "ls": "normal",
+     "color": "rgb(102, 102, 102)",
+     "tt": "none"
+    }
+   ]
   }
  },
  "undo": "Undo did not step back a field's change. After adding a Dropdown one Undo left it there; after typing a label and a description one Undo left both, and the next removed the whole Form block. Ours takes one step per change.",
  "presses": [
   "The press on the lightbox button in the preview checked the element on top inside the frame.",
   "The row drag in the list checked the row was on top at its start.",
-  "The bottom edge drag on the Lightbox block was by coordinates, read from the block's box. Every other press in the Lightbox reads checked the element on top; the Button Style list was pressed on the element found on top at the label's center."
+  "The bottom edge drag on the Lightbox block was by coordinates, read from the block's box. Every other press in the Lightbox reads checked the element on top; the Button Style list was pressed on the element found on top at the label's center.",
+  "Follow-up reads: radio, checkbox, rating and Dropdown presses in Preview checked the control on top inside the frame and that its place had stopped moving. A hover read moved the pointer to the same place. Every other press used the on-top helper."
  ],
  "notRead": [
   "What a form's open lightbox draws: the preview opens nothing on an unsaved form, and it needs a Save (under 0005).",
   "What the Message, Alignment, Position, HTML and Redirect do after a submit: a submit writes to form storage.",
-  "Follow-up questions past Add Follow-Up: no tile pressed.",
   "Send confirmation email and SMS Marketing Opt-in: not pressed. View plans: not pressed.",
-  "Fields on the phone.",
   "Email Notification, Additional Storage, reCAPTCHA: not pressed.",
-  "How an option is removed: its menu has one row, and an emptied option stays as an empty row.",
   "Field label typed empty.",
-  "A Lightbox form on the phone: goes with the read of fields on the phone."
+  "Background Color on the phone, and the form's own Button Text on the phone: not read, so ours shares them across views.",
+  "Button Style on the phone: not pressed there. Ours shares it."
  ],
  "drawn": {
   "note": "Item height and control boxes (x, y from the item top, width, height) at 1600 wide, a form 518 wide. plain: Subject has a description and placeholder, every other field as added. withDescription: every added field has a description, Required on where it has one, Phone shows its country code, a Dropdown has its own placeholder and a third option left empty.",
@@ -2788,11 +3876,14 @@
   "One undo step per change. The oracle's Undo did not step field changes back: reads in undo.",
   "The Country list is the browser's region names, 251 of them, with Norway chosen. The oracle has 245. The Phone prefix stays +47.",
   "The field and tile icons are our own drawings.",
-  "Ours' Message box is plain text: a new line is a new paragraph. The oracle's is rich text, whose formatting is not read.",
+  "Ours' Message box is plain text: a new line is a new paragraph. The oracle's is rich text with the Text block's bar (postSubmit.messageBox).",
   "Ours' HTML box has no colours or code editor. It takes the same text.",
   "In ours' Preview frame a redirect shows the message, so the editor stays open. On the page itself it follows the link.",
   "A form with a field just deleted: ours has already fit its rows, so Lightbox on reads from there. The oracle's rows had not settled (lightbox, reads.otherForm.fewerFields: 3 rows where ours gives 2).",
-  "What the Lightbox button opens is ours, with no read behind it: a dark page, a 640 wide box in the chosen Background Color, the form and a close button. A press beside the box or on the close button ends it. The text and submit button turn black or white to read on the color."
+  "What the Lightbox button opens is ours, with no read behind it: a dark page, a 640 wide box in the chosen Background Color, the form and a close button. A press beside the box or on the close button ends it. The text and submit button turn black or white to read on the color.",
+  "Ours has no tooltip Open menu on an option's menu button.",
+  "On the phone too the rows fit in the same step. The oracle's fit is one step late there as well.",
+  "Lightbox off from the phone, read once at 15 rows from 16 with no press between. Ours keeps the 16."
  ],
  "inferred": [
   "Hidden's Variable follows the Label: only SQF_HIDDEN for the label Hidden was read.",
@@ -2801,7 +3892,9 @@
   "A real submit draws the message as the view does, and the Submit word goes.",
   "A message taller than the form: not read.",
   "Background Color belongs to what the Lightbox button opens: nothing on the canvas changes when it is picked, and the open view is not read.",
-  "Lightbox on leaves a Background, Stroke, Blend Mode or Blur set earlier on the block as it was: only new forms were read, with none of them set."
+  "Lightbox on leaves a Background, Stroke, Blend Mode or Blur set earlier on the block as it was: only new forms were read, with none of them set.",
+  "Back from Add Follow-Up goes where it came from: read from Option Details, inferred from the menu.",
+  "Ours hides the follow-ups again on leaving Preview, and a field's picks stay."
  ],
  "checkboxGap": {
   "contact": {
@@ -2817,5 +3910,1230 @@
    "optionHigh": 21.7
   },
   "note": "Read on the Contact page and on a form added to a probe page. Ours: imported fields keep 14, tile-made Checkbox and Radio use 18. Why they differ, and which a Checkbox added to the Contact form takes, is not read."
+ },
+ "phone": {
+  "note": "Phone view, 428 wide. A new form is 16 rows there too, 376.7 wide. Fields keep their order and draw at the column's width. Address stacks Postal Code and City / Town. Fields work the same in the phone's panel.",
+  "rows": "Rows are per view. A field added on the phone moves only the phone's rows, one step late as on desktop, and desktop's rows stay and stretch to hold the form. A field added on desktop leaves the phone's rows, which stretch.",
+  "perView": "Lightbox, its Button Text and Button Alignment are per view, one key at a time. The phone follows desktop on a key until the phone changes that key, and then keeps it. A desktop change leaves a key the phone has changed. Read: phone Right, then desktop Center keeps phone Right; phone Lightbox on leaves desktop's off; phone Right, then desktop Lightbox on: the phone shows the button, on the right; desktop's Button Text reaches a phone that has not typed one; a phone's Go stays when desktop's is Open Form.",
+  "lightboxRows": "Lightbox on from the phone: the rule as on desktop, with the phone's pitch of 35: 16 rows and 562.7 go to 1 by the floor. Desktop's rows stay. Lightbox on from desktop: the phone's rows stay at 16 and the button sits at the top of a 549 block. Off from the phone: 16 rows stay after an alignment press; read once at 15 with no press between, named in oursDiffers.",
+  "new": {
+   "canvas": {
+    "area": "1 / 2 / 17 / 10",
+    "block": [
+     25.7,
+     150.7,
+     376.7,
+     562.7
+    ],
+    "section": 775.7,
+    "rowN": 16,
+    "form": [
+     0,
+     0,
+     376.7,
+     562.7
+    ],
+    "handle": null
+   },
+   "tree": {
+    "h": 562.7,
+    "w": 376.65625,
+    "items": [
+     {
+      "cls": "form-item fields Dvz7hGDGST0ttUYu name",
+      "box": [
+       0,
+       0,
+       376.7,
+       123.7
+      ],
+      "txt": "Name",
+      "parts": [
+       "INPUT text 0 59.3 183.3 44.4",
+       "INPUT text 193.3 59.3 183.3 44.4"
+      ]
+     },
+     {
+      "cls": "form-item field email required",
+      "box": [
+       0,
+       123.7,
+       376.7,
+       107.1
+      ],
+      "txt": "Email(required)",
+      "parts": [
+       "INPUT email 0 154.1 376.7 44.4",
+       "INPUT checkbox 0 205 20 20"
+      ]
+     },
+     {
+      "cls": "form-item field text required",
+      "box": [
+       0,
+       250.8,
+       376.7,
+       74.8
+      ],
+      "txt": "Subject(required)",
+      "parts": [
+       "INPUT text 0 281.3 376.7 44.4"
+      ]
+     },
+     {
+      "cls": "form-item field textarea required",
+      "box": [
+       0,
+       345.7,
+       376.7,
+       130.4
+      ],
+      "txt": "Message(required)",
+      "parts": [
+       "TEXTAREA textarea 0 376.1 376.7 100"
+      ]
+     },
+     {
+      "cls": "form-button-wrapper form-button-wrapper--align-lef",
+      "box": [
+       0,
+       496.1,
+       376.7,
+       66.6
+      ],
+      "txt": "SubmitSubmit",
+      "parts": [
+       "BUTTON submit 0 496.1 171.6 66.6"
+      ]
+     }
+    ]
+   }
+  },
+  "allKinds": {
+   "order": [
+    "Phone",
+    "Dropdown",
+    "Checkbox",
+    "Radio",
+    "Survey",
+    "Address",
+    "Line",
+    "Website",
+    "Date",
+    "Number",
+    "Time",
+    "Currency",
+    "Hidden",
+    "X",
+    "File Upload",
+    "Text Area"
+   ],
+   "canvas": {
+    "area": "1 / 2 / 80 / 10",
+    "block": [
+     25.7,
+     150.7,
+     376.7,
+     2895.2
+    ],
+    "section": 3108.2,
+    "rowN": 79,
+    "form": [
+     0,
+     0,
+     376.7,
+     2895.2
+    ],
+    "handle": null
+   },
+   "tree": {
+    "h": 2895.2,
+    "w": 376.65625,
+    "items": [
+     {
+      "cls": "form-item fields Dvz7hGDGST0ttUYu name",
+      "box": [
+       0,
+       0,
+       376.7,
+       123.7
+      ],
+      "txt": "Name",
+      "parts": [
+       "INPUT text 0 59.3 183.3 44.4",
+       "INPUT text 193.3 59.3 183.3 44.4"
+      ]
+     },
+     {
+      "cls": "form-item field email required",
+      "box": [
+       0,
+       123.7,
+       376.7,
+       107.1
+      ],
+      "txt": "Email(required)",
+      "parts": [
+       "INPUT email 0 154.1 376.7 44.4",
+       "INPUT checkbox 0 205 20 20"
+      ]
+     },
+     {
+      "cls": "form-item field text required",
+      "box": [
+       0,
+       250.8,
+       376.7,
+       74.8
+      ],
+      "txt": "Subject(required)",
+      "parts": [
+       "INPUT text 0 281.3 376.7 44.4"
+      ]
+     },
+     {
+      "cls": "form-item field textarea required",
+      "box": [
+       0,
+       345.7,
+       376.7,
+       130.4
+      ],
+      "txt": "Message(required)",
+      "parts": [
+       "TEXTAREA textarea 0 376.1 376.7 100"
+      ]
+     },
+     {
+      "cls": "form-item fields phone",
+      "box": [
+       0,
+       496.1,
+       376.7,
+       94.8
+      ],
+      "txt": "Phone",
+      "parts": [
+       "INPUT text 0 526.5 376.7 44.4"
+      ]
+     },
+     {
+      "cls": "form-item field select",
+      "box": [
+       0,
+       590.9,
+       376.7,
+       74.8
+      ],
+      "txt": "Dropdown",
+      "parts": [
+       "SELECT select-one 0 621.3 376.7 44.4"
+      ]
+     },
+     {
+      "cls": "form-item field checkbox",
+      "box": [
+       0,
+       685.7,
+       376.7,
+       103.1
+      ],
+      "txt": "Checkbox",
+      "parts": [
+       "INPUT checkbox 0 722.5 20 20",
+       "INPUT checkbox 0 762.9 20 20"
+      ]
+     },
+     {
+      "cls": "form-item field radio",
+      "box": [
+       0,
+       808.8,
+       376.7,
+       111.1
+      ],
+      "txt": "Radio",
+      "parts": [
+       "INPUT radio 0 845.6 20 20",
+       "INPUT radio 0 889.9 20 20"
+      ]
+     },
+     {
+      "cls": "form-item field likert",
+      "box": [
+       0,
+       939.8,
+       376.7,
+       365.6
+      ],
+      "txt": "Survey",
+      "parts": [
+       "INPUT radio 1 1043.2 20 20",
+       "INPUT radio 76.3 1043.2 20 20",
+       "INPUT radio 151.7 1043.2 20 20",
+       "INPUT radio 227 1043.2 20 20",
+       "INPUT radio 302.3 1043.2 20 20",
+       "INPUT radio 1 1192 20 20"
+      ]
+     },
+     {
+      "cls": "form-item fields address h6Kx6z1WObAtcTRX",
+      "box": [
+       0,
+       1305.4,
+       376.7,
+       500.9
+      ],
+      "txt": "Address",
+      "parts": [
+       "SELECT select-one 0 1368.7 376.7 44.4",
+       "INPUT text 0 1462 376.7 44.4",
+       "INPUT text 0 1555.3 376.7 44.4",
+       "INPUT text 0 1648.6 376.7 44.4",
+       "INPUT text 0 1741.9 376.7 44.4"
+      ]
+     },
+     {
+      "cls": "form-item section line-field underline",
+      "box": [
+       0,
+       1838.3,
+       376.7,
+       35.7
+      ],
+      "txt": "Line",
+      "parts": []
+     },
+     {
+      "cls": "form-item field website",
+      "box": [
+       0,
+       1906,
+       376.7,
+       74.8
+      ],
+      "txt": "Website",
+      "parts": [
+       "INPUT text 0 1936.4 376.7 44.4"
+      ]
+     },
+     {
+      "cls": "form-item field date",
+      "box": [
+       0,
+       2000.8,
+       376.7,
+       76.8
+      ],
+      "txt": "Date",
+      "parts": [
+       "INPUT date 0 2031.2 200 46.4"
+      ]
+     },
+     {
+      "cls": "form-item field number",
+      "box": [
+       0,
+       2097.6,
+       376.7,
+       74.8
+      ],
+      "txt": "Number",
+      "parts": [
+       "INPUT text 0 2128 376.7 44.4"
+      ]
+     },
+     {
+      "cls": "form-item field time",
+      "box": [
+       0,
+       2192.4,
+       376.7,
+       113.7
+      ],
+      "txt": "Time",
+      "parts": [
+       "INPUT time 0 2222.8 200 46.4"
+      ]
+     },
+     {
+      "cls": "form-item field currency",
+      "box": [
+       0,
+       2326.1,
+       376.7,
+       74.8
+      ],
+      "txt": "Currency",
+      "parts": [
+       "INPUT text 0 2356.5 200 44.4"
+      ]
+     },
+     {
+      "cls": "form-item field twitter",
+      "box": [
+       0,
+       2420.9,
+       376.7,
+       74.8
+      ],
+      "txt": "X Username",
+      "parts": [
+       "INPUT text 0 2451.3 200 44.4"
+      ]
+     },
+     {
+      "cls": "form-item field file",
+      "box": [
+       0,
+       2515.8,
+       376.7,
+       142.4
+      ],
+      "txt": "File Upload",
+      "parts": [
+       "INPUT file 1 2547.2 376.7 46"
+      ]
+     },
+     {
+      "cls": "form-item field textarea",
+      "box": [
+       0,
+       2678.2,
+       376.7,
+       130.4
+      ],
+      "txt": "Text Area",
+      "parts": [
+       "TEXTAREA textarea 0 2708.6 376.7 100"
+      ]
+     },
+     {
+      "cls": "form-button-wrapper form-button-wrapper--align-lef",
+      "box": [
+       0,
+       2828.6,
+       376.7,
+       66.6
+      ],
+      "txt": "SubmitSubmit",
+      "parts": [
+       "BUTTON submit 0 2828.6 171.6 66.6"
+      ]
+     }
+    ]
+   },
+   "desktopAfter": {
+    "area": "1 / 2 / 17 / 11",
+    "block": [
+     100.1,
+     244.2,
+     518,
+     2787.1
+    ],
+    "section": 3136.9,
+    "rowN": 16,
+    "form": [
+     0,
+     0,
+     518,
+     2787.1
+    ],
+    "handle": null
+   },
+   "areaAfterEachAdd": {
+    "Phone": "1 / 2 / 17 / 10",
+    "Dropdown": "1 / 2 / 21 / 10",
+    "Checkbox": "1 / 2 / 23 / 10",
+    "Radio": "1 / 2 / 27 / 10",
+    "Survey": "1 / 2 / 31 / 10",
+    "Address": "1 / 2 / 41 / 10",
+    "Line": "1 / 2 / 55 / 10",
+    "Website": "1 / 2 / 58 / 10",
+    "Date": "1 / 2 / 61 / 10",
+    "Number": "1 / 2 / 64 / 10",
+    "Time": "1 / 2 / 66 / 10",
+    "Currency": "1 / 2 / 70 / 10",
+    "Hidden": "1 / 2 / 73 / 10",
+    "X": "1 / 2 / 73 / 10",
+    "File Upload": "1 / 2 / 76 / 10",
+    "Text Area": "1 / 2 / 80 / 10"
+   }
+  },
+  "panelDesign": [
+   "Content @22,19,53,18",
+   "Design @91,19,46,18",
+   "Animation @153,19,67,18",
+   "Form Style @0,77,320,16",
+   "Text @87,158,124,13",
+   "Form style affects all forms on your site. @22,223,222,26",
+   "Button Style @0,275,320,16",
+   "Aa @34,330,53,22",
+   "Primary Button @99,330,155,22",
+   "Button Alignment @0,406,320,16",
+   "First Input Highlight @22,499,207,22",
+   "None @240,499,36,22",
+   "Lightbox @22,544,58,22",
+   "Background @22,589,80,22",
+   "Stroke @22,634,42,22",
+   "Blend Mode @22,681,81,18",
+   "Blur @22,724,26,22",
+   "Transforms @22,781,276,44",
+   "Opacity @22,832,52,44",
+   "Rotate @22,883,43,44",
+   "Scale @22,934,88,44",
+   "Offset @22,985,88,44",
+   "Skew @22,1036,88,44",
+   "Anchor @22,1087,49,44"
+  ],
+  "lightbox": {
+   "fromPhone": {
+    "pOn": {
+     "area": "1 / 2 / 2 / 10",
+     "block": [
+      25.7,
+      322.7,
+      376.7,
+      66.6
+     ],
+     "section": 623.7,
+     "rowN": 1,
+     "form": [
+      -25.7,
+      -322.7,
+      0,
+      0
+     ],
+     "handle": {
+      "box": [
+       0,
+       0,
+       203.9,
+       66.6
+      ],
+      "text": "Open Form",
+      "font": "16px",
+      "display": "normal|left"
+     }
+    },
+    "dOn": {
+     "area": "1 / 2 / 17 / 11",
+     "block": [
+      100.1,
+      244.2,
+      518,
+      646.5
+     ],
+     "section": 996.3,
+     "rowN": 16,
+     "form": [
+      0,
+      0,
+      518,
+      560.9
+     ],
+     "handle": {
+      "box": [
+       -100.1,
+       -244.2,
+       0,
+       0
+      ],
+      "text": "Open Form",
+      "font": "16px",
+      "display": "normal|left"
+     }
+    },
+    "pOff": {
+     "area": "1 / 2 / 2 / 10",
+     "block": [
+      25.7,
+      150.7,
+      376.7,
+      562.7
+     ],
+     "section": 775.7,
+     "rowN": 1,
+     "form": [
+      0,
+      0,
+      376.7,
+      562.7
+     ],
+     "handle": null
+    },
+    "dOff": {
+     "area": "1 / 2 / 17 / 11",
+     "block": [
+      100.1,
+      244.2,
+      518,
+      646.5
+     ],
+     "section": 996.3,
+     "rowN": 16,
+     "form": [
+      0,
+      0,
+      518,
+      560.9
+     ],
+     "handle": null
+    }
+   },
+   "fromDesktop": {
+    "dOn": {
+     "area": "1 / 2 / 4 / 11",
+     "block": [
+      100.1,
+      325,
+      518,
+      112.3
+     ],
+     "section": 623.7,
+     "rowN": 3,
+     "form": [
+      -100.1,
+      -325,
+      0,
+      0
+     ],
+     "handle": {
+      "box": [
+       0,
+       0,
+       203.9,
+       66.6
+      ],
+      "text": "Open Form",
+      "font": "16px",
+      "display": "normal|left"
+     }
+    },
+    "pOn": {
+     "area": "1 / 2 / 17 / 10",
+     "block": [
+      25.7,
+      150.7,
+      376.7,
+      549
+     ],
+     "section": 762.1,
+     "rowN": 16,
+     "form": [
+      -25.7,
+      -150.7,
+      0,
+      0
+     ],
+     "handle": {
+      "box": [
+       0,
+       0,
+       203.9,
+       66.6
+      ],
+      "text": "Open Form",
+      "font": "16px",
+      "display": "normal|left"
+     }
+    },
+    "pOff": {
+     "area": "1 / 2 / 16 / 10",
+     "block": [
+      25.7,
+      150.7,
+      376.7,
+      562.7
+     ],
+     "section": 775.7,
+     "rowN": 15,
+     "form": [
+      0,
+      0,
+      376.7,
+      562.7
+     ],
+     "handle": {
+      "box": [
+       -25.7,
+       -150.7,
+       0,
+       0
+      ],
+      "text": "Open Form",
+      "font": "16px",
+      "display": "normal|left"
+     }
+    },
+    "dOff": {
+     "area": "1 / 2 / 4 / 11",
+     "block": [
+      100.1,
+      325,
+      518,
+      112.3
+     ],
+     "section": 623.7,
+     "rowN": 3,
+     "form": [
+      -100.1,
+      -325,
+      0,
+      0
+     ],
+     "handle": {
+      "box": [
+       0,
+       0,
+       203.9,
+       66.6
+      ],
+      "text": "Open Form",
+      "font": "16px",
+      "display": "normal|left"
+     }
+    }
+   },
+   "toggleSeenFromDesktop": false,
+   "toggleSeenFromPhone": true,
+   "panelOn": [
+    "Content @22,17,53,18",
+    "Design @91,17,46,18",
+    "Animation @153,17,67,18",
+    "Form Style @0,-201,320,16",
+    "Text @87,-120,124,13",
+    "Form style affects all forms on your site. @22,-55,222,26",
+    "Button Style @0,-3,320,16",
+    "Aa @34,52,53,22",
+    "Primary Button @99,52,155,22",
+    "Button Alignment @0,128,320,16",
+    "First Input Highlight @22,221,207,22",
+    "None @240,221,36,22",
+    "Lightbox @22,265,58,24",
+    "Button Text @22,314,105,16",
+    "Background Color @22,358,229,22",
+    "Transforms @22,417,276,44"
+   ]
+  },
+  "alignAndText": {
+   "d0": [
+    {
+     "w": 1600,
+     "area": "1 / 2 / 17 / 11",
+     "block": [
+      518,
+      647
+     ],
+     "handles": 0,
+     "handle": [],
+     "form": true,
+     "sub": [
+      0,
+      494.3,
+      171.6,
+      66.6
+     ]
+    },
+    [
+     "left"
+    ]
+   ],
+   "p0": [
+    {
+     "w": 428,
+     "area": "1 / 2 / 17 / 10",
+     "block": [
+      377,
+      563
+     ],
+     "handles": 0,
+     "handle": [],
+     "form": true,
+     "sub": [
+      0,
+      496.1,
+      171.6,
+      66.6
+     ]
+    },
+    [
+     "left"
+    ]
+   ],
+   "pRight": [
+    {
+     "w": 428,
+     "area": "1 / 2 / 17 / 10",
+     "block": [
+      377,
+      563
+     ],
+     "handles": 0,
+     "handle": [],
+     "form": true,
+     "sub": [
+      205,
+      496.1,
+      171.6,
+      66.6
+     ]
+    },
+    [
+     "right"
+    ]
+   ],
+   "dAfterPRight": [
+    {
+     "w": 1600,
+     "area": "1 / 2 / 17 / 11",
+     "block": [
+      518,
+      647
+     ],
+     "handles": 0,
+     "handle": [],
+     "form": true,
+     "sub": [
+      0,
+      494.3,
+      171.6,
+      66.6
+     ]
+    },
+    [
+     "left"
+    ]
+   ],
+   "dCenter": [
+    {
+     "w": 1600,
+     "area": "1 / 2 / 17 / 11",
+     "block": [
+      518,
+      647
+     ],
+     "handles": 0,
+     "handle": [],
+     "form": true,
+     "sub": [
+      173.2,
+      494.3,
+      171.6,
+      66.6
+     ]
+    },
+    [
+     "center"
+    ]
+   ],
+   "pAfterDCenter": [
+    {
+     "w": 428,
+     "area": "1 / 2 / 17 / 10",
+     "block": [
+      377,
+      563
+     ],
+     "handles": 0,
+     "handle": [],
+     "form": true,
+     "sub": [
+      205,
+      496.1,
+      171.6,
+      66.6
+     ]
+    },
+    [
+     "right"
+    ]
+   ],
+   "pOn": [
+    {
+     "w": 428,
+     "area": "1 / 2 / 2 / 10",
+     "block": [
+      377,
+      67
+     ],
+     "handles": 1,
+     "handle": [
+      [
+       [
+        172.8,
+        0,
+        203.9,
+        66.6
+       ],
+       "Open Form"
+      ]
+     ],
+     "form": false,
+     "sub": null
+    },
+    [
+     "right"
+    ]
+   ],
+   "pCenter": [
+    {
+     "w": 428,
+     "area": "1 / 2 / 2 / 10",
+     "block": [
+      377,
+      67
+     ],
+     "handles": 1,
+     "handle": [
+      [
+       [
+        86.4,
+        0,
+        203.9,
+        66.6
+       ],
+       "Open Form"
+      ]
+     ],
+     "form": false,
+     "sub": null
+    },
+    [
+     "center"
+    ]
+   ],
+   "pLeft": [
+    {
+     "w": 428,
+     "area": "1 / 2 / 2 / 10",
+     "block": [
+      377,
+      67
+     ],
+     "handles": 1,
+     "handle": [
+      [
+       [
+        0,
+        0,
+        203.9,
+        66.6
+       ],
+       "Open Form"
+      ]
+     ],
+     "form": false,
+     "sub": null
+    },
+    [
+     "left"
+    ]
+   ],
+   "pText": [
+    {
+     "w": 428,
+     "area": "1 / 2 / 2 / 10",
+     "block": [
+      377,
+      67
+     ],
+     "handles": 1,
+     "handle": [
+      [
+       [
+        0,
+        0,
+        135.2,
+        66.6
+       ],
+       "Go"
+      ]
+     ],
+     "form": false,
+     "sub": null
+    },
+    [
+     "left"
+    ]
+   ],
+   "dLook": [
+    {
+     "w": 1600,
+     "area": "1 / 2 / 17 / 11",
+     "block": [
+      518,
+      647
+     ],
+     "handles": 1,
+     "handle": [],
+     "form": true,
+     "sub": [
+      173.2,
+      494.3,
+      171.6,
+      66.6
+     ]
+    },
+    [
+     "center"
+    ]
+   ],
+   "dOn": [
+    {
+     "w": 1600,
+     "area": "1 / 2 / 4 / 11",
+     "block": [
+      518,
+      112
+     ],
+     "handles": 2,
+     "handle": [
+      [
+       [
+        157.1,
+        0,
+        203.9,
+        66.6
+       ],
+       "Open Form"
+      ]
+     ],
+     "form": false,
+     "sub": null
+    },
+    [
+     "center"
+    ]
+   ],
+   "pAfterDOn": [
+    {
+     "w": 428,
+     "area": "1 / 2 / 2 / 10",
+     "block": [
+      377,
+      67
+     ],
+     "handles": 2,
+     "handle": [
+      [
+       [
+        0,
+        0,
+        135.2,
+        66.6
+       ],
+       "Go"
+      ]
+     ],
+     "form": false,
+     "sub": null
+    },
+    [
+     "left"
+    ]
+   ],
+   "dOff": [
+    {
+     "w": 1600,
+     "area": "1 / 2 / 4 / 11",
+     "block": [
+      518,
+      561
+     ],
+     "handles": 1,
+     "handle": [],
+     "form": true,
+     "sub": [
+      173.2,
+      494.3,
+      171.6,
+      66.6
+     ]
+    },
+    [
+     "center"
+    ]
+   ],
+   "pAfterDOff": [
+    {
+     "w": 428,
+     "area": "1 / 2 / 2 / 10",
+     "block": [
+      377,
+      67
+     ],
+     "handles": 1,
+     "handle": [
+      [
+       [
+        0,
+        0,
+        135.2,
+        66.6
+       ],
+       "Go"
+      ]
+     ],
+     "form": false,
+     "sub": null
+    },
+    [
+     "left"
+    ]
+   ]
+  },
+  "perKey": {
+   "pRight": [
+    {
+     "w": 428,
+     "area": "1 / 2 / 17 / 10",
+     "block": [
+      377,
+      563
+     ],
+     "handles": 0,
+     "handle": [],
+     "form": true,
+     "sub": [
+      205,
+      496.1,
+      171.6,
+      66.6
+     ]
+    },
+    [
+     "right"
+    ],
+    false
+   ],
+   "dOn": [
+    {
+     "w": 1600,
+     "area": "1 / 2 / 4 / 11",
+     "block": [
+      518,
+      112
+     ],
+     "handles": 2,
+     "handle": [
+      [
+       [
+        0,
+        0,
+        203.9,
+        66.6
+       ],
+       "Open Form"
+      ]
+     ],
+     "form": false,
+     "sub": null
+    },
+    [
+     "left"
+    ],
+    true
+   ],
+   "pAfterDOn": [
+    {
+     "w": 428,
+     "area": "1 / 2 / 17 / 10",
+     "block": [
+      377,
+      549
+     ],
+     "handles": 2,
+     "handle": [
+      [
+       [
+        172.8,
+        0,
+        203.9,
+        66.6
+       ],
+       "Open Form"
+      ]
+     ],
+     "form": false,
+     "sub": null
+    },
+    [
+     "right"
+    ],
+    true
+   ],
+   "dText": [
+    {
+     "w": 1600,
+     "area": "1 / 2 / 4 / 11",
+     "block": [
+      518,
+      112
+     ],
+     "handles": 2,
+     "handle": [
+      [
+       [
+        0,
+        0,
+        143.4,
+        66.6
+       ],
+       "Hey"
+      ]
+     ],
+     "form": false,
+     "sub": null
+    },
+    [
+     "left"
+    ],
+    true
+   ],
+   "pAfterDText": [
+    {
+     "w": 428,
+     "area": "1 / 2 / 17 / 10",
+     "block": [
+      377,
+      549
+     ],
+     "handles": 2,
+     "handle": [
+      [
+       [
+        233.2,
+        0,
+        143.4,
+        66.6
+       ],
+       "Hey"
+      ]
+     ],
+     "form": false,
+     "sub": null
+    },
+    [
+     "right"
+    ],
+    true
+   ]
+  },
+  "followUp": {
+   "before": 693.7,
+   "after": 817.4,
+   "box": [
+    32,
+    627.1,
+    344.7,
+    123.7
+   ],
+   "parts": [
+    "INPUT text 32 686.4 167.3 44.4",
+    "INPUT text 209.3 686.4 167.3 44.4"
+   ],
+   "note": "In Preview on the phone: 20 under the radio field, 32 in, the column less 32 wide. The block's rows stayed at 16 and stretched."
+  }
  }
 }

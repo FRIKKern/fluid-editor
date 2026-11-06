@@ -1,0 +1,775 @@
+{
+  "item": "CAP-S3PHONEHUG",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "S3: a stack child's Hug on the phone view, then what desktop keeps",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "desktop start",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone start",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressRow",
+      "Button"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressCombo",
+      0
+    ],
+    [
+      "pressNamed",
+      "Hug"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Button W Hug",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "shot",
+      "button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pressRow",
+      "Text"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressCombo",
+      0
+    ],
+    [
+      "pressNamed",
+      "Hug"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Text W Hug",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "desktop after",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone after",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "desktop start": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "shape": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "wrap": [
+              394.9,
+              0,
+              374.9,
+              235.6,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone start": {
+      "kids": {
+        "dir": "sqs-stack-container direction-column",
+        "box": [
+          25.7,
+          186.5,
+          376.7,
+          339
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              376.7,
+              22.4
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              0,
+              376.7,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              42.4,
+              376.7,
+              210
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              42.4,
+              376.7,
+              210
+            ],
+            "shape": [
+              0,
+              42.4,
+              376.7,
+              210
+            ],
+            "wrap": [
+              0,
+              42.4,
+              376.7,
+              210,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              272.4,
+              376.7,
+              66.6
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              272.4,
+              376.7,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Button W Hug": {
+      "kids": {
+        "dir": "sqs-stack-container direction-column",
+        "box": [
+          25.7,
+          186.5,
+          376.7,
+          339
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              376.7,
+              22.4
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              0,
+              376.7,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              42.4,
+              376.7,
+              210
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              42.4,
+              376.7,
+              210
+            ],
+            "shape": [
+              0,
+              42.4,
+              376.7,
+              210
+            ],
+            "wrap": [
+              0,
+              42.4,
+              376.7,
+              210,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              272.4,
+              206.6,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              272.4,
+              206.6,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text W Hug": {
+      "kids": {
+        "dir": "sqs-stack-container direction-column",
+        "box": [
+          25.7,
+          186.5,
+          376.7,
+          339
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              91.7,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              91.7,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              42.4,
+              376.7,
+              210
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              42.4,
+              376.7,
+              210
+            ],
+            "shape": [
+              0,
+              42.4,
+              376.7,
+              210
+            ],
+            "wrap": [
+              0,
+              42.4,
+              376.7,
+              210,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              272.4,
+              206.6,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              272.4,
+              206.6,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "desktop after": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "shape": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "wrap": [
+              394.9,
+              0,
+              374.9,
+              235.6,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone after": {
+      "kids": {
+        "dir": "sqs-stack-container direction-column",
+        "box": [
+          25.7,
+          186.5,
+          376.7,
+          339
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              91.7,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              91.7,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              42.4,
+              376.7,
+              210
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              42.4,
+              376.7,
+              210
+            ],
+            "shape": [
+              0,
+              42.4,
+              376.7,
+              210
+            ],
+            "wrap": [
+              0,
+              42.4,
+              376.7,
+              210,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              272.4,
+              206.6,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              272.4,
+              206.6,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "A child's Hug on the phone. Start, column: Text 0,0,376.7,22.4, Shape 0,42.4,376.7,210, Button 0,272.4,376.7,66.6, stack 339 high. Button W Hug: width 206.6, Text W Hug: width 91.7, both self auto. Desktop stays 374.9, 374.9, 374.9 in a row, and the phone keeps its values when you come back.",
+  "ours": "Same: Text 91.7, Button 206.6 with the label Learn more, desktop unchanged. Measured on 5210 2026-11-06. Not compared: the phone Shape's 210. My stack in ours had 8 phone rows from a made up start and the oracle's had 10, so 150 against 210 says nothing yet.",
+  "differs": [],
+  "pressed": [
+    "By position or index, not by name: Custom at 1538,534 or 1538,589, typeAt in the Custom field, comboboxes by index, real clicks on blocks and a drag on the stack. All else pressed by name with an on-top check."
+  ]
+}

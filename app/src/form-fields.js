@@ -61,8 +61,36 @@ const desc = (f, tag = 'p') => (f.description ? `<${tag} class="description">${e
 const ph = (f) => (f.placeholder ? ` placeholder="${e(f.placeholder)}"` : '');
 const caption = (t, cls = '') => `<label class="caption"><span class="caption-row${cls}">${req(t)}</span></label>`;
 
-// One field on the page. ctl wraps the form's first control for First Input Highlight.
+// Follow-up questions (FORMFIELDS.json, followUp). Kept per option in f.follow, next to f.options.
+export const followOf = (f, i) => f.follow?.[i] || [];
+export function addFollow(f, i, tile) {
+  f.follow ||= [];
+  (f.follow[i] ||= []).push(newField(tile));
+  return f.follow[i].length - 1;
+}
+const tidyFollow = (f) => { if (f.follow && !f.follow.some((l) => l?.length)) delete f.follow; };
+export function deleteFollow(f, i, k) { f.follow[i].splice(k, 1); tidyFollow(f); }
+export function deleteOption(f, i) {
+  f.options.splice(i, 1);
+  f.follow?.splice(i, 1);
+  tidyFollow(f);
+}
+export function moveOption(f, from, to) {
+  const [o] = f.options.splice(from, 1);
+  f.options.splice(to, 0, o);
+  if (f.follow) { f.follow.length = Math.max(f.follow.length, f.options.length); const [l] = f.follow.splice(from, 1); f.follow.splice(to, 0, l); }
+}
+// They draw under the field, in option order, only for what a visitor picked. While editing none draws.
+const followJs = (skip) => `if(document.querySelector('.fluid-engine.is-editing')&&!document.body.classList.contains('is-preview'))return;if(event.target.closest('.followup-question-container'))return;var t=this.firstElementChild,s=t.querySelector('select'),a=t.querySelectorAll('input'),q=t.querySelectorAll('fieldset.item');this.querySelectorAll(':scope > .followup-question-container').forEach(function(x){var i=+x.dataset.fu;x.hidden=!(q.length?q[i].querySelector('input:checked'):s?s.selectedIndex-${skip}===i:a[i].checked)})`;
+let radioGroup = 0; // a name per group, so a press on one radio lets go of the other
 export function formFieldHtml(f, ctl) {
+  const html = oneFieldHtml(f, ctl);
+  if (!f.follow?.some((l) => l?.length)) return html;
+  const after = f.follow.flatMap((l, i) => (l || []).map((x) => `<div class="followup-question-container" data-fu="${i}" hidden>${oneFieldHtml(x, (h) => h)}</div>`)).join('');
+  return `<div class="form-followed" onchange="${followJs(f.placeholder != null ? 1 : 0)}">${html}${after}</div>`;
+}
+// One field on the page. ctl wraps the form's first control for First Input Highlight.
+function oneFieldHtml(f, ctl) {
   const title = `<label class="title">${req(f.label)}</label>${desc(f)}`;
   const legend = `<legend>${req(f.label)}</legend>${desc(f)}`;
   const affix = (sign, wide = false) => ctl(`<span class="form-affix${wide ? '' : ' form-affix--short'}"><span class="form-input-prefix">${e(sign)}</span><input type="text"${ph(f)}></span>`);
@@ -74,9 +102,9 @@ export function formFieldHtml(f, ctl) {
     }
     case 'textarea': return `<div class="form-item">${title}${ctl(`<textarea${ph(f)}></textarea>`)}</div>`;
     case 'checkbox':
-    case 'radio': return `<fieldset class="form-item form-checkbox${f.kind === 'radio' ? ' form-radio' : ''}${f.loose ? ' form-checkbox--loose' : ''}">${legend}${(f.options || []).map((o) => `<div class="option"><label><input type="${f.kind}"><span>${e(o)}</span></label></div>`).join('')}</fieldset>`;
+    case 'radio': { const group = `form-radio-${++radioGroup}`; return `<fieldset class="form-item form-checkbox${f.kind === 'radio' ? ' form-radio' : ''}${f.loose ? ' form-checkbox--loose' : ''}">${legend}${(f.options || []).map((o) => `<div class="option"><label><input type="${f.kind}"${f.kind === 'radio' ? ` name="${group}"` : ''}><span>${e(o)}</span></label></div>`).join('')}</fieldset>`; }
     case 'select': return `<div class="form-item form-select">${title}${ctl(`<span class="form-select-box"><select${f.placeholder != null ? ' class="is-empty"' : ''}>${f.placeholder != null ? `<option>${e(f.placeholder)}</option>` : ''}${(f.options || []).map((o) => `<option>${e(o)}</option>`).join('')}</select>${CHEVRON}</span>`)}</div>`;
-    case 'survey': return `<div class="form-item form-survey">${title}${(f.options || []).map((o) => `<fieldset class="item"><legend class="question">${e(o)}</legend><div class="likert-options">${LIKERT.map((l) => `<div class="option"><label><input type="radio"><span>${l}</span></label></div>`).join('')}</div></fieldset>`).join('')}</div>`;
+    case 'survey': return `<div class="form-item form-survey">${title}${(f.options || []).map((o) => { const group = `form-radio-${++radioGroup}`; return `<fieldset class="item"><legend class="question">${e(o)}</legend><div class="likert-options">${LIKERT.map((l) => `<div class="option"><label><input type="radio" name="${group}"><span>${l}</span></label></div>`).join('')}</div></fieldset>`; }).join('')}</div>`;
     case 'phone': return `<fieldset class="form-item form-phone">${legend}<div class="phone-parts">${f.countryCode ? `<div class="field field-country">${caption('Country')}${ctl(`<span class="form-select-box"><select>${countryOptions()}</select>${CHEVRON}</span>`)}</div><div class="field">${caption('Number')}${ctl('<span class="form-affix"><span class="form-input-prefix">+47</span><input type="text"></span>')}</div>` : `<div class="field">${ctl('<input type="text">')}</div>`}</div></fieldset>`;
     case 'address': return `<fieldset class="form-item form-address">${legend}<div class="field">${caption('Country', ' caption-row--lead')}${ctl(`<span class="form-select-box"><select>${countryOptions()}</select>${CHEVRON}</span>`)}</div><div class="field">${caption(`Address Line 1${REQ}`)}<input type="text"></div><div class="field">${caption('Address Line 2')}<input type="text"></div><div class="address-row"><div class="field">${caption(`Postal Code${REQ}`)}<input type="text"></div><div class="field">${caption(`City / Town${REQ}`)}<input type="text"></div></div></fieldset>`;
     case 'line': return `<div class="form-item form-line${f.underline ? ' underline' : ''}"><div class="title">${req(f.label)}</div>${desc(f, 'div')}</div>`;
@@ -113,9 +141,24 @@ const inkOn = (css) => {
 };
 const LB_OPEN = "if(document.querySelector('.fluid-engine.is-editing')&&!document.body.classList.contains('is-preview'))return;var n=this.parentNode.nextElementSibling.cloneNode(true);n.classList.add('is-open');document.body.append(n)";
 const LB_CLOSE = "this.closest('.form-lightbox').remove()";
+// Lightbox, its Button Text and Button Alignment are per view: the phone follows desktop on each one
+// until the phone changes that one, and then keeps it (FORMFIELDS.json, phone).
+export const formView = (b, view = 'desktop') => {
+  const o = view === 'mobile' ? b.formMobile || {} : {};
+  const own = (k) => (k in o ? o[k] : b[k]);
+  return { lightbox: !!own('lightbox'), lightboxText: own('lightboxText') || '', buttonAlign: own('buttonAlign') || 'left' };
+};
+// The default is left out on desktop. On the phone it stays, because it differs from following desktop.
+export function setFormView(b, view, key, v) {
+  if (view === 'mobile') (b.formMobile ||= {})[key] = v;
+  else if (v) b[key] = v;
+  else delete b[key];
+}
+export const phoneAlign = (kind, b) => { const d = formView(b).buttonAlign, m = formView(b, 'mobile').buttonAlign; return m === d ? '' : ` ${kind}--phone-${m}`; };
 export function formLightboxHtml(b, form) {
-  const bg = b.lightboxBg || 'rgb(255, 255, 255)';
-  return `<div class="lightbox-handle-wrapper lightbox-handle-wrapper--align-${b.buttonAlign || 'left'}"><button type="button" class="lightbox-handle sqs-button-element--${b.buttonStyle || 'primary'}" onclick="${LB_OPEN}">${e(b.lightboxText || 'Open Form')}</button></div>`
+  const bg = b.lightboxBg || 'rgb(255, 255, 255)', d = formView(b), m = formView(b, 'mobile');
+  const word = d.lightboxText === m.lightboxText ? e(d.lightboxText || 'Open Form') : `<span class="lb-word--desktop">${e(d.lightboxText || 'Open Form')}</span><span class="lb-word--phone">${e(m.lightboxText || 'Open Form')}</span>`;
+  return `<div class="lightbox-handle-wrapper lightbox-handle-wrapper--align-${d.buttonAlign}${phoneAlign('lightbox-handle-wrapper', b)}"><button type="button" class="lightbox-handle sqs-button-element--${b.buttonStyle || 'primary'}" onclick="${LB_OPEN}">${word}</button></div>`
     + `<div class="form-lightbox"><div class="form-lightbox-shade" onclick="${LB_CLOSE}"></div><div class="form-lightbox-box" style="--lb-bg:${e(bg)};--lb-ink:${inkOn(bg)}"><button type="button" class="form-lightbox-close" aria-label="Close" onclick="${LB_CLOSE}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>${form}</div></div>`;
 }
 
@@ -146,6 +189,7 @@ const BACK = '<path d="M15 6l-6 6 6 6"/>', ARROW = '<path d="M9 6l6 6-6 6"/>';
 const TRASH = '<path d="M5 7h14M9 7V4.5h6V7M6.5 7v13h11V7M10 10.5v6M14 10.5v6"/>';
 const GRIP = '<span class="bp-acc-grip bp-ff-grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>';
 const OGRIP = GRIP.replace('bp-ff-grip', 'bp-ffo-grip');
+const DOTS = '<circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/>';
 const nameOf = (f) => plainLabel(f.label) || tileOf(f)[0];
 const head = (title) => `<div class="bp-ishape-head" data-drag-panel><button type="button" class="bp-back bp-fx-back" data-ff="back">${ic(BACK)}Back</button><span class="bp-ff-title">${e(title)}</span></div>`;
 
@@ -156,7 +200,7 @@ function listHtml(fields) {
   }).join('');
   return `${head('Edit Form Fields')}<div class="bp-ff bp-ff-list">${rows}<button type="button" class="bp-soc-add bp-ff-add" data-ff="add">Add Field</button></div>`;
 }
-const addHtml = () => `${head('Add Field')}<div class="bp-ff bp-ff-tiles">${FIELD_TILES.map(([t, k]) => `<button type="button" class="bp-ff-tile" data-ff="tile:${t}">${ic(ICONS[k])}<span>${t}</span></button>`).join('')}</div>`;
+const addHtml = (title = 'Add Field', act = 'tile') => `${head(title)}<div class="bp-ff bp-ff-tiles${act === 'fu-tile' ? ' is-follow' : ''}">${FIELD_TILES.map(([t, k]) => `<button type="button" class="bp-ff-tile" data-ff="${act}:${t}">${ic(ICONS[k])}<span>${act === 'fu-tile' && t === 'X' ? 'X Username' : t}</span></button>`).join('')}</div>`;
 
 const swi = (set, on, label, off = false) => `<div class="sp-row bp-ff-sw${off ? ' is-off' : ''}"><span class="sp-label">${label}</span><label class="sp-switch"><input type="checkbox" aria-label="${label}" data-ff-set="${set}"${on ? ' checked' : ''}${off ? ' disabled' : ''}><span aria-hidden="true"></span></label></div>`;
 const cap = (t) => `<div class="bp-soccap bp-ff-cap">${t}</div>`;
@@ -165,6 +209,46 @@ const FILE_TYPES = ['Image (.png, .jpg, .tiff, .heic)', 'Document (.docx, .doc, 
 const required = (f) => swi('required', isRequired(f.label), 'Required');
 const actions = (n) => `<div class="bp-ff-acts"><button type="button" class="bp-soc-add" data-ff="dup:${n}">Duplicate</button><button type="button" class="bp-soc-add bp-ff-red" data-ff="del:${n}">Delete</button></div>`;
 
+// A field's option rows. An option with follow-ups is a row to open; a follow-up's own options have no follow-ups.
+const optionRows = (f, n, inFollow = false) => (f.options || []).map((o, i) => {
+  const many = followOf(f, i).length;
+  if (many && !inFollow) return `<div class="bp-ffo-row is-follow" data-ff="opt:${n}:${i}">${OGRIP}<span class="bp-ffo-name"><span>${e(o)}</span><small>${many} follow-up${many > 1 ? 's' : ''}</small></span>${ic(ARROW, 22)}</div>`;
+  return `<div class="bp-ffo-row">${OGRIP}<input type="text" placeholder="Option ${i + 1}" data-ff-opt="${i}" value="${e(o)}"><button type="button" class="bp-ffo-menu" aria-label="Open Menu" data-ff-menu="${n}:${i}">${ic(DOTS)}</button></div>`;
+}).join('');
+const fuLine = (t, key, hint, v) => `<div class="bp-fu-cap">${t}</div><span class="bp-fu-box"><input type="text" aria-label="${t}" data-ff-field="${key}" placeholder="${e(hint)}" value="${e(v ?? '')}"></span>`;
+const fuSub = (t) => `<div class="bp-fu-sub">${t}</div>`;
+// A follow-up's editor (followUp.editors): its own look and fewer rows than a field's.
+function followHtml(f, n, i, k) {
+  const kind = f.kind || 'text';
+  const top = fuLine('Label', 'label', '', plainLabel(f.label));
+  const description = fuLine('Description', 'description', 'Add description', f.description);
+  const placeholder = fuLine('Placeholder', 'placeholder', 'Add placeholder', f.placeholder);
+  let rows;
+  if (kind === 'hidden') {
+    rows = `<div class="bp-ff-note bp-fu-hidden">Hidden fields can be used to track which URL your form traffic originates from. <span class="bp-ff-u" data-unbuilt title="Not built yet">Learn More.</span></div>${top}<div class="bp-fu-cap">Variable</div><span class="bp-fu-box bp-fu-var">SQF_${e(plainLabel(f.label).toUpperCase().replace(/\W+/g, '_'))}</span><div class="bp-ff-note bp-fu-tofill">To fill in this field, include the variable from the box above in the query string for this page.</div>${fuLine('Value', 'value', 'Default value', f.value)}`;
+  } else {
+    let more;
+    if (kind === 'name') {
+      const one = (x, t) => `${fuSub(t)}${swi(`show:${x}`, !f.hide?.[x], 'Show', !!f.hide?.[1 - x])}${!f.hide?.[x] ? swi(`require:${x}`, isRequired(f.parts?.[x]), 'Require') : ''}`;
+      more = `${one(0, 'First Name')}${one(1, 'Last Name')}<div class="bp-ff-note bp-fu-atleast">At least one name field must be showing.</div>`;
+    } else if (kind === 'phone') more = `${swi('countryCode', !!f.countryCode, 'Country dropdown')}${required(f)}`;
+    else if (kind === 'line') more = swi('underline', !!f.underline, 'Underline');
+    else if (kind === 'currency') more = `${fuLine('Currency symbol', 'symbol', '$', f.symbol)}${required(f)}`;
+    else if (kind === 'file') {
+      const allow = !!f.fileTypes, max = f.maxFiles || 1;
+      more = `${required(f)}${swi('fileTypes', allow, 'Allow only specific file types')}${allow ? `<div class="bp-ff-types">${FILE_TYPES.map((t, x) => `<label class="sp-row"><span class="sp-label">${t}</span><input type="checkbox" aria-label="${t}" data-ff-set="fileType:${x}"${f.fileTypes[x] ? ' checked' : ''}></label>`).join('')}</div>` : ''}<div class="sp-row bp-ff-max"><span class="sp-label">Max number of files</span><input type="text" readonly aria-label="Max number of files" value="${max}"><button type="button" aria-label="decrement" data-ff="max:-1"${max <= 1 ? ' disabled' : ''}>${ic('<path d="M5 12h14"/>')}</button><button type="button" aria-label="increment" data-ff="max:1">${ic('<path d="M5 12h14M12 5v14"/>')}</button></div>`;
+    } else if (kind === 'select' || kind === 'checkbox' || kind === 'radio' || kind === 'survey') {
+      more = `${required(f)}${cap('Options').replace('bp-ff-cap', 'bp-ff-cap bp-ff-cap-opt')}${optionRows(f, n, true)}<button type="button" class="bp-soc-add bp-ffo-add" data-ff="opt-add">Add option</button>`;
+    } else if (kind === 'address' || kind === 'date' || kind === 'time' || kind === 'x') more = required(f);
+    else more = `${placeholder}${required(f)}`;
+    rows = `${top}${description}${more}`;
+  }
+  return `<div class="bp-ff-note bp-fu-note">Follows-ups appear when visitors select one of your form field options.</div>${rows}<button type="button" class="bp-fu-act bp-ff-red" data-ff="fu-del:${n}:${i}:${k}">Delete Field</button>`;
+}
+function optionHtml(f, n, i) {
+  const list = followOf(f, i);
+  return `<div class="bp-fu-cap">Option</div><span class="bp-fu-box"><input type="text" aria-label="Option" data-ff-opt="${i}" value="${e(f.options[i])}"></span>${fuSub(list.length > 1 ? 'Follow-ups' : 'Follow-up')}${list.map((x, k) => `<button type="button" class="bp-fu-row" data-ff="fu:${n}:${i}:${k}"><span class="bp-fu-ic">${ic(ICONS[tileOf(x)[1]], 22)}</span><span class="bp-fu-name">${e(nameOf(x))}</span>${ic(ARROW, 22)}</button>`).join('')}<button type="button" class="bp-fu-act bp-fu-add" data-ff="fu-add:${n}:${i}">Add follow-up</button><button type="button" class="bp-fu-act bp-fu-del bp-ff-red" data-ff="opt-del:${n}:${i}">Delete Option</button>`;
+}
 function editorHtml(f, n) {
   const k = f.kind || 'text', tile = tileOf(f)[0];
   const top = line('Label', 'label', tile === 'X' ? 'X' : tile, plainLabel(f.label));
@@ -189,8 +273,8 @@ function editorHtml(f, n) {
     const allow = !!f.fileTypes, max = f.maxFiles || 1;
     rows = `${required(f)}${cap('File Details')}${swi('fileTypes', allow, 'Allow only specific file types')}${allow ? `<div class="bp-ff-types">${FILE_TYPES.map((t, i) => `<label class="sp-row"><span class="sp-label">${t}</span><input type="checkbox" aria-label="${t}" data-ff-set="fileType:${i}"${f.fileTypes[i] ? ' checked' : ''}></label>`).join('')}</div>` : ''}<div class="sp-row bp-ff-max"><span class="sp-label">Max Number of Files</span><input type="text" readonly aria-label="Max Number of Files" value="${max}"><button type="button" aria-label="decrement" data-ff="max:-1"${max <= 1 ? ' disabled' : ''}>${ic('<path d="M5 12h14"/>')}</button><button type="button" aria-label="increment" data-ff="max:1">${ic('<path d="M5 12h14M12 5v14"/>')}</button></div>`;
   } else if (k === 'select' || k === 'checkbox' || k === 'radio' || k === 'survey') {
-    const list = (f.options || []).map((o, i) => `<div class="bp-ffo-row">${OGRIP}<input type="text" placeholder="Option ${i + 1}" data-ff-opt="${i}" value="${e(o)}"><button type="button" class="bp-ffo-menu" aria-label="Open Menu" disabled data-unbuilt title="Not built yet">${ic('<circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/>')}</button></div>`).join('');
-    rows = `${k === 'select' ? placeholder : ''}${required(f)}${cap('Options').replace('bp-ff-cap', 'bp-ff-cap bp-ff-cap-opt')}${list}<button type="button" class="bp-soc-add bp-ffo-add" data-ff="opt-add:${n}">Add option</button>`;
+    const list = optionRows(f, n);
+    rows = `${k === 'select' ? placeholder : ''}${required(f)}${cap('Options').replace('bp-ff-cap', 'bp-ff-cap bp-ff-cap-opt')}${list}<button type="button" class="bp-soc-add bp-ffo-add" data-ff="opt-add">Add option</button>`;
   } else if (k === 'phone' || k === 'address' || k === 'date' || k === 'time' || k === 'x') {
     rows = required(f);
   } else {
@@ -217,6 +301,13 @@ export function formFieldsPanelHtml(c, view, linkField) {
   const fields = c.fields;
   if (view === 'ff-post') return postHtml(c.post, linkField(c.post.href, c.pages).replace('>Link<', '>Redirect Url<'));
   if (view === 'ff-add') return addHtml();
+  const [v, a, b, k] = (view || '').split(':');
+  if (v === 'ff-fuadd') return addHtml('Add Follow-Up', 'fu-tile');
+  if (v === 'ff-opt') return `${head('Option Details')}<div class="bp-ff bp-fu">${optionHtml(fields[a], Number(a), Number(b))}</div>`;
+  if (v === 'ff-fu') {
+    const f = followOf(fields[a], b)[k];
+    return `${head(nameOf(f)).replace('bp-ishape-head', 'bp-ishape-head bp-fu-head')}<div class="bp-ff bp-fu bp-ff-edit bp-ff-edit--${f.kind || 'text'}">${followHtml(f, Number(a), Number(b), Number(k))}</div>`;
+  }
   if (view?.startsWith('ff-edit:')) {
     const n = Number(view.slice(8)), f = fields[n];
     return `${head(nameOf(f))}<div class="bp-ff bp-ff-edit bp-ff-edit--${f.kind || 'text'}">${editorHtml(f, n)}</div>`;
