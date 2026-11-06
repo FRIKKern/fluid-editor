@@ -1105,10 +1105,36 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     add(`Divider: ${key} at 40vw, 10vw, 300px within 2px`, w <= 2, String(w));
     for (const f of flipsOn) await press(`[data-sact="${f}"]`);
   }
+  // Flip X pressed on Wavy stays on Slanted, which has no such button (cases.slantedX).
+  await press('[aria-label="Wavy Shape"]'); await press('[data-sact="dividerFlip"]'); await press('[aria-label="Slanted Shape"]');
+  { const w = worst(drawn(), D.cases.slantedX.ys); add('Divider: Flip X carried to Slanted within 2px', w <= 2 && flips().join() === 'Flip Y Axis', String(w)); }
+  await press('[aria-label="Wavy Shape"]'); await press('[data-sact="dividerFlip"]');
   await press('[aria-label="Wavy Shape"]');
   await press('.sp-subback');
   await press('[data-sact="dividerThickness"][data-v="more"]'); await setVal('input[type="range"][data-act="dividerThickness"]', 22);
   add('Divider: custom thickness 22px', drawn().sw === D.thickness.at22, drawn().sw);
+  // Shuffle (D.shuffle): on the Design tab the next shape, sizes and flips; Alignment, Stroke and Thickness stay; one undo. In Edit Settings the shape stays.
+  {
+    const secA = () => evalJs(S, `(() => { const s = fe.model.sections[2]; return JSON.stringify({ shape: s.dividerShape || 'wavy', w: s.dividerWidth ?? 100, h: s.dividerHeight ?? 6, align: s.dividerAlign, flip: !!s.dividerFlip, flipY: !!s.dividerFlipY, stroke: s.dividerStroke, t: s.dividerThickness }); })()`);
+    await press('[data-sact="dividerStroke"][data-v="dashed"]'); await press('[data-sact="dividerThickness"][data-v="L"]');
+    const seen = [], flipsSeen = new Set(), base = secA();
+    let kept = true, sizes = true;
+    for (let n = 0; n < 7; n++) { await press('.sp-shape-box [data-sact="shapeShuffle"]'); const a = secA(); seen.push(a.shape); flipsSeen.add(a.flip); kept &&= a.align === base.align && a.stroke === 'dashed' && a.t === 'L'; sizes &&= [5, 20, 100].includes(a.w) && [2, 6, 12].includes(a.h); }
+    add('Divider Shuffle (Design): walks all seven shapes, never No Shape', new Set(seen).size === 7 && !seen.includes('none'), JSON.stringify(seen));
+    add('Divider Shuffle (Design): keeps Alignment, Stroke, Thickness', kept, JSON.stringify(secA()));
+    add('Divider Shuffle (Design): sizes from S, M, L', sizes);
+    const beforeOne = secA();
+    await press('.sp-shape-box [data-sact="shapeShuffle"]');
+    add('Divider Shuffle (Design): the order repeats', secA().shape === seen[0] || seen[0] === beforeOne.shape, JSON.stringify([secA().shape, seen[0]]));
+    evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(150);
+    add('Divider Shuffle (Design): one undo a press', JSON.stringify(secA()) === JSON.stringify(beforeOne), JSON.stringify(secA()));
+    await press('[data-sact="view"][data-v="shape"]');
+    const editFrom = secA().shape; let same = true; const flipped = new Set();
+    for (let n = 0; n < 12; n++) { await press('.sp-shuffle'); const a = secA(); same &&= a.shape === editFrom; flipped.add(a.flip); }
+    add('Divider Shuffle (Edit Settings): the shape stays, the flips change', same && flipped.size === 2, JSON.stringify([editFrom, [...flipped]]));
+    await press('.sp-subback');
+    await press('[data-sact="dividerStroke"][data-v="solid"]');
+  }
   await press('[data-sact="dividerThickness"][data-v="M"]');
   await press('[data-sp-color="divider"]');
   const swatches = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#shape-pop input[aria-label^="Color "]')].map((e) => e.getAttribute('aria-label').slice(6))))()`);
@@ -1373,6 +1399,90 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   hit('#section-panel .ar-tab[data-v="custom"]'); await pause(100);
   add('Images: Custom image tab', evalJs(S, `(() => JSON.stringify(document.querySelector('#section-panel .ar-add')?.textContent))()`) === 'Add an Image');
   await back();
+  // Presets and Shuffle (CAP-ARTROWS.json presets, CAP-ARTSHUFFLE.json): every preset's values reach its sliders; a row on a preset holds them.
+  const AS = JSON.parse(readFileSync(new URL('../parity/findings/CAP-ARTSHUFFLE.json', import.meta.url)));
+  const openFolds = () => evalJs(S, `(() => { document.querySelectorAll('#section-panel .ar-fold-b[aria-expanded="false"]').forEach((b) => b.click()); return 'true'; })()`);
+  const allFolds = async () => { for (let n = 0; n < 4; n++) { openFolds(); await pause(40); } };
+  const pressK = (k, v) => evalJs(S, `(() => { const e = document.querySelector('#section-panel .ar-seg[data-k="${k}"][data-v="${v}"]'); if (!e) return 'false'; e.click(); return 'true'; })()`);
+  const under = (k) => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-panel input[type=range][data-k^="${k}."]')].map((e) => Number(e.value))))()`);
+  const isOn = (k) => evalJs(S, `(() => JSON.stringify(document.querySelector('#section-panel .ar-seg.is-on[data-k="${k}"]')?.dataset.v ?? null))()`);
+  const artKey = (T, id) => (id === 'images' ? [[T.root[0], '0.0']] : T.folds.flatMap((f, i) => f.rows.map((r, n) => [r, `${i}.${n}`])));
+  for (const [id, T] of Object.entries(AR.tiles)) {
+    await tileOpen(id); await allFolds();
+    const miss = [], starts = [];
+    for (const [r, k] of artKey(T, id)) {
+      if (!r.presets) continue;
+      if (r.on !== 'more') { const was = String(r.on); pressK(k, 'more'); await pause(30); if (JSON.stringify(under(k)) !== JSON.stringify(r.presets[r.on])) starts.push([k, was, under(k)]); }
+      for (let o = 0; o < r.presets.length; o++) { pressK(k, o); await pause(30); if (isOn(k) !== String(o)) miss.push([k, o, 'mark']); pressK(k, 'more'); await pause(30); if (JSON.stringify(under(k)) !== JSON.stringify(r.presets[o])) miss.push([k, o, under(k)]); }
+    }
+    add(`Art ${id}: every preset's values`, miss.length === 0, JSON.stringify(miss.slice(0, 4)));
+    add(`Art ${id}: a marked preset holds its values`, starts.length === 0, JSON.stringify(starts.slice(0, 4)));
+    await back();
+    hit('#section-panel [data-sact="art"][data-v="none"]'); await pause(120);
+  }
+  // Shuffle: what it changes, what stays, one undo, from the tile and from the rows.
+  const artState = () => evalJs(S, `(() => JSON.stringify(fe.model.sections[0].bgArt))()`);
+  for (const [id, T] of Object.entries(AS.shuffle.tiles)) {
+    const table = (await import('../app/src/section-art-rows-data.js')).ART_SHUFFLE[id];
+    await tileOpen(id);
+    const a0 = artState();
+    hit('#section-panel .sp-shuffle'); await pause(120);
+    const a1 = artState();
+    hit('#section-panel .sp-shuffle'); await pause(120);
+    const a2 = artState();
+    add(`Shuffle ${id}: the colors stay`, JSON.stringify(a0.colors) === JSON.stringify(a2.colors), JSON.stringify(a2.colors));
+    const out = Object.entries(table.range).filter(([k, [lo, hi]]) => !(a2.set[k] >= lo && a2.set[k] <= hi));
+    add(`Shuffle ${id}: each value within what was read`, out.length === 0, JSON.stringify(out.slice(0, 3)));
+    add(`Shuffle ${id}: its rows go to more`, table.more.every((k) => a2.set[k] === 'more'), JSON.stringify(table.more.map((k) => a2.set[k])));
+    add(`Shuffle ${id}: only its rows change`, Object.keys(a2.set).every((k) => table.range[k] || table.more.includes(k) || table.check.includes(k) || table.pick[k] || k === 'preset' || k === 'filter'), JSON.stringify(Object.keys(a2.set).slice(0, 8)));
+    add(`Shuffle ${id}: two presses differ`, JSON.stringify(a1.set) !== JSON.stringify(a2.set));
+    undos(); await pause(100);
+    add(`Shuffle ${id}: one undo a press`, JSON.stringify(artState().set) === JSON.stringify(a1.set));
+    await back();
+    hit('#section-panel [data-sact="art"][data-v="none"]'); await pause(120);
+  }
+  // A row's more button takes no undo step.
+  await tileOpen('bokeh'); await allFolds();
+  { const a0 = artState(); pressK('0.0', 1); await pause(80); pressK('0.0', 'more'); await pause(80); const a1 = artState(); undos(); await pause(100); const a2 = artState(); add('Art: a more press takes no undo step', a1.set['0.0'] === 'more' && a1.set['0.0.0'] === 15 && JSON.stringify(a2.set || {}) === JSON.stringify(a0.set || {}), JSON.stringify([a1.set, a2.set])); }
+  await back();
+  hit('#section-panel [data-sact="art"][data-v="none"]'); await pause(120);
+  // Shuffle by the tile does the same.
+  hit('#section-panel [data-sact="art"][data-v="surface"]'); await pause(150);
+  hit('#section-panel .sp-art-tile.is-on [data-sact="artShuffle"]'); await pause(120);
+  add('Shuffle by the tile: marks Pattern more', artState().set?.['0.1'] === 'more', JSON.stringify(artState().set));
+  // Rows that come and go.
+  await tileOpen('surface'); await allFolds();
+  const setK = async (k, v) => { evalJs(S, `(() => { const e = document.querySelector('#section-panel input[type=range][data-k="${k}"]'); e.value = ${JSON.stringify(String(v))}; e.dispatchEvent(new Event('change', { bubbles: true })); return 'true'; })()`); await pause(100); };
+  pressK('0.1', 'more'); await pause(50);
+  await setK('0.1.0', 0);
+  add('Amount at 0 hides the rest of its row', JSON.stringify(under('0.1')) === '[0]', JSON.stringify(under('0.1')));
+  await setK('0.1.0', 10);
+  add('Amount off 0 brings them back', under('0.1').length === 5, JSON.stringify(under('0.1')));
+  await back();
+  await tileOpen('contours'); await allFolds();
+  const labelsOf = () => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-panel input[type=checkbox],#section-panel input[type=range]')].map((e) => e.getAttribute('aria-label'))))()`);
+  hit('#section-panel input[aria-label="Blur"]'); await pause(120); await allFolds();
+  { const l = labelsOf(); add('Contours: Blur on hides Bevel and Steps', l.includes('Blur') && !l.includes('Bevel') && !l.includes('Steps'), JSON.stringify(l)); }
+  hit('#section-panel input[aria-label="Blur"]'); await pause(120); await allFolds();
+  { const l = labelsOf(); add('Contours: Blur off brings them back', l.includes('Bevel') && l.includes('Steps'), JSON.stringify(l)); }
+  await back();
+  await tileOpen('gradient'); await allFolds();
+  pressK('2.1', 'more'); await pause(80);
+  { const y = evalJs(S, `(() => { const s = [...document.querySelectorAll('#section-panel .ar-seg[data-k="2.1"]')][0].getBoundingClientRect(), c = document.querySelector('#section-panel input[aria-label="Animate"]'), t = document.querySelector('#section-panel input[type=text][data-k="2.1.0"]'); return JSON.stringify(c ? [c.checked, c.closest('.ar-check').getBoundingClientRect().top + 23 - s.top, t.getBoundingClientRect().top - s.top] : null); })()`);
+    const B = AS.boxes.gradientNoise, seg = B.find((x) => x[1] === 'Off')[4], chk = B.find((x) => x[1] === 'Animate')[4] + 6, txt = B.find((x) => x[0] === 'INPUT' && x[1] === 'Intensity' && x[2] === '')[4];
+    add('Gradient: Animate under Noise, off, at the read place', y && y[0] === false && Math.abs(y[1] - (chk - seg)) <= 3 && Math.abs(y[2] - (txt - seg)) <= 3, JSON.stringify([y, chk - seg, txt - seg])); }
+  await back();
+  // Images: a new tile on Stitch, Pattern color on None.
+  hit('#section-panel [data-sact="art"][data-v="none"]'); await pause(120);
+  await tileOpen('images');
+  add('Images: a new tile starts on Stitch', imgRead().filter === 'Stitch', JSON.stringify(imgRead().filter));
+  hit('#section-panel .ar-filter .sp-select'); await pause(100);
+  hit('#section-panel .ar-filter .sp-option[data-v="None"]'); await pause(100);
+  add('Images: Pattern color stays on None', imgRead().filter === 'None' && evalJs(S, `(() => JSON.stringify(!!document.querySelector('#section-panel [aria-label="Pattern color"]')))()`) === true);
+  hit('#section-panel .sp-shuffle'); await pause(120);
+  { const a = artState(); add('Images: Shuffle picks a preset and a Filter, never None', !!a.set.preset && a.set.filter !== 'None' && a.set.preset !== 'Polygon 1', JSON.stringify([a.set.preset, a.set.filter])); }
+  await back();
+  hit('#section-panel [data-sact="art"][data-v="none"]'); await pause(120);
   // Aa chips: over the frame in Edit Color Theme, a press opens that theme's rows, none outside it.
   hit('#section-panel [data-sact="tab"][data-v="Colors"]'); await pause(150);
   hit('#section-panel [data-sbg="themes"]'); await pause(500);

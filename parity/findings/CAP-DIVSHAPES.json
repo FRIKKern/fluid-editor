@@ -2490,6 +2490,94 @@
       "sw": "6px",
       "st": "rgb(0, 0, 0)",
       "dash": "0px"
+    },
+    "slantedX": {
+      "band": 160,
+      "h": 827.6,
+      "ys": [
+        0.488,
+        0.519,
+        0.551,
+        0.582,
+        0.613,
+        0.644,
+        0.675,
+        0.706,
+        0.738,
+        0.769,
+        0.8,
+        0.831,
+        0.862,
+        0.893,
+        0.925,
+        0.956,
+        0.987,
+        0.024,
+        0.055,
+        0.086,
+        0.117,
+        0.149,
+        0.18,
+        0.211,
+        0.242,
+        0.269,
+        0.301,
+        0.332,
+        0.363,
+        0.394,
+        0.425,
+        0.457,
+        0.488,
+        0.519,
+        0.55,
+        0.581,
+        0.612,
+        0.644,
+        0.675,
+        0.706,
+        0.737,
+        0.768,
+        0.799,
+        0.831,
+        0.862,
+        0.893,
+        0.924,
+        0.955,
+        0.986,
+        0.023,
+        0.055,
+        0.086,
+        0.117,
+        0.148,
+        0.179,
+        0.211,
+        0.242,
+        0.273,
+        0.304,
+        0.335,
+        0.362,
+        0.394,
+        0.425,
+        0.456,
+        0.487,
+        0.518,
+        0.55,
+        0.581,
+        0.612,
+        0.643,
+        0.674,
+        0.705,
+        0.737,
+        0.768,
+        0.799,
+        0.83,
+        0.861,
+        0.892,
+        0.924,
+        0.955,
+        0.986
+      ],
+      "note": "Flip X pressed on Wavy, then Slanted. Slanted has no Flip X button but keeps the flip: the height mirrors over the shape's own middle, as on every shape with the button. 40vw, 10vw, 300px."
     }
   },
   "softCorners": "no Width or Alignment; the width is the section's, and the corners grow with the height",
@@ -2508,7 +2596,78 @@
         "height": "6"
       }
     ],
-    "note": "pairs from the S, M, L sizes; shape and alignment stay"
+    "note": "Edit Settings' Shuffle: a pair from the S, M, L sizes and the flips; the shape and alignment stay (21 presses, 3 sessions).",
+    "designTab": {
+      "capturedAt": "2026-11-06",
+      "rule": "The Shuffle button on the Design tab also moves to the next of the seven shapes, in one order that repeats, with a pair of sizes and the flips. No Shape is never picked, and it is left when it is the start. One undo a press. Alignment, Stroke and Thickness stay.",
+      "orders": [
+        [
+          "soft",
+          "slanted",
+          "rounded",
+          "jagged",
+          "scalloped",
+          "pointed",
+          "wavy",
+          "soft",
+          "slanted",
+          "rounded",
+          "jagged",
+          "scalloped"
+        ],
+        [
+          "jagged",
+          "wavy",
+          "scalloped",
+          "soft",
+          "rounded",
+          "slanted",
+          "pointed",
+          "jagged"
+        ]
+      ],
+      "pairs": [
+        [
+          "S",
+          "L"
+        ],
+        [
+          "L",
+          "L"
+        ],
+        [
+          "L",
+          "M"
+        ],
+        [
+          null,
+          "S"
+        ],
+        [
+          "M",
+          "M"
+        ],
+        [
+          "S",
+          "M"
+        ],
+        [
+          "L",
+          "M"
+        ],
+        [
+          "S",
+          "S"
+        ]
+      ],
+      "keeps": {
+        "alignment": 300,
+        "strokeWidth": "15px",
+        "dash": "5px, 30px"
+      },
+      "inferred": "Each session has its own order (others started rounded, pointed, slanted, scalloped; and slanted, scalloped, rounded). Ours picks the order once per page load and skips the current shape, not read. Whether the order is per section is not read. Each flip with even odds.",
+      "flips": "Read from the edge on Wavy and Slanted, which turn over from press to press in both places: Wavy's quarter point at the top or the bottom of the band, Slanted rising or falling."
+    }
   },
   "color": {
     "swatches": [

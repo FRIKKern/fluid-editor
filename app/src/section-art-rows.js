@@ -1,6 +1,6 @@
 // Art's rows behind Edit Settings (parity/findings/CAP-ARTROWS.json). The rows hold values; the picture is
 // our CSS stand-in for the oracle's WebGL art and does not follow them (0005).
-import { ART_ROWS } from './section-art-rows-data.js';
+import { ART_ROWS, ART_SHUFFLE } from './section-art-rows-data.js';
 
 export const IMAGE_PRESETS = ['Blob 1', 'Blob 2', 'Brush 1', 'Brush 2', 'Brush 3', 'Circle 1', 'Polygon 1', 'Polygon 2'];
 export const IMAGE_FILTERS = ['None', 'Circle', 'Cross stitch', 'Cube', 'Gingham', 'Gradient circle', 'Houndstooth', 'Stitch'];
@@ -15,20 +15,27 @@ const rangeRow = (label, r, k, set) => { const v = value(set, k, r.v); return `<
 const inlineRange = (group, r, k, set) => { const v = value(set, k, r.v); return `<div class="ar-inline"><input type="range" data-act="artRange" data-k="${k}" aria-label="${group}" min="${r.min}" max="${r.max}" step="${r.step}" value="${v}" style="${fill(r, v)}"><input type="text" data-act="artRange" data-k="${k}" data-min="${r.min}" data-max="${r.max}" aria-label="${group}" value="${num(v)}"></div>`; };
 
 const MORE = '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="4" cy="9" r="1.4"/><circle cx="9" cy="9" r="1.4"/><circle cx="14" cy="9" r="1.4"/></svg>';
+// A switch on its row, with what it shows when on.
+const checkRow = (label, k, on) => `<label class="ar-check"><span>${label}</span><span class="sp-switch"><input type="checkbox" data-act="artCheck" data-k="${k}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></span></label>`;
 function segRow(row, k, set) {
   const now = value(set, k, row.on), n = row.opts.length + (row.noMore ? 0 : 1);
   const btn = (v, label, html, on) => `<button type="button" class="ar-seg${on ? ' is-on' : ''}" style="width:${284 / n}px" data-sact="artSeg" data-k="${k}" data-v="${v}" aria-label="${label}" aria-pressed="${on}">${html}</button>`;
-  const sliders = now !== 'more' ? '' : row.sliders.map((r, m) => (r.inline ? inlineRange(row.seg, r, `${k}.${m}`, set) : rangeRow(r.label, r, `${k}.${m}`, set))).join('');
+  // An Amount at 0 hides the rest of its row (read on Surface and Conic, CAP-ARTSHUFFLE.json).
+  const amount = row.sliders.findIndex((r) => r.label === 'Amount');
+  const off = amount >= 0 && value(set, `${k}.${amount}`, row.sliders[amount].v) === 0;
+  const sliders = now !== 'more' ? '' : (row.moreCheck ? checkRow(row.moreCheck.label, `${k}.check`, value(set, `${k}.check`, row.moreCheck.on)) : '') + row.sliders.map((r, m) => (off && m !== amount ? '' : r.inline ? inlineRange(row.seg, r, `${k}.${m}`, set) : rangeRow(r.label, r, `${k}.${m}`, set))).join('');
   return `<div class="ar-group">${row.seg ? `<div class="ar-head">${row.seg}</div>` : ''}<div class="ar-segs">${row.opts.map((o, v) => btn(v, o, o, now === v)).join('')}${row.noMore ? '' : btn('more', row.seg, MORE, now === 'more')}</div>${sliders}</div>`;
 }
 function rowsHtml(rows, f, set) {
   return rows.map((row, n) => {
     const k = `${f}.${n}`;
+    // Contours: Blur on hides Bevel and Steps.
+    if (row.offWith) { const m = rows.findIndex((r) => r.check === row.offWith); if (value(set, `${f}.${m}`, rows[m].on)) return ''; }
     if (row.head) return `<div class="ar-group ar-head-only"><div class="ar-head">${row.head}</div></div>`;
     if (row.opts) return segRow(row, k, set);
     if (row.range !== undefined) return rangeRow(row.range, row, k, set);
     const on = value(set, k, row.on);
-    return `<label class="ar-check"><span>${row.check}</span><span class="sp-switch"><input type="checkbox" data-act="artCheck" data-k="${k}" aria-label="${row.check}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></span></label>${on ? (row.reveals || []).map((r, m) => rangeRow(r.range, r, `${k}.r${m}`, set)).join('') : ''}`;
+    return `${checkRow(row.check, k, on)}${on ? (row.reveals || []).map((r, m) => rangeRow(r.range, r, `${k}.r${m}`, set)).join('') : ''}`;
   }).join('');
 }
 const CHEV = (open) => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="transform:rotate(${open ? 90 : 0}deg)"><path d="M9 5l7 7-7 7"/></svg>`;
@@ -57,12 +64,26 @@ export function artImagesRows(set, more, patternRow) {
   return `<div class="ar-img-rows">${rowsHtml([scale, count], 0, set)}${filter}${patternRow}${rowsHtml([wave], 1, set)}</div>`;
 }
 
-// A seg press: more, or a preset whose value (when it has one) goes to its slider.
+// A seg press: more, or a preset, whose values go to its sliders.
 export function artSeg(name, set, k, v) {
   const [f, n] = k.split('.').map(Number), tile = ART_ROWS[name];
   const row = name === 'images' ? tile[0].rows[f === 1 ? 2 : n] : tile[f].rows[n];
   const next = { ...set, [k]: v === 'more' ? 'more' : Number(v) };
-  if (v !== 'more' && row.values?.[Number(v)] != null) next[`${k}.0`] = row.values[Number(v)];
+  if (v !== 'more') row.presets?.[Number(v)].forEach((x, m) => { next[`${k}.${m}`] = x; });
+  return next;
+}
+// Shuffle Settings: rows it changes go to more with new values, within what the oracle showed. The colors and every other row stay.
+export function artShuffled(name, set, rnd = Math.random) {
+  const T = ART_SHUFFLE[name], next = { ...set };
+  for (const [k, [lo, hi, step]] of Object.entries(T.range)) next[k] = +(lo + Math.round((rnd() * (hi - lo)) / step) * step).toFixed(2);
+  for (const k of T.more) next[k] = 'more';
+  for (const k of T.check) next[k] = rnd() < 0.5;
+  for (const [k, n] of Object.entries(T.pick)) next[k] = Math.floor(rnd() * n);
+  if (name === 'images') {
+    const pick = (list) => list[Math.floor(rnd() * list.length)];
+    next.preset = pick(IMAGE_PRESETS.filter((p) => p !== 'Polygon 1'));
+    next.filter = pick(IMAGE_FILTERS.filter((p) => p !== 'None'));
+  }
   return next;
 }
 export const clampArt = (input) => {

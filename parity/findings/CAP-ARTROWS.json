@@ -358,10 +358,6 @@
         "Low",
         "High"
        ],
-       "values": [
-        null,
-        null
-       ],
        "on": 1,
        "sliders": [
         {
@@ -369,21 +365,25 @@
          "min": 0.0,
          "max": 100.0,
          "step": 1.0,
-         "v": 80.0,
+         "v": 80,
          "inline": true
         }
        ],
-       "y": 411
+       "y": 411,
+       "presets": [
+        [
+         40
+        ],
+        [
+         80
+        ]
+       ]
       },
       {
        "seg": "Pattern",
        "opts": [
         "Low",
         "High"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -428,17 +428,29 @@
          "inline": false
         }
        ],
-       "y": 493
+       "y": 493,
+       "presets": [
+        [
+         7,
+         10,
+         10,
+         30,
+         30
+        ],
+        [
+         91,
+         50,
+         50,
+         50,
+         50
+        ]
+       ]
       },
       {
        "seg": "Distortion",
        "opts": [
         "Low",
         "High"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": 0,
        "sliders": [
@@ -447,7 +459,7 @@
          "min": 0.0,
          "max": 100.0,
          "step": 1.0,
-         "v": 50.0,
+         "v": 20,
          "inline": false
         },
         {
@@ -455,11 +467,21 @@
          "min": 0.0,
          "max": 100.0,
          "step": 1.0,
-         "v": 100.0,
+         "v": 100,
          "inline": false
         }
        ],
-       "y": 960
+       "y": 960,
+       "presets": [
+        [
+         20,
+         100
+        ],
+        [
+         50,
+         100
+        ]
+       ]
       }
      ],
      "y": 367,
@@ -475,11 +497,6 @@
         "1x",
         "2x"
        ],
-       "values": [
-        null,
-        null,
-        null
-       ],
        "on": 1,
        "sliders": [
         {
@@ -487,11 +504,22 @@
          "min": 0.0,
          "max": 100.0,
          "step": 1.0,
-         "v": 40.0,
+         "v": 10,
          "inline": true
         }
        ],
-       "y": 1098
+       "y": 1098,
+       "presets": [
+        [
+         5
+        ],
+        [
+         10
+        ],
+        [
+         40
+        ]
+       ]
       }
      ],
      "y": 1054,
@@ -505,10 +533,6 @@
        "opts": [
         "Blended",
         "Separate"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -545,17 +569,27 @@
          "inline": false
         }
        ],
-       "y": 1236
+       "y": 1236,
+       "presets": [
+        [
+         0,
+         33,
+         66,
+         100
+        ],
+        [
+         50,
+         90,
+         0,
+         100
+        ]
+       ]
       },
       {
        "seg": "Color distortion",
        "opts": [
         "Low",
         "High"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -576,17 +610,23 @@
          "inline": false
         }
        ],
-       "y": 1626
+       "y": 1626,
+       "presets": [
+        [
+         0,
+         100
+        ],
+        [
+         77,
+         100
+        ]
+       ]
       },
       {
        "seg": "Noise",
        "opts": [
         "Low",
         "High"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": 0,
        "sliders": [
@@ -595,7 +635,7 @@
          "min": 0.0,
          "max": 100.0,
          "step": 1.0,
-         "v": 75.0,
+         "v": 15,
          "inline": false
         },
         {
@@ -603,11 +643,21 @@
          "min": 0.0,
          "max": 100.0,
          "step": 1.0,
-         "v": 12.0,
+         "v": 20,
          "inline": false
         }
        ],
-       "y": 1862
+       "y": 1862,
+       "presets": [
+        [
+         15,
+         20
+        ],
+        [
+         75,
+         12
+        ]
+       ]
       }
      ],
      "y": 1192,
@@ -1054,11 +1104,6 @@
         "M",
         "L"
        ],
-       "values": [
-        null,
-        null,
-        null
-       ],
        "on": "more",
        "sliders": [
         {
@@ -1070,7 +1115,18 @@
          "inline": true
         }
        ],
-       "y": 344
+       "y": 344,
+       "presets": [
+        [
+         20
+        ],
+        [
+         50
+        ],
+        [
+         65
+        ]
+       ]
       },
       {
        "seg": "Funnel position",
@@ -1078,11 +1134,6 @@
         "Left",
         "Center",
         "Right"
-       ],
-       "values": [
-        null,
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -1103,7 +1154,21 @@
          "inline": false
         }
        ],
-       "y": 470
+       "y": 470,
+       "presets": [
+        [
+         -100,
+         -41
+        ],
+        [
+         -5,
+         -9
+        ],
+        [
+         65,
+         -9
+        ]
+       ]
       }
      ],
      "y": 300,
@@ -1118,11 +1183,6 @@
         ".5x",
         "1x",
         "2x"
-       ],
-       "values": [
-        null,
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -1143,17 +1203,27 @@
          "inline": false
         }
        ],
-       "y": 762
+       "y": 762,
+       "presets": [
+        [
+         5,
+         1
+        ],
+        [
+         10,
+         50
+        ],
+        [
+         20,
+         80
+        ]
+       ]
       },
       {
        "seg": "Distortion",
        "opts": [
         "Low",
         "High"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -1166,7 +1236,15 @@
          "inline": true
         }
        ],
-       "y": 998
+       "y": 998,
+       "presets": [
+        [
+         10
+        ],
+        [
+         60
+        ]
+       ]
       }
      ],
      "y": 718,
@@ -1180,10 +1258,6 @@
        "opts": [
         "Low",
         "High"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -1212,17 +1286,25 @@
          "inline": false
         }
        ],
-       "y": 1180
+       "y": 1180,
+       "presets": [
+        [
+         10,
+         13,
+         15
+        ],
+        [
+         30,
+         50,
+         100
+        ]
+       ]
       },
       {
        "seg": "Pattern",
        "opts": [
         "Low",
         "High"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -1243,17 +1325,23 @@
          "inline": false
         }
        ],
-       "y": 1493
+       "y": 1493,
+       "presets": [
+        [
+         7,
+         0
+        ],
+        [
+         30,
+         0
+        ]
+       ]
       },
       {
        "seg": "Pattern blur",
        "opts": [
         "Off",
         "High"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -1266,17 +1354,21 @@
          "inline": true
         }
        ],
-       "y": 1729
+       "y": 1729,
+       "presets": [
+        [
+         0
+        ],
+        [
+         100
+        ]
+       ]
       },
       {
        "seg": "Fog",
        "opts": [
         "Off",
         "High"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -1289,17 +1381,21 @@
          "inline": true
         }
        ],
-       "y": 1855
+       "y": 1855,
+       "presets": [
+        [
+         0
+        ],
+        [
+         100
+        ]
+       ]
       },
       {
        "seg": "Noise",
        "opts": [
         "Off",
         "High"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -1320,7 +1416,17 @@
          "inline": false
         }
        ],
-       "y": 1981
+       "y": 1981,
+       "presets": [
+        [
+         2,
+         2
+        ],
+        [
+         18,
+         40
+        ]
+       ]
       }
      ],
      "y": 1136,
@@ -1727,11 +1833,6 @@
         "M",
         "L"
        ],
-       "values": [
-        null,
-        null,
-        null
-       ],
        "on": 0,
        "sliders": [
         {
@@ -1739,11 +1840,22 @@
          "min": 0.0,
          "max": 100.0,
          "step": 1.0,
-         "v": 30.0,
+         "v": 5,
          "inline": true
         }
        ],
-       "y": 411
+       "y": 411,
+       "presets": [
+        [
+         5
+        ],
+        [
+         15
+        ],
+        [
+         30
+        ]
+       ]
       },
       {
        "seg": "Particle count",
@@ -1751,10 +1863,6 @@
         "Low",
         "High"
        ],
-       "values": [
-        null,
-        null
-       ],
        "on": 0,
        "sliders": [
         {
@@ -1762,11 +1870,19 @@
          "min": 0.0,
          "max": 100.0,
          "step": 1.0,
-         "v": 30.0,
+         "v": 2,
          "inline": true
         }
        ],
-       "y": 493
+       "y": 493,
+       "presets": [
+        [
+         2
+        ],
+        [
+         30
+        ]
+       ]
       },
       {
        "seg": "Particle opacity",
@@ -1774,10 +1890,6 @@
         "Low",
         "High"
        ],
-       "values": [
-        null,
-        null
-       ],
        "on": 0,
        "sliders": [
         {
@@ -1785,11 +1897,19 @@
          "min": 0.0,
          "max": 100.0,
          "step": 1.0,
-         "v": 60.0,
+         "v": 35,
          "inline": true
         }
        ],
-       "y": 575
+       "y": 575,
+       "presets": [
+        [
+         35
+        ],
+        [
+         60
+        ]
+       ]
       },
       {
        "seg": "Particle wave",
@@ -1797,11 +1917,6 @@
         "S",
         "M",
         "L"
-       ],
-       "values": [
-        null,
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -1822,17 +1937,27 @@
          "inline": false
         }
        ],
-       "y": 657
+       "y": 657,
+       "presets": [
+        [
+         15,
+         23
+        ],
+        [
+         65,
+         61
+        ],
+        [
+         20,
+         99
+        ]
+       ]
       },
       {
        "seg": "Complexity",
        "opts": [
         "Low",
         "High"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -1853,17 +1978,23 @@
          "inline": false
         }
        ],
-       "y": 893
+       "y": 893,
+       "presets": [
+        [
+         50,
+         50
+        ],
+        [
+         76,
+         73
+        ]
+       ]
       },
       {
        "seg": "Amplitude",
        "opts": [
         "Low",
         "High"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -1884,7 +2015,17 @@
          "inline": false
         }
        ],
-       "y": 1129
+       "y": 1129,
+       "presets": [
+        [
+         50,
+         50
+        ],
+        [
+         76,
+         73
+        ]
+       ]
       }
      ],
      "y": 367,
@@ -1899,11 +2040,6 @@
         ".5x",
         "1x",
         "2x"
-       ],
-       "values": [
-        null,
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -1924,7 +2060,21 @@
          "inline": false
         }
        ],
-       "y": 1421
+       "y": 1421,
+       "presets": [
+        [
+         12,
+         14
+        ],
+        [
+         29,
+         42
+        ],
+        [
+         100,
+         100
+        ]
+       ]
       }
      ],
      "y": 1377,
@@ -1939,11 +2089,6 @@
         "Left",
         "Center",
         "Right"
-       ],
-       "values": [
-        null,
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -1972,7 +2117,24 @@
          "inline": false
         }
        ],
-       "y": 1713
+       "y": 1713,
+       "presets": [
+        [
+         100,
+         30,
+         0
+        ],
+        [
+         20,
+         30,
+         50
+        ],
+        [
+         0,
+         30,
+         95
+        ]
+       ]
       }
      ],
      "y": 1669,
@@ -2193,11 +2355,6 @@
       "M",
       "L"
      ],
-     "values": [
-      25.0,
-      50.0,
-      80.0
-     ],
      "on": 1,
      "sliders": [
       {
@@ -2205,11 +2362,22 @@
        "min": 1.0,
        "max": 100.0,
        "step": 1.0,
-       "v": 80.0,
+       "v": 50,
        "inline": true
       }
      ],
-     "y": 438
+     "y": 438,
+     "presets": [
+      [
+       25
+      ],
+      [
+       50
+      ],
+      [
+       80
+      ]
+     ]
     },
     {
      "range": "Number of images",
@@ -2437,11 +2605,6 @@
         "1x",
         "2x"
        ],
-       "values": [
-        null,
-        null,
-        null
-       ],
        "on": "more",
        "sliders": [
         {
@@ -2461,7 +2624,21 @@
          "inline": false
         }
        ],
-       "y": 432
+       "y": 432,
+       "presets": [
+        [
+         10,
+         6
+        ],
+        [
+         2,
+         34
+        ],
+        [
+         11,
+         50
+        ]
+       ]
       },
       {
        "range": "Movement direction",
@@ -2504,7 +2681,8 @@
          "step": 1.0,
          "v": 50.0
         }
-       ]
+       ],
+       "offWith": "Blur"
       },
       {
        "check": "Blur",
@@ -2518,7 +2696,8 @@
        "max": 100.0,
        "step": 1.0,
        "v": 9.0,
-       "y": 890.5
+       "y": 890.5,
+       "offWith": "Blur"
       }
      ],
      "y": 724,
@@ -2789,11 +2968,6 @@
         "M",
         "L"
        ],
-       "values": [
-        15.0,
-        50.0,
-        95.0
-       ],
        "on": "more",
        "sliders": [
         {
@@ -2805,7 +2979,18 @@
          "inline": true
         }
        ],
-       "y": 310
+       "y": 310,
+       "presets": [
+        [
+         15
+        ],
+        [
+         50
+        ],
+        [
+         95
+        ]
+       ]
       },
       {
        "range": "Radial X position",
@@ -2856,10 +3041,6 @@
        "opts": [
         "Low",
         "High"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -2920,7 +3101,27 @@
          "inline": false
         }
        ],
-       "y": 780
+       "y": 780,
+       "presets": [
+        [
+         3,
+         280,
+         30,
+         6,
+         15,
+         90,
+         28
+        ],
+        [
+         3,
+         180,
+         90,
+         50,
+         50,
+         98,
+         40
+        ]
+       ]
       },
       {
        "seg": "Noise",
@@ -2929,11 +3130,6 @@
         "Low",
         "High"
        ],
-       "values": [
-        null,
-        null,
-        null
-       ],
        "on": 0,
        "sliders": [
         {
@@ -2941,7 +3137,7 @@
          "min": 0.0,
          "max": 100.0,
          "step": 1.0,
-         "v": 27.0,
+         "v": 0,
          "inline": false
         },
         {
@@ -2949,11 +3145,29 @@
          "min": 1.0,
          "max": 100.0,
          "step": 1.0,
-         "v": 27.0,
+         "v": 1,
          "inline": false
         }
        ],
-       "y": 1401
+       "y": 1401,
+       "presets": [
+        [
+         0,
+         1
+        ],
+        [
+         14,
+         6
+        ],
+        [
+         27,
+         27
+        ]
+       ],
+       "moreCheck": {
+        "label": "Animate",
+        "on": false
+       }
       }
      ],
      "y": 736,
@@ -3204,10 +3418,6 @@
         "Low",
         "High"
        ],
-       "values": [
-        null,
-        null
-       ],
        "on": "more",
        "sliders": [
         {
@@ -3267,7 +3477,27 @@
          "inline": false
         }
        ],
-       "y": 602
+       "y": 602,
+       "presets": [
+        [
+         3,
+         280,
+         30,
+         6,
+         15,
+         90,
+         28
+        ],
+        [
+         3,
+         180,
+         90,
+         50,
+         50,
+         98,
+         40
+        ]
+       ]
       },
       {
        "seg": "Noise",
@@ -3276,11 +3506,6 @@
         "Low",
         "High"
        ],
-       "values": [
-        null,
-        null,
-        null
-       ],
        "on": 0,
        "sliders": [
         {
@@ -3288,7 +3513,7 @@
          "min": 0.0,
          "max": 100.0,
          "step": 1.0,
-         "v": 27.0,
+         "v": 0,
          "inline": false
         },
         {
@@ -3296,11 +3521,29 @@
          "min": 0.0,
          "max": 100.0,
          "step": 1.0,
-         "v": 27.0,
+         "v": 0,
          "inline": false
         }
        ],
-       "y": 1223
+       "y": 1223,
+       "presets": [
+        [
+         0,
+         0
+        ],
+        [
+         14,
+         6
+        ],
+        [
+         27,
+         27
+        ]
+       ],
+       "moreCheck": {
+        "label": "Animate",
+        "on": false
+       }
       }
      ],
      "y": 558,
@@ -3529,11 +3772,6 @@
         "Edge",
         "Center"
        ],
-       "values": [
-        null,
-        null,
-        null
-       ],
        "on": 0,
        "sliders": [],
        "noMore": true
@@ -3543,10 +3781,6 @@
        "opts": [
         "Low",
         "High"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -3575,7 +3809,19 @@
          "inline": false
         }
        ],
-       "y": 436
+       "y": 436,
+       "presets": [
+        [
+         16,
+         5,
+         8
+        ],
+        [
+         25,
+         25,
+         22
+        ]
+       ]
       }
      ],
      "y": 233,
@@ -3591,11 +3837,6 @@
         "1x",
         "2x"
        ],
-       "values": [
-        12.0,
-        15.0,
-        25.0
-       ],
        "on": "more",
        "sliders": [
         {
@@ -3607,7 +3848,18 @@
          "inline": false
         }
        ],
-       "y": 772
+       "y": 772,
+       "presets": [
+        [
+         12
+        ],
+        [
+         15
+        ],
+        [
+         25
+        ]
+       ]
       },
       {
        "range": "Morph",
@@ -3926,11 +4178,6 @@
         "1x",
         "2x"
        ],
-       "values": [
-        null,
-        null,
-        null
-       ],
        "on": "more",
        "sliders": [
         {
@@ -3966,7 +4213,27 @@
          "inline": false
         }
        ],
-       "y": 310
+       "y": 310,
+       "presets": [
+        [
+         0.25,
+         100,
+         100,
+         100
+        ],
+        [
+         1,
+         100,
+         100,
+         100
+        ],
+        [
+         3.5,
+         100,
+         100,
+         100
+        ]
+       ]
       }
      ],
      "y": 266,
@@ -3982,11 +4249,6 @@
         "1x",
         "2x"
        ],
-       "values": [
-        10.0,
-        20.0,
-        35.0
-       ],
        "on": "more",
        "sliders": [
         {
@@ -3998,17 +4260,24 @@
          "inline": false
         }
        ],
-       "y": 723
+       "y": 723,
+       "presets": [
+        [
+         10
+        ],
+        [
+         20
+        ],
+        [
+         35
+        ]
+       ]
       },
       {
        "seg": "Displacement",
        "opts": [
         "Pixelated",
         "Turbulent"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -4029,7 +4298,17 @@
          "inline": false
         }
        ],
-       "y": 882
+       "y": 882,
+       "presets": [
+        [
+         1,
+         100
+        ],
+        [
+         100,
+         100
+        ]
+       ]
       }
      ],
      "y": 679,
@@ -4043,10 +4322,6 @@
        "opts": [
         "Top",
         "Bottom"
-       ],
-       "values": [
-        null,
-        null
        ],
        "on": "more",
        "sliders": [
@@ -4083,7 +4358,21 @@
          "inline": false
         }
        ],
-       "y": 1141
+       "y": 1141,
+       "presets": [
+        [
+         100,
+         100,
+         50,
+         100
+        ],
+        [
+         50,
+         50,
+         25,
+         100
+        ]
+       ]
       },
       {
        "check": "Morph",
@@ -4152,10 +4441,7 @@
   ]
  },
  "notRead": [
-  "What the rows do to the picture: the oracle draws it with WebGL, ours is a CSS stand-in that does not follow them (0005).",
-  "The slider values behind each preset, apart from the last one pressed.",
-  "What Shuffle Settings does to these rows.",
-  "Which Filter a new Images tile starts on: Gingham and Stitch were seen in separate reads.",
-  "Pattern color with Filter on None."
- ]
+  "What the rows do to the picture: the oracle draws it with WebGL, ours is a CSS stand-in that does not follow them (0005)."
+ ],
+ "presetsRead": "2026-11-06: every preset of every row pressed, then its more button, in two runs in opposite tile order, 90 row readings, none differ. A row marked on a preset holds that preset's values, so v here is that value. A tile's start reads the same each time it is picked: sliders and switches matched in both runs and the marks matched a third (CAP-ARTSHUFFLE.json)."
 }

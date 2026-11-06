@@ -11,7 +11,7 @@ import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPanelTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
-import { artSeg, clampArt } from './section-art-rows.js';
+import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, followDesktopMove } from './phone-order.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
@@ -3503,6 +3503,13 @@ let customGap = false;
 let secView = null; // 'shape' or 'art': the panel behind Edit Settings
 let secMore = {}; // which size rows show their slider
 let filterOpen = false, tipOpen = false;
+// The Design tab's Shuffle walks the seven shapes in one order, kept for the session, and never picks No Shape.
+let shapeDeck = null, shapeAt = 0;
+const nextShape = (cur) => {
+  if (!shapeDeck) { shapeDeck = ['rounded', 'soft', 'slanted', 'scalloped', 'wavy', 'jagged', 'pointed'].sort(() => Math.random() - 0.5); shapeAt = Math.floor(Math.random() * 7); }
+  do shapeAt = (shapeAt + 1) % 7; while (shapeDeck[shapeAt] === cur);
+  return shapeDeck[shapeAt];
+};
 const fillScreen = (s) => !(s.height === 'custom' && s.customHeight == null);
 const gapKind = (s) => (customGap ? 'custom' : s.gap === 0 && (s.rowGap ?? 0) === 0 ? 'zero' : s.gap === MEDIUM_GAP && (s.rowGap ?? MEDIUM_GAP) === MEDIUM_GAP ? 'medium' : 'custom');
 function onSectionClick(e) {
@@ -3521,7 +3528,9 @@ function onSectionClick(e) {
   if (act === 'artFilterOpen') { secMore = { ...secMore, artFilterOpen: !secMore.artFilterOpen }; redraw(); return; }
   if (act === 'artAddImage') { sectionPanel.querySelector('[data-art-image]').click(); return; }
   if (act === 'storageTip') { tipOpen = !tipOpen; redraw(); return; }
-  if (v === 'more') { secMore = { ...secMore, [act]: !secMore[act] }; redraw(); return; }
+  if (v === 'more' && act !== 'artSeg') { secMore = { ...secMore, [act]: !secMore[act] }; redraw(); return; }
+  // A row's more button shows its sliders and takes no undo step, as read (CAP-ARTSHUFFLE.json).
+  if (act === 'artSeg' && v === 'more') { if (s.bgArt) s.bgArt = { ...s.bgArt, set: artSeg(s.bgArt.name, s.bgArt.set || {}, btn.dataset.k, v) }; redraw(); return; }
   if (act === 'gap' && v === 'custom') { customGap = true; renderPanel(); if (editSid) renderSectionPanel(); return; }
   const before = JSON.stringify(model);
   if (act === 'gap') { customGap = false; s.gap = v === 'zero' ? 0 : MEDIUM_GAP; s.rowGap = s.gap; }
@@ -3535,20 +3544,22 @@ function onSectionClick(e) {
   if (act === 'dividerWidth') { secMore = { ...secMore, dividerWidth: false }; s.dividerWidth = DIVIDER_WIDTHS[v]; if (s.dividerWidth === 100) delete s.dividerWidth; }
   if (act === 'dividerHeight') { secMore = { ...secMore, dividerHeight: false }; s.dividerHeight = DIVIDER_HEIGHTS[v]; if (s.dividerHeight === 6) delete s.dividerHeight; }
   if (act === 'dividerFlip' || act === 'dividerFlipY') { if (s[act]) delete s[act]; else s[act] = true; }
-  // Shuffle Settings picks another pair from the S, M, L sizes (read three presses on the oracle).
-  if (act === 'shuffle') {
+  // Shuffle Settings picks another pair from the S, M, L sizes and the flips. On the Design tab it also goes to the next shape (CAP-DIVSHAPES.json, shuffle).
+  if (act === 'shapeShuffle') { const next = nextShape(s.dividerShape || 'wavy'); if (next === 'wavy') delete s.dividerShape; else s.dividerShape = next; }
+  if (act === 'shuffle' || act === 'shapeShuffle') {
     const now = `${s.dividerWidth ?? 100}/${s.dividerHeight ?? 6}`, W = Object.values(DIVIDER_WIDTHS), H = Object.values(DIVIDER_HEIGHTS);
     let w, h;
     do { w = W[Math.floor(Math.random() * 3)]; h = H[Math.floor(Math.random() * 3)]; } while (`${w}/${h}` === now);
     s.dividerWidth = w; s.dividerHeight = h;
     if (w === 100) delete s.dividerWidth;
     if (h === 6) delete s.dividerHeight;
+    for (const flip of ['dividerFlip', 'dividerFlipY']) { if (Math.random() < 0.5) s[flip] = true; else delete s[flip]; }
   }
   if (act === 'bgKind') { filterOpen = tipOpen = false; if (v === 'Image') delete s.bgKind; else s.bgKind = v; if (JSON.stringify(model) === before) { redraw(); return; } }
   if (act === 'art') {
     if (v === 'none') delete s.bgArt; else if (s.bgArt?.name !== v) s.bgArt = { name: v, colors: artDefaults(v) };
   }
-  if (act === 'artShuffle' && s.bgArt) { const c = [...s.bgArt.colors]; do { c.sort(() => Math.random() - 0.5); } while (c.length > 1 && c.join() === s.bgArt.colors.join()); s.bgArt = { ...s.bgArt, colors: c }; }
+  if (act === 'artShuffle' && s.bgArt) s.bgArt = { ...s.bgArt, set: artShuffled(s.bgArt.name, s.bgArt.set || {}) };
   if (act === 'artSeg' && s.bgArt) s.bgArt = { ...s.bgArt, set: artSeg(s.bgArt.name, s.bgArt.set || {}, btn.dataset.k, v) };
   if (act === 'artPreset' && s.bgArt) s.bgArt = { ...s.bgArt, set: { ...s.bgArt.set, preset: v } };
   if (act === 'artFilter' && s.bgArt) { secMore = { ...secMore, artFilterOpen: false }; s.bgArt = { ...s.bgArt, set: { ...s.bgArt.set, filter: v } }; if (JSON.stringify(model) === before) { redraw(); return; } }
