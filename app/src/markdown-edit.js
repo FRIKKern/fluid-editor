@@ -4,17 +4,13 @@ const lineStart = (v, at) => (at ? v.lastIndexOf('\n', at - 1) + 1 : 0);
 const lineEnd = (v, at) => { const n = v.indexOf('\n', at); return n < 0 ? v.length : n; };
 const stars = (v, at, step) => { let n = 0; for (let i = step < 0 ? at - 1 : at; v[i] === '*'; i += step) n++; return n; };
 
-// Bold and Italic wrap the selection, or leave the caret between the marks, and take them off again.
-// That Italic leaves a Bold's marks alone is inferred.
+// Bold and Italic take the marks off when the selection sits right inside them, and otherwise wrap it, marks
+// and all (CAP-T10EDITS.json): an odd run of stars around it is Italic, two or more is Bold.
+const fits = (n, l, r) => (n === 2 ? l >= 2 && r >= 2 : l % 2 === 1 && r % 2 === 1);
 export function mdWrap(v, s, e, mark) {
   const n = mark.length;
-  const fits = (l, r) => (n === 2 ? l >= 2 && r >= 2 : l % 2 === 1 && r % 2 === 1);
-  if (fits(stars(v, s, -1), stars(v, e, 1))) return { value: v.slice(0, s - n) + v.slice(s, e) + v.slice(e + n), start: s - n, end: e - n };
-  const inner = v.slice(s, e);
-  if (inner.length >= 2 * n && fits(stars(inner, 0, 1), stars(inner, inner.length, -1))) {
-    return { value: v.slice(0, s) + inner.slice(n, -n) + v.slice(e), start: s, end: e - 2 * n };
-  }
-  return { value: `${v.slice(0, s)}${mark}${inner}${mark}${v.slice(e)}`, start: s + n, end: e + n };
+  if (fits(n, stars(v, s, -1), stars(v, e, 1))) return { value: v.slice(0, s - n) + v.slice(s, e) + v.slice(e + n), start: s - n, end: e - n };
+  return { value: `${v.slice(0, s)}${mark}${v.slice(s, e)}${mark}${v.slice(e)}`, start: s + n, end: e + n };
 }
 
 // Rewrites each line the selection touches, and carries the selection along.
@@ -42,12 +38,23 @@ export function mdLines(v, s, e, kind) {
 }
 export const mdHeading = (v, s, e, level) => eachLine(v, s, e, (l) => `${level ? `${'#'.repeat(level)} ` : ''}${l.replace(/^#{1,6} +/, '')}`);
 
-// What the toolbar shows for the selection's moving end. Bold and Italic show nothing. A link lights with the end
-// inside it or just after it (CAP-T10LOOK2.json).
-export function mdState(v, at) {
-  const line = v.slice(lineStart(v, at), lineEnd(v, at));
-  const h = /^(#{1,4}) +/.exec(line);
-  return { heading: h ? `Heading ${h[1].length}` : 'Paragraph', bullet: LINE_MARKS.bullet[0].test(line), number: LINE_MARKS.number[0].test(line), quote: /^> /.test(line), link: !!mdLinkAt(v, at) || !!mdLinkAt(v, at - 1) };
+// Bold and Italic dim, and take no press, on a selection holding a heading, list or quote mark (CAP-T10STATE.json).
+const BLOCK_MARK = /^(?:#{1,6} |\s*[*+-] |\s*\d+\. |\s*> ?)/;
+function holdsBlockMark(v, s, e) {
+  if (s === e) return false;
+  for (let from = lineStart(v, s); from <= e; from = lineEnd(v, from) + 1) {
+    const m = BLOCK_MARK.exec(v.slice(from, lineEnd(v, from)));
+    if (m && s < from + m[0].length && e > from) return true;
+    if (lineEnd(v, from) >= v.length) break;
+  }
+  return false;
+}
+// What the toolbar shows. The list kinds go by the line of the selection's moving end, Bold and Italic by the
+// stars around the selection, Link by any link it touches (CAP-T10EDITS.json, CAP-T10STATE.json).
+export function mdState(v, s, e, head = e) {
+  const line = v.slice(lineStart(v, head), lineEnd(v, head));
+  const h = /^(#{1,4}) +/.exec(line), l = stars(v, s, -1), r = stars(v, e, 1);
+  return { heading: h ? `Heading ${h[1].length}` : 'Paragraph', bullet: LINE_MARKS.bullet[0].test(line), number: LINE_MARKS.number[0].test(line), quote: /^> /.test(line), bold: fits(2, l, r), italic: fits(1, l, r), dim: holdsBlockMark(v, s, e), link: !!mdLinkIn(v, s, e) };
 }
 
 // Enter carries a list or quote on, the number going up. On an empty item it leaves a blank line, or a bare >,
@@ -61,12 +68,12 @@ export function mdEnter(v, s, e) {
   const done = (value, at) => ({ value, start: at, end: at });
   if (!rest) {
     const to = lineEnd(v, s), before = from ? v.slice(lineStart(v, from - 1), from - 1) : null;
-    if (from === 0 || before === (m[3] ? '>' : '')) {
+    if ((from === 0 && !m[3]) || (from > 0 && before === (m[3] ? '>' : ''))) {
       const keep = m[3] && from ? lineStart(v, from - 1) : from;
       const blank = keep === from ? '' : '\n';
       return done(`${v.slice(0, keep)}${blank}${v.slice(to)}`, keep + blank.length);
     }
-    const mark = m[3] ? '> ' : m[0], left = m[3] ? '>' : '';
+    const mark = m[0], left = m[3] ? '>' : '';
     return done(`${v.slice(0, from)}${left}\n${mark}${v.slice(to)}`, from + left.length + 1 + mark.length);
   }
   const mark = m[1] ? m[0] : m[2] ? `${Number(m[2]) + 1}. ` : '> ';
@@ -86,6 +93,21 @@ export function mdLinkAt(v, at) {
   for (const m of line.matchAll(/\[([^\]\n]*)\]\(([^)\n]*)\)/g)) {
     const start = from + m.index, end = start + m[0].length;
     if (at > start && at < end) return { start, end, text: m[1], href: m[2] };
+  }
+  return null;
+}
+// The first link a selection touches, or a caret is inside. A fence holds no links.
+export function mdLinkIn(v, s, e) {
+  let fence = false, from = 0;
+  for (const line of v.split('\n')) {
+    if (/^(```+|~~~+)/.test(line)) fence = !fence;
+    else if (!fence && from <= e && from + line.length >= s) {
+      for (const m of line.matchAll(/!?\[([^\]\n]*)\]\(([^)\n]*)\)/g)) {
+        const start = from + m.index, end = start + m[0].length;
+        if (s === e ? s > start && s < end : s < end && e > start) return { start, end, text: m[1], href: m[2] };
+      }
+    }
+    from += line.length + 1;
   }
   return null;
 }
