@@ -1,0 +1,376 @@
+{
+  "item": "CAP-L6LABELPLACE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "L6: the mouse on a dotted label by its place, then a press on it, on a Shape made in the session on the phone. Both labels are pressed on one block.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "scrollTo",
+      "Thickness"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "before",
+      {
+        "style": [
+          0,
+          "new"
+        ],
+        "boxes": [
+          "Stroke",
+          "Thickness"
+        ],
+        "leaves": [
+          "Stroke",
+          "Thickness"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      1079,
+      496
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "shot",
+      "stroke-hover"
+    ],
+    [
+      "read",
+      "Stroke hovered",
+      {
+        "style": [
+          0,
+          "new"
+        ],
+        "leaves": [
+          "Stroke",
+          "Thickness"
+        ]
+      }
+    ],
+    [
+      "clickAt",
+      1079,
+      496
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "shot",
+      "stroke-pressed"
+    ],
+    [
+      "read",
+      "Stroke pressed",
+      {
+        "style": [
+          0,
+          "new"
+        ],
+        "leaves": [
+          "Stroke",
+          "Thickness"
+        ],
+        "boxes": [
+          "Stroke",
+          "Thickness"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "before": {
+      "style": {
+        "transform": "none",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          376.7,
+          199
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "boxes": {
+        "Stroke": [
+          [
+            1058,
+            485,
+            42.2,
+            22
+          ],
+          [
+            1058,
+            478,
+            276,
+            36
+          ],
+          [
+            1058,
+            474,
+            276,
+            44
+          ],
+          [
+            1036,
+            78,
+            320,
+            998
+          ],
+          [
+            1036,
+            367,
+            320,
+            447
+          ],
+          [
+            1036,
+            312,
+            320,
+            502
+          ]
+        ],
+        "Thickness": [
+          [
+            1058,
+            579,
+            66.2,
+            22
+          ],
+          [
+            1058,
+            572,
+            276,
+            36
+          ],
+          [
+            1058,
+            568,
+            276,
+            44
+          ],
+          [
+            1036,
+            78,
+            320,
+            998
+          ],
+          [
+            1036,
+            367,
+            320,
+            447
+          ],
+          [
+            1036,
+            312,
+            320,
+            502
+          ]
+        ]
+      },
+      "leaves": {
+        "Stroke": "underline dotted",
+        "Thickness": null
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Stroke hovered": {
+      "style": {
+        "transform": "none",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          376.7,
+          199
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "leaves": {
+        "Stroke": "underline dotted",
+        "Thickness": null
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Stroke pressed": {
+      "style": {
+        "transform": "none",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          376.7,
+          199
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "boxes": {
+        "Stroke": [
+          [
+            1058,
+            485,
+            42.2,
+            22
+          ],
+          [
+            1058,
+            478,
+            276,
+            36
+          ],
+          [
+            1058,
+            474,
+            276,
+            44
+          ],
+          [
+            1036,
+            78,
+            320,
+            998
+          ],
+          [
+            1036,
+            367,
+            320,
+            447
+          ],
+          [
+            1036,
+            312,
+            320,
+            502
+          ]
+        ],
+        "Thickness": [
+          [
+            1058,
+            579,
+            66.2,
+            22
+          ],
+          [
+            1058,
+            572,
+            276,
+            36
+          ],
+          [
+            1058,
+            568,
+            276,
+            44
+          ],
+          [
+            1036,
+            78,
+            320,
+            998
+          ],
+          [
+            1036,
+            367,
+            320,
+            447
+          ],
+          [
+            1036,
+            312,
+            320,
+            502
+          ]
+        ]
+      },
+      "leaves": {
+        "Stroke": "underline dotted",
+        "Thickness": null
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "The mouse on the dotted Stroke label by its place, for 900 ms: no tip, no menu, no new control in the shot, the underline as it was. A press on it: nothing, stroke stays 6px, Save and the label the same. So the dotted label shows that the phone set the row, and it does nothing itself. Read on one label, with Thickness by name in CAP-L6DOTTED.json.",
+  "ours": "No dotted label.",
+  "differs": [],
+  "pressed": "One press by place, at 1079, 496, on the Stroke label of a Shape made in the session on a probe page, in the box read just before in the same run. Solid Stroke by name. No Reset pressed."
+}

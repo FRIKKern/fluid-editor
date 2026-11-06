@@ -767,7 +767,7 @@
   "errors": [],
   "leftDirty": true,
   "answer": "A child's Hug on the phone. Start, column: Text 0,0,376.7,22.4, Shape 0,42.4,376.7,210, Button 0,272.4,376.7,66.6, stack 339 high. Button W Hug: width 206.6, Text W Hug: width 91.7, both self auto. Desktop stays 374.9, 374.9, 374.9 in a row, and the phone keeps its values when you come back.",
-  "ours": "Same: Text 91.7, Button 206.6 with the label Learn more, desktop unchanged. Measured on 5210 2026-11-06. Not compared: the phone Shape's 210. My stack in ours had 8 phone rows from a made up start and the oracle's had 10, so 150 against 210 says nothing yet.",
+  "ours": "Same: Text 91.7, Button 206.6 with the label Learn more, desktop unchanged. Measured on 5210 2026-11-06. The phone Shape's 210 is the same in a stack with the oracle's 10 rows (CAP-S3HUGCOL.json). An earlier 150 came from a made up start of 8 rows.",
   "differs": [],
   "pressed": [
     "By position or index, not by name: Custom at 1538,534 or 1538,589, typeAt in the Custom field, comboboxes by index, real clicks on blocks and a drag on the stack. All else pressed by name with an on-top check."

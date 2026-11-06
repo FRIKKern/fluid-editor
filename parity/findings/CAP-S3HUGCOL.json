@@ -1,0 +1,382 @@
+{
+  "item": "CAP-S3HUGCOL",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "S3: Hug on a Shape child's Size menus in a desktop column, from full shots",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Stack Options"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Stack Vertically"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      400,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "column",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressCombo",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "column W",
+      {
+        "panelEls": "[role=option]"
+      }
+    ],
+    [
+      "shot",
+      "column-W"
+    ],
+    [
+      "pressCombo",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressCombo",
+      1
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "column H",
+      {
+        "panelEls": "[role=option]"
+      }
+    ],
+    [
+      "shot",
+      "column-H"
+    ],
+    [
+      "pressCombo",
+      1
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "column": {
+      "kids": {
+        "dir": "sqs-stack-container direction-column",
+        "box": [
+          394,
+          244.2,
+          1206,
+          317.8
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              1206,
+              22.4
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              0,
+              1206,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              42.4,
+              1206,
+              188.8
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              42.4,
+              1206,
+              188.8
+            ],
+            "shape": [
+              0,
+              42.4,
+              1206,
+              188.8
+            ],
+            "wrap": [
+              0,
+              42.4,
+              1206,
+              188.8,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              251.2,
+              1206,
+              66.6
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              251.2,
+              1206,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "column W": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fixed · 1206px",
+          "lines": 3,
+          "box": [
+            1376,
+            515,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-u1oxo1",
+          "label": "Hug",
+          "lines": 3,
+          "box": [
+            1376,
+            559,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fill",
+          "lines": 3,
+          "box": [
+            1376,
+            603,
+            182,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "column H": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fixed · 189px",
+          "lines": 3,
+          "box": [
+            1376,
+            563,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-u1oxo1",
+          "label": "Hug",
+          "lines": 3,
+          "box": [
+            1376,
+            607,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fill",
+          "lines": 3,
+          "box": [
+            1376,
+            651,
+            182,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Hug is greyed in W and H on a Shape child in a desktop column too, from full shots. W reads Fixed · 1206px, Hug grey, Fill ticked. H reads Fixed · 189px, Hug grey, Fill ticked. The column's children are 1206 wide: Text 22.4, Shape 188.8, Button 66.6 high. The phone Shape's height is CAP-S3PHONEHUG.json's 210 and is now compared.",
+  "ours": "Hug is offered, not greyed, in a column as on a row (the difference in CAP-S3HUGMENU.json). The phone Shape in a real stack matches: model 1/2/11/10, 10 rows, stack 339, children 0,0,376.7,22.4 and 0,42.4,376.7,210 and 0,272.4,376.7,66.6. Measured on 5210.",
+  "differs": [
+    "Hug on a Shape child in a column: greyed on the oracle, offered in ours. Same difference as on a row."
+  ],
+  "pressed": "Real mouse clicks and pulls on blocks made in the session. Add Block tiles and panel rows by name. No Save, no upload, no Reset, no tile or row pressed by place."
+}
