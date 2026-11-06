@@ -637,7 +637,10 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 
 /* The panel header is the drag handle (U13): a layer across the top, under the tabs. */
 .bp-drag { position: absolute; left: 0; top: 0; right: 0; height: 71px; cursor: grab; }
-.block-panel .sp-tabs { position: relative; cursor: grab; }
+/* The tabs and a Back row stay; only what is under them scrolls (FORMFIELDS.json) */
+.block-panel .sp-tabs { position: sticky; top: 0; z-index: 3; background: #fff; cursor: grab; }
+.block-panel .bp-sub { position: sticky; top: 0; z-index: 3; background: #fff; }
+.block-panel .sp-tabs ~ .sp-body .bp-sub { top: 55px; z-index: 2; }
 
 /* Text Color popover (parity/findings/TEXTCOLOR.json): 254 by 123, two 115 by 55 tabs, five
    34px swatches 49px apart starting 12px in; placed by the editor under the button. */

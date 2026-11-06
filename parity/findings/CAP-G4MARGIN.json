@@ -1,0 +1,556 @@
+{
+  "item": "CAP-G4MARGIN",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "G4: the same walk from a start inside a margin track, left and right",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      -60,
+      0
+    ],
+    [
+      "read",
+      "in the left margin",
+      {
+        "areas": 0,
+        "section": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "middle",
+      110,
+      50
+    ],
+    [
+      "read",
+      "move, left margin",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "se",
+      110,
+      50
+    ],
+    [
+      "read",
+      "se, left margin",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1500,
+      0
+    ],
+    [
+      "read",
+      "in the right margin",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "middle",
+      110,
+      50
+    ],
+    [
+      "read",
+      "move, right margin",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "nw",
+      110,
+      50
+    ],
+    [
+      "read",
+      "nw, right margin",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "after"
+    ]
+  ],
+  "reads": {
+    "in the left margin": {
+      "block": {
+        "desktop": "1/1/7/7",
+        "mobile": "1/2/7/10",
+        "box": [
+          0,
+          244.2,
+          383,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793950678540_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 1 / 7 / 7",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -4,112.8",
+          "col 10x10 at 379,112.8",
+          "ne 10x10 at 379,-6",
+          "nw 10x10 at -4,-6",
+          "row 10x10 at 186.5,-6",
+          "row 10x10 at 186.5,231.6",
+          "se 10x10 at 379,231.6",
+          "sw 10x10 at -4,231.6"
+        ]
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/1/7/7",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "move, left margin": {
+      "walk": {
+        "part": "middle",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 1 / 7 / 7"
+          ],
+          [
+            51,
+            "1 / 2 / 7 / 8"
+          ]
+        ],
+        "xBack": [
+          [
+            50,
+            "1 / 1 / 7 / 7"
+          ]
+        ],
+        "xHome": [],
+        "yOut": [
+          [
+            27,
+            "2 / 1 / 8 / 7"
+          ]
+        ],
+        "yBack": [
+          [
+            26,
+            "1 / 1 / 7 / 7"
+          ]
+        ],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/1/7/7",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "se, left margin": {
+      "walk": {
+        "part": "se",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 1 / 7 / 7"
+          ],
+          [
+            51,
+            "1 / 1 / 7 / 8"
+          ]
+        ],
+        "xBack": [
+          [
+            50,
+            "1 / 1 / 7 / 7"
+          ],
+          [
+            -35,
+            "1 / 1 / 7 / 6"
+          ],
+          [
+            -94,
+            "1 / 1 / 7 / 5"
+          ]
+        ],
+        "xHome": [
+          [
+            -93,
+            "1 / 1 / 7 / 6"
+          ],
+          [
+            -34,
+            "1 / 1 / 7 / 7"
+          ]
+        ],
+        "yOut": [
+          [
+            27,
+            "1 / 1 / 8 / 7"
+          ]
+        ],
+        "yBack": [
+          [
+            26,
+            "1 / 1 / 7 / 7"
+          ],
+          [
+            -27,
+            "1 / 1 / 6 / 7"
+          ]
+        ],
+        "yHome": [
+          [
+            -26,
+            "1 / 1 / 7 / 7"
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/1/7/7",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "in the right margin": {
+      "block": {
+        "desktop": "1/20/7/26",
+        "mobile": "1/2/7/10",
+        "box": [
+          1158.2,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793950678540_438",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 20 / 7 / 26",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "areas": [
+        [
+          "1/20/7/26",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "move, right margin": {
+      "walk": {
+        "part": "middle",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 20 / 7 / 26"
+          ],
+          [
+            51,
+            "1 / 21 / 7 / 27"
+          ]
+        ],
+        "xBack": [
+          [
+            50,
+            "1 / 20 / 7 / 26"
+          ],
+          [
+            -35,
+            "1 / 19 / 7 / 25"
+          ],
+          [
+            -94,
+            "1 / 18 / 7 / 24"
+          ]
+        ],
+        "xHome": [
+          [
+            -93,
+            "1 / 19 / 7 / 25"
+          ],
+          [
+            -34,
+            "1 / 20 / 7 / 26"
+          ]
+        ],
+        "yOut": [
+          [
+            27,
+            "2 / 20 / 8 / 26"
+          ]
+        ],
+        "yBack": [
+          [
+            26,
+            "1 / 20 / 7 / 26"
+          ]
+        ],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/20/7/26",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "nw, right margin": {
+      "walk": {
+        "part": "nw",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 20 / 7 / 26"
+          ],
+          [
+            35,
+            "1 / 21 / 7 / 26"
+          ],
+          [
+            94,
+            "1 / 22 / 7 / 26"
+          ]
+        ],
+        "xBack": [
+          [
+            93,
+            "1 / 21 / 7 / 26"
+          ],
+          [
+            34,
+            "1 / 20 / 7 / 26"
+          ],
+          [
+            -35,
+            "1 / 19 / 7 / 26"
+          ],
+          [
+            -94,
+            "1 / 18 / 7 / 26"
+          ]
+        ],
+        "xHome": [
+          [
+            -93,
+            "1 / 19 / 7 / 26"
+          ],
+          [
+            -34,
+            "1 / 20 / 7 / 26"
+          ]
+        ],
+        "yOut": [
+          [
+            27,
+            "2 / 20 / 7 / 26"
+          ]
+        ],
+        "yBack": [
+          [
+            26,
+            "1 / 20 / 7 / 26"
+          ]
+        ],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/20/7/26",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "A start inside a margin. From the left margin, 1/1/7/7: a move goes out at 51. South east: first line at 51, no second by 110, back 50, -35, -94. From the right margin, 1/20/7/26: a move goes out at 51, back 50, -35, -94. North west: 35, 94.",
+  "ours": "Moves match. South east from the left margin: 34 and 93 going out, 92 and 33 back.",
+  "differs": [
+    "south east resize of a block starting in the left margin: oracle first line at 51 and back at 50, ours 34, then 93, back 92 and 33 (known name columnSnap in BLOCKTYPES.json)"
+  ],
+  "pressed": [
+    "Real pointer walks on a block's body and handles, unnamed."
+  ]
+}

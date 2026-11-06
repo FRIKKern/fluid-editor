@@ -1,0 +1,2870 @@
+{
+  "item": "CAP-TBTOP",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U4: the toolbar of a selected one-row block with no room above: where it sits at each gap to the frame's top, and what a press on the south handle hits. The site's header stays, so no room is made by scrolling. Unnamed presses: the south handle's place, once.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "no scroll",
+      {
+        "areas": 0,
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "scrollBlock",
+      0,
+      "new",
+      120
+    ],
+    [
+      "read",
+      "gap 120",
+      {
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "scrollBlock",
+      0,
+      "new",
+      100
+    ],
+    [
+      "read",
+      "gap 100",
+      {
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "scrollBlock",
+      0,
+      "new",
+      80
+    ],
+    [
+      "read",
+      "gap 80",
+      {
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "scrollBlock",
+      0,
+      "new",
+      70
+    ],
+    [
+      "read",
+      "gap 70",
+      {
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "scrollBlock",
+      0,
+      "new",
+      60
+    ],
+    [
+      "read",
+      "gap 60",
+      {
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "scrollBlock",
+      0,
+      "new",
+      50
+    ],
+    [
+      "read",
+      "gap 50",
+      {
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "scrollBlock",
+      0,
+      "new",
+      40
+    ],
+    [
+      "read",
+      "gap 40",
+      {
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "scrollBlock",
+      0,
+      "new",
+      30
+    ],
+    [
+      "read",
+      "gap 30",
+      {
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "scrollBlock",
+      0,
+      "new",
+      20
+    ],
+    [
+      "read",
+      "gap 20",
+      {
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "scrollBlock",
+      0,
+      "new",
+      10
+    ],
+    [
+      "read",
+      "gap 10",
+      {
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "scrollBlock",
+      0,
+      "new",
+      0
+    ],
+    [
+      "read",
+      "gap 0",
+      {
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "gap0"
+    ],
+    [
+      "clickAt",
+      212.2,
+      85.3
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "pressed the south handle",
+      {
+        "areas": 0,
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "pressed"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "after Escape",
+      {
+        "areas": 0,
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "escaped"
+    ],
+    [
+      "dragAt",
+      325.2,
+      86.3,
+      325.2,
+      127.4
+    ],
+    [
+      "read",
+      "dragged from the se handle, 1 row down",
+      {
+        "areas": 0,
+        "controls": true,
+        "hits": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "dragged-se"
+    ]
+  ],
+  "reads": {
+    "no scroll": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            144.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            184.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            229.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            269.1,
+            242.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          299.2,
+          224.1,
+          30.1
+        ],
+        "scrollY": 0,
+        "frameTop": 55,
+        "nw": "frame: div fluid-engine-resize-w",
+        "n": "frame: div gL5ykYuobP4ct3sd",
+        "ne": "frame: div fluid-engine-resize-e",
+        "e": "frame: div fluid-engine-resize-se",
+        "se": "frame: div gL5ykYuobP4ct3sd",
+        "s": "frame: div gL5ykYuobP4ct3sd",
+        "sw": "frame: div fluid-engine-resize-w",
+        "w": "frame: div gL5ykYuobP4ct3sd"
+      },
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 120": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            95.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            118.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            144.1,
+            118.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            184.1,
+            118.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            229.1,
+            118.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            269.1,
+            118.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          175.2,
+          224.1,
+          30.1
+        ],
+        "scrollY": 124,
+        "frameTop": 55,
+        "nw": "frame: div fluid-engine-resize-w",
+        "n": "frame: div gL5ykYuobP4ct3sd",
+        "ne": "frame: div fluid-engine-resize-e",
+        "e": "frame: div fluid-engine-resize-se",
+        "se": "frame: div gL5ykYuobP4ct3sd",
+        "s": "frame: div gL5ykYuobP4ct3sd",
+        "sw": "frame: div fluid-engine-resize-w",
+        "w": "frame: div gL5ykYuobP4ct3sd"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 100": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            98.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            144.1,
+            98.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            184.1,
+            98.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            229.1,
+            98.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            269.1,
+            98.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          155.2,
+          224.1,
+          30.1
+        ],
+        "scrollY": 144,
+        "frameTop": 55,
+        "nw": "frame: div fluid-engine-resize-w",
+        "n": "frame: div gL5ykYuobP4ct3sd",
+        "ne": "frame: div fluid-engine-resize-e",
+        "e": "frame: div fluid-engine-resize-se",
+        "se": "frame: div gL5ykYuobP4ct3sd",
+        "s": "frame: div gL5ykYuobP4ct3sd",
+        "sw": "frame: div fluid-engine-resize-w",
+        "w": "frame: div gL5ykYuobP4ct3sd"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 80": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            144.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            184.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            229.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            269.1,
+            81,
+            36,
+            36
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          135.2,
+          224.1,
+          30.1
+        ],
+        "scrollY": 164,
+        "frameTop": 55,
+        "nw": "frame: div fluid-engine-resize-w",
+        "n": "frame: div gL5ykYuobP4ct3sd",
+        "ne": "frame: div fluid-engine-resize-e",
+        "e": "frame: div fluid-engine-resize-se",
+        "se": "frame: div gL5ykYuobP4ct3sd",
+        "s": "frame: div gL5ykYuobP4ct3sd",
+        "sw": "frame: div fluid-engine-resize-w",
+        "w": "frame: div gL5ykYuobP4ct3sd"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 70": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            144.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            184.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            229.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            269.1,
+            81,
+            36,
+            36
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          125.2,
+          224.1,
+          30.1
+        ],
+        "scrollY": 174,
+        "frameTop": 55,
+        "nw": "frame: div fluid-engine-resize-w",
+        "n": "frame: div gL5ykYuobP4ct3sd",
+        "ne": "frame: div fluid-engine-resize-e",
+        "e": "frame: div fluid-engine-resize-se",
+        "se": "frame: div gL5ykYuobP4ct3sd",
+        "s": "frame: div gL5ykYuobP4ct3sd",
+        "sw": "frame: div fluid-engine-resize-w",
+        "w": "frame: div gL5ykYuobP4ct3sd"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 60": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            144.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            184.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            229.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            269.1,
+            81,
+            36,
+            36
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          115.2,
+          224.1,
+          30.1
+        ],
+        "scrollY": 184,
+        "frameTop": 55,
+        "nw": "frame: div fluid-engine-resize-w",
+        "n": "page: in button Pin: div css-sx0d32",
+        "ne": "frame: div fluid-engine-resize-e",
+        "e": "frame: div fluid-engine-resize-se",
+        "se": "frame: div gL5ykYuobP4ct3sd",
+        "s": "frame: div gL5ykYuobP4ct3sd",
+        "sw": "frame: div fluid-engine-resize-w",
+        "w": "frame: div gL5ykYuobP4ct3sd"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 50": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            144.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            184.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            229.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            269.1,
+            81,
+            36,
+            36
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          105.2,
+          224.1,
+          30.1
+        ],
+        "scrollY": 194,
+        "frameTop": 55,
+        "nw": "frame: div fluid-engine-resize-w",
+        "n": "page: in button Pin: div css-sx0d32",
+        "ne": "frame: div fluid-engine-resize-e",
+        "e": "frame: div fluid-engine-resize-se",
+        "se": "frame: div gL5ykYuobP4ct3sd",
+        "s": "frame: div gL5ykYuobP4ct3sd",
+        "sw": "frame: div fluid-engine-resize-w",
+        "w": "frame: div gL5ykYuobP4ct3sd"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 40": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            144.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            184.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            229.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            269.1,
+            81,
+            36,
+            36
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          95.2,
+          224.1,
+          30.1
+        ],
+        "scrollY": 204,
+        "frameTop": 55,
+        "nw": "frame: div fluid-engine-resize-w",
+        "n": "page: in button Pin: div css-sx0d32",
+        "ne": "frame: div fluid-engine-resize-e",
+        "e": "frame: div fluid-engine-resize-se",
+        "se": "frame: div gL5ykYuobP4ct3sd",
+        "s": "frame: div gL5ykYuobP4ct3sd",
+        "sw": "frame: div fluid-engine-resize-w",
+        "w": "frame: div gL5ykYuobP4ct3sd"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 30": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            144.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            184.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            229.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            269.1,
+            81,
+            36,
+            36
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          85.2,
+          224.1,
+          30.1
+        ],
+        "scrollY": 214,
+        "frameTop": 55,
+        "nw": "frame: div fluid-engine-resize-w",
+        "n": "page: in button Pin: div css-sx0d32",
+        "ne": "frame: div fluid-engine-resize-e",
+        "e": "frame: div fluid-engine-resize-se",
+        "se": "frame: div gL5ykYuobP4ct3sd",
+        "s": "page: in button Pin: div css-sx0d32",
+        "sw": "frame: div fluid-engine-resize-w",
+        "w": "frame: div gL5ykYuobP4ct3sd"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 20": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            144.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            184.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            229.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            269.1,
+            81,
+            36,
+            36
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          75.2,
+          224.1,
+          30.1
+        ],
+        "scrollY": 224,
+        "frameTop": 55,
+        "nw": "frame: div fluid-engine-resize-w",
+        "n": "frame: div gL5ykYuobP4ct3sd",
+        "ne": "frame: div fluid-engine-resize-e",
+        "e": "frame: div fluid-engine-resize-se",
+        "se": "frame: div gL5ykYuobP4ct3sd",
+        "s": "page: in button Pin: div css-sx0d32",
+        "sw": "frame: div fluid-engine-resize-w",
+        "w": "frame: div gL5ykYuobP4ct3sd"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 10": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            144.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            184.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            229.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            269.1,
+            81,
+            36,
+            36
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          65.2,
+          224.1,
+          30.1
+        ],
+        "scrollY": 234,
+        "frameTop": 55,
+        "nw": "frame: div fluid-engine-resize-w",
+        "n": "frame: div gL5ykYuobP4ct3sd",
+        "ne": "frame: div fluid-engine-resize-e",
+        "e": "frame: div fluid-engine-resize-se",
+        "se": "frame: div gL5ykYuobP4ct3sd",
+        "s": "page: in button Pin: div css-sx0d32",
+        "sw": "frame: div fluid-engine-resize-w",
+        "w": "frame: div gL5ykYuobP4ct3sd"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "gap 0": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            144.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            184.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            229.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            269.1,
+            81,
+            36,
+            36
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          55.2,
+          224.1,
+          30.1
+        ],
+        "scrollY": 244,
+        "frameTop": 55,
+        "nw": "frame: div fluid-engine-resize-w",
+        "n": "frame: div gL5ykYuobP4ct3sd",
+        "ne": "frame: div fluid-engine-resize-e",
+        "e": "frame: div fluid-engine-resize-se",
+        "se": "frame: div gL5ykYuobP4ct3sd",
+        "s": "page: in button Pin: div css-sx0d32",
+        "sw": "frame: div fluid-engine-resize-w",
+        "w": "frame: div gL5ykYuobP4ct3sd"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "pressed the south handle": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            144.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            184.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            229.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            269.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Offset",
+          "value": "0px",
+          "box": [
+            248.4,
+            196,
+            58,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Offset",
+          "value": "0",
+          "min": "0",
+          "max": "250",
+          "step": "1",
+          "box": [
+            101.9,
+            229,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          55.2,
+          224.1,
+          30.1
+        ],
+        "scrollY": 244,
+        "frameTop": 55,
+        "nw": "frame: div fluid-engine-resize-w",
+        "n": "frame: div gL5ykYuobP4ct3sd",
+        "ne": "frame: div fluid-engine-resize-e",
+        "e": "frame: div fluid-engine-resize-se",
+        "se": "frame: div gL5ykYuobP4ct3sd",
+        "s": "page: in button Pin: div css-sx0d32",
+        "sw": "frame: div fluid-engine-resize-w",
+        "w": "frame: div gL5ykYuobP4ct3sd"
+      },
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after Escape": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            144.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            184.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            229.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            269.1,
+            81,
+            36,
+            36
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          55.2,
+          224.1,
+          30.1
+        ],
+        "scrollY": 244,
+        "frameTop": 55,
+        "nw": "frame: div fluid-engine-resize-w",
+        "n": "frame: div gL5ykYuobP4ct3sd",
+        "ne": "frame: div fluid-engine-resize-e",
+        "e": "frame: div fluid-engine-resize-se",
+        "se": "frame: div gL5ykYuobP4ct3sd",
+        "s": "page: in button Pin: div css-sx0d32",
+        "sw": "frame: div fluid-engine-resize-w",
+        "w": "frame: div gL5ykYuobP4ct3sd"
+      },
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "dragged from the se handle, 1 row down": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            81,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            84,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            134,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            189,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            189,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            189,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            189,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            236,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            461,
+            111.1,
+            36
+          ]
+        }
+      ],
+      "hits": {
+        "block": [
+          100.1,
+          55.2,
+          224.1,
+          71.2
+        ],
+        "scrollY": 244,
+        "frameTop": 55,
+        "nw": "frame: div sqs-editing-overlay",
+        "n": "frame: div sqs-editing-overlay",
+        "ne": "frame: div fluid-engine",
+        "e": "frame: div fluid-engine",
+        "se": "frame: div fluid-engine",
+        "s": "frame: div fluid-engine",
+        "sw": "frame: div fluid-engine",
+        "w": "page: in button Add Block: svg css-5xgx82"
+      },
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/2/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "The toolbar sits with its button tops 57 above the block, but never above window y 81, which is the frame's top + 26. The bar is then about y 77 to 121. With 40px or more above the block the south handle is free. With 30 or less the toolbar covers it. On a 4 column one-row Line at gap 0 the south handle's place hits Pin, and a real press there opened the Pin panel. The south east handle stays free, and dragging it one row down worked: 1/2/2/6 to 1/2/3/6. The site header stays above the first section, so \"no room\" was made by scrolling the block up under the top bar.",
+  "ours": "Same 57, same cover at gap 30 or less. Clamp at 81.5. Bar 174 wide, not 207.",
+  "differs": [
+    "clamp: oracle 81, ours 81.5",
+    "Line toolbar: oracle has Align Vertically (5 buttons, 207 wide), ours 4 buttons, 174 wide"
+  ],
+  "pressed": [
+    "Real press and drag at the south and south east handle's place, unnamed: it hit whatever was on top, which was the question. Scrolling by the frame."
+  ]
+}

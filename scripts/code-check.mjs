@@ -4,12 +4,13 @@
 // input, so a Backspace in the code must stay in the code. Writes parity/code-check.json.
 // Usage: FLUID_SURFACE=cdp:<port> npm run code-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, browser } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, browser, drag } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/CODEEMBED.json', import.meta.url)));
 const M = JSON.parse(readFileSync(new URL('../parity/findings/CODEMODAL.json', import.meta.url)));
+const read = (name) => JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url)));
 let pass = 0, total = 0;
 const results = [];
 const add = (what, ok, detail) => { total++; if (ok) pass++; results.push({ what, ok }); console.log(`${what.padEnd(34)} ${ok ? 'match' : `DIFF ${detail}`}`); };
@@ -115,6 +116,58 @@ for (const [name, seq] of [['Embed', M.rows.embed], ['Embed again', M.rows.embed
   const id = start('embed', '');
   evalJs(S, `(() => { document.querySelector('#block-panel [data-embed="code"]').click(); document.querySelector('#block-panel [data-embed="data"]').click(); return 'true'; })()`); await pause(200);
   await walk(name, id, 'textarea[data-content="embedHtml"]', seq.steps, true);
+}
+
+// More line counts, falls, a real pull and the phone, step by step as the oracle's walk went
+// (CAP-T10ROWS.json, CAP-T10DOWN.json, CAP-T10PULL.json), each in a section of its own.
+const CODE_FIELD = 'textarea[data-content="code"]';
+const fresh = (type, extra) => { evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; s.blocks = []; s.rows = { desktop: 40, mobile: 40 }; fe.setBp('desktop'); fe.load(next); await new Promise((res) => setTimeout(res, 200)); return 'true'; })()`); return start(type, extra); };
+const areasOf = (id) => evalJs(S, `(() => { const l = fe.model.sections[1].blocks.find((x) => x.id === '${id}').layout; return JSON.stringify([l.desktop.area.join('/'), l.mobile.area.join('/')]); })()`);
+const openPanel = async (id) => { evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const P = document.getElementById('block-panel'); if (P.hidden || !P.querySelector('textarea[data-content]')) { fe.select(fe.model.sections[1].id, '${id}'); await sleep(150); document.querySelector('#block-toolbar button[data-tb="edit"]').click(); await sleep(200); } return 'true'; })()`); await pause(150); };
+// A pull is real mouse, by rows. The phone pull is not compared (CAP-T10PULL.json's notCompared): 6 rows
+// from a block its 2 lines overrun land where the oracle's did, so the step after it can be compared.
+const pullRows = async (id, rows) => {
+  const p = evalJs(S, `(async () => { const sid = fe.model.sections[1].id; fe.select(sid, '${id}'); await new Promise((res) => setTimeout(res, 200)); const f = document.getElementById('site-frame'), o = f.getBoundingClientRect(), h = f.contentDocument.querySelector('.fe-handle[data-dir="s"]'); h.scrollIntoView({ block: 'center' }); await new Promise((res) => setTimeout(res, 150)); const r = h.getBoundingClientRect(); return JSON.stringify({ x: o.left + r.x + r.width / 2, y: o.top + r.y + r.height / 2, row: fe.measure(sid).pitch }); })()`);
+  drag(S, [p.x, p.y], [p.x, p.y + rows * p.row]); await pause(300);
+};
+const FINDING_PULLS = { 'pulled 4 rows taller': 4, 'pull 3 up with 12 lines': -3, 'phone pulled': 6 };
+for (const name of ['CAP-T10ROWS', 'CAP-T10DOWN', 'CAP-T10PULL']) {
+  const f = read(name), id = fresh('code', `html: '<p>Hello, World!</p>',`);
+  await pause(200);
+  for (let k = 0; k < f.steps.length; k++) {
+    const [op, a, opt] = f.steps[k];
+    if (op === 'setCode') { await openPanel(id); await setText(CODE_FIELD, a); }
+    if (op === 'view') { evalJs(S, `(async () => { fe.setBp('${a === 'Mobile' ? 'mobile' : 'desktop'}'); await new Promise((res) => setTimeout(res, 300)); return 'true'; })()`); await pause(200); }
+    if (op === 'drag') { const next = f.steps.slice(k).find((x) => x[0] === 'read')[1]; await pullRows(id, FINDING_PULLS[next]); }
+    if (op === 'read' && opt?.areas === 0) {
+      const want = f.reads[a].areas[0].join(), got = areasOf(id).join();
+      add(`${name.slice(4)} ${a}: ${want}`, got === want, got);
+    }
+  }
+  evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(200);
+}
+
+// An embed's first snippet of each length, then the same again: no change (CAP-T10EMBED.json).
+const EMBED = read('CAP-T10EMBED');
+for (const n of [1, 2, 3, 4, 6, 8, 10, 14]) {
+  const id = fresh('embed', ''), snippet = Array.from({ length: n }, (_, k) => `<p>row ${k + 1}</p>`).join('');
+  evalJs(S, `(() => { document.querySelector('#block-panel [data-embed="code"]').click(); document.querySelector('#block-panel [data-embed="data"]').click(); return 'true'; })()`); await pause(200);
+  await setText('textarea[data-content="embedHtml"]', snippet);
+  add(`Embed, first ${n} lines: ${EMBED.reads[`first snippet ${n}`].block.desktop}`, areasOf(id)[0] === EMBED.reads[`first snippet ${n}`].block.desktop, areasOf(id)[0]);
+  await setText('textarea[data-content="embedHtml"]', `${snippet} `);
+  add(`Embed, ${n} lines again: same`, areasOf(id)[0] === EMBED.reads[`same again ${n}`].block.desktop, areasOf(id)[0]);
+}
+
+// Mode and the switch in the Code Editor view reach the block on closing, and give rows up (CAP-T10VIEW.json).
+const VIEW = read('CAP-T10VIEW');
+const viewId = fresh('code', `html: '<p>Hello, World!</p>',`);
+await setText(CODE_FIELD, '<p>row 1</p><p>row 2</p><p>row 3</p>'); blur(); await pause(150);
+const inView = async (change) => { evalJs(S, `(() => { document.querySelector('#block-panel [data-code-expand]').click(); ${change} document.querySelector('#code-modal .code-modal-close').click(); return 'true'; })()`); await pause(250); };
+const pickMode = (v) => `{ const m = document.querySelector('#code-modal select'); m.value = '${v}'; m.dispatchEvent(new Event('change', { bubbles: true })); }`;
+for (const [what, change, want] of [['CSS', pickMode('css'), 'closed on CSS'], ['Markdown', pickMode('markdown'), 'closed on Markdown'], ['HTML, switch off', `${pickMode('html')} document.querySelector('#code-modal input[data-content="showSource"]').click();`, 'closed, switch off']]) {
+  await inView(change);
+  const r = VIEW.reads[want], got = areasOf(viewId).join(), html = htmlOf(viewId, '.sqs-code-container');
+  add(`View, closed on ${what}: ${r.areas[0][0]}`, got === r.areas[0].join() && norm(html) === norm(r.htmlOf), `${got} ${html}`);
 }
 
 // Expand: a full-screen view with its own copy of the code. Real keys and clicks.
