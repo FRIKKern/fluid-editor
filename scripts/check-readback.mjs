@@ -1,6 +1,6 @@
 // The read-back's comparison can't pass a narrowed read: oracle-readback.mjs is only as honest as this.
 import { readFileSync } from 'node:fs';
-import { THEMES, NAMES, colorsOf, compareRows, comparePalette, compareView, STYLES, FINDING } from './oracle/readback.mjs';
+import { THEMES, NAMES, colorsOf, compareRows, comparePalette, compareView, settledRead, STYLES, FINDING } from './oracle/readback.mjs';
 import { VIEWS, DEEP } from './oracle/style-views.mjs';
 
 const finding = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url)));
@@ -20,6 +20,21 @@ is('a recolored row fails', compareRows(t, rows.map(([n, c], i) => [n, i === 5 ?
 is('the stored palette passes', comparePalette(FINDING.palette.vars0).length === 0);
 is('a changed palette fails', comparePalette({ ...FINDING.palette.vars0, accent: '10, 10%, 10%' }).length > 0);
 is('a missing palette value fails', comparePalette({ ...FINDING.palette.vars0, accent: '' }).length > 0);
+// A list that moves once with nothing changed passes. A real change must still fail, however it settles.
+const reads = (...lists) => { let n = 0; return () => lists[Math.min(n++, lists.length - 1)]; };
+const noWait = async () => {};
+const short = rows.slice(0, 40), recolored = rows.map(([n, c], i) => [n, i === 5 ? 'rgb(1, 2, 3)' : c]);
+const moved = await settledRead(reads(short, rows, rows), noWait);
+is('a list that moves once settles on the full read and passes', moved.settled && compareRows(t, moved.rows).length === 0);
+const changed = await settledRead(reads(short, recolored, recolored), noWait);
+is('a list that settles on a recolored row fails', changed.settled && compareRows(t, changed.rows).length > 0);
+const dropped = await settledRead(reads(short, short), noWait);
+is('a list that settles short fails', dropped.settled && compareRows(t, dropped.rows).length > 0);
+const same = await settledRead(reads(rows, recolored, rows, rows), noWait);
+is('reads of the same length that differ have not settled', same.settled && compareRows(t, same.rows).length === 0);
+let flip = 0;
+const never = await settledRead(() => (flip++ % 2 ? short : rows), noWait);
+is('a list that never settles says so', !never.settled);
 // The other views. The list was stored after the probes, so what older reads held anchors it.
 const views = STYLES.views;
 const expected = [...Object.entries(VIEWS).flatMap(([v, rs]) => [v, ...rs.map((r) => `${v} > ${r}`)]), ...Object.entries(DEEP).flatMap(([v, rs]) => rs.map((r) => `${v} > ${r}`))];
