@@ -1,7 +1,7 @@
 // T15: the Animation tab through real clicks on a new Text block, against
 // parity/findings/ANIMFLOW.json. Writes parity/anim-check.json. FLUID_SURFACE=cdp:<port> npm run anim-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, mouse } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, mouse, browser } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -192,6 +192,20 @@ add('A bare number takes the unit', fieldsNow()[1] === '12°', fieldsNow());
 add('Reset is on the fields off their default', q(`return JSON.stringify([...panel.querySelectorAll('.an-box .sc-reset')].map((e) => e.classList.contains('is-on')));`).join() === 'false,true,true,true,false,false,false,false', '');
 const rz = q(`const e = panel.querySelectorAll('.an-box .sc-reset'); return JSON.stringify([rel(e[1]), rel(e[2]), rel(e[3])]);`);
 add('Reset boxes: 291, 197, 291', near(rz[0][0], 291, 2) && near(rz[1][0], 197, 2) && near(rz[2][0], 291, 2) && rz[0][2] === 16, JSON.stringify(rz));
+// Typed without Enter: no Reset yet. Enter takes it, keeps the focus, and Reset can be pressed (CAP-L6RESET.json).
+const resetState = (sel) => q(`const f = ${sel}, b = f.closest('.sc-box').querySelector('.sc-reset'), c = getComputedStyle(b), r = b.getBoundingClientRect(), t = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return JSON.stringify({ value: f.value, focused: document.activeElement === f, opacity: c.opacity, pointer: c.pointerEvents, onTop: t === b || b.contains(t) });`);
+// The edges of a narrow field are scrub zones, so the press goes just inside the left one.
+const realType = async (sel, text) => { const c = q(`const r = (${sel}).closest('.sc-box').getBoundingClientRect(); return JSON.stringify([r.left + 16, r.top + r.height / 2]);`); mouse(S, 'move', c[0], c[1]); await pause(60); mouse(S, 'down', c[0], c[1], { buttons: 1 }); await pause(40); mouse(S, 'up', c[0], c[1]); await pause(150); browser(S, 'press', 'End'); for (const k of text) browser(S, 'press', k); await pause(150); };
+const af = (i) => `panel.querySelectorAll('.an-box input')[${i}]`;
+await realType(af(6), '5');
+let rs = resetState(af(6));
+add('Animation: typed without Enter, no Reset', rs.focused && rs.opacity === '0' && rs.pointer === 'none' && !rs.onTop, JSON.stringify(rs));
+browser(S, 'press', 'Enter'); await pause(300);
+rs = resetState(af(6));
+add('Animation: 0° then 5 is 5°, as read', rs.value === '5°', JSON.stringify(rs));
+add('Animation: Enter keeps the focus, Reset can be pressed', rs.focused && rs.opacity === '1' && rs.pointer === 'auto' && rs.onTop, JSON.stringify(rs));
+q(`fe.undo(); await sleep(220); return 'true';`);
+q(`document.activeElement.blur(); await sleep(100); return 'true';`);
 const hover = (sel) => { const c = q(`const r = ${sel}.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`); mouse(S, 'move', c[0], c[1]); return c; };
 await clickSel(`panel.querySelectorAll('.an-box input')[1]`); await pause(120);
 await clickSel(`panel.querySelectorAll('.an-box .sc-reset')[1]`);
@@ -225,6 +239,13 @@ await clickSel(`${dbox('rotate')}.querySelector('.sc-reset')`);
 add('Design Reset: back to 0', dv('rotate') === '0', dv('rotate'));
 q(`fe.undo(); await sleep(220); return 'true';`);
 add('Design Reset: one undo', dv('rotate') === '8', dv('rotate'));
+const dIn = `${dbox('ty')}.querySelector('input')`;
+await realType(dIn, '5');
+rs = resetState(dIn);
+add('Design: typed without Enter, no Reset', rs.opacity === '0' && rs.pointer === 'none' && !rs.onTop, JSON.stringify(rs));
+browser(S, 'press', 'Enter'); await pause(300);
+rs = resetState(dIn);
+add('Design: Enter keeps the focus, Reset can be pressed', rs.focused && rs.opacity === '1' && rs.pointer === 'auto' && rs.onTop, JSON.stringify(rs));
 
 // The other triggers' Timing rows.
 await fresh();
