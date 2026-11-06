@@ -117,7 +117,7 @@
       "note": "read before the drag starts, so with no cell height"
     },
     "pixels": "Same demo section, same scroll, 14px hold at 1600 by 1000: in the box x 100 to 860, y 400 to 700 of the window (empty cells only) ours and the oracle differ by 0 in every color channel. Phone: one row across the cells, x 586 to 1014, the same but for the 3 pixels of the oracle's center line (x 799 to 801), which ours does not draw on phones",
-    "phoneRows": "How many rows a phone hold shows is not settled: 14 after two desktop holds in the same session, 20 on the first hold of a fresh session. Ours shows 14. The look of a cell is the same in both"
+    "phoneRows": "A phone hold shows the section's own rows, or the normal rows when they were stretched: rows are (grid height + gap) / pitch, rounded up. Probe page, phone first or after two desktop holds, the same: 8 uniform (CAP-HOLDROWS.json), 13 stretched (CAP-HOLDROWS2.json). Demo section 2 by that rule: (472 + 11) / 35, so 14, which is what was read at 14px after two desktop holds, and ours shows 14; a 2px hold, before the drag starts, shows the stored 10. The 20 on a first hold of a fresh session is not reproduced and its raw read was not found in the lane's log. A saved section cannot be held again: holds on the demo page are off limits (0006), and the probe page cannot be saved. So 14 is taken as right and 20 is unexplained. The look of a cell is the same in both"
   },
   "layers": {
     "item": "Z5",

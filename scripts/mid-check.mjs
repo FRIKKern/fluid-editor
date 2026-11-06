@@ -533,6 +533,36 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   lm('text: another kind and a close takes the link', t.backUrl[0] === true && t.backUrl[1] === '<p><a href="tel:12345">one</a></p>' && t.switched === '<p>one</p>' && t.switchClosed, t);
   lm('text: typed without Enter counts at the close', t.typedOpen && t.typed === '<p><a href="/about">one</a></p>', t);
 }
+// U2: how many rows a phone hold shows: the section's own rows, or the normal rows when they were
+// stretched, phone first or after two desktop holds (CAP-HOLDROWS*.json; demo section 2, MARKS.json).
+{ const U = JSON.parse(readFileSync(new URL('../parity/findings/CAP-HOLDROWS.json', import.meta.url))).reads, T = JSON.parse(readFileSync(new URL('../parity/findings/CAP-HOLDROWS2.json', import.meta.url))).reads;
+  const para = ['First', 'Second', 'Third'].map((w) => `<p>${w} paragraph with enough words to wrap across a few lines in a narrow column of the grid.</p>`).join('');
+  const lay = (d, m, z) => ({ desktop: { area: d, z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: m, z, justify: 'flex-start', align: 'flex-start' } });
+  const load = async (html, rows, a) => { evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: ${JSON.stringify(rows)}, blocks: ${JSON.stringify([{ id: 't', type: 'text', html, layout: lay(a, [1, 2, 3, 10], 1) }, { id: 'k', type: 'shape', fill: '#ccc', radius: '0', layout: lay([1, 2, 7, 8], [3, 2, 9, 10], 2) }])} }] }); await new Promise((r) => setTimeout(r, 200)); return 1; })()`); await pause(100); };
+  const view = async (bp) => { evalJs(S, `(async () => { fe.setBp('${bp}'); await new Promise((r) => setTimeout(r, 250)); return 1; })()`); await pause(100); };
+  const hold = async (id) => {
+    const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), W = f.contentWindow, b = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]'); W.scrollTo(0, b.closest('.fluid-engine').getBoundingClientRect().top + W.scrollY - 150); const q = b.getBoundingClientRect(), r = f.getBoundingClientRect(); return JSON.stringify([r.left + q.left + q.width / 2, r.top + q.top + Math.min(q.height / 2, 40)]); })()`);
+    mouse(S, 'move', p[0], p[1]); await pause(60); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(60);
+    for (let k = 1; k <= 7; k++) { mouse(S, 'move', p[0], p[1] + 2 * k, { buttons: 1 }); await pause(25); }
+    await pause(200);
+    const n = evalJs(S, `document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="${id}"]').closest('.fluid-engine').querySelectorAll('.fe-grid-row').length`);
+    mouse(S, 'move', p[0], p[1], { buttons: 1 }); await pause(100); mouse(S, 'up', p[0], p[1]); await pause(200);
+    return n;
+  };
+  const rows = (name, got, want) => groupCases.push({ name: `U2 hold rows ${name}`, diffs: got === want ? [] : [`oracle ${want}, ours ${got}`] });
+  await load('<p>x</p>', { desktop: 8, mobile: 8 }, [1, 2, 3, 10]); await view('mobile');
+  rows('uniform, phone', await hold('k'), U['phone hold 1'].sel.length);
+  await view('desktop'); rows('uniform, desktop', await hold('k'), U['desktop hold 1'].sel.length);
+  await hold('k'); await view('mobile'); rows('uniform, phone after desktop holds', await hold('k'), U['phone hold 3'].sel.length);
+  await load(para, { desktop: 11, mobile: 8 }, [1, 2, 6, 10]); await view('mobile');
+  rows('stretched, phone first', await hold('k'), T['A phone hold 1'].sel.length);
+  await load(para, { desktop: 11, mobile: 8 }, [1, 2, 6, 10]);
+  rows('stretched, desktop', await hold('k'), T['B desktop hold 1'].sel.length);
+  await hold('k'); await view('mobile'); rows('stretched, phone after desktop holds', await hold('k'), T['B phone hold 1'].sel.length);
+  goto(S, `${BASE}/index.html`); await pause(1200); await view('mobile');
+  rows('demo section 2', await hold(evalJs(S, `JSON.stringify(fe.model.sections[2].blocks.find((b) => b.type === 'shape').id)`)), 14);
+  await view('desktop');
+}
 // A2: after an edit the block DOM follows the phone rows (CAP-ORDER.json). A saved page stays as it
 // loads. A pair that overlaps with the same z, on desktop or on the phone, keeps its order so nothing
 // repaints (held pairs are ours, not measured on the oracle).
