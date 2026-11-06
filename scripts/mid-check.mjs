@@ -228,7 +228,7 @@ const layerRun = (steps, remove) => evalJs(S, `(async () => { ${FRAME}
     const o = { bubbles: true, pointerId: 1, button: 0, clientX: r.left + 40, clientY: r.top + 22 };
     li.dispatchEvent(new PointerEvent('pointerdown', { ...o, buttons: 1 }));
     for (let k = 1; k <= 6; k++) document.dispatchEvent(new PointerEvent('pointermove', { ...o, clientY: o.clientY + st.by * k / 6, buttons: 1 }));
-    const held = !!document.querySelector('.lp-ghost') === (Math.abs(st.by) >= 4) && (Math.abs(st.by) < 4 || !!panel.querySelector('.lp-row.is-slot')) && getComputedStyle(li).userSelect === 'none';
+    const held = !!document.querySelector('.lp-ghost') === (Math.abs(st.by) >= 9) && (Math.abs(st.by) < 9 || !!panel.querySelector('.lp-row.is-slot')) && getComputedStyle(li).userSelect === 'none';
     document.dispatchEvent(new PointerEvent('pointerup', { ...o, clientY: o.clientY + st.by }));
     await sleep(40);
     const blocks = fe.model.sections[${F.section}].blocks;

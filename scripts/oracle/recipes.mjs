@@ -498,6 +498,24 @@ export const RECIPES = {
   'CAP-L5TYPES': { page: 'Gestures Probe', question: 'L5: Hide on desktop and on mobile on block types beyond Image, Button, Line, Form and Shape', steps: [
     ['enter'], ['blank'], ...['Text', 'Video', 'Accordion', 'Scrolling', 'Quote', 'Map', 'Code', 'Markdown', 'Embed', 'Social Links', 'Newsletter', 'Chart', 'Calendar', 'Menu', 'Audio', 'Search Field', 'Page Link', 'Tag Cloud', 'RSS', 'Archive', 'Instagram', 'Tock', 'SoundCloud', 'Flickr', 'OpenTable', 'Zola', 'Bandsintown', 'Summary'].flatMap((t) => [['add', 0, t], ['pause', 700], ['press', 'Escape'], ['rightClick', 0, 'new'], ['click', 'Hide on desktop'], ['read', `${t} hidden on desktop`, { block: [0, 'new'], section: 0 }], ['press', 'Meta+z'], ['pause', 300], ['rightClick', 0, 'new'], ['click', 'Hide on mobile'], ['read', `${t} hidden on mobile`, { block: [0, 'new'], section: 0 }], ['view', 'Mobile'], ['read', `${t} phone view`, { block: [0, 'new'], section: 0 }], ['view', 'Desktop'], ['press', 'Meta+z'], ['pause', 300], ['press', 'Escape'], ['select', 0, 'new'], ['pressNamed', 'Remove'], ['pause', 300]]),
   ] },
+  'CAP-Z3PATH': { page: 'Gestures Probe', question: 'Z3: a Layers row held by the real mouse along paths beyond CAP-Z3WALK: slants, x then y, back again, single jumps, a drop near a limit and outside the panel. And each frame around a pass. Unnamed presses on the rows.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['add', 0, 'Button'], ['press', 'Escape'], ['add', 0, 'Shape'], ['press', 'Escape'], ['hover', 0], ['click', 'Open Layers Panel'], ['pause', 800], ['read', 'start', { zs: 0 }],
+    ...[['Button', [[6, 0], [6, 8]], 'right 6, down 8'], ['Button', [[5, 0], [5, 8]], 'right 5, down 8'], ['Button', [[8, 0], [8, 8]], 'right 8, down 8'], ['Button', [[-6, 0], [-6, -8]], 'left 6, up 8'], ['Button', [[6, -7, 'jump']], 'one move to 6 and 7'], ['Button', [[6, -6, 'jump']], 'one move to 6 and 6'],
+      ['Shape', [[9, 0], [9, 30]], 'right 9, down 30'], ['Shape', [[30, 0], [30, 80]], 'right 30, down 80'], ['Line', [[0, -30], [0, -5]], 'up 30, back to 5'], ['Line', [[0, -80], [0, 0]], 'up 80, back home'], ['Button', [[0, -30], [0, 30]], 'up 30, down to 30'],
+      ['Line', [[0, -30, 'jump']], 'one move up 30'], ['Line', [[0, -80, 'jump']], 'one move up 80'], ['Button', [[0, -8, 'jump']], 'one move up 8'], ['Shape', [[0, 400, 'jump']], 'one move far down']]
+      .map(([l, path, n]) => ['rowPath', l, ['Line', 'Button', 'Shape'], path, n, false]),
+    ['read', 'nothing dropped', { zs: 0 }],
+    ['rowFrames', 'Line', ['Line', 'Button', 'Shape'], -24, 'frames, Line to 24'], ['rowFrames', 'Line', ['Line', 'Button', 'Shape'], -71, 'frames, Line to 71'], ['rowFrames', 'Shape', ['Line', 'Button', 'Shape'], 24, 'frames, Shape to 24'], ['rowFrames', 'Line', ['Line', 'Button', 'Shape'], -9, 'frames, Line to 9'],
+    ['read', 'still nothing dropped', { zs: 0 }],
+    ['rowPath', 'Line', ['Line', 'Button', 'Shape'], [[0, -9]], 'dropped at 9'], ['read', 'dropped at 9, z', { zs: 0 }],
+    ['rowPath', 'Line', ['Line', 'Button', 'Shape'], [[0, -23]], 'dropped at 23'], ['read', 'dropped at 23, z', { zs: 0 }],
+    ['rowPath', 'Line', ['Line', 'Button', 'Shape'], [[0, -30], [0, 0]], 'up 30, dropped at home'], ['read', 'dropped at home, z', { zs: 0 }],
+    ['rowPath', 'Button', ['Line', 'Button', 'Shape'], [[20, 0]], 'right 20, dropped'], ['read', 'right 20, dropped, z', { zs: 0 }],
+    ['rowPath', 'Button', ['Line', 'Button', 'Shape'], [[20, 0], [20, -30]], 'right 20, up 30, dropped'], ['read', 'right 20, up 30, dropped, z', { zs: 0 }],
+    ['rowPath', 'Button', ['Line', 'Button', 'Shape'], [[400, 0], [400, 30]], 'outside the panel, dropped'], ['read', 'outside the panel, dropped, z', { zs: 0 }],
+    ['rowPath', 'Shape', ['Line', 'Button', 'Shape'], [[0, 0, 'jump'], [0, 30, 'jump']], 'one move down 30, dropped'], ['read', 'one move down 30, dropped, z', { zs: 0 }],
+    ['rowPath', 'Line', ['Line', 'Button', 'Shape'], [[0, -30], ['esc'], [0, -35]], 'up 30, Escape, up to 35, dropped'], ['read', 'Escape, dropped, z', { zs: 0 }],
+  ] },
   'CAP-Z3WALK': { page: 'Gestures Probe', question: 'Z3: a Layers row held by the real mouse, 1px at a time. Unnamed presses on the rows. Up, down, in x, and the blocks z while held.', steps: [
     ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['add', 0, 'Button'], ['press', 'Escape'], ['add', 0, 'Shape'], ['press', 'Escape'], ['hover', 0], ['click', 'Open Layers Panel'], ['pause', 800], ['read', 'start', { zs: 0 }],
     ['rowWalk', 'Line', ['Line', 'Button', 'Shape'], 0, -110, 'Line up 110, kept held and taken home', false], ['read', 'after home', { zs: 0 }],

@@ -5295,20 +5295,22 @@ layersPanel.addEventListener('pointerdown', (e) => {
   const from = rows.indexOf(li);
   const box = li.getBoundingClientRect();
   const pitch = rows.length > 1 ? rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().top : box.height;
-  const y0 = e.clientY;
+  const x0 = e.clientX, y0 = e.clientY;
   let ghost = null;
   const move = (ev) => {
     const d = ev.clientY - y0;
-    if (!ghost && Math.abs(d) < 4) return;
+    if (!ghost && Math.hypot(ev.clientX - x0, d) < 9) return;
+    // It starts at 9px, in x or y. The ghost stays put that first move and then follows y (CAP-Z3WALK.json).
     if (!ghost) {
       ghost = li.cloneNode(true);
       ghost.classList.add('lp-ghost');
       Object.assign(ghost.style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px` });
       document.body.append(ghost);
       li.classList.add('is-slot');
-    }
-    ghost.style.transform = `translateY(${d}px)`;
-    const passed = Math.floor((Math.abs(d) + box.height / 2) / pitch);
+      // The pointer can leave over the page's frame, which would keep its moves and its release.
+      layersPanel.setPointerCapture(ev.pointerId);
+    } else ghost.style.transform = `translateY(${d}px)`;
+    const passed = Math.floor((Math.abs(d) + box.height / 2 + 1) / pitch);
     const to = Math.max(0, Math.min(rows.length - 1, from + Math.sign(d) * passed));
     const others = rows.filter((r) => r !== li);
     list.insertBefore(li, others[to] || (li.dataset.kidOf ? others[others.length - 1].nextSibling : null));
