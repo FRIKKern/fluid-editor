@@ -4347,7 +4347,7 @@ for (const host of [panel, sectionPanel]) {
 }
 function chromeSid() { return editSid || sel?.sid || hoverSid; }
 // The chrome fades out over 0.15s when the mouse leaves, and the outline over 0.2s; a gesture takes it away at once
-// (SECTIONBAR.json, fade; CAP-U9FADE.json). The outline fades there too: moving to another section and in a gesture, the
+// (SECTIONBAR.json, fade; CAP-U9FADE.json). Add Section takes 0.2s too, on its opacity (CAP-U9ADDFADE.json). The outline fades there too: moving to another section and in a gesture, the
 // old one fades as a copy left behind (CAP-U9CLOSE.json). A copy doesn't follow a scroll during its 0.2 s, ours only.
 let chromeOut = 0;
 function outlineAway() {
@@ -4363,7 +4363,7 @@ function hideChrome(fade) {
   if (chrome.hidden || (fade && chromeOut)) return;
   clearTimeout(chromeOut); chromeOut = 0;
   if (!fade) { outlineAway(); chrome.classList.remove('is-out'); chrome.hidden = true; return; }
-  chrome.classList.remove('is-outline-in'); chrome.classList.add('is-out');
+  chrome.classList.remove('is-outline-in', 'is-add-in'); chrome.classList.add('is-out');
   chromeOut = setTimeout(() => { chromeOut = 0; chrome.classList.remove('is-out'); chrome.hidden = true; }, 200);
 }
 function placeChrome() {
@@ -4383,7 +4383,7 @@ function placeChrome() {
   // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
   if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
-  if (newSection) { chrome.classList.remove('is-outline-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in'); }
+  if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in', 'is-add-in'); }
   const header = k === 0 ? doc.getElementById('header') : null;
   const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
   // The Add Section buttons sit on the sum of the rounded heights above, not on the section's edge
