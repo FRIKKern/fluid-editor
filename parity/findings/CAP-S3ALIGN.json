@@ -1,0 +1,2614 @@
+{
+  "item": "CAP-S3ALIGN",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "S3: Align Vertically on a stack's Shape child, then its size and Stretch off, in a row and a column. The toolbar goes away once the panel opens, so each case picks its align first.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "read",
+      "start",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Align Vertically"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Align Center"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "fill in a row, Align Center",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Align Bottom"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "fill in a row, Align Bottom",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Align Top"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "fill in a row, Align Top",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "shot",
+      "fill-in-a-row"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "pressNamed",
+      "Align Vertically"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Align Top"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1040,
+      487,
+      "200"
+    ],
+    [
+      "read",
+      "Align Top, H 200, in a row",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "click",
+      "Stretch"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1040,
+      439,
+      "100"
+    ],
+    [
+      "read",
+      "Align Top, W 100, H 200, Stretch off, in a row",
+      {
+        "kids": [
+          0,
+          0
+        ],
+        "checks": true
+      }
+    ],
+    [
+      "shot",
+      "Align-Top"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "pressNamed",
+      "Align Vertically"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Align Center"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1040,
+      487,
+      "200"
+    ],
+    [
+      "read",
+      "Align Center, H 200, in a row",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "click",
+      "Stretch"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1040,
+      439,
+      "100"
+    ],
+    [
+      "read",
+      "Align Center, W 100, H 200, Stretch off, in a row",
+      {
+        "kids": [
+          0,
+          0
+        ],
+        "checks": true
+      }
+    ],
+    [
+      "shot",
+      "Align-Center"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "pressNamed",
+      "Align Vertically"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Align Bottom"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1040,
+      487,
+      "200"
+    ],
+    [
+      "read",
+      "Align Bottom, H 200, in a row",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "click",
+      "Stretch"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1040,
+      439,
+      "100"
+    ],
+    [
+      "read",
+      "Align Bottom, W 100, H 200, Stretch off, in a row",
+      {
+        "kids": [
+          0,
+          0
+        ],
+        "checks": true
+      }
+    ],
+    [
+      "shot",
+      "Align-Bottom"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Stack Options"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Stack Vertically"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "pressNamed",
+      "Align Vertically"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Align Top"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1040,
+      487,
+      "200"
+    ],
+    [
+      "click",
+      "Stretch"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1040,
+      439,
+      "100"
+    ],
+    [
+      "read",
+      "Align Top, W 100, H 200, Stretch off, in a column",
+      {
+        "kids": [
+          0,
+          0
+        ],
+        "controls": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Stack Options"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Stack Vertically"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "pressNamed",
+      "Align Vertically"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Align Bottom"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1040,
+      487,
+      "200"
+    ],
+    [
+      "click",
+      "Stretch"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1040,
+      439,
+      "100"
+    ],
+    [
+      "read",
+      "Align Bottom, W 100, H 200, Stretch off, in a column",
+      {
+        "kids": [
+          0,
+          0
+        ],
+        "controls": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "start": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "shape": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "wrap": [
+              394.9,
+              0,
+              374.9,
+              235.6,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "fill in a row, Align Center": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "shape": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "wrap": [
+              394.9,
+              0,
+              374.9,
+              235.6,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "fill in a row, Align Bottom": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "shape": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "wrap": [
+              394.9,
+              0,
+              374.9,
+              235.6,
+              "flex-end",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "fill in a row, Align Top": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "shape": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "wrap": [
+              394.9,
+              0,
+              374.9,
+              235.6,
+              "flex-start",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Align Top, H 200, in a row": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              200
+            ],
+            "self": "auto",
+            "block": [
+              394.9,
+              0,
+              374.9,
+              200
+            ],
+            "shape": [
+              394.9,
+              0,
+              374.9,
+              200
+            ],
+            "wrap": [
+              394.9,
+              0,
+              374.9,
+              200,
+              "flex-start",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Align Top, W 100, H 200, Stretch off, in a row": {
+      "checks": [
+        {
+          "box": [
+            1161,
+            760,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            1161,
+            1004,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            1161,
+            1049,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              512.3,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              512.3,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              532.3,
+              0,
+              100,
+              200
+            ],
+            "self": "auto",
+            "block": [
+              532.3,
+              0,
+              100,
+              200
+            ],
+            "shape": [
+              532.3,
+              0,
+              100,
+              100
+            ],
+            "wrap": [
+              532.3,
+              0,
+              100,
+              200,
+              "flex-start",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              652.3,
+              0,
+              512.3,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              652.3,
+              0,
+              512.3,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Align Center, H 200, in a row": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              200
+            ],
+            "self": "auto",
+            "block": [
+              394.9,
+              0,
+              374.9,
+              200
+            ],
+            "shape": [
+              394.9,
+              0,
+              374.9,
+              200
+            ],
+            "wrap": [
+              394.9,
+              0,
+              374.9,
+              200,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Align Center, W 100, H 200, Stretch off, in a row": {
+      "checks": [
+        {
+          "box": [
+            1161,
+            760,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            1161,
+            1004,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            1161,
+            1049,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              512.3,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              512.3,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              532.3,
+              0,
+              100,
+              200
+            ],
+            "self": "auto",
+            "block": [
+              532.3,
+              0,
+              100,
+              200
+            ],
+            "shape": [
+              532.3,
+              50,
+              100,
+              100
+            ],
+            "wrap": [
+              532.3,
+              0,
+              100,
+              200,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              652.3,
+              0,
+              512.3,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              652.3,
+              0,
+              512.3,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Align Bottom, H 200, in a row": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              200
+            ],
+            "self": "auto",
+            "block": [
+              394.9,
+              0,
+              374.9,
+              200
+            ],
+            "shape": [
+              394.9,
+              0,
+              374.9,
+              200
+            ],
+            "wrap": [
+              394.9,
+              0,
+              374.9,
+              200,
+              "flex-end",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Align Bottom, W 100, H 200, Stretch off, in a row": {
+      "checks": [
+        {
+          "box": [
+            1161,
+            760,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            1161,
+            1004,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            1161,
+            1049,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              512.3,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              512.3,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              532.3,
+              0,
+              100,
+              200
+            ],
+            "self": "auto",
+            "block": [
+              532.3,
+              0,
+              100,
+              200
+            ],
+            "shape": [
+              532.3,
+              100,
+              100,
+              100
+            ],
+            "wrap": [
+              532.3,
+              0,
+              100,
+              200,
+              "flex-end",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              652.3,
+              0,
+              512.3,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              652.3,
+              0,
+              512.3,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Align Top, W 100, H 200, Stretch off, in a column": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            1260,
+            344,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1282,
+            344,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            1344,
+            344,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100px",
+          "box": [
+            1407.5,
+            471,
+            105.5,
+            22
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "",
+          "box": [
+            1519,
+            464,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "200px",
+          "box": [
+            1404.1,
+            519,
+            108.9,
+            22
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "",
+          "box": [
+            1519,
+            512,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1260,
+            617,
+            320,
+            103
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            1387,
+            726,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            726,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            759,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            726,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            1285,
+            729,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            1326,
+            729,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Stretch",
+          "value": false,
+          "box": [
+            1532,
+            802.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "kids": {
+        "dir": "sqs-stack-container direction-column",
+        "box": [
+          394,
+          244.2,
+          1206,
+          329
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              1206,
+              22.4
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              0,
+              1206,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              42.4,
+              100,
+              200
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              42.4,
+              100,
+              200
+            ],
+            "shape": [
+              0,
+              42.4,
+              100,
+              100
+            ],
+            "wrap": [
+              0,
+              42.4,
+              100,
+              200,
+              "flex-start",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              262.4,
+              1206,
+              66.6
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              262.4,
+              1206,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Align Bottom, W 100, H 200, Stretch off, in a column": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            1260,
+            344,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1282,
+            344,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            1344,
+            344,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100px",
+          "box": [
+            1407.5,
+            471,
+            105.5,
+            22
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "",
+          "box": [
+            1519,
+            464,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "200px",
+          "box": [
+            1404.1,
+            519,
+            108.9,
+            22
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "",
+          "box": [
+            1519,
+            512,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1260,
+            617,
+            320,
+            103
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            1387,
+            726,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            726,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            759,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1376,
+            726,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            1285,
+            729,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            1326,
+            729,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Stretch",
+          "value": false,
+          "box": [
+            1532,
+            802.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "kids": {
+        "dir": "sqs-stack-container direction-column",
+        "box": [
+          394,
+          244.2,
+          1206,
+          329
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              1206,
+              22.4
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              0,
+              1206,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              42.4,
+              100,
+              200
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              42.4,
+              100,
+              200
+            ],
+            "shape": [
+              0,
+              142.4,
+              100,
+              100
+            ],
+            "wrap": [
+              0,
+              42.4,
+              100,
+              200,
+              "flex-end",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              0,
+              262.4,
+              1206,
+              66.6
+            ],
+            "self": "stretch",
+            "block": [
+              0,
+              262.4,
+              1206,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "notes": "The two column cases were read in a second run with the same steps, after a first that typed into the wrong place.",
+  "answer": "Align Vertically on a Shape child sets the align-items of the shape's wrapper: Align Center gives center, Top flex-start, Bottom flex-end. With Stretch on it moves nothing, at Fill or at H 200. With Stretch off, W 100, H 200, the shape is 100 by 100 and moves, its box does not. Row, box 532.3,0,100,200: Top y 0, Center y 50, Bottom y 100. Column, box 0,42.4,100,200: Top y 42.4, Bottom y 142.4, Center not read in a column. This corrects S3.json round3, which said it moved nothing: that was one read of a stretched shape.",
+  "ours": "Ours stores the value and never moves the shape: y 50 in a row and 92.4 in a column for every value. The box is the same. Measured on 5210 by setting the stored value that the Align buttons write (layout.desktop.align and justify), 2026-11-06; the buttons themselves were not pressed in ours.",
+  "differs": [
+    "A Shape child with Stretch off: the oracle moves it to Top or Bottom inside its box, ours keeps it centred."
+  ],
+  "pressed": [
+    "By position or index, not by name: Custom at 1538,534 or 1538,589, typeAt in the Custom field, comboboxes by index, real clicks on blocks and a drag on the stack. All else pressed by name with an on-top check."
+  ]
+}

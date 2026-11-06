@@ -1,0 +1,981 @@
+{
+  "item": "CAP-S3TRANSFORMS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "S3: Scale, Offset, Skew and Anchor on a stack's Shape child",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "hover",
+      0
+    ],
+    [
+      "clickIf",
+      "Open Layers Panel"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Shape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "rows",
+      {
+        "leaves": [
+          "Opacity",
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew",
+          "Anchor"
+        ]
+      }
+    ],
+    [
+      "fillRow",
+      "Scale",
+      0,
+      "120"
+    ],
+    [
+      "read",
+      "Scale 120",
+      {
+        "kids": [
+          0,
+          0
+        ],
+        "rows": [
+          "Scale"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "scale"
+    ],
+    [
+      "fillRow",
+      "Offset",
+      0,
+      "5"
+    ],
+    [
+      "read",
+      "Offset X 5",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "fillRow",
+      "Offset",
+      1,
+      "6"
+    ],
+    [
+      "read",
+      "Offset Y 6",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "fillRow",
+      "Skew",
+      0,
+      "3"
+    ],
+    [
+      "read",
+      "Skew X 3",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "fillRow",
+      "Skew",
+      1,
+      "4"
+    ],
+    [
+      "read",
+      "Skew Y 4",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "scrollTo",
+      "Anchor"
+    ],
+    [
+      "pressNamed",
+      "Position"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Top Left"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Anchor Top Left",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Bottom Right"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Anchor Bottom Right",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "shot",
+      "anchor"
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "rows": {
+      "leaves": {
+        "Opacity": null,
+        "Rotate": null,
+        "Scale": null,
+        "Offset": null,
+        "Skew": null,
+        "Anchor": null
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Scale 120": {
+      "rows": {
+        "Scale": [
+          "120%",
+          "100%"
+        ]
+      },
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              357.4,
+              0,
+              449.8,
+              235.6
+            ],
+            "shape": [
+              357.4,
+              0,
+              449.8,
+              235.6
+            ],
+            "wrap": [
+              357.4,
+              0,
+              449.8,
+              235.6,
+              "center",
+              "center"
+            ],
+            "tf": [
+              {
+                "cls": "fe-block-yui_3_17_2_1_1793956996871_647 fe-block f",
+                "transform": "matrix(1.2, 0, 0, 1, 0, 0)",
+                "origin": "187.438px 117.781px"
+              },
+              {
+                "cls": "[object SVGAnimatedString]",
+                "transform": "matrix(1.2, 0, 0, 1, 0, 0)",
+                "origin": "0px 117.781px"
+              }
+            ]
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Offset X 5": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              362.4,
+              0,
+              449.8,
+              235.6
+            ],
+            "shape": [
+              362.4,
+              0,
+              449.8,
+              235.6
+            ],
+            "wrap": [
+              362.4,
+              0,
+              449.8,
+              235.6,
+              "center",
+              "center"
+            ],
+            "tf": [
+              {
+                "cls": "fe-block-yui_3_17_2_1_1793956996871_647 fe-block f",
+                "transform": "matrix(1.2, 0, 0, 1, 5, 0)",
+                "origin": "187.438px 117.781px"
+              },
+              {
+                "cls": "[object SVGAnimatedString]",
+                "transform": "matrix(1.2, 0, 0, 1, 0, 0)",
+                "origin": "0px 117.781px"
+              }
+            ]
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Offset Y 6": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              362.4,
+              6,
+              449.8,
+              235.6
+            ],
+            "shape": [
+              362.4,
+              6,
+              449.8,
+              235.6
+            ],
+            "wrap": [
+              362.4,
+              6,
+              449.8,
+              235.6,
+              "center",
+              "center"
+            ],
+            "tf": [
+              {
+                "cls": "fe-block-yui_3_17_2_1_1793956996871_647 fe-block f",
+                "transform": "matrix(1.2, 0, 0, 1, 5, 6)",
+                "origin": "187.438px 117.781px"
+              },
+              {
+                "cls": "[object SVGAnimatedString]",
+                "transform": "matrix(1.2, 0, 0, 1, 0, 0)",
+                "origin": "0px 117.781px"
+              }
+            ]
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Skew X 3": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              355,
+              6,
+              464.7,
+              235.6
+            ],
+            "shape": [
+              355,
+              6,
+              464.7,
+              235.6
+            ],
+            "wrap": [
+              355,
+              6,
+              464.7,
+              235.6,
+              "center",
+              "center"
+            ],
+            "tf": [
+              {
+                "cls": "fe-block-yui_3_17_2_1_1793956996871_647 fe-block f",
+                "transform": "matrix(1.2, 0, 0.0628893, 1, 5, 6)",
+                "origin": "187.438px 117.781px"
+              },
+              {
+                "cls": "[object SVGAnimatedString]",
+                "transform": "matrix(1.2, 0, 0.0628893, 1, 0, 0)",
+                "origin": "0px 117.781px"
+              }
+            ]
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Skew Y 4": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              354.2,
+              -7.1,
+              466.3,
+              261.8
+            ],
+            "shape": [
+              354.2,
+              -7.1,
+              466.3,
+              261.8
+            ],
+            "wrap": [
+              354.2,
+              -7.1,
+              466.3,
+              261.8,
+              "center",
+              "center"
+            ],
+            "tf": [
+              {
+                "cls": "fe-block-yui_3_17_2_1_1793956996871_647 fe-block f",
+                "transform": "matrix(1.2044, 0.0699268, 0.0628893, 1, 5, 6)",
+                "origin": "187.438px 117.781px"
+              },
+              {
+                "cls": "[object SVGAnimatedString]",
+                "transform": "matrix(1.2044, 0.0699268, 0.0628893, 1, 0, 0)",
+                "origin": "0px 117.781px"
+              }
+            ]
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Anchor Top Left": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              399.9,
+              6,
+              466.3,
+              261.8
+            ],
+            "shape": [
+              399.9,
+              6,
+              466.3,
+              261.8
+            ],
+            "wrap": [
+              399.9,
+              6,
+              466.3,
+              261.8,
+              "center",
+              "center"
+            ],
+            "tf": [
+              {
+                "cls": "fe-block-yui_3_17_2_1_1793956996871_647 fe-block f",
+                "transform": "matrix(1.2044, 0.0699268, 0.0628893, 1, 5, 6)",
+                "origin": "0px 0px"
+              },
+              {
+                "cls": "[object SVGAnimatedString]",
+                "transform": "matrix(1.2044, 0.0699268, 0.0628893, 1, 0, 0)",
+                "origin": "0px 0px"
+              }
+            ]
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Anchor Bottom Right": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              308.4,
+              -20.2,
+              466.3,
+              261.8
+            ],
+            "shape": [
+              308.4,
+              -20.2,
+              466.3,
+              261.8
+            ],
+            "wrap": [
+              308.4,
+              -20.2,
+              466.3,
+              261.8,
+              "center",
+              "center"
+            ],
+            "tf": [
+              {
+                "cls": "fe-block-yui_3_17_2_1_1793956996871_647 fe-block f",
+                "transform": "matrix(1.2044, 0.0699268, 0.0628893, 1, 5, 6)",
+                "origin": "374.875px 235.562px"
+              },
+              {
+                "cls": "[object SVGAnimatedString]",
+                "transform": "matrix(1.2044, 0.0699268, 0.0628893, 1, 0, 0)",
+                "origin": "0px 235.562px"
+              }
+            ]
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "On a child these land on the .fe-block inside, and the child's box stays. Scale X 120: matrix(1.2,0,0,1,0,0), origin 187.438px 117.781px. Offset 5,6 adds to it. Skew X 3: c 0.0628893. Skew Y 4: a 1.2044, b 0.0699268. Anchor Top Left: origin 0 0. Bottom Right: 374.875px 235.562px. An inner svg gets the same matrix without the offset.",
+  "ours": "Same matrix for Scale, Offset and Skew X, same origin for all three anchors. Measured on 5210, by setting the stored design values (sx, tx, kx, ox, oy), 2026-11-06. Skew Y and the inner svg were not compared.",
+  "differs": [],
+  "pressed": [
+    "By position or index, not by name: Custom at 1538,534 or 1538,589, typeAt in the Custom field, comboboxes by index, real clicks on blocks and a drag on the stack. All else pressed by name with an on-top check."
+  ]
+}

@@ -1,0 +1,3232 @@
+{
+  "item": "CAP-P3JUMP",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "P3: jumps to a tall height from a small one, each from a fresh section, and whether the panel comes back by scrolling",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "fillRange",
+      "200"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "from 200",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "999"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "200 to 999",
+      {
+        "panelState": true,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "200-999"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "fillRange",
+      "50"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "from 50",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "999"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "50 to 999",
+      {
+        "panelState": true,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "50-999"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "fillRange",
+      "999"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "from 999",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "200"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "999 to 200",
+      {
+        "panelState": true,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "999-200"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "fillRange",
+      "200"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "from 200",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "600"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "200 to 600",
+      {
+        "panelState": true,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "200-600"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "fillRange",
+      "200"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "from 200",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "800"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "200 to 800",
+      {
+        "panelState": true,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "200-800"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "fillRange",
+      "200"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "from 200",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "900"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "200 to 900",
+      {
+        "panelState": true,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "200-900"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "fillRange",
+      "200"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "from 200",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "5000"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "200 to 5000",
+      {
+        "panelState": true,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "200-5000"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "fillRange",
+      "50"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "from 50",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "1000"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "50 to 1000",
+      {
+        "panelState": true,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "50-1000"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "fillRange",
+      "300"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "from 300",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "400"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "300 to 400",
+      {
+        "panelState": true,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "300-400"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "fillRange",
+      "50"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "from 50",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "400"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "50 to 400",
+      {
+        "panelState": true,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "50-400"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "fillRange",
+      "1000"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "from 1000",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "1001"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "1000 to 1001",
+      {
+        "panelState": true,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "1000-1001"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "fillRange",
+      "50"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "from 50",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "300"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "50 to 300",
+      {
+        "panelState": true,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "50-300"
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "from 200": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "200",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 2523,
+        "sectionTop": 0,
+        "sectionH": 1890,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "200 to 999": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            219.6,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            222.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            374.6,
+            164,
+            44
+          ]
+        }
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 10073,
+        "sectionTop": 0,
+        "sectionH": 9440.5,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "from 50": {
+      "panelState": {
+        "range": true,
+        "value": "50",
+        "field": "50",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1249,
+        "sectionTop": 0,
+        "sectionH": 616.4,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "50 to 999": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            219.6,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            222.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            374.6,
+            164,
+            44
+          ]
+        }
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 10073,
+        "sectionTop": 0,
+        "sectionH": 9440.5,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "from 999": {
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 10073,
+        "sectionTop": 0,
+        "sectionH": 9440.5,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "999 to 200": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            219.6,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            222.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            374.6,
+            164,
+            44
+          ]
+        }
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 10073,
+        "sectionTop": 0,
+        "sectionH": 9440.5,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "200 to 600": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            219.6,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            222.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            374.6,
+            164,
+            44
+          ]
+        }
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 6303,
+        "sectionTop": 0,
+        "sectionH": 5670,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "200 to 800": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            219.6,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            222.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            374.6,
+            164,
+            44
+          ]
+        }
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 8193,
+        "sectionTop": 0,
+        "sectionH": 7560,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "200 to 900": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            219.6,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            222.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            374.6,
+            164,
+            44
+          ]
+        }
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 9138,
+        "sectionTop": 0,
+        "sectionH": 8505,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "200 to 5000": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            219.6,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            222.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            374.6,
+            164,
+            44
+          ]
+        }
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 47883,
+        "sectionTop": 0,
+        "sectionH": 47250,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "50 to 1000": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            219.6,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            222.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            374.6,
+            164,
+            44
+          ]
+        }
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 10083,
+        "sectionTop": 0,
+        "sectionH": 9450,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "from 300": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "300",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 3468,
+        "sectionTop": 0,
+        "sectionH": 2835,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "300 to 400": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            219.6,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            222.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            374.6,
+            164,
+            44
+          ]
+        }
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 4413,
+        "sectionTop": 0,
+        "sectionH": 3780,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "50 to 400": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            219.6,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            222.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            374.6,
+            164,
+            44
+          ]
+        }
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 4413,
+        "sectionTop": 0,
+        "sectionH": 3780,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "from 1000": {
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 10083,
+        "sectionTop": 0,
+        "sectionH": 9450,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "1000 to 1001": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Block",
+          "box": [
+            83,
+            219.6,
+            129.6,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            222.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            374.6,
+            164,
+            44
+          ]
+        }
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 10083,
+        "sectionTop": 0,
+        "sectionH": 9450,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "50 to 300": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1258,
+            195,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1280,
+            195,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1342,
+            195,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1437.7,
+            195,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "input:number",
+          "label": "Row Count",
+          "value": "8",
+          "min": "1",
+          "max": "10000",
+          "step": "1",
+          "box": [
+            1479,
+            292,
+            77,
+            36
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "",
+          "value": "100",
+          "min": "1",
+          "max": "100",
+          "step": "1",
+          "box": [
+            1280,
+            504,
+            237,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "300",
+          "box": [
+            1528,
+            515,
+            28,
+            22
+          ]
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "300",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 3468,
+        "sectionTop": 0,
+        "sectionH": 2835,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "fillRange [\"200\"]: no slider",
+    "fillRange [\"1001\"]: no slider"
+  ],
+  "leftDirty": "exit failed: click: nothing found for () => [...document.querySelectorAll('button')].filter((x) => x.getBoundingClientRect().width > 0).find((x) => [x.getAttr",
+  "answer": "The panel closes on its own when the section gets too tall, and focus goes to a BUTTON. Edit Section brings it back. It's a rule that depends on the height and on where the section sits in the frame, and a single exact formula was not found. Window 1000 high, frame 945, page at the top, Custom from fresh: open through value 340 (H 3213), gone at 350 (H 3307.5). Opened again at 300 (opening scrolls the section to the frame's middle: scroll 934, H 2835): open through 600 (H 5670), gone at 650 (H 6142.5). Window 1400, frame 1345: open at 290 (H 3900.5), gone at 300 (H 4035). A jump from fresh closes it the same way: 200 to 999, 50 to 999, 200 to 600, 800, 900, 5000, 50 to 1000, 300 to 400, 50 to 400. 50 to 300 stays. That is why CAP-P3FIELD.json kept it at 400 to 1001: it was opened again before each. Scroll stays put as you type. Growth since opening fits 2835 to 2848 at frame 945 but 3441 to 3575 at frame 1345, so don't build that as the rule.",
+  "ours": "Ours stays open and doesn't move at every value tried, in one run going up, 50 to 5000: top 271 on the page's first section at H 706 to 9441, top 120 in a bare one-section page. In ours' code the panel only moves when the Edit Section button does; on the oracle that button did not move and the panel still did. Measured on 5210 with the same field, 2026-11-06. Ours' panel is 476 high (max-height, 637 of content), the oracle's read element 421: same element not established.",
+  "differs": [
+    "The panel closes on its own past a height, and ours stays open."
+  ],
+  "notes": [
+    "A \"no slider\" line in errors is part of the reading: the panel had closed on its own, so the slider was not there to fill."
+  ],
+  "pressed": [
+    "By position or index, not by name: Custom at 1538,534 or 1538,589, typeAt in the Custom field, comboboxes by index, real clicks on blocks and a drag on the stack. All else pressed by name with an on-top check."
+  ]
+}

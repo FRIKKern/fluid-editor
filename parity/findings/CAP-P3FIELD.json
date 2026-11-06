@@ -1536,7 +1536,7 @@
   "errors": [],
   "leftDirty": true,
   "answer": {
-    "above1000": "No cap read. 1001 gives min-height 9459.4, 5000 gives 47250, 100000 gives 945000 (value times 9.45). The panel stays open at some jumps and is gone in reads at 5000, 100000 and a jump from 200 to 999; Edit Section brings it back. Why is not read.",
+    "above1000": "No cap read. 1001 gives min-height 9459.4, 5000 gives 47250, 100000 gives 945000 (value times 9.45). The panel stays open at some jumps and is gone in reads at 5000, 100000 and a jump from 200 to 999; Edit Section brings it back. Why: it closes on its own past a height, see CAP-P3PANEL.json, CAP-P3JUMP.json and CAP-P3EDGE.json.",
     "heldSlider": "The section follows while the slider is held: 50 h 616.4, moved right to 68 h 674, moved left to 25 h 536.4, let go 536.4.",
     "fill": "12.5 gives 12, 12abc gives 12, abc and empty show NaN with slider 51 and the height kept, -1 and -5 stay in the field with slider 1 and the height of 0, 0 gives 456.4, 200 gives 1890.",
     "realKeys": "abc gives NaN, slider 51. -1 then stays NaN. 7 gives 7. 12.5 gives 125, the dot is dropped."
