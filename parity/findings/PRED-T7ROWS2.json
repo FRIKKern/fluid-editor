@@ -334,6 +334,16 @@
     "upper rises, a block overlapping lower down": "that block's end moves by n, its top stays",
     "lower rises, the upper overlapping": "the upper stays: its end is above",
     "a Code inside a taller Code": "the taller one's end moves by n",
-    "a Text the Code overlaps": "the same as any block: its end moves by n"
+    "a Text the Code overlaps": "the same as any block: its end moves by n",
+    "result": "Section rows by the lowest end: right, all 22. A Code inside a taller, a Text overlapped with its end above: right. Wrong: a block wholly under the risen one moves with it, top and end, up and down, as under a Video. The two called 'overlapping' share no columns, so they test nothing but the section's rows."
+  },
+  "fifth": {
+    "written after CAP-T10ROWS4, before CAP-T10ROWS5": true,
+    "rule": "The line at the block's old end. On a rise by n, a block sharing columns with it: wholly below the line, its top and end move by n; across the line, its end moves. On a fall by n: wholly below the line moves up by n, across it stays. No shared column: stays. A section's rows move by how far the lowest end moved. For every type, as for Video.",
+    "below, other columns": "stays",
+    "below, sharing some columns": "moves with it, both ways",
+    "across the line, top inside": "end moves on a rise, nothing on a fall",
+    "phone, the second under the first": "moves with it, both ways",
+    "Markdown over a Text, Embed over a Code": "the same"
   }
 }
