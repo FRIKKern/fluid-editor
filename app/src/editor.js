@@ -593,7 +593,7 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
   // A form: the least rows that hold it, with no give (FORMFIELDS.json, blockFits).
   // A form taller than its block stretches the grid's rows, so the pitch is read with the form out of it.
   if (b.type === 'form') {
-    const f = blockEl(b.id)?.querySelector('.fe-form');
+    const f = blockEl(b.id)?.querySelector(b.lightbox ? '.lightbox-handle-wrapper' : '.fe-form');
     if (!f) return 1;
     const h = f.getBoundingClientRect().height;
     f.style.display = 'none';
@@ -1459,13 +1459,13 @@ function renderBlockPanel() {
     : b.type === 'line' ? { kind: 'line' }
     : b.type === 'social' ? (() => { const l = socialLook(b, bp === 'mobile'); return { kind: 'social', links: socialList(), err: socErr, iconBorder: l.iconBorder, iconStyle: l.iconStyle, iconThick: l.iconThick, iconSize: l.iconSize, align: l.align }; })()
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
-    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', buttonAlign: b.buttonAlign || 'left', highlight: b.highlight || 'none', fihOpen, fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
+    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', buttonAlign: b.buttonAlign || 'left', highlight: b.highlight || 'none', fihOpen, lightbox: !!b.lightbox, lightboxText: b.lightboxText || '', lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
   if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffView?.startsWith('ff-edit:') && !b.fields?.[Number(ffView.slice(8))]) ffView = 'ff-list'; // undo can take the field away
   showFormPost(b);
-  if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post]')) return; // keep a field being typed in
+  if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || '#ffffff' } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: parseFloat(b.radius) || 0, corners: b.corners, empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
@@ -1768,6 +1768,8 @@ function setFormDesign(key, v) {
   const top = blockPanel.scrollTop;
   if (v === 'left' || v === 'none') delete b[key]; else b[key] = v;
   renderSectionDom(sel.sid);
+  // A form the Lightbox left too small gets its rows back on the next change (FORMFIELDS.json, lightbox).
+  if (!b.lightbox && contentRows(b, measure(feEl(sel.sid))) > lay(b).area[2] - lay(b).area[0]) fitForm(b, S(sel.sid));
   commit(before, `Form ${key} ${v}`);
   blockPanel.scrollTop = top;
 }
@@ -2047,11 +2049,46 @@ function setForm(change, label, fit = true) {
   b.fields ||= [];
   change(b);
   renderSectionDom(sel.sid);
-  if (fit) fitForm(b, S(sel.sid));
+  if (fit && !b.lightbox) fitForm(b, S(sel.sid));
   commit(before, label);
   renderBlockPanel();
   blockPanel.scrollTop = Math.min(blockPanel.scrollTop, blockPanel.scrollHeight);
 }
+// Lightbox on: the rows lose what the form gave up, not down to the least that holds the button, so
+// the count depends on the rows it had. Off: the rows stay until the next change (FORMFIELDS.json, lightbox).
+function setFormLightbox(on) {
+  const b = B(sel.sid, sel.bid), s = S(sel.sid), before = JSON.stringify(model), top = blockPanel.scrollTop;
+  const h = blockEl(b.id).querySelector('.fe-form').getBoundingClientRect().height;
+  if (on) b.lightbox = true; else delete b.lightbox;
+  renderSectionDom(sel.sid);
+  if (on) {
+    const w = blockEl(b.id).querySelector('.lightbox-handle-wrapper'), hh = w.getBoundingClientRect().height;
+    w.style.display = 'none';
+    const free = measure(feEl(sel.sid));
+    w.style.display = '';
+    const a = lay(b).area, low = Math.max(...s.blocks.map((o) => o.layout[bp].area[2]));
+    a[2] = Math.max(a[0] + 1, a[2] - Math.ceil((h - hh) / free.pitch));
+    s.rows[bp] -= low - Math.max(...s.blocks.map((o) => o.layout[bp].area[2]));
+    renderSectionDom(sel.sid);
+  }
+  commit(before, on ? 'Lightbox on' : 'Lightbox off');
+  renderBlockPanel();
+  blockPanel.scrollTop = top;
+}
+blockPanel.addEventListener('change', (e) => {
+  if (sel && e.target.closest('[data-form-lightbox]')) setFormLightbox(e.target.checked);
+  if (sel && e.target.closest('[data-form-lbtext]')) { const before = ffBefore; ffBefore = null; if (before) commit(before, 'Lightbox button text'); }
+});
+// The button's word shows as it is typed; the rows move only when its height does.
+blockPanel.addEventListener('input', (e) => {
+  const t = e.target.closest('[data-form-lbtext]');
+  if (!t || !sel) return;
+  ffBefore ??= JSON.stringify(model);
+  const b = B(sel.sid, sel.bid), h = blockEl(b.id).querySelector('.lightbox-handle').offsetHeight;
+  if (t.value) b.lightboxText = t.value; else delete b.lightboxText;
+  renderSectionDom(sel.sid);
+  if (blockEl(b.id).querySelector('.lightbox-handle').offsetHeight !== h) fitForm(b, S(sel.sid));
+});
 const ffField = (b) => b.fields[Number(ffView.slice(8))];
 // While Edit Post-Submit is open the block shows what comes after a submit (FORMFIELDS.json, postSubmit).
 function showFormPost(b) {
@@ -2111,7 +2148,7 @@ blockPanel.addEventListener('change', (e) => {
   if (e.target.closest('[data-ff-field],[data-ff-opt]')) {
     const before = ffBefore;
     ffBefore = null;
-    if (before) { fitForm(B(sel.sid, sel.bid), S(sel.sid)); commit(before, 'Field changed'); }
+    if (before) { if (!B(sel.sid, sel.bid).lightbox) fitForm(B(sel.sid, sel.bid), S(sel.sid)); commit(before, 'Field changed'); }
     return;
   }
   const t = e.target.closest('[data-ff-set]');
@@ -2216,10 +2253,11 @@ function hslOf([r0, g0, b0]) {
   return [h * 60, (d / (1 - Math.abs(2 * l - 1))) * 100, l * 100];
 }
 const rgbFromHsl = (h, s, l) => { const a = (s / 100) * Math.min(l / 100, 1 - l / 100), f = (n) => { const k = (n + h / 30) % 12; return Math.round(255 * (l / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))); }; return [f(0), f(8), f(4)]; };
-const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? b.color || b.fill || '#ffffff' : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || 'rgb(0, 0, 0)');
+const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? b.color || b.fill || '#ffffff' : key === 'lightboxBg' ? b.lightboxBg || 'rgb(255, 255, 255)' : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || 'rgb(0, 0, 0)');
 function writeShapeColor(b, key, css) {
   if (key === 'color') { if (css) b.color = css; else delete b.color; return; }
   if (key === 'overlay') { if (css) b.overlayColor = css; else delete b.overlayColor; return; }
+  if (key === 'lightboxBg') { if (css) b.lightboxBg = css; else delete b.lightboxBg; return; }
   const bag = designBag(bp), d = { ...(b[bag] || {}) };
   if (css) d[key] = css; else if (bag === 'designMobile') d[key] = ''; else delete d[key];
   if (Object.keys(d).length) b[bag] = d; else delete b[bag];
@@ -2298,7 +2336,7 @@ function renderShapePop() {
     const c = colorParts(shapeColorOf(b, kind));
     const custom = shapeUi.custom && (shapeUi.custom.hex === toHex(c.rgb) ? shapeUi.custom : { ...shapeUi.custom, ...hexToHsv(toHex(c.rgb)), hex: toHex(c.rgb) });
     if (custom) shapeUi.custom = custom;
-    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? !!b.color : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? !!designFor(b, bp).strokeColor : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') || !!designFor(b, bp).strokeColor });
+    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? !!b.color : kind === 'lightboxBg' ? !!b.lightboxBg : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? !!designFor(b, bp).strokeColor : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') || !!designFor(b, bp).strokeColor });
     const anchor = blockPanel.querySelector(`[data-shape-act="${kind}"]`)?.getBoundingClientRect();
     shapePop.hidden = false;
     const h = shapePop.offsetHeight;
@@ -5099,7 +5137,7 @@ document.addEventListener('keydown', (e) => { if (e.ctrlKey && e.shiftKey && e.c
 function setPreview(on) {
   document.body.classList.toggle('is-preview', on);
   doc?.body.classList.toggle('is-preview', on);
-  if (!on) doc?.querySelector('.cdk-image-lightbox')?.remove();
+  if (!on) doc?.querySelectorAll('.cdk-image-lightbox, body > .form-lightbox').forEach((x) => x.remove());
   $('preview').setAttribute('aria-pressed', String(on));
   $('page-state').textContent = on ? 'Previewing' : 'Page · Published';
   if (on) { closeFloating(); closeSectionPanel(); designOpen = null; if (editing) finishTextEdit(); select(null); }

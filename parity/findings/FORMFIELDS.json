@@ -1970,7 +1970,183 @@
    ],
    "closeBtn": []
   },
-  "note": "On: the form leaves and a button named Open Form takes its place, 204 by 67, left aligned; the rows Button Text and Background Color appear and the Background, Stroke, Blend Mode and Blur rows go. Button Text is empty with Open Form as its placeholder. Off: the form comes back. A press on the button in the preview of an unsaved form opened nothing, twice, so what the open lightbox draws is not read."
+  "note": "On: the form leaves and a button named Open Form takes its place, 204 by 67; the rows Button Text and Background Color appear and the Background, Stroke, Blend Mode and Blur rows go. Button Text is empty with Open Form as its placeholder. Stretch leaves the button its own width, at the left. Off: the form comes back. A press on the button in the preview of an unsaved form opened nothing, twice, so what the open lightbox draws is not read: under 0005, because it needs a Save.",
+  "reads": {
+   "on": {
+    "area": [
+     1,
+     2,
+     4,
+     11
+    ],
+    "block": [
+     518,
+     112.3
+    ],
+    "handle": [
+     0,
+     0,
+     203.91,
+     66.59
+    ],
+    "bg": "rgb(0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "css": {
+     "wrap": "block, text-align by alignment",
+     "font": "16px, weight 500, letter spacing 0.32px, line height normal, 25px measured",
+     "padding": "20.8px 56px",
+     "radius": "300px",
+     "whiteSpace": "normal",
+     "display": "inline-block"
+    }
+   },
+   "align": {
+    "center": 157.06,
+    "right": 314.13,
+    "stretch": 0,
+    "left": 0
+   },
+   "styles": {
+    "note": "Secondary and Tertiary change the class to sqs-button-element--secondary or --tertiary. The box and rows hold. On this site all three read black on white."
+   },
+   "typed": {
+    "text": "Write to us",
+    "handle": [
+     201.11,
+     66.59
+    ],
+    "note": "From a 1-row block: stays 1 row, the height did not change."
+   },
+   "long": {
+    "text": "A rather long label on this button that should run wider than the block it sits in, and then some more words",
+    "handle": [
+     518.03,
+     116.59
+    ],
+    "area": [
+     1,
+     2,
+     5,
+     11
+    ],
+    "block": [
+     518,
+     153.4
+    ]
+   },
+   "short": {
+    "area": [
+     1,
+     2,
+     3,
+     11
+    ],
+    "block": [
+     518,
+     71.2
+    ]
+   },
+   "picked": {
+    "swatch": "rgb(255, 207, 90)",
+    "note": "A swatch changes the row and adds Reset to theme. The button and the block do not change: the color belongs to what opens."
+   },
+   "off": {
+    "area": "as it was",
+    "formH": 560.9,
+    "note": "The rows stay and the form overflows them, stretching the grid: 3 rows read 560.9 high."
+   },
+   "refit": {
+    "area": [
+     1,
+     2,
+     15,
+     11
+    ],
+    "block": [
+     518,
+     564.3
+    ],
+    "note": "The next Button Alignment press gives the form its rows."
+   },
+   "on2": {
+    "area": [
+     1,
+     2,
+     2,
+     11
+    ],
+    "block": [
+     518,
+     66.6
+    ],
+    "note": "From 14 rows: 1 row, stretched by the button."
+   },
+   "otherForm": {
+    "fewerFields": {
+     "before": [
+      1,
+      2,
+      17,
+      11
+     ],
+     "formH": 410.47,
+     "after": [
+      1,
+      2,
+      4,
+      11
+     ],
+     "note": "Message deleted on a new form, rows not yet settled at 16. Still 3 rows."
+    },
+    "refit": {
+     "before": [
+      1,
+      2,
+      12,
+      11
+     ],
+     "formH": 410.47,
+     "after": [
+      1,
+      2,
+      3,
+      11
+     ]
+    }
+   },
+   "fieldDeleteWhileOn": {
+    "note": "A field deleted while on leaves the rows and the button alone.",
+    "area": [
+     1,
+     2,
+     4,
+     11
+    ]
+   },
+   "drag": {
+    "up70": {
+     "area": [
+      1,
+      2,
+      3,
+      11
+     ],
+     "note": "3 rows dragged up by 70: stops at 2, the least that holds the button."
+    },
+    "down140": {
+     "area": [
+      1,
+      2,
+      6,
+      11
+     ],
+     "note": "then down by 140: 5 rows."
+    }
+   },
+   "contentTab": "The Content tab does not change: Form Name, its own Button Text, Edit Form Fields and the rest.",
+   "colorPop": "The five swatches, the plus and the Opacity slider. White is chosen at the start and no Reset to theme shows."
+  },
+  "rowRule": "On: the rows lose ceil((form height - button height) / row pitch), with a floor of 1. Read four times: 16 rows and a 560.9 form to 3, 14 and 560.9 to 1, 11 and 410.5 to 2, and 16 and 410.5 to 3. That last one had a field deleted with the rows not yet settled, so the rule fits it only if the height is the one from before the delete. Off: the rows stay until the next change. Typing moves the rows only when the button's height changes, then to the least that hold it. Alignment never shrinks them."
  },
  "submissions": {
   "manage": "A link to the Contacts page's form submitters, in a new tab. Read by going there: an empty list with Email, First Name, Last Name, Total Submissions, Last Submission and Email Subscribed.",
@@ -2032,17 +2208,19 @@
  "undo": "Undo did not step back a field's change. After adding a Dropdown one Undo left it there; after typing a label and a description one Undo left both, and the next removed the whole Form block. Ours takes one step per change.",
  "presses": [
   "The press on the lightbox button in the preview checked the element on top inside the frame.",
-  "The row drag in the list checked the row was on top at its start."
+  "The row drag in the list checked the row was on top at its start.",
+  "The bottom edge drag on the Lightbox block was by coordinates, read from the block's box. Every other press in the Lightbox reads checked the element on top; the Button Style list was pressed on the element found on top at the label's center."
  ],
  "notRead": [
-  "What a form's open lightbox draws: the preview opens nothing on an unsaved form.",
+  "What a form's open lightbox draws: the preview opens nothing on an unsaved form, and it needs a Save (under 0005).",
   "What the Message, Alignment, Position, HTML and Redirect do after a submit: a submit writes to form storage.",
   "Follow-up questions past Add Follow-Up: no tile pressed.",
   "Send confirmation email and SMS Marketing Opt-in: not pressed. View plans: not pressed.",
   "Fields on the phone.",
   "Email Notification, Additional Storage, reCAPTCHA: not pressed.",
   "How an option is removed: its menu has one row, and an emptied option stays as an empty row.",
-  "Field label typed empty."
+  "Field label typed empty.",
+  "A Lightbox form on the phone: goes with the read of fields on the phone."
  ],
  "drawn": {
   "note": "Item height and control boxes (x, y from the item top, width, height) at 1600 wide, a form 518 wide. plain: Subject has a description and placeholder, every other field as added. withDescription: every added field has a description, Required on where it has one, Phone shows its country code, a Dropdown has its own placeholder and a third option left empty.",
@@ -2612,14 +2790,18 @@
   "The field and tile icons are our own drawings.",
   "Ours' Message box is plain text: a new line is a new paragraph. The oracle's is rich text, whose formatting is not read.",
   "Ours' HTML box has no colours or code editor. It takes the same text.",
-  "In ours' Preview frame a redirect shows the message, so the editor stays open. On the page itself it follows the link."
+  "In ours' Preview frame a redirect shows the message, so the editor stays open. On the page itself it follows the link.",
+  "A form with a field just deleted: ours has already fit its rows, so Lightbox on reads from there. The oracle's rows had not settled (lightbox, reads.otherForm.fewerFields: 3 rows where ours gives 2).",
+  "What the Lightbox button opens is ours, with no read behind it: a dark page, a 640 wide box in the chosen Background Color, the form and a close button. A press beside the box or on the close button ends it. The text and submit button turn black or white to read on the color."
  ],
  "inferred": [
   "Hidden's Variable follows the Label: only SQF_HIDDEN for the label Hidden was read.",
   "A grip on an option moves the option: only the field list's drag was read.",
   "The Name part hidden by Show keeps its Require value for when it comes back.",
   "A real submit draws the message as the view does, and the Submit word goes.",
-  "A message taller than the form: not read."
+  "A message taller than the form: not read.",
+  "Background Color belongs to what the Lightbox button opens: nothing on the canvas changes when it is picked, and the open view is not read.",
+  "Lightbox on leaves a Background, Stroke, Blend Mode or Blur set earlier on the block as it was: only new forms were read, with none of them set."
  ],
  "checkboxGap": {
   "contact": {

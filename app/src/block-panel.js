@@ -430,7 +430,8 @@ function formDesignHtml(c, open) {
     + `<div class="bp-form-h">Button Style</div>${buttonStyleHtml(c.buttonStyle, open)}`
     + `<div class="bp-form-h">Button Alignment</div><div class="bp-seg4 bp-form-seg" role="radiogroup" aria-label="Button Alignment">${seg('left', '<path d="M5 5v14M19 12H9M13 8l-4 4 4 4"/>')}${seg('center', '<path d="M12 5v14M4 12h5M6.5 9.5L9 12l-2.5 2.5M20 12h-5M17.5 9.5L15 12l2.5 2.5"/>')}${seg('right', '<path d="M19 5v14M5 12h10M11 8l4 4-4 4"/>')}${seg('stretch', '<path d="M5 5v14M19 5v14M8 12h8M10.5 9.5L8 12l2.5 2.5M13.5 9.5L16 12l-2.5 2.5"/>')}</div>`
     + `<button type="button" class="bp-fih-row" data-fih-toggle aria-expanded="${!!c.fihOpen}"><span>First Input Highlight</span><em>${hi[1]}</em>${pi('<path d="M7 10l5 5 5-5"/>')}</button>${tiles}`
-    + `<div class="sp-row"><span class="sp-label">Lightbox</span><label class="sp-switch" data-unbuilt title="Not built yet"><input type="checkbox" disabled aria-label="Lightbox"><span aria-hidden="true"></span></label></div>`;
+    + `<div class="sp-row"><span class="sp-label">Lightbox</span><label class="sp-switch"><input type="checkbox" aria-label="Lightbox" data-form-lightbox${c.lightbox ? ' checked' : ''}><span aria-hidden="true"></span></label></div>`
+    + (!c.lightbox ? '' : `<label class="sp-row bp-lb-text"><span class="sp-label">Button Text</span><input type="text" aria-label="Button Text" placeholder="Open Form" data-form-lbtext value="${esc(c.lightboxText)}"></label>${colorRow('Background Color', 'lightboxBg', c.lightboxBg)}`);
 }
 function mapContentHtml(c) {
   const f = (key, label, ph) => `<label class="bp-mapf"><span class="bp-soccap">${label}</span><input class="bp-socf" type="text" aria-label="${label}" placeholder="${ph}" data-content="${key}" value="${esc(c[key] || '')}"></label>`;
@@ -473,8 +474,8 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       + row('Corner', `<label class="bp-box bp-vcorner"><input type="number" data-design="corner" aria-label="Corner" min="0" max="500" value="${d.corner || 0}"><span class="bp-unit">px</span></label>`)
       + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`
       + '<div class="bp-thead"><span>Effects</span></div>' + blendRow(d.blend || 'normal', open === 'blend') + blurRows(d);
-    // Code, embed and Line blocks (CODEEMBED.json, T11.json) have the transforms alone.
-    else if (content?.kind === 'code' || content?.kind === 'embed' || content?.kind === 'line') body = `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`;
+    // Code, embed and Line blocks (CODEEMBED.json, T11.json) and a form as a Lightbox button have the transforms alone.
+    else if (content?.kind === 'code' || content?.kind === 'embed' || content?.kind === 'line' || (content?.kind === 'form' && content.lightbox)) body = `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`;
     // A shape's Design tab (parity/findings/SHAPESTYLES.json):
     // shape style, Corner radius with Uniform or Individual radii, Stretch, Color, Blend Mode,
     // Drop Shadow, Blur, then the transforms.
