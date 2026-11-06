@@ -1,0 +1,1195 @@
+{
+  "item": "CAP-L6RESET",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "L6: Reset to default value, by field, on a block made in this session: focused, not focused, desktop and phone",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "at default",
+      {
+        "reset": [
+          "Rotate",
+          0
+        ],
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "30"
+    ],
+    [
+      "read",
+      "desktop 30, focused",
+      {
+        "reset": [
+          "Rotate",
+          0
+        ],
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "focused"
+    ],
+    [
+      "pressReset",
+      "Rotate",
+      0
+    ],
+    [
+      "read",
+      "desktop reset, focused",
+      {
+        "reset": [
+          "Rotate",
+          0
+        ],
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillRow",
+      "Scale",
+      0,
+      "150"
+    ],
+    [
+      "fillRow",
+      "Scale",
+      1,
+      "80"
+    ],
+    [
+      "read",
+      "scale Y focused",
+      {
+        "reset": [
+          "Scale",
+          1
+        ],
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressReset",
+      "Scale",
+      1
+    ],
+    [
+      "read",
+      "desktop scale Y reset",
+      {
+        "reset": [
+          "Scale",
+          1
+        ],
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "30"
+    ],
+    [
+      "fillRow",
+      "Scale",
+      1,
+      "80"
+    ],
+    [
+      "fillRow",
+      "Offset",
+      0,
+      "10"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "blurred, mouse elsewhere",
+      {
+        "reset": [
+          "Rotate",
+          0
+        ],
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hoverRow",
+      "Rotate",
+      0
+    ],
+    [
+      "read",
+      "blurred, hovered",
+      {
+        "reset": [
+          "Rotate",
+          0
+        ],
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "hovered"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "phone start",
+      {
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "45"
+    ],
+    [
+      "read",
+      "phone rotate 45",
+      {
+        "reset": [
+          "Rotate",
+          0
+        ],
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressReset",
+      "Rotate",
+      0
+    ],
+    [
+      "read",
+      "phone rotate reset",
+      {
+        "reset": [
+          "Rotate",
+          0
+        ],
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "phone-rotate"
+    ],
+    [
+      "fillRow",
+      "Scale",
+      1,
+      "50"
+    ],
+    [
+      "pressReset",
+      "Scale",
+      1
+    ],
+    [
+      "read",
+      "phone scale Y reset",
+      {
+        "reset": [
+          "Scale",
+          1
+        ],
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillRow",
+      "Offset",
+      0,
+      "20"
+    ],
+    [
+      "pressReset",
+      "Offset",
+      0
+    ],
+    [
+      "read",
+      "phone offset reset",
+      {
+        "reset": [
+          "Offset",
+          0
+        ],
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillRow",
+      "Skew",
+      0,
+      "5"
+    ],
+    [
+      "pressReset",
+      "Skew",
+      0
+    ],
+    [
+      "read",
+      "phone skew reset, no desktop value",
+      {
+        "reset": [
+          "Skew",
+          0
+        ],
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "desktop after phone resets",
+      {
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "phone after desktop look",
+      {
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset",
+          "Skew"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "at default": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ],
+        "Scale": [
+          "100%",
+          "100%"
+        ],
+        "Offset": [
+          "0px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "reset": {
+        "box": [
+          752,
+          1048,
+          16,
+          16
+        ],
+        "opacity": "0",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "desktop 30, focused": {
+      "rows": {
+        "Rotate": [
+          "30°"
+        ],
+        "Scale": [
+          "100%",
+          "100%"
+        ],
+        "Offset": [
+          "0px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(0.866025, 0.5, -0.5, 0.866025, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          413.7,
+          374.8
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 30deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "reset": {
+        "box": [
+          752,
+          569,
+          16,
+          16
+        ],
+        "opacity": "1",
+        "visibility": "visible",
+        "pointer": "auto",
+        "onTop": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "desktop reset, focused": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ],
+        "Scale": [
+          "100%",
+          "100%"
+        ],
+        "Offset": [
+          "0px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "reset": {
+        "box": [
+          752,
+          569,
+          16,
+          16
+        ],
+        "opacity": "0",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "scale Y focused": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ],
+        "Scale": [
+          "150%",
+          "80%"
+        ],
+        "Offset": [
+          "0px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.5, 0, 0, 0.8, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          512.5,
+          188.5
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 150%; --scale-y: 80%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "reset": {
+        "box": [
+          752,
+          596,
+          16,
+          16
+        ],
+        "opacity": "1",
+        "visibility": "visible",
+        "pointer": "auto",
+        "onTop": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "desktop scale Y reset": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ],
+        "Scale": [
+          "150%",
+          "100%"
+        ],
+        "Offset": [
+          "0px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.5, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          512.5,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 150%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "reset": {
+        "box": [
+          752,
+          596,
+          16,
+          16
+        ],
+        "opacity": "0",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "blurred, mouse elsewhere": {
+      "rows": {
+        "Rotate": [
+          "30°"
+        ],
+        "Scale": [
+          "150%",
+          "80%"
+        ],
+        "Offset": [
+          "10px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.29904, 0.75, -0.4, 0.69282, 10, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          538.1,
+          419.5
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 10px; --translate-y: 0px; --rotation: 30deg; --scale-x: 150%; --scale-y: 80%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "reset": {
+        "box": [
+          752,
+          545,
+          16,
+          16
+        ],
+        "opacity": "1",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "blurred, hovered": {
+      "rows": {
+        "Rotate": [
+          "30°"
+        ],
+        "Scale": [
+          "150%",
+          "80%"
+        ],
+        "Offset": [
+          "10px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.29904, 0.75, -0.4, 0.69282, 10, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          538.1,
+          419.5
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 10px; --translate-y: 0px; --rotation: 30deg; --scale-x: 150%; --scale-y: 80%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "reset": {
+        "box": [
+          752,
+          569,
+          16,
+          16
+        ],
+        "opacity": "1",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone start": {
+      "rows": {
+        "Rotate": [
+          "30°"
+        ],
+        "Scale": [
+          "150%",
+          "80%"
+        ],
+        "Offset": [
+          "10px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.29904, 0.75, -0.4, 0.69282, 10, 0)",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          568.9,
+          420.4
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 10px; --translate-y: 0px; --rotation: 30deg; --scale-x: 150%; --scale-y: 80%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone rotate 45": {
+      "rows": {
+        "Rotate": [
+          "45°"
+        ],
+        "Scale": [
+          "150%",
+          "80%"
+        ],
+        "Offset": [
+          "10px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.06066, 1.06066, -0.565685, 0.565685, 10, 0)",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          512.1,
+          512.1
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 10px; --translate-y: 0px; --rotation: 45deg; --scale-x: 150%; --scale-y: 80%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "reset": {
+        "box": [
+          752,
+          569,
+          16,
+          16
+        ],
+        "opacity": "1",
+        "visibility": "visible",
+        "pointer": "auto",
+        "onTop": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone rotate reset": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ],
+        "Scale": [
+          "150%",
+          "80%"
+        ],
+        "Offset": [
+          "10px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.5, 0, 0, 0.8, 10, 0)",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          565,
+          159.2
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 10px; --translate-y: 0px; --rotation: 0deg; --scale-x: 150%; --scale-y: 80%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "reset": {
+        "box": [
+          752,
+          569,
+          16,
+          16
+        ],
+        "opacity": "0",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone scale Y reset": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ],
+        "Scale": [
+          "150%",
+          "100%"
+        ],
+        "Offset": [
+          "10px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.5, 0, 0, 1, 10, 0)",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          565,
+          199
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 10px; --translate-y: 0px; --rotation: 0deg; --scale-x: 150%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "reset": {
+        "box": [
+          752,
+          596,
+          16,
+          16
+        ],
+        "opacity": "0",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone offset reset": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ],
+        "Scale": [
+          "150%",
+          "100%"
+        ],
+        "Offset": [
+          "0px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.5, 0, 0, 1, 0, 0)",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          565,
+          199
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 150%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "reset": {
+        "box": [
+          658,
+          647,
+          16,
+          16
+        ],
+        "opacity": "0",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone skew reset, no desktop value": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ],
+        "Scale": [
+          "150%",
+          "100%"
+        ],
+        "Offset": [
+          "0px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.5, 0, 0, 1, 0, 0)",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          565,
+          199
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 150%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "reset": {
+        "box": [
+          658,
+          698,
+          16,
+          16
+        ],
+        "opacity": "0",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "desktop after phone resets": {
+      "rows": {
+        "Rotate": [
+          "30°"
+        ],
+        "Scale": [
+          "150%",
+          "80%"
+        ],
+        "Offset": [
+          "10px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.29904, 0.75, -0.4, 0.69282, 10, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          538.1,
+          419.5
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 10px; --translate-y: 0px; --rotation: 30deg; --scale-x: 150%; --scale-y: 80%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone after desktop look": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ],
+        "Scale": [
+          "150%",
+          "100%"
+        ],
+        "Offset": [
+          "0px",
+          "0px"
+        ],
+        "Skew": [
+          "0°",
+          "0°"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.5, 0, 0, 1, 0, 0)",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": "auto",
+        "inner": [
+          565,
+          199
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 150%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": {
+    "corrected": "Reset to default value works. The \"changed nothing, 3 of 3\" note was wrong: the button is only pressable while its field has focus.",
+    "when": "At default: opacity 0, no pointer. Field focused and not default: opacity 1, on top, X shows. Blurred, even hovered: pointer none, no X in the shot.",
+    "desktop": "Rotate 30 gives 0, transform none. Scale Y 80 gives 100, Scale X stays 150.",
+    "phone": "Desktop Rotate 30, phone 45, Reset gives 0 on the phone, not desktop's 30. Same for Scale Y (desktop 80, phone gives 100) and Offset X (desktop 10, phone gives 0). Desktop keeps its values. So Reset writes the default as the phone's own value."
+  },
+  "pressed": [
+    "Reset to default value on Rotate, Scale Y, Offset X and Skew X, on a Shape made in the same unsaved session on Gestures Probe."
+  ],
+  "readBack": "After these presses: site styles panel and Fonts match CAP-BASESIZE (13 and 15 controls), footer social labels and the three pages read as before, nothing dirty.",
+  "ours": "Phone value goes to 0 like the oracle, so the old note that ours removes the phone's value is out of date. Shown on hover, not on focus: .sc-box:hover .sc-reset.is-on.",
+  "differs": [
+    "Ours shows Reset on hover and it can be pressed with the field blurred. The oracle shows it only while the field has focus."
+  ]
+}

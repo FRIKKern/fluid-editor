@@ -1,0 +1,910 @@
+{
+  "item": "CAP-T6RANGE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T6: where the three-dot stroke range ends, and what the Reset under Stroke Color is called. A Reset whose label names a theme is read, never pressed.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "scrollTo",
+      "Thickness"
+    ],
+    [
+      "pressPart",
+      "Thickness",
+      4
+    ],
+    [
+      "read",
+      "dots open",
+      {
+        "range": true,
+        "parts": [
+          "Thickness"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "dots"
+    ],
+    [
+      "fillRange",
+      "100"
+    ],
+    [
+      "read",
+      "typed 100",
+      {
+        "range": true,
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillRange",
+      "500"
+    ],
+    [
+      "read",
+      "typed 500",
+      {
+        "range": true,
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillRange",
+      "1000"
+    ],
+    [
+      "read",
+      "typed 1000",
+      {
+        "range": true,
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillRange",
+      "0"
+    ],
+    [
+      "read",
+      "typed 0",
+      {
+        "range": true,
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillRange",
+      "-5"
+    ],
+    [
+      "read",
+      "typed -5",
+      {
+        "range": true,
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillRange",
+      "3.5"
+    ],
+    [
+      "read",
+      "typed 3.5",
+      {
+        "range": true,
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillRange",
+      "20"
+    ],
+    [
+      "read",
+      "typed 20",
+      {
+        "range": true,
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Stroke Color"
+    ],
+    [
+      "read",
+      "stroke color open",
+      {
+        "boxes": [
+          "Custom color",
+          "Color #B564F7"
+        ],
+        "has": [
+          "Reset to theme",
+          "Reset"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "popup"
+    ],
+    [
+      "pressNamed",
+      "Color #B564F7"
+    ],
+    [
+      "read",
+      "stroke color picked",
+      {
+        "controls": true,
+        "boxes": [
+          "Custom color"
+        ],
+        "has": [
+          "Reset to theme",
+          "Reset"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "picked"
+    ]
+  ],
+  "reads": {
+    "dots open": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "range": {
+        "slider": "6",
+        "field": "6px",
+        "min": "0",
+        "max": "50",
+        "fieldAt": [
+          725,
+          610
+        ]
+      },
+      "parts": {
+        "Thickness": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Thickness",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              483,
+              566,
+              66.2,
+              22
+            ]
+          },
+          {
+            "tag": "label",
+            "type": null,
+            "label": "S",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              597,
+              559,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "label",
+            "type": null,
+            "label": "M",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              639,
+              559,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "label",
+            "type": null,
+            "label": "L",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              681,
+              559,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "label",
+            "type": null,
+            "label": "",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              723,
+              559,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed 100": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 50px",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "range": {
+        "slider": "50",
+        "field": "50px",
+        "min": "0",
+        "max": "50",
+        "fieldAt": [
+          716,
+          610
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed 500": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 50px",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "range": {
+        "slider": "50",
+        "field": "50px",
+        "min": "0",
+        "max": "50",
+        "fieldAt": [
+          716,
+          610
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed 1000": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 50px",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "range": {
+        "slider": "50",
+        "field": "50px",
+        "min": "0",
+        "max": "50",
+        "fieldAt": [
+          716,
+          610
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed 0": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 0px",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "range": {
+        "slider": "0",
+        "field": "0px",
+        "min": "0",
+        "max": "50",
+        "fieldAt": [
+          724,
+          610
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed -5": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 0px",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "range": {
+        "slider": "0",
+        "field": "0px",
+        "min": "0",
+        "max": "50",
+        "fieldAt": [
+          724,
+          610
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed 3.5": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 3.5px",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "range": {
+        "slider": "4",
+        "field": "3.5px",
+        "min": "0",
+        "max": "50",
+        "fieldAt": [
+          714,
+          610
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed 20": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 20px",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "range": {
+        "slider": "20",
+        "field": "20px",
+        "min": "0",
+        "max": "50",
+        "fieldAt": [
+          716,
+          610
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stroke color open": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 20px",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "boxes": {
+        "Custom color": [
+          [
+            1041,
+            497,
+            34,
+            34
+          ],
+          [
+            809,
+            496,
+            266,
+            36
+          ],
+          [
+            803,
+            496,
+            278,
+            36
+          ],
+          [
+            792,
+            474,
+            300,
+            80
+          ]
+        ],
+        "Color #B564F7": [
+          [
+            949.2,
+            497,
+            34,
+            34
+          ],
+          [
+            948.2,
+            496,
+            36,
+            36
+          ],
+          [
+            809,
+            496,
+            266,
+            36
+          ],
+          [
+            803,
+            496,
+            278,
+            36
+          ],
+          [
+            792,
+            474,
+            300,
+            80
+          ]
+        ]
+      },
+      "has": {
+        "Reset to theme": false,
+        "Reset": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stroke color picked": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(181, 100, 247) 20px",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            483,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            545,
+            299,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            472,
+            367,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            472,
+            415,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Stroke Color",
+          "box": [
+            472,
+            506,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "",
+          "value": "20",
+          "min": "0",
+          "max": "50",
+          "step": "1",
+          "box": [
+            483,
+            598.5,
+            212,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "20px",
+          "box": [
+            716,
+            610,
+            37,
+            22
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Drop Shadow",
+          "value": false,
+          "box": [
+            733,
+            658.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": false,
+          "box": [
+            733,
+            703.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            720.5,
+            760,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Custom color",
+          "box": [
+            1041,
+            464,
+            34,
+            34
+          ]
+        },
+        {
+          "role": "slider",
+          "label": "Opacity slider",
+          "min": "0",
+          "max": "1",
+          "now": "1",
+          "box": [
+            1062,
+            518,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset to theme",
+          "box": [
+            803,
+            548,
+            278,
+            28
+          ]
+        }
+      ],
+      "boxes": {
+        "Custom color": [
+          [
+            1041,
+            464,
+            34,
+            34
+          ],
+          [
+            809,
+            463,
+            266,
+            36
+          ],
+          [
+            803,
+            463,
+            278,
+            74
+          ],
+          [
+            803,
+            463,
+            278,
+            113
+          ],
+          [
+            792,
+            441,
+            300,
+            146
+          ]
+        ]
+      },
+      "has": {
+        "Reset to theme": true,
+        "Reset": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": {
+    "range": "Range 0 to 50. 100, 500 and 1000 give 50px. -5 gives 0px. 3.5 stays 3.5px with slider 4.",
+    "popup": "Stroke Color popup 300 by 80 at first. After a swatch: 300 by 146, with Opacity slider and Reset to theme.",
+    "reset": "The Reset under Stroke Color is labelled Reset to theme. It names a theme, so under the ruling it is read and not pressed."
+  },
+  "notPressed": [
+    "Reset to theme under Stroke Color."
+  ],
+  "ours": "Range matches in every value. Ours popup is 300 by 66 before a swatch; its height after a swatch was not printed.",
+  "differs": [
+    "Stroke Color popup height: oracle 80, ours 66."
+  ]
+}

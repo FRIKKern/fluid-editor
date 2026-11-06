@@ -1,0 +1,1079 @@
+{
+  "item": "CAP-T6THEME",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T6: a section theme's own shape color, read on a new Shape, with and without a picked color",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "pressNamed",
+      "Color #FFCF5A"
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "theme at start",
+      {
+        "style": [
+          0,
+          0
+        ],
+        "section": 0
+      }
+    ],
+    [
+      "read",
+      "second at start",
+      {
+        "style": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "hover",
+      0
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "click",
+      "Colors"
+    ],
+    [
+      "read",
+      "colors tab",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "colors"
+    ],
+    [
+      "scrollTo",
+      "Lightest 1"
+    ],
+    [
+      "pressNamed",
+      "Lightest 1"
+    ],
+    [
+      "read",
+      "Lightest 1: plain",
+      {
+        "style": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "Lightest 1: picked",
+      {
+        "style": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "scrollTo",
+      "Lightest 2"
+    ],
+    [
+      "pressNamed",
+      "Lightest 2"
+    ],
+    [
+      "read",
+      "Lightest 2: plain",
+      {
+        "style": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "Lightest 2: picked",
+      {
+        "style": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "scrollTo",
+      "Light 1"
+    ],
+    [
+      "pressNamed",
+      "Light 1"
+    ],
+    [
+      "read",
+      "Light 1: plain",
+      {
+        "style": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "Light 1: picked",
+      {
+        "style": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "scrollTo",
+      "Light 2"
+    ],
+    [
+      "pressNamed",
+      "Light 2"
+    ],
+    [
+      "read",
+      "Light 2: plain",
+      {
+        "style": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "Light 2: picked",
+      {
+        "style": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "scrollTo",
+      "Bright 1"
+    ],
+    [
+      "pressNamed",
+      "Bright 1"
+    ],
+    [
+      "read",
+      "Bright 1: plain",
+      {
+        "style": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "Bright 1: picked",
+      {
+        "style": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "scrollTo",
+      "Bright 2"
+    ],
+    [
+      "pressNamed",
+      "Bright 2"
+    ],
+    [
+      "read",
+      "Bright 2: plain",
+      {
+        "style": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "Bright 2: picked",
+      {
+        "style": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "scrollTo",
+      "Dark 1"
+    ],
+    [
+      "pressNamed",
+      "Dark 1"
+    ],
+    [
+      "read",
+      "Dark 1: plain",
+      {
+        "style": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "Dark 1: picked",
+      {
+        "style": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "scrollTo",
+      "Dark 2"
+    ],
+    [
+      "pressNamed",
+      "Dark 2"
+    ],
+    [
+      "read",
+      "Dark 2: plain",
+      {
+        "style": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "Dark 2: picked",
+      {
+        "style": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "scrollTo",
+      "Darkest 1"
+    ],
+    [
+      "pressNamed",
+      "Darkest 1"
+    ],
+    [
+      "read",
+      "Darkest 1: plain",
+      {
+        "style": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "Darkest 1: picked",
+      {
+        "style": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "scrollTo",
+      "Darkest 2"
+    ],
+    [
+      "pressNamed",
+      "Darkest 2"
+    ],
+    [
+      "read",
+      "Darkest 2: plain",
+      {
+        "style": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "Darkest 2: picked",
+      {
+        "style": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "shot",
+      "themed"
+    ]
+  ],
+  "reads": {
+    "theme at start": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "second at start": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "colors tab": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1258,
+            248,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1280,
+            248,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1342,
+            248,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1437.7,
+            248,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Color Theme Editor",
+          "box": [
+            1424.6,
+            341,
+            108.8,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "AaLightest 1",
+          "box": [
+            1280,
+            374,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "AaLightest 2",
+          "box": [
+            1280,
+            429,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "AaLight 1",
+          "box": [
+            1280,
+            484,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "AaLight 2",
+          "box": [
+            1280,
+            539,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "AaBright 1",
+          "box": [
+            1280,
+            594,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "AaBright 2",
+          "box": [
+            1280,
+            649,
+            276,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Lightest 1: plain": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Lightest 1: picked": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Lightest 2: plain": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Lightest 2: picked": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Light 1: plain": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Light 1: picked": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Light 2: plain": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Light 2: picked": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Bright 1: plain": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(242, 184, 180)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(242, 184, 180)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Bright 1: picked": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(242, 184, 180)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Bright 2: plain": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Bright 2: picked": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Dark 1: plain": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Dark 1: picked": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(242, 184, 180) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Dark 2: plain": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Dark 2: picked": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(242, 184, 180) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Darkest 1: plain": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Darkest 1: picked": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Darkest 2: plain": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Darkest 2: picked": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": {
+    "plain": "A new Shape follows the section theme. Lightest 1 and 2 rgb(255,207,90). Light 1 and 2 white. Bright 1 rgb(242,184,180). Bright 2 black. Dark 1, 2 and Darkest 1, 2 white.",
+    "stroke": "A new stroke follows too: black, but rgb(242,184,180) on Dark 1 and 2.",
+    "picked": "A picked color does not follow: rgb(255,207,90) on all ten."
+  },
+  "ours": "Fixed: a new Shape stores white, and its stroke stays black, on all ten themes. A picked color stays, like the oracle.",
+  "differs": [
+    "New Shape color does not follow the section theme.",
+    "New stroke color does not follow the section theme."
+  ]
+}

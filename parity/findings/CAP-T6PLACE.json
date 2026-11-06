@@ -1,0 +1,942 @@
+{
+  "item": "CAP-T6PLACE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T6: where the shape picker and the color popup sit, at a few block places",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pressAfter",
+      "Shape style"
+    ],
+    [
+      "read",
+      "left picker",
+      {
+        "boxes": [
+          "Circle"
+        ],
+        "has": [
+          "Design"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Rectangle"
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "read",
+      "left popup",
+      {
+        "boxes": [
+          "Custom color",
+          "Design"
+        ],
+        "block": [
+          0,
+          "new"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pressAfter",
+      "Shape style"
+    ],
+    [
+      "read",
+      "middle picker",
+      {
+        "boxes": [
+          "Circle"
+        ],
+        "has": [
+          "Design"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Rectangle"
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "read",
+      "middle popup",
+      {
+        "boxes": [
+          "Custom color",
+          "Design"
+        ],
+        "block": [
+          0,
+          "new"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "shot",
+      "middle"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pressAfter",
+      "Shape style"
+    ],
+    [
+      "read",
+      "right picker",
+      {
+        "boxes": [
+          "Circle"
+        ],
+        "has": [
+          "Design"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Rectangle"
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "read",
+      "right popup",
+      {
+        "boxes": [
+          "Custom color",
+          "Design"
+        ],
+        "block": [
+          0,
+          "new"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "shot",
+      "right"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      -1000,
+      500
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pressAfter",
+      "Shape style"
+    ],
+    [
+      "read",
+      "low picker",
+      {
+        "boxes": [
+          "Circle"
+        ],
+        "has": [
+          "Design"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Rectangle"
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "read",
+      "low popup",
+      {
+        "boxes": [
+          "Custom color",
+          "Design"
+        ],
+        "block": [
+          0,
+          "new"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "shot",
+      "low"
+    ]
+  ],
+  "reads": {
+    "left picker": {
+      "boxes": {
+        "Circle": [
+          [
+            582.7,
+            227,
+            77,
+            77
+          ],
+          [
+            499,
+            227,
+            250,
+            779
+          ],
+          [
+            483,
+            216,
+            276,
+            801
+          ],
+          [
+            0,
+            0,
+            1600,
+            1000
+          ],
+          [
+            0,
+            945,
+            1600,
+            0
+          ]
+        ]
+      },
+      "has": {
+        "Design": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "left popup": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793941160168_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "boxes": {
+        "Custom color": [
+          [
+            1041,
+            644,
+            34,
+            34
+          ],
+          [
+            809,
+            643,
+            266,
+            36
+          ],
+          [
+            803,
+            643,
+            278,
+            74
+          ],
+          [
+            792,
+            621,
+            300,
+            107
+          ]
+        ],
+        "Design": [
+          [
+            483,
+            301,
+            46,
+            55
+          ],
+          [
+            483,
+            301,
+            276,
+            55
+          ],
+          [
+            461,
+            301,
+            320,
+            55
+          ],
+          [
+            461,
+            301,
+            320,
+            502
+          ],
+          [
+            461,
+            301,
+            320,
+            500
+          ],
+          [
+            0,
+            0,
+            1600,
+            1000
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "middle picker": {
+      "boxes": {
+        "Circle": [
+          [
+            1052.7,
+            227,
+            77,
+            77
+          ],
+          [
+            969,
+            227,
+            250,
+            779
+          ],
+          [
+            953,
+            216,
+            276,
+            801
+          ],
+          [
+            0,
+            0,
+            1600,
+            1000
+          ],
+          [
+            0,
+            945,
+            1600,
+            0
+          ]
+        ]
+      },
+      "has": {
+        "Design": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "middle popup": {
+      "block": {
+        "desktop": "1/10/7/16",
+        "mobile": "1/2/7/10",
+        "box": [
+          570.4,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793941160168_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 10 / 7 / 16",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "boxes": {
+        "Custom color": [
+          [
+            1511,
+            644,
+            34,
+            34
+          ],
+          [
+            1279,
+            643,
+            266,
+            36
+          ],
+          [
+            1273,
+            643,
+            278,
+            74
+          ],
+          [
+            1262,
+            621,
+            300,
+            107
+          ]
+        ],
+        "Design": [
+          [
+            953,
+            301,
+            46,
+            55
+          ],
+          [
+            953,
+            301,
+            276,
+            55
+          ],
+          [
+            931,
+            301,
+            320,
+            55
+          ],
+          [
+            931,
+            301,
+            320,
+            502
+          ],
+          [
+            931,
+            301,
+            320,
+            500
+          ],
+          [
+            0,
+            0,
+            1600,
+            1000
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/10/7/16",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "right picker": {
+      "boxes": {
+        "Circle": [
+          [
+            1381.7,
+            227,
+            77,
+            77
+          ],
+          [
+            1298,
+            227,
+            250,
+            779
+          ],
+          [
+            1282,
+            216,
+            276,
+            801
+          ],
+          [
+            0,
+            0,
+            1600,
+            1000
+          ],
+          [
+            0,
+            945,
+            1600,
+            0
+          ]
+        ]
+      },
+      "has": {
+        "Design": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "right popup": {
+      "block": {
+        "desktop": "1/18/7/24",
+        "mobile": "1/2/7/10",
+        "box": [
+          1040.6,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793941160168_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 18 / 7 / 24",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "boxes": {
+        "Custom color": [
+          [
+            1198,
+            644,
+            34,
+            34
+          ],
+          [
+            966,
+            643,
+            266,
+            36
+          ],
+          [
+            960,
+            643,
+            278,
+            74
+          ],
+          [
+            949,
+            621,
+            300,
+            107
+          ]
+        ],
+        "Design": [
+          [
+            1282,
+            301,
+            46,
+            55
+          ],
+          [
+            1282,
+            301,
+            276,
+            55
+          ],
+          [
+            1260,
+            301,
+            320,
+            55
+          ],
+          [
+            1260,
+            301,
+            320,
+            502
+          ],
+          [
+            1260,
+            301,
+            320,
+            500
+          ],
+          [
+            0,
+            0,
+            1600,
+            1000
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/18/7/24",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "low picker": {
+      "boxes": {
+        "Circle": [
+          [
+            523.7,
+            231,
+            77,
+            77
+          ],
+          [
+            440,
+            231,
+            250,
+            779
+          ],
+          [
+            424,
+            220,
+            276,
+            801
+          ],
+          [
+            0,
+            0,
+            1600,
+            1000
+          ],
+          [
+            0,
+            945,
+            1600,
+            0
+          ]
+        ]
+      },
+      "has": {
+        "Design": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "low popup": {
+      "block": {
+        "desktop": "13/1/19/7",
+        "mobile": "1/2/7/10",
+        "box": [
+          0,
+          200.4,
+          383,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793941160168_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "13 / 1 / 19 / 7",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -4,112.8",
+          "col 10x10 at 379,112.8",
+          "ne 10x10 at 379,-6",
+          "nw 10x10 at -4,-6",
+          "row 10x10 at 186.5,-6",
+          "row 10x10 at 186.5,231.6",
+          "se 10x10 at 379,231.6",
+          "sw 10x10 at -4,231.6"
+        ]
+      },
+      "boxes": {
+        "Custom color": [
+          [
+            982,
+            600,
+            34,
+            34
+          ],
+          [
+            750,
+            599,
+            266,
+            36
+          ],
+          [
+            744,
+            599,
+            278,
+            74
+          ],
+          [
+            733,
+            577,
+            300,
+            107
+          ]
+        ],
+        "Design": [
+          [
+            424,
+            257,
+            46,
+            55
+          ],
+          [
+            424,
+            257,
+            276,
+            55
+          ],
+          [
+            402,
+            257,
+            320,
+            55
+          ],
+          [
+            402,
+            257,
+            320,
+            502
+          ],
+          [
+            402,
+            257,
+            320,
+            500
+          ],
+          [
+            0,
+            0,
+            1600,
+            1000
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "13/1/19/7",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": {
+    "picker": "276 by 801, 22 right of the panel, 85 above it at the default place, running past the bottom of the screen. Low on the page: top 220, panel 257.",
+    "popup": "300 wide, 11 right of the panel, or 311 left of it when there is no room.",
+    "panel": "A block at the right: panel at 1260, the screen edge less 20, over the block."
+  },
+  "ours": "Picker x and height match, 802 tall, top 85 above the panel. Popup x matches at the left and middle.",
+  "differs": [
+    "Block at the right, 1040.6 to 1382: the oracle panel stays at 1260 over the block; ours flips it left of the block to 702.6, and its popup follows at 1033.6, where the oracle has 949.",
+    "Color popup height: oracle 107, ours 94.",
+    "Low block, not the same scroll so inferred only: ours shrinks the picker to 585 to fit the screen, the oracle stayed 801."
+  ]
+}

@@ -1,0 +1,452 @@
+{
+  "item": "CAP-T6LAYOUT",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T6: a stroke and a color per layout on a Shape, set on the phone, read on desktop, and desktop values flowing down",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "phone start",
+      {
+        "style": [
+          0,
+          "new"
+        ],
+        "leaves": [
+          "Color",
+          "Stroke Color"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "pressNamed",
+      "Color #FFCF5A"
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "pressNamed",
+      "Stroke Color"
+    ],
+    [
+      "pressNamed",
+      "Color #B564F7"
+    ],
+    [
+      "pressNamed",
+      "Stroke Color"
+    ],
+    [
+      "read",
+      "phone set",
+      {
+        "style": [
+          0,
+          "new"
+        ],
+        "leaves": [
+          "Color",
+          "Stroke",
+          "Stroke Color"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "phone-set"
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "desktop after phone",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "pressNamed",
+      "Color #F2B8B4"
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "pressNamed",
+      "Dashed Stroke"
+    ],
+    [
+      "pressNamed",
+      "Stroke Color"
+    ],
+    [
+      "pressNamed",
+      "Color #000000"
+    ],
+    [
+      "pressNamed",
+      "Stroke Color"
+    ],
+    [
+      "read",
+      "desktop set",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "phone keeps its own",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "pressNamed",
+      "Color #FFCF5A"
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "pressNamed",
+      "Stroke Color"
+    ],
+    [
+      "pressNamed",
+      "Color #B564F7"
+    ],
+    [
+      "pressNamed",
+      "Stroke Color"
+    ],
+    [
+      "read",
+      "second, desktop",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "second, phone flows",
+      {
+        "style": [
+          0,
+          "new"
+        ],
+        "leaves": [
+          "Color",
+          "Stroke",
+          "Stroke Color"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "phone start": {
+      "style": {
+        "transform": "none",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          376.7,
+          199
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "leaves": {
+        "Color": null,
+        "Stroke Color": null
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone set": {
+      "style": {
+        "transform": "none",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(181, 100, 247) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          376.7,
+          199
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "leaves": {
+        "Color": "underline dotted",
+        "Stroke": "underline dotted",
+        "Stroke Color": "underline dotted"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "desktop after phone": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "desktop set": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(242, 184, 180)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone keeps its own": {
+      "style": {
+        "transform": "none",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(181, 100, 247) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          376.7,
+          199
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "second, desktop": {
+      "style": {
+        "transform": "none",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(181, 100, 247) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "second, phone flows": {
+      "style": {
+        "transform": "none",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(181, 100, 247) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          376.7,
+          199
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "leaves": {
+        "Color": null,
+        "Stroke": null,
+        "Stroke Color": null
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Color, Stroke and Stroke Color are per layout on a Shape, like the other Design values. Phone set yellow and purple: desktop stays white, no stroke. Desktop then set pink and dashed black: phone keeps yellow and purple. On a second Shape, desktop values reach the phone. Rows the phone set have the dotted label.",
+  "ours": "Not per layout.",
+  "differs": [
+    "Color set on a phone changes desktop too: one value per block.",
+    "Stroke set on a phone does not draw on the phone or anywhere: the shape draws desktop's stroke in every layout."
+  ]
+}

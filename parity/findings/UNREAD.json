@@ -5,10 +5,12 @@
   "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here.",
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it. ask: the lead rules.",
   "counts": {
-    "total": 82,
-    "yes": 69,
+    "total": 84,
+    "yes": 70,
     "no": 11,
-    "ask": 2
+    "ask": 3,
+    "read": 10,
+    "notPressed": 1
   },
   "entries": [
     {
@@ -18,7 +20,9 @@
       "safeRead": "yes",
       "how": "custom height field on a probe section",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-P3FIELD.json",
+      "result": "No cap read; value times 9.45. Ours the same."
     },
     {
       "item": "P3",
@@ -27,7 +31,9 @@
       "safeRead": "yes",
       "how": "same field",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-P3FIELD.json",
+      "result": "Read. Ours differs for fill 12.5, words, empty and negatives."
     },
     {
       "item": "P3",
@@ -36,7 +42,9 @@
       "safeRead": "yes",
       "how": "hold the slider with real mouse, read the section each move",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-P3FIELD.json",
+      "result": "Section follows while held. Ours does not."
     },
     {
       "item": "T5",
@@ -72,7 +80,9 @@
       "safeRead": "yes",
       "how": "pick each shape on a probe page, read the box",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T6STRETCH.json",
+      "result": "All 29 by proportion. Ours 29 of 29."
     },
     {
       "item": "T6",
@@ -81,7 +91,9 @@
       "safeRead": "yes",
       "how": "type high values, read back",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T6RANGE.json",
+      "result": "0 to 50. Ours the same."
     },
     {
       "item": "T6",
@@ -90,7 +102,9 @@
       "safeRead": "yes",
       "how": "read their boxes at a few block places",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T6PLACE.json",
+      "result": "Read at four places. Ours differs at the right edge."
     },
     {
       "item": "T6",
@@ -99,7 +113,9 @@
       "safeRead": "yes",
       "how": "section theme on a probe section, read the fill",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T6THEME.json",
+      "result": "Follows the theme. Ours fixed."
     },
     {
       "item": "T6",
@@ -108,7 +124,9 @@
       "safeRead": "yes",
       "how": "set each on Mobile View, read Desktop",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T6LAYOUT.json",
+      "result": "Per layout. Ours not."
     },
     {
       "item": "T6",
@@ -117,7 +135,9 @@
       "safeRead": "ask",
       "why": "the brief lists Reset as read only. This one acts on one block, not the site",
       "lane": "lead to rule",
-      "state": "open"
+      "state": "not pressed",
+      "finding": "CAP-T6RANGE.json",
+      "result": "Label read: Reset to theme. Names a theme, so not pressed under the ruling."
     },
     {
       "item": "T6",
@@ -459,7 +479,9 @@
       "safeRead": "yes",
       "how": "set each in Mobile View, read Desktop",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-L6PHONE.json, CAP-L6PHONE2.json",
+      "result": "Per layout, all six. Ours: no Anchor, Corner one value."
     },
     {
       "item": "L6",
@@ -468,7 +490,9 @@
       "safeRead": "ask",
       "why": "the brief lists Reset as read only. This one acts on one block field",
       "lane": "lead to rule",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-L6RESET.json",
+      "result": "Works while the field has focus; writes the default as the phone's own value."
     },
     {
       "item": "S3",
@@ -747,6 +771,24 @@
       "safeRead": "no",
       "why": "a WebKit tab needs the owner's window in front",
       "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "L6",
+      "what": "The phone-only button right of the Animation tab: what it does",
+      "source": "CAP-L6PHONE2.json",
+      "safeRead": "ask",
+      "why": "looks like a block-level reset to desktop, has no label, and the ruling covers only Reset to default value and Stroke Color",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "L6",
+      "what": "What hover or press does on a dotted label of a row the phone set",
+      "source": "CAP-L6PHONE2.json",
+      "safeRead": "yes",
+      "how": "hover on a block made in the session on a probe page, read, shot",
+      "lane": "recorder",
       "state": "open"
     }
   ]
