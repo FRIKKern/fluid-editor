@@ -554,7 +554,7 @@
     "id": "G4",
     "area": "Geometry and snapping",
     "milestone": "M4",
-    "status": "done",
+    "status": "partial",
     "title": "Snap threshold and dead zone",
     "wasUnknown": true,
     "evidence": "parity/findings/SNAP.json walks a held drag and resize 1px at a time on the oracle (headless Chrome, demo gap 11): a held line moves when the edge in front passes the middle of the next track, so the first step is half a pitch plus half a gap; a side margin counts as its width less the gap; there is no dead zone beyond that and no hysteresis, the same px forward and back. Rows follow the same rule on a uniform pitch. Drags of 0.3, 0.5, 0.52 and 0.55 columns stay and 0.6 moves (T0004, T0005, T0006); our editor replays them (parity/gate-c.json) and npm run snap-check is 24 of 24. Phones and a start inside a margin follow the same rule on the oracle (CAP-G4PHONE.json, CAP-G4MARGIN.json). Ours matches except a south east resize from the left margin, first line at 34 against 51, and a phone move into the margin, 13 against 14. Not read: other gaps, no control found outside Site Styles, which stay read only. Group resize keeps its nearest-line rule, not measured against this."
@@ -638,7 +638,7 @@
     "id": "X6",
     "area": "Gestures",
     "milestone": "M4",
-    "status": "done",
+    "status": "partial",
     "title": "Which handles each block type shows",
     "wasUnknown": true,
     "evidence": "parity/findings/X6.json: text, shape and button blocks show all 8 handles with the same cursors on the oracle, as in our editor. parity/findings/CAP-HANDLES.json: Image, Form, Line, Scrolling, Map, Social Links and Quote also show 8 handles of 10 by 10 with the same cursors. Dragging proved it on a Line only (CAP-LINEHANDLE.json): east adds columns, south adds rows. A Line is selected when added; a click keeps it selected, like a Shape or Button (parity/findings/LINEHIT.json, corrects CAP-LINEHANDLE.json). Why a drag from the middle of a one-row Line grows it: each handle takes the pointer in a 34px box, so at 30px high the south handle covers the middle; 30 percent along moves it. Ours has the same 8 handles, cursors and 34px box on all those block types, and with the real mouse the same two ends and the same click (npm run mid-check). Pulled on 12 more types (CAP-X6PULLS.json): 7 match. Button, Social Links, Markdown and Code differ on a north pull, Code on a west pull at 4 columns, Video on north west out, all named in its differs. A second reading on a probe page agrees (parity/findings/CAP-LINEMIDDLE.json): a press across the middle of a selected 224 by 30 Line grows it, a quarter across moves it; not selected, the middle moves it."
@@ -695,7 +695,7 @@
     "id": "X11",
     "area": "Gestures",
     "milestone": "M4",
-    "status": "done",
+    "status": "partial",
     "title": "Touch and pen input",
     "evidence": "parity/findings/TOUCHHOLD.json, on a new page that scrolls: a tap selects; a touch drags like a mouse; the browser cancels it, nothing moved, only if the first move passes its 15px pan distance after a press under about 100 ms (60 is cancelled, 100 moves; the 100 ms hold in ours is a pick between them); a touch on a handle resizes; a touch on the empty grid draws no box; a pen does what a mouse does. This corrects CAP-TOUCH.json's quick drag and handle reads, one each on the demo page; why they differed is not known. Ours matches with real touch events and a pen (npm run mid-check, 15 cases); before this a touch drag ended at once and a block could never pan. Touch events were sent over the debug protocol without touch emulation, and no real device was tried, so a real device may differ. Read at 20px a move (CAP-X11FAST.json): the oracle needs a 100 ms hold there, as on a body, and ours resizes without one."
   },
@@ -703,7 +703,7 @@
     "id": "X13",
     "area": "Gestures",
     "milestone": "M4",
-    "status": "done",
+    "status": "partial",
     "title": "Marquee selection: drag over an empty area to select the blocks inside",
     "evidence": "Found in hands-on testing 2026-11-03: on the oracle a drag that starts on empty canvas draws a selection area and selects several blocks at once.  Measured 2026-11-04 (parity/findings/X13.json, demo section 2): the box is a 3px rgb(0, 114, 240) outline with no fill; a block it touches is selected (a corner of the paragraph was enough); the paragraph and the shape together got the group toolbar (Stack Blocks, Align Group). Measured again with real mouse input (same finding, measured2): the box starts at 30px, from anywhere in the section; it grows over other sections but selects only blocks of its own section; no auto-scroll at the window edges; held blocks get thin outlines, no toolbar or handles; a selection stays until the box touches a block, then the touched blocks replace it on release; Escape does nothing while held. Ours does all of this: npm run mid-check, 9 marquee cases of 9, and a screenshot next to the oracle's. Read with a selection (CAP-X13SEL.json): a drag under 30px clears it on release, and a box that touched a block and left it keeps it, as ours. While the box is up the oracle keeps that block's toolbar and handles; ours hides them from 30px. The small type label a hovered block shows is U3's, and built: on the oracle it shows on hover only, not when selected or held (read again 2026-11-04), as in ours (npm run marks-check). Gate C: 23 of 23 in Chrome"
   },
@@ -1003,7 +1003,7 @@
     "id": "U3",
     "area": "Editor chrome",
     "milestone": "M5",
-    "status": "done",
+    "status": "partial",
     "title": "Hover and selection outlines, handles, label pill",
     "evidence": "parity/findings/MARKS.json, rings, handles, labels. Hover draws the selection's two rings with a pill 22px above; the pill's box stays in the page and takes the pointer at opacity 0. Handles: a 34px hit box with a 10px mark, on all 11 block types read. Selected, hovered, text edited, held, group and phone states all in npm run marks-check (parity/marks-check.json, 52 of 52). Pixels of the selected, group and member lines match. Pill letters use a fallback font: Clarkson is not in the repo (O2), widths within 2px. Not read: a stack's pill Read on 32 types (CAP-X13LABELS.json): the pill names the type as the Add Block menu does; 19 types say Shape in ours."
   },
@@ -1011,7 +1011,7 @@
     "id": "U4",
     "area": "Editor chrome",
     "milestone": "M5",
-    "status": "done",
+    "status": "partial",
     "title": "Block toolbar: edit, design, duplicate, delete, layers",
     "evidence": "The floating toolbar (parity/findings/TOOLBARGEO.json, 5 blocks at a 1600px window): white, 42px tall, 6px radius, 4px right of the block and 60px above it, never closer than 23.5px to the canvas top; 36px buttons 4px apart, 1px by 20px #e7e7e7 separators, icons #0e0e0e, Remove #db3642, unavailable #b7b7b7; its shadow sits on a parent 1px larger each way (TOOLBARGEO shadow). Buttons per type and layout as in parity/findings/TOOLBARS.json. Move Forward and Backward show when the block overlaps another, or when any block in its section is pinned in that layout, on desktop and phones (TOOLBARS zButtons, parity/findings/CAP-PHONE.json); with a pin they compare against the whole section. Ours matches the toolbar box, every button and separator box, the labels and the rings within 1px: npm run chrome-check, in Chrome (parity/chrome-check.json). Phones (TOOLBARS phoneBars): shape and text buttons and separators within 1px. Move Up is off at the top of the phone stack, Move Down at the bottom. Write, Move Forward/Backward, Move Up/Down, Duplicate and Remove work. Edit opens our Design group (T15). Tips (TOOLBARS tips): on every usable button 11px below it and centred, 44px tall, with its keys in chips (SHIFT, OPTION, the Cmd mark and D, DELETE), Primary says Button Type and the link says Edit Link, none on an unavailable button; ours match, widths within 12px (our stand-in font). Align Vertically (TOOLBARS alignMenu): a click opens a 124 by 44 menu 4px under the bar, centred on the button, with Align Top, Center and Bottom; the current one is grey, as is the open button, which shows the current icon. A pick stays open, one undo each, and sets justify-content and align-items in the layout on screen only. A second click, Pin, another block or Escape closes it. Pin (parity/findings/PIN.json, demo shape): the first click pins the block to the top (position: sticky; top: 0px), one undo step, and opens a 248 by 140 popover centred under the button and 7px below it with Pin to Top, Center and Bottom on Scroll, Remove Pin, and Offset; a second click closes it and keeps the pin; Escape closes it, the block stays selected and the next Escape deselects. Slider (PIN range): 0 to 250, step 1, moves the block live and each value is one undo step. Field (PIN field): needs a number and a unit (px, em, rem, vh, vw, %), kept as typed, no limit; the slider shows the number rounded and held to its range; anything else stays as typed on Enter and goes back on leaving the field. On phones (PIN phones) Pin writes the base rule and desktop stays unpinned, and the other way round. Button style (parity/findings/BUTTONSTYLE.json): the toolbar's Primary button opens three 171 by 55 options with an Aa sample: Primary, Secondary, Tertiary; each sets data-button-type and data-button-size (medium, large, small) and the classes sqs-block-button-element--SIZE sqs-button-element--TYPE on the link, one undo each; on this site all three look the same. Ours writes the same classes (the data attributes on .sqs-block-content, not a container div) and names the current style on the toolbar. Measured in Chrome: scripts/marks-check.mjs (U4 section), parity/marks-check.json. Our icons are our own (O2). Inferred, not read: Forward and Backward counting only overlapping blocks when nothing is pinned, and showing for a pinned block alone in its section; the tip's 200 ms delay (the oracle shows it between 100 and 400 ms); a slider move after a non-px value drops to px; the group toolbar sharing this shadow; the tip saying Button Type on a block that is not Primary. A Button that has been in a stack keeps its own width and gains Align Horizontally and Align Vertically (S3.json fitButton): ours matches, npm run marks-check. With no room above (CAP-TBTOP.json, CAP-TBWIDE.json, CAP-TBREMOVE.json): the buttons stop at window y 81, ours 81.5; the bar covers the south handle of a one-row block, and a press there can hit Remove, as in ours. A Line's bar has Align Vertically on the oracle, not in ours.",
     "controls": [
