@@ -1,12 +1,14 @@
 // A form's fields (parity/findings/FORMFIELDS.json): what each kind draws on the page, and the
 // Edit Form Fields views. A label ending in (required) is a required field, as in FORMADD.json.
 import { escapeHtml as e } from './render.js';
+import { COUNTRIES } from './form-countries.js';
+import { lookBox } from './code-look.js';
 
 const REQ = '(required)';
 export const isRequired = (l = '') => l.endsWith(REQ);
 export const plainLabel = (l = '') => (isRequired(l) ? l.slice(0, -REQ.length) : l);
 const withReq = (l, on) => plainLabel(l) + (on ? REQ : '');
-const req = (t = '') => (isRequired(t) ? `${e(plainLabel(t))}<span class="req">${REQ}</span>` : e(t));
+const req = (t = '') => (isRequired(t) ? `${e(plainLabel(t))}<span class="req${plainLabel(t) ? '' : ' req--alone'}">${REQ}</span>` : e(t));
 
 // Tile, kind, new field. New fields are not required. A new Checkbox or Radio has its options
 // further apart than the imported Contact form's (drawn; T9.json): loose.
@@ -35,20 +37,10 @@ export const FIELD_TILES = [
 const tileOf = (f) => FIELD_TILES.find((t) => t[1] === (f.kind || 'text')) || FIELD_TILES[1];
 export const newField = (name) => { const t = FIELD_TILES.find((x) => x[0] === name); return { kind: t[1], ...t[2]() }; };
 
-// The browser's own region names: the oracle's list has 245 countries, with the site's country chosen.
-const NOT_A_COUNTRY = new Set(['AC', 'CP', 'DG', 'EA', 'EU', 'EZ', 'IC', 'QO', 'TA', 'UN', 'XA', 'XB', 'ZZ']);
-let countries;
-function countryOptions() {
-  if (!countries) {
-    const names = new Intl.DisplayNames(['en'], { type: 'region', fallback: 'none' }), list = new Set();
-    for (let a = 65; a <= 90; a++) for (let b = 65; b <= 90; b++) {
-      const code = String.fromCharCode(a, b), name = NOT_A_COUNTRY.has(code) ? null : names.of(code);
-      if (name) list.add(name);
-    }
-    countries = [...list].sort((x, y) => x.localeCompare(y, 'en')).map((n) => `<option${n === 'Norway' ? ' selected' : ''}>${e(n)}</option>`).join('');
-  }
-  return countries;
-}
+// The oracle's list, with the site's country chosen.
+const countryOptions = () => COUNTRIES.map((n) => `<option${n === 'Norway' ? ' selected' : ''}>${e(n)}</option>`).join('');
+// Hidden's Variable: letters and digits of any alphabet stay, upper case, and each other run is one _ (FORMFIELDS.json, hiddenVariable).
+const variableOf = (f) => `SQF_${plainLabel(f.label).toUpperCase().replace(/[^\p{L}\p{N}]+/gu, '_')}`;
 
 const CHEVRON = '<svg class="form-chevron" viewBox="0 0 18 12" width="18" height="12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 3l7 7 7-7"/></svg>';
 const PICK_ICONS = {
@@ -200,7 +192,7 @@ const head = (title) => `<div class="bp-ishape-head" data-drag-panel><button typ
 
 function listHtml(fields) {
   const rows = fields.map((f, n) => {
-    const name = e(nameOf(f));
+    const name = e(plainLabel(f.label) || `Item ${n + 1}`); // an emptied label (FORMFIELDS.json, emptyLabel)
     return `<div class="bp-ff-row" data-ff="edit:${n}">${GRIP}<span class="bp-ff-ic">${ic(ICONS[tileOf(f)[1]])}</span><span class="bp-ff-name">${name}</span><button type="button" class="bp-ff-del" aria-label="Delete ${name}" data-ff="delete:${n}">${ic(TRASH)}</button><button type="button" class="bp-ff-go" aria-label="Navigate to ${name}">${ic(ARROW, 16)}</button></div>`;
   }).join('');
   return `${head('Edit Form Fields')}<div class="bp-ff bp-ff-list">${rows}<button type="button" class="bp-soc-add bp-ff-add" data-ff="add">Add Field</button></div>`;
@@ -218,7 +210,7 @@ const actions = (n) => `<div class="bp-ff-acts"><button type="button" class="bp-
 const optionRows = (f, n, inFollow = false) => (f.options || []).map((o, i) => {
   const many = followOf(f, i).length;
   if (many && !inFollow) return `<div class="bp-ffo-row is-follow" data-ff="opt:${n}:${i}">${OGRIP}<span class="bp-ffo-name"><span>${e(o)}</span><small>${many} follow-up${many > 1 ? 's' : ''}</small></span>${ic(ARROW, 22)}</div>`;
-  return `<div class="bp-ffo-row">${OGRIP}<input type="text" placeholder="Option ${i + 1}" data-ff-opt="${i}" value="${e(o)}"><button type="button" class="bp-ffo-menu" aria-label="Open Menu" data-ff-menu="${n}:${i}">${ic(DOTS)}</button></div>`;
+  return `<div class="bp-ffo-row">${OGRIP}<input type="text" placeholder="Option ${i + 1}" data-ff-opt="${i}" value="${e(o)}"><button type="button" class="bp-ffo-menu" aria-label="Open Menu" data-tip="Open menu" data-ff-menu="${n}:${i}">${ic(DOTS)}</button></div>`;
 }).join('');
 const fuLine = (t, key, hint, v) => `<div class="bp-fu-cap">${t}</div><span class="bp-fu-box"><input type="text" aria-label="${t}" data-ff-field="${key}" placeholder="${e(hint)}" value="${e(v ?? '')}"></span>`;
 const fuSub = (t) => `<div class="bp-fu-sub">${t}</div>`;
@@ -230,7 +222,7 @@ function followHtml(f, n, i, k) {
   const placeholder = fuLine('Placeholder', 'placeholder', 'Add placeholder', f.placeholder);
   let rows;
   if (kind === 'hidden') {
-    rows = `<div class="bp-ff-note bp-fu-hidden">Hidden fields can be used to track which URL your form traffic originates from. <span class="bp-ff-u" data-unbuilt title="Not built yet">Learn More.</span></div>${top}<div class="bp-fu-cap">Variable</div><span class="bp-fu-box bp-fu-var">SQF_${e(plainLabel(f.label).toUpperCase().replace(/\W+/g, '_'))}</span><div class="bp-ff-note bp-fu-tofill">To fill in this field, include the variable from the box above in the query string for this page.</div>${fuLine('Value', 'value', 'Default value', f.value)}`;
+    rows = `<div class="bp-ff-note bp-fu-hidden">Hidden fields can be used to track which URL your form traffic originates from. <span class="bp-ff-u" data-unbuilt title="Not built yet">Learn More.</span></div>${top}<div class="bp-fu-cap">Variable</div><span class="bp-fu-box bp-fu-var">${e(variableOf(f))}</span><div class="bp-ff-note bp-fu-tofill">To fill in this field, include the variable from the box above in the query string for this page.</div>${fuLine('Value', 'value', 'Default value', f.value)}`;
   } else {
     let more;
     if (kind === 'name') {
@@ -267,7 +259,7 @@ function editorHtml(f, n) {
     };
     rows = one(0, 'First Name') + one(1, 'Last Name') + '<div class="bp-ff-note bp-ff-note-tight">At least one name field must be showing.</div>';
   } else if (k === 'hidden') {
-    return `<div class="bp-ff-note bp-ff-intro">Hidden fields can be used to track which URL your form traffic originates from. <span class="bp-ff-u" data-unbuilt title="Not built yet">Learn More.</span></div>${line('Label', 'label', '', plainLabel(f.label))}${cap('Variable')}<div class="bp-ff-var">SQF_${e(plainLabel(f.label).toUpperCase().replace(/\W+/g, '_'))}</div><div class="bp-ff-note">To fill in this field, include the variable from the box above in the query string for this page.</div>${line('Value', 'value', 'Default Value', f.value)}<div class="bp-ff-note">If no value is passed through the query string, the default value above will be used.</div><button type="button" class="bp-soc-add bp-ff-red bp-ff-field-del" data-ff="del:${n}">Delete Field</button>${actions(n)}`;
+    return `<div class="bp-ff-note bp-ff-intro">Hidden fields can be used to track which URL your form traffic originates from. <span class="bp-ff-u" data-unbuilt title="Not built yet">Learn More.</span></div>${line('Label', 'label', '', plainLabel(f.label))}${cap('Variable')}<div class="bp-ff-var">${e(variableOf(f))}</div><div class="bp-ff-note">To fill in this field, include the variable from the box above in the query string for this page.</div>${line('Value', 'value', 'Default Value', f.value)}<div class="bp-ff-note">If no value is passed through the query string, the default value above will be used.</div><button type="button" class="bp-soc-add bp-ff-red bp-ff-field-del" data-ff="del:${n}">Delete Field</button>${actions(n)}`;
   } else if (k === 'phone') {
     rows = `${swi('countryCode', !!f.countryCode, 'Show Country Code')}${swi('sms', false, 'SMS Marketing Opt-in', true).replace('bp-ff-sw', 'bp-ff-sw bp-ff-sms')}<div class="bp-ff-note bp-ff-note-sms">Allow people to sign up for SMS marketing through this form. <span class="bp-ff-u">SMS Subscribers</span> are automatically stored in Contacts.</div><div class="bp-ff-plan"><strong>SMS subscription required</strong><p>Select a plan to set up SMS marketing and start collecting opt-ins through this form.</p><button type="button" disabled data-unbuilt title="Not built yet">View plans</button></div>${required(f)}`;
   } else if (k === 'line') {
@@ -295,10 +287,9 @@ const POSITION_ICONS = { top: '<path d="M4 4h16M12 21V8M8 12l4-4 4 4"/>', middle
 function postHtml(p, link) {
   const seg = (on, v, t) => `<button type="button" role="radio" aria-checked="${on}" class="bp-ffp-seg${on ? ' is-on' : ''}" data-ff="post-mode:${v}">${t}</button>`;
   const three = (k, cur, icons) => Object.entries(icons).map(([v, d]) => `<button type="button" role="radio" aria-checked="${cur === v}" aria-label="${v[0].toUpperCase()}${v.slice(1)}" class="bp-ffp-pick${cur === v ? ' is-on' : ''}" data-ff="post-${k}:${v}">${ic(d, 22)}</button>`).join('');
-  const lines = Array.from({ length: Math.max(1, p.html.split('\n').length) }, (_, n) => n + 1).join('<br>');
   const body = p.redirect
     ? `<div class="bp-ffp-link">${link}</div><div class="bp-ff-note bp-ffp-help">Add a URL to redirect the user after they submit the form.</div>`
-    : `<div class="bp-soccap bp-ff-cap bp-ffp-cap">Message</div><div class="bp-ffp-msg${p.message ? '' : ' is-empty'}" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Message" data-ff-post="message">${messageHtml(p.message) || '<p><br></p>'}</div><div class="bp-ff-note bp-ffp-help">This message displays after users submit a form.</div><div class="sp-row bp-ffp-row"><span class="sp-label">Alignment</span><span class="bp-ffp-three" role="radiogroup">${three('align', p.align, ALIGN_ICONS)}</span></div><div class="sp-row bp-ffp-row"><span class="sp-label">Position</span><span class="bp-ffp-three" role="radiogroup">${three('position', p.position, POSITION_ICONS)}</span></div><div class="bp-soccap bp-ff-cap bp-ffp-cap bp-ffp-htmlcap">HTML</div><div class="bp-code bp-ffp-code"><div class="bp-code-lines" aria-hidden="true">${lines}</div><textarea spellcheck="false" aria-label="HTML" placeholder="Add" data-ff-post="html">${e(p.html)}</textarea></div><div class="bp-ff-note bp-ffp-help">HTML to be rendered in addition to the Post-Submit Message.</div>`;
+    : `<div class="bp-soccap bp-ff-cap bp-ffp-cap">Message</div><div class="bp-ffp-msg${p.message ? '' : ' is-empty'}" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Message" data-ff-post="message">${messageHtml(p.message) || '<p><br></p>'}</div><div class="bp-ff-note bp-ffp-help">This message displays after users submit a form.</div><div class="sp-row bp-ffp-row"><span class="sp-label">Alignment</span><span class="bp-ffp-three" role="radiogroup">${three('align', p.align, ALIGN_ICONS)}</span></div><div class="sp-row bp-ffp-row"><span class="sp-label">Position</span><span class="bp-ffp-three" role="radiogroup">${three('position', p.position, POSITION_ICONS)}</span></div><div class="bp-soccap bp-ff-cap bp-ffp-cap bp-ffp-htmlcap">HTML</div>${lookBox('data-ff-post="html"', p.html, 'html', { placeholder: 'Add', label: 'HTML', cls: ' bp-ffp-code' })}<div class="bp-ff-note bp-ffp-help">HTML to be rendered in addition to the Post-Submit Message.</div>`;
   return `${head('Edit Post-Submit')}<div class="bp-ff bp-ffp"><div class="bp-soccap bp-ff-cap bp-ffp-cap bp-ffp-first">After Submission</div><div class="bp-ffp-segs" role="radiogroup">${seg(!p.redirect, 'message', 'Message')}${seg(p.redirect, 'redirect', 'Redirect')}</div>${body}</div>`;
 }
 

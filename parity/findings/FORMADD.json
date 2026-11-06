@@ -1835,8 +1835,8 @@
     },
     "formStyle": {
       "note": "Form style affects all forms on your site.",
-      "read": "The tile is a combobox with a listbox popup, 276 by 132. One press opened the list on a new form on the probe page: heading Recommended Form Packs, then preview tiles 244 by 88, 99 apart, in a list 276 by 487 that scrolls. Row names and the rows below the fifth were not read. Escape closed the list and the panel with it. No row pressed. oracle-readback.mjs then read everything the same.",
-      "ours": "Ruled under 0005: pressing a choice writes to every form on the site. Ours keeps the tile as read, and it opens nothing."
+      "read": "The tile is a combobox with a listbox popup, 276 by 132. It was opened twice on a new form on the probe page, with no row pressed. The list is 276 by 487 and 702 tall inside, and it scrolls. A heading, Recommended Form Packs, then six preview tiles 244 by 88, 99 apart, in the section's own colors, and EDIT FORM STYLES at its foot. The tiles have no names: each draws a field with the word Text and a mark or an Option button. From the top: an underlined field and a square Option; a filled square field and a round tick; a filled rounded field and a round tick; an outlined square field and an outlined square tick; a filled underlined field and a filled square tick; a filled pill and a pill Option. The kinds are read from a screenshot. Escape closed the list and the panel with it. oracle-readback.mjs after each open read everything the same.",
+      "ours": "Ruled under 0005: pressing a choice writes to every form on the site. Ours keeps the tile as read, and it opens nothing: the list is not drawn."
     },
     "buttonStyle": {
       "choices": [

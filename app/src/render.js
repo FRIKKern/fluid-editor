@@ -518,7 +518,7 @@ function blendRule(b, g, phone) {
   const w = g.strokeSize === 'custom' ? g.strokePx ?? 2 : STROKE_PX[g.strokeSize || 'S'];
   const radius = g.corners ? g.corners.map((v) => `${v}px`).join(' ') : `${g.corner || 0}px`;
   const pad = g.pad === 'custom' ? `${g.padY ?? 6}% ${g.padX ?? 6}%` : STROKE_PAD[g.pad || 'M'];
-  const inner = b.type === 'social' ? '.sqs-block-content' : '.sqs-html-content'; // what the padding goes on
+  const inner = b.type === 'social' ? '.sqs-block-content' : b.type === 'form' ? '.form-wrapper' : '.sqs-html-content'; // what the padding goes on
   // Stroke, Corner and Padding (STROKE.json, BLOCKDESIGN.json). A background has the same corner and padding.
   // A video's: on .intrinsic, the Corner on the two above it as well (CAP-T7DESIGN2.json, CAP-T7DESIGN3.json).
   const vAt = `.fe-block-${b.id}`, vBoxed = g.background || g.stroke, vY = g.padY ?? 6, vX = g.padX ?? 6;

@@ -1707,7 +1707,7 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .bp-ffp-seg { flex: 1; border: 0; border-radius: 2px; background: none; color: #6f6f6f; font: inherit; cursor: pointer; }
 .bp-ffp-seg.is-on { background: #fff; color: #0e0e0e; font-weight: 500; }
 .bp-ffp-segs + .bp-ffp-cap.bp-ffp-cap { margin-top: 12px; }
-.bp-ffp-msg { display: block; position: relative; box-sizing: border-box; width: 276px; min-height: 110px; margin-top: 5px; padding: 0.1px 11px; border: 0; border-radius: 0; background: #f9f9f9; color: #3e3e3e; font: inherit; font-size: 14px; line-height: 22px; outline: 0; cursor: text; }
+.bp-ffp-msg { display: block; position: relative; box-sizing: border-box; width: 276px; height: 110px; overflow: auto; margin-top: 5px; padding: 0.1px 11px; border: 0; border-radius: 0; background: #f9f9f9; color: #3e3e3e; font: inherit; font-size: 14px; line-height: 22px; outline: 0; cursor: text; }
 .bp-ffp-msg:focus { outline: 2px solid #0e0e0e; }
 .bp-ffp-msg p, .bp-ffp-msg pre { margin: 1em 0; white-space: pre-wrap; font-size: 14px; line-height: 22px; }
 .bp-ffp-msg pre { font-family: monospace; }
