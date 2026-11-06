@@ -4805,7 +4805,7 @@ function closeSectionPanel() { if (!editSid) return; settleHeight(''); editSid =
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
 const layoutsPanel = $('layouts-panel');
 let layoutsPlace = null;
-let layoutsSid = null, layoutsMix = null, layoutsPicked = null, layoutsOrder = [], layoutsBase = null, layoutsLook = null, layoutsPress = false;
+let layoutsSid = null, layoutsMix = null, layoutsPicked = null, layoutsLast = null, layoutsOrder = [], layoutsBase = null, layoutsLook = null, layoutsPress = false;
 // Roles stay with the blocks as they were on opening: a pick puts them in phone order.
 const openedMix = () => sectionMix({ blocks: [...S(layoutsSid).blocks].sort((a, b) => layoutsOrder.indexOf(a.id) - layoutsOrder.indexOf(b.id)) });
 // A tile's colors: the section's own, as on opening, or those of the theme a layout turns it to.
@@ -4826,23 +4826,29 @@ function renderLayouts() {
   };
   layoutsPanel.innerHTML = layoutsPanelHtml(layoutsMix, layoutsPicked, look);
 }
-// Undo and Redo leave the panel open: the section changes and the mark follows it. A section that shows no layout starts over.
+// Undo and Redo leave the panel open, even with every block gone: it then lists nothing (CAP-U10UNDOPAST.json).
+// The mark goes unless the section shows the last pick (CAP-U10WALK2.json). A section that shows no layout starts over.
 function syncLayouts() {
   if (!layoutsSid) return;
   const s = S(layoutsSid);
-  if (!s || !s.blocks.length) { closeLayouts(); return; }
+  if (!s) { closeLayouts(); return; }
+  if (!s.blocks.length) { layoutsMix = { list: [], by: {} }; layoutsPicked = null; renderLayouts(); return; }
   const mix = openedMix();
   if (!mix) { closeLayouts(); return; }
   const top = layoutsPanel.querySelector('.lo-list').scrollTop;
   layoutsMix = mix;
-  layoutsPicked = layoutShown(s, mix, layoutsPicked);
-  if (layoutsPicked == null) { layoutsBase = sectionLook(s); readLayoutsLook(); }
+  const shown = layoutShown(s, mix, layoutsLast);
+  layoutsPicked = shown === layoutsLast ? shown : null;
+  if (shown == null) { layoutsBase = sectionLook(s); readLayoutsLook(); }
   renderLayouts();
   layoutsPanel.querySelector('.lo-list').scrollTop = top;
 }
 function openLayouts(sid) {
   closeFloating();
-  layoutsSid = sid; layoutsOrder = S(sid).blocks.map((b) => b.id); layoutsBase = sectionLook(S(sid)); layoutsMix = openedMix(); layoutsPicked = null;
+  layoutsSid = sid; layoutsOrder = S(sid).blocks.map((b) => b.id); layoutsBase = sectionLook(S(sid)); layoutsMix = openedMix();
+  // Opening on a layout marks it, but not one that turns the theme: a pick would turn it again (CAP-U10READ4.json, CAP-U10READ6.json).
+  const shown = layoutShown(S(sid), layoutsMix, null);
+  layoutsPicked = layoutsLast = shown != null && !layoutsMix.list[shown].style?.theme ? shown : null;
   layoutsPanel.hidden = false;
   // The same place as Edit Section's panel (CAP-VIEWLAYOUTS.json, panelTop).
   const fr = frame.getBoundingClientRect(), q = sectionEl(sid).getBoundingClientRect();
@@ -4854,13 +4860,27 @@ function openLayouts(sid) {
   renderLayouts();
 }
 function closeLayouts() { layoutsSid = null; layoutsPanel.hidden = true; }
+// While the page scrolls: down with the section's bottom, up only once section top + 140 reaches it, by Edit Section's rule
+// (sectionPanelTop with prev). It closes where Edit Section's does (CAP-U10WALK2.json, CAP-U10READ5.json).
+// 5 of 34 oracle reads ran ahead of this on the way down, by up to one scroll step, with no rule.
+function placeLayouts() {
+  const el = layoutsSid && sectionEl(layoutsSid);
+  if (!el) return;
+  const fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect(), secTop = fr.top + q.top, secBottom = fr.top + q.bottom;
+  if (sectionPanelGone({ secTop, secBottom })) { closeLayouts(); return; }
+  // Up: top + 140 under the header, top + 1.4 on other sections on 2 walks of 3. Those sections' way down has no rule (CAP-U10SECOND2.json).
+  const edit = secTop + (model.sections[0].id === layoutsSid ? 143 : 4);
+  layoutsPlace.top = sectionPanelTop({ edit, H: window.innerHeight, secTop, secBottom, prev: layoutsPlace.top });
+  layoutsPlace.secTop = secTop;
+  layoutsPanel.style.top = `${layoutsPlace.top}px`;
+}
 layoutsPanel.addEventListener('click', (e) => {
   const t = e.target.closest('[data-layout]');
   const mix = t && S(layoutsSid) && openedMix();
   if (!mix) return;
   const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
-  layoutsPicked = Number(t.dataset.layout);
-  if (!layoutsPlace.moved) { layoutsPlace.moved = true; layoutsPanel.style.top = `${layoutsPickTop(layoutsPlace)}px`; }
+  layoutsPicked = layoutsLast = Number(t.dataset.layout);
+  if (!layoutsPlace.moved) { layoutsPlace.moved = true; layoutsPlace.top = layoutsPickTop(layoutsPlace); layoutsPanel.style.top = `${layoutsPlace.top}px`; }
   applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase);
   if (sel?.sid === layoutsSid) select(null);
   commit(before, `Layout ${layoutsPicked + 1}`);
@@ -6035,7 +6055,7 @@ function watchEmptyText() {
 
 function boot() {
   watchEmptyText();
-  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
+  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeLayouts(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
   // The canvas changes width when the layout switches; place the overlays again once it has.
   // Watch the canvas page itself: it reflows after the canvas element changes width.
   new frame.contentWindow.ResizeObserver(() => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); }).observe(frame.contentDocument.body);

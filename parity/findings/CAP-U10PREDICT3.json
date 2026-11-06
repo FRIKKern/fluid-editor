@@ -1,0 +1,41 @@
+{
+ "item": "U10",
+ "name": "CAP-U10PREDICT3",
+ "kind": "predictions, pushed before reading",
+ "count": "CAP-U10PREDICT2 against CAP-U10WALK2: 26 of 34 settled reads on line A or B within 2 px, so the 90 percent bracket missed. 3 of the 8 off reads are a hold on the way up (the panel stays until B reaches it). 5 are ahead of A on the way down, by 2.7 to 19.7 px, at frames with no pattern yet. Now and still never differed (0 of 34), so a read in the middle of a move is not why, and that guess was wrong. 80 read 168 and 209, on A.",
+ "refit": "It fits Edit Section's rule with prev, sectionPanelTop: down, it comes along with section bottom - 475; up, it stays until the Edit button's place minus 3 (section top + 140) reaches it.",
+ "predictions": [
+  "With sections below so the page can go on: the panel closes where Edit Section's does, sectionPanelGone: once max(section top, section bottom - 475) is below -421.",
+  "The mark on reopening: after a pick of 0, close, reopen: tile 0 marked, as m reopen on 0 read. After a pick of 1, close, reopen: no mark, as a scouting shot read. After a pick of 2, close, reopen: tile 2 marked (no theme change, only the divider).",
+  "A flipped start: layouts 2 and 3 put their own divider, not flipped; layout 0 puts the flipped start back."
+ ],
+ "counted": {
+  "closing": "Held: open at frame 640 (A -392.4), closed at 680 (A -432.4), one walk at 40 px steps, so the bracket holds -421. CAP-U10READ5.",
+  "reopen": "Held, 3 of 3, one run each: after pick 0 tile 0 marked, after pick 1 none, after pick 2 tile 2 marked. CAP-U10READ4.",
+  "flip": "Not read: the Divider switch was on from the last pick, so pressing it turned it off and Edit Settings wasn't there."
+ },
+ "nextPredictions": [
+  "Reopening after a layout that turns the theme (1, 3, 5): no mark. After one that doesn't (0, 2, 4): that tile marked. So 3 and 5 none, 4 marked.",
+  "A flipped start, read with the Divider switch off first: layouts 2 and 3 put their own divider, not flipped; layout 0 puts the flipped start back."
+ ],
+ "countedNext": {
+  "reopen": "Held, 3 of 3, one run each: after 4 marked, after 3 none, after 5 none. CAP-U10READ6.",
+  "flip": "Not read: the Flip X Axis label isn't findable after pressing Slanted Shape, 2 runs. Left unread."
+ },
+ "secondSection": {
+  "question": "Ours has section top + 140 from the first section, under the header. On a section with no header?",
+  "predictions": [
+   "Down: still section bottom - 475.",
+   "Up: section top + one of 1, 26 or 140 (140 as the first section; 26 if it's Edit Section's button - 3; 1 if it's that button - 28 as on the first section). No bet between them, and anything else is a miss."
+  ],
+  "counted": "Missed, both. CAP-U10SECOND, 623.7 tall, one walk at 20 and 40 px steps. Down it reads section top + 101.4 (10 of 10 before its hold at 0), not bottom - 475, which is top + 148.7. Up it reads top + 48.4 (8 of 10, the other 2 are 40 ahead), not 1, 26 or 140. Opening 201 is edit + 49. Up is down - 53 here, and on the first section too (192.6 and 140)."
+ },
+ "secondSectionNext": {
+  "predictions": [
+   "Two taller heights on the second section. Either the down line is fixed at top + 101.4, or it's bottom - 522.3. No bet: the read says which, and any other value is a miss.",
+   "The up line is 53 under the down line at any height of the second section.",
+   "On the first section the up line stayed at top + 140 at 3 heights while the down line moved with the height. So if the second section's down line moves with its height, the 53 is an accident of one height: then that prediction is a miss, not a refit."
+  ],
+  "counted": "Missed. The second section's down line isn't fixed and isn't bottom - 522.3: 54.4 at 624.9, 278 to 300 at 775.5. Up is 1.4 on 2 walks and 48.4 on 1. Up isn't down - 53. No refit: ours takes up + 1 (2 of 3 walks), and the down line stays a named miss."
+ }
+}

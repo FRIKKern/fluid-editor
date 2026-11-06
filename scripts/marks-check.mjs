@@ -2494,6 +2494,123 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Bright 1, Large, Divider: back at the start', now().th === 'bright-inverse' && now().ht === 'large' && now().dv, JSON.stringify(now()));
 }
 
+// U10: the Paragraph mix, against the CAP-U10 reads: theme and divider starts, undo past opening, the mark, the top while scrolling.
+{
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const read = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads;
+  const turn = JSON.parse(readFileSync(new URL('../parity/findings/CAP-VIEWLAYOUTS.json', import.meta.url))).priorState.themeTurn;
+  const setup = async ({ look = {}, more = 0, rows = 8, block = 'text', second = false } = {}) => {
+    viewport(S, 1600, 1000);
+    goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1300);
+    js(`const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)), o = m.sections[0]; o.blocks = ${JSON.stringify(block)} === 'text' ? [{ ...t, html: '<p>Paragraph words for a probe</p>', id: 'paaaaaaaaaaaaaaaaaaaaaaa' }] : []; o.rows = { desktop: ${rows}, mobile: ${rows} }; Object.assign(o, ${JSON.stringify(look)}); m.sections = [o, ...Array.from({ length: ${more} }, (_, i) => ({ ...JSON.parse(JSON.stringify(o)), id: 'sec' + i + 'aaaaaaaaaaaaaaaaaaaaa', blocks: ${second} && !i ? [{ ...t, html: '<p>Paragraph words for a probe</p>', id: 'qaaaaaaaaaaaaaaaaaaaaaaa' }] : [] }))]; fe.load(m); return 'true';`);
+    await pause(450);
+  };
+  const real = async (x, y) => { mouse(S, 'move', x, y); await pause(60); mouse(S, 'down', x, y, { buttons: 1 }); await pause(30); mouse(S, 'up', x, y); await pause(260); };
+  const center = (sel) => js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`);
+  const press = async (sel) => { const c = center(sel); await real(c[0], c[1]); await pause(150); };
+  const open = async () => { const f = js(`const r = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + 200]);`); mouse(S, 'move', f[0], f[1]); await pause(200); await press('#section-chrome [data-sc="layouts"]'); };
+  const pick = async (n) => { js(`document.querySelector('[data-layout="${n}"]').scrollIntoView({ block: 'center' }); return 'true';`); await pause(60); await press(`[data-layout="${n}"]`); };
+  const esc = async () => { browser(S, 'press', 'Escape'); await pause(150); };
+  const key = async (k) => { browser(S, 'press', k); await pause(250); };
+  const shut = () => js(`return JSON.stringify(document.getElementById('layouts-panel').hidden);`);
+  const mark = () => String(js(`return JSON.stringify([...document.querySelectorAll('.lo-tile.is-on')].map((e) => e.dataset.layout).join());`));
+  const now = () => js(`const m = fe.model.sections[0]; return JSON.stringify({ th: m.theme || '', dv: !!m.divider, shape: m.dividerShape || '', stroke: m.dividerStroke || 'solid', rows: m.rows.desktop });`);
+  const top = () => js(`return JSON.stringify(Math.round(document.getElementById('layouts-panel').getBoundingClientRect().top));`);
+  const frameTo = async (y) => { js(`document.getElementById('site-frame').contentWindow.scrollTo({ top: ${y}, behavior: 'instant' }); return 'true';`); await pause(120); };
+
+  // The theme table holds on this mix (CAP-U10THEME1.json, CAP-U10THEME2.json).
+  for (const from of ['bright-inverse', 'dark-bold']) {
+    await setup({ look: { theme: from } }); await open();
+    await pick(1);
+    add(`Paragraph mix, ${from}: a theme layout turns it`, now().th === turn[from], JSON.stringify(now()));
+    await pick(3);
+    add(`Paragraph mix, ${from}: a theme and divider layout turns it from the start, Rounded`, now().th === turn[from] && now().shape === 'rounded', JSON.stringify(now()));
+    await pick(0);
+    add(`Paragraph mix, ${from}: a plain layout puts it all back`, now().th === from && !now().dv, JSON.stringify(now()));
+  }
+  // A start with another shape (CAP-U10DIVIDER.json), and a layout's divider has no stroke (CAP-U10UNDO.json).
+  await setup({ look: { divider: true, dividerShape: 'slanted' } }); await open();
+  await pick(4);
+  add('Slanted start: a plain layout keeps it, with its stroke', now().shape === 'slanted' && now().stroke === 'solid', JSON.stringify(now()));
+  await pick(2);
+  add('Slanted start: layout 3 sets Soft, with no stroke', now().shape === 'soft' && now().stroke === 'none', JSON.stringify(now()));
+  await pick(3);
+  add('Slanted start: layout 4 sets Rounded, with no stroke', now().shape === 'rounded' && now().stroke === 'none', JSON.stringify(now()));
+  await pick(0);
+  add('Slanted start: a plain layout puts the shape and the stroke back', now().shape === 'slanted' && now().stroke === 'solid', JSON.stringify(now()));
+
+  // The mark on reopening: a layout that turns the theme gets none (CAP-U10READ4.json, CAP-U10READ6.json).
+  await setup(); await open();
+  add('Mark: none on opening a section that shows no layout', mark() === '', mark());
+  for (const [n, want] of [[0, '0'], [1, ''], [2, '2'], [3, ''], [4, '4'], [5, '']]) {
+    await setup(); await open(); await pick(n); await esc(); await open();
+    add(`Mark: reopening after layout ${n + 1}: ${want === '' ? 'none' : 'marked'}`, mark() === want, mark());
+  }
+  // The mark goes with Undo, and only the last pick brings it back (CAP-U10WALK2.json, CAP-U10UNDO.json).
+  await setup(); await open(); await pick(0); await pick(1);
+  await press('#undo');
+  add('Mark: Undo back to an earlier pick marks nothing', shut() === false && mark() === '' && now().rows === 9, JSON.stringify([shut(), mark(), now()]));
+  await key('Meta+z');
+  add('Mark: Undo by keyboard past opening, the panel stays', shut() === false && mark() === '' && now().rows === 8, JSON.stringify([shut(), mark(), now()]));
+  await key('Meta+Shift+z');
+  add('Mark: Redo to a pick that isn\'t the last marks nothing', shut() === false && mark() === '' && now().rows === 9, JSON.stringify([shut(), mark(), now()]));
+  await esc(); await open();
+  add('Mark: but reopening there marks it', mark() === '0', mark());
+  await setup(); await open(); await pick(0); await key('Meta+z');
+  add('Mark: goes with Undo by keyboard', mark() === '', mark());
+  await key('Meta+Shift+z');
+  add('Mark: comes back with Redo to the last pick', mark() === '0', mark());
+
+  // Undo past opening: the look it comes to is the new start (CAP-U10UNDOPAST.json).
+  await setup(); await open(); await pick(1); await esc(); await open();
+  await press('#undo');
+  add('Undo past opening: the panel stays, no mark, the section back', shut() === false && mark() === '' && now().th === '', JSON.stringify([shut(), mark(), now()]));
+  await pick(1);
+  add('Undo past opening: a pick then turns from the section as it is', now().th === turn[''], JSON.stringify(now()));
+
+  // Every block gone: the panel stays with nothing in it (CAP-U10UNDOPAST.json, read by Undo; a block made here has no Undo step, so this goes by Redo).
+  await setup({ block: 'none' });
+  js(`fe.addBlock(fe.model.sections[0].id, 'Image'); return 'true';`); await pause(300);
+  await key('Backspace');
+  await press('#undo'); await esc();
+  await open();
+  const had = js(`return JSON.stringify(document.querySelectorAll('.lo-tile').length);`);
+  await press('#redo');
+  add('No blocks left: the panel stays, with no tiles', had > 0 && js(`return JSON.stringify(fe.model.sections[0].blocks.length);`) === 0 && shut() === false && js(`return JSON.stringify(document.querySelectorAll('.lo-tile').length);`) === 0, JSON.stringify([had, shut()]));
+  await esc();
+  add('No blocks left: Escape closes it', shut() === true);
+
+  // The top while the page scrolls (CAP-U10WALK2.json). These reads ran ahead of the rule by up to one step, with no rule yet: not compared.
+  const AHEAD = ['w 06', 'x 00', 'x 01', 'x 06', 'x 09'], W = read('CAP-U10WALK2');
+  for (const [tag, rows] of [['w', 8], ['x', 9]]) {
+    await setup({ rows, more: 1 }); await open();
+    const open0 = top(), want0 = W[`${tag} open`].tiles.box[1];
+    add(`Scrolling, ${rows} rows: opens as read`, Math.abs(open0 - want0) <= 1.5, JSON.stringify([open0, want0]));
+    const off = [];
+    for (const [k, v] of Object.entries(W)) {
+      if (!k.startsWith(`${tag} `) || !k.endsWith(' still')) continue;
+      await frameTo(Number(k.split(' ')[2].slice(1)));
+      const ours = top(), oracle = v.tiles.box[1];
+      if (!AHEAD.includes(k.slice(0, 4)) && Math.abs(ours - oracle) > 1.5) off.push([k, ours, oracle]);
+    }
+    add(`Scrolling, ${rows} rows: down with the section's bottom, up with its top + 140`, off.length === 0, JSON.stringify(off));
+  }
+  // On a section with no header, the way up: top + 1.4 on 2 walks of 3 (CAP-U10SECOND2.json).
+  await setup({ more: 2, second: true });
+  await frameTo(600);
+  const below = js(`const f = document.getElementById('site-frame'), r = f.getBoundingClientRect(), q = f.contentDocument.querySelectorAll('.page-section')[1].getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + q.top + 200]);`);
+  mouse(S, 'move', below[0], below[1]); await pause(200); await press('#section-chrome [data-sc="layouts"]');
+  const secTop = () => js(`const f = document.getElementById('site-frame'); return JSON.stringify(f.getBoundingClientRect().top + f.contentDocument.querySelectorAll('.page-section')[1].getBoundingClientRect().top);`);
+  await frameTo(1040); await frameTo(800); await frameTo(600);
+  add('Scrolling, second section: up with its top + 1', shut() === false && Math.abs(top() - secTop() - 1.4) <= 2, JSON.stringify([top(), secTop()]));
+  // It closes where Edit Section's does (CAP-U10READ5.json).
+  await setup({ more: 3 }); await open();
+  await frameTo(640);
+  add('Scrolling: still open at frame 640', shut() === false);
+  await frameTo(680);
+  add('Scrolling: closed at frame 680', shut() === true);
+}
+
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
 if (pass !== total) process.exit(1);

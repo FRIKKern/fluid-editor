@@ -48,7 +48,8 @@ export function applyLayout(s, mix, n, base) {
   }
   s.rows = { ...s.rows, desktop: L.rows, mobile: L.phoneRows };
   // A few layouts set the section's theme, divider or height; the rest leave what it had on opening.
-  Object.assign(s, base, L.style?.theme && { theme: layoutTheme(base.theme) }, L.style?.height && { height: L.style.height }, L.style?.divider && { divider: true, dividerShape: L.style.divider });
+  // A divider a layout sets has no stroke (CAP-U10UNDO.json, the section's context reads style none).
+  Object.assign(s, base, L.style?.theme && { theme: layoutTheme(base.theme) }, L.style?.height && { height: L.style.height }, L.style?.divider && { divider: true, dividerShape: L.style.divider, dividerStroke: 'none' });
 }
 
 // Which layout the section now shows, for the tile's mark after Undo and Redo: the last one picked if it still fits.
@@ -86,4 +87,4 @@ export function layoutsPanelHtml(mix, picked, look) {
 // moves it down once, and it stays there until it closes (CAP-VIEWLAYOUTS.json, panelTop.afterPick).
 export const layoutsPickTop = ({ top, secTop, h }) => (h < 644 ? Math.max(top, secTop + 140) : top);
 
-export const sectionLook = (s) => ({ theme: s.theme, height: s.height, divider: s.divider, dividerShape: s.dividerShape });
+export const sectionLook = (s) => ({ theme: s.theme, height: s.height, divider: s.divider, dividerShape: s.dividerShape, dividerStroke: s.dividerStroke });
