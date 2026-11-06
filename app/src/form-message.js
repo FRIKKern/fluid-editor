@@ -3,8 +3,9 @@
 // Underline at a caret waits for the next letters, as Strike does in a Text block.
 import * as fmt from './text-format.js';
 import { messageBarHtml } from './text-bar.js';
+import { cleanPaste, insertPaste } from './paste.js';
 
-const KEEP = new Set(['P', 'H1', 'H2', 'H3', 'H4', 'PRE', 'CODE', 'STRONG', 'EM', 'U', 'A', 'BR']);
+const KEEP = new Set(['P', 'H1', 'H2', 'H3', 'H4', 'PRE', 'CODE', 'STRONG', 'EM', 'U', 'A', 'BR', 'MARK']);
 const STYLE_KEYS = { Digit6: 'h1', Digit5: 'h2', Digit4: 'h3', Digit3: 'h4', Digit2: 'p.sqsrte-large', Digit1: 'p', Digit0: 'p.sqsrte-small', KeyM: 'pre' };
 const MARK_KEYS = { KeyB: 'bold', KeyI: 'italic', KeyU: 'underline' };
 const MARK_TAGS = { bold: 'STRONG', italic: 'EM', underline: 'U' };
@@ -17,11 +18,24 @@ export function cleanMessage(box) {
     for (const c of [...n.children]) {
       walk(c);
       if (!KEEP.has(c.tagName)) { c.replaceWith(...c.childNodes); continue; }
-      for (const a of [...c.attributes]) if (!(c.tagName === 'A' && (a.name === 'href' || a.name === 'target')) && !(c.tagName === 'P' && a.name === 'class' && /^sqsrte-(large|small)$/.test(a.value))) c.removeAttribute(a.name);
+      for (const a of [...c.attributes]) if (!(c.tagName === 'A' && (a.name === 'href' || a.name === 'target')) && !(c.tagName === 'MARK' && a.name === 'style') && !(c.tagName === 'P' && a.name === 'class' && /^sqsrte-(large|small)$/.test(a.value))) c.removeAttribute(a.name);
     }
   };
   walk(copy);
   return copy.innerHTML;
+}
+
+// A paste takes the Text block's cleanup, but this box has no lists, quotes or strike: a list item or a quote
+// comes in as paragraphs and a strike as its letters. An empty paragraph stays and can hold a caret (messageBox.paste).
+function pasted(doc, html, text) {
+  const out = [];
+  const flat = (n) => { if (n.matches('ul, ol, li, blockquote')) [...n.children].forEach(flat); else out.push(n); };
+  cleanPaste(doc, html, text).forEach(flat);
+  for (const n of out) {
+    for (const s of n.querySelectorAll('span')) s.replaceWith(...s.childNodes);
+    if (!n.firstChild) n.append(doc.createElement('br'));
+  }
+  return out;
 }
 
 // Letters in the selection all carry the mark; at a caret, the letters beside it.
@@ -142,12 +156,12 @@ export function messageBox({ panel, bar, stage, linkPop, openLink }) {
     if (e.altKey && STYLE_KEYS[e.code]) { e.preventDefault(); press('style', STYLE_KEYS[e.code]); }
     else if (!e.altKey && !e.shiftKey && MARK_KEYS[e.code]) { e.preventDefault(); press(MARK_KEYS[e.code]); }
   });
-  panel.addEventListener('beforeinput', (e) => {
-    if (e.target !== box || !e.inputType) return;
-    if (e.inputType === 'insertFromPaste') {
-      e.preventDefault();
-      doc.execCommand('insertText', false, e.dataTransfer?.getData('text/plain') || '');
-    }
+  panel.addEventListener('paste', (e) => {
+    if (!current() || !box.contains(e.target)) return;
+    e.preventDefault();
+    const sel = win.getSelection(), text = e.clipboardData.getData('text/plain');
+    const nodes = pasted(doc, e.clipboardData.getData('text/html'), text);
+    if (nodes.length && sel.rangeCount && box.contains(sel.anchorNode)) change(() => insertPaste(doc, box, sel, nodes, text));
   });
   panel.addEventListener('input', (e) => {
     if (e.target !== box) return;
