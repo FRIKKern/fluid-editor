@@ -5,7 +5,7 @@
 //   ... node scripts/oracle-capture.mjs --list
 //   ... node scripts/oracle-capture.mjs --name WHAT --question '...' --steps '[["enter"],["select",2,2],["read","a",{"block":[2,2],"controls":true}]]'
 // Steps: enter | exit | view Mobile|Desktop | window w h (the real window, for a block taller than it) | frame w h | unframe | pause ms | listen
-//   hover i | hoverBlock i k | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | rowPath label names path name drop | rowFrames label names dy name | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
+//   hover i | hoverBlock i k | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | rowPath label names path name drop | rowFrames label names dy name [pre] [drop] | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
 //   hoverNamed label | moveAt x y | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | addSectionWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
 //   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | keysGap ms [keys] | fill label value | fillValue shown value | rightClick i k
@@ -252,18 +252,20 @@ const STEPS = {
     if (drop) { mouse(S, 'up', at[0] + x, at[1] + y); await pause(500); } else { for (; y; y -= Math.sign(y)) mouse(S, 'move', at[0], at[1] + y, { buttons: 1 }); for (; x; x -= Math.sign(x)) mouse(S, 'move', at[0] + x, at[1], { buttons: 1 }); await pause(200); mouse(S, 'up', at[0], at[1]); await pause(500); }
     finding.reads[name] = { from: at, seen, after: snap() };
   },
-  // A row held to 1px before dy, then the last px with each animation frame kept for 600ms: the time, the slot's top and every row text's top.
-  rowFrames: async (label, names, dy, name) => {
+  // A row walked through the y's in pre, then up to 1px before dy, then the last px with each animation frame kept for 600ms: the time, the slot's top and every row text's top. With drop, the frames are of the release at dy.
+  rowFrames: async (label, names, dy, name, pre = [], drop = false) => {
     const at = rowAt(label);
     mouse(S, 'move', at[0], at[1]); mouse(S, 'down', at[0], at[1]); await pause(150);
-    for (let k = 1; k < Math.abs(dy); k++) mouse(S, 'move', at[0], at[1] + Math.sign(dy) * k, { buttons: 1 });
+    let y = 0;
+    const to = (v) => { while (y !== v) { y += Math.sign(v - y); mouse(S, 'move', at[0], at[1] + y, { buttons: 1 }); } };
+    for (const v of pre) to(v);
+    to(dy - (drop ? 0 : Math.sign(dy - y)));
     await pause(400);
     evalJs(S, `(() => { const N = ${JSON.stringify(names)}; const out = window.__fxFrames = []; const t0 = performance.now(); const tick = () => { const slot = [...document.querySelectorAll('*')].find((e) => getComputedStyle(e).backgroundColor === 'rgb(72, 148, 255)' && e.getBoundingClientRect().width > 100); out.push([Math.round(performance.now() - t0), slot ? Math.round(slot.getBoundingClientRect().top * 10) / 10 : null, [...document.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && N.includes(e.textContent.trim()) && e.getBoundingClientRect().width > 0).map((e) => [e.textContent.trim(), Math.round(e.getBoundingClientRect().top * 10) / 10])]); if (performance.now() - t0 < 600) requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 1; })()`);
-    mouse(S, 'move', at[0], at[1] + dy, { buttons: 1 });
+    if (drop) mouse(S, 'up', at[0], at[1] + y); else to(dy);
     await pause(800);
     const frames = evalJs(S, `JSON.stringify(window.__fxFrames)`);
-    for (let y = dy; y; y -= Math.sign(y)) mouse(S, 'move', at[0], at[1] + y, { buttons: 1 });
-    await pause(200); mouse(S, 'up', at[0], at[1]); await pause(500);
+    if (!drop) { to(0); await pause(200); mouse(S, 'up', at[0], at[1]); await pause(500); }
     finding.reads[name] = { from: at, frames };
   },
   // A row in Layers by name, selected whatever its state: opens Layers if an action closed it, selects the stack if its children are folded, and presses again if the press took the selection off.

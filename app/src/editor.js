@@ -5297,31 +5297,56 @@ layersPanel.addEventListener('pointerdown', (e) => {
   const pitch = rows.length > 1 ? rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().top : box.height;
   const x0 = e.clientX, y0 = e.clientY;
   let ghost = null;
+  // A row's first move in a drag jumps, its later moves slide (CAP-Z3PATH.json).
+  const movedOnce = new Set();
+  const placeRow = (to) => {
+    const others = rows.filter((r) => r !== li);
+    const next = others[to] || (li.dataset.kidOf ? others[others.length - 1].nextSibling : null);
+    if (li.nextSibling === next || li === next) return;
+    const tops = new Map(rows.map((r) => [r, r.getBoundingClientRect().top]));
+    list.insertBefore(li, next);
+    for (const r of rows) {
+      const by = tops.get(r) - r.getBoundingClientRect().top;
+      if (!by) continue;
+      r.getAnimations().forEach((a) => a.cancel());
+      if (movedOnce.has(r)) r.animate([{ transform: `translateY(${tops.get(r) - r.getBoundingClientRect().top}px)` }, { transform: 'none' }], { duration: 200, easing: 'ease' });
+      movedOnce.add(r);
+    }
+  };
   const move = (ev) => {
     const d = ev.clientY - y0;
-    if (!ghost && Math.hypot(ev.clientX - x0, d) < 9) return;
-    // It starts at 9px, in x or y. The ghost stays put that first move and then follows y (CAP-Z3WALK.json).
+    // It starts past 8px on the slant. The move that starts it does nothing else (CAP-Z3PATH.json).
     if (!ghost) {
+      if (Math.hypot(ev.clientX - x0, d) <= 8) return;
       ghost = li.cloneNode(true);
       ghost.classList.add('lp-ghost');
       Object.assign(ghost.style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px` });
       document.body.append(ghost);
       li.classList.add('is-slot');
-      // The pointer can leave over the page's frame, which would keep its moves and its release.
-      layersPanel.setPointerCapture(ev.pointerId);
-    } else ghost.style.transform = `translateY(${d}px)`;
+      return;
+    }
+    ghost.style.transform = `translateY(${d}px)`;
     const passed = Math.floor((Math.abs(d) + box.height / 2 + 1) / pitch);
-    const to = Math.max(0, Math.min(rows.length - 1, from + Math.sign(d) * passed));
-    const others = rows.filter((r) => r !== li);
-    list.insertBefore(li, others[to] || (li.dataset.kidOf ? others[others.length - 1].nextSibling : null));
+    placeRow(Math.max(0, Math.min(rows.length - 1, from + Math.sign(d) * passed)));
   };
-  const up = () => {
+  const stop = () => {
     document.removeEventListener('pointermove', move);
     document.removeEventListener('pointerup', up);
     document.removeEventListener('pointercancel', up);
-    if (!ghost) return;
-    ghost.remove();
+    doc.removeEventListener('pointerup', upOverPage);
+    ghost?.remove();
     li.classList.remove('is-slot');
+  };
+  // The page's frame keeps its own moves and release. Let go over it, nothing moves and the panel closes (CAP-Z3PATH.json).
+  const upOverPage = () => {
+    stop();
+    if (!ghost) return;
+    renderLayersPanel();
+    closeFloating();
+  };
+  const up = () => {
+    stop();
+    if (!ghost) return;
     rowDragged = true;
     const before = JSON.stringify(model);
     const order = [...list.children].filter((r) => r.dataset.kidOf === li.dataset.kidOf).map((r) => r.dataset.layer);
@@ -5335,6 +5360,7 @@ layersPanel.addEventListener('pointerdown', (e) => {
   document.addEventListener('pointermove', move);
   document.addEventListener('pointerup', up);
   document.addEventListener('pointercancel', up);
+  doc.addEventListener('pointerup', upOverPage);
 });
 function onContextMenu(e) {
   if (document.body.classList.contains('is-preview')) return;

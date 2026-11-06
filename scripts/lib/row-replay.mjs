@@ -31,6 +31,8 @@ async function walk(S, label, path, drop) {
   return out;
 }
 
+const pressEscape = (S) => browser(S, 'press', 'Escape');
+const openLayers = (S) => evalJs(S, `(() => { const s = fe.model.sections[1]; fe.select(s.id, s.blocks[0].id); document.querySelector('button[data-sc="layers"]').click(); return 1; })()`);
 // add(name, ok, detail). With no reads, as for predictions, ok is undefined and detail is what ours did.
 export async function rowReplay(S, finding, add) {
   viewport(S, 1600, 945);
@@ -41,17 +43,26 @@ export async function rowReplay(S, finding, add) {
   for (const [op, ...a] of finding.steps) {
     if (op === 'rowWalk' || op === 'rowPath') {
       const [label] = a, name = op === 'rowWalk' ? a[4] : a[3], drop = (op === 'rowWalk' ? a[5] : a[4]) ?? true;
-      const got = await walk(S, label, op === 'rowWalk' ? [[a[2], 0], [a[2], a[3]]] : a[2], drop);
       const r = finding.reads[name];
+      // A step the finding has in its errors never ran.
+      if (!r && Object.keys(finding.reads).length) continue;
+      const got = await walk(S, label, op === 'rowWalk' ? [[a[2], 0], [a[2], a[3]]] : a[2], drop);
       if (!r) { add(name, undefined, got); continue; }
       const pressed = r.seen[0][1];
       let next = 1, want = oracleFrame(pressed, label, pressed), bad = '';
       for (const [key, have] of got) {
         // Each px holds what the oracle last changed to.
         if (r.seen[next]?.[0].join() === key) want = oracleFrame(r.seen[next++][1], label, pressed);
-        if (JSON.stringify(want) !== JSON.stringify(have)) { bad = `at ${key}: oracle ${JSON.stringify(want)}, ours ${JSON.stringify(have)}`; break; }
+        // Rows on their way make more than one gap in the oracle's frame: only the ghost says anything there.
+        const moving = want[0].filter((x) => x === '*').length > 1;
+        if (want[1] !== have[1] || (!moving && JSON.stringify(want[0]) !== JSON.stringify(have[0]))) { bad = `at ${key}: oracle ${JSON.stringify(want)}, ours ${JSON.stringify(have)}`; break; }
       }
+      const shown = evalJs(S, `JSON.stringify(document.getElementById('layers-panel').hidden ? [] : [...document.querySelectorAll('#layers-panel li[data-layer]')].map((e) => e.textContent.trim()))`);
+      const after = [...r.after.texts].sort((p, q) => p[2] - q[2]).map((t) => t[0]);
+      if (!bad && JSON.stringify(shown) !== JSON.stringify(after)) bad = `after: oracle ${after}, ours ${shown}`;
       add(name, !bad, bad);
+    } else if (op === 'press' && a[0] === 'Escape') { pressEscape(S);
+    } else if (op === 'click' && a[0] === 'Open Layers Panel') { openLayers(S); await pause(200);
     } else if (op === 'read' && finding.reads[a[0]]?.zs) {
       add(a[0], JSON.stringify(zs()) === JSON.stringify(finding.reads[a[0]].zs), `oracle ${finding.reads[a[0]].zs}, ours ${zs()}`);
     } else if (op === 'read' && !finding.reads[a[0]] && a[1]?.zs) add(a[0], undefined, zs());
