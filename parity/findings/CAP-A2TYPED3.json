@@ -1,0 +1,1038 @@
+{
+ "item": "CAP-A2TYPED3",
+ "oracle": "/gestures-probe",
+ "capturedAt": "2026-11-06",
+ "engine": "chrome",
+ "question": "A text block that grows when typed in, entered as the text lane does: pick, Write, keys. Also whether an arrow key moves a filled text block after a pick and after a select. Predictions from our code, written before any of these is read.",
+ "steps": [
+  [
+   "toPage",
+   "Gestures Probe"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "pick",
+   0,
+   "new"
+  ],
+  [
+   "click",
+   "Write"
+  ],
+  [
+   "keysFast",
+   "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "y1 text long",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "add",
+   0,
+   "Button"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "y1 add button",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Line"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "pick",
+   0,
+   "new"
+  ],
+  [
+   "click",
+   "Write"
+  ],
+  [
+   "keysFast",
+   "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "y2 text long",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "pick",
+   0,
+   "new"
+  ],
+  [
+   "press",
+   "ArrowDown"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "y2 arrow after pick",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "press",
+   "ArrowDown"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "y2 arrow after select",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Image"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   123
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "y3 before",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "pick",
+   0,
+   0
+  ],
+  [
+   "click",
+   "Write"
+  ],
+  [
+   "keysFast",
+   "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "y3 text long over image",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Image"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   472,
+   0
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "pick",
+   0,
+   "new"
+  ],
+  [
+   "click",
+   "Write"
+  ],
+  [
+   "keysFast",
+   "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "y4 text long right",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Line"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "pick",
+   0,
+   "new"
+  ],
+  [
+   "click",
+   "Write"
+  ],
+  [
+   "keysFast",
+   "hello"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "y5 short text",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Line"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   82
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "pick",
+   0,
+   0
+  ],
+  [
+   "click",
+   "Write"
+  ],
+  [
+   "keysFast",
+   "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "y6 text long over line",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "add",
+   0,
+   "Button"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "y6 add button",
+   {
+    "stack": 0
+   }
+  ]
+ ],
+ "reads": {
+  "y1 text long": {
+   "stack": [
+    {
+     "id": "3_420",
+     "type": "csr",
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "y1 add button": {
+   "stack": [
+    {
+     "id": "3_420",
+     "type": "csr",
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "3_637",
+     "type": "csr",
+     "desktop": "1/2/3/8",
+     "phone": "3/2/5/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "y2 text long": {
+   "stack": [
+    {
+     "id": "1_631",
+     "type": "csr",
+     "desktop": "2/2/6/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "y2 arrow after pick": {
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "1_631",
+     "type": "csr",
+     "desktop": "3/2/7/10",
+     "phone": "2/2/4/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "y2 arrow after select": {
+   "stack": [
+    {
+     "id": "1_631",
+     "type": "csr",
+     "desktop": "4/2/8/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "y3 before": {
+   "stack": [
+    {
+     "id": "0_420",
+     "type": "csr",
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "0_629",
+     "type": "csr",
+     "desktop": "4/2/10/8",
+     "phone": "3/2/9/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "y3 text long over image": {
+   "stack": [
+    {
+     "id": "0_420",
+     "type": "csr",
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "0_629",
+     "type": "csr",
+     "desktop": "6/2/12/8",
+     "phone": "3/2/9/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "y4 text long right": {
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "1_647",
+     "type": "csr",
+     "desktop": "1/10/5/18",
+     "phone": "7/2/9/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "y5 short text": {
+   "stack": [
+    {
+     "id": "2_631",
+     "type": "csr",
+     "desktop": "2/2/4/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "2_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "y6 text long over line": {
+   "stack": [
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "6_629",
+     "type": "csr",
+     "desktop": "5/2/6/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "y6 add button": {
+   "stack": [
+    {
+     "id": "6_420",
+     "type": "csr",
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "6_865",
+     "type": "csr",
+     "desktop": "1/2/3/8",
+     "phone": "3/2/5/10",
+     "z": [
+      "3",
+      "3"
+     ]
+    },
+    {
+     "id": "6_629",
+     "type": "csr",
+     "desktop": "5/2/6/6",
+     "phone": "5/2/6/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  }
+ },
+ "errors": [],
+ "visited": "Gestures Probe",
+ "leftDirty": true,
+ "predicted": {
+  "y1 text long": [
+   {
+    "z": 1,
+    "type": "text",
+    "desktop": "1/2/5/10",
+    "phone": "1/2/3/10"
+   }
+  ],
+  "y1 add button": [
+   {
+    "z": 1,
+    "type": "text",
+    "desktop": "1/2/5/10",
+    "phone": "1/2/3/10"
+   },
+   {
+    "z": 2,
+    "type": "button",
+    "desktop": "1/2/3/8",
+    "phone": "3/2/5/10"
+   }
+  ],
+  "y2 text long": [
+   {
+    "z": 2,
+    "type": "text",
+    "desktop": "2/2/6/10",
+    "phone": "1/2/3/10"
+   },
+   {
+    "z": 1,
+    "type": "line",
+    "desktop": "1/2/2/6",
+    "phone": "3/2/4/10"
+   }
+  ],
+  "y2 arrow after pick": [
+   {
+    "z": 1,
+    "type": "line",
+    "desktop": "1/2/2/6",
+    "phone": "1/2/2/10"
+   },
+   {
+    "z": 2,
+    "type": "text",
+    "desktop": "3/2/7/10",
+    "phone": "2/2/4/10"
+   }
+  ],
+  "y2 arrow after select": [
+   {
+    "z": 2,
+    "type": "text",
+    "desktop": "4/2/8/10",
+    "phone": "1/2/3/10"
+   },
+   {
+    "z": 1,
+    "type": "line",
+    "desktop": "1/2/2/6",
+    "phone": "3/2/4/10"
+   }
+  ],
+  "y3 before": [
+   {
+    "z": 1,
+    "type": "text",
+    "desktop": "1/2/3/10",
+    "phone": "1/2/3/10"
+   },
+   {
+    "z": 2,
+    "type": "image",
+    "desktop": "4/2/10/8",
+    "phone": "3/2/9/10"
+   }
+  ],
+  "y3 text long over image": [
+   {
+    "z": 1,
+    "type": "text",
+    "desktop": "1/2/5/10",
+    "phone": "1/2/3/10"
+   },
+   {
+    "z": 2,
+    "type": "image",
+    "desktop": "4/2/10/8",
+    "phone": "3/2/9/10"
+   }
+  ],
+  "y4 text long right": [
+   {
+    "z": 1,
+    "type": "image",
+    "desktop": "1/2/7/8",
+    "phone": "1/2/7/10"
+   },
+   {
+    "z": 2,
+    "type": "text",
+    "desktop": "1/10/5/18",
+    "phone": "7/2/9/10"
+   }
+  ],
+  "y5 short text": [
+   {
+    "z": 1,
+    "type": "line",
+    "desktop": "1/2/2/6",
+    "phone": "1/2/2/10"
+   },
+   {
+    "z": 2,
+    "type": "text",
+    "desktop": "2/2/4/10",
+    "phone": "2/2/4/10"
+   }
+  ],
+  "y6 text long over line": [
+   {
+    "z": 1,
+    "type": "text",
+    "desktop": "1/2/5/10",
+    "phone": "1/2/3/10"
+   },
+   {
+    "z": 2,
+    "type": "line",
+    "desktop": "3/2/4/6",
+    "phone": "3/2/4/10"
+   }
+  ],
+  "y6 add button": [
+   {
+    "z": 1,
+    "type": "text",
+    "desktop": "1/2/5/10",
+    "phone": "1/2/3/10"
+   },
+   {
+    "z": 3,
+    "type": "button",
+    "desktop": "1/2/3/8",
+    "phone": "3/2/5/10"
+   },
+   {
+    "z": 2,
+    "type": "line",
+    "desktop": "3/2/4/6",
+    "phone": "5/2/6/10"
+   }
+  ]
+ },
+ "ruleAt": "1d31e7e0540b8d95cffc557b1be32a59fc0d7901",
+ "scoring": "A case hits when the read has the same blocks by z in the same phone order with the same phone rows. A different desktop area is a setup difference, listed apart.",
+ "score": {
+  "strict": 10,
+  "orderOnly": 10,
+  "cases": 11,
+  "turnCasesKnown": 1,
+  "turnHits": 1,
+  "misses": [
+   "y5 short text"
+  ],
+  "desktopDiffers": [
+   "y3 text long over image",
+   "y6 text long over line",
+   "y6 add button"
+  ]
+ }
+}

@@ -1,0 +1,577 @@
+{
+  "item": "CAP-U4ZSTACK",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U4: Move Forward and Backward with two overlapping blocks on that side: one step or past both? Three Shapes at one place, made in this session on a probe page.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "start, top one selected",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Move Backward"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Backward",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Move Backward"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Backward again",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Move Forward"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Forward",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Move Forward"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Forward again",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ]
+  ],
+  "reads": {
+    "start, top one selected": {
+      "btnState": {
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "3_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Backward": {
+      "btnState": {
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [
+            {
+              "ps": null,
+              "bg": "rgb(231, 231, 231)",
+              "opacity": "1",
+              "box": [
+                233.125,
+                242.234375,
+                36,
+                36
+              ]
+            },
+            {
+              "ps": null,
+              "bg": "rgb(14, 14, 14)",
+              "opacity": "1",
+              "box": [
+                140.125,
+                289.234375,
+                222.171875,
+                44
+              ]
+            },
+            {
+              "ps": null,
+              "bg": "rgb(69, 69, 69)",
+              "opacity": "1",
+              "box": [
+                272.828125,
+                300.234375,
+                42.640625,
+                22
+              ]
+            },
+            {
+              "ps": null,
+              "bg": "rgb(69, 69, 69)",
+              "opacity": "1",
+              "box": [
+                326.46875,
+                300.234375,
+                19.828125,
+                22
+              ]
+            }
+          ],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "3",
+            "2"
+          ]
+        },
+        {
+          "id": "3_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "2",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Backward again": {
+      "btnState": {
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "2",
+            "1"
+          ]
+        },
+        {
+          "id": "3_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "3",
+            "2"
+          ]
+        },
+        {
+          "id": "3_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "1",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Forward": {
+      "btnState": {
+        "Move Forward": {
+          "kids": [
+            {
+              "ps": null,
+              "bg": "rgb(231, 231, 231)",
+              "opacity": "1",
+              "box": [
+                193.125,
+                242.234375,
+                36,
+                36
+              ]
+            },
+            {
+              "ps": null,
+              "bg": "rgb(14, 14, 14)",
+              "opacity": "1",
+              "box": [
+                105.125,
+                289.234375,
+                211.453125,
+                44
+              ]
+            },
+            {
+              "ps": null,
+              "bg": "rgb(69, 69, 69)",
+              "opacity": "1",
+              "box": [
+                227.09375,
+                300.234375,
+                42.640625,
+                22
+              ]
+            },
+            {
+              "ps": null,
+              "bg": "rgb(69, 69, 69)",
+              "opacity": "1",
+              "box": [
+                280.734375,
+                300.234375,
+                19.84375,
+                22
+              ]
+            }
+          ],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "3",
+            "2"
+          ]
+        },
+        {
+          "id": "3_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "2",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Forward again": {
+      "btnState": {
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "3_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "One step: three Shapes at one place, top one selected. Backward swaps it with the next, not past both. Numbers stay 1, 2, 3. Forward goes off at the top, Backward at the bottom. Differs from the right-click Arrange, which goes past all it overlaps."
+}
