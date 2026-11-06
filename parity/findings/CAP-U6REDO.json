@@ -1,0 +1,276 @@
+{
+  "item": "CAP-U6REDO",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U6: Redo's hover while it can redo, against Undo's",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "can undo",
+      {
+        "btnState": [
+          "Undo",
+          "Redo"
+        ]
+      }
+    ],
+    [
+      "hoverNamed",
+      "Undo"
+    ],
+    [
+      "read",
+      "Undo hovered",
+      {
+        "btnState": [
+          "Undo",
+          "Redo"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "undone, pointer on Undo",
+      {
+        "btnState": [
+          "Undo",
+          "Redo"
+        ]
+      }
+    ],
+    [
+      "hoverNamed",
+      "Redo"
+    ],
+    [
+      "read",
+      "Redo hovered",
+      {
+        "btnState": [
+          "Undo",
+          "Redo"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "redo"
+    ]
+  ],
+  "reads": {
+    "can undo": {
+      "btnState": {
+        "Undo": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "auto"
+        },
+        "Redo": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "0.2",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "auto"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Undo hovered": {
+      "btnState": {
+        "Undo": {
+          "kids": [
+            {
+              "ps": null,
+              "bg": "rgb(242, 242, 242)",
+              "opacity": "1",
+              "box": [
+                145.4375,
+                9.5,
+                36,
+                36
+              ]
+            }
+          ],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "auto"
+        },
+        "Redo": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "0.2",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "auto"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "undone, pointer on Undo": {
+      "btnState": {
+        "Undo": {
+          "kids": [
+            {
+              "ps": null,
+              "bg": "rgb(242, 242, 242)",
+              "opacity": "1",
+              "box": [
+                145.4375,
+                9.5,
+                36,
+                36
+              ]
+            }
+          ],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "auto"
+        },
+        "Redo": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "auto"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Redo hovered": {
+      "btnState": {
+        "Undo": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "auto"
+        },
+        "Redo": {
+          "kids": [
+            {
+              "ps": null,
+              "bg": "rgb(242, 242, 242)",
+              "opacity": "1",
+              "box": [
+                189.4375,
+                9.5,
+                36,
+                36
+              ]
+            }
+          ],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "auto"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "With Redo available and hovered: a grey rgb(242, 242, 242) box of 36 by 36 at 189.4, 9.5, ink rgb(14, 14, 14), opacity 1, pointer. The same as Undo's at 145.4, 9.5. So the old note, taken as Undo's, was right. Disabled it reads opacity 0.2 and a default cursor.",
+  "ours": "The same box, grey, ink and cursor when it can redo. Read in Chrome.",
+  "differs": [],
+  "pressed": "Named presses with an on-top check. Panel opens go through hover and press by name. Escape closed each panel and the Exit dialog. No Save, no upload, no Reset."
+}
