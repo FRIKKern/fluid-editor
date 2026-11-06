@@ -1,0 +1,1617 @@
+{
+  "item": "CAP-T11ZOOM",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T11: typing anything but a whole number in Map Zoom. The address fields are not touched.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Map"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "start",
+      {
+        "parts": [
+          "Zoom"
+        ]
+      }
+    ],
+    [
+      "fillRow",
+      "Zoom",
+      0,
+      "5"
+    ],
+    [
+      "read",
+      "typed \"5\"",
+      {
+        "parts": [
+          "Zoom"
+        ],
+        "sel": "iframe, .sqs-block-map, [data-block-json]"
+      }
+    ],
+    [
+      "fillRow",
+      "Zoom",
+      0,
+      "2.5"
+    ],
+    [
+      "read",
+      "typed \"2.5\"",
+      {
+        "parts": [
+          "Zoom"
+        ],
+        "sel": "iframe, .sqs-block-map, [data-block-json]"
+      }
+    ],
+    [
+      "fillRow",
+      "Zoom",
+      0,
+      "12.5"
+    ],
+    [
+      "read",
+      "typed \"12.5\"",
+      {
+        "parts": [
+          "Zoom"
+        ],
+        "sel": "iframe, .sqs-block-map, [data-block-json]"
+      }
+    ],
+    [
+      "fillRow",
+      "Zoom",
+      0,
+      "abc"
+    ],
+    [
+      "read",
+      "typed \"abc\"",
+      {
+        "parts": [
+          "Zoom"
+        ],
+        "sel": "iframe, .sqs-block-map, [data-block-json]"
+      }
+    ],
+    [
+      "fillRow",
+      "Zoom",
+      0,
+      ""
+    ],
+    [
+      "read",
+      "typed \"\"",
+      {
+        "parts": [
+          "Zoom"
+        ],
+        "sel": "iframe, .sqs-block-map, [data-block-json]"
+      }
+    ],
+    [
+      "fillRow",
+      "Zoom",
+      0,
+      "-1"
+    ],
+    [
+      "read",
+      "typed \"-1\"",
+      {
+        "parts": [
+          "Zoom"
+        ],
+        "sel": "iframe, .sqs-block-map, [data-block-json]"
+      }
+    ],
+    [
+      "fillRow",
+      "Zoom",
+      0,
+      "99"
+    ],
+    [
+      "read",
+      "typed \"99\"",
+      {
+        "parts": [
+          "Zoom"
+        ],
+        "sel": "iframe, .sqs-block-map, [data-block-json]"
+      }
+    ],
+    [
+      "fillRow",
+      "Zoom",
+      0,
+      "0.3"
+    ],
+    [
+      "read",
+      "typed \"0.3\"",
+      {
+        "parts": [
+          "Zoom"
+        ],
+        "sel": "iframe, .sqs-block-map, [data-block-json]"
+      }
+    ],
+    [
+      "fillRow",
+      "Zoom",
+      0,
+      "1.2"
+    ],
+    [
+      "read",
+      "typed \"1.2\"",
+      {
+        "parts": [
+          "Zoom"
+        ],
+        "sel": "iframe, .sqs-block-map, [data-block-json]"
+      }
+    ],
+    [
+      "fillRow",
+      "Zoom",
+      0,
+      "12"
+    ],
+    [
+      "read",
+      "typed \"12\"",
+      {
+        "parts": [
+          "Zoom"
+        ],
+        "sel": "iframe, .sqs-block-map, [data-block-json]"
+      }
+    ],
+    [
+      "fillRow",
+      "Zoom",
+      0,
+      "2.5"
+    ],
+    [
+      "read",
+      "typed \"2.5\" again",
+      {
+        "parts": [
+          "Zoom"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "increment"
+    ],
+    [
+      "read",
+      "increment from 2.5",
+      {
+        "parts": [
+          "Zoom"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "decrement"
+    ],
+    [
+      "pressNamed",
+      "decrement"
+    ],
+    [
+      "read",
+      "decrement twice",
+      {
+        "parts": [
+          "Zoom"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "zoom"
+    ]
+  ],
+  "reads": {
+    "start": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "1",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"5\"": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "0.3",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "sqs-aspect-ratio sqs-block-csr sqs-block-website-component sqs-block website-component-blo",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "iframe",
+          "cls": "",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "-1",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "11px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"2.5\"": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "0.05",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "sqs-aspect-ratio sqs-block-csr sqs-block-website-component sqs-block website-component-blo",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "iframe",
+          "cls": "",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "-1",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "11px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"12.5\"": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "1",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "sqs-aspect-ratio sqs-block-csr sqs-block-website-component sqs-block website-component-blo",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "iframe",
+          "cls": "",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "-1",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "11px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"abc\"": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "1",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "sqs-aspect-ratio sqs-block-csr sqs-block-website-component sqs-block website-component-blo",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "iframe",
+          "cls": "",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "-1",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "11px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"\"": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "1",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "sqs-aspect-ratio sqs-block-csr sqs-block-website-component sqs-block website-component-blo",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "iframe",
+          "cls": "",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "-1",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "11px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"-1\"": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "-1",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "sqs-aspect-ratio sqs-block-csr sqs-block-website-component sqs-block website-component-blo",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "iframe",
+          "cls": "",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "-1",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "11px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"99\"": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "99",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "sqs-aspect-ratio sqs-block-csr sqs-block-website-component sqs-block website-component-blo",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "iframe",
+          "cls": "",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "-1",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "11px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"0.3\"": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "0",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "sqs-aspect-ratio sqs-block-csr sqs-block-website-component sqs-block website-component-blo",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "iframe",
+          "cls": "",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "-1",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "11px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"1.2\"": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "0.01",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "sqs-aspect-ratio sqs-block-csr sqs-block-website-component sqs-block website-component-blo",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "iframe",
+          "cls": "",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "-1",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "11px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"12\"": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "1",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "sqs-aspect-ratio sqs-block-csr sqs-block-website-component sqs-block website-component-blo",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "iframe",
+          "cls": "",
+          "box": [
+            100.1,
+            244.2,
+            459.3,
+            482.1
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "-1",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "11px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed \"2.5\" again": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "0.05",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "increment from 2.5": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "0.1",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "decrement twice": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "0.01",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": {
+    "typed": "The field shows the ladder value for the zoom. 5 gives 0.3. 2.5 gives 0.05, so the fraction is cut: zoom 2. 12.5 gives 1, zoom 12. 1.2 gives 0.01, zoom 1. 0.3 gives 0, zoom 0.",
+    "words": "abc and empty keep the old value.",
+    "outside": "-1 shows -1 and 99 shows 99: no clamp, the raw number stays in the field. What the map does with them is not read.",
+    "steps": "After 2.5, increment gives 0.1 (zoom 3), decrement twice gives 0.01 (zoom 1)."
+  },
+  "ours": "Same for 5, abc, empty, 0.3, 1.2, 12.",
+  "differs": [
+    "A fraction: the oracle cuts it, 2.5 gives 0.05 and 12.5 gives 1. Ours rounds, 0.1 and 1.2.",
+    "Out of range: the oracle keeps -1 and 99. Ours clamps to 0 and 7."
+  ]
+}

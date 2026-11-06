@@ -9,7 +9,7 @@
     "yes": 70,
     "no": 11,
     "ask": 3,
-    "read": 12,
+    "read": 17,
     "notPressed": 0
   },
   "entries": [
@@ -53,7 +53,9 @@
       "safeRead": "yes",
       "how": "new button on a probe page, pull with the real mouse",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T5HANDLES.json",
+      "result": "n to 2 rows, w to 3 columns. Ours the same."
     },
     {
       "item": "T5",
@@ -62,7 +64,9 @@
       "safeRead": "yes",
       "how": "same, in Mobile View",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T5HANDLES.json, CAP-T5PHONE.json",
+      "result": "3 columns on a phone, ours 1. Container flips at 767."
     },
     {
       "item": "T5",
@@ -245,7 +249,9 @@
       "safeRead": "yes",
       "how": "new map block, Zoom field only, no address field",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T11ZOOM.json",
+      "result": "Fractions cut, out of range kept. Ours rounds and clamps."
     },
     {
       "item": "T11",
@@ -254,7 +260,9 @@
       "safeRead": "yes",
       "how": "new block, pull handles only, no press on the rows",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T11SOCIAL.json",
+      "result": "Free to 1 row, 2 columns least. Ours 1 and 3."
     },
     {
       "item": "T11",
@@ -263,7 +271,9 @@
       "safeRead": "yes",
       "how": "new Line block",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-T11SOCIAL.json",
+      "result": "It is the social block's Style and Thickness: phone keeps them. Ours the same."
     },
     {
       "item": "T11",
