@@ -1,0 +1,479 @@
+{
+  "item": "CAP-P3DOT",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "P3: does real keys 12.5 still give 125 with a real period key? The key press had no period until #218.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "read",
+      "custom",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "typeAt",
+      1542,
+      526,
+      "1.5"
+    ],
+    [
+      "read",
+      "real keys 1.5",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "typeAt",
+      1542,
+      526,
+      "7"
+    ],
+    [
+      "read",
+      "real keys 7",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "clickAt",
+      1542,
+      526
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "keys",
+      "1"
+    ],
+    [
+      "read",
+      "key 1",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "keys",
+      "2"
+    ],
+    [
+      "read",
+      "key 2",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "keys",
+      "."
+    ],
+    [
+      "read",
+      "key period",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "keys",
+      "5"
+    ],
+    [
+      "read",
+      "key 5",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "read",
+      "Enter",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ]
+  ],
+  "reads": {
+    "custom": {
+      "range": {
+        "slider": "1",
+        "field": "1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "c211a2",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 459.6
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          459.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "real keys 1.5": {
+      "range": {
+        "slider": "15",
+        "field": "15",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "c211a2",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 504.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          504.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "real keys 7": {
+      "range": {
+        "slider": "7",
+        "field": "7",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "c211a2",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 478.8
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          478.8
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "key 1": {
+      "range": {
+        "slider": "1",
+        "field": "1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "c211a2",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 459.6
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          459.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "key 2": {
+      "range": {
+        "slider": "12",
+        "field": "12",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "c211a2",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 494.8
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          494.8
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "key period": {
+      "range": {
+        "slider": "12",
+        "field": "12",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "c211a2",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 494.8
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          494.8
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "key 5": {
+      "range": {
+        "slider": "100",
+        "field": "125",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          677
+        ]
+      },
+      "sections": [
+        {
+          "id": "c211a2",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 1181.3
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1181.3
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Enter": {
+      "range": {
+        "slider": "100",
+        "field": "125",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          677
+        ]
+      },
+      "sections": [
+        {
+          "id": "c211a2",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 1181.3
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1181.3
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Yes. The period does arrive and the field drops it. After each key the field reads a whole number: 1, 12, then 12 after the period, then 125 after the 5, slider 100, H 1181.3. 1.5 gives 15. So 12.5 by keys gives 125, as CAP-P3FIELD.json said, for the reason now read.",
+  "ours": "The same, key by key: 1, 12, 12, 125, slider 100, H 1181. 1.5 gives 15. Read on 5210 2026-11-06.",
+  "differs": [],
+  "pressed": [
+    "By position: Custom at 1538,534, typeAt and clickAt in the field at 1542,526. Keys in the field."
+  ],
+  "notes": [
+    "The sweep for periods typed through the old press. Searched 242 findings (142 hold their steps, for keys, keysFast, typeAt, press), scripts/oracle/recipes.mjs, 24 traces and the check scripts. Four uses. CAP-P3FIELD.json 12.5: re-read here, it stands. CAP-T10MD5.json example.test: the read shows the period, so it arrived and stands. CAP-E4ENDS.json: read after the fix. marks-check's hKeys 12.5: passes with the fixed key against this value.",
+    "100 findings hold no steps, so how they typed is not listed. Their typed values with a period show the period in the result (TEXTUNDO, LINKMENU, T11, ACCORDIONSTYLES). That is a search, not a re-read."
+  ]
+}

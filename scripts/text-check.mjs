@@ -2,13 +2,17 @@
 // oracle probe used (demo section 2, block 2) and compare the HTML with
 // parity/findings/TEXTOPS.json, and the five palette colors and the highlight with
 // parity/findings/TEXTCOLOR.json. Writes parity/text-check.json.
-// Usage: npm run text-check (dev server on 5178, FLUID_SURFACE a visible tab).
+// Usage: npm run text-check (dev server on 5178, FLUID_SURFACE a visible tab), under 2 min.
+// npm run text-check -- --full also replays every CAP-E4 file with real keys, 5 to 10 min.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, waitFor } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 import { replay } from './lib/text-replay.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
+const FULL = process.argv.includes('--full');
+// A clean editor as soon as it has booted: its stored page gone.
+const fresh = () => { goto(S, `${BASE}/index.html?replay`); waitFor(S, 'window.fe'); evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`); goto(S, `${BASE}/index.html`); waitFor(S, 'window.fe'); };
 const F = JSON.parse(readFileSync(new URL('../parity/findings/TEXTOPS.json', import.meta.url)));
 const C = JSON.parse(readFileSync(new URL('../parity/findings/TEXTCOLOR.json', import.meta.url)));
 // Our button for each oracle action. Monospace and the styles go through the Text Style select.
@@ -30,9 +34,7 @@ const results = [];
 for (const [name, act, value, oracleHtml] of CASES) {
   const o = { html: oracleHtml };
   if (!o.html) { results.push({ name, ok: false, why: 'no oracle reading' }); continue; }
-  goto(S, `${BASE}/index.html?replay`); await pause(1500);
-  evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
-  goto(S, `${BASE}/index.html`); await pause(2200);
+  fresh();
   const html = evalJs(S, `(() => { const s = fe.model.sections[2]; const b = s.blocks.find((x) => x.type === 'text' && x.html.includes('On desktop the smallest'));
     fe.edit(s.id, b.id);
     const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow;
@@ -57,8 +59,7 @@ const openWord = `const s = fe.model.sections[2]; const b = s.blocks.find((x) =>
   const ce = d.querySelector('.fe-block[data-block-id="' + b.id + '"] .sqs-html-content'); const t = ce.querySelector('p').firstChild;
   const r = d.createRange(); r.setStart(t, 0); r.setEnd(t, t.textContent.indexOf(' ')); const sel = W.getSelection(); sel.removeAllRanges(); sel.addRange(r);
   const bar = document.getElementById('text-bar'); const sleep = (ms) => new Promise((k) => setTimeout(k, ms));`;
-const fresh = async () => { goto(S, `${BASE}/index.html?replay`); await pause(1500); evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`); goto(S, `${BASE}/index.html`); await pause(2200); };
-await fresh();
+fresh();
 const custom = evalJs(S, `(async () => { ${openWord}
   const out = {}; const style = () => ce.querySelector('span')?.getAttribute('style') || null; const q = (x) => bar.querySelector(x);
   q('[data-fmt="color-menu"]').click(); [...bar.querySelectorAll('[role=tab]')].find((e) => e.textContent === 'Custom').click();
@@ -85,7 +86,7 @@ for (const [k, v] of Object.entries(wantCustom)) {
 }
 const ACT = { quote: ['quote', { blockquote: 'blockquote', p: 'blockquote p' }], bullet: ['bullet', { ul: 'ul', li: 'ul li', p: 'ul li p', before: 'ul li p' }], numbered: ['numbered', { ol: 'ol', li: 'ol li', p: 'ol li p', before: 'ol li p' }], mono: ['style', { pre: 'pre', code: 'pre code' }] };
 for (const [name, [act, parts]] of Object.entries(ACT)) {
-  await fresh();
+  fresh();
   const props = C.look[name];
   const got = evalJs(S, `(async () => { ${openWord}
     ${act === 'style' ? `bar.querySelector('[data-fmt="style-menu"]').click(); bar.querySelector('[data-fmt="style"][data-v="pre"]').click();` : `bar.querySelector('button[data-fmt="${act}"]').click();`}
@@ -102,7 +103,7 @@ for (const [name, [act, parts]] of Object.entries(ACT)) {
 
 // Y2, E4: undo steps inside one edit, and typed words that become links (TEXTUNDO.json).
 const TU = JSON.parse(readFileSync(new URL('../parity/findings/TEXTUNDO.json', import.meta.url)));
-const edit = (body) => { goto(S, `${BASE}/index.html?replay`); return evalJs(S, `(async () => { const sleep = (ms) => new Promise((r) => setTimeout(r, ms)); await sleep(800);
+const edit = (body) => { goto(S, `${BASE}/index.html?replay`); waitFor(S, 'window.fe'); return evalJs(S, `(async () => { const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const s = fe.model.sections[2]; const b = s.blocks.find((x) => x.type === 'text' && x.html.includes('On desktop the smallest')); fe.edit(s.id, b.id);
   const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow; const ce = d.querySelector('.fe-block[data-block-id="' + b.id + '"] .sqs-html-content');
   const type = (t) => d.execCommand('insertText', false, t); const enter = () => d.execCommand('insertParagraph');
@@ -120,7 +121,7 @@ for (const [name, body, want] of [['one burst', `type('one'); await sleep(50); t
   results.push({ name: `Undo ${name}`, ok: got === want });
   if (got !== want) console.log(`Undo ${name} DIFF oracle ${want}, ours ${got}`);
 }
-{ goto(S, `${BASE}/index.html?replay`); const got = evalJs(S, `(async () => { const sleep = (ms) => new Promise((r) => setTimeout(r, ms)); await sleep(800);
+{ goto(S, `${BASE}/index.html?replay`); waitFor(S, 'window.fe'); const got = evalJs(S, `(async () => { const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const s = fe.model.sections[2]; const b = s.blocks.find((x) => x.type === 'text' && x.html.includes('On desktop the smallest')); const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow;
   const ce = () => d.querySelector('.fe-block[data-block-id="' + b.id + '"] .sqs-html-content'); const start = ce().textContent;
   fe.edit(s.id, b.id); d.execCommand('insertText', false, 'one'); d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(120);
@@ -130,10 +131,19 @@ for (const [name, body, want] of [['one burst', `type('one'); await sleep(50); t
 { const words = [...TU.links.linked, ...TU.links.notLinked, ...TU.links.wrapped]; const got = edit(`const r = d.createRange(); r.selectNodeContents(ce.querySelector('p')); r.collapse(false); const q = W.getSelection(); q.removeAllRanges(); q.addRange(r); type(' '); for (const w of ${JSON.stringify(words)}) { type(w); type(' '); }`).links;
   for (const w of words) { const inner = TU.links.wrapped.includes(w) ? w.slice(1, -1) : w; const hit = got.find((a) => a[0] === inner); const want = inner !== w || TU.links.linked.includes(w); const ok = !!hit === want && (!hit || hit[1] === (w.includes('@') ? 'mailto:' : 'http:')); results.push({ name: `Link ${w}`, ok }); if (!ok) console.log(`Link ${w} DIFF oracle ${want}, ours ${JSON.stringify(hit)}`); } }
 
-// E4: with a caret, undo by time, nesting, Clear Formatting, Highlight: replayed with real keys and presses (CAP-E4CARET, CAP-E4BURST, CAP-E4FRESH, 2, 3).
+// E4: every name the oracle was asked about, typed with execCommand here; --full types them with real keys.
+{ const E = JSON.parse(readFileSync(new URL('../parity/findings/CAP-E4ENDS.json', import.meta.url)));
+  for (const [read, step] of [['two letters', E.steps.find((x) => x[0] === 'keysFast' && x[1].startsWith('foo.aa'))], ['longer', E.steps.filter((x) => x[0] === 'keysFast').at(-1)]]) {
+    const names = step[1].trim().split(/\s+/), want = new Set(E.reads[read].linkTexts);
+    const got = new Set(edit(`const r = d.createRange(); r.selectNodeContents(ce.querySelector('p')); r.collapse(false); const q = W.getSelection(); q.removeAllRanges(); q.addRange(r); type(' '); for (const w of ${JSON.stringify(names)}) { type(w); type(' '); }`).links.map((a) => a[0]));
+    const wrong = names.filter((n) => got.has(n) !== want.has(n));
+    results.push({ name: `Link ${read}: ${names.length - wrong.length} of ${names.length} names`, ok: !wrong.length });
+    if (wrong.length) console.log(`Link ${read} DIFF ${wrong.length}: ${wrong.slice(0, 12).join(' ')}`);
+  } }
+// E4: with a caret, undo by time, nesting, Clear Formatting, Highlight: replayed with real keys and presses.
 // Named misses, not built: after one Escape the oracle's bar is gone but letters still go into the text.
 const KNOWN = ['color, Escape, typed', 'empty, color, typed', 'typed, Escape, typed'];
-for (const name of ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3']) {
+for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS'] : ['CAP-E4CARET']) {
   await replay(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (what, ok, detail) => {
     if (!ok && KNOWN.includes(what)) { console.log(`known miss: ${what}`); return; }
     results.push({ name: `${name} ${what}`, ok }); if (!ok) console.log(`${name} ${what} DIFF ${detail}`);
@@ -142,5 +152,5 @@ for (const name of ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2',
 
 const pass = results.filter((r) => r.ok).length;
 console.log(`Text toolbar: ${pass} of ${results.length} actions match`);
-writeFileSync(new URL('../parity/text-check.json', import.meta.url), JSON.stringify({ check: 'text toolbar HTML', pass, total: results.length, results }, null, 2) + '\n');
+if (FULL) writeFileSync(new URL('../parity/text-check.json', import.meta.url), JSON.stringify({ check: 'text toolbar HTML', pass, total: results.length, results }, null, 2) + '\n');
 process.exit(pass === results.length ? 0 : 1);
