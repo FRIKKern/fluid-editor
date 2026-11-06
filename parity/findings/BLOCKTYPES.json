@@ -2431,5 +2431,6 @@
  },
  "columnSnap": {
   "note": "A block that starts in the left gutter (column line 1) snaps differently from others: pulled +2 columns exactly, e handle: 1/1/23/14 to 1/1/23/15 (real mouse). A block starting at line 2 or later moves the full +2. Shrinking moves the full -2. It does not depend on the block type. Read walking and built since: CAP-G4MARGIN2.json, npm run snap-check."
- }
+ },
+ "correction": "Not the window as such: start rows past 1 here came from the tool's scroll, read as such for OpenTable, Zola and Bandsintown (CAP-T14MENU.json), inferred for the others (CAP-LANDING.json). Use area for size, not for where a type lands. Names, sizes and drags stand."
 }

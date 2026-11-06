@@ -18,6 +18,11 @@
       "result": "<p>styled plain</p>",
       "undoSteps": 1
     },
+    "marks by style": {
+      "pasted": "<p><span style=\"font-weight:700\">w700</span> <span style=\"font-weight:bold\">wbold</span> <span style=\"font-weight:400\">w400</span> <span style=\"font-weight:500\">w500</span> <span style=\"font-weight:600\">w600</span> <span style=\"font-style:italic\">ital</span> <span style=\"text-decoration:underline\">und</span> <span style=\"text-decoration:line-through\">str</span> <b style=\"font-weight:normal\">bnorm</b> <i style=\"font-style:normal\">inorm</i></p>",
+      "result": "<p><strong>w700</strong> <strong>wbold</strong> w400 <strong>w500</strong> <strong>w600</strong> <em>ital</em> <u>und</u> <span style=\"text-decoration: line-through;\">str</span> bnorm inorm</p>",
+      "read": "2026-11-06, on a new Text block on the probe page, not saved"
+    },
     "divs": {
       "pasted": "<div>one</div><div>two</div>",
       "result": "<p>one</p><p>two</p>",

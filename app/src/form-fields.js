@@ -1,7 +1,7 @@
 // A form's fields (parity/findings/FORMFIELDS.json): what each kind draws on the page, and the
 // Edit Form Fields views. A label ending in (required) is a required field, as in FORMADD.json.
 import { escapeHtml as e } from './render.js';
-import { COUNTRIES } from './form-countries.js';
+import { COUNTRIES, PHONE_COUNTRIES, dialCode } from './form-countries.js';
 import { lookBox } from './code-look.js';
 
 const REQ = '(required)';
@@ -38,7 +38,14 @@ const tileOf = (f) => FIELD_TILES.find((t) => t[1] === (f.kind || 'text')) || FI
 export const newField = (name) => { const t = FIELD_TILES.find((x) => x[0] === name); return { kind: t[1], ...t[2]() }; };
 
 // The oracle's list, with the site's country chosen.
-const countryOptions = () => COUNTRIES.map((n) => `<option${n === 'Norway' ? ' selected' : ''}>${e(n)}</option>`).join('');
+const countryOptions = (list = COUNTRIES) => list.map(([v, n]) => `<option value="${v}"${v === 'NO' ? ' selected' : ''}>${e(n)}</option>`).join('');
+// A Phone field's Country sets the prefix. It's what a visitor picks, so it stays out of the model (country.dial).
+export function bindPhonePrefix(d) {
+  d.addEventListener('change', (ev) => {
+    const s = ev.target.closest?.('.field-country select');
+    if (s) s.closest('.phone-parts').querySelector('.form-input-prefix').textContent = `+${dialCode(s.value)}`;
+  });
+}
 // Hidden's Variable: letters and digits of any alphabet stay, upper case, and each other run is one _ (FORMFIELDS.json, hiddenVariable).
 const variableOf = (f) => `SQF_${plainLabel(f.label).toUpperCase().replace(/[^\p{L}\p{N}]+/gu, '_')}`;
 
@@ -97,7 +104,7 @@ function oneFieldHtml(f, ctl) {
     case 'radio': { const group = `form-radio-${++radioGroup}`; return `<fieldset class="form-item form-checkbox${f.kind === 'radio' ? ' form-radio' : ''}${f.loose ? ' form-checkbox--loose' : ''}">${legend}${(f.options || []).map((o) => `<div class="option"><label><input type="${f.kind}"${f.kind === 'radio' ? ` name="${group}"` : ''}><span>${e(o)}</span></label></div>`).join('')}</fieldset>`; }
     case 'select': return `<div class="form-item form-select">${title}${ctl(`<span class="form-select-box"><select${f.placeholder != null ? ' class="is-empty"' : ''}>${f.placeholder != null ? `<option>${e(f.placeholder)}</option>` : ''}${(f.options || []).map((o) => `<option>${e(o)}</option>`).join('')}</select>${CHEVRON}</span>`)}</div>`;
     case 'survey': return `<div class="form-item form-survey">${title}${(f.options || []).map((o) => { const group = `form-radio-${++radioGroup}`; return `<fieldset class="item"><legend class="question">${e(o)}</legend><div class="likert-options">${LIKERT.map((l) => `<div class="option"><label><input type="radio" name="${group}"><span>${l}</span></label></div>`).join('')}</div></fieldset>`; }).join('')}</div>`;
-    case 'phone': return `<fieldset class="form-item form-phone">${legend}<div class="phone-parts">${f.countryCode ? `<div class="field field-country">${caption('Country')}${ctl(`<span class="form-select-box"><select>${countryOptions()}</select>${CHEVRON}</span>`)}</div><div class="field">${caption('Number')}${ctl('<span class="form-affix"><span class="form-input-prefix">+47</span><input type="text"></span>')}</div>` : `<div class="field">${ctl('<input type="text">')}</div>`}</div></fieldset>`;
+    case 'phone': return `<fieldset class="form-item form-phone">${legend}<div class="phone-parts">${f.countryCode ? `<div class="field field-country">${caption('Country')}${ctl(`<span class="form-select-box"><select>${countryOptions(PHONE_COUNTRIES)}</select>${CHEVRON}</span>`)}</div><div class="field">${caption('Number')}${ctl('<span class="form-affix"><span class="form-input-prefix">+47</span><input type="text"></span>')}</div>` : `<div class="field">${ctl('<input type="text">')}</div>`}</div></fieldset>`;
     case 'address': return `<fieldset class="form-item form-address">${legend}<div class="field">${caption('Country', ' caption-row--lead')}${ctl(`<span class="form-select-box"><select>${countryOptions()}</select>${CHEVRON}</span>`)}</div><div class="field">${caption(`Address Line 1${REQ}`)}<input type="text"></div><div class="field">${caption('Address Line 2')}<input type="text"></div><div class="address-row"><div class="field">${caption(`Postal Code${REQ}`)}<input type="text"></div><div class="field">${caption(`City / Town${REQ}`)}<input type="text"></div></div></fieldset>`;
     case 'line': return `<div class="form-item form-line${f.underline ? ' underline' : ''}"><div class="title">${req(f.label)}</div>${desc(f, 'div')}</div>`;
     case 'website': return `<div class="form-item">${title}${affix('http://', true)}</div>`;

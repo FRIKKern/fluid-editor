@@ -638,10 +638,8 @@
   },
   "errors": [],
   "leftDirty": false,
-  "answer": "In between. 1050: Zola 2, Bandsintown 3. 1100: Zola 1, Bandsintown 3. 1150: Zola 1, Bandsintown 2. At 1000, the control: Instagram, Tock, SoundCloud, Flickr, RSS, Archive, Chart and Menu are all on row 1, so this is not every late tile.",
-  "ours": "Row 1 at every window height, for all three. Measured on 5210 at 1000, 1050, 1100, 1150, 1200 and 1400 high.",
-  "differs": [
-    "As CAP-T14HEIGHTS.json."
-  ],
+  "answer": "In between. 1050: Zola 2, Bandsintown 3. 1100: Zola 1, Bandsintown 3. 1150: Zola 1, Bandsintown 2. At 1000, Instagram, Tock, SoundCloud, Flickr, RSS, Archive, Chart and Menu are on row 1, since those tiles fit the window. All of it the tool: see CAP-T14MENU.json.",
+  "ours": "Row 1, which is right when only the menu scrolls.",
+  "differs": [],
   "pressed": "Real mouse clicks and pulls on blocks made in the session. Add Block tiles and panel rows by name. No Save, no upload, no Reset, no tile or row pressed by place."
 }

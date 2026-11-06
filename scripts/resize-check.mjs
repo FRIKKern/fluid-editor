@@ -9,8 +9,8 @@ import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/BLOCKTYPES.json', import.meta.url)));
-// Where a type lands depends on the page, not the type (CAP-LANDING.json): BLOCKTYPES read some types
-// partway down a long run. In an empty section they land at row 1, and a pull changes the same rows.
+// A type's start row in BLOCKTYPES is not where it lands (CAP-LANDING.json correction): the tool's scroll
+// moved some. In an empty section they land at row 1, and a pull changes the same rows.
 const LANDING = JSON.parse(readFileSync(new URL('../parity/findings/CAP-LANDING.json', import.meta.url)));
 const FRESH = (name) => LANDING.fromU5[name] ?? LANDING.fresh[name]?.area;
 // Named misses: on the oracle these types hold live content whose reads change from run to run

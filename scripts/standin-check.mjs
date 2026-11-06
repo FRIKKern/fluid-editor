@@ -1,7 +1,7 @@
 // T12: five menu types whose content sets the rows and follows the width, against
 // parity/findings/STANDINS.json. Writes parity/standin-check.json. FLUID_SURFACE=cdp:<port> npm run standin-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, drag } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, drag, mouse, screenshot } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -65,31 +65,56 @@ for (const type of ['Chart', 'Flickr', 'SoundCloud']) {
   add(`${type} widened: its rows`, a[2] - a[0] === w.to[1] && a[3] - a[1] === w.to[0], a.join('/'));
 }
 
-// T14: where a new one lands, on desktop and the phone (CAP-T14ZOLA.json, CAP-T14BANDS.json, CAP-T14OPENTABLE.json, CAP-T14CONTROL.json, CAP-T14LAND.json).
-const addAll = (types) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; s.blocks = []; s.rows = { desktop: 8, mobile: 8 }; fe.setBp('desktop'); fe.load(next); await sleep(200); for (const t of ${JSON.stringify(types)}) { fe.addBlock(fe.model.sections[1].id, t); await sleep(120); } const x = fe.model.sections[1]; return JSON.stringify({ rows: x.rows.desktop, areas: x.blocks.map((b) => b.layout.desktop.area.join('/') + ' ' + b.layout.mobile.area.join('/')).sort() }); })()`);
-viewport(S, 1600, 1000); // the three that start lower do so under 1200 high
-const LAND = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T14LAND.json', import.meta.url)));
-const pairs = (name) => LAND.reads[name].areas.map((p) => p.join(' ')).sort();
-for (const [type, want] of [['Zola', '3/2/19/10 1/2/17/10'], ['Bandsintown', '4/2/9/10 1/2/6/10'], ['OpenTable', '3/2/11/10 1/2/9/10'], ['Flickr', '1/2/10/10 1/2/6/10'], ['SoundCloud', '1/2/9/10 1/2/6/10'], ['Instagram', '1/2/13/10 1/2/13/10'], ['Tock', '1/2/3/20 1/2/3/10']]) {
+// T14: where a new one lands, on desktop and the phone (CAP-T14MENU.json, CAP-T14CONTROL.json, CAP-T14LAND.json, CAP-T14HEIGHTS2.json).
+viewport(S, 1600, 1000);
+await pause(200);
+// Types added in turn, each after the frame moves so the new block lands on the given row. Section 1 starts fresh.
+const addAll = (types, rows = {}) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; s.blocks = []; s.rows = { desktop: 8, mobile: 8 }; fe.setBp('desktop'); fe.load(next); await sleep(200); const W = document.getElementById('site-frame').contentWindow, sec = () => W.document.querySelector('section[data-section-id="' + fe.model.sections[1].id + '"]'); W.scrollTo({ top: 0, behavior: 'instant' }); const RW = ${JSON.stringify(rows)}; for (const t of ${JSON.stringify(types)}) { const row = RW[t] ?? 1; W.scrollTo({ top: 0, behavior: 'instant' }); if (row > 1) W.scrollBy({ top: sec().getBoundingClientRect().top + (row - 1) * fe.measure(fe.model.sections[1].id).pitch + 1, behavior: 'instant' }); fe.addBlock(fe.model.sections[1].id, t); await sleep(120); } const x = fe.model.sections[1]; W.scrollTo({ top: 0, behavior: 'instant' }); return JSON.stringify({ rows: x.rows.desktop, areas: x.blocks.map((b) => b.layout.desktop.area.join('/') + ' ' + b.layout.mobile.area.join('/')).sort() }); })()`);
+for (const [type, want] of [['Zola', '1/2/17/10 1/2/17/10'], ['Bandsintown', '1/2/6/10 1/2/6/10'], ['OpenTable', '1/2/9/10 1/2/9/10'], ['Flickr', '1/2/10/10 1/2/6/10'], ['SoundCloud', '1/2/9/10 1/2/6/10'], ['Instagram', '1/2/13/10 1/2/13/10'], ['Tock', '1/2/3/20 1/2/3/10']]) {
   const got = addAll([type]);
   add(`${type} lands alone`, got.areas.join() === want, got.areas.join());
 }
-add('Zola: the section grows to its last row', addAll(['Zola']).rows === 18);
+add('Zola: the section grows to its last row', addAll(['Zola']).rows === 16);
+const H2 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T14HEIGHTS2.json', import.meta.url)));
+for (const type of ['Instagram', 'Tock', 'SoundCloud', 'Flickr', 'RSS', 'Archive', 'Chart', 'Menu']) {
+  const got = addAll([type]), want = H2.reads[`${type} at 1000`].areas[0].join(' ');
+  add(`${type} at 1000: desktop and phone`, got.areas.join() === want, `${got.areas.join()} wants ${want}`);
+}
+// The phone order beside others, each landing on the row its read did (CAP-T14LAND.json's correction).
+const LAND = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T14LAND.json', import.meta.url)));
+const pairs = (name) => LAND.reads[name].areas.map((p) => p.join(' ')).sort();
+const LOWER = { Zola: 3, OpenTable: 3, Bandsintown: 4 };
 for (const [name, types] of [['SoundCloud alone', ['SoundCloud']], ['Zola beside it', ['SoundCloud', 'Zola']], ['a second Zola', ['SoundCloud', 'Zola', 'Zola']], ['OpenTable beside them', ['SoundCloud', 'Zola', 'Zola', 'OpenTable']], ['Bandsintown beside them', ['SoundCloud', 'Zola', 'Zola', 'OpenTable', 'Bandsintown']], ['Text after them', ['SoundCloud', 'Zola', 'Zola', 'OpenTable', 'Bandsintown', 'Text']]]) {
-  const got = addAll(types), want = pairs(name);
+  const got = addAll(types, LOWER), want = pairs(name);
   add(`${name}: desktop and phone`, got.areas.join() === want.join() && got.rows === LAND.reads[name].section.rows, `${got.rows} ${got.areas.join()} wants ${LAND.reads[name].section.rows} ${want.join()}`);
 }
-
-// The start row by window height, and types that stay on row 1 at 1000 high (CAP-T14HEIGHTS.json, CAP-T14HEIGHTS2.json).
-for (const name of ['CAP-T14HEIGHTS', 'CAP-T14HEIGHTS2']) {
-  const F = JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url)));
-  for (const [read, r] of Object.entries(F.reads)) {
-    const m = /^(\w+) at (\d+)$/.exec(read);
-    viewport(S, 1600, +m[2]); await pause(200);
-    const got = addAll([m[1]]), want = r.areas[0].join(' ');
-    add(`${read}: desktop and phone`, got.areas.join() === want, `${got.areas.join()} wants ${want}`);
+// By the frame's scroll, on each read (CAP-T14FRAME.json, CAP-T14FRAME2.json): the section's top where the oracle's was, then a real add.
+const addScrolled = (i, type, above) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const next = JSON.parse(JSON.stringify(fe.model)); const fresh = next.sections[${i}]; fresh.blocks = []; fresh.rows = { desktop: 8, mobile: 8 }; fe.setBp('desktop'); fe.load(next); await sleep(200); const id = fe.model.sections[${i}].id, W = document.getElementById('site-frame').contentWindow, el = W.document.querySelector('section[data-section-id="' + id + '"]'); W.scrollTo({ top: 0, behavior: 'instant' }); W.scrollBy({ top: el.getBoundingClientRect().top + ${above}, behavior: 'instant' }); await sleep(60); const was = -el.getBoundingClientRect().top; fe.addBlock(id, ${JSON.stringify(type)}); await sleep(150); const x = fe.model.sections[${i}], a = x.blocks[0].layout; const top = el.isConnected ? el.getBoundingClientRect().top : W.document.querySelector('section[data-section-id="' + id + '"]').getBoundingClientRect().top; return JSON.stringify({ was, top, rows: x.rows.desktop, area: a.desktop.area.join('/') + ' ' + a.mobile.area.join('/') }); })()`);
+for (const name of ['CAP-T14FRAME', 'CAP-T14FRAME2']) {
+  const F2 = JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url)));
+  for (const [read, r] of Object.entries(F2.reads)) {
+    const m = /^(\w+) s(\d) frame by \d+, area$/.exec(read);
+    if (!m || !r.areas?.length) continue;
+    const box = r.section.box[1], type = m[1], i = +m[2], landed = r.areas[0].join(' ');
+    // A section that came back reads 0: the press was at the frame's step in the read's name.
+    const back = box === 0, by = back ? +/by (\d+)/.exec(read)[1] : -box;
+    const got = addScrolled(i, type, by);
+    const topOk = back ? Math.abs(got.top) < 1 : Math.abs(-got.top - by) < 1;
+    add(`${read}: ${landed}`, got.area === landed && got.rows === r.section.rows && topOk, `${got.area}, rows ${got.rows}, top ${got.top} wants ${landed}, rows ${r.section.rows}, was ${got.was}`);
   }
 }
+// The same by real presses: the frame moved, Add Block, then the tile. Frame by 100 on section 0 lands on row 3.
+evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[0]; s.blocks = []; s.rows = { desktop: 8, mobile: 8 }; fe.setBp('desktop'); fe.load(next); await new Promise((res) => setTimeout(res, 250)); document.getElementById('site-frame').contentWindow.scrollTo({ top: 100, behavior: 'instant' }); return 'true'; })()`);
+await pause(200);
+const middle = (sel) => evalJs(S, `(() => { const e = [...document.querySelectorAll('${sel}')].find((x) => x.getBoundingClientRect().width > 0); if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]); })()`);
+mouse(S, 'move', 800, 300); await pause(300);
+const realPress = async (sel) => { const p = middle(sel); if (!p) return false; drag(S, p, p, { steps: 1, holdMs: 30 }); await pause(300); return true; };
+const opened = await realPress('[data-sc="add-block"]'), pressed = opened && await realPress('button[data-add="Text"]');
+await pause(300);
+const real = evalJs(S, `(() => JSON.stringify(fe.model.sections[0].blocks[0]?.layout.desktop.area.join('/') ?? null))()`);
+add('Real presses, frame by 100: row 3', pressed && real === '3/2/5/10', `${opened} ${pressed} ${real}`);
+if (process.env.T14_SHOT) screenshot(S, process.env.T14_SHOT);
+viewport(S, 1600, 1400);
 
 writeFileSync(new URL('../parity/standin-check.json', import.meta.url), `${JSON.stringify({ check: 'content that follows the width', pass, total, results }, null, 1)}\n`);
 console.log(`Stand-ins: ${pass} of ${total} checks match`);

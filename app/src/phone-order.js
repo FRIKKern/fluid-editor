@@ -27,10 +27,9 @@ export function phoneOrder(blocks) {
 }
 
 // A new block on a phone (parity/findings/CAP-NEWORDER*.json). `blocks` are in phone order; returns
-// the place the new block takes. It lands at the top left on desktop, so only blocks that start
-// there compare by size: same size, it goes after that block and what sits inside it; inside bigger
+// the place the new block takes. Only blocks that start at its place compare by size: same size, it goes after that block and what sits inside it; inside bigger
 // ones, right after the smallest; around smaller ones, before the first. Anything else goes after
-// the blocks at or above its place. Three types can land lower (CAP-T14LAND.json): a block that holds
+// the blocks at or above its place. When it lands lower, by the frame's scroll (CAP-T14LAND.json): a block that holds
 // the new one counts as bigger even if it starts above, which fits those reads and is inferred.
 export function newBlockSlot(blocks, w, h, place = [1, 2]) {
   const key = (a) => a[0] * 100 + a[1];

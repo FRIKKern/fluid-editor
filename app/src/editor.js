@@ -33,7 +33,7 @@ import { demoModel } from './demo.js';
 import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
-import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView } from './form-fields.js';
+import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
 const $ = (id) => document.getElementById(id);
@@ -3824,11 +3824,17 @@ const ADD_TYPES = [
 ];
 // A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6, CAP-T14CONTROL.json, CAP-T14LAND.json, CAP-T14HEIGHTS2.json).
 const PHONE_ROWS = { Accordion: 5, Flickr: 5, SoundCloud: 5, Archive: 8 };
-// These three start lower in a window under 1200 high, by steps: [from this height, row] (CAP-T14HEIGHTS.json,
-// CAP-T14HEIGHTS2.json), alone or beside other blocks (CAP-T14LAND.json). Why is unread, and so is where a step
-// falls between two reads, or any height under 1000.
-const START_ROW = { Zola: [[1000, 3], [1050, 2], [1100, 1]], Bandsintown: [[1000, 4], [1050, 3], [1150, 2], [1200, 1]], OpenTable: [[1000, 3], [1200, 1]] };
-const startRow = (name) => { const steps = START_ROW[name]; return steps ? (steps.findLast(([from]) => innerHeight >= from) ?? steps[0])[1] : 1; };
+// A new block lands by how far its section's top sits above the frame; past the section's last row it
+// lands on row 1, with the frame back at the section (CAP-T14FRAME.json, CAP-T14FRAME2.json: inferred, 8 of 8
+// on predictions). Read on desktop only, so the phone view stays on row 1.
+function landingRow(s) {
+  const el = sectionEl(s.id), fe = feEl(s.id);
+  if (bp !== 'desktop' || !el || !fe) return 1;
+  const above = -el.getBoundingClientRect().top, row = 1 + Math.max(0, Math.floor(above / measure(fe).pitch));
+  if (row <= s.rows.desktop) return row;
+  win.scrollBy({ top: -above, behavior: 'instant' });
+  return 1;
+}
 // A new Line sits in the middle of its block, in each view (CAP-U4LINE.json).
 const NEW_ALIGN = { Line: 'center' };
 function addBlock(sid, name) {
@@ -3838,7 +3844,7 @@ function addBlock(sid, name) {
   // Phone (L3.json, CAP-NEWORDER*.json): the new block takes its place in the phone stack by
   // size, and the blocks after it move down by its height.
   const stack = [...s.blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
-  const row = startRow(name);
+  const row = landingRow(s);
   const slot = s.phoneFollows ? 0 : newBlockSlot(stack, w, h, [row, 2]);
   const mobileEnd = slot ? Math.max(...stack.slice(0, slot).map((b) => b.layout.mobile.area[2])) : 1;
   const phoneH = PHONE_ROWS[name] ?? h;
@@ -5638,6 +5644,7 @@ function boot() {
   win = frame.contentWindow;
   doc.addEventListener('pointerdown', closeLinkOutside, true);
   bindLightbox(doc);
+  bindPhonePrefix(doc);
   bindVideoPlayer(doc, () => doc.body.classList.contains('is-preview'));
   new win.Function(IMAGE_EFFECT_SCRIPT)();
   bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations; } return null; });
