@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 62 changes
-  - T10: the Code and Markdown editors' look: colours, wrapped lines, band, selection, Link lit; Upgrade note under 0005 ([#237](https://github.com/FRIKKern/fluid-editor/pull/237))
-  - U9, U12: commit-first test 30 of 30; read-back reaches the rest of Forms, Exit has an on-top check ([#240](https://github.com/FRIKKern/fluid-editor/pull/240))
+- **Today** · 74 changes
+  - E4: caret kept after Text Style and list presses, list off, one quote ([#252](https://github.com/FRIKKern/fluid-editor/pull/252))
+  - P3: test of differences 44 and 45 scored 9 of 31, predictions pushed first ([#251](https://github.com/FRIKKern/fluid-editor/pull/251))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed

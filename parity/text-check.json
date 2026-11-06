@@ -1,7 +1,8 @@
 {
   "check": "text toolbar HTML",
-  "pass": 244,
-  "total": 244,
+  "pass": 312,
+  "total": 312,
+  "couldNotRun": [],
   "results": [
     {
       "name": "Heading 1",
@@ -977,6 +978,278 @@
     },
     {
       "name": "CAP-E4ENDS longer: 443 of 443 names",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Italic, caret at the left edge of italic",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Bold, caret at the start of a bold line",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Bold, caret at the end of a plain line, next line bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Bold with a caret in a quote",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Bold with a caret, heading and paragraph",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Cmd+B on a selection over paragraphs",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Bold over an empty line",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Strike over text partly struck",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Strike over all of it again",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Italic on a part of bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE a color on a part of bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Clear Formatting on a part of bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Clear Formatting over paragraphs",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Clear Formatting with a caret on a color",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE three lines, Bullet List",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE then Numbered List",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE then Numbered List again",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE two lines, Quote",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Bold on both, Enter, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Strike, Enter, Backspace, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Strike, a color, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Strike on an empty second line, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE a color with a caret, then Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Highlight, then Strike",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Highlight, then a heading",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE a bold selection typed over",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE typed at the end of a bold word",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE typed just before a bold word",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE typing around a color start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE typing around a color 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE typing around a color 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE typing around a color 3",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Bold, a wait, Clear Formatting start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Bold, a wait, Clear Formatting 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Bold, a wait, Clear Formatting 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE Bold, a wait, Clear Formatting 3",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE typing around a style start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE typing around a style 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE typing around a style 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE typing around a style 3",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE typing around a list start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE typing around a list 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE typing around a list 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE a burst with Cmd+B and Cmd+I start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4SCORE a burst with Cmd+B and Cmd+I 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP as in the score: typed, Cmd+A, Bold pressed start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP as in the score: typed, Cmd+A, Bold pressed 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP as in the score: typed, Cmd+A, Bold pressed 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP typed and Cmd+A in one burst, 0.5 s, Cmd+B start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP typed and Cmd+A in one burst, 0.5 s, Cmd+B 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP typed and Cmd+A in one burst, 1.5 s, Cmd+B start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP typed and Cmd+A in one burst, 1.5 s, Cmd+B 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP typed and Cmd+A in one burst, 1.5 s, Cmd+B 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP typed, 3 s, Cmd+A, 0.5 s, Cmd+B start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP typed, 3 s, Cmd+A, 0.5 s, Cmd+B 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP typed, 3 s, Cmd+A, 0.5 s, Cmd+B 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP typed, 3 s, Cmd+A, 1.5 s, Cmd+B start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP typed, 3 s, Cmd+A, 1.5 s, Cmd+B 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP typed, 3 s, Cmd+A, 1.5 s, Cmd+B 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP typed, 0.5 s, Cmd+B, no selection start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP typed, 0.5 s, Cmd+B, no selection 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP2 typed, Cmd+A pressed, Bold pressed start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP2 typed, Cmd+A pressed, Bold pressed 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP2 typed, Cmd+A pressed, Bold pressed 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP2 typed, Cmd+A with no wait, Bold pressed start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP2 typed, Cmd+A with no wait, Bold pressed 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP2 typed, 0.3 s, Bold pressed start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4GAP2 typed, 0.3 s, Bold pressed 1",
       "ok": true
     }
   ]

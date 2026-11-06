@@ -14,6 +14,8 @@ import { trackedBy } from './lib/coverage.mjs';
 import { select, click, escape, deselect, hoverSection, openSectionPanel, blockIds } from './oracle/ui.mjs';
 import { BASE } from './lib/base.mjs';
 
+// It clicks in the demo page's editor, and a click there can land on anything (0006). Say so to run it.
+if (!process.env.ORACLE_DEMO_WRITES) { console.error('inventory refused, nothing ran: it clicks in edit mode on the demo page. Set ORACLE_DEMO_WRITES=1 only if the lead has asked for this run (0006).'); process.exit(2); }
 const args = process.argv.slice(2);
 const arg = (n, d) => (args.includes(`--${n}`) ? args[args.indexOf(`--${n}`) + 1] : d);
 const O = process.env.ORACLE_SURFACE || 'surface:40';

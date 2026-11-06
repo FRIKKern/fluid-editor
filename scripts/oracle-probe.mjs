@@ -7,6 +7,8 @@ import { browser, evalJs, waitFor, reload, pause, engine } from './lib/cmux.mjs'
 import { READY, LOADED, ENTER_EDIT, KEY, BUTTON } from './oracle/snippets.mjs';
 import { select, click, editText, pasteHtml, escape, deselect, addSection, addBlock, removeBlock, sectionCount, area, hold, release, blockEl, pitch, blockIds, exitWithoutSaving, openSectionPanel } from './oracle/ui.mjs';
 
+// Its probes press and write, unsaved, on the demo page, and it can't run elsewhere (0006). Say so to run it.
+if (!process.env.ORACLE_DEMO_WRITES) { console.error('oracle-probe refused, nothing ran: it writes unsaved on the demo page. Set ORACLE_DEMO_WRITES=1 only if the lead has asked for this probe (0006).'); process.exit(2); }
 const S = process.env.ORACLE_SURFACE || 'surface:40';
 const which = process.argv[2];
 const PAGE = '/how-fluid-engine-works';
@@ -995,7 +997,7 @@ if (which === 'SNAP') {
   const cases = (process.argv[3] && JSON.parse(process.argv[3])) || [[2, 2, 'move', 125, 75], [0, 2, 'move', 125, 30], [2, 2, 'se', 125, 75], [2, 2, 'nw', 125, 75]];
   const out = [];
   for (const [i, k, kind, mx, my] of cases) {
-    await enterEdit();
+    await enterEdit('How Fluid Engine works');
     const id = blockIds(i)[k]; const g = geometry(i); const area0 = area(i, id);
     evalJs(S, `(() => { ${FRAME} const b = d.querySelector('.fe-block[data-block-id="${id}"]'); const q = b.getBoundingClientRect(); if (q.top < 150 || q.bottom > W.innerHeight - 150) W.scrollTo({ top: W.scrollY + q.top - 300, behavior: 'instant' }); d.querySelectorAll('#fx-b').forEach((x) => x.removeAttribute('id')); b.id = 'fx-b'; return 'true'; })()`);
     await pause(300);
@@ -1351,4 +1353,4 @@ if (which === 'KEYS') {
 
 // O1: nothing a probe did survives. The reload some probes end with has already dropped it, then
 // this finds nothing to do.
-try { await exitWithoutSaving(); } catch {}
+try { await exitWithoutSaving(); } catch (e) { console.error(e.message); }

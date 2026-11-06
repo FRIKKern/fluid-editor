@@ -545,7 +545,7 @@
     "overlay": {
       "covers": "the whole window, the bar too",
       "fit": "rgba(231, 231, 231, 0.6)",
-      "how": "Inferred from pixels: white reads 241, purple 181, 100, 247 reads 211, 179, 238."
+      "how": "Read: rgb(231, 231, 231) at opacity 0.6 (CAP-U6OVERLAY.json). First fitted from pixels: white reads 241, purple 181, 100, 247 reads 211, 179, 238."
     }
   },
   "keys": {
@@ -559,9 +559,11 @@
     }
   },
   "notMeasured": [
-    "Redo hover while it can redo: taken as Undo's.",
     "Cmd+S on the oracle.",
-    "The tooltip rule is read from seven tooltips, not from a wider run of window widths.",
     "The icons are our own drawings at the same boxes and ink colors, not the oracle's, because of O2; the text uses our stand-in font, so tooltip widths run up to about 4px short."
+  ],
+  "measuredLater": [
+    "Redo hover while it can redo: as Undo's (CAP-U6REDO.json).",
+    "The tooltip rule at six window widths: Save Changes fixed, the others follow the right edge (CAP-U6TIPS.json)."
   ]
 }

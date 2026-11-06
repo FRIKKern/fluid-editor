@@ -2,6 +2,7 @@
 // Clicks that open menus are real clicks, from cmux or over CDP; drags and pastes are
 // pointer and clipboard events inside the site frame. Used by M1 (O1) only.
 import { browser, evalJs, pause } from '../lib/cmux.mjs';
+import { pressOnTop } from './press.mjs';
 
 export const SURFACE = process.env.ORACLE_SURFACE || 'surface:40';
 const cmux = (...a) => browser(SURFACE, ...a);
@@ -349,7 +350,8 @@ export async function release({ shift = false, alt = false } = {}) {
 
 // ---------- getting in and out of edit mode ----------
 // Open a page by its title in the page list and enter edit mode. Real clicks.
-export async function enterEdit(title = 'How Fluid Engine works') {
+export async function enterEdit(title) {
+  if (!title) throw new Error('enterEdit: name the page (0006).');
   const titled = `() => [...document.querySelectorAll('*')].filter((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(title)} && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().left < 400)[0]`;
   // An empty page has no editing section until one is touched, so the top bar's Exit counts too.
   const editing = () => evalJs(SURFACE, `(() => { ${FRAME} return JSON.stringify((d && d.querySelectorAll('.fluid-engine.is-editing').length > 0) || [...document.querySelectorAll('button')].some((x) => x.textContent.trim() === 'Exit' && x.getBoundingClientRect().width > 0)); })()`);
@@ -364,13 +366,25 @@ export async function enterEdit(title = 'How Fluid Engine works') {
 
 // Leave edit mode and throw away unsaved work: Exit, then the Exit inside "Exit Without Saving?".
 // Undo is not a safe way back (8 undos left a page dirty on 2026-11-04). Returns whether there
-// was a dialog, that is, whether the page was dirty.
+// was a dialog, that is, whether the page was dirty. Each press has an on-top check. If one fails,
+// or the top bar still has Exit afterwards, it throws, and the message says the page is still in
+// edit mode: nothing is saved, and the caller must not take the page as left.
+const TOP_EXIT = `[...document.querySelectorAll('button')].find((b) => b.textContent.trim() === 'Exit' && b.getBoundingClientRect().width > 0)`;
+const DIALOG_EXIT = `(() => { const t = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && /exit without saving/i.test(e.textContent) && e.getBoundingClientRect().width > 0); let box = t; while (box && ![...box.querySelectorAll('button')].some((b) => b.textContent.trim() === 'Exit')) box = box.parentElement; return box ? [...box.querySelectorAll('button')].find((b) => b.textContent.trim() === 'Exit') : null; })()`;
 export async function exitWithoutSaving() {
-  await click(byText('button', 'Exit'), { wait: 1500 });
-  const dialog = () => evalJs(SURFACE, `(() => { const t = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && /exit without saving/i.test(e.textContent) && e.getBoundingClientRect().width > 0); if (!t) return JSON.stringify(false); let box = t; while (box && ![...box.querySelectorAll('button')].some((b) => b.textContent.trim() === 'Exit')) box = box.parentElement; document.querySelectorAll('#fx-target').forEach((x) => x.removeAttribute('id')); const b = box && [...box.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Exit'); if (b) b.id = 'fx-target'; return JSON.stringify(!!b); })()`);
-  const dirty = dialog() === true;
-  if (dirty) { cmux('click', '#fx-target'); await pause(3000); }
-  return dirty;
+  const asked = () => evalJs(SURFACE, `(() => JSON.stringify(!!${DIALOG_EXIT}))()`) === true;
+  const stuck = (why) => new Error(`exitWithoutSaving: ${why}. Still in edit mode, nothing saved.`);
+  const onTop = (find, wait) => pressOnTop(SURFACE, find, wait).catch((e) => { throw stuck(e.message); });
+  const hasExit = () => evalJs(SURFACE, `(() => JSON.stringify(!!${TOP_EXIT}))()`) === true;
+  if (!asked() && !hasExit()) throw new Error('exitWithoutSaving: no Exit button, so not in edit mode.');
+  if (!asked()) await onTop(TOP_EXIT, 1500);
+  const dirty = asked();
+  if (dirty) await onTop(DIALOG_EXIT, 3000);
+  for (let i = 0; i < 10; i++) {
+    if (!hasExit()) return dirty;
+    await pause(500);
+  }
+  throw stuck('the top bar still has Exit after pressing it');
 }
 
 export const blockEl = (i, id) => BLOCK(i, id);

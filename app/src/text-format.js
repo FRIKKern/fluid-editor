@@ -47,8 +47,48 @@ function retag(doc, el, style) {
   return next;
 }
 
+// A change that rebuilds blocks keeps the caret or selection on the same letters (CAP-E4SCORE.json).
+function keepSelection(root, sel, change) {
+  if (!sel.rangeCount) { change(); return; }
+  const r = sel.getRangeAt(0);
+  const blocks = () => [...root.querySelectorAll(TEXT_BLOCK)].filter((e) => !e.parentElement.closest('pre') && !e.querySelector(TEXT_BLOCK));
+  const all = blocks();
+  const touched = all.filter((b) => r.intersectsNode(b));
+  const where = (node, off, end) => {
+    const k = all.findIndex((b) => b.contains(node));
+    if (k < 0) return touched.length ? (end ? [all.indexOf(touched.at(-1)), touched.at(-1).textContent.length] : [all.indexOf(touched[0]), 0]) : null;
+    const q = root.ownerDocument.createRange();
+    q.setStart(all[k], 0);
+    q.setEnd(node, off);
+    return [k, q.toString().length];
+  };
+  const from = where(r.startContainer, r.startOffset, false), to = where(r.endContainer, r.endOffset, true);
+  change();
+  if (!from || !to) return;
+  const now = blocks();
+  const spot = ([k, letters]) => {
+    let left = letters;
+    const walk = root.ownerDocument.createTreeWalker(now[k], 4);
+    for (let t = walk.nextNode(); t; t = walk.nextNode()) { if (left <= t.length) return [t, left]; left -= t.length; }
+    return [now[k], 0];
+  };
+  sel.setBaseAndExtent(...spot(from), ...spot(to));
+}
+
+// Enter at the end of a heading gives a heading (CAP-E4SCORE.json). The browser makes a div there.
+export function enterInHeading(doc, root, sel) {
+  const at = sel.focusNode?.nodeType === 1 ? sel.focusNode : sel.focusNode?.parentElement;
+  const div = at?.closest('div');
+  const was = div && div !== root && root.contains(div) ? div.previousElementSibling : null;
+  if (!was || !/^H[1-4]$/.test(was.tagName)) return;
+  const next = was.cloneNode(false);
+  next.append(...div.childNodes);
+  div.replaceWith(next);
+  sel.collapse(next, 0);
+}
+
 export function setStyle(doc, root, sel, style) {
-  for (const el of selectedBlocks(root, sel)) retag(doc, el, style);
+  keepSelection(root, sel, () => { for (const el of selectedBlocks(root, sel)) retag(doc, el, style); });
 }
 
 // Marks.
@@ -342,37 +382,44 @@ export function setLinkTarget(root, range, on) {
 }
 
 // Quote and lists wrap each selected block; applying the same again unwraps it.
-// Paragraphs side by side go into one list (CAP-E4LOOK.json), and a list is changed once.
+// Paragraphs side by side go into one list (CAP-E4LOOK.json) or one quote (CAP-E4SCORE.json). A list is
+// changed once, and pressing its own kind takes it off.
 export function toggleWrap(doc, root, sel, kind) {
-  const done = new Set();
-  for (const el of selectedBlocks(root, sel)) {
-    if (kind === 'quote') {
-      const q = el.closest('blockquote');
-      if (q && root.contains(q)) { q.replaceWith(...q.childNodes); continue; }
-      const nq = doc.createElement('blockquote');
-      el.replaceWith(nq);
-      nq.append(el);
-    } else {
-      const tag = kind === 'bullet' ? 'UL' : 'OL';
-      const li = el.parentElement.tagName === 'LI' ? el.parentElement : null;
-      const list = li?.parentElement;
-      if (list && done.has(list)) continue;
-      if (li && list && list.tagName === tag) {
-        list.replaceWith(...[...list.children].flatMap((x) => [...x.childNodes]));
-        continue;
-      }
-      if (li && list) { const other = doc.createElement(tag); other.setAttribute('data-rte-list', 'default'); while (list.firstChild) other.append(list.firstChild); list.replaceWith(other); done.add(other); continue; }
-      const nli = doc.createElement('li');
+  keepSelection(root, sel, () => {
+    const done = new Set(), freed = new Set();
+    for (const el of selectedBlocks(root, sel)) {
+      if (freed.has(el)) continue;
       const last = el.previousElementSibling;
-      if (last && done.has(last)) { el.remove(); nli.append(el); last.append(nli); continue; }
-      const nl = doc.createElement(tag);
-      nl.setAttribute('data-rte-list', 'default');
-      el.replaceWith(nl);
-      nli.append(el);
-      nl.append(nli);
-      done.add(nl);
+      if (kind === 'quote') {
+        const q = el.closest('blockquote');
+        if (q && root.contains(q)) { for (const c of q.children) freed.add(c); q.replaceWith(...q.childNodes); continue; }
+        if (last && done.has(last)) { last.append(el); continue; }
+        const nq = doc.createElement('blockquote');
+        el.replaceWith(nq);
+        nq.append(el);
+        done.add(nq);
+      } else {
+        const tag = kind === 'bullet' ? 'UL' : 'OL';
+        const li = el.parentElement.tagName === 'LI' ? el.parentElement : null;
+        const list = li?.parentElement;
+        if (list && done.has(list)) continue;
+        if (li && list && list.tagName === tag) {
+          for (const x of list.querySelectorAll(TEXT_BLOCK)) freed.add(x);
+          list.replaceWith(...[...list.children].flatMap((x) => [...x.childNodes]));
+          continue;
+        }
+        if (li && list) { const other = doc.createElement(tag); other.setAttribute('data-rte-list', 'default'); while (list.firstChild) other.append(list.firstChild); list.replaceWith(other); done.add(other); continue; }
+        const nli = doc.createElement('li');
+        if (last && done.has(last)) { el.remove(); nli.append(el); last.append(nli); continue; }
+        const nl = doc.createElement(tag);
+        nl.setAttribute('data-rte-list', 'default');
+        el.replaceWith(nl);
+        nli.append(el);
+        nl.append(nli);
+        done.add(nl);
+      }
     }
-  }
+  });
 }
 
 // The oracle writes the formatting properties first and white-space last, with no trailing
