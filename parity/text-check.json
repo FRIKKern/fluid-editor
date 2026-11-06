@@ -1,7 +1,7 @@
 {
   "check": "text toolbar HTML",
-  "pass": 117,
-  "total": 117,
+  "pass": 240,
+  "total": 240,
   "results": [
     {
       "name": "Heading 1",
@@ -232,6 +232,10 @@
       "ok": true
     },
     {
+      "name": "Look bullet before textAlign",
+      "ok": true
+    },
+    {
       "name": "Look numbered ol marginBottom",
       "ok": true
     },
@@ -277,6 +281,10 @@
     },
     {
       "name": "Look numbered before whiteSpace",
+      "ok": true
+    },
+    {
+      "name": "Look numbered before textAlign",
       "ok": true
     },
     {
@@ -337,6 +345,10 @@
     },
     {
       "name": "Undo Bold then Italic",
+      "ok": true
+    },
+    {
+      "name": "Undo Bold then Italic within a second",
       "ok": true
     },
     {
@@ -469,6 +481,486 @@
     },
     {
       "name": "Link \"foo.no\"",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET word end, Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET typed after",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET Bold again",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET typed after again",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET inside a word, Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET inside, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET before a word, Italic",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET before, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET between two spaces, Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET spaces, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET two paragraphs, Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET empty, Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET empty, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET word end, Strike",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4CARET Strike, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST around Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST around Bold, walk start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST around Bold, walk 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST around Bold, walk 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST around two",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST around two, walk start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST around two, walk 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST around two, walk 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST around two, walk 3",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST Bold on and off between, walk start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST Bold on and off between, walk 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST Bold on and off between, walk 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST Bold on and off between, walk 3",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST with 3 s around, walk start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST with 3 s around, walk 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST with 3 s around, walk 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BURST with 3 s around, walk 3",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH mixed, caret in the plain word",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH mixed, pressed again",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH mixed, caret in the bold word",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Italic then Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Bold off keeps Italic",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Bold over a part in Italic",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Italic over a part in Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Cmd+B",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Cmd+I",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Cmd+B again",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH caret on an empty line, Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH empty line, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH a heading",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH a list",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH monospace",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH a link",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH a colored word",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Bold on struck text",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Strike twice, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Strike, x, Strike, y",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH empty, Strike, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Strike, caret moved, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH inside struck text, Strike, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Strike, Bold, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Strike, Enter, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH caret, a color",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH caret, a color, Escape",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH caret, Highlight",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH a burst with Cmd+B in it start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH a burst with Cmd+B in it 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH a pause before Cmd+B, none after start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH a pause before Cmd+B, none after 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH a pause before Cmd+B, none after 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH no pause before Cmd+B, one after start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH no pause before Cmd+B, one after 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH no pause before Cmd+B, one after 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH letters 0.8 s apart start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH letters 0.8 s apart 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH letters 1.8 s apart start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH letters 1.8 s apart 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH letters 1.8 s apart 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Strike with a caret start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Strike with a caret 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Strike with a caret 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Bold on an empty block start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH Bold on an empty block 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 caret after plain, before bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 caret after bold, before plain",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 caret at the start, bold after it",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 empty line, Bold twice",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 Italic on struck text",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 color over a link",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 Bold over a highlight",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 color over a highlight",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 color, Escape",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 a color over part in another",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 one color, the popover",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 the same color twice",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 caret, custom color",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 caret, Clear Formatting",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 all selected, Clear Formatting",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 bold, Enter, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 Strike, Backspace, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 empty, Strike, Bold, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 Strike, Italic, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 caret, Highlight, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 Strike, two Enters, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 selection over paragraphs, Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 selection over paragraphs, Bold off",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 selection over paragraphs, a color",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 selection over mixed text, Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 selection over mixed text, off",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 part of a bold word, Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 a word bold at its start, caret at its end",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 monospace, selection, Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 selection, Clear Formatting",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 a color, Clear Formatting",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 a highlight, Clear Formatting",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 a link, Clear Formatting",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 a heading, Clear Formatting",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 a list, Clear Formatting",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 Strike at the left edge of struck text, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 a highlight on a word",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 a highlight, caret after",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 a highlight, caret after, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 a highlight, caret in plain text, Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 a highlight, caret in plain text, a color",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 a color, two Escapes, typed",
       "ok": true
     }
   ]

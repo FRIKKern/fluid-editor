@@ -1414,6 +1414,7 @@ function startTextEdit(sid, bid) {
   editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], marks: [before], prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
   ce.addEventListener('input', onTextInput);
   ce.addEventListener('paste', onPaste);
+  ce.addEventListener('focus', () => { if (editing) editing.keysOff = false; });
   doc.addEventListener('selectionchange', onTextSelection);
   renderPanel();
   renderTextBar();
@@ -3287,20 +3288,23 @@ function applyFormat(act, value) {
   if (!ed) return;
   const sel = win.getSelection();
   const [kind, arg] = act.split(':');
-  textStep(ed, ed.ce.innerHTML, ed.area);
+  const was = ed.ce.innerHTML;
   if (kind === 'style') fmt.setStyle(doc, ed.ce, sel, value);
-  if (kind === 'bold' || kind === 'italic' || kind === 'strike') fmt.toggleMark(doc, ed.ce, sel, kind);
+  if (kind === 'strike' && sel.isCollapsed) { ed.strikeNext = ed.strikeNext ? null : { on: !fmt.caretInMark(ed.ce, sel, 'strike'), at: String(fmt.caretPlace(ed.ce, sel)) }; ed.ce.focus(); return; }
+  if (kind === 'bold' || kind === 'italic') { ed.strikeNext = null; fmt.toggleMark(ed.ce, sel, kind); }
+  if (kind === 'strike') fmt.toggleMark(ed.ce, sel, kind);
   if (kind === 'quote' || kind === 'bullet' || kind === 'numbered') fmt.toggleWrap(doc, ed.ce, sel, kind);
   if (kind === 'indent') fmt.indent(ed.ce, sel, 1);
   if (kind === 'outdent') fmt.indent(ed.ce, sel, -1);
   if (kind === 'align') fmt.align(ed.ce, sel, arg);
   if (kind === 'clear') fmt.clearFormatting(ed.ce, sel);
-  if (kind === 'color') fmt.setTextColor(doc, ed.ce, sel, value);
-  if (kind === 'highlight') fmt.addHighlight(doc, ed.ce, sel);
+  // Highlight takes the keys from the text: arrows and letters do nothing, a color does nothing, and
+  // Bold still acts on the word (CAP-E4FRESH3.json).
+  if (kind === 'color' && !ed.keysOff) fmt.setTextColor(ed.ce, sel, value);
+  if (kind === 'highlight' && fmt.addHighlight(doc, ed.ce, sel)) { ed.ce.blur(); ed.keysOff = true; }
   if (kind === 'scaled') fmt.toggleScaled(doc, ed.ce, sel);
-  ed.ce.focus();
-  onTextInput();
-  textStep(ed, ed.ce.innerHTML, ed.area);
+  if (!ed.keysOff) ed.ce.focus();
+  if (ed.ce.innerHTML !== was) { ed.strikeNext = null; joinOrStep(ed); onTextInput(); }
 }
 // The Custom tab of Text Color (parity/findings/TEXTCOLOR.json, custom). A color map, a hue bar and a
 // Hex field. Each pick is written at once and the popover stays open. null is the Palette tab.
@@ -3341,7 +3345,9 @@ function paintCustomColor() {
 }
 function pickCustomColor() {
   if (!editing) return;
-  fmt.setCustomColor(doc, editing.ce, win.getSelection(), customColor.hex);
+  const was = editing.ce.innerHTML;
+  fmt.setCustomColor(editing.ce, win.getSelection(), customColor.hex);
+  if (editing.ce.innerHTML !== was) joinOrStep(editing);
   onTextInput();
   paintCustomColor();
 }
@@ -3418,9 +3424,14 @@ function openTextLink(btnEl) {
 
 // When an edit makes the text taller, move the block's end row instead of
 // letting the row stretch.
-// Undo steps inside one edit (parity/findings/TEXTUNDO.json): a toolbar action is a step of its own,
-// and so is typing after a pause of about a second. Enter and Backspace do not split a burst.
+// Undo steps inside one edit (parity/findings/TEXTUNDO.json, CAP-E4BURST.json): a change joins the one
+// before it unless about a second has passed, whether typed or pressed on the toolbar.
 const TYPING_PAUSE = 1000;
+function joinOrStep(ed) {
+  const now = performance.now();
+  if (ed.lastInput && now - ed.lastInput >= TYPING_PAUSE) textStep(ed, ed.prevHtml, ed.prevArea);
+  ed.lastInput = now;
+}
 function textStep(ed, html, area) {
   const b = B(ed.sid, ed.bid), keep = [b.html, lay(b).area];
   b.html = html;
@@ -3466,10 +3477,16 @@ function onTextInput(e) {
   // Cmd+Z in an edit is the browser's. After it the edit is one step again (TEXTUNDO.json).
   if (e?.inputType?.startsWith('history')) ed.marks.length = 1;
   else if (e?.inputType) {
-    const now = performance.now();
-    if (ed.lastInput && now - ed.lastInput >= TYPING_PAUSE) textStep(ed, ed.prevHtml, ed.prevArea);
-    ed.lastInput = now;
+    joinOrStep(ed);
     autoLink(ed, e.inputType, e.data);
+    // Enter carries a pending Strike to the next line, anything else ends it (CAP-E4FRESH.json).
+    if (ed.strikeNext) {
+      if (e.inputType === 'insertParagraph') ed.strikeNext.at = String(fmt.caretPlace(ed.ce, win.getSelection()));
+      else {
+        if (e.inputType === 'insertText' && e.data) fmt.markTyped(ed.ce, win.getSelection(), e.data.length, 'strike', ed.strikeNext.on);
+        ed.strikeNext = null;
+      }
+    }
   }
   // The end row follows the text both ways, but not below 2 rows
   // (parity/findings/E3.json: a one-line paragraph ended at 2 rows).
@@ -3484,7 +3501,10 @@ function onTextInput(e) {
   ed.prevArea = [...ed.area];
 }
 
-function onTextSelection() { if (editing && !textMenu) renderTextBar(); }
+function onTextSelection() {
+  if (editing?.strikeNext && String(fmt.caretPlace(editing.ce, win.getSelection())) !== editing.strikeNext.at) editing.strikeNext = null;
+  if (editing && !textMenu) renderTextBar();
+}
 function finishTextEdit() {
   const ed = editing;
   if (!ed) return;
@@ -3556,7 +3576,7 @@ function renderPanel() {
 const pageTitle = () => document.querySelector('.page-name')?.textContent.trim() || 'Page';
 const STANDIN_TYPES = ['Quote', 'Chart', 'SoundCloud', 'Flickr', 'Instagram']; // their content follows the width (STANDINS.json)
 const ADD_TYPES = [
-  ['Text', 8, 2, () => ({ type: 'text', html: '<p data-rte-preserve-empty="true"></p>' })],
+  ['Text', 8, 2, () => ({ type: 'text', html: '<p style="white-space:pre-wrap;" data-rte-preserve-empty="true"></p>' })],
   ['Image', 6, 6, () => ({ type: 'image', alt: '', empty: true, mode: 'fit' })],
   ['Button', 6, 2, () => ({ type: 'button', label: 'Learn more' })],
   ['Video', 8, 8, () => ({ type: 'video' })],

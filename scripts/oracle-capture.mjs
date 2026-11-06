@@ -7,10 +7,10 @@
 // Steps: enter | exit | view Mobile|Desktop | window w h (the real window, for a block taller than it) | frame w h | unframe | pause ms | listen
 //   hover i | hoverBlock i k | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
-//   click label | clickIf label | press key | keys text | keysFast text | fill label value | fillValue shown value | rightClick i k
+//   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | fill label value | fillValue shown value | rightClick i k
 //   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clickAt x y | walk i k part mx my | pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillRow label n value | hoverRow label [n] | pressNamed label | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
 //   hold i k part dx dy [mods] | holdRaw i k part dx dy | shiftClick i k | move dx dy | release [home] | drag i k part dx dy {pointerType}
-//   touch i k part dx dy {holdMs} | pasteMid i k html | undoWalk name [n] | shot name
+//   touch i k part dx dy {holdMs} | pasteMid i k html | undoWalk name [n] [html] | shot name
 //   read name { block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], range: true, rows: [labels], parts: [labels], boxes: [labels], shape: [i,k], reset: [label,n], leaves: [labels], afterBtn: label, gridEls: selector, panelState: true, kids: [i, k] (a stack's children), linkTexts: [i, k], gradients: true, marker: [i, k], hits: [i, k], htmlOf: selector, frameEls: selector, panelEls: selector, textBox: [text], radii: [i, k], icon: true, style: [i,k], textH: [i,k], checks: true, sel: selector, layers: i, controls: true, thin: true }
 // k is a block's place in its section, or "new" for the block `add` made. part is "middle", a handle, or fractions [x, y] of the block.
 // A recipe that changes content names its page ({ page: 'Gestures Probe' }, 0006). Nothing is saved on any page.
@@ -200,6 +200,8 @@ const STEPS = {
   pressCombo: async (n) => { if (!tag(`() => [...document.querySelectorAll('[role=combobox]')].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'))[${n}]`)) throw new Error(`no combobox ${n}`); const at = evalJs(S, `(() => { const q = document.getElementById('fx-target').getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); mouse(S, 'move', at[0], at[1]); await pause(200); mouse(S, 'down', at[0], at[1]); mouse(S, 'up', at[0], at[1]); await pause(500); },
   // A long run of keys in one process: `keys` starts one per key.
   keysFast: async (text) => { cdp(S, { op: 'presses', keys: [...text].map((c) => (c === ' ' ? 'Space' : c)) }); await pause(1500); },
+  // Keys with no wait between them, so a Cmd+B is inside one burst of typing.
+  keysList: async (keys) => { cdp(S, { op: 'presses', keys }); await pause(300); },
   keys: async (text) => { for (const c of text) browser(S, 'press', c === ' ' ? 'Space' : c); await pause(300); },
   fill: async (label, value) => {
     const ok = tag(`() => { const L = ${JSON.stringify(label)}; const vis = (e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame'); const direct = [...document.querySelectorAll('input, textarea')].filter(vis).find((e) => e.getAttribute('aria-label') === L || e.getAttribute('placeholder') === L); if (direct) return direct; const t = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.textContent.trim() === L && vis(e)).pop(); let n = t; for (let u = 0; n && u < 6; u++, n = n.parentElement) { const i = [...n.querySelectorAll('input:not([type=checkbox]):not([type=radio]), textarea')].find(vis); if (i) return i; } return null; }`);
@@ -271,12 +273,13 @@ const STEPS = {
   touch: async (i, k, part, dx, dy, o = {}) => { const [x, y] = point(i, k, part); await inFrame(() => cdp(S, { op: 'touch', from: [x, y], to: [x + dx, y + dy], steps: dx || dy ? 12 : 0, holdMs: o.holdMs || 0 })); await pause(1000); },
   pasteMid: async (i, k, html) => { const id = blockId(i, k); evalJs(S, `(async () => { ${FRAME} const pm = ${BLOCK(i, id)}.querySelector('.ProseMirror[contenteditable=true]'); if (!pm) return JSON.stringify('no editor'); pm.focus(); const w = d.createTreeWalker(pm, 4); const t = w.nextNode(); const r = d.createRange(); if (t) r.setStart(t, Math.floor(t.length / 2)); else r.setStart(pm, 0); r.collapse(true); const s = W.getSelection(); s.removeAllRanges(); s.addRange(r); await new Promise((res) => setTimeout(res, 300)); const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(html)}); dt.setData('text/plain', ${JSON.stringify(html.replace(/<[^>]+>/g, ' '))}); pm.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); await new Promise((res) => setTimeout(res, 400)); return 'true'; })()`); await pause(500); },
   // Undo by the top bar button until it stops, with the block's text at each step.
-  undoWalk: async (label, i, k, n = 12) => {
+  undoWalk: async (label, i, k, n = 12, html = false) => {
     const id = blockId(i, k); const seen = [];
     const text = () => evalJs(S, `(() => { ${FRAME} const b = d.querySelector('main#page .fe-block[data-block-id="${id}"]'); const t = b && (b.querySelector('.ProseMirror') || b.querySelector('.sqs-html-content')); return JSON.stringify(t ? t.textContent.replace(/\\s+/g, ' ').trim().slice(-60) : null); })()`);
     const can = () => evalJs(S, `(() => { const b = [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Undo'); return JSON.stringify(!!b && !b.disabled); })()`);
-    seen.push(['start', text()]);
-    for (let u = 1; u <= n && can() === true; u++) { if (!tag(LABEL('Undo'))) break; browser(S, 'click', '#fx-target'); await pause(900); seen.push([u, text()]); }
+    const inner = () => (html ? [evalJs(S, `(() => { ${FRAME} const b = d.querySelector('main#page .fe-block[data-block-id="${id}"]'); const t = b && (b.querySelector('.ProseMirror') || b.querySelector('.sqs-html-content')); return JSON.stringify(t ? t.innerHTML : null); })()`)] : []);
+    seen.push(['start', text(), ...inner()]);
+    for (let u = 1; u <= n && can() === true; u++) { if (!tag(LABEL('Undo'))) break; browser(S, 'click', '#fx-target'); await pause(900); seen.push([u, text(), ...inner()]); }
     finding.reads[label] = { undo: seen, stillCan: can() };
   },
   shot: (label) => { if (process.env.SHOTS) { mkdirSync(process.env.SHOTS, { recursive: true }); browser(S, 'screenshot', '--out', `${process.env.SHOTS}/${name}-${label}.png`); } },
