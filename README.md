@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 4 changes
+- **Today** · 5 changes
+  - U12: capture tool's moveAt keeps the button down during a holdAt ([#295](https://github.com/FRIKKern/fluid-editor/pull/295))
   - X11, X6: a touch on a handle needs the hold at a fast move; phone width floors ([#289](https://github.com/FRIKKern/fluid-editor/pull/289))
-  - U10: the not-read list, the panel top while scrolling, the mark ([#294](https://github.com/FRIKKern/fluid-editor/pull/294))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
