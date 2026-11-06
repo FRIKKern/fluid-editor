@@ -498,6 +498,15 @@ export const RECIPES = {
   'CAP-L5TYPES': { page: 'Gestures Probe', question: 'L5: Hide on desktop and on mobile on block types beyond Image, Button, Line, Form and Shape', steps: [
     ['enter'], ['blank'], ...['Text', 'Video', 'Accordion', 'Scrolling', 'Quote', 'Map', 'Code', 'Markdown', 'Embed', 'Social Links', 'Newsletter', 'Chart', 'Calendar', 'Menu', 'Audio', 'Search Field', 'Page Link', 'Tag Cloud', 'RSS', 'Archive', 'Instagram', 'Tock', 'SoundCloud', 'Flickr', 'OpenTable', 'Zola', 'Bandsintown', 'Summary'].flatMap((t) => [['add', 0, t], ['pause', 700], ['press', 'Escape'], ['rightClick', 0, 'new'], ['click', 'Hide on desktop'], ['read', `${t} hidden on desktop`, { block: [0, 'new'], section: 0 }], ['press', 'Meta+z'], ['pause', 300], ['rightClick', 0, 'new'], ['click', 'Hide on mobile'], ['read', `${t} hidden on mobile`, { block: [0, 'new'], section: 0 }], ['view', 'Mobile'], ['read', `${t} phone view`, { block: [0, 'new'], section: 0 }], ['view', 'Desktop'], ['press', 'Meta+z'], ['pause', 300], ['press', 'Escape'], ['select', 0, 'new'], ['pressNamed', 'Remove'], ['pause', 300]]),
   ] },
+  'CAP-Z3AFTER': { page: 'Gestures Probe', question: 'Z3: is the next press lost after a row drag given up by Escape or a release over the page? Against a normal drop. Layers has to open on the first press or the second.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['add', 0, 'Button'], ['press', 'Escape'], ['add', 0, 'Shape'], ['press', 'Escape'], ['hover', 0], ['click', 'Open Layers Panel'], ['pause', 800], ['read', 'open at the start', { has: ['Layers'] }],
+    ...[['Escape', [[0, -40], ['esc']]], ['a release over the page', [[400, 0], [400, 30]]]].flatMap(([n, path]) => [
+      ['rowPath', 'Button', ['Line', 'Button', 'Shape'], path, `held, ${n}`], ['read', `after ${n}`, { has: ['Layers'] }],
+      ['hover', 0], ['click', 'Open Layers Panel'], ['read', `after ${n}, one press`, { has: ['Layers'] }], ['click', 'Open Layers Panel'], ['read', `after ${n}, two presses`, { has: ['Layers'] }],
+      ['pause', 300], ['read', `after ${n}, settled`, { has: ['Layers'] }],
+    ]),
+    ['read', 'before the normal drop', { has: ['Layers'] }],
+  ] },
   'CAP-Z3SCORE': { page: 'Gestures Probe', question: 'Z3: fresh cases for the last rules, no fitting after. Rows held by the real mouse, frames of moves and drops. Unnamed presses on the rows.', steps: [
     ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['add', 0, 'Button'], ['press', 'Escape'], ['add', 0, 'Shape'], ['press', 'Escape'], ['hover', 0], ['click', 'Open Layers Panel'], ['pause', 800], ['read', 'start', { zs: 0 }],
     ...[['Line', -23, 'Line up 80, down to 23', [-80]], ['Line', -71, 'Line up 80, back to 70, up to 71', [-80, -70]], ['Shape', 70, 'Shape down 80, back to 70', [80]], ['Shape', 71, 'Shape down 80, back to 70, down to 71', [80, 70]], ['Shape', 23, 'Shape down 30, back to 23', [30]], ['Button', 24, 'Button down 30, back to 0, down to 24', [30, 0]], ['Button', -24, 'Button down 30, up to 24 above', [30]], ['Button', -23, 'Button up 30, back to 23', [-30]]]
