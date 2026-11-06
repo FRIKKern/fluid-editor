@@ -187,6 +187,11 @@ svg.sqs-shape:not(.is-square) { position: absolute; inset: 0; }
   background: #0f0f0f; color: #e8e8e8; border-radius: 10px;
   font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; line-height: 1.5;
 }
+/* Display Source Code on the oracle: plain text in the page's colour, clipped at the block's edge (CAP-T10PRE.json). */
+.sqs-block-code .sqs-code-container pre.source-code {
+  padding: 0; overflow: hidden; background: none; color: inherit; border-radius: 0;
+  font-family: monospace; font-size: 1rem; line-height: var(--body-font-line-height); white-space: pre;
+}
 
 /* Stacks (S3), values from the oracle (parity/findings/S3.json) */
 .sqs-block-stack { box-sizing: border-box; }

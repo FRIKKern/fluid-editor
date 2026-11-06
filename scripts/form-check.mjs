@@ -107,6 +107,13 @@ add('Highlight: one undo step back', evalJs(S, `(() => JSON.stringify(${B}.highl
 press('[data-form-set="highlight"][data-v="none"]');
 add('Highlight None: the layer is gone', fxRead().n === 0 && evalJs(S, `(() => JSON.stringify(${B}.highlight === undefined))()`) === true);
 
+// The panel's tabs stay while what is under them scrolls (FORMFIELDS.json). A press on a tab still lands.
+const tabs = (top) => evalJs(S, `(() => { const P = document.getElementById('block-panel'); if (${top} !== null) P.scrollTop = ${top}; const t = P.querySelector('.sp-tab'), r = t.getBoundingClientRect(), o = P.getBoundingClientRect(); const on = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return JSON.stringify({ scrolled: P.scrollTop, at: r.top - o.top, tab: !!on && !!on.closest('.sp-tab') }); })()`);
+press('[data-btab="Content"]'); await pause(300);
+const rest = tabs(0), down = tabs(200);
+add('The tabs stay when the panel scrolls', down.scrolled > 0 && Math.abs(down.at - rest.at) < 1 && down.tab, JSON.stringify([rest, down]));
+tabs(0);
+
 writeFileSync(new URL('../parity/form-check.json', import.meta.url), `${JSON.stringify({ check: 'Add Block > Form', pass, total, results }, null, 1)}\n`);
 console.log(`Form: ${pass} of ${total} checks match`);
 process.exit(pass === total ? 0 : 1);

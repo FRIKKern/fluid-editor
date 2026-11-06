@@ -1,0 +1,1468 @@
+{
+ "item": "CAP-T10PRE",
+ "oracle": "/gestures-probe",
+ "capturedAt": "2026-11-06",
+ "engine": "chrome",
+ "question": "T10: the source pre's height, and whether a Code block in Markdown reads like a Markdown block; a new Markdown block's panel",
+ "steps": [
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Code"
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "clickIf",
+   "Edit"
+  ],
+  [
+   "pause",
+   1000
+  ],
+  [
+   "setCode",
+   "<p>row 1</p><p>row 2</p><p>row 3</p>"
+  ],
+  [
+   "clickIf",
+   "Expand"
+  ],
+  [
+   "pause",
+   900
+  ],
+  [
+   "clickAt",
+   585,
+   306
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "pressNamed",
+   "CSS"
+  ],
+  [
+   "pause",
+   700
+  ],
+  [
+   "clickIf",
+   "Close"
+  ],
+  [
+   "pause",
+   900
+  ],
+  [
+   "read",
+   "source on",
+   {
+    "frameEls": ".sqs-code-container, .sqs-code-container pre",
+    "sel": ".sqs-code-container pre",
+    "areas": 0,
+    "htmlOf": ".sqs-code-container"
+   }
+  ],
+  [
+   "shot",
+   "pre"
+  ],
+  [
+   "setCode",
+   "line one\nline two\nline three\nline four"
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "source 4 lines",
+   {
+    "frameEls": ".sqs-code-container pre",
+    "areas": 0
+   }
+  ],
+  [
+   "clickIf",
+   "Expand"
+  ],
+  [
+   "pause",
+   900
+  ],
+  [
+   "clickAt",
+   585,
+   306
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "pressNamed",
+   "Markdown"
+  ],
+  [
+   "pause",
+   700
+  ],
+  [
+   "clickAt",
+   1203,
+   311
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "clickIf",
+   "Close"
+  ],
+  [
+   "pause",
+   900
+  ],
+  [
+   "setCode",
+   "- a\n\n<b>x</b>\n\n<script>0</script>\n\n| a |\n|---|\n| 1 |"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "code block in Markdown",
+   {
+    "htmlOf": ".sqs-code-container",
+    "areas": 0,
+    "checks": true
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "add",
+   0,
+   "Markdown"
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "markdown selected",
+   {
+    "block": [
+     0,
+     "new"
+    ],
+    "inside": [
+     0,
+     "new"
+    ],
+    "controls": true,
+    "frameEls": ".sqs-block-markdown .sqs-block-content, .sqs-block-markdown .sqs-blockStatus, .sqs-block-markdown p"
+   }
+  ],
+  [
+   "shot",
+   "md-selected"
+  ],
+  [
+   "clickIf",
+   "Edit"
+  ],
+  [
+   "pause",
+   1000
+  ],
+  [
+   "read",
+   "markdown panel",
+   {
+    "controls": true,
+    "panelEls": ".cm-content, .cm-editor, .cm-placeholder",
+    "checks": true
+   }
+  ],
+  [
+   "shot",
+   "md-panel"
+  ],
+  [
+   "setCode",
+   "# Title\n\nSome *text*\n\n- a\n- b\n\n> q\n\n```\ncode\n```"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "markdown styled",
+   {
+    "sel": ".sqs-block-markdown .sqs-block-content *",
+    "frameEls": ".sqs-block-markdown .sqs-block-content",
+    "areas": 0
+   }
+  ],
+  [
+   "shot",
+   "md-styled"
+  ],
+  [
+   "clickIf",
+   "Design"
+  ],
+  [
+   "pause",
+   700
+  ],
+  [
+   "read",
+   "markdown design",
+   {
+    "controls": true
+   }
+  ],
+  [
+   "shot",
+   "md-design"
+  ]
+ ],
+ "reads": {
+  "source on": {
+   "frameEls": [
+    {
+     "tag": "div",
+     "label": "<p>row 1</p><p>row 2</p><p>row 3</p>",
+     "expanded": null,
+     "checked": null,
+     "opacity": "1",
+     "pointer": "all",
+     "box": [
+      100.1,
+      338.9,
+      224.1,
+      22.4
+     ]
+    },
+    {
+     "tag": "pre",
+     "label": "<p>row 1</p><p>row 2</p><p>row 3</p>",
+     "expanded": null,
+     "checked": null,
+     "opacity": "1",
+     "pointer": "all",
+     "box": [
+      100.1,
+      338.9,
+      224.1,
+      22.4
+     ]
+    }
+   ],
+   "htmlOf": "<pre class=\"source-code\">&lt;p&gt;row 1&lt;/p&gt;&lt;p&gt;row 2&lt;/p&gt;&lt;p&gt;row 3&lt;/p&gt;</pre>",
+   "areas": [
+    [
+     "1/2/4/6",
+     "1/2/7/10"
+    ]
+   ],
+   "sel": [
+    {
+     "tag": "pre",
+     "cls": "source-code",
+     "box": [
+      100.1,
+      283.9,
+      224.1,
+      22.4
+     ],
+     "css": {
+      "display": "block",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "source 4 lines": {
+   "frameEls": [
+    {
+     "tag": "pre",
+     "label": "line one\nline two\nline three\nline four",
+     "expanded": null,
+     "checked": null,
+     "opacity": "1",
+     "pointer": "all",
+     "box": [
+      100.1,
+      338.9,
+      224.1,
+      89.6
+     ]
+    }
+   ],
+   "areas": [
+    [
+     "1/2/4/6",
+     "1/2/7/10"
+    ]
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "code block in Markdown": {
+   "checks": [
+    {
+     "box": [
+      870,
+      517,
+      12,
+      12
+     ],
+     "checked": false,
+     "text": "Display Source Code"
+    }
+   ],
+   "htmlOf": "<div class=\"sqs-blockStatus\"><div class=\"sqs-blockStatus-box\"><div class=\"sqs-blockStatus-box-title\">Embedded Scripts</div><div class=\"sqs-blockStatus-box-message\">This block contains embedded scripts. Embedded scripts are disabled while you're logged in and editing your site.</div><div class=\"sqs-blockStatus-box-button\" role=\"button\">Preview in safe mode</div></div></div><ul>\n<li>a</li>\n</ul>\n<p><b data-preserve-html-node=\"true\">x</b></p>\n<div class=\"removed-script\">Script Disabled</div>\n\n<table>\n<thead>\n<tr>\n<th>a</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>1</td>\n</tr>\n</tbody></table>\n",
+   "areas": [
+    [
+     "1/2/5/6",
+     "1/2/7/10"
+    ]
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "markdown selected": {
+   "controls": [
+    {
+     "role": "button",
+     "label": "Save",
+     "box": [
+      11,
+      8.5,
+      55.6,
+      38
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Exit",
+     "box": [
+      77.6,
+      8.5,
+      45.8,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Undo",
+     "box": [
+      145.4,
+      1.5,
+      36,
+      52
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Redo",
+     "box": [
+      189.4,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Desktop View",
+     "box": [
+      1390,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Mobile View",
+     "box": [
+      1436,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle Site Styles editing",
+     "box": [
+      1495,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle preview mode",
+     "box": [
+      1542,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Open Layers Panel",
+     "box": [
+      26,
+      219.6,
+      38,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Edit",
+     "box": [
+      108.1,
+      242.2,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Align Vertically",
+     "box": [
+      153.1,
+      242.2,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Pin",
+     "box": [
+      193.1,
+      242.2,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Move Forward",
+     "box": [
+      233.1,
+      242.2,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Move Backward",
+     "box": [
+      273.1,
+      242.2,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Duplicate",
+     "box": [
+      318.1,
+      242.2,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Remove",
+     "box": [
+      358.1,
+      242.2,
+      36,
+      36
+     ]
+    }
+   ],
+   "block": {
+    "desktop": "1/2/7/6",
+    "mobile": "1/2/7/10",
+    "box": [
+     100.1,
+     244.2,
+     224.1,
+     509
+    ],
+    "cls": "fe-block is-transitioning-visibility",
+    "data": {
+     "data-is-locked": "false",
+     "data-fluid-engine-block": "true",
+     "data-test": "yui_3_17_2_1_1793949706514_699",
+     "data-is-selected": "true",
+     "data-is-matching-width": "false",
+     "data-is-matching-height": "false",
+     "data-is-near-dragged-block": "false"
+    },
+    "css": {
+     "display": "block",
+     "position": "relative",
+     "zIndex": "2",
+     "opacity": "1",
+     "color": "rgb(0, 0, 0)",
+     "borderTopColor": "rgb(0, 0, 0)",
+     "outlineWidth": "3px",
+     "outlineColor": "rgb(0, 0, 0)",
+     "fontSize": "16px",
+     "gridArea": "1 / 2 / 7 / 6",
+     "flexDirection": "row"
+    },
+    "handles": [
+     "col 10x10 at -6,249.5",
+     "col 10x10 at 220.1,249.5",
+     "ne 10x10 at 220.1,-6",
+     "nw 10x10 at -6,-6",
+     "row 10x10 at 107.1,-6",
+     "row 10x10 at 107.1,505",
+     "se 10x10 at 220.1,505",
+     "sw 10x10 at -6,505"
+    ]
+   },
+   "frameEls": [
+    {
+     "tag": "div",
+     "label": "Double-click to edit...",
+     "expanded": null,
+     "checked": null,
+     "opacity": "1",
+     "pointer": "all",
+     "box": [
+      100.1,
+      299.2,
+      224.1,
+      22.4
+     ]
+    },
+    {
+     "tag": "div",
+     "label": "Double-click to edit...",
+     "expanded": null,
+     "checked": null,
+     "opacity": "1",
+     "pointer": "all",
+     "box": [
+      100.1,
+      299.2,
+      224.1,
+      22.4
+     ]
+    },
+    {
+     "tag": "p",
+     "label": "Double-click to edit...",
+     "expanded": null,
+     "checked": null,
+     "opacity": "1",
+     "pointer": "all",
+     "box": [
+      100.1,
+      299.2,
+      224.1,
+      22.4
+     ]
+    }
+   ],
+   "inside": [
+    {
+     "tag": "div",
+     "cls": "fluid-engine-block-contents accept-pointer-events",
+     "box": [
+      100.1,
+      244.2,
+      224.1,
+      509
+     ],
+     "css": {
+      "display": "block",
+      "position": "relative",
+      "zIndex": "3",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    },
+    {
+     "tag": "div",
+     "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-mark",
+     "box": [
+      100.1,
+      244.2,
+      224.1,
+      509
+     ],
+     "css": {
+      "display": "flex",
+      "position": "relative",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "column",
+      "justifyContent": "flex-start"
+     }
+    },
+    {
+     "tag": "div",
+     "cls": "sqs-block-website-component-content sqs-block-content",
+     "box": [
+      100.1,
+      244.2,
+      224.1,
+      22.4
+     ],
+     "css": {
+      "display": "block",
+      "position": "relative",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    },
+    {
+     "tag": "div",
+     "cls": "sqs-blockStatus sqs-html-content",
+     "box": [
+      100.1,
+      244.2,
+      224.1,
+      22.4
+     ],
+     "css": {
+      "display": "block",
+      "position": "relative",
+      "zIndex": "1001",
+      "opacity": "1",
+      "color": "rgba(0, 0, 0, 0.3)",
+      "borderTopColor": "rgba(0, 0, 0, 0.3)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgba(0, 0, 0, 0.3)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    },
+    {
+     "tag": "p",
+     "cls": "",
+     "box": [
+      100.1,
+      244.2,
+      224.1,
+      22.4
+     ],
+     "css": {
+      "display": "block",
+      "opacity": "1",
+      "color": "rgba(0, 0, 0, 0.3)",
+      "borderTopColor": "rgba(0, 0, 0, 0.3)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgba(0, 0, 0, 0.3)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    },
+    {
+     "tag": "div",
+     "cls": "sqs-block-resizing-outline",
+     "box": [
+      100.1,
+      244.2,
+      6,
+      6
+     ],
+     "css": {
+      "display": "block",
+      "position": "absolute",
+      "opacity": "0",
+      "color": "rgb(0, 0, 0)",
+      "borderTopWidth": "3px",
+      "borderTopStyle": "solid",
+      "borderTopColor": "rgba(112, 151, 228, 0.7)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    },
+    {
+     "tag": "div",
+     "cls": "sqs-block-resizing-inner",
+     "box": [
+      101.1,
+      245.2,
+      4,
+      4
+     ],
+     "css": {
+      "display": "block",
+      "position": "absolute",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopWidth": "2px",
+      "borderTopStyle": "solid",
+      "borderTopColor": "rgba(112, 151, 228, 0.7)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "markdown panel": {
+   "controls": [
+    {
+     "role": "button",
+     "label": "Save",
+     "box": [
+      11,
+      8.5,
+      55.6,
+      38
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Exit",
+     "box": [
+      77.6,
+      8.5,
+      45.8,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Undo",
+     "box": [
+      145.4,
+      1.5,
+      36,
+      52
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Redo",
+     "box": [
+      189.4,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Desktop View",
+     "box": [
+      1390,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Mobile View",
+     "box": [
+      1436,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle Site Styles editing",
+     "box": [
+      1495,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle preview mode",
+     "box": [
+      1542,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Click and drag to reposition block editor form",
+     "box": [
+      343,
+      301,
+      575,
+      55
+     ]
+    },
+    {
+     "role": "tab",
+     "label": "Content",
+     "box": [
+      365,
+      301,
+      52.8,
+      55
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Heading",
+     "box": [
+      369,
+      366,
+      110.1,
+      36
+     ]
+    },
+    {
+     "role": "checkbox",
+     "label": "Bold",
+     "box": [
+      488.1,
+      366,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "checkbox",
+     "label": "Italic",
+     "box": [
+      528.1,
+      366,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Link",
+     "box": [
+      568.1,
+      366,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "checkbox",
+     "label": "Bulleted List",
+     "box": [
+      613.1,
+      366,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "checkbox",
+     "label": "Numbered List",
+     "box": [
+      653.1,
+      366,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "checkbox",
+     "label": "Quote",
+     "box": [
+      698.1,
+      366,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      856,
+      716,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "a",
+     "label": "See the syntax cheatsheet",
+     "box": [
+      476.5,
+      778,
+      148.5,
+      16
+     ]
+    }
+   ],
+   "checks": [],
+   "panelEls": [
+    {
+     "tag": "div",
+     "cls": "cm-editor ͼ1 ͼ2 ͼ4 ͼ3x",
+     "label": "91›Add markdown…",
+     "lines": 2,
+     "box": [
+      365,
+      412,
+      531,
+      344
+     ]
+    },
+    {
+     "tag": "div",
+     "cls": "cm-content cm-lineWrapping",
+     "label": "Add markdown…",
+     "lines": 1,
+     "box": [
+      396.4,
+      412,
+      499.6,
+      344
+     ]
+    },
+    {
+     "tag": "span",
+     "cls": "cm-placeholder",
+     "label": "Add markdown…",
+     "lines": 0,
+     "box": [
+      402.4,
+      423,
+      109.6,
+      22
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "markdown styled": {
+   "frameEls": [
+    {
+     "tag": "div",
+     "label": "TitleSome text\na\nb\n\nq\ncode",
+     "expanded": null,
+     "checked": null,
+     "opacity": "1",
+     "pointer": "all",
+     "box": [
+      100.1,
+      299.2,
+      224.1,
+      268
+     ]
+    }
+   ],
+   "areas": [
+    [
+     "1/2/14/6",
+     "1/2/7/10"
+    ],
+    [
+     "8/2/12/6",
+     "7/2/13/10"
+    ]
+   ],
+   "sel": [
+    {
+     "tag": "h1",
+     "cls": "",
+     "box": [
+      100.1,
+      244.2,
+      224.1,
+      76
+     ],
+     "css": {
+      "display": "block",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "66.4px",
+      "flexDirection": "row"
+     }
+    },
+    {
+     "tag": "p",
+     "cls": "",
+     "box": [
+      100.1,
+      352.2,
+      224.1,
+      22.4
+     ],
+     "css": {
+      "display": "block",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    },
+    {
+     "tag": "em",
+     "cls": "",
+     "box": [
+      150.4,
+      351.2,
+      29.2,
+      23
+     ],
+     "css": {
+      "display": "inline",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    },
+    {
+     "tag": "ul",
+     "cls": "",
+     "box": [
+      100.1,
+      390.6,
+      224.1,
+      44.8
+     ],
+     "css": {
+      "display": "block",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    },
+    {
+     "tag": "li",
+     "cls": "",
+     "box": [
+      140.1,
+      390.6,
+      184.1,
+      22.4
+     ],
+     "css": {
+      "display": "list-item",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    },
+    {
+     "tag": "li",
+     "cls": "",
+     "box": [
+      140.1,
+      413,
+      184.1,
+      22.4
+     ],
+     "css": {
+      "display": "list-item",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    },
+    {
+     "tag": "blockquote",
+     "cls": "",
+     "box": [
+      140.1,
+      451.4,
+      144.1,
+      22.4
+     ],
+     "css": {
+      "display": "block",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    },
+    {
+     "tag": "p",
+     "cls": "",
+     "box": [
+      140.1,
+      451.4,
+      144.1,
+      22.4
+     ],
+     "css": {
+      "display": "block",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    },
+    {
+     "tag": "pre",
+     "cls": "",
+     "box": [
+      100.1,
+      489.8,
+      224.1,
+      22.4
+     ],
+     "css": {
+      "display": "block",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    },
+    {
+     "tag": "code",
+     "cls": "",
+     "box": [
+      100.1,
+      490.8,
+      38.5,
+      19
+     ],
+     "css": {
+      "display": "inline",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  },
+  "markdown design": {
+   "controls": [
+    {
+     "role": "button",
+     "label": "Save",
+     "box": [
+      11,
+      8.5,
+      55.6,
+      38
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Exit",
+     "box": [
+      77.6,
+      8.5,
+      45.8,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Undo",
+     "box": [
+      145.4,
+      1.5,
+      36,
+      52
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Redo",
+     "box": [
+      189.4,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Desktop View",
+     "box": [
+      1390,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Mobile View",
+     "box": [
+      1436,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle Site Styles editing",
+     "box": [
+      1495,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle preview mode",
+     "box": [
+      1542,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Click and drag to reposition block editor form",
+     "box": [
+      343,
+      301,
+      575,
+      55
+     ]
+    },
+    {
+     "role": "tab",
+     "label": "Content",
+     "box": [
+      365,
+      301,
+      52.8,
+      55
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Heading",
+     "box": [
+      369,
+      366,
+      110.1,
+      36
+     ]
+    },
+    {
+     "role": "checkbox",
+     "label": "Bold",
+     "box": [
+      488.1,
+      366,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "checkbox",
+     "label": "Italic",
+     "box": [
+      528.1,
+      366,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Link",
+     "box": [
+      568.1,
+      366,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "checkbox",
+     "label": "Bulleted List",
+     "box": [
+      613.1,
+      366,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "checkbox",
+     "label": "Numbered List",
+     "box": [
+      653.1,
+      366,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "checkbox",
+     "label": "Quote",
+     "box": [
+      698.1,
+      366,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      856,
+      716,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "a",
+     "label": "See the syntax cheatsheet",
+     "box": [
+      476.5,
+      778,
+      148.5,
+      16
+     ]
+    }
+   ],
+   "path": "/gestures-probe",
+   "save": "changed"
+  }
+ },
+ "errors": [
+  "no Design"
+ ],
+ "answer": "The source pre is plain: 22.4 tall a line, 16px monospace, no padding or background, one line per line of text and clipped at the block's edge. 3 lines of HTML (99.2) to it gives up 3 rows, as a fall of 76.8 does. A Code block in Markdown mode reads Markdown like the Markdown block, with new lines between blocks. A script in it stays as Script Disabled under a status box called Embedded Scripts. A Markdown block is its own type: Content tab only, 575 wide, Heading, Bold, Italic, Link, Bulleted List, Numbered List and Quote over the editor, Expand, a note with a cheatsheet link. Its toolbar has Edit, Align Vertically, Pin, Move Forward, Move Backward, Duplicate, Remove.",
+ "pressed": [
+  "one unnamed press opening Mode's list, in the view",
+  "one unnamed press on the view's switch"
+ ],
+ "notPressed": [
+  "Preview in safe mode",
+  "See the syntax cheatsheet"
+ ],
+ "leftDirty": true
+}
