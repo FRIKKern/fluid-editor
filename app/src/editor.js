@@ -2123,7 +2123,7 @@ shapePop.addEventListener('click', (e) => {
   if (ac) {
     const u = shapeUi;
     closeShapePop();
-    if (ac.dataset.anClip === 'copy') { const rows = animRows(); animClip = JSON.parse(JSON.stringify(u.mode === 'row' ? [rows[u.i]] : rows)); renderBlockPanel(); return; }
+    if (ac.dataset.anClip === 'copy') { const rows = animRows(); animClip = JSON.parse(JSON.stringify(u.mode === 'row' ? [rows[u.i]] : rows)); transformClip = null; renderBlockPanel(); return; }
     // Paste on the list adds the copied rows; on a row it takes that row's place.
     const clip = JSON.parse(JSON.stringify(animClip));
     animEdit('Paste animation', (l) => { if (u.mode === 'row') l.splice(u.i, 1, ...clip); else l.push(...clip); });
@@ -3199,8 +3199,10 @@ function pasteBlocks(sid) {
   });
   sel = { sid, bid: ids[0], ...(ids.length > 1 ? { more: ids.slice(1) } : {}) };
 }
-// Copy Properties, Transforms: the values of the Design tab's Transforms group.
+// Copy Properties, Transforms: the values of the Design tab's Transforms group. The oracle has one
+// clip: copying transforms drops copied animations and the other way round (CAP-COPYANIM.json).
 function copyTransforms() {
+  animClip = null;
   const d = B(sel.sid, sel.bid).design || {};
   transformClip = Object.fromEntries(DESIGN_FIELDS.filter(([k]) => k in d).map(([k]) => [k, d[k]]));
 }
@@ -4460,7 +4462,8 @@ function onContextMenu(e) {
   if (!blk || gesture) return;
   e.preventDefault();
   const sid = blk.closest('section').dataset.sectionId;
-  if (sel?.bid !== blk.dataset.blockId) select({ sid, bid: blk.dataset.blockId });
+  // A right press on a group leaves that one block selected (CAP-COPYANIM.json).
+  if (sel?.bid !== blk.dataset.blockId || sel.more?.length) select({ sid, bid: blk.dataset.blockId });
   closeFloating();
   contextMenu.innerHTML = contextMenuHtml({ canPaste: !!blockClip, phone: bp === 'mobile' });
   const fr = frame.getBoundingClientRect(), st = stage.getBoundingClientRect();
@@ -4473,9 +4476,7 @@ contextMenu.addEventListener('click', (e) => {
   const it = e.target.closest('button[data-cm]');
   if (!it || it.disabled || !sel) return;
   const act = it.dataset.cm;
-  if (act === 'arrange') { openArrange(it, arrangeMenuHtml()); return; }
-  if (act === 'copy-props') { openArrange(it, copyPropsMenuHtml()); return; }
-  if (act === 'paste-props') { openArrange(it, pastePropsMenuHtml({ canPaste: !!transformClip })); return; }
+  if (openSubmenu(it)) return;
   contextMenu.hidden = true; arrangeMenu.hidden = true;
   if (it.hasAttribute('data-unbuilt')) { note(`${it.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
   if (act === 'copy') { copyBlocks(); return; }
@@ -4536,14 +4537,27 @@ function arrange(sid, bid, how) {
   order.forEach((x, n) => { lay(x).z = n + 1; });
 }
 const arrangeMenu = $('arrange-menu');
-function openArrange(item, html) {
+function openSubmenu(it) {
+  const act = it.dataset.cm;
+  const html = act === 'arrange' ? arrangeMenuHtml()
+    : act === 'copy-props' ? copyPropsMenuHtml({ hasAnimations: animRows().length > 0 })
+      : act === 'paste-props' ? pastePropsMenuHtml({ canTransforms: !!transformClip, canAnimations: !!animClip }) : null;
+  if (!html) return false;
+  arrangeMenu.classList.toggle('cm-props', act !== 'arrange');
   arrangeMenu.innerHTML = html;
-  arrangeMenu.setAttribute('aria-label', item.getAttribute('aria-label'));
-  const r = item.getBoundingClientRect(), st = stage.getBoundingClientRect();
+  arrangeMenu.setAttribute('aria-label', it.getAttribute('aria-label'));
+  const r = it.getBoundingClientRect(), st = stage.getBoundingClientRect();
   arrangeMenu.style.left = `${r.right - st.left + 4}px`;
-  arrangeMenu.style.top = `${r.top - st.top - 6}px`;
+  arrangeMenu.style.top = `${r.top - st.top}px`;
   arrangeMenu.hidden = false;
+  return true;
 }
+// A hover opens a row's submenu, as on the oracle.
+contextMenu.addEventListener('mouseover', (e) => {
+  const it = e.target.closest('button[data-cm]');
+  if (!it || !sel || openSubmenu(it)) return;
+  arrangeMenu.hidden = true;
+});
 arrangeMenu.addEventListener('mousedown', (e) => e.preventDefault());
 arrangeMenu.addEventListener('click', (e) => {
   const it = e.target.closest('button[data-cm]');
@@ -4552,8 +4566,15 @@ arrangeMenu.addEventListener('click', (e) => {
   const act = it.dataset.cm;
   if (it.hasAttribute('data-unbuilt')) { note(`${it.getAttribute('aria-label')}: not built yet`); updateUi(); return; }
   if (act === 'pcopy-transforms') { copyTransforms(); return; }
+  if (act === 'pcopy-animations') { animClip = JSON.parse(JSON.stringify(animRows())); transformClip = null; return; }
+  // Paste goes to the block the menu opened on, not to the rest of a group.
+  if (act === 'ppaste-animations' || act === 'preplace-animations') {
+    const clip = JSON.parse(JSON.stringify(animClip));
+    animEdit(`${it.getAttribute('aria-label')} from the block menu`, (l) => { if (act === 'preplace-animations') l.length = 0; l.push(...clip); });
+    return;
+  }
   const before = JSON.stringify(model);
-  if (act === 'ppaste-transforms') pasteTransforms(sel.sid, [sel.bid, ...(sel.more || [])]);
+  if (act === 'ppaste-transforms') pasteTransforms(sel.sid, [sel.bid]);
   else arrange(sel.sid, sel.bid, act.slice(2));
   renderSectionDom(sel.sid);
   commit(before, `${it.getAttribute('aria-label')} from the block menu`);

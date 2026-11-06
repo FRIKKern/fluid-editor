@@ -382,6 +382,11 @@ body:has(#layers-panel:not([hidden])) .sc-layers { background: #e7e7e7; }
 .lp-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cm-menu { width: 174px; border-radius: 4px; padding: 6px 0; display: flex; flex-direction: column; }
 .cm-menu hr { border: 0; border-top: 1px solid #e7e7e7; margin: 6px 0; }
+#context-menu, #arrange-menu { padding: 0; border-radius: 6px; overflow: hidden; box-shadow: rgba(0, 0, 0, 0.12) 0 2px 8px 0, rgba(0, 0, 0, 0.08) 0 0 1px 0; }
+#context-menu { width: 173.36px; }
+#arrange-menu { width: 156.39px; }
+#arrange-menu.cm-props { width: 144px; }
+#context-menu .cm-item, #arrange-menu .cm-item { font-size: 12px; }
 .cm-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 36px; padding: 0 11px; border: 0; background: transparent; font: 13px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; cursor: pointer; text-align: left; }
 .cm-item:hover:not(:disabled) { background: #f2f2f2; }
 .cm-item:disabled { color: #b7b7b7; cursor: default; }

@@ -1,0 +1,134 @@
+{
+ "item": "CAP-COPYANIM",
+ "oracle": "Blocks Probe, a new page, new blocks, nothing saved",
+ "capturedAt": "2026-11-06",
+ "engine": "chrome",
+ "question": "Copy Properties and Paste Properties on the block menu: which rows, when each is grey, and what each does to animations and transforms.",
+ "note": "A page made for the probe, nothing saved, left by Exit Without Saving. Menus opened by a contextmenu event sent to the block by id (one read by a real right press at a named block's point), rows pressed by exact label on the element that is really on top. Hidden Paste rows stay in the page with a size, so a label alone finds them. Escape does not close this menu; a press on its backdrop does. Blocks were Text, Shape and Button, one on top of the other. Hover trigger only: rows made with the On Hover Grow, Lift and Look tiles.",
+ "rows": {
+  "copy": [
+   "Transforms",
+   "Animations"
+  ],
+  "paste": [
+   "Transforms",
+   "Animations",
+   "Replace Animations"
+  ]
+ },
+ "boxes": {
+  "menu": [
+   130,
+   329,
+   173.4,
+   399
+  ],
+  "copyParentRow": [
+   130,
+   486,
+   173.4,
+   36
+  ],
+  "copySub": [
+   307,
+   486,
+   144,
+   72
+  ],
+  "copySubRow": [
+   307,
+   486,
+   144,
+   36
+  ],
+  "pasteParentRow": [
+   130,
+   522,
+   173.4,
+   36
+  ],
+  "pasteSub": [
+   307,
+   522,
+   144,
+   108
+  ],
+  "pasteSubRow": [
+   307,
+   522,
+   144,
+   36
+  ],
+  "rowTextLeft": 11,
+  "subRadius": "6px",
+  "fontSize": "12px",
+  "on": "rgb(14, 14, 14)",
+  "grey": "rgb(183, 183, 183)",
+  "hoverRow": "rgb(242, 242, 242)",
+  "menuRadius": "6px",
+  "shadow": "rgba(0, 0, 0, 0.12) 0px 2px 8px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px",
+  "menuFirstRowTop": 0,
+  "arrangeParentRow": [
+   130,
+   607,
+   173.4,
+   36
+  ],
+  "arrangeSub": [
+   307,
+   607,
+   156.4,
+   144
+  ]
+ },
+ "reads": {
+  "hoverOpens": "Moving the pointer onto Copy Properties, Paste Properties or Arrange opens its rows with no press.",
+  "copyTransforms": "Always on, on a block with default values too.",
+  "copyAnimations": "Grey on a block with no animations, on with one or more. A press on grey does nothing and the menu stays open. A press on an on row closes the menu.",
+  "pasteNothingCopied": "All three grey.",
+  "afterCopyAnimations": "Transforms grey, Animations and Replace Animations on, on the source block too.",
+  "afterCopyTransforms": "Transforms on, Animations and Replace Animations grey.",
+  "oneClip": "Copy Transforms after Copy Animations greys both animation rows; Copy Animations after Copy Transforms greys Transforms.",
+  "pasteAnimations": {
+   "onNoRows": [
+    "0 rows",
+    "2 rows"
+   ],
+   "twice": "4 rows, source order repeated",
+   "ownRowsKept": "own row first, then the copied rows: hover-3, hover-1, hover-2"
+  },
+  "replaceAnimations": {
+   "own": "1 row before, the 2 copied rows after, in source order"
+  },
+  "undo": "One step for each paste; both ways back read. data-has-block-animations follows the rows.",
+  "snapshot": "The clip is what the block had at the copy: a third row added to the source later did not paste.",
+  "panelSharesClip": "After Copy Properties > Animations the panel's Paste animations is on, on a block with no rows. After the panel's Copy animations on a block with 3 rows, Replace Animations pastes those 3.",
+  "greyCopyKeepsClip": "Pressing a grey Copy Properties > Animations leaves the clip as it was.",
+  "blockTypes": "Rows copied from Text paste on Shape and Button.",
+  "otherSection": "The clip reaches a block in another section.",
+  "group": "With two blocks selected, a real right press on either, first or second, leaves that block alone selected and opens the menu; a contextmenu event does the same. Paste goes to it alone: the other kept its rows or its Transforms. Copy reads the same block: Animations is grey if that one has no rows, whatever the other has.",
+  "pasteTransforms": {
+   "source": [
+    "50%",
+    "10°"
+   ],
+   "targetBefore": [
+    "80%",
+    "30°"
+   ],
+   "targetAfter": [
+    "50%",
+    "10°"
+   ],
+   "undo": "one step back to 80%, 30°",
+   "fromDefaults": "A clip from a block with default values resets the target to 100%, 0°."
+  }
+ },
+ "notRead": [
+  "Whether Transforms in the panel's More actions shares the clip. Ours uses the same one.",
+  "Whether the clip outlasts a reload or reaches another page.",
+  "Triggers other than On Hover, block types other than Text, Shape and Button as a source.",
+  "Whether the parent row stays lit while the pointer is on its rows."
+ ],
+ "leftDirty": false
+}
