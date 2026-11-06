@@ -1,0 +1,2455 @@
+{
+  "item": "P3",
+  "question": "Test of the rule in CAP-P3PREDICT.json for differences 44 and 45, read after the predictions were pushed (8178c70). Blocks Probe, Custom height by name.",
+  "count": {
+    "all": "9 of 31",
+    "stays or reopens at a fixed place": "5 of 6",
+    "moved by the rule": "0 of 19",
+    "closed": "3 of 5",
+    "scroll on reopening": "1 of 1",
+    "runs": {
+      "A, window 1200, step by step": "2 of 9",
+      "B, window 1800, step by step": "1 of 9",
+      "C, window 1200, jump": "3 of 3",
+      "D, window 1800, jump": "1 of 2",
+      "E, window 1200, reopened at 300": "2 of 8"
+    }
+  },
+  "result": "The rule fails for where the panel moves. Every top the rule moved missed, by 55 to 292 px. The closing rule misses twice: D at 265 stayed open, and E at 580 stayed open. Not refitted: any new rule needs new predictions at a frame not read yet.",
+  "readTops": {
+    "frame 1145, step by step": {
+      "50": 195,
+      "75": 357,
+      "100": 401,
+      "110": 439,
+      "125": 525,
+      "150": 645,
+      "200": 645,
+      "300": 645,
+      "400": "closed"
+    },
+    "frame 1745, step by step": {
+      "50": 332,
+      "75": 490,
+      "100": 838,
+      "110": 838,
+      "125": 839,
+      "150": 1013,
+      "200": 1013,
+      "250": 1013,
+      "300": "closed"
+    },
+    "frame 1145, reopened at 300": {
+      "300": 122,
+      "350": 276,
+      "400": 482,
+      "450": 724,
+      "500": 724,
+      "570": 724,
+      "580": 724
+    }
+  },
+  "closes": {
+    "height above the lowest since it opened, stayed open and closed": {
+      "frame 1145, C": [
+        3089.9,
+        3204.4
+      ],
+      "frame 1145, A": [
+        2975.4,
+        4120.4
+      ],
+      "frame 1745, D and B": [
+        4164.4,
+        4775.1
+      ]
+    },
+    "E": "After reopening at H 3435 it stayed open at 3206 above that H, which is 1.6 above where C had closed. So no single number from the lowest H fits both."
+  },
+  "attempts": "Two runs before this one pressed by the name Custom, which matched nothing: the control is named Custom height. No height changed in them, and they count for nothing. The earlier run by position is the void run, and counts for nothing. Open panel tops seen in the runs by the wrong name, before any Custom: frame 1145, H 755.7: 272; frame 1745, H 1151.7: 427.",
+  "pressed": [
+    "Custom height by name, with the step's on-top check, slider shown after each. Section panel and Exit by the tools named. Escape once, in run E, by key. No press by position."
+  ],
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "steps": [
+    [
+      "window",
+      1600,
+      1200
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "click",
+      "Custom height"
+    ],
+    [
+      "read",
+      "A custom",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "50"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "A 50",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "75"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "A 75",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "100"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "A 100",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "110"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "A 110",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "125"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "A 125",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "150"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "A 150",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "200"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "A 200",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "300"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "A 300",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "400"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "A 400",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1800
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "click",
+      "Custom height"
+    ],
+    [
+      "read",
+      "B custom",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "50"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "B 50",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "75"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "B 75",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "100"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "B 100",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "110"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "B 110",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "125"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "B 125",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "150"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "B 150",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "200"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "B 200",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "250"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "B 250",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "300"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "B 300",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1200
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "click",
+      "Custom height"
+    ],
+    [
+      "read",
+      "C custom",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "300"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "C 300",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "310"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "C 310",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "320"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "C 320",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1800
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "click",
+      "Custom height"
+    ],
+    [
+      "read",
+      "D custom",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "250"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "D 250",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "265"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "D 265",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1200
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "click",
+      "Custom height"
+    ],
+    [
+      "read",
+      "E custom",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "300"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "E 300",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "350"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "E 350",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "400"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "E 400",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "450"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "E 450",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "500"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "E 500",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "570"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "E 570",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "fillRange",
+      "580"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "E 580",
+      {
+        "panelState": true,
+        "panelCss": "[role=dialog]"
+      }
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ]
+  ],
+  "reads": {
+    "A custom": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            195,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "1",
+        "field": "1",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1163,
+        "sectionTop": 0,
+        "sectionH": 459.6,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A 50": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            195,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "50",
+        "field": "50",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1249,
+        "sectionTop": 0,
+        "sectionH": 616.4,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A 75": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            357,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "75",
+        "field": "75",
+        "panel": {
+          "box": [
+            1258,
+            412,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1492,
+        "sectionTop": 0,
+        "sectionH": 858.8,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A 100": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            401,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "100",
+        "panel": {
+          "box": [
+            1258,
+            456,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1778,
+        "sectionTop": 0,
+        "sectionH": 1145,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A 110": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            439,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "110",
+        "panel": {
+          "box": [
+            1258,
+            494,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1892,
+        "sectionTop": 0,
+        "sectionH": 1259.5,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A 125": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            525,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "125",
+        "panel": {
+          "box": [
+            1258,
+            580,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 2064,
+        "sectionTop": 0,
+        "sectionH": 1431.3,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A 150": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            645,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "150",
+        "panel": {
+          "box": [
+            1258,
+            700,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 2350,
+        "sectionTop": 0,
+        "sectionH": 1717.5,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A 200": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            645,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "200",
+        "panel": {
+          "box": [
+            1258,
+            700,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 2923,
+        "sectionTop": 0,
+        "sectionH": 2290,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A 300": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            645,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "300",
+        "panel": {
+          "box": [
+            1258,
+            700,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 4068,
+        "sectionTop": 0,
+        "sectionH": 3435,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A 400": {
+      "panelCss": [],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 5213,
+        "sectionTop": 0,
+        "sectionH": 4580,
+        "frameH": 1145,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B custom": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            195,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "1",
+        "field": "1",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1763,
+        "sectionTop": 0,
+        "sectionH": 459.9,
+        "frameH": 1745,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B 50": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            332,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "50",
+        "field": "50",
+        "panel": {
+          "box": [
+            1258,
+            387,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1763,
+        "sectionTop": 0,
+        "sectionH": 872.5,
+        "frameH": 1745,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B 75": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            490,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "75",
+        "field": "75",
+        "panel": {
+          "box": [
+            1258,
+            545,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1944,
+        "sectionTop": 0,
+        "sectionH": 1308.8,
+        "frameH": 1745,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B 100": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            838,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "100",
+        "panel": {
+          "box": [
+            1258,
+            893,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 2381,
+        "sectionTop": 0,
+        "sectionH": 1745,
+        "frameH": 1745,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B 110": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            838,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "110",
+        "panel": {
+          "box": [
+            1258,
+            893,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 2555,
+        "sectionTop": 0,
+        "sectionH": 1919.5,
+        "frameH": 1745,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B 125": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            839,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "125",
+        "panel": {
+          "box": [
+            1258,
+            894,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 2817,
+        "sectionTop": 0,
+        "sectionH": 2181.3,
+        "frameH": 1745,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B 150": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            1013,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "150",
+        "panel": {
+          "box": [
+            1258,
+            1068,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 3253,
+        "sectionTop": 0,
+        "sectionH": 2617.5,
+        "frameH": 1745,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B 200": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            1013,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "200",
+        "panel": {
+          "box": [
+            1258,
+            1068,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 4126,
+        "sectionTop": 0,
+        "sectionH": 3490,
+        "frameH": 1745,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B 250": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            1013,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "250",
+        "panel": {
+          "box": [
+            1258,
+            1068,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 4998,
+        "sectionTop": 0,
+        "sectionH": 4362.5,
+        "frameH": 1745,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B 300": {
+      "panelCss": [],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 5871,
+        "sectionTop": 0,
+        "sectionH": 5235,
+        "frameH": 1745,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C custom": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            195,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "1",
+        "field": "1",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1163,
+        "sectionTop": 0,
+        "sectionH": 459.6,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C 300": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            195,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "300",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 4068,
+        "sectionTop": 0,
+        "sectionH": 3435,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C 310": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            195,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "310",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 4182,
+        "sectionTop": 0,
+        "sectionH": 3549.5,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C 320": {
+      "panelCss": [],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 4297,
+        "sectionTop": 0,
+        "sectionH": 3664,
+        "frameH": 1145,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "D custom": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            195,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "1",
+        "field": "1",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1763,
+        "sectionTop": 0,
+        "sectionH": 459.9,
+        "frameH": 1745,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "D 250": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            195,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "250",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 4998,
+        "sectionTop": 0,
+        "sectionH": 4362.5,
+        "frameH": 1745,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "D 265": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            195,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "265",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 5260,
+        "sectionTop": 0,
+        "sectionH": 4624.3,
+        "frameH": 1745,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E custom": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            195,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "1",
+        "field": "1",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1163,
+        "sectionTop": 0,
+        "sectionH": 459.6,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E 300": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            122,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "300",
+        "panel": {
+          "box": [
+            1258,
+            177,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 1134,
+        "docH": 4068,
+        "sectionTop": -1134,
+        "sectionH": 3435,
+        "frameH": 1145,
+        "active": "DIV",
+        "editSection": [
+          [
+            1407,
+            73
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E 350": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            276,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "350",
+        "panel": {
+          "box": [
+            1258,
+            331,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 1134,
+        "docH": 4640,
+        "sectionTop": -1134,
+        "sectionH": 4007.5,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            73
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E 400": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            482,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "400",
+        "panel": {
+          "box": [
+            1258,
+            537,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 1134,
+        "docH": 5213,
+        "sectionTop": -1134,
+        "sectionH": 4580,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            73
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E 450": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            724,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "450",
+        "panel": {
+          "box": [
+            1258,
+            779,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 1134,
+        "docH": 5785,
+        "sectionTop": -1134,
+        "sectionH": 5152.5,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            73
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E 500": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            724,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "500",
+        "panel": {
+          "box": [
+            1258,
+            779,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 1134,
+        "docH": 6358,
+        "sectionTop": -1134,
+        "sectionH": 5725,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            73
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E 570": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            724,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "570",
+        "panel": {
+          "box": [
+            1258,
+            779,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 1134,
+        "docH": 7159,
+        "sectionTop": -1134,
+        "sectionH": 6526.5,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            73
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E 580": {
+      "panelCss": [
+        {
+          "cls": "E3wn3QCWK_Er69Iq css-kyjzx4",
+          "text": "DesignBackgroundColorsGridRow CountGapZe",
+          "box": [
+            1258,
+            724,
+            320,
+            476
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1"
+        }
+      ],
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "580",
+        "panel": {
+          "box": [
+            1258,
+            779,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 1134,
+        "docH": 7274,
+        "sectionTop": -1134,
+        "sectionH": 6641,
+        "frameH": 1145,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            73
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

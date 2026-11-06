@@ -16,6 +16,8 @@ const STACK3 = [['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], [
 const ALIGNS = (tag) => [['pressNamed', 'Align Vertically'], ['pause', 300], ...['Align Center', 'Align Bottom', 'Align Top'].flatMap((n) => [['pressNamed', n], ['pause', 400], ['read', `${tag}, ${n}`, { kids: [0, 0] }]]), ['shot', tag.replace(/\W+/g, '-')]];
 const WORDS = ["image", "photo", "picture", "gallery", "video", "youtube", "vimeo", "text", "paragraph", "heading", "title", "link", "url", "button", "cta", "quote", "testimonial", "map", "location", "address", "google", "form", "contact", "newsletter", "email", "subscribe", "mailchimp", "shop", "product", "store", "price", "pricing", "donate", "music", "audio", "podcast", "spotify", "soundcloud", "summary", "blog", "post", "archive", "social", "facebook", "instagram", "twitter", "code", "html", "css", "markdown", "embed", "iframe", "chart", "graph", "calendar", "event", "schedule", "booking", "appointment", "acuity", "divider", "line", "spacer", "shape", "menu", "restaurant", "food", "reservation", "table", "opentable", "tock", "pdf", "file", "download", "accordion", "faq", "search", "tag", "rss", "flickr", "zola", "wedding", "bandsintown", "concert", "amazon", "ecommerce", "cart", "scroll", "marquee", "ticker", "animation", "logo", "page", "co", "xyzzy"].map((x) => x);
 const Z2 = ['Move Forward', 'Move Backward'];
+const UR = ['Undo', 'Redo'];
+const BARTIPS = ['Save', 'Desktop View', 'Mobile View', 'Toggle Site Styles editing', 'Toggle preview mode'];
 export const RECIPES = {
   'CAP-TOUCH': { question: 'X11: what do touch and pen do on a block: tap, drag, a long press, a handle?', steps: [
     ['enter'], ['listen'],
@@ -683,6 +685,33 @@ export const RECIPES = {
     ...NEWTEXT, ['stamp', 0, 'new'], ['keys', 'alpha'], ['press', 'Meta+a'], ['click', 'Bold'], ['read', 'typed, Cmd+A pressed, Bold pressed, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'typed, Cmd+A pressed, Bold pressed', 0, 'new', 12, true],
     ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['stamp', 0, 'new'], ['keys', 'alpha'], ['keysList', ['Meta+a']], ['click', 'Bold'], ['read', 'typed, Cmd+A with no wait, Bold pressed, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'typed, Cmd+A with no wait, Bold pressed', 0, 'new', 12, true],
     ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['stamp', 0, 'new'], ['keys', 'alpha'], ['pause', 300], ['click', 'Bold'], ['read', 'typed, 0.3 s, Bold pressed, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'typed, 0.3 s, Bold pressed', 0, 'new', 12, true],
+  'CAP-U6REDO': { page: 'Gestures Probe', question: "U6: Redo's hover while it can redo, against Undo's", steps: [
+    ['enter'], ['blank'], ['add', 0, 'Shape'], ['press', 'Escape'], ['pause', 400], ['read', 'can undo', { btnState: UR }], ['hoverNamed', 'Undo'], ['read', 'Undo hovered', { btnState: UR }], ['pressNamed', 'Undo'], ['pause', 800], ['read', 'undone, pointer on Undo', { btnState: UR }], ['hoverNamed', 'Redo'], ['read', 'Redo hovered', { btnState: UR }], ['shot', 'redo'],
+  ] },
+  'CAP-U6OVERLAY': { page: 'Gestures Probe', question: "U6: the overlay under Exit's dialog, as computed styles. Nothing pressed in the dialog: Escape closes it.", steps: [
+    ['enter'], ['blank'], ['add', 0, 'Shape'], ['press', 'Escape'], ['pause', 400], ['read', 'before', { fullEls: true }], ['pressNamed', 'Exit'], ['pause', 700], ['read', 'dialog', { fullEls: true }], ['shot', 'dialog'], ['press', 'Escape'], ['pause', 700], ['read', 'after Escape', { fullEls: true }],
+  ] },
+  'CAP-U6TIPS': { page: 'Gestures Probe', question: "U6: the bar's tips at more window widths. Hovers only, then Preview by name for its two.", steps: [
+    ['enter'], ['blank'],
+    ...[1024, 1280, 1440, 1600, 1920, 2400].flatMap((w) => [['window', w, 1000], ['pause', 800], ...BARTIPS.flatMap((l) => [['tipRead', l, `${w} ${l}`]])]),
+    ['window', 1600, 1000], ['pause', 800], ['pressNamed', 'Toggle preview mode'], ['pause', 1500], ['read', 'preview', { controls: true, thin: true }], ['shot', 'preview'],
+  ] },
+  'CAP-U9FADE': { page: 'Gestures Probe', question: 'U9: Add Section and the section outline, frame by frame, as the pointer comes on and goes off', steps: [
+    ['enter'], ['blank'], ['fadeWatch', 0, 'first'], ['fadeWatch', 0, 'second'], ['fadeWatch', 0, 'third'],
+  ] },
+  'CAP-U9SHADOW': { page: 'Gestures Probe', question: "U9: the canvas's shadow as computed styles, phone and desktop", steps: [
+    ['enter'], ['read', 'desktop', { shadowChain: '#sqs-site-frame' }], ['view', 'Mobile'], ['pause', 900], ['read', 'phone', { shadowChain: '#sqs-site-frame' }], ['shot', 'phone'],
+  ] },
+  'CAP-U9PHONEPANEL': { page: 'Gestures Probe', question: "U9: the phone panel's top: more readings, on three sections", steps: [
+    ['enter'], ['blank'], ['blank'], ['blank'], ['view', 'Mobile'], ['pause', 900],
+    ...[0, 1, 2].flatMap((i) => [['panel', i], ['pause', 600], ['read', `section ${i}`, { panelBox: i }], ['press', 'Escape'], ['pause', 500]]),
+    ['panel', 1], ['pause', 600], ['read', 'section 1 again', { panelBox: 1 }], ['shot', 'phonepanel'], ['press', 'Escape'], ['pause', 500],
+  ] },
+  'CAP-U9SCROLL': { page: 'Gestures Probe', question: 'U9: an open section panel while the frame scrolls in steps of 20, down and back', steps: [
+    ['enter'], ['blank'], ['blank'], ['blank'], ['blank'], ['panel', 1], ['pause', 700], ['read', 'open', { panelBox: 1 }], ['scrollWalk', 'down', 20, 40], ['scrollWalk', 'up', -20, 40], ['press', 'Escape'], ['pause', 400],
+  ] },
+  'CAP-U9SCROLL2': { page: 'Gestures Probe', question: 'U9: an open section panel, scrolled down a little and back, in steps of 20, then 5', steps: [
+    ['enter'], ['blank'], ['blank'], ['blank'], ['blank'], ['panel', 1], ['pause', 700], ['read', 'open', { panelBox: 1 }], ['scrollWalk', 'down', 20, 15], ['scrollWalk', 'up', -20, 30], ['scrollWalk', 'down again by 5', 5, 30], ['scrollWalk', 'up by 5', -5, 40], ['press', 'Escape'], ['pause', 400],
   ] },
   'CAP-SECTIONMODEL': { page: 'Gestures Probe', question: 'U10: what Duplicate, Move, Remove and the Add Section picker do to the page', steps: [
     ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['blank'], ['read', 'two sections', { sections: true }],

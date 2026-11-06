@@ -1,0 +1,60 @@
+{
+ "item": "P3",
+ "capturedAt": "2026-11-06",
+ "question": "Differences 44 and 45: predictions for the Edit Section panel at two frames not read before, pushed before any read at those frames.",
+ "from": "CAP-P3PANEL, CAP-P3EDGE and CAP-P3JUMP at frames 945 and 1345, and one read at frame 945 on Blocks Probe of the real panel, not the slider's host. The panel is the [role=dialog] box, 320 by 476; recorder's 421 box is its inner host, 55 below its top. Panel tops read: open at H 667.6: 248; Custom, H 459.6: 195; 50: 195; 75: 207; 100: 279; 110: 310; 125: 404; 150: 435; 200: 435; 300: 435.",
+ "rule": {
+  "moves": "Inferred. While open and growing, top = section top in the frame + H/3 - 36, only if that is lower than where it is, it fits in the window (top + 476 <= window), and the height changed by less than 1000 in one step. Else it stays.",
+  "closes": "Inferred. It closes when H is more than 1.5 x frame + 1428 above the lowest H since it opened. The two frames read give 2835 to 2848 and 3441 to 3575.",
+  "reopens": "Scrolled so the section's middle is in the frame's middle, less 11. Panel top is the sticky Edit Section (73) + 49 = 122."
+ },
+ "hit": {
+  "top": "within 7 px, recorder's fit quality",
+  "state": "open or closed as said",
+  "scroll": "within 2"
+ },
+ "predictions": {
+  "window 1200, frame 1145, step by step": {
+   "50": 195,
+   "75": 250.2,
+   "100": 345.7,
+   "110": 383.8,
+   "125": 441.1,
+   "150": 536.5,
+   "200": 536.5,
+   "300": 536.5,
+   "400": "closed"
+  },
+  "window 1800, frame 1745, step by step": {
+   "50": 195,
+   "75": 400.2,
+   "100": 545.7,
+   "110": 603.8,
+   "125": 691.1,
+   "150": 836.5,
+   "200": 1127.3,
+   "250": 1127.3,
+   "300": "closed"
+  },
+  "window 1200, frame 1145, jump": {
+   "1 to 300": 195,
+   "310": 195,
+   "320": "closed"
+  },
+  "window 1800, frame 1745, jump": {
+   "1 to 250": 195,
+   "265": "closed"
+  },
+  "window 1200, frame 1145, reopened at 300": {
+   "scroll": 1134.0,
+   "300": 122,
+   "350": 165.8,
+   "400": 356.7,
+   "450": 547.5,
+   "500": 547.5,
+   "570": 547.5,
+   "580": "closed"
+  }
+ },
+ "count": 31
+}
