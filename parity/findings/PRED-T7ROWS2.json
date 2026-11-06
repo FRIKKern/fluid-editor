@@ -351,6 +351,7 @@
     "written after CAP-T10ROWS5, before CAP-T10ROWS6": true,
     "rule": "With L the block's old end and t its top. Top at or below L: moves by n, any columns. Sharing columns, end at or below L: top after t moves by n, and on a fall stops at the block's new end; otherwise, on a rise its end moves by n and on a fall nothing. Otherwise stays.",
     "across, a fall first": "B 4/2/10/6 under A 1/2/7/6, A falling to 3 lines: B stays at 4, since the new end is at or above it and n would take it to 2 or above... moves to the new end if that is below it",
-    "inside, wholly": "a block wholly inside A, end above L, stays on a rise and on a fall until A's new end"
+    "inside, wholly": "a block wholly inside A, end above L, stays on a rise and on a fall until A's new end",
+    "result": "Other types: right. Across, a fall first: stays, right. Wholly inside: stays on a rise, stays on a fall even past A's new end. Section rows by the lowest end right in every read since CAP-T10ROWS3."
   }
 }
