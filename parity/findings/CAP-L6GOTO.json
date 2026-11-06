@@ -1,0 +1,594 @@
+{
+  "item": "CAP-L6GOTO",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "L6: Go to desktop in the phone button menu, on a Shape made in this session",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "10"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "30"
+    ],
+    [
+      "fillRow",
+      "Scale",
+      0,
+      "120"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "15"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "45"
+    ],
+    [
+      "fillRow",
+      "Offset",
+      0,
+      "20"
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "pressNamed",
+      "Color #FFCF5A"
+    ],
+    [
+      "pressNamed",
+      "Color"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      80
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "before",
+      {
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset"
+        ],
+        "style": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "afterBtn": "Animation",
+        "leaves": [
+          "Rotate",
+          "Offset",
+          "Stroke",
+          "Color"
+        ]
+      }
+    ],
+    [
+      "read",
+      "other block before",
+      {
+        "style": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressAfter",
+      "Animation"
+    ],
+    [
+      "pressNamed",
+      "Go to desktop"
+    ],
+    [
+      "read",
+      "after go",
+      {
+        "rows": [
+          "Rotate",
+          "Scale",
+          "Offset"
+        ],
+        "style": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "after-go"
+    ]
+  ],
+  "reads": {
+    "before": {
+      "rows": {
+        "Rotate": [
+          "45°"
+        ],
+        "Scale": [
+          "120%",
+          "100%"
+        ],
+        "Offset": [
+          "20px",
+          "0px"
+        ]
+      },
+      "style": {
+        "transform": "matrix(0.848528, 0.848528, -0.707107, 0.707107, 20, 0)",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 207, 90)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          460.3,
+          460.3
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 20px; --translate-y: 0px; --rotation: 45deg; --scale-x: 120%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "leaves": {
+        "Rotate": "underline dotted",
+        "Offset": "underline dotted",
+        "Stroke": "underline dotted",
+        "Color": "underline dotted"
+      },
+      "afterBtn": {
+        "label": "",
+        "disabled": false,
+        "ariaDisabled": null,
+        "opacity": "1",
+        "pointer": "auto",
+        "color": "rgb(62, 62, 62)",
+        "iconOpacity": "1",
+        "box": [
+          1310,
+          498,
+          36,
+          36
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/2/7/8",
+          "9/2/15/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "other block before": {
+      "style": {
+        "transform": "matrix(0.965926, 0.258819, -0.258819, 0.965926, 0, 0)",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          415.3,
+          289.7
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 15deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after go": {
+      "rows": {
+        "Rotate": [
+          "30°"
+        ],
+        "Scale": [
+          "120%",
+          "100%"
+        ],
+        "Offset": [
+          "0px",
+          "0px"
+        ]
+      },
+      "style": {
+        "transform": "matrix(1.03923, 0.6, -0.5, 0.866025, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          472.9,
+          409
+        ],
+        "vars": "mix-blend-mode: normal; --block-transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(var(--rotation)) scale(var(--scale-x), var(--scale-y)) skewX(var(--skew-x)) skewY(var(--skew-y)); --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 30deg; --scale-x: 120%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            1036,
+            488,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1058,
+            488,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            1120,
+            488,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1036,
+            592,
+            320,
+            103
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            1163,
+            701,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1152,
+            701,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1152,
+            734,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1152,
+            701,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            1061,
+            704,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            1102,
+            704,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Stretch",
+          "value": true,
+          "box": [
+            1320,
+            777.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            1047,
+            867,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            1047,
+            915,
+            298,
+            46
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/2/7/8",
+          "9/2/15/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Go to desktop switches to the desktop view and shows desktop's values. Nothing changes on the block. Whether the block stays selected is in the shot, not in a number.",
+  "pressed": [
+    "Go to desktop, on Shapes made in the same unsaved session on Gestures Probe."
+  ],
+  "ours": "Not in ours.",
+  "differs": [
+    "Not in ours."
+  ]
+}
