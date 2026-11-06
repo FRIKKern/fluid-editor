@@ -1423,10 +1423,12 @@ function onDblClick(e) {
   startTextEdit(sid, blk.dataset.blockId);
 }
 
+const textHeight = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0;
 const selectionLeft = new Map(); // block id: the html it was left with and where its selection was
 let previewed = false;
 const pathFrom = (root, node) => { const path = []; for (let n = node; n !== root; n = n.parentNode) path.unshift([...n.parentNode.childNodes].indexOf(n)); return path; };
 const nodeAtPath = (root, path) => path.reduce((n, k) => n?.childNodes[k], root);
+
 function startTextEdit(sid, bid) {
   const b = B(sid, bid);
   if (!b || b.type !== 'text' || editing) return;
@@ -1451,7 +1453,7 @@ function startTextEdit(sid, bid) {
   const fe = feEl(sid);
   const m = measure(fe);
   fe.style.gridAutoRows = `${m.rowMin}px`;
-  editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], marks: [before], prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
+  editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], need: contentRows(b, m), height0: textHeight(b), prevHeight: textHeight(b), marks: [before], prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
   ce.addEventListener('input', onTextInput);
   ce.addEventListener('paste', onPaste);
   ce.addEventListener('focus', () => { if (editing) editing.keysOff = false; });
@@ -3822,7 +3824,10 @@ function textStep(ed, html, area) {
   growRows(S(ed.sid));
   const snap = JSON.stringify(model);
   [b.html, lay(b).area] = keep;
-  if (snap !== ed.marks.at(-1)) ed.marks.push(snap);
+  if (snap !== ed.marks.at(-1)) {
+    ed.marks.push(snap);
+    if (ed.marks.length === 2) ed.height1 = ed.prevHeight;
+  }
 }
 // A word that reads as a domain or a mail address links when a space or Enter follows it
 // (TEXTUNDO.json, links), with the http scheme. No path and no end mark.
@@ -3872,17 +3877,53 @@ function onTextInput(e) {
       }
     }
   }
-  // The end row follows the text both ways, but not below 2 rows
-  // (parity/findings/E3.json: a one-line paragraph ended at 2 rows).
-  const need = Math.max(2, contentRows(b, ed.m));
-  if (ed.area[2] - ed.area[0] !== need) {
-    ed.area[2] = ed.area[0] + need;
+  // Rows the text needs going up take up any spare rows first. Going down, the block gives up as many
+  // rows as the text did, so spare rows stay spare: a new block's second row, or rows added by hand
+  // (CAP-TEXTPUSH.json, CAP-TEXTPUSH2.json q1 and q2, CAP-TEXTPUSH3.json r6 and r11).
+  const need = contentRows(b, ed.m), rows = ed.area[2] - ed.area[0];
+  const next = need > ed.need ? Math.max(rows, need) : rows - (ed.need - need);
+  ed.need = need;
+  if (next !== rows) {
+    if (S(ed.sid).blocks.includes(b)) for (const o of moveWithText(S(ed.sid), b, ed.area, next - rows)) setArea(blockEl(o.id), lay(o).area);
+    ed.area[2] = ed.area[0] + next;
     setArea(blockEl(ed.bid), ed.area);
     const ind = feEl(ed.sid).querySelector('.fe-indicator');
     if (ind) setArea(ind, ed.area);
   }
   ed.prevHtml = ed.ce.innerHTML;
   ed.prevArea = [...ed.area];
+  ed.prevHeight = textHeight(b);
+}
+
+// Text that grows or shrinks moves other blocks, in this view only (CAP-TEXTPUSH.json to CAP-TEXTPUSH7.json).
+// Growing: blocks in shared columns whose bottom reaches the old end, and any block whose top is past
+// it, all by the growth, no chains.
+// Shrinking, from the old end to the new, among blocks starting at the new end or lower: those starting
+// above the old end rise to the new end, stacking only on blocks in shared columns. Those at the old
+// end or lower rise by one amount: the rows from the new end to the old end, both counted, with no such
+// block in them, at most the fall.
+// The section takes the change of its lowest block.
+function moveWithText(s, b, a, d) {
+  const others = s.blocks.filter((o) => o.id !== b.id), lows = others.map((o) => o.layout[bp].area);
+  const lowest = (own) => Math.max(own, ...lows.map((q) => q[2]));
+  const low = lowest(a[2]);
+  const was = others.map((o) => [...o.layout[bp].area]);
+  if (d > 0) {
+    for (const q of lows) if (q[0] > a[2] || (q[1] < a[3] && q[3] > a[1] && q[2] >= a[2])) { q[0] += d; q[2] += d; }
+  } else {
+    const end = a[2], top = end + d, under = lows.filter((q) => q[0] >= top);
+    let free = 0;
+    for (let row = top; row <= end; row++) if (!under.some((q) => q[0] <= row && row < q[2])) free++;
+    const by = Math.min(-d, free), placed = [];
+    for (const q of [...under].sort((p, r) => p[0] - r[0])) {
+      const at = q[0] >= end ? q[0] - by : Math.max(top, ...placed.filter((o) => o[1] < q[3] && o[3] > q[1]).map((o) => o[2]));
+      q[2] += at - q[0];
+      q[0] = at;
+      if (at < end) placed.push(q);
+    }
+  }
+  s.rows[bp] += lowest(a[2] + d) - low;
+  return others.filter((o, k) => !same(o.layout[bp].area, was[k]));
 }
 
 function onTextSelection() {
@@ -3897,6 +3938,7 @@ function finishTextEdit() {
   doc.removeEventListener('selectionchange', onTextSelection);
   renderTextBar();
   const b = B(ed.sid, ed.bid);
+  const height = textHeight(b);
   b.html = ed.ce.innerHTML;
   const left = win.getSelection();
   if (ed.ce.contains(left.anchorNode) && ed.ce.contains(left.focusNode)) selectionLeft.set(b.id, { html: b.html, anchor: pathFrom(ed.ce, left.anchorNode), anchorOffset: left.anchorOffset, focus: pathFrom(ed.ce, left.focusNode), focusOffset: left.focusOffset });
@@ -3907,8 +3949,24 @@ function finishTextEdit() {
   const now = JSON.stringify(model);
   // A step can look like where the edit ended (Bold, then Clear Formatting): it's still a step (CAP-E4SCORE.json).
   const steps = ed.marks.at(-1) === now ? ed.marks.slice(0, -1) : ed.marks;
+  const first = steps.length > 1 ? ed.height1 : height;
+  if (first > ed.height0) steps[0] = undoTextFalls(ed, steps[1] ?? now, first);
   for (const m of steps.slice(0, -1)) undoStack.push(m);
   commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`);
+}
+
+// Undoing an edit whose text got taller: the old text comes back and the rows fall by the height it
+// lost, rounded up, which can leave the text a row short. Spare rows are not given back
+// (CAP-TEXTPUSH2.json q8, CAP-TEXTPUSH5.json t13 and t14, CAP-TEXTPUSH6.json v7 and v8).
+function undoTextFalls(ed, now, height) {
+  const m = JSON.parse(now), s = m.sections.find((o) => o.id === ed.sid);
+  const b = s.blocks.find((o) => o.id === ed.bid);
+  if (!b) return ed.before;
+  const a = b.layout[bp].area, fall = Math.min(a[2] - a[0] - 1, Math.ceil((height - ed.height0) / ed.m.pitch));
+  moveWithText(s, b, a, -fall);
+  a[2] -= fall;
+  b.html = JSON.parse(ed.before).sections.find((o) => o.id === ed.sid).blocks.find((o) => o.id === ed.bid).html;
+  return JSON.stringify(m);
 }
 
 // ---------- panel ----------
