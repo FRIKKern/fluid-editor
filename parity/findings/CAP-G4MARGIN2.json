@@ -1,0 +1,441 @@
+{
+  "item": "CAP-G4MARGIN2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "G4: a south east pull from the left margin, walked further, on desktop and on a phone, and a phone move from the margin. One real pointer, 1px at a time. Made here on a probe page.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      -60,
+      0
+    ],
+    [
+      "read",
+      "in the left margin",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "se",
+      200,
+      50
+    ],
+    [
+      "read",
+      "se, left margin, to 200",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      -60,
+      0
+    ],
+    [
+      "read",
+      "phone, in the left margin",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "middle",
+      110,
+      50
+    ],
+    [
+      "read",
+      "phone, move, left margin",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "se",
+      110,
+      50
+    ],
+    [
+      "read",
+      "phone, se, left margin",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ]
+  ],
+  "reads": {
+    "in the left margin": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/1/7/7",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "se, left margin, to 200": {
+      "walk": {
+        "part": "se",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 1 / 7 / 7"
+          ],
+          [
+            51,
+            "1 / 1 / 7 / 8"
+          ],
+          [
+            135,
+            "1 / 1 / 7 / 9"
+          ],
+          [
+            194,
+            "1 / 1 / 7 / 10"
+          ]
+        ],
+        "xBack": [
+          [
+            193,
+            "1 / 1 / 7 / 9"
+          ],
+          [
+            134,
+            "1 / 1 / 7 / 8"
+          ],
+          [
+            50,
+            "1 / 1 / 7 / 7"
+          ],
+          [
+            -35,
+            "1 / 1 / 7 / 6"
+          ],
+          [
+            -94,
+            "1 / 1 / 7 / 5"
+          ],
+          [
+            -153,
+            "1 / 1 / 7 / 4"
+          ]
+        ],
+        "xHome": [
+          [
+            -152,
+            "1 / 1 / 7 / 5"
+          ],
+          [
+            -93,
+            "1 / 1 / 7 / 6"
+          ],
+          [
+            -34,
+            "1 / 1 / 7 / 7"
+          ]
+        ],
+        "yOut": [
+          [
+            27,
+            "1 / 1 / 8 / 7"
+          ]
+        ],
+        "yBack": [
+          [
+            26,
+            "1 / 1 / 7 / 7"
+          ],
+          [
+            -27,
+            "1 / 1 / 6 / 7"
+          ]
+        ],
+        "yHome": [
+          [
+            -26,
+            "1 / 1 / 7 / 7"
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/1/7/7",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone, in the left margin": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          623.7
+        ],
+        "rows": 6,
+        "rowSizes": "24x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/1/7/7",
+          "1/1/7/9"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone, move, left margin": {
+      "walk": {
+        "part": "middle",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 1 / 7 / 9"
+          ],
+          [
+            14,
+            "1 / 2 / 7 / 10"
+          ],
+          [
+            62,
+            "1 / 3 / 7 / 11"
+          ]
+        ],
+        "xBack": [
+          [
+            61,
+            "1 / 2 / 7 / 10"
+          ],
+          [
+            13,
+            "1 / 1 / 7 / 9"
+          ]
+        ],
+        "xHome": [],
+        "yOut": [
+          [
+            23,
+            "2 / 1 / 8 / 9"
+          ]
+        ],
+        "yBack": [
+          [
+            22,
+            "1 / 1 / 7 / 9"
+          ]
+        ],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/1/7/7",
+          "1/1/7/9"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone, se, left margin": {
+      "walk": {
+        "part": "se",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 1 / 7 / 9"
+          ],
+          [
+            14,
+            "1 / 1 / 7 / 10"
+          ],
+          [
+            62,
+            "1 / 1 / 7 / 11"
+          ]
+        ],
+        "xBack": [
+          [
+            61,
+            "1 / 1 / 7 / 10"
+          ],
+          [
+            13,
+            "1 / 1 / 7 / 9"
+          ],
+          [
+            -30,
+            "1 / 1 / 7 / 8"
+          ],
+          [
+            -79,
+            "1 / 1 / 7 / 7"
+          ]
+        ],
+        "xHome": [
+          [
+            -78,
+            "1 / 1 / 7 / 8"
+          ],
+          [
+            -29,
+            "1 / 1 / 7 / 9"
+          ]
+        ],
+        "yOut": [
+          [
+            23,
+            "1 / 1 / 8 / 9"
+          ]
+        ],
+        "yBack": [
+          [
+            22,
+            "1 / 1 / 7 / 9"
+          ],
+          [
+            -24,
+            "1 / 1 / 6 / 9"
+          ]
+        ],
+        "yHome": [
+          [
+            -23,
+            "1 / 1 / 7 / 9"
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/1/7/7",
+          "1/1/7/9"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

@@ -1,0 +1,594 @@
+{
+  "item": "CAP-U4ZPHONE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U4: Forward and Backward on the toolbar on a phone, three Shapes at one place, top one selected. Made here on a probe page.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone, stacked",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      -420
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      0,
+      -210
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "start, phone",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Move Backward"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Backward",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Move Backward"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Backward again",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Move Forward"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Forward",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Move Forward"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Forward again",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ]
+  ],
+  "reads": {
+    "phone, stacked": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          832.1
+        ],
+        "rows": 18,
+        "rowSizes": "24x18",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 3
+      },
+      "stack": [
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_659",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "0_883",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "start, phone": {
+      "btnState": {
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_883",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        },
+        {
+          "id": "0_659",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Backward": {
+      "btnState": {
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "id": "0_883",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "3",
+            "1"
+          ]
+        },
+        {
+          "id": "0_659",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Backward again": {
+      "btnState": {
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "id": "0_883",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "3",
+            "1"
+          ]
+        },
+        {
+          "id": "0_659",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Forward": {
+      "btnState": {
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_883",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "3",
+            "2"
+          ]
+        },
+        {
+          "id": "0_659",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Forward again": {
+      "btnState": {
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_883",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "3",
+            "2"
+          ]
+        },
+        {
+          "id": "0_659",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
