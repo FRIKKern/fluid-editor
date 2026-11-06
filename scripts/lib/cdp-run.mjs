@@ -87,7 +87,7 @@ async function clickAt(p, times = 1) {
     if (n < times) await sleep(40);
   }
 }
-const KEYS = { '.': 190, Escape: 27, Enter: 13, Tab: 9, Backspace: 8, Delete: 46, ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40, Home: 36, End: 35, PageUp: 33, PageDown: 34, ' ': 32 };
+const KEYS = { Shift: 16, '.': 190, Escape: 27, Enter: 13, Tab: 9, Backspace: 8, Delete: 46, ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40, Home: 36, End: 35, PageUp: 33, PageDown: 34, ' ': 32 };
 const TEXT = { Enter: '\r', ' ': ' ' };
 // A real key press. "Shift+Tab", "Meta+a". Chrome on a Mac runs editing commands only when asked.
 const COMMANDS = { 'Meta+a': 'selectAll', 'Meta+z': 'undo', 'Meta+Shift+z': 'redo', 'Meta+x': 'cut', 'Meta+c': 'copy', 'Meta+v': 'paste' };

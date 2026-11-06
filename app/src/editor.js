@@ -1431,7 +1431,7 @@ function onPaste(e) {
   if (!ed) return;
   e.preventDefault();
   const dt = e.clipboardData;
-  insertPaste(doc, ed.ce, win.getSelection(), cleanPaste(doc, dt.getData('text/html'), dt.getData('text/plain')));
+  insertPaste(doc, ed.ce, win.getSelection(), cleanPaste(doc, dt.getData('text/html'), dt.getData('text/plain')), dt.getData('text/plain'));
   onTextInput();
 }
 

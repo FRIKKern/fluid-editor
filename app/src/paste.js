@@ -136,19 +136,46 @@ function splitInto(doc, para, range, nodes, sel) {
     blocks.shift();
   }
   para.append(...joins);
-  para.after(...blocks);
   const home = blocks.length ? textHome(blocks.at(-1)) : para;
+  // A list into a list item adds items beside it, whatever its own kind (CAP-E5WHERE.json).
+  const item = para.parentElement.tagName === 'LI' ? para.parentElement : null;
+  if (item && nodes.length === 1 && blocks.length && first.matches('ul, ol')) item.after(...first.children);
+  else para.after(...blocks);
   const at = home.childNodes.length;
   home.append(...rest);
   sel.collapse(home, at);
 }
-export function insertPaste(doc, root, sel, nodes) {
+// A selection over several blocks closes up: the first block keeps its type and takes what's left of the last.
+const blockOf = (node, root) => {
+  const b = (node.nodeType === 1 ? node : node.parentElement).closest('p, h1, h2, h3, h4, pre');
+  return b && root.contains(b) ? b : null;
+};
+function closeUp(range, root, from, to) {
+  const home = from.querySelector('code') ?? from;
+  const at = home.childNodes.length;
+  home.append(...to.childNodes);
+  let gone = to;
+  while (gone.parentElement !== root && gone.parentElement.children.length === 1) gone = gone.parentElement;
+  gone.remove();
+  range.setStart(home, at);
+  range.collapse(true);
+}
+export function insertPaste(doc, root, sel, nodes, plain = '') {
   if (!sel.rangeCount || !nodes.length) return;
   const range = sel.getRangeAt(0);
   const all = doc.createRange();
   all.selectNodeContents(root);
   const whole = range.compareBoundaryPoints(Range.START_TO_START, all) <= 0 && range.compareBoundaryPoints(Range.END_TO_END, all) >= 0;
+  const from = blockOf(range.startContainer, root), to = blockOf(range.endContainer, root);
   range.deleteContents();
+  if (!whole && from && to && from !== to) closeUp(range, root, from, to);
+  // Monospace takes the plain text as it is, in place (CAP-E5WHERE.json).
+  if (!whole && from?.matches('pre') && plain) {
+    const text = doc.createTextNode(plain);
+    range.insertNode(text);
+    sel.collapse(text, text.length);
+    return;
+  }
   if (whole || !root.textContent.trim()) {
     root.replaceChildren(...nodes);
   } else if (insideParagraph(range, root) && nodes.every((n) => n.matches('p, h1, h2, h3, h4, ul, ol'))) {

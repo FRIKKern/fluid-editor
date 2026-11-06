@@ -84,6 +84,8 @@ export async function replay(S, finding, add) {
     else if (op === 'keys' || op === 'keysFast') { cdp(S, { op: 'presses', keys: [...a[0]].map((c) => (c === ' ' ? 'Space' : c)) }, 300000); typed = a[0]; await wait(300); }
     else if (op === 'keysList') { cdp(S, { op: 'presses', keys: a[0] }); await wait(300); }
     else if (op === 'pause') await wait(a[0]);
+    // A paste over the selection as it is, as oracle-capture.mjs does it.
+    else if (op === 'pasteHere') { evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const W = ce.ownerDocument.defaultView; const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(a[2])}); dt.setData('text/plain', ${JSON.stringify(a[2].replace(/<[^>]+>/g, ' '))}); ce.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return 1; })()`); await wait(300); }
     // A paste at the middle of the first text, as oracle-capture.mjs does it.
     else if (op === 'pasteMid') { evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const d = ce.ownerDocument, W = d.defaultView; ce.focus(); const t = d.createTreeWalker(ce, 4).nextNode(); const r = d.createRange(); r.setStart(t, Math.floor(t.length / 2)); r.collapse(true); const s = W.getSelection(); s.removeAllRanges(); s.addRange(r); const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(a[2])}); dt.setData('text/plain', ${JSON.stringify(a[2].replace(/<[^>]+>/g, ' '))}); ce.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return 1; })()`); await wait(300); }
     else if (op === 'read' && finding.reads[a[0]]?.linkTexts) {
