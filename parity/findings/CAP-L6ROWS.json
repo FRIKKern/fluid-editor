@@ -1,0 +1,198 @@
+{
+  "item": "L6",
+  "kind": "read",
+  "oracle": "probe page, Blocks Probe",
+  "capturedAt": "2026-11-06",
+  "question": "T6: the Design rows on a new Shape, the Color popup, and Color's Reset on a phone while desktop's value flows down",
+  "how": "Headless Chrome on new blocks on Blocks Probe, not saved, left by Exit Without Saving. Ours draws its own dots.",
+  "rows": {
+    "note": "Under the panel's top, with the panel at 301.",
+    "text": [
+      "Design @22,19,46,18",
+      "Animation @84,19,67,18",
+      "Shape style @0,77,320,16",
+      "Stretch @22,285,47,22",
+      "Styling @0,363,320,16",
+      "Color @22,392,229,22",
+      "Blend Mode @22,441,81,18",
+      "Normal @227,441,49,18",
+      "Stroke @22,484,42,22",
+      "Drop Shadow @22,529,90,22",
+      "Blur @22,574,26,22",
+      "Transforms @22,631,182,44",
+      "Opacity @22,682,52,44",
+      "Rotate @22,733,43,44",
+      "Scale @22,784,88,44",
+      "Offset @22,835,88,44",
+      "Skew @22,886,88,44",
+      "Anchor @22,937,49,44"
+    ],
+    "controls": [
+      "BUTTON|submit|Uniform corner radii||||||25,216,41,38",
+      "BUTTON|submit|Individual corner radii||||||66,216,41,38",
+      "INPUT|checkbox|Stretch|||on|||284,290,12,12",
+      "BUTTON|submit|Color|||||Color|11,379,298,49",
+      "DIV|||||||Blend ModeNormal|11,427,298,46",
+      "INPUT|checkbox|Drop Shadow||||||272,534,12,12",
+      "INPUT|checkbox|Blur||||||272,579,12,12",
+      "BUTTON|submit|More actions||||||260,635,36,36"
+    ],
+    "styleButton": [
+      0,
+      104,
+      320,
+      103
+    ],
+    "cornerField": [
+      116,
+      213,
+      182,
+      44
+    ],
+    "lines": {
+      "underStretch": 318,
+      "overTransforms": "619, across the whole panel",
+      "betweenStretchAndStyling": "none"
+    }
+  },
+  "colorPopup": {
+    "panel": [
+      461,
+      301,
+      320,
+      500
+    ],
+    "noReset": [
+      792,
+      621,
+      300,
+      107
+    ],
+    "row": [
+      472,
+      680,
+      298,
+      49
+    ],
+    "withReset": [
+      792,
+      582,
+      300,
+      146
+    ],
+    "swatchBottom": 722.5,
+    "rule": "Its bottom 5.5 under the swatch's, with or without Reset. Stroke Color's 80 tall popup fits it too (CAP-T6RANGE.json)."
+  },
+  "resetWhileFlowing": {
+    "question": "Color set on desktop, nothing set on the phone: does the phone's popup show Reset, and what does it do?",
+    "popup": {
+      "reset": true,
+      "opacity": true
+    },
+    "strokeColorPopup": {
+      "reset": true,
+      "opacity": true
+    },
+    "drawnBefore": "rgb(242, 184, 180)",
+    "afterReset": {
+      "fill": "rgb(242, 184, 180)",
+      "dotted": [
+        "Color"
+      ],
+      "resetStillShown": false
+    },
+    "desktopStill": "rgb(242, 184, 180)",
+    "desktopNew": "rgb(181, 100, 247)",
+    "phoneFollows": {
+      "fill": "rgb(181, 100, 247)",
+      "dotted": [
+        "Color"
+      ]
+    },
+    "note": "So a flowing value shows Reset and Opacity. Reset leaves the color as it is, dots Color, takes Reset away and the phone goes on following desktop."
+  },
+  "ours": "Built: scripts/shape-check.mjs against this.",
+  "flip": {
+    "note": "Panel's right edge against the popup's left, panel at each place by its drag handle, screen 1600. It keeps the right side while 11 stay free: 1278 right, 1280 left. 1279 is not read.",
+    "read": [
+      [
+        1270,
+        1281
+      ],
+      [
+        1278,
+        1289
+      ],
+      [
+        1280,
+        649
+      ],
+      [
+        1285,
+        654
+      ],
+      [
+        1400,
+        769
+      ]
+    ],
+    "all": {
+      "1270": 1281,
+      "1272": 1283,
+      "1274": 1285,
+      "1276": 1287,
+      "1278": 1289,
+      "1280": 649,
+      "1282": 651,
+      "1284": 653,
+      "1285": 654,
+      "1288": 657,
+      "1289": 658,
+      "1290": 659,
+      "1292": 661,
+      "1300": 669,
+      "1400": 769
+    }
+  },
+  "customView": {
+    "note": "Pressing + on a new Shape whose Color is unset, popup at 792,445.",
+    "size": [
+      300,
+      459
+    ],
+    "top": 445,
+    "smallTop": 621,
+    "smallHeight": 107,
+    "middleKept": "674.5 in both",
+    "mapThumb": [
+      3,
+      3
+    ],
+    "swatchLefts": [
+      18,
+      64,
+      110,
+      156,
+      202,
+      248
+    ],
+    "swatchTop": 263,
+    "sixth": "A sixth swatch of the color now, ringed, on the place of +; the palette white has no ring.",
+    "hueThumb": [
+      14,
+      312
+    ],
+    "opacityThumb": [
+      270,
+      340
+    ],
+    "rgbInputsTop": 376,
+    "reset": [
+      11,
+      420,
+      278,
+      28
+    ],
+    "resetNote": "Reset to theme shows in this view even with nothing picked. What it does from here is not read."
+  }
+}
