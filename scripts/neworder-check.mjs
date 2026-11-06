@@ -15,7 +15,9 @@ const KNOWN = new Set(JSON.parse(readFileSync(new URL('../parity/neworder-known.
 const ONLY = process.argv[2]?.split(',');
 const FILES = ONLY ?? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST', 'CAP-TURNTEST2', 'CAP-CYCLE', 'CAP-CYCLE2', 'CAP-CYCLE3', 'CAP-TURNTEST3', 'CAP-CYCLE4', 'CAP-NEWORDER7', 'CAP-TURNTEST4', 'CAP-A2EDITS', 'CAP-A2EDITS2', 'CAP-A2ROUND1', 'CAP-A2ROUND2', 'CAP-A2TYPED3', 'CAP-LONGDRAG'];
 let quiet = false; // nothing selected since the last Escape, so another one is a wasted call
-const press = (k) => { if (k === 'Escape' && quiet) return; browser(S, 'press', k); quiet = k === 'Escape'; };
+// After typing, the first Escape only closes the editor, so the next one counts too.
+let loud = 0;
+const press = (k) => { if (k === 'Escape' && quiet && loud <= 0) return; loud--; browser(S, 'press', k); quiet = k === 'Escape'; };
 // The oracle's blocks sit in phone order in the page, and a step names one by its place there.
 const blockAt = (k) => evalJs(S, `JSON.stringify([...fe.model.sections[0].blocks].sort((a, b) => a.layout.mobile.area[0] - b.layout.mobile.area[0])[${k}].id)`);
 const point = (id, part) => evalJs(S, `(() => { const part = ${JSON.stringify(part)}, f = document.getElementById('site-frame'), W = f.contentWindow, b = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]'), r = f.getBoundingClientRect(); let q = b.getBoundingClientRect(); if (q.top < 150 || q.bottom > W.innerHeight - 150) { W.scrollTo({ top: W.scrollY + q.top - 200, behavior: 'instant' }); q = b.getBoundingClientRect(); } return JSON.stringify([r.left + q.left + q.width * (part === 'middle' ? 0.5 : part.includes('w') ? 0 : part.includes('e') ? 1 : 0.5), r.top + q.top + q.height * (part === 'middle' ? 0.5 : part.includes('n') ? 0 : part.includes('s') ? 1 : 0.5)]); })()`);
@@ -71,6 +73,7 @@ for (const file of FILES) {
     } else if (op === 'keysFast') {
       // Keys after a double click never landed on the oracle (CAP-A2TYPED): those reads have no typing. After Write they do (CAP-A2TYPED3).
       if (writing) { cdp(S, { op: 'presses', keys: [...step[1]].map((c) => (c === ' ' ? 'Space' : c)) }); await pause(300); }
+      if (writing) loud = 2;
       writing = false; quiet = false;
     } else if (op === 'stubClipboard') {
       // the oracle needs one; ours keeps its own
