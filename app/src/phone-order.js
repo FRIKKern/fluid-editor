@@ -51,7 +51,7 @@ export function newBlockSlot(blocks, w, h, place = [1, 2]) {
 
 // How a section built here sets its phone order again (CAP-DESKMOVE*, CAP-NEWORDER*, CAP-CYCLE*,
 // CAP-TURNTEST*). Inferred from those reads. A smaller block with at least 80% of its area inside a
-// bigger one (read between 75 and 83%) belongs to the smallest such block, and comes
+// bigger one (read between 75 and 83%) belongs to the first of the smallest such blocks, and comes
 // right after it with the others it holds. Blocks taken in that order, top first, then left first,
 // each go after the last block they share columns with, and past blocks to their left that they
 // share none with. If the old stack starts at phone row 1 with a block one row high, the order turns
@@ -68,13 +68,8 @@ const inside = (a, b) => {
 };
 function desktopOrder(stack) {
   const sorted = [...stack].sort((p, q) => box(p)[0] - box(q)[0] || box(p)[1] - box(q)[1]);
-  // The smallest block this one sits inside: of a few that size, the one at its own place, or else the first.
-  const here = (a, b) => box(a)[0] === box(b)[0] && box(a)[1] === box(b)[1];
-  const host = (b) => sorted.filter((o) => inside(b, o)).reduce((best, o) => {
-    if (!best) return o;
-    const d = boxArea(box(o)) - boxArea(box(best));
-    return d < 0 || (d === 0 && here(o, b) && !here(best, b)) ? o : best;
-  }, null);
+  // The first of the smallest blocks this one sits inside.
+  const host = (b) => sorted.filter((o) => inside(b, o)).reduce((best, o) => (!best || boxArea(box(o)) < boxArea(box(best)) ? o : best), null);
   const tops = [];
   const place = (b) => {
     tops.push(b);
@@ -112,8 +107,6 @@ function layStack(s, old, order) {
 // Any desktop move or resize, of one block or a group. Returns true if a block moved on the phone.
 export function followDesktopEdit(s) {
   const old = stackOf(s.blocks);
-  // Blocks that overlap on the phone: it stays as it is (CAP-A2EDITS2 o, 2 reads).
-  if (old.some((b, k) => old.slice(k + 1).some((o) => overlaps(b.layout.mobile.area, o.layout.mobile.area)))) return false;
   return layStack(s, old, turned(desktopOrder(old), old[0]));
 }
 
@@ -122,4 +115,20 @@ export function followDesktopEdit(s) {
 export function followNewBlock(s, block) {
   const old = stackOf(s.blocks);
   return layStack(s, old, turned(desktopOrder([...old, block]), old[0]));
+}
+
+// A block taken away: the blocks below move up by its height, but no higher than where it started.
+export function closeUp(s, gone) {
+  for (const g of [...gone].sort((p, q) => q[0] - p[0])) for (const b of s.blocks) {
+    const a = b.layout.mobile.area;
+    if (a[0] <= g[0]) continue;
+    const at = Math.max(g[0], a[0] - (g[2] - g[0]));
+    b.layout.mobile.area = [at, a[1], at + a[2] - a[0], a[3]];
+  }
+}
+
+// Blocks that overlap on the phone: from then on it no longer follows the desktop (CAP-A2EDITS2 o, CAP-A2ROUND1 b).
+export function phoneOverlaps(s) {
+  const all = s.blocks;
+  return all.some((b, k) => all.slice(k + 1).some((o) => overlaps(b.layout.mobile.area, o.layout.mobile.area)));
 }

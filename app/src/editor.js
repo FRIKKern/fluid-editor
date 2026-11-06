@@ -13,7 +13,7 @@ import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHt
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
-import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock } from './phone-order.js';
+import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
@@ -126,21 +126,18 @@ function followPhoneRows(before) {
 // A section built here follows any desktop move or resize on the phone until the phone is moved by
 // hand (CAP-DESKMOVE*.json). A saved page has no flag: a saved section can't be read (0006), so it stays.
 function phoneFollowsMove(s, was) {
-  if (!s.phoneFollows) return false;
+  if (s.phoneFollows == null) return false;
   const same = s.blocks.flatMap((b) => { const o = was.blocks.find((x) => x.id === b.id); return o ? [[b, o]] : []; });
   const changed = (name, part) => same.some(([b, o]) => part(b.layout[name].area).join() !== part(o.layout[name].area).join());
   // A block taken away, on either width: the stack closes up, keeping the gaps above the others
-  // (CAP-TURNTEST4 d1, CAP-A2EDITS2 p and h).
+  // (CAP-TURNTEST4 d1, CAP-A2EDITS2 p and h, CAP-A2ROUND1 a).
   const gone = was.blocks.filter((o) => !s.blocks.some((b) => b.id === o.id)).map((o) => o.layout.mobile.area);
-  if (gone.length) for (const b of s.blocks) {
-    const a = b.layout.mobile.area, up = gone.reduce((n, g) => n + (g[2] <= a[0] ? g[2] - g[0] : 0), 0);
-    b.layout.mobile.area = [a[0] - up, a[1], a[2] - up, a[3]];
-  }
+  closeUp(s, gone);
   if (bp === 'mobile') {
-    if (changed('mobile', (a) => a.slice(0, 2)) && !gone.length) s.phoneFollows = false;
+    if (!gone.length && (changed('mobile', (a) => a.slice(0, 2)) || phoneOverlaps(s))) s.phoneFollows = false;
     return gone.length > 0;
   }
-  return (changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
+  return (s.phoneFollows && changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
 }
 
 function undo() {
@@ -3424,7 +3421,8 @@ function addBlock(sid, name) {
   // Phone (L3.json, CAP-NEWORDER*.json): the new block takes its place in the phone stack by
   // size, and the blocks after it move down by its height.
   const stack = [...s.blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
-  const slot = s.phoneFollows ? 0 : newBlockSlot(stack, w, h);
+  // A phone that stopped following: the new block goes below everything (CAP-A2ROUND1 b).
+  const slot = s.phoneFollows ? 0 : s.phoneFollows === false ? stack.length : newBlockSlot(stack, w, h);
   const mobileEnd = slot ? Math.max(...stack.slice(0, slot).map((b) => b.layout.mobile.area[2])) : 1;
   const zTop = (bpName) => Math.max(0, ...s.blocks.map((b) => b.layout[bpName].z)) + 1;
   const block = { id, ...make(), layout: {
@@ -3468,6 +3466,18 @@ function duplicateBlock(sid, bid) {
   const c0 = Math.min(d[1] + 1, LAST_LINE.desktop - w);
   copy.layout.desktop.area = [d[0] + 1, c0, d[2] + 1, c0 + w];
   copy.layout.desktop.z = Math.max(...s.blocks.map((b) => b.layout.desktop.z)) + 1;
+  // A section built here, on desktop: the copy goes last on the phone with its source's z + 1, even if
+  // another block has that z (CAP-A2EDITS n, CAP-A2ROUND1 e).
+  if (s.phoneFollows != null && bp !== 'mobile') {
+    const end = Math.max(...s.blocks.map((b) => b.layout.mobile.area[2]));
+    copy.layout.desktop.z = orig.layout.desktop.z + 1;
+    copy.layout.mobile.z = orig.layout.mobile.z + 1;
+    copy.layout.mobile.area = [end, copy.layout.mobile.area[1], end + copy.layout.mobile.area[2] - copy.layout.mobile.area[0], copy.layout.mobile.area[3]];
+    s.blocks.push(copy);
+    for (const bpName of ['desktop', 'mobile']) s.rows[bpName] = Math.max(s.rows[bpName], copy.layout[bpName].area[2] - 1);
+    sel = { sid, bid: copy.id };
+    return;
+  }
   const m = orig.layout.mobile.area;
   const h = m[2] - m[0];
   for (const b of s.blocks) {
