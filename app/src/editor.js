@@ -8,7 +8,7 @@ import * as fmt from './text-format.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
-import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPanelTop, sectionLook } from './section-layouts.js';
+import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPanelTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
 import { artSeg, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, followDesktopMove } from './phone-order.js';
@@ -149,6 +149,7 @@ function undo() {
   model = JSON.parse(undoStack.pop());
   note('Undo');
   renderAll();
+  syncLayouts();
   if (ed && B(ed.sid, ed.bid)?.type === 'text') startTextEdit(ed.sid, ed.bid);
 }
 function redo() {
@@ -157,6 +158,7 @@ function redo() {
   model = JSON.parse(redoStack.pop());
   note('Redo');
   renderAll();
+  syncLayouts();
 }
 
 // ---------- rendering ----------
@@ -3561,7 +3563,7 @@ for (const host of [panel, sectionPanel]) {
     if (!a || !secSid()) return;
     e.preventDefault();
     const act = a.dataset.sbg;
-    if (act === 'themes') { themeFrom = secSid(); setSiteStyles(true); ssView = 'ColorTheme'; renderSsPanel(); return; }
+    if (act === 'themes') { setSiteStyles(true); ssView = 'ColorTheme'; renderSsPanel(); return; }
     if (act === 'add') { host.querySelector('[data-sbg-file]').click(); return; }
     if (act === 'addVideo') { host.querySelector('[data-sbg-video]').click(); return; }
     if (act === 'addFallback') { host.querySelector('[data-sbg-fallback]').click(); return; }
@@ -3694,28 +3696,47 @@ function renderSectionPanel() {
 function closeSectionPanel() { if (!editSid) return; editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
 const layoutsPanel = $('layouts-panel');
-let layoutsSid = null, layoutsMix = null, layoutsPicked = null, layoutsOrder = [], layoutsBase = null;
+let layoutsSid = null, layoutsMix = null, layoutsPicked = null, layoutsOrder = [], layoutsBase = null, layoutsLook = null, layoutsPress = false;
 // Roles stay with the blocks as they were on opening: a pick puts them in phone order.
 const openedMix = () => sectionMix({ blocks: [...S(layoutsSid).blocks].sort((a, b) => layoutsOrder.indexOf(a.id) - layoutsOrder.indexOf(b.id)) });
-function renderLayouts() {
+// A tile's colors: the section's own, as on opening, or those of the theme a layout turns it to.
+function readLayoutsLook() {
   const el = sectionEl(layoutsSid), css = (e) => doc.defaultView.getComputedStyle(e);
   let bg = el; // the tile's background: the nearest painted one
   while (bg.parentElement && css(bg).backgroundColor === 'rgba(0, 0, 0, 0)') bg = bg.parentElement;
-  const own = { bg: css(bg).backgroundColor, ink: css(el).color };
-  const look = (theme) => {
-    if (!theme) return own;
-    const t = doc.createElement('section'); t.className = 'page-section'; t.dataset.sectionTheme = theme; doc.body.append(t);
-    const c = css(t), out = { bg: c.getPropertyValue('--section-bg').trim() || own.bg, ink: c.getPropertyValue('--heading-color').trim() || own.ink };
+  layoutsLook = { bg: css(bg).backgroundColor, ink: css(el).color };
+}
+function renderLayouts() {
+  const css = (e) => doc.defaultView.getComputedStyle(e);
+  const look = (turn) => {
+    if (!turn) return layoutsLook;
+    const t = doc.createElement('section'); t.className = 'page-section'; t.dataset.sectionTheme = layoutTheme(layoutsBase.theme); doc.body.append(t);
+    const c = css(t), out = { bg: c.getPropertyValue('--section-bg').trim() || layoutsLook.bg, ink: c.getPropertyValue('--heading-color').trim() || layoutsLook.ink };
     t.remove();
     return out;
   };
   layoutsPanel.innerHTML = layoutsPanelHtml(layoutsMix, layoutsPicked, look);
+}
+// Undo and Redo leave the panel open: the section changes and the mark follows it. A section that shows no layout starts over.
+function syncLayouts() {
+  if (!layoutsSid) return;
+  const s = S(layoutsSid);
+  if (!s || !s.blocks.length) { closeLayouts(); return; }
+  const mix = openedMix();
+  if (!mix) { closeLayouts(); return; }
+  const top = layoutsPanel.querySelector('.lo-list').scrollTop;
+  layoutsMix = mix;
+  layoutsPicked = layoutShown(s, mix, layoutsPicked);
+  if (layoutsPicked == null) { layoutsBase = sectionLook(s); readLayoutsLook(); }
+  renderLayouts();
+  layoutsPanel.querySelector('.lo-list').scrollTop = top;
 }
 function openLayouts(sid) {
   closeFloating();
   layoutsSid = sid; layoutsOrder = S(sid).blocks.map((b) => b.id); layoutsBase = sectionLook(S(sid)); layoutsMix = openedMix(); layoutsPicked = null;
   layoutsPanel.hidden = false;
   layoutsPanel.style.top = `${layoutsPanelTop(sectionEl(sid).getBoundingClientRect().height)}px`;
+  readLayoutsLook();
   renderLayouts();
 }
 function closeLayouts() { layoutsSid = null; layoutsPanel.hidden = true; }
@@ -3734,10 +3755,16 @@ layoutsPanel.addEventListener('click', (e) => {
   layoutsPanel.querySelector('.lo-list').scrollTop = top;
 });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && layoutsSid) { e.preventDefault(); closeLayouts(); } });
-document.addEventListener('mousedown', (e) => { if (layoutsSid && !layoutsPanel.contains(e.target) && !e.target.closest('[data-sc="layouts"]')) closeLayouts(); });
+// A press outside closes it, Undo and Redo don't, and the section's own buttons only close it: they take no press while it is open.
+document.addEventListener('mousedown', (e) => {
+  if (!layoutsSid || layoutsPanel.contains(e.target) || e.target.closest('#undo, #redo')) return;
+  if (e.target.closest('#section-chrome')) layoutsPress = true;
+  closeLayouts();
+});
 const newId = () => Math.random().toString(16).slice(2, 14).padEnd(12, '0') + Date.now().toString(16).slice(-12);
 chrome.addEventListener('mousedown', (e) => e.preventDefault());
 chrome.addEventListener('click', (e) => {
+  if (layoutsPress) { layoutsPress = false; return; }
   const btn = e.target.closest('button[data-sc]');
   const sid = chromeSid();
   if (!btn || !sid || btn.classList.contains('is-off')) return;
@@ -3810,7 +3837,6 @@ const contextMenu = $('context-menu');
 // button again close it.
 const siteStyles = $('site-styles');
 let ssView = null;
-let themeFrom = null; // the section whose Colors tab opened Edit Color Theme
 let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary', ssFormKind = 'check', ssFormFont = 'Title', ssFormTheme = null;
 const pal = { swatch: 'accent', tab: 'Presets', format: 'Hex', list: false }; // Edit Palette's own view state
 let dot = null; // the open color popover: { row, custom, format, list }
@@ -3898,11 +3924,8 @@ siteStyles.addEventListener('click', (e) => {
   if (tierPress(e) || formPress(e)) return;
   const open = e.target.closest('[data-ss-view]');
   if (open || e.target.closest('[data-ss-back]')) { ssThemeList = false; closeDotPop(); pal.list = false; }
-  if (ssView === 'ColorTheme' && e.target.closest('[data-ss-back]')) {
-    setSiteStyles(false);
-    if (themeFrom && S(themeFrom)) { editSid = themeFrom; panelPlace = null; sectionTab = 'Colors'; renderSectionPanel(); placeChrome(); }
-    return;
-  }
+  // Edit Color Theme's back goes to Site Styles' Colors, not to the section panel it was opened from (CAP-DIVSHAPES.json).
+  if (ssView === 'ColorTheme' && e.target.closest('[data-ss-back]')) { ssView = 'Colors'; ssSelect = null; renderSsPanel(); siteStyles.scrollTop = 0; return; }
   if (e.target.closest('[data-ss-help]')) { ssHelp = !ssHelp; renderSsPanel(); return; }
   if (e.target.closest('[data-ss-theme-list]')) { ssThemeList = !ssThemeList; renderSsPanel(); return; }
   const row = e.target.closest('[data-ss-theme]');

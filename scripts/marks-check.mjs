@@ -1385,6 +1385,17 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Aa chip: changes nothing on the page', evalJs(S, `(() => JSON.stringify(window.__chipModel === JSON.stringify(fe.model)))()`) === true);
   evalJs(S, `(() => { document.querySelector('.ss-close').click(); return 'true'; })()`); await pause(250);
   add('Aa chips: gone when the panel closes', evalJs(S, `(() => JSON.stringify(document.querySelectorAll('.theme-chip').length))()`) === 0);
+  // Back goes to Site Styles' Colors; an unthemed section's chip reads Light 1.
+  const DS = JSON.parse(readFileSync(new URL('../parity/findings/CAP-DIVSHAPES.json', import.meta.url))).colorThemeEditor;
+  const unthemed = () => evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)); delete m.sections[0].theme; fe.load(m); return 'true'; })()`);
+  unthemed(); await pause(300);
+  hit('[data-sc="edit"]'); await pause(250);
+  hit('#section-panel [data-sact="tab"][data-v="Colors"]'); await pause(150);
+  hit('#section-panel [data-sbg="themes"]'); await pause(500);
+  add('Aa chip: an unthemed section reads Light 1', evalJs(S, `(() => JSON.stringify(document.querySelector('.theme-chip')?.dataset.chipTheme))()`) === DS.chipUnthemed);
+  evalJs(S, `(() => { document.querySelector('[data-ss-back]').click(); return 'true'; })()`); await pause(250);
+  add('Edit Color Theme\'s back: Site Styles\' Colors', evalJs(S, `(() => JSON.stringify([document.querySelector('#site-styles .ss-title').textContent, document.querySelector('.ss-back span').textContent, document.getElementById('site-styles').hidden, document.getElementById('section-panel').hidden].join()))()`) === `${DS.back.title},${DS.back.label},false,true`);
+  evalJs(S, `(() => { document.querySelector('.ss-close').click(); return 'true'; })()`); await pause(200);
 }
 
 // U12: Edit Palette and Edit Color Theme's rows, against parity/findings/CAP-THEMEROWS.json.
@@ -2014,6 +2025,109 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     add(`${id}: Opacity and Bar`, bvar('--form-field-hover-focus') === F.packs.all.hover.toLowerCase() && bvar('--form-submit-button-style') === F.packs.all.submit.toLowerCase());
     add(`${id}: checkbox`, bvar('--form-field-checkbox-style') === c.type && bvar('--form-field-checkbox-color') === c.color && bvar('--form-field-checkbox-layout') === c.layout && opt().radius === F.selection.radius[c.shape === 'square' ? 'Square' : 'Pill'] && opt().bg === F.selection.fill[c.fill === 'solid' ? 'on' : 'off'], JSON.stringify(opt()));
   }
+}
+
+// U10: the Layouts panel closing and a pick on a section with a look, against CAP-VIEWLAYOUTS.json.
+{
+  const VL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-VIEWLAYOUTS.json', import.meta.url))), Q = VL.priorState, E = VL.mixes.i1;
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const setup = async (look = {}, types = 'i') => {
+    goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1300);
+    js(`const s = fe.model.sections[0]; fe.addBlock(s.id, 'Image'); fe.addBlock(s.id, 'Button'); const pool = fe.model.sections[0].blocks, of = (t) => JSON.parse(JSON.stringify(pool.find((b) => b.type === t))); const m = JSON.parse(JSON.stringify(fe.model)), o = m.sections[0]; o.blocks = [{ ...of('image'), id: 'iaaaaaaaaaaaaaaaaaaaaaaa' }, ...(${JSON.stringify(types)} === 'ib' ? [{ ...of('button'), id: 'baaaaaaaaaaaaaaaaaaaaaaa' }] : [])]; Object.assign(o, ${JSON.stringify(look)}); fe.load(m); return 'true';`);
+    await pause(450);
+  };
+  const real = async (x, y) => { mouse(S, 'move', x, y); await pause(60); mouse(S, 'down', x, y, { buttons: 1 }); await pause(30); mouse(S, 'up', x, y); await pause(260); };
+  const hover = async () => { const f = js(`const r = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + 200]);`); mouse(S, 'move', f[0], f[1]); await pause(200); };
+  const center = (sel) => js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`);
+  const open = async () => { await hover(); const c = center('#section-chrome [data-sc="layouts"]'); await real(c[0], c[1]); await pause(150); };
+  const shut = () => js(`return JSON.stringify(document.getElementById('layouts-panel').hidden);`);
+  const pick = async (n) => { js(`const e = document.querySelector('[data-layout="${n}"]'); e.scrollIntoView({ block: 'center' }); return 'true';`); await pause(60); const c = center(`[data-layout="${n}"]`); await real(c[0], c[1]); await pause(150); };
+  const now = () => js(`const f = document.getElementById('site-frame'), s = f.contentDocument.querySelectorAll('.page-section')[0], m = fe.model.sections[0]; return JSON.stringify({ th: s.getAttribute('data-section-theme') || '', ht: m.height || 'medium', dv: !!m.divider, shape: m.dividerShape || null, h: Math.round(s.getBoundingClientRect().height * 10) / 10 });`);
+  const within = (a, b) => Math.abs(a - b) <= 2;
+
+  // How it closes.
+  await setup(); await open();
+  add('Layouts closing: open', shut() === false);
+  browser(S, 'press', 'Escape'); await pause(200);
+  add('Layouts closing: Escape', shut() === true);
+  await open();
+  const empty = js(`const f = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify([f.left + 640, f.top + 640]);`);
+  await real(empty[0], empty[1]);
+  add('Layouts closing: a press on an empty part of the page, nothing selected', shut() === true && js(`return JSON.stringify(!document.querySelector('#selection-box:not([hidden]), .fe-selected'));`) !== false, String(shut()));
+  await open();
+  const edit = center('#section-chrome [data-sc="edit"]');
+  await real(edit[0], edit[1]);
+  add('Layouts closing: Edit Section only closes it', shut() === true && js(`const p = document.getElementById('section-panel'); return JSON.stringify(!p || p.hidden);`) === true);
+  await open();
+  const blk = js(`const f = document.getElementById('site-frame'), a = f.getBoundingClientRect(), r = f.contentDocument.querySelector('.fe-block').getBoundingClientRect(); return JSON.stringify([a.left + r.left + r.width / 2, a.top + r.top + r.height / 2]);`);
+  await real(blk[0], blk[1]);
+  add('Layouts closing: a press on a block closes it and selects', shut() === true && js(`return JSON.stringify(!!fe.select && !!document.querySelector('#block-toolbar:not([hidden])'));`) === true);
+  browser(S, 'press', 'Escape'); await pause(150);
+  await setup(); await open(); await pick(1);
+  const undo = center('#undo'), redo = center('#redo'), picked = now();
+  const mark = () => js(`return JSON.stringify([...document.querySelectorAll('.lo-tile.is-on')].map((e) => e.dataset.layout).join());`);
+  add('Layouts: the pick is marked', mark() === '1' || mark() === 1, String(mark()));
+  await real(undo[0], undo[1]);
+  add('Undo keeps the panel open, the section back, the mark gone', shut() === false && now().h !== picked.h && mark() === '', JSON.stringify([shut(), now(), mark()]));
+  await real(redo[0], redo[1]);
+  add('Redo keeps it open, the section and the mark back', shut() === false && now().h === picked.h && (mark() === '1' || mark() === 1), JSON.stringify([shut(), now(), mark()]));
+  await pick(2);
+  add('A pick after Undo and Redo still works', (mark() === '2' || mark() === 2) && within(now().h, E.layouts[2].h), JSON.stringify(now()));
+  const ss = center('#site-styles-toggle');
+  await real(ss[0], ss[1]);
+  add('Layouts closing: Site Styles closes it and opens', shut() === true && js(`return JSON.stringify(!document.getElementById('site-styles').hidden);`) === true);
+
+  // The panel's top.
+  await setup({ rows: { desktop: 8, mobile: 8 } }); await open();
+  const top0 = js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`), h0 = now().h;
+  add('Panel top: reads as the section\'s height', top0 === Math.min(272, Math.round(248 + (h0 - 667.6) * (72 / 105.6))), JSON.stringify([top0, h0]));
+  await pick(1); browser(S, 'press', 'Escape'); await pause(150); await open();
+  add('Panel top stops at 272', js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`) === 272);
+
+  // A pick from each start theme.
+  for (const [from, to] of Object.entries(Q.themeTurn)) {
+    await setup({ theme: from || undefined }); await open();
+    await pick(8);
+    let n = now();
+    add(`Theme ${from || 'none'}: a theme layout turns it to ${to}`, n.th === to && n.dv && n.shape === 'soft', JSON.stringify(n));
+    await pick(9);
+    add(`Theme ${from || 'none'}: the next one turns from the start, not from the pick`, now().th === to, now().th);
+    await pick(0);
+    n = now();
+    add(`Theme ${from || 'none'}: a plain layout puts it all back`, n.th === from && !n.dv, JSON.stringify(n));
+    if (from === 'light') {
+      await pick(8); browser(S, 'press', 'Escape'); await pause(150); await open(); await pick(0);
+      add('Closing makes the look the new start', now().th === to && now().dv, JSON.stringify(now()));
+      await pick(8);
+      add('And a turn goes on from it', now().th === Q.themeTurn[to], now().th);
+    }
+  }
+  // Height.
+  for (const [name, look, read] of [['Large', { height: 'large' }, Q.height.Large], ['Small', { height: 'small' }, Q.height.Small]]) {
+    await setup(look, 'ib'); await open();
+    await pick(0);
+    add(`${name}: a plain layout keeps the height`, now().ht === read.plain.ht && within(now().h, read.plain.h), JSON.stringify(now()));
+    await pick(6);
+    add(`${name}: a height layout sets small`, now().ht === read.small.ht && within(now().h, read.small.h), JSON.stringify(now()));
+    await pick(1);
+    add(`${name}: a plain layout puts it back`, now().ht === read.plainAgain.ht && within(now().h, read.plainAgain.h), JSON.stringify(now()));
+  }
+  // Divider on at the start.
+  await setup({ divider: true }); await open();
+  await pick(0);
+  add('Divider on: a plain layout keeps it', now().dv && within(now().h, Q.divider.plain.h), JSON.stringify(now()));
+  const first = now().shape;
+  await pick(8);
+  add('Divider on: a divider layout sets Soft', now().shape === 'soft' && within(now().h, Q.divider.soft.h), JSON.stringify(now()));
+  await pick(1);
+  add('Divider on: a plain layout puts the shape back', now().dv && now().shape === first && within(now().h, Q.divider.plainAgain.h), JSON.stringify(now()));
+  // All three together.
+  await setup({ theme: 'bright-inverse', height: 'large', divider: true }); await open();
+  for (const [n, h] of [[0, Q.all.picks.plain0], [1, Q.all.picks.plain1], [8, Q.all.picks.theme8], [2, Q.all.picks.plain2]]) {
+    await pick(n);
+    add(`Bright 1, Large, Divider: layout ${n + 1}'s height`, within(now().h, h), JSON.stringify(now()));
+  }
+  add('Bright 1, Large, Divider: back at the start', now().th === 'bright-inverse' && now().ht === 'large' && now().dv, JSON.stringify(now()));
 }
 
 console.log(`Marks: ${pass} of ${total} checks match`);
