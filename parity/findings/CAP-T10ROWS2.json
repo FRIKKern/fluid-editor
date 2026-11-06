@@ -1,0 +1,1837 @@
+{
+  "item": "CAP-T10ROWS2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: Code, Markdown and Embed rising and falling at sizes not read before, predictions pushed first in PRED-T7ROWS2.json: do the section rows move by the block rows, keeping the spare?",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Code desktop a start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code desktop a 12",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>\n<p>row 19</p>\n<p>row 20</p>\n<p>row 21</p>\n<p>row 22</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code desktop a 22",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code desktop a 9",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Code desktop b start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>\n<p>row 19</p>\n<p>row 20</p>\n<p>row 21</p>\n<p>row 22</p>\n<p>row 23</p>\n<p>row 24</p>\n<p>row 25</p>\n<p>row 26</p>\n<p>row 27</p>\n<p>row 28</p>\n<p>row 29</p>\n<p>row 30</p>\n<p>row 31</p>\n<p>row 32</p>\n<p>row 33</p>\n<p>row 34</p>\n<p>row 35</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code desktop b 35",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code desktop b 5",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code desktop b 17",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Code phone start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code phone 12",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>\n<p>row 19</p>\n<p>row 20</p>\n<p>row 21</p>\n<p>row 22</p>\n<p>row 23</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code phone 23",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code phone 7",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Embed desktop start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Embed desktop 7",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Embed desktop 15",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Embed desktop 4",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Embed phone start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Embed phone 13",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>\n<p>row 19</p>\n<p>row 20</p>\n<p>row 21</p>\n<p>row 22</p>\n<p>row 23</p>\n<p>row 24</p>\n<p>row 25</p>\n<p>row 26</p>\n<p>row 27</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Embed phone 27",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Embed phone 5",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Markdown desktop start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "row 1\n\nrow 2\n\nrow 3\n\nrow 4\n\nrow 5\n\nrow 6\n\nrow 7\n\nrow 8\n\nrow 9\n\nrow 10\n\nrow 11\n\nrow 12"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Markdown desktop 12",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "row 1\n\nrow 2\n\nrow 3\n\nrow 4\n\nrow 5\n\nrow 6\n\nrow 7\n\nrow 8\n\nrow 9\n\nrow 10\n\nrow 11\n\nrow 12\n\nrow 13\n\nrow 14\n\nrow 15\n\nrow 16\n\nrow 17\n\nrow 18\n\nrow 19\n\nrow 20\n\nrow 21\n\nrow 22\n\nrow 23\n\nrow 24\n\nrow 25"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Markdown desktop 25",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "row 1\n\nrow 2\n\nrow 3\n\nrow 4\n\nrow 5\n\nrow 6"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Markdown desktop 6",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "hover",
+      0
+    ],
+    [
+      "sectionDrag",
+      0,
+      329
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Code, a section pulled taller start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code, a section pulled taller 14",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>\n<p>row 19</p>\n<p>row 20</p>\n<p>row 21</p>\n<p>row 22</p>\n<p>row 23</p>\n<p>row 24</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code, a section pulled taller 24",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Code, a section pulled taller 3",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Second Code start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Second Code 18",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Second Code 8",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "Code desktop a start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code desktop a 12": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          914.1
+        ],
+        "rows": 14,
+        "rowSizes": "30.1x14",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code desktop a 22": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1284
+        ],
+        "rows": 23,
+        "rowSizes": "30.1x23",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/22/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code desktop a 9": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          761.7
+        ],
+        "rows": 10,
+        "rowSizes": "31.6x8 30.1x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/9/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code desktop b start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code desktop b 35": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1777.1
+        ],
+        "rows": 35,
+        "rowSizes": "30.1x35",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/34/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code desktop b 5": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          623.7
+        ],
+        "rows": 6,
+        "rowSizes": "35.8x4 30.1x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/5/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code desktop b 17": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1078.5
+        ],
+        "rows": 18,
+        "rowSizes": "30.1x18",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/17/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code phone start": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          623.7
+        ],
+        "rows": 6,
+        "rowSizes": "24x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code phone 12": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          657.9
+        ],
+        "rows": 13,
+        "rowSizes": "24.1x13",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/14/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code phone 23": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          1112.1
+        ],
+        "rows": 26,
+        "rowSizes": "24x26",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/27/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code phone 7": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          623.7
+        ],
+        "rows": 8,
+        "rowSizes": "24x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Embed desktop start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Embed desktop 7": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Embed desktop 15": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          955.2
+        ],
+        "rows": 15,
+        "rowSizes": "30.1x15",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/16/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Embed desktop 4": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          623.7
+        ],
+        "rows": 4,
+        "rowSizes": "34.2x4",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/5/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Embed phone start": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          623.7
+        ],
+        "rows": 8,
+        "rowSizes": "24x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Embed phone 13": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          728.3
+        ],
+        "rows": 15,
+        "rowSizes": "24.1x15",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/16/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Embed phone 27": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          1287.1
+        ],
+        "rows": 31,
+        "rowSizes": "24x31",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/32/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Embed phone 5": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          623.7
+        ],
+        "rows": 6,
+        "rowSizes": "25.5x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Markdown desktop start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Markdown desktop 12": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          914.1
+        ],
+        "rows": 14,
+        "rowSizes": "30.1x14",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Markdown desktop 25": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1407.3
+        ],
+        "rows": 26,
+        "rowSizes": "30.1x26",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/25/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Markdown desktop 6": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          646.5
+        ],
+        "rows": 7,
+        "rowSizes": "34.1x5 30.1x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/6/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code, a section pulled taller start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "6/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code, a section pulled taller 14": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1160.7
+        ],
+        "rows": 20,
+        "rowSizes": "30.1x20",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "6/2/19/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code, a section pulled taller 24": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1571.6
+        ],
+        "rows": 30,
+        "rowSizes": "30.1x30",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "6/2/29/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Code, a section pulled taller 3": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          749.8
+        ],
+        "rows": 10,
+        "rowSizes": "30.1x10",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "6/2/9/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Second Code start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ],
+        [
+          "1/2/7/6",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Second Code 18": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1119.6
+        ],
+        "rows": 19,
+        "rowSizes": "30.1x19",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/18/6",
+          "1/2/7/10"
+        ],
+        [
+          "1/2/18/6",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Second Code 8": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1134.2
+        ],
+        "rows": 19,
+        "rowSizes": "32.2x7 30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/18/6",
+          "1/2/7/10"
+        ],
+        [
+          "1/2/8/6",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}

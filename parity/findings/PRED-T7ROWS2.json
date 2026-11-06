@@ -324,6 +324,16 @@
     "a section pulled taller, before the block goes in": "rows move by the block's, so 8 rows pulled up keeps that spare",
     "the lowest block": "a section's rows move by how far its lowest block's end moves, not the block in hand: that fits Second Code's 19",
     "two blocks at the same place": "the first rising with the second is read as: a block sharing the risen one's bottom row goes with it on a rise, and neither on a fall",
-    "blocks not sharing a bottom row": "stay where they are, whether side by side, above or below"
+    "blocks not sharing a bottom row": "stay where they are, whether side by side, above or below",
+    "result": "Pulled: 16 rows, then the first prediction's 23, 33, 13: right. Lowest block: right in all 30 reads. Sharing a bottom row: wrong. The first also rises when it is taller than the block in hand and shares its columns (Code over Embed), and doesn't when it is shorter (Embed over Code), and side by side nothing moves."
+  },
+  "fourth": {
+    "written after CAP-T10ROWS3, before CAP-T10ROWS4": true,
+    "rule": "On a rise by n, a block sharing rows and columns with the risen one, whose end is at or below its end, gets its end moved by n, its top staying. A fall moves no other block. A section's rows move by how far the lowest end moved.",
+    "upper rises, a block wholly under it": "that block stays put, since it shares no rows at the start",
+    "upper rises, a block overlapping lower down": "that block's end moves by n, its top stays",
+    "lower rises, the upper overlapping": "the upper stays: its end is above",
+    "a Code inside a taller Code": "the taller one's end moves by n",
+    "a Text the Code overlaps": "the same as any block: its end moves by n"
   }
 }
