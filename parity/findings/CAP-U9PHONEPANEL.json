@@ -1,0 +1,197 @@
+{
+  "item": "CAP-U9PHONEPANEL",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U9: the phone panel's top: more readings, on three sections",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "section 0",
+      {
+        "panelBox": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "panel",
+      1
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "section 1",
+      {
+        "panelBox": 1
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "panel",
+      2
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "section 2",
+      {
+        "panelBox": 2
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "panel",
+      1
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "section 1 again",
+      {
+        "panelBox": 1
+      }
+    ],
+    [
+      "shot",
+      "phonepanel"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "section 0": {
+      "panelBox": {
+        "box": [
+          1209,
+          221,
+          320,
+          476
+        ],
+        "edit": 161.3,
+        "scrollY": 0,
+        "secTop": 55,
+        "secH": 623.7
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "section 1": {
+      "panelBox": {
+        "box": [
+          1209,
+          213,
+          320,
+          476
+        ],
+        "edit": 73,
+        "scrollY": 544,
+        "secTop": 134.7,
+        "secH": 623.7
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "section 2": {
+      "panelBox": {
+        "box": [
+          1209,
+          214,
+          320,
+          476
+        ],
+        "edit": -470,
+        "scrollY": 1167,
+        "secTop": 135.4,
+        "secH": 623.7
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "section 1 again": {
+      "panelBox": {
+        "box": [
+          1209,
+          213,
+          320,
+          476
+        ],
+        "edit": 73,
+        "scrollY": 544,
+        "secTop": 134.7,
+        "secH": 623.7
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "On phones, 476 high, left 1209. Section 0: top 221. Section 1: top 213 at scroll 544, section top 134.7, and 213 again on a second opening. Section 2: top 214 at scroll 1167, section top 135.4. Opening scrolls the section into place. The read's edit field, 161.3 on section 0, is 11 px over ours' settled button and was likely taken during the button's entry; edit is unreliable with several sections anyway.",
+  "ours": "Left 1209, 476 high. Sections 1 and 2 on empty sections at the same scrolls: 213 and 214. Section 0 on the demo page, with the header: 221, button 172.3. On a page with no header ours reads 133, 49 under the button at 84, so that page isn't a comparison.",
+  "differs": [],
+  "pressed": "Named presses with an on-top check. Panel opens go through hover and press by name. Escape closed each panel and the Exit dialog. No Save, no upload, no Reset."
+}

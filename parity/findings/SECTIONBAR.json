@@ -1377,7 +1377,7 @@
   "fade": {
     "in": "Parts go from opacity 0 and 11px higher to their place in about 0.17s, ease-like, read at 16ms steps for the card, Layers and Add Block.",
     "out": "The same back in about 0.15s, read for the card.",
-    "notRead": "The outline and Add Section: taken as shown at once, and with the others."
+    "notRead": "The outline was taken as shown at once. Wrong: it fades over about 0.2 s both ways (CAP-U9FADE.json). Add Section's fade is still not established."
   },
   "hover": {
     "Layers": "rgb(242, 242, 242)",
@@ -1474,7 +1474,7 @@
       "at": "Across the white on both sides: the bottom of the site header and of each section",
       "under bar": "1px rgb(240, 240, 240) at y 55, always"
     },
-    "shadow": "Canvas edge fades on white: 241, 243, 246, 249, 252 at 1, 3, 6, 11, 16px out, fit by 0 0 24px rgba(0, 0, 0, 0.11) (inferred)"
+    "shadow": "Canvas edge fades on white: 241, 243, 246, 249, 252 at 1, 3, 6, 11, 16px out, read as 0 0 25px rgba(0, 0, 0, 0.11) (CAP-U9SHADOW.json). The old fit from these pixels said 24px."
   },
   "selected": "A selected block leaves its section the outline and Layers, and the block's toolbar (read)."
 }
