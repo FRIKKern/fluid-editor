@@ -14,6 +14,7 @@ import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook,
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock } from './phone-order.js';
+import { codeLines, gutterWidth } from './code-look.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkAt, mdSetLink, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
@@ -1455,6 +1456,7 @@ let fxView = null; // the Image Effect panel: 'list', 'settings' or null
 let fxOpen = []; // its settings groups that are open: they all start closed
 const blockPanel = $('block-panel');
 let shapeUi = null; // the open popup of a shape's Design tab: { kind, bid, custom }
+let codeCommit = false;
 function renderBlockPanel() {
   if (shapeUi && !shapeUi.section && (!sel || shapeUi.bid !== sel.bid || designOpen !== sel.bid)) closeShapePop();
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
@@ -1482,6 +1484,7 @@ function renderBlockPanel() {
   showFormPost(b);
   const mdField = b.type === 'markdown' && blockPanel.querySelector('textarea[data-content="markdown"]');
   if (mdField && mdField === document.activeElement && mdField.value !== (b.text || '')) { mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
+  if (codeCommit) return; // the field's own text changed nothing else here, and a redraw would take a press on Mode from under it
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || '#ffffff' } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: parseFloat(b.radius) || 0, corners: b.corners, empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
@@ -1490,6 +1493,8 @@ function renderBlockPanel() {
   const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
   const buttonView = b.type !== 'button' ? null : bp === 'mobile' && b.btnMobile ? b.btnMobile : { fit: b.fit, align: b.halign };
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
+  const lookWas = blockPanel.dataset.bid === b.id ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
+  const lookKeep = lookWas && { value: lookWas.value, start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
   blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
   if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, b.animations?.[anim.i], anim.menu) : animEditorHtml(b.animations[anim.i], anim.tab);
@@ -1501,6 +1506,9 @@ function renderBlockPanel() {
   if (b.type === 'accordion') showAccordionItem(b);
   placeBlockPanel();
   blockPanel.hidden = false;
+  const lookNow = blockPanel.querySelector('.bp-code.is-look textarea');
+  if (lookNow && lookKeep?.value === lookNow.value) { lookNow.setSelectionRange(lookKeep.start, lookKeep.end, lookKeep.dir); lookNow.scrollTop = lookKeep.top; } // the band stays when focus leaves (CAP-T10LOOK.json)
+  paintCode(lookNow); // measures, so it must be showing
   if (blockPanel.dataset.bid !== b.id) { blockPanel.dataset.bid = b.id; blockPanel.scrollTop = 0; } // another block starts at the top
   if (shapeUi) renderShapePop(); // undo can change what an open popup shows
 }
@@ -2589,13 +2597,64 @@ function fitRows(b, was) {
   renderSectionDom(sel.sid);
 }
 // The Markdown block's toolbar and keys, in the panel and in the Code Editor view (markdown-edit.js).
-const mdLines = (f) => { f.parentElement.querySelector('.bp-code-lines').innerHTML = Array.from({ length: f.value.split('\n').length }, (_, n) => n + 1).join('<br>'); };
+const mdLines = (f) => { const box = f.closest('.bp-code'); if (box.classList.contains('is-look')) paintCode(f); else box.querySelector('.bp-code-lines').innerHTML = Array.from({ length: f.value.split('\n').length }, (_, n) => n + 1).join('<br>'); };
+const headOf = (f) => (f.selectionDirection === 'backward' ? f.selectionStart : f.selectionEnd);
+// The look of an editor (CAP-T10LOOK.json): colours over the clear text, a number per line however it wraps, and
+// the band on the line of the selection's moving end.
+function paintCode(f) {
+  const box = f?.closest('.bp-code.is-look');
+  if (!box) return;
+  const hl = box.querySelector('.bp-code-hl'), nums = box.querySelector('.bp-code-lines'), band = box.querySelector('.bp-code-band');
+  const lines = codeLines(f.value, box.dataset.lang);
+  hl.innerHTML = lines.map((l) => `<div class="bp-code-l">${l || '<br>'}</div>`).join('');
+  const on = f.value.slice(0, headOf(f)).split('\n').length - 1, rows = [...hl.children];
+  nums.style.flexBasis = `${gutterWidth(lines.length)}px`;
+  nums.innerHTML = rows.map((r, n) => `<div class="bp-code-n${n === on ? ' is-on' : ''}" style="height:${r.offsetHeight}px">${n + 1}</div>`).join('');
+  band.style.top = `${rows[on].offsetTop}px`;
+  band.style.height = `${rows[on].offsetHeight}px`;
+  paintCodeSelection(f, hl, box.querySelector('.bp-code-sel'));
+  scrollCode(f);
+}
+// A selection is drawn behind the colours: 16 tall on its first and last row, and as wide as the editor but for
+// the last row, which stops at its end (CAP-T10LOOK.json).
+function paintCodeSelection(f, hl, layer) {
+  layer.textContent = '';
+  if (f.selectionStart === f.selectionEnd) return;
+  const base = hl.getBoundingClientRect(), range = document.createRange();
+  const at = (i) => {
+    const before = f.value.slice(0, i).split('\n'), row = hl.children[before.length - 1];
+    let left = before.at(-1).length;
+    const walk = document.createTreeWalker(row, NodeFilter.SHOW_TEXT);
+    for (let t = walk.nextNode(); t; t = walk.nextNode()) {
+      if (left <= t.length) { range.setStart(t, left); range.collapse(true); const q = range.getBoundingClientRect(); return { x: q.left - base.left, top: q.top + (q.height - 16) / 2 - base.top }; }
+      left -= t.length;
+    }
+    const q = row.getBoundingClientRect(); // an empty line
+    return { x: q.left - base.left, top: q.top + 3 - base.top };
+  };
+  const a = at(f.selectionStart), b = at(f.selectionEnd), L = 6, R = f.clientWidth - 2;
+  const rect = (x, top, w, h) => { const e = document.createElement('div'); e.style.cssText = `left:${x}px;top:${top}px;width:${w}px;height:${h}px`; layer.append(e); };
+  if (a.top === b.top) { rect(a.x, a.top, b.x - a.x, 16); return; }
+  rect(a.x, a.top, R - a.x, 16);
+  if (b.top > a.top + 16) rect(L, a.top + 16, R - L, b.top - a.top - 16);
+  rect(L, b.top, b.x - L, 16);
+}
+function scrollCode(f) {
+  const box = f.closest('.bp-code.is-look');
+  if (!box) return;
+  box.querySelector('.bp-code-hl').style.transform = box.querySelector('.bp-code-sel').style.transform = `translate(${-f.scrollLeft}px, ${-f.scrollTop}px)`;
+  box.querySelector('.bp-code-band').style.transform = `translateY(${-f.scrollTop}px)`;
+  box.querySelector('.bp-code-lines').scrollTop = f.scrollTop;
+}
 function paintMdBar(f) {
   const bar = f?.closest('#block-panel, #code-modal')?.querySelector('.bp-md-bar');
   if (!bar) return;
-  const st = mdState(f.value, f.selectionStart);
+  const st = mdState(f.value, headOf(f));
   bar.querySelector('.bp-md-heading span').textContent = st.heading;
   for (const k of ['bullet', 'number', 'quote']) { const q = bar.querySelector(`[data-md="${k}"]`); q.classList.toggle('is-on', st[k]); q.setAttribute('aria-checked', String(st[k])); }
+  // Link stays lit while its popover is open.
+  const lk = bar.querySelector('[data-md="link"]');
+  lk.classList.toggle('is-on', st.link || (!linkPop.hidden && !!linkTarget?.markdown));
 }
 // A toolbar press is one undo step, and typing before it another (CAP-T10MD7.json).
 function flushMdStep() { if (codeBefore != null) { commit(codeBefore, 'Markdown changed'); codeBefore = null; } }
@@ -2643,7 +2702,7 @@ function openMdLink(root, btn, s, e) {
       flushMdStep();
     },
     remove: () => { const q = mdRootField(root), at = mdLinkAt(q.value, s); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(q.value, at)); flushMdStep(); } },
-    done: () => { btn.classList.remove('is-on'); if (document.activeElement === document.body) mdRootField(root)?.focus(); },
+    done: () => { const q = mdRootField(root); if (q) { if (document.activeElement === document.body) q.focus(); paintMdBar(q); } },
   };
   openLinkPopover(b, (st) => ({ left: r.left + r.width / 2 - 164 - st.left, top: r.bottom + 6 - st.top }), target);
   btn.classList.add('is-on');
@@ -2661,6 +2720,7 @@ function openCodeModal(b) {
   codeModal.innerHTML = b.type === 'markdown' ? mdModalHtml(codeDraft.html) : codeModalHtml(codeDraft);
   codeModal.hidden = false;
   codeModal.querySelector('textarea').focus();
+  paintCode(codeModal.querySelector('textarea'));
   if (b.type === 'markdown') paintMdBar(codeModal.querySelector('textarea'));
 }
 function closeCodeModal() {
@@ -2704,7 +2764,7 @@ codeModal.addEventListener('change', (e) => {
   const c = e.target.dataset.content;
   if (c === 'codeMode') { codeDraft.mode = e.target.value; if (!['html', 'markdown'].includes(e.target.value)) codeDraft.showSource = true; }
   if (c === 'showSource') codeDraft.showSource = e.target.checked;
-  if (c === 'codeMode') codeModal.innerHTML = codeModalHtml(codeDraft);
+  if (c === 'codeMode') { codeModal.innerHTML = codeModalHtml(codeDraft); paintCode(codeModal.querySelector('textarea')); }
 });
 for (const root of [blockPanel, codeModal]) {
   // The selection stays, and leaving the field doesn't redraw the panel under the press.
@@ -2722,7 +2782,8 @@ for (const root of [blockPanel, codeModal]) {
   });
 }
 document.addEventListener('pointerdown', (e) => { if (!e.target.closest?.('.bp-md-head')) { closeMdList(blockPanel); closeMdList(codeModal); } }, true);
-document.addEventListener('selectionchange', () => { const f = document.activeElement; if (f?.matches?.('textarea[data-content="markdown"]')) paintMdBar(f); });
+document.addEventListener('selectionchange', () => { const f = document.activeElement; if (!f?.matches?.('.bp-code.is-look textarea')) return; paintCode(f); if (f.dataset.content === 'markdown') paintMdBar(f); });
+for (const root of [blockPanel, codeModal]) root.addEventListener('scroll', (e) => { if (e.target.matches?.('.bp-code.is-look textarea')) scrollCode(e.target); }, true);
 blockPanel.addEventListener('click', (e) => { if (sel && e.target.closest('[data-code-expand]')) openCodeModal(B(sel.sid, sel.bid)); });
 blockPanel.addEventListener('input', (e) => {
   const f = e.target.closest('textarea[data-content="code"], textarea[data-content="embedHtml"], textarea[data-content="markdown"]');
@@ -2741,7 +2802,7 @@ blockPanel.addEventListener('input', (e) => {
 });
 blockPanel.addEventListener('change', (e) => {
   const f = e.target.closest('[data-content="code"], [data-content="embedHtml"], [data-content="markdown"]');
-  if (f) { if (codeBefore != null) commit(codeBefore, f.dataset.content === 'code' ? 'Code changed' : f.dataset.content === 'markdown' ? 'Markdown changed' : 'Embed data changed'); codeBefore = null; return; }
+  if (f) { codeCommit = true; if (codeBefore != null) commit(codeBefore, f.dataset.content === 'code' ? 'Code changed' : f.dataset.content === 'markdown' ? 'Markdown changed' : 'Embed data changed'); codeCommit = false; codeBefore = null; return; }
   const c = e.target.closest('[data-content="codeMode"], [data-content="showSource"], [data-content="embedUrl"], [data-content="description"]');
   if (!c || !sel) return;
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model), was = rowsNow(b);
@@ -2757,6 +2818,15 @@ blockPanel.addEventListener('change', (e) => {
   if (b.type === 'code') fitRows(b, was); // read in the Code Editor view, inferred for the panel's own controls
   commit(before, `${c.dataset.content} changed on ${b.id}`);
   renderBlockPanel();
+  if (c.dataset.content === 'codeMode') { // the Mode list keeps the focus, so the panel doesn't redraw round it
+    const box = blockPanel.querySelector('.bp-code.is-look'), open = ['html', 'markdown'].includes(c.value), src = blockPanel.querySelector('.bp-code-source');
+    box.dataset.lang = c.value;
+    box.classList.toggle('is-wrap', open);
+    paintCode(box.querySelector('textarea'));
+    src.classList.toggle('is-locked', !open);
+    src.querySelector('input').checked = !!b.showSource;
+    src.querySelector('input').disabled = !open;
+  }
 });
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-embed]');

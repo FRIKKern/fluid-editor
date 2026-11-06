@@ -1718,3 +1718,29 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .lk-md-acts { position: absolute; left: 20px; right: 20px; bottom: 22px; display: flex; gap: 22px; }
 .lk-md-acts button { padding: 0; border: 0; background: none; color: #0e0e0e; font-size: 12px; font-weight: 500; line-height: 16px; letter-spacing: .5px; text-transform: uppercase; cursor: pointer; }
 .lk-md-acts button:last-child { margin-left: auto; }
+
+/* The look of the Code and Markdown editors (CAP-T10LOOK.json, CAP-T10LOOK2.json). The field's own text is clear, under a
+   layer of the same text in colour, so the selection sits behind the colours. */
+.bp-code.is-look .bp-code-lines { flex: 0 0 31.4px; padding: 0; overflow: hidden; color: #666; }
+.bp-code.is-look .bp-code-lines::before, .bp-code.is-look .bp-code-lines::after { content: ""; display: block; height: 11px; }
+.bp-code-n { box-sizing: border-box; padding-right: 13.4px; text-align: right; }
+.bp-code-n.is-on { background: rgba(211, 211, 211, 0.267); }
+.bp-code-edit { position: relative; flex: 1; min-width: 0; overflow: hidden; isolation: isolate; }
+.bp-code.is-look textarea { position: absolute; inset: 0; z-index: 1; box-sizing: border-box; width: 100%; height: 100%; color: transparent; caret-color: #0e0e0e; scrollbar-width: none; }
+.bp-code.is-look textarea::placeholder { color: #888; }
+.bp-code.is-look textarea::selection { background: transparent; color: transparent; }
+.bp-code-sel { position: absolute; left: 0; top: 0; }
+.bp-code-sel div { position: absolute; background: rgb(215, 212, 240); }
+.bp-code-band { position: absolute; left: 0; right: 0; background: rgba(211, 211, 211, 0.267); }
+.bp-code-hl { position: absolute; left: 0; top: 0; z-index: 2; box-sizing: border-box; min-width: 100%; padding: 11px 6px; color: #0e0e0e; white-space: pre; pointer-events: none; }
+.bp-code-l { min-height: 22px; }
+.bp-code.is-wrap textarea, .bp-code.is-wrap .bp-code-hl { white-space: break-spaces; word-break: break-word; overflow-wrap: anywhere; }
+.bp-code.is-wrap .bp-code-hl { width: 100%; }
+.c-meta { color: #404740; }
+.c-url { color: #221199; }
+.c-tag { color: #008855; }
+.c-h { font-weight: 700; text-decoration: underline; }
+.c-b { font-weight: 700; }
+.c-i { font-style: italic; }
+.c-link { text-decoration: underline; }
+.bp-code.is-look .bp-code-expand { z-index: 3; }
