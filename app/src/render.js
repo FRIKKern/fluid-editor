@@ -324,14 +324,14 @@ function blockInner(b, model) {
     case 'shape': {
       if (b.standin) return standinHtml(b);
       const kind = shapeById(b.shape), rect = !kind.d, stretched = b.stretch !== false, dg = b.design || {};
-      const fill = b.color || b.fill || 'var(--accent)';
+      const fill = b.color || b.fill || 'var(--shape-theme-fill)';
       const radius = b.corners ? b.corners.map((v) => `${v}px`).join(' ') : b.radius || '0';
       const style = `--shape-fill:${fill};--shape-radius:${radius};--shape-ink:${b.ink || 'inherit'}${stretched ? '' : `;--shape-ratio:${kind.w / kind.h}`}`;
       const label = b.label ? `<span class="sqs-shape-label">${escapeHtml(b.label)}</span>` : '';
       // Stroke (SHAPESTYLES.json): black, 2, 6 or 15px unless set, dashes of 5 with a gap of the width
       // plus 15, the same px however the block stretches.
       const w = !dg.stroke ? 0 : dg.strokeSize === 'custom' ? dg.strokePx ?? 6 : STROKE_PX[dg.strokeSize || 'M'];
-      const ink = w ? ` stroke="${dg.strokeColor || 'rgb(0, 0, 0)'}" stroke-width="${w}" vector-effect="non-scaling-stroke"${dg.stroke === 'dashed' ? ` stroke-dasharray="5 ${w + 15}"` : ''}` : '';
+      const ink = w ? ` stroke="${dg.strokeColor || 'var(--shape-theme-stroke)'}" stroke-width="${w}" vector-effect="non-scaling-stroke"${dg.stroke === 'dashed' ? ` stroke-dasharray="5 ${w + 15}"` : ''}` : '';
       const svg = (attrs, inner) => `<svg class="sqs-shape${rect ? ' sqs-shape-rectangle' : ''}${stretched ? '' : ' is-square'}" preserveAspectRatio="none"${attrs} style="${style};background:none;overflow:visible">${inner}</svg>`;
       // A rectangle's stroke sits outside its box and its corner loses half the stroke. With four
       // corners ours strokes the top left's: a known difference.
