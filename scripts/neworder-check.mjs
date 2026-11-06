@@ -1,7 +1,8 @@
 // The phone order of a section built here: replays CAP-NEWORDER* and the desktop edits (CAP-DESKMOVE*,
 // CAP-ORDER), or with --text the text that grows or shrinks (CAP-TEXTPUSH*), with the real mouse and keys, and compares every
 // read: which block (by z), its desktop and phone area, in order, the section's rows where read, and that the
-// phone draws those rows. Usage: npm run neworder-check, npm run textpush-check.
+// phone draws those rows. Usage: npm run neworder-check runs a sample in under 2 min and lists every named miss;
+// -- --full replays every read, about 25 min, and writes parity/neworder-check.json; npm run textpush-check runs --text.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, mouse, drag, browser, cdp } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
@@ -14,9 +15,12 @@ await pause(1200);
 // Named misses, with no rule read yet.
 const KNOWN = new Set(JSON.parse(readFileSync(new URL('../parity/neworder-known.json', import.meta.url))));
 // npm run textpush-check: the reads of text that grows or shrinks (R2), about 13 min, kept apart for its typing.
-const TEXT = process.argv[2] === '--text';
-const ONLY = TEXT ? ['CAP-TEXTPUSH', 'CAP-TEXTPUSH2', 'CAP-TEXTPUSH3', 'CAP-TEXTPUSH4', 'CAP-TEXTPUSH5', 'CAP-TEXTPUSH6', 'CAP-TEXTPUSH7'] : process.argv[2]?.split(',');
-const FILES = ONLY ?? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST', 'CAP-TURNTEST2', 'CAP-CYCLE', 'CAP-CYCLE2', 'CAP-CYCLE3', 'CAP-TURNTEST3', 'CAP-CYCLE4', 'CAP-NEWORDER7', 'CAP-TURNTEST4', 'CAP-A2EDITS', 'CAP-A2EDITS2', 'CAP-A2ROUND1', 'CAP-A2ROUND2', 'CAP-A2TYPED3', 'CAP-LONGDRAG'];
+const TEXT = process.argv[2] === '--text', FULL = process.argv[2] === '--full';
+// The sample: file and the sections in it, by their place. New blocks, moves, turns, copies, deletes, typing,
+// a long drag, text that grows, shrinks and undoes, and a named miss so a change there shows.
+const SAMPLE = { 'CAP-NEWORDER3': [1], 'CAP-NEWORDER7': [3], 'CAP-DESKMOVE5': [6], 'CAP-TURNTEST4': [3], 'CAP-CYCLE4': [1], 'CAP-A2EDITS': [3, 9], 'CAP-A2ROUND2': [10], 'CAP-A2TYPED3': [4], 'CAP-LONGDRAG': [0], 'CAP-TEXTPUSH5': [1, 15], 'CAP-TEXTPUSH7': [2, 9] };
+const ONLY = TEXT ? ['CAP-TEXTPUSH', 'CAP-TEXTPUSH2', 'CAP-TEXTPUSH3', 'CAP-TEXTPUSH4', 'CAP-TEXTPUSH5', 'CAP-TEXTPUSH6', 'CAP-TEXTPUSH7'] : process.argv[2] && !FULL ? process.argv[2].split(',') : null;
+const FILES = ONLY ?? (FULL ? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST', 'CAP-TURNTEST2', 'CAP-CYCLE', 'CAP-CYCLE2', 'CAP-CYCLE3', 'CAP-TURNTEST3', 'CAP-CYCLE4', 'CAP-NEWORDER7', 'CAP-TURNTEST4', 'CAP-A2EDITS', 'CAP-A2EDITS2', 'CAP-A2ROUND1', 'CAP-A2ROUND2', 'CAP-A2TYPED3', 'CAP-LONGDRAG'] : Object.keys(SAMPLE));
 let quiet = false; // nothing selected since the last Escape, so another one is a wasted call
 // After typing, the first Escape only closes the editor, so the next one counts too.
 let loud = 0;
@@ -28,7 +32,8 @@ const pasteIn = (html) => evalJs(S, `(() => { const f = document.getElementById(
 const writeOn = () => { const p = evalJs(S, `(() => { const q = document.querySelector('[data-tb="write"]').getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); mouse(S, 'move', p[0], p[1]); mouse(S, 'down', p[0], p[1], { buttons: 1 }); mouse(S, 'up', p[0], p[1]); };
 // In the text reads a Text under another block still got the press on the oracle (CAP-TEXTPUSH4 s3): press a part no block covers.
 const onTop = (id) => { point(id, 'middle'); return evalJs(S, `(() => { const f = document.getElementById('site-frame'), d = f.contentDocument, b = d.querySelector('.fe-block[data-block-id="${id}"]'), r = f.getBoundingClientRect(), q = b.getBoundingClientRect(); for (const [fx, fy] of [[.5, .5], [.5, .2], [.9, .2], [.9, .5], [.1, .2], [.9, .9], [.5, .9], [.1, .9]]) { const x = q.left + q.width * fx, y = q.top + q.height * fy, e = d.elementFromPoint(x, y); if (e && b.contains(e)) return JSON.stringify([r.left + x, r.top + y]); } return JSON.stringify([r.left + q.left + q.width / 2, r.top + q.top + q.height / 2]); })()`); };
-const click = async (id, mods = []) => { const p = TEXT ? onTop(id) : point(id, 'middle'); mouse(S, 'move', p[0], p[1], { mods }); mouse(S, 'down', p[0], p[1], { buttons: 1, mods }); await pause(30); mouse(S, 'up', p[0], p[1], { mods }); quiet = false; await pause(80); };
+let inTextReads = false;
+const click = async (id, mods = []) => { const p = inTextReads ? onTop(id) : point(id, 'middle'); mouse(S, 'move', p[0], p[1], { mods }); mouse(S, 'down', p[0], p[1], { buttons: 1, mods }); await pause(30); mouse(S, 'up', p[0], p[1], { mods }); quiet = false; await pause(80); };
 
 // The capture's drag, with the block as far down the frame as on the probe page: a long drag runs
 // near the window edge, the page scrolls a little, and it lands a row further (CAP-LONGDRAG).
@@ -39,8 +44,13 @@ for (const file of FILES) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url)));
   let last = null, view = 'desktop', held = false, writing = false; // held: a group or a handle waits for the next drag, so no Escape first
   const pick = (k) => (k === 'new' ? last : blockAt(k));
+  inTextReads = file.startsWith('CAP-TEXTPUSH');
+  const parts = !ONLY && !FULL ? SAMPLE[file] : null;
+  let part = -1;
   for (const step of F.steps) {
     const [op] = step;
+    if (op === 'blank') part++;
+    if (parts && !parts.includes(part)) continue;
     if (op === 'blank') {
       view = 'desktop';
       evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 2 }, phoneFollows: true, blocks: [] }] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`);
@@ -107,6 +117,10 @@ for (const file of FILES) {
 }
 const fails = cases.filter((c) => !c.same && !c.known), known = cases.filter((c) => c.known);
 for (const c of [...fails, ...known]) console.log(c.known ? 'known' : 'DIFF', c.name, c.diffs[0]);
+if (!FULL && !TEXT && !ONLY) {
+  const unrun = [...KNOWN].filter((n) => !cases.some((c) => c.name === n));
+  console.log(`known, not run here, --full runs them: ${unrun.join('; ')}`);
+}
 console.log(`Phone order: ${cases.length - fails.length - known.length} of ${cases.length} match, ${known.length} named known miss`);
-if (!ONLY || TEXT) writeFileSync(new URL(TEXT ? '../parity/textpush-check.json' : '../parity/neworder-check.json', import.meta.url), `${JSON.stringify({ check: 'phone order of a section built here', pass: cases.length - fails.length - known.length, total: cases.length, known: known.map((c) => c.name), fails: fails.map((c) => c.name) }, null, 2)}\n`);
+if (FULL || TEXT) writeFileSync(new URL(TEXT ? '../parity/textpush-check.json' : '../parity/neworder-check.json', import.meta.url), `${JSON.stringify({ check: 'phone order of a section built here', pass: cases.length - fails.length - known.length, total: cases.length, known: known.map((c) => c.name), fails: fails.map((c) => c.name) }, null, 2)}\n`);
 process.exit(fails.length ? 1 : 0);
