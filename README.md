@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 87 changes
+- **Today** · 88 changes
+  - U9: the panel closes past its section at an inferred -421, and the outline fades between sections and in a gesture ([#267](https://github.com/FRIKKern/fluid-editor/pull/267))
   - G4, X2, T12, U4: margin walks; Accordion: what moves, and Escape ([#266](https://github.com/FRIKKern/fluid-editor/pull/266))
-  - T9: a form's focus ring follows the section theme, read on all ten ([#264](https://github.com/FRIKKern/fluid-editor/pull/264))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
