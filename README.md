@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 25 changes
+- **Today** · 26 changes
+  - T4: done, every part outside 0005 is built ([#204](https://github.com/FRIKKern/fluid-editor/pull/204))
   - T4: Edit with AI and Reshoot under 0005; enterEdit reads an empty page and leaves the phone view ([#203](https://github.com/FRIKKern/fluid-editor/pull/203))
-  - A2, T11: the phone order after a desktop edit or an add: the one-row turn ([#202](https://github.com/FRIKKern/fluid-editor/pull/202))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
