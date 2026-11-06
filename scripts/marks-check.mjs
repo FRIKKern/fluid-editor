@@ -394,6 +394,22 @@ add('outline back on during its fade runs back', !backOn.hidden && backOn.name =
 await pause(300);
 const lit = evalJs(S, `(() => { const c = document.getElementById('section-chrome'); const id = c.dataset.key.split('|')[0]; const sec = fe.model.sections.find((x) => x.id === id); fe.select(id, sec.blocks[0].id); const o = getComputedStyle(c.querySelector('.sc-outline')); const r = { rebuilt: c.dataset.key.split('|')[4], name: o.animationName, color: o.borderTopColor }; fe.select(null); return JSON.stringify(r); })()`);
 add('outline stays lit through a rebuild', lit.rebuilt === 'true' && lit.name === 'none' && lit.color === 'rgb(72, 148, 255)', JSON.stringify(lit));
+// Add Section: opacity over 0.2 s, ease-in-out, both ways, no slide, against CAP-U9ADDFADE.json's series.
+const addWatch = async (x, y) => {
+  evalJs(S, `(() => { const T = window.__aw = { t0: performance.now(), seen: [], stop: false }; const tick = () => { if (T.stop) return; const e = document.querySelector('#section-chrome:not([hidden]) [data-sc="add-section-below"]'); if (e) { const c = getComputedStyle(e); T.seen.push([Math.round(performance.now() - T.t0), +c.opacity, Math.round(e.getBoundingClientRect().top * 10) / 10]); } requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
+  mouse(S, 'move', x, y); mouse(S, 'move', x + 2, y + 1); await pause(700);
+  const seen = evalJs(S, `(() => { const T = window.__aw; T.stop = true; return JSON.stringify(T.seen); })()`);
+  const mid = seen.filter(([, o]) => o > 0 && o < 1);
+  const c = evalJs(S, `(() => { const c = getComputedStyle(document.querySelector('[data-sc="add-section-below"]')); return JSON.stringify([c.animationName, c.animationDuration, c.animationTimingFunction, c.transitionProperty, c.transitionDuration, c.transitionTimingFunction]); })()`);
+  return { frames: mid.length, span: mid.length ? mid.at(-1)[0] - mid[0][0] : 0, tops: [...new Set(mid.map((r) => r[2]))].length, values: mid.map((r) => r[1]), css: c };
+};
+const ADDCSS = ['opacity', '0.2s', 'ease-in-out'];
+const addOk = (r, name) => r.frames >= 8 && r.span >= 130 && r.span <= 230 && r.tops === 1 && r.css.slice(3).join() === ADDCSS.join() && (name ? r.css[0] === name && r.css[1] === '0.2s' && r.css[2] === 'ease-in-out' : true);
+await frameScroll(0); await hoverBar(800, 20); await pause(300);
+const addIn = await addWatch(60, 400);
+add('Add Section fades in over 0.2 s, ease-in-out, no slide', addOk(addIn, 'sc-add-in') && addIn.values.every((v, i, a) => !i || v >= a[i - 1]), JSON.stringify(addIn));
+const addOut = await addWatch(800, 20);
+add('Add Section fades out over 0.2 s, ease-in-out, no slide', addOk(addOut) && addOut.values.every((v, i, a) => !i || v <= a[i - 1]), JSON.stringify(addOut));
 // The old outline fades as a copy left behind: straight to another section, and in a gesture (CAP-U9CLOSE.json).
 const alpha = (c) => { if (!c) return null; const n = c.match(/[\d.]+/g).map(Number); return n.length > 3 ? n[3] : 1; };
 const crossWatch = async (act, ms = 600) => {
