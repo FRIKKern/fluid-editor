@@ -25,7 +25,8 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 1 change
+- **Today** · 2 changes
+  - Capture tool: typed keys refuse when no text editor has focus ([#293](https://github.com/FRIKKern/fluid-editor/pull/293))
   - L6, T6: Anchor, Corner per layout, a new Shape's rows, Color's Reset on a phone ([#292](https://github.com/FRIKKern/fluid-editor/pull/292))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
