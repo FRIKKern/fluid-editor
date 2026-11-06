@@ -1,0 +1,2122 @@
+{
+  "item": "CAP-E5WHERE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "E5: a synthetic paste into a list item, a quote and monospace, and over a selection. No machine clipboard.",
+  "note": "The reads named 'over ...' were made with Shift not released (Shift+ArrowLeft sends no Shift up), and came out as plain text. Inferred that this is why. CAP-E5WHERE2 reads them released; these aren't used in a check.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "list text"
+    ],
+    [
+      "click",
+      "Bullet List"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<b>PASTED</b>"
+    ],
+    [
+      "read",
+      "list item, inline",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "list text"
+    ],
+    [
+      "click",
+      "Bullet List"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>ONE</p>"
+    ],
+    [
+      "read",
+      "list item, one paragraph",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "list text"
+    ],
+    [
+      "click",
+      "Bullet List"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>ONE</p><p>TWO</p>"
+    ],
+    [
+      "read",
+      "list item, two paragraphs",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "list text"
+    ],
+    [
+      "click",
+      "Bullet List"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<h2>HEAD</h2><p>TAIL</p>"
+    ],
+    [
+      "read",
+      "list item, heading and paragraph",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "list text"
+    ],
+    [
+      "click",
+      "Bullet List"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<ul><li><p>A</p></li><li><p>B</p></li></ul>"
+    ],
+    [
+      "read",
+      "list item, a list",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "list text"
+    ],
+    [
+      "click",
+      "Bullet List"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "plain words"
+    ],
+    [
+      "read",
+      "list item, plain words",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "list text"
+    ],
+    [
+      "click",
+      "Bullet List"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>ONE</p><p>TWO</p>"
+    ],
+    [
+      "keys",
+      "x"
+    ],
+    [
+      "read",
+      "list item, two paragraphs, typed",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "quote text"
+    ],
+    [
+      "click",
+      "Quote"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<b>PASTED</b>"
+    ],
+    [
+      "read",
+      "quote, inline",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "quote text"
+    ],
+    [
+      "click",
+      "Quote"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>ONE</p>"
+    ],
+    [
+      "read",
+      "quote, one paragraph",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "quote text"
+    ],
+    [
+      "click",
+      "Quote"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>ONE</p><p>TWO</p>"
+    ],
+    [
+      "read",
+      "quote, two paragraphs",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "quote text"
+    ],
+    [
+      "click",
+      "Quote"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<h2>HEAD</h2><p>TAIL</p>"
+    ],
+    [
+      "read",
+      "quote, heading and paragraph",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "quote text"
+    ],
+    [
+      "click",
+      "Quote"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<ul><li><p>A</p></li><li><p>B</p></li></ul>"
+    ],
+    [
+      "read",
+      "quote, a list",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "quote text"
+    ],
+    [
+      "click",
+      "Quote"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "plain words"
+    ],
+    [
+      "read",
+      "quote, plain words",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "quote text"
+    ],
+    [
+      "click",
+      "Quote"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>ONE</p><p>TWO</p>"
+    ],
+    [
+      "keys",
+      "x"
+    ],
+    [
+      "read",
+      "quote, two paragraphs, typed",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "mono text"
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Monospace"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<b>PASTED</b>"
+    ],
+    [
+      "read",
+      "monospace, inline",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "mono text"
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Monospace"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>ONE</p>"
+    ],
+    [
+      "read",
+      "monospace, one paragraph",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "mono text"
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Monospace"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>ONE</p><p>TWO</p>"
+    ],
+    [
+      "read",
+      "monospace, two paragraphs",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "mono text"
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Monospace"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<h2>HEAD</h2><p>TAIL</p>"
+    ],
+    [
+      "read",
+      "monospace, heading and paragraph",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "mono text"
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Monospace"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<ul><li><p>A</p></li><li><p>B</p></li></ul>"
+    ],
+    [
+      "read",
+      "monospace, a list",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "mono text"
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Monospace"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "plain words"
+    ],
+    [
+      "read",
+      "monospace, plain words",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "mono text"
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Monospace"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>ONE</p><p>TWO</p>"
+    ],
+    [
+      "keys",
+      "x"
+    ],
+    [
+      "read",
+      "monospace, two paragraphs, typed",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "one"
+    ],
+    [
+      "click",
+      "Numbered List"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "next"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>ONE</p><p>TWO</p>"
+    ],
+    [
+      "read",
+      "first of two items, two paragraphs",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "one"
+    ],
+    [
+      "click",
+      "Numbered List"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "next"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<ul><li><p>A</p></li><li><p>B</p></li></ul>"
+    ],
+    [
+      "read",
+      "first of two items, a list",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "alpha"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "beta"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<b>PASTED</b>"
+    ],
+    [
+      "read",
+      "over two paragraphs, inline",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "alpha"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "beta"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>ONE</p>"
+    ],
+    [
+      "read",
+      "over two paragraphs, one paragraph",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "alpha"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "beta"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>ONE</p><p>TWO</p>"
+    ],
+    [
+      "read",
+      "over two paragraphs, two paragraphs",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "alpha"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "beta"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<h2>HEAD</h2><p>TAIL</p>"
+    ],
+    [
+      "read",
+      "over two paragraphs, heading and paragraph",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "alpha"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "beta"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<ul><li><p>A</p></li><li><p>B</p></li></ul>"
+    ],
+    [
+      "read",
+      "over two paragraphs, a list",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "alpha"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "beta"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>ONE</p><p>TWO</p>"
+    ],
+    [
+      "keys",
+      "x"
+    ],
+    [
+      "read",
+      "over two paragraphs, two paragraphs, typed",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "alpha beta"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<b>PASTED</b>"
+    ],
+    [
+      "read",
+      "over a word, inline",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "alpha beta"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>ONE</p><p>TWO</p>"
+    ],
+    [
+      "read",
+      "over a word, two paragraphs",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "alpha"
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Heading 2"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Paragraph 1"
+    ],
+    [
+      "keys",
+      "beta"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<b>PASTED</b>"
+    ],
+    [
+      "read",
+      "over a heading and a paragraph, inline",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "alpha"
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Heading 2"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Paragraph 1"
+    ],
+    [
+      "keys",
+      "beta"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>ONE</p><p>TWO</p>"
+    ],
+    [
+      "read",
+      "over a heading and a paragraph, two paragraphs",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "one"
+    ],
+    [
+      "click",
+      "Bullet List"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "two"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "press",
+      "Shift+ArrowLeft"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>ONE</p><p>TWO</p>"
+    ],
+    [
+      "read",
+      "over two list items, two paragraphs",
+      {
+        "html": [
+          0,
+          "new"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "list item, inline": {
+      "html": "<ul data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">list<strong>PASTED</strong> text</p></li></ul>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "list item, one paragraph": {
+      "html": "<ul data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">listONE text</p></li></ul>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "list item, two paragraphs": {
+      "html": "<ul data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">listONE</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">TWO text</p></li></ul>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "list item, heading and paragraph": {
+      "html": "<ul data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">listHEAD</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">TAIL text</p></li></ul>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "list item, a list": {
+      "html": "<ul data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">listA</p></li><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">B text</p></li></ul>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "list item, plain words": {
+      "html": "<ul data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">listplain words text</p></li></ul>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "list item, two paragraphs, typed": {
+      "html": "<ul data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">listONE</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">TWOx text</p></li></ul>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "quote, inline": {
+      "html": "<blockquote><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">quote<strong>PASTED</strong> text</p></blockquote>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "quote, one paragraph": {
+      "html": "<blockquote><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">quoteONE text</p></blockquote>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "quote, two paragraphs": {
+      "html": "<blockquote><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">quoteONE</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">TWO text</p></blockquote>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "quote, heading and paragraph": {
+      "html": "<blockquote><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">quoteHEAD</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">TAIL text</p></blockquote>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "quote, a list": {
+      "html": "<blockquote><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">quoteA</p><ul data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">B text</p></li></ul></blockquote>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "quote, plain words": {
+      "html": "<blockquote><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">quoteplain words text</p></blockquote>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "quote, two paragraphs, typed": {
+      "html": "<blockquote><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">quoteONE</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">TWOx text</p></blockquote>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "monospace, inline": {
+      "html": "<pre><code>mono PASTED  text</code></pre>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "monospace, one paragraph": {
+      "html": "<pre><code>mono ONE  text</code></pre>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "monospace, two paragraphs": {
+      "html": "<pre><code>mono ONE  TWO  text</code></pre>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "monospace, heading and paragraph": {
+      "html": "<pre><code>mono HEAD  TAIL  text</code></pre>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "monospace, a list": {
+      "html": "<pre><code>mono   A    B    text</code></pre>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "monospace, plain words": {
+      "html": "<pre><code>monoplain words text</code></pre>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "monospace, two paragraphs, typed": {
+      "html": "<pre><code>mono ONE  TWO x text</code></pre>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "first of two items, two paragraphs": {
+      "html": "<ol data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">oONE</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">TWOne</p></li><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">next</p></li></ol>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "first of two items, a list": {
+      "html": "<ol data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">oA</p></li><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Bne</p></li><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">next</p></li></ol>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "over two paragraphs, inline": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">alph PASTED </p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "over two paragraphs, one paragraph": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">alph ONE </p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "over two paragraphs, two paragraphs": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">alph ONE  TWO </p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "over two paragraphs, heading and paragraph": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">alph HEAD  TAIL </p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "over two paragraphs, a list": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">alph   A    B   </p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "over two paragraphs, two paragraphs, typed": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">alph ONE  TWO x</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "over a word, inline": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">alpha  PASTED </p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "over a word, two paragraphs": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">alpha  ONE  TWO </p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "over a heading and a paragraph, inline": {
+      "html": "<h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">alph PASTED </h2>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "over a heading and a paragraph, two paragraphs": {
+      "html": "<p style=\"white-space:pre-wrap;\" class=\"sqsrte-large\" data-rte-preserve-empty=\"true\">alp ONE  TWO </p><h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></h2>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "over two list items, two paragraphs": {
+      "html": "<ul data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">on ONE  TWO </p></li></ul>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
