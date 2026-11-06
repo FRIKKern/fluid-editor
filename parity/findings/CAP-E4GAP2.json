@@ -1,0 +1,459 @@
+{
+  "item": "CAP-E4GAP2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "E4: the real gap to a Bold press on the bar, by the DOM change it makes, with and without a selection.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "stamp",
+      0,
+      "new"
+    ],
+    [
+      "keys",
+      "alpha"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "click",
+      "Bold"
+    ],
+    [
+      "read",
+      "typed, Cmd+A pressed, Bold pressed, stamps",
+      {
+        "stamps": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "typed, Cmd+A pressed, Bold pressed",
+      0,
+      "new",
+      12,
+      true
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "stamp",
+      0,
+      "new"
+    ],
+    [
+      "keys",
+      "alpha"
+    ],
+    [
+      "keysList",
+      [
+        "Meta+a"
+      ]
+    ],
+    [
+      "click",
+      "Bold"
+    ],
+    [
+      "read",
+      "typed, Cmd+A with no wait, Bold pressed, stamps",
+      {
+        "stamps": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "typed, Cmd+A with no wait, Bold pressed",
+      0,
+      "new",
+      12,
+      true
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "stamp",
+      0,
+      "new"
+    ],
+    [
+      "keys",
+      "alpha"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Bold"
+    ],
+    [
+      "read",
+      "typed, 0.3 s, Bold pressed, stamps",
+      {
+        "stamps": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "undoWalk",
+      "typed, 0.3 s, Bold pressed",
+      0,
+      "new",
+      12,
+      true
+    ]
+  ],
+  "reads": {
+    "typed, Cmd+A pressed, Bold pressed, stamps": {
+      "stamps": [
+        [
+          "dom",
+          0
+        ],
+        [
+          "input",
+          5
+        ],
+        [
+          "dom",
+          67
+        ],
+        [
+          "input",
+          5
+        ],
+        [
+          "dom",
+          64
+        ],
+        [
+          "input",
+          5
+        ],
+        [
+          "dom",
+          80
+        ],
+        [
+          "input",
+          5
+        ],
+        [
+          "dom",
+          82
+        ],
+        [
+          "input",
+          6
+        ],
+        [
+          "KeyA",
+          398
+        ],
+        [
+          "dom",
+          7
+        ],
+        [
+          "dom",
+          702
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed, Cmd+A pressed, Bold pressed": {
+      "undo": [
+        [
+          "start",
+          "alpha",
+          "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><strong>alpha</strong></p>"
+        ],
+        [
+          1,
+          "alpha",
+          "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">alpha</p>"
+        ],
+        [
+          2,
+          "",
+          "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>"
+        ],
+        [
+          3,
+          null,
+          null
+        ],
+        [
+          4,
+          null,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "typed, Cmd+A with no wait, Bold pressed, stamps": {
+      "stamps": [
+        [
+          "dom",
+          0
+        ],
+        [
+          "input",
+          4
+        ],
+        [
+          "dom",
+          54
+        ],
+        [
+          "input",
+          4
+        ],
+        [
+          "dom",
+          52
+        ],
+        [
+          "input",
+          5
+        ],
+        [
+          "dom",
+          51
+        ],
+        [
+          "input",
+          4
+        ],
+        [
+          "dom",
+          49
+        ],
+        [
+          "input",
+          4
+        ],
+        [
+          "KeyA",
+          347
+        ],
+        [
+          "dom",
+          4
+        ],
+        [
+          "dom",
+          460
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed, Cmd+A with no wait, Bold pressed": {
+      "undo": [
+        [
+          "start",
+          "alpha",
+          "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><strong>alpha</strong></p>"
+        ],
+        [
+          1,
+          "",
+          "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>"
+        ],
+        [
+          2,
+          null,
+          null
+        ],
+        [
+          3,
+          null,
+          null
+        ]
+      ],
+      "stillCan": false
+    },
+    "typed, 0.3 s, Bold pressed, stamps": {
+      "stamps": [
+        [
+          "dom",
+          0
+        ],
+        [
+          "input",
+          4
+        ],
+        [
+          "dom",
+          47
+        ],
+        [
+          "input",
+          3
+        ],
+        [
+          "dom",
+          46
+        ],
+        [
+          "input",
+          3
+        ],
+        [
+          "dom",
+          52
+        ],
+        [
+          "input",
+          4
+        ],
+        [
+          "dom",
+          62
+        ],
+        [
+          "input",
+          3
+        ],
+        [
+          "dom",
+          761
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed, 0.3 s, Bold pressed": {
+      "undo": [
+        [
+          "start",
+          "alpha",
+          "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><strong>alpha</strong></p>"
+        ],
+        [
+          1,
+          "",
+          "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>"
+        ],
+        [
+          2,
+          null,
+          null
+        ],
+        [
+          3,
+          null,
+          null
+        ]
+      ],
+      "stillCan": false
+    }
+  },
+  "errors": [],
+  "leftDirty": false
+}

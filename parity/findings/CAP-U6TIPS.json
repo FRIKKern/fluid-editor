@@ -1,0 +1,623 @@
+{
+  "item": "CAP-U6TIPS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U6: the bar's tips at more window widths. Hovers only, then Preview by name for its two.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "window",
+      1024,
+      1000
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "tipRead",
+      "Save",
+      "1024 Save"
+    ],
+    [
+      "tipRead",
+      "Desktop View",
+      "1024 Desktop View"
+    ],
+    [
+      "tipRead",
+      "Mobile View",
+      "1024 Mobile View"
+    ],
+    [
+      "tipRead",
+      "Toggle Site Styles editing",
+      "1024 Toggle Site Styles editing"
+    ],
+    [
+      "tipRead",
+      "Toggle preview mode",
+      "1024 Toggle preview mode"
+    ],
+    [
+      "window",
+      1280,
+      1000
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "tipRead",
+      "Save",
+      "1280 Save"
+    ],
+    [
+      "tipRead",
+      "Desktop View",
+      "1280 Desktop View"
+    ],
+    [
+      "tipRead",
+      "Mobile View",
+      "1280 Mobile View"
+    ],
+    [
+      "tipRead",
+      "Toggle Site Styles editing",
+      "1280 Toggle Site Styles editing"
+    ],
+    [
+      "tipRead",
+      "Toggle preview mode",
+      "1280 Toggle preview mode"
+    ],
+    [
+      "window",
+      1440,
+      1000
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "tipRead",
+      "Save",
+      "1440 Save"
+    ],
+    [
+      "tipRead",
+      "Desktop View",
+      "1440 Desktop View"
+    ],
+    [
+      "tipRead",
+      "Mobile View",
+      "1440 Mobile View"
+    ],
+    [
+      "tipRead",
+      "Toggle Site Styles editing",
+      "1440 Toggle Site Styles editing"
+    ],
+    [
+      "tipRead",
+      "Toggle preview mode",
+      "1440 Toggle preview mode"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "tipRead",
+      "Save",
+      "1600 Save"
+    ],
+    [
+      "tipRead",
+      "Desktop View",
+      "1600 Desktop View"
+    ],
+    [
+      "tipRead",
+      "Mobile View",
+      "1600 Mobile View"
+    ],
+    [
+      "tipRead",
+      "Toggle Site Styles editing",
+      "1600 Toggle Site Styles editing"
+    ],
+    [
+      "tipRead",
+      "Toggle preview mode",
+      "1600 Toggle preview mode"
+    ],
+    [
+      "window",
+      1920,
+      1000
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "tipRead",
+      "Save",
+      "1920 Save"
+    ],
+    [
+      "tipRead",
+      "Desktop View",
+      "1920 Desktop View"
+    ],
+    [
+      "tipRead",
+      "Mobile View",
+      "1920 Mobile View"
+    ],
+    [
+      "tipRead",
+      "Toggle Site Styles editing",
+      "1920 Toggle Site Styles editing"
+    ],
+    [
+      "tipRead",
+      "Toggle preview mode",
+      "1920 Toggle preview mode"
+    ],
+    [
+      "window",
+      2400,
+      1000
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "tipRead",
+      "Save",
+      "2400 Save"
+    ],
+    [
+      "tipRead",
+      "Desktop View",
+      "2400 Desktop View"
+    ],
+    [
+      "tipRead",
+      "Mobile View",
+      "2400 Mobile View"
+    ],
+    [
+      "tipRead",
+      "Toggle Site Styles editing",
+      "2400 Toggle Site Styles editing"
+    ],
+    [
+      "tipRead",
+      "Toggle preview mode",
+      "2400 Toggle preview mode"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Toggle preview mode"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "preview",
+      {
+        "controls": true,
+        "thin": true
+      }
+    ],
+    [
+      "shot",
+      "preview"
+    ]
+  ],
+  "reads": {
+    "1024 Save": {
+      "label": "Save",
+      "text": "Save Changes⌘S",
+      "box": [
+        11,
+        53,
+        189.9,
+        44
+      ]
+    },
+    "1024 Desktop View": {
+      "label": "Desktop View",
+      "text": "Desktop View",
+      "box": [
+        777,
+        50,
+        120.9,
+        44
+      ]
+    },
+    "1024 Mobile View": {
+      "label": "Mobile View",
+      "text": "Mobile View",
+      "box": [
+        827,
+        50,
+        111.6,
+        44
+      ]
+    },
+    "1024 Toggle Site Styles editing": {
+      "label": "Toggle Site Styles editing",
+      "text": "Site Styles",
+      "box": [
+        888,
+        57,
+        98.4,
+        44
+      ]
+    },
+    "1024 Toggle preview mode": {
+      "label": "Toggle preview mode",
+      "text": "Preview⌘⇧P",
+      "box": [
+        818.6,
+        57,
+        183.4,
+        44
+      ]
+    },
+    "1280 Save": {
+      "label": "Save",
+      "text": "Save Changes⌘S",
+      "box": [
+        11,
+        53,
+        189.9,
+        44
+      ]
+    },
+    "1280 Desktop View": {
+      "label": "Desktop View",
+      "text": "Desktop View",
+      "box": [
+        1033,
+        50,
+        120.9,
+        44
+      ]
+    },
+    "1280 Mobile View": {
+      "label": "Mobile View",
+      "text": "Mobile View",
+      "box": [
+        1083,
+        50,
+        111.6,
+        44
+      ]
+    },
+    "1280 Toggle Site Styles editing": {
+      "label": "Toggle Site Styles editing",
+      "text": "Site Styles",
+      "box": [
+        1144,
+        57,
+        98.4,
+        44
+      ]
+    },
+    "1280 Toggle preview mode": {
+      "label": "Toggle preview mode",
+      "text": "Preview⌘⇧P",
+      "box": [
+        1074.6,
+        57,
+        183.4,
+        44
+      ]
+    },
+    "1440 Save": {
+      "label": "Save",
+      "text": "Save Changes⌘S",
+      "box": [
+        11,
+        53,
+        189.9,
+        44
+      ]
+    },
+    "1440 Desktop View": {
+      "label": "Desktop View",
+      "text": "Desktop View",
+      "box": [
+        1193,
+        50,
+        120.9,
+        44
+      ]
+    },
+    "1440 Mobile View": {
+      "label": "Mobile View",
+      "text": "Mobile View",
+      "box": [
+        1243,
+        50,
+        111.6,
+        44
+      ]
+    },
+    "1440 Toggle Site Styles editing": {
+      "label": "Toggle Site Styles editing",
+      "text": "Site Styles",
+      "box": [
+        1304,
+        57,
+        98.4,
+        44
+      ]
+    },
+    "1440 Toggle preview mode": {
+      "label": "Toggle preview mode",
+      "text": "Preview⌘⇧P",
+      "box": [
+        1234.6,
+        57,
+        183.4,
+        44
+      ]
+    },
+    "1600 Save": {
+      "label": "Save",
+      "text": "Save Changes⌘S",
+      "box": [
+        11,
+        53,
+        189.9,
+        44
+      ]
+    },
+    "1600 Desktop View": {
+      "label": "Desktop View",
+      "text": "Desktop View",
+      "box": [
+        1353,
+        50,
+        120.9,
+        44
+      ]
+    },
+    "1600 Mobile View": {
+      "label": "Mobile View",
+      "text": "Mobile View",
+      "box": [
+        1403,
+        50,
+        111.6,
+        44
+      ]
+    },
+    "1600 Toggle Site Styles editing": {
+      "label": "Toggle Site Styles editing",
+      "text": "Site Styles",
+      "box": [
+        1464,
+        57,
+        98.4,
+        44
+      ]
+    },
+    "1600 Toggle preview mode": {
+      "label": "Toggle preview mode",
+      "text": "Preview⌘⇧P",
+      "box": [
+        1394.6,
+        57,
+        183.4,
+        44
+      ]
+    },
+    "1920 Save": {
+      "label": "Save",
+      "text": "Save Changes⌘S",
+      "box": [
+        11,
+        53,
+        189.9,
+        44
+      ]
+    },
+    "1920 Desktop View": {
+      "label": "Desktop View",
+      "text": "Desktop View",
+      "box": [
+        1673,
+        50,
+        120.9,
+        44
+      ]
+    },
+    "1920 Mobile View": {
+      "label": "Mobile View",
+      "text": "Mobile View",
+      "box": [
+        1723,
+        50,
+        111.6,
+        44
+      ]
+    },
+    "1920 Toggle Site Styles editing": {
+      "label": "Toggle Site Styles editing",
+      "text": "Site Styles",
+      "box": [
+        1784,
+        57,
+        98.4,
+        44
+      ]
+    },
+    "1920 Toggle preview mode": {
+      "label": "Toggle preview mode",
+      "text": "Preview⌘⇧P",
+      "box": [
+        1714.6,
+        57,
+        183.4,
+        44
+      ]
+    },
+    "2400 Save": {
+      "label": "Save",
+      "text": "Save Changes⌘S",
+      "box": [
+        11,
+        53,
+        189.9,
+        44
+      ]
+    },
+    "2400 Desktop View": {
+      "label": "Desktop View",
+      "text": "Desktop View",
+      "box": [
+        2153,
+        50,
+        120.9,
+        44
+      ]
+    },
+    "2400 Mobile View": {
+      "label": "Mobile View",
+      "text": "Mobile View",
+      "box": [
+        2203,
+        50,
+        111.6,
+        44
+      ]
+    },
+    "2400 Toggle Site Styles editing": {
+      "label": "Toggle Site Styles editing",
+      "text": "Site Styles",
+      "box": [
+        2264,
+        57,
+        98.4,
+        44
+      ]
+    },
+    "2400 Toggle preview mode": {
+      "label": "Toggle preview mode",
+      "text": "Preview⌘⇧P",
+      "box": [
+        2194.6,
+        57,
+        183.4,
+        44
+      ]
+    },
+    "preview": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reload page preview",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        }
+      ],
+      "thin": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "At 1024, 1280, 1440, 1600, 1920 and 2400 wide: Save Changes stays at 11, 53, 189.9 wide. The others follow the right edge exactly: Desktop View left W - 247, top 50, 120.9 wide; Mobile View W - 197, 111.6 wide; Site Styles W - 136, top 57, 98.4 wide; Preview W - 205.4, top 57, 183.4 wide. Preview's own controls read: Reload page preview, Toggle preview mode. Reload's and Close's tips at other widths were not read.",
+  "ours": "At 1024, 1280, 1920 and 2400: the same tops, and the same rule. Save Changes left 11, 186.1 wide; Desktop View W - 245.9, 117.8 wide; Mobile View W - 194.9, 107.7 wide; Site Styles W - 136.1, 98.1 wide; Preview W - 202.8, 180.8 wide. Centres agree within 0.5 px and Preview's right edge exactly. The widths run up to 3.9 px short from our stand-in font, as noted in TOPBAR.json. 1440 and 1600 not read in ours.",
+  "differs": [],
+  "pressed": "Named presses with an on-top check. Panel opens go through hover and press by name. Escape closed each panel and the Exit dialog. No Save, no upload, no Reset."
+}

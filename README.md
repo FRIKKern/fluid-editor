@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 64 changes
-  - E4: last score, 38 of 45, misses named; a replay with an off gap could not run ([#241](https://github.com/FRIKKern/fluid-editor/pull/241))
-  - U9: exitWithoutSaving has an on-top check on both Exits for every lane ([#242](https://github.com/FRIKKern/fluid-editor/pull/242))
+- **Today** · 74 changes
+  - E4: caret kept after Text Style and list presses, list off, one quote ([#252](https://github.com/FRIKKern/fluid-editor/pull/252))
+  - P3: test of differences 44 and 45 scored 9 of 31, predictions pushed first ([#251](https://github.com/FRIKKern/fluid-editor/pull/251))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed

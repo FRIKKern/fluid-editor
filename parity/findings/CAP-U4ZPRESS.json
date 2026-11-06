@@ -1,0 +1,612 @@
+{
+  "item": "CAP-U4ZPRESS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U4: what Move Forward and Backward step over. The order is Text, Line, Shape; Text and Shape overlap, the Line overlaps neither, and sits between them. Unnamed presses: real clicks on blocks, a drag.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "start",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Shape selected",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Move Forward"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Shape, Forward",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Move Backward"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Shape, Backward",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Move Backward"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Shape, Backward again",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Move Backward"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Shape, Backward a third time",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Move Forward"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Shape, Forward again",
+      {
+        "btnState": [
+          "Move Forward",
+          "Move Backward"
+        ],
+        "stack": 0
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "stack": [
+        {
+          "id": "5_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "5_871",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        },
+        {
+          "id": "5_647",
+          "type": "csr",
+          "desktop": "8/14/9/18",
+          "phone": "9/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Shape selected": {
+      "btnState": {
+        "Move Forward": {
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "5_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "5_871",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        },
+        {
+          "id": "5_647",
+          "type": "csr",
+          "desktop": "8/14/9/18",
+          "phone": "9/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Shape, Forward": {
+      "btnState": {
+        "Move Forward": {
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "5_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "5_871",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        },
+        {
+          "id": "5_647",
+          "type": "csr",
+          "desktop": "8/14/9/18",
+          "phone": "9/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Shape, Backward": {
+      "btnState": {
+        "Move Forward": {
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "5_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "1"
+          ]
+        },
+        {
+          "id": "5_871",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "1",
+            "3"
+          ]
+        },
+        {
+          "id": "5_647",
+          "type": "csr",
+          "desktop": "8/14/9/18",
+          "phone": "9/2/10/10",
+          "z": [
+            "3",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Shape, Backward again": {
+      "btnState": {
+        "Move Forward": {
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "5_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "1"
+          ]
+        },
+        {
+          "id": "5_871",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "1",
+            "3"
+          ]
+        },
+        {
+          "id": "5_647",
+          "type": "csr",
+          "desktop": "8/14/9/18",
+          "phone": "9/2/10/10",
+          "z": [
+            "3",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Shape, Backward a third time": {
+      "btnState": {
+        "Move Forward": {
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "5_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "1"
+          ]
+        },
+        {
+          "id": "5_871",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "1",
+            "3"
+          ]
+        },
+        {
+          "id": "5_647",
+          "type": "csr",
+          "desktop": "8/14/9/18",
+          "phone": "9/2/10/10",
+          "z": [
+            "3",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Shape, Forward again": {
+      "btnState": {
+        "Move Forward": {
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "stack": [
+        {
+          "id": "5_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "5_871",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "2",
+            "3"
+          ]
+        },
+        {
+          "id": "5_647",
+          "type": "csr",
+          "desktop": "8/14/9/18",
+          "phone": "9/2/10/10",
+          "z": [
+            "3",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "With nothing pinned they step over blocks that don't overlap. Start Text z1, Line z2, Shape z3, Text and Shape overlapping. On Shape: Forward is off. One Backward: Shape z1, Text z2, Line z3, and Backward goes off: it went past the Line to below Text in one press, and the section is numbered again. One Forward: Shape z2, Text z1, Line z3, and Forward goes off though the Line is above: it counts only overlapping blocks.",
+  "ours": "Ours swaps with the next block in the order, overlapping or not. One Backward: Line z3, Shape z2, Text z1, so nothing visible changes and Forward stays off, Backward on. A second: Shape z1. Then as the oracle. Pressed in ours through the toolbar's z- and z+ on 5210, 2026-11-06. Ours' right-click Arrange does count only overlapping blocks (editor.js arrange), not the toolbar's zSwap.",
+  "differs": [
+    "Move Backward and Forward on the toolbar: the oracle jumps past blocks that don't overlap in one press, ours swaps with the next in the order, and that press shows nothing."
+  ],
+  "pressed": [
+    "Unnamed presses: real clicks on blocks, a drag on a block. All else by name with an on-top check."
+  ]
+}

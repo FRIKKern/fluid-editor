@@ -2,7 +2,7 @@
 // (parity/findings/TOOLBARGEO.json, TOOLBARS.json):
 //   box        white, 42px tall, 6px radius, 4px padding, in a white 1px halo with the soft shadow;
 //              its left edge 4px right of the block, its top 60px above the block, never closer
-//              than 23.5px to the canvas top
+//              than 23px to the canvas top
 //   buttons    36px squares 4px apart, 3px radius; icons 22px (Pin 20px) in #0e0e0e, Remove
 //              #db3642, unavailable #b7b7b7; separators 1 by 20px #e7e7e7
 //   per type   text: Write, Edit | Align Vertically, Pin, [Move Forward, Move Backward] | Duplicate, Remove
@@ -72,6 +72,7 @@ export function toolbarItems(type, bp, z, fit = false, inStack = false) {
   if (bp === 'mobile') {
     const moves = z.first && z.last ? [] : ['up', 'down'];
     if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', ...zs, ...moves, '|', 'remove'];
+    if (type === 'line') return ['edit', 'align', 'pin', ...zs, ...moves, '|', 'remove']; // CAP-U4LINE.json: no line after Edit
     return ['edit', '|', 'pin', ...zs, ...moves, '|', 'remove'];
   }
   if (type === 'stack') return ['edit', '|', 'link', 'stackopts', 'pin', ...zs, 'duplicate', 'remove'];
@@ -80,6 +81,7 @@ export function toolbarItems(type, bp, z, fit = false, inStack = false) {
   if (type === 'video' && fit) return ['edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove'];
   if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove'];
   if (type === 'markdown') return ['edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove']; // CAP-T10PRE.json
+  if (type === 'line') return ['edit', 'align', 'pin', ...zs, '|', 'duplicate', 'remove']; // CAP-U4LINE.json: no line after Edit
   if (type === 'button') return ['edit', '|', 'primary', 'link', 'pin', 'duplicate', 'remove'];
   return ['edit', '|', 'pin', ...zs, '|', 'duplicate', 'remove'];
 }
@@ -113,7 +115,7 @@ export function toolbarHtml(items, z, align = {}) {
 export function toolbarPosition(frameRect, stageRect, blockRect) {
   return {
     left: frameRect.left - stageRect.left + blockRect.left + 4,
-    top: frameRect.top - stageRect.top + Math.max(blockRect.top - 60, 23.5),
+    top: frameRect.top - stageRect.top + Math.max(blockRect.top - 60, 23),
   };
 }
 

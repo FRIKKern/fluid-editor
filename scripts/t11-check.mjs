@@ -238,6 +238,61 @@ await click(`panel.querySelector('[data-soc-show="0"]')`, 260);
 r = soc();
 add('Labels: a toggle rewrites the row, seen once', r.labels[0] === F.social.labels.afterToggle && r.labels[1] === F.social.labels.untouched[1], r.labels);
 
+// A Line's toolbar and Align Vertically, read on a new Line (parity/findings/CAP-U4LINE.json).
+const LN = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U4LINE.json', import.meta.url)));
+const barOf = () => q(`return JSON.stringify([...document.querySelectorAll('#block-toolbar > .tb-btn')].map((b) => [b.getAttribute('aria-label'), b.getBoundingClientRect().left, b.getBoundingClientRect().top]));`);
+const lefts = (r) => r.controls.filter((c) => ['Edit', 'Align Vertically', 'Pin', 'Move Up', 'Move Down', 'Duplicate', 'Remove'].includes(c.label)).map((c) => [c.label, c.box[0]]);
+const sameBar = (ours, read) => JSON.stringify(ours.map((b) => [b[0], Math.round((b[1] - ours[0][1]) * 10) / 10])) === JSON.stringify(read.map((b) => [b[0], Math.round((b[1] - read[0][1]) * 10) / 10]));
+({ id } = await fresh('Line'));
+const lnPick = async () => { browser(S, 'press', 'Escape'); await pause(120); browser(S, 'press', 'Escape'); await pause(120); const c = q(`const f = block('${id}').getBoundingClientRect(), o = fr.getBoundingClientRect(); return JSON.stringify([o.left + f.left + f.width / 2, o.top + f.top + f.height / 2]);`); mouse(S, 'move', c[0], c[1]); mouse(S, 'down', c[0], c[1], { buttons: 1 }); await pause(30); mouse(S, 'up', c[0], c[1]); await pause(250); };
+await lnPick();
+const lnTop = () => q(`const f = block('${id}'), c = f.querySelector('.sqs-block-content'); return JSON.stringify(c.getBoundingClientRect().top - f.getBoundingClientRect().top);`);
+const lnPress = (v) => click(`document.querySelector('#block-toolbar [data-tb="${v}"]')`, 300);
+const lnBar = barOf();
+add('Line bar: five buttons where the oracle has them', sameBar(lnBar, lefts(LN.reads['1 row'])), JSON.stringify(lnBar.map((b) => b[0])));
+add('Line bar: 205 wide, 207 with its halo', Math.abs(q(`return JSON.stringify(document.getElementById('block-toolbar').getBoundingClientRect().width);`) - 205) <= 0.5, q(`return JSON.stringify(document.getElementById('block-toolbar').getBoundingClientRect().width);`));
+add('Line bar: one line, before Duplicate', q(`return JSON.stringify([...document.querySelectorAll('#block-toolbar > *')].map((e) => e.getAttribute('aria-label') || 'line').join());`) === 'Edit,Align Vertically,Pin,line,Duplicate,Remove', '');
+add('A new Line is Center', Math.abs(lnTop() - 6.6) <= 0.6 && q(`const f = block('${id}'); return JSON.stringify(W.getComputedStyle(f.querySelector('.sqs-block')).justifyContent);`) === 'center', lnTop());
+await lnPress('align');
+add('The menu marks Center', q(`return JSON.stringify(document.querySelector('[data-tb="valign:center"]').classList.contains('tb-open'));`), '');
+await lnPress('valign:flex-start');
+add('Line, 1 row, Top: 0', Math.abs(lnTop()) <= 0.6, lnTop());
+add('A value keeps the menu open', q(`return JSON.stringify(!!document.querySelector('#block-toolbar .tb-vmenu'));`));
+q(`fe.undo(); await sleep(250); return 'true';`);
+add('One undo back to Center', Math.abs(lnTop() - 6.6) <= 0.6, lnTop());
+await lnPress('valign:flex-end');
+add('Line, 1 row, Bottom: 13.1', Math.abs(lnTop() - 13.1) <= 0.6, lnTop());
+await lnPress('align');
+add('A press on Align Vertically closes the menu', q(`return JSON.stringify(!document.querySelector('#block-toolbar .tb-vmenu'));`));
+// 4 rows, as on the oracle: a real pull on the east half of the south edge, past the toolbar.
+const lnSouth = q(`const f = block('${id}').getBoundingClientRect(), o = fr.getBoundingClientRect(); return JSON.stringify([o.left + f.right, o.top + f.bottom]);`);
+drag(S, lnSouth, [lnSouth[0], lnSouth[1] + 130], { steps: 4, holdMs: 60 }); await pause(300);
+add('Line: 4 rows high', q(`const c = W.getComputedStyle(block('${id}')); return JSON.stringify(Number(c.gridRowEnd) - Number(c.gridRowStart));`) === 4, '');
+add('Line, 4 rows, Bottom: 136.4', Math.abs(lnTop() - 136.4) <= 1, lnTop());
+await lnPick(); await lnPress('align'); await lnPress('valign:center');
+add('Line, 4 rows, Center: 68.2', Math.abs(lnTop() - 68.2) <= 1, lnTop());
+await lnPress('valign:flex-start');
+add('Line, 4 rows, Top: 0', Math.abs(lnTop()) <= 0.6, lnTop());
+const lnDesk = q(`return JSON.stringify(fe.model.sections[1].blocks.find((b) => b.id === '${id}').layout.desktop.justify);`);
+q(`document.getElementById('bp-mobile').click(); await sleep(500); return 'true';`);
+await lnPick();
+add('The phone keeps its own Center', Math.abs(lnTop() - 3.5) <= 0.6 && lnDesk === 'flex-start', lnTop());
+const lnPhone = barOf();
+add('Line phone bar: Edit, Align, Pin, Remove', lnPhone.map((b) => b[0]).join() === 'Edit,Align Vertically,Pin,Remove', lnPhone.map((b) => b[0]));
+await lnPress('align'); await lnPress('valign:flex-end');
+add('Line phone Bottom: 7, desktop stays', Math.abs(lnTop() - 7) <= 0.6 && q(`return JSON.stringify(fe.model.sections[1].blocks.find((b) => b.id === '${id}').layout.desktop.justify);`) === 'flex-start', lnTop());
+await lnPress('align');
+q(`fe.addBlock(fe.model.sections[1].id, 'Shape'); await sleep(300); return 'true';`);
+await lnPick();
+const lnTwo = barOf();
+add('Line phone bar with a block above it, as read', sameBar(lnTwo, lefts(LN.reads['phone, second of two'])), JSON.stringify(lnTwo.map((b) => b[0])));
+q(`document.getElementById('bp-desktop').click(); await sleep(500); return 'true';`);
+await lnPick();
+// The buttons stop at window y 81 (CAP-TBTOP.json): the frame's top + 26.
+q(`document.getElementById('site-frame').contentWindow.scrollBy({ top: block('${id}').getBoundingClientRect().top - 2, behavior: 'instant' }); await sleep(300); return 'true';`);
+const stopY = barOf()[0][2];
+add('No room above: the buttons stop at y 81', Math.abs(stopY - 81) <= 0.2, stopY);
+
 // The phone: Line and Map take the measured box; Social Links follows, then keeps its own.
 const phoneView = () => click(`document.getElementById('bp-mobile')`, 700);
 const deskView = () => click(`document.getElementById('bp-desktop')`, 700);

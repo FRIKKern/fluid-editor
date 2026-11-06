@@ -92,7 +92,8 @@ export function defaultOf(a, key) {
 
 // Text fields keep a unit. A bare number takes the field's unit; Offset takes px or %.
 export function typed(raw, cur) {
-  const m = String(raw).trim().match(/^(-?\d*\.?\d+)\s*(%|px|°|s)?$/);
+  // A number typed after the shown value's unit joins it: 0° then 5 is 5° (CAP-L6RESET.json).
+  const m = String(raw).trim().replace(/^(-?[\d.]*)(?:%|px|°|s)(?=[\d.])/, '$1').match(/^(-?\d*\.?\d+)\s*(%|px|°|s)?$/);
   if (!m) return null;
   const unit = String(cur).replace(/^-?[\d.]+/, '');
   const u = m[2] && (m[2] === unit || (m[2] === '%' && unit === 'px') || (m[2] === 'px' && unit === '%')) ? m[2] : unit;
