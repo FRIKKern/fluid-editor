@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="914" viewBox="0 0 1200 914" role="img" aria-labelledby="t d">
 <title id="t">Fluid editor parity</title>
-<desc id="d">96 of 118 items done, 22 partial, 0 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 7 of 8 done. Block types: 8 of 15 done. Geometry and snapping: 7 of 8 done. Gestures: 8 of 13 done. Row stretch: 4 of 5 done. Text editing: 7 of 7 done. Overlap and layers: 5 of 5 done. Phone layout: 7 of 8 done. Section settings and Stacks: 4 of 4 done. Editor chrome: 8 of 12 done. History, save and publish: 5 of 5 done. Accessibility and order: 2 of 3 done.</desc>
+<desc id="d">93 of 118 items done, 25 partial, 0 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 7 of 8 done. Block types: 8 of 15 done. Geometry and snapping: 7 of 8 done. Gestures: 8 of 13 done. Row stretch: 4 of 5 done. Text editing: 5 of 7 done. Overlap and layers: 4 of 5 done. Phone layout: 7 of 8 done. Section settings and Stacks: 4 of 4 done. Editor chrome: 8 of 12 done. History, save and publish: 5 of 5 done. Accessibility and order: 2 of 3 done.</desc>
 <style>
   svg { --bg:#fbfaf7; --card:#ffffff; --line:#e3e0d6; --ink:#1f1e1b; --muted:#6c6a63; --done:#2c7a4b; --now:#b26b00; --todo:#a3a097; --nowbg:#fff6e5; --partbg:#fdf0d8; --unk:#8a6fb0; }
   @media (prefers-color-scheme: dark) {
@@ -21,11 +21,11 @@
 <rect class="bg" width="1200" height="914" rx="16"/>
 <text x="40" y="70" font-size="36" font-weight="700" letter-spacing="-0.8">Parity</text>
 <text x="40" y="102" font-size="19" class="muted">Everything that has to match Fluid Engine, one cell per item.</text>
-<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">96<tspan class="muted" font-weight="400"> / 118</tspan></text>
+<text x="1160" y="70" font-size="40" font-weight="700" text-anchor="end">93<tspan class="muted" font-weight="400"> / 118</tspan></text>
 <text x="1160" y="102" font-size="16" text-anchor="end" class="muted">items done</text>
-<rect x="40" y="124" width="911.1864406779661" height="10" class="s-done"/>
-<rect x="951.1864406779661" y="124" width="208.8135593220339" height="10" class="s-partial"/>
-<text x="40" y="172" font-size="16"><tspan class="done">✓ 96 done</tspan><tspan class="now" dx="24">◐ 22 partial</tspan><tspan class="todo" dx="24">○ 0 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
+<rect x="40" y="124" width="882.7118644067797" height="10" class="s-done"/>
+<rect x="922.7118644067797" y="124" width="237.28813559322035" height="10" class="s-partial"/>
+<text x="40" y="172" font-size="16"><tspan class="done">✓ 93 done</tspan><tspan class="now" dx="24">◐ 25 partial</tspan><tspan class="todo" dx="24">○ 0 open</tspan><tspan class="unk" dx="24">? 0 unknown</tspan></text>
 <text x="1160" y="172" font-size="16" text-anchor="end" class="muted">unknown: needs a trace on the oracle before it can be built</text>
 <path d="M40 190H1160" class="rule"/>
 <g data-area="Harness and oracle">
@@ -206,17 +206,17 @@
 </g>
 <g data-area="Text editing">
 <text x="40" y="556" font-size="15" font-weight="600">Text editing</text>
-<text x="324" y="556" font-size="14" text-anchor="end" class="done">7/7</text>
+<text x="324" y="556" font-size="14" text-anchor="end" class="muted">5/7</text>
 <rect x="340" y="536" width="50" height="30" rx="6" class="c-done"><title>E1 How editing starts: double-click or click on a selected block: done</title></rect>
 <text x="365" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E1</text>
 <rect x="396" y="536" width="50" height="30" rx="6" class="c-done"><title>E2 End row grows while typing: done</title></rect>
 <text x="421" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E2</text>
 <rect x="452" y="536" width="50" height="30" rx="6" class="c-done"><title>E3 Whether the block shrinks when text is deleted: done</title></rect>
 <text x="477" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E3</text>
-<rect x="508" y="536" width="50" height="30" rx="6" class="c-done"><title>E4 Text toolbar: styles, bold, italic, links, alignment, color, size: done</title></rect>
-<text x="533" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E4</text>
-<rect x="564" y="536" width="50" height="30" rx="6" class="c-done"><title>E5 Paste handling and HTML cleanup: done</title></rect>
-<text x="589" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E5</text>
+<rect x="508" y="536" width="50" height="30" rx="6" class="c-partial"><title>E4 Text toolbar: styles, bold, italic, links, alignment, color, size: partial</title></rect>
+<text x="533" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">E4</text>
+<rect x="564" y="536" width="50" height="30" rx="6" class="c-partial"><title>E5 Paste handling and HTML cleanup: partial</title></rect>
+<text x="589" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">E5</text>
 <rect x="620" y="536" width="50" height="30" rx="6" class="c-done"><title>E6 Whether a desktop text edit changes the phone layout's height: done</title></rect>
 <text x="645" y="556" font-size="13" font-weight="700" text-anchor="middle" class="t-done">E6</text>
 <rect x="676" y="536" width="50" height="30" rx="6" class="c-done"><title>E7 Link editor for buttons and text: done</title></rect>
@@ -224,13 +224,13 @@
 </g>
 <g data-area="Overlap and layers">
 <text x="40" y="602" font-size="15" font-weight="600">Overlap and layers</text>
-<text x="324" y="602" font-size="14" text-anchor="end" class="done">5/5</text>
+<text x="324" y="602" font-size="14" text-anchor="end" class="muted">4/5</text>
 <rect x="340" y="582" width="50" height="30" rx="6" class="c-done"><title>Z1 Overlap allowed: done</title></rect>
 <text x="365" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Z1</text>
 <rect x="396" y="582" width="50" height="30" rx="6" class="c-done"><title>Z2 How Bring forward and Send backward change z: done</title></rect>
 <text x="421" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Z2</text>
-<rect x="452" y="582" width="50" height="30" rx="6" class="c-done"><title>Z3 Bring to front and Send to back: done</title></rect>
-<text x="477" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Z3</text>
+<rect x="452" y="582" width="50" height="30" rx="6" class="c-partial"><title>Z3 Bring to front and Send to back: partial</title></rect>
+<text x="477" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">Z3</text>
 <rect x="508" y="582" width="50" height="30" rx="6" class="c-done"><title>Z4 Selecting a block covered by another: done</title></rect>
 <text x="533" y="602" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Z4</text>
 <rect x="564" y="582" width="50" height="30" rx="6" class="c-done"><title>Z5 Editor layer z-index of about 10000 + z and 100000 + z: done</title></rect>
