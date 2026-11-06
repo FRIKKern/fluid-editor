@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 96 changes
+- **Today** · 97 changes
+  - T14, U11, U3, X6, E4, T3: a start row was the tool's; the rule found ([#275](https://github.com/FRIKKern/fluid-editor/pull/275))
   - U9: Add Section fades over 0.2 s, ease-in-out, both ways, with no slide ([#274](https://github.com/FRIKKern/fluid-editor/pull/274))
-  - T6: a new Shape's color and stroke follow the section theme, read on all ten ([#273](https://github.com/FRIKKern/fluid-editor/pull/273))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
