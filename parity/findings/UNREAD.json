@@ -5,11 +5,11 @@
   "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here.",
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it. ask: the lead rules.",
   "counts": {
-    "total": 91,
-    "yes": 77,
+    "total": 94,
+    "yes": 80,
     "no": 11,
     "ask": 3,
-    "read": 45,
+    "read": 50,
     "notPressed": 0
   },
   "entries": [
@@ -565,7 +565,9 @@
       "safeRead": "yes",
       "how": "a stack on a probe page, read boxes",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-S3ALIGN.json",
+      "result": "With Stretch off the shape moves inside its box. Ours stays centred."
     },
     {
       "item": "S3",
@@ -574,7 +576,9 @@
       "safeRead": "yes",
       "how": "same, Mobile View",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-S3PHONEHUG.json",
+      "result": "Button 206.6, Text 91.7, as ours. The phone Shape 210 not compared."
     },
     {
       "item": "S3",
@@ -583,7 +587,9 @@
       "safeRead": "yes",
       "how": "same",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-S3TRANSFORMS.json",
+      "result": "On the inner .fe-block, the box stays. As ours."
     },
     {
       "item": "S3",
@@ -592,7 +598,9 @@
       "safeRead": "yes",
       "how": "press each, read",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-S3THICK.json",
+      "result": "2, 6, 15 px, as ours."
     },
     {
       "item": "U3",
@@ -919,6 +927,35 @@
       "source": "found reading",
       "safeRead": "yes",
       "how": "more names: CAP-E4ENDS.json read a sample",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "P3",
+      "what": "Why the section panel goes away and sits lower at tall heights",
+      "source": "CAP-P3FIELD.json, asked by the lead",
+      "safeRead": "yes",
+      "how": "grow a section on a probe page, read the panel",
+      "lane": "recorder",
+      "state": "read",
+      "finding": "CAP-P3PANEL.json, CAP-P3JUMP.json, CAP-P3EDGE.json",
+      "result": "It closes on its own past a height and moves down as the section grows. Ours does neither."
+    },
+    {
+      "item": "S3",
+      "what": "A phone Shape child's height in a real stack",
+      "source": "CAP-S3PHONEHUG.json",
+      "safeRead": "yes",
+      "how": "build the same stack by Add Block in ours, read its phone rows against the 10 on the oracle",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "S3",
+      "what": "Hug greyed on a Shape child in a column stack",
+      "source": "CAP-S3HUGMENU.json",
+      "safeRead": "yes",
+      "how": "open the W and H menus in a column, read from a shot",
       "lane": "recorder",
       "state": "open"
     }
