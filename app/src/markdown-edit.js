@@ -38,13 +38,13 @@ export function mdLines(v, s, e, kind) {
 }
 export const mdHeading = (v, s, e, level) => eachLine(v, s, e, (l) => `${level ? `${'#'.repeat(level)} ` : ''}${l.replace(/^#{1,6} +/, '')}`);
 
-// Bold and Italic dim, and take no press, on a selection holding a heading, list or quote mark (CAP-T10STATE.json).
+// Bold and Italic dim, and take no press, on a selection over several lines when one it touches is a heading,
+// list or quote line (CAP-T10STATE.json, CAP-T10EDITS2.json).
 const BLOCK_MARK = /^(?:#{1,6} |\s*[*+-] |\s*\d+\. |\s*> ?)/;
 function holdsBlockMark(v, s, e) {
-  if (s === e) return false;
-  for (let from = lineStart(v, s); from <= e; from = lineEnd(v, from) + 1) {
-    const m = BLOCK_MARK.exec(v.slice(from, lineEnd(v, from)));
-    if (m && s < from + m[0].length && e > from) return true;
+  if (lineStart(v, s) === lineStart(v, e)) return false;
+  for (let from = lineStart(v, s); from < e || from === s; from = lineEnd(v, from) + 1) {
+    if (BLOCK_MARK.test(v.slice(from, lineEnd(v, from)))) return true;
     if (lineEnd(v, from) >= v.length) break;
   }
   return false;
@@ -57,6 +57,11 @@ export function mdState(v, s, e, head = e) {
   return { heading: h ? `Heading ${h[1].length}` : 'Paragraph', bullet: LINE_MARKS.bullet[0].test(line), number: LINE_MARKS.number[0].test(line), quote: /^> /.test(line), bold: fits(2, l, r), italic: fits(1, l, r), dim: holdsBlockMark(v, s, e), link: !!mdLinkIn(v, s, e) };
 }
 
+// A quote's new lines take the mark its first line has: > or > and a space (CAP-T10EDITS.json, CAP-T10EDITS2.json).
+function quoteMark(v, from) {
+  while (from && v[lineStart(v, from - 1)] === '>') from = lineStart(v, from - 1);
+  return v[from + 1] === ' ' ? '> ' : '>';
+}
 // Enter carries a list or quote on, the number going up. On an empty item it leaves a blank line, or a bare >,
 // and the same mark below it. On the next, the marks go (CAP-T10MD8.json).
 export function mdEnter(v, s, e) {
@@ -64,6 +69,10 @@ export function mdEnter(v, s, e) {
   const from = lineStart(v, s), head = v.slice(from, s);
   const m = /^(?:([*+-]) |(\d+)\. |(>) ?)/.exec(head);
   if (!m) return null;
+  // An empty item, or a number other than 1, can't start a list straight under a paragraph: it is the paragraph's text.
+  const above = from ? v.slice(lineStart(v, from - 1), from - 1) : '';
+  const inText = /\S/.test(above) && !/^(?:#{1,6} |\s*[*+-] |\s*\d+\. |>|-{3,}$|\*{3,}$|_{3,}$|```|~~~)/.test(above);
+  if (!m[3] && inText && (!(head.slice(m[0].length) + v.slice(s, lineEnd(v, s))) || (m[2] && m[2] !== '1'))) return null;
   const rest = head.slice(m[0].length) + v.slice(s, lineEnd(v, s));
   const done = (value, at) => ({ value, start: at, end: at });
   if (!rest) {
@@ -73,10 +82,10 @@ export function mdEnter(v, s, e) {
       const blank = keep === from ? '' : '\n';
       return done(`${v.slice(0, keep)}${blank}${v.slice(to)}`, keep + blank.length);
     }
-    const mark = m[0], left = m[3] ? '>' : '';
+    const mark = m[3] ? quoteMark(v, from) : m[0], left = m[3] ? '>' : '';
     return done(`${v.slice(0, from)}${left}\n${mark}${v.slice(to)}`, from + left.length + 1 + mark.length);
   }
-  const mark = m[1] ? m[0] : m[2] ? `${Number(m[2]) + 1}. ` : '> ';
+  const mark = m[1] ? m[0] : m[2] ? `${Number(m[2]) + 1}. ` : quoteMark(v, from);
   return done(`${v.slice(0, s)}\n${mark}${v.slice(s)}`, s + 1 + mark.length);
 }
 // Backspace right after an empty item's mark takes the whole mark.
@@ -88,23 +97,15 @@ export function mdBackspace(v, s, e) {
 }
 
 // A link the caret is inside, or null.
-export function mdLinkAt(v, at) {
-  const from = lineStart(v, at), line = v.slice(from, lineEnd(v, at));
-  for (const m of line.matchAll(/\[([^\]\n]*)\]\(([^)\n]*)\)/g)) {
-    const start = from + m.index, end = start + m[0].length;
-    if (at > start && at < end) return { start, end, text: m[1], href: m[2] };
-  }
-  return null;
-}
-// The first link a selection touches, or a caret is inside. A fence holds no links.
+// The first link a selection or caret touches, its edges too. A fence holds no links, and an image isn't one.
 export function mdLinkIn(v, s, e) {
   let fence = false, from = 0;
   for (const line of v.split('\n')) {
     if (/^(```+|~~~+)/.test(line)) fence = !fence;
     else if (!fence && from <= e && from + line.length >= s) {
-      for (const m of line.matchAll(/!?\[([^\]\n]*)\]\(([^)\n]*)\)/g)) {
+      for (const m of line.matchAll(/(?<!!)\[([^\]\n]*)\]\(([^)\n]*)\)/g)) {
         const start = from + m.index, end = start + m[0].length;
-        if (s === e ? s > start && s < end : s < end && e > start) return { start, end, text: m[1], href: m[2] };
+        if (s <= end && e >= start) return { start, end, text: m[1], href: m[2] };
       }
     }
     from += line.length + 1;

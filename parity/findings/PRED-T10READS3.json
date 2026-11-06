@@ -1,0 +1,371 @@
+{
+  "item": "PRED-T10READS3",
+  "question": "T10: round 3, the last, from the rules refit to round 2, written before these are read",
+  "edit": {
+    "Y1 a bare > under >a": {
+      "text": ">a\n>",
+      "sel": [
+        4,
+        4
+      ],
+      "press": "Enter",
+      "value": ">a\n>\n>"
+    },
+    "Y2 the end of a second quote line": {
+      "text": "> a\n> b",
+      "sel": [
+        7,
+        7
+      ],
+      "press": "Enter",
+      "value": "> a\n> b\n> "
+    },
+    "Y3 the end of >a": {
+      "text": ">a",
+      "sel": [
+        2,
+        2
+      ],
+      "press": "Enter",
+      "value": ">a\n>"
+    },
+    "Y4 an empty bullet under a heading": {
+      "text": "# h\n* ",
+      "sel": [
+        6,
+        6
+      ],
+      "press": "Enter",
+      "value": "# h\n\n* "
+    },
+    "Y5 an empty bullet under a blank line": {
+      "text": "\n* ",
+      "sel": [
+        3,
+        3
+      ],
+      "press": "Enter",
+      "value": "\n"
+    },
+    "Y6 an empty number under plain text": {
+      "text": "a\n1. ",
+      "sel": [
+        5,
+        5
+      ],
+      "press": "Enter",
+      "value": "a\n1. \n"
+    },
+    "Y7 an empty quote under plain text": {
+      "text": "a\n> ",
+      "sel": [
+        4,
+        4
+      ],
+      "press": "Enter",
+      "value": "a\n>\n> "
+    },
+    "Y8 a 2. under plain text": {
+      "text": "a\n2. b",
+      "sel": [
+        6,
+        6
+      ],
+      "press": "Enter",
+      "value": "a\n2. b\n"
+    },
+    "Y9 a 1. under plain text": {
+      "text": "a\n1. b",
+      "sel": [
+        6,
+        6
+      ],
+      "press": "Enter",
+      "value": "a\n1. b\n2. "
+    },
+    "Y10 an empty bullet under a rule": {
+      "text": "---\n* ",
+      "sel": [
+        6,
+        6
+      ],
+      "press": "Enter",
+      "value": "---\n\n* "
+    },
+    "Y11 a bullet with text under plain text": {
+      "text": "a\n* b",
+      "sel": [
+        5,
+        5
+      ],
+      "press": "Enter",
+      "value": "a\n* b\n* "
+    }
+  },
+  "look": {
+    "X1 plain, up to the start of a heading": {
+      "text": "plain\n# h",
+      "sel": [
+        0,
+        6
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "X2 from a heading's end to the next line": {
+      "text": "# h\nplain",
+      "sel": [
+        3,
+        4
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "X3 two lines, then a heading": {
+      "text": "one\ntwo\n# h",
+      "sel": [
+        0,
+        11
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "X4 a blank between": {
+      "text": "a\n\n# h",
+      "sel": [
+        0,
+        6
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "X5 a heading, a blank, a word": {
+      "text": "# h\n\nb",
+      "sel": [
+        0,
+        6
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "X6 two quote lines": {
+      "text": "> q\n> r",
+      "sel": [
+        0,
+        7
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "X7 two numbers": {
+      "text": "1. a\n2. b",
+      "sel": [
+        0,
+        9
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "X8 mid bullet to plain": {
+      "text": "- a\nb",
+      "sel": [
+        2,
+        5
+      ],
+      "dim": true,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "X9 seven hashes": {
+      "text": "####### x\nb",
+      "sel": [
+        0,
+        11
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "X10 no space after the hash": {
+      "text": "#h\nb",
+      "sel": [
+        0,
+        4
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "X11 no space after the star": {
+      "text": "*a\nb",
+      "sel": [
+        0,
+        4
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "C5b an image, all": {
+      "text": "![i](/y)",
+      "sel": [
+        0,
+        8
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "C6 a link in a fence, all": {
+      "text": "```\n[a](/x)\n```",
+      "sel": [
+        0,
+        15
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "C7 a reference line, all": {
+      "text": "[r]: /z",
+      "sel": [
+        0,
+        7
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "C8 two links, all": {
+      "text": "[a](/x) [b](/y)",
+      "sel": [
+        0,
+        15
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": true,
+      "shows": "/x"
+    },
+    "C9 a raw link, all": {
+      "text": "<a href=\"/x\">t</a>",
+      "sel": [
+        0,
+        18
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "C10 the second of two links": {
+      "text": "[a](/x) [b](/y)",
+      "sel": [
+        8,
+        15
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": true,
+      "shows": "/y"
+    },
+    "C11 a caret one past a link": {
+      "text": "[a](/x) z",
+      "sel": [
+        8,
+        8
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "C12 a word clear of a link": {
+      "text": "[a](/x) z",
+      "sel": [
+        8,
+        9
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "C13 a newline and word after a link": {
+      "text": "[a](/x)\nz",
+      "sel": [
+        7,
+        9
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": true,
+      "shows": "/x"
+    },
+    "C14 a reference link, all": {
+      "text": "[a][r]",
+      "sel": [
+        0,
+        6
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": false,
+      "shows": null
+    },
+    "C15 the caret in inline code holding a link": {
+      "text": "`[a](/x)`",
+      "sel": [
+        3,
+        3
+      ],
+      "dim": false,
+      "bold": false,
+      "italic": false,
+      "link": true,
+      "shows": "/x"
+    }
+  }
+}
