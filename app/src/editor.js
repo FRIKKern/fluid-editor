@@ -18,7 +18,7 @@ import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
 import { SUB as SS_SUB, siteStylesHtml, stylePopoverHtml, stylePopoverPosition, packFontLinks } from './site-styles.js';
 import { TIERS, TIER_NAMES, CUSTOM_RADIUS, tierValues } from './button-tiers.js';
-import { FORM_CUSTOM_RADIUS, formValues } from './form-rows.js';
+import { formOption, OPTION_RADIUS, FORM_KINDS, FORM_CUSTOM_RADIUS, formValues } from './form-rows.js';
 import { siteStylesHead, baseSize, resolveSiteStyles, VARS as PALETTE_VARS, BASE_VARS } from './site-style-packs.js';
 import { hslToRgb, rgbToHsl, rgbToHsv, hsvToRgb, hexToRgb, hueToRgb, clampByte, rgbToHslParts } from './color-math.js';
 import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette.js';
@@ -3811,7 +3811,7 @@ const contextMenu = $('context-menu');
 const siteStyles = $('site-styles');
 let ssView = null;
 let themeFrom = null; // the section whose Colors tab opened Edit Color Theme
-let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary';
+let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary', ssFormKind = 'check', ssFormFont = 'Title', ssFormTheme = null;
 const pal = { swatch: 'accent', tab: 'Presets', format: 'Hex', list: false }; // Edit Palette's own view state
 let dot = null; // the open color popover: { row, custom, format, list }
 function themeRows() {
@@ -3835,9 +3835,14 @@ function renderSsPanel() {
     const hit = THEMES.find(([name]) => name === ssTheme);
     opts = { ...opts, theme: { name: ssTheme, ...(hit ? themeColors[hit[1]] : {}) }, themeList: ssThemeList, themeRows: ssThemeList ? themeRows() : [] };
   }
+  if (ssView === 'FormOption') opts = { ...opts, formKind: ssFormKind };
+  if (ssView === 'FormFont') opts = { ...opts, formFont: ssFormFont };
+  if (ssView === 'FormColors') { const list = themeRows(); opts = { ...opts, themeRows: list, formTheme: ssFormTheme || list.find((t) => t.used)?.name || 'Light 1' }; }
   const top = siteStyles.scrollTop;
   siteStyles.innerHTML = siteStylesHtml(model.siteStyles, ssView, rows, opts);
   siteStyles.scrollTop = top;
+  const colorPop = siteStyles.querySelector('.ss-fc-pop');
+  if (colorPop) colorPop.style.top = `${colorPop.parentElement.getBoundingClientRect().top - 36}px`;
   placeThemeChips();
   const tip = siteStyles.querySelector('.ss-tip');
   if (tip) tip.style.top = `${siteStyles.querySelector('.ss-help').getBoundingClientRect().top - 16}px`;
@@ -4039,7 +4044,7 @@ dotPop.addEventListener('change', (e) => {
 });
 document.addEventListener('pointerdown', (e) => { if (dot && !dotPop.contains(e.target) && !e.target.closest?.('[data-ss-row]')) closeDotPop(); }, true);
 document.addEventListener('keydown', (e) => { if (dot && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeDotPop(); } }, true);
-document.addEventListener('keydown', (e) => { if ((ssSelect === 'tier-shape' || ssSelect === 'form-shape') && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); ssSelect = null; renderSsPanel(); } }, true);
+document.addEventListener('keydown', (e) => { if ((ssSelect === 'tier-shape' || ssSelect?.startsWith('form-')) && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); ssSelect = null; renderSsPanel(); } }, true);
 siteStyles.addEventListener('input', (e) => {
   if (!e.target.matches('.ss-slide input[type="range"]')) return;
   const r = e.target;
@@ -4054,7 +4059,43 @@ function setForms(label, change) {
   setSiteStyleKeys(`Forms ${label}`, (st) => { st.forms = { ...(st.forms || {}), ...change }; return st; });
 }
 // The Forms view's rows (parity/findings/CAP-FORMROWS.json). Field Shape's list stays open, as Shape's does.
+function setFormKind(label, change) {
+  setSiteStyleKeys(`${FORM_KINDS[ssFormKind]} ${label}`, (st) => { st.forms = { ...(st.forms || {}), [ssFormKind]: { ...(st.forms?.[ssFormKind] || {}), ...change } }; return st; });
+}
+// Selection Options (parity/findings/CAP-FORMSUBS.json): the same shape list and steps, one set per kind.
+function formOptionPress(e) {
+  const o = formOption(model.siteStyles, ssFormKind);
+  const shape = e.target.closest('[data-ss-oshape]');
+  if (shape) { const n = shape.dataset.ssOshape; setFormKind(n, n === 'Custom' ? { shape: n, multi: false, radii: Array(4).fill(OPTION_RADIUS) } : { shape: n }); return true; }
+  const radii = e.target.closest('[data-ss-oradii]');
+  if (radii) { setFormKind('corners', { multi: radii.dataset.ssOradii === 'multi' }); return true; }
+  if (e.target.closest('[data-ss-ofill]')) { setFormKind('fill', { fill: !o.fill }); return true; }
+  const thick = e.target.closest('[data-ss-othick]');
+  if (thick) {
+    const n = Math.max(1, o.thick + Number(thick.dataset.ssOthick));
+    if (n !== o.thick) setFormKind('border thickness', { thick: n }); else renderSsPanel();
+    return true;
+  }
+  return false;
+}
+// Colors: the theme picker changes only which theme the rows show; a dot sets one row of that theme.
+function formColorPress(e) {
+  const pick = e.target.closest('[data-ss-ftheme]');
+  if (pick) { ssFormTheme = pick.dataset.ssFtheme; ssSelect = null; renderSsPanel(); return true; }
+  const dot = e.target.closest('[data-ss-fcolor]');
+  if (dot) {
+    const theme = dot.dataset.theme, row = dot.dataset.row;
+    setSiteStyleKeys(`Forms ${row} color`, (st) => { const colors = st.forms?.colors || {}; st.forms = { ...(st.forms || {}), colors: { ...colors, [theme]: { ...(colors[theme] || {}), [row]: dot.dataset.ssFcolor } } }; return st; });
+    return true;
+  }
+  return false;
+}
 function formPress(e) {
+  if (formOptionPress(e) || formColorPress(e)) return true;
+  const kind = e.target.closest('[data-ss-fkind]');
+  if (kind) ssFormKind = kind.dataset.ssFkind;
+  const font = e.target.closest('[data-ss-ffont]');
+  if (font) ssFormFont = font.dataset.ssFfont;
   const f = formValues(model.siteStyles);
   const shape = e.target.closest('[data-ss-fshape]');
   if (shape) { const n = shape.dataset.ssFshape; const r = FORM_CUSTOM_RADIUS; setForms(n, n === 'Custom' ? { shape: n, multi: false, radii: [r, r, r, r] } : { shape: n }); return true; }
@@ -4096,6 +4137,17 @@ function setSsValue(path, raw) {
 }
 siteStyles.addEventListener('change', (e) => {
   if (e.target.matches('[data-cformat]')) { const rgb = typedColor(e.target); if (rgb) setPalette({ [pal.swatch]: rgbToHsl(rgb) }, 'palette color'); return; }
+  if (e.target.matches('[data-ss-othickin]')) {
+    const n = parseInt(e.target.value, 10);
+    if (Number.isFinite(n) && n >= 1) setFormKind('border thickness', { thick: n }); else renderSsPanel();
+    return;
+  }
+  if (e.target.matches('[data-ss-oradius]')) {
+    const n = Number(e.target.value), o = formOption(model.siteStyles, ssFormKind), i = Number(e.target.dataset.ssOradius);
+    if (!Number.isFinite(n) || n < 0) { renderSsPanel(); return; }
+    setFormKind('corner', { radii: o.multi ? o.radii.map((r, k) => (k === i ? n : r)) : o.radii.map(() => n) });
+    return;
+  }
   if (e.target.matches('[data-ss-fthickin]')) {
     const n = parseInt(e.target.value, 10);
     if (Number.isFinite(n) && n >= 1) setForms('border thickness', { thick: n }); else renderSsPanel();

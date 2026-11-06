@@ -26,7 +26,7 @@ const at = (name) => ROW_NAMES.indexOf(name);
 const VARS = { [at('Section Background')]: '--section-bg', [at('Primary Button Background')]: '--button-bg', [at('Primary Button Text')]: '--button-ink' };
 const PARTS = { [at('Heading 1')]: 'h1', [at('Heading 2')]: 'h2', [at('Heading 3')]: 'h3', [at('Heading 4')]: 'h4', [at('Paragraph 1')]: '.sqsrte-large', [at('Paragraph 2')]: 'p:not(.sqsrte-large):not(.sqsrte-small)', [at('Paragraph 3')]: '.sqsrte-small', [at('Text Links')]: 'p a' };
 const STROKE = at('Section Divider Stroke'), INSET = at('Inset Border'), TITLE = at('Site Title'), NAV = at('Navigation Links');
-const sections = (key) => (key === 'light' ? ['.page-section:not([data-section-theme])', '.page-section[data-section-theme=""]', '.page-section[data-section-theme="light"]'] : [`.page-section[data-section-theme="${key}"]`]);
+export const sections = (key) => (key === 'light' ? ['.page-section:not([data-section-theme])', '.page-section[data-section-theme=""]', '.page-section[data-section-theme="light"]'] : [`.page-section[data-section-theme="${key}"]`]);
 
 export function themeRowsCss(styles) {
   let css = '';

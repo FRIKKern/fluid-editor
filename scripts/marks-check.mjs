@@ -1766,7 +1766,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Escape closes the Field Shape list', js(`return JSON.stringify(!document.querySelector('.ss-form-pop'));`) === true);
   await hit('[data-ss-select="form-shape"]', 120); await hit('[data-ss-fshape="Pill"]', 120); js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(100);
   let f = field();
-  add('Field Fill off: clear', f.bg === 'rgba(0, 0, 0, 0)', f.bg);
+  add('Field Fill off: clear', f.bg === 'rgba(255, 255, 255, 0)', f.bg);
   await hit('[data-ss-ffill]', 120); f = field();
   add('Field Fill on: white', f.bg === C.fill.on, f.bg);
   add('Field Fill: one undo step', js(`fe.undo(); return JSON.stringify(fe.model.siteStyles.forms.fill ?? false);`) === false);
@@ -1815,6 +1815,205 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   await hit('[data-ss-pop="Forms"]', 250); await hit('#ss-popover [data-ss-pick="form"][data-v="form-pack-03"]', 200);
   add('A pack from the popover', field().radius === C.packs['form-pack-03'].radius, field().radius);
   js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(100);
+}
+
+// U12: the Forms sub panels, against parity/findings/CAP-FORMSUBS.json.
+{
+  const F = JSON.parse(readFileSync(new URL('../parity/findings/CAP-FORMSUBS.json', import.meta.url)));
+  const near = (got, want, tol = 1) => Array.isArray(got) && got.length === want.length && got.every((v, n) => Math.abs(v - want[n]) <= tol);
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const hit = async (sel, wait = 100) => { js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true';`); await pause(wait); };
+  const box = (sel) => js(`return JSON.stringify([...document.querySelectorAll(${JSON.stringify(sel)})].map((e) => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; }));`);
+  const named = (sel, name) => js(`const e = [...document.querySelectorAll(${JSON.stringify(sel)})].find((x) => x.getAttribute('aria-label') === ${JSON.stringify(name)}); const r = e.getBoundingClientRect(); return JSON.stringify([r.left, r.top, r.width, r.height]);`);
+  const FD = `const d = document.getElementById('site-frame').contentDocument, W = d.defaultView, cs = (e) => W.getComputedStyle(e), q = (s) => d.querySelector('.fe-form ' + s);`;
+  const fld = () => js(`${FD} const c = cs(q('input[type=email]')); return JSON.stringify({ edge: c.borderTopColor, w: c.borderTopWidth, bg: c.backgroundColor, shadow: c.boxShadow, tf: c.transform, radius: c.borderTopLeftRadius, tr: c.transitionProperty + ' ' + c.transitionDuration, h: q('input[type=email]').getBoundingClientRect().height });`);
+  const opt = () => js(`${FD} const i = q('.form-signup input'), c = cs(i), l = cs(q('.form-signup label')); return JSON.stringify({ w: c.width, h: c.height, b: c.borderTopWidth, radius: c.borderTopLeftRadius, bg: c.backgroundColor, gap: l.columnGap });`);
+  const bvar = (n) => js(`${FD} return JSON.stringify(cs(d.body).getPropertyValue(${JSON.stringify(n)}).trim());`);
+  const start = async () => { viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1200); js(`const m = JSON.parse(JSON.stringify(fe.model)), b = m.sections[0].blocks[0]; m.sections[0].theme = 'light'; m.sections[0].blocks.push({ id: 'marks-subs', type: 'form', layout: JSON.parse(JSON.stringify(b.layout)), fields: [{ kind: 'name', label: 'Name', parts: ['First Name', 'Last Name'] }, { kind: 'email', label: 'Email', signup: 'Sign up' }, { kind: 'select', label: 'Pick', options: ['One'] }, { kind: 'textarea', label: 'Message' }] }); fe.load(m); return 'true';`); await pause(400); await hit('#site-styles-toggle', 300); await hit('[data-ss-view="Forms"]', 200); };
+  const view = async (name) => { await hit('[data-ss-back]', 80); await hit(`[data-ss-view="${name}"]`, 120); };
+  const pointer = async (on) => { const p = js(`const f = document.getElementById('site-frame'), a = f.getBoundingClientRect(), r = f.contentDocument.querySelector('.fe-form input[type=email]').getBoundingClientRect(); return JSON.stringify([a.left + r.left + r.width / 2, a.top + r.top + r.height / 2]);`); mouse(S, 'move', on ? p[0] : 700, on ? p[1] : 40); await pause(320); };
+
+  await start();
+  // Effects.
+  await hit('[data-ss-view="FormEffects"]', 150);
+  const B = F.effects.boxes;
+  add('Effects: Hover & Focus heading lands', near(box('.ss-fx-h')[0].slice(0, 2), B.hoverHead));
+  add('Effects: Submit heading lands', near(box('.ss-fx-h2')[0].slice(0, 2), B.submitHead));
+  for (const n of ['Outline', 'Accent', 'Opacity', 'Scale', 'Label', 'Spinner', 'Ellipsis', 'Bar', 'Circle']) add(`Effects: ${n} tile lands`, near(named('.ss-fx', n), B[n]));
+  add('Effects: Accent and Ellipsis start selected', JSON.stringify(js(`return JSON.stringify([...document.querySelectorAll('.ss-fx[aria-pressed="true"]')].map((e) => e.getAttribute('aria-label')));`)) === '["Accent","Ellipsis"]');
+  const form0 = fld();
+  add('Effects: the form with nothing picked keeps its look', form0.w === '1px' && form0.radius === '24.784px', JSON.stringify(form0));
+  await pointer(true);
+  add('Accent, with nothing picked: hover adds 1 px inward', /inset/.test(fld().shadow) && /1px/.test(fld().shadow) && fld().w === '1px', fld().shadow);
+  await pointer(false);
+  add('Accent: pointer away takes it off', fld().shadow === 'none', fld().shadow);
+  add('Accent: the edge times as read', fld().tr === `box-shadow ${parseFloat(F.effects.timing.edgeWidth)}s`, fld().tr);
+  for (const [n, check] of [
+    ['Outline', (f) => f.bg === 'rgba(255, 255, 255, 0.4)' && f.shadow === 'none'],
+    ['Accent', (f) => /inset/.test(f.shadow)],
+    ['Opacity', (f) => /rgba\(0, 0, 0, 0\.55\).*inset|inset.*rgba\(0, 0, 0, 0\.55\)/.test(f.shadow)],
+    ['Scale', (f) => f.tf === F.effects.hover.Scale && f.shadow === 'none'],
+  ]) {
+    await hit(`.ss-fx[aria-label="${n}"]`, 150);
+    const rest = fld();
+    add(`${n}: edge at rest`, rest.edge === F.effects.rest[n].edge, rest.edge);
+    if (F.effects.rest[n].bg) add(`${n}: fill at rest`, rest.bg === F.effects.rest[n].bg, rest.bg);
+    await pointer(true);
+    const h = fld();
+    add(`${n}: hover as read`, check(h), JSON.stringify(h));
+    await pointer(false);
+    add(`${n}: pointer away restores`, fld().bg === rest.bg && fld().shadow === 'none' && fld().tf === 'none', JSON.stringify(fld()));
+  }
+  for (const n of ['Label', 'Spinner', 'Bar', 'Circle', 'Ellipsis']) { await hit(`.ss-fx[aria-label="${n}"]`, 80); add(`Submit ${n} picks`, js(`return JSON.stringify(document.querySelector('.ss-fx[aria-label="${n}"]').getAttribute('aria-pressed'));`) === 'true' && bvar('--form-submit-button-style') === n.toLowerCase()); }
+  await hit('.ss-fx[aria-label="Accent"]', 100);
+  // Selection Options.
+  await view('FormOptions');
+  add('Field Options: title', js(`return JSON.stringify(document.querySelector('#site-styles .ss-title').textContent);`) === F.selection.title);
+  for (const [n, want] of Object.entries(F.selection.kinds)) add(`Field Options: ${n} lands`, near(named('.ss-fo-kind', n), want));
+  await hit('[data-ss-fkind="check"]', 120);
+  const X = F.selection.checkbox;
+  add('Checkbox: title and back', js(`return JSON.stringify(document.querySelector('#site-styles .ss-title').textContent + '|' + document.querySelector('.ss-back span').textContent);`) === 'Checkbox|Field Options');
+  add('Checkbox: Field Style lands', near(box('.ss-fo-seg button').slice(0, 2).flat(), X.fieldStyle.flat()));
+  add('Checkbox: Field Shape lands', near(box('.ss-form-shape')[0], X.shape));
+  add('Checkbox: thickness lands', near(box('.ss-thick-in')[0], X.thickInput));
+  add('Checkbox: sizes land', near(box('.ss-form-pads .ss-pad').slice(0, 3).flat(), X.sizes.flat()));
+  add('Checkbox: gap slider lands', near(named('.ss-slide input[type=range]', 'Space Between Icon and Text'), X.gapRange));
+  add('Checkbox: Layout lands', near(box('.ss-fo-seg button').slice(2).flat(), X.layout.flat()));
+  add('Checkbox: Rows slider lands', near(named('.ss-slide input[type=range]', 'Space Between Rows'), X.rowsRange));
+  let o = opt();
+  add('Checkbox: the default looks as read', o.w === F.selection.size.M && o.b === '2px' && o.radius === F.selection.radius.Pill, JSON.stringify(o));
+  await hit('[data-ss-select="form-oshape"]', 120);
+  add('Checkbox: shape tiles land', near(box('.ss-form-pop .ss-shape').flat(), F.selection.shapeTiles.flat()));
+  for (const n of ['Square', 'Rounded Rectangle', 'Pill', 'Custom']) {
+    await hit(n === 'Custom' ? '[data-ss-oshape="Custom"]' : `[data-ss-oshape="${n}"]`, 100);
+    add(`Checkbox: ${n} on the page`, opt().radius === F.selection.radius[n], opt().radius);
+  }
+  await hit('[data-ss-oshape="Pill"]', 80); await hit('[data-ss-select="form-oshape"]', 80);
+  await hit('[data-ss-ofill]', 100);
+  add('Checkbox: Field Fill on', opt().bg === F.selection.fill.on, opt().bg);
+  await hit('[data-ss-ofill]', 100);
+  add('Checkbox: Field Fill off', opt().bg === F.selection.fill.off, opt().bg);
+  await hit('[data-ss-othick="1"]', 100);
+  add('Checkbox: thickness 2 draws 3', opt().b === '3px' && bvar('--form-field-checkbox-border-thickness') === '2px', opt().b);
+  await hit('[data-ss-othick="-1"]', 100);
+  add('Checkbox: thickness back draws 2', opt().b === '2px', opt().b);
+  for (const n of ['S', 'L', 'M']) { await hit(`[data-ss-set="forms.check.size"][data-v="${n}"]`, 100); add(`Checkbox: size ${n}`, opt().w === F.selection.size[n] && opt().h === F.selection.size[n] && bvar('--form-field-checkbox-size') === F.selection.size[n], opt().w); }
+  await hit('[data-ss-set="forms.check.size"][data-v="custom"]', 120);
+  const U = F.selection.customSize;
+  add('Checkbox: custom size slider lands', near(box('.ss-fo-inline input[type=range]')[0], U.range) && near(box('.ss-fo-inline input[type=text]')[0], U.text));
+  add('Checkbox: custom size keeps 20', js(`const e = document.querySelector('.ss-fo-inline input[type=range]'); return JSON.stringify([e.min, e.max, e.value].join());`) === `${U.min},${U.max},${U.value}`);
+  add('Checkbox: gap slider moves down', near(named('.ss-slide input[type=range]', 'Space Between Icon and Text'), U.gapRange));
+  await hit('[data-ss-set="forms.check.size"][data-v="M"]', 100);
+  js(`const e = document.querySelector('.ss-slide input[type=range][aria-label="Space Between Icon and Text"]'); e.value = '20'; e.dispatchEvent(new Event('input', { bubbles: true })); e.dispatchEvent(new Event('change', { bubbles: true })); return 'true';`); await pause(120);
+  add('Checkbox: gap on the page', opt().gap === '20px' && bvar('--form-field-checkbox-space-between-icon-and-text') === '20px', opt().gap);
+  await hit('[data-ss-select="form-ocolor"]', 100);
+  add('Checkbox: Selection Color lists two', js(`return JSON.stringify([...document.querySelectorAll('.ss-fo-options button')].map((e) => e.textContent).join());`) === 'Normal,Inverted');
+  await hit('.ss-fo-options button[data-v="Inverted"]', 100);
+  add('Checkbox: Inverted kept', bvar('--form-field-checkbox-color') === 'inverted');
+  await hit('[data-ss-set="forms.check.layout"][data-v="Fit"]', 120);
+  add('Checkbox: Fit adds Space Between Columns', near(named('.ss-slide input[type=range]', 'Space Between Columns'), X.colsRange));
+  await hit('[data-ss-set="forms.check.layout"][data-v="Stack"]', 100);
+  await hit('[data-ss-set="forms.check.type"][data-v="Button"]', 120);
+  add('Button style: icon rows go', js(`return JSON.stringify(!document.querySelector('.ss-slide input[aria-label="Space Between Icon and Text"]') && !document.querySelector('[data-ss-select="form-ocolor"]'));`) === true);
+  add('Button style: Padding row and Layout land', js(`return JSON.stringify(document.querySelector('.ss-form-pads span').textContent);`) === 'Padding' && near(box('.ss-fo-seg button').slice(2).flat(), F.selection.button.layout.flat()));
+  add('Button style: Rows slider lands', near(named('.ss-slide input[type=range]', 'Space Between Rows'), F.selection.button.rowsRange));
+  for (const n of ['S', 'M', 'L']) { await hit(`[data-ss-set="forms.check.pad"][data-v="${n}"]`, 100); const [v, h] = F.selection.padding[n]; add(`Button style: padding ${n}`, bvar('--form-field-checkbox-padding-top') === `${v}px` && bvar('--form-field-checkbox-padding-left') === `${h}px`); }
+  await hit('[data-ss-set="forms.check.pad"][data-v="custom"]', 120);
+  add('Button style: custom padding gives four sliders', js(`return JSON.stringify(['Top', 'Right', 'Bottom', 'Left'].map((n) => document.querySelector('.ss-slide input[type=range][aria-label="' + n + '"]').value).join());`) === F.selection.button.customPadding.join());
+  await hit('[data-ss-set="forms.check.type"][data-v="Icon"]', 100);
+  await hit('[data-ss-back]', 100); await hit('[data-ss-fkind="radio"]', 120);
+  await hit('[data-ss-set="forms.radio.size"][data-v="L"]', 100); await hit('[data-ss-othick="1"]', 100);
+  add('Radio: its own variables, and the checkbox stays', bvar('--form-field-radio-size') === '25px' && bvar('--form-field-radio-border-thickness') === '2px' && bvar('--form-field-checkbox-border-thickness') === '1px');
+  await hit('[data-ss-back]', 100); await hit('[data-ss-fkind="survey"]', 120);
+  const V = F.selection.survey;
+  add('Survey: no Style, Layout or gap rows', js(`return JSON.stringify(!document.querySelector('.ss-fo-l') && !document.querySelector('.ss-slide'));`) === true);
+  add('Survey: Field Shape lands', near(box('.ss-form-shape')[0], V.shape));
+  add('Survey: sizes land', near(box('.ss-form-pads .ss-pad').slice(0, 3).flat(), V.sizes.flat()));
+  await hit('[data-ss-set="forms.survey.size"][data-v="L"]', 100);
+  add('Survey: its own variable', bvar('--form-field-survey-size') === '25px');
+  await hit('[data-ss-back]', 100); await hit('[data-ss-back]', 100);
+  // Fonts.
+  await hit('[data-ss-view="FormFonts"]', 150);
+  const T = F.fonts;
+  add('Fonts: the words', js(`return JSON.stringify(document.querySelector('.ss-ff-lead').textContent);`) === T.lead);
+  add('Fonts: rows in order and on the step', js(`return JSON.stringify([...document.querySelectorAll('[data-ss-ffont]')].map((e) => e.getAttribute('aria-label')).join());`) === T.rows.join() && box('[data-ss-ffont]').every((b, n) => Math.abs(b[1] - (T.firstRowTop + n * T.rowStep)) <= 1));
+  await hit('[data-ss-ffont="Title"]', 120);
+  add('Font: Style and Size land', near(box('.ss-ff-g1').map((b) => b[1]), [T.element.styleLabel, T.element.sizeLabel]) && near(box('.ss-sel-row').map((b) => b[1]), [T.element.styleRow, T.element.sizeRow]));
+  await hit('[data-ss-select="form-fsize"]', 120);
+  add('Font: the list lands', near(box('.ss-ff-list')[0], T.list.box) && near(box('.ss-ff-o').map((b) => b[1]), T.list.rowTops));
+  const tsize = () => js(`${FD} const c = cs(q('legend')); return JSON.stringify([parseFloat(c.fontSize), parseFloat(c.lineHeight)]);`);
+  for (const [n, px] of Object.entries(T.sizes)) {
+    await hit(`.ss-ff-o[data-v="${n}"]`, 100);
+    const [s2, lh] = tsize();
+    add(`Title at ${n}`, Math.abs(s2 - px) < 0.2 && Math.abs(lh - px * T.lineHeight) < 0.3, `${s2} ${lh}`);
+    await hit('[data-ss-select="form-fsize"]', 80);
+  }
+  await hit('.ss-ff-o[data-v="Custom"]', 120);
+  const rr = T.list.customRange;
+  add('Title at Custom: a Size slider at 1rem', tsize()[0] === 16 && js(`const e = document.querySelector('.ss-slide input[type=range][aria-label="Size"]'); return JSON.stringify([e.min, e.max, e.step, e.value].join());`) === [rr.min, rr.max, rr.step, rr.value].join());
+  await hit('[data-ss-back]', 100); await hit('[data-ss-ffont="Input"]', 120); await hit('[data-ss-select="form-fsize"]', 100); await hit('.ss-ff-o[data-v="Paragraph 1"]', 150);
+  add('Input at Paragraph 1: taller, pill follows', Math.abs(fld().h - T.inputAtParagraph1.height) <= 1 && Math.abs(parseFloat(fld().radius) - parseFloat(T.inputAtParagraph1.pillRadius)) <= 0.1, JSON.stringify(fld()));
+  await hit('[data-ss-back]', 100); await hit('[data-ss-ffont="Option"]', 120); await hit('[data-ss-select="form-fsize"]', 100); await hit('.ss-ff-o[data-v="Paragraph 1"]', 150);
+  add('Option at Paragraph 1', Math.abs(js(`${FD} return JSON.stringify(parseFloat(cs(q('.form-signup')).fontSize));`) - T.sizes['Paragraph 1']) < 0.2);
+  await hit('[data-ss-back]', 100); await hit('[data-ss-back]', 100);
+  await hit('[data-ss-reset="form"]', 150); await hit('#ss-confirm-reset', 200);
+  add('Reset Form Pack clears the sub panels too', fld().h !== T.inputAtParagraph1.height && js(`return JSON.stringify(!fe.model.siteStyles?.forms);`) === true);
+  // Colors.
+  await hit('[data-ss-view="FormColors"]', 150);
+  const K = F.colors;
+  add('Colors: picker lands', near(box('.ss-fc-theme')[0], K.picker));
+  add('Colors: rows land', near(named('.ss-fc-row button', 'Field Background').slice(1, 2), [K.fieldBackgroundRow]) && near(named('.ss-fc-row button', 'Background').slice(1, 2), [K.backgroundRow]) && near(named('.ss-fc-row button', 'Title').slice(1, 2), [K.titleRow]));
+  add('Colors: groups', js(`return JSON.stringify([...document.querySelectorAll('.ss-theme-h')].map((e) => e.textContent).join());`) === Object.keys(K.groups).join());
+  add('Colors: rows in order', js(`return JSON.stringify([...document.querySelectorAll('.ss-fc-row button')].map((e) => e.getAttribute('aria-label')).join());`) === K.rows.join());
+  const hsl = { white: 'rgb(255, 255, 255)', lightAccent: 'rgb(255, 207, 90)', accent: 'rgb(242, 184, 180)', darkAccent: 'rgb(181, 100, 247)', black: 'rgb(0, 0, 0)' };
+  for (const [theme, letters] of Object.entries(K.themes)) {
+    await hit('.ss-fc-theme', 100); await hit(`[data-ss-ftheme="${theme}"]`, 100);
+    const got = js(`return JSON.stringify([...document.querySelectorAll('.ss-fc-row .ss-dot')].map((e) => getComputedStyle(e).backgroundColor));`);
+    add(`Colors: ${theme}'s table`, got.join() === [...letters].map((l) => hsl[K.letters[l]]).join(), got.join());
+  }
+  await hit('.ss-fc-theme', 100); await hit('[data-ss-ftheme="Light 1"]', 100);
+  await hit('[data-ss-select="form-color-Field Border"]', 150);
+  add('Color list: dots land and read', near(box('.ss-fc-dot').map((b) => b[0]), K.dots.left) && js(`return JSON.stringify([...document.querySelectorAll('.ss-fc-dot')].map((e) => e.getAttribute('aria-label')).join());`) === K.dots.labels.join());
+  add('Color list: the popup box', near([box('.ss-fc-pop')[0][0], box('.ss-fc-pop')[0][2], box('.ss-fc-pop')[0][3]], [K.popup.left, K.popup.width, K.popup.height]));
+  add('Color list: on top', js(`const r = document.querySelector('.ss-fc-dot').getBoundingClientRect(); return JSON.stringify(document.elementFromPoint(r.left + 17, r.top + 17).className.includes('ss-fc-dot'));`) === true);
+  const color = async (row, role) => { js(`const s = document.querySelector('[data-ss-select="form-color-${row}"]'); if (s.getAttribute('aria-expanded') !== 'true') s.click(); return 'true';`); await pause(80); await hit(`.ss-fc-pop [data-ss-fcolor="${role}"]`, 100); };
+  const part = (sel, prop) => js(`${FD} return JSON.stringify(cs(q(${JSON.stringify(sel)})).${prop});`);
+  await color('Field Border', 'darkAccent');
+  add('Field Border reaches the edge', fld().edge === hsl.darkAccent, fld().edge);
+  await color('Field Background', 'accent');
+  add('Field Background: off until Field Fill', fld().bg === 'rgba(242, 184, 180, 0)', fld().bg);
+  for (const [row, sel, prop] of [['Title', 'legend', 'color'], ['Input', 'input[type=email]', 'color'], ['Option', '.form-signup label', 'color'], ['Button Background', '.form-submit', 'backgroundColor'], ['Button Text', '.form-submit', 'color'], ['Stroke Color', '', 'borderTopColor']]) {
+    await color(row, 'lightAccent');
+    const got = sel ? part(sel, prop) : js(`${FD} return JSON.stringify(cs(d.querySelector('.fe-form')).borderTopColor);`);
+    add(`${row} reaches the page`, got === hsl.lightAccent, got);
+  }
+  for (const row of ['Field Accent', 'Field Accessory', 'Caption', 'Survey Title', 'Background']) {
+    await color(row, 'lightAccent');
+    const name = `--tweak-form-block-${row.toLowerCase().replace(/ /g, '-')}-color`;
+    const got = js(`${FD} return JSON.stringify(cs(q('.form-item')).getPropertyValue(${JSON.stringify(name)}).trim());`), hue = js(`${FD} return JSON.stringify(cs(q('.form-item')).getPropertyValue('--lightAccent-hsl').trim());`);
+    add(`${row}: a variable only`, got === `hsla(${hue}, 1)`, got);
+  }
+  js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(100);
+  add('Escape closes the color list', box('.ss-fc-pop').length === 0);
+  const undo0 = fe_undoCount();
+  function fe_undoCount() { return js(`return JSON.stringify(Object.keys(fe.model.siteStyles.forms.colors['Light 1']).length);`); }
+  await hit('[data-ss-select="form-color-Title"]', 80); await hit('.ss-fc-pop [data-ss-fcolor="black"]', 100);
+  js(`fe.undo(); return 'true';`); await pause(120);
+  add('Undo takes back one color', fe_undoCount() === undo0 && part('legend', 'color') === hsl.lightAccent, part('legend', 'color'));
+  await hit('.ss-fc-theme', 100); await hit('[data-ss-ftheme="Darkest 1"]', 120);
+  add('The theme picker alone changes nothing', part('legend', 'color') === hsl.lightAccent);
+  // A pack: fades by Opacity, Bar, and its checkbox.
+  await hit('[data-ss-back]', 100);
+  await start();
+  await hit('[data-ss-view="FormPacks"]', 150);
+  for (const [id, want] of Object.entries(F.packs.rest)) {
+    await hit(`[data-ss-pick="form"][data-v="${id}"]`, 150);
+    const f = fld(), c = F.packs.checkbox[id];
+    add(`${id}: fill`, f.bg === want.bg, f.bg);
+    if (want.edge) add(`${id}: edge`, f.edge === want.edge, f.edge);
+    add(`${id}: Opacity and Bar`, bvar('--form-field-hover-focus') === F.packs.all.hover.toLowerCase() && bvar('--form-submit-button-style') === F.packs.all.submit.toLowerCase());
+    add(`${id}: checkbox`, bvar('--form-field-checkbox-style') === c.type && bvar('--form-field-checkbox-color') === c.color && bvar('--form-field-checkbox-layout') === c.layout && opt().radius === F.selection.radius[c.shape === 'square' ? 'Square' : 'Pill'] && opt().bg === F.selection.fill[c.fill === 'solid' ? 'on' : 'off'], JSON.stringify(opt()));
+  }
 }
 
 console.log(`Marks: ${pass} of ${total} checks match`);
