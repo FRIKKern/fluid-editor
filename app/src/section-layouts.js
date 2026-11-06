@@ -29,6 +29,11 @@ export function sectionMix(s) {
 
 const area = (v) => v.split('/').map(Number);
 
+// A layout that sets a theme turns the theme the section had on opening into this one, for all 11 starts
+// (parity/findings/CAP-VIEWLAYOUTS.json, priorState).
+const THEME_TURN = { '': 'dark', white: 'dark', 'white-bold': 'black-bold', light: 'black', 'light-bold': 'bright', 'bright-inverse': 'bright', bright: 'bright-inverse', dark: 'bright', 'dark-bold': 'white-bold', black: 'white', 'black-bold': 'bright' };
+export const layoutTheme = (theme) => THEME_TURN[theme || ''];
+
 // One pick: every block's areas, the rows, the heading's tag; dropped blocks go. One undo step is the caller's.
 export function applyLayout(s, mix, n, base) {
   const L = mix.list[n];
@@ -43,7 +48,15 @@ export function applyLayout(s, mix, n, base) {
   }
   s.rows = { ...s.rows, desktop: L.rows, mobile: L.phoneRows };
   // A few layouts set the section's theme, divider or height; the rest leave what it had on opening.
-  Object.assign(s, base, L.style?.theme && { theme: L.style.theme }, L.style?.height && { height: L.style.height }, L.style?.divider && { divider: true, dividerShape: L.style.divider });
+  Object.assign(s, base, L.style?.theme && { theme: layoutTheme(base.theme) }, L.style?.height && { height: L.style.height }, L.style?.divider && { divider: true, dividerShape: L.style.divider });
+}
+
+// Which layout the section now shows, for the tile's mark after Undo and Redo: the last one picked if it still fits.
+export function layoutShown(s, mix, last) {
+  const fits = (n) => s.rows?.desktop === mix.list[n].rows && Object.keys(mix.by).every((r) => mix.by[r].every((b, k) => b.layout.desktop.area.join('/') === mix.list[n].places[r + k][0]));
+  if (last != null && fits(last)) return last;
+  const n = mix.list.findIndex((_, k) => fits(k));
+  return n < 0 ? null : n;
 }
 
 // Tile drawing, in the section's own canvas: 1600 wide, 100 side margin, 24 columns, 41.09 a row.
@@ -69,7 +82,7 @@ export function layoutsPanelHtml(mix, picked, look) {
   return `<div class="lo-head">Layouts</div><ul class="lo-list">${mix.list.map((_, n) => tile(mix, n, picked === n, look)).join('')}</ul>`;
 }
 
-// Read at two section heights with the section at the top of the window: 248 at 667.6, 272 at 749.8.
-export const layoutsPanelTop = (sectionHeight) => Math.round(248 + (sectionHeight - 667.6) * (24 / 82.2));
+// Read with the section at the top of the window: 176 at 562, 248 at 667.6, 272 from 749.8 to 1160.7. Between them it is a line.
+export const layoutsPanelTop = (sectionHeight) => Math.min(272, Math.round(248 + (sectionHeight - 667.6) * (72 / 105.6)));
 
 export const sectionLook = (s) => ({ theme: s.theme, height: s.height, divider: s.divider, dividerShape: s.dividerShape });
