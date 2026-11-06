@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 105 changes
+- **Today** · 106 changes
+  - T10, T7: a block that fills its section grows; a video's rows follow its ratio; the <> on Thickness ([#284](https://github.com/FRIKKern/fluid-editor/pull/284))
   - L6: the phone button, its menu and dotted labels ([#283](https://github.com/FRIKKern/fluid-editor/pull/283))
-  - T3, U11: back to partial, new reads show a placeholder and a paste we have not built ([#282](https://github.com/FRIKKern/fluid-editor/pull/282))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
