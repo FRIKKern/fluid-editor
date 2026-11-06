@@ -1,0 +1,246 @@
+{
+  "item": "CAP-ACCPHONE10",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T12: Add Item, then an item opened with no edit, then Escape, on the phone. Made here on a probe page.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Accordion"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Add Item"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "Add Item",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Accordion Item 1"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "item view",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "then Escape",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ]
+  ],
+  "reads": {
+    "Add Item": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          832.1
+        ],
+        "rows": 18,
+        "rowSizes": "24x18",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "7_438",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/13/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_713",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "item view": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          856.5
+        ],
+        "rows": 18,
+        "rowSizes": "26x12 24x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "7_438",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/13/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_713",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "then Escape": {
+      "section": {
+        "frame": [
+          428,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          428,
+          856.5
+        ],
+        "rows": 18,
+        "rowSizes": "26x12 24x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "7_438",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/13/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_713",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

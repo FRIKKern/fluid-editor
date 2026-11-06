@@ -1,0 +1,238 @@
+{
+  "item": "CAP-ACCBELOW3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T12: Add Item with a Shape at the same start row in other columns. Made here on a probe page.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      590,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Accordion"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "start",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Add Item"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "Add Item",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Delete New Item"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "Delete it",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_665",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/6/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "1/12/7/18",
+          "phone": "6/2/12/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Add Item": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          790.9
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_665",
+          "type": "csr",
+          "desktop": "1/2/12/10",
+          "phone": "1/2/6/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "1/12/7/18",
+          "phone": "6/2/12/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Delete it": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_665",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/6/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "1/12/7/18",
+          "phone": "6/2/12/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
