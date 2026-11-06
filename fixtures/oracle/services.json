@@ -1,8 +1,8 @@
 {
-  "capturedAt": "2026-11-03",
+  "capturedAt": "2026-11-06",
   "source": "https://halibut-keyboard-jlhd.squarespace.com/services",
   "frameWidth": 1920,
-  "frameHeight": 1000,
+  "frameHeight": 923,
   "vars": {
     "--heading-1-size-value": "4",
     "--heading-2-size-value": "3.5",
@@ -29,6 +29,7 @@
       "theme": "bright",
       "css": "\n\n.fe-6ae35c86908fad60b011d426 {\n  --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);\n  --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1)) ) / 8 );\n\n  display: grid;\n  position: relative;\n  grid-area: 1/1/-1/-1;\n  grid-template-rows: repeat(15,minmax(24px, auto));\n  grid-template-columns:\n    minmax(var(--grid-gutter), 1fr)\n    repeat(8, minmax(0, var(--cell-max-width)))\n    minmax(var(--grid-gutter), 1fr);\n  row-gap: 11.0px;\n  column-gap: 11.0px;\n  overflow-x: hidden;\n  overflow-x: clip;\n}\n\n@media (min-width: 768px) {\n  .background-width--inset .fe-6ae35c86908fad60b011d426 {\n    --inset-padding: calc(var(--sqs-site-gutter) * 2);\n  }\n\n  .fe-6ae35c86908fad60b011d426 {\n    --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);\n    --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1)) ) / 24 );\n    --inset-padding: 0vw;\n\n    --row-height-scaling-factor: 0.0215;\n    --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding) ));\n\n    grid-template-rows: repeat(27,minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));\n    grid-template-columns:\n      minmax(var(--grid-gutter), 1fr)\n      repeat(24, minmax(0, var(--cell-max-width)))\n      minmax(var(--grid-gutter), 1fr);\n  }\n}\n\n\n  .fe-block-67fbc912e6fbce551690 {\n    grid-area: 1/2/4/5;\n    z-index: 1;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-67fbc912e6fbce551690 .sqs-block {\n    justify-content: center;\n  }\n\n  .fe-block-67fbc912e6fbce551690 .sqs-block-alignment-wrapper {\n    align-items: center;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-67fbc912e6fbce551690 {\n      grid-area: 2/2/5/5;\n      z-index: 1;\n\n      \n\n      \n    }\n\n    .fe-block-67fbc912e6fbce551690 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-67fbc912e6fbce551690 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n  .fe-block-19be5e6d4ca7a1a3fa2f {\n    grid-area: 4/2/5/10;\n    z-index: 2;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-19be5e6d4ca7a1a3fa2f .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-19be5e6d4ca7a1a3fa2f .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-19be5e6d4ca7a1a3fa2f {\n      grid-area: 2/9/9/26;\n      z-index: 2;\n\n      \n\n      \n    }\n\n    .fe-block-19be5e6d4ca7a1a3fa2f .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-19be5e6d4ca7a1a3fa2f .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-adf18494c7e0ac0989a3 {\n    grid-area: 6/2/12/10;\n    z-index: 3;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-adf18494c7e0ac0989a3 .sqs-block {\n    justify-content: center;\n  }\n\n  .fe-block-adf18494c7e0ac0989a3 .sqs-block-alignment-wrapper {\n    align-items: center;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-adf18494c7e0ac0989a3 {\n      grid-area: 10/9/23/26;\n      z-index: 3;\n\n      \n\n      \n    }\n\n    .fe-block-adf18494c7e0ac0989a3 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-adf18494c7e0ac0989a3 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n  .fe-block-1ea2926427fad0cfab91 {\n    grid-area: 13/2/14/10;\n    z-index: 4;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-1ea2926427fad0cfab91 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-1ea2926427fad0cfab91 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-1ea2926427fad0cfab91 {\n      grid-area: 24/9/25/26;\n      z-index: 4;\n\n      \n\n      \n    }\n\n    .fe-block-1ea2926427fad0cfab91 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-1ea2926427fad0cfab91 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-11844e17759c3b13abec {\n    grid-area: 15/2/16/10;\n    z-index: 5;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-11844e17759c3b13abec .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-11844e17759c3b13abec .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-11844e17759c3b13abec {\n      grid-area: 27/9/28/26;\n      z-index: 5;\n\n      \n\n      \n    }\n\n    .fe-block-11844e17759c3b13abec .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-11844e17759c3b13abec .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n",
       "customHeight": 0,
+      "divider": false,
       "settings": {
         "background-width": "full-bleed",
         "section-height": "custom",
@@ -37,22 +38,22 @@
         "vertical-alignment": "middle"
       },
       "section": {
-        "paddingTop": "157.8125px",
+        "paddingTop": "157.828px",
         "paddingBottom": "0px",
         "minHeight": "0px",
         "background": "rgb(242, 184, 180)",
-        "inlineStyle": "padding-top: 157.8125px;"
+        "inlineStyle": "padding-top: 157.828px;"
       },
       "grid": {
         "left": 0,
-        "width": 1903
+        "width": 1920
       },
       "text": {
         "h1": null,
         "h2": {
           "fontFamily": "Poppins",
           "fontSize": "58px",
-          "lineHeight": "67.860001px",
+          "lineHeight": "67.86px",
           "letterSpacing": "0.16px",
           "fontWeight": "400",
           "marginTop": "0px",
@@ -76,8 +77,28 @@
         {
           "id": "67fbc912e6fbce551690",
           "kind": "image",
-          "alt": "",
-          "radius": "0px"
+          "image": {
+            "alt": "",
+            "fit": true,
+            "mask": null,
+            "stretched": false,
+            "focal": "0.5,0.5",
+            "dimensions": "481x274",
+            "size": [
+              165.34375,
+              93.984375
+            ],
+            "radius": "0px",
+            "overlay": {
+              "opacity": "0",
+              "color": "rgba(0, 0, 0, 0.5)",
+              "blend": "normal"
+            },
+            "lightbox": null,
+            "href": null,
+            "newTab": false,
+            "phone": ""
+          }
         },
         {
           "id": "19be5e6d4ca7a1a3fa2f",
@@ -87,8 +108,28 @@
         {
           "id": "adf18494c7e0ac0989a3",
           "kind": "image",
-          "alt": "",
-          "radius": "60px"
+          "image": {
+            "alt": "",
+            "fit": false,
+            "mask": null,
+            "stretched": true,
+            "focal": "0.5,0.5",
+            "dimensions": "2500x1406",
+            "size": [
+              988.28125,
+              523.21875
+            ],
+            "radius": "60px",
+            "overlay": {
+              "opacity": "0",
+              "color": "rgba(0, 0, 0, 0.5)",
+              "blend": "normal"
+            },
+            "lightbox": null,
+            "href": null,
+            "newTab": false,
+            "phone": ""
+          }
         },
         {
           "id": "1ea2926427fad0cfab91",
@@ -108,6 +149,7 @@
       "theme": "dark-bold",
       "css": "\n\n.fe-6ae35c86908fad60b011d42a {\n  --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);\n  --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1)) ) / 8 );\n\n  display: grid;\n  position: relative;\n  grid-area: 1/1/-1/-1;\n  grid-template-rows: repeat(7,minmax(24px, auto));\n  grid-template-columns:\n    minmax(var(--grid-gutter), 1fr)\n    repeat(8, minmax(0, var(--cell-max-width)))\n    minmax(var(--grid-gutter), 1fr);\n  row-gap: 11.0px;\n  column-gap: 11.0px;\n  overflow-x: hidden;\n  overflow-x: clip;\n}\n\n@media (min-width: 768px) {\n  .background-width--inset .fe-6ae35c86908fad60b011d42a {\n    --inset-padding: calc(var(--sqs-site-gutter) * 2);\n  }\n\n  .fe-6ae35c86908fad60b011d42a {\n    --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);\n    --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1)) ) / 24 );\n    --inset-padding: 0vw;\n\n    --row-height-scaling-factor: 0.0215;\n    --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding) ));\n\n    grid-template-rows: repeat(8,minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));\n    grid-template-columns:\n      minmax(var(--grid-gutter), 1fr)\n      repeat(24, minmax(0, var(--cell-max-width)))\n      minmax(var(--grid-gutter), 1fr);\n  }\n}\n\n\n  .fe-block-a15e8aa28e4b3269e9bb {\n    grid-area: 2/2/3/10;\n    z-index: 1;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-a15e8aa28e4b3269e9bb .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-a15e8aa28e4b3269e9bb .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-a15e8aa28e4b3269e9bb {\n      grid-area: 2/9/3/25;\n      z-index: 1;\n\n      \n\n      \n    }\n\n    .fe-block-a15e8aa28e4b3269e9bb .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-a15e8aa28e4b3269e9bb .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-01b1b58be307459a926d {\n    grid-area: 4/2/5/10;\n    z-index: 2;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-01b1b58be307459a926d .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-01b1b58be307459a926d .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-01b1b58be307459a926d {\n      grid-area: 4/9/5/25;\n      z-index: 2;\n\n      \n\n      \n    }\n\n    .fe-block-01b1b58be307459a926d .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-01b1b58be307459a926d .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-554464c8eb444d8d240d {\n    grid-area: 6/2/7/10;\n    z-index: 3;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-554464c8eb444d8d240d .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-554464c8eb444d8d240d .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-554464c8eb444d8d240d {\n      grid-area: 6/9/7/25;\n      z-index: 3;\n\n      \n\n      \n    }\n\n    .fe-block-554464c8eb444d8d240d .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-554464c8eb444d8d240d .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n",
       "customHeight": 0,
+      "divider": false,
       "settings": {
         "background-width": "full-bleed",
         "section-height": "custom",
@@ -124,7 +166,7 @@
       },
       "grid": {
         "left": 0,
-        "width": 1903
+        "width": 1920
       },
       "text": {
         "h1": null,
@@ -165,6 +207,7 @@
       "theme": "light-bold",
       "css": "\n\n.fe-6ae35c86908fad60b011d42e {\n  --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);\n  --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1)) ) / 8 );\n\n  display: grid;\n  position: relative;\n  grid-area: 1/1/-1/-1;\n  grid-template-rows: repeat(5,minmax(24px, auto));\n  grid-template-columns:\n    minmax(var(--grid-gutter), 1fr)\n    repeat(8, minmax(0, var(--cell-max-width)))\n    minmax(var(--grid-gutter), 1fr);\n  row-gap: 11.0px;\n  column-gap: 11.0px;\n  overflow-x: hidden;\n  overflow-x: clip;\n}\n\n@media (min-width: 768px) {\n  .background-width--inset .fe-6ae35c86908fad60b011d42e {\n    --inset-padding: calc(var(--sqs-site-gutter) * 2);\n  }\n\n  .fe-6ae35c86908fad60b011d42e {\n    --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);\n    --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1)) ) / 24 );\n    --inset-padding: 0vw;\n\n    --row-height-scaling-factor: 0.0215;\n    --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding) ));\n\n    grid-template-rows: repeat(9,minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));\n    grid-template-columns:\n      minmax(var(--grid-gutter), 1fr)\n      repeat(24, minmax(0, var(--cell-max-width)))\n      minmax(var(--grid-gutter), 1fr);\n  }\n}\n\n\n  .fe-block-c2ebbeeddb7e17b953d7 {\n    grid-area: 2/1/3/11;\n    z-index: 1;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-c2ebbeeddb7e17b953d7 .sqs-block {\n    justify-content: center;\n  }\n\n  .fe-block-c2ebbeeddb7e17b953d7 .sqs-block-alignment-wrapper {\n    align-items: center;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-c2ebbeeddb7e17b953d7 {\n      grid-area: 3/1/4/27;\n      z-index: 1;\n\n      \n\n      \n    }\n\n    .fe-block-c2ebbeeddb7e17b953d7 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-c2ebbeeddb7e17b953d7 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n  .fe-block-3a74c221f209f72720d5 {\n    grid-area: 3/2/5/10;\n    z-index: 2;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-3a74c221f209f72720d5 .sqs-block {\n    justify-content: center;\n  }\n\n  .fe-block-3a74c221f209f72720d5 .sqs-block-alignment-wrapper {\n    align-items: center;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-3a74c221f209f72720d5 {\n      grid-area: 5/11/7/17;\n      z-index: 2;\n\n      \n\n      \n    }\n\n    .fe-block-3a74c221f209f72720d5 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-3a74c221f209f72720d5 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n",
       "customHeight": 0,
+      "divider": false,
       "settings": {
         "background-width": "full-bleed",
         "section-height": "custom",
@@ -181,13 +224,13 @@
       },
       "grid": {
         "left": 0,
-        "width": 1903
+        "width": 1920
       },
       "text": {
         "h1": {
           "fontFamily": "Poppins",
-          "fontSize": "83.199997px",
-          "lineHeight": "116.480003px",
+          "fontSize": "83.2px",
+          "lineHeight": "116.48px",
           "letterSpacing": "0.16px",
           "fontWeight": "400",
           "marginTop": "0px",
@@ -221,7 +264,7 @@
             "paddingTop": "0px",
             "paddingLeft": "56px",
             "height": "71.1875px",
-            "width": "341.6875px"
+            "width": "341.688px"
           },
           "align": "start"
         }
@@ -235,6 +278,7 @@
       "theme": "black",
       "css": "\n\n.fe-6ae35c85908fad60b011d36e {\n  --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);\n  --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1)) ) / 8 );\n\n  display: grid;\n  position: relative;\n  grid-area: 1/1/-1/-1;\n  grid-template-rows: repeat(13,minmax(24px, auto));\n  grid-template-columns:\n    minmax(var(--grid-gutter), 1fr)\n    repeat(8, minmax(0, var(--cell-max-width)))\n    minmax(var(--grid-gutter), 1fr);\n  row-gap: 11.0px;\n  column-gap: 11.0px;\n  overflow-x: hidden;\n  overflow-x: clip;\n}\n\n@media (min-width: 768px) {\n  .background-width--inset .fe-6ae35c85908fad60b011d36e {\n    --inset-padding: calc(var(--sqs-site-gutter) * 2);\n  }\n\n  .fe-6ae35c85908fad60b011d36e {\n    --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);\n    --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1)) ) / 24 );\n    --inset-padding: 0vw;\n\n    --row-height-scaling-factor: 0.0215;\n    --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding) ));\n\n    grid-template-rows: repeat(13,minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));\n    grid-template-columns:\n      minmax(var(--grid-gutter), 1fr)\n      repeat(24, minmax(0, var(--cell-max-width)))\n      minmax(var(--grid-gutter), 1fr);\n  }\n}\n\n\n  .fe-block-636b96b2b096a118b7d6 {\n    grid-area: 2/2/3/8;\n    z-index: 2;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-636b96b2b096a118b7d6 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-636b96b2b096a118b7d6 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-636b96b2b096a118b7d6 {\n      grid-area: 3/2/7/11;\n      z-index: 2;\n\n      \n\n      \n    }\n\n    .fe-block-636b96b2b096a118b7d6 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-636b96b2b096a118b7d6 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-724a557167add4725645 {\n    grid-area: 3/2/4/10;\n    z-index: 3;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-724a557167add4725645 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-724a557167add4725645 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-724a557167add4725645 {\n      grid-area: 7/2/8/11;\n      z-index: 3;\n\n      \n\n      \n    }\n\n    .fe-block-724a557167add4725645 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-724a557167add4725645 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-46d09ab909e7089f1593 {\n    grid-area: 5/2/6/10;\n    z-index: 6;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-46d09ab909e7089f1593 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-46d09ab909e7089f1593 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-46d09ab909e7089f1593 {\n      grid-area: 3/16/4/20;\n      z-index: 6;\n\n      \n\n      \n    }\n\n    .fe-block-46d09ab909e7089f1593 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-46d09ab909e7089f1593 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-40ffcb52ae3969b1440b {\n    grid-area: 6/2/7/10;\n    z-index: 7;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-40ffcb52ae3969b1440b .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-40ffcb52ae3969b1440b .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-40ffcb52ae3969b1440b {\n      grid-area: 5/16/6/20;\n      z-index: 7;\n\n      \n\n      \n    }\n\n    .fe-block-40ffcb52ae3969b1440b .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-40ffcb52ae3969b1440b .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-1bdd29a0afeafea2acac {\n    grid-area: 7/2/8/10;\n    z-index: 8;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-1bdd29a0afeafea2acac .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-1bdd29a0afeafea2acac .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-1bdd29a0afeafea2acac {\n      grid-area: 4/16/5/20;\n      z-index: 8;\n\n      \n\n      \n    }\n\n    .fe-block-1bdd29a0afeafea2acac .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-1bdd29a0afeafea2acac .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-924bd17097b231469d10 {\n    grid-area: 11/2/12/10;\n    z-index: 9;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-924bd17097b231469d10 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-924bd17097b231469d10 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-924bd17097b231469d10 {\n      grid-area: 13/2/14/8;\n      z-index: 9;\n\n      \n\n      \n    }\n\n    .fe-block-924bd17097b231469d10 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-924bd17097b231469d10 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-a18a88473610da2ad87e {\n    grid-area: 12/2/13/10;\n    z-index: 10;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-a18a88473610da2ad87e .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-a18a88473610da2ad87e .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-a18a88473610da2ad87e {\n      grid-area: 3/21/7/26;\n      z-index: 10;\n\n      \n\n      \n    }\n\n    .fe-block-a18a88473610da2ad87e .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-a18a88473610da2ad87e .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-27bbe12ff290dc052639 {\n    grid-area: 13/2/14/10;\n    z-index: 11;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-27bbe12ff290dc052639 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-27bbe12ff290dc052639 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-27bbe12ff290dc052639 {\n      grid-area: 10/21/11/25;\n      z-index: 11;\n\n      \n\n      \n    }\n\n    .fe-block-27bbe12ff290dc052639 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-27bbe12ff290dc052639 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n",
       "customHeight": 10,
+      "divider": false,
       "settings": {
         "background-width": "full-bleed",
         "section-height": "custom",
@@ -245,20 +289,20 @@
       "section": {
         "paddingTop": "0px",
         "paddingBottom": "0px",
-        "minHeight": "100px",
+        "minHeight": "92.3px",
         "background": "rgb(0, 0, 0)",
         "inlineStyle": "min-height: 10vh;"
       },
       "grid": {
         "left": 0,
-        "width": 1903
+        "width": 1920
       },
       "text": {
         "h1": null,
         "h2": {
           "fontFamily": "Poppins",
           "fontSize": "58px",
-          "lineHeight": "67.860001px",
+          "lineHeight": "67.86px",
           "letterSpacing": "0.16px",
           "fontWeight": "400",
           "marginTop": "0px",
