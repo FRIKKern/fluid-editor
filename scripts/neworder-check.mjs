@@ -2,7 +2,7 @@
 // CAP-ORDER) with the real mouse and keys, and compares every read: which block (by z), its desktop and
 // phone area, in order, and that the phone draws those rows. Usage: npm run neworder-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, mouse, drag, browser, cdp } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, mouse, drag, browser } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -13,12 +13,13 @@ await pause(1200);
 // Named misses, with no rule read yet.
 const KNOWN = new Set(JSON.parse(readFileSync(new URL('../parity/neworder-known.json', import.meta.url))));
 const ONLY = process.argv[2]?.split(',');
-const FILES = ONLY ?? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST', 'CAP-TURNTEST2', 'CAP-CYCLE', 'CAP-CYCLE2', 'CAP-CYCLE3', 'CAP-TURNTEST3', 'CAP-CYCLE4', 'CAP-NEWORDER7', 'CAP-TURNTEST4'];
+const FILES = ONLY ?? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST', 'CAP-TURNTEST2', 'CAP-CYCLE', 'CAP-CYCLE2', 'CAP-CYCLE3', 'CAP-TURNTEST3', 'CAP-CYCLE4', 'CAP-NEWORDER7', 'CAP-TURNTEST4', 'CAP-A2EDITS', 'CAP-A2EDITS2'];
 let quiet = false; // nothing selected since the last Escape, so another one is a wasted call
 const press = (k) => { if (k === 'Escape' && quiet) return; browser(S, 'press', k); quiet = k === 'Escape'; };
 // The oracle's blocks sit in phone order in the page, and a step names one by its place there.
 const blockAt = (k) => evalJs(S, `JSON.stringify([...fe.model.sections[0].blocks].sort((a, b) => a.layout.mobile.area[0] - b.layout.mobile.area[0])[${k}].id)`);
 const point = (id, part) => evalJs(S, `(() => { const part = ${JSON.stringify(part)}, f = document.getElementById('site-frame'), W = f.contentWindow, b = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]'), r = f.getBoundingClientRect(); let q = b.getBoundingClientRect(); if (q.top < 150 || q.bottom > W.innerHeight - 150) { W.scrollTo({ top: W.scrollY + q.top - 200, behavior: 'instant' }); q = b.getBoundingClientRect(); } return JSON.stringify([r.left + q.left + q.width * (part === 'middle' ? 0.5 : part.includes('w') ? 0 : part.includes('e') ? 1 : 0.5), r.top + q.top + q.height * (part === 'middle' ? 0.5 : part.includes('n') ? 0 : part.includes('s') ? 1 : 0.5)]); })()`);
+const pasteIn = (html) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, t = d.activeElement; const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(html)}); dt.setData('text/plain', ${JSON.stringify(html)}.replace(/<[^>]+>/g, '')); t.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return 1; })()`);
 const click = async (id, mods = []) => { const p = point(id, 'middle'); mouse(S, 'move', p[0], p[1], { mods }); mouse(S, 'down', p[0], p[1], { buttons: 1, mods }); await pause(30); mouse(S, 'up', p[0], p[1], { mods }); quiet = false; await pause(80); };
 
 // The capture's drag, with the block as far down the frame as on the probe page: a long drag runs
@@ -62,8 +63,11 @@ for (const file of FILES) {
       drag(S, at, [at[0] + step[2], at[1] + step[3]], DRAG); await pause(150);
     } else if (op === 'editText') {
       press('Escape'); await pause(40); const id = pick(step[2]); await click(id); await pause(120); await click(id); await pause(200); quiet = false;
+    } else if (op === 'pasteMid') {
+      pasteIn(step[3]); await pause(200); quiet = false;
     } else if (op === 'keysFast') {
-      cdp(S, { op: 'presses', keys: [...step[1]].map((c) => (c === ' ' ? 'Space' : c)) }); await pause(300); quiet = false;
+      // Real keys never reached a new text block on the oracle (CAP-A2TYPED), so these reads have no typing.
+      quiet = false;
     } else if (op === 'stubClipboard') {
       // the oracle needs one; ours keeps its own
     } else if (op === 'read') {
