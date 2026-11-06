@@ -3516,7 +3516,8 @@ function pasteBlocks(sid) {
     const top = Math.max(1, ...s.blocks.map((b) => b.layout.mobile.area[2]));
     copy.layout.mobile.area = [top, m[1], top + m[2] - m[0], m[3]];
     for (const bpName of ['desktop', 'mobile']) {
-      copy.layout[bpName].z = Math.max(0, ...s.blocks.map((b) => b.layout[bpName].z)) + 1;
+      // A section built here, on desktop: its source's z + 1, as a copy does (CAP-A2ROUND2 c, 3 reads).
+      copy.layout[bpName].z = s.phoneFollows != null && bp !== 'mobile' ? src.layout[bpName].z + 1 : Math.max(0, ...s.blocks.map((b) => b.layout[bpName].z)) + 1;
       s.rows[bpName] = Math.max(s.rows[bpName], copy.layout[bpName].area[2] - 1);
     }
     s.blocks.push(copy);

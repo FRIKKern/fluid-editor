@@ -2,7 +2,7 @@
 // CAP-ORDER) with the real mouse and keys, and compares every read: which block (by z), its desktop and
 // phone area, in order, and that the phone draws those rows. Usage: npm run neworder-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, mouse, drag, browser } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, mouse, drag, browser, cdp } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -20,6 +20,7 @@ const press = (k) => { if (k === 'Escape' && quiet) return; browser(S, 'press', 
 const blockAt = (k) => evalJs(S, `JSON.stringify([...fe.model.sections[0].blocks].sort((a, b) => a.layout.mobile.area[0] - b.layout.mobile.area[0])[${k}].id)`);
 const point = (id, part) => evalJs(S, `(() => { const part = ${JSON.stringify(part)}, f = document.getElementById('site-frame'), W = f.contentWindow, b = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]'), r = f.getBoundingClientRect(); let q = b.getBoundingClientRect(); if (q.top < 150 || q.bottom > W.innerHeight - 150) { W.scrollTo({ top: W.scrollY + q.top - 200, behavior: 'instant' }); q = b.getBoundingClientRect(); } return JSON.stringify([r.left + q.left + q.width * (part === 'middle' ? 0.5 : part.includes('w') ? 0 : part.includes('e') ? 1 : 0.5), r.top + q.top + q.height * (part === 'middle' ? 0.5 : part.includes('n') ? 0 : part.includes('s') ? 1 : 0.5)]); })()`);
 const pasteIn = (html) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, t = d.activeElement; const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(html)}); dt.setData('text/plain', ${JSON.stringify(html)}.replace(/<[^>]+>/g, '')); t.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return 1; })()`);
+const writeOn = () => { const p = evalJs(S, `(() => { const q = document.querySelector('[data-tb="write"]').getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); mouse(S, 'move', p[0], p[1]); mouse(S, 'down', p[0], p[1], { buttons: 1 }); mouse(S, 'up', p[0], p[1]); };
 const click = async (id, mods = []) => { const p = point(id, 'middle'); mouse(S, 'move', p[0], p[1], { mods }); mouse(S, 'down', p[0], p[1], { buttons: 1, mods }); await pause(30); mouse(S, 'up', p[0], p[1], { mods }); quiet = false; await pause(80); };
 
 // The capture's drag, with the block as far down the frame as on the probe page: a long drag runs
@@ -29,7 +30,7 @@ evalJs(S, `(() => { document.getElementById('site-frame').contentDocument.body.s
 const cases = [];
 for (const file of FILES) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url)));
-  let last = null, view = 'desktop', held = false; // held: a group or a handle waits for the next drag, so no Escape first
+  let last = null, view = 'desktop', held = false, writing = false; // held: a group or a handle waits for the next drag, so no Escape first
   const pick = (k) => (k === 'new' ? last : blockAt(k));
   for (const step of F.steps) {
     const [op] = step;
@@ -65,9 +66,12 @@ for (const file of FILES) {
       press('Escape'); await pause(40); const id = pick(step[2]); await click(id); await pause(120); await click(id); await pause(200); quiet = false;
     } else if (op === 'pasteMid') {
       pasteIn(step[3]); await pause(200); quiet = false;
+    } else if (op === 'click' && step[1] === 'Write') {
+      writeOn(); await pause(250); writing = true; quiet = false;
     } else if (op === 'keysFast') {
-      // Real keys never reached a new text block on the oracle (CAP-A2TYPED), so these reads have no typing.
-      quiet = false;
+      // Keys after a double click never landed on the oracle (CAP-A2TYPED): those reads have no typing. After Write they do (CAP-A2TYPED3).
+      if (writing) { cdp(S, { op: 'presses', keys: [...step[1]].map((c) => (c === ' ' ? 'Space' : c)) }); await pause(300); }
+      writing = false; quiet = false;
     } else if (op === 'stubClipboard') {
       // the oracle needs one; ours keeps its own
     } else if (op === 'read') {
