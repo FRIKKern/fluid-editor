@@ -539,12 +539,11 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   return `<div class="bp-drag" role="button" aria-label="Click and drag to reposition block editor form" data-drag-panel></div><div class="sp-tabs" role="tablist">${tabs.map(tabBtn).join('')}</div><div class="sp-body">${body}</div>`;
 }
 
-// 18px right of the block and 3px below its top, in the stage's coordinates; left of the block
-// when there is no room on the right, and always inside the stage.
+// 18px right of the block and 3px below its top, in the stage's coordinates. With no room on the
+// right it stays 20px from the stage's edge, over the block (parity/findings/CAP-T6PLACE.json).
 export function blockPanelPosition(block, frame, stage, width = 320) {
   const ox = frame.left - stage.left, oy = frame.top - stage.top;
-  let left = ox + block.right + 18;
-  if (left + width > stage.width) left = Math.max(0, ox + block.left - 18 - width);
+  const left = Math.max(0, Math.min(ox + block.right + 18, stage.width - width - 20));
   const top = Math.max(oy + 8, Math.min(oy + block.top + 3, stage.height - 500 - 8));
   return { left, top };
 }

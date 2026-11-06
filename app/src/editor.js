@@ -2297,10 +2297,12 @@ function renderShapePop() {
     const c = colorParts(shapeColorOf(b, kind));
     const custom = shapeUi.custom && (shapeUi.custom.hex === toHex(c.rgb) ? shapeUi.custom : { ...shapeUi.custom, ...hexToHsv(toHex(c.rgb)), hex: toHex(c.rgb) });
     if (custom) shapeUi.custom = custom;
-    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? !!b.color : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? !!designFor(b, bp).strokeColor : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') });
+    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? !!b.color : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? !!designFor(b, bp).strokeColor : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') || !!designFor(b, bp).strokeColor });
     const anchor = blockPanel.querySelector(`[data-shape-act="${kind}"]`)?.getBoundingClientRect();
-    const h = shapePop.hidden ? 200 : shapePop.offsetHeight;
-    shapePop.style.cssText = `left:${P.right + 11}px;top:${Math.max(60, Math.min((anchor?.top ?? P.top) - 60, innerHeight - h - 8))}px`;
+    shapePop.hidden = false;
+    const h = shapePop.offsetHeight;
+    // 11 right of the panel, 311 left of it with no room (CAP-T6PLACE.json); its middle 16.5 above the row's (CAP-T6RANGE.json).
+    shapePop.style.cssText = `left:${P.right + 311 > innerWidth ? P.left - 311 : P.right + 11}px;top:${Math.max(60, Math.min((anchor?.top ?? P.top) + 1.5 - h / 2, innerHeight - h - 8))}px`;
   }
   shapePop.hidden = false;
 }

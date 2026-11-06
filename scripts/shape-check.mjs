@@ -139,6 +139,52 @@ q(`const next = JSON.parse(JSON.stringify(fe.model)); const b = next.sections[1]
 const wide = q(`const b = block().getBoundingClientRect(), r = block().querySelector('.sqs-shape').getBoundingClientRect(); return JSON.stringify({ w: b.width, h: b.height, x: r.left - b.left, y: r.top - b.top, sw: r.width, sh: r.height });`);
 add('A wide block: square, centred, top flush', Math.abs(wide.sw - wide.h) < 1 && Math.abs(wide.x - (wide.w - wide.sw) / 2) < 1 && Math.abs(wide.y) < 0.6, JSON.stringify(wide));
 
+// Where the panel and its popups sit, and how tall the popups are (CAP-T6PLACE.json, CAP-T6RANGE.json, CAP-T6RESET.json).
+const read26 = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads;
+const PL = read26('CAP-T6PLACE'), RG = read26('CAP-T6RANGE'), RS = read26('CAP-T6RESET');
+const lastBox = (r, name) => r.boxes[name].at(-1);
+const panelOf = (r) => r.boxes.Design[2];
+const moveTo = (area) => q(`const next = JSON.parse(JSON.stringify(fe.model)); const b = next.sections[1].blocks.find((x) => x.id === '${id}'); delete b.shape; b.stretch = true; delete b.strokeColor; if (b.design) delete b.design.strokeColor; delete b.color; b.layout.desktop.area = ${JSON.stringify(area)}; fe.load(next); await sleep(300); return 'true';`);
+const popInfo = () => q(`const p = pop.getBoundingClientRect(), pn = panel.getBoundingClientRect(), plus = pop.querySelector('[aria-label="Custom color"]')?.getBoundingClientRect(), rs = pop.querySelector('[data-color-reset]')?.getBoundingClientRect(), sw = pop.querySelector('.sh-swatches').getBoundingClientRect(); return JSON.stringify({ hidden: pop.hidden, box: [p.left, p.top, p.width, p.height], panel: [pn.left, pn.top, pn.width], plus: plus && [plus.left - p.left, plus.top - p.top, plus.width, plus.height], row: [sw.left - p.left, sw.top - p.top, sw.width, sw.height], reset: rs && [rs.left - p.left, rs.top - p.top, rs.width, rs.height], bar: !!pop.querySelector('[aria-label="Opacity slider"]') });`);
+for (const [name, area, panelRead, popRead] of [['left', [1, 2, 7, 8], 'left popup', 'left popup'], ['middle', [1, 10, 7, 16], 'middle popup', 'middle popup'], ['right', [1, 18, 7, 24], 'right popup', 'right popup']]) {
+  moveTo(area); openDesign(); act('color');
+  const i = popInfo(), ob = lastBox(PL[popRead], 'Custom color'), op = panelOf(PL[panelRead]), blockBox = PL[popRead].block.box;
+  add(`Panel at ${name}: x as read`, near([i.panel[0]], [op[0]], 1.5), `${i.panel[0]} ${op[0]}`);
+  add(`Color popup at ${name}: x and size as read`, near([i.box[0], i.box[2], i.box[3]], [ob[0], ob[2], ob[3]], 1.5), `${i.box} ${ob}`);
+  if (name === 'right') add('Panel at right sits over the block', i.panel[0] < blockBox[0] + blockBox[2]);
+  act('color');
+}
+moveTo([1, 2, 7, 8]); openDesign();
+dset('stroke', 'solid');
+act('strokeColor');
+let si = popInfo();
+const SO = RG['stroke color open'].boxes, SP = RG['stroke color picked'].boxes;
+const rowMid = () => q(`const r = panel.querySelector('[data-shape-act="strokeColor"]').getBoundingClientRect(); return JSON.stringify(r.top + r.height / 2);`);
+const rowRead = RG['stroke color picked'].controls.find((c) => c.label === 'Stroke Color').box, midRead = rowRead[1] + rowRead[3] / 2;
+const popMid = (b) => b[1] + b[3] / 2;
+add('Stroke Color popup: 300 by 80', near(si.box.slice(2), SO['Custom color'].at(-1).slice(2), 0.6), si.box);
+add('Stroke Color popup: + where read', near(si.plus, [SO['Custom color'][0][0] - SO['Custom color'].at(-1)[0], SO['Custom color'][0][1] - SO['Custom color'].at(-1)[1], 34, 34], 1), si.plus);
+add('Stroke Color popup: no bar, no Reset', !si.bar && !si.reset, JSON.stringify(si));
+add('Stroke Color popup: its middle from the row as read', near([popMid(si.box) - rowMid()], [popMid(SO['Custom color'].at(-1)) - midRead], 1), `${popMid(si.box) - rowMid()}`);
+q(`pop.querySelector('[aria-label="Color #B564F7"]').click(); await sleep(250); return 'true';`);
+si = popInfo();
+const pk = SP['Custom color'].at(-1), rsRead = RG['stroke color picked'].controls.find((c) => c.label === 'Reset to theme').box;
+add('After a swatch: 300 by 146', near(si.box.slice(2), pk.slice(2), 0.6), si.box);
+add('After a swatch: Opacity and Reset', si.bar === RS['start stroke picked'].has['Opacity slider'] && !!si.reset === RS['start stroke picked'].has['Reset to theme'], JSON.stringify(si));
+add('After a swatch: Reset where read', near(si.reset, [rsRead[0] - pk[0], rsRead[1] - pk[1], rsRead[2], rsRead[3]], 1), si.reset);
+add('After a swatch: its middle from the row as read', near([popMid(si.box) - rowMid()], [popMid(pk) - midRead], 1), `${popMid(si.box) - rowMid()}`);
+q(`pop.querySelector('[data-color-reset]').click(); await sleep(250); return 'true';`);
+si = popInfo();
+add('Stroke Reset takes the bar away', si.bar === RS['start stroke reset'].has['Opacity slider'] && !!si.reset === RS['start stroke reset'].has['Reset to theme'] && near(si.box.slice(2), [300, 80], 0.6), JSON.stringify(si));
+act('strokeColor'); act('color');
+q(`pop.querySelector('[aria-label="Color #FFCF5A"]').click(); await sleep(250); return 'true';`);
+si = popInfo();
+add('Color after a swatch: as Stroke, 146', si.bar === RS['start color picked'].has['Opacity slider'] && !!si.reset === RS['start color picked'].has['Reset to theme'] && near(si.box.slice(2), [300, 146], 0.6), JSON.stringify(si));
+q(`pop.querySelector('[data-color-reset]').click(); await sleep(250); return 'true';`);
+si = popInfo();
+add('Color Reset keeps the bar', si.bar === RS['start color reset'].has['Opacity slider'] && !!si.reset === RS['start color reset'].has['Reset to theme'] && near(si.box.slice(2), [300, 107], 0.6), JSON.stringify(si));
+act('color');
+
 writeFileSync(new URL('../parity/shape-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nShape: ${pass}/${total}`);
 if (process.env.SHOT) screenshot(S, process.env.SHOT);
