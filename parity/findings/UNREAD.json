@@ -311,7 +311,7 @@
       "lane": "recorder",
       "state": "read",
       "finding": "CAP-T14ZOLA.json, CAP-T14BANDS.json",
-      "result": "Rows 3 and 4, right sizes. The helper pressed while the menu scrolled."
+      "result": "Row 1 with only the menu moved; rows 3 and 4 here were the tool's scroll (CAP-T14MENU.json). Right sizes. The helper pressed while the menu scrolled."
     },
     {
       "item": "T14",
@@ -322,7 +322,7 @@
       "lane": "recorder",
       "state": "read",
       "finding": "CAP-T14OPENTABLE.json",
-      "result": "Row 3, same size for 20 seconds. The move was the helper hitting a neighbour."
+      "result": "Row 1 with only the menu moved; row 3 here was the tool's scroll (CAP-T14MENU.json). Same size for 20 seconds. The move was the helper hitting a neighbour."
     },
     {
       "item": "G4",
@@ -944,7 +944,7 @@
       "lane": "recorder",
       "state": "read",
       "finding": "CAP-T14HEIGHTS.json, CAP-T14HEIGHTS2.json, CAP-T14SCROLL.json",
-      "result": "It follows the window height: rows 2 to 4 under 1200 high, row 1 from there. Ours is on row 1. The cause stays open, a new entry."
+      "result": "None of them does: the rows followed the window height because of the tool's scroll, which low tiles need under 1200 high. Row 1 with only the menu moved, as ours (CAP-T14MENU.json)."
     },
     {
       "item": "U4",
