@@ -413,6 +413,43 @@ for (const v of ['0', '1', '50', '100', '150', '300', '1000']) {
   add(`Custom height ${v}`, r.min === P3.range.field.typed[v][0] && r.t === v && r.r === String(Math.max(1, Math.min(100, Number(v)))), JSON.stringify(r));
 }
 
+// P3: anything typed in that field, and the slider while held (parity/findings/CAP-P3FIELD.json, real keys and fill as read).
+const PF = JSON.parse(readFileSync(new URL('../parity/findings/CAP-P3FIELD.json', import.meta.url))).reads;
+const hState = () => evalJs(S, `(() => { const f = document.querySelector('iframe'), s = f.contentDocument.querySelectorAll('main#page .page-section')[1], r = document.querySelector('.sp-custom-height input[type=range]'), t = document.querySelector('.sp-custom-height input[type=text]'); return JSON.stringify({ min: parseFloat(f.contentWindow.getComputedStyle(s).minHeight), vh: f.contentWindow.innerHeight / 100, h: s.getBoundingClientRect().height, r: r.value, t: t.value }); })()`);
+const hField = '.sp-custom-height input[type=text]';
+const hKeys = async (v) => { evalJs(S, `(() => { const t = document.querySelector('${hField}'); t.focus(); t.select(); return 'ok'; })()`); for (const ch of v) browser(S, 'press', ch); browser(S, 'press', 'Enter'); await pause(200); return hState(); };
+const hFill = async (v) => { browser(S, 'fill', hField, v); browser(S, 'press', 'Enter'); await pause(200); return hState(); };
+const hSame = (r, o) => r.t === o.range.field && r.r === o.range.slider;
+let hWas = await hFill('20');
+for (const [how, v, key] of [[hKeys, 'abc', 'real keys "abc"'], [hKeys, '-1', 'real keys "-1"'], [hKeys, '7', 'real keys "7"'], [hKeys, '12.5', 'real keys "12.5"'], [hFill, '12.5', 'typed "12.5"'], [hFill, '12abc', 'typed "12abc"'], [hFill, 'abc', 'typed "abc"'], [hFill, '-1', 'typed "-1"'], [hFill, '-5', 'typed "-5"'], [hFill, '', 'typed ""'], [hFill, '0', 'typed "0"'], [hFill, '200', 'typed "200"'], [hFill, '50', 'back at 50']]) {
+  const r = await how(v), o = PF[key], n = Number(o.range.field);
+  add(`Custom height ${key}: field and slider`, hSame(r, o), JSON.stringify(r));
+  // No number keeps the height; a negative is a height of 0; a number is that many vh of our frame.
+  add(`Custom height ${key}: section`, o.range.field === 'NaN' ? Math.abs(r.h - hWas.h) < 0.5 && r.min === hWas.min : Math.abs(r.min - Math.max(0, n) * r.vh) < 0.5, JSON.stringify([r, hWas]));
+  hWas = r;
+}
+const hBack = await hFill('0'), hNeg = await hFill('-5');
+add('Custom height -5 is as tall as 0', Math.abs(hNeg.h - hBack.h) < 0.5, JSON.stringify([hNeg, hBack]));
+await hFill('50');
+const sliderBox = evalJs(S, `(() => { const q = document.querySelector('.sp-custom-height input[type=range]').getBoundingClientRect(); return JSON.stringify([q.left, q.top + q.height / 2, q.width]); })()`);
+const atValue = (v) => sliderBox[0] + 4 + ((v - 1) / 99) * (sliderBox[2] - 8);
+mouse(S, 'move', atValue(50), sliderBox[1]); await pause(40); mouse(S, 'down', atValue(50), sliderBox[1], { buttons: 1 }); await pause(100);
+for (const [v, key] of [[68, 'slider moved right, held'], [25, 'slider moved left, held']]) {
+  mouse(S, 'move', atValue(v), sliderBox[1], { buttons: 1 }); await pause(200);
+  const r = hState();
+  add(`Custom height ${key}: section follows`, r.r === String(v) && r.t === String(v) && Math.abs(r.min - v * r.vh) < 0.5, JSON.stringify(r));
+}
+mouse(S, 'up', atValue(25), sliderBox[1]); await pause(250);
+let hLet = hState();
+add('Custom height let go: stays', hLet.r === PF['slider let go'].range.slider && hLet.t === '25' && Math.abs(hLet.min - 25 * hLet.vh) < 0.5, JSON.stringify(hLet));
+evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(300);
+hLet = hState();
+add('Custom height slider: one undo step', hLet.t === '50' && hLet.r === '50' && Math.abs(hLet.min - 50 * hLet.vh) < 0.5, JSON.stringify(hLet));
+await hFill('12'); await hFill('30');
+evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(300);
+hLet = hState();
+add('Custom height field: one undo step each', hLet.t === '12', JSON.stringify(hLet));
+
 // U4: the toolbar's halo, Align Vertically's menu, Pin's field and slider, phones, tips.
 const TB = JSON.parse(readFileSync(new URL('../parity/findings/TOOLBARS.json', import.meta.url)));
 const PN = JSON.parse(readFileSync(new URL('../parity/findings/PIN.json', import.meta.url)));
