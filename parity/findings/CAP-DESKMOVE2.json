@@ -794,6 +794,6 @@
   "errors": [],
   "visited": "Gestures Probe",
   "leftDirty": true,
-  "rule": "Inferred from CAP-DESKMOVE, CAP-DESKMOVE2 and CAP-ORDER, not read anywhere. After one desktop move in a new section whose phone was not moved by hand: blocks with no column in common go left first, the others top first, then left first; blocks at one place keep their order; a moved Line goes after the blocks it shares columns with. Rows run from 1 with each block's height.",
-  "notRead": "A saved section (0006), a resize, a group move, an arrow key nudge, one-row blocks other than a Line. The Line exception rests on 5 reads of a Line 4 wide against a Shape or Text."
+  "rule": "Replaced: see CAP-DESKMOVE9. This read's rule said a moved Line goes after the blocks it shares columns with. That was wrong: moving isn't the trigger, and neither is being a Line.",
+  "notRead": "See CAP-DESKMOVE9."
 }
