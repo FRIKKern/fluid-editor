@@ -5,11 +5,11 @@
   "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here.",
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it. ask: the lead rules.",
   "counts": {
-    "total": 98,
-    "yes": 84,
+    "total": 100,
+    "yes": 86,
     "no": 11,
     "ask": 3,
-    "read": 64,
+    "read": 71,
     "notPressed": 0
   },
   "entries": [
@@ -737,7 +737,9 @@
       "safeRead": "yes",
       "how": "undo once on a probe page, hover Redo, read colors",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U6REDO.json",
+      "result": "As Undo's. Ours the same."
     },
     {
       "item": "U6",
@@ -746,7 +748,9 @@
       "safeRead": "yes",
       "how": "read computed styles if the element holds them",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U6OVERLAY.json",
+      "result": "rgb(231, 231, 231) at 0.6. The fit was right, and ours the same."
     },
     {
       "item": "U6",
@@ -755,7 +759,9 @@
       "safeRead": "yes",
       "how": "read seven tooltips at other widths",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U6TIPS.json",
+      "result": "Save Changes fixed, the others follow the right edge. Ours the same rule. Reload and Close at other widths not read."
     },
     {
       "item": "U9",
@@ -764,7 +770,9 @@
       "safeRead": "yes",
       "how": "scroll in fine steps on a probe page with tall sections",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U9SCROLL.json, CAP-U9SCROLL2.json",
+      "result": "A band 53 wide on one section, ours 122 wide. It also closes past its section, ours stays open."
     },
     {
       "item": "U9",
@@ -773,7 +781,9 @@
       "safeRead": "yes",
       "how": "read opacity at steps after hover",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U9FADE.json",
+      "result": "The outline fades over about 0.2 s, ours at once. Add Section's read flat, so not established."
     },
     {
       "item": "U9",
@@ -782,7 +792,9 @@
       "safeRead": "yes",
       "how": "a second and third reading",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U9PHONEPANEL.json",
+      "result": "221, 213, 214 on three sections. Ours matches."
     },
     {
       "item": "U9",
@@ -791,7 +803,9 @@
       "safeRead": "yes",
       "how": "read computed box-shadow if an element holds it",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U9SHADOW.json",
+      "result": "25 px blur, ours 24 px."
     },
     {
       "item": "U9",
@@ -1022,6 +1036,24 @@
       "state": "read",
       "finding": "CAP-P3DOT.json",
       "result": "No re-read: the check passes with the fixed key, 1244 of 1244."
+    },
+    {
+      "item": "U9",
+      "what": "Add Section's fade by another means",
+      "source": "CAP-U9FADE.json",
+      "safeRead": "yes",
+      "how": "its parents' opacity and clip by frame, or shots, on a probe page",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U9",
+      "what": "The scroll band and close point on other section heights",
+      "source": "CAP-U9SCROLL2.json",
+      "safeRead": "yes",
+      "how": "the same scroll walk on a section of another height, on a probe page",
+      "lane": "recorder",
+      "state": "open"
     }
   ]
 }

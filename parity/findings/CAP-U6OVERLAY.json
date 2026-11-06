@@ -1,0 +1,193 @@
+{
+  "item": "CAP-U6OVERLAY",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U6: the overlay under Exit's dialog, as computed styles. Nothing pressed in the dialog: Escape closes it.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "before",
+      {
+        "fullEls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Exit"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "dialog",
+      {
+        "fullEls": true
+      }
+    ],
+    [
+      "shot",
+      "dialog"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "after Escape",
+      {
+        "fullEls": true
+      }
+    ]
+  ],
+  "reads": {
+    "before": {
+      "fullEls": [
+        {
+          "tag": "div",
+          "box": [
+            0,
+            55,
+            1600,
+            945
+          ],
+          "bg": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "filter": "none",
+          "z": "auto",
+          "position": "static"
+        },
+        {
+          "tag": "div",
+          "box": [
+            0,
+            55,
+            1600,
+            945
+          ],
+          "bg": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "filter": "none",
+          "z": "auto",
+          "position": "static"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "dialog": {
+      "fullEls": [
+        {
+          "tag": "div",
+          "box": [
+            0,
+            55,
+            1600,
+            945
+          ],
+          "bg": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "filter": "none",
+          "z": "auto",
+          "position": "static"
+        },
+        {
+          "tag": "div",
+          "box": [
+            0,
+            55,
+            1600,
+            945
+          ],
+          "bg": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "filter": "none",
+          "z": "auto",
+          "position": "static"
+        },
+        {
+          "tag": "div",
+          "box": [
+            0,
+            0,
+            1600,
+            1000
+          ],
+          "bg": "rgb(231, 231, 231)",
+          "opacity": "0.6",
+          "filter": "none",
+          "z": "auto",
+          "position": "absolute"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after Escape": {
+      "fullEls": [
+        {
+          "tag": "div",
+          "box": [
+            0,
+            55,
+            1600,
+            945
+          ],
+          "bg": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "filter": "none",
+          "z": "auto",
+          "position": "static"
+        },
+        {
+          "tag": "div",
+          "box": [
+            0,
+            55,
+            1600,
+            945
+          ],
+          "bg": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "filter": "none",
+          "z": "auto",
+          "position": "static"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Computed: rgb(231, 231, 231) at opacity 0.6, box 0, 0, 1600, 1000, absolute. This confirms the fit from pixels. Escape takes it away.",
+  "ours": "rgba(231, 231, 231, 0.6), 0, 0, 1600, 1000, fixed. Escape takes it away. Same look.",
+  "differs": [],
+  "pressed": "Named presses with an on-top check. Panel opens go through hover and press by name. Escape closed each panel and the Exit dialog. No Save, no upload, no Reset."
+}
