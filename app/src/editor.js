@@ -16,6 +16,7 @@ import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
 import { codeLines, gutterWidth } from './code-look.js';
+import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
@@ -1520,7 +1521,7 @@ function renderBlockPanel() {
   if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffOpen() && !(ffField(b) && (!ffView.startsWith('ff-opt:') || followOf(ffField(b), ffView.split(':')[2]).length))) ffView = 'ff-list'; // undo can take the field away
   showFormPost(b);
   const mdField = b.type === 'markdown' && blockPanel.querySelector('textarea[data-content="markdown"]');
-  if (mdField && mdField === document.activeElement && mdField.value !== (b.text || '')) { mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
+  if (mdField && mdField === document.activeElement && fullOf(mdField) !== (b.text || '')) { dropFolds(mdField); mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
   if (codeCommit) return; // the field's own text changed nothing else here, and a redraw would take a press on Mode from under it
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
@@ -1530,8 +1531,8 @@ function renderBlockPanel() {
   const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
   const buttonView = b.type !== 'button' ? null : bp === 'mobile' && b.btnMobile ? b.btnMobile : { fit: b.fit, align: b.halign };
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
-  const lookWas = blockPanel.dataset.bid === b.id ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
-  const lookKeep = lookWas && { value: lookWas.value, start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
+  const lookWas = blockPanel.dataset.bid === b.id && !blockPanel.hidden ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
+  const lookKeep = lookWas && { value: fullOf(lookWas), folds: foldsOf(lookWas), start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
   blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
   if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, b.animations?.[anim.i], anim.menu) : animEditorHtml(b.animations[anim.i], anim.tab);
@@ -1544,7 +1545,7 @@ function renderBlockPanel() {
   placeBlockPanel();
   blockPanel.hidden = false;
   const lookNow = blockPanel.querySelector('.bp-code.is-look textarea');
-  if (lookNow && lookKeep?.value === lookNow.value) { lookNow.setSelectionRange(lookKeep.start, lookKeep.end, lookKeep.dir); lookNow.scrollTop = lookKeep.top; } // the band stays when focus leaves (CAP-T10LOOK.json)
+  if (lookNow && lookKeep?.value === lookNow.value) { adoptFolds(lookNow, lookKeep.folds); lookNow.setSelectionRange(lookKeep.start, lookKeep.end, lookKeep.dir); lookNow.scrollTop = lookKeep.top; } // the band stays when focus leaves (CAP-T10LOOK.json)
   paintCode(lookNow); // measures, so it must be showing
   if (blockPanel.dataset.bid !== b.id) { blockPanel.dataset.bid = b.id; blockPanel.scrollTop = 0; } // another block starts at the top
   if (shapeUi) renderShapePop(); // undo can change what an open popup shows
@@ -2781,13 +2782,19 @@ function paintCode(f) {
   const box = f?.closest('.bp-code.is-look');
   if (!box) return;
   const hl = box.querySelector('.bp-code-hl'), nums = box.querySelector('.bp-code-lines'), band = box.querySelector('.bp-code-band');
-  const lines = codeLines(f.value, box.dataset.lang, f.selectionStart === f.selectionEnd ? f.selectionStart : null);
-  hl.innerHTML = lines.map((l) => `<div class="bp-code-l">${l || '<br>'}</div>`).join('');
-  const on = f.value.slice(0, headOf(f)).split('\n').length - 1, rows = [...hl.children];
-  nums.style.flexBasis = `${gutterWidth(lines.length)}px`;
-  nums.innerHTML = rows.map((r, n) => `<div class="bp-code-n${n === on ? ' is-on' : ''}" style="height:${r.offsetHeight}px">${n + 1}</div>`).join('');
-  band.style.top = `${rows[on].offsetTop}px`;
-  band.style.height = `${rows[on].offsetHeight}px`;
+  const full = fullOf(f), lang = box.dataset.lang, head = realOf(f, headOf(f));
+  const colour = codeLines(full, lang, f.selectionStart === f.selectionEnd ? head : null), shown = foldRows(f, colour);
+  hl.innerHTML = shown.map((r) => `<div class="bp-code-l">${r.html || '<br>'}</div>`).join('');
+  // The band and the number's mark are on the caret's line: none when a fold hides that line (CAP-T10FOLD5.json).
+  const headLine = lineOf(full, head), on = shown.findIndex((r) => r.line === headLine), rows = [...hl.children], can = foldRanges(full, lang);
+  nums.style.flexBasis = `${gutterWidth(colour.length)}px`;
+  nums.innerHTML = rows.map((r, n) => {
+    const line = shown[n].line, folded = foldedLine(f, line), fold = !folded && can.get(line);
+    const chev = folded ? `<span class="bp-code-chev" title="Unfold line" data-fold-open="${folded.from}">›</span>` : fold ? `<span class="bp-code-chev" title="Fold line" data-fold="${fold[0]},${fold[1]}">⌄</span>` : '';
+    return `<div class="bp-code-n${n === on ? ' is-on' : ''}" style="height:${r.offsetHeight}px">${line + 1}${chev}</div>`;
+  }).join('');
+  band.hidden = on < 0;
+  if (on >= 0) { band.style.top = `${rows[on].offsetTop}px`; band.style.height = `${rows[on].offsetHeight}px`; }
   paintCodeSelection(f, hl, box.querySelector('.bp-code-sel'));
   scrollCode(f);
 }
@@ -2800,22 +2807,37 @@ function paintCodeSelection(f, hl, layer) {
   const at = (i) => {
     const before = f.value.slice(0, i).split('\n'), row = hl.children[before.length - 1];
     let left = before.at(-1).length;
+    // A row with a placeholder is that much taller to select (CAP-T10FOLD5.json).
+    const ph = row.querySelector('.bp-code-ph'), rowTop = row.getBoundingClientRect().top - base.top;
     const walk = document.createTreeWalker(row, NodeFilter.SHOW_TEXT);
     for (let t = walk.nextNode(); t; t = walk.nextNode()) {
-      if (left <= t.length) { range.setStart(t, left); range.collapse(true); const q = range.getBoundingClientRect(); return { x: q.left - base.left, top: q.top + (q.height - 16) / 2 - base.top }; }
+      if (left <= t.length) { range.setStart(t, left); range.collapse(true); const q = range.getBoundingClientRect(); return { x: q.left - base.left, top: ph ? rowTop + 2 : q.top + (q.height - 16) / 2 - base.top, h: ph ? 18 : 16 }; }
       left -= t.length;
     }
     const q = row.getBoundingClientRect(); // an empty line
-    return { x: q.left - base.left, top: q.top + 3 - base.top };
+    return { x: q.left - base.left, top: q.top + 3 - base.top, h: 16 };
   };
   const a = at(f.selectionStart), b = at(f.selectionEnd), L = 6, R = f.clientWidth - 2;
   const rect = (x, top, w, h) => { const e = document.createElement('div'); e.style.cssText = `left:${x}px;top:${top}px;width:${w}px;height:${h}px`; layer.append(e); };
-  if (a.top === b.top) { rect(a.x, a.top, b.x - a.x, 16); return; }
+  if (a.top === b.top) { rect(a.x, a.top, b.x - a.x, a.h); cutForFolds(hl, layer, base); return; }
   // Two rows side by side meet halfway across the gap between their letters.
-  const near = b.top - a.top < 2 * 22, mid = (a.top + 16 + b.top) / 2;
-  rect(a.x, a.top, R - a.x, near ? mid - a.top : 16);
-  if (!near) rect(L, a.top + 16, R - L, b.top - a.top - 16);
-  rect(L, near ? mid : b.top, b.x - L, near ? b.top + 16 - mid : 16);
+  const near = b.top - a.top < 2 * 22, mid = (a.top + a.h + b.top) / 2;
+  rect(a.x, a.top, R - a.x, near ? mid - a.top : a.h);
+  if (!near) rect(L, a.top + a.h, R - L, b.top - a.top - a.h);
+  rect(L, near ? mid : b.top, b.x - L, near ? b.top + b.h - mid : b.h);
+  cutForFolds(hl, layer, base);
+}
+// A selection leaves a gap for a placeholder (CAP-T10FOLD5.json): to 1px before it, and on from its right edge.
+function cutForFolds(hl, layer, base) {
+  for (const ph of hl.querySelectorAll('.bp-code-ph')) {
+    const q = ph.getBoundingClientRect(), left = q.left - base.left - 1, right = q.right - base.left, y = q.top - base.top + 9;
+    for (const e of [...layer.children]) {
+      const x = parseFloat(e.style.left), w = parseFloat(e.style.width), top = parseFloat(e.style.top), h = parseFloat(e.style.height);
+      if (y < top || y > top + h || x >= right || x + w <= left) continue;
+      if (x + w > right) { const rest = e.cloneNode(); rest.style.left = `${right}px`; rest.style.width = `${x + w - right}px`; layer.append(rest); }
+      if (x < left) e.style.width = `${left - x}px`; else e.remove();
+    }
+  }
 }
 function scrollCode(f) {
   const box = f.closest('.bp-code.is-look');
@@ -2827,7 +2849,7 @@ function scrollCode(f) {
 function paintMdBar(f) {
   const bar = f?.closest('#block-panel, #code-modal')?.querySelector('.bp-md-bar');
   if (!bar) return;
-  const st = mdState(f.value, f.selectionStart, f.selectionEnd, headOf(f));
+  const st = mdState(fullOf(f), realOf(f, f.selectionStart), realOf(f, f.selectionEnd), realOf(f, headOf(f)));
   bar.querySelector('.bp-md-heading span').textContent = st.heading;
   for (const k of ['bold', 'italic']) bar.querySelector(`[data-md="${k}"]`).classList.toggle('is-dim', st.dim);
   for (const k of ['bold', 'italic', 'bullet', 'number', 'quote']) { const q = bar.querySelector(`[data-md="${k}"]`); q.classList.toggle('is-on', st[k]); q.setAttribute('aria-checked', String(st[k])); }
@@ -2840,6 +2862,7 @@ function flushMdStep() { if (codeBefore != null) { commit(codeBefore, 'Markdown 
 // Through the field's own edit, so its undo keeps working. The input event carries it to the block.
 function writeMd(f, r) {
   f.focus();
+  if (foldsOf(f)) { foldReplace(f, r); f.dispatchEvent(new Event('input', { bubbles: true })); paintMdBar(f); return; }
   f.setSelectionRange(0, f.value.length);
   if (r.value) document.execCommand('insertText', false, r.value); else document.execCommand('delete');
   f.setSelectionRange(r.start, r.end);
@@ -2847,7 +2870,7 @@ function writeMd(f, r) {
 }
 const mdRootField = (root) => root.querySelector('textarea[data-content="markdown"]');
 function pressMdBar(root, btn) {
-  const f = mdRootField(root), v = f.value, s = f.selectionStart, e = f.selectionEnd, k = btn.dataset.md;
+  const f = mdRootField(root), v = fullOf(f), s = realOf(f, f.selectionStart), e = realOf(f, f.selectionEnd), k = btn.dataset.md;
   const list = root.querySelector('.bp-md-list');
   if (k === 'heading') { list.hidden = !list.hidden; btn.setAttribute('aria-expanded', String(!list.hidden)); btn.classList.toggle('is-on', !list.hidden); return; }
   if (k === 'link') { openMdLink(root, btn, s, e); return; }
@@ -2860,7 +2883,7 @@ function pickMdHeading(root, level) {
   const f = mdRootField(root);
   closeMdList(root);
   flushMdStep();
-  writeMd(f, mdHeading(f.value, f.selectionStart, f.selectionEnd, level));
+  writeMd(f, mdHeading(fullOf(f), realOf(f, f.selectionStart), realOf(f, f.selectionEnd), level));
   flushMdStep();
 }
 function closeMdList(root) {
@@ -2871,17 +2894,17 @@ function closeMdList(root) {
 // Link (CAP-T10MD4.json, CAP-T10MD5.json, CAP-T10MD7.json): the popover under the button, 6px below it. A caret in a
 // link shows that link with Edit, Copy and Remove Link. A page fills the field, and Enter or a press away writes it.
 function openMdLink(root, btn, s, e) {
-  const f = mdRootField(root), link = mdLinkIn(f.value, s, e), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
+  const f = mdRootField(root), link = mdLinkIn(fullOf(f), s, e), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
   flushMdStep();
   const target = { markdown: true, summary: !!link, href: link?.href || '', newTab: false, setNewTab() {},
     apply: (v) => {
-      const q = mdRootField(root), at = mdLinkIn(q.value, s, e);
+      const q = mdRootField(root), at = mdLinkIn(fullOf(q), s, e);
       if (!v && !at) return;
       flushMdStep();
-      writeMd(q, at ? (v ? mdChangeLink(q.value, at, v) : mdRemoveLink(q.value, at)) : mdSetLink(q.value, s, e, v));
+      writeMd(q, at ? (v ? mdChangeLink(fullOf(q), at, v) : mdRemoveLink(fullOf(q), at)) : mdSetLink(fullOf(q), s, e, v));
       flushMdStep();
     },
-    remove: () => { const q = mdRootField(root), at = mdLinkIn(q.value, s, e); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(q.value, at)); flushMdStep(); } },
+    remove: () => { const q = mdRootField(root), at = mdLinkIn(fullOf(q), s, e); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(fullOf(q), at)); flushMdStep(); } },
     done: () => { const q = mdRootField(root); if (q) { if (document.activeElement === document.body) q.focus(); paintMdBar(q); } },
   };
   openLinkPopover(b, (st) => ({ left: r.left + r.width / 2 - 164 - st.left, top: r.bottom + 6 - st.top }), target);
@@ -2908,7 +2931,8 @@ function closeCodeModal() {
   codeModal.hidden = true;
   codeDraft = null;
   if (b?.type === 'markdown') {
-    if (d.html !== (b.text || '')) {
+    const textWas = b.text || '';
+    if (d.html !== textWas) {
       const before = JSON.stringify(model), was = rowsNow(b);
       b.text = d.html;
       renderSectionDom(sel.sid);
@@ -2916,7 +2940,7 @@ function closeCodeModal() {
       commit(before, 'Markdown changed');
     }
     const f = blockPanel.querySelector('textarea[data-content="markdown"]');
-    if (f) { f.value = b.text || ''; mdLines(f); f.focus(); paintMdBar(f); }
+    if (f) { if (d.html !== textWas) f.setSelectionRange(d.html.length, d.html.length); else if (fullOf(f) !== (b.text || '')) { dropFolds(f); f.value = b.text || ''; } mdLines(f); f.focus(); paintMdBar(f); } // new text from the view: the caret ends it (CAP-T10FOLD5.json)
     return;
   }
   if (!b || b.type !== 'code') return;
@@ -2936,7 +2960,7 @@ codeModal.addEventListener('click', (e) => { e.stopPropagation(); if (e.target.c
 codeModal.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Escape') { e.preventDefault(); closeCodeModal(); } });
 codeModal.addEventListener('input', (e) => {
   if (!e.target.matches('textarea')) return;
-  codeDraft.html = e.target.value;
+  codeDraft.html = fullOf(e.target);
   mdLines(e.target);
   if (e.target.dataset.content === 'markdown') paintMdBar(e.target);
 });
@@ -2944,7 +2968,7 @@ codeModal.addEventListener('change', (e) => {
   const c = e.target.dataset.content;
   if (c === 'codeMode') { codeDraft.mode = e.target.value; if (!['html', 'markdown'].includes(e.target.value)) codeDraft.showSource = true; }
   if (c === 'showSource') codeDraft.showSource = e.target.checked;
-  if (c === 'codeMode') { codeModal.innerHTML = codeModalHtml(codeDraft); paintCode(codeModal.querySelector('textarea')); }
+  if (c === 'codeMode') { const folds = foldsOf(codeModal.querySelector('textarea')); codeModal.innerHTML = codeModalHtml(codeDraft); adoptFolds(codeModal.querySelector('textarea'), folds); paintCode(codeModal.querySelector('textarea')); }
 });
 for (const root of [blockPanel, codeModal]) {
   // The selection stays, and leaving the field doesn't redraw the panel under the press.
@@ -2957,12 +2981,50 @@ for (const root of [blockPanel, codeModal]) {
   });
   root.addEventListener('keydown', (e) => {
     if (!e.target.matches('textarea[data-content="markdown"]') || e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
-    const f = e.target, r = e.key === 'Enter' ? mdEnter(f.value, f.selectionStart, f.selectionEnd) : e.key === 'Backspace' ? mdBackspace(f.value, f.selectionStart, f.selectionEnd) : null;
+    const f = e.target, v = fullOf(f), s = realOf(f, f.selectionStart), en = realOf(f, f.selectionEnd), r = e.key === 'Enter' ? mdEnter(v, s, en) : e.key === 'Backspace' ? mdBackspace(v, s, en) : null;
     if (r) { e.preventDefault(); writeMd(f, r); }
   });
 }
 document.addEventListener('pointerdown', (e) => { if (!e.target.closest?.('.bp-md-head')) { closeMdList(blockPanel); closeMdList(codeModal); } }, true);
 document.addEventListener('selectionchange', () => { const f = document.activeElement; if (!f?.matches?.('.bp-code.is-look textarea')) return; paintCode(f); if (f.dataset.content === 'markdown') paintMdBar(f); });
+// Folding (code-fold.js). A press on the column leaves the field, as a press on the page does; a press on a placeholder stays
+// in it, and puts the caret at the fold's far end (CAP-T10FOLD7.json).
+const lookField = (e) => e.target.matches?.('.bp-code.is-look textarea') ? e.target : null;
+const foldChanged = (f) => { f.dispatchEvent(new Event('input', { bubbles: true })); paintCode(f); };
+for (const root of [blockPanel, codeModal]) {
+  root.addEventListener('mousedown', (e) => { if (e.target.closest('.bp-code-ph')) e.preventDefault(); });
+  root.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-fold], [data-fold-open]');
+    if (!t) return;
+    const f = t.closest('.bp-code').querySelector('textarea');
+    if (t.dataset.fold) { const [from, to] = t.dataset.fold.split(',').map(Number); toggleFold(f, from, to); } else {
+      const onText = t.classList.contains('bp-code-ph');
+      openFold(f, Number(t.dataset.foldOpen), onText);
+      if (onText) f.focus();
+    }
+    paintCode(f);
+    if (f.dataset.content === 'markdown') paintMdBar(f);
+  });
+  root.addEventListener('beforeinput', (e) => {
+    const f = lookField(e);
+    if (!f || !foldsOf(f)) return;
+    noteSelection(f);
+    const way = /^delete\w*(Forward|Backward)$/.exec(e.inputType)?.[1];
+    if (way && foldDelete(f, way === 'Forward')) { e.preventDefault(); foldChanged(f); }
+  });
+  root.addEventListener('input', (e) => { const f = lookField(e); if (f) syncFolds(f); }, true);
+  root.addEventListener('keydown', (e) => {
+    const f = lookField(e);
+    if (!f || !foldsOf(f)) return;
+    if ((e.key === 'z' || e.key === 'Z') && (e.metaKey || e.ctrlKey)) { e.preventDefault(); e.stopPropagation(); foldUndo(f, e.shiftKey); foldChanged(f); return; }
+    if ((e.key === 'ArrowRight' || e.key === 'ArrowLeft') && !e.metaKey && !e.ctrlKey && !e.altKey && foldArrow(f, e.key === 'ArrowRight', e.shiftKey)) { e.preventDefault(); paintCode(f); }
+  }, true);
+  // Copying takes the hidden lines too.
+  root.addEventListener('copy', (e) => { const f = lookField(e), text = f && foldCopy(f); if (text != null) { e.preventDefault(); e.clipboardData.setData('text/plain', text); } });
+  root.addEventListener('cut', (e) => { const f = lookField(e), text = f && foldCopy(f); if (text != null) { e.preventDefault(); e.clipboardData.setData('text/plain', text); foldCut(f); foldChanged(f); } });
+  // The field's own change never fires for an edit written from here.
+  root.addEventListener('focusout', (e) => { const f = lookField(e); if (f && foldsOf(f) && codeBefore != null && root === blockPanel) f.dispatchEvent(new Event('change', { bubbles: true })); });
+}
 for (const root of [blockPanel, codeModal]) root.addEventListener('scroll', (e) => { if (e.target.matches?.('.bp-code.is-look textarea')) scrollCode(e.target); }, true);
 blockPanel.addEventListener('click', (e) => { if (sel && e.target.closest('[data-code-expand]')) openCodeModal(B(sel.sid, sel.bid)); });
 blockPanel.addEventListener('input', (e) => {
@@ -2971,8 +3033,8 @@ blockPanel.addEventListener('input', (e) => {
   const b = B(sel.sid, sel.bid);
   codeBefore ??= JSON.stringify(model);
   const was = rowsNow(b);
-  if (f.dataset.content === 'code') b.html = f.value;
-  else if (f.dataset.content === 'markdown') b.text = f.value;
+  if (f.dataset.content === 'code') b.html = fullOf(f);
+  else if (f.dataset.content === 'markdown') b.text = fullOf(f);
   else if (f.value) { b.html = f.value; delete b.embedInvalid; } else delete b.html;
   renderSectionDom(sel.sid);
   fitRows(b, was);
