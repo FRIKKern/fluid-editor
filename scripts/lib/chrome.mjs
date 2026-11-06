@@ -7,8 +7,8 @@ export const chromeUp = async (port) => { try { return (await fetch(`http://127.
 
 const pause = (ms) => new Promise((r) => setTimeout(r, ms));
 
-// Returns the Chrome's pid when this profile started it, so a lane can stop its own Chrome. A start took 35 s with memory
-// short, 2026-11-06. If it isn't up in time this call stops what it started, since that Chrome can hold the oracle
+// Returns the Chrome's pid when this profile started it, so a lane can stop its own Chrome. A start took 35 s on
+// 2026-11-06, cause not read. If it isn't up in time this call stops what it started, since that Chrome can hold the oracle
 // login, and then throws: an error here never leaves a Chrome running.
 export async function startChrome(port, { waitMs = 60000, stopMs = 5000 } = {}) {
   const dir = `/tmp/fluid-editor-chrome-${port}`;
