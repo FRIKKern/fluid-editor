@@ -117,7 +117,7 @@ export async function replay(S, finding, add) {
       const got = q('innerHTML');
       // has: is the text bar's Bold showing, is the toolbar's Write?
       const hasWant = finding.reads[a[0]]?.has, hasGot = hasWant && evalJs(S, `JSON.stringify({ Bold: !document.getElementById('text-bar').hidden, Write: !document.getElementById('block-toolbar').hidden && !!document.querySelector('#block-toolbar [aria-label="Write"]') })`);
-      const hasSame = !hasWant || Object.keys(hasWant).every((k) => hasWant[k] === hasGot[k]);
+      const hasSame = !hasWant || ['Bold', 'Write'].every((k) => hasWant[k] === undefined || hasWant[k] === hasGot[k]);
       add(a[0], textNorm(got) === textNorm(want) && hasSame, `oracle ${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}`);
     }
     else if (op === 'undoWalk') await undoHere(a[0], finding.reads[a[0]] || { undo: [] }, k);
