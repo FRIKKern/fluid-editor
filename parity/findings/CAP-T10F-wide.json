@@ -1,0 +1,307 @@
+{
+  "item": "CAP-T10F-wide",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10 fresh: a block pulled 4 columns wider, wrapped text",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "start",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      234.2,
+      0
+    ],
+    [
+      "read",
+      "pulled wider",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "setCode",
+      "<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word</p>"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "40 words",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word</p>"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "200 words",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word</p>"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "90 words",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>word word word word word</p>"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "5 words",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Hello, World!",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "pulled wider": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Hello, World!",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/10",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "40 words": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "word word word word word word word word ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            89.6
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/10",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "200 words": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "word word word word word word word word ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            448.1
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/13/10",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "90 words": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "word word word word word word word word ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            201.7
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/6/10",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "5 words": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "word word word word word",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            380,
+            459.3,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

@@ -1,0 +1,201 @@
+{
+  "item": "CAP-T10F-panelSwitch",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10 fresh: the panel's own Display Source Code switch, rows inferred before",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "start",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p>"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "10 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "pressNamed",
+      "Display Source Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "panel switch on",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "pressNamed",
+      "Display Source Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "panel switch off",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Hello, World!",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "10 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            368.1
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/11/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "panel switch on": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "<p>row 1</p><p>row 2</p><p>row 3</p><p>r",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            380,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "panel switch off": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            368.1
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/11/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

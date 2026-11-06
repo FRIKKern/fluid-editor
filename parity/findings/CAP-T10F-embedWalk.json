@@ -1,0 +1,401 @@
+{
+  "item": "CAP-T10F-embedWalk",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10 fresh: an embed up and down without passing through empty, then empty",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "start",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "12 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "5 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p>"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "20 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "1 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p>"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "9 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      ""
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "empty",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "4 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      ""
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "empty",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-embed-container"
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Embed Block\n    \n      Add an embed URL ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            95
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "12 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            444.9
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/13/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "5 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            348.1,
+            459.3,
+            176
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/6/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "20 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            752.1
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/21/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "1 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            425,
+            459.3,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "9 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            329.7
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/11/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "empty": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Embed Block\n    \n      Add an embed URL ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            388.7,
+            459.3,
+            95
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "4 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            354.9,
+            459.3,
+            137.6
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/6/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

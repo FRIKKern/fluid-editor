@@ -187,6 +187,7 @@ svg.sqs-shape:not(.is-square) { position: absolute; inset: 0; }
   background: #0f0f0f; color: #e8e8e8; border-radius: 10px;
   font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; line-height: 1.5;
 }
+.sqs-block-code .sqs-code-container { line-height: var(--body-font-line-height); } /* bare text, 22.4 a line (CAP-T10FRESH.json) */
 /* Display Source Code on the oracle: plain text in the page's colour, clipped at the block's edge (CAP-T10PRE.json). */
 .sqs-block-code .sqs-code-container pre.source-code {
   padding: 0; overflow: hidden; background: none; color: inherit; border-radius: 0;

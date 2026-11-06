@@ -1,0 +1,3333 @@
+{
+ "item": "PRED-T10ROWS2",
+ "capturedAt": "2026-11-06",
+ "question": "T10: what the refit rows rule predicts for 15 more new sequences, written and pushed before any of them was read on the oracle",
+ "rule": "Height in whole pixels. N(x) = ceil((x + gap - 1) / pitch). A rise: rows = max(rows, N(height)). A fall: if N(height) >= rows nothing changes, else rows - N(fall), down to 1. Same height, nothing changes. Empty code changes nothing.",
+ "ranOn": "our editor with the refit, fitted to round 1",
+ "sequences": {
+  "counts2": {
+   "about": "other line counts again",
+   "type": "Code",
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "add",
+     0,
+     "Code"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "16 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "5 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p><p>row 27</p><p>row 28</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "28 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "19 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "6 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p><p>row 27</p><p>row 28</p><p>row 29</p><p>row 30</p><p>row 31</p><p>row 32</p><p>row 33</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "33 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "12 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "1 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "4 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "16 lines",
+     "areas": [
+      "1/2/16/6",
+      "1/2/7/10"
+     ],
+     "h": 598.5
+    },
+    {
+     "label": "5 lines",
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "h": 176
+    },
+    {
+     "label": "28 lines",
+     "areas": [
+      "1/2/28/6",
+      "1/2/7/10"
+     ],
+     "h": 1059.4
+    },
+    {
+     "label": "19 lines",
+     "areas": [
+      "1/2/19/6",
+      "1/2/7/10"
+     ],
+     "h": 713.7
+    },
+    {
+     "label": "6 lines",
+     "areas": [
+      "1/2/6/6",
+      "1/2/7/10"
+     ],
+     "h": 214.4
+    },
+    {
+     "label": "33 lines",
+     "areas": [
+      "1/2/32/6",
+      "1/2/7/10"
+     ],
+     "h": 1251.4
+    },
+    {
+     "label": "12 lines",
+     "areas": [
+      "1/2/12/6",
+      "1/2/7/10"
+     ],
+     "h": 444.9
+    },
+    {
+     "label": "1 lines",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "4 lines",
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "h": 137.6
+    }
+   ]
+  },
+  "fractionUp": {
+   "about": "fractions either side of a row edge: does the height round",
+   "type": "Code",
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "add",
+     0,
+     "Code"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:400.4px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 400.4",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:400.6px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 400.6",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:606.4px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 606.4",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:606.6px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 606.6",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:1100.4px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 1100.4",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:1100.6px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 1100.6",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "box 400.4",
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "h": 400.4
+    },
+    {
+     "label": "box 400.6",
+     "areas": [
+      "1/2/12/6",
+      "1/2/7/10"
+     ],
+     "h": 400.6
+    },
+    {
+     "label": "box 606.4",
+     "areas": [
+      "1/2/16/6",
+      "1/2/7/10"
+     ],
+     "h": 606.4
+    },
+    {
+     "label": "box 606.6",
+     "areas": [
+      "1/2/17/6",
+      "1/2/7/10"
+     ],
+     "h": 606.6
+    },
+    {
+     "label": "box 1100.4",
+     "areas": [
+      "1/2/29/6",
+      "1/2/7/10"
+     ],
+     "h": 1100.4
+    },
+    {
+     "label": "box 1100.6",
+     "areas": [
+      "1/2/29/6",
+      "1/2/7/10"
+     ],
+     "h": 1100.6
+    }
+   ]
+  },
+  "fallsBig": {
+   "about": "long falls near where one more row goes",
+   "type": "Code",
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "add",
+     0,
+     "Code"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:1000px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 1000",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:800px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 800",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:605px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 605",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:400px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 400",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:203px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 203",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:900px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 900",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:880px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 880",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:600px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 600",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "box 1000",
+     "areas": [
+      "1/2/26/6",
+      "1/2/7/10"
+     ],
+     "h": 1000
+    },
+    {
+     "label": "box 800",
+     "areas": [
+      "1/2/20/6",
+      "1/2/7/10"
+     ],
+     "h": 800
+    },
+    {
+     "label": "box 605",
+     "areas": [
+      "1/2/15/6",
+      "1/2/7/10"
+     ],
+     "h": 605
+    },
+    {
+     "label": "box 400",
+     "areas": [
+      "1/2/9/6",
+      "1/2/7/10"
+     ],
+     "h": 400
+    },
+    {
+     "label": "box 203",
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "h": 203
+    },
+    {
+     "label": "box 900",
+     "areas": [
+      "1/2/24/6",
+      "1/2/7/10"
+     ],
+     "h": 900
+    },
+    {
+     "label": "box 880",
+     "areas": [
+      "1/2/23/6",
+      "1/2/7/10"
+     ],
+     "h": 880
+    },
+    {
+     "label": "box 600",
+     "areas": [
+      "1/2/15/6",
+      "1/2/7/10"
+     ],
+     "h": 600
+    }
+   ]
+  },
+  "fractionDown": {
+   "about": "falls in fractions",
+   "type": "Code",
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "add",
+     0,
+     "Code"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:1000px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 1000",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:926.4px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 926.4",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:700.6px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 700.6",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:500.4px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 500.4",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:300.6px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 300.6",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:80.4px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 80.4",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "box 1000",
+     "areas": [
+      "1/2/26/6",
+      "1/2/7/10"
+     ],
+     "h": 1000
+    },
+    {
+     "label": "box 926.4",
+     "areas": [
+      "1/2/23/6",
+      "1/2/7/10"
+     ],
+     "h": 926.4
+    },
+    {
+     "label": "box 700.6",
+     "areas": [
+      "1/2/17/6",
+      "1/2/7/10"
+     ],
+     "h": 700.6
+    },
+    {
+     "label": "box 500.4",
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "h": 500.4
+    },
+    {
+     "label": "box 300.6",
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "h": 300.6
+    },
+    {
+     "label": "box 80.4",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 80.4
+    }
+   ]
+  },
+  "width1100": {
+   "about": "page 1100 wide",
+   "type": "Code",
+   "width": 1100,
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "frame",
+     1100,
+     900
+    ],
+    [
+     "add",
+     0,
+     "Code"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "9 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "17 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p><p>row 27</p><p>row 28</p><p>row 29</p><p>row 30</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "30 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "12 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "2 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "9 lines",
+     "areas": [
+      "1/2/12/6",
+      "1/2/7/10"
+     ],
+     "h": 329.7
+    },
+    {
+     "label": "17 lines",
+     "areas": [
+      "1/2/21/6",
+      "1/2/7/10"
+     ],
+     "h": 636.9
+    },
+    {
+     "label": "30 lines",
+     "areas": [
+      "1/2/36/6",
+      "1/2/7/10"
+     ],
+     "h": 1136.2
+    },
+    {
+     "label": "12 lines",
+     "areas": [
+      "1/2/14/6",
+      "1/2/7/10"
+     ],
+     "h": 444.9
+    },
+    {
+     "label": "2 lines",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 60.8
+    }
+   ]
+  },
+  "width1900": {
+   "about": "page 1900 wide",
+   "type": "Code",
+   "width": 1900,
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "frame",
+     1900,
+     900
+    ],
+    [
+     "add",
+     0,
+     "Code"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "9 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "17 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p><p>row 27</p><p>row 28</p><p>row 29</p><p>row 30</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "30 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "12 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "2 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "9 lines",
+     "areas": [
+      "1/2/10/6",
+      "1/2/7/10"
+     ],
+     "h": 329.7
+    },
+    {
+     "label": "17 lines",
+     "areas": [
+      "1/2/17/6",
+      "1/2/7/10"
+     ],
+     "h": 636.9
+    },
+    {
+     "label": "30 lines",
+     "areas": [
+      "1/2/29/6",
+      "1/2/7/10"
+     ],
+     "h": 1136.2
+    },
+    {
+     "label": "12 lines",
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "h": 444.9
+    },
+    {
+     "label": "2 lines",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 60.8
+    }
+   ]
+  },
+  "width780": {
+   "about": "page 780 wide",
+   "type": "Code",
+   "width": 780,
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "frame",
+     780,
+     900
+    ],
+    [
+     "add",
+     0,
+     "Code"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "5 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "14 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "8 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "2 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "5 lines",
+     "areas": [
+      "1/2/9/6",
+      "1/2/7/10"
+     ],
+     "h": 176
+    },
+    {
+     "label": "14 lines",
+     "areas": [
+      "1/2/22/6",
+      "1/2/7/10"
+     ],
+     "h": 521.7
+    },
+    {
+     "label": "8 lines",
+     "areas": [
+      "1/2/12/6",
+      "1/2/7/10"
+     ],
+     "h": 291.3
+    },
+    {
+     "label": "2 lines",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 60.8
+    }
+   ]
+  },
+  "phoneMixed": {
+   "about": "the phone: falls and rises, then exact boxes",
+   "type": "Code",
+   "view": "Mobile",
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "add",
+     0,
+     "Code"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "view",
+     "Mobile"
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "12 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "3 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "18 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "2 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "7 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:200px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 200",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:30px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 30",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:500px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 500",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:120px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 120",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "12 lines",
+     "areas": [
+      "1/2/7/6",
+      "1/2/14/10"
+     ],
+     "h": 444.9
+    },
+    {
+     "label": "3 lines",
+     "areas": [
+      "1/2/7/6",
+      "1/2/3/10"
+     ],
+     "h": 99.2
+    },
+    {
+     "label": "18 lines",
+     "areas": [
+      "1/2/7/6",
+      "1/2/21/10"
+     ],
+     "h": 675.3
+    },
+    {
+     "label": "2 lines",
+     "areas": [
+      "1/2/7/6",
+      "1/2/3/10"
+     ],
+     "h": 60.8
+    },
+    {
+     "label": "7 lines",
+     "areas": [
+      "1/2/7/6",
+      "1/2/9/10"
+     ],
+     "h": 252.8
+    },
+    {
+     "label": "box 200",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 200
+    },
+    {
+     "label": "box 30",
+     "areas": [
+      "1/2/7/6",
+      "1/2/2/10"
+     ],
+     "h": 30
+    },
+    {
+     "label": "box 500",
+     "areas": [
+      "1/2/7/6",
+      "1/2/16/10"
+     ],
+     "h": 500
+    },
+    {
+     "label": "box 120",
+     "areas": [
+      "1/2/7/6",
+      "1/2/4/10"
+     ],
+     "h": 120
+    }
+   ]
+  },
+  "embedPull": {
+   "about": "an embed after a pull",
+   "type": "Embed",
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "add",
+     0,
+     "Embed"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "pressNamed",
+     "Code Snippet"
+    ],
+    [
+     "pause",
+     400
+    ],
+    [
+     "pressNamed",
+     "Navigate to Embed data"
+    ],
+    [
+     "pause",
+     700
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "6 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ],
+    [
+     "press",
+     "Escape"
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "drag",
+     0,
+     "new",
+     "s",
+     0,
+     123.3
+    ],
+    [
+     "read",
+     "pull down 3",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ],
+    [
+     "press",
+     "Escape"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "pressNamed",
+     "Code Snippet"
+    ],
+    [
+     "pause",
+     400
+    ],
+    [
+     "pressNamed",
+     "Navigate to Embed data"
+    ],
+    [
+     "pause",
+     700
+    ],
+    [
+     "setCode",
+     "<p>row 1</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "1 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "12 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/9/10",
+      "1/2/9/10"
+     ],
+     "h": 317.8
+    },
+    {
+     "label": "6 lines",
+     "areas": [
+      "1/2/9/10",
+      "1/2/9/10"
+     ],
+     "h": 317.8
+    },
+    {
+     "label": "pull down 3",
+     "areas": [
+      "1/2/12/10",
+      "1/2/9/10"
+     ],
+     "h": 441
+    },
+    {
+     "label": "1 lines",
+     "areas": [
+      "1/2/7/10",
+      "1/2/9/10"
+     ],
+     "h": 235.6
+    },
+    {
+     "label": "12 lines",
+     "areas": [
+      "1/2/13/10",
+      "1/2/9/10"
+     ],
+     "h": 482.1
+    }
+   ]
+  },
+  "embedPhone": {
+   "about": "an embed on the phone, up and down",
+   "type": "Embed",
+   "view": "Mobile",
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "add",
+     0,
+     "Embed"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "view",
+     "Mobile"
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "pressNamed",
+     "Code Snippet"
+    ],
+    [
+     "pause",
+     400
+    ],
+    [
+     "pressNamed",
+     "Navigate to Embed data"
+    ],
+    [
+     "pause",
+     700
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "5 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "20 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "1 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "9 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/9/10",
+      "1/2/9/10"
+     ],
+     "h": 269
+    },
+    {
+     "label": "5 lines",
+     "areas": [
+      "1/2/9/10",
+      "1/2/9/10"
+     ],
+     "h": 269
+    },
+    {
+     "label": "20 lines",
+     "areas": [
+      "1/2/9/10",
+      "1/2/24/10"
+     ],
+     "h": 794
+    },
+    {
+     "label": "1 lines",
+     "areas": [
+      "1/2/9/10",
+      "1/2/2/10"
+     ],
+     "h": 54.4
+    },
+    {
+     "label": "9 lines",
+     "areas": [
+      "1/2/9/10",
+      "1/2/12/10"
+     ],
+     "h": 374
+    }
+   ]
+  },
+  "embedEdges": {
+   "about": "an embed at exact heights",
+   "type": "Embed",
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "add",
+     0,
+     "Embed"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "pressNamed",
+     "Code Snippet"
+    ],
+    [
+     "pause",
+     400
+    ],
+    [
+     "pressNamed",
+     "Navigate to Embed data"
+    ],
+    [
+     "pause",
+     700
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:400px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 400",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:401px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 401",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:400.6px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 400.6",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:100px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 100",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:1000px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 1000",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ],
+    [
+     "setCode",
+     "<div style=\"height:60px\"></div>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "box 60",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-embed-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/9/10",
+      "1/2/9/10"
+     ],
+     "h": 317.8
+    },
+    {
+     "label": "box 400",
+     "areas": [
+      "1/2/11/10",
+      "1/2/9/10"
+     ],
+     "h": 400
+    },
+    {
+     "label": "box 401",
+     "areas": [
+      "1/2/12/10",
+      "1/2/9/10"
+     ],
+     "h": 441
+    },
+    {
+     "label": "box 400.6",
+     "areas": [
+      "1/2/12/10",
+      "1/2/9/10"
+     ],
+     "h": 441
+    },
+    {
+     "label": "box 100",
+     "areas": [
+      "1/2/4/10",
+      "1/2/9/10"
+     ],
+     "h": 112.3
+    },
+    {
+     "label": "box 1000",
+     "areas": [
+      "1/2/26/10",
+      "1/2/9/10"
+     ],
+     "h": 1016.3
+    },
+    {
+     "label": "box 60",
+     "areas": [
+      "1/2/2/10",
+      "1/2/9/10"
+     ],
+     "h": 60
+    }
+   ]
+  },
+  "overrunWalk": {
+   "about": "a block its content overruns, walked down and up",
+   "type": "Code",
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "add",
+     0,
+     "Code"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "6 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "5 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "3 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "2 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "1 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "2 lines #2",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "3 lines #2",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "4 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "3 lines #3",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "2 lines #3",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "5 lines #2",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "6 lines",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 214.4
+    },
+    {
+     "label": "5 lines",
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "h": 176
+    },
+    {
+     "label": "3 lines",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 99.2
+    },
+    {
+     "label": "2 lines",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 60.8
+    },
+    {
+     "label": "1 lines",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "2 lines #2",
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "h": 60.8
+    },
+    {
+     "label": "3 lines #2",
+     "areas": [
+      "1/2/4/6",
+      "1/2/7/10"
+     ],
+     "h": 99.2
+    },
+    {
+     "label": "4 lines",
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "h": 137.6
+    },
+    {
+     "label": "3 lines #3",
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "h": 99.2
+    },
+    {
+     "label": "2 lines #3",
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "h": 60.8
+    },
+    {
+     "label": "5 lines #2",
+     "areas": [
+      "1/2/6/6",
+      "1/2/7/10"
+     ],
+     "h": 176
+    }
+   ]
+  },
+  "overrunRise": {
+   "about": "long fall into an overrun, then small rises and falls",
+   "type": "Code",
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "add",
+     0,
+     "Code"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p><p>row 27</p><p>row 28</p><p>row 29</p><p>row 30</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "30 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "5 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "4 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "6 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "5 lines #2",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "3 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "2 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "30 lines",
+     "areas": [
+      "1/2/29/6",
+      "1/2/7/10"
+     ],
+     "h": 1136.2
+    },
+    {
+     "label": "5 lines",
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "h": 176
+    },
+    {
+     "label": "4 lines",
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "h": 137.6
+    },
+    {
+     "label": "6 lines",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 214.4
+    },
+    {
+     "label": "5 lines #2",
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "h": 176
+    },
+    {
+     "label": "3 lines",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 99.2
+    },
+    {
+     "label": "2 lines",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 60.8
+    }
+   ]
+  },
+  "pullsLow": {
+   "about": "pulled low with content changing",
+   "type": "Code",
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "add",
+     0,
+     "Code"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "12 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "1 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "press",
+     "Escape"
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "drag",
+     0,
+     "new",
+     "s",
+     0,
+     -123.3
+    ],
+    [
+     "read",
+     "pull up 3",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "press",
+     "Escape"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "3 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "press",
+     "Escape"
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "drag",
+     0,
+     "new",
+     "s",
+     0,
+     -82.2
+    ],
+    [
+     "read",
+     "pull up refused",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "press",
+     "Escape"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "setCode",
+     "<p>row 1</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "1 lines #2",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "4 lines",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "12 lines",
+     "areas": [
+      "1/2/13/6",
+      "1/2/7/10"
+     ],
+     "h": 444.9
+    },
+    {
+     "label": "1 lines",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "pull up 3",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "3 lines",
+     "areas": [
+      "1/2/4/6",
+      "1/2/7/10"
+     ],
+     "h": 99.2
+    },
+    {
+     "label": "pull up refused",
+     "areas": [
+      "1/2/4/6",
+      "1/2/7/10"
+     ],
+     "h": 99.2
+    },
+    {
+     "label": "1 lines #2",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "4 lines",
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "h": 137.6
+    }
+   ]
+  },
+  "otherContent": {
+   "about": "content with margins and bare text",
+   "type": "Code",
+   "steps": [
+    [
+     "enter"
+    ],
+    [
+     "blank"
+    ],
+    [
+     "add",
+     0,
+     "Code"
+    ],
+    [
+     "pause",
+     800
+    ],
+    [
+     "select",
+     0,
+     "new"
+    ],
+    [
+     "clickIf",
+     "Edit"
+    ],
+    [
+     "pause",
+     1000
+    ],
+    [
+     "read",
+     "start",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "bare 60 words",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "word word word word word word word word word word"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "bare 10 words",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<h1>a</h1>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "h1",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<h2>b</h2><p>c</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "h2 and p",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<ul><li>x</li><li>y</li></ul>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "list",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<h3>d</h3><h3>e</h3>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "h3 twice",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ],
+    [
+     "setCode",
+     "<p>a<br>b<br>c<br>d</p>"
+    ],
+    [
+     "pause",
+     300
+    ],
+    [
+     "read",
+     "p with br",
+     {
+      "areas": 0,
+      "frameEls": ".sqs-code-container"
+     }
+    ]
+   ],
+   "predicted": [
+    {
+     "label": "start",
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "h": 22.4
+    },
+    {
+     "label": "bare 60 words",
+     "areas": [
+      "1/2/8/6",
+      "1/2/7/10"
+     ],
+     "h": 268.9
+    },
+    {
+     "label": "bare 10 words",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 44.8
+    },
+    {
+     "label": "h1",
+     "areas": [
+      "1/2/4/6",
+      "1/2/7/10"
+     ],
+     "h": 76
+    },
+    {
+     "label": "h2 and p",
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "h": 122.3
+    },
+    {
+     "label": "list",
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "h": 44.8
+    },
+    {
+     "label": "h3 twice",
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "h": 132.7
+    },
+    {
+     "label": "p with br",
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "h": 89.6
+    }
+   ]
+  }
+ }
+}

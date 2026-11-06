@@ -1,0 +1,302 @@
+{
+  "item": "CAP-T10F-viewModes",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10 fresh: Mode in the Code Editor view on long code, source with new lines",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "start",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p>"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "20 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "clickIf",
+      "Expand"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "clickAt",
+      585,
+      306
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "CSS"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "clickIf",
+      "Close"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "view CSS",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "line 0\nline 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "10 source lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "clickIf",
+      "Expand"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "clickAt",
+      585,
+      306
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "HTML"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "clickAt",
+      1203,
+      311
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "clickIf",
+      "Close"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "view HTML switch off",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Hello, World!",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "20 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            752.1
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/20/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "view CSS": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "<p>row 1</p><p>row 2</p><p>row 3</p><p>r",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            380,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "10 source lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "line 0\nline 1\nline 2\nline 3\nline 4\nline ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            224.1
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "view HTML switch off": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "line 0\nline 1\nline 2\nline 3\nline 4\nline ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            361.5,
+            224.1,
+            67.2
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
