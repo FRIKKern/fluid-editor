@@ -4,6 +4,7 @@
 const selectEdit = (i, k) => [['select', i, k], ['click', 'Edit']];
 const allBlock = (i, k) => ({ block: [i, k], inside: [i, k], controls: true });
 
+const codeLines = (n) => Array.from({ length: n }, (_, i) => `<p>row ${i + 1}</p>`).join('');
 export const RECIPES = {
   'CAP-TOUCH': { question: 'X11: what do touch and pen do on a block: tap, drag, a long press, a handle?', steps: [
     ['enter'], ['listen'],
@@ -288,6 +289,87 @@ export const RECIPES = {
     ['enter'], ['blank'], ['add', 0, 'Social Links'], ['press', 'Escape'], ['select', 0, 'new'], ['drag', 0, 'new', 's', 0, -41.1], ['read', 'one row', { areas: 0, block: [0, 'new'], sel: '.sqs-svg-icon--outer, .sqs-svg-icon--wrapper' }], ['select', 0, 'new'], ['drag', 0, 'new', 's', 0, -41.1], ['read', 'pulled again', { areas: 0, block: [0, 'new'] }],
     ['press', 'Escape'], ['deselect', 0], ['select', 0, 'new'], ['read', 'click on the middle', { has: ['Edit'], block: [0, 'new'] }], ['shot', 'clicked'],
     ['drag', 0, 'new', 'e', -58.78, 0], ['read', 'e in at one row', { areas: 0, block: [0, 'new'] }], ['select', 0, 'new'], ['drag', 0, 'new', 'e', -58.78, 0], ['read', 'e in again', { areas: 0, block: [0, 'new'] }], ['select', 0, 'new'], ['read', 'selected again', { has: ['Edit'], block: [0, 'new'] }], ['shot', 'after-e'], ['drag', 0, 'new', 's', 0, 41.1], ['read', 's down from one row', { areas: 0, block: [0, 'new'] }], ['select', 0, 'new'], ['clickIf', 'Edit'], ['read', 'panel', { has: ['Design', 'Content'] }],
+  ] },
+  'CAP-T7TIP': { page: 'Gestures Probe', question: 'T7: the ? by Video Storage, by hover, by press, and how it closes', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Video'], ['pause', 1000], ['select', 0, 'new'], ['clickIf', 'Edit'], ['pause', 1000], ['scrollTo', 'Video Storage'], ['read', 'start', { has: ['Open storage dialog'], textBox: ['Your plan includes'] }],
+    ['moveIcon', 'Video Storage'], ['pause', 800], ['read', 'hover', { textBox: ['Your plan includes'] }], ['shot', 'hover'],
+    ['pressNamed', 'Open storage dialog'], ['pause', 800], ['read', 'pressed', { textBox: ['Your plan includes'], has: ['Learn more'] }], ['shot', 'pressed'],
+    ['press', 'Escape'], ['pause', 800], ['read', 'after Escape', { textBox: ['Your plan includes'], has: ['Open storage dialog'] }], ['shot', 'escape'],
+  ] },
+  'CAP-T7CORNER': { page: 'Gestures Probe', question: 'T7: Corner on a video block with no video', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Video'], ['pause', 1000], ['select', 0, 'new'], ['clickIf', 'Edit'], ['pause', 800], ['clickIf', 'Design'], ['pause', 600], ['read', 'start', { rows: ['Corner'], controls: true, radii: [0, 'new'], block: [0, 'new'], areas: 0 }], ['shot', 'start'],
+    ['fillRow', 'Corner', 0, '20'], ['press', 'Tab'], ['pause', 800], ['read', 'corner 20', { rows: ['Corner'], radii: [0, 'new'], block: [0, 'new'], areas: 0 }], ['shot', 'corner20'],
+    ['deselect', 0], ['pause', 400], ['shot', 'deselected'],
+  ] },
+  'CAP-T7SETTINGS': { page: 'Gestures Probe', question: "T7: the player's Settings button in preview, on the template's video with Player controls All. Three unnamed presses add the section: its button, Intro, the first tile. One unnamed press on the video pauses it.", steps: [
+    ['enter'], ['pause', 1500], ['clickAt', 800, 312], ['pause', 1500], ['clickAt', 228, 273], ['pause', 1500], ['clickAt', 745, 340], ['pause', 7000], ['select', 0, 1], ['clickIf', 'Edit'], ['pause', 1500], ['scrollTo', 'Player controls'], ['read', 'edit mode', { frameEls: '.plyr__controls, .plyr__controls button' }],
+    ['pressNamed', 'Minimal'], ['pressNamed', 'All'], ['pause', 1200], ['press', 'Escape'], ['deselect', 0], ['click', 'Toggle preview mode'], ['pause', 2500],
+    ['moveFrame', '.plyr__controls button[data-plyr=settings]'], ['read', 'playing, mouse over', { frameEls: '.plyr__controls, .plyr__controls button' }],
+    ['clickAt', 800, 516], ['pause', 1500], ['read', 'paused', { frameEls: '.plyr__controls, .plyr__controls button, .plyr__control--overlaid' }], ['shot', 'paused'],
+    ['pressFrame', '.plyr__controls button[data-plyr=settings]'], ['pause', 700], ['read', 'settings open', { frameEls: '.plyr__menu__container, .plyr__menu__container button, [data-plyr=settings]' }], ['shot', 'settings'],
+    ['pressFrame', '.plyr__menu__container button'], ['pause', 700], ['read', 'speed open', { frameEls: '.plyr__menu__container, .plyr__menu__container button' }], ['shot', 'speed'],
+    ['press', 'Escape'], ['pause', 500], ['read', 'after Escape', { frameEls: '.plyr__menu__container, [data-plyr=settings]' }], ['click', 'Toggle preview mode'], ['pause', 2500], ['read', 'back', { has: ['Exit', 'Save'] }],
+  ] },
+  'CAP-T10ROWS': { page: 'Gestures Probe', question: "T10: a code block's rows after more line counts, up and then down", steps: [
+    ['enter'], ['blank'], ['add', 0, 'Code'], ['pause', 800], ['select', 0, 'new'], ['clickIf', 'Edit'], ['pause', 1000], ['read', 'start', { areas: 0, frameEls: '.sqs-code-container' }],
+    ...[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 20, 25, 30, 25, 20, 14, 12, 8, 7, 6, 5, 3, 1].flatMap((n, i) => [['setCode', codeLines(n)], ['read', `step ${i} ${n} lines`, { areas: 0, frameEls: '.sqs-code-container' }]]),
+  ] },
+  'CAP-T10PULL': { page: 'Gestures Probe', question: "T10: a code block's rows after a real mouse pull, and on the phone", steps: [
+    ['enter'], ['blank'], ['add', 0, 'Code'], ['pause', 800], ['select', 0, 'new'], ['read', 'start', { areas: 0 }], ['drag', 0, 'new', 's', 0, 164.4], ['read', 'pulled 4 rows taller', { areas: 0 }],
+    ['select', 0, 'new'], ['clickIf', 'Edit'], ['pause', 800], ...[3, 1, 12, 1].flatMap((n, i) => [['setCode', codeLines(n)], ['read', `tall step ${i + 1}, ${n} lines`, { areas: 0, frameEls: '.sqs-code-container' }]]),
+    ['setCode', codeLines(12)], ['read', '12 lines', { areas: 0 }], ['press', 'Escape'], ['select', 0, 'new'], ['drag', 0, 'new', 's', 0, -123.3], ['read', 'pull 3 up with 12 lines', { areas: 0 }], ['shot', 'pull-up'],
+    ['select', 0, 'new'], ['clickIf', 'Edit'], ['pause', 800], ['setCode', codeLines(13)], ['read', '13 after pull up', { areas: 0 }], ['setCode', codeLines(12)], ['read', '12 again', { areas: 0 }], ['setCode', codeLines(2)], ['read', '2 lines', { areas: 0 }], ['press', 'Escape'],
+    ['view', 'Mobile'], ['read', 'phone start', { areas: 0 }], ['select', 0, 'new'], ['clickIf', 'Edit'], ['pause', 800], ['read', 'phone panel', { panelEls: '.cm-content', frameEls: '.sqs-code-container' }], ['shot', 'phone-panel'],
+    ...[6, 20, 2].flatMap((n) => [['setCode', codeLines(n)], ['read', `phone ${n} lines`, { areas: 0, frameEls: '.sqs-code-container' }]]),
+    ['press', 'Escape'], ['select', 0, 'new'], ['drag', 0, 'new', 's', 0, 164.4], ['read', 'phone pulled', { areas: 0 }], ['select', 0, 'new'], ['clickIf', 'Edit'], ['pause', 800], ['setCode', codeLines(1)], ['read', 'phone pulled 1 line', { areas: 0 }],
+    ['press', 'Escape'], ['view', 'Desktop'], ['read', 'back on desktop', { areas: 0 }],
+  ] },
+  'CAP-T10DOWN': { page: 'Gestures Probe', question: "T10: a code block's rows from 12 lines down to each smaller count and back, with a longer wait, and one line-by-line walk down", steps: [
+    ['enter'], ['blank'], ['add', 0, 'Code'], ['pause', 800], ['select', 0, 'new'], ['clickIf', 'Edit'], ['pause', 1000],
+    ...[11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1].flatMap((n) => [['setCode', codeLines(12)], ['pause', 1500], ['read', `at 12 before ${n}`, { areas: 0 }], ['setCode', codeLines(n)], ['pause', 1500], ['read', `12 to ${n}`, { areas: 0, frameEls: '.sqs-code-container' }]]),
+    ['setCode', codeLines(12)], ['pause', 1500], ...[11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1].flatMap((n) => [['setCode', codeLines(n)], ['pause', 1500], ['read', `walk ${n}`, { areas: 0 }]]),
+  ] },
+  'CAP-T10EMBED': { page: 'Gestures Probe', question: "T10: an embed's rows after a first snippet of several lengths, the same snippet again, then a walk, a pull and the phone", steps: [
+    ['enter'], ['blank'],
+    ...[1, 2, 3, 4, 6, 8, 10, 14].flatMap((n) => [['add', 0, 'Embed'], ['pause', 800], ['select', 0, 'new'], ['read', `fresh for ${n}`, { block: [0, 'new'], frameEls: '.sqs-embed-container' }], ['clickIf', 'Edit'], ['pause', 800], ['pressNamed', 'Code Snippet'], ['pause', 400], ['pressNamed', 'Navigate to Embed data'], ['pause', 700], ['setCode', codeLines(n)], ['pause', 800], ['read', `first snippet ${n}`, { block: [0, 'new'], frameEls: '.sqs-embed-container' }], ['setCode', codeLines(n) + ' '], ['pause', 800], ['read', `same again ${n}`, { block: [0, 'new'] }], ['setCode', codeLines(n) + '  '], ['pause', 800], ['read', `third time ${n}`, { block: [0, 'new'] }], ['press', 'Escape'], ['deselect', 0], ['pause', 300]]),
+  ] },
+  'CAP-T10VIEW': { page: 'Gestures Probe', question: "T10: Mode and Display Source Code in the Code Editor view. One unnamed press opens Mode's list at its place in the view.", steps: [
+    ['enter'], ['blank'], ['add', 0, 'Code'], ['pause', 800], ['select', 0, 'new'], ['clickIf', 'Edit'], ['pause', 1000], ['setCode', codeLines(3)],
+    ['read', 'panel start', { checks: true, htmlOf: '.sqs-code-container', areas: 0 }], ['clickIf', 'Expand'], ['pause', 900], ['clickAt', 585, 306], ['pause', 500], ['read', 'mode list', { controls: true }], ['shot', 'mode-list'],
+    ['pressNamed', 'CSS'], ['pause', 700], ['read', 'view on CSS', { checks: true, htmlOf: '.sqs-code-container', areas: 0, panelEls: '.cm-content' }], ['shot', 'view-css'], ['clickIf', 'Close'], ['pause', 900], ['read', 'closed on CSS', { checks: true, htmlOf: '.sqs-code-container', areas: 0, panelEls: '.cm-content' }], ['shot', 'closed-css'],
+    ['clickIf', 'Expand'], ['pause', 900], ['clickAt', 585, 306], ['pause', 500], ['pressNamed', 'Markdown'], ['pause', 700], ['read', 'view on Markdown', { checks: true, htmlOf: '.sqs-code-container' }], ['shot', 'view-md'], ['clickIf', 'Close'], ['pause', 900], ['read', 'closed on Markdown', { checks: true, htmlOf: '.sqs-code-container', areas: 0 }],
+    ['clickIf', 'Expand'], ['pause', 900], ['clickAt', 585, 306], ['pause', 500], ['pressNamed', 'HTML'], ['pause', 700], ['read', 'view on HTML', { checks: true }], ['clickAt', 1203, 311], ['pause', 600], ['read', 'switch off in view', { checks: true, htmlOf: '.sqs-code-container', areas: 0 }], ['shot', 'view-switch'], ['clickIf', 'Close'], ['pause', 900], ['read', 'closed, switch off', { checks: true, htmlOf: '.sqs-code-container', areas: 0, frameEls: '.sqs-code-container, .sqs-code-container pre' }], ['shot', 'closed-switch'],
+  ] },
+  'CAP-T10MD': { page: 'Gestures Probe', question: 'T10: what a new Markdown block makes of each kind of syntax', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Markdown'], ['pause', 800], ['select', 0, 'new'], ['clickIf', 'Edit'], ['pause', 1000], ['read', 'start', { checks: true, htmlOf: '.sqs-block-markdown .sqs-block-content', panelEls: '.cm-content', areas: 0 }], ['shot', 'start'],
+    ...Object.entries({
+      headings: '# h1\n## h2\n### h3\n#### h4\n##### h5\n###### h6\n####### h7', setext: 'one\n===\n\ntwo\n---',
+      paragraphs: 'a\nb\n\nc', hardBreak: 'a  \nb', emphasis: '*a* _b_ **c** __d__ ***e*** ~~f~~ `g`', escapes: '\\*a\\* &amp; &copy; < >',
+      bullets: '- a\n- b\n  - c\n* d\n+ e', numbers: '1. a\n2. b\n3) c\n\n5. d', task: '- [ ] a\n- [x] b',
+      quote: '> a\n> b\n>\n>> c', rules: '---\n\n***\n\n___', link: '[a](/x "t") [b](/y) <mailto:a@b.test> [c][1]\n\n[1]: /z', image: '![a](/y.png "t")',
+      fence: '\`\`\`\nx = 1\n\`\`\`\n\n\`\`\`js\ny = 2\n\`\`\`', indent: '    code', table: '| a | b |\n|---|---|\n| 1 | 2 |', html: '<b>x</b>\n\n<div>y</div>\n\n<script>0</script>', footnote: 'a[^1]\n\n[^1]: b', definition: 'a\n: b',
+    }).flatMap(([k, v]) => [['setCode', v], ['pause', 400], ['read', k, { htmlOf: '.sqs-block-markdown .sqs-block-content', panelEls: '.cm-content', areas: 0 }]]),
+    ['shot', 'end'],
+  ] },
+  'CAP-T14ZOLA': { page: 'Gestures Probe', question: "T14: where Zola lands from the Add Block menu in a fresh section, read over 20 seconds", steps: [
+    ['enter'], ['blank'], ['pause', 800], ['add', 0, 'Zola'],
+    ...[["pause",1000],["read","Zola at 1 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",2000],["read","Zola at 3 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",3000],["read","Zola at 6 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",4000],["read","Zola at 10 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",10000],["read","Zola at 20 s",{"areas":0,"frameEls":".page-section .fluid-engine"}]],
+    ['shot', 'after'],
+  ] },
+  'CAP-T14BANDS': { page: 'Gestures Probe', question: "T14: where Bandsintown lands from the Add Block menu in a fresh section, read over 20 seconds", steps: [
+    ['enter'], ['blank'], ['pause', 800], ['add', 0, 'Bandsintown'],
+    ...[["pause",1000],["read","Bandsintown at 1 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",2000],["read","Bandsintown at 3 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",3000],["read","Bandsintown at 6 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",4000],["read","Bandsintown at 10 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",10000],["read","Bandsintown at 20 s",{"areas":0,"frameEls":".page-section .fluid-engine"}]],
+    ['shot', 'after'],
+  ] },
+  'CAP-T14OPENTABLE': { page: 'Gestures Probe', question: "T14: where OpenTable lands from the Add Block menu in a fresh section, read over 20 seconds", steps: [
+    ['enter'], ['blank'], ['pause', 800], ['add', 0, 'OpenTable'],
+    ...[["pause",1000],["read","OpenTable at 1 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",2000],["read","OpenTable at 3 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",3000],["read","OpenTable at 6 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",4000],["read","OpenTable at 10 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",10000],["read","OpenTable at 20 s",{"areas":0,"frameEls":".page-section .fluid-engine"}]],
+    ['shot', 'after'],
+  ] },
+  'CAP-T14CONTROL': { page: 'Gestures Probe', question: "T14: where Flickr lands from the Add Block menu in a fresh section, read over 20 seconds", steps: [
+    ['enter'], ['blank'], ['pause', 800], ['add', 0, 'Flickr'],
+    ...[["pause",1000],["read","Flickr at 1 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",2000],["read","Flickr at 3 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",3000],["read","Flickr at 6 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",4000],["read","Flickr at 10 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",10000],["read","Flickr at 20 s",{"areas":0,"frameEls":".page-section .fluid-engine"}]],
+    ['shot', 'after'],
   ] },
   'CAP-SECTIONMODEL': { page: 'Gestures Probe', question: 'U10: what Duplicate, Move, Remove and the Add Section picker do to the page', steps: [
     ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['blank'], ['read', 'two sections', { sections: true }],

@@ -1,0 +1,888 @@
+{
+  "item": "CAP-T10MD",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: what a new Markdown block makes of each kind of syntax",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "start",
+      {
+        "checks": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "start"
+    ],
+    [
+      "setCode",
+      "# h1\n## h2\n### h3\n#### h4\n##### h5\n###### h6\n####### h7"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "headings",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "one\n===\n\ntwo\n---"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "setext",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "a\nb\n\nc"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "paragraphs",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "a  \nb"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "hardBreak",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "*a* _b_ **c** __d__ ***e*** ~~f~~ `g`"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "emphasis",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "\\*a\\* &amp; &copy; < >"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "escapes",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "- a\n- b\n  - c\n* d\n+ e"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "bullets",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "1. a\n2. b\n3) c\n\n5. d"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "numbers",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "- [ ] a\n- [x] b"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "task",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "> a\n> b\n>\n>> c"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "quote",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "---\n\n***\n\n___"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "rules",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "[a](/x \"t\") [b](/y) <mailto:a@b.test> [c][1]\n\n[1]: /z"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "link",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "![a](/y.png \"t\")"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "image",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "```\nx = 1\n```\n\n```js\ny = 2\n```"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "fence",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "    code"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "indent",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "| a | b |\n|---|---|\n| 1 | 2 |"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "table",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<b>x</b>\n\n<div>y</div>\n\n<script>0</script>"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "html",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "a[^1]\n\n[^1]: b"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "footnote",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "a\n: b"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "definition",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "end"
+    ]
+  ],
+  "reads": {
+    "start": {
+      "checks": [],
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping",
+          "label": "Add markdown…",
+          "lines": 1,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "headings": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "# h1## h2### h3#### h4##### h5###### h6#",
+          "lines": 7,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<h1>h1</h1><h2>h2</h2><h3>h3</h3><h4>h4</h4><h5>h5</h5><h6>h6</h6><p>####### h7</p>",
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "setext": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "one===two---",
+          "lines": 5,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<h1>one</h1><h2>two</h2>",
+      "areas": [
+        [
+          "1/2/5/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "paragraphs": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "abc",
+          "lines": 4,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<p>a\nb</p><p>c</p>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "hardBreak": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "a  b",
+          "lines": 2,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<p>a<br>b</p>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "emphasis": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "*a* _b_ **c** __d__ ***e*** ~~f~~ `g`",
+          "lines": 1,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<p><em>a</em> <em>b</em> <strong>c</strong> <strong>d</strong> <em><strong>e</strong></em> <del>f</del> <code>g</code></p>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "escapes": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "\\*a\\* &amp; &copy; < >",
+          "lines": 1,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<p>*a* &amp; © &lt; &gt;</p>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bullets": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "- a- b  - c* d+ e",
+          "lines": 5,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<ul>\n<li>a</li>\n<li>b<ul>\n<li>c</li>\n</ul>\n</li>\n</ul><ul>\n<li>d</li>\n</ul><ul>\n<li>e</li>\n</ul>",
+      "areas": [
+        [
+          "1/2/5/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "numbers": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "1. a2. b3) c5. d",
+          "lines": 5,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<ol>\n<li>a</li>\n<li>b</li>\n</ol><ol start=\"3\">\n<li>c</li>\n</ol><ol start=\"5\">\n<li>d</li>\n</ol>",
+      "areas": [
+        [
+          "1/2/5/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "task": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "- [ ] a- [x] b",
+          "lines": 2,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<ul>\n<li><input disabled=\"\" type=\"checkbox\"> a</li>\n<li><input checked=\"\" disabled=\"\" type=\"checkbox\"> b</li>\n</ul>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "quote": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "> a> b>>> c",
+          "lines": 4,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<blockquote>\n<p>a\nb</p>\n<blockquote>\n<p>c</p>\n</blockquote>\n</blockquote>",
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rules": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "---***___",
+          "lines": 5,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<hr><hr><hr>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "link": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "[a](/x \"t\") [b](/y) <mailto:a@b.test> [c",
+          "lines": 3,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<p><a href=\"/x\" title=\"t\">a</a> <a href=\"/y\">b</a> &lt;mailto:<a href=\"mailto:a@b.test\">a@b.test</a> data-preserve-html-node=\"true\"&gt; <a href=\"/z\">c</a></p>",
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "image": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "![a](/y.png \"t\")",
+          "lines": 1,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<p><img src=\"/y.png\" alt=\"a\" title=\"t\"></p>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "fence": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "```x = 1``````jsy = 2```",
+          "lines": 7,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<pre><code>x = 1\n</code></pre><pre><code class=\"language-js\">y = 2\n</code></pre>",
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "indent": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "code",
+          "lines": 1,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<pre><code>code\n</code></pre>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "table": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "| a | b ||---|---|| 1 | 2 |",
+          "lines": 3,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<table>\n<thead>\n<tr>\n<th>a</th>\n<th>b</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>1</td>\n<td>2</td>\n</tr>\n</tbody></table>",
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "html": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "<b>x</b><div>y</div><script>0</script>",
+          "lines": 5,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<p><b data-preserve-html-node=\"true\">x</b></p><div data-preserve-html-node=\"true\">y</div>",
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "footnote": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "a[^1][^1]: b",
+          "lines": 3,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<p>a<a href=\"b\">^1</a></p>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "definition": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "a: b",
+          "lines": 2,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<p>a\n: b</p>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "A Markdown block has a full Markdown reader: headings 1 to 6, setext, line breaks, em, strong, both, del, code, escapes and entities, nested lists, ol with start, task lists as disabled checkboxes, nested quotes, hr, links with titles, reference links, images, fenced code with language-x, indented code, tables. Inline HTML is kept with data-preserve-html-node=\"true\" added, and a script is dropped. A new block shows Double-click to edit... at 1/2/7/6. Rows fall with the content here too.",
+  "ours": "Only definition lists of the 19 samples match, and that one just reads as text. Ours reads headings only when a blank line follows, and no lists, quotes, rules, links, images, code blocks, tables or inline HTML.",
+  "differs": [
+    "18 of 19 samples: see the reads for the oracle's HTML"
+  ]
+}

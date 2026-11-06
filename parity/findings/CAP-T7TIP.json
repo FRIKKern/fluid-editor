@@ -1,0 +1,183 @@
+{
+  "item": "CAP-T7TIP",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T7: the ? by Video Storage, by hover, by press, and how it closes",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Video"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "scrollTo",
+      "Video Storage"
+    ],
+    [
+      "read",
+      "start",
+      {
+        "has": [
+          "Open storage dialog"
+        ],
+        "textBox": [
+          "Your plan includes"
+        ]
+      }
+    ],
+    [
+      "moveIcon",
+      "Video Storage"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "hover",
+      {
+        "textBox": [
+          "Your plan includes"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "hover"
+    ],
+    [
+      "pressNamed",
+      "Open storage dialog"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "pressed",
+      {
+        "textBox": [
+          "Your plan includes"
+        ],
+        "has": [
+          "Learn more"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "pressed"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "after Escape",
+      {
+        "textBox": [
+          "Your plan includes"
+        ],
+        "has": [
+          "Open storage dialog"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "escape"
+    ]
+  ],
+  "reads": {
+    "start": {
+      "textBox": {
+        "Your plan includes": null
+      },
+      "has": {
+        "Open storage dialog": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "hover": {
+      "textBox": {
+        "Your plan includes": null
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "pressed": {
+      "textBox": {
+        "Your plan includes": {
+          "text": "Your plan includes 30 minutes of free uploaded video storage.  Learn more",
+          "box": [
+            603,
+            462,
+            288,
+            44
+          ]
+        }
+      },
+      "has": {
+        "Learn more": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after Escape": {
+      "textBox": {
+        "Your plan includes": null
+      },
+      "has": {
+        "Open storage dialog": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "iconAt": [
+    843,
+    545,
+    22,
+    22
+  ],
+  "leftDirty": true,
+  "answer": "The ? by Video Storage is a button named Open storage dialog. Hovering shows only a grey circle and no tip. A press opens a tip over a dark overlay: Your plan includes 30 minutes of free uploaded video storage. Learn more. Text box 603,462 288 by 44. Escape closes it and the button stays. No block changes. The old note that a click changes nothing was wrong.",
+  "ours": "No ? at all: the row is the words Video Storage and 30 min left.",
+  "differs": true,
+  "notPressed": [
+    "Learn more, which may open a tab"
+  ]
+}

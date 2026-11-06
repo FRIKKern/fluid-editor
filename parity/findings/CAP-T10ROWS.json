@@ -1,0 +1,1150 @@
+{
+  "item": "CAP-T10ROWS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: a code block's rows after more line counts, up and then down",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "start",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>"
+    ],
+    [
+      "read",
+      "step 0 1 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+      "read",
+      "step 1 2 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+      "read",
+      "step 2 3 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+      "read",
+      "step 3 4 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+      "read",
+      "step 4 5 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+      "read",
+      "step 5 6 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p>"
+    ],
+    [
+      "read",
+      "step 6 7 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p>"
+    ],
+    [
+      "read",
+      "step 7 8 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p>"
+    ],
+    [
+      "read",
+      "step 8 9 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p>"
+    ],
+    [
+      "read",
+      "step 9 10 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p>"
+    ],
+    [
+      "read",
+      "step 10 11 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "read",
+      "step 11 12 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p>"
+    ],
+    [
+      "read",
+      "step 12 13 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p>"
+    ],
+    [
+      "read",
+      "step 13 14 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p>"
+    ],
+    [
+      "read",
+      "step 14 16 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p>"
+    ],
+    [
+      "read",
+      "step 15 20 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p>"
+    ],
+    [
+      "read",
+      "step 16 25 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p><p>row 27</p><p>row 28</p><p>row 29</p><p>row 30</p>"
+    ],
+    [
+      "read",
+      "step 17 30 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p>"
+    ],
+    [
+      "read",
+      "step 18 25 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p>"
+    ],
+    [
+      "read",
+      "step 19 20 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p>"
+    ],
+    [
+      "read",
+      "step 20 14 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "read",
+      "step 21 12 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p>"
+    ],
+    [
+      "read",
+      "step 22 8 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p>"
+    ],
+    [
+      "read",
+      "step 23 7 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+      "read",
+      "step 24 6 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+      "read",
+      "step 25 5 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+      "read",
+      "step 26 3 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>"
+    ],
+    [
+      "read",
+      "step 27 1 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Hello, World!",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 0 1 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 1 2 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            60.8
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 2 3 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            99.2
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 3 4 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            137.6
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 4 5 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            176
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 5 6 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            214.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 6 7 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            252.8
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/8/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 7 8 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            291.3
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/9/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 8 9 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            329.7
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/10/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 9 10 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            368.1
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/11/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 10 11 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            406.5
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/12/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 11 12 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            444.9
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 12 13 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            483.3
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 13 14 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            521.7
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/14/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 14 16 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            598.5
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/16/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 15 20 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            752.1
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/20/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 16 25 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            944.2
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/25/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 17 30 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            1136.2
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/29/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 18 25 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            944.2
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/24/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 19 20 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            752.1
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/19/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 20 14 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            521.7
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 21 12 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            444.9
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 22 8 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            291.3
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/9/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 23 7 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            252.8
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 24 6 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            214.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 25 5 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            307,
+            224.1,
+            176
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/5/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 26 3 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            345.5,
+            224.1,
+            99.2
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "step 27 1 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            380,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Rows after each line count going up, then down. Going up: 6 rows hold up to 6 lines, then rows = ceil((content height + 9) / 41.1), which fits all 18 steps: the block lets content run over by about 2px, so 13 lines (483.3) stay in 12 rows (482.2). Going down, rows can end below what the content needs: 3 lines in 1 row.",
+  "ours": "Rises match but for 13 lines (ours 13 rows). Six falls differ, all by ours keeping more rows: see differs.",
+  "differs": [
+    "13 lines: oracle 12 rows, ours 13",
+    "25 from 30: 23, ours 24",
+    "20: 18, ours 19",
+    "14 from 20: 12, ours 13",
+    "7 from 8: 6, ours 7",
+    "5 from 6: 4, ours 5",
+    "3 from 5: 1, ours 3"
+  ]
+}

@@ -1,0 +1,648 @@
+{
+  "item": "CAP-T7CORNER",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T7: Corner on a video block with no video",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Video"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "start",
+      {
+        "rows": [
+          "Corner"
+        ],
+        "controls": true,
+        "radii": [
+          0,
+          "new"
+        ],
+        "block": [
+          0,
+          "new"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "start"
+    ],
+    [
+      "fillRow",
+      "Corner",
+      0,
+      "20"
+    ],
+    [
+      "press",
+      "Tab"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "corner 20",
+      {
+        "rows": [
+          "Corner"
+        ],
+        "radii": [
+          0,
+          "new"
+        ],
+        "block": [
+          0,
+          "new"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "corner20"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "shot",
+      "deselected"
+    ]
+  ],
+  "reads": {
+    "start": {
+      "rows": {
+        "Corner": [
+          "0px"
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            600,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            668.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            730.8,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add fill",
+          "box": [
+            840,
+            415,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "No Stroke",
+          "box": [
+            697,
+            465,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Solid Stroke",
+          "box": [
+            756.7,
+            465,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Dashed Stroke",
+          "box": [
+            816.3,
+            465,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            799,
+            513,
+            66,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            513,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            546,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            513,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            697,
+            516,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            738,
+            516,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            584,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            705,
+            631,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            631,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            664,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            631,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0°",
+          "box": [
+            705,
+            682,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            682,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            715,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            682,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            733,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            738,
+            733,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            733,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            832,
+            733,
+            44,
+            44
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "1/2/9/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793945785335_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "radii": [
+        {
+          "tag": "span",
+          "cls": "sqs-block-label-tag sqs-block-label-tag-floated-pill",
+          "radius": "3px",
+          "overflow": "visible",
+          "box": [
+            0,
+            0
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "corner 20": {
+      "rows": {
+        "Corner": [
+          "20px"
+        ]
+      },
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "1/2/9/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793945785335_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "radii": [
+        {
+          "tag": "div",
+          "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-",
+          "radius": "20px",
+          "overflow": "visible",
+          "box": [
+            459.3,
+            298.5
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "radius": "20px",
+          "overflow": "visible",
+          "box": [
+            459.3,
+            298.5
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "intrinsic sqs-border-radius-enabled",
+          "radius": "20px",
+          "overflow": "hidden",
+          "box": [
+            459.3,
+            298.5
+          ]
+        },
+        {
+          "tag": "span",
+          "cls": "sqs-block-label-tag sqs-block-label-tag-floated-pill",
+          "radius": "3px",
+          "overflow": "visible",
+          "box": [
+            0,
+            0
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/9/10",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "An empty video's Design tab has Background as a + button, Stroke as three segments, Corner as Uniform and Individual buttons and a 0px field. Corner 20 rounds the dark placeholder itself: .sqs-block, its content and .intrinsic all read 20px, and .intrinsic clips with overflow hidden, 459.3 by 298.5. The area stays.",
+  "ours": "The placeholder stays square: only the block and its content read 20px, nothing clips. Background is a switch, Corner a lone number with no Uniform or Individual. The area stays too.",
+  "differs": true
+}

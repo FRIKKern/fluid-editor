@@ -1,0 +1,3496 @@
+{
+  "item": "CAP-T10EMBED",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: an embed's rows after a first snippet of several lengths, the same snippet again, then a walk, a pull and the phone",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "fresh for 1",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "first snippet 1",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p> "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "same again 1",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>  "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "third time 1",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "fresh for 2",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "first snippet 2",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p> "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "same again 2",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p>  "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "third time 2",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "fresh for 3",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "first snippet 3",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p> "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "same again 3",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p>  "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "third time 3",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "fresh for 4",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "first snippet 4",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p> "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "same again 4",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>  "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "third time 4",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "fresh for 6",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "first snippet 6",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p> "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "same again 6",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>  "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "third time 6",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "fresh for 8",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p>"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "first snippet 8",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p> "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "same again 8",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p>  "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "third time 8",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "fresh for 10",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p>"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "first snippet 10",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p> "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "same again 10",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p>  "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "third time 10",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Embed"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "fresh for 14",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Code Snippet"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Navigate to Embed data"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p>"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "first snippet 14",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-embed-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p> "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "same again 14",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p>  "
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "third time 14",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "fresh for 1": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "1/2/9/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Embed Block\n    \n      Add an embed URL ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            95
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "first snippet 1": {
+      "block": {
+        "desktop": "1/2/7/10",
+        "mobile": "1/2/9/10",
+        "box": [
+          100.1,
+          263.4,
+          459.3,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 455.3,112.8",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,231.6",
+          "se 10x10 at 455.3,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            334.4,
+            459.3,
+            22.4
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "same again 1": {
+      "block": {
+        "desktop": "1/2/7/10",
+        "mobile": "1/2/9/10",
+        "box": [
+          100.1,
+          263.4,
+          459.3,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 455.3,112.8",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,231.6",
+          "se 10x10 at 455.3,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "third time 1": {
+      "block": {
+        "desktop": "1/2/7/10",
+        "mobile": "1/2/9/10",
+        "box": [
+          100.1,
+          263.4,
+          459.3,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 455.3,112.8",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,231.6",
+          "se 10x10 at 455.3,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "fresh for 2": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "1/2/9/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_720",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Embed Block\n    \n      Add an embed URL ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            95
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            22.4
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "first snippet 2": {
+      "block": {
+        "desktop": "1/2/8/10",
+        "mobile": "1/2/9/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          276.7
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_720",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 8 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,133.3",
+          "col 10x10 at 455.3,133.3",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,272.7",
+          "se 10x10 at 455.3,272.7",
+          "sw 10x10 at -6,272.7"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            60.8
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            22.4
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "same again 2": {
+      "block": {
+        "desktop": "1/2/8/10",
+        "mobile": "1/2/9/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          276.7
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_720",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 8 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,133.3",
+          "col 10x10 at 455.3,133.3",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,272.7",
+          "se 10x10 at 455.3,272.7",
+          "sw 10x10 at -6,272.7"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "third time 2": {
+      "block": {
+        "desktop": "1/2/8/10",
+        "mobile": "1/2/9/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          276.7
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_720",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 8 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,133.3",
+          "col 10x10 at 455.3,133.3",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,272.7",
+          "se 10x10 at 455.3,272.7",
+          "sw 10x10 at -6,272.7"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "fresh for 3": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "9/2/17/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_1024",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            60.8
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Embed Block\n    \n      Add an embed URL ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            95
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            22.4
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "first snippet 3": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "9/2/17/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_1024",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            60.8
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            99.2
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            22.4
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "same again 3": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "9/2/17/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_1024",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "third time 3": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "9/2/17/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_1024",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "fresh for 4": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "25/2/33/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_1350",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "4",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            60.8
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            99.2
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            22.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Embed Block\n    \n      Add an embed URL ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            95
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "first snippet 4": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "25/2/33/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_1350",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "4",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            60.8
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            99.2
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            22.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            137.6
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "same again 4": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "25/2/33/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_1350",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "4",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "third time 4": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "25/2/33/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_1350",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "4",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "fresh for 6": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "33/2/41/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_1698",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "5",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            60.8
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            99.2
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            22.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            137.6
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Embed Block\n    \n      Add an embed URL ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            95
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "first snippet 6": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "33/2/41/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_1698",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "5",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            60.8
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            99.2
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            22.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            137.6
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            214.4
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "same again 6": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "33/2/41/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_1698",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "5",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "third time 6": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "33/2/41/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_1698",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "5",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "fresh for 8": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "41/2/49/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_2070",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "6",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            60.8
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            99.2
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            22.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            137.6
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            214.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Embed Block\n    \n      Add an embed URL ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            95
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "first snippet 8": {
+      "block": {
+        "desktop": "1/2/10/10",
+        "mobile": "41/2/49/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          358.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_2070",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "6",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 10 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,174.4",
+          "col 10x10 at 455.3,174.4",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,354.8",
+          "se 10x10 at 455.3,354.8",
+          "sw 10x10 at -6,354.8"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            60.8
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            99.2
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            22.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            137.6
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            214.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            291.3
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "same again 8": {
+      "block": {
+        "desktop": "1/2/10/10",
+        "mobile": "41/2/49/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          358.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_2070",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "6",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 10 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,174.4",
+          "col 10x10 at 455.3,174.4",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,354.8",
+          "se 10x10 at 455.3,354.8",
+          "sw 10x10 at -6,354.8"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "third time 8": {
+      "block": {
+        "desktop": "1/2/10/10",
+        "mobile": "41/2/49/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          358.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_2070",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "6",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 10 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,174.4",
+          "col 10x10 at 455.3,174.4",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,354.8",
+          "se 10x10 at 455.3,354.8",
+          "sw 10x10 at -6,354.8"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "fresh for 10": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "41/2/49/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_2466",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "7",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            99.2
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            60.8
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            137.6
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            214.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            291.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Embed Block\n    \n      Add an embed URL ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            95
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            22.4
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "first snippet 10": {
+      "block": {
+        "desktop": "1/2/11/10",
+        "mobile": "41/2/49/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          400.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_2466",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "7",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 11 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,195",
+          "col 10x10 at 455.3,195",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,396.1",
+          "se 10x10 at 455.3,396.1",
+          "sw 10x10 at -6,396.1"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            99.2
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            60.8
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            137.6
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            214.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            291.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            368.1
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            22.4
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "same again 10": {
+      "block": {
+        "desktop": "1/2/11/10",
+        "mobile": "33/2/41/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          400.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_2466",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "7",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 11 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,195",
+          "col 10x10 at 455.3,195",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,396.1",
+          "se 10x10 at 455.3,396.1",
+          "sw 10x10 at -6,396.1"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "third time 10": {
+      "block": {
+        "desktop": "1/2/11/10",
+        "mobile": "33/2/41/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          400.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_2466",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "7",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 11 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,195",
+          "col 10x10 at 455.3,195",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,396.1",
+          "se 10x10 at 455.3,396.1",
+          "sw 10x10 at -6,396.1"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "fresh for 14": {
+      "block": {
+        "desktop": "1/2/9/10",
+        "mobile": "49/2/57/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          317.8
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_2886",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "8",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 9 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,153.9",
+          "col 10x10 at 455.3,153.9",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,313.8",
+          "se 10x10 at 455.3,313.8",
+          "sw 10x10 at -6,313.8"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            99.2
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            137.6
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            214.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            291.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            368.1
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            60.8
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Embed Block\n    \n      Add an embed URL ",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            95
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            22.4
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "first snippet 14": {
+      "block": {
+        "desktop": "1/2/15/10",
+        "mobile": "49/2/57/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          564.3
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_2886",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "8",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 15 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,277.2",
+          "col 10x10 at 455.3,277.2",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,560.3",
+          "se 10x10 at 455.3,560.3",
+          "sw 10x10 at -6,560.3"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            99.2
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            137.6
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            214.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            291.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            368.1
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            60.8
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            521.7
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            315.2,
+            459.3,
+            22.4
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "same again 14": {
+      "block": {
+        "desktop": "1/2/15/10",
+        "mobile": "41/2/49/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          564.3
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_2886",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "8",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 15 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,277.2",
+          "col 10x10 at 455.3,277.2",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,560.3",
+          "se 10x10 at 455.3,560.3",
+          "sw 10x10 at -6,560.3"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "third time 14": {
+      "block": {
+        "desktop": "1/2/15/10",
+        "mobile": "41/2/49/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          564.3
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793946874927_2886",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "8",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 15 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,277.2",
+          "col 10x10 at 455.3,277.2",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,560.3",
+          "se 10x10 at 455.3,560.3",
+          "sw 10x10 at -6,560.3"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Why an embed goes from 8 to 6 rows after a short snippet: its placeholder is 95 tall, a short snippet 22.4, and a fall in content height gives rows up. One line 8 to 6, two lines 8 to 7, 3, 4 and 6 lines stay at 8, 8 lines 9, 10 lines 10, 14 lines 14. The same snippet again changes nothing, so the earlier 6 then 4 came from passing through empty, back to the placeholder. An embed's content needs about 32 more than its box reads, likely its paragraph margins: rows = ceil((height + 41) / 41.1) fits these, inferred. Its editor is the older kind and has no Expand.",
+  "ours": "7 of 8 match.",
+  "differs": [
+    "10 lines: oracle 10 rows, ours 11"
+  ]
+}

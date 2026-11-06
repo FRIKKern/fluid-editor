@@ -1,0 +1,674 @@
+{
+  "item": "CAP-T10PULL",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: a code block's rows after a real mouse pull, and on the phone",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "start",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      164.4
+    ],
+    [
+      "read",
+      "pulled 4 rows taller",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+      "read",
+      "tall step 1, 3 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>"
+    ],
+    [
+      "read",
+      "tall step 2, 1 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "read",
+      "tall step 3, 12 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>"
+    ],
+    [
+      "read",
+      "tall step 4, 1 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "read",
+      "12 lines",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      -123.3
+    ],
+    [
+      "read",
+      "pull 3 up with 12 lines",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "pull-up"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p>"
+    ],
+    [
+      "read",
+      "13 after pull up",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+      "read",
+      "12 again",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+      "read",
+      "2 lines",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "phone start",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone panel",
+      {
+        "panelEls": ".cm-content",
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "shot",
+      "phone-panel"
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+      "read",
+      "phone 6 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p>"
+    ],
+    [
+      "read",
+      "phone 20 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+      "read",
+      "phone 2 lines",
+      {
+        "areas": 0,
+        "frameEls": ".sqs-code-container"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      164.4
+    ],
+    [
+      "read",
+      "phone pulled",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>"
+    ],
+    [
+      "read",
+      "phone pulled 1 line",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "read",
+      "back on desktop",
+      {
+        "areas": 0
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "pulled 4 rows taller": {
+      "areas": [
+        [
+          "1/2/11/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tall step 1, 3 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            99.2
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/11/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tall step 2, 1 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/8/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tall step 3, 12 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            299.2,
+            224.1,
+            444.9
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tall step 4, 1 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            421.1,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "12 lines": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "pull 3 up with 12 lines": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "13 after pull up": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "12 again": {
+      "areas": [
+        [
+          "1/2/13/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "2 lines": {
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone start": {
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone panel": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            611.7,
+            311.5,
+            376.7,
+            60.8
+          ]
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content",
+          "label": "<p>row 1</p><p>row 2</p>",
+          "lines": 1,
+          "box": [
+            1058.4,
+            452,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone 6 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            611.7,
+            294,
+            376.7,
+            214.4
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/8/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone 20 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2row 3row 4row 5row 6row 7row 8",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            611.7,
+            205.7,
+            376.7,
+            752.1
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/23/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone 2 lines": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "row 1row 2",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            611.7,
+            380.6,
+            376.7,
+            60.8
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/2/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone pulled": {
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone pulled 1 line": {
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "back on desktop": {
+      "areas": [
+        [
+          "1/2/3/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "A pull is kept until the content changes. Pulled from 6 to 10 rows: 3 lines stay at 10, 1 line goes to 7, 12 lines to 12, 1 line to 1. A pull up on 12 lines is refused, as the content needs them. On the phone the panel opens and code changes only the phone's rows, as desktop's change only desktop's: 6 lines 7 rows, 20 lines 22, 2 lines 1. Desktop stays where it was.",
+  "ours": "Same but three steps. Ours keeps desktop and phone apart too.",
+  "differs": [
+    "pulled to 10, 1 line: oracle 7 rows, ours 8",
+    "13 lines after the refused pull: oracle 12, ours 13",
+    "phone, 2 lines from 20: oracle 1 row, ours 3"
+  ],
+  "notCompared": "The phone pull: the test moved ours by rows and the oracle by pixels."
+}
