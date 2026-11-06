@@ -36,7 +36,7 @@
     "status": "done",
     "title": "Box diff: load an oracle page and our render, compare every `.fe-block` rect",
     "gate": "reports pass or fail per block per width",
-    "evidence": "parity/gate-b.json: achromatic-fluid-demo home, our CSS swapped in, 70 of 70 boxes at 5 widths. With --fault the gate fails 0 of 14 at 1280px Decided 2026-11-04 (docs/decisions/0006): the box diff compares inside one engine and refuses a mix. Headless Chrome against headless Chrome: demo 375 of 375, services 115 of 115, home 220 of 225, about 133 of 140, contact 57 of 65, with each gap named in 0006. It also compares the button inside each block, after a screenshot showed one overflowing its block at 768. WebKit was not run again."
+    "evidence": "parity/gate-b.json: achromatic-fluid-demo home, our CSS swapped in, 70 of 70 boxes at 5 widths. With --fault the gate fails 0 of 14 at 1280px Decided 2026-11-04 (docs/decisions/0006): the box diff compares inside one engine and refuses a mix. Headless Chrome against headless Chrome: demo 375 of 375, services 115 of 115, home 220 of 225, about 133 of 140, contact 65 of 65 (57 of 65 until the form was re-read, T9), with each gap named in 0006. It also compares the button inside each block, after a screenshot showed one overflowing its block at 768. WebKit was not run again."
   },
   {
     "id": "H5",

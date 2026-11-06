@@ -41,7 +41,7 @@ The old readings were WebKit with a 17px scrollbar, so a canvas was 1583px wide.
 | Gate B, services | 115 of 115 |
 | Gate B, home | 220 of 225: one picture block at 375 (below) |
 | Gate B, about | 133 of 140: one picture block at 375 (below) |
-| Gate B, contact | 57 of 65: the form block at 375, 767, 768, 1280 (below) |
+| Gate B, contact | 65 of 65, since the form was re-read (below) |
 | section-check | 35 of 35 |
 | design-edit-check | 10 of 10 |
 | Gate C | 23 of 23, after fixing a real bug T0005 found (G4) |
@@ -54,5 +54,5 @@ The first Gate B run in Chrome, 352 of 365, found four real CSS bugs, all fixed 
 WebKit was not run again, so these numbers say nothing about it. Named gaps, none hidden by a lower bar:
 
 - **A picture block at 375, home and about.** The oracle block is taller than ours: 66.6 not 59 on home (picture 481 by 274), 245 not 234 on about (picture 1 by 1), and what is below moves down with it. The oracle reads differently on the same page at the same width: about at 375 read 245, then 234 after the frame went through other widths, and home passed in full on one run. So this is the oracle's lazy picture sizing, not a layout rule. Ours has no pictures (O2).
-- **The form block, contact.** Oracle against ours: 1156.8 and 1144.7 at 375, 1055.2 and 1057.4 at 767, 1090.5 and 1095.3 at 768, 1049 and 1053.7 at 1280. Our form is sized from WebKit readings (T9). Not fixed.
+- **The form block, contact: closed.** It was 57 of 65: oracle against ours 1156.8 and 1144.7 at 375, 1055.2 and 1057.4 at 767, 1090.5 and 1095.3 at 768, 1049 and 1053.7 at 1280, because our form was sized from WebKit readings. With the form re-read in Chrome (T9, #182, #185), the live oracle and ours read 65 of 65 on 2026-11-06, Chrome on both sides, main at 11e3f9e.
 - **In the editor, the frame can go back to its own page** after `src` is set, so box-diff checks that the page stays.
