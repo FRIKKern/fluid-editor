@@ -21,6 +21,17 @@ const Z2 = ['Move Forward', 'Move Backward'];
 const UR = ['Undo', 'Redo'];
 const BARTIPS = ['Save', 'Desktop View', 'Mobile View', 'Toggle Site Styles editing', 'Toggle preview mode'];
 export const RECIPES = {
+  'CAP-T3EMPTY2': { question: 'T3: the hint with more than one empty line: which caret place shows it, leaving, a word below, a heading beside it. Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['press', 'Enter'], ['press', 'Enter'], ['pause', 300], ['hintOf', 'three lines, caret on the third'], ['press', 'ArrowUp'], ['pause', 300], ['hintOf', 'three lines, caret on the second'], ['press', 'ArrowUp'], ['pause', 300], ['hintOf', 'three lines, caret on the first'], ['press', 'Escape'], ['pause', 300], ['hintOf', 'three lines, caret on the first, left'], ['read', 'three lines, left, html', H],
+    ...NEWTEXT, ['press', 'Enter'], ['press', 'ArrowUp'], ['pause', 200], ['press', 'Meta+a'], ['pause', 300], ['hintOf', 'two lines, select all'],
+    ...NEWTEXT, ['press', 'Enter'], ['press', 'ArrowUp'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['hintOf', 'two lines, caret on the first, left'],
+    ...NEWTEXT, ['press', 'Enter'], ['keys', 'word'], ['pause', 200], ['press', 'ArrowUp'], ['pause', 300], ['hintOf', 'first empty, a word below, caret on the first'], ['press', 'Escape'], ['pause', 300], ['hintOf', 'first empty, a word below, left'], ['read', 'first empty, a word below, html', H],
+    ...NEWTEXT, ['keys', 'word'], ['press', 'Enter'], ['pause', 300], ['hintOf', 'a word, then an empty line'],
+    ...NEWTEXT, ['press', 'Enter'], ['click', 'Text Style'], ['click', 'Heading 2'], ['pause', 200], ['hintOf', 'empty, then empty H2, caret on the H2'], ['press', 'ArrowUp'], ['pause', 300], ['hintOf', 'empty, then empty H2, caret on the first'], ['read', 'empty, then empty H2, html', H],
+    ...NEWTEXT, ['click', 'Text Style'], ['click', 'Heading 2'], ['press', 'Enter'], ['pause', 300], ['hintOf', 'empty H2, then empty, caret on the second'], ['read', 'empty H2, then empty, html', H],
+    ...NEWTEXT, ['press', 'Enter'], ['keys', 'x'], ['press', 'Backspace'], ['pause', 300], ['hintOf', 'second line typed and emptied'],
+  ] },
   'CAP-T3EMPTY': { question: 'T3: the Write here... hint past one empty paragraph: other styles, lists, two empty lines, a space, undo, emptied by select all, Preview. Predicted first.', page: 'Gestures Probe', steps: [
     ['enter'], ['blank'],
     ...['Heading 1', 'Heading 2', 'Heading 3', 'Heading 4', 'Paragraph 1', 'Paragraph 3', 'Monospace'].flatMap((n) => [...NEWTEXT, ['click', 'Text Style'], ['click', n], ['pause', 300], ['hintOf', n], ['read', `${n}, html`, H], ['press', 'Escape'], ['pause', 300], ['hintOf', `${n}, left`]]),

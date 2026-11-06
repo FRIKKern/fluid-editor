@@ -1,0 +1,24 @@
+{
+  "item": "T3",
+  "note": "What ours gives for CAP-T3EMPTY2 before the read: the hint on a first line that is a paragraph, with the whole Text empty, and with more than one line only while the caret is on the first line; none once the edit is left with more than one line.",
+  "capturedAt": "2026-11-06T20:44:59Z",
+  "predicted": {
+    "three lines, caret on the third": "[]",
+    "three lines, caret on the second": "[]",
+    "three lines, caret on the first": "[{\"tag\":\"p\",\"content\":\"\\\"Write here...\\\"\",\"color\":\"rgb(183, 183, 183)\",\"opacity\":\"1\",\"font\":\"16px Poppins, sans-serif\",\"float\":\"left\",\"height\":\"0px\",\"pointer\":\"none\",\"weight\":\"400\",\"lineHeight\":\"22.4px\",\"letterSpacing\":\"normal\",\"transform\":\"none\"}]",
+    "three lines, caret on the first, left": "[]",
+    "three lines, left, html": "<p></p><p></p><p></p>",
+    "two lines, select all": "[{\"tag\":\"p\",\"content\":\"\\\"Write here...\\\"\",\"color\":\"rgb(183, 183, 183)\",\"opacity\":\"1\",\"font\":\"16px Poppins, sans-serif\",\"float\":\"left\",\"height\":\"0px\",\"pointer\":\"none\",\"weight\":\"400\",\"lineHeight\":\"22.4px\",\"letterSpacing\":\"normal\",\"transform\":\"none\"}]",
+    "two lines, caret on the first, left": "[]",
+    "first empty, a word below, caret on the first": "[]",
+    "first empty, a word below, left": "[]",
+    "first empty, a word below, html": "<p></p><p>word</p>",
+    "a word, then an empty line": "[]",
+    "empty, then empty H2, caret on the H2": "[]",
+    "empty, then empty H2, caret on the first": "[{\"tag\":\"p\",\"content\":\"\\\"Write here...\\\"\",\"color\":\"rgb(183, 183, 183)\",\"opacity\":\"1\",\"font\":\"16px Poppins, sans-serif\",\"float\":\"left\",\"height\":\"0px\",\"pointer\":\"none\",\"weight\":\"400\",\"lineHeight\":\"22.4px\",\"letterSpacing\":\"normal\",\"transform\":\"none\"}]",
+    "empty, then empty H2, html": "<p></p><h2></h2>",
+    "empty H2, then empty, caret on the second": "[]",
+    "empty H2, then empty, html": "<h2></h2><h2></h2>",
+    "second line typed and emptied": "[]"
+  }
+}
