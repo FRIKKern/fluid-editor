@@ -8,6 +8,7 @@ import { writeFileSync, mkdirSync, readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { evalJs } from './lib/cmux.mjs';
 import { parseSectionCss } from './lib/parse.mjs';
+import { IMAGE_READ, imageContent } from './lib/image-read.mjs';
 
 const args = process.argv.slice(2);
 const surface = args.includes('--surface') ? args[args.indexOf('--surface') + 1] : process.env.ORACLE_SURFACE || 'surface:40';
@@ -35,8 +36,8 @@ const READ = `(() => {
       const kind = b.querySelector('[data-sqsp-block]')?.dataset.sqspBlock || 'unknown';
       const out = { id: [...b.classList].find((c) => c.startsWith('fe-block-')).slice(9), kind };
       if (kind === 'text') out.html = b.querySelector('.sqs-html-content')?.innerHTML.trim() || '';
-      if (kind === 'button') { const a = b.querySelector('a, button'); out.label = a?.textContent.trim(); if (a?.getAttribute('href')) out.href = a.getAttribute('href'); // no link stays absent: the oracle writes href="" (parity/findings/BUTTONEDIT.json) out.style = pick(a, ['backgroundColor', 'color', 'borderRadius', 'fontSize', 'fontFamily', 'fontWeight', 'letterSpacing', 'paddingTop', 'paddingLeft', 'height', 'width']); out.align = W.getComputedStyle(b.querySelector('.sqs-block-content') || b).textAlign; const view = (sys) => { const k = b.querySelector('.sqs-button-block-container-system_' + sys); if (!k) return null; const o = {}; if (!k.classList.contains('sqs-stretched')) o.fit = true; const al = [...k.classList].find((c) => /--(left|right)$/.test(c)); if (al) o.align = al.split('--')[1]; return o; }; const dv = view('desktop'), mv = view('mobile'); if (dv) { if (dv.fit) out.fit = true; if (dv.align) out.halign = dv.align; } if (mv) out.btnMobile = mv; }
-      if (kind === 'image') { const img = b.querySelector('img'); out.alt = img?.getAttribute('alt') || ''; const fig = b.querySelector('.sqs-image, .fluid-image-container, figure'); out.radius = fig ? W.getComputedStyle(b.querySelector('.fluid-image-container, .sqs-image-content, figure') || fig).borderRadius : null; }
+      if (kind === 'button') { const a = b.querySelector('a, button'); out.label = a?.textContent.trim(); if (a?.getAttribute('href')) out.href = a.getAttribute('href'); /* no link stays absent: the oracle writes href="" (parity/findings/BUTTONEDIT.json) */ out.style = pick(a, ['backgroundColor', 'color', 'borderRadius', 'fontSize', 'fontFamily', 'fontWeight', 'letterSpacing', 'paddingTop', 'paddingLeft', 'height', 'width']); out.align = W.getComputedStyle(b.querySelector('.sqs-block-content') || b).textAlign; const view = (sys) => { const k = b.querySelector('.sqs-button-block-container-system_' + sys); if (!k) return null; const o = {}; if (!k.classList.contains('sqs-stretched')) o.fit = true; const al = [...k.classList].find((c) => /--(left|right)$/.test(c)); if (al) o.align = al.split('--')[1]; return o; }; const dv = view('desktop'), mv = view('mobile'); if (dv) { if (dv.fit) out.fit = true; if (dv.align) out.halign = dv.align; } if (mv) out.btnMobile = mv; }
+      if (kind === 'image') out.image = (${IMAGE_READ})(b, W);
       if (kind === 'form') {
         out.fields = [...b.querySelectorAll('form .form-item')].map((it) => {
           const label = (it.querySelector('label.title, legend')?.textContent || '').trim();
@@ -116,7 +117,7 @@ for (const [where, list] of [['sections', snap.sections], ['footer', snap.footer
         : b.kind === 'button' ? { type: 'button', label: b.label, href: b.href, ...(b.fit ? { fit: true } : {}), ...(b.halign ? { halign: b.halign } : {}), ...(b.btnMobile ? { btnMobile: b.btnMobile } : {}) }
         : b.kind === 'shape' ? { type: 'shape', fill: b.fill || '#fff', radius: '0' }
         : b.kind === 'social-links' ? { type: 'social', count: b.count, align: b.align }
-        : b.kind === 'image' ? { type: 'image', alt: b.alt, radius: b.radius }
+        : b.kind === 'image' ? imageContent(b.image)
         : b.kind === 'scrolling' ? { type: 'scrolling', text: b.text, size: b.size }
         : b.kind === 'form' ? { type: 'form', fields: b.fields, button: b.button }
         : { type: 'shape', fill: '#ccc', radius: '0', label: b.kind };
@@ -132,5 +133,6 @@ else {
   mkdirSync(new URL('../app/src/pages/', import.meta.url), { recursive: true });
   writeFileSync(new URL(`../app/src/pages/${SLUG}.js`, import.meta.url), `${header}export const PAGE = ${JSON.stringify(model, null, 2)};\n`);
 }
+for (const s of [...snap.sections, ...(snap.footer || [])]) for (const b of s.blocks) if (b.image?.phone) console.log(`block ${b.id}: its phone view differs, and only the desktop view is read`);
 console.log(`imported ${model.sections.length} sections, ${model.sections.reduce((n, s) => n + s.blocks.length, 0)} blocks; frame ${snap.frameWidth}px`);
 console.log(JSON.stringify(snap.vars));

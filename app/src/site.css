@@ -314,10 +314,13 @@ body { position: relative; }
 
 /* Image blocks (T4): fill the block; placeholder picture */
 .fluid-image-component-root { width: 100%; height: 100%; }
-.sqs-block-image .sqs-image.sqs-block-alignment-wrapper { flex-direction: row; align-items: center; justify-content: center; width: 100%; }
+.sqs-block-image .sqs-image.sqs-block-alignment-wrapper { flex-direction: row; justify-content: center; width: 100%; }
+/* Centred unless the block's own section CSS says otherwise (IMAGEIMPORT.json): a saved Shape can sit at the bottom */
+:where(.sqs-block-image .sqs-image.sqs-block-alignment-wrapper) { align-items: center; }
 .sqs-block-image .fluid-image-container { width: 100%; height: 100%; overflow: hidden; background: linear-gradient(135deg, #d9d4ca, #bfb8aa); }
 /* Fit and Shape keep the picture inside the block, centred, and never stretch a row. Shape starts as a circle (IMAGEMODES.json) */
 .image-mode-fit .sqs-block-content, .image-mode-shape .sqs-block-content { display: flex; align-items: center; justify-content: center; container-type: size; }
+.image-mode-fit .fluid-image-component-root, .image-mode-shape .fluid-image-component-root { width: 100%; height: 100%; }
 .sqs-block-image.image-mode-fit .fluid-image-container, .sqs-block-image.image-mode-shape .fluid-image-container { width: min(100cqw, calc(100cqh * var(--image-aspect, 1))); height: auto; aspect-ratio: var(--image-aspect, 1); }
 .sqs-block-image.image-mode-shape .fluid-image-container { clip-path: circle(50%); }
 .fe-image-clip { position: absolute; }

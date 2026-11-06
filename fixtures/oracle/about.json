@@ -1,8 +1,8 @@
 {
-  "capturedAt": "2026-11-03",
+  "capturedAt": "2026-11-06",
   "source": "https://halibut-keyboard-jlhd.squarespace.com/about",
-  "frameWidth": 1600,
-  "frameHeight": 1000,
+  "frameWidth": 1920,
+  "frameHeight": 923,
   "vars": {
     "--heading-1-size-value": "4",
     "--heading-2-size-value": "3.5",
@@ -29,6 +29,7 @@
       "theme": "bright",
       "css": "\n\n.fe-6ae35c85908fad60b011d3fd {\n  --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);\n  --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1)) ) / 8 );\n\n  display: grid;\n  position: relative;\n  grid-area: 1/1/-1/-1;\n  grid-template-rows: repeat(1,minmax(24px, auto));\n  grid-template-columns:\n    minmax(var(--grid-gutter), 1fr)\n    repeat(8, minmax(0, var(--cell-max-width)))\n    minmax(var(--grid-gutter), 1fr);\n  row-gap: 11.0px;\n  column-gap: 11.0px;\n  overflow-x: hidden;\n  overflow-x: clip;\n}\n\n@media (min-width: 768px) {\n  .background-width--inset .fe-6ae35c85908fad60b011d3fd {\n    --inset-padding: calc(var(--sqs-site-gutter) * 2);\n  }\n\n  .fe-6ae35c85908fad60b011d3fd {\n    --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);\n    --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1)) ) / 24 );\n    --inset-padding: 0vw;\n\n    --row-height-scaling-factor: 0.0215;\n    --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding) ));\n\n    grid-template-rows: repeat(6,minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));\n    grid-template-columns:\n      minmax(var(--grid-gutter), 1fr)\n      repeat(24, minmax(0, var(--cell-max-width)))\n      minmax(var(--grid-gutter), 1fr);\n  }\n}\n\n\n  .fe-block-2a7846df577f89ef416f {\n    grid-area: 1/2/2/10;\n    z-index: 1;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-2a7846df577f89ef416f .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-2a7846df577f89ef416f .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-2a7846df577f89ef416f {\n      grid-area: 6/2/7/20;\n      z-index: 1;\n\n      \n\n      \n    }\n\n    .fe-block-2a7846df577f89ef416f .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-2a7846df577f89ef416f .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n",
       "customHeight": 0,
+      "divider": false,
       "settings": {
         "background-width": "full-bleed",
         "section-height": "custom",
@@ -37,21 +38,21 @@
         "vertical-alignment": "middle"
       },
       "section": {
-        "paddingTop": "138.625px",
+        "paddingTop": "157.828px",
         "paddingBottom": "0px",
         "minHeight": "0px",
         "background": "rgb(242, 184, 180)",
-        "inlineStyle": "padding-top: 138.625px;"
+        "inlineStyle": "padding-top: 157.828px;"
       },
       "grid": {
         "left": 0,
-        "width": 1583
+        "width": 1920
       },
       "text": {
         "h1": {
           "fontFamily": "Poppins",
-          "fontSize": "66.400002px",
-          "lineHeight": "75.961601px",
+          "fontSize": "66.4px",
+          "lineHeight": "75.9616px",
           "letterSpacing": "0.16px",
           "fontWeight": "400",
           "marginTop": "0px",
@@ -76,6 +77,7 @@
       "theme": "",
       "css": "\n\n.fe-6ae35c85908fad60b011d401 {\n  --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);\n  --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1)) ) / 8 );\n\n  display: grid;\n  position: relative;\n  grid-area: 1/1/-1/-1;\n  grid-template-rows: repeat(8,minmax(24px, auto));\n  grid-template-columns:\n    minmax(var(--grid-gutter), 1fr)\n    repeat(8, minmax(0, var(--cell-max-width)))\n    minmax(var(--grid-gutter), 1fr);\n  row-gap: 11.0px;\n  column-gap: 11.0px;\n  overflow-x: hidden;\n  overflow-x: clip;\n}\n\n@media (min-width: 768px) {\n  .background-width--inset .fe-6ae35c85908fad60b011d401 {\n    --inset-padding: calc(var(--sqs-site-gutter) * 2);\n  }\n\n  .fe-6ae35c85908fad60b011d401 {\n    --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);\n    --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1)) ) / 24 );\n    --inset-padding: 0vw;\n\n    --row-height-scaling-factor: 0.0215;\n    --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding) ));\n\n    grid-template-rows: repeat(19,minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));\n    grid-template-columns:\n      minmax(var(--grid-gutter), 1fr)\n      repeat(24, minmax(0, var(--cell-max-width)))\n      minmax(var(--grid-gutter), 1fr);\n  }\n}\n\n\n  .fe-block-23109fa90d5d9d3f89b4 {\n    grid-area: 2/2/8/10;\n    z-index: 1;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-23109fa90d5d9d3f89b4 .sqs-block {\n    justify-content: center;\n  }\n\n  .fe-block-23109fa90d5d9d3f89b4 .sqs-block-alignment-wrapper {\n    align-items: center;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-23109fa90d5d9d3f89b4 {\n      grid-area: 3/2/20/26;\n      z-index: 1;\n\n      \n\n      \n    }\n\n    .fe-block-23109fa90d5d9d3f89b4 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-23109fa90d5d9d3f89b4 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n",
       "customHeight": 0,
+      "divider": false,
       "settings": {
         "background-width": "full-bleed",
         "section-height": "custom",
@@ -92,7 +94,7 @@
       },
       "grid": {
         "left": 0,
-        "width": 1583
+        "width": 1920
       },
       "text": {
         "h1": null,
@@ -103,8 +105,28 @@
         {
           "id": "23109fa90d5d9d3f89b4",
           "kind": "image",
-          "alt": "Multiracial men discussing design project in a creative workspace",
-          "radius": "60px"
+          "image": {
+            "alt": "Multiracial men discussing design project in a creative workspace",
+            "fit": false,
+            "mask": null,
+            "stretched": true,
+            "focal": "0.5,0.2960185011563222",
+            "dimensions": "2499x1406",
+            "size": [
+              1399.75,
+              687.59375
+            ],
+            "radius": "60px",
+            "overlay": {
+              "opacity": "0",
+              "color": "rgba(0, 0, 0, 0.5)",
+              "blend": "normal"
+            },
+            "lightbox": null,
+            "href": null,
+            "newTab": false,
+            "phone": ""
+          }
         }
       ]
     },
@@ -114,6 +136,7 @@
       "theme": "light-bold",
       "css": "\n\n.fe-6ae35c85908fad60b011d405 {\n  --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);\n  --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1)) ) / 8 );\n\n  display: grid;\n  position: relative;\n  grid-area: 1/1/-1/-1;\n  grid-template-rows: repeat(25,minmax(24px, auto));\n  grid-template-columns:\n    minmax(var(--grid-gutter), 1fr)\n    repeat(8, minmax(0, var(--cell-max-width)))\n    minmax(var(--grid-gutter), 1fr);\n  row-gap: 11.0px;\n  column-gap: 11.0px;\n  overflow-x: hidden;\n  overflow-x: clip;\n}\n\n@media (min-width: 768px) {\n  .background-width--inset .fe-6ae35c85908fad60b011d405 {\n    --inset-padding: calc(var(--sqs-site-gutter) * 2);\n  }\n\n  .fe-6ae35c85908fad60b011d405 {\n    --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);\n    --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1)) ) / 24 );\n    --inset-padding: 0vw;\n\n    --row-height-scaling-factor: 0.0215;\n    --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding) ));\n\n    grid-template-rows: repeat(37,minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));\n    grid-template-columns:\n      minmax(var(--grid-gutter), 1fr)\n      repeat(24, minmax(0, var(--cell-max-width)))\n      minmax(var(--grid-gutter), 1fr);\n  }\n}\n\n\n  .fe-block-1b73487b91ad05a9a832 {\n    grid-area: 2/2/5/5;\n    z-index: 1;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-1b73487b91ad05a9a832 .sqs-block {\n    justify-content: center;\n  }\n\n  .fe-block-1b73487b91ad05a9a832 .sqs-block-alignment-wrapper {\n    align-items: center;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-1b73487b91ad05a9a832 {\n      grid-area: 3/2/6/5;\n      z-index: 1;\n\n      \n\n      \n    }\n\n    .fe-block-1b73487b91ad05a9a832 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-1b73487b91ad05a9a832 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n  .fe-block-ed03c6512f3242403ca9 {\n    grid-area: 5/2/6/10;\n    z-index: 2;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-ed03c6512f3242403ca9 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-ed03c6512f3242403ca9 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-ed03c6512f3242403ca9 {\n      grid-area: 3/9/7/26;\n      z-index: 2;\n\n      \n\n      \n    }\n\n    .fe-block-ed03c6512f3242403ca9 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-ed03c6512f3242403ca9 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-097328595d98d6277dd2 {\n    grid-area: 7/2/8/10;\n    z-index: 4;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-097328595d98d6277dd2 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-097328595d98d6277dd2 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-097328595d98d6277dd2 {\n      grid-area: 8/9/12/17;\n      z-index: 4;\n\n      \n\n      \n    }\n\n    .fe-block-097328595d98d6277dd2 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-097328595d98d6277dd2 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-b7616a64d7ce25dc0485 {\n    grid-area: 8/2/9/10;\n    z-index: 5;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-b7616a64d7ce25dc0485 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-b7616a64d7ce25dc0485 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-b7616a64d7ce25dc0485 {\n      grid-area: 8/18/12/26;\n      z-index: 5;\n\n      \n\n      \n    }\n\n    .fe-block-b7616a64d7ce25dc0485 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-b7616a64d7ce25dc0485 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-54fc6915dfe89592cca1 {\n    grid-area: 10/2/23/10;\n    z-index: 5;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-54fc6915dfe89592cca1 .sqs-block {\n    justify-content: center;\n  }\n\n  .fe-block-54fc6915dfe89592cca1 .sqs-block-alignment-wrapper {\n    align-items: center;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-54fc6915dfe89592cca1 {\n      grid-area: 14/15/37/26;\n      z-index: 5;\n\n      \n\n      \n    }\n\n    .fe-block-54fc6915dfe89592cca1 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-54fc6915dfe89592cca1 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n  .fe-block-a67ff26389779f403ca9 {\n    grid-area: 24/2/25/10;\n    z-index: 4;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-a67ff26389779f403ca9 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-a67ff26389779f403ca9 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-a67ff26389779f403ca9 {\n      grid-area: 16/3/26/11;\n      z-index: 4;\n\n      \n\n      \n    }\n\n    .fe-block-a67ff26389779f403ca9 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-a67ff26389779f403ca9 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n",
       "customHeight": 0,
+      "divider": false,
       "settings": {
         "background-width": "full-bleed",
         "section-height": "custom",
@@ -130,7 +153,7 @@
       },
       "grid": {
         "left": 0,
-        "width": 1583
+        "width": 1920
       },
       "text": {
         "h1": null,
@@ -151,8 +174,28 @@
         {
           "id": "1b73487b91ad05a9a832",
           "kind": "image",
-          "alt": "Arrow pointing right",
-          "radius": "0px"
+          "image": {
+            "alt": "Arrow pointing right",
+            "fit": true,
+            "mask": null,
+            "stretched": false,
+            "focal": "0.5,0.5",
+            "dimensions": "481x274",
+            "size": [
+              165.34375,
+              93.984375
+            ],
+            "radius": "0px",
+            "overlay": {
+              "opacity": "0",
+              "color": "rgba(0, 0, 0, 0.5)",
+              "blend": "normal"
+            },
+            "lightbox": null,
+            "href": null,
+            "newTab": false,
+            "phone": ""
+          }
         },
         {
           "id": "ed03c6512f3242403ca9",
@@ -172,8 +215,28 @@
         {
           "id": "54fc6915dfe89592cca1",
           "kind": "image",
-          "alt": "Multiracial men in a creative workspace",
-          "radius": "0px"
+          "image": {
+            "alt": "Multiracial men in a creative workspace",
+            "fit": false,
+            "mask": "narrow-horizontal-stacked-pills",
+            "stretched": false,
+            "focal": "0.5,0.5",
+            "dimensions": "3648x5472",
+            "size": [
+              622.65625,
+              934.15625
+            ],
+            "radius": "0px",
+            "overlay": {
+              "opacity": "0",
+              "color": "rgba(0, 0, 0, 0.5)",
+              "blend": "normal"
+            },
+            "lightbox": null,
+            "href": null,
+            "newTab": false,
+            "phone": ""
+          }
         },
         {
           "id": "a67ff26389779f403ca9",
@@ -188,6 +251,7 @@
       "theme": "bright",
       "css": "\n\n.fe-6ae35c85908fad60b011d409 {\n  --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);\n  --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1)) ) / 8 );\n\n  display: grid;\n  position: relative;\n  grid-area: 1/1/-1/-1;\n  grid-template-rows: repeat(27,minmax(24px, auto));\n  grid-template-columns:\n    minmax(var(--grid-gutter), 1fr)\n    repeat(8, minmax(0, var(--cell-max-width)))\n    minmax(var(--grid-gutter), 1fr);\n  row-gap: 11.0px;\n  column-gap: 11.0px;\n  overflow-x: hidden;\n  overflow-x: clip;\n}\n\n@media (min-width: 768px) {\n  .background-width--inset .fe-6ae35c85908fad60b011d409 {\n    --inset-padding: calc(var(--sqs-site-gutter) * 2);\n  }\n\n  .fe-6ae35c85908fad60b011d409 {\n    --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);\n    --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1)) ) / 24 );\n    --inset-padding: 0vw;\n\n    --row-height-scaling-factor: 0.0215;\n    --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding) ));\n\n    grid-template-rows: repeat(26,minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));\n    grid-template-columns:\n      minmax(var(--grid-gutter), 1fr)\n      repeat(24, minmax(0, var(--cell-max-width)))\n      minmax(var(--grid-gutter), 1fr);\n  }\n}\n\n\n  .fe-block-f0b29ed6a468d5461a0a {\n    grid-area: 2/2/3/10;\n    z-index: 2;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-f0b29ed6a468d5461a0a .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-f0b29ed6a468d5461a0a .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-f0b29ed6a468d5461a0a {\n      grid-area: 3/8/4/20;\n      z-index: 3;\n\n      \n\n      \n    }\n\n    .fe-block-f0b29ed6a468d5461a0a .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-f0b29ed6a468d5461a0a .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-6b89a0da0a7a8a8beb8c {\n    grid-area: 4/3/11/9;\n    z-index: 0;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-6b89a0da0a7a8a8beb8c .sqs-block {\n    justify-content: center;\n  }\n\n  .fe-block-6b89a0da0a7a8a8beb8c .sqs-block-alignment-wrapper {\n    align-items: center;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-6b89a0da0a7a8a8beb8c {\n      grid-area: 6/2/22/12;\n      z-index: 1;\n\n      \n\n      \n    }\n\n    .fe-block-6b89a0da0a7a8a8beb8c .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-6b89a0da0a7a8a8beb8c .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n  .fe-block-bb2d61017c609ea79406 {\n    grid-area: 11/3/13/9;\n    z-index: 8;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-bb2d61017c609ea79406 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-bb2d61017c609ea79406 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-bb2d61017c609ea79406 {\n      grid-area: 22/3/24/11;\n      z-index: 8;\n\n      \n\n      \n    }\n\n    .fe-block-bb2d61017c609ea79406 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-bb2d61017c609ea79406 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-5d01540cb64caaeadcc5 {\n    grid-area: 12/3/14/9;\n    z-index: 12;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-5d01540cb64caaeadcc5 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-5d01540cb64caaeadcc5 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-5d01540cb64caaeadcc5 {\n      grid-area: 23/3/24/11;\n      z-index: 12;\n\n      \n\n      \n    }\n\n    .fe-block-5d01540cb64caaeadcc5 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-5d01540cb64caaeadcc5 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n  .fe-block-4a48d5707d933cd36d18 {\n    grid-area: 15/3/23/9;\n    z-index: 1;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-4a48d5707d933cd36d18 .sqs-block {\n    justify-content: center;\n  }\n\n  .fe-block-4a48d5707d933cd36d18 .sqs-block-alignment-wrapper {\n    align-items: center;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-4a48d5707d933cd36d18 {\n      grid-area: 7/16/21/26;\n      z-index: 2;\n\n      \n\n      \n    }\n\n    .fe-block-4a48d5707d933cd36d18 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-4a48d5707d933cd36d18 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n  .fe-block-2fefe4d5e2a4e047bba0 {\n    grid-area: 24/3/26/9;\n    z-index: 13;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-2fefe4d5e2a4e047bba0 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-2fefe4d5e2a4e047bba0 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-2fefe4d5e2a4e047bba0 {\n      grid-area: 23/17/24/25;\n      z-index: 13;\n\n      \n\n      \n    }\n\n    .fe-block-2fefe4d5e2a4e047bba0 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-2fefe4d5e2a4e047bba0 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n  }\n\n  .fe-block-90220cf0f439f7278c62 {\n    grid-area: 23/3/25/9;\n    z-index: 10;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-90220cf0f439f7278c62 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-90220cf0f439f7278c62 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-90220cf0f439f7278c62 {\n      grid-area: 22/17/24/25;\n      z-index: 10;\n\n      \n\n      \n    }\n\n    .fe-block-90220cf0f439f7278c62 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-90220cf0f439f7278c62 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n",
       "customHeight": 0,
+      "divider": false,
       "settings": {
         "background-width": "full-bleed",
         "section-height": "custom",
@@ -204,13 +268,13 @@
       },
       "grid": {
         "left": 0,
-        "width": 1583
+        "width": 1920
       },
       "text": {
         "h1": {
           "fontFamily": "Poppins",
-          "fontSize": "66.400002px",
-          "lineHeight": "75.961601px",
+          "fontSize": "66.4px",
+          "lineHeight": "75.9616px",
           "letterSpacing": "0.16px",
           "fontWeight": "400",
           "marginTop": "0px",
@@ -221,8 +285,8 @@
         "h2": null,
         "p": {
           "fontFamily": "Poppins",
-          "fontSize": "14.08px",
-          "lineHeight": "19.712px",
+          "fontSize": "13.696px",
+          "lineHeight": "19.1744px",
           "letterSpacing": "normal",
           "fontWeight": "400",
           "marginTop": "0px",
@@ -240,8 +304,28 @@
         {
           "id": "6b89a0da0a7a8a8beb8c",
           "kind": "image",
-          "alt": "Smiling multiracial man",
-          "radius": "0px"
+          "image": {
+            "alt": "Smiling multiracial man",
+            "fit": false,
+            "mask": "rabbet",
+            "stretched": false,
+            "focal": "0.5,0.5",
+            "dimensions": "2009x2009",
+            "size": [
+              576.8125,
+              577
+            ],
+            "radius": "0px",
+            "overlay": {
+              "opacity": "0",
+              "color": "rgba(0, 0, 0, 0.5)",
+              "blend": "normal"
+            },
+            "lightbox": null,
+            "href": null,
+            "newTab": false,
+            "phone": ""
+          }
         },
         {
           "id": "bb2d61017c609ea79406",
@@ -256,8 +340,28 @@
         {
           "id": "4a48d5707d933cd36d18",
           "kind": "image",
-          "alt": "Smiling man of color",
-          "radius": "0px"
+          "image": {
+            "alt": "Smiling man of color",
+            "fit": false,
+            "mask": "flower",
+            "stretched": false,
+            "focal": "0.5,0.5",
+            "dimensions": "1761x1761",
+            "size": [
+              564,
+              564.3125
+            ],
+            "radius": "0px",
+            "overlay": {
+              "opacity": "0",
+              "color": "rgba(0, 0, 0, 0.5)",
+              "blend": "normal"
+            },
+            "lightbox": null,
+            "href": null,
+            "newTab": false,
+            "phone": ""
+          }
         },
         {
           "id": "2fefe4d5e2a4e047bba0",
@@ -279,6 +383,7 @@
       "theme": "black",
       "css": "\n\n.fe-6ae35c85908fad60b011d36e {\n  --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);\n  --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1)) ) / 8 );\n\n  display: grid;\n  position: relative;\n  grid-area: 1/1/-1/-1;\n  grid-template-rows: repeat(13,minmax(24px, auto));\n  grid-template-columns:\n    minmax(var(--grid-gutter), 1fr)\n    repeat(8, minmax(0, var(--cell-max-width)))\n    minmax(var(--grid-gutter), 1fr);\n  row-gap: 11.0px;\n  column-gap: 11.0px;\n  overflow-x: hidden;\n  overflow-x: clip;\n}\n\n@media (min-width: 768px) {\n  .background-width--inset .fe-6ae35c85908fad60b011d36e {\n    --inset-padding: calc(var(--sqs-site-gutter) * 2);\n  }\n\n  .fe-6ae35c85908fad60b011d36e {\n    --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);\n    --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1)) ) / 24 );\n    --inset-padding: 0vw;\n\n    --row-height-scaling-factor: 0.0215;\n    --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding) ));\n\n    grid-template-rows: repeat(13,minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));\n    grid-template-columns:\n      minmax(var(--grid-gutter), 1fr)\n      repeat(24, minmax(0, var(--cell-max-width)))\n      minmax(var(--grid-gutter), 1fr);\n  }\n}\n\n\n  .fe-block-636b96b2b096a118b7d6 {\n    grid-area: 2/2/3/8;\n    z-index: 2;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-636b96b2b096a118b7d6 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-636b96b2b096a118b7d6 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-636b96b2b096a118b7d6 {\n      grid-area: 3/2/7/11;\n      z-index: 2;\n\n      \n\n      \n    }\n\n    .fe-block-636b96b2b096a118b7d6 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-636b96b2b096a118b7d6 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-724a557167add4725645 {\n    grid-area: 3/2/4/10;\n    z-index: 3;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-724a557167add4725645 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-724a557167add4725645 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-724a557167add4725645 {\n      grid-area: 7/2/8/11;\n      z-index: 3;\n\n      \n\n      \n    }\n\n    .fe-block-724a557167add4725645 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-724a557167add4725645 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-46d09ab909e7089f1593 {\n    grid-area: 5/2/6/10;\n    z-index: 6;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-46d09ab909e7089f1593 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-46d09ab909e7089f1593 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-46d09ab909e7089f1593 {\n      grid-area: 3/16/4/20;\n      z-index: 6;\n\n      \n\n      \n    }\n\n    .fe-block-46d09ab909e7089f1593 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-46d09ab909e7089f1593 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-40ffcb52ae3969b1440b {\n    grid-area: 6/2/7/10;\n    z-index: 7;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-40ffcb52ae3969b1440b .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-40ffcb52ae3969b1440b .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-40ffcb52ae3969b1440b {\n      grid-area: 5/16/6/20;\n      z-index: 7;\n\n      \n\n      \n    }\n\n    .fe-block-40ffcb52ae3969b1440b .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-40ffcb52ae3969b1440b .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-1bdd29a0afeafea2acac {\n    grid-area: 7/2/8/10;\n    z-index: 8;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-1bdd29a0afeafea2acac .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-1bdd29a0afeafea2acac .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-1bdd29a0afeafea2acac {\n      grid-area: 4/16/5/20;\n      z-index: 8;\n\n      \n\n      \n    }\n\n    .fe-block-1bdd29a0afeafea2acac .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-1bdd29a0afeafea2acac .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-924bd17097b231469d10 {\n    grid-area: 11/2/12/10;\n    z-index: 9;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-924bd17097b231469d10 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-924bd17097b231469d10 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-924bd17097b231469d10 {\n      grid-area: 13/2/14/8;\n      z-index: 9;\n\n      \n\n      \n    }\n\n    .fe-block-924bd17097b231469d10 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-924bd17097b231469d10 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-a18a88473610da2ad87e {\n    grid-area: 12/2/13/10;\n    z-index: 10;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-a18a88473610da2ad87e .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-a18a88473610da2ad87e .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-a18a88473610da2ad87e {\n      grid-area: 3/21/7/26;\n      z-index: 10;\n\n      \n\n      \n    }\n\n    .fe-block-a18a88473610da2ad87e .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-a18a88473610da2ad87e .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n  .fe-block-27bbe12ff290dc052639 {\n    grid-area: 13/2/14/10;\n    z-index: 11;\n\n    @media (max-width: 767px) {\n      \n      \n    }\n  }\n\n  .fe-block-27bbe12ff290dc052639 .sqs-block {\n    justify-content: flex-start;\n  }\n\n  .fe-block-27bbe12ff290dc052639 .sqs-block-alignment-wrapper {\n    align-items: flex-start;\n  }\n\n  @media (min-width: 768px) {\n    .fe-block-27bbe12ff290dc052639 {\n      grid-area: 10/21/11/25;\n      z-index: 11;\n\n      \n\n      \n    }\n\n    .fe-block-27bbe12ff290dc052639 .sqs-block {\n      justify-content: flex-start;\n    }\n\n    .fe-block-27bbe12ff290dc052639 .sqs-block-alignment-wrapper {\n      align-items: flex-start;\n    }\n  }\n\n",
       "customHeight": 10,
+      "divider": false,
       "settings": {
         "background-width": "full-bleed",
         "section-height": "custom",
@@ -289,20 +394,20 @@
       "section": {
         "paddingTop": "0px",
         "paddingBottom": "0px",
-        "minHeight": "100px",
+        "minHeight": "92.3px",
         "background": "rgb(0, 0, 0)",
         "inlineStyle": "min-height: 10vh;"
       },
       "grid": {
         "left": 0,
-        "width": 1583
+        "width": 1920
       },
       "text": {
         "h1": null,
         "h2": {
           "fontFamily": "Poppins",
           "fontSize": "58px",
-          "lineHeight": "67.860001px",
+          "lineHeight": "67.86px",
           "letterSpacing": "0.16px",
           "fontWeight": "400",
           "marginTop": "0px",

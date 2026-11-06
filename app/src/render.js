@@ -335,7 +335,8 @@ function blockInner(b, model) {
       // Replace) it is a neutral placeholder (QUALITY.md O2), and Fit uses b.aspect, or 3:2.
       const r = b.corners ? `border-radius:${b.corners.map((v) => `${v}px`).join(' ')};` : b.radius ? `border-radius:${b.radius};` : '';
       const mode = (b.mode === 'fit' || b.mode === 'shape' ? ` image-mode-${b.mode}` : '') + (b.mode === 'shape' && b.stretch ? ' image-stretch' : '') + (b.lightbox ? ' image-lightbox' : '');
-      const aspect = b.mode === 'fit' ? `--image-aspect:${Number(b.aspect) || 1.5};` : '';
+      // A Shape from an imported page keeps the box it was saved with (IMAGEIMPORT.json); a new one stays square.
+      const aspect = b.mode === 'fit' ? `--image-aspect:${Number(b.aspect) || 1.5};` : b.mode === 'shape' && b.shapeRatio ? `--image-aspect:${Number(b.shapeRatio)};` : '';
       const alt = escapeHtml(b.alt || '');
       // Focal point and Overlay (parity/findings/IMAGEDESIGN.json): off, the overlay keeps its color and blend at opacity 0.
       const focal = b.focal ? ` style="object-position:${b.focal[0] * 100}% ${b.focal[1] * 100}%"` : '';

@@ -1,0 +1,638 @@
+{
+ "question": "What does an image already on a page give the importer, without its picture?",
+ "how": "Read on 2026-11-06 in the oracle's site frame, out of edit mode: every image on Services, About and Home at a frame 1242 wide (Demo and Contact have none). Overlay, Lightbox, the focal point, Shape and Stretch appear on no saved page, so those were set on a new image on the probe page, never saved, and read in the editor's preview. The link was read in edit mode on the same image.",
+ "markers": {
+  "mode": "the content-fit or content-fill class on the picture's element, and data-is-mask-applied with data-shape-mask for Shape",
+  "stretch": "data-is-image-stretched on the root",
+  "focal": "data-media-focal-point, x,y from 0 to 1",
+  "pictureSize": "data-image-dimensions on the img",
+  "overlay": "the fluidImageOverlay element's opacity, background color and blend mode",
+  "lightbox": "a button with data-lightbox-theme around the picture",
+  "link": "an a with class sqs-block-image-link around the picture, its href the link's",
+  "phone": "data-bpo, empty on all 15 saved images"
+ },
+ "shapeBox": "A Shape that isn't stretched has a box of 1:1 or 2:3 on the saved pages. 2:3 for narrow-horizontal-stacked-pills and arched-window, whose pictures are also 2:3, and 1:1 for rabbet and one flower, whose pictures are square. One flower holds a 2:3 picture (2533x3800) in a square, so the picture alone doesn't set it. A pick in the editor keeps the square (IMAGESHAPES.json). The rule behind these is not measured, so the importer takes the box it reads.",
+ "pages": {
+  "services": {
+   "frameWidth": 1242,
+   "images": [
+    {
+     "id": "67fbc912e6fbce551690",
+     "block": [
+      133.2,
+      95.7
+     ],
+     "box": [
+      0,
+      10,
+      133.2,
+      75.8
+     ],
+     "raw": {
+      "alt": "",
+      "fit": true,
+      "mask": null,
+      "stretched": false,
+      "focal": "0.5,0.5",
+      "dimensions": "481x274",
+      "radius": "0px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       133.2,
+       75.8
+      ]
+     }
+    },
+    {
+     "id": "adf18494c7e0ac0989a3",
+     "block": [
+      806.2,
+      451.3
+     ],
+     "box": [
+      0,
+      0,
+      806.2,
+      451.3
+     ],
+     "raw": {
+      "alt": "",
+      "fit": false,
+      "mask": null,
+      "stretched": true,
+      "focal": "0.5,0.5",
+      "dimensions": "2500x1406",
+      "radius": "60px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       806.2,
+       451.3
+      ]
+     }
+    }
+   ]
+  },
+  "about": {
+   "frameWidth": 1242,
+   "images": [
+    {
+     "id": "23109fa90d5d9d3f89b4",
+     "block": [
+      1142.7,
+      593.6
+     ],
+     "box": [
+      0,
+      0,
+      1142.7,
+      593.6
+     ],
+     "raw": {
+      "alt": "Multiracial men discussing design project in a creative workspace",
+      "fit": false,
+      "mask": null,
+      "stretched": true,
+      "focal": "0.5,0.2960185011563222",
+      "dimensions": "2499x1406",
+      "radius": "60px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       1142.7,
+       593.6
+      ]
+     }
+    },
+    {
+     "id": "1b73487b91ad05a9a832",
+     "block": [
+      133.2,
+      95.7
+     ],
+     "box": [
+      0,
+      10,
+      133.2,
+      75.8
+     ],
+     "raw": {
+      "alt": "Arrow pointing right",
+      "fit": true,
+      "mask": null,
+      "stretched": false,
+      "focal": "0.5,0.5",
+      "dimensions": "481x274",
+      "radius": "0px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       133.2,
+       75.8
+      ]
+     }
+    },
+    {
+     "id": "54fc6915dfe89592cca1",
+     "block": [
+      517.8,
+      830.4
+     ],
+     "box": [
+      0,
+      26.7,
+      517.8,
+      777
+     ],
+     "raw": {
+      "alt": "Multiracial men in a creative workspace",
+      "fit": false,
+      "mask": "narrow-horizontal-stacked-pills",
+      "stretched": false,
+      "focal": "0.5,0.5",
+      "dimensions": "3648x5472",
+      "radius": "0px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       517.8,
+       777
+      ]
+     }
+    },
+    {
+     "id": "6b89a0da0a7a8a8beb8c",
+     "block": [
+      469.7,
+      558
+     ],
+     "box": [
+      0,
+      44,
+      469.7,
+      470
+     ],
+     "raw": {
+      "alt": "Smiling multiracial man",
+      "fit": false,
+      "mask": "rabbet",
+      "stretched": false,
+      "focal": "0.5,0.5",
+      "dimensions": "2009x2009",
+      "radius": "0px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       469.7,
+       470
+      ]
+     }
+    },
+    {
+     "id": "4a48d5707d933cd36d18",
+     "block": [
+      469.7,
+      486.9
+     ],
+     "box": [
+      0,
+      8.4,
+      469.7,
+      470
+     ],
+     "raw": {
+      "alt": "Smiling man of color",
+      "fit": false,
+      "mask": "flower",
+      "stretched": false,
+      "focal": "0.5,0.5",
+      "dimensions": "1761x1761",
+      "radius": "0px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       469.7,
+       470
+      ]
+     }
+    }
+   ]
+  },
+  "home": {
+   "frameWidth": 1242,
+   "images": [
+    {
+     "id": "faf6dea47159f126293d",
+     "block": [
+      1142.7,
+      558
+     ],
+     "box": [
+      0,
+      0,
+      1142.7,
+      558
+     ],
+     "raw": {
+      "alt": "",
+      "fit": false,
+      "mask": null,
+      "stretched": true,
+      "focal": "0.5,0.5",
+      "dimensions": "2477x1406",
+      "radius": "60px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       1142.7,
+       558
+      ]
+     }
+    },
+    {
+     "id": "f430c693d7a1b697a4f4",
+     "block": [
+      133.2,
+      95.7
+     ],
+     "box": [
+      0,
+      10,
+      133.2,
+      75.8
+     ],
+     "raw": {
+      "alt": "Arrow pointing right",
+      "fit": true,
+      "mask": null,
+      "stretched": false,
+      "focal": "0.5,0.5",
+      "dimensions": "481x274",
+      "radius": "0px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       133.2,
+       75.8
+      ]
+     }
+    },
+    {
+     "id": "b14ddfe68af1c44d4c8b",
+     "block": [
+      421.6,
+      415.8
+     ],
+     "box": [
+      2.8,
+      0,
+      416,
+      415.8
+     ],
+     "raw": {
+      "alt": "Woman with trendy makeup looking away with stripes of light on face",
+      "fit": false,
+      "mask": "flower",
+      "stretched": false,
+      "focal": "0.5,0.5",
+      "dimensions": "2533x3800",
+      "radius": "0px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       416,
+       415.8
+      ]
+     }
+    },
+    {
+     "id": "ccd03708864c404728fd",
+     "block": [
+      421.6,
+      700.3
+     ],
+     "box": [
+      0,
+      67.3,
+      421.6,
+      633
+     ],
+     "raw": {
+      "alt": "Hand holding smartphone to pay in a payment terminal",
+      "fit": false,
+      "mask": "arched-window",
+      "stretched": false,
+      "focal": "0.5,0.5",
+      "dimensions": "4531x6796",
+      "radius": "0px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       421.6,
+       633
+      ]
+     }
+    },
+    {
+     "id": "3c478862d0a74d908cb7",
+     "block": [
+      806.2,
+      415.8
+     ],
+     "box": [
+      0,
+      0,
+      806.2,
+      415.8
+     ],
+     "raw": {
+      "alt": "Young girl with pink headphone and pajamas lying on the floor checking smartphone in living room",
+      "fit": false,
+      "mask": null,
+      "stretched": true,
+      "focal": "0.5,0.5",
+      "dimensions": "2499x1667",
+      "radius": "500px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       806.2,
+       415.8
+      ]
+     }
+    },
+    {
+     "id": "ae49606b4c958776267a",
+     "block": [
+      133.2,
+      95.7
+     ],
+     "box": [
+      0,
+      10,
+      133.2,
+      75.8
+     ],
+     "raw": {
+      "alt": "Arrow pointing right",
+      "fit": true,
+      "mask": null,
+      "stretched": false,
+      "focal": "0.5,0.5",
+      "dimensions": "481x274",
+      "radius": "0px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       133.2,
+       75.8
+      ]
+     }
+    },
+    {
+     "id": "8395f8bae162fa1dfc88",
+     "block": [
+      565.8,
+      451.3
+     ],
+     "box": [
+      0,
+      0,
+      565.8,
+      451.3
+     ],
+     "raw": {
+      "alt": "Paperwork And Laptops On An Office Table",
+      "fit": false,
+      "mask": "wide-vertical-stacked-pills",
+      "stretched": true,
+      "focal": "0.5,0.5",
+      "dimensions": "2500x3757",
+      "radius": "0px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       565.8,
+       451.3
+      ]
+     }
+    },
+    {
+     "id": "7a7ddda0771dcbc30367",
+     "block": [
+      469.7,
+      735.8
+     ],
+     "box": [
+      0,
+      15.4,
+      469.7,
+      705
+     ],
+     "raw": {
+      "alt": "Multiracial men in a creative workspace",
+      "fit": false,
+      "mask": "narrow-horizontal-stacked-pills",
+      "stretched": false,
+      "focal": "0.5,0.5",
+      "dimensions": "2500x3750",
+      "radius": "0px",
+      "overlay": {
+       "opacity": "0",
+       "color": "rgba(0, 0, 0, 0.5)",
+       "blend": "normal"
+      },
+      "lightbox": null,
+      "href": null,
+      "newTab": false,
+      "size": [
+       469.7,
+       705
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "probe": {
+  "overlayMultiplyLightboxFocal": {
+   "alt": "",
+   "fit": false,
+   "mask": null,
+   "stretched": true,
+   "focal": "0.2963149078726968,0.6960870108763595",
+   "dimensions": "896x1200",
+   "radius": "0px",
+   "overlay": {
+    "opacity": "1",
+    "color": "rgba(0, 0, 0, 0.5)",
+    "blend": "multiply"
+   },
+   "lightbox": "dark",
+   "href": null,
+   "newTab": false,
+   "size": [
+    694.4,
+    1272.7
+   ]
+  },
+  "shape": {
+   "alt": "",
+   "fit": false,
+   "mask": "circle",
+   "stretched": false,
+   "focal": "0.5,0.5",
+   "dimensions": "896x1200",
+   "radius": "0px",
+   "overlay": {
+    "opacity": "0",
+    "color": "rgba(0, 0, 0, 0.5)",
+    "blend": "normal"
+   },
+   "lightbox": null,
+   "href": null,
+   "newTab": false,
+   "size": [
+    694.4,
+    694
+   ]
+  },
+  "shapeStretched": {
+   "alt": "",
+   "fit": false,
+   "mask": "circle",
+   "stretched": true,
+   "focal": "0.5,0.5",
+   "dimensions": "896x1200",
+   "radius": "0px",
+   "overlay": {
+    "opacity": "0",
+    "color": "rgba(0, 0, 0, 0.5)",
+    "blend": "normal"
+   },
+   "lightbox": null,
+   "href": null,
+   "newTab": false,
+   "size": [
+    694.4,
+    1272.7
+   ]
+  },
+  "link": {
+   "alt": "",
+   "fit": false,
+   "mask": null,
+   "stretched": true,
+   "focal": "0.5,0.5",
+   "dimensions": "896x1200",
+   "radius": "0px",
+   "overlay": {
+    "opacity": "0",
+    "color": "rgba(0, 0, 0, 0.5)",
+    "blend": "normal"
+   },
+   "lightbox": null,
+   "href": "/services",
+   "newTab": false,
+   "size": [
+    694.4,
+    1272.7
+   ]
+  },
+  "linkElementClass": "sqs-block-image-link js-content-mode-element content-fill"
+ },
+ "notMeasured": [
+  "Open link in new tab: the one press on the toggle changed nothing the frame shows, so reading target=_blank is inferred.",
+  "A Light Overlay lightbox: the stored theme still read dark (IMAGEDESIGN.json), so reading light is inferred.",
+  "Individual corners on a saved page: none has them. Reading the computed radius into four corners is inferred.",
+  "Image Effect on a saved page: none has one, so the importer does not read it.",
+  "A phone view that differs: data-bpo is empty on all 15 images. The importer reads the desktop view and says so if it finds one.",
+  "A picked shape in the preview: the press on the Diamond tile did not change the read, so the probe rows are all Circle. The saved pages give flower, rabbet, arched-window, narrow-horizontal-stacked-pills and wide-vertical-stacked-pills."
+ ],
+ "align": "A Fit or Shape picture sits where the block's section CSS puts it: .sqs-block-alignment-wrapper is a full-height flex row, justify-content center, align-items from that CSS. Home's arched-window block has flex-end at desktop, so its box starts at 67.3 in a block 700.3 high; the other Shape blocks here have center."
+}
