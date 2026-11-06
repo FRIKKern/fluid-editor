@@ -8,6 +8,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible, waitFor } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 import { replay } from './lib/text-replay.mjs';
+import { takesText } from './oracle/takes-text.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const FULL = process.argv.includes('--full');
@@ -130,6 +131,11 @@ for (const [name, body, want] of [['one burst', `type('one'); await sleep(50); t
   const ok = got.back && got.open; results.push({ name: 'Undo button during an edit', ok }); if (!ok) console.log('Undo button during an edit DIFF', JSON.stringify(got)); }
 { const words = [...TU.links.linked, ...TU.links.notLinked, ...TU.links.wrapped]; const got = edit(`const r = d.createRange(); r.selectNodeContents(ce.querySelector('p')); r.collapse(false); const q = W.getSelection(); q.removeAllRanges(); q.addRange(r); type(' '); for (const w of ${JSON.stringify(words)}) { type(w); type(' '); }`).links;
   for (const w of words) { const inner = TU.links.wrapped.includes(w) ? w.slice(1, -1) : w; const hit = got.find((a) => a[0] === inner); const want = inner !== w || TU.links.linked.includes(w); const ok = !!hit === want && (!hit || hit[1] === (w.includes('@') ? 'mailto:' : 'http:')); results.push({ name: `Link ${w}`, ok }); if (!ok) console.log(`Link ${w} DIFF oracle ${want}, ours ${JSON.stringify(hit)}`); } }
+
+// The capture tool's guard: with a block only selected, keys have no place to go; in an edit they do (CAP-TEXTPUSH2 q4).
+{ goto(S, `${BASE}/index.html?replay`); waitFor(S, 'window.fe'); const has = () => evalJs(S, takesText('site-frame')); evalJs(S, `(() => { document.activeElement?.blur(); document.getElementById('site-frame').contentDocument.activeElement?.blur(); return 1; })()`);
+  const before = has(); evalJs(S, `(() => { const s = fe.model.sections[2]; return fe.edit(s.id, s.blocks.find((x) => x.type === 'text').id); })()`); const during = has();
+  const ok = before === false && during === true; results.push({ name: 'Keys guard: a selected block no, an edit yes', ok }); if (!ok) console.log(`Keys guard DIFF ${before} ${during}`); }
 
 // E4: every name the oracle was asked about, typed with execCommand here; --full types them with real keys.
 { const E = JSON.parse(readFileSync(new URL('../parity/findings/CAP-E4ENDS.json', import.meta.url)));
