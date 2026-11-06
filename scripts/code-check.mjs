@@ -23,7 +23,7 @@ evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
 goto(S, `${BASE}/index.html`); await pause(2000);
 
 // Add through the same code the Add Block menu uses: a new block in the last section.
-const start = (type, extra) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; const id = 'probe-${type}'; s.blocks = s.blocks.filter((b) => b.id !== id); s.blocks.push({ id, type: '${type}', ${extra} layout: { desktop: { area: ${type === 'code' ? '[1, 2, 7, 6]' : '[1, 2, 9, 10]'}, z: 50, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 50, justify: 'flex-start', align: 'flex-start' } } }); fe.load(next); await sleep(400); fe.select(s.id, id); await sleep(200); document.querySelector('#block-toolbar button[data-tb="edit"]').click(); await sleep(250); return JSON.stringify(id); })()`);
+const start = (type, extra) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; const id = 'probe-${type}'; s.blocks = s.blocks.filter((b) => b.id !== id); s.blocks.push({ id, type: '${type}', ${extra} layout: { desktop: { area: ${type === 'code' ? '[1, 2, 7, 6]' : '[1, 2, 9, 10]'}, z: 50, justify: 'flex-start', align: 'flex-start' }, mobile: { area: ${type === 'code' ? '[1, 2, 7, 10]' : '[1, 2, 9, 10]'}, z: 50, justify: 'flex-start', align: 'flex-start' } } }); fe.load(next); await sleep(400); fe.select(s.id, id); await sleep(200); document.querySelector('#block-toolbar button[data-tb="edit"]').click(); await sleep(250); return JSON.stringify(id); })()`);
 const htmlOf = (id, sel) => evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument; const e = d.querySelector('.fe-block[data-block-id="${id}"] ${sel}'); return JSON.stringify(e ? e.innerHTML : null); })()`);
 const typeInto = async (sel, text) => { evalJs(S, `(() => { const t = document.querySelector('#block-panel ${sel}'); t.focus(); t.select(); return 'true'; })()`); evalJs(S, `(() => { document.execCommand('insertText', false, ${JSON.stringify(text)}); return 'true'; })()`); await pause(200); };
 const blur = () => evalJs(S, `(() => { const a = document.activeElement; a.blur(); return 'true'; })()`);
@@ -123,13 +123,17 @@ for (const [name, seq] of [['Embed', M.rows.embed], ['Embed again', M.rows.embed
 const CODE_FIELD = 'textarea[data-content="code"]';
 const fresh = (type, extra) => { evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; s.blocks = []; s.rows = { desktop: 40, mobile: 40 }; fe.setBp('desktop'); fe.load(next); await new Promise((res) => setTimeout(res, 200)); return 'true'; })()`); return start(type, extra); };
 const areasOf = (id) => evalJs(S, `(() => { const l = fe.model.sections[1].blocks.find((x) => x.id === '${id}').layout; return JSON.stringify([l.desktop.area.join('/'), l.mobile.area.join('/')]); })()`);
-const openPanel = async (id) => { evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const P = document.getElementById('block-panel'); if (P.hidden || !P.querySelector('textarea[data-content]')) { fe.select(fe.model.sections[1].id, '${id}'); await sleep(150); document.querySelector('#block-toolbar button[data-tb="edit"]').click(); await sleep(200); } return 'true'; })()`); await pause(150); };
+const toEmbedData = `document.querySelector('#block-panel [data-embed="code"]').click(); document.querySelector('#block-panel [data-embed="data"]').click();`;
+const openPanel = async (id, embed) => { evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const P = document.getElementById('block-panel'); if (P.hidden || !P.querySelector('textarea[data-content]')) { fe.select(fe.model.sections[1].id, '${id}'); await sleep(150); document.querySelector('#block-toolbar button[data-tb="edit"]').click(); await sleep(200); ${embed ? toEmbedData : ''} } return 'true'; })()`); await pause(150); };
 // A pull is real mouse, by rows. The phone pull is not compared (CAP-T10PULL.json's notCompared): 6 rows
 // from a block its 2 lines overrun land where the oracle's did, so the step after it can be compared.
-const pullRows = async (id, rows) => {
-  const p = evalJs(S, `(async () => { const sid = fe.model.sections[1].id; fe.select(sid, '${id}'); await new Promise((res) => setTimeout(res, 200)); const f = document.getElementById('site-frame'), o = f.getBoundingClientRect(), h = f.contentDocument.querySelector('.fe-handle[data-dir="s"]'); h.scrollIntoView({ block: 'center' }); await new Promise((res) => setTimeout(res, 150)); const r = h.getBoundingClientRect(); return JSON.stringify({ x: o.left + r.x + r.width / 2, y: o.top + r.y + r.height / 2, row: fe.measure(sid).pitch }); })()`);
-  drag(S, [p.x, p.y], [p.x, p.y + rows * p.row]); await pause(300);
+const pullPx = async (id, dir, dx, dy) => {
+  const p = evalJs(S, `(async () => { const sid = fe.model.sections[1].id; fe.select(sid, '${id}'); await new Promise((res) => setTimeout(res, 200)); const f = document.getElementById('site-frame'), o = f.getBoundingClientRect(), h = f.contentDocument.querySelector('.fe-handle[data-dir="${dir}"]'); h.scrollIntoView({ block: 'center' }); await new Promise((res) => setTimeout(res, 150)); const r = h.getBoundingClientRect(); return JSON.stringify({ x: o.left + r.x + r.width / 2, y: o.top + r.y + r.height / 2, row: fe.measure(sid).pitch }); })()`);
+  drag(S, [p.x, p.y], [p.x + dx, p.y + dy]); await pause(300);
+  return p;
 };
+const PITCH = (id) => evalJs(S, `(() => JSON.stringify(fe.measure(fe.model.sections[1].id).pitch))()`);
+const pullRows = (id, rows) => pullPx(id, 's', 0, rows * PITCH(id));
 const FINDING_PULLS = { 'pulled 4 rows taller': 4, 'pull 3 up with 12 lines': -3, 'phone pulled': 6 };
 for (const name of ['CAP-T10ROWS', 'CAP-T10DOWN', 'CAP-T10PULL']) {
   const f = read(name), id = fresh('code', `html: '<p>Hello, World!</p>',`);
@@ -157,6 +161,29 @@ for (const n of [1, 2, 3, 4, 6, 8, 10, 14]) {
   await setText('textarea[data-content="embedHtml"]', `${snippet} `);
   add(`Embed, ${n} lines again: same`, areasOf(id)[0] === EMBED.reads[`same again ${n}`].block.desktop, areasOf(id)[0]);
 }
+
+// Sequences the rule hadn't seen when their predictions were pushed (CAP-T10FRESH.json).
+const FRESH = read('CAP-T10FRESH');
+const inViewNow = async (change) => { evalJs(S, `(() => { document.querySelector('#block-panel [data-code-expand]').click(); ${change} document.querySelector('#code-modal .code-modal-close').click(); return 'true'; })()`); await pause(250); };
+const modeIn = (v) => `{ const m = document.querySelector('#code-modal select'); m.value = '${v}'; m.dispatchEvent(new Event('change', { bubbles: true })); }`;
+for (const [name, q] of Object.entries(FRESH.sequences)) {
+  const embed = q.type === 'Embed', field = embed ? 'textarea[data-content="embedHtml"]' : CODE_FIELD;
+  viewport(S, q.width || 1600, q.width ? 900 : 1000);
+  const id = fresh(q.type.toLowerCase(), embed ? '' : `html: '<p>Hello, World!</p>',`);
+  if (q.view) { evalJs(S, `(async () => { fe.setBp('mobile'); await new Promise((res) => setTimeout(res, 300)); return 'true'; })()`); await pause(100); }
+  if (q.view || embed) { evalJs(S, `(() => { document.getElementById('block-panel').hidden = true; return 'true'; })()`); }
+  await openPanel(id, embed);
+  for (let k = 0; k < q.ops.length; k++) {
+    const op = q.ops[k], want = q.reads[k];
+    if (op[0] === 'code') { await openPanel(id, embed); await setText(field, op[2]); }
+    if (op[0] === 'pull') await pullPx(id, op[2], op[3], op[4]);
+    if (op[0] === 'view') { await openPanel(id, embed); await inViewNow(`${modeIn(op[2].toLowerCase())} ${op[3] ? `document.querySelector('#code-modal input[data-content="showSource"]').click();` : ''}`); }
+    if (op[0] === 'switch') { await openPanel(id, embed); evalJs(S, `(() => { document.querySelector('#block-panel input[aria-label="Display Source Code"]').click(); return 'true'; })()`); await pause(200); }
+    if (want) add(`Fresh ${name} ${op[1]}: ${want.areas.join()}`, areasOf(id).join() === want.areas.join(), areasOf(id).join());
+  }
+}
+viewport(S, 1600, 1000);
+evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(200);
 
 // Mode and the switch in the Code Editor view reach the block on closing, and give rows up (CAP-T10VIEW.json).
 const VIEW = read('CAP-T10VIEW');

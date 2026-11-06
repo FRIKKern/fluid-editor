@@ -2452,31 +2452,33 @@ blockPanel.addEventListener('change', (e) => {
 // Code and embed (parity/findings/CODEEMBED.json, CODEMODAL.json). The canvas follows the typing; a
 // text is one undo step when the field is left.
 let codeBefore = null;
-// Rows follow the height of what is in the block (CAP-T10ROWS.json, CAP-T10DOWN.json, CAP-T10PULL.json,
-// CAP-T10EMBED.json, CAP-T10VIEW.json). An embed's height is that of what is in it, margins included,
-// and an empty one's is its 95 tall placeholder.
+// Rows follow the height of what is in the block, in whole pixels (CAP-T10ROWS.json, CAP-T10DOWN.json,
+// CAP-T10PULL.json, CAP-T10EMBED.json, CAP-T10VIEW.json, CAP-T10FRESH.json). An embed's height is that of
+// what is in it, margins included, and an empty one's is its 95 tall placeholder.
 function codeHeight(b) {
   if (b.type === 'embed' && !b.html) return 95;
   const c = blockEl(b.id)?.querySelector(b.type === 'code' ? '.sqs-code-container' : '.sqs-embed-container');
   if (!c) return 0;
-  if (b.type === 'code') return c.getBoundingClientRect().height;
+  if (b.type === 'code') return c.offsetHeight;
+  // Its elements' boxes, or a range for bare text: a range counts the text's own 23px runs, 1px over ten paragraphs.
+  const kids = [...c.children].map((e) => e.getBoundingClientRect());
   const range = doc.createRange();
   range.selectNodeContents(c);
+  const inner = kids.length ? Math.max(...kids.map((r) => r.bottom)) - Math.min(...kids.map((r) => r.top)) : range.getBoundingClientRect().height;
   const margin = (e, side) => (e ? parseFloat(getComputedStyle(e)[side]) || 0 : 0);
-  return range.getBoundingClientRect().height + margin(c.firstElementChild, 'marginTop') + margin(c.lastElementChild, 'marginBottom');
+  return Math.round(inner + margin(c.firstElementChild, 'marginTop') + margin(c.lastElementChild, 'marginBottom'));
 }
-// Inferred from all of those readings: content runs over by up to 2px before it takes a row, and a
-// fall in height gives up rows by the same sum, so a block can end below what its content needs.
-const codeRowsFor = (h, m) => Math.ceil((h + m.rg - 2) / m.pitch);
+// Inferred from those readings. A height takes ceil((height + gap - 1) / pitch) rows, and a fall gives
+// up the same sum of the fall. A rise takes what it needs. A fall from a block that doesn't have more
+// rows than it needs leaves it alone, so a block can stay well below what its content needs.
+const codeRowsFor = (h, m) => Math.ceil((h + m.rg - 1) / m.pitch);
 const rowsNow = (b) => codeHeight(b);
 function fitRows(b, was) {
   if (b.type === 'code' && !String(b.html || '').trim()) return;
   const h = codeHeight(b);
   if (h === was) return;
   const m = measure(feEl(sel.sid)), L = lay(b), rows = L.area[2] - L.area[0], need = Math.max(1, codeRowsFor(h, m));
-  // Rows the content needs are taken, or kept when the block has just that many. More rows than that
-  // stay until the height falls. An embed stays at 2 rows or more.
-  const next = need >= rows ? need : h < was ? Math.max(b.type === 'embed' ? 2 : 1, rows - codeRowsFor(was - h, m)) : rows;
+  const next = h > was ? Math.max(rows, need) : need >= rows ? rows : Math.max(1, rows - codeRowsFor(was - h, m));
   if (next === rows) return;
   L.area = [L.area[0], L.area[1], L.area[0] + next, L.area[3]];
   const s = S(sel.sid);
