@@ -1,0 +1,754 @@
+{
+  "item": "CAP-T11SOCROW",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T11: a social block pulled to 1 row, and whether a click on its middle still selects it",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Social Links"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      -41.1
+    ],
+    [
+      "read",
+      "one row",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ],
+        "sel": ".sqs-svg-icon--outer, .sqs-svg-icon--wrapper"
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      -41.1
+    ],
+    [
+      "read",
+      "pulled again",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "click on the middle",
+      {
+        "has": [
+          "Edit"
+        ],
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "clicked"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      -58.78,
+      0
+    ],
+    [
+      "read",
+      "e in at one row",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      -58.78,
+      0
+    ],
+    [
+      "read",
+      "e in again",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "selected again",
+      {
+        "has": [
+          "Edit"
+        ],
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "after-e"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      41.1
+    ],
+    [
+      "read",
+      "s down from one row",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "read",
+      "panel",
+      {
+        "has": [
+          "Design",
+          "Content"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "one row": {
+      "block": {
+        "desktop": "1/2/2/6",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          244.2,
+          224.1,
+          30.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793944029460_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 2 / 6",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,10",
+          "col 10x10 at 220.1,10",
+          "ne 10x10 at 220.1,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 107.1,-6",
+          "row 10x10 at 107.1,26.1",
+          "se 10x10 at 220.1,26.1",
+          "sw 10x10 at -6,26.1"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/3/10"
+        ]
+      ],
+      "sel": [
+        {
+          "tag": "div",
+          "cls": "sqs-svg-icon--outer social-icon-alignment-center social-icons-color-black social-icons-siz",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            20
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "sqs-svg-icon--wrapper instagram-unauth",
+          "box": [
+            170.2,
+            244.2,
+            20,
+            20
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "0",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "sqs-svg-icon--wrapper facebook-unauth",
+          "box": [
+            202.2,
+            244.2,
+            20,
+            20
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "0",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "sqs-svg-icon--wrapper twitter-unauth",
+          "box": [
+            234.2,
+            244.2,
+            20,
+            20
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "0",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-svg-icon--outer social-icon-alignment-right social-icons-color-black social-icons-size",
+          "box": [
+            1217,
+            1113,
+            224.1,
+            20
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(255, 255, 255)",
+            "borderTopColor": "rgb(255, 255, 255)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 255, 255)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "sqs-svg-icon--wrapper instagram-unauth",
+          "box": [
+            1357.1,
+            1113,
+            20,
+            20
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "0",
+            "opacity": "1",
+            "color": "rgb(255, 255, 255)",
+            "borderTopColor": "rgb(255, 255, 255)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 255, 255)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "sqs-svg-icon--wrapper facebook-unauth",
+          "box": [
+            1389.1,
+            1113,
+            20,
+            20
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "0",
+            "opacity": "1",
+            "color": "rgb(255, 255, 255)",
+            "borderTopColor": "rgb(255, 255, 255)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 255, 255)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "sqs-svg-icon--wrapper twitter-unauth",
+          "box": [
+            1421.1,
+            1113,
+            20,
+            20
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "0",
+            "opacity": "1",
+            "color": "rgb(255, 255, 255)",
+            "borderTopColor": "rgb(255, 255, 255)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 255, 255)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "pulled again": {
+      "block": {
+        "desktop": "1/2/2/6",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          244.2,
+          224.1,
+          30.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793944029460_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 2 / 6",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,10",
+          "col 10x10 at 220.1,10",
+          "ne 10x10 at 220.1,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 107.1,-6",
+          "row 10x10 at 107.1,26.1",
+          "se 10x10 at 220.1,26.1",
+          "sw 10x10 at -6,26.1"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "click on the middle": {
+      "block": {
+        "desktop": "1/2/2/6",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          244.2,
+          224.1,
+          30.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793944029460_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 2 / 6",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,10",
+          "col 10x10 at 220.1,10",
+          "ne 10x10 at 220.1,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 107.1,-6",
+          "row 10x10 at 107.1,26.1",
+          "se 10x10 at 220.1,26.1",
+          "sw 10x10 at -6,26.1"
+        ]
+      },
+      "has": {
+        "Edit": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "e in at one row": {
+      "block": {
+        "desktop": "1/2/2/5",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          244.2,
+          165.3,
+          30.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793944029460_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 2 / 5",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,10",
+          "col 10x10 at 161.3,10",
+          "ne 10x10 at 161.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 77.7,-6",
+          "row 10x10 at 77.7,26.1",
+          "se 10x10 at 161.3,26.1",
+          "sw 10x10 at -6,26.1"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/2/5",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "e in again": {
+      "block": {
+        "desktop": "1/2/2/5",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          244.2,
+          165.3,
+          30.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793944029460_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 2 / 5",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,10",
+          "col 10x10 at 161.3,10",
+          "ne 10x10 at 161.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 77.7,-6",
+          "row 10x10 at 77.7,26.1",
+          "se 10x10 at 161.3,26.1",
+          "sw 10x10 at -6,26.1"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/2/5",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "selected again": {
+      "block": {
+        "desktop": "1/2/2/5",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          244.2,
+          165.3,
+          30.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793944029460_438",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 2 / 5",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "has": {
+        "Edit": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s down from one row": {
+      "block": {
+        "desktop": "1/2/2/5",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          244.2,
+          165.3,
+          30.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793944029460_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 2 / 5",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,10",
+          "col 10x10 at 161.3,10",
+          "ne 10x10 at 161.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 77.7,-6",
+          "row 10x10 at 77.7,26.1",
+          "se 10x10 at 161.3,26.1",
+          "sw 10x10 at -6,26.1"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/2/5",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "panel": {
+      "has": {
+        "Design": false,
+        "Content": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": {
+    "rows": "A social block goes to 1 row, 1/2/2/6, 30.1 tall, and stops there. e still works at 1 row, 1/2/2/5.",
+    "click": "A click on the middle of a 1 row block selects it. A second click there, on an icon of the selected block, deselects it, so the next pull finds no handle. Read once, here. Inferred from the pulls: a click on a selected 2 row block's empty middle keeps it selected."
+  },
+  "ours": "1/2/2/6 and the same stop. The click on an icon of a selected block was not compared.",
+  "differs": []
+}
