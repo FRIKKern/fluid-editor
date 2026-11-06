@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
+import { replay } from './lib/text-replay.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/PASTE.json', import.meta.url))).samples;
@@ -67,6 +68,13 @@ for (const [name, o] of Object.entries(F)) {
     results.push({ name: `split ${name}`, ok });
     if (!ok) console.log(`DIFF split ${name}\n  oracle ${r.html} | ${r.beforeCaret}\n  ours   ${plain(got.html)} | ${got.before}`);
   }
+}
+// Into a heading, typing after, with real keys and presses (CAP-E5HEAD.json, CAP-E5HEAD2.json).
+for (const name of ['CAP-E5HEAD', 'CAP-E5HEAD2']) {
+  await replay(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (what, ok, d) => {
+    results.push({ name: `heading ${what}`, ok: !!ok });
+    if (!ok) console.log(`DIFF heading ${what}\n  ${d}`);
+  });
 }
 const pass = results.filter((r) => r.ok).length;
 console.log(`Paste: ${pass} of ${results.length} samples match`);

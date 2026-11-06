@@ -1406,8 +1406,9 @@ function startTextEdit(sid, bid) {
   const ce = el.querySelector('.sqs-html-content');
   ce.contentEditable = 'true';
   ce.focus();
+  // The caret starts inside the last text, so a press finds its block even when it's empty (CAP-E4ENTER.json).
   const range = doc.createRange();
-  range.selectNodeContents(ce);
+  range.selectNodeContents([...ce.querySelectorAll('h1, h2, h3, h4, p, pre')].at(-1) ?? ce);
   range.collapse(false);
   const s = win.getSelection();
   s.removeAllRanges();
