@@ -64,15 +64,15 @@ export function sectionChromeLayout(sec, frame, stage, headerBottom, phone = fal
   if (phone) {
     // Phone view (oracle screenshot): the canvas is 428 wide in the middle; Layers sits 68px left
     // of it and the card 22px right of it, both at the same height as on desktop.
-    const top = Math.max(sec.top, headerBottom);
+    const top = Math.max(sec.top + drift[0], headerBottom);
     const cardTop = Math.max(top, 0) + 22;
     const midX = sec.left + sec.width / 2 - 111.1 / 2;
     return {
       outline: { left: ox + sec.left, top: oy + sec.top, width: sec.width, height: sec.height },
       layers: { left: ox - 68, top: oy + Math.max(top, 0) + 22 },
       card: { left: ox + frame.width + 22, top: oy + cardTop },
-      'add-top': { left: ox + midX, top: oy + Math.max(sec.top, headerBottom) - 18 },
-      'add-bottom': { left: ox + midX, top: oy + sec.bottom - 18 },
+      'add-top': { left: ox + midX, top: oy + top - 18 },
+      'add-bottom': { left: ox + midX, top: oy + sec.bottom + drift[1] - 18 },
       // The row handle on phones (CAP-S4PHONE.json): 340 from the left of the 428 canvas.
       ...(grid ? { rows: { left: ox + grid.right - 88, top: oy + grid.bottom - 16 } } : {}),
     };

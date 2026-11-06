@@ -1,0 +1,1789 @@
+{
+ "item": "U12",
+ "capturedAt": "2026-11-06",
+ "engine": "headless Chrome",
+ "window": [
+  1600,
+  1000
+ ],
+ "question": "The stored values of Site Styles' Fonts, Buttons and Forms views, for oracle-readback.mjs.",
+ "how": "Blocks Probe, Site Styles opened by name, each view and the views one row under it read twice. Save off at every read, no question on Exit. Each entry is label, words, input value, state, swatch. No pick, slider, pack, Reset or row change.",
+ "anchor": "Stored after the probes. The values with an older read are checked against it by scripts/check-readback.mjs: every button type against CAP-BUTTONROWS, Forms and Form Spacing against CAP-FORMROWS, Headings, Paragraphs and Spacing against CAP-SITESTYLEROWS. The rest is only as old as this list.",
+ "notRead": ["Forms > Effects holds tile names only: which tile is on shows by a mark, not read here.", "Forms > Colors holds the theme the walk read last, Darkest 2.", "Rows under these views: a font's family, Style, Weight, a Shape's list, Checkbox, Radio and Survey.", "Assign Styles and the Themes row."],
+ "views": {
+  "Fonts": [
+   [
+    "",
+    "All Font Packs",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "",
+    "text:16",
+    "",
+    ""
+   ],
+   [
+    "Decrement",
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "Increment",
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Headings Poppins",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Paragraphs Poppins",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Buttons",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Miscellaneous Poppins",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Assign Styles",
+    "",
+    "",
+    ""
+   ]
+  ],
+  "Fonts > Headings": [
+   [
+    "Line Height",
+    "",
+    "text:1.3em",
+    "",
+    ""
+   ],
+   [
+    "Line Height",
+    "",
+    "range:1.3",
+    "",
+    ""
+   ],
+   [
+    "Letter Spacing",
+    "",
+    "text:0.01rem",
+    "",
+    ""
+   ],
+   [
+    "Letter Spacing",
+    "",
+    "range:0.01",
+    "",
+    ""
+   ],
+   [
+    "Heading 1",
+    "",
+    "text:4rem",
+    "",
+    ""
+   ],
+   [
+    "Heading 1",
+    "",
+    "range:4",
+    "",
+    ""
+   ],
+   [
+    "Heading 2",
+    "",
+    "text:3.5rem",
+    "",
+    ""
+   ],
+   [
+    "Heading 2",
+    "",
+    "range:3.5",
+    "",
+    ""
+   ],
+   [
+    "Heading 3",
+    "",
+    "text:2.5rem",
+    "",
+    ""
+   ],
+   [
+    "Heading 3",
+    "",
+    "range:2.5",
+    "",
+    ""
+   ],
+   [
+    "Heading 4",
+    "",
+    "text:1.6rem",
+    "",
+    ""
+   ],
+   [
+    "Heading 4",
+    "",
+    "range:1.6",
+    "",
+    ""
+   ]
+  ],
+  "Fonts > Paragraphs": [
+   [
+    "Line Height",
+    "",
+    "text:1.4em",
+    "",
+    ""
+   ],
+   [
+    "Line Height",
+    "",
+    "range:1.4",
+    "",
+    ""
+   ],
+   [
+    "Letter Spacing",
+    "",
+    "text:0em",
+    "",
+    ""
+   ],
+   [
+    "Letter Spacing",
+    "",
+    "range:0",
+    "",
+    ""
+   ],
+   [
+    "Paragraph 1",
+    "",
+    "text:1.5rem",
+    "",
+    ""
+   ],
+   [
+    "Paragraph 1",
+    "",
+    "range:1.5",
+    "",
+    ""
+   ],
+   [
+    "Paragraph 2",
+    "",
+    "text:1rem",
+    "",
+    ""
+   ],
+   [
+    "Paragraph 2",
+    "",
+    "range:1",
+    "",
+    ""
+   ],
+   [
+    "Paragraph 3",
+    "",
+    "text:0.9rem",
+    "",
+    ""
+   ],
+   [
+    "Paragraph 3",
+    "",
+    "range:0.9",
+    "",
+    ""
+   ]
+  ],
+  "Fonts > Buttons": [
+   [
+    "Letter Spacing",
+    "",
+    "text:0.02em",
+    "",
+    ""
+   ],
+   [
+    "Letter Spacing",
+    "",
+    "range:0.02",
+    "",
+    ""
+   ],
+   [
+    "Size",
+    "",
+    "text:1rem",
+    "",
+    ""
+   ],
+   [
+    "Size",
+    "",
+    "range:1",
+    "",
+    ""
+   ],
+   [
+    "Letter Spacing",
+    "",
+    "text:0.02em",
+    "",
+    ""
+   ],
+   [
+    "Letter Spacing",
+    "",
+    "range:0.02",
+    "",
+    ""
+   ],
+   [
+    "Size",
+    "",
+    "text:1rem",
+    "",
+    ""
+   ],
+   [
+    "Size",
+    "",
+    "range:1",
+    "",
+    ""
+   ],
+   [
+    "Letter Spacing",
+    "",
+    "text:0.02em",
+    "",
+    ""
+   ],
+   [
+    "Letter Spacing",
+    "",
+    "range:0.02",
+    "",
+    ""
+   ],
+   [
+    "Size",
+    "",
+    "text:1rem",
+    "",
+    ""
+   ],
+   [
+    "Size",
+    "",
+    "range:1",
+    "",
+    ""
+   ]
+  ],
+  "Fonts > Miscellaneous": [
+   [
+    "Line Height",
+    "",
+    "text:1em",
+    "",
+    ""
+   ],
+   [
+    "Line Height",
+    "",
+    "range:1",
+    "",
+    ""
+   ],
+   [
+    "Letter Spacing",
+    "",
+    "text:0.01em",
+    "",
+    ""
+   ],
+   [
+    "Letter Spacing",
+    "",
+    "range:0.01",
+    "",
+    ""
+   ],
+   [
+    "Miscellaneous",
+    "",
+    "text:1rem",
+    "",
+    ""
+   ],
+   [
+    "Miscellaneous",
+    "",
+    "range:1",
+    "",
+    ""
+   ]
+  ],
+  "Buttons": [
+   [
+    "",
+    "Tertiary Secondary Button",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "All Button Packs",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "PRIMARY Button",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "SECONDARY Button",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "TERTIARY Button",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "RESET BUTTON PACK",
+    "",
+    "",
+    ""
+   ]
+  ],
+  "Buttons > Primary Button": [
+   [
+    "Primary",
+    "Primary",
+    "",
+    "true",
+    ""
+   ],
+   [
+    "Secondary",
+    "Secondary",
+    "",
+    "false",
+    ""
+   ],
+   [
+    "Tertiary",
+    "Tertiary",
+    "",
+    "false",
+    ""
+   ],
+   [
+    "",
+    "Font Poppins, 500, 1rem",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Shape Pill",
+    "",
+    "",
+    ""
+   ],
+   [
+    "Outline",
+    "",
+    "text:0px",
+    "",
+    ""
+   ],
+   [
+    "Outline",
+    "",
+    "range:0",
+    "",
+    ""
+   ],
+   [
+    "S",
+    "",
+    "radio:on",
+    "",
+    ""
+   ],
+   [
+    "M",
+    "",
+    "radio:on",
+    "",
+    ""
+   ],
+   [
+    "L",
+    "",
+    "radio:on",
+    "",
+    ""
+   ],
+   [
+    "Padding Options",
+    "",
+    "radio:on",
+    "checked",
+    ""
+   ],
+   [
+    "Top",
+    "",
+    "text:1.3em",
+    "",
+    ""
+   ],
+   [
+    "Top",
+    "",
+    "range:1.3",
+    "",
+    ""
+   ],
+   [
+    "Right",
+    "",
+    "text:3.5em",
+    "",
+    ""
+   ],
+   [
+    "Right",
+    "",
+    "range:3.5",
+    "",
+    ""
+   ],
+   [
+    "Bottom",
+    "",
+    "text:1.3em",
+    "",
+    ""
+   ],
+   [
+    "Bottom",
+    "",
+    "range:1.3",
+    "",
+    ""
+   ],
+   [
+    "Left",
+    "",
+    "text:3.5em",
+    "",
+    ""
+   ],
+   [
+    "Left",
+    "",
+    "range:3.5",
+    "",
+    ""
+   ],
+   [
+    "",
+    "RESET PRIMARY BUTTON",
+    "",
+    "",
+    ""
+   ]
+  ],
+  "Buttons > Secondary Button": [
+   [
+    "Primary",
+    "Primary",
+    "",
+    "false",
+    ""
+   ],
+   [
+    "Secondary",
+    "Secondary",
+    "",
+    "true",
+    ""
+   ],
+   [
+    "Tertiary",
+    "Tertiary",
+    "",
+    "false",
+    ""
+   ],
+   [
+    "",
+    "Font Poppins, 500, 1rem",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Shape Pill",
+    "",
+    "",
+    ""
+   ],
+   [
+    "Outline",
+    "",
+    "text:0px",
+    "",
+    ""
+   ],
+   [
+    "Outline",
+    "",
+    "range:0",
+    "",
+    ""
+   ],
+   [
+    "S",
+    "",
+    "radio:on",
+    "",
+    ""
+   ],
+   [
+    "M",
+    "",
+    "radio:on",
+    "",
+    ""
+   ],
+   [
+    "L",
+    "",
+    "radio:on",
+    "",
+    ""
+   ],
+   [
+    "Padding Options",
+    "",
+    "radio:on",
+    "checked",
+    ""
+   ],
+   [
+    "Top",
+    "",
+    "text:1.3em",
+    "",
+    ""
+   ],
+   [
+    "Top",
+    "",
+    "range:1.3",
+    "",
+    ""
+   ],
+   [
+    "Right",
+    "",
+    "text:3.5em",
+    "",
+    ""
+   ],
+   [
+    "Right",
+    "",
+    "range:3.5",
+    "",
+    ""
+   ],
+   [
+    "Bottom",
+    "",
+    "text:1.3em",
+    "",
+    ""
+   ],
+   [
+    "Bottom",
+    "",
+    "range:1.3",
+    "",
+    ""
+   ],
+   [
+    "Left",
+    "",
+    "text:3.5em",
+    "",
+    ""
+   ],
+   [
+    "Left",
+    "",
+    "range:3.5",
+    "",
+    ""
+   ],
+   [
+    "",
+    "RESET SECONDARY BUTTON",
+    "",
+    "",
+    ""
+   ]
+  ],
+  "Buttons > Tertiary Button": [
+   [
+    "Primary",
+    "Primary",
+    "",
+    "false",
+    ""
+   ],
+   [
+    "Secondary",
+    "Secondary",
+    "",
+    "false",
+    ""
+   ],
+   [
+    "Tertiary",
+    "Tertiary",
+    "",
+    "true",
+    ""
+   ],
+   [
+    "",
+    "Font Poppins, 500, 1rem",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Shape Pill",
+    "",
+    "",
+    ""
+   ],
+   [
+    "Outline",
+    "",
+    "text:0px",
+    "",
+    ""
+   ],
+   [
+    "Outline",
+    "",
+    "range:0",
+    "",
+    ""
+   ],
+   [
+    "S",
+    "",
+    "radio:on",
+    "",
+    ""
+   ],
+   [
+    "M",
+    "",
+    "radio:on",
+    "",
+    ""
+   ],
+   [
+    "L",
+    "",
+    "radio:on",
+    "",
+    ""
+   ],
+   [
+    "Padding Options",
+    "",
+    "radio:on",
+    "checked",
+    ""
+   ],
+   [
+    "Top",
+    "",
+    "text:1.3em",
+    "",
+    ""
+   ],
+   [
+    "Top",
+    "",
+    "range:1.3",
+    "",
+    ""
+   ],
+   [
+    "Right",
+    "",
+    "text:3.5em",
+    "",
+    ""
+   ],
+   [
+    "Right",
+    "",
+    "range:3.5",
+    "",
+    ""
+   ],
+   [
+    "Bottom",
+    "",
+    "text:1.3em",
+    "",
+    ""
+   ],
+   [
+    "Bottom",
+    "",
+    "range:1.3",
+    "",
+    ""
+   ],
+   [
+    "Left",
+    "",
+    "text:3.5em",
+    "",
+    ""
+   ],
+   [
+    "Left",
+    "",
+    "range:3.5",
+    "",
+    ""
+   ],
+   [
+    "",
+    "RESET TERTIARY BUTTON",
+    "",
+    "",
+    ""
+   ]
+  ],
+  "Forms": [
+   [
+    "All Form Packs",
+    "Text",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "All Form Packs",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Field Shape Pill",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "",
+    "checkbox:false",
+    "",
+    ""
+   ],
+   [
+    "All",
+    "",
+    "radio:on",
+    "checked",
+    ""
+   ],
+   [
+    "Border Thickness",
+    "",
+    "text:1px",
+    "",
+    ""
+   ],
+   [
+    "decrement",
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "increment",
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "S",
+    "",
+    "radio:on",
+    "",
+    ""
+   ],
+   [
+    "M",
+    "",
+    "radio:on",
+    "",
+    ""
+   ],
+   [
+    "L",
+    "",
+    "radio:on",
+    "checked",
+    ""
+   ],
+   [
+    "Padding Options",
+    "",
+    "radio:on",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Effects",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Selection Options",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Fonts",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Colors",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Form Spacing",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "RESET FORM PACK",
+    "",
+    "",
+    ""
+   ]
+  ],
+  "Forms > Effects": [
+   [
+    "Outline",
+    "LABEL OUTLINE",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "",
+    "text:",
+    "",
+    ""
+   ],
+   [
+    "Accent",
+    "LABEL ACCENT",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "",
+    "text:",
+    "",
+    ""
+   ],
+   [
+    "Opacity",
+    "LABEL OPACITY",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "",
+    "text:",
+    "",
+    ""
+   ],
+   [
+    "Scale",
+    "LABEL SCALE",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "",
+    "text:",
+    "",
+    ""
+   ],
+   [
+    "Label",
+    "SUBMITTING LABEL",
+    "",
+    "",
+    ""
+   ],
+   [
+    "Spinner",
+    "SPINNER",
+    "",
+    "",
+    ""
+   ],
+   [
+    "Ellipsis",
+    "ELLIPSIS",
+    "",
+    "",
+    ""
+   ],
+   [
+    "Bar",
+    "BAR",
+    "",
+    "",
+    ""
+   ],
+   [
+    "Circle",
+    "CIRCLE",
+    "",
+    "",
+    "rgb(255, 255, 255)"
+   ]
+  ],
+  "Forms > Selection Options": [
+   [
+    "",
+    "Checkbox",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Radio",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Survey",
+    "",
+    "",
+    ""
+   ]
+  ],
+  "Forms > Fonts": [
+   [
+    "",
+    "Title Paragraph",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Description Paragraph",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Caption Paragraph",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Input Paragraph",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Placeholder Paragraph",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Select Dropdown Paragraph",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Option Paragraph",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Survey Title Paragraph",
+    "",
+    "",
+    ""
+   ]
+  ],
+  "Forms > Colors": [
+   [
+    "",
+    "Aa DARKEST 2",
+    "",
+    "",
+    ""
+   ],
+   [
+    "Field Background",
+    "Field Background",
+    "",
+    "",
+    "rgb(181, 100, 247)"
+   ],
+   [
+    "Field Border",
+    "Field Border",
+    "",
+    "",
+    "rgb(255, 255, 255)"
+   ],
+   [
+    "Field Accent",
+    "Field Accent",
+    "",
+    "",
+    "rgb(242, 184, 180)"
+   ],
+   [
+    "Field Accessory",
+    "Field Accessory",
+    "",
+    "",
+    "rgb(255, 255, 255)"
+   ],
+   [
+    "Button Background",
+    "Button Background",
+    "",
+    "",
+    "rgb(242, 184, 180)"
+   ],
+   [
+    "Field Background on Background",
+    "Field Background on Background",
+    "",
+    "",
+    "rgb(255, 207, 90)"
+   ],
+   [
+    "Field Border on Background",
+    "Field Border on Background",
+    "",
+    "",
+    "rgb(0, 0, 0)"
+   ],
+   [
+    "Field Accent on Background",
+    "Field Accent on Background",
+    "",
+    "",
+    "rgb(242, 184, 180)"
+   ],
+   [
+    "Field Accessory on Background",
+    "Field Accessory on Background",
+    "",
+    "",
+    "rgb(0, 0, 0)"
+   ],
+   [
+    "Button Background on Background",
+    "Button Background on Background",
+    "",
+    "",
+    "rgb(0, 0, 0)"
+   ],
+   [
+    "Background",
+    "Background",
+    "",
+    "",
+    "rgb(255, 255, 255)"
+   ],
+   [
+    "Stroke Color",
+    "Stroke Color",
+    "",
+    "",
+    "rgb(242, 184, 180)"
+   ],
+   [
+    "Title",
+    "Title",
+    "",
+    "",
+    "rgb(255, 255, 255)"
+   ],
+   [
+    "Description",
+    "Description",
+    "",
+    "",
+    "rgb(255, 255, 255)"
+   ],
+   [
+    "Caption",
+    "Caption",
+    "",
+    "",
+    "rgb(255, 255, 255)"
+   ],
+   [
+    "Input",
+    "Input",
+    "",
+    "",
+    "rgb(255, 255, 255)"
+   ],
+   [
+    "Option",
+    "Option",
+    "",
+    "",
+    "rgb(255, 255, 255)"
+   ],
+   [
+    "Survey Title",
+    "Survey Title",
+    "",
+    "",
+    "rgb(255, 255, 255)"
+   ],
+   [
+    "Button Text",
+    "Button Text",
+    "",
+    "",
+    "rgb(0, 0, 0)"
+   ],
+   [
+    "Title on Background",
+    "Title on Background",
+    "",
+    "",
+    "rgb(0, 0, 0)"
+   ],
+   [
+    "Description on Background",
+    "Description on Background",
+    "",
+    "",
+    "rgb(0, 0, 0)"
+   ],
+   [
+    "Caption on Background",
+    "Caption on Background",
+    "",
+    "",
+    "rgb(0, 0, 0)"
+   ],
+   [
+    "Input on Background",
+    "Input on Background",
+    "",
+    "",
+    "rgb(0, 0, 0)"
+   ],
+   [
+    "Option on Background",
+    "Option on Background",
+    "",
+    "",
+    "rgb(0, 0, 0)"
+   ],
+   [
+    "Survey Title on Background",
+    "Survey Title on Background",
+    "",
+    "",
+    "rgb(0, 0, 0)"
+   ],
+   [
+    "Button Text on Background",
+    "Button Text on Background",
+    "",
+    "",
+    "rgb(255, 255, 255)"
+   ],
+   [
+    "",
+    "RESET FORM COLORS",
+    "",
+    "",
+    ""
+   ]
+  ],
+  "Forms > Form Spacing": [
+   [
+    "Space Below Label",
+    "",
+    "text:8px",
+    "",
+    ""
+   ],
+   [
+    "Space Below Label",
+    "",
+    "range:8",
+    "",
+    ""
+   ],
+   [
+    "Space Below Description",
+    "",
+    "text:4px",
+    "",
+    ""
+   ],
+   [
+    "Space Below Description",
+    "",
+    "range:4",
+    "",
+    ""
+   ],
+   [
+    "Space Below Caption",
+    "",
+    "text:4px",
+    "",
+    ""
+   ],
+   [
+    "Space Below Caption",
+    "",
+    "range:4",
+    "",
+    ""
+   ],
+   [
+    "Space Between Fields",
+    "",
+    "text:20px",
+    "",
+    ""
+   ],
+   [
+    "Space Between Fields",
+    "",
+    "range:20",
+    "",
+    ""
+   ],
+   [
+    "Space Between Columns",
+    "",
+    "text:10px",
+    "",
+    ""
+   ],
+   [
+    "Space Between Columns",
+    "",
+    "range:10",
+    "",
+    ""
+   ]
+  ],
+  "Miscellaneous": [
+   [
+    "",
+    "Animations",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Spacing",
+    "",
+    "",
+    ""
+   ],
+   [
+    "",
+    "Image Blocks",
+    "",
+    "",
+    ""
+   ]
+  ],
+  "Miscellaneous > Spacing": [
+   [
+    "Page Width (Max)",
+    "",
+    "text:1400px",
+    "",
+    ""
+   ],
+   [
+    "Page Width (Max)",
+    "",
+    "range:1400",
+    "",
+    ""
+   ],
+   [
+    "Site Margin",
+    "",
+    "text:4vw",
+    "",
+    ""
+   ],
+   [
+    "Site Margin",
+    "",
+    "range:4",
+    "",
+    ""
+   ]
+  ],
+  "Miscellaneous > Animations": [
+   [
+    "",
+    "",
+    "checkbox:true",
+    "",
+    ""
+   ],
+   [
+    "",
+    "",
+    "checkbox:false",
+    "",
+    ""
+   ],
+   [
+    "",
+    "",
+    "checkbox:false",
+    "",
+    ""
+   ],
+   [
+    "",
+    "",
+    "checkbox:false",
+    "",
+    ""
+   ],
+   [
+    "",
+    "",
+    "checkbox:false",
+    "",
+    ""
+   ],
+   [
+    "",
+    "",
+    "checkbox:false",
+    "",
+    ""
+   ]
+  ],
+  "Miscellaneous > Image Blocks": [
+   [
+    "Content Width",
+    "",
+    "text:70%",
+    "",
+    ""
+   ],
+   [
+    "Content Width",
+    "",
+    "range:70",
+    "",
+    ""
+   ],
+   [
+    "Title Separation",
+    "",
+    "text:5%",
+    "",
+    ""
+   ],
+   [
+    "Title Separation",
+    "",
+    "range:5",
+    "",
+    ""
+   ],
+   [
+    "Button Separation",
+    "",
+    "text:6%",
+    "",
+    ""
+   ],
+   [
+    "Button Separation",
+    "",
+    "range:6",
+    "",
+    ""
+   ],
+   [
+    "Image Width",
+    "",
+    "text:50%",
+    "",
+    ""
+   ],
+   [
+    "Image Width",
+    "",
+    "range:50",
+    "",
+    ""
+   ],
+   [
+    "Image Separation",
+    "",
+    "text:10%",
+    "",
+    ""
+   ],
+   [
+    "Image Separation",
+    "",
+    "range:10",
+    "",
+    ""
+   ],
+   [
+    "Title Separation",
+    "",
+    "text:6%",
+    "",
+    ""
+   ],
+   [
+    "Title Separation",
+    "",
+    "range:6",
+    "",
+    ""
+   ],
+   [
+    "Button Separation",
+    "",
+    "text:6%",
+    "",
+    ""
+   ],
+   [
+    "Button Separation",
+    "",
+    "range:6",
+    "",
+    ""
+   ],
+   [
+    "Image Width",
+    "",
+    "text:75%",
+    "",
+    ""
+   ],
+   [
+    "Image Width",
+    "",
+    "range:75",
+    "",
+    ""
+   ],
+   [
+    "Title Overlap",
+    "",
+    "text:35%",
+    "",
+    ""
+   ],
+   [
+    "Title Overlap",
+    "",
+    "range:35",
+    "",
+    ""
+   ],
+   [
+    "Title Separation",
+    "",
+    "text:3%",
+    "",
+    ""
+   ],
+   [
+    "Title Separation",
+    "",
+    "range:3",
+    "",
+    ""
+   ],
+   [
+    "Button Separation",
+    "",
+    "text:5%",
+    "",
+    ""
+   ],
+   [
+    "Button Separation",
+    "",
+    "range:5",
+    "",
+    ""
+   ],
+   [
+    "Image Width",
+    "",
+    "text:60%",
+    "",
+    ""
+   ],
+   [
+    "Image Width",
+    "",
+    "range:60",
+    "",
+    ""
+   ],
+   [
+    "Content Width",
+    "",
+    "text:50%",
+    "",
+    ""
+   ],
+   [
+    "Content Width",
+    "",
+    "range:50",
+    "",
+    ""
+   ],
+   [
+    "Content Offset",
+    "",
+    "text:5%",
+    "",
+    ""
+   ],
+   [
+    "Content Offset",
+    "",
+    "range:5",
+    "",
+    ""
+   ],
+   [
+    "Content Padding",
+    "",
+    "text:10%",
+    "",
+    ""
+   ],
+   [
+    "Content Padding",
+    "",
+    "range:10",
+    "",
+    ""
+   ],
+   [
+    "Title Separation",
+    "",
+    "text:4%",
+    "",
+    ""
+   ],
+   [
+    "Title Separation",
+    "",
+    "range:4",
+    "",
+    ""
+   ],
+   [
+    "Button Separation",
+    "",
+    "text:5%",
+    "",
+    ""
+   ],
+   [
+    "Button Separation",
+    "",
+    "range:5",
+    "",
+    ""
+   ],
+   [
+    "Image Separation",
+    "",
+    "text:7%",
+    "",
+    ""
+   ],
+   [
+    "Image Separation",
+    "",
+    "range:4",
+    "",
+    ""
+   ],
+   [
+    "Title Separation",
+    "",
+    "text:4%",
+    "",
+    ""
+   ],
+   [
+    "Title Separation",
+    "",
+    "range:3",
+    "",
+    ""
+   ],
+   [
+    "Button Separation",
+    "",
+    "text:4%",
+    "",
+    ""
+   ],
+   [
+    "Button Separation",
+    "",
+    "range:3",
+    "",
+    ""
+   ]
+  ]
+ }
+}

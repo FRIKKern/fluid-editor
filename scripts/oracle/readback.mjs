@@ -1,6 +1,6 @@
 // What a read-back of Edit Color Theme compares, kept apart from the browser so check-readback.mjs can test it.
 // The stored list is parity/findings/CAP-THEMEROWS.json: rowGroups for the names, rows.A and rows.colors for the colors.
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 
 export const FINDING = JSON.parse(readFileSync(new URL('../../parity/findings/CAP-THEMEROWS.json', import.meta.url)));
 export const THEMES = Object.keys(FINDING.rows.A);
@@ -27,6 +27,19 @@ export function comparePalette(vars) {
   for (const k of Object.keys(want)) {
     const a = nums(vars[k]), b = nums(want[k]);
     if (a.length !== b.length || a.some((x, i) => !(Math.abs(x - b[i]) <= 0.01))) out.push(`palette ${k}: ${vars[k]}, stored ${want[k]}`);
+  }
+  return out;
+}
+
+// The other Site Styles views, one row list per view, in parity/findings/CAP-STYLEROWS.json.
+export const STYLE_FILE = new URL('../../parity/findings/CAP-STYLEROWS.json', import.meta.url);
+export const STYLES = existsSync(STYLE_FILE) ? JSON.parse(readFileSync(STYLE_FILE)) : { views: {} };
+export function compareView(view, rows, stored = STYLES.views[view]) {
+  if (!stored) return [`${view}: nothing stored`];
+  const out = [];
+  if (rows.length !== stored.length) out.push(`${view}: ${rows.length} controls, stored ${stored.length}`);
+  for (let i = 0; i < Math.max(rows.length, stored.length); i++) {
+    if (JSON.stringify(rows[i]) !== JSON.stringify(stored[i])) out.push(`${view} ${i}: ${JSON.stringify(rows[i])}, stored ${JSON.stringify(stored[i])}`);
   }
   return out;
 }
