@@ -1,0 +1,2779 @@
+{
+ "item": "CAP-T10FRESH",
+ "oracle": "/gestures-probe",
+ "capturedAt": "2026-11-06",
+ "engine": "chrome",
+ "question": "T10: do the rows rules hold on sequences they haven't seen? Predictions were pushed before each round was read.",
+ "answer": "Round 1 tested the rule fitted to the first reads: 87 of 103 steps, predictions in commit 6647ec1. It was off at exact edges, wrong that an embed keeps 2 rows, and wrong on a fall in a block that needs more rows than it has. The rule was refit to round 1. Round 2 tested that: 98 of 98, predictions in commit 64879fc, no refit after. Rule now, inferred: height in whole pixels; N(x) = ceil((x + gap - 1) / pitch); a rise takes max(rows, N(height)); a fall leaves the block alone if N(height) >= rows, else gives up N(fall), down to 1. Same height changes nothing, and empty code changes nothing.",
+ "rounds": {
+  "1": {
+   "predictedIn": "6647ec1",
+   "hits": 87,
+   "of": 103,
+   "then": "refit"
+  },
+  "2": {
+   "predictedIn": "64879fc",
+   "hits": 98,
+   "of": 98,
+   "then": "no refit"
+  }
+ },
+ "notRead": "A null in reads is a step with no read of its own: round 1 repeated a label in mixedSteps and embedWalk, so the later read overwrote the earlier, and pulls' last two steps failed on the oracle. Heights are what the read's .sqs-code-container or .sqs-embed-container measured.",
+ "pressed": [
+  "one unnamed press opening Mode's list in the view, viewModes",
+  "one unnamed press on the view's switch, viewModes"
+ ],
+ "sequences": {
+  "otherCounts": {
+   "round": 1,
+   "about": "other line counts, jumping up and down",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "15 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p>"
+    ],
+    [
+     "code",
+     "22 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p>"
+    ],
+    [
+     "code",
+     "9 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p>"
+    ],
+    [
+     "code",
+     "37 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p><p>row 27</p><p>row 28</p><p>row 29</p><p>row 30</p><p>row 31</p><p>row 32</p><p>row 33</p><p>row 34</p><p>row 35</p><p>row 36</p><p>row 37</p>"
+    ],
+    [
+     "code",
+     "18 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p>"
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "code",
+     "26 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p>"
+    ],
+    [
+     "code",
+     "11 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p>"
+    ],
+    [
+     "code",
+     "2 lines",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "code",
+     "7 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p>"
+    ],
+    [
+     "code",
+     "1 lines",
+     "<p>row 1</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/15/6",
+      "1/2/7/10"
+     ],
+     "height": 560.1
+    },
+    {
+     "areas": [
+      "1/2/22/6",
+      "1/2/7/10"
+     ],
+     "height": 828.9
+    },
+    {
+     "areas": [
+      "1/2/9/6",
+      "1/2/7/10"
+     ],
+     "height": 329.7
+    },
+    {
+     "areas": [
+      "1/2/36/6",
+      "1/2/7/10"
+     ],
+     "height": 1405
+    },
+    {
+     "areas": [
+      "1/2/17/6",
+      "1/2/7/10"
+     ],
+     "height": 675.3
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/26/6",
+      "1/2/7/10"
+     ],
+     "height": 982.6
+    },
+    {
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "height": 406.5
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 60.8
+    },
+    {
+     "areas": [
+      "1/2/8/6",
+      "1/2/7/10"
+     ],
+     "height": 252.8
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 22.4
+    }
+   ]
+  },
+  "mixedSteps": {
+   "round": 1,
+   "about": "small mixed rises and falls, then empty",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "8 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p>"
+    ],
+    [
+     "code",
+     "7 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p>"
+    ],
+    [
+     "code",
+     "9 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p>"
+    ],
+    [
+     "code",
+     "4 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+     "code",
+     "10 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p>"
+    ],
+    [
+     "code",
+     "5 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "code",
+     "6 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "code",
+     "12 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+     "code",
+     "11 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p>"
+    ],
+    [
+     "code",
+     "13 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p>"
+    ],
+    [
+     "code",
+     "empty",
+     ""
+    ],
+    [
+     "code",
+     "5 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/9/6",
+      "1/2/7/10"
+     ],
+     "height": 291.3
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "height": 252.8
+    },
+    {
+     "areas": [
+      "1/2/10/6",
+      "1/2/7/10"
+     ],
+     "height": 329.7
+    },
+    {
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "height": 137.6
+    },
+    {
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "height": 368.1
+    },
+    null,
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "height": 214.4
+    },
+    {
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/13/6",
+      "1/2/7/10"
+     ],
+     "height": 444.9
+    },
+    {
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "height": 406.5
+    },
+    {
+     "areas": [
+      "1/2/13/6",
+      "1/2/7/10"
+     ],
+     "height": 483.3
+    },
+    {
+     "areas": [
+      "1/2/13/6",
+      "1/2/7/10"
+     ],
+     "height": 0
+    },
+    null
+   ]
+  },
+  "edgesUp": {
+   "round": 1,
+   "about": "exact heights either side of where a rise takes a row",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "box 200",
+     "<div style=\"height:200px\"></div>"
+    ],
+    [
+     "code",
+     "box 278",
+     "<div style=\"height:278px\"></div>"
+    ],
+    [
+     "code",
+     "box 279",
+     "<div style=\"height:279px\"></div>"
+    ],
+    [
+     "code",
+     "box 319",
+     "<div style=\"height:319px\"></div>"
+    ],
+    [
+     "code",
+     "box 320",
+     "<div style=\"height:320px\"></div>"
+    ],
+    [
+     "code",
+     "box 360",
+     "<div style=\"height:360px\"></div>"
+    ],
+    [
+     "code",
+     "box 361",
+     "<div style=\"height:361px\"></div>"
+    ],
+    [
+     "code",
+     "box 500",
+     "<div style=\"height:500px\"></div>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "height": 200
+    },
+    {
+     "areas": [
+      "1/2/9/6",
+      "1/2/7/10"
+     ],
+     "height": 278
+    },
+    {
+     "areas": [
+      "1/2/9/6",
+      "1/2/7/10"
+     ],
+     "height": 279
+    },
+    {
+     "areas": [
+      "1/2/10/6",
+      "1/2/7/10"
+     ],
+     "height": 319
+    },
+    {
+     "areas": [
+      "1/2/10/6",
+      "1/2/7/10"
+     ],
+     "height": 320
+    },
+    {
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "height": 360
+    },
+    {
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "height": 361
+    },
+    {
+     "areas": [
+      "1/2/14/6",
+      "1/2/7/10"
+     ],
+     "height": 500
+    }
+   ]
+  },
+  "edgesDown": {
+   "round": 1,
+   "about": "exact falls either side of where a fall gives up one more row",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "box 1000",
+     "<div style=\"height:1000px\"></div>"
+    ],
+    [
+     "code",
+     "box 997",
+     "<div style=\"height:997px\"></div>"
+    ],
+    [
+     "code",
+     "box 968",
+     "<div style=\"height:968px\"></div>"
+    ],
+    [
+     "code",
+     "box 935",
+     "<div style=\"height:935px\"></div>"
+    ],
+    [
+     "code",
+     "box 861",
+     "<div style=\"height:861px\"></div>"
+    ],
+    [
+     "code",
+     "box 788",
+     "<div style=\"height:788px\"></div>"
+    ],
+    [
+     "code",
+     "box 700",
+     "<div style=\"height:700px\"></div>"
+    ],
+    [
+     "code",
+     "box 400",
+     "<div style=\"height:400px\"></div>"
+    ],
+    [
+     "code",
+     "box 399",
+     "<div style=\"height:399px\"></div>"
+    ],
+    [
+     "code",
+     "box 398",
+     "<div style=\"height:398px\"></div>"
+    ],
+    [
+     "code",
+     "box 100",
+     "<div style=\"height:100px\"></div>"
+    ],
+    [
+     "code",
+     "box 20",
+     "<div style=\"height:20px\"></div>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/26/6",
+      "1/2/7/10"
+     ],
+     "height": 1000
+    },
+    {
+     "areas": [
+      "1/2/26/6",
+      "1/2/7/10"
+     ],
+     "height": 997
+    },
+    {
+     "areas": [
+      "1/2/25/6",
+      "1/2/7/10"
+     ],
+     "height": 968
+    },
+    {
+     "areas": [
+      "1/2/23/6",
+      "1/2/7/10"
+     ],
+     "height": 935
+    },
+    {
+     "areas": [
+      "1/2/23/6",
+      "1/2/7/10"
+     ],
+     "height": 861
+    },
+    {
+     "areas": [
+      "1/2/20/6",
+      "1/2/7/10"
+     ],
+     "height": 788
+    },
+    {
+     "areas": [
+      "1/2/17/6",
+      "1/2/7/10"
+     ],
+     "height": 700
+    },
+    {
+     "areas": [
+      "1/2/9/6",
+      "1/2/7/10"
+     ],
+     "height": 400
+    },
+    {
+     "areas": [
+      "1/2/9/6",
+      "1/2/7/10"
+     ],
+     "height": 399
+    },
+    {
+     "areas": [
+      "1/2/9/6",
+      "1/2/7/10"
+     ],
+     "height": 398
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 100
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 20
+    }
+   ]
+  },
+  "wide": {
+   "round": 1,
+   "about": "a block pulled 4 columns wider, wrapped text",
+   "type": "Code",
+   "ops": [
+    [
+     "pull",
+     "pulled wider",
+     "e",
+     234.2,
+     0
+    ],
+    [
+     "code",
+     "40 words",
+     "<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word</p>"
+    ],
+    [
+     "code",
+     "200 words",
+     "<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word</p>"
+    ],
+    [
+     "code",
+     "90 words",
+     "<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word</p>"
+    ],
+    [
+     "code",
+     "5 words",
+     "<p>word word word word word</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/7/10",
+      "1/2/7/10"
+     ],
+     "height": 22.4
+    },
+    {
+     "areas": [
+      "1/2/7/10",
+      "1/2/7/10"
+     ],
+     "height": 89.6
+    },
+    {
+     "areas": [
+      "1/2/13/10",
+      "1/2/7/10"
+     ],
+     "height": 448.1
+    },
+    {
+     "areas": [
+      "1/2/6/10",
+      "1/2/7/10"
+     ],
+     "height": 201.7
+    },
+    {
+     "areas": [
+      "1/2/2/10",
+      "1/2/7/10"
+     ],
+     "height": 22.4
+    }
+   ]
+  },
+  "width1280": {
+   "round": 1,
+   "about": "page 1280 wide",
+   "type": "Code",
+   "width": 1280,
+   "ops": [
+    [
+     "code",
+     "7 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p>"
+    ],
+    [
+     "code",
+     "13 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p>"
+    ],
+    [
+     "code",
+     "20 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p>"
+    ],
+    [
+     "code",
+     "8 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p>"
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/9/6",
+      "1/2/7/10"
+     ],
+     "height": 252.8
+    },
+    {
+     "areas": [
+      "1/2/15/6",
+      "1/2/7/10"
+     ],
+     "height": 483.3
+    },
+    {
+     "areas": [
+      "1/2/22/6",
+      "1/2/7/10"
+     ],
+     "height": 752.1
+    },
+    {
+     "areas": [
+      "1/2/9/6",
+      "1/2/7/10"
+     ],
+     "height": 291.3
+    },
+    {
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    }
+   ]
+  },
+  "width900": {
+   "round": 1,
+   "about": "page 900 wide",
+   "type": "Code",
+   "width": 900,
+   "ops": [
+    [
+     "code",
+     "7 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p>"
+    ],
+    [
+     "code",
+     "13 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p>"
+    ],
+    [
+     "code",
+     "20 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p>"
+    ],
+    [
+     "code",
+     "8 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p>"
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "height": 252.8
+    },
+    {
+     "areas": [
+      "1/2/19/6",
+      "1/2/7/10"
+     ],
+     "height": 483.3
+    },
+    {
+     "areas": [
+      "1/2/28/6",
+      "1/2/7/10"
+     ],
+     "height": 752.1
+    },
+    {
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "height": 291.3
+    },
+    {
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    }
+   ]
+  },
+  "embedWalk": {
+   "round": 1,
+   "about": "an embed up and down without passing through empty, then empty",
+   "type": "Embed",
+   "ops": [
+    [
+     "code",
+     "12 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+     "code",
+     "5 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "code",
+     "20 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p>"
+    ],
+    [
+     "code",
+     "1 lines",
+     "<p>row 1</p>"
+    ],
+    [
+     "code",
+     "9 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p>"
+    ],
+    [
+     "code",
+     "empty",
+     ""
+    ],
+    [
+     "code",
+     "4 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+     "code",
+     "empty",
+     ""
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/13/10",
+      "1/2/9/10"
+     ],
+     "height": 444.9
+    },
+    {
+     "areas": [
+      "1/2/6/10",
+      "1/2/9/10"
+     ],
+     "height": 176
+    },
+    {
+     "areas": [
+      "1/2/21/10",
+      "1/2/9/10"
+     ],
+     "height": 752.1
+    },
+    {
+     "areas": [
+      "1/2/2/10",
+      "1/2/9/10"
+     ],
+     "height": 22.4
+    },
+    {
+     "areas": [
+      "1/2/11/10",
+      "1/2/9/10"
+     ],
+     "height": 329.7
+    },
+    null,
+    {
+     "areas": [
+      "1/2/6/10",
+      "1/2/9/10"
+     ],
+     "height": 137.6
+    },
+    null
+   ]
+  },
+  "embedBoxes": {
+   "round": 1,
+   "about": "an embed holding boxes with no margins",
+   "type": "Embed",
+   "ops": [
+    [
+     "code",
+     "box 300",
+     "<div style=\"height:300px\"></div>"
+    ],
+    [
+     "code",
+     "box 500",
+     "<div style=\"height:500px\"></div>"
+    ],
+    [
+     "code",
+     "box 100",
+     "<div style=\"height:100px\"></div>"
+    ],
+    [
+     "code",
+     "box 20",
+     "<div style=\"height:20px\"></div>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/9/10",
+      "1/2/9/10"
+     ],
+     "height": 300
+    },
+    {
+     "areas": [
+      "1/2/14/10",
+      "1/2/9/10"
+     ],
+     "height": 500
+    },
+    {
+     "areas": [
+      "1/2/4/10",
+      "1/2/9/10"
+     ],
+     "height": 100
+    },
+    {
+     "areas": [
+      "1/2/2/10",
+      "1/2/9/10"
+     ],
+     "height": 20
+    }
+   ]
+  },
+  "phoneCode": {
+   "round": 1,
+   "about": "code on the phone",
+   "type": "Code",
+   "view": "Mobile",
+   "ops": [
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "code",
+     "9 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p>"
+    ],
+    [
+     "code",
+     "25 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p>"
+    ],
+    [
+     "code",
+     "14 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p>"
+    ],
+    [
+     "code",
+     "4 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+     "code",
+     "1 lines",
+     "<p>row 1</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/11/10"
+     ],
+     "height": 329.7
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/29/10"
+     ],
+     "height": 944.2
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/16/10"
+     ],
+     "height": 521.7
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/4/10"
+     ],
+     "height": 137.6
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/2/10"
+     ],
+     "height": 22.4
+    }
+   ]
+  },
+  "phoneEmbed": {
+   "round": 1,
+   "about": "an embed on the phone",
+   "type": "Embed",
+   "view": "Mobile",
+   "ops": [
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "code",
+     "12 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+     "code",
+     "2 lines",
+     "<p>row 1</p><p>row 2</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/9/10",
+      "1/2/9/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/9/10",
+      "1/2/15/10"
+     ],
+     "height": 444.9
+    },
+    {
+     "areas": [
+      "1/2/9/10",
+      "1/2/3/10"
+     ],
+     "height": 60.8
+    }
+   ]
+  },
+  "overrunA": {
+   "round": 1,
+   "about": "the state the rule does not cover: height falls, block still has fewer rows than needed",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "6 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+     "code",
+     "5 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "code",
+     "2 lines",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "code",
+     "4 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "code",
+     "3 lines and a space",
+     "<p>row 1</p><p>row 2</p><p>row 3</p> "
+    ],
+    [
+     "code",
+     "1 lines",
+     "<p>row 1</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "height": 214.4
+    },
+    {
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "height": 176
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 60.8
+    },
+    {
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "height": 137.6
+    },
+    {
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 22.4
+    }
+   ]
+  },
+  "overrunB": {
+   "round": 1,
+   "about": "the same state from a long fall",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "30 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p><p>row 27</p><p>row 28</p><p>row 29</p><p>row 30</p>"
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "code",
+     "2 lines",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "code",
+     "30 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p><p>row 27</p><p>row 28</p><p>row 29</p><p>row 30</p>"
+    ],
+    [
+     "code",
+     "1 lines",
+     "<p>row 1</p>"
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/29/6",
+      "1/2/7/10"
+     ],
+     "height": 1136.2
+    },
+    {
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "height": 60.8
+    },
+    {
+     "areas": [
+      "1/2/4/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/29/6",
+      "1/2/7/10"
+     ],
+     "height": 1136.2
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 22.4
+    },
+    {
+     "areas": [
+      "1/2/4/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    }
+   ]
+  },
+  "viewModes": {
+   "round": 1,
+   "about": "Mode in the Code Editor view on long code, source with new lines",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "20 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p>"
+    ],
+    [
+     "view",
+     "view CSS",
+     "CSS",
+     false
+    ],
+    [
+     "code",
+     "10 source lines",
+     "line 0\nline 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9"
+    ],
+    [
+     "view",
+     "view HTML switch off",
+     "HTML",
+     true
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/20/6",
+      "1/2/7/10"
+     ],
+     "height": 752.1
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 22.4
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "height": 224.1
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 67.2
+    }
+   ]
+  },
+  "panelSwitch": {
+   "round": 1,
+   "about": "the panel's own Display Source Code switch, rows inferred before",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "10 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p>"
+    ],
+    [
+     "switch",
+     "panel switch on"
+    ],
+    [
+     "switch",
+     "panel switch off"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "height": 368.1
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 22.4
+    },
+    {
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "height": 368.1
+    }
+   ]
+  },
+  "pulls": {
+   "round": 1,
+   "about": "pulls mixed with content changes",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "13 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p>"
+    ],
+    [
+     "pull",
+     "pull up 2 refused",
+     "s",
+     0,
+     -82.2
+    ],
+    [
+     "pull",
+     "pull down 3",
+     "s",
+     0,
+     123.3
+    ],
+    [
+     "code",
+     "1 lines",
+     "<p>row 1</p>"
+    ],
+    [
+     "pull",
+     "pull up 2",
+     "s",
+     0,
+     -82.2
+    ],
+    [
+     "code",
+     "2 lines",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "code",
+     "7 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/13/6",
+      "1/2/7/10"
+     ],
+     "height": 483.3
+    },
+    {
+     "areas": [
+      "1/2/13/6",
+      "1/2/7/10"
+     ],
+     "height": 483.3
+    },
+    {
+     "areas": [
+      "1/2/16/6",
+      "1/2/7/10"
+     ],
+     "height": 483.3
+    },
+    {
+     "areas": [
+      "1/2/4/6",
+      "1/2/7/10"
+     ],
+     "height": 22.4
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 22.4
+    },
+    null,
+    null
+   ]
+  },
+  "counts2": {
+   "round": 2,
+   "about": "other line counts again",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "16 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p>"
+    ],
+    [
+     "code",
+     "5 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "code",
+     "28 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p><p>row 27</p><p>row 28</p>"
+    ],
+    [
+     "code",
+     "19 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p>"
+    ],
+    [
+     "code",
+     "6 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+     "code",
+     "33 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p><p>row 27</p><p>row 28</p><p>row 29</p><p>row 30</p><p>row 31</p><p>row 32</p><p>row 33</p>"
+    ],
+    [
+     "code",
+     "12 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+     "code",
+     "1 lines",
+     "<p>row 1</p>"
+    ],
+    [
+     "code",
+     "4 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/16/6",
+      "1/2/7/10"
+     ],
+     "height": 598.5
+    },
+    {
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "height": 176
+    },
+    {
+     "areas": [
+      "1/2/28/6",
+      "1/2/7/10"
+     ],
+     "height": 1059.4
+    },
+    {
+     "areas": [
+      "1/2/19/6",
+      "1/2/7/10"
+     ],
+     "height": 713.7
+    },
+    {
+     "areas": [
+      "1/2/6/6",
+      "1/2/7/10"
+     ],
+     "height": 214.4
+    },
+    {
+     "areas": [
+      "1/2/32/6",
+      "1/2/7/10"
+     ],
+     "height": 1251.4
+    },
+    {
+     "areas": [
+      "1/2/12/6",
+      "1/2/7/10"
+     ],
+     "height": 444.9
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 22.4
+    },
+    {
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "height": 137.6
+    }
+   ]
+  },
+  "fractionUp": {
+   "round": 2,
+   "about": "fractions either side of a row edge: does the height round",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "box 400.4",
+     "<div style=\"height:400.4px\"></div>"
+    ],
+    [
+     "code",
+     "box 400.6",
+     "<div style=\"height:400.6px\"></div>"
+    ],
+    [
+     "code",
+     "box 606.4",
+     "<div style=\"height:606.4px\"></div>"
+    ],
+    [
+     "code",
+     "box 606.6",
+     "<div style=\"height:606.6px\"></div>"
+    ],
+    [
+     "code",
+     "box 1100.4",
+     "<div style=\"height:1100.4px\"></div>"
+    ],
+    [
+     "code",
+     "box 1100.6",
+     "<div style=\"height:1100.6px\"></div>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "height": 400.4
+    },
+    {
+     "areas": [
+      "1/2/12/6",
+      "1/2/7/10"
+     ],
+     "height": 400.6
+    },
+    {
+     "areas": [
+      "1/2/16/6",
+      "1/2/7/10"
+     ],
+     "height": 606.4
+    },
+    {
+     "areas": [
+      "1/2/17/6",
+      "1/2/7/10"
+     ],
+     "height": 606.6
+    },
+    {
+     "areas": [
+      "1/2/29/6",
+      "1/2/7/10"
+     ],
+     "height": 1100.4
+    },
+    {
+     "areas": [
+      "1/2/29/6",
+      "1/2/7/10"
+     ],
+     "height": 1100.6
+    }
+   ]
+  },
+  "fallsBig": {
+   "round": 2,
+   "about": "long falls near where one more row goes",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "box 1000",
+     "<div style=\"height:1000px\"></div>"
+    ],
+    [
+     "code",
+     "box 800",
+     "<div style=\"height:800px\"></div>"
+    ],
+    [
+     "code",
+     "box 605",
+     "<div style=\"height:605px\"></div>"
+    ],
+    [
+     "code",
+     "box 400",
+     "<div style=\"height:400px\"></div>"
+    ],
+    [
+     "code",
+     "box 203",
+     "<div style=\"height:203px\"></div>"
+    ],
+    [
+     "code",
+     "box 900",
+     "<div style=\"height:900px\"></div>"
+    ],
+    [
+     "code",
+     "box 880",
+     "<div style=\"height:880px\"></div>"
+    ],
+    [
+     "code",
+     "box 600",
+     "<div style=\"height:600px\"></div>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/26/6",
+      "1/2/7/10"
+     ],
+     "height": 1000
+    },
+    {
+     "areas": [
+      "1/2/20/6",
+      "1/2/7/10"
+     ],
+     "height": 800
+    },
+    {
+     "areas": [
+      "1/2/15/6",
+      "1/2/7/10"
+     ],
+     "height": 605
+    },
+    {
+     "areas": [
+      "1/2/9/6",
+      "1/2/7/10"
+     ],
+     "height": 400
+    },
+    {
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "height": 203
+    },
+    {
+     "areas": [
+      "1/2/24/6",
+      "1/2/7/10"
+     ],
+     "height": 900
+    },
+    {
+     "areas": [
+      "1/2/23/6",
+      "1/2/7/10"
+     ],
+     "height": 880
+    },
+    {
+     "areas": [
+      "1/2/15/6",
+      "1/2/7/10"
+     ],
+     "height": 600
+    }
+   ]
+  },
+  "fractionDown": {
+   "round": 2,
+   "about": "falls in fractions",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "box 1000",
+     "<div style=\"height:1000px\"></div>"
+    ],
+    [
+     "code",
+     "box 926.4",
+     "<div style=\"height:926.4px\"></div>"
+    ],
+    [
+     "code",
+     "box 700.6",
+     "<div style=\"height:700.6px\"></div>"
+    ],
+    [
+     "code",
+     "box 500.4",
+     "<div style=\"height:500.4px\"></div>"
+    ],
+    [
+     "code",
+     "box 300.6",
+     "<div style=\"height:300.6px\"></div>"
+    ],
+    [
+     "code",
+     "box 80.4",
+     "<div style=\"height:80.4px\"></div>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/26/6",
+      "1/2/7/10"
+     ],
+     "height": 1000
+    },
+    {
+     "areas": [
+      "1/2/23/6",
+      "1/2/7/10"
+     ],
+     "height": 926.4
+    },
+    {
+     "areas": [
+      "1/2/17/6",
+      "1/2/7/10"
+     ],
+     "height": 700.6
+    },
+    {
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "height": 500.4
+    },
+    {
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "height": 300.6
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 80.4
+    }
+   ]
+  },
+  "width1100": {
+   "round": 2,
+   "about": "page 1100 wide",
+   "type": "Code",
+   "width": 1100,
+   "ops": [
+    [
+     "code",
+     "9 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p>"
+    ],
+    [
+     "code",
+     "17 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p>"
+    ],
+    [
+     "code",
+     "30 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p><p>row 27</p><p>row 28</p><p>row 29</p><p>row 30</p>"
+    ],
+    [
+     "code",
+     "12 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+     "code",
+     "2 lines",
+     "<p>row 1</p><p>row 2</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/12/6",
+      "1/2/7/10"
+     ],
+     "height": 329.7
+    },
+    {
+     "areas": [
+      "1/2/21/6",
+      "1/2/7/10"
+     ],
+     "height": 636.9
+    },
+    {
+     "areas": [
+      "1/2/36/6",
+      "1/2/7/10"
+     ],
+     "height": 1136.2
+    },
+    {
+     "areas": [
+      "1/2/14/6",
+      "1/2/7/10"
+     ],
+     "height": 444.9
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 60.8
+    }
+   ]
+  },
+  "width1900": {
+   "round": 2,
+   "about": "page 1900 wide",
+   "type": "Code",
+   "width": 1900,
+   "ops": [
+    [
+     "code",
+     "9 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p>"
+    ],
+    [
+     "code",
+     "17 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p>"
+    ],
+    [
+     "code",
+     "30 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p><p>row 27</p><p>row 28</p><p>row 29</p><p>row 30</p>"
+    ],
+    [
+     "code",
+     "12 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+     "code",
+     "2 lines",
+     "<p>row 1</p><p>row 2</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/10/6",
+      "1/2/7/10"
+     ],
+     "height": 329.7
+    },
+    {
+     "areas": [
+      "1/2/17/6",
+      "1/2/7/10"
+     ],
+     "height": 636.9
+    },
+    {
+     "areas": [
+      "1/2/29/6",
+      "1/2/7/10"
+     ],
+     "height": 1136.2
+    },
+    {
+     "areas": [
+      "1/2/11/6",
+      "1/2/7/10"
+     ],
+     "height": 444.9
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 60.8
+    }
+   ]
+  },
+  "width780": {
+   "round": 2,
+   "about": "page 780 wide",
+   "type": "Code",
+   "width": 780,
+   "ops": [
+    [
+     "code",
+     "5 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "code",
+     "14 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p>"
+    ],
+    [
+     "code",
+     "8 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p>"
+    ],
+    [
+     "code",
+     "2 lines",
+     "<p>row 1</p><p>row 2</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/9/6",
+      "1/2/7/10"
+     ],
+     "height": 176
+    },
+    {
+     "areas": [
+      "1/2/22/6",
+      "1/2/7/10"
+     ],
+     "height": 521.7
+    },
+    {
+     "areas": [
+      "1/2/12/6",
+      "1/2/7/10"
+     ],
+     "height": 291.3
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 60.8
+    }
+   ]
+  },
+  "phoneMixed": {
+   "round": 2,
+   "about": "the phone: falls and rises, then exact boxes",
+   "type": "Code",
+   "view": "Mobile",
+   "ops": [
+    [
+     "code",
+     "12 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "code",
+     "18 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p>"
+    ],
+    [
+     "code",
+     "2 lines",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "code",
+     "7 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p>"
+    ],
+    [
+     "code",
+     "box 200",
+     "<div style=\"height:200px\"></div>"
+    ],
+    [
+     "code",
+     "box 30",
+     "<div style=\"height:30px\"></div>"
+    ],
+    [
+     "code",
+     "box 500",
+     "<div style=\"height:500px\"></div>"
+    ],
+    [
+     "code",
+     "box 120",
+     "<div style=\"height:120px\"></div>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/14/10"
+     ],
+     "height": 444.9
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/3/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/21/10"
+     ],
+     "height": 675.3
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/3/10"
+     ],
+     "height": 60.8
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/9/10"
+     ],
+     "height": 252.8
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "height": 200
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/2/10"
+     ],
+     "height": 30
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/16/10"
+     ],
+     "height": 500
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/4/10"
+     ],
+     "height": 120
+    }
+   ]
+  },
+  "embedPull": {
+   "round": 2,
+   "about": "an embed after a pull",
+   "type": "Embed",
+   "ops": [
+    [
+     "code",
+     "6 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+     "pull",
+     "pull down 3",
+     "s",
+     0,
+     123.3
+    ],
+    [
+     "code",
+     "1 lines",
+     "<p>row 1</p>"
+    ],
+    [
+     "code",
+     "12 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/9/10",
+      "1/2/9/10"
+     ],
+     "height": 214.4
+    },
+    {
+     "areas": [
+      "1/2/12/10",
+      "1/2/9/10"
+     ],
+     "height": 214.4
+    },
+    {
+     "areas": [
+      "1/2/7/10",
+      "1/2/9/10"
+     ],
+     "height": 22.4
+    },
+    {
+     "areas": [
+      "1/2/13/10",
+      "1/2/9/10"
+     ],
+     "height": 444.9
+    }
+   ]
+  },
+  "embedPhone": {
+   "round": 2,
+   "about": "an embed on the phone, up and down",
+   "type": "Embed",
+   "view": "Mobile",
+   "ops": [
+    [
+     "code",
+     "5 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "code",
+     "20 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p>"
+    ],
+    [
+     "code",
+     "1 lines",
+     "<p>row 1</p>"
+    ],
+    [
+     "code",
+     "9 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/9/10",
+      "1/2/9/10"
+     ],
+     "height": 176
+    },
+    {
+     "areas": [
+      "1/2/9/10",
+      "1/2/24/10"
+     ],
+     "height": 752.1
+    },
+    {
+     "areas": [
+      "1/2/9/10",
+      "1/2/2/10"
+     ],
+     "height": 22.4
+    },
+    {
+     "areas": [
+      "1/2/9/10",
+      "1/2/12/10"
+     ],
+     "height": 329.7
+    }
+   ]
+  },
+  "embedEdges": {
+   "round": 2,
+   "about": "an embed at exact heights",
+   "type": "Embed",
+   "ops": [
+    [
+     "code",
+     "box 400",
+     "<div style=\"height:400px\"></div>"
+    ],
+    [
+     "code",
+     "box 401",
+     "<div style=\"height:401px\"></div>"
+    ],
+    [
+     "code",
+     "box 400.6",
+     "<div style=\"height:400.6px\"></div>"
+    ],
+    [
+     "code",
+     "box 100",
+     "<div style=\"height:100px\"></div>"
+    ],
+    [
+     "code",
+     "box 1000",
+     "<div style=\"height:1000px\"></div>"
+    ],
+    [
+     "code",
+     "box 60",
+     "<div style=\"height:60px\"></div>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/11/10",
+      "1/2/9/10"
+     ],
+     "height": 400
+    },
+    {
+     "areas": [
+      "1/2/12/10",
+      "1/2/9/10"
+     ],
+     "height": 401
+    },
+    {
+     "areas": [
+      "1/2/12/10",
+      "1/2/9/10"
+     ],
+     "height": 400.6
+    },
+    {
+     "areas": [
+      "1/2/4/10",
+      "1/2/9/10"
+     ],
+     "height": 100
+    },
+    {
+     "areas": [
+      "1/2/26/10",
+      "1/2/9/10"
+     ],
+     "height": 1000
+    },
+    {
+     "areas": [
+      "1/2/2/10",
+      "1/2/9/10"
+     ],
+     "height": 60
+    }
+   ]
+  },
+  "overrunWalk": {
+   "round": 2,
+   "about": "a block its content overruns, walked down and up",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "6 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+     "code",
+     "5 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "code",
+     "2 lines",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "code",
+     "1 lines",
+     "<p>row 1</p>"
+    ],
+    [
+     "code",
+     "2 lines",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "code",
+     "4 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "code",
+     "2 lines",
+     "<p>row 1</p><p>row 2</p>"
+    ],
+    [
+     "code",
+     "5 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "height": 214.4
+    },
+    {
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "height": 176
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 60.8
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 22.4
+    },
+    {
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "height": 60.8
+    },
+    {
+     "areas": [
+      "1/2/4/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "height": 137.6
+    },
+    {
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "height": 60.8
+    },
+    {
+     "areas": [
+      "1/2/6/6",
+      "1/2/7/10"
+     ],
+     "height": 176
+    }
+   ]
+  },
+  "overrunRise": {
+   "round": 2,
+   "about": "long fall into an overrun, then small rises and falls",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "30 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p><p>row 13</p><p>row 14</p><p>row 15</p><p>row 16</p><p>row 17</p><p>row 18</p><p>row 19</p><p>row 20</p><p>row 21</p><p>row 22</p><p>row 23</p><p>row 24</p><p>row 25</p><p>row 26</p><p>row 27</p><p>row 28</p><p>row 29</p><p>row 30</p>"
+    ],
+    [
+     "code",
+     "5 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "code",
+     "4 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ],
+    [
+     "code",
+     "6 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p>"
+    ],
+    [
+     "code",
+     "5 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p>"
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "code",
+     "2 lines",
+     "<p>row 1</p><p>row 2</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/29/6",
+      "1/2/7/10"
+     ],
+     "height": 1136.2
+    },
+    {
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "height": 176
+    },
+    {
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "height": 137.6
+    },
+    {
+     "areas": [
+      "1/2/7/6",
+      "1/2/7/10"
+     ],
+     "height": 214.4
+    },
+    {
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "height": 176
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 60.8
+    }
+   ]
+  },
+  "pullsLow": {
+   "round": 2,
+   "about": "pulled low with content changing",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "12 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p><p>row 5</p><p>row 6</p><p>row 7</p><p>row 8</p><p>row 9</p><p>row 10</p><p>row 11</p><p>row 12</p>"
+    ],
+    [
+     "code",
+     "1 lines",
+     "<p>row 1</p>"
+    ],
+    [
+     "pull",
+     "pull up 3",
+     "s",
+     0,
+     -123.3
+    ],
+    [
+     "code",
+     "3 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p>"
+    ],
+    [
+     "pull",
+     "pull up refused",
+     "s",
+     0,
+     -82.2
+    ],
+    [
+     "code",
+     "1 lines",
+     "<p>row 1</p>"
+    ],
+    [
+     "code",
+     "4 lines",
+     "<p>row 1</p><p>row 2</p><p>row 3</p><p>row 4</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/13/6",
+      "1/2/7/10"
+     ],
+     "height": 444.9
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 22.4
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 22.4
+    },
+    {
+     "areas": [
+      "1/2/4/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/4/6",
+      "1/2/7/10"
+     ],
+     "height": 99.2
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 22.4
+    },
+    {
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "height": 137.6
+    }
+   ]
+  },
+  "otherContent": {
+   "round": 2,
+   "about": "content with margins and bare text",
+   "type": "Code",
+   "ops": [
+    [
+     "code",
+     "bare 60 words",
+     "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word"
+    ],
+    [
+     "code",
+     "bare 10 words",
+     "word word word word word word word word word word"
+    ],
+    [
+     "code",
+     "h1",
+     "<h1>a</h1>"
+    ],
+    [
+     "code",
+     "h2 and p",
+     "<h2>b</h2><p>c</p>"
+    ],
+    [
+     "code",
+     "list",
+     "<ul><li>x</li><li>y</li></ul>"
+    ],
+    [
+     "code",
+     "h3 twice",
+     "<h3>d</h3><h3>e</h3>"
+    ],
+    [
+     "code",
+     "p with br",
+     "<p>a<br>b<br>c<br>d</p>"
+    ]
+   ],
+   "reads": [
+    {
+     "areas": [
+      "1/2/8/6",
+      "1/2/7/10"
+     ],
+     "height": 268.9
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 44.8
+    },
+    {
+     "areas": [
+      "1/2/4/6",
+      "1/2/7/10"
+     ],
+     "height": 76
+    },
+    {
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "height": 122.3
+    },
+    {
+     "areas": [
+      "1/2/2/6",
+      "1/2/7/10"
+     ],
+     "height": 44.8
+    },
+    {
+     "areas": [
+      "1/2/5/6",
+      "1/2/7/10"
+     ],
+     "height": 132.7
+    },
+    {
+     "areas": [
+      "1/2/3/6",
+      "1/2/7/10"
+     ],
+     "height": 89.6
+    }
+   ]
+  }
+ }
+}
