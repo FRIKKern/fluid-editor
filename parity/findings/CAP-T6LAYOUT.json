@@ -444,9 +444,6 @@
   "errors": [],
   "leftDirty": true,
   "answer": "Color, Stroke and Stroke Color are per layout on a Shape, like the other Design values. Phone set yellow and purple: desktop stays white, no stroke. Desktop then set pink and dashed black: phone keeps yellow and purple. On a second Shape, desktop values reach the phone. Rows the phone set have the dotted label.",
-  "ours": "Not per layout.",
-  "differs": [
-    "Color set on a phone changes desktop too: one value per block.",
-    "Stroke set on a phone does not draw on the phone or anywhere: the shape draws desktop's stroke in every layout."
-  ]
+  "ours": "Per layout, in shape-check against these reads. A phone that draws differently has its own container in the block.",
+  "differs": []
 }
