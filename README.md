@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 86 changes
+- **Today** · 87 changes
+  - G4, X2, T12, U4: margin walks; Accordion: what moves, and Escape ([#266](https://github.com/FRIKKern/fluid-editor/pull/266))
   - T9: a form's focus ring follows the section theme, read on all ten ([#264](https://github.com/FRIKKern/fluid-editor/pull/264))
-  - E5: paste into a list item, a quote, monospace and over a selection ([#263](https://github.com/FRIKKern/fluid-editor/pull/263))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
