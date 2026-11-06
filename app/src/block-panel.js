@@ -15,6 +15,18 @@ import { lookBox } from './code-look.js';
 
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
 
+// Anchor: the point a block turns and scales around, as a percent of the block, once per layout (CAP-L6ANCHOR.json).
+// Nine places or X and Y. Ours draws its own dots, from the numbers measured there.
+const ANCHOR_PLACES = [['Top Left', 0, 0], ['Top Center', 50, 0], ['Top Right', 100, 0], ['Center Left', 0, 50], ['Center', 50, 50], ['Center Right', 100, 50], ['Bottom Left', 0, 100], ['Bottom Center', 50, 100], ['Bottom Right', 100, 100]];
+const ANCHOR_DOTS = [2, 11, 20].flatMap((y) => [2, 11, 20].map((x) => `<circle r="2" cx="${x}" cy="${y}"/>`)).join('');
+const anchorGlyph = (x, y) => `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" style="overflow:visible"><g fill="#b7b7b7">${ANCHOR_DOTS}</g><circle r="2.5" cx="${2 + 0.18 * x}" cy="${2 + 0.18 * y}" fill="#0e0e0e"/></svg>`;
+export const anchorText = (v) => `${v.toLocaleString('en-US', { maximumFractionDigits: 3 })}%`;
+const anchorField = (k, label, v) => `<label class="sc-box an-anchor-box"><input type="text" data-anchor="${k}" aria-label="${label}" value="${anchorText(v)}"><span class="an-axis">${label}</span>${HITS}</label>`;
+export const anchorPopHtml = (x, y) => `<div class="an-anchor-head">Position</div><div class="an-anchor-xy">${anchorField('ox', 'X', x)}${anchorField('oy', 'Y', y)}</div><div role="radiogroup" aria-label="Position">${ANCHOR_PLACES.map(([name, px, py]) => {
+  const on = px === x && py === y;
+  return `<button type="button" role="radio" class="an-anchor-row${on ? ' is-on' : ''}" aria-checked="${on}" data-anchor-at="${px},${py}">${anchorGlyph(px, py)}<span>${name}</span></button>`;
+}).join('')}</div>`;
+
 export const DESIGN_FIELDS = [['opacity', 'Opacity', '%', 0, 100], ['rotate', 'Rotate', '°', -360, 360], ['sx', 'Scale', '%', 0, 1000, 'X'], ['sy', 'Scale', '%', 0, 1000, 'Y'],
   ['tx', 'Offset', 'px', -10000, 10000, 'X'], ['ty', 'Offset', 'px', -10000, 10000, 'Y'], ['kx', 'Skew', '°', -89, 89, 'X'], ['ky', 'Skew', '°', -89, 89, 'Y']];
 
@@ -394,7 +406,9 @@ export function shapeColorHtml(c) {
   const now = hex(c.rgb), css = c.a < 1 ? `rgba(${c.rgb.join(', ')}, ${c.a})` : `rgb(${c.rgb.join(', ')})`;
   const on = (c.a === 1 || c.keepAlpha) && c.swatches.includes(now) ? now : null;
   const swatch = (label, value, bg, checked) => `<label class="sh-swatch"><span style="background:${bg}"></span><input type="checkbox" aria-label="Color ${label}" data-color-pick="${value}"${checked ? ' checked' : ''}></label>`;
-  const row = c.swatches.map((h) => swatch(h, h, h, h === on)).join('') + (c.custom ? (on ? '' : swatch(css, css, css, true)) : '<button type="button" class="sh-plus" data-color-custom aria-label="Custom color">+</button>');
+  // In the Custom color view the +'s place shows the color now, ringed, while nothing is picked or it is no swatch (CAP-L6ROWS.json).
+  const sixth = c.custom && (!on || !c.set);
+  const row = c.swatches.map((h) => swatch(h, h, h, h === on && !sixth)).join('') + (c.custom ? (sixth ? swatch(css, css, css, true) : '') : '<button type="button" class="sh-plus" data-color-custom aria-label="Custom color">+</button>');
   const bar = c.opacity || c.custom ? `<input type="range" class="sh-opacity" aria-label="Opacity slider" min="0" max="100" data-color-alpha value="${Math.round(c.a * 100)}" style="--c:${now}">` : '';
   const field = (label, v) => `<input type="text" aria-label="${label}" data-color-field="${label}" value="${v}">`;
   let fields = '';
@@ -405,8 +419,8 @@ export function shapeColorHtml(c) {
     fields = `<div class="sh-fields"><select aria-label="Color format" data-color-format>${[['hex', 'Hex'], ['rgb', 'RGB'], ['hsl', 'HSL']].map(([v, l2]) => `<option value="${v}"${v === f ? ' selected' : ''}>${l2}</option>`).join('')}</select>${body}${alpha}</div>`;
   }
   const map = c.custom ? `<div class="sh-map" style="background-color:hsl(${c.custom.h} 100% 50%)"><i role="slider" aria-label="Color Map" style="left:${c.custom.s * 100}%;top:${(1 - c.custom.v) * 100}%"></i></div>` : '';
-  const hue = c.custom ? `<div class="sh-hue"><i role="slider" aria-label="Hue slider" style="left:${(c.custom.h / 360) * 100}%"></i></div>` : '';
-  return `${map}<div class="sh-swatches">${row}</div>${hue}${bar}${fields}${c.set ? '<button type="button" class="sh-reset" data-color-reset>Reset to theme</button>' : ''}`;
+  const hue = c.custom ? `<div class="sh-hue"><i role="slider" aria-label="Hue slider" style="left:calc(11px + (100% - 22px) * ${c.custom.h / 360})"></i></div>` : '';
+  return `${map}<div class="sh-swatches">${row}</div>${hue}${bar}${fields}${c.set || c.custom ? '<button type="button" class="sh-reset" data-color-reset>Reset to theme</button>' : ''}`;
 }
 
 // Social Links (T11.json). The list is one for the whole site, so a change shows in every social block.
@@ -503,6 +517,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       if (f[5] === 'X') { pairs.push(`<div class="bp-trow"><span class="sp-label">${f[1]}</span><span class="bp-pair">${box(f)}${box(DESIGN_FIELDS[i + 1])}</span></div>`); i++; }
       else pairs.push(`<div class="bp-trow"><span class="sp-label">${f[1]}</span>${box(f)}</div>`);
     }
+    pairs.push(`<div class="bp-trow"><span class="sp-label">Anchor</span><button type="button" class="bp-anchor" data-shape-act="anchor" aria-label="Position" aria-haspopup="true">${anchorGlyph(d.ox, d.oy)}</button></div>`);
     // A video (MEDIAEMPTY.json, CAP-T7DESIGN2.json): Appearance, Transforms, Effects.
     if (content?.kind === 'social') body = socialDesignHtml(content, d, open, pairs.join(''));
     else if (content?.kind === 'map') body = mapDesignHtml(content, pairs.join(''));
@@ -518,9 +533,10 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       const thumb = shapeThumb(shapeById(shape.shape));
       const four = shape.corners, mixed = four && new Set(four).size > 1;
       const fld = (n, label) => `<input type="text" class="sh-corner" aria-label="${label} corner radius" data-shape="corner:${n}" value="${four[n]}">`;
-      const radii = shape.shape && shape.shape !== 'rectangle' ? '' : `<div class="sp-row sh-radii"><span class="bp-radii"><button type="button" role="radio" aria-checked="${!four}" class="sp-seg${four ? '' : ' is-on'}" aria-label="Uniform corner radii" data-shape-act="uniform">${pi('<rect x="5" y="5" width="14" height="14" rx="4"/>')}</button><button type="button" role="radio" aria-checked="${!!four}" class="sp-seg${four ? ' is-on' : ''}" aria-label="Individual corner radii" data-shape-act="individual">${pi('<path d="M5 9V7a2 2 0 0 1 2-2h2M15 5h2a2 2 0 0 1 2 2v2M19 15v2a2 2 0 0 1-2 2h-2M9 19H7a2 2 0 0 1-2-2v-2"/>')}</button></span><label class="bp-box bp-radius"><input type="text" data-shape="radius" aria-label="Corner radius" value="${mixed ? 'Mixed' : `${four ? four[0] : shape.radius}px`}"></label></div>${four ? `<div class="sp-row sh-corners">${fld(0, 'Top left')}${fld(1, 'Top right')}${fld(2, 'Bottom right')}${fld(3, 'Bottom left')}</div>` : ''}`;
+      const radii = shape.shape && shape.shape !== 'rectangle' ? '' : `<div class="sp-row sh-radii"><span class="bp-radii"><button type="button" role="radio" aria-checked="${!four}" class="sp-seg${four ? '' : ' is-on'}" aria-label="Uniform corner radii" data-shape-act="uniform">${pi('<rect x="5" y="5" width="14" height="14" rx="4"/>')}</button><button type="button" role="radio" aria-checked="${!!four}" class="sp-seg${four ? ' is-on' : ''}" aria-label="Individual corner radii" data-shape-act="individual">${pi('<path d="M5 9V7a2 2 0 0 1 2-2h2M15 5h2a2 2 0 0 1 2 2v2M19 15v2a2 2 0 0 1-2 2h-2M9 19H7a2 2 0 0 1-2-2v-2"/>')}</button></span><label class="bp-box sc-box bp-radius"><input type="text" data-shape="radius" aria-label="Corner radius" value="${mixed ? 'Mixed' : `${four ? four[0] : shape.radius}px`}">${HITS}${resetBtn('data-corner-reset', mixed || (four ? four[0] : shape.radius) !== 0)}</label></div>${four ? `<div class="sp-row sh-corners">${fld(0, 'Top left')}${fld(1, 'Top right')}${fld(2, 'Bottom right')}${fld(3, 'Bottom left')}</div>` : ''}`;
       body = `<div class="sh-head">Shape style</div><button type="button" class="sh-style" data-shape-act="style" aria-haspopup="true" aria-label="Shape style">${thumb}<span class="sh-chev" aria-hidden="true">${pi('<path d="M7 10l5 5 5-5"/>')}</span></button>`
         + radii
+        + '<div class="bp-shape-rows">'
         + row('Stretch', `<label class="sp-switch"><input type="checkbox" data-shape="stretch" aria-label="Stretch" ${shape.stretch ? 'checked' : ''}><span aria-hidden="true"></span></label>`)
         + '<div class="bp-thead"><span>Styling</span></div>'
         + row('Color', `<button type="button" class="bp-swatch sh-swatch-btn" data-shape-act="color" aria-label="Color"><i style="background:${esc(shape.color)}"></i></button>`)
@@ -528,6 +544,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
         + strokeRows({ ...d, strokeColor: d.strokeColor || shape.strokeInk }, false, true)
         + row('Drop Shadow', sw('shadow', d.shadow, 'Drop Shadow'))
         + blurRows(d)
+        + '</div>'
         + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`
         + pairs.join('');
     }
@@ -542,7 +559,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       const four = image.corners, mixed = four && new Set(four).size > 1;
       const fld = (n, label) => `<input type="text" class="sh-corner" aria-label="${label} corner radius" data-shape="corner:${n}" value="${four[n]}">`;
       // Corner: Uniform or Individual radii, as a shape's (IMAGEDESIGN.json); Individual starts from the Uniform value.
-      const corner = `<div class="sp-row bp-image-corner"><span class="sp-label">Corner</span><span class="sh-radii"><span class="bp-radii"><button type="button" role="radio" aria-checked="${!four}" class="sp-seg${four ? '' : ' is-on'}" aria-label="Uniform corner radii" data-shape-act="uniform">${pi('<rect x="5" y="5" width="14" height="14" rx="4"/>')}</button><button type="button" role="radio" aria-checked="${!!four}" class="sp-seg${four ? ' is-on' : ''}" aria-label="Individual corner radii" data-shape-act="individual">${pi('<path d="M5 9V7a2 2 0 0 1 2-2h2M15 5h2a2 2 0 0 1 2 2v2M19 15v2a2 2 0 0 1-2 2h-2M9 19H7a2 2 0 0 1-2-2v-2"/>')}</button></span><label class="bp-box bp-radius"><input type="text" data-shape="radius" aria-label="Corner" value="${mixed ? 'Mixed' : `${four ? four[0] : image.corner}px`}"></label></span></div>${four ? `<div class="sp-row sh-corners">${fld(0, 'Top left')}${fld(1, 'Top right')}${fld(2, 'Bottom right')}${fld(3, 'Bottom left')}</div>` : ''}`;
+      const corner = `<div class="sp-row bp-image-corner"><span class="sp-label">Corner</span><span class="sh-radii"><span class="bp-radii"><button type="button" role="radio" aria-checked="${!four}" class="sp-seg${four ? '' : ' is-on'}" aria-label="Uniform corner radii" data-shape-act="uniform">${pi('<rect x="5" y="5" width="14" height="14" rx="4"/>')}</button><button type="button" role="radio" aria-checked="${!!four}" class="sp-seg${four ? ' is-on' : ''}" aria-label="Individual corner radii" data-shape-act="individual">${pi('<path d="M5 9V7a2 2 0 0 1 2-2h2M15 5h2a2 2 0 0 1 2 2v2M19 15v2a2 2 0 0 1-2 2h-2M9 19H7a2 2 0 0 1-2-2v-2"/>')}</button></span><label class="bp-box sc-box bp-radius"><input type="text" data-shape="radius" aria-label="Corner" value="${mixed ? 'Mixed' : `${four ? four[0] : image.corner}px`}">${HITS}${resetBtn('data-corner-reset', mixed || (four ? four[0] : image.corner) !== 0)}</label></span></div>${four ? `<div class="sp-row sh-corners">${fld(0, 'Top left')}${fld(1, 'Top right')}${fld(2, 'Bottom right')}${fld(3, 'Bottom left')}</div>` : ''}`;
       body = `<div class="bp-modes bp-image-modes" role="radiogroup" aria-label="Image mode">${seg('fit', 'Fit')}${seg('fill', 'Fill')}${seg('shape', 'Shape')}</div><div class="bp-image-rows">`
         + (image.mode === 'shape' ? `<button type="button" class="sp-row bp-rowbtn" data-image-nav="shape" aria-label="Navigate to Shape"><span class="sp-label">Shape</span><span class="bp-chip-v">${CHEV_R}</span></button>` + sw('Stretch', 'stretch', image.stretch) + '<div class="bp-image-gap"></div>' : corner)
         + (image.empty ? '' : `<button type="button" class="sp-row bp-rowbtn" data-fx-nav="list" aria-label="Navigate to Image Effect"><span class="sp-label">Image Effect</span><span class="bp-chip-v">${CHEV_R}</span></button>`

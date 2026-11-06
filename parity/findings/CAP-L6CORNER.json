@@ -1,0 +1,702 @@
+{
+  "item": "L6",
+  "kind": "read",
+  "oracle": "probe page, Blocks Probe",
+  "capturedAt": "2026-11-06",
+  "question": "L6: Corner per layout on a Shape and an Image, Uniform and Individual, Reset, and Reset all and Push",
+  "how": "Headless Chrome on new blocks on Blocks Probe, not saved, left by Exit Without Saving. Ours draws its own dots.",
+  "shape": {
+    "desktop8": {
+      "value": "8px",
+      "radios": [
+        [
+          "Uniform corner radii",
+          "true"
+        ],
+        [
+          "Individual corner radii",
+          "false"
+        ]
+      ],
+      "drawn": "M171,0 H334 A8,8 0 0 1 342,8 V228 A8,8 0 0 1"
+    },
+    "phoneFlows": {
+      "value": "8px",
+      "radios": [
+        [
+          "Uniform corner radii",
+          "true"
+        ],
+        [
+          "Individual corner radii",
+          "false"
+        ]
+      ],
+      "drawn": "M188.5,0 H369 A8,8 0 0 1 377,8 V191 A8,8 0 0"
+    },
+    "phone12": {
+      "value": "12px",
+      "radios": [
+        [
+          "Uniform corner radii",
+          "true"
+        ],
+        [
+          "Individual corner radii",
+          "false"
+        ]
+      ],
+      "drawn": "M188.5,0 H365 A12,12 0 0 1 377,12 V187 A12,1"
+    },
+    "desktopKeeps": {
+      "value": "8px",
+      "radios": [
+        [
+          "Uniform corner radii",
+          "true"
+        ],
+        [
+          "Individual corner radii",
+          "false"
+        ]
+      ],
+      "drawn": "M171,0 H334 A8,8 0 0 1 342,8 V228 A8,8 0 0 1"
+    },
+    "desktop20": {
+      "value": "20px",
+      "radios": [
+        [
+          "Uniform corner radii",
+          "true"
+        ],
+        [
+          "Individual corner radii",
+          "false"
+        ]
+      ],
+      "drawn": "M171,0 H322 A20,20 0 0 1 342,20 V216 A20,20 "
+    },
+    "phoneKeeps": {
+      "value": "12px",
+      "radios": [
+        [
+          "Uniform corner radii",
+          "true"
+        ],
+        [
+          "Individual corner radii",
+          "false"
+        ]
+      ],
+      "drawn": "M188.5,0 H365 A12,12 0 0 1 377,12 V187 A12,1"
+    },
+    "individualOnPhone": {
+      "radios": [
+        [
+          "Uniform corner radii",
+          "false"
+        ],
+        [
+          "Individual corner radii",
+          "true"
+        ]
+      ],
+      "fields": [
+        [
+          "Top left corner radius",
+          "12",
+          565
+        ],
+        [
+          "Top right corner radius",
+          "12",
+          565
+        ],
+        [
+          "Bottom right corner radius",
+          "12",
+          565
+        ],
+        [
+          "Bottom left corner radius",
+          "12",
+          565
+        ]
+      ]
+    },
+    "desktopStaysUniform": {
+      "value": "20px",
+      "radios": [
+        [
+          "Uniform corner radii",
+          "true"
+        ],
+        [
+          "Individual corner radii",
+          "false"
+        ]
+      ],
+      "drawn": "M171,0 H322 A20,20 0 0 1 342,20 V216 A20,20 "
+    },
+    "backOnPhone": {
+      "note": "Four equal corners read as Uniform when the view comes back.",
+      "read": {
+        "value": "12px",
+        "radios": [
+          [
+            "Uniform corner radii",
+            "true"
+          ],
+          [
+            "Individual corner radii",
+            "false"
+          ]
+        ],
+        "drawn": "M188.5,0 H365 A12,12 0 0 1 377,12 V187 A12,1"
+      }
+    },
+    "individualOnDesktop": {
+      "radios": [
+        [
+          "Uniform corner radii",
+          "false"
+        ],
+        [
+          "Individual corner radii",
+          "true"
+        ]
+      ],
+      "phoneStays": {
+        "value": "12px",
+        "radios": [
+          [
+            "Uniform corner radii",
+            "true"
+          ],
+          [
+            "Individual corner radii",
+            "false"
+          ]
+        ],
+        "drawn": "M188.5,0 H365 A12,12 0 0 1 377,12 V187 A12,1"
+      }
+    },
+    "individualOnAFlowingPhone": {
+      "note": "Pressing Individual writes nothing: the button stays off. Pressing Uniform after it turns the button on.",
+      "individual": [
+        [
+          true,
+          ""
+        ],
+        [
+          [
+            "Uniform corner radii",
+            "false"
+          ],
+          [
+            "Individual corner radii",
+            "true"
+          ]
+        ],
+        "20px"
+      ],
+      "uniform": [
+        [
+          false,
+          ""
+        ],
+        [
+          [
+            "Uniform corner radii",
+            "true"
+          ],
+          [
+            "Individual corner radii",
+            "false"
+          ]
+        ],
+        "20px"
+      ]
+    },
+    "reset": {
+      "note": "Reset to default value shows while the field has focus. On a phone it writes 0 as the phone's own: a later desktop value does not reach it.",
+      "phoneReset": "0px",
+      "afterDesktop20": "0px",
+      "desktopReset": "0px",
+      "focusLook": "A black chip at the field's right edge (screenshot)."
+    },
+    "drag": {
+      "note": "A drag of 50 right on the field's right edge, from 0: 0.4 per pixel.",
+      "after": "20px"
+    },
+    "buttonOn": [
+      false,
+      ""
+    ],
+    "resetAll": {
+      "corner": "8px",
+      "button": [
+        true,
+        ""
+      ]
+    },
+    "push": {
+      "phone": "12px",
+      "desktop": "12px"
+    }
+  },
+  "image": {
+    "rowsOnANewImage": [
+      "Content @22,19,53,18",
+      "Design @91,19,46,18",
+      "Animation @153,19,67,18",
+      "Fit @18,78,95,32",
+      "Fill @113,78,95,32",
+      "Shape @207,78,95,32",
+      "Corner @22,123,46,44",
+      "Transforms @22,190,182,44",
+      "Opacity @22,241,52,44",
+      "Rotate @22,292,43,44",
+      "Scale @22,343,88,44",
+      "Offset @22,394,88,44",
+      "Skew @22,445,88,44",
+      "Anchor @22,496,49,44"
+    ],
+    "desktop8flows": {
+      "val": "8px",
+      "inputs": [
+        [
+          null,
+          "8px",
+          424
+        ],
+        [
+          null,
+          "100%",
+          542
+        ],
+        [
+          null,
+          "0\u00b0",
+          593
+        ],
+        [
+          null,
+          "100%",
+          644
+        ],
+        [
+          null,
+          "100%",
+          644
+        ]
+      ],
+      "radios": [
+        [
+          "Uniform corner radii",
+          "true"
+        ],
+        [
+          "Individual corner radii",
+          "false"
+        ]
+      ],
+      "pb": [
+        true,
+        ""
+      ]
+    },
+    "phone12": {
+      "val": "12px",
+      "inputs": [
+        [
+          null,
+          "12px",
+          424
+        ],
+        [
+          null,
+          "100%",
+          542
+        ],
+        [
+          null,
+          "0\u00b0",
+          593
+        ],
+        [
+          null,
+          "100%",
+          644
+        ],
+        [
+          null,
+          "100%",
+          644
+        ]
+      ],
+      "radios": [
+        [
+          "Uniform corner radii",
+          "true"
+        ],
+        [
+          "Individual corner radii",
+          "false"
+        ]
+      ],
+      "pb": [
+        false,
+        ""
+      ]
+    },
+    "desktopKeeps8": {
+      "val": "8px",
+      "inputs": [
+        [
+          null,
+          "8px",
+          424
+        ],
+        [
+          null,
+          "100%",
+          542
+        ],
+        [
+          null,
+          "0\u00b0",
+          593
+        ],
+        [
+          null,
+          "100%",
+          644
+        ],
+        [
+          null,
+          "100%",
+          644
+        ]
+      ],
+      "radios": [
+        [
+          "Uniform corner radii",
+          "true"
+        ],
+        [
+          "Individual corner radii",
+          "false"
+        ]
+      ],
+      "pb": null
+    },
+    "desktop20": {
+      "val": "20px",
+      "inputs": [
+        [
+          null,
+          "20px",
+          424
+        ],
+        [
+          null,
+          "100%",
+          542
+        ],
+        [
+          null,
+          "0\u00b0",
+          593
+        ],
+        [
+          null,
+          "100%",
+          644
+        ],
+        [
+          null,
+          "100%",
+          644
+        ]
+      ],
+      "radios": [
+        [
+          "Uniform corner radii",
+          "true"
+        ],
+        [
+          "Individual corner radii",
+          "false"
+        ]
+      ],
+      "pb": null
+    },
+    "phoneKeeps12": {
+      "val": "12px",
+      "inputs": [
+        [
+          null,
+          "12px",
+          424
+        ],
+        [
+          null,
+          "100%",
+          542
+        ],
+        [
+          null,
+          "0\u00b0",
+          593
+        ],
+        [
+          null,
+          "100%",
+          644
+        ],
+        [
+          null,
+          "100%",
+          644
+        ]
+      ],
+      "radios": [
+        [
+          "Uniform corner radii",
+          "true"
+        ],
+        [
+          "Individual corner radii",
+          "false"
+        ]
+      ],
+      "pb": [
+        false,
+        ""
+      ]
+    },
+    "individual": {
+      "val": "12px",
+      "inputs": [
+        [
+          null,
+          "12px",
+          424
+        ],
+        [
+          "Top left corner radius",
+          "12",
+          475
+        ],
+        [
+          "Top right corner radius",
+          "12",
+          475
+        ],
+        [
+          "Bottom right corner radius",
+          "12",
+          475
+        ],
+        [
+          "Bottom left corner radius",
+          "12",
+          475
+        ]
+      ],
+      "radios": [
+        [
+          "Uniform corner radii",
+          "false"
+        ],
+        [
+          "Individual corner radii",
+          "true"
+        ]
+      ],
+      "pb": [
+        false,
+        ""
+      ]
+    },
+    "mixed": {
+      "val": "Mixed",
+      "inputs": [
+        [
+          null,
+          "Mixed",
+          424
+        ],
+        [
+          "Top left corner radius",
+          "4",
+          475
+        ],
+        [
+          "Top right corner radius",
+          "12",
+          475
+        ],
+        [
+          "Bottom right corner radius",
+          "12",
+          475
+        ],
+        [
+          "Bottom left corner radius",
+          "12",
+          475
+        ]
+      ],
+      "radios": [
+        [
+          "Uniform corner radii",
+          "false"
+        ],
+        [
+          "Individual corner radii",
+          "true"
+        ]
+      ],
+      "pb": [
+        false,
+        ""
+      ]
+    },
+    "desktopUniform": {
+      "val": "20px",
+      "inputs": [
+        [
+          null,
+          "20px",
+          424
+        ],
+        [
+          null,
+          "100%",
+          542
+        ],
+        [
+          null,
+          "0\u00b0",
+          593
+        ],
+        [
+          null,
+          "100%",
+          644
+        ],
+        [
+          null,
+          "100%",
+          644
+        ]
+      ],
+      "radios": [
+        [
+          "Uniform corner radii",
+          "true"
+        ],
+        [
+          "Individual corner radii",
+          "false"
+        ]
+      ],
+      "pb": null
+    },
+    "mixedStays": {
+      "val": "Mixed",
+      "inputs": [
+        [
+          null,
+          "Mixed",
+          424
+        ],
+        [
+          "Top left corner radius",
+          "4",
+          475
+        ],
+        [
+          "Top right corner radius",
+          "12",
+          475
+        ],
+        [
+          "Bottom right corner radius",
+          "12",
+          475
+        ],
+        [
+          "Bottom left corner radius",
+          "12",
+          475
+        ]
+      ],
+      "radios": [
+        [
+          "Uniform corner radii",
+          "false"
+        ],
+        [
+          "Individual corner radii",
+          "true"
+        ]
+      ],
+      "pb": [
+        false,
+        ""
+      ]
+    },
+    "uniformFromMixed": {
+      "val": "4px",
+      "inputs": [
+        [
+          null,
+          "4px",
+          424
+        ],
+        [
+          null,
+          "100%",
+          542
+        ],
+        [
+          null,
+          "0\u00b0",
+          593
+        ],
+        [
+          null,
+          "100%",
+          644
+        ],
+        [
+          null,
+          "100%",
+          644
+        ]
+      ],
+      "radios": [
+        [
+          "Uniform corner radii",
+          "true"
+        ],
+        [
+          "Individual corner radii",
+          "false"
+        ]
+      ],
+      "pb": [
+        false,
+        ""
+      ]
+    },
+    "reset": "0px",
+    "dotted": "Corner is dotted on the phone (screenshot).",
+    "drawn": "Not read on the empty image: the field only. Ours draws the corner per layout as a shape does, inferred."
+  },
+  "ours": "Built: scripts/shape-check.mjs against this.",
+  "notRead": "A Shape's phone Reset in Individual. Ours goes back to Uniform 0."
+}

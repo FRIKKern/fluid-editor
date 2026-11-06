@@ -324,12 +324,11 @@ function blockInner(b, model) {
     case 'shape': {
       if (b.standin) return standinHtml(b);
       const kind = shapeById(b.shape), rect = !kind.d, stretched = b.stretch !== false;
-      const radius = b.corners ? b.corners.map((v) => `${v}px`).join(' ') : b.radius || '0';
       const label = b.label ? `<span class="sqs-shape-label">${escapeHtml(b.label)}</span>` : '';
       // Stroke (SHAPESTYLES.json): black, 2, 6 or 15px unless set, dashes of 5 with a gap of the width
       // plus 15, the same px however the block stretches.
       const drawnIn = (bp) => {
-        const dg = designFor(b, bp), fill = shapeFill(b, bp) || 'var(--shape-theme-fill)';
+        const dg = designFor(b, bp), fill = shapeFill(b, bp) || 'var(--shape-theme-fill)', corner = cornerFor(b, bp), radius = corner.css || '0';
         const style = `--shape-fill:${fill};--shape-radius:${radius};--shape-ink:${b.ink || 'inherit'}${stretched ? '' : `;--shape-ratio:${kind.w / kind.h}`}`;
         const w = !dg.stroke ? 0 : dg.strokeSize === 'custom' ? dg.strokePx ?? 6 : STROKE_PX[dg.strokeSize || 'M'];
         const ink = w ? ` stroke="${dg.strokeColor || 'var(--shape-theme-stroke)'}" stroke-width="${w}" vector-effect="non-scaling-stroke"${dg.stroke === 'dashed' ? ` stroke-dasharray="5 ${w + 15}"` : ''}` : '';
@@ -337,7 +336,7 @@ function blockInner(b, model) {
         // A rectangle's stroke sits outside its box and its corner loses half the stroke. With four
         // corners ours strokes the top left's: a known difference.
         return !rect ? svg(` viewBox="0 0 ${kind.w} ${kind.h}"`, `<path d="${kind.d}" fill="${fill}"${ink}/>`)
-          : w ? svg('', `<rect style="width:calc(100% + ${w}px);height:calc(100% + ${w}px);x:calc(${w}px / -2);y:calc(${w}px / -2)" rx="${Math.max(0, parseFloat(b.corners ? b.corners[0] : b.radius) - w / 2 || 0)}" fill="${fill}"${ink}/>`)
+          : w ? svg('', `<rect style="width:calc(100% + ${w}px);height:calc(100% + ${w}px);x:calc(${w}px / -2);y:calc(${w}px / -2)" rx="${Math.max(0, corner.first - w / 2 || 0)}" fill="${fill}"${ink}/>`)
           : `<div class="sqs-shape${stretched ? '' : ' is-square'}" style="${style}">${label}</div>`;
       };
       // A phone that draws differently has a container of its own, as a button does.
@@ -439,6 +438,15 @@ export const designFor = (b, bp) => {
   if (bp === 'mobile') for (const k in b.designMobile) if (b.designMobile[k] === FOLLOW_DESKTOP) { if (b.design && k in b.design) d[k] = b.design[k]; else delete d[k]; }
   return d;
 };
+// The Corner of a shape or an image, once per layout: the phone's own, or else desktop's (CAP-L6CORNER.json).
+const pxList = (a) => a.map((v) => `${v}px`).join(' ');
+export function cornerFor(b, bp) {
+  const m = bp === 'mobile' ? b.designMobile : null;
+  if (m?.corners) return { corners: m.corners, css: pxList(m.corners), first: m.corners[0] };
+  if (m && 'corner' in m) return { corners: null, css: m.corner ? `${m.corner}px` : '', first: m.corner };
+  if (b.corners) return { corners: b.corners, css: pxList(b.corners), first: b.corners[0] };
+  return { corners: null, css: b.radius || '', first: parseFloat(b.radius) || 0 };
+}
 export const phoneOwn = (b, k) => { const v = b.designMobile?.[k]; return !!v && v !== FOLLOW_DESKTOP; };
 // A shape's Color: desktop's is the block's own, a phone's is a Design value like Stroke (CAP-T6LAYOUT.json).
 export const shapeFill = (b, bp) => (bp === 'mobile' && phoneOwn(b, 'color') ? b.designMobile.color : b.color || b.fill);
@@ -446,7 +454,8 @@ function designRule(b, d, phone) {
   const moved = d.tx || d.ty || d.rotate || d.sx !== 100 || d.sy !== 100 || d.kx || d.ky;
   const off = phone && b.design?.blur;
   const clear = phone && b.design?.background;
-  return `
+  const imageCorner = phone && b.type === 'image' && (b.designMobile.corners || 'corner' in b.designMobile) ? `\n    .fe-block-${b.id} .fluid-image-container { border-radius: ${cornerFor(b, 'mobile').css || '0'} !important; }` : '';
+  return `${imageCorner}
     .fe-block-${b.id} {
       --opacity: ${d.opacity}%;
       --translate-x: ${d.tx}px;
