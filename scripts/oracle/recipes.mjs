@@ -685,6 +685,7 @@ export const RECIPES = {
     ...NEWTEXT, ['stamp', 0, 'new'], ['keys', 'alpha'], ['press', 'Meta+a'], ['click', 'Bold'], ['read', 'typed, Cmd+A pressed, Bold pressed, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'typed, Cmd+A pressed, Bold pressed', 0, 'new', 12, true],
     ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['stamp', 0, 'new'], ['keys', 'alpha'], ['keysList', ['Meta+a']], ['click', 'Bold'], ['read', 'typed, Cmd+A with no wait, Bold pressed, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'typed, Cmd+A with no wait, Bold pressed', 0, 'new', 12, true],
     ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['stamp', 0, 'new'], ['keys', 'alpha'], ['pause', 300], ['click', 'Bold'], ['read', 'typed, 0.3 s, Bold pressed, stamps', { stamps: true }], ['press', 'Escape'], ['undoWalk', 'typed, 0.3 s, Bold pressed', 0, 'new', 12, true],
+  ] },
   'CAP-U6REDO': { page: 'Gestures Probe', question: "U6: Redo's hover while it can redo, against Undo's", steps: [
     ['enter'], ['blank'], ['add', 0, 'Shape'], ['press', 'Escape'], ['pause', 400], ['read', 'can undo', { btnState: UR }], ['hoverNamed', 'Undo'], ['read', 'Undo hovered', { btnState: UR }], ['pressNamed', 'Undo'], ['pause', 800], ['read', 'undone, pointer on Undo', { btnState: UR }], ['hoverNamed', 'Redo'], ['read', 'Redo hovered', { btnState: UR }], ['shot', 'redo'],
   ] },
