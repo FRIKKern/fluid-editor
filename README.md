@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 21 changes
+- **Today** · 22 changes
+  - T4: the importer reads what an image on a page gives ([#201](https://github.com/FRIKKern/fluid-editor/pull/201))
   - T5, T11: phone button least width, typed Map Zoom, social least width, Thickness field ([#199](https://github.com/FRIKKern/fluid-editor/pull/199))
-  - T4: the Edit menu and the full-screen image editor: Adjust, Crop and Filter ([#198](https://github.com/FRIKKern/fluid-editor/pull/198))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
