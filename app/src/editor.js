@@ -32,6 +32,7 @@ import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
 import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
+import { messageBox, cleanMessage } from './form-message.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -1489,7 +1490,7 @@ function renderBlockPanel() {
     : b.type === 'line' ? { kind: 'line' }
     : b.type === 'social' ? (() => { const l = socialLook(b, bp === 'mobile'); return { kind: 'social', links: socialList(), err: socErr, iconBorder: l.iconBorder, iconStyle: l.iconStyle, iconThick: l.iconThick, iconSize: l.iconSize, align: l.align }; })()
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
-    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
+    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
@@ -1687,6 +1688,7 @@ function placeBlockPanel() {
   if (parentStack(sel.sid, sel.bid)) p.left = Math.min(el.getBoundingClientRect().right + frame.getBoundingClientRect().left - stage.getBoundingClientRect().left + 18, stage.getBoundingClientRect().width - 340);
   blockPanel.style.left = `${p.left}px`;
   blockPanel.style.top = `${p.top}px`;
+  formMessage.sync();
 }
 blockPanel.addEventListener('click', (e) => {
   if (shapeUi?.kind === 'animopts') closeShapePop();
@@ -1804,11 +1806,21 @@ function setButtonStyle(sid, bid, style) {
   const b = B(sid, bid);
   if (!b) return;
   const before = JSON.stringify(model);
-  if (style === 'primary') delete b.buttonStyle; else b.buttonStyle = style;
+  if (b.type === 'form') setFormView(b, bp, 'buttonStyle', style === 'primary' && bp !== 'mobile' ? '' : style);
+  else if (style === 'primary') delete b.buttonStyle; else b.buttonStyle = style;
   renderSectionDom(sid);
+  if (b.type === 'form') fitFormIfDue(b);
   commit(before, `Button style ${style}`);
 }
 // A form's Button Alignment and First Input Highlight (FORMADD.json); left and none are the defaults.
+// Lightbox off leaves the rows until the next press on a design row. That press grows them to hold the
+// form and never shrinks them. Only Lightbox off does this, one view at a time (FORMFIELDS.json, lightbox).
+function fitFormIfDue(b) {
+  if (!b.fitDue?.[bp]) return;
+  delete b.fitDue[bp];
+  if (!Object.keys(b.fitDue).length) delete b.fitDue;
+  if (!formView(b, bp).lightbox && contentRows(b, measure(feEl(sel.sid))) > lay(b).area[2] - lay(b).area[0]) fitForm(b, S(sel.sid));
+}
 function setFormDesign(key, v) {
   const b = B(sel.sid, sel.bid);
   if (!b) return;
@@ -1817,9 +1829,7 @@ function setFormDesign(key, v) {
   if (key === 'buttonAlign') setFormView(b, bp, key, v === 'left' && bp !== 'mobile' ? '' : v);
   else if (v === 'none') delete b[key]; else b[key] = v;
   renderSectionDom(sel.sid);
-  // A form the Lightbox left too small gets its rows back on the next change (FORMFIELDS.json, lightbox).
-  // One row short isn't that: a new form on the phone is 16 rows and stretches, and a press leaves it (phone).
-  if (!formView(b, bp).lightbox && contentRows(b, measure(feEl(sel.sid))) > lay(b).area[2] - lay(b).area[0] + 1) fitForm(b, S(sel.sid));
+  fitFormIfDue(b);
   commit(before, `Form ${key} ${v}`);
   blockPanel.scrollTop = top;
 }
@@ -2110,6 +2120,7 @@ function setFormLightbox(on) {
   const b = B(sel.sid, sel.bid), s = S(sel.sid), before = JSON.stringify(model), top = blockPanel.scrollTop;
   const h = on ? blockEl(b.id).querySelector(FORM_ON_PAGE).getBoundingClientRect().height : 0;
   setFormView(b, bp, 'lightbox', on);
+  if (on) { if (b.fitDue) { delete b.fitDue[bp]; if (!Object.keys(b.fitDue).length) delete b.fitDue; } } else (b.fitDue ||= {})[bp] = true;
   renderSectionDom(sel.sid);
   if (on) {
     const w = blockEl(b.id).querySelector('.lightbox-handle-wrapper'), hh = w.getBoundingClientRect().height;
@@ -2189,7 +2200,7 @@ blockPanel.addEventListener('input', (e) => {
   if (q && sel) {
     ffBefore ??= JSON.stringify(model);
     const b = B(sel.sid, sel.bid);
-    b.post = { ...b.post, [q.dataset.ffPost]: q.value };
+    b.post = { ...b.post, [q.dataset.ffPost]: q.isContentEditable ? cleanMessage(q) : q.value };
     renderSectionDom(sel.sid);
     showFormPost(b);
     if (q.dataset.ffPost === 'html') blockPanel.querySelector('.bp-ffp-code .bp-code-lines').innerHTML = Array.from({ length: Math.max(1, q.value.split('\n').length) }, (_, n) => n + 1).join('<br>');
@@ -2320,11 +2331,11 @@ function hslOf([r0, g0, b0]) {
   return [h * 60, (d / (1 - Math.abs(2 * l - 1))) * 100, l * 100];
 }
 const rgbFromHsl = (h, s, l) => { const a = (s / 100) * Math.min(l / 100, 1 - l / 100), f = (n) => { const k = (n + h / 30) % 12; return Math.round(255 * (l / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))); }; return [f(0), f(8), f(4)]; };
-const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? b.color || b.fill || '#ffffff' : key === 'lightboxBg' ? b.lightboxBg || 'rgb(255, 255, 255)' : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || 'rgb(0, 0, 0)');
+const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? b.color || b.fill || '#ffffff' : key === 'lightboxBg' ? formView(b, bp).lightboxBg : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || 'rgb(0, 0, 0)');
 function writeShapeColor(b, key, css) {
   if (key === 'color') { if (css) b.color = css; else delete b.color; return; }
   if (key === 'overlay') { if (css) b.overlayColor = css; else delete b.overlayColor; return; }
-  if (key === 'lightboxBg') { if (css) b.lightboxBg = css; else delete b.lightboxBg; return; }
+  if (key === 'lightboxBg') { setFormView(b, bp, key, css); return; }
   const bag = designBag(bp), d = { ...(b[bag] || {}) };
   if (css) d[key] = css; else if (bag === 'designMobile') d[key] = ''; else delete d[key];
   if (Object.keys(d).length) b[bag] = d; else delete b[bag];
@@ -3103,7 +3114,7 @@ async function readPicture(file) {
   return { src: c.toDataURL('image/webp', 0.85), aspect: bmp.width / bmp.height };
 }
 // Keys typed in a panel field stay in the field: a Backspace there must not remove the block.
-blockPanel.addEventListener('keydown', (e) => { if (e.key !== 'Escape' && e.target.matches('input, textarea, select')) e.stopPropagation(); });
+blockPanel.addEventListener('keydown', (e) => { if (e.key !== 'Escape' && e.target.matches('input, textarea, select, [contenteditable]')) e.stopPropagation(); });
 blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input[data-content]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); });
 
 const linkPop = $('link-popover');
@@ -3116,6 +3127,8 @@ function flushLinkStep() {
   linkStep = null;
   commit(was, 'Link set');
 }
+// A form's Message box and its bar (form-message.js). Link opens under its button, 6 below (FORMFIELDS.json).
+const formMessage = messageBox({ panel: blockPanel, bar: $('msg-bar'), stage, linkPop, openLink: (btn, target) => openLinkPopover(B(sel.sid, sel.bid), (st) => { const r = btn.getBoundingClientRect(); return { left: r.left + r.width / 2 - 164 - st.left, top: r.bottom + 6 - st.top }; }, target) });
 function closeLinkPopover() {
   if (linkPop.hidden) return;
   linkPop.hidden = true;
@@ -3137,6 +3150,7 @@ function closeLinkPopover() {
     if (v ? v !== t.href : t.switched) t.apply(v);
     t.setNewTab(linkPop.querySelector('.lk-box').checked);
   }
+  t.after?.();
 }
 const SITE_PAGES = ['Services', 'About', 'Contact', 'Home'];
 function siteLinkGroups() {
@@ -3184,7 +3198,7 @@ function openLinkPopover(b, place, target = null) {
   closeLinkPopover();
   linkTarget = target;
   linkPlace = place;
-  linkPop.classList.toggle('is-md', !!target?.markdown);
+  linkPop.classList.toggle('is-md', !!target?.markdown || !!target?.atClose);
   linkPop.classList.remove('is-summary');
   linkPop.dataset.bid = b.id;
   linkPop.hidden = false;
@@ -3209,7 +3223,7 @@ function applyLink(href) {
   const input = linkPop.querySelector('.lk-input');
   input.value = v;
   showLinkList(false);
-  if (linkTarget?.markdown) { input.focus(); return; } // written on Enter or a press away (CAP-T10MD5.json)
+  if (linkTarget?.markdown || linkTarget?.atClose) { input.focus(); return; } // written on Enter or a press away (CAP-T10MD5.json); a form's message on a press away
   if (linkTarget) { linkTarget.apply(v); linkTarget.href = v; }
   else setLinkOnButton(v, linkPop.querySelector('.lk-box').checked);
   input.focus();
@@ -4244,14 +4258,15 @@ for (const host of [panel, sectionPanel]) {
   });
 }
 function chromeSid() { return editSid || sel?.sid || hoverSid; }
-// The chrome fades out over 0.15s when the mouse leaves; a gesture takes it away at once (SECTIONBAR.json, fade).
+// The chrome fades out over 0.15s when the mouse leaves, and the outline over 0.2s; a gesture takes it away at once
+// (SECTIONBAR.json, fade; CAP-U9FADE.json).
 let chromeOut = 0;
 function hideChrome(fade) {
   if (chrome.hidden || (fade && chromeOut)) return;
   clearTimeout(chromeOut); chromeOut = 0;
   if (!fade) { chrome.classList.remove('is-out'); chrome.hidden = true; return; }
-  chrome.classList.add('is-out');
-  chromeOut = setTimeout(() => { chromeOut = 0; chrome.classList.remove('is-out'); chrome.hidden = true; }, 150);
+  chrome.classList.remove('is-outline-in'); chrome.classList.add('is-out');
+  chromeOut = setTimeout(() => { chromeOut = 0; chrome.classList.remove('is-out'); chrome.hidden = true; }, 200);
 }
 function placeChrome() {
   const sid = chromeSid();
@@ -4263,10 +4278,13 @@ function placeChrome() {
   const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length && !marquee;
   const hasLayouts = !phone && !!sectionMix(S(sid));
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}|${hasLayouts}`;
-  const appears = chrome.hidden || !!chromeOut || chrome.dataset.key?.split('|')[0] !== sid;
+  const newSection = chrome.hidden || chrome.dataset.key?.split('|')[0] !== sid;
+  const appears = newSection || !!chromeOut;
   if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); }
-  if (chrome.dataset.key !== key) { chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
+  // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
+  if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
+  if (newSection) { chrome.classList.remove('is-outline-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in'); }
   const header = k === 0 ? doc.getElementById('header') : null;
   const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
   // The Add Section buttons sit on the sum of the rounded heights above, not on the section's edge

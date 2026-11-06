@@ -5,11 +5,11 @@
   "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here.",
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it. ask: the lead rules.",
   "counts": {
-    "total": 100,
-    "yes": 86,
+    "total": 102,
+    "yes": 88,
     "no": 11,
     "ask": 3,
-    "read": 71,
+    "read": 77,
     "notPressed": 0
   },
   "entries": [
@@ -610,8 +610,8 @@
       "how": "hover or select a stack, read the label",
       "lane": "recorder",
       "state": "read",
-      "finding": "CAP-U3STACKPILL.json",
-      "result": "Stack on hover, as ours. Selected and phone not established."
+      "finding": "CAP-U3STACKPILL.json, CAP-U3STACKPILL2.json",
+      "result": "Stack on hover, as ours. None on a selected stack or child, desktop or phone, by shots."
     },
     {
       "item": "U3",
@@ -823,7 +823,9 @@
       "safeRead": "yes",
       "how": "synthetic events only, by ruling. Second reading on the other probe page",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U11PAGE.json, CAP-U11PAGE2.json",
+      "result": "Nothing added, both directions, with a control that pastes on the same page."
     },
     {
       "item": "Y2",
@@ -832,7 +834,9 @@
       "safeRead": "yes",
       "how": "real keys, gaps at 25 ms steps. Cmd+Z only, no clipboard keys",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-Y2GAPS.json, CAP-Y2EDIT.json",
+      "result": "Above 975, at or below 1000: ours the same. Both old in-edit readings were wrong: two differences."
     },
     {
       "item": "A2",
@@ -841,7 +845,9 @@
       "safeRead": "yes",
       "how": "overlap on a probe page, elementFromPoint",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-A2ZSDEMO.json, CAP-A2ZREACH.json",
+      "result": "Same z not found on the demo page or by add, duplicate, paste, Forward. The question could not be asked."
     },
     {
       "item": "A2",
@@ -850,7 +856,9 @@
       "safeRead": "yes",
       "how": "same",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-A2ZSDEMO.json, CAP-A2ZREACH.json",
+      "result": "As above: not asked, since no two blocks had the same z."
     },
     {
       "item": "E7",
@@ -859,7 +867,9 @@
       "safeRead": "yes",
       "how": "type names in the link box, read the list. Press no row",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-E7NAMES.json",
+      "result": "Yes: any part, any case, name or path. Ours the same."
     },
     {
       "item": "E7",
@@ -868,7 +878,9 @@
       "safeRead": "yes",
       "how": "reopen with no Save",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-E7REOPEN.json",
+      "result": "A summary box with Edit, Copy, Remove Link. Ours goes straight to the field."
     },
     {
       "item": "H4",
@@ -1052,6 +1064,24 @@
       "source": "CAP-U9SCROLL2.json",
       "safeRead": "yes",
       "how": "the same scroll walk on a section of another height, on a probe page",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U11",
+      "what": "Whether the clip outlasts a reload on the same page",
+      "source": "CAP-U11PAGE2.json",
+      "safeRead": "yes",
+      "how": "synthetic events only: copy, reload, paste, on a probe page",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U3",
+      "what": "A stack's child pill on hover",
+      "source": "CAP-U3STACKPILL2.json",
+      "safeRead": "yes",
+      "how": "hover a child of a selected stack on a probe page, from a shot",
       "lane": "recorder",
       "state": "open"
     }

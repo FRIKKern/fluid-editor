@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 80 changes
-  - T12, U4: an Accordion's rows follow panel edits, with what is below; its toolbar ([#258](https://github.com/FRIKKern/fluid-editor/pull/258))
-  - T10: colours of every mode, matching marks, wrap and dim rules, tips, Preview, further reader samples ([#256](https://github.com/FRIKKern/fluid-editor/pull/256))
+- **Today** · 84 changes
+  - T9: the Message box is rich text; Button Style and Background Color per view; rows after Lightbox off as read; Form Style under 0005 ([#262](https://github.com/FRIKKern/fluid-editor/pull/262))
+  - U5, U11, Y2, E7, A2, U3: all search strings, in-edit undo corrected, link box reopened, paste on another page ([#261](https://github.com/FRIKKern/fluid-editor/pull/261))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed

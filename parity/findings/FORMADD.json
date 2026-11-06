@@ -1835,7 +1835,8 @@
     },
     "formStyle": {
       "note": "Form style affects all forms on your site.",
-      "read": "The tile only. Two presses on it opened no list. No choice pressed, site-wide."
+      "read": "The tile is a combobox with a listbox popup, 276 by 132. One press opened the list on a new form on the probe page: heading Recommended Form Packs, then preview tiles 244 by 88, 99 apart, in a list 276 by 487 that scrolls. Row names and the rows below the fifth were not read. Escape closed the list and the panel with it. No row pressed. oracle-readback.mjs then read everything the same.",
+      "ours": "Ruled under 0005: pressing a choice writes to every form on the site. Ours keeps the tile as read, and it opens nothing."
     },
     "buttonStyle": {
       "choices": [

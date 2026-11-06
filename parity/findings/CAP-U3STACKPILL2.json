@@ -1,0 +1,395 @@
+{
+  "item": "CAP-U3STACKPILL2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U3: a stack's pill when selected and a child's pill, from shots",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "shot",
+      "selected"
+    ],
+    [
+      "read",
+      "stack selected",
+      {
+        "frameEls": ".sqs-block-label-tag"
+      }
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "shot",
+      "child"
+    ],
+    [
+      "read",
+      "child selected",
+      {
+        "frameEls": ".sqs-block-label-tag"
+      }
+    ],
+    [
+      "pressRow",
+      "Button"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "shot",
+      "child2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "shot",
+      "phone-selected"
+    ],
+    [
+      "read",
+      "phone selected",
+      {
+        "frameEls": ".sqs-block-label-tag"
+      }
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "shot",
+      "phone-child"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "stack selected": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Stack",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            51.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Text",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            42.5,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            495,
+            277.2,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Button",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            889.9,
+            277.2,
+            60.4,
+            16
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "child selected": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Stack",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            51.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Text",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            42.5,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            495,
+            277.2,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Button",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            889.9,
+            277.2,
+            60.4,
+            16
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone selected": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Stack",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            219.5,
+            51.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Text",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            611.7,
+            219.5,
+            42.5,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            611.7,
+            261.9,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Button",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            611.7,
+            491.9,
+            60.4,
+            16
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "pressRow [\"Button\"]: nothing labelled Stack"
+  ],
+  "leftDirty": true,
+  "answer": "No pill shows on a selected stack, on a selected child, or on either on a phone. From 4 shots. Every tag stays in the page at opacity 1, so a read can't tell: only the shots do. The Button row press stopped the run; its shot was not taken, and the Shape child's shots stand.",
+  "ours": "Stack selected: no pill shows. Same. A child: my press on the Layers row in ours didn't select it, so not established.",
+  "differs": [],
+  "pressed": "Named presses with an on-top check. Typing by real keys in the search and link fields. Unnamed: real clicks on blocks and a drag, the box Edit by Enter since it opens focused. No Save, no upload, no Reset, no tile or row pressed, Copy and Remove Link not pressed."
+}
