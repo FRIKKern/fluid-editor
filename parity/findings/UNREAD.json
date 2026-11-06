@@ -5,11 +5,11 @@
   "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here.",
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it. ask: the lead rules.",
   "counts": {
-    "total": 94,
-    "yes": 80,
+    "total": 98,
+    "yes": 84,
     "no": 11,
     "ask": 3,
-    "read": 50,
+    "read": 64,
     "notPressed": 0
   },
   "entries": [
@@ -609,7 +609,9 @@
       "safeRead": "yes",
       "how": "hover or select a stack, read the label",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U3STACKPILL.json",
+      "result": "Stack on hover, as ours. Selected and phone not established."
     },
     {
       "item": "U3",
@@ -618,7 +620,9 @@
       "safeRead": "yes",
       "how": "hit test around each handle",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U3GROUPHIT.json",
+      "result": "All eight 34 by 34, to their edge and no further. Ours the same size."
     },
     {
       "item": "U3",
@@ -627,7 +631,9 @@
       "safeRead": "yes",
       "how": "one hold per type on a probe page",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U3GUIDES.json, CAP-U3GUIDES2.json",
+      "result": "The same on 11 more. Ours compared on 5."
     },
     {
       "item": "U4",
@@ -636,7 +642,9 @@
       "safeRead": "yes",
       "how": "three blocks, some not overlapping",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U4ZCOUNT.json, CAP-U4ZPRESS.json",
+      "result": "Yes, in one press. Ours swaps with the next in the order."
     },
     {
       "item": "U4",
@@ -645,7 +653,9 @@
       "safeRead": "yes",
       "how": "read the toolbar",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U4PINALONE.json",
+      "result": "They do not. As ours."
     },
     {
       "item": "U4",
@@ -654,7 +664,9 @@
       "safeRead": "yes",
       "how": "hover, read at steps",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U4TIPS.json",
+      "result": "About 517 ms. Ours 217."
     },
     {
       "item": "U4",
@@ -663,7 +675,9 @@
       "safeRead": "yes",
       "how": "set a percent, move the slider",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U4PINUNIT.json, CAP-U4PINDRAG.json",
+      "result": "It keeps the unit. Ours drops to px."
     },
     {
       "item": "U4",
@@ -672,7 +686,9 @@
       "safeRead": "yes",
       "how": "read computed shadow",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U3GROUPHIT.json",
+      "result": "Yes. As ours."
     },
     {
       "item": "U4",
@@ -681,7 +697,9 @@
       "safeRead": "yes",
       "how": "read the tip",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U4BTNTIP.json",
+      "result": "Yes. As ours."
     },
     {
       "item": "U5",
@@ -690,7 +708,9 @@
       "safeRead": "yes",
       "how": "type a list of queries, read the tiles. Press no tile",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-U5WORDS.json",
+      "result": "95 words read, 33 differ in ours."
     },
     {
       "item": "U2",
@@ -958,6 +978,50 @@
       "how": "open the W and H menus in a column, read from a shot",
       "lane": "recorder",
       "state": "open"
+    },
+    {
+      "item": "sweep",
+      "what": "CAP-P3FIELD real keys 12.5",
+      "source": "the period sweep, asked by the lead: the press had no period key until #218",
+      "safeRead": "yes",
+      "how": "re-read only if the value mattered",
+      "lane": "recorder",
+      "state": "read",
+      "finding": "CAP-P3DOT.json",
+      "result": "Mattered, re-read key by key. 125 stands: the field drops the period."
+    },
+    {
+      "item": "sweep",
+      "what": "CAP-T10MD5 keys example.test",
+      "source": "the period sweep, asked by the lead: the press had no period key until #218",
+      "safeRead": "yes",
+      "how": "re-read only if the value mattered",
+      "lane": "recorder",
+      "state": "read",
+      "finding": "CAP-T10MD5.json",
+      "result": "No re-read: the read shows the period, so it arrived."
+    },
+    {
+      "item": "sweep",
+      "what": "CAP-E4ENDS keysFast foo.xx",
+      "source": "the period sweep, asked by the lead: the press had no period key until #218",
+      "safeRead": "yes",
+      "how": "re-read only if the value mattered",
+      "lane": "recorder",
+      "state": "read",
+      "finding": "CAP-E4ENDS.json",
+      "result": "No re-read: read after the fix."
+    },
+    {
+      "item": "sweep",
+      "what": "marks-check hKeys 12.5, against CAP-P3FIELD's value",
+      "source": "the period sweep, asked by the lead: the press had no period key until #218",
+      "safeRead": "yes",
+      "how": "re-read only if the value mattered",
+      "lane": "recorder",
+      "state": "read",
+      "finding": "CAP-P3DOT.json",
+      "result": "No re-read: the check passes with the fixed key, 1244 of 1244."
     }
   ]
 }
