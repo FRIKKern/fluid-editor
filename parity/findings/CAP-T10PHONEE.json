@@ -1,0 +1,505 @@
+{
+  "item": "CAP-T10PHONEE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: a new empty Markdown block typed into on the phone, chain E, against predictions pushed first",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "start",
+      {
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "controls": false,
+        "panelCss": ".cm-editor,[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"]"
+      }
+    ],
+    [
+      "setCode",
+      "```\nfence\n```"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "0",
+      {
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "codeText": true,
+        "block": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "## b"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "1",
+      {
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "codeText": true,
+        "block": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "setCode",
+      "a\nb\nc"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "2",
+      {
+        "areas": 0,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "codeText": true,
+        "block": [
+          0,
+          0
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "0": {
+      "block": {
+        "desktop": "1/2/7/6",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793970543054_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "codeText": "```\nfence\n```",
+      "htmlOf": "<pre><code>fence\n</code></pre>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "1": {
+      "block": {
+        "desktop": "1/2/7/6",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793970543054_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "codeText": "## b",
+      "htmlOf": "<h2>b</h2>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "2": {
+      "block": {
+        "desktop": "1/2/7/6",
+        "mobile": "1/2/5/10",
+        "box": [
+          25.7,
+          291.5,
+          376.7,
+          129
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793970543054_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 5 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,59.5",
+          "col 10x10 at 372.7,59.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,125",
+          "se 10x10 at 372.7,125",
+          "sw 10x10 at -6,125"
+        ]
+      },
+      "codeText": "a\nb\nc",
+      "htmlOf": "<p>a\nb\nc</p>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "start": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            1031,
+            379,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            1150.1,
+            379,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            1190.1,
+            379,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1nfqfal",
+          "text": "",
+          "box": [
+            1230.1,
+            379,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            1275.1,
+            379,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            1315.1,
+            379,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            1360.1,
+            379,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "cm-editor ͼ1 ͼ2 ͼ4 ͼ3u",
+          "text": "91›Add markdown…",
+          "box": [
+            1027,
+            425,
+            531,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(242, 242, 242)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "htmlOf": "<div class=\"sqs-blockStatus sqs-html-content\">\n      <p>Double-click to edit...</p>\n    </div>",
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Phone, chain E: a fence, a heading, three lines. See CAP-T10PHONEA.json."
+}

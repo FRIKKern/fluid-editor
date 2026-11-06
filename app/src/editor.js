@@ -16,7 +16,7 @@ import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
 import { codeLines, gutterWidth } from './code-look.js';
-import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkAt, mdSetLink, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
+import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
 import { blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
@@ -2612,7 +2612,7 @@ function paintCode(f) {
   const box = f?.closest('.bp-code.is-look');
   if (!box) return;
   const hl = box.querySelector('.bp-code-hl'), nums = box.querySelector('.bp-code-lines'), band = box.querySelector('.bp-code-band');
-  const lines = codeLines(f.value, box.dataset.lang);
+  const lines = codeLines(f.value, box.dataset.lang, f.selectionStart === f.selectionEnd ? f.selectionStart : null);
   hl.innerHTML = lines.map((l) => `<div class="bp-code-l">${l || '<br>'}</div>`).join('');
   const on = f.value.slice(0, headOf(f)).split('\n').length - 1, rows = [...hl.children];
   nums.style.flexBasis = `${gutterWidth(lines.length)}px`;
@@ -2642,9 +2642,11 @@ function paintCodeSelection(f, hl, layer) {
   const a = at(f.selectionStart), b = at(f.selectionEnd), L = 6, R = f.clientWidth - 2;
   const rect = (x, top, w, h) => { const e = document.createElement('div'); e.style.cssText = `left:${x}px;top:${top}px;width:${w}px;height:${h}px`; layer.append(e); };
   if (a.top === b.top) { rect(a.x, a.top, b.x - a.x, 16); return; }
-  rect(a.x, a.top, R - a.x, 16);
-  if (b.top > a.top + 16) rect(L, a.top + 16, R - L, b.top - a.top - 16);
-  rect(L, b.top, b.x - L, 16);
+  // Two rows side by side meet halfway across the gap between their letters.
+  const near = b.top - a.top < 2 * 22, mid = (a.top + 16 + b.top) / 2;
+  rect(a.x, a.top, R - a.x, near ? mid - a.top : 16);
+  if (!near) rect(L, a.top + 16, R - L, b.top - a.top - 16);
+  rect(L, near ? mid : b.top, b.x - L, near ? b.top + 16 - mid : 16);
 }
 function scrollCode(f) {
   const box = f.closest('.bp-code.is-look');
@@ -2656,9 +2658,10 @@ function scrollCode(f) {
 function paintMdBar(f) {
   const bar = f?.closest('#block-panel, #code-modal')?.querySelector('.bp-md-bar');
   if (!bar) return;
-  const st = mdState(f.value, headOf(f));
+  const st = mdState(f.value, f.selectionStart, f.selectionEnd, headOf(f));
   bar.querySelector('.bp-md-heading span').textContent = st.heading;
-  for (const k of ['bullet', 'number', 'quote']) { const q = bar.querySelector(`[data-md="${k}"]`); q.classList.toggle('is-on', st[k]); q.setAttribute('aria-checked', String(st[k])); }
+  for (const k of ['bold', 'italic']) bar.querySelector(`[data-md="${k}"]`).classList.toggle('is-dim', st.dim);
+  for (const k of ['bold', 'italic', 'bullet', 'number', 'quote']) { const q = bar.querySelector(`[data-md="${k}"]`); q.classList.toggle('is-on', st[k]); q.setAttribute('aria-checked', String(st[k])); }
   // Link stays lit while its popover is open.
   const lk = bar.querySelector('[data-md="link"]');
   lk.classList.toggle('is-on', st.link || (!linkPop.hidden && !!linkTarget?.markdown));
@@ -2679,6 +2682,7 @@ function pressMdBar(root, btn) {
   const list = root.querySelector('.bp-md-list');
   if (k === 'heading') { list.hidden = !list.hidden; btn.setAttribute('aria-expanded', String(!list.hidden)); btn.classList.toggle('is-on', !list.hidden); return; }
   if (k === 'link') { openMdLink(root, btn, s, e); return; }
+  if (btn.classList.contains('is-dim')) return;
   flushMdStep();
   writeMd(f, k === 'bold' ? mdWrap(v, s, e, '**') : k === 'italic' ? mdWrap(v, s, e, '*') : mdLinesEdit(v, s, e, k));
   flushMdStep();
@@ -2698,17 +2702,17 @@ function closeMdList(root) {
 // Link (CAP-T10MD4.json, CAP-T10MD5.json, CAP-T10MD7.json): the popover under the button, 6px below it. A caret in a
 // link shows that link with Edit, Copy and Remove Link. A page fills the field, and Enter or a press away writes it.
 function openMdLink(root, btn, s, e) {
-  const f = mdRootField(root), link = mdLinkAt(f.value, s), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
+  const f = mdRootField(root), link = mdLinkIn(f.value, s, e), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
   flushMdStep();
   const target = { markdown: true, summary: !!link, href: link?.href || '', newTab: false, setNewTab() {},
     apply: (v) => {
-      const q = mdRootField(root), at = mdLinkAt(q.value, s);
+      const q = mdRootField(root), at = mdLinkIn(q.value, s, e);
       if (!v && !at) return;
       flushMdStep();
       writeMd(q, at ? (v ? mdChangeLink(q.value, at, v) : mdRemoveLink(q.value, at)) : mdSetLink(q.value, s, e, v));
       flushMdStep();
     },
-    remove: () => { const q = mdRootField(root), at = mdLinkAt(q.value, s); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(q.value, at)); flushMdStep(); } },
+    remove: () => { const q = mdRootField(root), at = mdLinkIn(q.value, s, e); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(q.value, at)); flushMdStep(); } },
     done: () => { const q = mdRootField(root); if (q) { if (document.activeElement === document.body) q.focus(); paintMdBar(q); } },
   };
   openLinkPopover(b, (st) => ({ left: r.left + r.width / 2 - 164 - st.left, top: r.bottom + 6 - st.top }), target);

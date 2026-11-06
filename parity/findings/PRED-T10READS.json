@@ -1,0 +1,319 @@
+{
+  "item": "PRED-T10READS",
+  "question": "T10: what ours does, written before these are read on the oracle",
+  "edit": {
+    "I1 Italic on the word inside Bold": {
+      "text": "**word**",
+      "sel": [
+        2,
+        6
+      ],
+      "press": "Italic",
+      "twice": false,
+      "value": "***word***"
+    },
+    "I2 Italic on all of a Bold": {
+      "text": "**word**",
+      "sel": [
+        0,
+        8
+      ],
+      "press": "Italic",
+      "twice": false,
+      "value": "***word***"
+    },
+    "I3 Italic on the word inside Bold Italic": {
+      "text": "***word***",
+      "sel": [
+        3,
+        7
+      ],
+      "press": "Italic",
+      "twice": false,
+      "value": "**word**"
+    },
+    "I4 Bold on the word inside Italic": {
+      "text": "*word*",
+      "sel": [
+        1,
+        5
+      ],
+      "press": "Bold",
+      "twice": false,
+      "value": "***word***"
+    },
+    "I5 Bold on the word inside Bold Italic": {
+      "text": "***word***",
+      "sel": [
+        3,
+        7
+      ],
+      "press": "Bold",
+      "twice": false,
+      "value": "*word*"
+    },
+    "I6 Italic twice inside Bold": {
+      "text": "**word**",
+      "sel": [
+        2,
+        6
+      ],
+      "press": "Italic",
+      "twice": true,
+      "value": "**word**"
+    },
+    "I7 Italic with a caret inside Bold": {
+      "text": "**word**",
+      "sel": [
+        4,
+        4
+      ],
+      "press": "Italic",
+      "twice": false,
+      "value": "**wo**rd**"
+    },
+    "I8 Bold on all of a Bold": {
+      "text": "**word**",
+      "sel": [
+        0,
+        8
+      ],
+      "press": "Bold",
+      "twice": false,
+      "value": "word"
+    },
+    "I9 Italic over text holding Bold": {
+      "text": "a **b** c",
+      "sel": [
+        0,
+        9
+      ],
+      "press": "Italic",
+      "twice": false,
+      "value": "*a **b** c*"
+    },
+    "L1 Link on the word inside Bold": {
+      "text": "**word**",
+      "sel": [
+        2,
+        6
+      ],
+      "press": "Link",
+      "href": "/about",
+      "value": "**[word](/about)**"
+    },
+    "L2 Link on all of a Bold": {
+      "text": "**word**",
+      "sel": [
+        0,
+        8
+      ],
+      "press": "Link",
+      "href": "/about",
+      "value": "[**word**](/about)"
+    },
+    "L3 Link on a selection ending inside Bold": {
+      "text": "a **b** c",
+      "sel": [
+        0,
+        5
+      ],
+      "press": "Link",
+      "href": "/about",
+      "value": "[a **b](/about)** c"
+    },
+    "L4 Link over two lines": {
+      "text": "one\ntwo",
+      "sel": [
+        0,
+        7
+      ],
+      "press": "Link",
+      "href": "/about",
+      "value": "[one\ntwo](/about)"
+    },
+    "L5 Link over text holding a link": {
+      "text": "x [a](/y) z",
+      "sel": [
+        0,
+        11
+      ],
+      "press": "Link",
+      "href": "/about",
+      "value": "[x [a](/y) z](/about)"
+    },
+    "E1 Enter on an empty first bullet": {
+      "text": "* ",
+      "sel": [
+        2,
+        2
+      ],
+      "press": "Enter",
+      "value": ""
+    },
+    "E2 Enter on an empty first number": {
+      "text": "1. ",
+      "sel": [
+        3,
+        3
+      ],
+      "press": "Enter",
+      "value": ""
+    },
+    "E3 Enter on an empty first quote": {
+      "text": "> ",
+      "sel": [
+        2,
+        2
+      ],
+      "press": "Enter",
+      "value": ""
+    },
+    "E4 Enter on an empty first bullet, a line below": {
+      "text": "* \nnext",
+      "sel": [
+        2,
+        2
+      ],
+      "press": "Enter",
+      "value": "\nnext"
+    },
+    "E5 Enter on a bare first >": {
+      "text": ">",
+      "sel": [
+        1,
+        1
+      ],
+      "press": "Enter",
+      "value": ""
+    }
+  },
+  "dim": {
+    "one\ntwo": false,
+    "# h\nplain": false,
+    "* i\nplain": false,
+    "> q\nplain": false,
+    "---\nplain": false,
+    "```\nfence\n```": true,
+    "```\nfence\n```\nplain": true,
+    "<b>x</b>\nplain": false,
+    "`code`\nplain": false,
+    "[a](/x)\nplain": false,
+    "![i](/y)\nplain": false,
+    "[r]: /z\nplain": false,
+    "plain **b** c": false
+  },
+  "waits": "In the Code Editor view of a Markdown block typed text stays out of the block and its rows until Close, then one undo takes it back.",
+  "preview": "In Preview an empty Markdown block holds no text and keeps its rows.",
+  "phoneBar": "The phone shows the same toolbar in the same order.",
+  "phone": {
+    "A": [
+      {
+        "text": "a",
+        "areas": [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      },
+      {
+        "text": "",
+        "areas": [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      },
+      {
+        "text": "a\n\nb\n\nc\n\nd\n\ne\n\nf\n\ng\n\nh\n\ni\n\nj",
+        "areas": [
+          "1/2/7/6",
+          "1/2/12/10"
+        ]
+      },
+      {
+        "text": "",
+        "areas": [
+          "1/2/7/6",
+          "1/2/2/10"
+        ]
+      }
+    ],
+    "B": [
+      {
+        "text": "# a",
+        "areas": [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      },
+      {
+        "text": "",
+        "areas": [
+          "1/2/7/6",
+          "1/2/5/10"
+        ]
+      }
+    ],
+    "C": [
+      {
+        "text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word",
+        "areas": [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      },
+      {
+        "text": "word word word word word word word word word word",
+        "areas": [
+          "1/2/7/6",
+          "1/2/2/10"
+        ]
+      },
+      {
+        "text": "",
+        "areas": [
+          "1/2/7/6",
+          "1/2/2/10"
+        ]
+      }
+    ],
+    "D": [
+      {
+        "text": "- a\n- b\n- c",
+        "areas": [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      },
+      {
+        "text": "> q",
+        "areas": [
+          "1/2/7/6",
+          "1/2/5/10"
+        ]
+      }
+    ],
+    "E": [
+      {
+        "text": "```\nfence\n```",
+        "areas": [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      },
+      {
+        "text": "## b",
+        "areas": [
+          "1/2/7/6",
+          "1/2/7/10"
+        ]
+      },
+      {
+        "text": "a\nb\nc",
+        "areas": [
+          "1/2/7/6",
+          "1/2/5/10"
+        ]
+      }
+    ]
+  }
+}

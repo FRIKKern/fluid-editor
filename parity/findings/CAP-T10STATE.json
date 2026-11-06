@@ -1,0 +1,7310 @@
+{
+  "item": "CAP-T10STATE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: what dims or lights Bold and Italic, a selection with focus away, the tips, typed text waiting for Close, Link on a selection holding a link",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "setCode",
+      "one\ntwo"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "all: one\ntwo",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "# h\nplain"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "all: # h\nplain",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "* i\nplain"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "all: * i\nplain",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "> q\nplain"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "all: > q\nplain",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "---\nplain"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "all: ---\nplain",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "```\nfence\n```"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "all: ```\nfence\n```",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "```\nfence\n```\nplain"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "all: ```\nfence\n```\nplain",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "<b>x</b>\nplain"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "all: <b>x</b>\nplain",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "`code`\nplain"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "all: `code`\nplain",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "[a](/x)\nplain"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "all: [a](/x)\nplain",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "![i](/y)\nplain"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "all: ![i](/y)\nplain",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "[r]: /z\nplain"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "all: [r]: /z\nplain",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "plain **b** c"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "all: plain **b** c",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "shot",
+      "dim-last"
+    ],
+    [
+      "setCode",
+      "```\nfence\n```"
+    ],
+    [
+      "press",
+      "ArrowUp"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "caret in fence",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "`code`"
+    ],
+    [
+      "press",
+      "Home"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "caret in code",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "<b>x</b>"
+    ],
+    [
+      "press",
+      "Home"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "caret in html",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "# h1\n## h2\nplain **bold** *ital* `code` [a](/x) ~~del~~\n* item\n1. item\n> quote\n---\n```js\nfence\n```\n<b>html</b>\n![i](/y)\n[r]: /z"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "all: the full sample",
+      {
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "shot",
+      "dim-full"
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Bold pressed while dim",
+      {
+        "codeText": true,
+        "panelCss": "[aria-label=\"Heading\"],[aria-label=\"Bold\"],[aria-label=\"Italic\"],[aria-label=\"Link\"],[aria-label=\"Bulleted List\"],[aria-label=\"Numbered List\"],[aria-label=\"Quote\"],[aria-label=\"Bold\"] svg,[aria-label=\"Italic\"] svg"
+      }
+    ],
+    [
+      "setCode",
+      "one\ntwo"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Content"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "selection, focus away",
+      {
+        "panelCss": ".cm-selectionBackground, .cm-activeLine"
+      }
+    ],
+    [
+      "shot",
+      "sel-away"
+    ],
+    [
+      "hoverEl",
+      "[aria-label=\"Heading\"]"
+    ],
+    [
+      "read",
+      "tip: Heading",
+      {
+        "panelCss": "[role=tooltip]"
+      }
+    ],
+    [
+      "hoverEl",
+      "[aria-label=\"Bold\"]"
+    ],
+    [
+      "read",
+      "tip: Bold",
+      {
+        "panelCss": "[role=tooltip]"
+      }
+    ],
+    [
+      "hoverEl",
+      "[aria-label=\"Italic\"]"
+    ],
+    [
+      "read",
+      "tip: Italic",
+      {
+        "panelCss": "[role=tooltip]"
+      }
+    ],
+    [
+      "hoverEl",
+      "[aria-label=\"Link\"]"
+    ],
+    [
+      "read",
+      "tip: Link",
+      {
+        "panelCss": "[role=tooltip]"
+      }
+    ],
+    [
+      "hoverEl",
+      "[aria-label=\"Bulleted List\"]"
+    ],
+    [
+      "read",
+      "tip: Bulleted List",
+      {
+        "panelCss": "[role=tooltip]"
+      }
+    ],
+    [
+      "hoverEl",
+      "[aria-label=\"Numbered List\"]"
+    ],
+    [
+      "read",
+      "tip: Numbered List",
+      {
+        "panelCss": "[role=tooltip]"
+      }
+    ],
+    [
+      "hoverEl",
+      "[aria-label=\"Quote\"]"
+    ],
+    [
+      "read",
+      "tip: Quote",
+      {
+        "panelCss": "[role=tooltip]"
+      }
+    ],
+    [
+      "hoverEl",
+      "button.css-zrkoz4"
+    ],
+    [
+      "read",
+      "tip: expand",
+      {
+        "panelCss": "[role=tooltip]"
+      }
+    ],
+    [
+      "shot",
+      "tip-expand"
+    ],
+    [
+      "setCode",
+      "start"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "before the view",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "pressEl",
+      "button.css-zrkoz4"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "setCode",
+      "a\n\nb\n\nc\n\nd\n\ne\n\nf\n\ng\n\nh\n\ni\n\nj"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "typed in the view",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "view-typed"
+    ],
+    [
+      "clickIf",
+      "Close"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "after Close",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "one undo",
+      {
+        "codeText": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      "x [a](/y) z"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "L5 before",
+      {
+        "panelCss": "[aria-label=\"Link\"]"
+      }
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "L5",
+      {
+        "controls": true,
+        "codeText": true
+      }
+    ],
+    [
+      "shot",
+      "L5"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "setCode",
+      "[a](/x)"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "L6 before",
+      {
+        "panelCss": "[aria-label=\"Link\"]"
+      }
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "L6",
+      {
+        "controls": true,
+        "codeText": true
+      }
+    ],
+    [
+      "shot",
+      "L6"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "setCode",
+      "x [a](/y) z"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "L7 before",
+      {
+        "panelCss": "[aria-label=\"Link\"]"
+      }
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "L7",
+      {
+        "controls": true,
+        "codeText": true
+      }
+    ],
+    [
+      "shot",
+      "L7"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "setCode",
+      "x [a](/y) z"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "L8 before",
+      {
+        "panelCss": "[aria-label=\"Link\"]"
+      }
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "L8",
+      {
+        "controls": true,
+        "codeText": true
+      }
+    ],
+    [
+      "shot",
+      "L8"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "setCode",
+      "[a](/x) z"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "L9 before",
+      {
+        "panelCss": "[aria-label=\"Link\"]"
+      }
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "L9",
+      {
+        "controls": true,
+        "codeText": true
+      }
+    ],
+    [
+      "shot",
+      "L9"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "setCode",
+      "x [a](/y)"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "press",
+      "Shift+ArrowRight"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "L10 before",
+      {
+        "panelCss": "[aria-label=\"Link\"]"
+      }
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "L10",
+      {
+        "controls": true,
+        "codeText": true
+      }
+    ],
+    [
+      "shot",
+      "L10"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ]
+  ],
+  "reads": {
+    "all: one\ntwo": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1nfqfal",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "all: # h\nplain": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1ve9uin",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(183, 183, 183)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1ve9uin",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(183, 183, 183)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-12sniqr",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "all: * i\nplain": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1ve9uin",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(183, 183, 183)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1ve9uin",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(183, 183, 183)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-12sniqr",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "all: > q\nplain": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1ve9uin",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(183, 183, 183)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1ve9uin",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(183, 183, 183)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-12sniqr",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "all: ---\nplain": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1nfqfal",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "all: ```\nfence\n```": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1nfqfal",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "all: ```\nfence\n```\nplain": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1nfqfal",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "all: <b>x</b>\nplain": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1nfqfal",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "all: `code`\nplain": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1nfqfal",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "all: [a](/x)\nplain": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-xcga5b",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "all: ![i](/y)\nplain": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1nfqfal",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "all: [r]: /z\nplain": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1nfqfal",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "all: plain **b** c": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1nfqfal",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "caret in fence": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1nfqfal",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "caret in code": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1nfqfal",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "caret in html": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1nfqfal",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "all: the full sample": {
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1ve9uin",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(183, 183, 183)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1ve9uin",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(183, 183, 183)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-xcga5b",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Bold pressed while dim": {
+      "codeText": "# h1\n## h2\nplain **bold** *ital* `code` [a](/x) ~~del~~\n* item\n1. item\n> quote\n---\n```js\nfence\n```\n<b>html</b>\n![i](/y)\n[r]: /z",
+      "panelCss": [
+        {
+          "cls": "css-1nfqfal",
+          "text": "Paragraph",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Heading",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-1ve9uin",
+          "text": "",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(242, 242, 242)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bold",
+          "off": false,
+          "on": "false",
+          "cursor": "not-allowed",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            495.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(183, 183, 183)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "not-allowed",
+          "outline": ""
+        },
+        {
+          "cls": "css-1ve9uin",
+          "text": "",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Italic",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "box": [
+            535.1,
+            373,
+            22,
+            22
+          ],
+          "color": "rgb(183, 183, 183)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-xcga5b",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Bulleted List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Numbered List",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "css-15809bw",
+          "text": "",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "4px",
+          "opacity": "1",
+          "label": "Quote",
+          "off": false,
+          "on": "false",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "selection, focus away": {
+      "panelCss": [
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "two",
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "cm-selectionBackground",
+          "text": "",
+          "box": [
+            402.4,
+            426,
+            491.6,
+            19
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(217, 217, 217)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "cm-selectionBackground",
+          "text": "",
+          "box": [
+            402.4,
+            445,
+            25.3,
+            19
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(217, 217, 217)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tip: Heading": {
+      "panelCss": [
+        {
+          "cls": "css-uqvakz",
+          "text": "Heading",
+          "box": [
+            385,
+            413,
+            77.4,
+            34
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(14, 14, 14)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "11px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tip: Bold": {
+      "panelCss": [
+        {
+          "cls": "css-1b1j0n8",
+          "text": "Bold",
+          "box": [
+            480,
+            413,
+            51.8,
+            34
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(14, 14, 14)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "11px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tip: Italic": {
+      "panelCss": [
+        {
+          "cls": "css-n9y43s",
+          "text": "Italic",
+          "box": [
+            520,
+            413,
+            52.6,
+            34
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(14, 14, 14)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "11px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tip: Link": {
+      "panelCss": [
+        {
+          "cls": "css-1wjt68",
+          "text": "Link",
+          "box": [
+            562,
+            413,
+            48.4,
+            34
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(14, 14, 14)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "11px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tip: Bulleted List": {
+      "panelCss": [
+        {
+          "cls": "css-uft54u",
+          "text": "Bulleted List",
+          "box": [
+            580,
+            413,
+            101.3,
+            34
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(14, 14, 14)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "11px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tip: Numbered List": {
+      "panelCss": [
+        {
+          "cls": "css-8mwcdh",
+          "text": "Numbered List",
+          "box": [
+            612,
+            413,
+            118.4,
+            34
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(14, 14, 14)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "11px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tip: Quote": {
+      "panelCss": [
+        {
+          "cls": "css-4c93nh",
+          "text": "Quote",
+          "box": [
+            685,
+            413,
+            62.4,
+            34
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(14, 14, 14)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "11px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tip: expand": {
+      "panelCss": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "before the view": {
+      "codeText": "start",
+      "htmlOf": "<p>start</p>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed in the view": {
+      "codeText": "a\n\nb\n\nc\n\nd\n\ne\n\nf\n\ng\n\nh\n\ni\n\nj",
+      "htmlOf": "<p>start</p>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after Close": {
+      "codeText": "a\n\nb\n\nc\n\nd\n\ne\n\nf\n\ng\n\nh\n\ni\n\nj",
+      "htmlOf": "<p>a</p><p>b</p><p>c</p><p>d</p><p>e</p><p>f</p><p>g</p><p>h</p><p>i</p><p>j</p>",
+      "areas": [
+        [
+          "1/2/11/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "one undo": {
+      "codeText": "start",
+      "htmlOf": "<p>start</p>",
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "L5 before": {
+      "panelCss": [
+        {
+          "cls": "css-xcga5b",
+          "text": "",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "L5": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            301,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            716,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            778,
+            148.5,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "/y",
+          "box": [
+            442.1,
+            412,
+            288,
+            66
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            442.1,
+            478,
+            28.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Copy",
+          "box": [
+            492.6,
+            478,
+            35.6,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Link",
+          "box": [
+            643.4,
+            478,
+            86.7,
+            55
+          ]
+        }
+      ],
+      "codeText": "x [a](/y) z",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "L6 before": {
+      "panelCss": [
+        {
+          "cls": "css-xcga5b",
+          "text": "",
+          "box": [
+            568.1,
+            447,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "L6": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            382,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            382,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            447,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            797,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            859,
+            148.5,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "/x",
+          "box": [
+            442.1,
+            493,
+            288,
+            66
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            442.1,
+            559,
+            28.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Copy",
+          "box": [
+            492.6,
+            559,
+            35.6,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Link",
+          "box": [
+            643.4,
+            559,
+            86.7,
+            55
+          ]
+        }
+      ],
+      "codeText": "[a](/x)",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "L7 before": {
+      "panelCss": [
+        {
+          "cls": "css-xcga5b",
+          "text": "",
+          "box": [
+            568.1,
+            447,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "L7": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            382,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            382,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            447,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            797,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            859,
+            148.5,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "/y",
+          "box": [
+            442.1,
+            493,
+            288,
+            66
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            442.1,
+            559,
+            28.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Copy",
+          "box": [
+            492.6,
+            559,
+            35.6,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Link",
+          "box": [
+            643.4,
+            559,
+            86.7,
+            55
+          ]
+        }
+      ],
+      "codeText": "x [a](/y) z",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "L8 before": {
+      "panelCss": [
+        {
+          "cls": "css-xcga5b",
+          "text": "",
+          "box": [
+            568.1,
+            447,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "L8": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            382,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            382,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            447,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            797,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            859,
+            148.5,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "/y",
+          "box": [
+            442.1,
+            493,
+            288,
+            66
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            442.1,
+            559,
+            28.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Copy",
+          "box": [
+            492.6,
+            559,
+            35.6,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Link",
+          "box": [
+            643.4,
+            559,
+            86.7,
+            55
+          ]
+        }
+      ],
+      "codeText": "x [a](/y) z",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "L9 before": {
+      "panelCss": [
+        {
+          "cls": "css-xcga5b",
+          "text": "",
+          "box": [
+            568.1,
+            447,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "L9": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            382,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            382,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            447,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            797,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            859,
+            148.5,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "/x",
+          "box": [
+            442.1,
+            493,
+            288,
+            66
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            442.1,
+            559,
+            28.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Copy",
+          "box": [
+            492.6,
+            559,
+            35.6,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Link",
+          "box": [
+            643.4,
+            559,
+            86.7,
+            55
+          ]
+        }
+      ],
+      "codeText": "[a](/x) z",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "L10 before": {
+      "panelCss": [
+        {
+          "cls": "css-xcga5b",
+          "text": "",
+          "box": [
+            568.1,
+            447,
+            36,
+            36
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "7px",
+          "opacity": "1",
+          "label": "Link",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "L10": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            382,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            382,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            447,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            447,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            797,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            859,
+            148.5,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "/y",
+          "box": [
+            442.1,
+            493,
+            288,
+            66
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            442.1,
+            559,
+            28.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Copy",
+          "box": [
+            492.6,
+            559,
+            35.6,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Link",
+          "box": [
+            643.4,
+            559,
+            86.7,
+            55
+          ]
+        }
+      ],
+      "codeText": "x [a](/y)",
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Bold and Italic dim on a selection over several lines touching a heading, list or quote line, and a press then does nothing, though not aria-disabled: svg colour rgb(183, 183, 183). Lit is rgb(231, 231, 231), aria-checked true. Focus away, the selection is rgb(217, 217, 217). Two rows side by side meet halfway: 19 tall each. Tips: role tooltip, 34 tall, 47 under the button's top, centred, on rgb(14, 14, 14), 77.4 wide on Heading to 118.4 on Numbered List; Expand has none. Typed in the Code Editor view, the block and rows wait for Close, then follow; one undo takes it back. Link is lit when a selection or caret touches a link, edges too; a press shows the first link touched with Edit, Copy, Remove Link. Unread: tiny dark marks at the editor's corners when focused, an outline of 2px on .cm-focused."
+}
