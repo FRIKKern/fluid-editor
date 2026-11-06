@@ -242,7 +242,7 @@
   },
   "errors": [],
   "leftDirty": true,
-  "answer": "Scroll alone does not set the row. After Zola at 1000 high the frame sits scrolled 87. A Text added after a scroll of 100 lands on row 1 and the frame goes back to 0. In section 1, after a scroll of 300, a Text lands on row 1 and the frame ends at 588. So why the three start lower is still not read. A guess, not measured: it has to do with where those tiles sit, low in the menu, and the menu or the frame scrolling for them.",
+  "answer": "A scroll before Add Block didn't matter here because the tool's hover moves the frame back to the section first. So this read says nothing about a scrolled page. CAP-T14FRAME2.json has the rule, with the frame moved after the menu opens.",
   "ours": "Row 1.",
   "differs": [],
   "pressed": "Real mouse clicks and pulls on blocks made in the session. Add Block tiles and panel rows by name. No Save, no upload, no Reset, no tile or row pressed by place."

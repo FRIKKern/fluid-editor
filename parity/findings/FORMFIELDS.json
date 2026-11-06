@@ -2529,7 +2529,7 @@
    "empty": "Emptied, the box shows Thank you! as a faded placeholder and Link fades. The block draws no message at all.",
    "escape": "Escape in the box closes the whole panel.",
    "shape": "The stored html carries attributes of their editor. Ours keeps the tags and the two paragraph classes.",
-   "notRead": "Heading 2 and 3 in the box (browser defaults assumed). Pasting into the box: ours takes plain text. Cmd+I and Cmd+U: Cmd+B was read, the others assumed.",
+   "notRead": "Heading 2 and 3 in the box (browser defaults assumed). Cmd+I and Cmd+U: Cmd+B was read, the others assumed.",
    "earlier": {
     "barBox": {
      "box": [
@@ -2551,6 +2551,76 @@
     "html": {
      "html": "<div tabindex=\"-1\" class=\"form-submission-text form-submission-text--align-left\"><p data-rte-preserve-empty=\"true\" style=\"white-space:pre-wrap;\"><strong><em><u>Thanks a lot</u></em></strong></p></div>",
      "cs": "16px 700 italic underline rgb(0, 0, 0) 22.4px"
+    }
+   },
+   "paste": {
+    "note": "One read on a new form on the probe page, not saved: a paste event with a clipboard of HTML or text, in the box. The rules are the Text block's (PASTE.json) with no list, quote or strike: a list item and a quote come in as paragraphs, a strike as its letters. A mark stays. h5 and h6 are paragraphs. A table runs its cells together. {link} stands for the address pasted. The empty paragraph's br is drawn by the editor there.",
+    "reads": [
+     [
+      "",
+      "Plain one",
+      "<p>Plain one</p>"
+     ],
+     [
+      "",
+      "Line one\nLine two\n\nLine four",
+      "<p>Line one</p><p>Line two</p><p>Line four</p>"
+     ],
+     [
+      "<p>Some <strong>bold</strong> and <em>italic</em> and <u>under</u> and <a href=\"{link}\">link</a> and <span style=\"color:red\">red</span></p><h2>Head</h2><ul><li>One</li></ul>",
+      "x",
+      "<p>Some <strong>bold</strong> and <em>italic</em> and <u>under</u> and <a href=\"{link}\">link</a> and red</p><h2>Head</h2><p>One</p>"
+     ],
+     [
+      "<h1>H one</h1><h3>H three</h3><h4>H four</h4><blockquote>Quote</blockquote><pre>Pre  two</pre><ol><li>Num</li></ol><p>a<br>b <s>strike</s> <code>code</code> <sub>sub</sub> <sup>sup</sup> <b>b</b> <i>i</i></p><p></p><p>end</p>",
+      "x",
+      "<h1>H one</h1><h3>H three</h3><h4>H four</h4><p>Quote</p><pre><code>Pre  two</code></pre><p>Num</p><p>a<br>b strike code sub sup <strong>b</strong> <em>i</em></p><p><br></p><p>end</p>"
+     ],
+     [
+      "<div>Div one</div><div>Div <span style=\"font-weight:700\">two</span></div><a href=\"{link}\" target=\"_blank\">solo</a>",
+      "y",
+      "<p>Div one</p><p>Div <strong>two</strong></p><p><a target=\"_blank\" href=\"{link}\">solo</a></p>"
+     ],
+     [
+      "<h5>H five</h5><h6>H six</h6><p><mark>marked</mark></p><table><tr><td>a</td><td>b</td></tr><tr><td>c</td></tr></table><p>  sp   aced  </p>",
+      "z",
+      "<p>H five</p><p>H six</p><p><mark style=\"background: #7676764D; padding: 3px 0px; margin: -3px 0px; color: inherit;\">marked</mark></p><p>abc</p><p>sp aced</p>"
+     ],
+     [
+      "<p><span style=\"font-weight:700\">w700</span> <span style=\"font-weight:bold\">wbold</span> <span style=\"font-weight:400\">w400</span> <span style=\"font-weight:500\">w500</span> <span style=\"font-weight:600\">w600</span> <span style=\"font-style:italic\">ital</span> <span style=\"text-decoration:underline\">und</span> <span style=\"text-decoration:line-through\">str</span> <b style=\"font-weight:normal\">bnorm</b> <i style=\"font-style:normal\">inorm</i></p>",
+      "x",
+      "<p><strong>w700</strong> <strong>wbold</strong> w400 <strong>w500</strong> <strong>w600</strong> <em>ital</em> <u>und</u> str bnorm inorm</p>"
+     ],
+     [
+      "<h2>Head</h2>",
+      "Head",
+      "<h2>Head</h2>"
+     ],
+     [
+      "",
+      "Plain over head",
+      "<p>Plain over head</p>"
+     ]
+    ],
+    "atCaret": {
+     "note": "Each at the caret at the end of the box, one after the other from <p>Start</p>.",
+     "reads": [
+      [
+       "",
+       "x",
+       "<p>Startx</p>"
+      ],
+      [
+       "<p>y</p><p>z</p>",
+       "y\nz",
+       "<p>Startxy</p><p>z</p>"
+      ],
+      [
+       "",
+       "one\ntwo",
+       "<p>Startxy</p><p>zone</p><p>two</p>"
+      ]
+     ]
     }
    }
   },
@@ -3056,7 +3126,7 @@
     "from": "Centred under the button, 11 below it.",
     "look": "rgb(14, 14, 14), radius 3, padding 11 16, white, 14px weight 400",
     "role": "tooltip",
-    "note": "Read 1.5 seconds after the hover. How soon it shows is not read: ours shows at once."
+    "note": "Read 1.5 seconds after the hover. How soon it shows is not read: ours shows at once. Ours is 105 wide by the font, not 109: same text, same padding."
    }
   },
   "delete": {
@@ -4741,10 +4811,9 @@
   "What the Lightbox button opens is ours, with no read behind it: a dark page, a 640 wide box in the chosen Background Color, the form and a close button. A press beside the box or on the close button ends it. The text and submit button turn black or white to read on the color.",
   "Lightbox off from the phone keeps 16 rows every time. The oracle read 15 in two of six reads on the same route, and a press gives 17 either way.",
   "A phone form turned on from desktop, off and on again from the phone: ours goes to 1 row by the height it draws, the oracle to 2 by the 549 block.",
-  "The Message box takes plain text on a paste. The oracle's paste is not read.",
   "A delete fits the rows at once. Its reads found no rule to build (lightbox.deleteThenOn).",
   "The rows a Background or Stroke leaves: ours gives 3 and keeps them while it is on. The oracle read 1 to 4 with no rule (blockFits.boxed). The block looks the same when nothing sits under it.",
-  "The Phone prefix stays +47, and the Country options have no values."
+  "Learn More. on a Hidden field is underlined text with no link: on the oracle it goes to a help page outside the editor."
  ],
  "inferred": [
   "A real submit draws the message as the view does, and the Submit word goes.",
@@ -6060,7 +6129,7 @@
   "note": "A Name part's Show off takes its Require row away. Show on brings it back with the value it had, on or off: read both ways, on the Last Name part."
  },
  "country": {
-  "note": "The Address field's list: 245 names, Norway chosen, in the oracle's order: app/src/form-countries.js. The browser's region names were 251, and 245 is 8 fewer and 2 more, so a net of 6.",
+  "note": "The Address field's list: 245 names, Norway chosen, in the oracle's order, with each value and dial code: app/src/form-countries.js. The Phone field's list has the same 245 with one place moved: Northern Mariana Islands comes after North Macedonia there, and before North Korea on the Address field. The browser's region names were 251, and 245 is 8 fewer and 2 more, so a net of 6.",
   "onlyInBrowser": [
    "Antarctica",
    "Bouvet Island",
@@ -6075,6 +6144,25 @@
    "Ascension Island",
    "Tristan da Cunha"
   ],
-  "values": "Each option's value on the oracle is its two-letter code: not kept in ours."
+  "values": "Each option's value on the oracle is its two-letter code, and ours has the same 245 values. Norway is NO.",
+  "dial": {
+   "note": "Show Country Code on a Phone field draws the same 245 options. A pick sets the Number's prefix: read for all 245 on a new form on the probe page, not saved, in edit mode and in Preview. The picks were made by setting the select and firing input and change, not by a person's press.",
+   "examples": {
+    "NO": "+47",
+    "US": "+1",
+    "SE": "+46",
+    "DE": "+49",
+    "AC": "+247",
+    "AX": "+358",
+    "ZW": "+263"
+   },
+   "prefixWidth": {
+    "+1": 46.06,
+    "+47": 59.73,
+    "+355": 70.45
+   },
+   "layout": "The prefix is as wide as its text with padding 10 10 10 20, 0.55 opacity. The input's left padding follows that width.",
+   "late": "The oracle's prefix follows a pick after a moment, over 350 ms on some picks. Ours changes at once. A pick's value is not in the model, as a visitor's pick isn't."
+  }
  }
 }

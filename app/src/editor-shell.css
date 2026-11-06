@@ -124,9 +124,13 @@ body.show-inspector:not(.is-replay) .panel { display: block; }
 .sc-left:hover { background: #f2f2f2; }
 body:has(#layers-panel:not([hidden])) .sc-layers { background: #e7e7e7; }
 /* The section chrome fades and slides 11px (parity/findings/SECTIONBAR.json, fade). */
-#section-chrome.is-in > :not(.sc-outline) { animation: sc-in 0.17s ease-in-out; }
-#section-chrome.is-out > :not(.sc-outline) { animation: sc-out 0.15s ease-in-out forwards; }
-/* The outline fades over 0.2s both ways on its border color's alpha (parity/findings/CAP-U9FADE.json). */
+#section-chrome.is-in > :not(.sc-outline, .sc-add-section) { animation: sc-in 0.17s ease-in-out; }
+#section-chrome.is-out > :not(.sc-outline, .sc-add-section) { animation: sc-out 0.15s ease-in-out forwards; }
+/* The outline fades over 0.2s both ways on its border color's alpha (parity/findings/CAP-U9FADE.json). Add Section fades
+   the same way on its opacity, with no slide (CAP-U9ADDFADE.json). */
+#section-chrome.is-out > .sc-add-section { opacity: 0; }
+#section-chrome.is-add-in > .sc-add-section { animation: sc-add-in 0.2s ease-in-out; }
+@keyframes sc-add-in { from { opacity: 0; } }
 #section-chrome.is-out > .sc-outline { border-color: transparent; }
 #section-chrome.is-outline-in > .sc-outline { animation: sc-outline-in 0.2s ease-in-out; }
 @keyframes sc-outline-in { from { border-color: transparent; } }
@@ -144,7 +148,7 @@ body:has(#layers-panel:not([hidden])) .sc-layers { background: #e7e7e7; }
 .sc-row .sc-sq { flex: none; }
 .sc-sq { width: 36px; height: 36px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #e7e7e7; border-radius: 3px; background: transparent; color: #0e0e0e; cursor: pointer; box-sizing: border-box; }
 .sc-sq.is-off { color: #b7b7b7; cursor: default; }
-.sc-add-section { width: 111.1px; height: 36px; border: 1px solid rgb(72, 148, 255); border-radius: 6px; background: rgb(2, 122, 255); color: #fff; font: 500 12px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; }
+.sc-add-section { width: 111.1px; height: 36px; border: 1px solid rgb(72, 148, 255); border-radius: 6px; background: rgb(2, 122, 255); color: #fff; font: 500 12px/1 "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s ease-in-out; }
 .section-panel { position: absolute; z-index: 12; width: 320px; max-height: 476px; overflow-y: auto; box-sizing: border-box; padding: 16px 22px; background: #fff; border-radius: 8px; box-shadow: rgba(0, 0, 0, 0.12) 0 16px 64px 0, rgba(0, 0, 0, 0.08) 0 0 1px 0; }
 .section-panel[hidden], .sc-menu[hidden] { display: none; }
 .section-panel .group { border: 0; padding: 0; margin: 0; }
