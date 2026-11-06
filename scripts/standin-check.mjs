@@ -67,6 +67,7 @@ for (const type of ['Chart', 'Flickr', 'SoundCloud']) {
 
 // T14: where a new one lands, on desktop and the phone (CAP-T14ZOLA.json, CAP-T14BANDS.json, CAP-T14OPENTABLE.json, CAP-T14CONTROL.json, CAP-T14LAND.json).
 const addAll = (types) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; s.blocks = []; s.rows = { desktop: 8, mobile: 8 }; fe.setBp('desktop'); fe.load(next); await sleep(200); for (const t of ${JSON.stringify(types)}) { fe.addBlock(fe.model.sections[1].id, t); await sleep(120); } const x = fe.model.sections[1]; return JSON.stringify({ rows: x.rows.desktop, areas: x.blocks.map((b) => b.layout.desktop.area.join('/') + ' ' + b.layout.mobile.area.join('/')).sort() }); })()`);
+viewport(S, 1600, 1000); // the three that start lower do so under 1200 high
 const LAND = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T14LAND.json', import.meta.url)));
 const pairs = (name) => LAND.reads[name].areas.map((p) => p.join(' ')).sort();
 for (const [type, want] of [['Zola', '3/2/19/10 1/2/17/10'], ['Bandsintown', '4/2/9/10 1/2/6/10'], ['OpenTable', '3/2/11/10 1/2/9/10'], ['Flickr', '1/2/10/10 1/2/6/10'], ['SoundCloud', '1/2/9/10 1/2/6/10'], ['Instagram', '1/2/13/10 1/2/13/10'], ['Tock', '1/2/3/20 1/2/3/10']]) {
@@ -77,6 +78,17 @@ add('Zola: the section grows to its last row', addAll(['Zola']).rows === 18);
 for (const [name, types] of [['SoundCloud alone', ['SoundCloud']], ['Zola beside it', ['SoundCloud', 'Zola']], ['a second Zola', ['SoundCloud', 'Zola', 'Zola']], ['OpenTable beside them', ['SoundCloud', 'Zola', 'Zola', 'OpenTable']], ['Bandsintown beside them', ['SoundCloud', 'Zola', 'Zola', 'OpenTable', 'Bandsintown']], ['Text after them', ['SoundCloud', 'Zola', 'Zola', 'OpenTable', 'Bandsintown', 'Text']]]) {
   const got = addAll(types), want = pairs(name);
   add(`${name}: desktop and phone`, got.areas.join() === want.join() && got.rows === LAND.reads[name].section.rows, `${got.rows} ${got.areas.join()} wants ${LAND.reads[name].section.rows} ${want.join()}`);
+}
+
+// The start row by window height, and types that stay on row 1 at 1000 high (CAP-T14HEIGHTS.json, CAP-T14HEIGHTS2.json).
+for (const name of ['CAP-T14HEIGHTS', 'CAP-T14HEIGHTS2']) {
+  const F = JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url)));
+  for (const [read, r] of Object.entries(F.reads)) {
+    const m = /^(\w+) at (\d+)$/.exec(read);
+    viewport(S, 1600, +m[2]); await pause(200);
+    const got = addAll([m[1]]), want = r.areas[0].join(' ');
+    add(`${read}: desktop and phone`, got.areas.join() === want, `${got.areas.join()} wants ${want}`);
+  }
 }
 
 writeFileSync(new URL('../parity/standin-check.json', import.meta.url), `${JSON.stringify({ check: 'content that follows the width', pass, total, results }, null, 1)}\n`);

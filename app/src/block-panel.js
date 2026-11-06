@@ -11,6 +11,7 @@ import { linkKind, linkSummary, parseMail, parsePhone } from './link-kinds.js';
 import { HITS, resetBtn } from './anim-panel.js';
 import { effectPanelHtml } from './effect-panel.js';
 import { formFieldsPanelHtml } from './form-fields.js';
+import { lookBox } from './code-look.js';
 
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
 
@@ -86,7 +87,7 @@ const EXPAND = `<button type="button" class="bp-code-expand" data-code-expand ar
 const codeEditor = (key, value, placeholder = '', expand = false) => `<div class="bp-code">${expand ? EXPAND : ''}<div class="bp-code-lines" aria-hidden="true">${Array.from({ length: Math.max(1, String(value || '').split('\n').length) }, (_, n) => n + 1).join('<br>')}</div><textarea spellcheck="false" aria-label="Code" data-content="${key}" placeholder="${placeholder}">${esc(value || '')}</textarea></div>`;
 // The editors with a look of their own (CAP-T10LOOK.json): a band on the caret's line, a layer of colours over a field whose
 // own text is clear, wrapped lines on HTML and Markdown. editor.js paints them.
-const lookEditor = (key, value, lang, placeholder = '', expand = false) => `<div class="bp-code is-look${lang === 'html' || lang === 'markdown' ? ' is-wrap' : ''}" data-lang="${lang}">${expand ? EXPAND : ''}<div class="bp-code-lines" aria-hidden="true"></div><div class="bp-code-edit"><div class="bp-code-band"></div><div class="bp-code-sel"></div><textarea spellcheck="false" aria-label="Code" data-content="${key}" placeholder="${placeholder}">${esc(value || '')}</textarea><div class="bp-code-hl" aria-hidden="true"></div></div></div>`;
+const lookEditor = (key, value, lang, placeholder = '', expand = false) => lookBox(`data-content="${key}"`, value, lang, { placeholder, top: expand ? EXPAND : '' });
 function codeContentHtml(c, expand = true) {
   return `<div class="bp-code-top"><label class="bp-field bp-code-mode"><span class="bp-flabel">Mode</span><select aria-label="Mode" data-content="codeMode">${CODE_MODES.map(([l, v]) => `<option value="${v}"${c.mode === v ? ' selected' : ''}>${l}</option>`).join('')}</select></label>`
     + `<div class="sp-row bp-code-source${c.mode === 'html' || c.mode === 'markdown' ? '' : ' is-locked'}"><span class="sp-label">Display Source Code</span><label class="sp-switch"><input type="checkbox" aria-label="Display Source Code" data-content="showSource" ${c.showSource ? 'checked' : ''}${c.mode === 'html' || c.mode === 'markdown' ? '' : ' disabled'}><span aria-hidden="true"></span></label></div></div>`
@@ -524,7 +525,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
         + '<div class="bp-thead"><span>Styling</span></div>'
         + row('Color', `<button type="button" class="bp-swatch sh-swatch-btn" data-shape-act="color" aria-label="Color"><i style="background:${esc(shape.color)}"></i></button>`)
         + blendRow(d.blend || 'normal', open === 'blend')
-        + strokeRows(d, false, true)
+        + strokeRows({ ...d, strokeColor: d.strokeColor || shape.strokeInk }, false, true)
         + row('Drop Shadow', sw('shadow', d.shadow, 'Drop Shadow'))
         + blurRows(d)
         + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`

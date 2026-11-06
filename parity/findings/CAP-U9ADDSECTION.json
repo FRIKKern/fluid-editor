@@ -1,0 +1,190 @@
+{
+  "item": "CAP-U9ADDSECTION",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "U9: Add Section with the pointer on a section and away, by reads and shots",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "away",
+      {
+        "boxes": [
+          "Add Section"
+        ],
+        "has": [
+          "Add Section"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "away"
+    ],
+    [
+      "hover",
+      1
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "on section 1",
+      {
+        "boxes": [
+          "Add Section"
+        ],
+        "has": [
+          "Add Section"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "on"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      60
+    ],
+    [
+      "shot",
+      "away-60"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "shot",
+      "away-later"
+    ]
+  ],
+  "reads": {
+    "away": {
+      "boxes": {
+        "Add Section": [
+          [
+            744.4,
+            716,
+            111.1,
+            36
+          ],
+          [
+            0,
+            734,
+            1600,
+            0
+          ],
+          [
+            0,
+            110,
+            1600,
+            624
+          ],
+          [
+            0,
+            -558,
+            1600,
+            1292
+          ],
+          [
+            0,
+            55,
+            1600,
+            945
+          ],
+          [
+            0,
+            945,
+            1600,
+            0
+          ]
+        ]
+      },
+      "has": {
+        "Add Section": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "on section 1": {
+      "boxes": {
+        "Add Section": [
+          [
+            744.4,
+            741,
+            111.1,
+            36
+          ],
+          [
+            0,
+            759,
+            1600,
+            0
+          ],
+          [
+            0,
+            135,
+            1600,
+            624
+          ],
+          [
+            0,
+            -533,
+            1600,
+            1292
+          ],
+          [
+            0,
+            55,
+            1600,
+            945
+          ],
+          [
+            0,
+            945,
+            1600,
+            0
+          ]
+        ]
+      },
+      "has": {
+        "Add Section": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "From shots: away, no Add Section shows, though it has a box. On a section, both Add Sections show. A shot taken after a 60 ms pause already shows it gone, so a shot is too slow to see this fade. CAP-U9ADDFADE.json reads it by frame.",
+  "ours": "See CAP-U9ADDFADE.json.",
+  "differs": [],
+  "pressed": "None past the section panel by its tools. Scrolling by script. Mouse moves only."
+}

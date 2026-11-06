@@ -1501,7 +1501,7 @@ function renderBlockPanel() {
   if (mdField && mdField === document.activeElement && mdField.value !== (b.text || '')) { mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
   if (codeCommit) return; // the field's own text changed nothing else here, and a redraw would take a press on Mode from under it
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
-  const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || '#ffffff' } : null;
+  const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: parseFloat(b.radius) || 0, corners: b.corners, empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
@@ -1820,30 +1820,21 @@ function setButtonStyle(sid, bid, style) {
   const b = B(sid, bid);
   if (!b) return;
   const before = JSON.stringify(model);
-  if (b.type === 'form') setFormView(b, bp, 'buttonStyle', style === 'primary' && bp !== 'mobile' ? '' : style);
+  if (b.type === 'form') { formStep(b); setFormView(b, bp, 'buttonStyle', style === 'primary' && bp !== 'mobile' ? '' : style); }
   else if (style === 'primary') delete b.buttonStyle; else b.buttonStyle = style;
   renderSectionDom(sid);
-  if (b.type === 'form') fitFormIfDue(b);
   commit(before, `Button style ${style}`);
 }
 // A form's Button Alignment and First Input Highlight (FORMADD.json); left and none are the defaults.
-// Lightbox off leaves the rows until the next press on a design row. That press grows them to hold the
-// form and never shrinks them. Only Lightbox off does this, one view at a time (FORMFIELDS.json, lightbox).
-function fitFormIfDue(b) {
-  if (!b.fitDue?.[bp]) return;
-  delete b.fitDue[bp];
-  if (!Object.keys(b.fitDue).length) delete b.fitDue;
-  if (!formView(b, bp).lightbox && contentRows(b, measure(feEl(sel.sid))) > lay(b).area[2] - lay(b).area[0]) fitForm(b, S(sel.sid));
-}
 function setFormDesign(key, v) {
   const b = B(sel.sid, sel.bid);
   if (!b) return;
   const before = JSON.stringify(model);
   const top = blockPanel.scrollTop;
+  formStep(b);
   if (key === 'buttonAlign') setFormView(b, bp, key, v === 'left' && bp !== 'mobile' ? '' : v);
   else if (v === 'none') delete b[key]; else b[key] = v;
   renderSectionDom(sel.sid);
-  fitFormIfDue(b);
   commit(before, `Form ${key} ${v}`);
   blockPanel.scrollTop = top;
 }
@@ -1873,6 +1864,7 @@ function designChange(b, keys, change, fitBefore = null) {
     fitRows(b, was);
     return;
   }
+  if (b.type === 'form') return formDesignStep(b, change);
   const s = S(sel.sid), fits = (b.type === 'text' || b.type === 'social') && keys.some((k) => FIT_KEYS.has(k));
   const was = fitBefore ?? (fits ? contentRows(b, measure(feEl(sel.sid))) : 0);
   change();
@@ -2118,20 +2110,62 @@ function setMap(change, label) {
 }
 // Edit Form Fields (FORMFIELDS.json): one undo step per change. The block's rows follow the form.
 let ffView = null, ffBefore = null;
-function fitForm(b, s) {
-  const need = contentRows(b, measure(feEl(sel.sid))), a = lay(b).area, rows = a[2] - a[0];
+function setFormRows(b, s, need) {
+  const a = lay(b).area, rows = a[2] - a[0];
   if (need === rows) return;
   const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), low = lowest();
   a[2] = a[0] + need;
   if (need < rows) s.rows[bp] -= low - lowest(); else growRows(s);
   renderSectionDom(sel.sid);
 }
-function setForm(change, label, fit = true) {
+const fitForm = (b, s) => setFormRows(b, s, contentRows(b, measure(feEl(sel.sid))));
+// What a form's rows answer to: the form or its message, and any padding and stroke round it.
+function formHeight(b) {
+  const root = blockEl(b.id), lb = formView(b, bp).lightbox;
+  const f = root.querySelector(lb ? '.lightbox-handle-wrapper' : '.form-wrapper:not(.form-lightbox .form-wrapper)');
+  const c = root.querySelector('.sqs-block'), edge = c.offsetHeight - c.clientHeight;
+  return Math.round((f.getBoundingClientRect().height + edge) * 10) / 10;
+}
+const formPitch = (b) => {
+  const f = blockEl(b.id).querySelector('.sqs-block');
+  f.style.display = 'none';
+  const free = measure(f.closest('.fluid-engine'));
+  f.style.display = '';
+  return free;
+};
+const formBoxed = (b) => { const d = designFor(b, bp); return !formView(b, bp).lightbox && !!(d.background || d.stroke); };
+// A form's rows settle one step late (FORMFIELDS.json, blockFits.rule). A step reads the form as the step before left
+// it. If that changed the height, a rise makes the rows hold it, with 2px of give, and a fall takes them down when more
+// than one row is spare. A form with Lightbox on has its own rule, and one with a Background or Stroke stays as it is.
+function formStep(b) {
+  const h = formHeight(b), last = b.formH?.[bp] ?? h;
+  b.formH = { ...b.formH, [bp]: h };
+  if (h === last || formView(b, bp).lightbox || formBoxed(b)) return;
+  const { rg, pitch } = formPitch(b), rows = lay(b).area[2] - lay(b).area[0];
+  const up = Math.ceil((h + rg - 2) / pitch), fall = Math.ceil((h - rg) / pitch);
+  setFormRows(b, S(sel.sid), h > last ? Math.max(rows, up) : rows > fall + 1 ? fall : rows);
+}
+// A Background or Stroke going on drops the rows to a few and the block hugs what it holds: 3 on a new form. The reads
+// from other rows have no rule, so they stand named (blockFits.boxed). Going off grows them to hold the block as it was.
+function formDesignStep(b, change) {
+  const wasBoxed = formBoxed(b);
+  formStep(b);
+  const h = b.formH[bp];
+  change();
+  renderSectionDom(sel.sid);
+  const boxed = formBoxed(b);
+  if (boxed === wasBoxed) return;
+  const rows = lay(b).area[2] - lay(b).area[0], { rg, pitch } = formPitch(b);
+  setFormRows(b, S(sel.sid), boxed ? Math.min(rows, 3) : Math.max(rows, Math.ceil((h + rg - 2) / pitch)));
+}
+// A delete fits at once: its reads found no rule to build (FORMFIELDS.json, lightbox.deleteThenOn).
+function setForm(change, label, deleted = false) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   b.fields ||= [];
+  if (!deleted) formStep(b);
   change(b);
   renderSectionDom(sel.sid);
-  if (fit && !formView(b, bp).lightbox) fitForm(b, S(sel.sid));
+  if (deleted && !formView(b, bp).lightbox) { fitForm(b, S(sel.sid)); b.formH = { ...b.formH, [bp]: formHeight(b) }; }
   commit(before, label);
   renderBlockPanel();
   blockPanel.scrollTop = Math.min(blockPanel.scrollTop, blockPanel.scrollHeight);
@@ -2141,8 +2175,10 @@ function setForm(change, label, fit = true) {
 function setFormLightbox(on) {
   const b = B(sel.sid, sel.bid), s = S(sel.sid), before = JSON.stringify(model), top = blockPanel.scrollTop;
   const h = on ? blockEl(b.id).querySelector(FORM_ON_PAGE).getBoundingClientRect().height : 0;
+  if (!on) b.formH = { ...b.formH, [bp]: formHeight(b) }; // the form coming back is a rise the next step answers
   setFormView(b, bp, 'lightbox', on);
-  if (on) { if (b.fitDue) { delete b.fitDue[bp]; if (!Object.keys(b.fitDue).length) delete b.fitDue; } } else (b.fitDue ||= {})[bp] = true;
+  // Lightbox on takes a Background off for good; a Stroke, Blend Mode and Blur stay (FORMFIELDS.json, lightbox.designSet).
+  if (on && designFor(b, bp).background) { const bag = designBag(bp), d = { ...b[bag] }; if (bag === 'designMobile') d.background = false; else delete d.background; if (Object.keys(d).length) b[bag] = d; else delete b[bag]; }
   renderSectionDom(sel.sid);
   if (on) {
     const w = blockEl(b.id).querySelector('.lightbox-handle-wrapper'), hh = w.getBoundingClientRect().height;
@@ -2182,7 +2218,7 @@ function showFormPost(b) {
   for (const w of on ? [on] : doc?.querySelectorAll('.form-wrapper.is-post-view') || []) w.classList.toggle('is-post-view', !!on);
   if (on) for (const w of doc.querySelectorAll('.form-wrapper.is-post-view')) if (w !== on) w.classList.remove('is-post-view');
 }
-const setPost = (k, v, label) => setForm((b) => { b.post = { ...b.post, [k]: v }; }, label, false); // the block's rows stay: read
+const setPost = (k, v, label) => setForm((b) => { b.post = { ...b.post, [k]: v }; }, label);
 function showFf(view) { ffView = view; renderBlockPanel(); blockPanel.scrollTop = 0; }
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-ff]');
@@ -2206,12 +2242,12 @@ blockPanel.addEventListener('click', (e) => {
     setForm((b) => { ffView = `ff-fu:${fn}:${oi}:${addFollow(b.fields[fn], Number(oi), arg)}`; }, `${arg} follow-up added`);
     blockPanel.scrollTop = 0;
   }
-  else if (act === 'fu-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteFollow(b.fields[n], o, Number(arg3)), 'Follow-up deleted'); blockPanel.scrollTop = 0; }
-  else if (act === 'opt-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteOption(b.fields[n], o), 'Option deleted'); blockPanel.scrollTop = 0; }
+  else if (act === 'fu-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteFollow(b.fields[n], o, Number(arg3)), 'Follow-up deleted', true); blockPanel.scrollTop = 0; }
+  else if (act === 'opt-del') { ffView = `ff-edit:${n}`; setForm((b) => deleteOption(b.fields[n], o), 'Option deleted', true); blockPanel.scrollTop = 0; }
   else if (act === 'add') showFf('ff-add');
   else if (act === 'edit') showFf(`ff-edit:${n}`);
   else if (act === 'tile') { ffView = 'ff-list'; setForm((b) => b.fields.push(newField(arg)), `${arg} field added`); blockPanel.scrollTop = 0; }
-  else if (act === 'delete' || act === 'del') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n, 1), 'Field deleted'); blockPanel.scrollTop = 0; }
+  else if (act === 'delete' || act === 'del') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n, 1), 'Field deleted', true); blockPanel.scrollTop = 0; }
   else if (act === 'dup') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n + 1, 0, JSON.parse(JSON.stringify(b.fields[n]))), 'Field duplicated'); blockPanel.scrollTop = 0; }
   else if (act === 'opt-add') setForm((b) => { const l = ffField(b).options; l.push(`Option ${l.length + 1}`); }, 'Option added');
   else if (act === 'max') setForm((b) => { const f = ffField(b); f.maxFiles = Math.max(1, (f.maxFiles || 1) + n); }, 'Max files');
@@ -2222,20 +2258,22 @@ blockPanel.addEventListener('input', (e) => {
   if (q && sel) {
     ffBefore ??= JSON.stringify(model);
     const b = B(sel.sid, sel.bid);
+    formStep(b);
     b.post = { ...b.post, [q.dataset.ffPost]: q.isContentEditable ? cleanMessage(q) : q.value };
     renderSectionDom(sel.sid);
     showFormPost(b);
-    if (q.dataset.ffPost === 'html') blockPanel.querySelector('.bp-ffp-code .bp-code-lines').innerHTML = Array.from({ length: Math.max(1, q.value.split('\n').length) }, (_, n) => n + 1).join('<br>');
+    if (q.dataset.ffPost === 'html') paintCode(q);
     return;
   }
   const t = e.target.closest('[data-ff-field],[data-ff-opt]');
   if (!t || !sel || !ffOpen()) return;
   ffBefore ??= JSON.stringify(model);
+  formStep(B(sel.sid, sel.bid));
   const f = ffField(B(sel.sid, sel.bid));
   if (t.dataset.ffOpt != null) f.options[Number(t.dataset.ffOpt)] = t.value;
   else writeFieldText(f, t.dataset.ffField, t.value);
   renderSectionDom(sel.sid);
-  if (t.dataset.ffField === 'label') blockPanel.querySelector('.bp-ff-title').textContent = t.value;
+  if (t.dataset.ffField === 'label') blockPanel.querySelector('.bp-ff-title').textContent = t.value || t.placeholder || 'Hidden';
 });
 blockPanel.addEventListener('change', (e) => {
   if (sel && e.target.closest('[data-ff-post]')) {
@@ -2248,7 +2286,7 @@ blockPanel.addEventListener('change', (e) => {
   if (e.target.closest('[data-ff-field],[data-ff-opt]')) {
     const before = ffBefore;
     ffBefore = null;
-    if (before) { if (!formView(B(sel.sid, sel.bid), bp).lightbox) fitForm(B(sel.sid, sel.bid), S(sel.sid)); commit(before, 'Field changed'); }
+    if (before) commit(before, 'Field changed');
     return;
   }
   const t = e.target.closest('[data-ff-set]');
@@ -2353,7 +2391,16 @@ function hslOf([r0, g0, b0]) {
   return [h * 60, (d / (1 - Math.abs(2 * l - 1))) * 100, l * 100];
 }
 const rgbFromHsl = (h, s, l) => { const a = (s / 100) * Math.min(l / 100, 1 - l / 100), f = (n) => { const k = (n + h / 30) % 12; return Math.round(255 * (l / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))); }; return [f(0), f(8), f(4)]; };
-const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? b.color || b.fill || '#ffffff' : key === 'lightboxBg' ? formView(b, bp).lightboxBg : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || (b.type === 'video' ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'));
+// A shape's own section's theme color, as the page draws it (CAP-T6THEME.json).
+function themeInk(b, which) {
+  const probe = doc.createElement('i');
+  probe.style.color = `var(--shape-theme-${which})`;
+  blockEl(b.id).append(probe);
+  const c = win.getComputedStyle(probe).color;
+  probe.remove();
+  return c;
+}
+const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? b.color || b.fill || themeInk(b, 'fill') : key === 'lightboxBg' ? formView(b, bp).lightboxBg : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || (b.type === 'video' ? 'rgb(255, 255, 255)' : b.type === 'shape' ? themeInk(b, 'stroke') : 'rgb(0, 0, 0)'));
 function writeShapeColor(b, key, css) {
   if (key === 'color') { if (css) b.color = css; else delete b.color; return; }
   if (key === 'overlay') { if (css) b.overlayColor = css; else delete b.overlayColor; return; }
@@ -2472,7 +2519,7 @@ shapePop.addEventListener('click', (e) => {
     const i = Number(shapeUi.key.split(':')[1]), [, n] = ffView.split(':');
     closeShapePop();
     if (fp.dataset.ffPop === 'follow') { ffReturn = ffView; showFf(`ff-fuadd:${n}:${i}`); }
-    else setForm((b) => deleteOption(ffField(b), i), 'Option deleted');
+    else setForm((b) => deleteOption(ffField(b), i), 'Option deleted', true);
     return;
   }
   if (shapeUi?.section) {
@@ -3762,7 +3809,7 @@ const ADD_TYPES = [
   // A new form's fields (FORMADD.json).
   ['Form', 9, 16, () => ({ type: 'form', button: 'Submit', formName: `${pageTitle()} Form`, fields: [{ kind: 'name', label: 'Name', parts: ['First Name(required)', 'Last Name(required)'] }, { kind: 'email', label: 'Email(required)', signup: 'Sign up for news and updates' }, { kind: 'text', label: 'Subject(required)' }, { kind: 'textarea', label: 'Message(required)' }] })],
   ['Accordion', 8, 8, () => ({ type: 'accordion', items: [1, 2, 3].map((n) => ({ title: `Accordion Item ${n}`, description: ACCORDION_DESCRIPTION })) })],
-  ['Shape', 6, 6, () => ({ type: 'shape', fill: '#ffffff', radius: '0' })],
+  ['Shape', 6, 6, () => ({ type: 'shape', radius: '0' })],
   ['Scrolling', 24, 2, () => ({ type: 'scrolling', text: 'Dream it 〰️', size: 1.5, wave: 0 })],
   ['Line', 4, 1, () => ({ type: 'line' })],
   ['Map', 8, 12, () => ({ type: 'map' })],
@@ -3775,10 +3822,13 @@ const ADD_TYPES = [
   ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Menu: [12, 28], Chart: [8, 8], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
     .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}) })]),
 ];
-// A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6, CAP-T14CONTROL.json, CAP-T14LAND.json).
-const PHONE_ROWS = { Accordion: 5, Flickr: 5, SoundCloud: 5 };
-// These three start below row 1 on desktop, alone or beside other blocks, and a second one starts the same (CAP-T14ZOLA.json, CAP-T14BANDS.json, CAP-T14OPENTABLE.json, CAP-T14LAND.json). Why is unread: scroll isn't it (CAP-T14SCROLL.json).
-const START_ROW = { Zola: 3, OpenTable: 3, Bandsintown: 4 };
+// A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6, CAP-T14CONTROL.json, CAP-T14LAND.json, CAP-T14HEIGHTS2.json).
+const PHONE_ROWS = { Accordion: 5, Flickr: 5, SoundCloud: 5, Archive: 8 };
+// These three start lower in a window under 1200 high, by steps: [from this height, row] (CAP-T14HEIGHTS.json,
+// CAP-T14HEIGHTS2.json), alone or beside other blocks (CAP-T14LAND.json). Why is unread, and so is where a step
+// falls between two reads, or any height under 1000.
+const START_ROW = { Zola: [[1000, 3], [1050, 2], [1100, 1]], Bandsintown: [[1000, 4], [1050, 3], [1150, 2], [1200, 1]], OpenTable: [[1000, 3], [1200, 1]] };
+const startRow = (name) => { const steps = START_ROW[name]; return steps ? (steps.findLast(([from]) => innerHeight >= from) ?? steps[0])[1] : 1; };
 // A new Line sits in the middle of its block, in each view (CAP-U4LINE.json).
 const NEW_ALIGN = { Line: 'center' };
 function addBlock(sid, name) {
@@ -3788,7 +3838,7 @@ function addBlock(sid, name) {
   // Phone (L3.json, CAP-NEWORDER*.json): the new block takes its place in the phone stack by
   // size, and the blocks after it move down by its height.
   const stack = [...s.blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
-  const row = START_ROW[name] ?? 1;
+  const row = startRow(name);
   const slot = s.phoneFollows ? 0 : newBlockSlot(stack, w, h, [row, 2]);
   const mobileEnd = slot ? Math.max(...stack.slice(0, slot).map((b) => b.layout.mobile.area[2])) : 1;
   const phoneH = PHONE_ROWS[name] ?? h;
@@ -4303,7 +4353,7 @@ for (const host of [panel, sectionPanel]) {
 }
 function chromeSid() { return editSid || sel?.sid || hoverSid; }
 // The chrome fades out over 0.15s when the mouse leaves, and the outline over 0.2s; a gesture takes it away at once
-// (SECTIONBAR.json, fade; CAP-U9FADE.json). The outline fades there too: moving to another section and in a gesture, the
+// (SECTIONBAR.json, fade; CAP-U9FADE.json). Add Section takes 0.2s too, on its opacity (CAP-U9ADDFADE.json). The outline fades there too: moving to another section and in a gesture, the
 // old one fades as a copy left behind (CAP-U9CLOSE.json). A copy doesn't follow a scroll during its 0.2 s, ours only.
 let chromeOut = 0;
 function outlineAway() {
@@ -4319,7 +4369,7 @@ function hideChrome(fade) {
   if (chrome.hidden || (fade && chromeOut)) return;
   clearTimeout(chromeOut); chromeOut = 0;
   if (!fade) { outlineAway(); chrome.classList.remove('is-out'); chrome.hidden = true; return; }
-  chrome.classList.remove('is-outline-in'); chrome.classList.add('is-out');
+  chrome.classList.remove('is-outline-in', 'is-add-in'); chrome.classList.add('is-out');
   chromeOut = setTimeout(() => { chromeOut = 0; chrome.classList.remove('is-out'); chrome.hidden = true; }, 200);
 }
 function placeChrome() {
@@ -4339,7 +4389,7 @@ function placeChrome() {
   // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
   if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
-  if (newSection) { chrome.classList.remove('is-outline-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in'); }
+  if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in', 'is-add-in'); }
   const header = k === 0 ? doc.getElementById('header') : null;
   const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
   // The Add Section buttons sit on the sum of the rounded heights above, not on the section's edge
@@ -5469,7 +5519,7 @@ function showBarTip(btn) {
   const q = btn.getBoundingClientRect();
   const w = barTip.getBoundingClientRect().width;
   barTip.style.left = `${Math.max(11, Math.min(q.left + q.width / 2 - w / 2, window.innerWidth - 22 - w))}px`;
-  barTip.style.top = `${q.bottom + (btn.closest('#block-toolbar') ? 11 : btn.classList.contains('tb-icon') ? 11.5 : 6.5)}px`;
+  barTip.style.top = `${q.bottom + (btn.closest('#block-toolbar, #block-panel') ? 11 : btn.classList.contains('tb-icon') ? 11.5 : 6.5)}px`;
 }
 // The block toolbar's tips (parity/findings/TOOLBARS.json tips): not on an unavailable button. They
 // appear between 100 and 400 ms after the hover on the oracle; ours at 200.
@@ -5481,6 +5531,10 @@ function setTbTip(btn) {
   if (btn && !btn.classList.contains('is-off')) tbTipTimer = setTimeout(() => showBarTip(btn), 200);
 }
 // No tip on the button whose menu is open (parity/findings/S3.json).
+// An option's menu button has its tip too (FORMFIELDS.json, followUp.menu).
+blockPanel.addEventListener('pointerover', (e) => { const btn = e.target.closest('[data-tip]'); if (btn) showBarTip(btn); });
+blockPanel.addEventListener('pointerout', (e) => { if (e.target.closest('[data-tip]')) barTip.hidden = true; });
+blockPanel.addEventListener('pointerdown', (e) => { if (e.target.closest('[data-tip]')) barTip.hidden = true; });
 toolbar.addEventListener('pointerover', (e) => { let btn = e.target.closest('button[data-tip]'); if (btn?.classList.contains('tb-open') && !btn.closest('.tb-vmenu')) btn = null; if (btn !== tbTipBtn) setTbTip(btn); });
 toolbar.addEventListener('pointerleave', () => setTbTip(null));
 // A pick redraws the toolbar and keeps the tip; a block that goes takes the tip with it.

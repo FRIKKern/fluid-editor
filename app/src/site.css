@@ -409,8 +409,9 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 /* Form block (T9), sizes measured on the oracle Contact form */
 .fe-form { margin: 0; }
 .fe-form .form-item { margin: 0 0 20px; padding: 0; border: 0; min-width: 0; }
+.fe-form .req.req--alone.req--alone { margin-left: 0; }
 .fe-form legend { padding: 0 0 8px; font-size: 16px; line-height: 22.4px; }
-.fe-form label.title { display: block; font-size: 16px; line-height: 22.4px; padding-bottom: 8px; }
+.fe-form label.title { display: block; min-height: 30.4px; font-size: 16px; line-height: 22.4px; padding-bottom: 8px; } /* an emptied label keeps its line; a legend does not (FORMFIELDS.json, emptyLabel) */
 .fe-form label.caption { display: block; padding-bottom: 4px; }
 /* Name sub-labels and checkbox labels use the small text size (value 0.9). */
 .fe-form .caption-row, .fe-form .form-checkbox .option, .fe-form .description, .fe-form .caption-text, .fe-form .likert-options .option {
@@ -622,6 +623,12 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .page-section[data-section-theme="bright"] { --section-bg: hsla(var(--accent-hsl), 1); --heading-color: hsla(var(--safeInverseAccent-hsl), 1); --section-ink: hsla(var(--safeInverseAccent-hsl), 1); --button-bg: hsla(var(--safeInverseAccent-hsl), 1); --button-ink: hsla(var(--accent-hsl), 1); }
 .page-section[data-section-theme="bright-inverse"] { --section-bg: hsla(var(--safeInverseAccent-hsl), 1); --heading-color: hsla(var(--accent-hsl), 1); --section-ink: hsla(var(--accent-hsl), 1); --button-bg: hsla(var(--accent-hsl), 1); --button-ink: hsla(var(--safeInverseAccent-hsl), 1); }
 /* A form's focus ring is the accent on eight themes. On Bright 1 and 2, where the accent is the page's own ink or ground, it is another palette color (FORMFIELDS.json, followUp.marks). */
+/* A new Shape's color and stroke follow the theme (CAP-T6THEME.json). Which palette color each is, is inferred from its value. */
+.page-section { --shape-theme-fill: hsla(var(--white-hsl), 1); --shape-theme-stroke: hsla(var(--black-hsl), 1); }
+.page-section[data-section-theme="white"], .page-section[data-section-theme="white-bold"] { --shape-theme-fill: hsla(var(--lightAccent-hsl), 1); }
+.page-section[data-section-theme="bright-inverse"] { --shape-theme-fill: hsla(var(--accent-hsl), 1); }
+.page-section[data-section-theme="bright"] { --shape-theme-fill: hsla(var(--black-hsl), 1); }
+.page-section[data-section-theme="dark"], .page-section[data-section-theme="dark-bold"] { --shape-theme-stroke: hsla(var(--accent-hsl), 1); }
 .page-section { --form-ring: hsla(var(--accent-hsl), 1); }
 .page-section[data-section-theme="bright"] { --form-ring: hsla(var(--darkAccent-hsl), 1); }
 .page-section[data-section-theme="bright-inverse"] { --form-ring: hsla(var(--lightAccent-hsl), 1); }

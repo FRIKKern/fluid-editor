@@ -1,0 +1,225 @@
+{
+  "item": "CAP-L6LABELAT",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "L6: where the dotted labels sit, to hover them by place next",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "scrollTo",
+      "Thickness"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "shot",
+      "start"
+    ],
+    [
+      "read",
+      "start",
+      {
+        "style": [
+          0,
+          "new"
+        ],
+        "boxes": [
+          "Stroke",
+          "Thickness",
+          "Stroke Color"
+        ],
+        "leaves": [
+          "Stroke",
+          "Thickness"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "style": {
+        "transform": "none",
+        "origin": "188.328px 99.5px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(0, 0, 0) 6px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          376.7,
+          199
+        ],
+        "vars": "mix-blend-mode: normal;"
+      },
+      "boxes": {
+        "Stroke": [
+          [
+            1058,
+            485,
+            42.2,
+            22
+          ],
+          [
+            1058,
+            478,
+            276,
+            36
+          ],
+          [
+            1058,
+            474,
+            276,
+            44
+          ],
+          [
+            1036,
+            78,
+            320,
+            998
+          ],
+          [
+            1036,
+            367,
+            320,
+            447
+          ],
+          [
+            1036,
+            312,
+            320,
+            502
+          ]
+        ],
+        "Thickness": [
+          [
+            1058,
+            579,
+            66.2,
+            22
+          ],
+          [
+            1058,
+            572,
+            276,
+            36
+          ],
+          [
+            1058,
+            568,
+            276,
+            44
+          ],
+          [
+            1036,
+            78,
+            320,
+            998
+          ],
+          [
+            1036,
+            367,
+            320,
+            447
+          ],
+          [
+            1036,
+            312,
+            320,
+            502
+          ]
+        ],
+        "Stroke Color": [
+          [
+            1047,
+            519,
+            298,
+            49
+          ],
+          [
+            1036,
+            78,
+            320,
+            998
+          ],
+          [
+            1036,
+            367,
+            320,
+            447
+          ],
+          [
+            1036,
+            312,
+            320,
+            502
+          ],
+          [
+            1036,
+            312,
+            320,
+            500
+          ],
+          [
+            1036,
+            314,
+            320,
+            500
+          ]
+        ]
+      },
+      "leaves": {
+        "Stroke": "underline dotted",
+        "Thickness": null
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Boxes for CAP-L6LABELPLACE.json. Stroke label 1058, 485, 42.2 by 22, with the dotted underline. Thickness label 1058, 579, 66.2 by 22, no dotted line here, since this run only set the stroke on.",
+  "ours": "Not compared here.",
+  "differs": [],
+  "pressed": "Solid Stroke by name, on a Shape made in the session."
+}

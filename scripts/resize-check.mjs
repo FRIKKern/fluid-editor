@@ -12,9 +12,7 @@ const F = JSON.parse(readFileSync(new URL('../parity/findings/BLOCKTYPES.json', 
 // Where a type lands depends on the page, not the type (CAP-LANDING.json): BLOCKTYPES read some types
 // partway down a long run. In an empty section they land at row 1, and a pull changes the same rows.
 const LANDING = JSON.parse(readFileSync(new URL('../parity/findings/CAP-LANDING.json', import.meta.url)));
-// Three types start lower wherever they land (CAP-T14LAND.json); CAP-LANDING's row 1 for them was inferred from U5.
-const LOWER = { Zola: [3, 2, 19, 10], Bandsintown: [4, 2, 9, 10], OpenTable: [3, 2, 11, 10] };
-const FRESH = (name) => LOWER[name] ?? LANDING.fromU5[name] ?? LANDING.fresh[name]?.area;
+const FRESH = (name) => LANDING.fromU5[name] ?? LANDING.fresh[name]?.area;
 // Named misses: on the oracle these types hold live content whose reads change from run to run
 // (STANDINS.json). Ours are stand-ins of the right size with no such content.
 const CONTENT = { Summary: ['se', 's', 'e'], Zola: ['s', 'e'], Bandsintown: ['se', 's', 'e'] };

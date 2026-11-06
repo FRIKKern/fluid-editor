@@ -7,7 +7,7 @@
 // Steps: enter | exit | view Mobile|Desktop | window w h (the real window, for a block taller than it) | frame w h | unframe | pause ms | listen
 //   hover i | hoverBlock i k | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
-//   hoverNamed label | moveAt x y | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
+//   hoverNamed label | moveAt x y (skips the page check: it presses nothing, and its timing matters) | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | addSectionWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
 //   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | keysGap ms [keys] | fill label value | fillValue shown value | rightClick i k
 //   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clipHold | clipGive | clickAt x y | walk i k part mx my | pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillRow label n value | hoverRow label [n] | pressTile [n] | pressEl selector [n] | hoverEl selector [n] | pressNamed label | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | scrollFrame y | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
 //   hold i k part dx dy [mods] | holdRaw i k part dx dy | shiftClick i k | move dx dy | release [home] | drag i k part dx dy {pointerType}
@@ -419,6 +419,19 @@ const STEPS = {
     mouse(S, 'move', off[0], off[1]); await pause(900);
     const on = await watch(sec); const away = await watch(off);
     finding.reads[name] = { columns: ['ms', 'Add Section opacity', 'outline opacity', 'outline border', 'Add Section top', 'its document'], on, away };
+  },
+  // Every element whose text is Add Section, in both documents, each frame while the mouse goes on and off a section. Reads only.
+  addSectionWatch: async (i, name) => {
+    const sec = evalJs(S, `(() => { ${FRAME} const fr = f.getBoundingClientRect(), s = d.querySelectorAll('main#page .page-section')[${i}].getBoundingClientRect(); return JSON.stringify([fr.left + s.left + s.width / 2, fr.top + s.top + s.height / 2]); })()`);
+    const off = [800, 28];
+    const watch = async (to) => {
+      evalJs(S, `(() => { ${FRAME} const T = window.__asw = { t0: performance.now(), seen: [], stop: false, last: '' }; const eff = (e, V) => { let o = 1, v = 'visible', dp = 'block'; for (let x = e; x && x.nodeType === 1; x = x.parentElement) { const c = V.getComputedStyle(x); o *= Number(c.opacity); if (c.visibility !== 'visible') v = c.visibility; if (c.display === 'none') dp = 'none'; } return [Math.round(o * 1000) / 1000, v, dp]; }; const tick = () => { if (T.stop) return; const rows = []; for (const [D, V, tag] of [[document, window, 'top'], [d, W, 'frame']]) for (const x of [...D.querySelectorAll('button, [role=button], a, div, span')].filter((e) => e.childElementCount <= 2 && e.textContent.trim() === 'Add Section')) { const q = x.getBoundingClientRect(); if (!q.width) continue; const c = V.getComputedStyle(x); rows.push([tag, x.tagName.toLowerCase(), Math.round(q.left), Math.round(q.top), ...eff(x, V), c.transform === 'none' ? '' : c.transform, c.transition.slice(0, 60)]); } const key = JSON.stringify(rows); if (key !== T.last) { T.last = key; T.seen.push([Math.round(performance.now() - T.t0), rows]); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
+      mouse(S, 'move', to[0], to[1]); await pause(1000);
+      return evalJs(S, `(() => { const T = window.__asw; T.stop = true; return JSON.stringify(T.seen); })()`);
+    };
+    mouse(S, 'move', off[0], off[1]); await pause(900);
+    const on = await watch(sec); const away = await watch(off);
+    finding.reads[name] = { columns: ['ms', 'each element: document, tag, left, top, opacity with its parents, visibility, display, transform, transition'], on, away };
   },
   // Scrolls the frame in steps with the section panel open, reading the panel's top and the frame's scroll each step.
   scrollWalk: async (name, dy, n, wait = 250) => {
