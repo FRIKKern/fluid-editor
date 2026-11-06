@@ -1,0 +1,1652 @@
+{
+  "item": "CAP-T10MD3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: the Markdown block's list of block kinds, Link and Expand",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Heading"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "block list",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "md-blocklist"
+    ],
+    [
+      "pressNamed",
+      "Heading 1"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "h1 picked",
+      {
+        "panelEls": ".cm-content",
+        "controls": true,
+        "htmlOf": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "pressNamed",
+      "Heading"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "pressNamed",
+      "Heading 2"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "h2 picked",
+      {
+        "panelEls": ".cm-content"
+      }
+    ],
+    [
+      "pressNamed",
+      "Heading"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "pressNamed",
+      "Paragraph"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "paragraph picked",
+      {
+        "panelEls": ".cm-content"
+      }
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Services/services"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "link services",
+      {
+        "panelEls": ".cm-content",
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "md-link-picked"
+    ],
+    [
+      "setCode",
+      ""
+    ],
+    [
+      "pressNamed",
+      "Link"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "About/about"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "link empty about",
+      {
+        "panelEls": ".cm-content"
+      }
+    ],
+    [
+      "setCode",
+      "word"
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickAt",
+      874,
+      749
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "md view",
+      {
+        "controls": true,
+        "panelEls": ".cm-content"
+      }
+    ],
+    [
+      "shot",
+      "md-view"
+    ],
+    [
+      "clickIf",
+      "Close"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "view closed",
+      {
+        "controls": true,
+        "panelEls": ".cm-content",
+        "areas": 0
+      }
+    ],
+    [
+      "setCode",
+      ""
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "emptied",
+      {
+        "htmlOf": ".sqs-block-markdown .sqs-block-content",
+        "areas": 0,
+        "frameEls": ".sqs-block-markdown .sqs-block-content"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "double click",
+      {
+        "controls": true,
+        "panelEls": ".cm-content",
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "md-dbl"
+    ]
+  ],
+  "reads": {
+    "block list": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            301,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            716,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            778,
+            148.5,
+            16
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "h1 picked": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            301,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            366,
+            106.2,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            484.2,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            524.2,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            564.2,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            609.2,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            649.2,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            694.2,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            716,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            778,
+            148.5,
+            16
+          ]
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "# word",
+          "lines": 1,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "htmlOf": "<h1>word</h1>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "h2 picked": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "## word",
+          "lines": 1,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "paragraph picked": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "word",
+          "lines": 1,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "link services": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            301,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            716,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "URL",
+          "box": [
+            448.1,
+            434,
+            96,
+            28
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Enter link, search, or add files",
+          "value": "",
+          "box": [
+            448.1,
+            473,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Services/services",
+          "box": [
+            450,
+            572,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "About/about",
+          "box": [
+            450,
+            633,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Contact/contact",
+          "box": [
+            450,
+            694,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Gestures Probe/gestures-probe",
+          "box": [
+            450,
+            804,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Blocks Probe/blocks-probe",
+          "box": [
+            450,
+            865,
+            257,
+            61
+          ]
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping",
+          "label": "word",
+          "lines": 1,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "link empty about": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "label": "word",
+          "lines": 1,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "md view": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Close",
+          "box": [
+            383,
+            179,
+            41.9,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            387,
+            260.5,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            506.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            546.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            586.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            631.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            671.1,
+            260.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            716.1,
+            260.5,
+            36,
+            36
+          ]
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping",
+          "label": "word",
+          "lines": 1,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping",
+          "label": "word",
+          "lines": 1,
+          "box": [
+            414.4,
+            306.5,
+            802.6,
+            498
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "view closed": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            301,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            366,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            366,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            716,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            778,
+            148.5,
+            16
+          ]
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping",
+          "label": "word",
+          "lines": 1,
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/4/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "emptied": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "word",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            100.1,
+            338.9,
+            224.1,
+            22.4
+          ]
+        }
+      ],
+      "htmlOf": "<p>word</p>",
+      "areas": [
+        [
+          "1/2/4/6",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "double click": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            343,
+            341,
+            575,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            365,
+            341,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Heading",
+          "box": [
+            369,
+            406,
+            110.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            488.1,
+            406,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            528.1,
+            406,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            568.1,
+            406,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bulleted List",
+          "box": [
+            613.1,
+            406,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            653.1,
+            406,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            698.1,
+            406,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            856,
+            756,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "See the syntax cheatsheet",
+          "box": [
+            476.5,
+            818,
+            148.5,
+            16
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "1/2/4/6",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          283.9,
+          224.1,
+          112.3
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1793954898464_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 4 / 6",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,51.1",
+          "col 10x10 at 220.1,51.1",
+          "ne 10x10 at 220.1,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 107.1,-6",
+          "row 10x10 at 107.1,108.3",
+          "se 10x10 at 220.1,108.3",
+          "sw 10x10 at -6,108.3"
+        ]
+      },
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "cm-content cm-lineWrapping",
+          "label": "word",
+          "lines": 1,
+          "box": [
+            396.4,
+            452,
+            499.6,
+            344
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "pressNamed [\"Services/services\"]: nothing labelled Services/services",
+    "pressNamed [\"About/about\"]: nothing labelled About/about"
+  ],
+  "answer": "Heading's list is Paragraph, Heading 1 to 4, and writes # or ## in front of the line. Expand opens the Code Editor view with the same toolbar, Close and an editor 802.6 by 498 at 414.4, 306.5. The block has Content only, and a double-click opens the panel. Not read: the option pressed in Link's list (the press found nothing), and emptying the block (the step left the text).",
+  "notPressed": [
+    "Preview in safe mode",
+    "Learn More",
+    "See the syntax cheatsheet",
+    "Premium Feature"
+  ],
+  "leftDirty": true
+}

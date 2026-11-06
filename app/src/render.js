@@ -3,6 +3,7 @@
 // Runs in the browser and in Node.
 import { siteStylesHead } from './site-style-packs.js';
 import { shapeById } from './shapes.js';
+import { markdownParts } from './markdown.js';
 import { formFieldHtml } from './form-fields.js';
 import { imageShapeById } from './image-shapes.js';
 import { effectData, IMAGE_EFFECT_SCRIPT } from './image-effects.js';
@@ -149,21 +150,25 @@ export function sectionCss(s) {
   return sectionGridCss(s) + '\n' + s.blocks.map(blockCss).join('');
 }
 
-// What a code block shows (parity/findings/CODEEMBED.json): HTML as it is, Markdown rendered, and
-// with Display Source Code the text in <pre class="source-code">, which CSS, JavaScript and Plain
-// Text always use. Only headings, paragraphs, emphasis, strong and inline code are read from
-// Markdown here; the oracle's other Markdown is not measured.
-export function markdownHtml(text) {
-  const inline = (t) => escapeHtml(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>').replace(/`(.+?)`/g, '<code>$1</code>');
-  return text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean).map((p) => {
-    const h = p.match(/^(#{1,6})\s+(.*)$/);
-    return h ? `<h${h[1].length}>${inline(h[2])}</h${h[1].length}>` : `<p>${inline(p)}</p>`;
-  }).join(' ');
+// A script in a code or embed block doesn't run while editing: a note stands in its place, under a
+// status box. Handlers stay, as they do on the oracle (CAP-T10MD2.json). Both show in the editor only.
+const SCRIPT_NOTE = '<div class="removed-script">Script Disabled</div>';
+const SCRIPT_STATUS = `<div class="sqs-blockStatus"><div class="sqs-blockStatus-box"><div class="sqs-blockStatus-box-title">Embedded Scripts</div><div class="sqs-blockStatus-box-message">This block contains embedded scripts. Embedded scripts are disabled while you're logged in and editing your site.</div><div class="sqs-blockStatus-box-button" role="button">Preview in safe mode</div></div></div>`;
+function withoutScripts(html) {
+  let found = false;
+  const out = String(html).replace(/<script\b[^>]*>[\s\S]*?(?:<\/script\s*>|$)/gi, () => { found = true; return SCRIPT_NOTE; });
+  return found ? SCRIPT_STATUS + out : out;
 }
+// What a code block shows (parity/findings/CODEEMBED.json): HTML as it is, Markdown read
+// (app/src/markdown.js), and with Display Source Code the text in <pre class="source-code">, which
+// CSS, JavaScript and Plain Text always use.
 function codeOutput(b) {
   const mode = b.codeMode || 'html';
   if (b.showSource || (mode !== 'html' && mode !== 'markdown')) return `<pre class="source-code">${escapeHtml(b.html)}</pre>`;
-  return mode === 'markdown' ? markdownHtml(b.html) : b.html;
+  if (mode !== 'markdown') return withoutScripts(b.html);
+  let found = false;
+  const parts = markdownParts(b.html, { scriptNote: SCRIPT_NOTE, onScript: () => { found = true; } });
+  return (found ? SCRIPT_STATUS : '') + parts.join('');
 }
 
 // Accordion block (T12, parity/findings/ACCORDION.json): the oracle's list. Icon size S 14, M 24,
@@ -382,7 +387,7 @@ function blockInner(b, model) {
     // show a placeholder in the editor only. Our demo's code blocks show source text in <pre>.
     case 'embed': {
       const status = `<div class="sqs-blockStatus"${b.embedInvalid ? ' data-state="invalid"' : ''}><div class="sqs-blockStatus-box"><div class="sqs-blockStatus-box-title">Embed Block</div><div class="sqs-blockStatus-box-message">${b.embedInvalid ? 'Enter a valid embed URL or code.' : 'Add an embed URL or code.'}</div></div></div>`;
-      return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-embed embed-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-embed-container">${b.html || status}</div></div></div>`;
+      return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-embed embed-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-embed-container">${b.html ? withoutScripts(b.html) : status}</div></div></div>`;
     }
     case 'video':
       {

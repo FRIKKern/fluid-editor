@@ -455,6 +455,7 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 .bp-code-top .bp-code-mode { flex: 0 0 255px; padding-top: 3px; }
 .bp-code-mode select { height: 44px; border: 0; border-radius: 3px; background: #f2f2f2; padding: 0 8px; font: inherit; color: #0e0e0e; }
 .bp-code-source { flex: 1; justify-content: space-between; }
+.bp-code-source.is-locked { opacity: 0.4; } /* CSS, JavaScript and Plain Text hold the switch on (CAP-T10MD2.json) */
 .bp-code { display: flex; height: 344px; margin-top: 6px; background: #f2f2f2; font: 14px/22px Menlo, Consolas, monospace; overflow: hidden; }
 .bp-code-lines { flex: 0 0 31px; box-sizing: border-box; padding: 11px 0 0 9px; color: #6f6f6f; border-right: 1px solid #dcdcdc; }
 .bp-code textarea { flex: 1; border: 0; padding: 11px 6px; background: none; resize: none; font: inherit; color: #0e0e0e; outline: none; white-space: pre; }
