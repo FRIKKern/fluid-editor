@@ -336,6 +336,28 @@ q(`document.getElementById('preview').click(); await sleep(350); return 'true';`
 add('Preview: the placeholder stays, rounded', q(`const e = block().querySelector('.sqs-block-video-placeholder--empty'), c = getComputedStyle(e); return JSON.stringify(c.display !== 'none' && e.getBoundingClientRect().height > 100 && getComputedStyle(block().querySelector('.intrinsic')).borderRadius === '20px');`));
 q(`document.getElementById('preview').click(); await sleep(350); return 'true';`);
 
+// A pull on Corner and Padding: the same 0.4 a pixel as Thickness, from one place each, with no <> showing (CAP-T7SCRUB3.json).
+{
+  const SC = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T7SCRUB3.json', import.meta.url))).reads;
+  await design([1, 2, 9, 10]);
+  press('Solid Stroke');
+  const fieldBox = (sel) => q(`const f = panel.querySelector('${sel}').getBoundingClientRect(); return JSON.stringify([f.left, f.top + f.height / 2]);`);
+  const values = () => q(`return JSON.stringify({ Corner: [panel.querySelector('input[aria-label="Corner"]').value], Padding: [panel.querySelector('input[data-design="padY"]').value, panel.querySelector('input[data-design="padX"]').value] });`);
+  const pull = async (name, sel, along, dx) => { const [x, y] = fieldBox(sel); mouse(S, 'move', x + along, y); await pause(80); drag(S, [x + along, y], [x + along + dx, y], { steps: 8, holdMs: 60 }); await pause(200); const v = values(), r = SC[name].rows; add(`Pull, ${name}: ${r.Corner[0]}, ${r.Padding.join(' ')}`, v.Corner[0] === r.Corner[0] && v.Padding.join() === r.Padding.join(), JSON.stringify(v)); };
+  // Along the field, as the read: its left at 788 for Corner and the second Padding, 694 for the first.
+  await pull('corner, 862, right 30, no focus first', '.st-corner-field', 862 - 788, 30);
+  await pull('corner, 862, left 10', '.st-corner-field', 862 - 788, -10);
+  await pull('corner, 871 on the edge, right 30', '.st-corner-field', 871 - 788, 30);
+  await pull('corner, 830 on the text, right 30', '.st-corner-field', 830 - 788, 30);
+  await pull('padding 1, 769, right 30', '.st-pad', 769 - 694, 30);
+  await pull('padding 1, 776 on the edge, right 30', '.st-pad', 776 - 694, 30);
+  await pull('padding 1, 745 on the text, right 30', '.st-pad', 745 - 694, 30);
+  await pull('padding 2, 863, right 30', '.st-pad:nth-child(2)', 863 - 788, 30);
+  await pull('padding 2, 871 on the edge, right 30', '.st-pad:nth-child(2)', 871 - 788, 30);
+  add('No <> on Corner or Padding', q(`const c = panel.querySelector('.st-corner-field .bp-vscrub'), p = panel.querySelector('.st-pad .bp-vscrub'); return JSON.stringify(!c.textContent && !p.textContent && !c.children.length && !p.children.length);`), 'a glyph');
+  mouse(S, 'move', 5, 5);
+}
+
 writeFileSync(new URL('../parity/video-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nVideo: ${pass}/${total}`);
 console.log(JSON.stringify(heights));
