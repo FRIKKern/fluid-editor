@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 54 changes
+- **Today** · 55 changes
+  - E4: Bold, Italic and color act on all the text with a caret, Strike waits for letters, undo steps by time, marks by letters over paragraphs, Clear Formatting, Highlight takes keys ([#233](https://github.com/FRIKKern/fluid-editor/pull/233))
   - T11, A2: a new Accordion is 5 rows on the phone ([#232](https://github.com/FRIKKern/fluid-editor/pull/232))
-  - S3, P3: back to partial, new reads show parts we have not built ([#231](https://github.com/FRIKKern/fluid-editor/pull/231))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
