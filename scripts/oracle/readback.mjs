@@ -44,6 +44,20 @@ export function compareView(view, rows, stored = STYLES.views[view]) {
   return out;
 }
 
+// The Themes popover and the closed lists, and the names in the font list. The same rule: anything missing, extra or changed differs.
+export function compareLists(name, read, stored = STYLES.lists?.[name]) {
+  if (!stored) return [`${name} lists: nothing stored`];
+  return JSON.stringify(read) === JSON.stringify(stored) ? [] : [`${name} lists: ${JSON.stringify(read).slice(0, 400)}, stored ${JSON.stringify(stored).slice(0, 400)}`];
+}
+export function compareFamilies(names, stored = STYLES.families) {
+  if (!stored) return ['font list: nothing stored'];
+  const out = [];
+  if (names.length !== stored.length) out.push(`font list: ${names.length} names, stored ${stored.length}`);
+  const first = names.findIndex((n, i) => n !== stored[i]);
+  if (first >= 0) out.push(`font list ${first}: ${JSON.stringify(names[first])}, stored ${JSON.stringify(stored[first])}`);
+  return out;
+}
+
 // Reads until two reads in a row agree, since a list read during a slow load can move with nothing changed on the site.
 // What it settles on still goes to the comparison, and a list that never settles is a difference.
 export async function settledRead(read, wait, tries = 6) {
