@@ -588,7 +588,7 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
     return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
   }
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
-  if (b.type === 'embed' && !b.html) return 3; // an empty embed's box fills its block: the 3 rows it needs (CODEMODAL.json)
+  if (b.type === 'code' || b.type === 'embed') return Math.max(1, codeRowsFor(codeHeight(b), m));
   const root = blockEl(b.id);
   // A Fit button in the view on screen: its height is its own (BUTTONDESIGN.json).
   const fit = b.type === 'button' ? [...(root?.querySelectorAll('.sqs-block-button-container:not(.sqs-stretched)') || [])].find((e) => e.offsetHeight) : null;
@@ -2351,29 +2351,33 @@ blockPanel.addEventListener('change', (e) => {
   setButton((b) => { b.label = v; }, 'Button text changed');
 }, true);
 // Code and embed (parity/findings/CODEEMBED.json, CODEMODAL.json). The canvas follows the typing; a
-// text is one undo step when the field is left. A block its content outgrows takes the rows the
-// content needs; when the content needs fewer, the block gives up that many and keeps the rest.
+// text is one undo step when the field is left.
 let codeBefore = null;
-// An empty embed's box needs 3 rows, and gives up 4 when code replaces it: both read off the steps
-// in CODEMODAL.json. An embed's height is that of what is in it, margins included.
-function codeRows(b, m, leaving = false) {
-  if (b.type === 'embed' && !b.html) return leaving ? 4 : 3;
+// Rows follow the height of what is in the block (CAP-T10ROWS.json, CAP-T10DOWN.json, CAP-T10PULL.json,
+// CAP-T10EMBED.json, CAP-T10VIEW.json). An embed's height is that of what is in it, margins included,
+// and an empty one's is its 95 tall placeholder.
+function codeHeight(b) {
+  if (b.type === 'embed' && !b.html) return 95;
   const c = blockEl(b.id)?.querySelector(b.type === 'code' ? '.sqs-code-container' : '.sqs-embed-container');
-  if (!c) return 1;
-  let h = c.offsetHeight;
-  if (b.type === 'embed') {
-    const range = doc.createRange();
-    range.selectNodeContents(c);
-    const margin = (e, side) => (e ? parseFloat(getComputedStyle(e)[side]) || 0 : 0);
-    h = range.getBoundingClientRect().height + margin(c.firstElementChild, 'marginTop') + margin(c.lastElementChild, 'marginBottom');
-  }
-  return Math.max(1, Math.ceil((h + m.rg) / m.pitch - 0.02));
+  if (!c) return 0;
+  if (b.type === 'code') return c.getBoundingClientRect().height;
+  const range = doc.createRange();
+  range.selectNodeContents(c);
+  const margin = (e, side) => (e ? parseFloat(getComputedStyle(e)[side]) || 0 : 0);
+  return range.getBoundingClientRect().height + margin(c.firstElementChild, 'marginTop') + margin(c.lastElementChild, 'marginBottom');
 }
-const rowsNow = (b) => codeRows(b, measure(feEl(sel.sid)), true);
+// Inferred from all of those readings: content runs over by up to 2px before it takes a row, and a
+// fall in height gives up rows by the same sum, so a block can end below what its content needs.
+const codeRowsFor = (h, m) => Math.ceil((h + m.rg - 2) / m.pitch);
+const rowsNow = (b) => codeHeight(b);
 function fitRows(b, was) {
   if (b.type === 'code' && !String(b.html || '').trim()) return;
-  const m = measure(feEl(sel.sid)), L = lay(b), rows = L.area[2] - L.area[0], now = codeRows(b, m);
-  const next = now > rows ? now : Math.max(now, rows - Math.max(0, was - now));
+  const h = codeHeight(b);
+  if (h === was) return;
+  const m = measure(feEl(sel.sid)), L = lay(b), rows = L.area[2] - L.area[0], need = Math.max(1, codeRowsFor(h, m));
+  // Rows the content needs are taken, or kept when the block has just that many. More rows than that
+  // stay until the height falls. An embed stays at 2 rows or more.
+  const next = need >= rows ? need : h < was ? Math.max(b.type === 'embed' ? 2 : 1, rows - codeRowsFor(was - h, m)) : rows;
   if (next === rows) return;
   L.area = [L.area[0], L.area[1], L.area[0] + next, L.area[3]];
   const s = S(sel.sid);
@@ -2442,7 +2446,7 @@ blockPanel.addEventListener('change', (e) => {
   if (f) { if (codeBefore != null) commit(codeBefore, f.dataset.content === 'code' ? 'Code changed' : 'Embed data changed'); codeBefore = null; return; }
   const c = e.target.closest('[data-content="codeMode"], [data-content="showSource"], [data-content="embedUrl"], [data-content="description"]');
   if (!c || !sel) return;
-  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), was = rowsNow(b);
   if (c.dataset.content === 'codeMode') {
     // CSS, JavaScript and Plain Text turn Display Source Code on, and it stays on (CODEEMBED.json).
     if (c.value === 'html') delete b.codeMode; else b.codeMode = c.value;
@@ -2452,7 +2456,7 @@ blockPanel.addEventListener('change', (e) => {
   if (c.dataset.content === 'embedUrl') { c.blur(); if (c.value) { b.embedUrl = c.value; b.embedInvalid = true; } else { delete b.embedUrl; delete b.embedInvalid; } }
   if (c.dataset.content === 'description') { if (c.value) b.description = c.value; else delete b.description; }
   renderSectionDom(sel.sid);
-  if (b.type === 'code') fitRows(b, 0); // a mode or the switch only ever adds rows: giving them up was read for typing
+  if (b.type === 'code') fitRows(b, was); // read in the Code Editor view, inferred for the panel's own controls
   commit(before, `${c.dataset.content} changed on ${b.id}`);
   renderBlockPanel();
 });
