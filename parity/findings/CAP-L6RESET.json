@@ -1174,6 +1174,258 @@
       },
       "path": "/gestures-probe",
       "save": "changed"
+    },
+    "anim default, blurred": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ]
+      },
+      "reset": {
+        "box": [
+          752,
+          547,
+          16,
+          16
+        ],
+        "opacity": "0",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "anim default, focused": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ]
+      },
+      "reset": {
+        "box": [
+          752,
+          547,
+          16,
+          16
+        ],
+        "opacity": "0",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "anim typed, no Enter": {
+      "rows": {
+        "Rotate": [
+          "0°5"
+        ]
+      },
+      "reset": {
+        "box": [
+          752,
+          547,
+          16,
+          16
+        ],
+        "opacity": "0",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "anim typed, Enter": {
+      "rows": {
+        "Rotate": [
+          "5°"
+        ]
+      },
+      "reset": {
+        "box": [
+          752,
+          547,
+          16,
+          16
+        ],
+        "opacity": "1",
+        "visibility": "visible",
+        "pointer": "auto",
+        "onTop": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "anim off default, blurred": {
+      "rows": {
+        "Rotate": [
+          "5°"
+        ]
+      },
+      "reset": {
+        "box": [
+          752,
+          547,
+          16,
+          16
+        ],
+        "opacity": "1",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "anim off default, blurred, hovered": {
+      "rows": {
+        "Rotate": [
+          "5°"
+        ]
+      },
+      "reset": {
+        "box": [
+          752,
+          547,
+          16,
+          16
+        ],
+        "opacity": "1",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "anim off default, focused": {
+      "rows": {
+        "Rotate": [
+          "5°"
+        ]
+      },
+      "reset": {
+        "box": [
+          752,
+          547,
+          16,
+          16
+        ],
+        "opacity": "1",
+        "visibility": "visible",
+        "pointer": "auto",
+        "onTop": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "anim after Reset": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ]
+      },
+      "reset": {
+        "box": [
+          752,
+          547,
+          16,
+          16
+        ],
+        "opacity": "0",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "design default, blurred": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ]
+      },
+      "reset": {
+        "box": [
+          752,
+          1048,
+          16,
+          16
+        ],
+        "opacity": "0",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "design default, focused": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ]
+      },
+      "reset": {
+        "box": [
+          752,
+          771,
+          16,
+          16
+        ],
+        "opacity": "0",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "design typed, no Enter": {
+      "rows": {
+        "Rotate": [
+          "0°5"
+        ]
+      },
+      "reset": {
+        "box": [
+          752,
+          771,
+          16,
+          16
+        ],
+        "opacity": "0",
+        "visibility": "visible",
+        "pointer": "none",
+        "onTop": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "design typed, Enter": {
+      "rows": {
+        "Rotate": [
+          "5°"
+        ]
+      },
+      "reset": {
+        "box": [
+          752,
+          771,
+          16,
+          16
+        ],
+        "opacity": "1",
+        "visibility": "visible",
+        "pointer": "auto",
+        "onTop": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
     }
   },
   "errors": [],
@@ -1182,7 +1434,9 @@
     "corrected": "Reset to default value works. The \"changed nothing, 3 of 3\" note was wrong: the button is only pressable while its field has focus.",
     "when": "At default: opacity 0, no pointer. Field focused and not default: opacity 1, on top, X shows. Blurred, even hovered: pointer none, no X in the shot.",
     "desktop": "Rotate 30 gives 0, transform none. Scale Y 80 gives 100, Scale X stays 150.",
-    "phone": "Desktop Rotate 30, phone 45, Reset gives 0 on the phone, not desktop's 30. Same for Scale Y (desktop 80, phone gives 100) and Offset X (desktop 10, phone gives 0). Desktop keeps its values. So Reset writes the default as the phone's own value."
+    "phone": "Desktop Rotate 30, phone 45, Reset gives 0 on the phone, not desktop's 30. Same for Scale Y (desktop 80, phone gives 100) and Offset X (desktop 10, phone gives 0). Desktop keeps its values. So Reset writes the default as the phone's own value.",
+    "animationTab": "An Animation tab field acts as a Design field. At default: opacity 0, no pointer, focused or not. Off default and focused: opacity 1, on top. Blurred, hovered or not: opacity 1, pointer none, not on top.",
+    "typedNoEnter": "A value typed without Enter shows no Reset, on either tab: 0°5 in the field, opacity 0, no pointer. Enter takes it as 5°, keeps the focus, and Reset shows and can be pressed."
   },
   "pressed": [
     "Reset to default value on Rotate, Scale Y, Offset X and Skew X, on a Shape made in the same unsaved session on Gestures Probe."
@@ -1190,6 +1444,324 @@
   "readBack": "After these presses: site styles panel and Fonts match CAP-BASESIZE (13 and 15 controls), footer social labels and the three pages read as before, nothing dirty.",
   "ours": "Phone value goes to 0 like the oracle, so the old note that ours removes the phone's value is out of date. Shown on hover, not on focus: .sc-box:hover .sc-reset.is-on.",
   "differs": [
-    "Ours shows Reset on hover and it can be pressed with the field blurred. The oracle shows it only while the field has focus."
-  ]
+    "Ours shows Reset on hover and it can be pressed with the field blurred. The oracle shows it only while the field has focus.",
+    "Before this read ours lost the focus on Enter in an Animation field, so Reset stayed away until a second click. Fixed: Enter keeps the focus."
+  ],
+  "later": {
+    "question": "Read later, on a Shape made in that session on the probe page: when Reset shows on an Animation tab field, and whether a value typed without Enter shows it, on both tabs.",
+    "capturedAt": "2026-11-06",
+    "stepsAnimation": [
+      [
+        "toPage",
+        "Gestures Probe"
+      ],
+      [
+        "blank"
+      ],
+      [
+        "add",
+        0,
+        "Shape"
+      ],
+      [
+        "clickIf",
+        "Edit"
+      ],
+      [
+        "pause",
+        300
+      ],
+      [
+        "click",
+        "Animation"
+      ],
+      [
+        "pause",
+        400
+      ],
+      [
+        "pressNamed",
+        "Add a new animation"
+      ],
+      [
+        "pause",
+        600
+      ],
+      [
+        "pressNamed",
+        "Start blank"
+      ],
+      [
+        "pause",
+        800
+      ],
+      [
+        "read",
+        "anim default, blurred",
+        {
+          "reset": [
+            "Rotate",
+            0
+          ],
+          "rows": [
+            "Rotate"
+          ]
+        }
+      ],
+      [
+        "pressPart",
+        "Rotate",
+        0
+      ],
+      [
+        "pause",
+        300
+      ],
+      [
+        "read",
+        "anim default, focused",
+        {
+          "reset": [
+            "Rotate",
+            0
+          ],
+          "rows": [
+            "Rotate"
+          ]
+        }
+      ],
+      [
+        "keys",
+        "5"
+      ],
+      [
+        "pause",
+        300
+      ],
+      [
+        "read",
+        "anim typed, no Enter",
+        {
+          "reset": [
+            "Rotate",
+            0
+          ],
+          "rows": [
+            "Rotate"
+          ]
+        }
+      ],
+      [
+        "press",
+        "Enter"
+      ],
+      [
+        "pause",
+        500
+      ],
+      [
+        "read",
+        "anim typed, Enter",
+        {
+          "reset": [
+            "Rotate",
+            0
+          ],
+          "rows": [
+            "Rotate"
+          ]
+        }
+      ],
+      [
+        "click",
+        "End"
+      ],
+      [
+        "pause",
+        400
+      ],
+      [
+        "read",
+        "anim off default, blurred",
+        {
+          "reset": [
+            "Rotate",
+            0
+          ],
+          "rows": [
+            "Rotate"
+          ]
+        }
+      ],
+      [
+        "hoverRow",
+        "Rotate",
+        0
+      ],
+      [
+        "read",
+        "anim off default, blurred, hovered",
+        {
+          "reset": [
+            "Rotate",
+            0
+          ],
+          "rows": [
+            "Rotate"
+          ]
+        }
+      ],
+      [
+        "pressPart",
+        "Rotate",
+        0
+      ],
+      [
+        "pause",
+        300
+      ],
+      [
+        "read",
+        "anim off default, focused",
+        {
+          "reset": [
+            "Rotate",
+            0
+          ],
+          "rows": [
+            "Rotate"
+          ]
+        }
+      ],
+      [
+        "pressReset",
+        "Rotate",
+        0
+      ],
+      [
+        "pause",
+        500
+      ],
+      [
+        "read",
+        "anim after Reset",
+        {
+          "reset": [
+            "Rotate",
+            0
+          ],
+          "rows": [
+            "Rotate"
+          ]
+        }
+      ]
+    ],
+    "stepsDesign": [
+      [
+        "toPage",
+        "Gestures Probe"
+      ],
+      [
+        "blank"
+      ],
+      [
+        "add",
+        0,
+        "Shape"
+      ],
+      [
+        "clickIf",
+        "Edit"
+      ],
+      [
+        "pause",
+        300
+      ],
+      [
+        "clickIf",
+        "Design"
+      ],
+      [
+        "pause",
+        400
+      ],
+      [
+        "read",
+        "design default, blurred",
+        {
+          "reset": [
+            "Rotate",
+            0
+          ],
+          "rows": [
+            "Rotate"
+          ]
+        }
+      ],
+      [
+        "pressPart",
+        "Rotate",
+        0
+      ],
+      [
+        "pause",
+        300
+      ],
+      [
+        "read",
+        "design default, focused",
+        {
+          "reset": [
+            "Rotate",
+            0
+          ],
+          "rows": [
+            "Rotate"
+          ]
+        }
+      ],
+      [
+        "keys",
+        "5"
+      ],
+      [
+        "pause",
+        300
+      ],
+      [
+        "read",
+        "design typed, no Enter",
+        {
+          "reset": [
+            "Rotate",
+            0
+          ],
+          "rows": [
+            "Rotate"
+          ]
+        }
+      ],
+      [
+        "press",
+        "Enter"
+      ],
+      [
+        "pause",
+        500
+      ],
+      [
+        "read",
+        "design typed, Enter",
+        {
+          "reset": [
+            "Rotate",
+            0
+          ],
+          "rows": [
+            "Rotate"
+          ]
+        }
+      ]
+    ]
+  }
 }
