@@ -143,8 +143,10 @@ for (const [name, body, want] of [['one burst', `type('one'); await sleep(50); t
 // E4: with a caret, undo by time, nesting, Clear Formatting, Highlight: replayed with real keys and presses.
 // Named misses, not built: after one Escape the oracle's bar is gone but letters still go into the text.
 const noRun = [];
-const KNOWN = ['color, Escape, typed', 'empty, color, typed', 'typed, Escape, typed'];
-for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS'] : ['CAP-E4CARET']) {
+// CAP-E4SCORE's misses, kept as read: no fitting after that score. See E4's evidence.
+const KNOWN = ['color, Escape, typed', 'empty, color, typed', 'typed, Escape, typed',
+  'Bold with a caret, heading and paragraph', 'typing around a style start', 'typing around a list start', 'then Numbered List again', 'two lines, Quote', 'Bold, a wait, Clear Formatting 2', 'Bold, a wait, Clear Formatting 3'];
+for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS', 'CAP-E4SCORE'] : ['CAP-E4CARET']) {
   await replay(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (what, ok, detail) => {
     if (ok === null) { noRun.push(`${name} ${what}`); console.log(`could not run: ${name} ${what}: ${detail}`); return; }
     if (!ok && KNOWN.includes(what)) { console.log(`known miss: ${what}`); return; }
