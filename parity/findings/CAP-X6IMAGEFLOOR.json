@@ -1,0 +1,212 @@
+{
+  "item": "CAP-X6IMAGEFLOOR",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "X6: an Image's width floor, by its side handles only, each press only if what is under the pointer is a handle",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Image"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "image-w"
+    ],
+    [
+      "read",
+      "w start",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "w",
+      1200,
+      0,
+      "w handle"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "shot",
+      "image-w-after"
+    ],
+    [
+      "read",
+      "w far in",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Image"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "image-e"
+    ],
+    [
+      "read",
+      "e start",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      -1200,
+      0,
+      "e handle"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "shot",
+      "image-e-after"
+    ],
+    [
+      "read",
+      "e far in",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "w start": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "w handle": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "w far in": {
+      "areas": [
+        [
+          "1/7/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "e start": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "e handle": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "e far in": {
+      "areas": [
+        [
+          "1/2/7/3",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "An Image's floor is 1 column from each side: 1/2/7/8 goes to 1/7/7/8 from the west and 1/2/7/3 from the east. Rows don't change. Both presses had a 10 by 10 col-resize handle under the pointer. The block's middle holds a plus, not pressed.",
+  "ours": "The same, 1/7/7/8 and 1/2/7/3. Measured on 5210.",
+  "differs": [],
+  "pressed": "One side handle on each of two new Images, each after checking what was under the pointer: col-resize, 10 by 10. No press near the middle. No Save, no upload."
+}

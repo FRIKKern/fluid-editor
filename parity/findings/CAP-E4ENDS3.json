@@ -1,0 +1,167 @@
+{
+  "item": "CAP-E4ENDS3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "E4: the last 80 longer names on a public list of endings, typed in a text block",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "foo.aaa foo.aarp foo.abb foo.abbvie foo.abc foo.able foo.aig foo.bing foo.blockbuster foo.buy foo.catholic foo.cipriani foo.circle foo.coupon foo.datsun foo.dell foo.desi foo.discover foo.drive foo.emerck foo.farmers foo.final foo.fire foo.fly foo.frontier foo.ftr foo.gallo foo.gent foo.grocery foo.guge foo.hot foo.intuit foo.ipiranga foo.jio foo.kerryproperties foo.koeln foo.landrover foo.lifeinsurance foo.like foo.ltda foo.makeup foo.marshalls foo.merckmsd foo.moto foo.olayangroup foo.open foo.origins foo.pid foo.pin foo.quest foo.realtor foo.redumbrella foo.reliance foo.samsclub foo.sandvikcoromant foo.sanofi foo.scholarships foo.schwarz foo.secure foo.soccer "
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "keysFast",
+      "foo.softbank foo.song foo.statefarm foo.tax foo.trading foo.travelersinsurance foo.uol foo.vig foo.viking foo.voto foo.wales foo.watches foo.wed foo.whoswho foo.winners foo.wtc foo.xin foo.yokohama foo.you foo.yun "
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "longer",
+      {
+        "linkTexts": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ]
+  ],
+  "reads": {
+    "longer": {
+      "linkTexts": [
+        "foo.aaa",
+        "foo.aarp",
+        "foo.abb",
+        "foo.abbvie",
+        "foo.abc",
+        "foo.able",
+        "foo.aig",
+        "foo.bing",
+        "foo.blockbuster",
+        "foo.buy",
+        "foo.catholic",
+        "foo.cipriani",
+        "foo.circle",
+        "foo.coupon",
+        "foo.datsun",
+        "foo.dell",
+        "foo.desi",
+        "foo.discover",
+        "foo.drive",
+        "foo.emerck",
+        "foo.farmers",
+        "foo.final",
+        "foo.fire",
+        "foo.fly",
+        "foo.frontier",
+        "foo.ftr",
+        "foo.gallo",
+        "foo.gent",
+        "foo.grocery",
+        "foo.guge",
+        "foo.hot",
+        "foo.intuit",
+        "foo.ipiranga",
+        "foo.jio",
+        "foo.kerryproperties",
+        "foo.koeln",
+        "foo.landrover",
+        "foo.lifeinsurance",
+        "foo.like",
+        "foo.ltda",
+        "foo.makeup",
+        "foo.marshalls",
+        "foo.merckmsd",
+        "foo.moto",
+        "foo.olayangroup",
+        "foo.open",
+        "foo.origins",
+        "foo.pid",
+        "foo.pin",
+        "foo.quest",
+        "foo.realtor",
+        "foo.redumbrella",
+        "foo.reliance",
+        "foo.samsclub",
+        "foo.sandvikcoromant",
+        "foo.sanofi",
+        "foo.scholarships",
+        "foo.schwarz",
+        "foo.secure",
+        "foo.soccer",
+        "foo.softbank",
+        "foo.song",
+        "foo.statefarm",
+        "foo.tax",
+        "foo.trading",
+        "foo.travelersinsurance",
+        "foo.uol",
+        "foo.vig",
+        "foo.viking",
+        "foo.voto",
+        "foo.wales",
+        "foo.watches",
+        "foo.wed",
+        "foo.whoswho",
+        "foo.winners",
+        "foo.wtc",
+        "foo.xin",
+        "foo.yokohama",
+        "foo.you",
+        "foo.yun"
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "The last 80 longer names on a public list of endings, past the 1030 tried. All 80 link. With them, every longer name on that list has been read, leaving out names in other scripts. The list was on this machine, inside another repo's node_modules, and only its top level names were read. The names are in reads.longer.linkTexts.",
+  "ours": "None of the 80 is in app/src/link-endings.js.",
+  "differs": [
+    "80 more longer endings link on the oracle and not in ours."
+  ],
+  "pressed": "Add Block by name. Typing by real keys in a Text block made in the session. No link box, no Save."
+}

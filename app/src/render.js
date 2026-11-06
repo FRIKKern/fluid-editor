@@ -323,22 +323,27 @@ function blockInner(b, model) {
       }
     case 'shape': {
       if (b.standin) return standinHtml(b);
-      const kind = shapeById(b.shape), rect = !kind.d, stretched = b.stretch !== false, dg = b.design || {};
-      const fill = b.color || b.fill || 'var(--shape-theme-fill)';
+      const kind = shapeById(b.shape), rect = !kind.d, stretched = b.stretch !== false;
       const radius = b.corners ? b.corners.map((v) => `${v}px`).join(' ') : b.radius || '0';
-      const style = `--shape-fill:${fill};--shape-radius:${radius};--shape-ink:${b.ink || 'inherit'}${stretched ? '' : `;--shape-ratio:${kind.w / kind.h}`}`;
       const label = b.label ? `<span class="sqs-shape-label">${escapeHtml(b.label)}</span>` : '';
       // Stroke (SHAPESTYLES.json): black, 2, 6 or 15px unless set, dashes of 5 with a gap of the width
       // plus 15, the same px however the block stretches.
-      const w = !dg.stroke ? 0 : dg.strokeSize === 'custom' ? dg.strokePx ?? 6 : STROKE_PX[dg.strokeSize || 'M'];
-      const ink = w ? ` stroke="${dg.strokeColor || 'var(--shape-theme-stroke)'}" stroke-width="${w}" vector-effect="non-scaling-stroke"${dg.stroke === 'dashed' ? ` stroke-dasharray="5 ${w + 15}"` : ''}` : '';
-      const svg = (attrs, inner) => `<svg class="sqs-shape${rect ? ' sqs-shape-rectangle' : ''}${stretched ? '' : ' is-square'}" preserveAspectRatio="none"${attrs} style="${style};background:none;overflow:visible">${inner}</svg>`;
-      // A rectangle's stroke sits outside its box and its corner loses half the stroke. With four
-      // corners ours strokes the top left's: a known difference.
-      const drawn = !rect ? svg(` viewBox="0 0 ${kind.w} ${kind.h}"`, `<path d="${kind.d}" fill="${fill}"${ink}/>`)
-        : w ? svg('', `<rect style="width:calc(100% + ${w}px);height:calc(100% + ${w}px);x:calc(${w}px / -2);y:calc(${w}px / -2)" rx="${Math.max(0, parseFloat(b.corners ? b.corners[0] : b.radius) - w / 2 || 0)}" fill="${fill}"${ink}/>`)
-        : `<div class="sqs-shape${stretched ? '' : ' is-square'}" style="${style}">${label}</div>`;
-      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-shape-block-outer-container"><div class="sqs-shape-block-container sqs-block-alignment-wrapper sqs-shape-block-container-system_desktop${stretched ? '' : ' is-contained'}" data-shape-name="${kind.id}">${drawn}</div></div></div></div>`;
+      const drawnIn = (bp) => {
+        const dg = designFor(b, bp), fill = shapeFill(b, bp) || 'var(--shape-theme-fill)';
+        const style = `--shape-fill:${fill};--shape-radius:${radius};--shape-ink:${b.ink || 'inherit'}${stretched ? '' : `;--shape-ratio:${kind.w / kind.h}`}`;
+        const w = !dg.stroke ? 0 : dg.strokeSize === 'custom' ? dg.strokePx ?? 6 : STROKE_PX[dg.strokeSize || 'M'];
+        const ink = w ? ` stroke="${dg.strokeColor || 'var(--shape-theme-stroke)'}" stroke-width="${w}" vector-effect="non-scaling-stroke"${dg.stroke === 'dashed' ? ` stroke-dasharray="5 ${w + 15}"` : ''}` : '';
+        const svg = (attrs, inner) => `<svg class="sqs-shape${rect ? ' sqs-shape-rectangle' : ''}${stretched ? '' : ' is-square'}" preserveAspectRatio="none"${attrs} style="${style};background:none;overflow:visible">${inner}</svg>`;
+        // A rectangle's stroke sits outside its box and its corner loses half the stroke. With four
+        // corners ours strokes the top left's: a known difference.
+        return !rect ? svg(` viewBox="0 0 ${kind.w} ${kind.h}"`, `<path d="${kind.d}" fill="${fill}"${ink}/>`)
+          : w ? svg('', `<rect style="width:calc(100% + ${w}px);height:calc(100% + ${w}px);x:calc(${w}px / -2);y:calc(${w}px / -2)" rx="${Math.max(0, parseFloat(b.corners ? b.corners[0] : b.radius) - w / 2 || 0)}" fill="${fill}"${ink}/>`)
+          : `<div class="sqs-shape${stretched ? '' : ' is-square'}" style="${style}">${label}</div>`;
+      };
+      // A phone that draws differently has a container of its own, as a button does.
+      const box = (sys, inner) => `<div class="sqs-shape-block-container sqs-block-alignment-wrapper sqs-shape-block-container-system_${sys}${stretched ? '' : ' is-contained'}" data-shape-name="${kind.id}">${inner}</div>`;
+      const desk = drawnIn('desktop'), phone = b.designMobile ? drawnIn('mobile') : desk;
+      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-shape-block-outer-container">${box('desktop', desk)}${phone !== desk ? box('mobile', phone) : ''}</div></div></div>`;
     }
     case 'stack': {
       // A Stack (S3): one grid block whose children flow in a flex box, measured on the oracle
@@ -427,7 +432,16 @@ const TRANSFORM = 'translateX(var(--translate-x)) translateY(var(--translate-y))
 // Each layout has its own Design values (PERLAYOUT.json): desktop's flow to the phone, value by
 // value, unless the phone set that value itself. Phone values never reach desktop.
 export const designBag = (bp) => (bp === 'mobile' ? 'designMobile' : 'design');
-export const designFor = (b, bp) => ({ ...DESIGN_DEFAULTS, ...b.design, ...(bp === 'mobile' ? b.designMobile : null) });
+// Reset to theme on a phone (CAP-T6FOLLOW.json): the phone follows desktop again, and the row still counts as set.
+export const FOLLOW_DESKTOP = 'follow-desktop';
+export const designFor = (b, bp) => {
+  const d = { ...DESIGN_DEFAULTS, ...b.design, ...(bp === 'mobile' ? b.designMobile : null) };
+  if (bp === 'mobile') for (const k in b.designMobile) if (b.designMobile[k] === FOLLOW_DESKTOP) { if (b.design && k in b.design) d[k] = b.design[k]; else delete d[k]; }
+  return d;
+};
+export const phoneOwn = (b, k) => { const v = b.designMobile?.[k]; return !!v && v !== FOLLOW_DESKTOP; };
+// A shape's Color: desktop's is the block's own, a phone's is a Design value like Stroke (CAP-T6LAYOUT.json).
+export const shapeFill = (b, bp) => (bp === 'mobile' && phoneOwn(b, 'color') ? b.designMobile.color : b.color || b.fill);
 function designRule(b, d, phone) {
   const moved = d.tx || d.ty || d.rotate || d.sx !== 100 || d.sy !== 100 || d.kx || d.ky;
   const off = phone && b.design?.blur;
