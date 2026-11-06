@@ -13,7 +13,7 @@ await pause(1200);
 // Named misses, with no rule read yet.
 const KNOWN = new Set(JSON.parse(readFileSync(new URL('../parity/neworder-known.json', import.meta.url))));
 const ONLY = process.argv[2]?.split(',');
-const FILES = ONLY ?? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST'];
+const FILES = ONLY ?? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST', 'CAP-TURNTEST2', 'CAP-CYCLE', 'CAP-CYCLE2', 'CAP-CYCLE3'];
 let quiet = false; // nothing selected since the last Escape, so another one is a wasted call
 const press = (k) => { if (k === 'Escape' && quiet) return; browser(S, 'press', k); quiet = k === 'Escape'; };
 // The oracle's blocks sit in phone order in the page, and a step names one by its place there.
@@ -26,7 +26,10 @@ function aim(F, at, id, part, dx, dy) {
   if (part !== 'middle') return [dx, dy];
   const a = evalJs(S, `JSON.stringify((() => { const b = fe.model.sections[0].blocks.find((x) => x.id === '${id}'); return [b.layout.desktop.z, ...b.layout.desktop.area]; })())`);
   const rest = F.steps.slice(at + 1), k = rest.findIndex((x) => x[0] === 'read'), read = k >= 0 && F.reads[rest[k][1]];
-  if (!read?.stack?.[0]?.z || rest.slice(0, k).some((x) => x[0] === 'drag')) return [dx, dy];
+  // Another drag of this block before the read means the read can't aim this one.
+  let added = false;
+  for (const x of rest.slice(0, k)) { if (x[0] === 'add') added = true; if (x[0] === 'drag' && !(x[2] === 'new' && added)) return [dx, dy]; }
+  if (!read?.stack?.[0]?.z) return [dx, dy];
   const to = read.stack.find((b) => Number(b.z[0]) === a[0]);
   if (!to) return [dx, dy];
   const [r, c] = to.desktop.split('/').map(Number);
