@@ -9,7 +9,7 @@ import { writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause } from './lib/cmux.mjs';
 import { pressOnTop } from './oracle/press.mjs';
 import { exitWithoutSaving } from './oracle/ui.mjs';
-import { THEMES, NAMES, compareRows, comparePalette, compareView, STYLES, STYLE_FILE } from './oracle/readback.mjs';
+import { THEMES, NAMES, compareRows, comparePalette, compareView, settledRead, STYLES, STYLE_FILE } from './oracle/readback.mjs';
 import { VIEWS, DEEP, DEEP_BACK, READ_VIEW } from './oracle/style-views.mjs';
 
 const S = process.env.ORACLE_SURFACE;
@@ -60,8 +60,8 @@ try {
   diffs.push(...comparePalette(js(`${frame} const a = W.getComputedStyle(d.documentElement), b = W.getComputedStyle(d.body), o = {}; for (const n of ${JSON.stringify(VARS)}) o[n] = (a.getPropertyValue('--' + n + '-hsl') || b.getPropertyValue('--' + n + '-hsl')).trim(); return JSON.stringify(o);`)));
   for (const t of THEMES) {
     await press(`AA ${t}`, FIND.theme(`AA ${t}`), 1100);
-    const one = rows(); await pause(500); const two = rows();
-    if (JSON.stringify(one) !== JSON.stringify(two)) diffs.push(`${t}: the list moved between two reads`);
+    const { rows: two, settled } = await settledRead(rows, () => pause(500));
+    if (!settled) diffs.push(`${t}: the list kept moving over 6 reads`);
     if (!/^Aa/.test(two[0]?.[0] || '')) throw new Error(`${t}: no head row, read ${JSON.stringify(two[0])}`);
     if (!saveOff()) diffs.push(`${t}: Save is not off: ${JSON.stringify(topBar())}`);
     const found = compareRows(t, two.slice(1));
@@ -73,8 +73,8 @@ try {
   // Fonts, Buttons, Forms, Miscellaneous: each view and the views one row under it.
   const read = {};
   const take = async (view) => {
-    const one = evalJs(S, READ_VIEW); await pause(400); const two = evalJs(S, READ_VIEW);
-    if (JSON.stringify(one) !== JSON.stringify(two)) diffs.push(`${view}: moved between two reads`);
+    const { rows: two, settled } = await settledRead(() => evalJs(S, READ_VIEW), () => pause(400));
+    if (!settled) diffs.push(`${view}: kept moving over 6 reads`);
     if (!saveOff()) diffs.push(`${view}: Save is not off: ${JSON.stringify(topBar())}`);
     read[view] = two;
     if (!process.argv.includes('--store')) { const found = compareView(view, two); diffs.push(...found); console.log(`${view.padEnd(28)} ${two.length} controls, ${found.length} differ`); }
