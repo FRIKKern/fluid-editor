@@ -129,15 +129,16 @@ function phoneFollowsMove(s, was) {
   if (!s.phoneFollows) return false;
   const same = s.blocks.flatMap((b) => { const o = was.blocks.find((x) => x.id === b.id); return o ? [[b, o]] : []; });
   const changed = (name, part) => same.some(([b, o]) => part(b.layout[name].area).join() !== part(o.layout[name].area).join());
-  if (bp === 'mobile') {
-    if (changed('mobile', (a) => a.slice(0, 2))) s.phoneFollows = false;
-    return false;
-  }
-  // A block taken away on desktop: the stack closes up (CAP-TURNTEST4 d1, order and rows, one case).
+  // A block taken away, on either width: the stack closes up, keeping the gaps above the others
+  // (CAP-TURNTEST4 d1, CAP-A2EDITS2 p and h).
   const gone = was.blocks.filter((o) => !s.blocks.some((b) => b.id === o.id)).map((o) => o.layout.mobile.area);
   if (gone.length) for (const b of s.blocks) {
     const a = b.layout.mobile.area, up = gone.reduce((n, g) => n + (g[2] <= a[0] ? g[2] - g[0] : 0), 0);
     b.layout.mobile.area = [a[0] - up, a[1], a[2] - up, a[3]];
+  }
+  if (bp === 'mobile') {
+    if (changed('mobile', (a) => a.slice(0, 2)) && !gone.length) s.phoneFollows = false;
+    return gone.length > 0;
   }
   return (changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
 }
@@ -740,7 +741,8 @@ function autoScroll(g) {
     else if (g.type === 'gresize') updateGroupResize(g.lastEvent);
     win.setTimeout(tick, SCROLL_EVERY);
   };
-  win.setTimeout(tick, SCROLL_EVERY);
+  // At once: a pointer that crosses the edge in one move still scrolls one step (CAP-LONGDRAG).
+  tick();
 }
 
 // One SVG per row, drawn the oracle's way (parity/findings/MARKS.json, grid): a pattern one cell wide

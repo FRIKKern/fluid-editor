@@ -6,7 +6,7 @@ import { evalJs, goto, viewport, pause, mouse, drag, browser, cdp } from './lib/
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
-viewport(S, 1600, 3400); // room below, so a long drag does not scroll the page
+viewport(S, 1600, 1000);
 goto(S, `${BASE}/index.html`);
 await pause(1200);
 
@@ -18,31 +18,19 @@ let quiet = false; // nothing selected since the last Escape, so another one is 
 const press = (k) => { if (k === 'Escape' && quiet) return; browser(S, 'press', k); quiet = k === 'Escape'; };
 // The oracle's blocks sit in phone order in the page, and a step names one by its place there.
 const blockAt = (k) => evalJs(S, `JSON.stringify([...fe.model.sections[0].blocks].sort((a, b) => a.layout.mobile.area[0] - b.layout.mobile.area[0])[${k}].id)`);
-const point = (id, part) => evalJs(S, `(() => { const part = ${JSON.stringify(part)}, f = document.getElementById('site-frame'), q = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect(), r = f.getBoundingClientRect(); return JSON.stringify([r.left + q.left + q.width * (part === 'middle' ? 0.5 : part.includes('w') ? 0 : part.includes('e') ? 1 : 0.5), r.top + q.top + q.height * (part === 'middle' ? 0.5 : part.includes('n') ? 0 : part.includes('s') ? 1 : 0.5)]); })()`);
-// A long drag on the oracle runs near the window edge and scrolls a little, so it can land a row further
-// than the same pixels here. The rows of a drag are other checks' work: aim at the row the oracle reached.
-const PITCH = [58.79, 41.09];
-function aim(F, at, id, part, dx, dy) {
-  if (part !== 'middle') return [dx, dy];
-  const a = evalJs(S, `JSON.stringify((() => { const b = fe.model.sections[0].blocks.find((x) => x.id === '${id}'); return [b.layout.desktop.z, ...b.layout.desktop.area]; })())`);
-  const rest = F.steps.slice(at + 1), k = rest.findIndex((x) => x[0] === 'read'), read = k >= 0 && F.reads[rest[k][1]];
-  // Another drag of this block before the read means the read can't aim this one.
-  let added = false;
-  for (const x of rest.slice(0, k)) { if (x[0] === 'add') added = true; if (x[0] === 'drag' && !(x[2] === 'new' && added)) return [dx, dy]; }
-  if (!read?.stack?.[0]?.z) return [dx, dy];
-  const to = read.stack.find((b) => Number(b.z[0]) === a[0]);
-  if (!to) return [dx, dy];
-  const [r, c] = to.desktop.split('/').map(Number);
-  return [(c - a[2]) * PITCH[0] || (c === a[2] ? 0 : dx), (r - a[1]) * PITCH[1]];
-}
+const point = (id, part) => evalJs(S, `(() => { const part = ${JSON.stringify(part)}, f = document.getElementById('site-frame'), W = f.contentWindow, b = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]'), r = f.getBoundingClientRect(); let q = b.getBoundingClientRect(); if (q.top < 150 || q.bottom > W.innerHeight - 150) { W.scrollTo({ top: W.scrollY + q.top - 200, behavior: 'instant' }); q = b.getBoundingClientRect(); } return JSON.stringify([r.left + q.left + q.width * (part === 'middle' ? 0.5 : part.includes('w') ? 0 : part.includes('e') ? 1 : 0.5), r.top + q.top + q.height * (part === 'middle' ? 0.5 : part.includes('n') ? 0 : part.includes('s') ? 1 : 0.5)]); })()`);
 const click = async (id, mods = []) => { const p = point(id, 'middle'); mouse(S, 'move', p[0], p[1], { mods }); mouse(S, 'down', p[0], p[1], { buttons: 1, mods }); await pause(30); mouse(S, 'up', p[0], p[1], { mods }); quiet = false; await pause(80); };
 
+// The capture's drag, with the block as far down the frame as on the probe page: a long drag runs
+// near the window edge, the page scrolls a little, and it lands a row further (CAP-LONGDRAG).
+const DRAG = { steps: 12, holdMs: 200 };
+evalJs(S, `(() => { document.getElementById('site-frame').contentDocument.body.style.paddingTop = '185px'; return 1; })()`);
 const cases = [];
 for (const file of FILES) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url)));
   let last = null, view = 'desktop', held = false; // held: a group or a handle waits for the next drag, so no Escape first
   const pick = (k) => (k === 'new' ? last : blockAt(k));
-  for (const [at, step] of F.steps.entries()) {
+  for (const step of F.steps) {
     const [op] = step;
     if (op === 'blank') {
       view = 'desktop';
@@ -66,12 +54,12 @@ for (const file of FILES) {
       const id = pick(step[2]), part = view === 'mobile' && step[3] === 's' ? 'se' : step[3];
       if (!held) { press('Escape'); await pause(40); }
       held = false; quiet = false;
-      const p = point(id, part), [dx, dy] = view === 'mobile' ? [step[4], step[5]] : aim(F, at, id, part, step[4], step[5]);
-      drag(S, p, [p[0] + dx, p[1] + dy], { steps: 4, holdMs: 60 }); await pause(150);
+      const p = point(id, part);
+      drag(S, p, [p[0] + step[4], p[1] + step[5]], DRAG); await pause(150);
     } else if (op === 'groupDrag') {
       const at = evalJs(S, `(() => { const f = document.getElementById('site-frame'), fr = f.getBoundingClientRect(), qs = [...f.contentDocument.querySelectorAll('.fe-block.is-group-member, .fe-block[data-is-selected="true"]')].map((b) => b.getBoundingClientRect()); return JSON.stringify([fr.left + Math.max(...qs.map((q) => q.right)), fr.top + Math.max(...qs.map((q) => q.bottom))]); })()`);
       held = false; quiet = false;
-      drag(S, at, [at[0] + step[2], at[1] + step[3]], { steps: 4, holdMs: 60 }); await pause(150);
+      drag(S, at, [at[0] + step[2], at[1] + step[3]], DRAG); await pause(150);
     } else if (op === 'editText') {
       press('Escape'); await pause(40); const id = pick(step[2]); await click(id); await pause(120); await click(id); await pause(200); quiet = false;
     } else if (op === 'keysFast') {
