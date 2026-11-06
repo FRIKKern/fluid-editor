@@ -5,11 +5,11 @@
   "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here.",
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it. ask: the lead rules.",
   "counts": {
-    "total": 87,
-    "yes": 73,
+    "total": 90,
+    "yes": 76,
     "no": 11,
     "ask": 3,
-    "read": 28,
+    "read": 36,
     "notPressed": 0
   },
   "entries": [
@@ -331,7 +331,9 @@
       "safeRead": "yes",
       "how": "real mouse, px by px, Mobile View",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-G4PHONE.json",
+      "result": "The same rule. Ours is 1 px off on a move into the margin."
     },
     {
       "item": "G4",
@@ -340,14 +342,16 @@
       "safeRead": "yes",
       "how": "same, from a margin track",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-G4MARGIN.json",
+      "result": "Moves match. A south east resize from the left margin differs: 51 against 34."
     },
     {
       "item": "G4",
       "what": "Snap at other gaps",
       "source": "item G4",
       "safeRead": "yes",
-      "how": "if a probe section can change its gap; else report none",
+      "how": "Not read. No gap control found in the section panel, by a search of what we read so far. Site Styles Spacing stays read only. Needs a block-level or section-level gap control, or a ruling.",
       "lane": "recorder",
       "state": "open"
     },
@@ -358,7 +362,9 @@
       "safeRead": "yes",
       "how": "one pull per type on a probe page, compare with ours",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-X6PULLS.json",
+      "result": "12 types pulled. 7 match, 5 differ."
     },
     {
       "item": "X11",
@@ -367,7 +373,9 @@
       "safeRead": "yes",
       "how": "touch events on a probe page",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-X11FAST.json",
+      "result": "Needs a 100 ms hold on the oracle. Ours needs none."
     },
     {
       "item": "X11",
@@ -394,7 +402,9 @@
       "safeRead": "yes",
       "how": "real mouse on a probe page",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-X13SEL.json",
+      "result": "Clears on release, as ours."
     },
     {
       "item": "X13",
@@ -403,7 +413,9 @@
       "safeRead": "yes",
       "how": "same",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-X13SEL.json",
+      "result": "The first stays selected on release, as ours. While up, ours hides its toolbar."
     },
     {
       "item": "X13",
@@ -412,7 +424,9 @@
       "safeRead": "yes",
       "how": "hover each type, read the label",
       "lane": "recorder",
-      "state": "open"
+      "state": "read",
+      "finding": "CAP-X13LABELS.json",
+      "result": "32 types read. 19 say Shape in ours."
     },
     {
       "item": "E4",
@@ -849,6 +863,35 @@
       "source": "found reading",
       "safeRead": "yes",
       "how": "try other pages and window heights",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "U4",
+      "what": "The toolbar over a one-row block's handle at the very top of a page",
+      "source": "asked by the lead",
+      "safeRead": "yes",
+      "how": "scroll the block under the top bar, read what a press hits at each handle",
+      "lane": "recorder",
+      "state": "read",
+      "finding": "CAP-TBTOP.json, CAP-TBWIDE.json, CAP-TBREMOVE.json",
+      "result": "The toolbar covers the handle, and a press can hit Remove, as ours. The Line bar has a button ours lacks."
+    },
+    {
+      "item": "X6",
+      "what": "Each type's width floor: Code refuses a west pull at 4 columns",
+      "source": "found reading",
+      "safeRead": "yes",
+      "how": "pull each type in from both sides until it stops (CAP-X6PULLS.json)",
+      "lane": "recorder",
+      "state": "open"
+    },
+    {
+      "item": "X6",
+      "what": "A Video gains a bottom row on north west out, and a one-row Button or Social Links does not grow north",
+      "source": "found reading",
+      "safeRead": "yes",
+      "how": "repeat with other starts (CAP-X6PULLS.json, read once)",
       "lane": "recorder",
       "state": "open"
     }

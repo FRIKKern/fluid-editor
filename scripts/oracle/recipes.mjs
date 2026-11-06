@@ -371,6 +371,48 @@ export const RECIPES = {
     ...[["pause",1000],["read","Flickr at 1 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",2000],["read","Flickr at 3 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",3000],["read","Flickr at 6 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",4000],["read","Flickr at 10 s",{"areas":0,"frameEls":".page-section .fluid-engine"}],["pause",10000],["read","Flickr at 20 s",{"areas":0,"frameEls":".page-section .fluid-engine"}]],
     ['shot', 'after'],
   ] },
+  'CAP-TBTOP': { page: 'Gestures Probe', question: "U4: the toolbar of a selected one-row block with no room above: where it sits at each gap to the frame's top, and what a press on the south handle hits. The site's header stays, so no room is made by scrolling. Unnamed presses: the south handle's place, once.", steps: [
+    ['enter'], ['blank'], ['add', 0, 'Line'], ['pause', 800], ['press', 'Escape'], ['select', 0, 'new'], ['read', 'no scroll', { areas: 0, controls: true, hits: [0, 'new'] }],
+    ...[120, 100, 80, 70, 60, 50, 40, 30, 20, 10, 0].flatMap((g) => [['scrollBlock', 0, 'new', g], ['read', `gap ${g}`, { controls: true, hits: [0, 'new'] }]]),
+    ['shot', 'gap0'], ['clickAt', 212.2, 85.3], ['pause', 600], ['read', 'pressed the south handle', { areas: 0, controls: true, hits: [0, 'new'] }], ['shot', 'pressed'],
+    ['press', 'Escape'], ['pause', 400], ['read', 'after Escape', { areas: 0, controls: true, hits: [0, 'new'] }], ['shot', 'escaped'],
+    ['dragAt', 325.2, 86.3, 325.2, 127.4], ['read', 'dragged from the se handle, 1 row down', { areas: 0, controls: true, hits: [0, 'new'] }], ['shot', 'dragged-se'],
+  ] },
+  'CAP-TBWIDE': { page: 'Gestures Probe', question: "U4: the same toolbar over wider one-row blocks: what lies on the south handle at gap 0. ", steps: [
+    ['enter'], ['blank'], ['add', 0, 'Line'], ['pause', 800], ['press', 'Escape'], ['select', 0, 'new'],
+    ...[1, 2, 3, 4].flatMap((n) => [['press', 'Escape'], ['select', 0, 'new'], ['drag', 0, 'new', 'e', 58.78, 0], ['press', 'Escape'], ['select', 0, 'new'], ['scrollBlock', 0, 'new', 0], ['read', `${n} columns wider, gap 0`, { areas: 0, controls: true, hits: [0, 'new'] }], ['shot', `w${n}`]]),
+    ['press', 'Escape'], ['deselect', 0],
+    ['add', 0, 'Line'], ['pause', 800], ['press', 'Escape'], ['select', 0, 'new'], ['drag', 0, 'new', 'e', -117.56, 0], ['press', 'Escape'], ['select', 0, 'new'], ['scrollBlock', 0, 'new', 0], ['read', 'a new block, 2 columns, gap 0', { areas: 0, controls: true, hits: [0, 'new'] }], ['shot', 'narrow'],
+  ] },
+  'CAP-TBREMOVE': { page: 'Gestures Probe', question: "U4: a press where the south handle is, on a 7 column one-row block alone in its section at gap 0. Unnamed press: that place, once. It acts on a block made in this session.", steps: [
+    ['enter'], ['blank'], ['add', 0, 'Line'], ['pause', 800], ['press', 'Escape'], ['select', 0, 'new'], ['drag', 0, 'new', 'e', 176.34, 0], ['press', 'Escape'], ['select', 0, 'new'], ['scrollBlock', 0, 'new', 0], ['read', 'before', { areas: 0, controls: true, hits: [0, 'new'] }], ['shot', 'before'], ['pressAtHandle', 0, 'new', 's'], ['pause', 800], ['read', 'after the press', { areas: 0, controls: true }], ['shot', 'after'],
+  ] },
+  'CAP-G4PHONE': { page: 'Gestures Probe', question: 'G4: at what distance does a held drag or resize take the next line on a phone? One real pointer, 1px at a time.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Shape'], ['pause', 800], ['press', 'Escape'], ['view', 'Mobile'], ['pause', 800], ['select', 0, 'new'], ['read', 'start', { areas: 0, section: 0, block: [0, 'new'] }],
+    ['walk', 0, 'new', 'middle', 110, 70], ['read', 'move', { walk: true, areas: 0 }], ['press', 'Escape'], ['select', 0, 'new'], ['walk', 0, 'new', 'se', 110, 70], ['read', 'se', { walk: true, areas: 0 }], ['shot', 'after'],
+  ] },
+  'CAP-G4MARGIN': { page: 'Gestures Probe', question: 'G4: the same walk from a start inside a margin track, left and right', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Shape'], ['pause', 800], ['press', 'Escape'], ['select', 0, 'new'], ['drag', 0, 'new', 'middle', -60, 0], ['read', 'in the left margin', { areas: 0, section: 0, block: [0, 'new'] }], ['press', 'Escape'], ['select', 0, 'new'],
+    ['walk', 0, 'new', 'middle', 110, 50], ['read', 'move, left margin', { walk: true, areas: 0 }], ['press', 'Escape'], ['select', 0, 'new'], ['walk', 0, 'new', 'se', 110, 50], ['read', 'se, left margin', { walk: true, areas: 0 }], ['press', 'Escape'], ['select', 0, 'new'],
+    ['drag', 0, 'new', 'middle', 1500, 0], ['read', 'in the right margin', { areas: 0, block: [0, 'new'] }], ['press', 'Escape'], ['select', 0, 'new'], ['walk', 0, 'new', 'middle', 110, 50], ['read', 'move, right margin', { walk: true, areas: 0 }], ['press', 'Escape'], ['select', 0, 'new'], ['walk', 0, 'new', 'nw', 110, 50], ['read', 'nw, right margin', { walk: true, areas: 0 }], ['shot', 'after'],
+  ] },
+  'CAP-X6PULLS': { page: 'Gestures Probe', question: "X6: the other handles, w, n and nw, on each type beyond Line, Shape, Text and Image. BLOCKTYPES.json has se, s and e. Each block is made here and removed by its own Remove.", steps: [
+    ['enter'], ['blank'],
+    ...['Button', 'Video', 'Form', 'Accordion', 'Code', 'Embed', 'Map', 'Social Links', 'Quote', 'Scrolling', 'Newsletter', 'Markdown'].flatMap((n) => [['add', 0, n], ['pause', 800], ['press', 'Escape'], ['select', 0, 'new'], ['read', `${n} start`, { areas: 0 }], ['drag', 0, 'new', 'w', 58.78, 0], ['read', `${n} w in 1`, { areas: 0 }], ['press', 'Escape'], ['select', 0, 'new'], ['drag', 0, 'new', 'n', 0, 41.1], ['read', `${n} n in 1`, { areas: 0 }], ['press', 'Escape'], ['select', 0, 'new'], ['drag', 0, 'new', 'nw', -58.78, -41.1], ['read', `${n} nw out 1 and 1`, { areas: 0 }], ['press', 'Escape'], ['select', 0, 'new'], ['pressNamed', 'Remove'], ['pause', 500]]),
+  ] },
+  'CAP-X11FAST': { page: 'Gestures Probe', question: 'X11: a touch on a handle faster than 15px a move, after several holds', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Shape'], ['pause', 800], ['press', 'Escape'], ['read', 'start', { areas: 0 }],
+    ...[[0, 240, 0], [60, 240, 0], [100, 240, 0], [300, 240, 0], [0, 0, 240], [100, 0, 240], [0, -240, 0], [100, -240, 0]].flatMap(([h, dx, dy], i) => [['select', 0, 'new'], ['touch', 0, 'new', dx > 0 || dx < 0 ? 'e' : 's', dx, dy, { holdMs: h }], ['pause', 500], ['read', `step ${i} hold ${h} by ${dx},${dy}`, { areas: 0 }], ['press', 'Escape']]),
+  ] },
+  'CAP-X13SEL': { page: 'Gestures Probe', question: 'X13: a marquee under 30px with a selection, and one that touched a block and left it. Each unnamed: the real mouse on empty canvas.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Shape'], ['pause', 800], ['press', 'Escape'], ['add', 0, 'Shape'], ['pause', 800], ['press', 'Escape'], ['select', 0, 'new'], ['drag', 0, 'new', 'middle', 700, 0], ['press', 'Escape'], ['read', 'start', { areas: 0, block: [0, 0], frameEls: '.fe-block' }], ['shot', 'start'],
+    ['select', 0, 0], ['read', 'first selected', { block: [0, 0], has: ['Edit'] }], ['holdAt', 600, 420], ['moveAt', 620, 420], ['read', 'held 20px', { block: [0, 0], has: ['Edit'] }], ['shot', 'held20'], ['releaseAt'], ['read', 'released at 20px', { block: [0, 0], has: ['Edit'], controls: true }], ['shot', 'released20'],
+    ['press', 'Escape'], ['select', 0, 0], ['read', 'first selected again', { block: [0, 0], has: ['Edit'] }], ['holdAt', 600, 420], ['moveAt', 650, 420], ['read', 'box 50px touches nothing', { block: [0, 0], has: ['Edit'] }], ['shot', 'box50'], ['moveAt', 850, 420], ['read', 'box touches the second', { block: [0, 0], has: ['Edit'] }], ['shot', 'touch'], ['moveAt', 650, 420], ['read', 'box left it', { block: [0, 0], has: ['Edit'] }], ['shot', 'left'], ['releaseAt'], ['read', 'released after leaving', { block: [0, 0], has: ['Edit'], controls: true }], ['shot', 'released-left'],
+  ] },
+  'CAP-X13LABELS': { page: 'Gestures Probe', question: 'X13, U3: the small type label a hovered block shows, on each type. Each block is removed by its own Remove.', steps: [
+    ['enter'], ['blank'],
+    ...['Text', 'Image', 'Video', 'Button', 'Line', 'Shape', 'Form', 'Accordion', 'Scrolling', 'Quote', 'Map', 'Code', 'Markdown', 'Embed', 'Social Links', 'Newsletter', 'Chart', 'Calendar', 'Menu', 'Audio', 'Search Field', 'Page Link', 'Tag Cloud', 'RSS', 'Archive', 'Instagram', 'Tock', 'SoundCloud', 'Flickr', 'OpenTable', 'Zola', 'Bandsintown'].flatMap((n) => [['add', 0, n], ['pause', 600], ['press', 'Escape'], ['deselect', 0], ['hoverBlock', 0, 'new'], ['pause', 500], ['read', n, { frameEls: '.sqs-block-label-tag', areas: 0 }], ['select', 0, 'new'], ['pressNamed', 'Remove'], ['pause', 400]]),
+  ] },
   'CAP-SECTIONMODEL': { page: 'Gestures Probe', question: 'U10: what Duplicate, Move, Remove and the Add Section picker do to the page', steps: [
     ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['blank'], ['read', 'two sections', { sections: true }],
     ['hover', 0], ['click', 'Duplicate Section'], ['read', 'first duplicated', { sections: true }], ['hover', 0], ['click', 'Move Section Down'], ['read', 'first moved down', { sections: true }], ['hover', 1], ['click', 'Remove Section'], ['read', 'remove asks', { sections: true, controls: true }], ['shot', 'asks'], ['click', 'Remove'], ['read', 'second removed', { sections: true }],

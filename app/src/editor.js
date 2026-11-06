@@ -29,6 +29,7 @@ import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
 import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
+import { newField, writeFieldText, writeFieldSet } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
 const $ = (id) => document.getElementById(id);
@@ -588,6 +589,17 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
     return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
   }
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
+  // A form: the least rows that hold it, with no give (FORMFIELDS.json, blockFits).
+  // A form taller than its block stretches the grid's rows, so the pitch is read with the form out of it.
+  if (b.type === 'form') {
+    const f = blockEl(b.id)?.querySelector('.fe-form');
+    if (!f) return 1;
+    const h = f.getBoundingClientRect().height;
+    f.style.display = 'none';
+    const free = measure(f.closest('.fluid-engine'));
+    f.style.display = '';
+    return Math.max(1, Math.ceil((h + free.rg) / free.pitch));
+  }
   if (b.type === 'code' || b.type === 'embed') return Math.max(1, codeRowsFor(codeHeight(b), m));
   const root = blockEl(b.id);
   // A Fit button in the view on screen: its height is its own (BUTTONDESIGN.json).
@@ -1434,7 +1446,7 @@ function renderBlockPanel() {
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
-  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; accView = null; imageView = null; fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; accView = null; imageView = null; ffView = null; fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'image' || b.mode !== 'shape' || designTab !== 'Design') imageView = null; // undo can leave Shape
   if (b.type !== 'image' || b.empty || designTab !== 'Design') fxView = null;
   if (fxView === 'settings' && !b.effect) fxView = 'list'; // undo can take the effect away
@@ -1446,11 +1458,12 @@ function renderBlockPanel() {
     : b.type === 'line' ? { kind: 'line' }
     : b.type === 'social' ? (() => { const l = socialLook(b, bp === 'mobile'); return { kind: 'social', links: socialList(), err: socErr, iconBorder: l.iconBorder, iconStyle: l.iconStyle, iconThick: l.iconThick, iconSize: l.iconSize, align: l.align }; })()
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
-    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', buttonAlign: b.buttonAlign || 'left', highlight: b.highlight || 'none', fihOpen }
+    : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', buttonStyle: b.buttonStyle || 'primary', buttonAlign: b.buttonAlign || 'left', highlight: b.highlight || 'none', fihOpen, fields: b.fields || [] }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
-  if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield]')) return; // keep a field being typed in
+  if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffView?.startsWith('ff-edit:') && !b.fields?.[Number(ffView.slice(8))]) ffView = 'ff-list'; // undo can take the field away
+  if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt]')) return; // keep a field being typed in
   const shape = b.type === 'shape' ? { radius: parseFloat(b.radius) || 0, stretch: b.stretch !== false, shape: b.shape, corners: b.corners, color: b.color || b.fill || '#ffffff' } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: parseFloat(b.radius) || 0, corners: b.corners, empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
@@ -1458,7 +1471,7 @@ function renderBlockPanel() {
   const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
   const buttonView = b.type !== 'button' ? null : bp === 'mobile' && b.btnMobile ? b.btnMobile : { fit: b.fit, align: b.halign };
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
-  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
   if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, b.animations?.[anim.i], anim.menu) : animEditorHtml(b.animations[anim.i], anim.tab);
   if (fxView) paintEffectTiles(blockPanel, b.src);
@@ -2017,6 +2030,64 @@ function setMap(change, label) {
   commit(before, label);
   renderBlockPanel();
 }
+// Edit Form Fields (FORMFIELDS.json): one undo step per change. The block's rows follow the form.
+let ffView = null, ffBefore = null;
+function fitForm(b, s) {
+  const need = contentRows(b, measure(feEl(sel.sid))), a = lay(b).area, rows = a[2] - a[0];
+  if (need === rows) return;
+  const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), low = lowest();
+  a[2] = a[0] + need;
+  if (need < rows) s.rows[bp] -= low - lowest(); else growRows(s);
+  renderSectionDom(sel.sid);
+}
+function setForm(change, label) {
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  b.fields ||= [];
+  change(b);
+  renderSectionDom(sel.sid);
+  fitForm(b, S(sel.sid));
+  commit(before, label);
+  renderBlockPanel();
+  blockPanel.scrollTop = Math.min(blockPanel.scrollTop, blockPanel.scrollHeight);
+}
+const ffField = (b) => b.fields[Number(ffView.slice(8))];
+function showFf(view) { ffView = view; renderBlockPanel(); blockPanel.scrollTop = 0; }
+blockPanel.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-ff]');
+  if (!a || !sel || e.target.closest('.bp-ff-grip')) return;
+  const [act, arg] = a.dataset.ff.split(':'), n = Number(arg);
+  if (act === 'list') showFf('ff-list');
+  else if (act === 'back') showFf(ffView === 'ff-list' ? null : 'ff-list');
+  else if (act === 'add') showFf('ff-add');
+  else if (act === 'edit') showFf(`ff-edit:${n}`);
+  else if (act === 'tile') { ffView = 'ff-list'; setForm((b) => b.fields.push(newField(arg)), `${arg} field added`); blockPanel.scrollTop = 0; }
+  else if (act === 'delete' || act === 'del') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n, 1), 'Field deleted'); blockPanel.scrollTop = 0; }
+  else if (act === 'dup') { ffView = 'ff-list'; setForm((b) => b.fields.splice(n + 1, 0, JSON.parse(JSON.stringify(b.fields[n]))), 'Field duplicated'); blockPanel.scrollTop = 0; }
+  else if (act === 'opt-add') setForm((b) => { const o = b.fields[n].options; o.push(`Option ${o.length + 1}`); }, 'Option added');
+  else if (act === 'max') setForm((b) => { const f = ffField(b); f.maxFiles = Math.max(1, (f.maxFiles || 1) + n); }, 'Max files');
+});
+// A typed value shows at once and makes its undo step when the field is left.
+blockPanel.addEventListener('input', (e) => {
+  const t = e.target.closest('[data-ff-field],[data-ff-opt]');
+  if (!t || !sel || !ffView?.startsWith('ff-edit:')) return;
+  ffBefore ??= JSON.stringify(model);
+  const f = ffField(B(sel.sid, sel.bid));
+  if (t.dataset.ffOpt != null) f.options[Number(t.dataset.ffOpt)] = t.value;
+  else writeFieldText(f, t.dataset.ffField, t.value);
+  renderSectionDom(sel.sid);
+  if (t.dataset.ffField === 'label') blockPanel.querySelector('.bp-ff-title').textContent = t.value;
+});
+blockPanel.addEventListener('change', (e) => {
+  if (!sel || !ffView?.startsWith('ff-edit:')) return;
+  if (e.target.closest('[data-ff-field],[data-ff-opt]')) {
+    const before = ffBefore;
+    ffBefore = null;
+    if (before) { fitForm(B(sel.sid, sel.bid), S(sel.sid)); commit(before, 'Field changed'); }
+    return;
+  }
+  const t = e.target.closest('[data-ff-set]');
+  if (t) setForm((b) => writeFieldSet(ffField(b), t.dataset.ffSet, t.checked), 'Field changed');
+});
 function addSocialLink(field) {
   if (!socialKind(field.value.trim())) { socErr = 'URL not found'; const v = field.value; renderBlockPanel(); const f = blockPanel.querySelector('[data-soc-add]'); if (f) { f.value = v; f.focus(); } return; }
   socView = null; socErr = '';
@@ -2567,7 +2638,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
   if (!g || !sel || e.button) return;
   e.preventDefault();
   // A social row's grip moves a row of the site-wide list: same drag, not read on the oracle (T11.json).
-  const social = g.classList.contains('bp-soc-grip'), kind = social ? '.bp-soc-row' : '.bp-acc-row';
+  const social = g.classList.contains('bp-soc-grip'), ffRow = g.classList.contains('bp-ff-grip'), ffOpt = g.classList.contains('bp-ffo-grip'), kind = social ? '.bp-soc-row' : ffRow ? '.bp-ff-row' : ffOpt ? '.bp-ffo-row' : '.bp-acc-row';
   const row = g.closest(kind), rows = [...blockPanel.querySelectorAll(kind)], from = rows.indexOf(row), h = row.offsetHeight, y0 = e.clientY;
   let to = from;
   row.classList.add('is-moving');
@@ -2577,6 +2648,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
     g.removeEventListener('pointermove', move); g.removeEventListener('pointerup', up); g.removeEventListener('pointercancel', up);
     if (to === from) { renderBlockPanel(); return; }
     if (social) changeSocialList((l) => { const [it] = l.splice(from, 1); l.splice(to, 0, it); }, `Social link moved to ${to + 1}`);
+    else if (ffRow || ffOpt) setForm((b) => { const l = ffRow ? b.fields : ffField(b).options, [it] = l.splice(from, 1); l.splice(to, 0, it); }, `Field moved to ${to + 1}`);
     else setAccordion((b) => { const [it] = b.items.splice(from, 1); b.items.splice(to, 0, it); }, `Item moved to ${to + 1}`);
   };
   g.addEventListener('pointermove', move); g.addEventListener('pointerup', up); g.addEventListener('pointercancel', up);
