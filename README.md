@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 73 changes
+- **Today** · 74 changes
+  - E4: caret kept after Text Style and list presses, list off, one quote ([#252](https://github.com/FRIKKern/fluid-editor/pull/252))
   - P3: test of differences 44 and 45 scored 9 of 31, predictions pushed first ([#251](https://github.com/FRIKKern/fluid-editor/pull/251))
-  - T9: a row moved into view stops below the panel's tabs ([#250](https://github.com/FRIKKern/fluid-editor/pull/250))
 - **Yesterday** · 52 changes
   - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 - **This week** · 108 changes, 3 milestones closed
