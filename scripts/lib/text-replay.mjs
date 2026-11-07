@@ -9,10 +9,10 @@ export const textNorm = (h) => (h == null ? h : h.replace(TRAILING, '').replace(
 
 // What a step waited on the oracle (oracle-capture.mjs), what starting it took (CAP-E4GAP2.json), and how
 // many changes it makes. Selecting is no change: it doesn't start the clock (CAP-E4GAP.json).
-const WAITS = { click: 1200, clickIf: 1200, fill: 1200, press: 500, keys: 300, keysList: 300, keysFast: 1500 };
-const COST = { click: 200, clickIf: 200, fill: 200, press: 100, keys: 100, keysList: 100, keysFast: 100 };
+const WAITS = { click: 1200, clickIf: 1200, fill: 1200, press: 500, keys: 300, keysList: 300, keysGap: 300, keysFast: 1500 };
+const COST = { click: 200, clickIf: 200, fill: 200, press: 100, keys: 100, keysList: 100, keysGap: 100, keysFast: 100 };
 const MENUS = ['Text Color', 'Text Style', 'Text Alignment', 'Write', 'Custom'];
-const changesIn = ([op, ...a]) => (op === 'keys' || op === 'keysFast' ? a[0].length : op === 'keysList' ? a[0].filter((x) => x !== 'Meta+a').length : op === 'press' ? (/^(Enter|Shift\+Enter|Backspace|Meta\+[biz])$/.test(a[0]) ? 1 : 0) : op === 'click' || op === 'clickIf' ? (MENUS.includes(a[0]) ? 0 : 1) : 0);
+const changesIn = ([op, ...a]) => (op === 'keys' || op === 'keysFast' ? a[0].length : op === 'keysGap' ? a[1].filter((x) => x.length === 1).length : op === 'keysList' ? a[0].filter((x) => x !== 'Meta+a').length : op === 'press' ? (/^(Enter|Shift\+Enter|Backspace|Meta\+[bi])$/.test(a[0]) ? 1 : 0) : op === 'click' || op === 'clickIf' ? (MENUS.includes(a[0]) ? 0 : 1) : 0);
 // A second splits an undo step (app/src/editor.js). gapsOf gives, per step that changes something, the gap
 // it had from the last change on the oracle. The replay aims clearly at that side of a second.
 const SPLIT = 1000, MARGIN = 100, INSIDE = 800, OUTSIDE = 1300;
@@ -33,7 +33,7 @@ function wrongGap(steps, stamps) {
   const want = [];
   const gaps = gapsOf(steps);
   steps.forEach((st, k) => { const n = changesIn(st); if (!n) return; if (gaps.has(k)) want.push(gaps.get(k)); for (let j = 1; j < n; j++) want.push(0); });
-  if (want.length !== stamps.length - 1) return `${stamps.length} changes, the steps make ${want.length + 1}`;
+  if (stamps.length && want.length !== stamps.length - 1) return `${stamps.length} changes, the steps make ${want.length + 1}`;
   for (const [k, g] of want.entries()) {
     const real = stamps[k + 1] - stamps[k];
     if (g < SPLIT ? real >= SPLIT - MARGIN : real <= SPLIT + MARGIN) return `gap ${k + 1} was ${Math.round(real)} ms, on the oracle about ${g} ms`;
@@ -63,7 +63,8 @@ export async function replay(S, finding, add) {
     const walk = [q('textContent')], html = [q('innerHTML')];
     for (let n = 0; n < 12 && evalJs(S, `JSON.stringify(!document.getElementById('undo').disabled)`); n++) { browser(S, 'click', '#undo'); await pause(300); walk.push(q('textContent')); html.push(q('innerHTML')); }
     r.undo.forEach((u, k) => {
-      if (u[1] === null) return;
+      // Null on the oracle: the block's gone, or nothing was left to undo. Ours must have no more of its text either.
+      if (u[1] === null) { add(`${name} ${u[0]}`, (walk[k] ?? null) === null, `oracle nothing, ours ${walk[k]}`); return; }
       const ok = (walk[k] ?? '').replace(/\s+/g, ' ').trim().slice(-60) === u[1] && (u[2] === undefined || textNorm(html[k]) === textNorm(u[2]));
       add(`${name} ${u[0]}`, ok, `oracle ${u[2] ? textNorm(u[2]) : u[1]}, ours ${u[2] ? textNorm(html[k]) : walk[k]}`);
     });
@@ -81,11 +82,13 @@ export async function replay(S, finding, add) {
     else if (op === 'add') { const s = sid(); evalJs(S, `(() => { fe.addBlock(${JSON.stringify(s)}, 'Text'); return 1; })()`); id = evalJs(S, `JSON.stringify(fe.model.sections[1].blocks.at(-1).id)`); await pause(100); }
     else if (op === 'click' && a[0] === 'Write') { const s = sid(); evalJs(S, `(() => { fe.edit(${JSON.stringify(s)}, ${JSON.stringify(id)}); const ce = ${ceOf.replace('__ID__', id)}; ce.focus(); return 1; })()`); if (paced) { segment = k + 1; gaps = gapsOf(finding.steps.slice(segment, untilEnd(k))); evalJs(S, STAMP(ceOf.replace('__ID__', id))); } await pause(150); }
     else if (op === 'clickIf' && !evalJs(S, `!!document.querySelector('#text-bar [aria-label="${a[0]}"], #text-bar [data-ctab="${a[0]}"]')`)) continue;
+    else if (op === 'click' && a[0] === 'Undo') { browser(S, 'click', '#undo'); await wait(1200); }
     else if (op === 'click' || op === 'clickIf') { browser(S, 'click', `#text-bar [aria-label="${a[0]}"], #text-bar [data-ctab="${a[0]}"]`); await wait(1200); }
     else if (op === 'fill') { browser(S, 'fill', `#text-bar input[aria-label="${a[0]}"]`, a[1]); await wait(1200); }
     else if (op === 'press') { browser(S, 'press', a[0]); await wait(500); }
     else if (op === 'keys' || op === 'keysFast') { cdp(S, { op: 'presses', keys: [...a[0]].map((c) => (c === ' ' ? 'Space' : c)) }, 300000); typed = a[0]; await wait(300); }
     else if (op === 'keysList') { cdp(S, { op: 'presses', keys: a[0] }); await wait(300); }
+    else if (op === 'keysGap') { cdp(S, { op: 'presses', keys: a[1], gapMs: a[0] }); await wait(300); }
     else if (op === 'pause') await wait(a[0]);
     // A paste over the selection as it is, as oracle-capture.mjs does it.
     else if (op === 'pasteHere') { evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const W = ce.ownerDocument.defaultView; const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(a[2])}); dt.setData('text/plain', ${JSON.stringify(a[2].replace(/<[^>]+>/g, ' '))}); ce.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return 1; })()`); await wait(300); }

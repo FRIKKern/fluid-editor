@@ -23,6 +23,9 @@ const BARTIPS = ['Save', 'Desktop View', 'Mobile View', 'Toggle Site Styles edit
 // One Escape from an edit, caret at abcd|ef, then a key: where does it go? Each read also says if the block moved or went.
 const ESCR = { html: [0, 'new'], areas: 0, has: ['Bold', 'Write'] };
 const ESCAPED = [...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['pause', 200], ['press', 'Escape'], ['pause', 300]];
+const LEAVE = [['press', 'Escape'], ['pause', 200], ['press', 'Escape'], ['pause', 300]];
+// Cmd+Z (z) and Cmd+Shift+Z (y), reading after each.
+const ZS = (name, keys) => keys.flatMap((k, n) => [['press', k === 'z' ? 'Meta+z' : 'Meta+Shift+z'], ['pause', 300], ['read', `${name} ${n + 1} ${k}`, ESCR]]);
 const AFTERESC = (name, steps) => [...ESCAPED, ...steps, ['pause', 300], ['read', name, ESCR], ['keys', 'X'], ['pause', 300], ['read', `${name}, X`, ESCR]];
 export const RECIPES = {
   'CAP-ESC1': { question: 'E4: after one Escape from an edit: which keys still reach the text, and which the block?', page: 'Gestures Probe', steps: [
@@ -58,6 +61,32 @@ export const RECIPES = {
     ...NEWTEXT, ['keys', 'abc'], ['pause', 1300], ['press', 'Escape'], ['pause', 300], ['press', 'Meta+z'], ['pause', 300], ['read', 'Cmd+Z after Escape', { ...ESCR }], ['press', 'Escape'], ['pause', 300], ['undoWalk', 'Cmd+Z after Escape, walked', 0, 'new', 6, true],
     ...NEWTEXT, ['keys', 'abc'], ['pause', 300], ['click', 'Text Style'], ['click', 'Monospace'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['read', 'monospace, end of a line', H], ['keys', 'X'], ['pause', 200], ['read', 'monospace, end of a line, X', H],
     ...NEWTEXT, ['keys', 'ab'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Enter'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['read', 'Enter after Escape, Escape', ESCR], ['keys', 'X'], ['pause', 300], ['read', 'Enter after Escape, Escape, X', ESCR],
+  ] },
+  'CAP-Y2KEYS': { question: 'Y2: Cmd+Z and Cmd+Shift+Z in an edit: past the start, short gaps, after typing, the caret, an earlier edit, a reopened edit, after one Escape, over Bold, Enter and Shift+Enter, rows, a selection, a link. Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['keys', 'aa'], ['pause', 1300], ['keys', 'bb'], ['pause', 1300], ['keys', 'cc'], ['pause', 300], ...ZS('three bursts', ['z', 'z', 'z', 'z', 'y', 'y', 'y', 'y']), ...LEAVE, ['undoWalk', 'three bursts, left', 0, 'new', 6, true],
+    ...NEWTEXT, ['keysGap', 60, ['a', 'b', 'c', 'd']], ['pause', 300], ...ZS('gap 60', ['z', 'z']), ...LEAVE,
+    ...NEWTEXT, ['keysGap', 300, ['a', 'b', 'c', 'd']], ['pause', 300], ...ZS('gap 300', ['z', 'z']), ...LEAVE,
+    ...NEWTEXT, ['keysGap', 600, ['a', 'b', 'c', 'd']], ['pause', 300], ...ZS('gap 600', ['z', 'z']), ...LEAVE,
+    ...NEWTEXT, ['keysGap', 800, ['a', 'b', 'c', 'd']], ['pause', 300], ...ZS('gap 800', ['z', 'z']), ...LEAVE,
+    ...NEWTEXT, ['keysGap', 60, ['a', 'b', 'c', 'd', 'ArrowLeft', 'ArrowLeft', 'X']], ['pause', 300], ...ZS('moved in a burst', ['z', 'z']), ['keys', 'Y'], ['pause', 300], ['read', 'moved in a burst, Y', ESCR], ...LEAVE,
+    ...NEWTEXT, ['keys', 'aa'], ['pause', 1300], ['keys', 'bb'], ['pause', 300], ['press', 'Meta+z'], ['pause', 100], ['keys', 'X'], ['pause', 300], ['read', 'typed after Cmd+Z', ESCR], ...ZS('typed after', ['y', 'z', 'y', 'z', 'z', 'z']), ...LEAVE, ['undoWalk', 'typed after, left', 0, 'new', 6, true],
+    ...NEWTEXT, ['keys', 'abcd'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['pause', 1300], ['keys', 'X'], ['press', 'End'], ['pause', 200], ...ZS('caret', ['z']), ['keys', 'Y'], ['pause', 300], ['read', 'caret, Y', ESCR], ...LEAVE,
+    ...NEWTEXT, ['keys', 'abcd'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['pause', 1300], ['keys', 'X'], ['press', 'Home'], ['pause', 200], ...ZS('caret on redo', ['z', 'y']), ['keys', 'Y'], ['pause', 300], ['read', 'caret on redo, Y', ESCR], ...LEAVE,
+    ...NEWTEXT, ['keys', 'first'], ...LEAVE, ['pick', 0, 'new'], ['click', 'Write'], ['keys', 'cc'], ['pause', 300], ...ZS('earlier edit', ['z', 'z', 'z', 'y', 'y']), ...LEAVE, ['undoWalk', 'earlier edit, left', 0, 'new', 6, true],
+    ...NEWTEXT, ['keys', 'first'], ...LEAVE, ['pick', 0, 'new'], ['click', 'Write'], ['pause', 300], ...ZS('opened, nothing typed', ['z', 'y']), ...LEAVE, ['undoWalk', 'opened, nothing typed, left', 0, 'new', 6, true],
+    ...NEWTEXT, ['pause', 300], ...ZS('just added', ['z']), ...LEAVE, ['read', 'just added, left', ESCR], ['undoWalk', 'just added, walked', 0, 'new', 6, true],
+    ...NEWTEXT, ['keys', 'abc'], ['pause', 1300], ['keys', 'def'], ['pause', 1300], ['press', 'Escape'], ['pause', 300], ...ZS('one Escape', ['z', 'z', 'z', 'y', 'y', 'y']), ['press', 'Escape'], ['pause', 300], ['undoWalk', 'one Escape, left', 0, 'new', 6, true],
+    ...NEWTEXT, ['keys', 'abc'], ['pause', 1300], ['press', 'Escape'], ['pause', 300], ['click', 'Write'], ['pause', 300], ...ZS('Escape, Write', ['z', 'z', 'y']), ...LEAVE, ['undoWalk', 'Escape, Write, left', 0, 'new', 6, true],
+    ...NEWTEXT, ['keys', 'abcd'], ...SELECTLEFT(2), ['click', 'Bold'], ['pause', 300], ...ZS('Bold', ['z', 'z', 'y', 'y']), ...LEAVE, ['undoWalk', 'Bold, left', 0, 'new', 6, true],
+    ...NEWTEXT, ['keys', 'ab'], ['press', 'Enter'], ['keys', 'cd'], ['pause', 1300], ...ZS('Enter in a burst', ['z', 'z', 'y']), ...LEAVE,
+    ...NEWTEXT, ['keys', 'ab'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['keys', 'cd'], ['pause', 1300], ...ZS('Shift+Enter in a burst', ['z', 'z', 'z', 'z']), ...LEAVE,
+    ...NEWTEXT, ['keys', 'abcd'], ['pause', 1300], ['press', 'Backspace'], ['press', 'Backspace'], ['pause', 1300], ...ZS('Backspace', ['z', 'y']), ...LEAVE,
+    ...NEWTEXT, ['keys', 'abcd'], ['pause', 1300], ...SELECTLEFT(2), ['keys', 'X'], ['pause', 300], ...ZS('over a selection', ['z']), ['keys', 'Y'], ['pause', 300], ['read', 'over a selection, Y', ESCR], ...LEAVE,
+    ...NEWTEXT, ['keys', 'a'], ['pause', 1300], ['press', 'Enter'], ['press', 'Enter'], ['press', 'Enter'], ['press', 'Enter'], ['press', 'Enter'], ['press', 'Enter'], ['pause', 1300], ['read', 'rows, typed', ESCR], ...ZS('rows', ['z', 'y', 'z', 'z']), ...LEAVE, ['read', 'rows, left', ESCR],
+    ...NEWTEXT, ['keysList', ['a', '.', 'c', 'o', 'm', 'Space']], ['pause', 1300], ...ZS('a link', ['z', 'z', 'y']), ...LEAVE,
+    ...NEWTEXT, ['keys', 'aa'], ['pause', 1300], ['keys', 'bb'], ['pause', 300], ...ZS('all taken, left', ['z', 'z']), ...LEAVE, ['read', 'all taken, buttons', { ...ESCR, btnState: ['Undo', 'Redo'] }],
+    ...NEWTEXT, ['keys', 'aa'], ['pause', 1300], ['keys', 'bb'], ['pause', 300], ...ZS('one taken, left', ['z']), ...LEAVE, ['read', 'one taken, buttons', { ...ESCR, btnState: ['Undo', 'Redo'] }],
   ] },
   'CAP-E4BREAK': { question: 'E4: Shift+Enter: mid line, at the end of a line, at the start, twice, in a heading, a list, a quote and monospace, over a selection.', page: 'Gestures Probe', steps: [
     ['enter'], ['blank'],

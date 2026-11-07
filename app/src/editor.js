@@ -1347,8 +1347,15 @@ function onKey(e) {
       if (editing.soft) { finishTextEdit(); select(null); } else softenTextEdit();
       return;
     }
+    // Cmd+Z and Cmd+Shift+Z are the edit's own: one step, and the edit stays open (CAP-Y2EDIT.json). A field keeps its own.
+    if (mod && !e.altKey && e.code === 'KeyZ' && !e.target.closest?.('input, textarea, select')) {
+      e.preventDefault();
+      if (e.shiftKey) textRedo(editing); else textUndo(editing);
+      return;
+    }
     if (e.key === 'Enter' && e.shiftKey && !mod && !e.altKey) {
       e.preventDefault();
+      editing.caretThen = caretOf(editing);
       if (fmt.insertLineBreak(doc, editing.ce, win.getSelection())) { joinOrStep(editing); onTextInput(); }
       return;
     }
@@ -1504,7 +1511,8 @@ function startTextEdit(sid, bid) {
   const fe = feEl(sid);
   const m = measure(fe);
   fe.style.gridAutoRows = `${m.rowMin}px`;
-  editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], need: contentRows(b, m), height0: textHeight(b), prevHeight: textHeight(b), marks: [before], prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
+  editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], need: contentRows(b, m), height0: textHeight(b), prevHeight: textHeight(b), marks: [before], atMark: true, redo: [], caretAt: new Map(), kept: 0, prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
+  ce.addEventListener('beforeinput', onTextBeforeInput);
   ce.addEventListener('input', onTextInput);
   ce.addEventListener('paste', onPaste);
   ce.addEventListener('focus', () => { if (editing) editing.keysOff = false; });
@@ -3909,6 +3917,7 @@ function applyFormat(act, value) {
   const sel = win.getSelection();
   const [kind, arg] = act.split(':');
   const was = ed.ce.innerHTML;
+  ed.caretThen = caretOf(ed);
   if (kind === 'style') fmt.setStyle(doc, ed.ce, sel, value);
   if (kind === 'strike' && sel.isCollapsed) { ed.strikeNext = ed.strikeNext ? null : { on: !fmt.caretInMark(ed.ce, sel, 'strike'), at: String(fmt.caretPlace(ed.ce, sel)) }; ed.ce.focus(); return; }
   if (kind === 'bold' || kind === 'italic') { ed.strikeNext = null; fmt.toggleMark(ed.ce, sel, kind); }
@@ -4048,17 +4057,23 @@ function openTextLink(btnEl) {
 // before it unless about a second has passed, whether typed or pressed on the toolbar.
 const TYPING_PAUSE = 1000;
 function joinOrStep(ed) {
-  const now = performance.now();
-  if (ed.lastInput && now - ed.lastInput >= TYPING_PAUSE) textStep(ed, ed.prevHtml, ed.prevArea);
+  const now = performance.now(), split = ed.stepNext || (ed.lastInput && now - ed.lastInput >= TYPING_PAUSE);
+  if (split) textStep(ed, ed.prevHtml, ed.prevArea);
+  if (split || !ed.lastInput) ed.caretAt.set(ed.marks.at(-1), ed.caretThen);
+  ed.stepNext = false;
   ed.lastInput = now;
 }
-function textStep(ed, html, area) {
+function textSnap(ed, html, area) {
   const b = B(ed.sid, ed.bid), keep = [b.html, lay(b).area];
   b.html = html;
   lay(b).area = [...area];
   growRows(S(ed.sid));
   const snap = JSON.stringify(model);
   [b.html, lay(b).area] = keep;
+  return snap;
+}
+function textStep(ed, html, area) {
+  const snap = textSnap(ed, html, area);
   if (snap !== ed.marks.at(-1)) {
     ed.marks.push(snap);
     if (ed.marks.length === 2) ed.height1 = ed.prevHeight;
@@ -4094,12 +4109,72 @@ function autoLink(ed, inputType, data) {
   r.surroundContents(a);
   if (inputType === 'insertText') { const c = doc.createRange(); c.setStart(a.nextSibling, end - stop + 1); c.collapse(true); s.removeAllRanges(); s.addRange(c); }
 }
+const caretOf = (ed) => {
+  const s = win.getSelection();
+  return ed.ce.contains(s.anchorNode) && ed.ce.contains(s.focusNode) ? { anchor: pathFrom(ed.ce, s.anchorNode), anchorOffset: s.anchorOffset, focus: pathFrom(ed.ce, s.focusNode), focusOffset: s.focusOffset } : null;
+};
+function onTextBeforeInput(e) {
+  const ed = editing;
+  if (!ed) return;
+  ed.caretThen = caretOf(ed);
+  // The browser's own undo, from its Edit menu, walks the same steps.
+  if (e.inputType === 'historyUndo' || e.inputType === 'historyRedo') { e.preventDefault(); if (e.inputType === 'historyUndo') textUndo(ed); else textRedo(ed); }
+}
+// Put one of the edit's steps back on the page: its text, its rows, the blocks it pushed, and the caret as it was then.
+function showTextStep(ed, snap) {
+  const s = S(ed.sid), was = JSON.parse(snap).sections.find((o) => o.id === ed.sid), wasB = was.blocks.find((o) => o.id === ed.bid), b = B(ed.sid, ed.bid);
+  ed.ce.innerHTML = wasB.html;
+  for (const o of s.blocks) {
+    const w = was.blocks.find((x) => x.id === o.id);
+    if (w && o !== b) { lay(o).area = [...w.layout[bp].area]; setArea(blockEl(o.id), lay(o).area); }
+  }
+  s.rows[bp] = was.rows[bp];
+  ed.area = [...wasB.layout[bp].area];
+  setArea(blockEl(ed.bid), ed.area);
+  const ind = feEl(ed.sid).querySelector('.fe-indicator');
+  if (ind) setArea(ind, ed.area);
+  const sel0 = win.getSelection(), c = ed.caretAt.get(snap), a = c && nodeAtPath(ed.ce, c.anchor), f = a && nodeAtPath(ed.ce, c.focus);
+  if (f) sel0.setBaseAndExtent(a, c.anchorOffset, f, c.focusOffset);
+  else { const r = doc.createRange(); r.selectNodeContents([...ed.ce.querySelectorAll('h1, h2, h3, h4, p, pre')].at(-1) ?? ed.ce); r.collapse(false); sel0.removeAllRanges(); sel0.addRange(r); }
+  ed.need = contentRows(b, ed.m);
+  ed.prevHtml = ed.ce.innerHTML;
+  ed.prevArea = [...ed.area];
+  ed.prevHeight = textHeight(b);
+  ed.lastInput = 0;
+  ed.stepNext = true;
+  ed.strikeNext = null;
+  renderTextBar();
+}
+function textUndo(ed) {
+  let to = ed.marks.at(-1);
+  if (ed.atMark) {
+    if (ed.marks.length > 1) { ed.marks.pop(); to = ed.marks.at(-1); }
+    else if (ed.kept) { // What one Escape already handed to the page: it comes back off the page's list (CAP-ESC2.json)
+      ed.kept--;
+      to = undoStack.pop();
+      ed.marks = [to];
+      ed.before = to;
+      updateUi();
+    } else return;
+  }
+  const now = textSnap(ed, ed.ce.innerHTML, ed.area);
+  ed.caretAt.set(now, caretOf(ed));
+  ed.redo.push(now);
+  showTextStep(ed, to);
+  ed.atMark = true;
+}
+function textRedo(ed) {
+  if (!ed.redo.length) return;
+  if (!ed.atMark) ed.marks.push(textSnap(ed, ed.ce.innerHTML, ed.area));
+  showTextStep(ed, ed.redo.pop());
+  ed.atMark = false;
+}
 function onTextInput(e) {
   const ed = editing;
   const b = B(ed.sid, ed.bid);
-  // Cmd+Z in an edit is the browser's. After it the edit is one step again (TEXTUNDO.json).
-  if (e?.inputType?.startsWith('history')) ed.marks.length = 1;
-  else if (e?.inputType) {
+  ed.atMark = false;
+  ed.redo.length = 0;
+  if (e?.inputType) {
     joinOrStep(ed);
     if (e.inputType === 'insertParagraph') fmt.enterInHeading(doc, ed.ce, win.getSelection());
     if (e.inputType.startsWith('delete')) fmt.dropEndBreak(ed.ce, win.getSelection());
@@ -4203,10 +4278,10 @@ function softenTextEdit() {
   growRows(S(ed.sid));
   editing = null; // The phone order follows now: this is the edit's close
   softening = true;
-  const now = commitTextSteps(ed, height);
+  const steps = undoStack.length, now = commitTextSteps(ed, height);
   softening = false;
   editing = ed;
-  Object.assign(ed, { soft: true, before: now, marks: [now], lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height, height1: undefined });
+  Object.assign(ed, { soft: true, before: now, marks: [now], atMark: true, kept: ed.kept + undoStack.length - steps, lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height, height1: undefined });
   blockEl(ed.bid).classList.remove('is-text-editing');
   renderTextBar();
   placeToolbar();
