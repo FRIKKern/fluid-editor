@@ -40,7 +40,10 @@ const rows = () => js(`const pan = [...document.querySelectorAll('button')].filt
 const topBar = () => js(`const b = [...document.querySelectorAll('button')].filter((x) => x.getBoundingClientRect().width > 0), has = (t) => b.find((x) => x.textContent.trim() === t), s = has('Save'); return JSON.stringify({ edit: !!has('Edit'), exit: !!has('Exit'), save: !s ? 'none' : s.disabled || s.getAttribute('aria-disabled') === 'true' ? 'off' : 'on' });`);
 const closed = () => { const t = topBar(); return t.edit && !t.exit && t.save === 'none'; };
 const saveOff = () => topBar().save === 'off';
+// A press on a row low down, or a list opened there, can leave the panel scrolled, with the back button out of view.
+const panelToTop = () => js(`for (const x of document.querySelectorAll('body *')) { if (x.scrollTop > 0 && x.getBoundingClientRect().left >= 1250) x.scrollTop = 0; } return 'true';`);
 const goBack = async (want) => {
+  panelToTop(); await pause(150);
   const words = js(`const b = ${FIND.back}; return JSON.stringify(b ? b.textContent.trim() : null);`);
   if (words !== want) throw new Error(`back button reads ${JSON.stringify(words)}, wanted ${want}`);
   await press(want, FIND.back, 1000);
