@@ -1136,6 +1136,7 @@ body.is-preview #reload-preview { display: inline-flex; }
 .st-gap-menu { position: absolute; left: 0; top: 61px; z-index: 3; width: 182px; background: #fff; box-shadow: 0 6px 24px rgba(0, 0, 0, .12), 0 0 1px rgba(0, 0, 0, .08); }
 .st-gap-menu button { display: block; width: 182px; height: 44px; padding: 0 12px; border: 0; background: transparent; text-align: left; font: inherit; cursor: pointer; }
 .st-gap-menu button:hover { background: #f6f6f6; }
+.st-gap-menu button.is-off, .st-gap-menu button.is-off:hover { background: transparent; color: #b7b7b7; cursor: default; }
 .st-row-pad { position: relative; }
 .st-row-pad.is-four { height: 94px; align-items: flex-start; }
 .st-row-pad.is-four .sp-label { padding-top: 11px; }

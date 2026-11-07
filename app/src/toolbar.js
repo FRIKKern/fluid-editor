@@ -113,7 +113,9 @@ export function toolbarHtml(items, z, align = {}) {
 }
 
 // Where the toolbar goes, in the stage's coordinates.
-export function toolbarPosition(frameRect, stageRect, blockRect) {
+export function toolbarPosition(frameRect, stageRect, blockRect, phone = false) {
+  // On a phone the bar stands beside the phone, level with the block (CAP-PHONE.json, CAP-ACCPHONE.json).
+  if (phone) return { left: frameRect.right - stageRect.left + 23, top: frameRect.top - stageRect.top + Math.max(blockRect.top + 4, 23) };
   return {
     left: frameRect.left - stageRect.left + blockRect.left + 4,
     top: frameRect.top - stageRect.top + Math.max(blockRect.top - 60, 23),
@@ -121,24 +123,27 @@ export function toolbarPosition(frameRect, stageRect, blockRect) {
 }
 
 // The group toolbar (X8, parity/findings/GROUPRESIZE.json): Stack Blocks | Align Group (a menu of
-// six) | Move Forward, Move Backward | Duplicate, Remove, above the group's bounding box.
+// six) | Move Forward, Move Backward, only over a block outside the group | Duplicate, Remove, above
+// the group's bounding box. A phone has no Duplicate (CAP-GROUPBAR.json).
 const GICON = {
   stack: '<rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/>',
   align: '<path d="M5 4v16"/><rect x="8" y="6" width="11" height="4"/><rect x="8" y="14" width="7" height="4"/>',
 };
 export const GROUP_ALIGNS = [['left', 'Align Left'], ['hcenter', 'Align Horizontal Center'], ['right', 'Align Right'], ['top', 'Align Top'], ['vcenter', 'Align Vertical Center'], ['bottom', 'Align Bottom']];
-export function groupToolbarHtml(alignOpen, z = { above: true, below: true }) {
+export function groupToolbarHtml(alignOpen, z = { shows: true, above: true, below: true }, phone = false) {
   const b = (act, label, icon, extra = '') => `<button type="button" class="tb-btn" data-tb="${act}" aria-label="${label}" title="${label}"${extra}>${icon}</button>`;
   const g = (k) => svg(GICON[k]).replace('stroke-width="1.6"', 'stroke-width="1.6"');
   return [
     b('stack', 'Stack Blocks', g('stack')),
     '<span class="tb-sep" aria-hidden="true"></span>',
     b('align-menu', 'Align Group', g('align'), ` aria-expanded="${!!alignOpen}"`),
+    ...(z.shows ? [
+      '<span class="tb-sep" aria-hidden="true"></span>',
+      b('z+', 'Move Forward', svg('forward')).replace('class="tb-btn"', `class="tb-btn${z.above ? '' : ' is-off'}"`),
+      b('z-', 'Move Backward', svg('backward')).replace('class="tb-btn"', `class="tb-btn${z.below ? '' : ' is-off'}"`),
+    ] : []),
     '<span class="tb-sep" aria-hidden="true"></span>',
-    b('z+', 'Move Forward', svg('forward')).replace('class="tb-btn"', `class="tb-btn${z.above ? '' : ' is-off'}"`),
-    b('z-', 'Move Backward', svg('backward')).replace('class="tb-btn"', `class="tb-btn${z.below ? '' : ' is-off'}"`),
-    '<span class="tb-sep" aria-hidden="true"></span>',
-    b('gduplicate', 'Duplicate', svg(ICON.duplicate)),
+    ...(phone ? [] : [b('gduplicate', 'Duplicate', svg(ICON.duplicate))]),
     b('gremove', 'Remove', svg(ICON.remove)).replace('class="tb-btn"', 'class="tb-btn tb-remove"'),
   ].join('') + (alignOpen ? `<div class="tb-pop" role="menu">${GROUP_ALIGNS.map(([k, l]) => `<button type="button" role="menuitem" data-tb="align:${k}" aria-label="${l}">${l}</button>`).join('')}</div>` : '');
 }
