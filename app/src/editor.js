@@ -107,6 +107,7 @@ function commit(before, label, force = false) {
 
 // A2: only a section whose blocks an edit changed. A saved page stays as it loads, and undo brings
 // the order back with the model. Not while its text is being edited: the close commits again.
+let softening = false; // one Escape: the model follows, the page isn't touched
 function followPhoneRows(before) {
   const old = JSON.parse(before);
   for (const s of model.sections) {
@@ -114,8 +115,9 @@ function followPhoneRows(before) {
     if (!was || editing?.sid === s.id || JSON.stringify(was.blocks) === JSON.stringify(s.blocks)) continue;
     const reflowed = phoneFollowsMove(s, was);
     const next = phoneOrder(s.blocks);
-    if (next.every((b, k) => b === s.blocks[k])) { if (reflowed) renderSectionDom(s.id); continue; }
+    if (next.every((b, k) => b === s.blocks[k])) { if (reflowed && !softening) renderSectionDom(s.id); continue; }
     s.blocks.splice(0, s.blocks.length, ...next);
+    if (softening) continue; // The text stays open, in its place in the page; the close draws this
     // New phone rows need new CSS, or the phone shows the old stack and a press lands on the old place.
     if (reflowed) { renderSectionDom(s.id); continue; }
     const fe = sectionEl(s.id) && feEl(s.id);
@@ -4113,7 +4115,9 @@ function softenTextEdit() {
   lay(b).area = [...ed.area];
   growRows(S(ed.sid));
   editing = null; // The phone order follows now: this is the edit's close
+  softening = true;
   const now = commitTextSteps(ed, height);
+  softening = false;
   editing = ed;
   Object.assign(ed, { soft: true, before: now, marks: [now], lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height, height1: undefined });
   blockEl(ed.bid).classList.remove('is-text-editing');
