@@ -63,11 +63,8 @@ for (const [mode, label] of [['fill', 'Fill'], ['shape', 'Shape'], ['fit', 'Fit'
     const [dir, a, b] = k.split(/[ ]/);
     const cols = dir === 's' ? 0 : Number(a), rows = dir === 'e' ? 0 : dir === 's' ? Number(a) : Number(b);
     const got = await pull('pic', dir, cols, rows);
-    // Blocks starting in the gutter snap columns differently, whatever their type (columnSnap in
-    // the finding, not built), so those compare rows only.
-    const mine = to[1] === 1 ? [got[0], got[1], got[2]] : got, theirs = to[1] === 1 ? to.slice(0, 3) : to;
-    add(`${label} picture ${k}`, same(mine, theirs), `${got.join('/')}, oracle ${to.join('/')}`);
-    if (to[1] === 1) evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); const b = next.sections[1].blocks.find((x) => x.id === 'pic'); b.layout.desktop.area = ${JSON.stringify(to)}; fe.load(next); await new Promise((res) => setTimeout(res, 200)); return 'true'; })()`);
+    // A block starting in the gutter snaps columns as read (BLOCKTYPES.json columnSnap, built since): every column compared.
+    add(`${label} picture ${k}`, same(got, to), `${got.join('/')}, oracle ${to.join('/')}`);
   }
 }
 
