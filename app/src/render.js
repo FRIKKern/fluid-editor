@@ -472,7 +472,7 @@ function designRule(b, d, phone) {
       opacity: var(--opacity, 1);
       transform: var(--block-transform);
       transform-origin: var(--origin-x) var(--origin-y);${d.blur ? `\n      ${d.blurKind === 'element' ? 'filter' : 'backdrop-filter'}: blur(${d.blurPx ?? 15}px);${phone && off ? ` ${d.blurKind === 'element' ? 'backdrop-filter' : 'filter'}: none;` : ''}` : off ? '\n      backdrop-filter: none; filter: none;' : ''}
-    }${d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgColor || 'rgb(255, 255, 255)'}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
+    }${d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
   `;
 }
 export function designCss(b) {
@@ -546,7 +546,7 @@ function blendRule(b, g, phone) {
   // A video's: on .intrinsic, the Corner on the two above it as well (CAP-T7DESIGN2.json, CAP-T7DESIGN3.json).
   const vAt = `.fe-block-${b.id}`, vBoxed = g.background || g.stroke, vY = g.padY ?? 6, vX = g.padX ?? 6;
   const vPad = !vBoxed ? '0' : g.padFour ? `${g.padT ?? vY}% ${g.padR ?? vX}% ${g.padB ?? vY}% ${g.padL ?? vX}%` : `${vY}% ${vX}%`;
-  const video = g.corner || g.corners || vBoxed || phone ? `${vAt} .sqs-block, ${vAt} .sqs-block-content { border-radius: ${radius}; } ${vAt} .intrinsic { border-radius: ${radius}; padding: ${vPad}; background-color: ${g.background ? g.bgColor || 'rgb(255, 255, 255)' : 'transparent'}; border: ${g.stroke ? `${g.strokePx ?? 6}px ${g.stroke} ${g.strokeColor || 'rgb(255, 255, 255)'}` : '0'}; }` : '';
+  const video = g.corner || g.corners || vBoxed || phone ? `${vAt} .sqs-block, ${vAt} .sqs-block-content { border-radius: ${radius}; } ${vAt} .intrinsic { border-radius: ${radius}; padding: ${vPad}; background-color: ${g.background && !g.bgClear ? g.bgColor || 'rgb(255, 255, 255)' : 'transparent'}; border: ${g.stroke ? `${g.strokePx ?? 6}px ${g.stroke} ${g.strokeColor || 'rgb(255, 255, 255)'}` : '0'}; }` : '';
   const stroke = b.type === 'video' ? video : b.type === 'shape' ? '' : (g.stroke ? `${on} { border: ${w}px ${g.stroke} ${g.strokeColor || 'rgb(0, 0, 0)'}; border-radius: ${b.type === 'stack' ? `${g.corner || 0}px` : radius}; }` : phone && base.stroke ? `${on} { border: 0; }` : '')
     + (boxed ? `${g.stroke ? '' : ` ${on} { border-radius: ${radius}; }`} .fe-block-${b.id} { border-radius: ${radius}; } .fe-block-${b.id} ${inner} { padding: ${pad}; }`
       : phone && b.type !== 'shape' && b.type !== 'stack' && (base.stroke || base.background) ? ` .fe-block-${b.id} ${inner} { padding: 0; } ${on} { border-radius: 0; } .fe-block-${b.id} { border-radius: 0; }` : '');
