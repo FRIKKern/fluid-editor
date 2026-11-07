@@ -1,0 +1,1839 @@
+{
+ "item": "U10",
+ "name": "CAP-U10UNDOPAST",
+ "question": "Undo past the panel's opening.",
+ "answer": "The panel stays, no mark, the section is as it was before the opening, and a pick then starts from that look. Undo to 0 blocks: the panel stays with no tiles until Escape. A step on the way read 7 rows, 626.5 tall, where 8 rows came before: an oddity with no rule.",
+ "ours": "Now the same. The oddity isn't built.",
+ "differs": "The 7 rows oddity.",
+ "pressed": "Tiles and the View Layouts button by data-test with an on-top check (pressLayout, pressEl). Undo and Redo by name. Moves by coordinates, never a press. Selecting a block by its middle. Paste over the text the tool selected. Nothing saved: Exit Without Saving.",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-06",
+ "engine": "chrome",
+ "steps": [
+  [
+   "window",
+   1600,
+   1000
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "editText",
+   0,
+   "new"
+  ],
+  [
+   "pasteHere",
+   0,
+   "new",
+   "<p>Paragraph words for a probe</p>"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "panel",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "click",
+   "Colors"
+  ],
+  [
+   "click",
+   "Bright 1"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "a start"
+  ],
+  [
+   "read",
+   "a start",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "frameTo",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "pressEl",
+   "[data-test=\"toolbar-layout-switcher\"]"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "a open"
+  ],
+  [
+   "read",
+   "a open",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "pressLayout",
+   2
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "a pick 2"
+  ],
+  [
+   "read",
+   "a pick 2",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "pressNamed",
+   "Undo"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "a undo 1"
+  ],
+  [
+   "read",
+   "a undo 1",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "pressNamed",
+   "Undo"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "a undo 2 past opening"
+  ],
+  [
+   "read",
+   "a undo 2 past opening",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "pressLayout",
+   1
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "a pick 1 after"
+  ],
+  [
+   "read",
+   "a pick 1 after",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "pressNamed",
+   "Undo"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "a undo 3"
+  ],
+  [
+   "read",
+   "a undo 3",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "pressNamed",
+   "Undo"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "a undo 4"
+  ],
+  [
+   "read",
+   "a undo 4",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "pressNamed",
+   "Undo"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "a undo 5"
+  ],
+  [
+   "read",
+   "a undo 5",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "a closed"
+  ],
+  [
+   "read",
+   "a closed",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "frameTo",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "pressEl",
+   "[data-test=\"toolbar-layout-switcher\"]"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "b open"
+  ],
+  [
+   "read",
+   "b open",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "pressLayout",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "b pick 0"
+  ],
+  [
+   "read",
+   "b pick 0",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "press",
+   "Meta+z"
+  ],
+  [
+   "pause",
+   700
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "b meta z"
+  ],
+  [
+   "read",
+   "b meta z",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "press",
+   "Meta+Shift+z"
+  ],
+  [
+   "pause",
+   700
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "b meta shift z"
+  ],
+  [
+   "read",
+   "b meta shift z",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "pressLayout",
+   3
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "b pick 3"
+  ],
+  [
+   "read",
+   "b pick 3",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "press",
+   "Meta+z"
+  ],
+  [
+   "pause",
+   700
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "b meta z again"
+  ],
+  [
+   "read",
+   "b meta z again",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "press",
+   "Meta+z"
+  ],
+  [
+   "pause",
+   700
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "b meta z twice"
+  ],
+  [
+   "read",
+   "b meta z twice",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "frameTo",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "pressEl",
+   "[data-test=\"toolbar-layout-switcher\"]"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "pressLayout",
+   4
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "c pick 4"
+  ],
+  [
+   "read",
+   "c pick 4",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "frameTo",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "pressEl",
+   "[data-test=\"toolbar-layout-switcher\"]"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "c reopen on 4"
+  ],
+  [
+   "read",
+   "c reopen on 4",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "frameTo",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "pressEl",
+   "[data-test=\"toolbar-layout-switcher\"]"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "pressLayout",
+   1
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "d tall"
+  ],
+  [
+   "read",
+   "d tall",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "frameTo",
+   100
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "d scrolled 100",
+   {
+    "tiles": true,
+    "look": 0
+   }
+  ],
+  [
+   "frameTo",
+   200
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "d scrolled 200",
+   {
+    "tiles": true,
+    "look": 0
+   }
+  ],
+  [
+   "frameTo",
+   300
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "d scrolled 300",
+   {
+    "tiles": true,
+    "look": 0
+   }
+  ],
+  [
+   "frameTo",
+   400
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "d scrolled 400",
+   {
+    "tiles": true,
+    "look": 0
+   }
+  ],
+  [
+   "frameTo",
+   600
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "d scrolled 600",
+   {
+    "tiles": true,
+    "look": 0
+   }
+  ],
+  [
+   "frameTo",
+   0
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "d scrolled 0",
+   {
+    "tiles": true,
+    "look": 0
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "frameTo",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "panel",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "click",
+   "Divider"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "click",
+   "Edit Settings"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "click",
+   "Slanted Shape"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "pressNamed",
+   "Flip X Axis"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "frameTo",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "pressEl",
+   "[data-test=\"toolbar-layout-switcher\"]"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "pressLayout",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "e plain"
+  ],
+  [
+   "read",
+   "e plain",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "pressLayout",
+   2
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "e soft"
+  ],
+  [
+   "read",
+   "e soft",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "pressLayout",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "e plain again"
+  ],
+  [
+   "read",
+   "e plain again",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "pressLayout",
+   3
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "e rounded"
+  ],
+  [
+   "read",
+   "e rounded",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "pressLayout",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "shot",
+   "e plain last"
+  ],
+  [
+   "read",
+   "e plain last",
+   {
+    "look": 0,
+    "tiles": true
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ]
+ ],
+ "reads": {
+  "a start": {
+   "look": {
+    "th": "bright-inverse",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 667.6,
+    "rows": 8,
+    "blocks": 1,
+    "ctx": "{\"enabled\":false}"
+   },
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a open": {
+   "look": {
+    "th": "bright-inverse",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 667.6,
+    "rows": 8,
+    "blocks": 1,
+    "ctx": "{\"enabled\":false}"
+   },
+   "tiles": {
+    "open": true,
+    "box": [
+     1258,
+     248,
+     320,
+     476
+    ],
+    "tiles": [
+     [
+      "0",
+      304,
+      ""
+     ],
+     [
+      "1",
+      435.9,
+      ""
+     ],
+     [
+      "2",
+      595.1,
+      ""
+     ],
+     [
+      "3",
+      735.5,
+      ""
+     ],
+     [
+      "4",
+      870,
+      ""
+     ],
+     [
+      "5",
+      986,
+      ""
+     ]
+    ]
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a pick 2": {
+   "look": {
+    "th": "bright-inverse",
+    "ht": "medium",
+    "dv": true,
+    "d": "M0, 0.882 l0,0 c0,0.0885 0.015,0.118 0.06,0.",
+    "h": 804.7,
+    "rows": 9,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+   },
+   "tiles": {
+    "open": true,
+    "box": [
+     1258,
+     248,
+     320,
+     476
+    ],
+    "tiles": [
+     [
+      "0",
+      27,
+      ""
+     ],
+     [
+      "1",
+      158.9,
+      ""
+     ],
+     [
+      "2",
+      318.1,
+      ""
+     ],
+     [
+      "3",
+      458.5,
+      ""
+     ],
+     [
+      "4",
+      593,
+      ""
+     ],
+     [
+      "5",
+      709,
+      ""
+     ]
+    ]
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a undo 1": {
+   "look": {
+    "th": "bright-inverse",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 667.6,
+    "rows": 8,
+    "blocks": 1,
+    "ctx": "{\"enabled\":false}"
+   },
+   "tiles": {
+    "open": true,
+    "box": [
+     1258,
+     248,
+     320,
+     476
+    ],
+    "tiles": [
+     [
+      "0",
+      27,
+      ""
+     ],
+     [
+      "1",
+      158.9,
+      ""
+     ],
+     [
+      "2",
+      318.1,
+      ""
+     ],
+     [
+      "3",
+      458.5,
+      ""
+     ],
+     [
+      "4",
+      593,
+      ""
+     ],
+     [
+      "5",
+      709,
+      ""
+     ]
+    ]
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a undo 2 past opening": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 667.6,
+    "rows": 8,
+    "blocks": 1,
+    "ctx": "[\"divider\"]"
+   },
+   "tiles": {
+    "open": true,
+    "box": [
+     1258,
+     248,
+     320,
+     476
+    ],
+    "tiles": [
+     [
+      "0",
+      304,
+      ""
+     ],
+     [
+      "1",
+      435.9,
+      ""
+     ],
+     [
+      "2",
+      595.1,
+      ""
+     ],
+     [
+      "3",
+      735.5,
+      ""
+     ],
+     [
+      "4",
+      870,
+      ""
+     ],
+     [
+      "5",
+      986,
+      ""
+     ]
+    ]
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a pick 1 after": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 914.1,
+    "rows": 14,
+    "blocks": 1,
+    "ctx": "[\"divider\"]"
+   },
+   "tiles": {
+    "open": true,
+    "box": [
+     1258,
+     248,
+     320,
+     476
+    ],
+    "tiles": [
+     [
+      "0",
+      186,
+      ""
+     ],
+     [
+      "1",
+      317.9,
+      ""
+     ],
+     [
+      "2",
+      477.1,
+      ""
+     ],
+     [
+      "3",
+      617.5,
+      ""
+     ],
+     [
+      "4",
+      752,
+      ""
+     ],
+     [
+      "5",
+      868,
+      ""
+     ]
+    ]
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a undo 3": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 626.5,
+    "rows": 7,
+    "blocks": 1,
+    "ctx": "[\"divider\"]"
+   },
+   "tiles": {
+    "open": true,
+    "box": [
+     1258,
+     206,
+     320,
+     476
+    ],
+    "tiles": [
+     [
+      "0",
+      144,
+      ""
+     ],
+     [
+      "1",
+      275.9,
+      ""
+     ],
+     [
+      "2",
+      435.1,
+      ""
+     ],
+     [
+      "3",
+      575.5,
+      ""
+     ],
+     [
+      "4",
+      710,
+      ""
+     ],
+     [
+      "5",
+      826,
+      ""
+     ]
+    ]
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a undo 4": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 667.6,
+    "rows": 8,
+    "blocks": 1,
+    "ctx": "[\"divider\"]"
+   },
+   "tiles": {
+    "open": true,
+    "box": [
+     1258,
+     206,
+     320,
+     476
+    ],
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a undo 5": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 667.6,
+    "rows": 8,
+    "blocks": 0,
+    "ctx": "[\"divider\"]"
+   },
+   "tiles": {
+    "open": true,
+    "box": [
+     1258,
+     206,
+     320,
+     476
+    ],
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a closed": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 667.6,
+    "rows": 8,
+    "blocks": 0,
+    "ctx": "[\"divider\"]"
+   },
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "b open": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 667.6,
+    "rows": 8,
+    "blocks": 0,
+    "ctx": "[\"divider\"]"
+   },
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "b pick 0": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 667.6,
+    "rows": 8,
+    "blocks": 0,
+    "ctx": "[\"divider\"]"
+   },
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "b meta z": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "b meta shift z": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 667.6,
+    "rows": 8,
+    "blocks": 0,
+    "ctx": "[\"divider\"]"
+   },
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "b pick 3": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": false,
+    "d": null,
+    "h": 667.6,
+    "rows": 8,
+    "blocks": 0,
+    "ctx": "[\"divider\"]"
+   },
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "b meta z again": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "b meta z twice": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "c pick 4": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "c reopen on 4": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "d tall": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "d scrolled 100": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "d scrolled 200": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "d scrolled 300": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "d scrolled 400": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "d scrolled 600": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "d scrolled 0": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "e plain": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "e soft": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "e plain again": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "e rounded": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "e plain last": {
+   "look": null,
+   "tiles": {
+    "open": false,
+    "box": null,
+    "tiles": []
+   },
+   "path": "/blocks-probe",
+   "save": "clean"
+  }
+ },
+ "errors": [
+  "pressLayout [0]: js_error: TypeError: Cannot read properties of null (reading 'parentElement')",
+  "pressLayout [3]: js_error: TypeError: Cannot read properties of null (reading 'parentElement')",
+  "pressEl [\"[data-test=\\\"toolbar-layout-switcher\\\"]\"]: nothing at [data-test=\"toolbar-layout-switcher\"] 0",
+  "pressLayout [4]: js_error: TypeError: Cannot read properties of null (reading 'parentElement')",
+  "pressEl [\"[data-test=\\\"toolbar-layout-switcher\\\"]\"]: nothing at [data-test=\"toolbar-layout-switcher\"] 0",
+  "pressEl [\"[data-test=\\\"toolbar-layout-switcher\\\"]\"]: nothing at [data-test=\"toolbar-layout-switcher\"] 0",
+  "pressLayout [1]: js_error: TypeError: Cannot read properties of null (reading 'parentElement')",
+  "panel [0]: js_error: TypeError: Cannot read properties of undefined (reading 'getBoundingClientRect')",
+  "click [\"Divider\"]: nothing labelled Divider",
+  "click [\"Edit Settings\"]: nothing labelled Edit Settings",
+  "click [\"Slanted Shape\"]: nothing labelled Slanted Shape",
+  "pressNamed [\"Flip X Axis\"]: nothing labelled Flip X Axis",
+  "pressEl [\"[data-test=\\\"toolbar-layout-switcher\\\"]\"]: nothing at [data-test=\"toolbar-layout-switcher\"] 0",
+  "pressLayout [0]: js_error: TypeError: Cannot read properties of null (reading 'parentElement')",
+  "pressLayout [2]: js_error: TypeError: Cannot read properties of null (reading 'parentElement')",
+  "pressLayout [0]: js_error: TypeError: Cannot read properties of null (reading 'parentElement')",
+  "pressLayout [3]: js_error: TypeError: Cannot read properties of null (reading 'parentElement')",
+  "pressLayout [0]: js_error: TypeError: Cannot read properties of null (reading 'parentElement')"
+ ],
+ "leftDirty": false
+}

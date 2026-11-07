@@ -882,6 +882,9 @@ function onDown(e) {
   if (handle && sel) {
     e.preventDefault();
     // Like a drag, a group too: the move past 10px changes nothing, the next one starts it (HOLD.json).
+    // Starting the resize takes the handle out of the page, and a touch's later events stay on it,
+    // out of reach of the page's listener. Unprevented, the browser pans and the release is lost.
+    if (e.pointerType === 'touch') handle.addEventListener('touchmove', onTouchMove, { passive: false });
     gesture = { type: 'pending', resizeDir: handle.dataset.dir, sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, t0: e.timeStamp, x0: e.clientX, y0: e.clientY, py0: e.clientY - feEl(sel.sid).getBoundingClientRect().top, before: JSON.stringify(model) };
     return;
   }
@@ -918,6 +921,7 @@ function onDown(e) {
 function onMove(e) {
   if (!gesture || e.pointerId !== gesture.pointerId) return;
   if (gesture.type === 'pending') {
+    gesture.moves = (gesture.moves || 0) + 1;
     // The oracle starts a drag once the pointer has moved more than 10px (11 does, 10 does not).
     // The move that crosses it changes nothing, and a release right after it is no drag: the next
     // move starts the drag (parity/findings/HOLD.json).
@@ -984,10 +988,10 @@ function fitTextRows(s, b, g) {
 
 // A touch drags like a mouse unless the browser pans first (TOUCHHOLD.json): it takes the pointer
 // when a first move goes past its pan distance after a short press. A drag that has started, or a
-// press held this long, keeps the pointer. Measured between 60 and 100 ms.
+// press held this long, keeps the pointer. Measured between 60 and 100 ms. The same on a handle (CAP-X11FAST.json).
 const TOUCH_HOLD = 100;
 function onTouchMove(e) {
-  if (gesture && (gesture.type !== 'pending' || e.timeStamp - gesture.t0 >= TOUCH_HOLD)) e.preventDefault();
+  if (gesture && (gesture.type !== 'pending' || gesture.moves > 1 || e.timeStamp - gesture.t0 >= TOUCH_HOLD)) e.preventDefault();
 }
 
 function onCancel(e) {
@@ -1195,8 +1199,9 @@ function updateGroupResize(e) {
   if (r1 - 1 > g.shownRows) showGrid(g.sid, r1 - 1);
 }
 
-// Where a side pull stops, the same from each side, by type or by a stand-in's name (CAP-X6FLOORS.json, on desktop;
+// Where a side pull stops, the same from each side, by type or by a stand-in's name (CAP-X6FLOORS.json, CAP-X6PHONEFLOORS.json;
 // a button whatever its text, BUTTONDESIGN.json; CAP-T5PHONE.json, CAP-T11SOCIAL.json). Text, Shape and Line stop at 1.
+const LEAST_COLS_PHONE = { scrolling: 3 }; // CAP-X6PHONEFLOORS.json, the only one that differs on a phone
 const LEAST_COLS = { markdown: 2, social: 2, button: 3, accordion: 3, Product: 3, Donation: 3, Quote: 3, 'Page Link': 3, 'Tag Cloud': 3, RSS: 3, Tock: 3, SoundCloud: 3, Flickr: 3, OpenTable: 3, Zola: 3, Bandsintown: 3, video: 4, form: 4, scrolling: 4, Audio: 4, map: 4, code: 4, embed: 4, Instagram: 4, 'Pricing Plan': 6, Calendar: 6, Menu: 6, 'Search Field': 6, Archive: 6, Newsletter: 7, Scheduling: 8, Summary: 8, Chart: 8 };
 
 function updateResize(e) {
@@ -1207,7 +1212,7 @@ function updateResize(e) {
   let [r0, c0, r1, c1] = g.orig;
   const x = e.clientX;
   const y = e.clientY;
-  const held = B(g.sid, g.bid), leastCols = LEAST_COLS[held.label] ?? LEAST_COLS[held.type] ?? 1;
+  const held = B(g.sid, g.bid), leastCols = (bp === 'mobile' ? LEAST_COLS_PHONE[held.type] : null) ?? LEAST_COLS[held.label] ?? LEAST_COLS[held.type] ?? 1;
   const q = fe.getBoundingClientRect();
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(v, hi));
   // While held the block's own box follows the pointer and only the ring snaps (HOLD.json). It stops at
@@ -2891,14 +2896,28 @@ function fitRows(b, was) {
   const fe = feEl(sel.sid), found = measure(fe), m = { ...found, pitch: rowFloor(fe) + found.rg }, L = lay(b), rows = L.area[2] - L.area[0], need = Math.max(1, codeRowsFor(h, m));
   const next = h > was ? Math.max(rows, need) : need >= rows ? rows : Math.max(1, rows - codeRowsFor(was - h, m));
   if (next === rows) return;
-  const bottom = L.area[2];
+  const s = S(sel.sid), lowest = () => Math.max(...s.blocks.map((o) => o.layout?.[bp]?.area?.[2] ?? 1)), wasLowest = lowest();
+  fitOthers(s, b, L.area, next - rows);
   L.area = [L.area[0], L.area[1], L.area[0] + next, L.area[3]];
-  const s = S(sel.sid);
-  // A video takes what is below it along, up or down (CAP-T7ORDER.json). The section's rows move by the same
-  // number, keeping any spare below (CAP-T7THICK.json), but never past a block's end, or the rows past it collapse.
-  if (b.type === 'video') for (const o of s.blocks) { const A = o !== b && o.layout?.[bp]?.area; if (A && A[0] >= bottom) { A[0] += next - rows; A[2] += next - rows; } }
-  s.rows[bp] = Math.max(s.rows[bp] + next - rows, ...s.blocks.map((o) => (o.layout?.[bp]?.area?.[2] ?? 1) - 1));
+  // The section's rows move by how far the lowest end moved, keeping any spare (CAP-T10ROWS3.json to CAP-T10ROWS6.json).
+  s.rows[bp] = Math.max(s.rows[bp] + lowest() - wasLowest, lowest() - 1);
   renderSectionDom(sel.sid);
+}
+// What a block's rise or fall by n does to the others, by where they stand against its old end (CAP-T10ROWS4.json to
+// CAP-T10ROWS6.json). At or below that end, in any column: moved by n. Across it, sharing columns: moved by n if it starts
+// lower than the block, stopping at the block's new end on a fall; else its end moves, on a rise only. Inside it: stays.
+function fitOthers(s, b, area, n) {
+  const [top, left, end, right] = area, newEnd = end + n;
+  for (const o of s.blocks) {
+    const A = o !== b && o.layout?.[bp]?.area;
+    if (!A) continue;
+    const shares = A[1] < right && A[3] > left;
+    if (A[0] >= end || (shares && A[0] > top && A[2] >= end)) {
+      const to = n > 0 ? A[0] + n : Math.max(A[0] + n, Math.min(A[0], newEnd));
+      A[2] += to - A[0];
+      A[0] = to;
+    } else if (shares && A[2] >= end && n > 0) A[2] += n;
+  }
 }
 // The Markdown block's toolbar and keys, in the panel and in the Code Editor view (markdown-edit.js).
 const mdLines = (f) => { const box = f.closest('.bp-code'); if (box.classList.contains('is-look')) paintCode(f); else box.querySelector('.bp-code-lines').innerHTML = Array.from({ length: f.value.split('\n').length }, (_, n) => n + 1).join('<br>'); };
@@ -3688,16 +3707,18 @@ blockPanel.addEventListener('input', (e) => {
   const t = r.parentElement.querySelector('input[type="text"]');
   if (t) t.value = t.value.replace(/^[\d.]+/, r.value);
 });
-// The <> on a Thickness field: a pull moves the value 0.4 a pixel, down to 0, with the block following; letting go
-// is the same as typing it, so one undo step and the same rows (CAP-T7THICK3.json, CAP-T7THICK4.json).
+// The <> on a Thickness field, and the same pull with nothing to show for it at the right of Corner's and Padding's
+// (CAP-T7SCRUB3.json): 0.4 a pixel, down to 0, with the block following; letting go is the same as typing it, so one undo
+// step and the same rows (CAP-T7THICK3.json, CAP-T7THICK4.json).
 const SCRUB_PER_PX = 0.4;
 blockPanel.addEventListener('pointerdown', (e) => {
   const grip = e.target.closest('[data-scrub]');
   if (!grip || !sel) return;
   e.preventDefault();
-  const input = grip.parentElement.querySelector('input[data-design]'), b = B(sel.sid, sel.bid), bag = designBag(bp), k = grip.dataset.scrub;
-  const start = parseFloat(input.value) || 0, x0 = e.clientX, had = b[bag]?.[k], valueAt = (x) => Math.min(RANGE_LIMITS[k], Math.max(0, start + Math.round((x - x0) * SCRUB_PER_PX)));
-  const show = (v) => { b[bag] = { ...(b[bag] || {}), [k]: v }; renderSectionDom(sel.sid); input.value = `${v}px`; };
+  grip.setPointerCapture(e.pointerId); // or a pull off the panel, over a video's frame, never hears the rest
+  const input = grip.parentElement.querySelector('input[data-design], input[data-stack-field]'), b = B(sel.sid, sel.bid), bag = designBag(bp), k = grip.dataset.scrub;
+  const unit = input.value.endsWith('%') ? '%' : 'px', start = parseFloat(input.value) || 0, x0 = e.clientX, had = b[bag]?.[k], valueAt = (x) => Math.min(RANGE_LIMITS[k] ?? 1000, Math.max(0, start + Math.round((x - x0) * SCRUB_PER_PX)));
+  const show = (v) => { b[bag] = { ...(b[bag] || {}), [k]: v }; renderSectionDom(sel.sid); input.value = `${v}${unit}`; };
   const move = (m) => show(valueAt(m.clientX));
   const up = (m) => {
     removeEventListener('pointermove', move); removeEventListener('pointerup', up);
@@ -3705,7 +3726,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
     b[bag] = { ...(b[bag] || {}) };
     if (had === undefined) delete b[bag][k]; else b[bag][k] = had;
     renderSectionDom(sel.sid);
-    if (v === start) { input.value = `${start}px`; return; }
+    if (v === start) { input.value = `${start}${unit}`; return; }
     input.value = String(v);
     input.dispatchEvent(new Event('change', { bubbles: true }));
   };
@@ -4840,7 +4861,7 @@ function closeSectionPanel() { if (!editSid) return; settleHeight(''); editSid =
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
 const layoutsPanel = $('layouts-panel');
 let layoutsPlace = null;
-let layoutsSid = null, layoutsMix = null, layoutsPicked = null, layoutsOrder = [], layoutsBase = null, layoutsLook = null, layoutsPress = false;
+let layoutsSid = null, layoutsMix = null, layoutsPicked = null, layoutsLast = null, layoutsOrder = [], layoutsBase = null, layoutsLook = null, layoutsPress = false;
 // Roles stay with the blocks as they were on opening: a pick puts them in phone order.
 const openedMix = () => sectionMix({ blocks: [...S(layoutsSid).blocks].sort((a, b) => layoutsOrder.indexOf(a.id) - layoutsOrder.indexOf(b.id)) });
 // A tile's colors: the section's own, as on opening, or those of the theme a layout turns it to.
@@ -4861,23 +4882,29 @@ function renderLayouts() {
   };
   layoutsPanel.innerHTML = layoutsPanelHtml(layoutsMix, layoutsPicked, look);
 }
-// Undo and Redo leave the panel open: the section changes and the mark follows it. A section that shows no layout starts over.
+// Undo and Redo leave the panel open, even with every block gone: it then lists nothing (CAP-U10UNDOPAST.json).
+// The mark goes unless the section shows the last pick (CAP-U10WALK2.json). A section that shows no layout starts over.
 function syncLayouts() {
   if (!layoutsSid) return;
   const s = S(layoutsSid);
-  if (!s || !s.blocks.length) { closeLayouts(); return; }
+  if (!s) { closeLayouts(); return; }
+  if (!s.blocks.length) { layoutsMix = { list: [], by: {} }; layoutsPicked = null; renderLayouts(); return; }
   const mix = openedMix();
   if (!mix) { closeLayouts(); return; }
   const top = layoutsPanel.querySelector('.lo-list').scrollTop;
   layoutsMix = mix;
-  layoutsPicked = layoutShown(s, mix, layoutsPicked);
-  if (layoutsPicked == null) { layoutsBase = sectionLook(s); readLayoutsLook(); }
+  const shown = layoutShown(s, mix, layoutsLast);
+  layoutsPicked = shown === layoutsLast ? shown : null;
+  if (shown == null) { layoutsBase = sectionLook(s); readLayoutsLook(); }
   renderLayouts();
   layoutsPanel.querySelector('.lo-list').scrollTop = top;
 }
 function openLayouts(sid) {
   closeFloating();
-  layoutsSid = sid; layoutsOrder = S(sid).blocks.map((b) => b.id); layoutsBase = sectionLook(S(sid)); layoutsMix = openedMix(); layoutsPicked = null;
+  layoutsSid = sid; layoutsOrder = S(sid).blocks.map((b) => b.id); layoutsBase = sectionLook(S(sid)); layoutsMix = openedMix();
+  // Opening on a layout marks it, but not one that turns the theme: a pick would turn it again (CAP-U10READ4.json, CAP-U10READ6.json).
+  const shown = layoutShown(S(sid), layoutsMix, null);
+  layoutsPicked = layoutsLast = shown != null && !layoutsMix.list[shown].style?.theme ? shown : null;
   layoutsPanel.hidden = false;
   // The same place as Edit Section's panel (CAP-VIEWLAYOUTS.json, panelTop).
   const fr = frame.getBoundingClientRect(), q = sectionEl(sid).getBoundingClientRect();
@@ -4889,13 +4916,27 @@ function openLayouts(sid) {
   renderLayouts();
 }
 function closeLayouts() { layoutsSid = null; layoutsPanel.hidden = true; }
+// While the page scrolls: down with the section's bottom, up only once section top + 140 reaches it, by Edit Section's rule
+// (sectionPanelTop with prev). It closes where Edit Section's does (CAP-U10WALK2.json, CAP-U10READ5.json).
+// 5 of 34 oracle reads ran ahead of this on the way down, by up to one scroll step, with no rule.
+function placeLayouts() {
+  const el = layoutsSid && sectionEl(layoutsSid);
+  if (!el) return;
+  const fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect(), secTop = fr.top + q.top, secBottom = fr.top + q.bottom;
+  if (sectionPanelGone({ secTop, secBottom })) { closeLayouts(); return; }
+  // Up: top + 140 under the header, top + 1.4 on other sections on 2 walks of 3. Those sections' way down has no rule (CAP-U10SECOND2.json).
+  const edit = secTop + (model.sections[0].id === layoutsSid ? 143 : 4);
+  layoutsPlace.top = sectionPanelTop({ edit, H: window.innerHeight, secTop, secBottom, prev: layoutsPlace.top });
+  layoutsPlace.secTop = secTop;
+  layoutsPanel.style.top = `${layoutsPlace.top}px`;
+}
 layoutsPanel.addEventListener('click', (e) => {
   const t = e.target.closest('[data-layout]');
   const mix = t && S(layoutsSid) && openedMix();
   if (!mix) return;
   const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
-  layoutsPicked = Number(t.dataset.layout);
-  if (!layoutsPlace.moved) { layoutsPlace.moved = true; layoutsPanel.style.top = `${layoutsPickTop(layoutsPlace)}px`; }
+  layoutsPicked = layoutsLast = Number(t.dataset.layout);
+  if (!layoutsPlace.moved) { layoutsPlace.moved = true; layoutsPlace.top = layoutsPickTop(layoutsPlace); layoutsPanel.style.top = `${layoutsPlace.top}px`; }
   applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase);
   if (sel?.sid === layoutsSid) select(null);
   commit(before, `Layout ${layoutsPicked + 1}`);
@@ -6076,7 +6117,7 @@ function watchEmptyText() {
 
 function boot() {
   watchEmptyText();
-  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
+  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeLayouts(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
   // The canvas changes width when the layout switches; place the overlays again once it has.
   // Watch the canvas page itself: it reflows after the canvas element changes width.
   new frame.contentWindow.ResizeObserver(() => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); }).observe(frame.contentDocument.body);

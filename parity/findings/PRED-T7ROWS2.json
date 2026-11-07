@@ -1,0 +1,357 @@
+{
+  "item": "PRED-T7ROWS2",
+  "question": "T10: written and pushed before reading CAP-T10ROWS2. The rule for a section's rows when a Code, Markdown or Embed block grows and shrinks: they move by the block's rows, keeping the spare rows, never below a block's end. Inferred from CAP-T7THICK.json, no fresh read. These sizes are unread. Last round: the count before any refit stands. Each case's rows are what our code gives from the same start.",
+  "rule": "s.rows + (block's new rows - its old rows), at least the lowest block's end",
+  "padding and corner": "T7, for CAP-T7SCRUB: Padding's and Corner's fields have the same <> as Thickness: dim on a hover or a focus, a dark line on focus, a press does nothing, a pull moves the value",
+  "cases": {
+    "Code desktop a": {
+      "9": {
+        "areas": [
+          [
+            "1/2/9/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 10
+      },
+      "12": {
+        "areas": [
+          [
+            "1/2/13/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 14
+      },
+      "22": {
+        "areas": [
+          [
+            "1/2/22/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 23
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 8
+      }
+    },
+    "Code desktop b": {
+      "5": {
+        "areas": [
+          [
+            "1/2/5/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 6
+      },
+      "17": {
+        "areas": [
+          [
+            "1/2/17/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 18
+      },
+      "35": {
+        "areas": [
+          [
+            "1/2/34/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 35
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 8
+      }
+    },
+    "Code phone": {
+      "7": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/9/10"
+          ]
+        ],
+        "rows": 8
+      },
+      "12": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/14/10"
+          ]
+        ],
+        "rows": 13
+      },
+      "23": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/27/10"
+          ]
+        ],
+        "rows": 26
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 6
+      }
+    },
+    "Embed desktop": {
+      "4": {
+        "areas": [
+          [
+            "1/2/5/10",
+            "1/2/9/10"
+          ]
+        ],
+        "rows": 4
+      },
+      "7": {
+        "areas": [
+          [
+            "1/2/9/10",
+            "1/2/9/10"
+          ]
+        ],
+        "rows": 8
+      },
+      "15": {
+        "areas": [
+          [
+            "1/2/16/10",
+            "1/2/9/10"
+          ]
+        ],
+        "rows": 15
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/9/10",
+            "1/2/9/10"
+          ]
+        ],
+        "rows": 8
+      }
+    },
+    "Embed phone": {
+      "5": {
+        "areas": [
+          [
+            "1/2/9/10",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 6
+      },
+      "13": {
+        "areas": [
+          [
+            "1/2/9/10",
+            "1/2/16/10"
+          ]
+        ],
+        "rows": 15
+      },
+      "27": {
+        "areas": [
+          [
+            "1/2/9/10",
+            "1/2/32/10"
+          ]
+        ],
+        "rows": 31
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/9/10",
+            "1/2/9/10"
+          ]
+        ],
+        "rows": 8
+      }
+    },
+    "Markdown desktop": {
+      "6": {
+        "areas": [
+          [
+            "1/2/6/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 7
+      },
+      "12": {
+        "areas": [
+          [
+            "1/2/13/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 14
+      },
+      "25": {
+        "areas": [
+          [
+            "1/2/25/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 26
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 8
+      }
+    },
+    "Code, a section pulled taller": {
+      "3": {
+        "areas": [
+          [
+            "1/2/4/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 13
+      },
+      "14": {
+        "areas": [
+          [
+            "1/2/14/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 23
+      },
+      "24": {
+        "areas": [
+          [
+            "1/2/24/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 33
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ]
+        ],
+        "rows": 16
+      }
+    },
+    "Second Code": {
+      "8": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ],
+          [
+            "1/2/8/6",
+            "7/2/13/10"
+          ]
+        ],
+        "rows": 9
+      },
+      "18": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ],
+          [
+            "1/2/18/6",
+            "7/2/13/10"
+          ]
+        ],
+        "rows": 19
+      },
+      "start": {
+        "areas": [
+          [
+            "1/2/7/6",
+            "1/2/7/10"
+          ],
+          [
+            "1/2/7/6",
+            "7/2/13/10"
+          ]
+        ],
+        "rows": 8
+      }
+    }
+  },
+  "count": {
+    "cases right": "6 of 8",
+    "steps right": "18 of 23",
+    "code a, code b, code phone, embed desktop, embed phone, markdown": "each 3 of 3, areas and rows",
+    "a section pulled taller": "0 of 3: the pull moved the block's top to row 6 instead and the section stayed at 8. From that start the rows still moved by the block's: 20, 30, 10",
+    "second code": "0 of 2: the first Code also rose to 18 when the second did, and stayed when the second fell, with the section at 19; ours left the first alone and took the section to 9"
+  },
+  "third": {
+    "written after CAP-T10ROWS2, before CAP-T10ROWS3": true,
+    "a section pulled taller, before the block goes in": "rows move by the block's, so 8 rows pulled up keeps that spare",
+    "the lowest block": "a section's rows move by how far its lowest block's end moves, not the block in hand: that fits Second Code's 19",
+    "two blocks at the same place": "the first rising with the second is read as: a block sharing the risen one's bottom row goes with it on a rise, and neither on a fall",
+    "blocks not sharing a bottom row": "stay where they are, whether side by side, above or below",
+    "result": "Pulled: 16 rows, then the first prediction's 23, 33, 13: right. Lowest block: right in all 30 reads. Sharing a bottom row: wrong. The first also rises when it is taller than the block in hand and shares its columns (Code over Embed), and doesn't when it is shorter (Embed over Code), and side by side nothing moves."
+  },
+  "fourth": {
+    "written after CAP-T10ROWS3, before CAP-T10ROWS4": true,
+    "rule": "On a rise by n, a block sharing rows and columns with the risen one, whose end is at or below its end, gets its end moved by n, its top staying. A fall moves no other block. A section's rows move by how far the lowest end moved.",
+    "upper rises, a block wholly under it": "that block stays put, since it shares no rows at the start",
+    "upper rises, a block overlapping lower down": "that block's end moves by n, its top stays",
+    "lower rises, the upper overlapping": "the upper stays: its end is above",
+    "a Code inside a taller Code": "the taller one's end moves by n",
+    "a Text the Code overlaps": "the same as any block: its end moves by n",
+    "result": "Section rows by the lowest end: right, all 22. A Code inside a taller, a Text overlapped with its end above: right. Wrong: a block wholly under the risen one moves with it, top and end, up and down, as under a Video. The two called 'overlapping' share no columns, so they test nothing but the section's rows."
+  },
+  "fifth": {
+    "written after CAP-T10ROWS4, before CAP-T10ROWS5": true,
+    "rule": "The line at the block's old end. On a rise by n, a block sharing columns with it: wholly below the line, its top and end move by n; across the line, its end moves. On a fall by n: wholly below the line moves up by n, across it stays. No shared column: stays. A section's rows move by how far the lowest end moved. For every type, as for Video.",
+    "below, other columns": "stays",
+    "below, sharing some columns": "moves with it, both ways",
+    "across the line, top inside": "end moves on a rise, nothing on a fall",
+    "phone, the second under the first": "moves with it, both ways",
+    "Markdown over a Text, Embed over a Code": "the same",
+    "result": "Section rows by the lowest end: right. Phone: right. Wrong: below in other columns moves too; across the line with its top inside moves whole, not by its end, and comes back on a fall, to the risen block's new end."
+  },
+  "sixth": {
+    "written after CAP-T10ROWS5, before CAP-T10ROWS6": true,
+    "rule": "With L the block's old end and t its top. Top at or below L: moves by n, any columns. Sharing columns, end at or below L: top after t moves by n, and on a fall stops at the block's new end; otherwise, on a rise its end moves by n and on a fall nothing. Otherwise stays.",
+    "across, a fall first": "B 4/2/10/6 under A 1/2/7/6, A falling to 3 lines: B stays at 4, since the new end is at or above it and n would take it to 2 or above... moves to the new end if that is below it",
+    "inside, wholly": "a block wholly inside A, end above L, stays on a rise and on a fall until A's new end",
+    "result": "Other types: right. Across, a fall first: stays, right. Wholly inside: stays on a rise, stays on a fall even past A's new end. Section rows by the lowest end right in every read since CAP-T10ROWS3."
+  }
+}

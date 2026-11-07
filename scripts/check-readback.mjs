@@ -1,11 +1,11 @@
 // The read-back's comparison can't pass a narrowed read: oracle-readback.mjs is only as honest as this.
 import { readFileSync } from 'node:fs';
-import { THEMES, NAMES, colorsOf, compareRows, comparePalette, compareView, compareLists, compareFamilies, settledRead, STYLES, FINDING } from './oracle/readback.mjs';
+import { THEMES, NAMES, colorsOf, compareRows, comparePalette, compareView, compareLists, compareFamilies, compareFormColors, settledRead, STYLES, FINDING } from './oracle/readback.mjs';
 import { VIEWS, DEEP, LISTS } from './oracle/style-views.mjs';
 import { siteStylesHtml } from '../app/src/site-styles.js';
 import { THEMES as OUR_THEMES } from '../app/src/site-style-packs.js';
 import { SHAPES } from '../app/src/button-tiers.js';
-import { FORM_SHAPES } from '../app/src/form-rows.js';
+import { FORM_SHAPES, FORM_FONT_SIZES } from '../app/src/form-rows.js';
 
 const finding = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url)));
 
@@ -103,4 +103,17 @@ for (const t of ['Primary', 'Secondary', 'Tertiary']) is(`our ${t} button Shape 
 is('our Field Shape list offers the oracle\'s tiles', eq(tileNames(lists.Forms.shape), FORM_SHAPES.map(([n]) => n)));
 is('our Themes popover holds the oracle\'s tiles and groups', eq(lists.Themes.tiles.map((x) => x[0]), OUR_THEMES.map((t) => `Site theme ${t.id}`)) && eq(lists.Themes.heads.slice(1), [...new Set(OUR_THEMES.map((t) => t.group))]));
 if (bad.length) { console.error(`read-back compare: ${bad.join('; ')}`); process.exit(1); }
+// Fonts > Buttons and Miscellaneous hold the same lists as Paragraphs, Buttons three times over; a form font holds Style and Size.
+const para = lists['Fonts > Paragraphs'].combos.map((c) => c[1].map(([n]) => n));
+is('Fonts > Buttons holds Paragraphs\' 3 lists for each of 3 buttons', eq(lists['Fonts > Buttons'].combos.map((c) => c[1].map(([n]) => n)), [...para, ...para, ...para]));
+is('Fonts > Miscellaneous holds Paragraphs\' 3 lists', eq(lists['Fonts > Miscellaneous'].combos.map((c) => c[1].map(([n]) => n)), para));
+const sizes = FORM_FONT_SIZES.flatMap(([, names]) => names);
+for (const f of DEEP['Forms > Fonts']) is(`our ${f} Size list offers the oracle's`, eq(lists[`Forms > Fonts > ${f}`].combos[1][1].map(([n]) => n), sizes));
+// Forms > Colors on each theme: stored, a change fails, and it holds what Colors holds for that theme.
+const fc = STYLES.formColors, formStart = NAMES.indexOf('Field Background');
+is('Forms > Colors stored for all ten themes', THEMES.every((t) => fc[t]?.length === 29));
+is('stored Forms > Colors pass', THEMES.every((t) => compareFormColors(t, fc[t]).length === 0));
+is('Forms > Colors with a row changed fails', compareFormColors(THEMES[0], fc[THEMES[0]].map((r, i) => (i === 1 ? [r[0], r[1], r[2], r[3], 'rgb(1, 2, 3)', r[5]] : r))).length > 0);
+is('a theme nothing is stored for fails', compareFormColors('Nowhere', fc[THEMES[0]]).length > 0);
+is('Forms > Colors holds each theme\'s Form rows in CAP-THEMEROWS', THEMES.every((t) => { const c = colorsOf(t); return fc[t].slice(1, 27).every((r, i) => r[0] === NAMES[formStart + i] && r[4] === c[formStart + i]); }));
 console.log(`read-back compare ok: ${NAMES.length} rows, ${THEMES.length} themes, ${expected.length} views, ${Object.keys(lists).length} sets of lists, ${STYLES.families.length} font names`);
