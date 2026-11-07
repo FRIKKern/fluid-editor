@@ -78,6 +78,16 @@ async function toTab(t) { await openPanel(); if (js(`(() => JSON.stringify((${ta
 async function settle(t) { const open = js(`(() => JSON.stringify([...document.querySelectorAll('[role=listbox],[role=menu],[role=dialog]')].some((x) => x.getBoundingClientRect().width > 1 && !x.contains(${PANEL}))))()`); if (open) { await escape(); await pause(300); } await toTab(t); }
 const find = (c) => (read() || []).find((x) => x.kind === c.kind && x.name === c.name && x.row === c.row);
 
+// The panel's own back arrow, or Escape if it has none.
+async function goBack(rec) {
+    const back = js(`(() => { const r = ${ROOT}; if (!r) return JSON.stringify(null); const bs = [...r.querySelectorAll('button,[role=button]')].filter((x) => x.getBoundingClientRect().width > 1); const b = bs.find((x) => /^(back|go back|return)/i.test(x.getAttribute('aria-label') || x.textContent.trim())) || bs.find((x) => x.querySelector('svg') && !x.textContent.trim() && !x.getAttribute('aria-label')); if (b) window.__back = b; return JSON.stringify(b ? (b.getAttribute('aria-label') || b.textContent.trim() || 'an arrow') : null); })()`);
+    rec.back = back;
+    if (back) await pressOnTop(S, `window.__back`, 800); else { await escape(); await pause(500); }
+}
+
+// The names of everything pressable that is really on top, outside the page frame.
+const onTop = () => js(`(() => JSON.stringify([...new Set([...document.querySelectorAll('button,[role=button],[role=radio],[role=option],label,a,input')].filter((x) => { const q = x.getBoundingClientRect(); if (q.width < 2 || q.height < 2 || q.top < 56 || q.top >= innerHeight) return false; if (x.closest('#sqs-site-frame')) return false; const t = document.elementFromPoint(q.left + q.width / 2, q.top + q.height / 2); return !!t && (t === x || x.contains(t) || t.contains(x)); }).map((x) => (x.getAttribute('aria-label') || x.textContent || x.title || x.getAttribute('placeholder') || x.tagName).replace(/\\s+/g, ' ').trim().slice(0, 60)))]))()`);
+
 const tried = new Set();
 async function changeRow(c, t, rec) {
   const before = blockNow();
@@ -93,11 +103,26 @@ async function changeRow(c, t, rec) {
     mouse(S, 'move', q[0], q[1]); await pause(80); mouse(S, 'down', q[0], q[1], { buttons: 1 }); await pause(40); mouse(S, 'up', q[0], q[1]); await pause(700);
     rec.to = find(c)?.value; rec.change = diff(before, blockNow());
   } else if (c.kind === 'menu') {
+    const seen = onTop(), rows0 = read() || [];
     await pressAt(c.i, 800);
     const opts = js(`(() => JSON.stringify([...document.querySelectorAll('[role=option],[role=menuitem],[role=menuitemradio]')].filter((x) => x.getBoundingClientRect().width > 1).map((x) => x.textContent.replace(/\\s+/g, ' ').trim())))()`);
     rec.options = opts;
-    // A list with no option roles: the buttons it brought.
-    if (!opts.length) { rec.options = js(`(() => JSON.stringify([...document.querySelectorAll('button,[role=button],[role=radio],label')].filter((x) => { const q = x.getBoundingClientRect(); return q.width > 1 && !x.closest('#sqs-site-frame') && !x.closest('[role=tablist]') && q.left > 100 && !(${ROOT})?.contains(x); }).map((x) => (x.getAttribute('aria-label') || x.textContent || '').replace(/\\s+/g, ' ').trim()).filter(Boolean).slice(0, 30)))()`); await escape(); await pause(300); }
+    // No list of options: a view inside the panel, or a popover. Read what came, and close it the way it came.
+    if (!opts.length) {
+      rec.inside = (read() || []).map((x) => ({ row: x.row, kind: x.kind, name: x.name, value: x.value }));
+      const now = onTop(); rec.opened = now.filter((x) => !seen.includes(x));
+      const same = JSON.stringify(rows0.map((x) => x.name)) === JSON.stringify(rec.inside.map((x) => x.name));
+      if (same && rec.opened.length) {
+        // Scrolled out of sight still counts: every button beside the first one that came.
+        rec.openedList = js(`(() => { const n = ${JSON.stringify(rec.opened[0])}; const e = [...document.querySelectorAll('button,[role=button],[role=radio],[role=option],label')].find((x) => !x.closest('#sqs-site-frame') && (x.getAttribute('aria-label') || x.textContent || '').replace(/\\s+/g, ' ').trim().startsWith(n)); let p = e && e.parentElement; const kids = (q) => [...q.querySelectorAll('button,[role=button],[role=radio],[role=option],label')]; while (p && kids(p).length < 2) p = p.parentElement; return JSON.stringify(p ? kids(p).map((x) => (x.getAttribute('aria-label') || x.textContent || '').replace(/\\s+/g, ' ').trim().slice(0, 60)) : []); })()`);
+        const still = () => onTop().some((x) => rec.opened.includes(x));
+        await escape(); await pause(500); rec.closedBy = 'Escape';
+        if (still()) { await pressOnTop(S, tabEl(t), 600).catch(() => {}); rec.closedBy = 'a press on its tab'; }
+        await pause(400); if (still()) rec.closedBy = 'still open after a press on its tab';
+      }
+      else await goBack(rec);
+      await settle(t); return;
+    }
     const pick = opts.find((o) => o && o !== String(c.value) && !REFUSE.test(o));
     if (pick) { await pressOnTop(S, `[...document.querySelectorAll('[role=option],[role=menuitem],[role=menuitemradio]')].find((x) => x.getBoundingClientRect().width > 1 && x.textContent.replace(/\\s+/g, ' ').trim() === ${JSON.stringify(pick)})`, 800); rec.picked = pick; rec.change = diff(before, blockNow()); }
     await settle(t);
@@ -110,10 +135,7 @@ async function changeRow(c, t, rec) {
     rec.to = find(c)?.value; rec.change = diff(before, blockNow());
   } else if (c.kind === 'nav') {
     await pressAt(c.i, 900); rec.inside = (read() || []).map((x) => ({ row: x.row, kind: x.kind, name: x.name, value: x.value }));
-    // Its way back is the first button with no way into anything: the panel's own back arrow.
-    const back = js(`(() => { const r = ${ROOT}; if (!r) return JSON.stringify(null); const bs = [...r.querySelectorAll('button,[role=button]')].filter((x) => x.getBoundingClientRect().width > 1); const b = bs.find((x) => /^(back|go back|return)/i.test(x.getAttribute('aria-label') || x.textContent.trim())) || bs.find((x) => x.querySelector('svg') && !x.textContent.trim() && !x.getAttribute('aria-label')); if (b) window.__back = b; return JSON.stringify(b ? (b.getAttribute('aria-label') || b.textContent.trim() || 'an arrow') : null); })()`);
-    rec.back = back;
-    if (back) await pressOnTop(S, `window.__back`, 800); else { await escape(); await pause(500); }
+    await goBack(rec);
     await settle(t);
   }
 }
@@ -131,7 +153,7 @@ async function readTab(t) {
     rows.push(rec); save();
     if (tried.has(key)) continue; tried.add(key);
     const label = `${c0.row} ${c0.name}`;
-    if (c0.off || REFUSE.test(c0.name) || REFUSE.test(c0.row) || (c0.kind === 'button')) { rec.notPressed = c0.kind === 'button' ? 'a plain button' : 'refused by name'; continue; }
+    if (c0.off || REFUSE.test(c0.name) || (REFUSE.test(c0.row) && !/^reset to default/i.test(c0.row)) || (c0.kind === 'button')) { rec.notPressed = c0.kind === 'button' ? 'a plain button' : 'refused by name'; continue; }
     if (COMMON.test(c0.row) || COMMON.test(c0.name)) { rec.notPressed = 'a row every panel has'; continue; }
     if (wide && /style/i.test(label)) { rec.notPressed = 'the tab says it reaches further'; continue; }
     if (c0.kind === 'choice') { if (c0.value) { rec.notPressed = 'the default'; continue; } rec.home = list.find((x) => x.kind === 'choice' && x.row === c0.row && x.value)?.name; }
@@ -149,7 +171,7 @@ blockId = await addBlock(i, TYPE); await pause(1200); await escape(); await paus
 out.path = path;
 await openPanel();
 const tabs = js(tabsJs(PANEL)); out.tabList = tabs;
-for (const t of tabs) { if (ONLY && t !== ONLY) continue; if (t === 'Animation' || t === 'Storage') { await toTab(t); await pause(400); out.tabs[t] = { rows: (read() || []).map((x) => ({ row: x.row, kind: x.kind, name: x.name, value: x.value })), notPressed: t === 'Storage' ? 'form storage is read only' : 'every panel has it' }; save(); continue; } await readTab(t); console.log(t, out.tabs[t].rows.length); }
+for (const t of tabs) { if (ONLY && t !== ONLY) continue; if (t === 'Animation' || t === 'Storage') { await toTab(t); await pause(400); out.tabs[t] = { rows: (read() || []).map((x) => ({ row: x.row, kind: x.kind, name: x.name, value: x.value })), notPressed: t === 'Storage' ? 'form storage is read only' : 'every panel has it' }; save(); continue; } try { await readTab(t); console.log(t, out.tabs[t].rows.length); } catch (e) { (out.errors ||= []).push(`${t}: ${e.message.slice(0, 120)}`); console.log(`${t} stopped: ${e.message.slice(0, 120)}`); await escape(); await escape(); } }
 const all = Object.values(out.tabs).flatMap((t) => t.rows || []);
 out.answer = `${TYPE}: tabs ${(out.tabList || []).join(', ')}. ${all.filter((r) => r.kind !== 'button').length} rows read, ${all.filter((r) => r.change?.length).length} changed the block when changed. Each row below has its default and what the change did.`;
 out.pressed = `Add Block, ${TYPE}, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved.`;

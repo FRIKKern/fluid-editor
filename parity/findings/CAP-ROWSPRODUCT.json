@@ -1,0 +1,420 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Product: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Product",
+ "tabs": {
+  "Design": {
+   "rows": [
+    {
+     "row": "Image",
+     "kind": "menu",
+     "name": "Image",
+     "options": [],
+     "inside": [
+      {
+       "row": "Image",
+       "kind": "menu",
+       "name": "Image"
+      },
+      {
+       "row": "Image",
+       "kind": "field",
+       "name": "Image",
+       "value": "0px"
+      },
+      {
+       "row": "Image",
+       "kind": "button",
+       "name": "Image"
+      },
+      {
+       "row": "Image",
+       "kind": "button",
+       "name": "Image"
+      },
+      {
+       "row": "Image",
+       "kind": "button",
+       "name": "Image"
+      },
+      {
+       "row": "Image",
+       "kind": "button",
+       "name": "Reset to default value"
+      },
+      {
+       "row": "Reset to default value",
+       "kind": "menu",
+       "name": "Ratio",
+       "value": "Original"
+      },
+      {
+       "row": "Ratio",
+       "kind": "button",
+       "name": "FOCAL POINT"
+      },
+      {
+       "row": "Block Alignment",
+       "kind": "choice",
+       "name": "option 1",
+       "value": true
+      },
+      {
+       "row": "Block Alignment",
+       "kind": "choice",
+       "name": "option 2",
+       "value": false
+      },
+      {
+       "row": "Block Alignment",
+       "kind": "choice",
+       "name": "option 3",
+       "value": false
+      },
+      {
+       "row": "Background",
+       "kind": "switch",
+       "name": "Background",
+       "value": false
+      },
+      {
+       "row": "Stroke",
+       "kind": "choice",
+       "name": "No Stroke",
+       "value": true
+      },
+      {
+       "row": "Stroke",
+       "kind": "choice",
+       "name": "Solid Stroke",
+       "value": false
+      },
+      {
+       "row": "Stroke",
+       "kind": "choice",
+       "name": "Dashed Stroke",
+       "value": false
+      },
+      {
+       "row": "Stroke",
+       "kind": "menu",
+       "name": "Blend Mode",
+       "value": "Normal"
+      },
+      {
+       "row": "Blur",
+       "kind": "switch",
+       "name": "Blur",
+       "value": false
+      },
+      {
+       "row": "Transforms",
+       "kind": "menu",
+       "name": "More actions"
+      },
+      {
+       "row": "Opacity",
+       "kind": "field",
+       "name": "Opacity",
+       "value": "100%"
+      },
+      {
+       "row": "Opacity",
+       "kind": "button",
+       "name": "Opacity"
+      },
+      {
+       "row": "Opacity",
+       "kind": "button",
+       "name": "Opacity"
+      },
+      {
+       "row": "Opacity",
+       "kind": "button",
+       "name": "Opacity"
+      },
+      {
+       "row": "Opacity",
+       "kind": "button",
+       "name": "Reset to default value"
+      },
+      {
+       "row": "Rotate",
+       "kind": "field",
+       "name": "Rotate",
+       "value": "0°"
+      },
+      {
+       "row": "Rotate",
+       "kind": "button",
+       "name": "Rotate"
+      },
+      {
+       "row": "Rotate",
+       "kind": "button",
+       "name": "Rotate"
+      },
+      {
+       "row": "Rotate",
+       "kind": "button",
+       "name": "Rotate"
+      },
+      {
+       "row": "Rotate",
+       "kind": "button",
+       "name": "Reset to default value"
+      },
+      {
+       "row": "Anchor",
+       "kind": "menu",
+       "name": "Position"
+      }
+     ],
+     "opened": [
+      "Rectangle",
+      "Circle",
+      "Diamond",
+      "Rabbet",
+      "Eight Sided Shield",
+      "TV",
+      "Octagon",
+      "Rounded Pentagon",
+      "Open Book",
+      "Four Petal Flower",
+      "Flower",
+      "Horizontal Stacked Circles",
+      "Wide Vertical Stacked Pills",
+      "Horizontal Right Leaning Oval",
+      "Wide Horizontal Stacked Pills",
+      "Wide Eight Sided Shield",
+      "Egg",
+      "Narrow Horizontal Stacked Pills",
+      "Arched Window",
+      "Pointed Window",
+      "Award"
+     ],
+     "openedList": [
+      "Rectangle",
+      "Circle",
+      "Diamond",
+      "Rabbet",
+      "Eight Sided Shield",
+      "TV",
+      "Octagon",
+      "Rounded Pentagon",
+      "Open Book",
+      "Four Petal Flower",
+      "Flower",
+      "Horizontal Stacked Circles",
+      "Wide Vertical Stacked Pills",
+      "Horizontal Right Leaning Oval",
+      "Wide Horizontal Stacked Pills",
+      "Wide Eight Sided Shield",
+      "Egg",
+      "Narrow Horizontal Stacked Pills",
+      "Arched Window",
+      "Pointed Window",
+      "Award"
+     ],
+     "closedBy": "did not close"
+    },
+    {
+     "row": "Image",
+     "kind": "field",
+     "name": "Image",
+     "value": "0px",
+     "to": "1px",
+     "change": []
+    },
+    {
+     "row": "Image",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Reset to default value",
+     "kind": "menu",
+     "name": "Ratio",
+     "value": "Original",
+     "options": [
+      "1:1",
+      "3:2",
+      "2:3",
+      "4:3",
+      "3:4",
+      "16:9",
+      "Original"
+     ],
+     "picked": "1:1",
+     "change": [
+      "area 1 / 2 / 11 / 8 > 1 / 2 / 12 / 8",
+      "section rows 10 > 11",
+      "DIV.fe-block b: 100.1,244.2,341.7,399.9 > 100.1,244.2,341.7,441",
+      "DIV b: 100.1,244.2,341.7,399.9 > 100.1,244.2,341.7,441",
+      "DIV.yui3-widget b: 100.1,244.2,341.7,399.9 > 100.1,244.2,341.7,441",
+      "DIV b: 100.1,244.2,341.7,313.2 > 100.1,244.2,341.7,427.1",
+      "DIV.product-block b: 100.1,244.2,341.7,313.2 > 100.1,244.2,341.7,427.1",
+      "DIV b: 100.1,244.2,341.7,302.2 > 100.1,244.2,341.7,416.1",
+      "DIV b: 100.1,244.2,341.7,302.2 > 100.1,244.2,341.7,416.1",
+      "STYLE w: #block-yui_3_17_2_1_17940283 .. t-ratio: 1.5 > #block-yui_3_17_2_1_17940283 .. ratio: 1 / 1",
+      "DIV b: 100.1,244.2,341.7,227.8 > 100.1,244.2,341.7,341.7",
+      "DIV b: 101.1,245.2,339.7,225.8 > 101.1,245.2,339.7,339.7",
+      "SPAN b: 101.1,245.2,339.7,225.8 > 101.1,245.2,339.7,339.7",
+      "svg b: 254,322.1,34,34 > 254,379.1,34,34"
+     ]
+    },
+    {
+     "row": "Ratio",
+     "kind": "button",
+     "name": "FOCAL POINT",
+     "off": true,
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Block Alignment",
+     "kind": "choice",
+     "name": "option 1",
+     "value": true,
+     "notPressed": "the default"
+    },
+    {
+     "row": "Block Alignment",
+     "kind": "choice",
+     "name": "option 2",
+     "value": false,
+     "home": "option 1",
+     "change": [
+      "DIV.productDetails textAlign: left > center",
+      "DIV.product-title b: 100.1,601.9,151,29.5 > 195.5,601.9,151,29.5",
+      "DIV.product-title textAlign: left > center",
+      "DIV.product-price textAlign: left > center",
+      "DIV.product-excerpt textAlign: left > center",
+      "P textAlign: left > center",
+      "DIV textAlign: left > center",
+      "DIV textAlign: left > center",
+      "DIV.form-item textAlign: left > center",
+      "DIV textAlign: left > center",
+      "DIV textAlign: left > center",
+      "SPAN textAlign: left > center",
+      "SPAN textAlign: left > center",
+      "SPAN textAlign: left > center"
+     ]
+    },
+    {
+     "row": "Block Alignment",
+     "kind": "choice",
+     "name": "option 3",
+     "value": false,
+     "home": "option 1",
+     "change": [
+      "DIV.productDetails textAlign: left > right",
+      "DIV.product-title b: 100.1,601.9,151,29.5 > 290.8,601.9,151,29.5",
+      "DIV.product-title textAlign: left > right",
+      "DIV.product-price textAlign: left > right",
+      "DIV.product-excerpt textAlign: left > right",
+      "P textAlign: left > right",
+      "DIV textAlign: left > right",
+      "DIV textAlign: left > right",
+      "DIV.form-item textAlign: left > right",
+      "DIV textAlign: left > right",
+      "DIV textAlign: left > right",
+      "SPAN textAlign: left > right",
+      "SPAN textAlign: left > right",
+      "SPAN textAlign: left > right"
+     ]
+    },
+    {
+     "row": "Background",
+     "kind": "switch",
+     "name": "Background",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "No Stroke",
+     "value": true,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "Solid Stroke",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "Dashed Stroke",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "menu",
+     "name": "Blend Mode",
+     "value": "Normal",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Blur",
+     "kind": "switch",
+     "name": "Blur",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Transforms",
+     "kind": "menu",
+     "name": "More actions",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Opacity",
+     "kind": "field",
+     "name": "Opacity",
+     "value": "100%",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Opacity",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Rotate",
+     "kind": "field",
+     "name": "Rotate",
+     "value": "0°",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Rotate",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Anchor",
+     "kind": "menu",
+     "name": "Position",
+     "notPressed": "a row every panel has"
+    }
+   ]
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Content",
+  "Design",
+  "Animation"
+ ],
+ "answer": "Product: tabs Content, Design, Animation. 16 rows read, 3 changed the block when changed. Each row below has its default and what the change did.",
+ "pressed": "Add Block, Product, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved."
+}
