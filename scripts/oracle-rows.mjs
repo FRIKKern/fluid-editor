@@ -1,14 +1,15 @@
 // A row-by-row read of one tile's panel, unsaved, on a probe page: each row's name, kind and default, and what a change does
 // to the block. It changes only the tile's own rows: a switch both ways, each choice, a menu's other options, a slider at
 // three quarters, a text field by a few typed letters. It goes one level into a Navigate row, to read it, and comes back.
-// It never presses what REFUSE names, and reads a tab without changing it if the tab says it reaches other pages or blocks.
+// It presses only what has a name, and reloads if a panel has no named way out. It never presses what REFUSE names, and reads a tab without changing it if the tab says it reaches other pages or blocks.
 //   ORACLE_SURFACE=cdp:<port> node scripts/oracle-rows.mjs --type Quote [--page 'Gestures Probe'] [--only Design] [--name CAP-ROWSQUOTE]
 // Writes parity/findings/CAP-ROWS<TILE>.json after each tab, so a stop loses little.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { evalJs, pause, mouse, browser } from './lib/cmux.mjs';
+import { evalJs, pause, mouse, browser, goto } from './lib/cmux.mjs';
 import { pressOnTop } from './oracle/press.mjs';
 import { enterEdit, exitWithoutSaving, addSection, addBlock, sectionCount, escape, select } from './oracle/ui.mjs';
 import { tabsJs } from './lib/panel-rows.mjs';
+import { BACK_NAME, hasName } from './lib/press-names.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S?.startsWith('cdp:')) { console.error('oracle-rows: set ORACLE_SURFACE=cdp:<port>'); process.exit(2); }
@@ -80,11 +81,22 @@ async function settle(t) { const open = js(`(() => JSON.stringify([...document.q
 // A row's heading can change after an earlier press, so a name that's unique on its own will do.
 const find = (c) => { const l = read() || []; return l.find((x) => x.kind === c.kind && x.name === c.name && x.row === c.row) || (l.filter((x) => x.kind === c.kind && x.name === c.name).length === 1 ? l.find((x) => x.kind === c.kind && x.name === c.name) : undefined); };
 
-// The panel's own back arrow, or Escape if it has none.
-async function goBack(rec) {
-    const back = js(`(() => { const r = ${ROOT}; if (!r) return JSON.stringify(null); const bs = [...r.querySelectorAll('button,[role=button]')].filter((x) => x.getBoundingClientRect().width > 1); const b = bs.find((x) => /^(back|go back|return)/i.test(x.getAttribute('aria-label') || x.textContent.trim())) || bs.find((x) => x.querySelector('svg') && !x.textContent.trim() && !x.getAttribute('aria-label')); if (b) window.__back = b; return JSON.stringify(b ? (b.getAttribute('aria-label') || b.textContent.trim() || 'an arrow') : null); })()`);
-    rec.back = back;
-    if (back) await pressOnTop(S, `window.__back`, 800); else { await escape(); await pause(500); }
+// The panel's own Back, by its name. No named way back means a reload, not another press.
+async function goBack(rec, t) {
+  const back = js(`(() => { const r = ${ROOT}; if (!r) return JSON.stringify(null); const b = [...r.querySelectorAll('button,[role=button]')].filter((x) => x.getBoundingClientRect().width > 1).find((x) => new RegExp(${JSON.stringify(BACK_NAME.source)}, 'i').test((x.getAttribute('aria-label') || x.textContent).trim())); if (b) window.__back = b; return JSON.stringify(b ? (b.getAttribute('aria-label') || b.textContent).trim() : null); })()`);
+  rec.back = back;
+  if (back) await pressOnTop(S, `window.__back`, 800); else await startOver(t, rec);
+}
+
+// Stuck, or nothing named to press: a reload throws the unsaved block away. A new block on the same page, on the same tab.
+async function startOver(t, rec) {
+  if (rec) rec.reloaded = true;
+  goto(S, js(`JSON.stringify(location.origin)`) + '/config/pages'); await pause(9000);
+  await enterEdit(PAGE);
+  if (!/-probe$/.test(js(`(() => JSON.stringify(${FRAME}.contentWindow.location.pathname))()`))) throw new Error('not on a probe page after a reload');
+  await addSection();
+  blockId = await addBlock(sectionCount() - 1, TYPE); await pause(1200); await escape(); await pause(300);
+  await openPanel(); if (t) await toTab(t);
 }
 
 // The names of everything pressable that is really on top, outside the page frame.
@@ -117,12 +129,10 @@ async function changeRow(c, t, rec) {
       if (same && rec.opened.length) {
         // Scrolled out of sight still counts: every button beside the first one that came.
         rec.openedList = js(`(() => { const n = ${JSON.stringify(rec.opened[0])}; const e = [...document.querySelectorAll('button,[role=button],[role=radio],[role=option],label')].find((x) => !x.closest('#sqs-site-frame') && (x.getAttribute('aria-label') || x.textContent || '').replace(/\\s+/g, ' ').trim().startsWith(n)); let p = e && e.parentElement; const kids = (q) => [...q.querySelectorAll('button,[role=button],[role=radio],[role=option],label')]; while (p && kids(p).length < 2) p = p.parentElement; return JSON.stringify(p ? kids(p).map((x) => (x.getAttribute('aria-label') || x.textContent || '').replace(/\\s+/g, ' ').trim().slice(0, 60)) : []); })()`);
-        const still = () => onTop().some((x) => rec.opened.includes(x));
         await escape(); await pause(500); rec.closedBy = 'Escape';
-        if (still()) { await pressOnTop(S, tabEl(t), 600).catch(() => {}); rec.closedBy = 'a press on its tab'; }
-        await pause(400); if (still()) rec.closedBy = 'still open after a press on its tab';
+        if (onTop().some((x) => rec.opened.includes(x))) { rec.closedBy = 'a reload'; await startOver(t, rec); return; }
       }
-      else await goBack(rec);
+      else if (!same) await goBack(rec, t);
       await settle(t); return;
     }
     const pick = opts.find((o) => o && o !== String(c.value) && !REFUSE.test(o));
@@ -137,7 +147,7 @@ async function changeRow(c, t, rec) {
     rec.to = find(c)?.value; rec.change = diff(before, blockNow());
   } else if (c.kind === 'nav') {
     await pressAt(c.i, 900); rec.inside = (read() || []).map((x) => ({ row: x.row, kind: x.kind, name: x.name, value: x.value }));
-    await goBack(rec);
+    await goBack(rec, t);
     await settle(t);
   }
 }
@@ -156,11 +166,12 @@ async function readTab(t) {
     if (tried.has(key)) continue; tried.add(key);
     if (READ_ONLY) { rec.notPressed = 'a read-only run'; continue; }
     const label = `${c0.row} ${c0.name}`;
+    if (!hasName(c0)) { rec.notPressed = 'no name'; continue; }
     if (c0.off || REFUSE.test(c0.name) || (REFUSE.test(c0.row) && !/^reset to default/i.test(c0.row)) || (c0.kind === 'button')) { rec.notPressed = c0.off ? 'greyed out' : c0.kind === 'button' ? 'a plain button' : 'refused by name'; continue; }
     if (COMMON.test(c0.row) || COMMON.test(c0.name)) { rec.notPressed = 'a row every panel has'; continue; }
     if (wide && /style/i.test(label)) { rec.notPressed = 'the tab says it reaches further'; continue; }
     if (c0.kind === 'choice') { if (c0.value) { rec.notPressed = 'the default'; continue; } rec.home = list.find((x) => x.kind === 'choice' && x.row === c0.row && x.value)?.name; }
-    try { await toTab(t); await pause(250); const c = find(c0); if (!c) { rec.gone = true; continue; } await changeRow(c, t, rec); await settle(t); await pause(200); console.log(`  ${t} | ${c0.kind} | ${label.slice(0, 50)} | ${(rec.change || []).length} changes`); } catch (e) { rec.error = e.message.slice(0, 160); console.log(`  ${t} | ${label.slice(0, 50)} ERROR ${rec.error}`); try { await settle(t); } catch { out.errors.push(`${t}: could not get back after ${label}`); return; } }
+    try { await toTab(t); await pause(250); const c = find(c0); if (!c) { rec.gone = true; continue; } await changeRow(c, t, rec); await settle(t); await pause(200); console.log(`  ${t} | ${c0.kind} | ${label.slice(0, 50)} | ${(rec.change || []).length} changes`); } catch (e) { rec.error = e.message.slice(0, 160); console.log(`  ${t} | ${label.slice(0, 50)} ERROR ${rec.error}`); try { await settle(t); } catch { rec.reloaded = true; await startOver(t, rec); } }
   }
   save();
 }
@@ -174,7 +185,7 @@ blockId = await addBlock(i, TYPE); await pause(1200); await escape(); await paus
 out.path = path;
 await openPanel();
 const tabs = js(tabsJs(PANEL)); out.tabList = tabs;
-for (const t of tabs) { if (ONLY && t !== ONLY) continue; if (t === 'Animation' || t === 'Storage') { await toTab(t); await pause(400); out.tabs[t] = { rows: (read() || []).map((x) => ({ row: x.row, kind: x.kind, name: x.name, value: x.value })), notPressed: t === 'Storage' ? 'form storage is read only' : 'every panel has it' }; save(); continue; } try { await readTab(t); console.log(t, out.tabs[t].rows.length); } catch (e) { (out.errors ||= []).push(`${t}: ${e.message.slice(0, 120)}`); console.log(`${t} stopped: ${e.message.slice(0, 120)}`); await escape(); await escape(); } }
+for (const t of tabs) { if (ONLY && t !== ONLY) continue; if (t === 'Animation' || t === 'Storage') { await toTab(t); await pause(400); out.tabs[t] = { rows: (read() || []).map((x) => ({ row: x.row, kind: x.kind, name: x.name, value: x.value })), notPressed: t === 'Storage' ? 'form storage is read only' : 'every panel has it' }; save(); continue; } try { await readTab(t); console.log(t, out.tabs[t].rows.length); } catch (e) { (out.errors ||= []).push(`${t}: ${e.message.slice(0, 120)}`); console.log(`${t} stopped: ${e.message.slice(0, 120)}`); await startOver(null); } }
 const all = Object.values(out.tabs).flatMap((t) => t.rows || []);
 out.answer = `${TYPE}: tabs ${(out.tabList || []).join(', ')}. ${all.filter((r) => r.kind !== 'button').length} rows read, ${all.filter((r) => r.change?.length).length} changed the block when changed. Each row below has its default and what the change did.`;
 out.pressed = `Add Block, ${TYPE}, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved.`;
