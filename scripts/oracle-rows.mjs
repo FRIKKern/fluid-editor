@@ -156,7 +156,7 @@ async function readTab(t) {
     if (tried.has(key)) continue; tried.add(key);
     if (READ_ONLY) { rec.notPressed = 'a read-only run'; continue; }
     const label = `${c0.row} ${c0.name}`;
-    if (c0.off || REFUSE.test(c0.name) || (REFUSE.test(c0.row) && !/^reset to default/i.test(c0.row)) || (c0.kind === 'button')) { rec.notPressed = c0.kind === 'button' ? 'a plain button' : 'refused by name'; continue; }
+    if (c0.off || REFUSE.test(c0.name) || (REFUSE.test(c0.row) && !/^reset to default/i.test(c0.row)) || (c0.kind === 'button')) { rec.notPressed = c0.off ? 'greyed out' : c0.kind === 'button' ? 'a plain button' : 'refused by name'; continue; }
     if (COMMON.test(c0.row) || COMMON.test(c0.name)) { rec.notPressed = 'a row every panel has'; continue; }
     if (wide && /style/i.test(label)) { rec.notPressed = 'the tab says it reaches further'; continue; }
     if (c0.kind === 'choice') { if (c0.value) { rec.notPressed = 'the default'; continue; } rec.home = list.find((x) => x.kind === 'choice' && x.row === c0.row && x.value)?.name; }
