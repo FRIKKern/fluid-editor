@@ -1,5 +1,5 @@
 // X6: pulls on each type against the oracle's reads: the steps of parity/findings/CAP-X6PULLS.json, CAP-X6AGAIN.json,
-// CAP-X6ONEROW.json, CAP-X6STEPS.json, CAP-X6FLOORS.json, CAP-X6FLOORSPHONE.json and CAP-X6PHONEFLOORS.json run on our editor, each area compared. One block in a new
+// CAP-X6ONEROW.json, CAP-X6STEPS.json, CAP-X6FLOORS.json, CAP-X6FLOORSPHONE.json, CAP-X6PHONEFLOORS.json and CAP-68PULL.json run on our editor, each area compared. One block in a new
 // section below another, a real press at the block's corner or side, as the oracle's was, so a one-row block's overlapping handles
 // decide the same. Rows are compared from the block's start, as the oracle's section sometimes had others above. Writes parity/x6-check.json. Usage: FLUID_SURFACE=cdp:<port> npm run x6-check.
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -7,7 +7,7 @@ import { evalJs, goto, viewport, pause, ensureVisible, drag, browser, mouse } fr
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
-const FILES = (process.argv[2] ? process.argv[2].split(',') : ['CAP-X6PULLS', 'CAP-X6AGAIN', 'CAP-X6ONEROW', 'CAP-X6STEPS', 'CAP-X6FLOORS', 'CAP-X6FLOORSPHONE', 'CAP-X6PHONEFLOORS']);
+const FILES = (process.argv[2] ? process.argv[2].split(',') : ['CAP-X6PULLS', 'CAP-X6AGAIN', 'CAP-X6ONEROW', 'CAP-X6STEPS', 'CAP-X6FLOORS', 'CAP-X6FLOORSPHONE', 'CAP-X6PHONEFLOORS', 'CAP-68PULL']);
 ensureVisible(S);
 viewport(S, 1600, 1000);
 goto(S, `${BASE}/index.html`); await pause(1500);
@@ -26,28 +26,32 @@ let pass = 0, total = 0;
 const results = [];
 // Plain stand-ins here, no content to take rows as they narrow, or to shrink: only their columns are compared.
 const ROWS_UNBUILT = /^(Summary|Pricing Plan|Newsletter|Instagram|Bandsintown|Scheduling) /;
-const PHONE_ROWS_UNBUILT = /^(Calendar|Menu|Page Link|RSS|Archive|SoundCloud|Flickr|OpenTable) /; // these too, on a phone, as a start row or a pull
+// On a phone, as a start row or a pull. Scheduling, Calendar, Archive, SoundCloud and Flickr draw the oracle's phone height now (CAP-68PULL.json).
+// Pricing Plan's start and south pull too, but its content gets taller as it narrows, and that height isn't read.
+const PHONE_ROWS_UNBUILT = /^(Summary|Pricing Plan|Newsletter|Instagram|Bandsintown|Menu|Page Link|RSS|OpenTable) /;
 let known = 0;
 for (const file of FILES) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url)));
   let off = 0, pulled = false;
   for (const step of F.steps) {
+    if (step[0] === 'window') { viewport(S, step[1], step[2]); await pause(300); } // a tall block's south handle needs the oracle's window (CAP-68PULL.json)
     if (step[0] === 'add') { view = 'desktop'; fresh(step[2]); off = null; }
     if (step[0] === 'view') { view = step[1] === 'Mobile' ? 'mobile' : 'desktop'; Q(`fe.setBp('${view}'); await sleep(400); return 'true';`); }
-    if (step[0] === 'drag') { const was = area().join(); await pull(step[3], step[4], step[5]); pulled = area().join() !== was; }
+    if (step[0] === 'drag' || step[0] === 'handleDrag') { const was = area().join(); await pull(step[3], step[4], step[5]); pulled = area().join() !== was; }
     // With nothing pulled the oracle's Undo takes the add away, and the reads after it are empty: keep the block.
     if (step[0] === 'press' && step[1] === 'Meta+z' && pulled) { Q(`fe.undo(); await sleep(250); return 'true';`); pulled = false; }
     if (step[0] === 'read' && step[2]?.areas !== undefined) {
       const want = F.reads[step[1]]?.areas?.[0]?.[view === 'mobile' ? 1 : 0]?.split('/').map(Number), have = area();
       if (!want) continue;
       off ??= want[0] - have[0];
-      const w = [want[0] - off, want[1], want[2] - off, want[3]].join('/'), named = ROWS_UNBUILT.test(step[1]) || (view === 'mobile' && PHONE_ROWS_UNBUILT.test(step[1]));
+      const w = [want[0] - off, want[1], want[2] - off, want[3]].join('/'), named = view === 'mobile' ? PHONE_ROWS_UNBUILT.test(step[1]) : ROWS_UNBUILT.test(step[1]);
       const ok = named ? want[1] === have[1] && want[3] === have[3] : w === have.join('/');
       total++; if (ok) pass++; else console.log(`DIFF ${file} ${step[1]}: oracle ${w} ours ${have.join('/')}`);
       if (named && w !== have.join('/')) { known++; console.log(`known, rows: ${file} ${step[1]}: oracle ${w} ours ${have.join('/')}`); }
       results.push({ file, read: step[1], ok });
     }
   }
+  viewport(S, 1600, 1000); await pause(300);
 }
 console.log(`X6 pulls: ${pass} of ${total} reads match, ${known} with their rows named unbuilt`);
 if (!process.argv[2]) writeFileSync(new URL('../parity/x6-check.json', import.meta.url), JSON.stringify({ check: 'pulls per type against the oracle', tolerance: 0, pass, total, known, results }, null, 2) + '\n');
