@@ -19,7 +19,7 @@ import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
 import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, linkBoxHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
-import { dialogOf, dialogHtml } from './dialogs.js';
+import { dialogOf, dialogHtml, DIALOG_DEFAULTS, chartOf, parseCsv } from './dialogs.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -1754,14 +1754,17 @@ function renderDialog(b) {
 }
 // A row's change is one undo step. A gallery row that changes the content's height refits the rows to it, as Flickr
 // read four times (CAP-ROWSFLICKR.json); Instagram's one Aspect Ratio read kept a row more (12 to 8, ours 7).
-const DIALOG_DEFAULTS = { galAspect: '1:1 Square', galCrop: true, galTitle: false, galNewWindow: false, tagCount: 5 };
+// Chart's rows only grow: a title over its 8 rows kept them, and a Flip that took 44 off kept 11 (CAP-T12CHARTLOOK.json).
 function setDialogValue(k, v) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   const content = () => blockEl(b.id)?.querySelector('.sqs-block-content')?.getBoundingClientRect().height;
   const was = content();
-  if (v === DIALOG_DEFAULTS[k]) delete b[k]; else b[k] = v;
+  if (JSON.stringify(v) === JSON.stringify(DIALOG_DEFAULTS[k])) delete b[k]; else b[k] = v;
   renderSectionDom(sel.sid);
-  if (b.standin && content() !== was) setFormRows(b, S(sel.sid), contentRows(b, formPitch(b))); // the pitch with the content out, as it stretches the rows
+  if (b.standin && content() !== was) {
+    const a = lay(b).area, need = contentRows(b, formPitch(b)); // the pitch with the content out, as it stretches the rows
+    setFormRows(b, S(sel.sid), b.standin === 'chart' ? Math.max(need, a[2] - a[0]) : need);
+  }
   commit(before, `${dialogOf(b).title} changed`);
 }
 dialogEl.addEventListener('click', (e) => {
@@ -1769,12 +1772,21 @@ dialogEl.addEventListener('click', (e) => {
   if (tab) { dlgTab = tab.dataset.dlTab; dialogEl.scrollTop = 0; renderDialog(B(sel.sid, sel.bid)); return; }
   const box = e.target.closest('button[data-dl]');
   if (box && !box.disabled) setDialogValue(box.dataset.dl, box.getAttribute('aria-checked') !== 'true');
+  // Update reads the box's text as the data (not pressed on the oracle: inferred).
+  if (e.target.closest('[data-dl-action="csv"]')) { const t = dialogEl.querySelector('[data-dl-area]'); setDialogValue(t.dataset.dlArea, parseCsv(t.value)); }
 });
 dialogEl.addEventListener('input', (e) => {
   const r = e.target.closest('input[type="range"][data-dl]');
   if (r) r.parentElement.querySelector('.dl-count').textContent = `${r.value} ${r.getAttribute('aria-label')}`;
 });
 dialogEl.addEventListener('change', (e) => {
+  const cell = e.target.closest('[data-dl-cell]');
+  if (cell && sel) {
+    const [r, k] = cell.dataset.dlCell.split(',').map(Number), data = chartOf(B(sel.sid, sel.bid)).data.map((row) => [...row]);
+    data[r][k] = cell.value;
+    setDialogValue('chartData', data);
+    return;
+  }
   const c = e.target.closest('[data-dl]');
   if (!c || !sel) return;
   setDialogValue(c.dataset.dl, c.type === 'range' ? Number(c.value) : c.value);

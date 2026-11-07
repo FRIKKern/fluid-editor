@@ -1,0 +1,33 @@
+{
+  "item": "CAP-T12CHARTLOOK-RELOAD",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "After CAP-T12CHARTLOOK: the probe page on a fresh load",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "read",
+      "after reload",
+      {
+        "sections": true
+      }
+    ]
+  ],
+  "reads": {
+    "after reload": {
+      "sections": [],
+      "path": "/gestures-probe",
+      "save": "clean"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [
+    "top Exit"
+  ]
+}

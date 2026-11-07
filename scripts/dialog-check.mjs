@@ -173,6 +173,49 @@ const contentOf = (ch) => Number(ch.find((c) => c.startsWith('DIV.targeted')).sp
   add('Bandsintown: Band Name and Timeframe out (0005), faded and still', off.length === 2 && off.every(([dis, o]) => dis && Number(o) < 1), JSON.stringify(off));
 }
 
+{
+  // Chart's rows (CAP-ROWSCHART.json changes, CAP-T12CHARTLOOK.json boxes), in the read order: Title, Caption, Show Legend,
+  // Primary, then Flip, which hid the legend and kept the rows. Then a cell, the CSV's Update and undo (ours: not read).
+  const { id } = await fresh('Chart');
+  const C = read('CAP-ROWSCHART.json').tabs, L = read('CAP-T12CHARTLOOK.json').reads;
+  const ch = (tab, n) => C[tab].rows[n].change;
+  const contentIn = (c) => Number(c.find((x) => x.startsWith('DIV.targeted') || x.startsWith('DIV.chart-type')).split(',').at(-1));
+  const parts = () => q(`const c = d.querySelector('.fe-block[data-block-id="${id}"] .sqs-block-content'), H = (e) => e ? Math.round(e.getBoundingClientRect().height * 10) / 10 : null; return JSON.stringify({ h2: H(c.querySelector('h2')), legend: H(c.querySelector('.chart-block-legend')), ul: c.querySelector('ul')?.className ?? null, items: [...c.querySelectorAll('li')].map((l) => [l.textContent, getComputedStyle(l.querySelector('span')).backgroundColor, Math.round((l.querySelector('span').getBoundingClientRect().top - l.getBoundingClientRect().top) * 10) / 10]), cap: H(c.querySelector('.chart-block-caption figcaption')), bars: [...c.querySelectorAll('.fe-chart-bar')].map((r) => r.getAttribute('fill')), capBorder: c.querySelector('.chart-block-caption figcaption') && getComputedStyle(c.querySelector('.chart-block-caption figcaption')).borderTopColor });`);
+  const field = (k, v) => q(`dl.querySelector('[data-dl-tab="Design"]').click(); await sleep(150); const c = dl.querySelector('input[data-dl="${k}"]'); if (!c) return 'null'; c.value = ${JSON.stringify(v)}; c.dispatchEvent(new Event('change', { bubbles: true })); await sleep(300); return 'true';`);
+  field('chartTitle', 'Ab');
+  let s = state(id), p = parts();
+  add('Chart Title Ab: an h2 67.9 high, content, rows kept at 8', s.area === '1/2/9/10' && Math.abs(s.content - contentIn(ch('Design', 0))) <= 1 && Math.abs(p.h2 - 67.9) <= 0.5, `${s.area} ${s.content} ${p.h2}`);
+  field('chartCaption', 'Ab');
+  s = state(id); p = parts();
+  add('Chart Caption Ab: 15 below, 39.4 high with a rule, rows 10', s.area === areaOf(ch('Design', 1)) && Math.abs(s.content - contentIn(ch('Design', 1))) <= 1 && Math.abs(p.cap - 39.4) <= 0.3 && p.capBorder === 'rgba(0, 0, 0, 0.1)', `${s.area} ${s.content} ${p.cap} ${p.capBorder}`);
+  pick('button[data-dl="chartLegend"]');
+  s = state(id); p = parts();
+  const sw = L.legend.inside.find((e) => e.tag === 'span'), li = L.legend.inside.find((e) => e.tag === 'li');
+  add('Chart Show Legend: 43.8 high under the picture, rows 11', s.area === areaOf(ch('Design', 2)) && Math.abs(s.content - contentIn(ch('Design', 2))) <= 1 && Math.abs(p.legend - 43.8) <= 0.3, `${s.area} ${s.content} ${p.legend}`);
+  add('Chart legend: Population, a swatch 3 down in Grayscale 1', p.ul === 'bar-legend' && p.items.length === 1 && p.items[0][0] === 'Population' && p.items[0][1] === sw.css.backgroundColor && Math.abs(p.items[0][2] - (sw.box[1] - li.box[1])) <= 0.3, JSON.stringify(p.items));
+  q(`dl.querySelector('[data-dl-tab="Design"]').click(); await sleep(150); return 'true';`);
+  const off = q(`return JSON.stringify([...dl.querySelectorAll('select[data-dl="chartPalette"] option')].filter((o) => o.disabled).length);`);
+  pick('select[data-dl="chartPalette"]', 'Primary');
+  p = parts();
+  add('Chart Color Palette Primary: swatch and bars, 12 unread palettes off', p.items[0]?.[1] === 'rgb(240, 82, 59)' && p.bars.every((f) => f === 'rgb(240, 82, 59)') && off === 12, `${JSON.stringify(p.items)} ${p.bars} ${off}`);
+  q(`dl.querySelector('[data-dl-tab="Data"]').click(); await sleep(150); return 'true';`);
+  pick('select[data-dl="chartType"]', 'Line Chart');
+  p = parts();
+  add('Chart Type Line Chart: line-legend, a line drawn', p.ul === 'line-legend' && q(`return JSON.stringify(!!d.querySelector('.fe-block[data-block-id="${id}"] polyline'));`) === true, p.ul);
+  pick('select[data-dl="chartType"]', 'Bar Chart');
+  pick('button[data-dl="chartFlip"]');
+  s = state(id); p = parts();
+  add('Chart Flip: the legend goes, content 372.7, rows kept at 11', p.legend === null && Math.abs(s.content - 372.7) <= 1 && s.area === areaOf(ch('Design', 2)), `${p.legend} ${s.content} ${s.area}`);
+  pick('button[data-dl="chartFlip"]');
+  const cell = q(`const c = dl.querySelector('[data-dl-cell="2,1"]'); if (!c) return 'null'; c.value = '50'; c.dispatchEvent(new Event('change', { bubbles: true })); await sleep(300); const b = fe.model.sections[1].blocks.find((o) => o.id === '${id}'); const r = [...d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-bar')].map((e) => Math.round(e.getBoundingClientRect().height)); return JSON.stringify([b.chartData?.[2]?.[1], r[1] < r[0], dl.querySelectorAll('.dl-grid input:not([disabled])').length]);`);
+  add('Chart Data: Las Vegas 50 in its cell redraws, 7 cells take typing', JSON.stringify(cell) === '["50",true,7]', JSON.stringify(cell));
+  const csv = q(`dl.querySelector('[data-dl-tab="Import / Export"]').click(); await sleep(150); const t = dl.querySelector('textarea[data-dl-area]'); if (!t) return '[0,0]'; t.value = 'Label,Population\\nA,1\\nB,2\\nC,3\\nD,4'; dl.querySelector('[data-dl-action="csv"]')?.click(); await sleep(300); const b = fe.model.sections[1].blocks.find((o) => o.id === '${id}'); return JSON.stringify([b.chartData?.length, d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-bar').length]);`);
+  add('Chart Update: the CSV becomes the data, four bars', JSON.stringify(csv) === '[5,4]', JSON.stringify(csv));
+  for (let n = 0; n < 10; n++) undo();
+  s = state(id);
+  const back = q(`const b = fe.model.sections[1].blocks.find((o) => o.id === '${id}'); return JSON.stringify(b ? Object.keys(b).filter((k) => k.startsWith('chart')) : ['no block']);`);
+  add('Chart: ten undos, back to the plain chart and 8 rows', back.length === 0 && s.area === '1/2/9/10' && Math.abs(s.content - 250.4) <= 1, `${back} ${s.area} ${s.content}`);
+}
 writeFileSync(new URL('../parity/dialog-check.json', import.meta.url), `${JSON.stringify({ pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass} of ${total}`);
 process.exit(pass === total ? 0 : 1);
