@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 33 changes
+- **Today** · 34 changes
+  - U12: a Forms color row's Custom and opacity, by Edit Color Theme's row popover ([#322](https://github.com/FRIKKern/fluid-editor/pull/322))
   - T7, T10: back to partial, the toolbar's Align Vertically is unbuilt on them ([#325](https://github.com/FRIKKern/fluid-editor/pull/325))
-  - X2: a drag inside a selected Text's text opens its editor; under it the block moves ([#321](https://github.com/FRIKKern/fluid-editor/pull/321))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
