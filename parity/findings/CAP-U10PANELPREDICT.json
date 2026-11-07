@@ -30,5 +30,6 @@
    "predict": "106 (626.5 tall: 40 px over the section's top + 140 floor at 95)",
    "old": "148"
   }
- ]
+ ],
+ "scored": "3 of 6 within 1.5 px (CAP-U10PANEL-A.json, CAP-U10PANEL-B.json). Held: A open 248, A pick 1 248 (not down), B open 148. Missed: A pick 5 214 (predicted 206), A pick 2 214 (206; it stayed, as predicted), B pick 5 114 (106). The direction held in all 6: up on pick 5, still on picks 1 and 2. Both pick 5 reads moved the panel up 34 px, at and away from the window's top. Part of the miss is ours' section height: the oracle's pick 5 is 623.7 tall (ours 626.5) and pick 1 914.1 (ours 873), as a layout's rows vary on the oracle. On the oracle's own heights the rule gives 203.7 and 103.7: 10 px over the reads. Ours before this change: 248 and 148, 34 px off."
 }
