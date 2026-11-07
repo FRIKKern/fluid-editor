@@ -1305,9 +1305,14 @@ function startResize(e, dir) {
   gesture.bottom0 = blockEl(held.id).getBoundingClientRect().bottom;
   // On a phone a stand-in's content stretches its rows. A south pull counts from the rows that content needs on the plain
   // pitch, the phone's 24px row (render.js) and its gap, and steps on that pitch: one row down gives ceil((height + gap) / pitch) + 1 (CAP-68PULL.json).
-  if (bp === 'mobile' && (held.standin || held.phoneHeight)) {
-    const h = blockEl(held.id).querySelector('.sqs-block-content').getBoundingClientRect().height, rg = gesture.m.rg, pitch = PHONE_ROW + rg;
+  // A Code, Embed or Markdown whose content runs over its rows takes the same rule: its handle sits at the content's foot
+  // (CAP-T10PULL.json: 2 lines, 60.8 high, on 1 row, pulled 164.4 down to 8 rows; the rule was fitted before, on CAP-68PULL.json).
+  const flows = ['code', 'embed', 'markdown'].includes(held.type);
+  if (bp === 'mobile' && (held.standin || held.phoneHeight || flows)) {
+    const rg = gesture.m.rg, pitch = PHONE_ROW + rg;
+    const h = flows ? codeHeight(held) : blockEl(held.id).querySelector('.sqs-block-content').getBoundingClientRect().height;
     gesture.free = { pitch, rg, need: Math.max(1, Math.ceil((h + rg) / pitch - 0.02)) };
+    if (flows && gesture.free.need <= span) { delete gesture.free; return; }
     // Held, the block leaves the flow and its rows would close up, the page with them, and the frame's scroll would jump: the grid
     // keeps its height until the gesture ends.
     const fe = feEl(gesture.sid);
