@@ -368,6 +368,103 @@ q(`document.getElementById('preview').click(); await sleep(350); return 'true';`
   mouse(S, 'move', 5, 5);
 }
 
+// The colours on a video: the top row and Reset to theme (CAP-T7COLOR.json to CAP-T7COLOR10.json).
+{
+  const pop = () => q(`const p = document.getElementById('shape-pop'), c = p.getBoundingClientRect(), at = (x) => { const e = p.querySelector(x); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left - c.left, r.top - c.top, r.width, r.height]; }; const bg = panel.querySelector('button[aria-label="Color"][data-shape-act="bgColor"] i'), st = panel.querySelector('button[aria-label="Color"][data-shape-act="strokeColor"] i'), a = panel.querySelector('[data-shape-act="bgColor"]'), b = panel.querySelector('[data-shape-act="strokeColor"]'); return JSON.stringify({ open: !p.hidden, top: c.top, bottom: c.bottom, h: c.height, strip: at('.sh-tabs button'), plus: at('[data-color-custom]'), bar: at('.sh-opacity'), reset: at('[data-color-reset]'), ring: [...p.querySelectorAll('[data-color-pick]')].filter((i) => i.checked).map((i) => i.dataset.colorPick), n: p.querySelectorAll('[data-color-pick]').length, format: p.querySelector('[data-color-format]')?.value, hex: p.querySelector('[aria-label="Hex"]')?.value, alpha: !!p.querySelector('[aria-label="Alpha"]'), red: p.querySelector('[aria-label="Red"]')?.value, fill: bg && getComputedStyle(bg).backgroundColor, stroke: st && getComputedStyle(st).backgroundColor, under: a?.getBoundingClientRect().bottom, under2: b?.getBoundingClientRect().bottom });`);
+  const tap = (sel) => q(`const c = document.querySelector('${sel}'); if (!c) return JSON.stringify('no ${sel}'); c.click(); await sleep(250); return 'true';`);
+  const pick = (hex) => tap(`#shape-pop [data-color-pick="${hex}"]`), reset = () => tap('#shape-pop [data-color-reset]'), closePop = () => tap('[data-btab="Design"]');
+  const reselect = async () => { q(`fe.select(null); await sleep(150); return 'true';`); await openPanel(); q(`document.querySelector('[data-btab="Design"]').click(); await sleep(150); return 'true';`); };
+  const white = 'rgb(255, 255, 255)', black = 'rgb(0, 0, 0)', yellow = 'rgb(255, 207, 90)', none = 'rgba(0, 0, 0, 0)';
+  await design([12, 2, 20, 10]); // low enough that the screen's top doesn't stop the colours
+  press('Add fill');
+  let p = pop(), v = vr();
+  add('Colours on a new fill: level with the swatch, 182 tall', near(p.bottom, p.under) && near(p.h, 182), JSON.stringify(p));
+  add('The top row: 274 by 32, one choice, Color', nearAll(p.strip || [], [13, 13, 274, 32]) && q(`const t = document.querySelector('.sh-tabs button'); return JSON.stringify(t.getAttribute('role') === 'radio' && t.getAttribute('aria-checked') === 'true' && t.getAttribute('aria-label') === 'Color');`), JSON.stringify(p.strip));
+  add('The swatches, the bar and Reset below it', nearAll(p.plus, [249, 59, 34, 34], 1.5) && near(p.bar[1], 110, 4) && nearAll(p.reset, [11, 143, 278, 28], 1), JSON.stringify(p));
+  add('The swatch framed while they are open, with Remove color', q(`const c = panel.querySelector('.st-color'); return JSON.stringify(c.classList.contains('is-open') && getComputedStyle(c.querySelector('.st-color-x')).opacity === '1');`));
+  add('White ringed, white on the block', p.ring.join() === '#FFFFFF' && v.bg === white && p.fill === white, JSON.stringify([p.ring, v.bg, p.fill]));
+  const first = p;
+  pick('#FFCF5A'); p = pop(); v = vr();
+  add('A swatch: on the block, ringed, the same place', v.bg === yellow && p.ring.join() === '#FFCF5A' && p.fill === yellow && near(p.top, first.top), JSON.stringify([v.bg, p]));
+  const pressed = q(`const was = JSON.stringify(fe.model); document.querySelector('.sh-tabs button').click(); await sleep(200); return JSON.stringify(JSON.stringify(fe.model) === was && !document.getElementById('shape-pop').hidden);`);
+  add('A press on the top row changes nothing', pressed);
+  reset(); p = pop(); v = vr();
+  add('Reset: 116 tall, the bottom held', near(p.h, 116) && near(p.bottom, first.bottom), JSON.stringify(p));
+  add('Reset: no bar, no Reset, nothing ringed', !p.bar && !p.reset && !p.ring.length, JSON.stringify(p));
+  add('Reset: the swatch black, the block white', p.fill === black && v.bg === white, JSON.stringify([p.fill, v.bg]));
+  pick('#FFCF5A'); p = pop();
+  add('A swatch after Reset grows around the middle', near(p.h, 182) && near(p.top, first.top + 33), JSON.stringify(p));
+  const grown = p;
+  reset(); p = pop();
+  add('Reset from there holds that bottom', near(p.h, 116) && near(p.bottom, grown.bottom), JSON.stringify(p));
+  closePop(); p = pop();
+  add('The Design tab closes them, the swatch stays black', !p.open && p.fill === black, JSON.stringify(p));
+  add('And the frame goes', q(`return JSON.stringify(!panel.querySelector('.st-color.is-open'));`));
+  q(`panel.querySelector('[data-shape-act="bgColor"]').click(); await sleep(200); return 'true';`); p = pop();
+  add('Open again: as Reset left them, level with the swatch', near(p.h, 116) && near(p.bottom, p.under) && !p.reset, JSON.stringify(p));
+  const plain = p;
+  tap('#shape-pop [data-color-custom]'); p = pop();
+  add('Custom color with nothing picked: Hex at #000000, no Alpha, no bar, no Reset', p.format === 'hex' && p.hex === '#000000' && !p.alpha && !p.bar && !p.reset, JSON.stringify(p));
+  add('Six swatches, the sixth ringed, around the middle', p.n === 6 && p.ring.length === 1 && near(p.h, 434) && near(p.top + p.h / 2, plain.top + plain.h / 2), JSON.stringify(p));
+  closePop(); press('Remove color'); press('Add fill'); p = pop(); v = vr();
+  add('Add fill after a Reset: no fill, a black swatch, nothing picked', v.bg === none && p.fill === black && !p.reset && near(p.h, 116), JSON.stringify([v.bg, p]));
+  await reselect(); p = pop(); v = vr();
+  add('Selected again: still no fill, a white swatch', v.bg === none && p.fill === white, JSON.stringify([v.bg, p.fill]));
+  q(`panel.querySelector('[data-shape-act="bgColor"]').click(); await sleep(200); return 'true';`); p = pop();
+  add('Its colours: white ringed, with Reset', p.ring.join() === '#FFFFFF' && !!p.reset, JSON.stringify(p));
+  await design([1, 2, 9, 10]);
+  press('Add fill'); closePop(); press('Remove color'); press('Add fill'); p = pop(); v = vr();
+  add('Add fill again with no Reset: white, with Reset', v.bg === white && !!p.reset && p.ring.join() === '#FFFFFF', JSON.stringify([v.bg, p]));
+  pick('#FFCF5A'); closePop(); press('Remove color'); press('Add fill'); p = pop(); v = vr();
+  add('Remove color keeps the colour for the next fill', v.bg === yellow && p.ring.join() === '#FFCF5A', JSON.stringify([v.bg, p.ring]));
+  reset(); p = pop(); v = vr();
+  add('Reset once more: white', v.bg === white && p.fill === black, JSON.stringify([v.bg, p.fill]));
+  await reselect(); p = pop(); v = vr();
+  add('Selected again after Reset: white, a white swatch', v.bg === white && p.fill === white, JSON.stringify([v.bg, p.fill]));
+  q(`panel.querySelector('[data-shape-act="bgColor"]').click(); await sleep(200); return 'true';`); p = pop();
+  add('Its colours: white ringed, with Reset, the bar', p.ring.join() === '#FFFFFF' && !!p.reset && !!p.bar, JSON.stringify(p));
+  closePop(); press('Remove color'); press('Add fill'); v = vr();
+  add('And Remove, Add fill after that: white', v.bg === white, v.bg);
+  pick('#B564F7'); tap('#shape-pop [data-color-custom]'); p = pop();
+  add('Custom color on a pick: RGB, Alpha, the bar, Reset', p.format === 'rgb' && p.red === '181' && p.alpha && !!p.bar && !!p.reset && near(p.h, 501), JSON.stringify(p));
+  const big = p;
+  reset(); p = pop(); v = vr();
+  add('Reset in Custom color: back to the swatches, 39 lower', near(p.h, 116) && near(p.bottom, big.bottom + 39) && p.plus && v.bg === white, JSON.stringify(p));
+  const undone = q(`fe.undo(); await sleep(300); return JSON.stringify({ open: !document.getElementById('shape-pop').hidden, bg: model().design.bgColor });`);
+  add('Undo: the colour back, the colours closed', !undone.open && undone.bg === 'rgb(181, 100, 247)', JSON.stringify(undone));
+
+  await design([1, 2, 9, 10]);
+  press('Solid Stroke');
+  q(`panel.querySelector('[data-shape-act="strokeColor"]').click(); await sleep(200); return 'true';`); p = pop(); v = vr();
+  add('A stroke\'s colours: no top row, no bar, Reset, white ringed', !p.strip && !p.bar && !!p.reset && p.ring.join() === '#FFFFFF' && near(p.h, 108) && near(p.bottom, p.under2), JSON.stringify(p));
+  const strokeFirst = p;
+  pick('#FFCF5A'); p = pop(); v = vr();
+  add('A swatch on the stroke, still no bar', v.border.includes(yellow) && !p.bar && !!p.reset && p.stroke === yellow, JSON.stringify([v.border, p]));
+  reset(); p = pop(); v = vr();
+  add('Reset: the stroke white, the swatch black, the bottom held', v.border.includes(white) && p.stroke === black && !p.reset && near(p.bottom, strokeFirst.bottom), JSON.stringify([v.border, p]));
+  closePop(); press('Add fill'); p = pop(); v = vr();
+  add('Add fill after that: the stroke goes black', v.border.includes(black) && p.stroke === black, JSON.stringify([v.border, p.stroke]));
+  await design([1, 2, 9, 10]);
+  press('Solid Stroke');
+  q(`panel.querySelector('[data-shape-act="strokeColor"]').click(); await sleep(200); return 'true';`);
+  reset(); closePop(); await reselect(); p = pop(); v = vr();
+  add('Selected again after a stroke\'s Reset: white', v.border.includes(white) && p.stroke === white, JSON.stringify([v.border, p.stroke]));
+
+  await design([1, 2, 9, 10]);
+  press('Add fill'); pick('#FFCF5A'); closePop();
+  q(`fe.setBp('mobile'); await sleep(400); return 'true';`);
+  q(`panel.querySelector('[data-shape-act="bgColor"]').click(); await sleep(200); return 'true';`); p = pop();
+  add('A phone: desktop\'s colour flows down, with Reset and the bar', p.ring.join() === '#FFCF5A' && !!p.reset && !!p.bar && !!p.strip, JSON.stringify(p));
+  reset(); p = pop();
+  add('Reset on a phone: the same as on desktop', p.fill === black && !p.reset, JSON.stringify(p));
+  closePop();
+  q(`fe.setBp('desktop'); await sleep(400); return 'true';`); p = pop();
+  add('Desktop keeps its colour', p.fill === yellow, JSON.stringify(p.fill));
+  q(`fe.setBp('mobile'); await sleep(400); return 'true';`); p = pop();
+  add('The phone keeps its Reset', p.fill === black, JSON.stringify(p.fill));
+  q(`fe.setBp('desktop'); await sleep(400); return 'true';`);
+}
+
 writeFileSync(new URL('../parity/video-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nVideo: ${pass}/${total}`);
 console.log(JSON.stringify(heights));
