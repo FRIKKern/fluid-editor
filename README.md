@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 45 changes
+- **Today** · 46 changes
+  - Y2: Cmd+Z and Undo during an edit run the page's list (items 56, 57) ([#337](https://github.com/FRIKKern/fluid-editor/pull/337))
   - U12: Assign Styles, all 35 groups and 122 rows ([#335](https://github.com/FRIKKern/fluid-editor/pull/335))
-  - G4: a handle's step counts from the press; group handles and phone group margin ([#330](https://github.com/FRIKKern/fluid-editor/pull/330))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
