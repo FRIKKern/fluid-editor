@@ -23,7 +23,7 @@ Out of scope now:
 - **The Upgrade note in a Code block's panel (T10).** It shows when a script is in the code and is about the trial's plan, not the editor. Ours leaves it out.
 - **Subscribe in the Site Styles panel (U12).** It is the trial account's billing button. It is not part of the editor.
 - **Gallery blocks in the corpus (H3).** Fluid Engine offers no Gallery block (parity/findings/T8.json).
-- **Answers that need a Save or an upload on the trial site (T7, P5, L5, T12).** Uploaded video, how an uploaded section picture fits, the published CSS of a hidden block, the published accordion. Probes never save or upload (O1). Ours is built from what the editor shows.
+- **Answers that need a Save or an upload on the trial site (T7, P5, L5, T12, T15).** Uploaded video, how an uploaded section picture fits, the published CSS of a hidden block, the published accordion, and what a published page does with a block's animations (T15, the lead's ruling, like the accordion). Probes never save or upload (O1). Ours is built from what the editor shows; what ours publishes is our own.
 - **A link that finds real content in an embed block (T10).** It goes through a lookup service of the host. Ours ends every link in the error text, and Custom thumbnail, which only an embedded video enables, stays off.
 - **What an embed's Description publishes (T10).** Reading it needs a Save.
 - **What needs an uploaded file in Site Styles and on a section video (U12, P5).** From Image's drop in the palette editor, and how an uploaded video fits a section with its Filter strength. Probes never upload (O1). Ours keeps the row and reads nothing from it.
