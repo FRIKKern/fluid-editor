@@ -830,9 +830,8 @@ for (const [name, c] of Object.entries(FIX.form)) {
   await pause(120);
 }
 // The unread pair (CAP-T10FIX4.json): import's names, and a CSS rule's marks, its braces beside the caret.
-const tokensOf = (r) => r.panelCss.filter((e) => /^tok-/.test(e.cls)).filter((e, n, all) => all.findIndex((x) => x.box.join() === e.box.join()) === n);
 const colourAt = (html, word) => { const m = new RegExp(`<span class="(c-[a-z0-9]+)[^"]*">${word}</span>`).exec(html); return m?.[1] ?? null; };
-const lookHtml = (t, lang) => evalJs(S, `(async () => { const { codeLines } = await import('/src/code-look.js'); return JSON.stringify(codeLines(${JSON.stringify(t)}, '${lang}', ${t.length}).join('\n')); })()`);
+const lookHtml = (t, lang) => evalJs(S, `(async () => { const { codeLines } = await import('/src/code-look.js'); return JSON.stringify(codeLines(${JSON.stringify(t)}, '${lang}', ${t.length}).join('|')); })()`);
 const imp = lookHtml('import {a, b as c} from "d";\nimport * as e from "f";', 'javascript');
 add('import: a and c are named, b is plain', colourAt(imp, 'a') === 'c-def' && colourAt(imp, 'c') === 'c-def' && colourAt(imp, 'b') === null && colourAt(imp, 'as') === 'c-kw', imp);
 add('import: * as e', colourAt(imp, '\\*') === 'c-kw' && colourAt(imp, 'e') === 'c-def', imp);
