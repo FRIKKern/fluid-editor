@@ -356,13 +356,10 @@ body:has(#layers-panel:not([hidden])) .sc-layers { background: #e7e7e7; }
 .bp-thead { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; padding: 14px 0 6px; border-top: 1px solid #e7e7e7; font-weight: 500; }
 .bp-more { letter-spacing: 2px; font-weight: 700; color: #0e0e0e; }
 .bp-trow { display: flex; align-items: center; justify-content: space-between; margin-top: 7px; gap: 8px; }
-.bp-pair { display: flex; gap: 7px; }
-.bp-box { display: inline-flex; align-items: center; justify-content: space-between; width: 171px; height: 44px; padding: 0 10px; box-sizing: border-box; background: #f2f2f2; border-radius: 3px; }
-.bp-pair .bp-box { width: 82px; }
-.bp-box input { width: 100%; min-width: 0; border: 0; background: transparent; font: inherit; appearance: textfield; -moz-appearance: textfield; }
-.bp-box input::-webkit-inner-spin-button, .bp-box input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-.bp-unit { color: #6f6f6f; white-space: nowrap; }
-.bp-unit b { font-weight: 400; margin-left: 4px; color: #9a9a9a; }
+.bp-pair { display: flex; gap: 6px; }
+.bp-box { width: 182px; height: 44px; flex: none; }
+.bp-pair .bp-box { width: 88px; }
+.bp-box input { width: 100%; height: 44px; padding: 0 11px; box-sizing: border-box; border: 0; background: none; font: inherit; color: #0e0e0e; outline: 0; }
 .bp-select { border: 0; background: transparent; font: inherit; color: #6f6f6f; }
 /* Shown where the oracle shows it, not built yet: dimmed, and skipped by the inventory. */
 [data-unbuilt] { opacity: 0.45; }
@@ -1035,7 +1032,7 @@ body.is-preview #reload-preview { display: inline-flex; }
 .an-title { font-weight: 500; }
 .an-actions { display: flex; gap: 11px; margin-right: 2px; }
 .an-icon { width: 36px; height: 36px; padding: 0; border: 0; background: none; border-radius: 3px; color: #0e0e0e; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
-.an-ico.is-own::after { content: ''; position: absolute; left: 5px; bottom: 0; width: 34px; height: 2px; background: repeating-linear-gradient(90deg, #000 0 2px, transparent 2px 4px); }
+.an-ico.is-own::after { content: ''; position: absolute; left: 5px; bottom: 0; width: 34px; height: 0; border-bottom: 2px dotted #000; }
 .an-gap { width: 5px; }
 .an-icon[data-anim="add"]:disabled { cursor: default; }
 .an-icon[data-anim="add"]:disabled svg { color: rgb(183, 183, 183); }
@@ -1093,13 +1090,21 @@ body.is-preview #reload-preview { display: inline-flex; }
 .an-pv-row.is-pair .an-box { width: 88px; }
 .sc-box { position: relative; display: inline-flex; align-items: center; box-sizing: border-box; border-radius: 6px; background: #f2f2f2; }
 .an-box input { width: 100%; height: 44px; padding: 0 11px; box-sizing: border-box; border: 0; background: none; font: inherit; color: #0e0e0e; outline: 0; }
-.an-axis { position: absolute; right: 16px; top: 13px; font-weight: 400; color: #9a9a9a; pointer-events: none; }
+.an-axis { position: absolute; right: 16px; top: 13px; font-weight: 400; color: rgb(148, 148, 148); pointer-events: none; }
 .sc-hit { position: absolute; padding: 0; border: 0; background: none; cursor: ew-resize; }
 .sc-t { left: 0; right: 0; top: 0; height: 11px; } .sc-b { left: 0; right: 0; bottom: 0; height: 11px; }
 .sc-l { left: 0; top: 0; bottom: 0; width: 11px; } .sc-r { right: 0; top: 0; bottom: 0; width: 44px; }
-.sc-box:focus-within .sc-hit { display: none; }
-.sc-reset { position: absolute; right: -9px; top: 14px; z-index: 1; width: 16px; height: 16px; padding: 0; border: 0; background: none; color: #6f6f6f; opacity: 0; pointer-events: none; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-.sc-box:focus-within .sc-reset.is-on { opacity: 1; pointer-events: auto; }
+/* A field's parts (CAP-T6FIELDS.json): the ring sits outside the box and the fill stays. */
+.sc-box:focus-within, .sc-box.is-scrub { outline: 2px solid #0e0e0e; }
+.sc-box input { position: relative; }
+.sc-bar { position: absolute; inset: 0; overflow: hidden; border-radius: 6px; opacity: 0; pointer-events: none; }
+.sc-bar i { display: block; width: 100%; height: 100%; background: rgb(231, 231, 231); }
+.sc-box.is-scrub .sc-bar { opacity: 1; }
+.sc-arrows { position: absolute; right: 11px; top: 8px; width: 22px; height: 28px; color: rgb(148, 148, 148); opacity: 0; pointer-events: none; }
+.sc-box:hover .sc-arrows, .sc-box:focus-within .sc-arrows, .sc-box.is-scrub .sc-arrows { opacity: 1; }
+.sc-reset { position: absolute; right: -9px; top: 14px; z-index: 1; width: 16px; height: 16px; padding: 0; box-sizing: border-box; border: 1px solid #0e0e0e; border-radius: 4px; background: #0e0e0e; color: #fff; opacity: 0; pointer-events: none; cursor: pointer; }
+.sc-reset svg { position: absolute; left: -4px; top: -4px; }
+.sc-box:focus-within .sc-reset.is-on, .sc-box.is-scrub .sc-reset.is-on { opacity: 1; pointer-events: auto; }
 .an-sel { display: flex; align-items: center; width: 135px; height: 44px; padding: 0 12px; box-sizing: border-box; border: 1px solid #e7e7e7; border-radius: 3px; background: #fff; font: inherit; color: #0e0e0e; text-align: left; cursor: pointer; }
 .an-eg { margin-right: 9px; flex: none; }
 .an-cease { display: block; }
@@ -1243,12 +1248,7 @@ body.is-preview #reload-preview { display: inline-flex; }
 .sh-radii { display: flex; gap: 6px; align-items: center; border: 0; padding-top: 6px; }
 .sh-radii .bp-radius { flex: 1; }
 .sh-radii .bp-radii { display: flex; gap: 2px; padding: 4px; border-radius: 6px; background: #f2f2f2; }
-/* Corner's field on focus: a 2px ring and a black Reset (screenshots, CAP-L6CORNER.json). */
 .bp-radius input { outline: 0; }
-.bp-radius:focus-within { background: none; box-shadow: inset 0 0 0 2px #0e0e0e; }
-.bp-radius .sc-reset { border-radius: 3px; background: #0e0e0e; color: #fff; }
-.bp-radius .sc-reset svg { display: none; }
-.bp-radius .sc-reset::before { content: "\00d7"; font-size: 16px; line-height: 16px; }
 .sh-head ~ .sh-radii .bp-radii { gap: 0; padding: 3px; }
 .sh-head ~ .sh-radii .sp-seg { width: 41px; height: 38px; }
 .sh-radii .sp-seg.is-on { background: #fff; }

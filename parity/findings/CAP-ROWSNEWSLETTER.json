@@ -1,0 +1,293 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Newsletter: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Newsletter",
+ "tabs": {
+  "Content": {
+   "rows": [
+    {
+     "row": "Add a sign-up to your site to begin collecting mailing list subscribers.",
+     "kind": "button",
+     "name": "Learn More.",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Form Name",
+     "kind": "field",
+     "name": "Form Name",
+     "value": "Newsletter Form",
+     "to": "Newsletter AbForm",
+     "change": []
+    },
+    {
+     "row": "Title",
+     "kind": "field",
+     "name": "Title",
+     "value": "Subscribe",
+     "to": "SubscribeAb",
+     "change": [
+      "H2 w: Subscribe > SubscribeAb"
+     ]
+    },
+    {
+     "row": "Description",
+     "kind": "area",
+     "name": "Description",
+     "value": "Sign up with your email address to receive news and updates.",
+     "to": "Sign up with your email address to receive news and uAbpdates.",
+     "change": [
+      "P st:  > white-space:pre-wrap;",
+      "P w: Sign up with your email address to receive n > Sign up with your email addr ..  receive new"
+     ]
+    },
+    {
+     "row": "Disclaimer",
+     "kind": "area",
+     "name": "Disclaimer",
+     "value": "We respect your privacy.",
+     "to": "We respect your priAbvacy.",
+     "change": [
+      "P st:  > white-space:pre-wrap;",
+      "P w: We respect your privacy. > We respect your priAbvacy."
+     ]
+    },
+    {
+     "row": "Button Text",
+     "kind": "field",
+     "name": "Button Text",
+     "value": "Sign Up",
+     "to": "Sign UpAb",
+     "change": [
+      "DIV.form-fields b: 174.7,386.5,288,82 > 163.4,386.5,288,82",
+      "DIV.form-item b: 174.7,386.5,288,82 > 163.4,386.5,288,82",
+      "LABEL.title b: 178.7,394.5,280,0 > 167.4,394.5,280,0",
+      "INPUT.field-element b: 178.7,394.5,280,66 > 167.4,394.5,280,66",
+      "DIV.submit-wrapper b: 467,387.5,135.4,80 > 455.6,387.5,158.1,80",
+      "BUTTON.\n b: 471,395.5,127.4,64 > 459.6,395.5,150.1,64",
+      "SPAN w: Sign Up > Sign UpAb",
+      "SPAN b: 503,415.9,63.4,23 > 491.6,415.9,86.1,23",
+      "SPAN b: 566.4,415.9,0,23 > 577.7,415.9,0,23"
+     ]
+    },
+    {
+     "row": "Show Name Field",
+     "kind": "switch",
+     "name": "Show Name Field",
+     "value": false,
+     "change": [
+      "area 1 / 2 / 9 / 12 > 1 / 2 / 15 / 12",
+      "section rows 8 > 14",
+      "elements 37 > 44",
+      "DIV.fe-block b: 100.1,244.2,576.8,317.8 > 100.1,244.2,576.8,564.3",
+      "DIV b: 100.1,244.2,576.8,317.8 > 100.1,244.2,576.8,564.3",
+      "DIV.yui3-widget b: 100.1,244.2,576.8,317.8 > 100.1,244.2,576.8,564.3",
+      "DIV b: 100.1,244.2,576.8,276 > 100.1,244.2,576.8,535.9",
+      "DIV.newsletter-form-wrapper\n cl: newsletter-form-wrapper\n \n newsletter-form-w > newsletter-form-wrapper\n newsletter-form-sho",
+      "DIV.newsletter-form-wrapper\n b: 100.1,244.2,576.8,276 > 100.1,244.2,576.8,535.9",
+      "FORM.newsletter-form b: 100.1,244.2,576.8,276 > 100.1,244.2,576.8,535.9",
+      "DIV b: 100.1,370.5,576.8,114 > 100.1,370.5,576.8,373.9",
+      "DIV.form-fields b: 163.4,386.5,288,82 > 100.1,386.5,576.8,246",
+      "new FIELDSET form-item fields name required",
+      "new DIV field first-name"
+     ]
+    },
+    {
+     "row": "Post-Submit",
+     "kind": "nav",
+     "name": "Navigate to Post-Submit",
+     "inside": [
+      {
+       "row": "",
+       "kind": "button",
+       "name": "Click and drag to reposition block editor form"
+      },
+      {
+       "row": "After Submission",
+       "kind": "choice",
+       "name": "Message",
+       "value": true
+      },
+      {
+       "row": "After Submission",
+       "kind": "choice",
+       "name": "Redirect",
+       "value": false
+      },
+      {
+       "row": "Message",
+       "kind": "area",
+       "name": "Message",
+       "value": "Thank you!"
+      },
+      {
+       "row": "1",
+       "kind": "area",
+       "name": "1",
+       "value": "Add"
+      }
+     ],
+     "back": "Back"
+    }
+   ]
+  },
+  "Design": {
+   "rows": [
+    {
+     "row": "Layout",
+     "kind": "choice",
+     "name": "Stack",
+     "value": false,
+     "home": "Float",
+     "change": [
+      "area 1 / 2 / 8 / 12 > 1 / 2 / 10 / 12",
+      "section rows 7 > 9",
+      "DIV.fe-block b: 100.1,244.2,576.8,276.7 > 100.1,244.2,576.8,358.8",
+      "DIV b: 100.1,244.2,576.8,276.7 > 100.1,244.2,576.8,358.8",
+      "DIV.yui3-widget b: 100.1,244.2,576.8,276.7 > 100.1,244.2,576.8,358.8",
+      "DIV b: 100.1,244.2,576.8,276 > 100.1,244.2,576.8,355.9",
+      "DIV.newsletter-form-wrapper\n cl: newsletter-form-wrapper\n \n newsletter-form-w > newsletter-form-wrapper\n \n newsletter-form-w",
+      "DIV.newsletter-form-wrapper\n b: 100.1,244.2,576.8,276 > 100.1,244.2,576.8,355.9",
+      "FORM.newsletter-form b: 100.1,244.2,576.8,276 > 100.1,244.2,576.8,355.9",
+      "DIV b: 100.1,370.5,576.8,114 > 100.1,370.5,576.8,194",
+      "DIV alignItems: normal > center",
+      "DIV display: block > flex",
+      "DIV.form-fields b: 163.4,386.5,288,82 > 244.5,386.5,288,82",
+      "DIV.form-fields display: inline-block > block"
+     ]
+    },
+    {
+     "row": "Layout",
+     "kind": "choice",
+     "name": "Float",
+     "value": true,
+     "notPressed": "the default"
+    },
+    {
+     "row": "Alignment",
+     "kind": "choice",
+     "name": "alignLeft",
+     "value": false,
+     "home": "alignCenter",
+     "change": [
+      "DIV.fe-block b: 100.1,244.2,576.8,276 > 100.1,254.4,576.8,253.5",
+      "DIV b: 100.1,244.2,576.8,276 > 100.1,254.4,576.8,253.5",
+      "DIV.yui3-widget b: 100.1,244.2,576.8,276 > 100.1,254.4,576.8,253.5",
+      "DIV b: 100.1,244.2,576.8,276 > 100.1,254.4,576.8,253.5",
+      "DIV.newsletter-form-wrapper\n cl: newsletter-form-wrapper\n \n newsletter-form-w > newsletter-form-wrapper\n \n newsletter-form-w",
+      "DIV.newsletter-form-wrapper\n b: 100.1,244.2,576.8,276 > 100.1,254.4,576.8,253.5",
+      "FORM.newsletter-form b: 100.1,244.2,576.8,276 > 100.1,254.4,576.8,253.5",
+      "FORM.newsletter-form textAlign: center > left",
+      "HEADER b: 143.4,244.2,490.3,110.3 > 100.1,254.4,576.8,87.8",
+      "HEADER textAlign: center > left",
+      "H2 b: 143.4,244.2,490.3,49.4 > 100.1,254.4,576.8,49.4",
+      "H2 textAlign: center > left",
+      "DIV b: 143.4,309.7,490.3,44.8 > 100.1,319.8,576.8,22.4",
+      "DIV textAlign: center > left"
+     ]
+    },
+    {
+     "row": "Alignment",
+     "kind": "choice",
+     "name": "alignCenter",
+     "value": true,
+     "notPressed": "the default"
+    },
+    {
+     "row": "Alignment",
+     "kind": "choice",
+     "name": "alignRight",
+     "value": false,
+     "home": "alignCenter",
+     "change": [
+      "DIV b: 100.1,244.2,576.8,276 > 100.1,244.2,576.8,253.5",
+      "DIV.newsletter-form-wrapper\n cl: newsletter-form-wrapper\n \n newsletter-form-w > newsletter-form-wrapper\n \n newsletter-form-w",
+      "DIV.newsletter-form-wrapper\n b: 100.1,244.2,576.8,276 > 100.1,244.2,576.8,253.5",
+      "FORM.newsletter-form b: 100.1,244.2,576.8,276 > 100.1,244.2,576.8,253.5",
+      "FORM.newsletter-form textAlign: center > right",
+      "HEADER b: 143.4,244.2,490.3,110.3 > 100.1,244.2,576.8,87.8",
+      "HEADER textAlign: center > right",
+      "H2 b: 143.4,244.2,490.3,49.4 > 100.1,244.2,576.8,49.4",
+      "H2 textAlign: center > right",
+      "DIV b: 143.4,309.7,490.3,44.8 > 100.1,309.7,576.8,22.4",
+      "DIV textAlign: center > right",
+      "P b: 143.4,309.7,490.3,44.8 > 100.1,309.7,576.8,22.4",
+      "P textAlign: center > right",
+      "DIV b: 100.1,370.5,576.8,114 > 100.1,348.1,576.8,114"
+     ]
+    },
+    {
+     "row": "Background",
+     "kind": "switch",
+     "name": "Background",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "No Stroke",
+     "value": true,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "Solid Stroke",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "Dashed Stroke",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "menu",
+     "name": "Blend Mode",
+     "value": "Normal",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Blur",
+     "kind": "switch",
+     "name": "Blur",
+     "value": false,
+     "notPressed": "a row every panel has"
+    }
+   ]
+  },
+  "Storage": {
+   "rows": [
+    {
+     "row": "about how we handle your customers’ personal information.",
+     "kind": "button",
+     "name": "Learn more"
+    },
+    {
+     "row": "Learn more",
+     "kind": "button",
+     "name": "Squarespace"
+    },
+    {
+     "row": "Other Storage Options",
+     "kind": "nav",
+     "name": "Navigate to Other Storage Options"
+    }
+   ],
+   "notPressed": "form storage is read only"
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Content",
+  "Design",
+  "Storage"
+ ],
+ "pressed": "Add Block, Newsletter, Edit, its tabs, and the rows with a change below, each named and on top, on Gestures Probe, unsaved.",
+ "answer": "Newsletter: tabs Content, Design, Storage. 19 rows read, 8 changed the block when changed. Each row below has its default and what the change did."
+}

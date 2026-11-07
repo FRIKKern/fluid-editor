@@ -18,7 +18,7 @@ import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, p
 import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
-import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
+import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -32,7 +32,7 @@ import { rowValue } from './theme-rows.js';
 import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
 import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
-import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
+import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, POSE_RANGE } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
@@ -148,9 +148,12 @@ function phoneFollowsMove(s, was) {
   return (s.phoneFollows && changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
 }
 
+// A drag leaves the focus in Animation's field, and a focused field keeps the panel from redrawing.
+const leaveAnimField = () => { if (document.activeElement?.matches?.('#block-panel [data-afield]')) document.activeElement.blur(); };
 function undo() {
   if (!undoStack.length) return;
   unsettled = null;
+  leaveAnimField();
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   // The Undo button during an edit: what was typed goes, the step before it goes, and the edit stays
   // open (parity/findings/TEXTUNDO.json).
@@ -173,6 +176,7 @@ function undo() {
 function redo() {
   if (!redoStack.length) return;
   unsettled = null;
+  leaveAnimField();
   undoStack.push(JSON.stringify(model));
   model = JSON.parse(redoStack.pop());
   note('Redo');
@@ -1793,6 +1797,8 @@ blockPanel.addEventListener('keydown', (e) => {
 });
 // Reset shows only while its field has focus (CAP-L6RESET.json), so the press must leave the focus there.
 blockPanel.addEventListener('mousedown', (e) => { if (e.target.closest('.sc-reset')) e.preventDefault(); });
+const CORNER_RANGE = [0, 1000];
+const caretAtEnd = (i) => { if (!i) return; i.focus(); i.setSelectionRange(i.value.length, i.value.length); };
 // A drag on a field's edge moves its value, one undo step when let go. A click does nothing.
 blockPanel.addEventListener('pointerdown', (e) => {
   const hit = e.target.closest('.sc-hit');
@@ -1802,6 +1808,13 @@ blockPanel.addEventListener('pointerdown', (e) => {
   const key = input.dataset.afield, dk = input.dataset.design, corner = input.dataset.shape === 'radius';
   if (corner && input.value === 'Mixed') return;
   let moved = false;
+  // The ring, <>, Reset and the bar show while it moves (CAP-T6FIELDS.json).
+  const shown = (v, range, off) => {
+    box.classList.add('is-scrub');
+    box.querySelector('.sc-reset')?.classList.toggle('is-on', off);
+    const bar = box.querySelector('.sc-bar i');
+    if (bar && range) bar.style.transform = `translateX(${barAt(v, range)}%)`;
+  };
   const move = (ev) => {
     const dx = ev.clientX - x0;
     if (!moved && !dx) return;
@@ -1811,27 +1824,33 @@ blockPanel.addEventListener('pointerdown', (e) => {
       input.value = `${v}px`;
       writeCorner(b, cur ? cur.map(() => v) : null, v);
       renderSectionDom(sel.sid);
+      shown(v, CORNER_RANGE, v !== 0);
     } else if (key) {
-      const v = scrubbed(start, dx, key);
+      const v = scrubbed(start, dx, key), pose = /:(\d)/.exec(key);
       input.value = v;
       animPut(b.animations, anim.i, key, v);
       syncAnimView(b);
+      shown(v, pose && POSE_RANGE[pose[1]], pose ? v !== REST[pose[1]] : v !== defaultOf(animRows()[anim.i], key));
     } else {
-      const f = DESIGN_FIELDS.find((x) => x[0] === dk), v = Math.min(f[4], Math.max(f[3], Math.round((parseFloat(start) + dx * 0.4) * 10) / 10)), bag = designBag(bp);
-      input.value = v;
+      const f = DESIGN_FIELDS.find((x) => x[0] === dk), v = Math.min(f[4], Math.max(f[3], Math.round((parseFloat(start.replace(/,/g, '')) + dx * 0.4) * 10) / 10)), bag = designBag(bp);
+      input.value = designText(dk, v);
       b[bag] = { ...(b[bag] || {}), [dk]: v };
       renderSectionDom(sel.sid);
+      shown(v, designRange(dk), v !== DESIGN_DEFAULTS[dk]);
     }
   };
+  // Let go: the focus goes to the input, the caret at its end, and the bar goes.
   const up = () => {
     removeEventListener('pointermove', move);
     removeEventListener('pointerup', up);
     if (!moved) return;
-    if (corner) { commit(before, 'Corner'); renderBlockPanel(); return; }
-    if (dk) { input.dispatchEvent(new Event('change', { bubbles: true })); return; }
+    box.classList.remove('is-scrub');
+    if (corner) { commit(before, 'Corner'); renderBlockPanel(); caretAtEnd(blockPanel.querySelector('[data-shape="radius"]')); return; }
+    if (dk) { input.focus(); input.dispatchEvent(new Event('change', { bubbles: true })); return; }
     commit(before, `Animation ${key}`);
     animPlay = 'square';
     renderBlockPanel();
+    caretAtEnd(blockPanel.querySelector(`input[data-afield="${key}"]`));
   };
   addEventListener('pointermove', move);
   addEventListener('pointerup', up);
@@ -2862,6 +2881,7 @@ shapePop.addEventListener('pointerdown', (e) => {
     if (bag === 'design' && b.design[k] === DESIGN_DEFAULTS[k]) { delete b.design[k]; if (!Object.keys(b.design).length) delete b.design; }
     commit(before, `Anchor ${k}`);
     renderBlockPanel();
+    caretAtEnd(input.isConnected ? input : shapePop.querySelector(`input[data-anchor="${k}"]`));
   };
   addEventListener('pointermove', move);
   addEventListener('pointerup', up);
@@ -3862,7 +3882,8 @@ function onDesignChange(e) {
   const bag = designBag(bp);
   designChange(b, [k], () => {
     const d = { ...(b[bag] || {}) };
-    const val = parseFloat(input.value);
+    // A number typed after the shown unit joins it, as on Animation's fields: 0px then 5 is 5px.
+    const val = parseFloat(input.value.replace(/,/g, '').replace(/^(-?[\d.]*)(?:%|px|°|s)(?=[\d.])/, '$1'));
     if (k in RANGE_LIMITS) { if (!Number.isFinite(val)) return; d[k] = Math.max(0, Math.min(RANGE_LIMITS[k], val)); }
     // A value set on the phone stays the phone's, even at the default (PERLAYOUT.json).
     else if (bag === 'designMobile') {
@@ -3882,7 +3903,7 @@ function onDesignChange(e) {
   const typing = document.activeElement === input; // Enter keeps the focus, and with it Reset (CAP-L6RESET.json)
   commit(before, `${k} set on ${b.id}`);
   renderBlockPanel();
-  if (typing) blockPanel.querySelector(`input[data-design="${k}"]`)?.focus();
+  if (typing) caretAtEnd(blockPanel.querySelector(`input[data-design="${k}"]`));
 }
 panel.addEventListener('change', onDesignChange, true);
 // The ? by Video Storage: a tip over a dark overlay; Escape or a press on the overlay closes it, and the block doesn't change (CAP-T7TIP.json, CAP-T7TIP2.json). The words are ours.
