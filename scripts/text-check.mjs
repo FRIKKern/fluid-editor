@@ -149,8 +149,8 @@ for (const [name, body, want] of [['one burst', `type('one'); await sleep(50); t
 // E4: with a caret, undo by time, nesting, Clear Formatting, Highlight: replayed with real keys and presses.
 // Named misses, not built: after one Escape the oracle's bar is gone but letters still go into the text.
 const noRun = [];
-const KNOWN = ['color, Escape, typed', 'empty, color, typed', 'typed, Escape, typed', 'line break, html', 'caret mid word, Enter to open, typed', 'Undo, left', 'after an Undo'];
-for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS', 'CAP-E4SCORE', 'CAP-E4GAP', 'CAP-E4GAP2', 'CAP-E4ENTER', 'CAP-TEXTEMPTY', 'CAP-T3EMPTY', 'CAP-T3EMPTY2', 'CAP-T3EMPTY3', 'CAP-E4REOPEN', 'CAP-E4REOPEN2', 'CAP-E4REOPEN3'] : ['CAP-E4CARET', 'CAP-TEXTEMPTY']) {
+const KNOWN = ['Undo, left', 'after an Undo'];
+for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS', 'CAP-E4SCORE', 'CAP-E4GAP', 'CAP-E4GAP2', 'CAP-E4ENTER', 'CAP-TEXTEMPTY', 'CAP-T3EMPTY', 'CAP-T3EMPTY2', 'CAP-T3EMPTY3', 'CAP-E4REOPEN', 'CAP-E4REOPEN2', 'CAP-E4REOPEN3', 'CAP-ESC1', 'CAP-ESC2', 'CAP-E4BREAK'] : ['CAP-E4CARET', 'CAP-TEXTEMPTY']) {
   await replay(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (what, ok, detail) => {
     if (ok === null) { noRun.push(`${name} ${what}`); console.log(`could not run: ${name} ${what}: ${detail}`); return; }
     if (!ok && KNOWN.includes(what)) { console.log(`known miss: ${what}`); return; }
