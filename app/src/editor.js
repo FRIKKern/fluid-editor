@@ -160,6 +160,7 @@ function undo() {
   if (ed) finishTextEdit();
   if (!undoStack.length) { if (ed) select(null); return; }
   unsettled = null;
+  stored = null;
   leaveAnimField();
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
@@ -175,6 +176,7 @@ function redo() {
   if (ed) finishTextEdit();
   if (!redoStack.length) { if (ed) select(null); return; }
   unsettled = null;
+  stored = null;
   leaveAnimField();
   undoStack.push(JSON.stringify(model));
   const had = new Set(model.sections.flatMap((o) => o.blocks.map((x) => x.id)));
@@ -637,13 +639,14 @@ function measure(fe) {
 // Rows a block needs so its content fits without stretching a row.
 // The form on the page, not the copy a Lightbox holds to open.
 const FORM_ON_PAGE = '.fe-form:not(.form-lightbox .fe-form)';
-function contentRows(b, m, normalizing = false, widthPull = false) {
+function contentRows(b, m, normalizing = false, widthPull = false, exact = false) {
   // Content that follows the width (STANDINS.json). A pull that changes the width lets it run over by
   // less than the gap until the next gesture; one that changes only the height does not.
   if (b.standin) {
     const c = blockEl(b.id)?.querySelector('.sqs-block-content');
     if (!c) return 1;
     const h = c.getBoundingClientRect().height;
+    if (exact) return (h + m.rg) / m.pitch;
     return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
   }
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
@@ -678,6 +681,7 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
   if (!c) return 1;
   // A text block's stroke counts: it sits outside the text (BLOCKDESIGN.json).
   const outer = b.type === 'text' ? root.querySelector('.sqs-block') : null, edge = outer ? outer.offsetHeight - outer.clientHeight : 0;
+  if (exact) return (c.offsetHeight + edge + m.rg) / m.pitch;
   return Math.max(1, Math.ceil((c.offsetHeight + edge + m.rg) / m.pitch - 0.02));
 }
 
@@ -1010,6 +1014,7 @@ function onUp(e) {
   growRows(s);
   endGesture();
   renderSectionDom(g.sid);
+  if (g.type === 'gresize') stored = storedRows(g);
   if (g.fits && !/[ns]/.test(g.dir)) {
     fitTextRows(s, b, g);
     if (b.type === 'text' && g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
@@ -1082,8 +1087,43 @@ function onCancel(e) {
   if (gesture && e.pointerId === gesture.pointerId) cancelGesture();
 }
 
+// After a group resize leaves a Text or Quote short of its content, the next layout gesture moves rows in
+// (CAP-X8NEXT.json, CAP-X8LAG.json): d is the overflow in rows, rounded, and L the short block's bottom line.
+// The short block grows d, a block across L grows d, and so does one ending on L that starts on or above the
+// short block's top; any other block that ends on or below L moves d, and blocks above L stay, in the whole
+// section (CAP-X8LAG2.json). A press, a select, typing and undo don't do it. Candidate, refit 2.
+let stored = null;
+function storedRows(g) {
+  const m = measure(feEl(g.sid)), s = S(g.sid);
+  let d = 0, L = 0, t0 = 0, tid = null;
+  for (const id of g.kept.keys()) {
+    const b = B(g.sid, id), a = lay(b).area, over = Math.round(contentRows(b, m, false, false, true) - (a[2] - a[0]));
+    if (over > d) { d = over; L = a[2]; t0 = a[0]; tid = id; }
+  }
+  if (d <= 0) return null;
+  const areas = new Map();
+  for (const b of s.blocks) {
+    const a = [...lay(b).area];
+    if (b.id === tid || (a[0] < L && a[2] > L) || (a[2] === L && a[0] <= t0)) a[2] += d;
+    else if (a[2] >= L) { a[0] += d; a[2] += d; }
+    areas.set(b.id, a);
+  }
+  return { sid: g.sid, bp, areas };
+}
+function showStored() {
+  const t = stored, shift = new Map();
+  stored = null;
+  const s = t.bp === bp ? S(t.sid) : null;
+  if (!s) return shift;
+  for (const b of s.blocks) if (t.areas.has(b.id)) { shift.set(b.id, t.areas.get(b.id)[0] - lay(b).area[0]); lay(b).area = t.areas.get(b.id); }
+  growRows(s);
+  renderSectionDom(s.id);
+  return shift;
+}
+
 function prepare(e, type, extra = {}) {
   if (unsettled) settleTextRows();
+  const shift = stored ? showStored() : null;
   const g = gesture?.type === 'pending' ? gesture : { sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, before: JSON.stringify(model) };
   Object.assign(g, { type }, extra);
   gesture = g;
@@ -1099,6 +1139,8 @@ function prepare(e, type, extra = {}) {
   g.rows0 = s.rows[bp];
   g.target = [...g.orig];
   g.m = measure(fe);
+  // A block the stored rows moved is held where they put it (CAP-X8LAG.json, l3 and l6).
+  if (shift?.get(g.bid) && g.grabY != null) g.grabY -= shift.get(g.bid) * g.m.pitch;
   fe.style.gridAutoRows = `${g.m.rowMin}px`;
   showGrid(g.sid, s.rows[bp]);
   g.original = layer(fe, 'fe-original-position', g.orig);
@@ -6716,6 +6758,7 @@ function boot() {
       undoStack.length = 0;
       redoStack.length = 0;
       sel = null;
+      stored = null;
       leftRings = null;
       renderAll();
       return true;
