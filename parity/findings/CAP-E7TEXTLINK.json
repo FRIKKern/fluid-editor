@@ -1,0 +1,1026 @@
+{
+  "item": "CAP-E7TEXTLINK",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "E7: does a Text link opened again show the field or a box?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "hello"
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "click",
+      "Link"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "keysFast",
+      "/about"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "text, Enter",
+      {
+        "controls": true,
+        "checks": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "text, Escape",
+      {
+        "controls": true,
+        "checks": true,
+        "focused": true
+      }
+    ],
+    [
+      "click",
+      "Link"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "text, opened again",
+      {
+        "controls": true,
+        "checks": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "text, Enter": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Squarespace AI",
+          "box": [
+            104.1,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Style",
+          "box": [
+            149.1,
+            243.2,
+            121.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            279.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            319.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Color",
+          "box": [
+            359.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Scaled Text",
+          "box": [
+            399.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Highlight",
+          "box": [
+            439.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            479.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Alignment",
+          "box": [
+            524.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            569.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bullet List",
+          "box": [
+            609.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            649.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Strike",
+          "box": [
+            694.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Outdent",
+          "box": [
+            739.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Indent",
+          "box": [
+            779.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Clear Formatting",
+          "box": [
+            824.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "URL",
+          "box": [
+            359.2,
+            311.2,
+            96,
+            28
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Enter link, search, or add files",
+          "value": "/about",
+          "box": [
+            359.2,
+            350.2,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Clear selected page",
+          "box": [
+            595.2,
+            354.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "/about",
+        "box": [
+          359.2,
+          350.2,
+          276,
+          44
+        ],
+        "outline": "rgb(14, 14, 14) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "checks": [
+        {
+          "box": [
+            358,
+            400,
+            1,
+            1
+          ],
+          "checked": false,
+          "text": "Open link in new tab"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "text, Escape": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Squarespace AI",
+          "box": [
+            104.1,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Style",
+          "box": [
+            149.1,
+            243.2,
+            121.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            279.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            319.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Color",
+          "box": [
+            359.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Scaled Text",
+          "box": [
+            399.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Highlight",
+          "box": [
+            439.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            479.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Alignment",
+          "box": [
+            524.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            569.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bullet List",
+          "box": [
+            609.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            649.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Strike",
+          "box": [
+            694.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Outdent",
+          "box": [
+            739.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Indent",
+          "box": [
+            779.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Clear Formatting",
+          "box": [
+            824.2,
+            243.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "focused": "frame",
+      "checks": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "text, opened again": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Squarespace AI",
+          "box": [
+            104.1,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Style",
+          "box": [
+            149.1,
+            243.2,
+            121.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            279.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            319.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Color",
+          "box": [
+            359.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Scaled Text",
+          "box": [
+            399.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Highlight",
+          "box": [
+            439.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            479.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Alignment",
+          "box": [
+            524.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            569.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bullet List",
+          "box": [
+            609.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            649.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Strike",
+          "box": [
+            694.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Outdent",
+          "box": [
+            739.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Indent",
+          "box": [
+            779.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Clear Formatting",
+          "box": [
+            824.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "URL",
+          "box": [
+            359.2,
+            311.2,
+            96,
+            28
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Enter link, search, or add files",
+          "value": "/about",
+          "box": [
+            359.2,
+            350.2,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Clear selected page",
+          "box": [
+            595.2,
+            354.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "option",
+          "label": "About/about",
+          "box": [
+            361,
+            449,
+            257,
+            61
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "/about",
+        "box": [
+          359.2,
+          350.2,
+          276,
+          44
+        ],
+        "outline": "rgb(14, 14, 14) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "checks": [
+        {
+          "box": [
+            358,
+            400,
+            1,
+            1
+          ],
+          "checked": false,
+          "text": "Open link in new tab"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

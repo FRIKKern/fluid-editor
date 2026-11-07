@@ -16,7 +16,7 @@ const SEE = `(() => { const P = document.getElementById('link-popover'), a = doc
 function oracleSees(reads, name) {
   const r = reads[name] || {}, labels = (r.controls || []).filter((c) => c.box[0] < 700 && c.box[1] > 200 && c.box[1] < 900), has = (l) => labels.some((c) => c.label === l);
   const f = r.focused, fix = (s) => String(s).replace('<https>', 'https://');
-  const view = has('Remove Link') ? 'box' : has('Email') ? 'email' : has('Phone') ? 'phone' : has('URL') ? 'url' : 'closed';
+  const view = has('Click and drag to reposition block editor form') ? 'closed' : has('Remove Link') ? 'box' : has('Email') ? 'email' : has('Phone') ? 'phone' : has('URL') ? 'url' : 'closed';
   const row = view === 'box' ? fix(labels.find((c) => c.box[3] >= 60 && c.box[2] > 200).label) : null;
   const focus = f === 'frame' ? 'frame' : !f ? null : f.tag === 'input' ? 'field' : fix(f.label);
   const above = reads[`${name}, above`]?.looks?.find((x) => x.text.startsWith('<site>'));

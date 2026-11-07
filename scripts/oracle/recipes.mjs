@@ -315,7 +315,7 @@ export const RECIPES = {
       ['exit'], ['enter'], ...BTN, ...PAGE, ['press', 'Enter'], ['pause', 600], ['click', 'Clear selected page'], ['pause', 500], ['press', 'Escape'], ['pause', 400], ['click', 'Undo'], ['pause', 500], ...R('Clear, Undo'), ...AGAIN, ...R('Clear, Undo, reopened'), ...LEAVE,
       ['exit'], ['enter'], ...BTN, ...PAGE, ['clickAt', 138, 380], ['pause', 600], ['press', 'Escape'], ['pause', 400], ...R('page, Edit, one Escape'), ...LEAVE,
       ['exit'], ['enter'], ...BTN, ['click', 'Edit'], ['pause', 500], ['click', 'Attach link'], ['pause', 500], ['keysFast', 'a.com'], ['press', 'Enter'], ['pause', 500], ...R('panel, typed, Enter'), ...LEAVE,
-      ['exit'], ['enter'], ...NEWTEXT, ['keys', 'hello'], ['press', 'Meta+a'], ['click', 'Link'], ['pause', 500], ['keysFast', '/about'], ['press', 'Enter'], ['pause', 500], ['press', 'Escape'], ['pause', 400], ['click', 'Link'], ['pause', 600], ['read', 'skip text, opened again', { controls: true, checks: true, focused: true }], ['shot', 'text'], ...LEAVE,
+      ['exit'], ['enter'], ['blank'], ...NEWTEXT, ['keys', 'hello'], ['press', 'Meta+a'], ['click', 'Link'], ['pause', 500], ['keysFast', '/about'], ['press', 'Enter'], ['pause', 500], ['press', 'Escape'], ['pause', 400], ['click', 'Link'], ['pause', 600], ['read', 'skip text, opened again', { controls: true, checks: true, focused: true }], ['shot', 'text'], ...LEAVE,
     ];
   })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
