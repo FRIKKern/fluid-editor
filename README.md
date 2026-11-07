@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 10 changes
+- **Today** · 11 changes
+  - T7: a video's colours: the top row and Reset to theme ([#301](https://github.com/FRIKKern/fluid-editor/pull/301))
   - X13: a box leaves a selection alone until release ([#298](https://github.com/FRIKKern/fluid-editor/pull/298))
-  - X6: 68 read with long waits, a phone pull takes rows from the drawn height, Summary's phone pulls ([#300](https://github.com/FRIKKern/fluid-editor/pull/300))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
