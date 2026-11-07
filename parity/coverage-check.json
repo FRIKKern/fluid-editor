@@ -1,17 +1,1014 @@
 {
  "check": "coverage",
  "oracleCaptured": "2026-11-07",
- "matched": 384,
+ "matched": 347,
  "counts": {
-  "unread": 259,
-  "namedNotOurs": 196,
-  "oursOnly": 1017,
+  "unread": 231,
+  "namedNotOurs": 160,
+  "oursOnly": 1057,
   "proseOnlyOracle": 75,
   "proseOnlyOurs": 0,
   "tabs": 48,
   "toolbar": 61,
   "bars": 16,
-  "kinds": 46
+  "kinds": 6,
+  "oursOff": 29
+ },
+ "summary": {
+  "note": "Desktop. On a stand-in every oracle row counts: ours shows a Shape's rows there.",
+  "controls": 107,
+  "headings": 50,
+  "outside": 22,
+  "states": 17,
+  "byKind": {
+   "button": 15,
+   "slider": 4,
+   "choice": 18,
+   "switch": 35,
+   "field": 14,
+   "menu": 15,
+   "area": 6
+  },
+  "tiles": {
+   "Text": {
+    "oracleTabs": [
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 15,
+    "common": 0,
+    "oursOff": []
+   },
+   "Image": {
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 15,
+    "common": 0,
+    "oursOff": []
+   },
+   "Button": {
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 16,
+    "common": 0,
+    "oursOff": []
+   },
+   "Video": {
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 24,
+    "common": 0,
+    "oursOff": []
+   },
+   "Form": {
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [
+     "On"
+    ],
+    "outside": [],
+    "state": [],
+    "help": 2,
+    "matched": 30,
+    "common": 0,
+    "oursOff": [
+     "MANAGE SUBMISSIONS",
+     "Export Form Submissions",
+     "Additional Storage",
+     "Google reCAPTCHA"
+    ]
+   },
+   "Accordion": {
+    "oracleTabs": [
+     "Content",
+     "Design"
+    ],
+    "oursTabs": [
+     "Content",
+     "Design"
+    ],
+    "control": [],
+    "heading": [
+     "Heading 4",
+     "Paragraph 2",
+     "On"
+    ],
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 18,
+    "common": 0,
+    "oursOff": []
+   },
+   "Shape": {
+    "oracleTabs": [
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 19,
+    "common": 0,
+    "oursOff": []
+   },
+   "Scrolling": {
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "Dream it (button)",
+     "ADD ITEM (button)",
+     "ATTACH LINK (button)",
+     "Wave Intensity (slider)",
+     "Text Style (button)",
+     "Text Size (choice)",
+     "Direction (choice)",
+     "Speed (choice)",
+     "Pause on hover (switch)",
+     "Fade edges (switch)",
+     "Item Spacing (field, slider)"
+    ],
+    "heading": [
+     "Link"
+    ],
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 15,
+    "common": 0,
+    "oursOff": []
+   },
+   "Line": {
+    "oracleTabs": [
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 11,
+    "common": 0,
+    "oursOff": []
+   },
+   "Product": {
+    "standin": true,
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "Image (button, field)",
+     "Title (switch)",
+     "Price (switch)",
+     "Description (switch)",
+     "Add to Cart Button (switch)",
+     "Product Quick View (switch)",
+     "Ratio (button)",
+     "FOCAL POINT (button)",
+     "Block Alignment (choice)"
+    ],
+    "heading": [
+     "Product",
+     "Elements"
+    ],
+    "outside": [
+     "CREATE NEW PRODUCT"
+    ],
+    "state": [
+     "Press + to get started"
+    ],
+    "help": 1,
+    "matched": 0,
+    "common": 14,
+    "oursOff": []
+   },
+   "Pricing Plan": {
+    "standin": true,
+    "oracleTabs": [
+     "Content",
+     "Design"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "GET STARTED (button)",
+     "Alignment (choice)",
+     "Title (switch)",
+     "Description (switch)",
+     "Price (switch)",
+     "Benefits (switch)",
+     "Button (switch)",
+     "Button Text (field)"
+    ],
+    "heading": [
+     "Pricing Plan",
+     "Elements"
+    ],
+    "outside": [],
+    "state": [],
+    "help": 1,
+    "matched": 0,
+    "common": 0,
+    "oursOff": []
+   },
+   "Donation": {
+    "standin": true,
+    "oracleTabs": [
+     "Content",
+     "Design"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "Button Text (field)",
+     "Text (menu)",
+     "Lightbox (switch)",
+     "Thickness (choice)",
+     "Corner (field)",
+     "Padding (choice)",
+     "Donation Amount Alignment (choice)",
+     "Disclaimer Alignment (choice)",
+     "Donate Button (menu)",
+     "Button Alignment (choice)"
+    ],
+    "heading": [],
+    "outside": [
+     "Set Up Payment Processor",
+     "Funds",
+     "General Fund",
+     "Fund Dropdown Label"
+    ],
+    "state": [],
+    "help": 3,
+    "matched": 0,
+    "common": 3,
+    "oursOff": []
+   },
+   "Scheduling": {
+    "standin": true,
+    "oracleTabs": [
+     "Content"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [
+     "Get started with Acuity Scheduling",
+     "SET UP",
+     "ADD EXISTING SCHEDULE"
+    ],
+    "state": [],
+    "help": 1,
+    "matched": 0,
+    "common": 0,
+    "oursOff": []
+   },
+   "Summary": {
+    "standin": true,
+    "oracleTabs": [
+     "Content",
+     "Design"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "Wall (menu)",
+     "Number of Items (field, slider)",
+     "Text (choice)",
+     "Title (switch)",
+     "Featured Image (switch)",
+     "Excerpt (switch)",
+     "Below Content (button)",
+     "Size and Spacing (button)"
+    ],
+    "heading": [
+     "Primary Metadata",
+     "Secondary Metadata",
+     "Elements",
+     "Metadata Position"
+    ],
+    "outside": [],
+    "state": [
+     "There are no Collection Pages",
+     "No metadata found"
+    ],
+    "help": 1,
+    "matched": 0,
+    "common": 4,
+    "oursOff": []
+   },
+   "Newsletter": {
+    "standin": true,
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Storage"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "Form Name (field)",
+     "Title (field)",
+     "Description (area)",
+     "Disclaimer (area)",
+     "Button Text (field)",
+     "Show Name Field (switch)",
+     "Post-Submit (button)",
+     "Layout (choice)",
+     "Alignment (choice)"
+    ],
+    "heading": [],
+    "outside": [
+     "Squarespace",
+     "Other Storage Options"
+    ],
+    "state": [],
+    "help": 2,
+    "matched": 0,
+    "common": 4,
+    "oursOff": []
+   },
+   "Quote": {
+    "standin": true,
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "Quote (area)",
+     "Source (area)",
+     "Appear (button)"
+    ],
+    "heading": [
+     "Effects"
+    ],
+    "outside": [],
+    "state": [
+     "Press + to get started"
+    ],
+    "help": 0,
+    "matched": 0,
+    "common": 14,
+    "oursOff": []
+   },
+   "Audio": {
+    "standin": true,
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "UPLOAD FILE (button)",
+     "Title (field)",
+     "Artist (field)",
+     "Download Link (switch)",
+     "Style (choice)",
+     "Color (choice)"
+    ],
+    "heading": [
+     "Elements",
+     "Metadata",
+     "Appearance"
+    ],
+    "outside": [
+     "Podcast"
+    ],
+    "state": [
+     "Press + to get started"
+    ],
+    "help": 0,
+    "matched": 0,
+    "common": 10,
+    "oursOff": []
+   },
+   "Calendar": {
+    "standin": true,
+    "dialog": "Calendar",
+    "oracleTabs": [
+     "(one view)"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [
+     "There are no collections."
+    ],
+    "help": 1,
+    "matched": 0,
+    "common": 0,
+    "oursOff": []
+   },
+   "Map": {
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [
+     "Additional Terms of Service",
+     "Privacy Policy"
+    ],
+    "state": [],
+    "help": 1,
+    "matched": 23,
+    "common": 0,
+    "oursOff": []
+   },
+   "Menu": {
+    "standin": true,
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Formatting Help"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "Menu text (area)",
+     "Multi-Column (menu)",
+     "Currency Symbol (button)"
+    ],
+    "heading": [
+     "Menu Sections",
+     "Menu Items",
+     "Multiple Menu Pages"
+    ],
+    "outside": [],
+    "state": [],
+    "help": 9,
+    "matched": 0,
+    "common": 0,
+    "oursOff": []
+   },
+   "Chart": {
+    "standin": true,
+    "dialog": "Chart",
+    "oracleTabs": [
+     "Data",
+     "Design",
+     "Import / Export"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "Chart Type (menu)",
+     "Flip X And Y Axes (switch)",
+     "Chart Data (area)",
+     "Chart Title (field)",
+     "Caption (field)",
+     "Show Legend (switch)",
+     "Color Palette (menu)",
+     "Update (button)"
+    ],
+    "heading": [
+     "Import/Export",
+     "Import or Export Chart Data"
+    ],
+    "outside": [],
+    "state": [],
+    "help": 2,
+    "matched": 0,
+    "common": 0,
+    "oursOff": []
+   },
+   "Code": {
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 13,
+    "common": 0,
+    "oursOff": []
+   },
+   "Markdown": {
+    "oracleTabs": [
+     "Content"
+    ],
+    "oursTabs": [
+     "Content"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 9,
+    "common": 0,
+    "oursOff": []
+   },
+   "Embed": {
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 15,
+    "common": 0,
+    "oursOff": [
+     "Custom thumbnail"
+    ]
+   },
+   "Social Links": {
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 20,
+    "common": 0,
+    "oursOff": []
+   },
+   "Search Field": {
+    "standin": true,
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "Search specific page (switch)",
+     "Theme (choice)",
+     "Quick preview (switch)"
+    ],
+    "heading": [
+     "Style",
+     "Behavior",
+     "Appearance"
+    ],
+    "outside": [],
+    "state": [
+     "Press + to get started"
+    ],
+    "help": 2,
+    "matched": 0,
+    "common": 14,
+    "oursOff": []
+   },
+   "Page Link": {
+    "standin": true,
+    "dialog": "Content Link",
+    "oracleTabs": [
+     "(one view)"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [
+     "About",
+     "Blocks Probe",
+     "Contact",
+     "Gestures Probe",
+     "Home",
+     "How Fluid Engine works",
+     "Services"
+    ],
+    "outside": [],
+    "state": [
+     "Index",
+     "Pages"
+    ],
+    "help": 1,
+    "matched": 0,
+    "common": 0,
+    "oursOff": []
+   },
+   "Tag Cloud": {
+    "standin": true,
+    "dialog": "Tag Cloud",
+    "oracleTabs": [
+     "(one view)"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "Display Type (menu)",
+     "Sort By (menu)",
+     "5 Tags (slider)"
+    ],
+    "heading": [],
+    "outside": [],
+    "state": [
+     "There are no collections."
+    ],
+    "help": 2,
+    "matched": 0,
+    "common": 0,
+    "oursOff": []
+   },
+   "RSS": {
+    "standin": true,
+    "dialog": "RSS Block",
+    "oracleTabs": [
+     "(one view)"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [
+     "There are no collections."
+    ],
+    "help": 1,
+    "matched": 0,
+    "common": 0,
+    "oursOff": []
+   },
+   "Archive": {
+    "standin": true,
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "Group by (menu)",
+     "Dates ascending (switch)",
+     "Item date (switch)",
+     "Group count (switch)",
+     "Layout (menu)",
+     "Columns (choice)",
+     "Alignment (choice)"
+    ],
+    "heading": [
+     "Collection",
+     "Organization",
+     "Elements",
+     "Appearance"
+    ],
+    "outside": [],
+    "state": [
+     "No collections found",
+     "Press + to get started"
+    ],
+    "help": 0,
+    "matched": 0,
+    "common": 14,
+    "oursOff": []
+   },
+   "Instagram": {
+    "standin": true,
+    "dialog": "Grid",
+    "oracleTabs": [
+     "Account",
+     "Design"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "10 Items (slider)",
+     "Aspect Ratio (menu)",
+     "Crop Images (switch)",
+     "Lightbox (switch)",
+     "Open Links in New Window (switch)"
+    ],
+    "heading": [
+     "Slideshow",
+     "Carousel",
+     "Grid",
+     "Stacked",
+     "Choose the thumbnails per row.",
+     "Padding around the gridded images."
+    ],
+    "outside": [
+     "Connected Account",
+     "Add an Account"
+    ],
+    "state": [
+     "There is no valid account connected yet. Select an existing connected account fr"
+    ],
+    "help": 1,
+    "matched": 0,
+    "common": 0,
+    "oursOff": []
+   },
+   "Tock": {
+    "standin": true,
+    "oracleTabs": [
+     "(one view)"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [
+     "Join Tock",
+     "ALREADY A CUSTOMER"
+    ],
+    "state": [],
+    "help": 1,
+    "matched": 0,
+    "common": 0,
+    "oursOff": []
+   },
+   "SoundCloud": {
+    "standin": true,
+    "dialog": "Edit SoundCloud Embed",
+    "oracleTabs": [
+     "(one view)"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [],
+    "heading": [],
+    "outside": [
+     "Enter a SoundCloud URL here"
+    ],
+    "state": [],
+    "help": 1,
+    "matched": 0,
+    "common": 0,
+    "oursOff": []
+   },
+   "Flickr": {
+    "standin": true,
+    "dialog": "Grid",
+    "oracleTabs": [
+     "Account",
+     "Design"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "10 Items (slider)",
+     "Aspect Ratio (menu)",
+     "Crop Images (switch)",
+     "Show Title (switch)",
+     "Lightbox (switch)",
+     "Open Links in New Window (switch)"
+    ],
+    "heading": [
+     "Slideshow",
+     "Carousel",
+     "Grid",
+     "Stacked",
+     "Choose the thumbnails per row.",
+     "Padding around the gridded images."
+    ],
+    "outside": [
+     "Connected Account"
+    ],
+    "state": [],
+    "help": 0,
+    "matched": 0,
+    "common": 0,
+    "oursOff": []
+   },
+   "OpenTable": {
+    "standin": true,
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "Domain (menu)",
+     "Language (menu)",
+     "Title (switch)",
+     "Icons (switch)"
+    ],
+    "heading": [
+     "Localization",
+     "Hide Elements"
+    ],
+    "outside": [
+     "OpenTable Restaurant ID"
+    ],
+    "state": [
+     "Press + to get started"
+    ],
+    "help": 0,
+    "matched": 0,
+    "common": 10,
+    "oursOff": []
+   },
+   "Zola": {
+    "standin": true,
+    "oracleTabs": [
+     "Content",
+     "Design",
+     "Animation"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "Items to Display (field, slider)",
+     "Add Padding (switch)"
+    ],
+    "heading": [],
+    "outside": [
+     "Registry Name"
+    ],
+    "state": [
+     "here",
+     "Press + to get started"
+    ],
+    "help": 1,
+    "matched": 0,
+    "common": 10,
+    "oursOff": []
+   },
+   "Bandsintown": {
+    "standin": true,
+    "dialog": "Bandsintown",
+    "oracleTabs": [
+     "(one view)"
+    ],
+    "oursTabs": [
+     "Design",
+     "Animation"
+    ],
+    "control": [
+     "Pablo City (field)",
+     "Timeframe to Show (menu)"
+    ],
+    "heading": [],
+    "outside": [
+     "Band Name"
+    ],
+    "state": [],
+    "help": 2,
+    "matched": 0,
+    "common": 0,
+    "oursOff": []
+   }
+  }
  },
  "unread": [
   {
@@ -230,19 +1227,14 @@
   {
    "where": "Donation > Content",
    "name": "Funds",
-   "kinds": []
+   "kinds": [
+    "button"
+   ]
   },
   {
    "where": "Donation > Content",
    "name": "General Fund",
    "kinds": []
-  },
-  {
-   "where": "Donation > Content",
-   "name": "Navigate to Funds",
-   "kinds": [
-    "button"
-   ]
   },
   {
    "where": "Donation > Content",
@@ -275,7 +1267,9 @@
   {
    "where": "Donation > Design",
    "name": "Donate Button",
-   "kinds": []
+   "kinds": [
+    "menu"
+   ]
   },
   {
    "where": "Donation > Design",
@@ -292,19 +1286,14 @@
   {
    "where": "Donation phone > Content",
    "name": "Funds",
-   "kinds": []
+   "kinds": [
+    "button"
+   ]
   },
   {
    "where": "Donation phone > Content",
    "name": "General Fund",
    "kinds": []
-  },
-  {
-   "where": "Donation phone > Content",
-   "name": "Navigate to Funds",
-   "kinds": [
-    "button"
-   ]
   },
   {
    "where": "Donation phone > Content",
@@ -337,7 +1326,9 @@
   {
    "where": "Donation phone > Design",
    "name": "Donate Button",
-   "kinds": []
+   "kinds": [
+    "menu"
+   ]
   },
   {
    "where": "Donation phone > Design",
@@ -440,11 +1431,6 @@
   {
    "where": "Summary > Design",
    "name": "Size and Spacing",
-   "kinds": []
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Navigate to Size and Spacing",
    "kinds": [
     "button"
    ]
@@ -505,11 +1491,6 @@
   {
    "where": "Summary phone > Design",
    "name": "Size and Spacing",
-   "kinds": []
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Navigate to Size and Spacing",
    "kinds": [
     "button"
    ]
@@ -538,11 +1519,6 @@
   {
    "where": "Newsletter > Content",
    "name": "Post-Submit",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter > Content",
-   "name": "Navigate to Post-Submit",
    "kinds": [
     "button"
    ]
@@ -557,11 +1533,6 @@
   {
    "where": "Newsletter > Storage",
    "name": "Other Storage Options",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter > Storage",
-   "name": "Navigate to Other Storage Options",
    "kinds": [
     "button"
    ]
@@ -590,11 +1561,6 @@
   {
    "where": "Newsletter phone > Content",
    "name": "Post-Submit",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter phone > Content",
-   "name": "Navigate to Post-Submit",
    "kinds": [
     "button"
    ]
@@ -609,11 +1575,6 @@
   {
    "where": "Newsletter phone > Storage",
    "name": "Other Storage Options",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter phone > Storage",
-   "name": "Navigate to Other Storage Options",
    "kinds": [
     "button"
    ]
@@ -634,13 +1595,6 @@
    "where": "Audio > Content",
    "name": "Metadata",
    "kinds": []
-  },
-  {
-   "where": "Audio > Content",
-   "name": "Navigate to Podcast",
-   "kinds": [
-    "button"
-   ]
   },
   {
    "where": "Audio > Design",
@@ -663,13 +1617,6 @@
    "where": "Audio phone > Content",
    "name": "Metadata",
    "kinds": []
-  },
-  {
-   "where": "Audio phone > Content",
-   "name": "Navigate to Podcast",
-   "kinds": [
-    "button"
-   ]
   },
   {
    "where": "Audio phone > Design",
@@ -756,7 +1703,9 @@
   {
    "where": "Chart > Data",
    "name": "Chart Type",
-   "kinds": []
+   "kinds": [
+    "menu"
+   ]
   },
   {
    "where": "Chart > Data",
@@ -787,13 +1736,6 @@
    ]
   },
   {
-   "where": "Chart > Design",
-   "name": "Grayscale",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
    "where": "Chart > Import / Export",
    "name": "Import or Export Chart Data",
    "kinds": []
@@ -813,7 +1755,9 @@
   {
    "where": "Chart phone > Data",
    "name": "Chart Type",
-   "kinds": []
+   "kinds": [
+    "menu"
+   ]
   },
   {
    "where": "Chart phone > Data",
@@ -841,13 +1785,6 @@
    "name": "Show Legend",
    "kinds": [
     "switch"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Grayscale",
-   "kinds": [
-    "menu"
    ]
   },
   {
@@ -952,25 +1889,22 @@
   {
    "where": "Tag Cloud > (one view)",
    "name": "Display Type",
-   "kinds": []
+   "kinds": [
+    "menu"
+   ]
+  },
+  {
+   "where": "Tag Cloud > (one view)",
+   "name": "Sort By",
+   "kinds": [
+    "menu"
+   ]
   },
   {
    "where": "Tag Cloud > (one view)",
    "name": "5 Tags",
    "kinds": [
     "slider"
-   ]
-  },
-  {
-   "where": "Tag Cloud > (one view)",
-   "name": "Sort By",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud > (one view)",
-   "name": "Alphabetical",
-   "kinds": [
-    "menu"
    ]
   },
   {
@@ -981,25 +1915,22 @@
   {
    "where": "Tag Cloud phone > (one view)",
    "name": "Display Type",
-   "kinds": []
+   "kinds": [
+    "menu"
+   ]
+  },
+  {
+   "where": "Tag Cloud phone > (one view)",
+   "name": "Sort By",
+   "kinds": [
+    "menu"
+   ]
   },
   {
    "where": "Tag Cloud phone > (one view)",
    "name": "5 Tags",
    "kinds": [
     "slider"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > (one view)",
-   "name": "Sort By",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud phone > (one view)",
-   "name": "Alphabetical",
-   "kinds": [
-    "menu"
    ]
   },
   {
@@ -1030,11 +1961,6 @@
   {
    "where": "Archive > Content",
    "name": "Group by",
-   "kinds": []
-  },
-  {
-   "where": "Archive > Content",
-   "name": "Month",
    "kinds": [
     "menu"
    ]
@@ -1063,13 +1989,6 @@
    "name": "Group count",
    "kinds": [
     "switch"
-   ]
-  },
-  {
-   "where": "Archive > Design",
-   "name": "Index",
-   "kinds": [
-    "menu"
    ]
   },
   {
@@ -1095,11 +2014,6 @@
   {
    "where": "Archive phone > Content",
    "name": "Group by",
-   "kinds": []
-  },
-  {
-   "where": "Archive phone > Content",
-   "name": "Month",
    "kinds": [
     "menu"
    ]
@@ -1132,24 +2046,12 @@
   },
   {
    "where": "Archive phone > Design",
-   "name": "Index",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Archive phone > Design",
    "name": "Appearance",
    "kinds": []
   },
   {
    "where": "Instagram > Account",
    "name": "Connected Account",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Account",
-   "name": "Choose an account",
    "kinds": [
     "menu"
    ]
@@ -1203,11 +2105,6 @@
   {
    "where": "Instagram phone > Account",
    "name": "Connected Account",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Account",
-   "name": "Choose an account",
    "kinds": [
     "menu"
    ]
@@ -1299,11 +2196,6 @@
   {
    "where": "Flickr > Account",
    "name": "Connected Account",
-   "kinds": []
-  },
-  {
-   "where": "Flickr > Account",
-   "name": "Choose an account",
    "kinds": [
     "menu"
    ]
@@ -1364,11 +2256,6 @@
   {
    "where": "Flickr phone > Account",
    "name": "Connected Account",
-   "kinds": []
-  },
-  {
-   "where": "Flickr phone > Account",
-   "name": "Choose an account",
    "kinds": [
     "menu"
    ]
@@ -1441,11 +2328,6 @@
   {
    "where": "OpenTable > Content",
    "name": "Domain",
-   "kinds": []
-  },
-  {
-   "where": "OpenTable > Content",
-   "name": "US and Canada - opentable.com",
    "kinds": [
     "menu"
    ]
@@ -1453,11 +2335,6 @@
   {
    "where": "OpenTable > Content",
    "name": "Language",
-   "kinds": []
-  },
-  {
-   "where": "OpenTable > Content",
-   "name": "English",
    "kinds": [
     "menu"
    ]
@@ -1489,11 +2366,6 @@
   {
    "where": "OpenTable phone > Content",
    "name": "Domain",
-   "kinds": []
-  },
-  {
-   "where": "OpenTable phone > Content",
-   "name": "US and Canada - opentable.com",
    "kinds": [
     "menu"
    ]
@@ -1501,11 +2373,6 @@
   {
    "where": "OpenTable phone > Content",
    "name": "Language",
-   "kinds": []
-  },
-  {
-   "where": "OpenTable phone > Content",
-   "name": "English",
    "kinds": [
     "menu"
    ]
@@ -1581,11 +2448,6 @@
   {
    "where": "Bandsintown > (one view)",
    "name": "Timeframe to Show",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown > (one view)",
-   "name": "Upcoming",
    "kinds": [
     "menu"
    ]
@@ -1605,11 +2467,6 @@
   {
    "where": "Bandsintown phone > (one view)",
    "name": "Timeframe to Show",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown phone > (one view)",
-   "name": "Upcoming",
    "kinds": [
     "menu"
    ]
@@ -1624,138 +2481,13 @@
  ],
  "namedNotOurs": [
   {
-   "where": "Video > Content",
-   "name": "Auto",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Video > Design",
-   "name": "Normal",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Video phone > Content",
-   "name": "Auto",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Video phone > Design",
-   "name": "Normal",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Form > Content",
-   "name": "Edit Form Fields",
-   "kinds": []
-  },
-  {
-   "where": "Form > Content",
-   "name": "Edit Post-Submit",
-   "kinds": []
-  },
-  {
-   "where": "Form > Content",
-   "name": "MANAGE SUBMISSIONS",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Form > Content",
-   "name": "Export Form Submissions",
-   "kinds": []
-  },
-  {
-   "where": "Form > Content",
-   "name": "Additional Storage",
-   "kinds": []
-  },
-  {
-   "where": "Form > Content",
-   "name": "Navigate to Additional Storage",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Form > Content",
-   "name": "Google reCAPTCHA",
-   "kinds": []
-  },
-  {
    "where": "Form > Content",
    "name": "On",
    "kinds": []
   },
   {
-   "where": "Form > Content",
-   "name": "Navigate to Google reCAPTCHA",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Form phone > Content",
-   "name": "Edit Form Fields",
-   "kinds": []
-  },
-  {
-   "where": "Form phone > Content",
-   "name": "Edit Post-Submit",
-   "kinds": []
-  },
-  {
-   "where": "Form phone > Content",
-   "name": "MANAGE SUBMISSIONS",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Form phone > Content",
-   "name": "Export Form Submissions",
-   "kinds": []
-  },
-  {
-   "where": "Form phone > Content",
-   "name": "Additional Storage",
-   "kinds": []
-  },
-  {
-   "where": "Form phone > Content",
-   "name": "Navigate to Additional Storage",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Form phone > Content",
-   "name": "Google reCAPTCHA",
-   "kinds": []
-  },
-  {
    "where": "Form phone > Content",
    "name": "On",
-   "kinds": []
-  },
-  {
-   "where": "Form phone > Content",
-   "name": "Navigate to Google reCAPTCHA",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Accordion > Design",
-   "name": "Title",
    "kinds": []
   },
   {
@@ -1765,17 +2497,7 @@
   },
   {
    "where": "Accordion > Design",
-   "name": "Description",
-   "kinds": []
-  },
-  {
-   "where": "Accordion > Design",
    "name": "Paragraph 2",
-   "kinds": []
-  },
-  {
-   "where": "Accordion > Design",
-   "name": "Dividers",
    "kinds": []
   },
   {
@@ -1785,27 +2507,12 @@
   },
   {
    "where": "Accordion phone > Design",
-   "name": "Title",
-   "kinds": []
-  },
-  {
-   "where": "Accordion phone > Design",
    "name": "Heading 4",
    "kinds": []
   },
   {
    "where": "Accordion phone > Design",
-   "name": "Description",
-   "kinds": []
-  },
-  {
-   "where": "Accordion phone > Design",
    "name": "Paragraph 2",
-   "kinds": []
-  },
-  {
-   "where": "Accordion phone > Design",
-   "name": "Dividers",
    "kinds": []
   },
   {
@@ -2129,13 +2836,6 @@
    ]
   },
   {
-   "where": "Donation > Design",
-   "name": "Aa",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
    "where": "Donation phone > Content",
    "name": "Button Text",
    "kinds": [
@@ -2171,13 +2871,6 @@
    ]
   },
   {
-   "where": "Donation phone > Design",
-   "name": "Aa",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
    "where": "Summary > Content",
    "name": "Primary Metadata",
    "kinds": []
@@ -2427,7 +3120,9 @@
   {
    "where": "Audio > Content",
    "name": "Podcast",
-   "kinds": []
+   "kinds": [
+    "button"
+   ]
   },
   {
    "where": "Audio > Design",
@@ -2460,7 +3155,9 @@
   {
    "where": "Audio phone > Content",
    "name": "Podcast",
-   "kinds": []
+   "kinds": [
+    "button"
+   ]
   },
   {
    "where": "Audio phone > Design",
@@ -2509,13 +3206,6 @@
   },
   {
    "where": "Chart > Data",
-   "name": "Bar Chart",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Chart > Data",
    "name": "Chart Data",
    "kinds": [
     "field"
@@ -2530,13 +3220,6 @@
   },
   {
    "where": "Chart phone > Data",
-   "name": "Bar Chart",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Chart phone > Data",
    "name": "Chart Data",
    "kinds": [
     "field"
@@ -2547,20 +3230,6 @@
    "name": "Chart Data",
    "kinds": [
     "area"
-   ]
-  },
-  {
-   "where": "Code > Content",
-   "name": "HTML",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Code phone > Content",
-   "name": "HTML",
-   "kinds": [
-    "menu"
    ]
   },
   {
@@ -2660,7 +3329,9 @@
   {
    "where": "Archive > Design",
    "name": "Layout",
-   "kinds": []
+   "kinds": [
+    "menu"
+   ]
   },
   {
    "where": "Archive > Design",
@@ -2686,7 +3357,9 @@
   {
    "where": "Archive phone > Design",
    "name": "Layout",
-   "kinds": []
+   "kinds": [
+    "menu"
+   ]
   },
   {
    "where": "Archive phone > Design",
@@ -2729,11 +3402,6 @@
   {
    "where": "Instagram > Design",
    "name": "Aspect Ratio",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "1:1 Square",
    "kinds": [
     "menu"
    ]
@@ -2758,11 +3426,6 @@
   {
    "where": "Instagram phone > Design",
    "name": "Aspect Ratio",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "1:1 Square",
    "kinds": [
     "menu"
    ]
@@ -2782,11 +3445,6 @@
   {
    "where": "Flickr > Design",
    "name": "Aspect Ratio",
-   "kinds": []
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "1:1 Square",
    "kinds": [
     "menu"
    ]
@@ -2806,11 +3464,6 @@
   {
    "where": "Flickr phone > Design",
    "name": "Aspect Ratio",
-   "kinds": []
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "1:1 Square",
    "kinds": [
     "menu"
    ]
@@ -2860,6 +3513,20 @@
  ],
  "oursOnly": [
   {
+   "where": "Text > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Text > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "Text phone > Design",
    "name": "More actions",
    "kinds": [
@@ -2874,6 +3541,20 @@
    ]
   },
   {
+   "where": "Image > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Image > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "Image phone > Design",
    "name": "Image mode",
    "kinds": [
@@ -2883,6 +3564,34 @@
   {
    "where": "Image phone > Design",
    "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Button > Design",
+   "name": "Aa",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Button > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Button > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Button phone > Design",
+   "name": "Aa",
    "kinds": [
     "button"
    ]
@@ -2912,6 +3621,20 @@
    ]
   },
   {
+   "where": "Video > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Video > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "Video phone > Content",
    "name": "Video Storage",
    "kinds": []
@@ -2936,15 +3659,39 @@
    ]
   },
   {
-   "where": "Form > Content",
-   "name": "Not built yet",
+   "where": "Form > Design",
+   "name": "Text",
+   "kinds": []
+  },
+  {
+   "where": "Form > Design",
+   "name": "Aa",
    "kinds": [
     "button"
    ]
   },
   {
-   "where": "Form phone > Content",
-   "name": "Not built yet",
+   "where": "Form > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Form > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Form phone > Design",
+   "name": "Text",
+   "kinds": []
+  },
+  {
+   "where": "Form phone > Design",
+   "name": "Aa",
    "kinds": [
     "button"
    ]
@@ -2988,6 +3735,20 @@
    ]
   },
   {
+   "where": "Shape > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Shape > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "Shape phone > Design",
    "name": "Corner radius",
    "kinds": [
@@ -3002,8 +3763,36 @@
    ]
   },
   {
+   "where": "Scrolling > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Scrolling > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "Scrolling phone > Design",
    "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Line > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Line > Animation",
+   "name": "Animation list actions",
    "kinds": [
     "button"
    ]
@@ -3057,6 +3846,20 @@
    ]
   },
   {
+   "where": "Product > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Product > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "Product phone > Design",
    "name": "Shape style",
    "kinds": [
@@ -4794,6 +5597,20 @@
    ]
   },
   {
+   "where": "Quote > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Quote > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "Quote phone > Design",
    "name": "Shape style",
    "kinds": [
@@ -4894,6 +5711,20 @@
    "name": "Blur",
    "kinds": [
     "switch"
+   ]
+  },
+  {
+   "where": "Audio > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Audio > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
    ]
   },
   {
@@ -5306,6 +6137,20 @@
   {
    "where": "Calendar phone > Animation",
    "name": "Add a new animation",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Map > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Map > Animation",
+   "name": "Animation list actions",
    "kinds": [
     "button"
    ]
@@ -6032,6 +6877,20 @@
    "kinds": []
   },
   {
+   "where": "Code > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Code > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "Code phone > Content",
    "name": "Expand",
    "kinds": [
@@ -6098,6 +6957,20 @@
    ]
   },
   {
+   "where": "Embed > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Embed > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "Embed phone > Content",
    "name": "Embed URL",
    "kinds": [
@@ -6117,8 +6990,15 @@
    "kinds": []
   },
   {
-   "where": "Social Links > Content",
-   "name": "Navigate to /squarespace",
+   "where": "Social Links > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Social Links > Animation",
+   "name": "Animation list actions",
    "kinds": [
     "button"
    ]
@@ -6127,13 +7007,6 @@
    "where": "Social Links phone > Content",
    "name": "visible",
    "kinds": []
-  },
-  {
-   "where": "Social Links phone > Content",
-   "name": "Navigate to /squarespace",
-   "kinds": [
-    "button"
-   ]
   },
   {
    "where": "Social Links phone > Design",
@@ -6184,6 +7057,20 @@
    ]
   },
   {
+   "where": "Search Field > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Search Field > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "Search Field phone > Design",
    "name": "Shape style",
    "kinds": [
@@ -7326,6 +8213,20 @@
    "name": "Drop Shadow",
    "kinds": [
     "switch"
+   ]
+  },
+  {
+   "where": "Archive > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Archive > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
    ]
   },
   {
@@ -8847,6 +9748,20 @@
    ]
   },
   {
+   "where": "OpenTable > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "OpenTable > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "OpenTable phone > Design",
    "name": "Shape style",
    "kinds": [
@@ -8975,6 +9890,20 @@
    "name": "Blur",
    "kinds": [
     "switch"
+   ]
+  },
+  {
+   "where": "Zola > Design",
+   "name": "More actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Zola > Animation",
+   "name": "Animation list actions",
+   "kinds": [
+    "button"
    ]
   },
   {
@@ -11162,88 +12091,8 @@
  ],
  "kinds": [
   {
-   "where": "Text > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Text > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Image > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Image > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Button > Design",
-   "name": "Aa",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Button > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Button > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Button phone > Design",
-   "name": "Aa",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
    "where": "Video > Design",
-   "name": "More actions",
+   "name": "Blend Mode",
    "oracle": [
     "menu"
    ],
@@ -11252,148 +12101,8 @@
    ]
   },
   {
-   "where": "Video > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Form > Design",
-   "name": "Aa",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Form > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Form > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Form phone > Design",
-   "name": "Aa",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Shape > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Shape > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scrolling > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scrolling > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Line > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Line > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Product > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Product > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Quote > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Quote > Animation",
-   "name": "Animation list actions",
+   "where": "Video phone > Design",
+   "name": "Blend Mode",
    "oracle": [
     "menu"
    ],
@@ -11406,26 +12115,6 @@
    "name": "Color",
    "oracle": [
     "choice"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Audio > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Audio > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
    ],
    "ours": [
     "button"
@@ -11452,26 +12141,6 @@
    ]
   },
   {
-   "where": "Map > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
-   "where": "Map > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
-  },
-  {
    "where": "Map phone > Design",
    "name": "Grayscale",
    "oracle": [
@@ -11480,146 +12149,124 @@
    "ours": [
     "button"
    ]
+  }
+ ],
+ "oursOff": [
+  {
+   "where": "Text phone > Animation",
+   "name": "Add a new animation"
   },
   {
-   "where": "Code > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
+   "where": "Image phone > Animation",
+   "name": "Add a new animation"
   },
   {
-   "where": "Code > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
+   "where": "Button phone > Animation",
+   "name": "Add a new animation"
   },
   {
-   "where": "Embed > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
+   "where": "Video phone > Animation",
+   "name": "Add a new animation"
   },
   {
-   "where": "Embed > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
+   "where": "Form > Content",
+   "name": "MANAGE SUBMISSIONS"
   },
   {
-   "where": "Social Links > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
+   "where": "Form > Content",
+   "name": "Export Form Submissions"
   },
   {
-   "where": "Social Links > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
+   "where": "Form > Content",
+   "name": "Additional Storage"
   },
   {
-   "where": "Search Field > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
+   "where": "Form > Content",
+   "name": "Google reCAPTCHA"
   },
   {
-   "where": "Search Field > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
+   "where": "Form phone > Content",
+   "name": "MANAGE SUBMISSIONS"
   },
   {
-   "where": "Archive > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
+   "where": "Form phone > Content",
+   "name": "Export Form Submissions"
   },
   {
-   "where": "Archive > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
+   "where": "Form phone > Content",
+   "name": "Additional Storage"
   },
   {
-   "where": "OpenTable > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
+   "where": "Form phone > Content",
+   "name": "Google reCAPTCHA"
   },
   {
-   "where": "OpenTable > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
+   "where": "Form phone > Animation",
+   "name": "Add a new animation"
   },
   {
-   "where": "Zola > Design",
-   "name": "More actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
+   "where": "Shape phone > Animation",
+   "name": "Add a new animation"
   },
   {
-   "where": "Zola > Animation",
-   "name": "Animation list actions",
-   "oracle": [
-    "menu"
-   ],
-   "ours": [
-    "button"
-   ]
+   "where": "Scrolling phone > Animation",
+   "name": "Add a new animation"
+  },
+  {
+   "where": "Line phone > Animation",
+   "name": "Add a new animation"
+  },
+  {
+   "where": "Product phone > Animation",
+   "name": "Add a new animation"
+  },
+  {
+   "where": "Quote phone > Animation",
+   "name": "Add a new animation"
+  },
+  {
+   "where": "Audio phone > Animation",
+   "name": "Add a new animation"
+  },
+  {
+   "where": "Map phone > Animation",
+   "name": "Add a new animation"
+  },
+  {
+   "where": "Code phone > Animation",
+   "name": "Add a new animation"
+  },
+  {
+   "where": "Embed > Content",
+   "name": "Custom thumbnail"
+  },
+  {
+   "where": "Embed phone > Content",
+   "name": "Custom thumbnail"
+  },
+  {
+   "where": "Embed phone > Animation",
+   "name": "Add a new animation"
+  },
+  {
+   "where": "Social Links phone > Animation",
+   "name": "Add a new animation"
+  },
+  {
+   "where": "Search Field phone > Animation",
+   "name": "Add a new animation"
+  },
+  {
+   "where": "Archive phone > Animation",
+   "name": "Add a new animation"
+  },
+  {
+   "where": "OpenTable phone > Animation",
+   "name": "Add a new animation"
+  },
+  {
+   "where": "Zola phone > Animation",
+   "name": "Add a new animation"
   }
  ]
 }

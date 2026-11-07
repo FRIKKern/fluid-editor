@@ -1,0 +1,79 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Menu: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Menu",
+ "tabs": {
+  "Content": {
+   "rows": [
+    {
+     "row": "Add your menu items, descriptions, and prices. When you follow the format patter",
+     "kind": "area",
+     "name": "Menu text",
+     "value": "MEALS\n=========\n\nSandwiches\n----------\n\nLE PAYSAN\nSmoked Turkey, Brie & apple chutney\n$14\n\nSOHO MEDITERRANEAN SANDWICH\nHummus, grilled vegetables & halloumi cheese\n$15\n\nSTEAK SANDWICH\nSteak w/ onions, bacon & cheddar\n$18\n\n\nPasta\n------\n\nGRAMIGNA\nmacaroni, pork sausage, swiss chard, black pepper\n$20\n\nGARGANELLI\npasta quills, cream, peas, truffle butter, prosciutto\n$22\n\nSPALLINA\ndouble ravioli, squacquerone cheese, rabbit, porcini\n$24\n\n\nDRINKS\n=========\n\nWine\n----\n\nSauvignon Blanc, Kim Crawford, Imalborough\n$12.00 glass /  $45.00 bottle\n\nMeursault, Mat Rot, Burgundy, France\n$13 glass / $80 bottle",
+     "to": "MEALS\n=========\n\nSandwiches\n----------\n\nLE PAYSAN\nSmoked Turkey, Brie & apple chutney\n$14\n\nSOHO MEDITERRANEAN SANDWICH\nHummus, grilled vegetables & halloumi cheese\n$15\n\nSTEAK SANDWICH\nSteak w/ onions, bacon & cheddar\n$18\n\n\nPasta\n------\n\nGRAMIGNA\nmacaroni, pork sausage, swiss chard, black peAbpper\n$20\n\nGARGANELLI\npasta quills, cream, peas, truffle butter, prosciutto\n$22\n\nSPALLINA\ndouble ravioli, squacquerone cheese, rabbit, porcini\n$24\n\n\nDRINKS\n=========\n\nWine\n----\n\nSauvignon Blanc, Kim Crawford, Imalborough\n$12.00 glass /  $45.00 bottle\n\nMeursault, Mat Rot, Burgundy, France\n$13 glass / $80 bottle",
+     "change": [
+      "DIV w: macaroni, pork sausage, swiss chard, black p > macaroni, pork sausage, swiss chard, black p"
+     ]
+    }
+   ]
+  },
+  "Design": {
+   "rows": [
+    {
+     "row": "",
+     "kind": "menu",
+     "name": "Multi-Column",
+     "value": "Multi-Column",
+     "options": [
+      "Centered",
+      "Multi-Column"
+     ],
+     "picked": "Centered",
+     "change": [
+      "area 1 / 2 / 29 / 14 > 1 / 2 / 30 / 14",
+      "section rows 28 > 29",
+      "DIV.fe-block b: 100.1,0.2,694.4,1139.6 > 100.1,0.2,694.4,1180.7",
+      "DIV b: 100.1,0.2,694.4,1139.6 > 100.1,0.2,694.4,1180.7",
+      "DIV.yui3-widget b: 100.1,0.2,694.4,1139.6 > 100.1,0.2,694.4,1180.7",
+      "DIV b: 100.1,0.2,694.4,861.8 > 100.1,0.2,694.4,1143.8",
+      "DIV.menu-wrapper b: 100.1,0.2,694.4,861.8 > 100.1,0.2,694.4,1143.8",
+      "DIV.menus b: 100.1,70.6,694.4,791.4 > 100.1,70.6,694.4,1073.4",
+      "DIV.menu b: 100.1,70.6,694.4,791.4 > 100.1,70.6,694.4,1073.4",
+      "DIV.menu textAlign: start > center",
+      "DIV.menu-section b: 100.1,70.6,694.4,378.4 > 100.1,70.6,694.4,496.7",
+      "DIV.menu-section textAlign: start > center",
+      "DIV textAlign: start > center",
+      "DIV.menu-items b: 100.1,172.2,694.4,276.8 > 100.1,172.2,694.4,395.2"
+     ]
+    },
+    {
+     "row": "Multi-Column",
+     "kind": "menu",
+     "name": "Currency Symbol",
+     "value": "$ Dollar",
+     "gone": true
+    }
+   ]
+  },
+  "Formatting Help": {
+   "rows": [
+    {
+     "row": "Use the formatting shown below to create your menu.",
+     "kind": "button",
+     "name": "Learn More.",
+     "notPressed": "a plain button"
+    }
+   ]
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Content",
+  "Design",
+  "Formatting Help"
+ ],
+ "pressed": "Add Block, Menu, Edit, its tabs, and the rows with a change below, each named and on top, on Gestures Probe, unsaved.",
+ "answer": "Menu: tabs Content, Design, Formatting Help. 3 rows read, 2 changed the block when changed. Each row below has its default and what the change did."
+}

@@ -6,7 +6,7 @@ import { rowOn } from './animations.js';
 
 const BAGS = ['designMobile', 'btnMobile', 'formMobile', 'socialMobile'];
 const filled = (o) => !!o && Object.keys(o).length > 0;
-// A row's own phone values count, and still do once that row is removed on the phone (CAP-L6ANIMPHONE.json, read once).
+// A row's own phone values count, and still do once that row is removed on the phone (CAP-L6ANIMPHONE.json, read three times).
 export const hasOverrides = (b) => BAGS.some((k) => filled(b[k])) || !!b.animPhoneGone || !!b.animations?.some((a) => a.phone);
 export function resetOverrides(b) {
   for (const k of BAGS) delete b[k];

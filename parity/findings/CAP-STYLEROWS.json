@@ -7058,8 +7058,8 @@
   "Zilla Slab",
   "Zilla Slab Highlight"
  ],
- "listsAgainstOurs": "scripts/check-readback.mjs: our Style, Weight and Text Transform lists, Shape and Field Shape tiles and Themes tiles and groups hold the same names as `lists`. Not built here: the font list (ours is a faded row) and Assign Styles (ours is a faded row). Those two are read only.",
- "listsNotes": "An Assign Styles row opens a view with its own lists (Site Title: Style Heading, Size Custom). A closed list's selected option comes from aria-selected. Escape with nothing open closes Site Styles, which writes nothing: read in the probe, Save off, no question. The filter opens on Latin, not All Fonts. Fonts > Buttons and Fonts > Miscellaneous are unbuilt rows in ours, so those lists are read only; the form fonts' Style and Size are checked by scripts/check-readback.mjs against ours if ours offers them.",
+ "listsAgainstOurs": "scripts/check-readback.mjs: our Style, Weight and Text Transform lists in Headings, Paragraphs, Fonts > Buttons and Fonts > Miscellaneous, a form font's Style and Size lists, Shape and Field Shape tiles and Themes tiles and groups hold the same names as `lists`. Not built here: the font list (ours is a faded row) and Assign Styles (ours is a faded row). Those two are read only.",
+ "listsNotes": "An Assign Styles row opens a view with its own lists (Site Title: Style Heading, Size Custom). A closed list's selected option comes from aria-selected. Escape with nothing open closes Site Styles, which writes nothing: read in the probe, Save off, no question. The filter opens on Latin, not All Fonts. Fonts > Buttons and Fonts > Miscellaneous are built in ours (scripts/check-readback.mjs); the form fonts' Style and Size are checked by scripts/check-readback.mjs against ours if ours offers them.",
  "formColors": {
   "LIGHT 1": [
    [

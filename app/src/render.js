@@ -499,7 +499,9 @@ export const kidSizeKey = (bp) => (bp === 'mobile' ? 'sizeM' : 'size');
 function kidAttrs(c) {
   const mode = (v) => (v === 'Fill' || v === 'Hug' ? v.toLowerCase() : 'fixed');
   const attrs = [['desktop', ''], ['mobile', 'm']].map(([bp, m]) => { const { w, h } = kidSize(c, bp); return { data: ` data-${m}w="${mode(w)}" data-${m}h="${mode(h)}"`, vars: `${mode(w) === 'fixed' ? `--kid-${m}w:${w};` : ''}${mode(h) === 'fixed' ? `--kid-${m}h:${h};` : ''}` }; });
-  const vars = attrs[0].vars + attrs[1].vars;
+  // Align Vertically on a Shape with Stretch off moves it inside its box, in each layout (CAP-S3ALIGN.json, CAP-S3ALIGN2.json).
+  const aligns = c.type === 'shape' ? [['desktop', ''], ['mobile', 'm']].map(([bp, m]) => (c.layout?.[bp]?.align ? `--kid-${m}align:${c.layout[bp].align};` : '')).join('') : '';
+  const vars = attrs[0].vars + attrs[1].vars + aligns;
   const hide = `${c.layout?.desktop?.hidden ? ' data-hide-d' : ''}${c.layout?.mobile?.hidden ? ' data-hide-m' : ''}`;
   return ` data-kid="${c.id}"${attrs[0].data}${attrs[1].data}${vars ? ` style="${vars}"` : ''}${hide}`;
 }

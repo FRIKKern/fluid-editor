@@ -5,12 +5,12 @@
   "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here. Entries with source CAP-COVERAGE.json come from the coverage walk: parity/coverage-check.json lists them, npm run coverage-check compares.",
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it.",
   "counts": {
-    "total": 160,
-    "yes": 123,
-    "no": 37,
+    "total": 151,
+    "yes": 115,
+    "no": 36,
     "read": 95,
     "notPressed": 0,
-    "open": 65
+    "open": 56
   },
   "entries": [
     {
@@ -1217,103 +1217,84 @@
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Scrolling > Content: ADD ITEM. On the oracle, no row in ours, no finding names it with this type.",
+      "what": "Scrolling: what each of its own rows does: Dream it, ADD ITEM, ATTACH LINK, Wave Intensity, Text Style, Text Size, Direction, Speed, Pause on hover, Fade edges, Item Spacing, Link. Ours has none of them.",
       "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
     },
     {
       "lane": "recorder",
       "state": "open",
-      "item": "T12",
+      "item": "T12, U5",
       "source": "CAP-COVERAGE.json",
-      "what": "Scrolling > Design: Pause on hover, Fade edges, Item Spacing. On the oracle, no row in ours, no finding names it with this type.",
+      "what": "Product: what each of its own rows does: Image, Title, Price, Description, Add to Cart Button, Product Quick View, Ratio, FOCAL POINT, Block Alignment, Product, Elements. Ours has none of them.",
       "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
     },
     {
       "lane": "recorder",
       "state": "open",
-      "item": "T12",
+      "item": "T12, U5",
       "source": "CAP-COVERAGE.json",
-      "what": "Product > Content: Add to Cart Button, Product Quick View. On the oracle, no row in ours, no finding names it with this type.",
-      "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Product > Content: CREATE NEW PRODUCT. Named by the walk only.",
+      "what": "Product: CREATE NEW PRODUCT. Named by the walk only.",
       "safeRead": "no",
-      "why": "writes to the store or a payment account"
+      "why": "an outside account or service, a store, an upload, form storage or a site-wide list"
     },
     {
       "lane": "recorder",
       "state": "open",
-      "item": "T12",
+      "item": "T12, U5",
       "source": "CAP-COVERAGE.json",
-      "what": "Product > Design: Ratio, FOCAL POINT, Block Alignment. On the oracle, no row in ours, no finding names it with this type.",
+      "what": "Pricing Plan: what each of its own rows does: GET STARTED, Alignment, Title, Description, Price, Benefits, Button, Button Text, Pricing Plan, Elements. Ours has none of them.",
       "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
     },
     {
       "lane": "recorder",
       "state": "open",
-      "item": "T12",
+      "item": "T12, U5",
       "source": "CAP-COVERAGE.json",
-      "what": "Pricing Plan > Design: Alignment, Elements, Description, Benefits, Button Text. On the oracle, no row in ours, no finding names it with this type.",
+      "what": "Donation: what each of its own rows does: Button Text, Text, Lightbox, Thickness, Corner, Padding, Donation Amount Alignment, Disclaimer Alignment, Donate Button, Button Alignment. Ours has none of them.",
       "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
     },
     {
       "lane": "recorder",
       "state": "open",
-      "item": "T12",
+      "item": "T12, U5",
       "source": "CAP-COVERAGE.json",
-      "what": "Donation > Content: Set Up Payment Processor. Named by the walk only.",
+      "what": "Donation: Set Up Payment Processor, Funds, General Fund, Fund Dropdown Label. Named by the walk only.",
       "safeRead": "no",
-      "why": "writes to the store or a payment account"
+      "why": "an outside account or service, a store, an upload, form storage or a site-wide list"
     },
     {
       "lane": "recorder",
       "state": "open",
-      "item": "T12",
+      "item": "T12, U5",
       "source": "CAP-COVERAGE.json",
-      "what": "Donation > Content: Funds, General Fund, Navigate to Funds, Fund Dropdown Label. Named by the walk only.",
+      "what": "Scheduling: Get started with Acuity Scheduling, SET UP, ADD EXISTING SCHEDULE. Named by the walk only.",
       "safeRead": "no",
-      "why": "the funds list is site-wide"
+      "why": "an outside account or service, a store, an upload, form storage or a site-wide list"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Donation > Design: Thickness, Donation Amount Alignment, Disclaimer Alignment, Donate Button, Button Alignment. On the oracle, no row in ours, no finding names it with this type.",
+      "what": "Summary: what each of its own rows does: Wall, Number of Items, Text, Title, Featured Image, Excerpt, Below Content, Size and Spacing, Primary Metadata, Secondary Metadata, Elements, Metadata Position. Ours has none of them.",
       "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Scheduling > Content: Get started with Acuity Scheduling, SET UP, ADD EXISTING SCHEDULE. Named by the walk only.",
-      "safeRead": "no",
-      "why": "an outside booking service"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Summary > Content: There are no Collection Pages, No metadata found. Named by the walk only.",
+      "what": "Summary: There are no Collection Pages, No metadata found. What it shows with content.",
       "safeRead": "no",
       "why": "needs a collection or a pick from the site list, and making one writes to the site"
     },
@@ -1322,153 +1303,55 @@
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Summary > Design: Wall, Number of Items, Elements, Featured Image, Metadata Position, Below Content, Size and Spacing, Navigate to Size and Spacing. On the oracle, no row in ours, no finding names it with this type.",
+      "what": "Newsletter: what each of its own rows does: Form Name, Title, Description, Disclaimer, Button Text, Show Name Field, Post-Submit, Layout, Alignment. Ours has none of them.",
       "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Newsletter > Content: Form Name, Disclaimer, Show Name Field, Post-Submit, Navigate to Post-Submit. On the oracle, no row in ours, no finding names it with this type.",
-      "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Newsletter > Storage: Squarespace, Other Storage Options, Navigate to Other Storage Options. Named by the walk only.",
+      "what": "Newsletter: Squarespace, Other Storage Options. Named by the walk only.",
       "safeRead": "no",
-      "why": "form storage is read only"
+      "why": "an outside account or service, a store, an upload, form storage or a site-wide list"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Audio > Content: Elements, Download Link, Metadata. On the oracle, no row in ours, no finding names it with this type.",
+      "what": "Quote: what each of its own rows does: Quote, Source, Appear, Effects. Ours has none of them.",
       "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Audio > Content: Navigate to Podcast. Named by the walk only.",
+      "what": "Audio: what each of its own rows does: Title, Artist, Download Link, Style, Color, Elements, Metadata, Appearance. Ours has none of them.",
+      "safeRead": "yes",
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
+    },
+    {
+      "lane": "recorder",
+      "state": "open",
+      "item": "T12",
+      "source": "CAP-COVERAGE.json",
+      "what": "Audio: Podcast, UPLOAD FILE. Named by the walk only.",
       "safeRead": "no",
-      "why": "podcast settings are site-wide"
+      "why": "an outside account or service, a store, an upload, form storage or a site-wide list"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Audio > Design: Appearance. On the oracle, no row in ours, no finding names it with this type.",
-      "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Calendar > (one view): There are no collections.. Named by the walk only.",
-      "safeRead": "no",
-      "why": "needs a collection or a pick from the site list, and making one writes to the site"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T11",
-      "source": "CAP-COVERAGE.json",
-      "what": "Map > Content: Additional Terms of Service, Privacy Policy. Named by the walk only.",
-      "safeRead": "no",
-      "why": "a link out of the editor"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Menu > Design: Multi-Column. On the oracle, no row in ours, no finding names it with this type.",
-      "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Menu > Formatting Help: Menu Sections, Multiple Menu Pages. On the oracle, no row in ours, no finding names it with this type.",
-      "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Chart > Data: Import/Export, Chart Type, Flip X And Y Axes. On the oracle, no row in ours, no finding names it with this type.",
-      "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Chart > Design: Chart Title, Caption, Show Legend, Grayscale. On the oracle, no row in ours, no finding names it with this type.",
-      "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Chart > Import / Export: Import or Export Chart Data, Update. On the oracle, no row in ours, no finding names it with this type.",
-      "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Search Field > Content: Search specific page. On the oracle, no row in ours, no finding names it with this type.",
-      "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Search Field > Design: Style, Theme, Behavior, Quick preview, Appearance. On the oracle, no row in ours, no finding names it with this type.",
-      "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Page Link > (one view): Index. Named by the walk only.",
+      "what": "Calendar: There are no collections.. What it shows with content.",
       "safeRead": "no",
       "why": "needs a collection or a pick from the site list, and making one writes to the site"
     },
@@ -1477,17 +1360,46 @@
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Tag Cloud > (one view): Display Type, 5 Tags, Sort By, Alphabetical. On the oracle, no row in ours, no finding names it with this type.",
-      "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
+      "what": "Map: Additional Terms of Service, Privacy Policy. Named by the walk only.",
+      "safeRead": "no",
+      "why": "an outside account or service, a store, an upload, form storage or a site-wide list"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Tag Cloud > (one view): There are no collections.. Named by the walk only.",
+      "what": "Menu: what each of its own rows does: Menu text, Multi-Column, Currency Symbol, Menu Sections, Menu Items, Multiple Menu Pages. Ours has none of them.",
+      "safeRead": "yes",
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
+    },
+    {
+      "lane": "recorder",
+      "state": "open",
+      "item": "T12",
+      "source": "CAP-COVERAGE.json",
+      "what": "Chart: what each of its own rows does: Chart Type, Flip X And Y Axes, Chart Data, Chart Title, Caption, Show Legend, Color Palette, Update, Import/Export, Import or Export Chart Data. Ours has none of them.",
+      "safeRead": "yes",
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
+    },
+    {
+      "lane": "recorder",
+      "state": "open",
+      "item": "T12",
+      "source": "CAP-COVERAGE.json",
+      "what": "Search Field: what each of its own rows does: Search specific page, Theme, Quick preview, Style, Behavior, Appearance. Ours has none of them.",
+      "safeRead": "yes",
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
+    },
+    {
+      "lane": "recorder",
+      "state": "open",
+      "item": "T12",
+      "source": "CAP-COVERAGE.json",
+      "what": "Page Link: the list of pages. What it shows with content.",
       "safeRead": "no",
       "why": "needs a collection or a pick from the site list, and making one writes to the site"
     },
@@ -1496,7 +1408,17 @@
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "RSS > (one view): There are no collections.. Named by the walk only.",
+      "what": "Tag Cloud: what each of its own rows does: Display Type, Sort By, 5 Tags. Ours has none of them.",
+      "safeRead": "yes",
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
+    },
+    {
+      "lane": "recorder",
+      "state": "open",
+      "item": "T12",
+      "source": "CAP-COVERAGE.json",
+      "what": "Tag Cloud: There are no collections.. What it shows with content.",
       "safeRead": "no",
       "why": "needs a collection or a pick from the site list, and making one writes to the site"
     },
@@ -1505,17 +1427,7 @@
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Archive > Content: Organization, Group by, Month, Elements, Dates ascending, Item date, Group count. On the oracle, no row in ours, no finding names it with this type.",
-      "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Archive > Content: Collection, No collections found. Named by the walk only.",
+      "what": "RSS: There are no collections.. What it shows with content.",
       "safeRead": "no",
       "why": "needs a collection or a pick from the site list, and making one writes to the site"
     },
@@ -1524,17 +1436,17 @@
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Archive > Design: Appearance. On the oracle, no row in ours, no finding names it with this type.",
+      "what": "Archive: what each of its own rows does: Group by, Dates ascending, Item date, Group count, Layout, Columns, Alignment, Collection, Organization, Elements, Appearance. Ours has none of them.",
       "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Archive > Design: Index. Named by the walk only.",
+      "what": "Archive: No collections found. What it shows with content.",
       "safeRead": "no",
       "why": "needs a collection or a pick from the site list, and making one writes to the site"
     },
@@ -1543,133 +1455,131 @@
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Instagram > Account: Connected Account, Choose an account, Add an Account. Named by the walk only.",
-      "safeRead": "no",
-      "why": "an outside account"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Instagram > Design: Slideshow, Carousel, Crop Images, Choose the thumbnails per row., Padding around the gridded images., Lightbox, Open Links in New Window. On the oracle, no row in ours, no finding names it with this type.",
+      "what": "Instagram: what each of its own rows does: 10 Items, Aspect Ratio, Crop Images, Lightbox, Open Links in New Window, Slideshow, Carousel, Grid, Stacked, Choose the thumbnails per row., Padding around the gridded images.. Ours has none of them.",
       "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Tock > (one view): Join Tock, ALREADY A CUSTOMER. Named by the walk only.",
+      "what": "Instagram: Connected Account, Add an Account. Named by the walk only.",
       "safeRead": "no",
-      "why": "an outside account"
+      "why": "an outside account or service, a store, an upload, form storage or a site-wide list"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "SoundCloud > (one view): Enter a SoundCloud URL here. Named by the walk only.",
+      "what": "Instagram: There is no valid account connected yet. Select an existing . What it shows with content.",
       "safeRead": "no",
-      "why": "needs a real listing from an outside service"
+      "why": "needs a collection or a pick from the site list, and making one writes to the site"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Flickr > Account: Connected Account, Choose an account. Named by the walk only.",
+      "what": "Tock: Join Tock, ALREADY A CUSTOMER. Named by the walk only.",
       "safeRead": "no",
-      "why": "an outside account"
+      "why": "an outside account or service, a store, an upload, form storage or a site-wide list"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Flickr > Design: Slideshow, Carousel, Grid, Crop Images, Show Title, Choose the thumbnails per row., Padding around the gridded images., Lightbox, Open Links in New Window. On the oracle, no row in ours, no finding names it with this type.",
+      "what": "SoundCloud: Enter a SoundCloud URL here. Named by the walk only.",
+      "safeRead": "no",
+      "why": "an outside account or service, a store, an upload, form storage or a site-wide list"
+    },
+    {
+      "lane": "recorder",
+      "state": "open",
+      "item": "T12",
+      "source": "CAP-COVERAGE.json",
+      "what": "Flickr: what each of its own rows does: 10 Items, Aspect Ratio, Crop Images, Show Title, Lightbox, Open Links in New Window, Slideshow, Carousel, Grid, Stacked, Choose the thumbnails per row., Padding around the gridded images.. Ours has none of them.",
       "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "OpenTable > Content: Localization, Domain, US and Canada - opentable.com, Language, English, Hide Elements, Icons. On the oracle, no row in ours, no finding names it with this type.",
-      "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "OpenTable > Content: OpenTable Restaurant ID. Named by the walk only.",
+      "what": "Flickr: Connected Account. Named by the walk only.",
       "safeRead": "no",
-      "why": "needs a real listing from an outside service"
+      "why": "an outside account or service, a store, an upload, form storage or a site-wide list"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Zola > Content: Items to Display. On the oracle, no row in ours, no finding names it with this type.",
+      "what": "OpenTable: what each of its own rows does: Domain, Language, Title, Icons, Localization, Hide Elements. Ours has none of them.",
       "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Zola > Content: Registry Name. Named by the walk only.",
+      "what": "OpenTable: OpenTable Restaurant ID. Named by the walk only.",
       "safeRead": "no",
-      "why": "needs a real listing from an outside service"
+      "why": "an outside account or service, a store, an upload, form storage or a site-wide list"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Zola > Design: Add Padding. On the oracle, no row in ours, no finding names it with this type.",
+      "what": "Zola: what each of its own rows does: Items to Display, Add Padding. Ours has none of them.",
       "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
-      "what": "Bandsintown > (one view): Timeframe to Show, Upcoming. On the oracle, no row in ours, no finding names it with this type.",
-      "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "also on the phone"
-    },
-    {
-      "lane": "recorder",
-      "state": "open",
-      "item": "T12",
-      "source": "CAP-COVERAGE.json",
-      "what": "Bandsintown > (one view): Band Name, Pablo City. Named by the walk only.",
+      "what": "Zola: Registry Name. Named by the walk only.",
       "safeRead": "no",
-      "why": "needs a real listing from an outside service"
+      "why": "an outside account or service, a store, an upload, form storage or a site-wide list"
+    },
+    {
+      "lane": "recorder",
+      "state": "open",
+      "item": "T12",
+      "source": "CAP-COVERAGE.json",
+      "what": "Bandsintown: what each of its own rows does: Pablo City, Timeframe to Show. Ours has none of them.",
+      "safeRead": "yes",
+      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
+      "phone": "the same rows on the phone"
+    },
+    {
+      "lane": "recorder",
+      "state": "open",
+      "item": "T12",
+      "source": "CAP-COVERAGE.json",
+      "what": "Bandsintown: Band Name. Named by the walk only.",
+      "safeRead": "no",
+      "why": "an outside account or service, a store, an upload, form storage or a site-wide list"
     },
     {
       "lane": "recorder",
       "state": "open",
       "item": "P5",
       "source": "CAP-COVERAGE.json",
-      "what": "Section panel > Design: Add name. On the oracle, no row in ours, no finding names it with this type.",
+      "what": "Section panel, Design: Copy Link, a button by the anchor's field. Ours has the field, not this button.",
       "safeRead": "yes",
-      "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit.",
-      "phone": "desktop only"
+      "how": "on a probe page, unsaved, a name in the field first. Synthetic clipboard only."
     }
   ]
 }

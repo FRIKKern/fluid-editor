@@ -1,0 +1,1548 @@
+{
+  "item": "CAP-S3HUGFIXED",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "S3: Hug on a Shape child at Fixed, typed, and with Stretch off, in a desktop row",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "fill",
+      {
+        "kids": [
+          0,
+          0
+        ],
+        "checks": true
+      }
+    ],
+    [
+      "pressCombo",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "fill W",
+      {
+        "panelEls": "[role=option]"
+      }
+    ],
+    [
+      "shot",
+      "fillW"
+    ],
+    [
+      "pressNamed",
+      "Hug"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "fill W Hug",
+      {
+        "kids": [
+          0,
+          0
+        ],
+        "panelEls": "[role=option]"
+      }
+    ],
+    [
+      "shot",
+      "fillWHug"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1040,
+      439,
+      "100"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "W 100",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressCombo",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "W 100 menu",
+      {
+        "panelEls": "[role=option]"
+      }
+    ],
+    [
+      "shot",
+      "w100"
+    ],
+    [
+      "pressNamed",
+      "Hug"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "W 100 Hug",
+      {
+        "kids": [
+          0,
+          0
+        ],
+        "panelEls": "[role=option]"
+      }
+    ],
+    [
+      "shot",
+      "w100Hug"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1040,
+      487,
+      "200"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "H 200",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressCombo",
+      1
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "H 200 menu",
+      {
+        "panelEls": "[role=option]"
+      }
+    ],
+    [
+      "shot",
+      "h200"
+    ],
+    [
+      "pressNamed",
+      "Hug"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "H 200 Hug",
+      {
+        "kids": [
+          0,
+          0
+        ],
+        "panelEls": "[role=option]"
+      }
+    ],
+    [
+      "shot",
+      "h200Hug"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1040,
+      439,
+      "hug"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "typed hug",
+      {
+        "kids": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "shot",
+      "typed"
+    ],
+    [
+      "click",
+      "Stretch"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "stretch off",
+      {
+        "kids": [
+          0,
+          0
+        ],
+        "checks": true
+      }
+    ],
+    [
+      "shot",
+      "stretchOff"
+    ],
+    [
+      "pressCombo",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "stretch off W",
+      {
+        "panelEls": "[role=option]"
+      }
+    ],
+    [
+      "shot",
+      "stretchW"
+    ],
+    [
+      "pressNamed",
+      "Hug"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "stretch off W Hug",
+      {
+        "kids": [
+          0,
+          0
+        ],
+        "panelEls": "[role=option]"
+      }
+    ],
+    [
+      "shot",
+      "stretchWHug"
+    ]
+  ],
+  "reads": {
+    "fill": {
+      "checks": [
+        {
+          "box": [
+            1173,
+            760,
+            12,
+            12
+          ],
+          "checked": true,
+          "text": ""
+        },
+        {
+          "box": [
+            1161,
+            1004,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            1161,
+            1049,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "shape": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "wrap": [
+              394.9,
+              0,
+              374.9,
+              235.6,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "fill W": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fixed · 375px",
+          "lines": 3,
+          "box": [
+            1005,
+            472,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-u1oxo1",
+          "label": "Hug",
+          "lines": 3,
+          "box": [
+            1005,
+            516,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fill",
+          "lines": 3,
+          "box": [
+            1005,
+            560,
+            182,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "fill W Hug": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fixed · 375px",
+          "lines": 3,
+          "box": [
+            1005,
+            472,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-u1oxo1",
+          "label": "Hug",
+          "lines": 3,
+          "box": [
+            1005,
+            516,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fill",
+          "lines": 3,
+          "box": [
+            1005,
+            560,
+            182,
+            44
+          ]
+        }
+      ],
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              374.9,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "shape": [
+              394.9,
+              0,
+              374.9,
+              235.6
+            ],
+            "wrap": [
+              394.9,
+              0,
+              374.9,
+              235.6,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              789.8,
+              0,
+              374.9,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "W 100": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              512.3,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              512.3,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              532.3,
+              0,
+              100,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              532.3,
+              0,
+              100,
+              235.6
+            ],
+            "shape": [
+              532.3,
+              0,
+              100,
+              235.6
+            ],
+            "wrap": [
+              532.3,
+              0,
+              100,
+              235.6,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              652.3,
+              0,
+              512.3,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              652.3,
+              0,
+              512.3,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "W 100 menu": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fixed · 100px",
+          "lines": 3,
+          "box": [
+            1005,
+            472,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-u1oxo1",
+          "label": "Hug",
+          "lines": 3,
+          "box": [
+            1005,
+            516,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fill",
+          "lines": 3,
+          "box": [
+            1005,
+            560,
+            182,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "W 100 Hug": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fixed · 100px",
+          "lines": 3,
+          "box": [
+            1005,
+            472,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-u1oxo1",
+          "label": "Hug",
+          "lines": 3,
+          "box": [
+            1005,
+            516,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fill",
+          "lines": 3,
+          "box": [
+            1005,
+            560,
+            182,
+            44
+          ]
+        }
+      ],
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              512.3,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              512.3,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              532.3,
+              0,
+              100,
+              235.6
+            ],
+            "self": "stretch",
+            "block": [
+              532.3,
+              0,
+              100,
+              235.6
+            ],
+            "shape": [
+              532.3,
+              0,
+              100,
+              235.6
+            ],
+            "wrap": [
+              532.3,
+              0,
+              100,
+              235.6,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              652.3,
+              0,
+              512.3,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              652.3,
+              0,
+              512.3,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H 200": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              512.3,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              512.3,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              532.3,
+              0,
+              100,
+              200
+            ],
+            "self": "auto",
+            "block": [
+              532.3,
+              0,
+              100,
+              200
+            ],
+            "shape": [
+              532.3,
+              0,
+              100,
+              200
+            ],
+            "wrap": [
+              532.3,
+              0,
+              100,
+              200,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              652.3,
+              0,
+              512.3,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              652.3,
+              0,
+              512.3,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H 200 menu": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fixed · 200px",
+          "lines": 3,
+          "box": [
+            1005,
+            520,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-u1oxo1",
+          "label": "Hug",
+          "lines": 3,
+          "box": [
+            1005,
+            564,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fill",
+          "lines": 3,
+          "box": [
+            1005,
+            608,
+            182,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H 200 Hug": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fixed · 200px",
+          "lines": 3,
+          "box": [
+            1005,
+            520,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-u1oxo1",
+          "label": "Hug",
+          "lines": 3,
+          "box": [
+            1005,
+            564,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fill",
+          "lines": 3,
+          "box": [
+            1005,
+            608,
+            182,
+            44
+          ]
+        }
+      ],
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              512.3,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              512.3,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              532.3,
+              0,
+              100,
+              200
+            ],
+            "self": "auto",
+            "block": [
+              532.3,
+              0,
+              100,
+              200
+            ],
+            "shape": [
+              532.3,
+              0,
+              100,
+              200
+            ],
+            "wrap": [
+              532.3,
+              0,
+              100,
+              200,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              652.3,
+              0,
+              512.3,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              652.3,
+              0,
+              512.3,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed hug": {
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              412.3,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              412.3,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              432.3,
+              0,
+              300,
+              200
+            ],
+            "self": "auto",
+            "block": [
+              432.3,
+              0,
+              300,
+              200
+            ],
+            "shape": [
+              432.3,
+              0,
+              300,
+              200
+            ],
+            "wrap": [
+              432.3,
+              0,
+              300,
+              200,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              752.3,
+              0,
+              412.3,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              752.3,
+              0,
+              412.3,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stretch off": {
+      "checks": [
+        {
+          "box": [
+            1161,
+            760,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            1161,
+            1004,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        },
+        {
+          "box": [
+            1161,
+            1049,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              552.3,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              552.3,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              572.3,
+              0,
+              20,
+              200
+            ],
+            "self": "auto",
+            "block": [
+              572.3,
+              0,
+              20,
+              200
+            ],
+            "shape": [
+              572.3,
+              90,
+              20,
+              20
+            ],
+            "wrap": [
+              572.3,
+              0,
+              20,
+              200,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              612.3,
+              0,
+              552.3,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              612.3,
+              0,
+              552.3,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stretch off W": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fixed · 20px",
+          "lines": 3,
+          "box": [
+            1005,
+            472,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Hug",
+          "lines": 3,
+          "box": [
+            1005,
+            516,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fill",
+          "lines": 3,
+          "box": [
+            1005,
+            560,
+            182,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stretch off W Hug": {
+      "panelEls": [],
+      "kids": {
+        "dir": "sqs-stack-container direction-row",
+        "box": [
+          100.1,
+          244.2,
+          1164.6,
+          235.6
+        ],
+        "frame": [
+          "0px",
+          "solid",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "kids": [
+          {
+            "box": [
+              0,
+              0,
+              552.3,
+              22.4
+            ],
+            "self": "auto",
+            "block": [
+              0,
+              0,
+              552.3,
+              22.4
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          },
+          {
+            "box": [
+              572.3,
+              0,
+              20,
+              200
+            ],
+            "self": "auto",
+            "block": [
+              572.3,
+              0,
+              20,
+              200
+            ],
+            "shape": [
+              572.3,
+              90,
+              20,
+              20
+            ],
+            "wrap": [
+              572.3,
+              0,
+              20,
+              200,
+              "center",
+              "center"
+            ],
+            "tf": []
+          },
+          {
+            "box": [
+              612.3,
+              0,
+              552.3,
+              66.6
+            ],
+            "self": "auto",
+            "block": [
+              612.3,
+              0,
+              552.3,
+              66.6
+            ],
+            "shape": null,
+            "wrap": null,
+            "tf": []
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "no Edit",
+    "no Edit",
+    "no Edit"
+  ],
+  "leftDirty": true,
+  "answer": "Hug is greyed in W at Fill and at Fixed with Stretch on, and in H at Fixed, and pressing does nothing (W 100, box 100; H 200). Typed hug in W with Stretch on is taken: box 300 wide, H 200. With Stretch off: box 20 by 200, the shape 20 by 20 at y offset 90; the menu reads Fixed · 20px, Hug not grey, Fill. The 'no Edit' errors are a clickIf that found nothing to press and are harmless.",
+  "ours": "Same now: greyed and press does nothing in those cases, typed hug 300 wide, Stretch off 20 by 200 with the shape 20 by 20 at 90, Hug offered. npm run mid-check. Ours offered Hug at Fill and at Fixed before.",
+  "differs": "Not built: the oracle's size menu has icons and a tick on the current row, ours is text only (shot fillW). Not read: H with Hug and Stretch off.",
+  "pressed": "Probe page, unsaved: size menu rows by label, W field typed, Stretch switch, in a new stack of Text, Shape, Button."
+}

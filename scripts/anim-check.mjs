@@ -226,7 +226,7 @@ add('40px on Duration is 2.1s, as read', fieldsNow().includes(F.scrub.duration40
 // The scrub and Reset on the Design tab's transforms.
 await fresh();
 q(`panel.querySelector('[data-btab="Design"]').click(); await sleep(220); return 'true';`);
-const dv = (k) => q(`return JSON.stringify(panel.querySelector('input[data-design="${k}"]').value);`);
+const dv = (k) => q(`return JSON.stringify(String(parseFloat(panel.querySelector('input[data-design="${k}"]').value.replace(/,/g, ''))));`);
 const dbox = (k) => `panel.querySelector('input[data-design="${k}"]').closest('.bp-box')`;
 for (const [k, name, want] of [['rotate', 'Rotate', '8'], ['sx', 'ScaleX', '108'], ['tx', 'OffsetX', '8']]) {
   await drag(`${dbox(k)}.querySelector('.sc-r')`, 20);
@@ -401,8 +401,9 @@ q(`document.querySelector('[data-bp="desktop"], #view-desktop, [aria-label="Desk
   await toList();
   const ownMark = () => q(`return JSON.stringify([...panel.querySelectorAll('.an-item')].map((r) => r.querySelector('.an-ico').classList.contains('is-own')));`);
   same2('Its row gets the dotted line under its icon', ownMark(), [true]);
-  const mk = q(`const e = panel.querySelector('.an-ico.is-own'), r = e.getBoundingClientRect(), c = getComputedStyle(e, '::after'), p = panel.getBoundingClientRect(); return JSON.stringify([r.left - p.left + parseFloat(c.left), r.bottom - p.top - parseFloat(c.height), parseFloat(c.width), parseFloat(c.height)]);`);
-  add('The dotted line: box as read', nearBox(mk, AP.rowMark.box), JSON.stringify(mk));
+  const mk = q(`const e = panel.querySelector('.an-ico.is-own'), r = e.getBoundingClientRect(), c = getComputedStyle(e, '::after'), p = panel.getBoundingClientRect(); return JSON.stringify({ box: [r.left - p.left + parseFloat(c.left), r.bottom - p.top - parseFloat(c.borderBottomWidth), parseFloat(c.width), parseFloat(c.borderBottomWidth)], style: [c.borderBottomStyle, c.borderBottomColor, c.height] });`);
+  add('The dotted line: box as read', nearBox(mk.box, AP.rowMark.box), JSON.stringify(mk));
+  same2('The dotted line: a dotted border, as measured', mk.style, AP.rowMark.measured);
   await openRow();
   add('A row changed on the phone opens on its values', q(`return JSON.stringify(!!panel.querySelector('.an-tabs') && !panel.querySelector('[data-anim="gear"]'));`));
   await toList(); await toDesign();
@@ -487,11 +488,28 @@ q(`document.querySelector('[data-bp="desktop"], #view-desktop, [aria-label="Desk
   same2('It goes from desktop too', rows(), AP.reads.oRmLastDesk.rows);
   await toView('Mobile'); await toAnim(); await phoneAct('reset');
   same2('Reset all: rows as desktop', rows(), AP.reads.oReset.rows);
-  await values(); await setField('end:0', '37'); await toList();
+  await values(); await setField('end:0', '37');
+  // The field is the Design tab's field (CAP-T6FIELDS.json).
+  const TF = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T6FIELDS.json', import.meta.url)));
+  const fp = (k) => q(`const i = panel.querySelector('[data-afield="${k}"]'), b = i.closest('.sc-box'), r = b.getBoundingClientRect(), bar = b.querySelector('.sc-bar'), rs = b.querySelector('.sc-reset'), c = getComputedStyle(rs); return JSON.stringify({ v: i.value, w: r.width, at: [r.left, r.top], arrows: !!b.querySelector('.sc-arrows'), letter: b.querySelector('.an-axis')?.textContent ?? null, bar: bar ? Math.round((bar.querySelector('i').getBoundingClientRect().left - r.left) * 10) / 10 : null, barOn: bar ? getComputedStyle(bar).opacity : null, ring: getComputedStyle(b).outlineStyle + ' ' + getComputedStyle(b).outlineWidth, chip: [c.backgroundColor, c.borderRadius, rs.getBoundingClientRect().width], focus: document.activeElement === i, caret: [i.selectionStart, i.selectionEnd] });`);
+  const f0 = fp('end:0'), fX = fp('end:2X');
+  add('Animation field: <>, no letter, and the bar at 37%', f0.arrows && f0.letter === null && Math.abs(f0.bar + 114.7) < 0.15, JSON.stringify(f0));
+  add('Animation pair: a letter, no <>', !fX.arrows && fX.letter === 'X', JSON.stringify(fX));
+  add('Animation field: the black chip, as read', f0.chip.join() === 'rgb(14, 14, 14),4px,16', JSON.stringify(f0.chip));
+  const fieldDrag = async (k) => { const a = fp(k), x = a.at[0] + a.w / 2, y = a.at[1] + 4; mouse(S, 'move', x, y); await pause(70); mouse(S, 'down', x, y, { buttons: 1 }); await pause(50); mouse(S, 'move', x + 10, y, { buttons: 1 }); await pause(90); mouse(S, 'move', x + 20, y, { buttons: 1 }); await pause(170); const during = fp(k); mouse(S, 'up', x + 20, y); await pause(300); return [a, during, fp(k)]; };
+  const [r0, rD, rA] = await fieldDrag('end:1');
+  add('Rotate in a drag: 8 up, the bar and ring on', parseFloat(rD.v) === parseFloat(r0.v) + 8 && rD.barOn === '1' && rD.ring === 'solid 2px', JSON.stringify(rD));
+  add('Let go: the bar off, focus on the input, caret at the end', rA.barOn === '0' && rA.focus && rA.caret.join() === `${rA.v.length},${rA.v.length}`, JSON.stringify(rA));
+  await clickSel(`panel.querySelector('[data-anim="tab"][data-v="Timing"]')`, 260);
+  const [t0, tD, tA] = await fieldDrag('duration');
+  add('Timing field: <> and no bar, width as read', t0.arrows && t0.bar === null && t0.w === TF.timing.box[0], JSON.stringify(t0));
+  add('Timing drag: 0.8s up, ring on, focus after', Math.abs(parseFloat(tD.v) - parseFloat(t0.v) - 0.8) < 0.001 && tD.ring === 'solid 2px' && tA.focus, JSON.stringify([tD, tA]));
+  q(`document.activeElement?.blur?.(); return 'true';`);
+  await toList();
   await clickSel(`panel.querySelector('[aria-label="Remove animation"]')`, 300);
   same2('A row with own values removed', rows(), AP.reads.oOwnRm.rows);
   await toDesign();
-  add('The button stays on after that (read once)', phoneBtn() === false, String(phoneBtn()));
+  add('The button stays on after that (read three times)', phoneBtn() === false, String(phoneBtn()));
   await toView('Desktop');
 }
 

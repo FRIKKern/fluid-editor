@@ -411,6 +411,11 @@ typeCorner('12');
 add('Corner: set on a phone, drawn there, the button on', cornerNow().slice(0, 2).join() === `${CO.shape.phone12.value},12px` && !pBtn().off, JSON.stringify(cornerNow()));
 const shapeFocus = q(`const i = panel.querySelector('[data-shape="radius"]'); i.focus(); await sleep(50); const r = i.closest('label').querySelector('.sc-reset'); return JSON.stringify([getComputedStyle(r).opacity, r.getAttribute('aria-label')]);`);
 add('Corner: Reset shows while the field has focus', shapeFocus.join() === '1,Reset to default value', shapeFocus.join());
+// Corner is the same field with no <> (CAP-T6FIELDS.json).
+const TF = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T6FIELDS.json', import.meta.url)));
+const cf = q(`const i = panel.querySelector('[data-shape="radius"]'), b = i.closest('.sc-box'), r = b.getBoundingClientRect(), s = b.querySelector('.sc-reset'), c = getComputedStyle(s), o = getComputedStyle(b); return JSON.stringify({ arrows: !!b.querySelector('.sc-arrows'), ring: o.outlineStyle + ' ' + o.outlineWidth + ' ' + o.outlineColor, bg: o.backgroundColor, chip: [c.backgroundColor, c.borderRadius, s.getBoundingClientRect().width], bar: Math.round((b.querySelector('.sc-bar i').getBoundingClientRect().left - r.left) * 10) / 10, w: r.width });`);
+add('Corner: no <>, a ring, the fill stays', !cf.arrows && cf.ring === 'solid 2px rgb(14, 14, 14)' && cf.bg === TF.field.background, JSON.stringify(cf));
+add('Corner: the black chip, the bar at 12', cf.chip.join() === 'rgb(14, 14, 14),4px,16' && Math.abs(cf.bar - TF.corner.barAt12) < 0.15, JSON.stringify(cf));
 view('desktop');
 add('Corner: desktop keeps its own', cornerNow()[0] === CO.shape.desktopKeeps.value, JSON.stringify(cornerNow()));
 typeCorner('20'); view('mobile');

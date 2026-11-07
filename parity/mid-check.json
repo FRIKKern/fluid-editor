@@ -1,6 +1,10 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
+<<<<<<< HEAD
   "pass": 692,
+=======
+  "pass": 714,
+>>>>>>> origin/main
   "known": [
     "group south by 4",
     "hold phone, full width -24,12",
@@ -12,7 +16,11 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
+<<<<<<< HEAD
   "total": 701,
+=======
+  "total": 723,
+>>>>>>> origin/main
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3267,6 +3275,102 @@
     },
     {
       "name": "box with a selection: a box in the next section, released",
+      "diffs": []
+    },
+    {
+      "name": "group bar: two apart",
+      "diffs": []
+    },
+    {
+      "name": "group bar: three apart",
+      "diffs": []
+    },
+    {
+      "name": "group bar: two overlapping",
+      "diffs": []
+    },
+    {
+      "name": "group bar: left and right, middle over left",
+      "diffs": []
+    },
+    {
+      "name": "group bar: middle and right, middle over left",
+      "diffs": []
+    },
+    {
+      "name": "group bar: all three, one overlap",
+      "diffs": []
+    },
+    {
+      "name": "group bar: phone two",
+      "diffs": []
+    },
+    {
+      "name": "phone bar place: a group",
+      "diffs": []
+    },
+    {
+      "name": "phone bar place: one block",
+      "diffs": []
+    },
+    {
+      "name": "phone bar place: one block, Accordion read",
+      "diffs": []
+    },
+    {
+      "name": "Shape child: Align Top, W 100, H 200, Stretch off, in a row",
+      "diffs": []
+    },
+    {
+      "name": "Shape child: Align Center, W 100, H 200, Stretch off, in a row",
+      "diffs": []
+    },
+    {
+      "name": "Shape child: Align Bottom, W 100, H 200, Stretch off, in a row",
+      "diffs": []
+    },
+    {
+      "name": "Shape child: Align Top, W 100, H 200, Stretch off, in a column",
+      "diffs": []
+    },
+    {
+      "name": "Shape child: Align Center, W 100, H 200, Stretch off, in a column",
+      "diffs": []
+    },
+    {
+      "name": "Shape child: Align Bottom, W 100, H 200, Stretch off, in a column",
+      "diffs": []
+    },
+    {
+      "name": "Shape child: Align with Stretch on moves nothing",
+      "diffs": []
+    },
+    {
+      "name": "Shape child: Hug is grey, at Fill, W",
+      "diffs": []
+    },
+    {
+      "name": "Shape child: Hug is grey, at Fill, H",
+      "diffs": []
+    },
+    {
+      "name": "Shape child: Hug is grey, at Fixed, W",
+      "diffs": []
+    },
+    {
+      "name": "Shape child: Hug is grey, at Fixed, H",
+      "diffs": []
+    },
+    {
+      "name": "Shape child: typed hug is 300 wide",
+      "diffs": []
+    },
+    {
+      "name": "Shape child: Hug with Stretch off",
+      "diffs": []
+    },
+    {
+      "name": "Shape child: Hug offered with Stretch off",
       "diffs": []
     },
     {
