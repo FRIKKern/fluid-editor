@@ -46,7 +46,8 @@ export const OPTION_SHAPES = ['Square', 'Rounded Rectangle', 'Pill'];
 export const OPTION_RADIUS = 5;
 const OPTION_SIZE = { S: 15, M: 20, L: 25 };
 const OPTION_PAD = { S: [1, 10], M: [5, 15], L: [15, 30] };
-export const formOption = (styles, kind) => ({ ...OPTION, ...(kind === 'check' && styles?.form ? PACKS[styles.form].check : null), ...styles?.forms?.[kind] });
+// A pack was read on Checkbox only. That it reaches Radio too is a guess, kept from when the two shared a class (CAP-U12OPTIONS.json). Survey never took it.
+export const formOption = (styles, kind) => ({ ...OPTION, ...(kind !== 'survey' && styles?.form ? PACKS[styles.form].check : null), ...styles?.forms?.[kind] });
 const optionRadius = (o) => (o.shape === 'Custom' ? (o.multi ? o.radii.map((r) => `${r}px`).join(' ') : `${o.radii[0]}px`) : { Square: '0', 'Rounded Rectangle': '25%', Pill: '300px' }[o.shape]);
 function optionCss(styles) {
   let vars = '';
