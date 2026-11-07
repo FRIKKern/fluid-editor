@@ -42,6 +42,7 @@ const clickRadio = (v, wait) => clickSel(`panel.querySelector('[data-anim-tile="
 const pickTrigger = async (name) => { await clickSel(act('menu')); await clickSel(`[...panel.querySelectorAll('.an-mopt')].find((e) => e.textContent.trim() === ${JSON.stringify(name)})`); };
 const fieldsNow = () => q(`return JSON.stringify([...panel.querySelectorAll('.an-rows input[type=text], .an-rows .an-sel')].map((e) => e.tagName === 'INPUT' ? e.value : e.textContent.trim()));`);
 const clickTab = (t) => clickSel(`[...panel.querySelectorAll('.an-tab')].find((e) => e.textContent === ${JSON.stringify(t)})`);
+const same2 = (what, got, want) => { const a = JSON.stringify(got.map?.((x) => String(x).replace(/\s/g, '')) ?? got), b = JSON.stringify(want.map((x) => String(x).replace(/\s/g, ''))); add(what, a === b, `${a} wanted ${b}`); };
 const TABS_OF = { hover: ['End', 'Timing'], press: ['End', 'Timing'], loop: ['End', 'Timing'], scroll: ['Start', 'End', 'Timing'], appear: ['Start', 'Timing'], follow: ['Range', 'Timing'] };
 
 // Empty
@@ -357,6 +358,142 @@ const ph = q(`return JSON.stringify({ list: !!panel.querySelector('[data-anim="l
 add('Phone: no list or row actions', !ph.list && !ph.ra, JSON.stringify(ph));
 add('Phone: row button and Remove boxes', ph.open && nearBox(ph.open, [72, 119, 133, 38]) && nearBox(ph.rm, [211, 120, 36, 36]), JSON.stringify(ph));
 q(`document.querySelector('[data-bp="desktop"], #view-desktop, [aria-label="Desktop View"]').click(); await sleep(300); return 'true';`);
+
+// An Animation set on a phone (CAP-L6ANIMPHONE.json), on a Shape.
+{
+  const AP = JSON.parse(readFileSync(new URL('../parity/findings/CAP-L6ANIMPHONE.json', import.meta.url)));
+  const toView = async (v) => { q(`document.querySelector('[aria-label="${v} View"]').click(); await sleep(500); return 'true';`); };
+  const toAnim = () => q(`panel.querySelector('[data-btab="Animation"]')?.click(); await sleep(150); return 'true';`);
+  const toDesign = () => q(`panel.querySelector('[data-btab="Design"]')?.click(); await sleep(150); return 'true';`);
+  const dots = () => q(`return JSON.stringify([...panel.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && e.textContent.trim() && getComputedStyle(e).textDecorationStyle === 'dotted').map((e) => e.textContent.trim()));`);
+  const phoneBtn = () => q(`const e = panel.querySelector('[data-phone-btn]'); return JSON.stringify(e ? e.disabled : null);`);
+  const setField = (k, v) => q(`const e = panel.querySelector('[data-afield="${k}"]'); e.focus(); e.value = ${JSON.stringify(v)}; e.dispatchEvent(new Event('change', { bubbles: true })); await sleep(180); return 'true';`);
+  const fieldV = (k) => q(`return JSON.stringify(panel.querySelector('[data-afield="${k}"]')?.value ?? null);`);
+  const openRow = (n = 0) => clickSel(`panel.querySelectorAll('.an-open')[${n}]`, 260);
+  const values = async (n = 0) => { await openRow(n); if (q(`return JSON.stringify(!!panel.querySelector('[data-anim="gear"]'));`)) await clickSel(act('gear'), 260); };
+  const toList = async () => { for (let k = 0; k < 3 && q(`return JSON.stringify(!!panel.querySelector('.an-back'));`); k++) await clickSel(`panel.querySelector('.an-back')`, 200); };
+  const phoneAct = async (a) => { await toDesign(); await clickSel(`panel.querySelector('[data-phone-btn]')`, 200); await clickSel(`document.querySelector('[data-phone-act="${a}"]')`, 300); await toAnim(); };
+  const undo = () => q(`fe.undo(); await sleep(200); return 'true';`);
+
+  await fresh('Shape');
+  await toView('Mobile');
+  q(`if (!panel.querySelector('[data-btab]')) throw new Error('no panel on the phone'); return 'true';`);
+  await toAnim();
+  const add0 = q(`const e = panel.querySelector('[aria-label="Add a new animation"]'); const s = e.querySelector('svg'); return JSON.stringify({ disabled: e.disabled, svg: getComputedStyle(s).color, cursor: getComputedStyle(e).cursor });`);
+  add('Phone, empty: + is off and grey, as read', add0.disabled === AP.add.disabled && add0.svg === AP.add.svg && add0.cursor === AP.add.cursor, JSON.stringify(add0));
+  add('Phone, empty: no prompt under Triggers', q(`return JSON.stringify(!byText('Press + to get started') && !panel.querySelector('.an-empty'));`));
+  add('Phone: no phone button on the Animation tab', phoneBtn() === null, String(phoneBtn()));
+  await toDesign();
+  add('Phone: on Design the button is there, off', phoneBtn() === true, String(phoneBtn()));
+  await clickSel(`panel.querySelector('[data-btab="Animation"]')`);
+  q(`panel.querySelector('[aria-label="Add a new animation"]').click(); await sleep(150); return 'true';`);
+  add('Phone: pressing + does nothing', q(`return JSON.stringify(!!byText('Triggers') && !panel.querySelector('.an-back'));`));
+
+  // A row made on desktop: shared, and a value set on the phone is the phone's.
+  await toView('Desktop'); await toAnim();
+  await clickSel(act('add')); await clickRadio('hover-1', 400); await toList();
+  await toView('Mobile'); await toAnim();
+  same2('Phone sees the row desktop made', rows(), ['On Hover0.5s']);
+  await values();
+  add('Row with nothing set: no dotted label', dots().length === 0, JSON.stringify(dots()));
+  await setField('end:0', '37');
+  same2('Opacity on the phone: only Opacity dotted', dots(), AP.reads.aOpacity.dots);
+  await toList();
+  const ownMark = () => q(`return JSON.stringify([...panel.querySelectorAll('.an-item')].map((r) => r.querySelector('.an-ico').classList.contains('is-own')));`);
+  same2('Its row gets the dotted line under its icon', ownMark(), [true]);
+  const mk = q(`const e = panel.querySelector('.an-ico.is-own'), r = e.getBoundingClientRect(), c = getComputedStyle(e, '::after'), p = panel.getBoundingClientRect(); return JSON.stringify([r.left - p.left + parseFloat(c.left), r.bottom - p.top - parseFloat(c.height), parseFloat(c.width), parseFloat(c.height)]);`);
+  add('The dotted line: box as read', nearBox(mk, AP.rowMark.box), JSON.stringify(mk));
+  await openRow();
+  add('A row changed on the phone opens on its values', q(`return JSON.stringify(!!panel.querySelector('.an-tabs') && !panel.querySelector('[data-anim="gear"]'));`));
+  await toList(); await toDesign();
+  add('The phone button lights', phoneBtn() === false, String(phoneBtn()));
+  add('No dotted label on Design for it', dots().length === 0, JSON.stringify(dots()));
+  undo();
+  add('One undo takes it back', q(`return JSON.stringify(!fe.model.sections[1].blocks.find((b) => b.id === ${JSON.stringify(id)}).animations[0].phone);`));
+  await toAnim(); await values(); await setField('end:0', '37'); await toList();
+  await toView('Desktop'); await toAnim();
+  await openRow();
+  add('Desktop keeps its row on its preset', q(`return JSON.stringify(!!panel.querySelector('[data-anim="gear"]'));`));
+  await clickSel(act('gear'), 260);
+  add('Desktop keeps its Opacity', fieldV('end:0') === '100%', fieldV('end:0'));
+  await setField('end:1', '30');
+  await toList();
+  await toView('Mobile'); await toAnim(); await values();
+  add('A value the phone did not set follows desktop', fieldV('end:1') === '30°' && fieldV('end:0') === '37%', `${fieldV('end:1')} ${fieldV('end:0')}`);
+  // Timing: Delay.
+  await clickTab('Timing');
+  add('Timing: no dot from an End value', dots().length === 0, JSON.stringify(dots()));
+  await setField('delay', '0.9');
+  same2('Delay on the phone: Delay dotted', dots(), AP.reads.jDuration.dots);
+  await clickTab('End'); await toList();
+  add('The phone row shows its delay', rows()[0].replace(/\s/g, '') === AP.reads.jList.rows[0].replace(/\s/g, ''), rows()[0]);
+  await toView('Desktop'); await toAnim();
+  add('Desktop row does not', rows()[0].replace(/\s/g, '') === 'OnHover0.5s', rows()[0]);
+  same2('Desktop row has no dotted line', ownMark(), [false]);
+  // Reset all, and Push.
+  await toView('Mobile'); await toAnim(); await phoneAct('reset');
+  await values();
+  add('Reset all: the phone follows again, dots gone', fieldV('end:0') === '100%' && fieldV('end:1') === '30°' && dots().length === 0, `${fieldV('end:0')} ${dots()}`);
+  await setField('end:0', '44'); await toList(); await phoneAct('push');
+  await values();
+  add('Push: phone keeps the value, no dot', fieldV('end:0') === '44%' && dots().length === 0, `${fieldV('end:0')} ${dots()}`);
+  await toList(); await toDesign();
+  add('Push: the button goes off', phoneBtn() === true, String(phoneBtn()));
+  await toAnim(); await toView('Desktop'); await toAnim(); await values();
+  add('Push: desktop has the value', fieldV('end:0') === '44%', fieldV('end:0'));
+  await toList();
+
+  // A pick on the phone is the phone's alone.
+  await fresh('Shape');
+  await clickSel(act('add')); await clickRadio('hover-1', 400); await toList();
+  await toView('Mobile'); await toAnim();
+  await openRow(); await clickRadio('hover-2', 400);
+  await clickSel(act('gear'), 260);
+  same2('A pick: all of End dotted', dots(), AP.reads.pEditor.dots);
+  await toList();
+  same2('A pick: the phone row is Lift', rows(), AP.reads.pPickedList.rows);
+  await toView('Desktop'); await toAnim();
+  same2('A pick: desktop stays on Grow', rows(), AP.reads.dAfter.rows);
+  // Preview plays the phone's values on a phone.
+  await toView('Mobile'); await toAnim();
+  await values(); await setField('end:1', '45'); await setField('end:0', '40'); await toList();
+  const peak = async () => { const before = q(`const e = d.querySelector('.fe-block[data-block-id="${id}"]'); window.__pk = []; const go = () => { const c = fr.contentWindow.getComputedStyle(e); window.__pk.push([c.transform, c.opacity]); if (window.__pk.length < 90) requestAnimationFrame(go); }; go(); return 'true';`); await clickSel(`panel.querySelector('[data-anim="play"]')`, 900); return q(`return JSON.stringify(window.__pk.map((x) => [x[0] === 'none' ? 1 : Number(x[0].split(',')[1]), Number(x[1])]).reduce((m, x) => [Math.max(m[0], Math.abs(x[0]) === 1 ? 0 : Math.abs(x[0])), Math.min(m[1], x[1])], [0, 1]));`); };
+  const ph = await peak();
+  add('Preview on a phone turns and fades by its values', ph[0] > 0.5 && near(ph[1], 0.4, 0.06), JSON.stringify(ph));
+  await pause(1300);
+  await toView('Desktop'); await toAnim();
+  const dk = await peak();
+  add('Preview on desktop stays on desktop values', dk[0] === 0 && dk[1] === 1, JSON.stringify(dk));
+  await pause(1300);
+
+  // Three rows: a trigger changed on the phone goes last, and Remove is for both.
+  await fresh('Shape');
+  await clickSel(act('add')); await clickRadio('hover-1', 400); await toList();
+  await clickSel(act('add')); await clickRadio('hover-2', 400); await toList();
+  await clickSel(act('add')); await clickRadio('hover-3', 400); await toList();
+  await toView('Mobile'); await toAnim();
+  same2('Three rows on the phone', rows(), AP.reads.oPhone.rows);
+  await openRow(1); await clickRadio('hover-4', 400); await toList();
+  same2('Same trigger: the row keeps its place', rows(), AP.reads.oPicked.rows);
+  await openRow(0); await pickTrigger('Loop'); await clickRadio('loop-1', 400); await toList();
+  same2('A changed trigger goes last', rows(), AP.reads.oLoop.rows);
+  same2('Rows with phone values are marked, as read', q(`return JSON.stringify([...panel.querySelectorAll('.an-item')].map((r) => r.querySelector('.an-ico').classList.contains('is-own')));`), AP.rowMark.oLoop);
+  await toView('Desktop'); await toAnim();
+  same2('Desktop rows stay', rows(), AP.reads.oLoopDesk.rows);
+  await toView('Mobile'); await toAnim();
+  await clickSel(`[...panel.querySelectorAll('[aria-label="Remove animation"]')].pop()`, 300);
+  same2('Remove the last row', rows(), AP.reads.oRmLast.rows);
+  await toView('Desktop'); await toAnim();
+  same2('It goes from desktop too', rows(), AP.reads.oRmLastDesk.rows);
+  await toView('Mobile'); await toAnim(); await phoneAct('reset');
+  same2('Reset all: rows as desktop', rows(), AP.reads.oReset.rows);
+  await values(); await setField('end:0', '37'); await toList();
+  await clickSel(`panel.querySelector('[aria-label="Remove animation"]')`, 300);
+  same2('A row with own values removed', rows(), AP.reads.oOwnRm.rows);
+  await toDesign();
+  add('The button stays on after that (read once)', phoneBtn() === false, String(phoneBtn()));
+  await toView('Desktop');
+}
 
 // Nothing leaks to a block made after.
 await fresh();

@@ -1031,6 +1031,10 @@ body.is-preview #reload-preview { display: inline-flex; }
 .an-title { font-weight: 500; }
 .an-actions { display: flex; gap: 11px; margin-right: 2px; }
 .an-icon { width: 36px; height: 36px; padding: 0; border: 0; background: none; border-radius: 3px; color: #0e0e0e; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.an-ico.is-own::after { content: ''; position: absolute; left: 5px; bottom: 0; width: 34px; height: 2px; background: repeating-linear-gradient(90deg, #000 0 2px, transparent 2px 4px); }
+.an-gap { width: 5px; }
+.an-icon[data-anim="add"]:disabled { cursor: default; }
+.an-icon[data-anim="add"]:disabled svg { color: rgb(183, 183, 183); }
 .an-empty { position: absolute; left: 65px; top: 122px; display: flex; flex-direction: column; align-items: center; width: 147px; height: 44px; padding: 0; border: 0; background: none; font: inherit; color: #6f6f6f; cursor: pointer; white-space: nowrap; }
 .an-empty strong { color: #0e0e0e; font-weight: 500; line-height: 22px; }
 .an-empty span { font-size: 12px; line-height: 15px; margin-top: 3px; }

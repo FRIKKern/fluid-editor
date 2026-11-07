@@ -1,0 +1,1036 @@
+{
+ "item": "L6",
+ "kind": "capture",
+ "oracle": "trial site, Blocks Probe, a new Shape, unsaved",
+ "capturedAt": "2026-11-07",
+ "question": "An Animation set on a phone: can it be added, does it count as an override, does it stay on the phone",
+ "how": "Named presses with an on-top check. The Remove icon is 0 opacity until hovered and pressed all the same. Rows are read by their button text, label dots by computed style. Left by Exit Without Saving.",
+ "add": {
+  "disabled": true,
+  "svg": "rgb(183, 183, 183)",
+  "cursor": "default",
+  "withRows": true,
+  "desktop": "on, svg rgb(14, 14, 14), cursor pointer"
+ },
+ "rules": [
+  "On a phone the + is off, on an empty list and on a list with rows, and an empty list has no Press + to get started.",
+  "The phone button is on the Design tab, not on the Animation tab.",
+  "Rows are shared when added or removed. Remove on a phone takes the row from both layouts, with own values or not. Add only exists on desktop.",
+  "A row opened on a phone can be set. A value set there is the phones alone, key by key: Opacity 37 on the phone leaves desktop on 100 and its preset; Rotate 30 on desktop then reaches the phone, whose Opacity stays 37.",
+  "The label of a value the phone set is dotted in the row editor: Opacity, Rotate, Delay. A pick on the phone dots all five End labels. In the list the row gets a black dotted line under its icon, read in screenshots. Tabs get no dot, and the Design tab shows none for it.",
+  "Such a value lights the phone button. Reset all overrides takes the phone back to desktop, Push to desktop gives desktop the phones values, trigger too; then the button is off.",
+  "A pick on the phone changes the phone row only (Lift 0.35s on the phone, Grow 0.5s on desktop). A changed trigger too: On Press on the phone, On Hover on desktop, and that row goes after the other rows on the phone.",
+  "Preview on a phone plays the phones values (Rotate 45, Opacity 40) and on desktop desktops.",
+  "After removing the row that held the only own value, the button stays on (read once)."
+ ],
+ "inferred": [
+  "After a pick, Ease, Duration and the other Timing labels are dotted: End was read, Timing was not.",
+  "Two rows with changed triggers: their order between them.",
+  "A desktop pick on a row with phone values keeps those values.",
+  "Remove on desktop of a row with phone values does not light the button.",
+  "Copy Properties on a phone.",
+  "A page in preview mode at phone width: ours plays the phones row, the oracles was read only by the Preview buttons.",
+  "Reset on a field in a phones row writes the default as the phones own, as Design rows do.",
+  "A row delay on desktop: the list was read with a delay only on a phone."
+ ],
+ "reads": {
+  "p0": {
+   "rows": [],
+   "pb": null,
+   "dots": [],
+   "inputs": []
+  },
+  "pTwo": {
+   "rows": [
+    "On Hover0.5s",
+    "On Hover0.35s"
+   ],
+   "pb": null,
+   "dots": [],
+   "inputs": []
+  },
+  "pTwoDesign": {
+   "pb": [
+    true,
+    ""
+   ],
+   "dots": []
+  },
+  "pRemoved": {
+   "rows": [
+    "On Hover0.35s"
+   ],
+   "pb": null,
+   "dots": [],
+   "inputs": []
+  },
+  "pRemovedDesign": {
+   "pb": [
+    true,
+    ""
+   ],
+   "dots": []
+  },
+  "dAfterRemove": {
+   "rows": [
+    "On Hover0.35s"
+   ],
+   "pb": null,
+   "dots": [],
+   "inputs": []
+  },
+  "pPickedList": {
+   "rows": [
+    "On Hover0.35s"
+   ],
+   "pb": null,
+   "dots": [],
+   "inputs": []
+  },
+  "pEditor": {
+   "rows": [],
+   "pb": null,
+   "dots": [
+    "Opacity",
+    "Rotate",
+    "Scale",
+    "Offset",
+    "Skew"
+   ],
+   "inputs": [
+    [
+     null,
+     "100%"
+    ],
+    [
+     null,
+     "-5°"
+    ],
+    [
+     null,
+     "110%"
+    ],
+    [
+     null,
+     "110%"
+    ],
+    [
+     null,
+     "0px"
+    ],
+    [
+     null,
+     "0px"
+    ],
+    [
+     null,
+     "0°"
+    ],
+    [
+     null,
+     "0°"
+    ]
+   ]
+  },
+  "pEdited": {
+   "rows": [],
+   "pb": null,
+   "dots": [
+    "Opacity",
+    "Rotate",
+    "Scale",
+    "Offset",
+    "Skew"
+   ],
+   "inputs": [
+    [
+     null,
+     "37%"
+    ],
+    [
+     null,
+     "-5°"
+    ],
+    [
+     null,
+     "110%"
+    ],
+    [
+     null,
+     "110%"
+    ],
+    [
+     null,
+     "0px"
+    ],
+    [
+     null,
+     "0px"
+    ],
+    [
+     null,
+     "0°"
+    ],
+    [
+     null,
+     "0°"
+    ]
+   ]
+  },
+  "pEditedDesign": {
+   "pb": [
+    false,
+    ""
+   ],
+   "dots": []
+  },
+  "dAfter": {
+   "rows": [
+    "On Hover0.5s"
+   ],
+   "pb": null,
+   "dots": [],
+   "inputs": []
+  },
+  "aOpen": {
+   "title": [
+    "On Hover",
+    "End",
+    "Timing",
+    "Opacity",
+    "Rotate",
+    "Scale",
+    "Offset",
+    "Skew",
+    "Preview"
+   ],
+   "inputs": [
+    "100%",
+    "0°",
+    "110%",
+    "110%",
+    "0px",
+    "0px",
+    "0°",
+    "0°"
+   ],
+   "dots": [],
+   "rows": []
+  },
+  "aOpacity": {
+   "title": [
+    "On Hover",
+    "End",
+    "Timing",
+    "Opacity",
+    "Rotate",
+    "Scale",
+    "Offset",
+    "Skew",
+    "Preview"
+   ],
+   "inputs": [
+    "37%",
+    "0°",
+    "110%",
+    "110%",
+    "0px",
+    "0px",
+    "0°",
+    "0°"
+   ],
+   "dots": [
+    "Opacity"
+   ],
+   "rows": []
+  },
+  "aTiming": {
+   "title": [
+    "On Hover",
+    "End",
+    "Timing",
+    "Ease",
+    "Spring",
+    "Bounce",
+    "Duration",
+    "Delay",
+    "Preview"
+   ],
+   "inputs": [
+    "spring",
+    "0.3",
+    "0.5s",
+    "0s"
+   ],
+   "dots": [],
+   "rows": []
+  },
+  "aReopen": {
+   "title": [
+    "On Hover",
+    "End",
+    "Timing",
+    "Opacity",
+    "Rotate",
+    "Scale",
+    "Offset",
+    "Skew",
+    "Preview"
+   ],
+   "inputs": [
+    "37%",
+    "0°",
+    "110%",
+    "110%",
+    "0px",
+    "0px",
+    "0°",
+    "0°"
+   ],
+   "dots": [
+    "Opacity"
+   ],
+   "rows": []
+  },
+  "aDesign": {
+   "pb": [
+    false,
+    ""
+   ],
+   "dots": []
+  },
+  "aMenu": [
+   [
+    "Reset all overrides",
+    null
+   ],
+   [
+    "Push to desktop",
+    null
+   ],
+   [
+    "Go to desktop",
+    null
+   ]
+  ],
+  "cDeskOpen": {
+   "title": [
+    "Trigger",
+    "On Hover",
+    "Grow",
+    "Lift",
+    "Look",
+    "Jump",
+    "Squish",
+    "Jitter",
+    "Start blank"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": []
+  },
+  "cDeskRotate": {
+   "title": [
+    "On Hover",
+    "End",
+    "Timing",
+    "Opacity",
+    "Rotate",
+    "Scale",
+    "Offset",
+    "Skew",
+    "Preview"
+   ],
+   "inputs": [
+    "100%",
+    "30°",
+    "110%",
+    "110%",
+    "0px",
+    "0px",
+    "0°",
+    "0°"
+   ],
+   "dots": [],
+   "rows": []
+  },
+  "cPhone": {
+   "title": [
+    "On Hover",
+    "End",
+    "Timing",
+    "Opacity",
+    "Rotate",
+    "Scale",
+    "Offset",
+    "Skew",
+    "Preview"
+   ],
+   "inputs": [
+    "37%",
+    "30°",
+    "110%",
+    "110%",
+    "0px",
+    "0px",
+    "0°",
+    "0°"
+   ],
+   "dots": [
+    "Opacity"
+   ],
+   "rows": []
+  },
+  "fPress": {
+   "title": [
+    "Trigger",
+    "On Press",
+    "Grow",
+    "Lift",
+    "Look",
+    "Jump",
+    "Squish",
+    "Jitter",
+    "Start blank"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": []
+  },
+  "fList": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Press"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Press0.3s"
+   ]
+  },
+  "fDesk": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.5s"
+   ]
+  },
+  "fPhoneTwo": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover",
+    "On Press"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.35s",
+    "On Press0.3s"
+   ]
+  },
+  "fPhoneRemoved": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Press"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Press0.3s"
+   ]
+  },
+  "fDeskAfter": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.5s"
+   ]
+  },
+  "dValues": {
+   "title": [
+    "On Hover",
+    "End",
+    "Timing",
+    "Opacity",
+    "Rotate",
+    "Scale",
+    "Offset",
+    "Skew",
+    "Preview"
+   ],
+   "inputs": [
+    "100%",
+    "0°",
+    "110%",
+    "110%",
+    "0px",
+    "0px",
+    "0°",
+    "0°"
+   ],
+   "dots": [],
+   "rows": []
+  },
+  "dAfter2": {
+   "pb": [
+    true,
+    ""
+   ],
+   "dots": []
+  },
+  "ePhone": {
+   "title": [
+    "On Hover",
+    "End",
+    "Timing",
+    "Opacity",
+    "Rotate",
+    "Scale",
+    "Offset",
+    "Skew",
+    "Preview"
+   ],
+   "inputs": [
+    "44%",
+    "0°",
+    "110%",
+    "110%",
+    "0px",
+    "0px",
+    "0°",
+    "0°"
+   ],
+   "dots": [],
+   "rows": []
+  },
+  "eDesk": {
+   "title": [
+    "On Hover",
+    "End",
+    "Timing",
+    "Opacity",
+    "Rotate",
+    "Scale",
+    "Offset",
+    "Skew",
+    "Preview"
+   ],
+   "inputs": [
+    "44%",
+    "0°",
+    "110%",
+    "110%",
+    "0px",
+    "0px",
+    "0°",
+    "0°"
+   ],
+   "dots": [],
+   "rows": []
+  },
+  "eAfter": {
+   "pb": [
+    true,
+    ""
+   ],
+   "dots": []
+  },
+  "jDuration": {
+   "title": [
+    "On Hover",
+    "End",
+    "Timing",
+    "Ease",
+    "Spring",
+    "Bounce",
+    "Duration",
+    "Delay",
+    "Preview"
+   ],
+   "inputs": [
+    "spring",
+    "0.3",
+    "0.5s",
+    "0.9s"
+   ],
+   "dots": [
+    "Delay"
+   ],
+   "rows": []
+  },
+  "jList": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.9s0.5s"
+   ]
+  },
+  "jDesk": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.5s"
+   ]
+  },
+  "jReset": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.5s"
+   ]
+  },
+  "lSet": {
+   "title": [
+    "On Hover",
+    "End",
+    "Timing",
+    "Opacity",
+    "Rotate",
+    "Scale",
+    "Offset",
+    "Skew",
+    "Preview"
+   ],
+   "inputs": [
+    "40%",
+    "45°",
+    "110%",
+    "110%",
+    "0px",
+    "0px",
+    "0°",
+    "0°"
+   ],
+   "dots": [
+    "Opacity",
+    "Rotate"
+   ],
+   "rows": []
+  },
+  "lPhone": [
+   [
+    1191,
+    "matrix(0.974003, 0.387323, -0.387323, 0.974003, 0, 0)",
+    "0.665909"
+   ],
+   [
+    1291,
+    "matrix(0.769499, 0.788188, -0.788188, 0.769499, 0, 0)",
+    "0.464892"
+   ],
+   [
+    1391,
+    "matrix(0.762933, 0.79618, -0.79618, 0.762933, 0, 0)",
+    "0.406051"
+   ],
+   [
+    1491,
+    "matrix(0.776958, 0.778902, -0.778902, 0.776958, 0, 0)",
+    "0.392709"
+   ],
+   [
+    1591,
+    "matrix(0.777946, 0.777661, -0.777661, 0.777946, 0, 0)",
+    "0.396765"
+   ],
+   [
+    1691,
+    "matrix(0.777817, 0.777817, -0.777817, 0.777817, 0, 0)",
+    "0.4"
+   ],
+   [
+    1791,
+    "matrix(0.777817, 0.777817, -0.777817, 0.777817, 0, 0)",
+    "0.4"
+   ],
+   [
+    1891,
+    "matrix(0.777817, 0.777817, -0.777817, 0.777817, 0, 0)",
+    "0.4"
+   ]
+  ],
+  "lDesk": [
+   [
+    1451,
+    "matrix(1.033, 0, 0, 1.033, 0, 0)",
+    "1"
+   ],
+   [
+    1552,
+    "matrix(1.09836, 0, 0, 1.09836, 0, 0)",
+    "1"
+   ],
+   [
+    1651,
+    "matrix(1.10332, 0, 0, 1.10332, 0, 0)",
+    "1"
+   ],
+   [
+    1751,
+    "matrix(1.10022, 0, 0, 1.10022, 0, 0)",
+    "1"
+   ],
+   [
+    1851,
+    "matrix(1.10001, 0, 0, 1.10001, 0, 0)",
+    "1"
+   ],
+   [
+    1951,
+    "matrix(1.1, 0, 0, 1.1, 0, 0)",
+    "1"
+   ],
+   [
+    2051,
+    "matrix(1.1, 0, 0, 1.1, 0, 0)",
+    "1"
+   ],
+   [
+    2151,
+    "matrix(1.1, 0, 0, 1.1, 0, 0)",
+    "1"
+   ]
+  ],
+  "gPress": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Press"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Press0.3s"
+   ]
+  },
+  "gReset": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.5s"
+   ]
+  },
+  "gAfterPush": {
+   "pb": [
+    true,
+    ""
+   ],
+   "dots": []
+  },
+  "gPushPhone": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Press"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Press0.3s"
+   ]
+  },
+  "gPushDesk": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Press"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Press0.3s"
+   ]
+  },
+  "oDesk": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover",
+    "On Hover",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.5s",
+    "On Hover0.35s",
+    "On Hover0.3s"
+   ]
+  },
+  "oPhone": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover",
+    "On Hover",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.5s",
+    "On Hover0.35s",
+    "On Hover0.3s"
+   ]
+  },
+  "oPicked": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover",
+    "On Hover",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.5s",
+    "On Hover0.5s",
+    "On Hover0.3s"
+   ]
+  },
+  "oPickedDesk": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover",
+    "On Hover",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.5s",
+    "On Hover0.35s",
+    "On Hover0.3s"
+   ]
+  },
+  "oLoop": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover",
+    "On Hover",
+    "Loop"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.5s",
+    "On Hover0.3s",
+    "Loop10s"
+   ]
+  },
+  "oLoopDesk": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover",
+    "On Hover",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.5s",
+    "On Hover0.35s",
+    "On Hover0.3s"
+   ]
+  },
+  "oRmLast": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.5s",
+    "On Hover0.3s"
+   ]
+  },
+  "oRmLastDesk": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.35s",
+    "On Hover0.3s"
+   ]
+  },
+  "oReset": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.35s",
+    "On Hover0.3s"
+   ]
+  },
+  "oResetDesk": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.35s",
+    "On Hover0.3s"
+   ]
+  },
+  "oOwn": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.35s",
+    "On Hover0.3s"
+   ]
+  },
+  "oOwnRm": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.3s"
+   ]
+  },
+  "oOwnRmDesign": {
+   "pb": [
+    false,
+    ""
+   ],
+   "dots": []
+  },
+  "oOwnRmDesk": {
+   "title": [
+    "Design",
+    "Animation",
+    "Triggers",
+    "On Hover"
+   ],
+   "inputs": [],
+   "dots": [],
+   "rows": [
+    "On Hover0.3s"
+   ]
+  }
+ },
+ "image": {
+  "note": "The phone button on an Image, read by pressing it by its corner, away from the Upload row: disabled while Corner flows, on after a phone Corner of 12. Corner dotted, from a screenshot.",
+  "desktop8flows": [
+   true,
+   ""
+  ],
+  "phone12": [
+   false,
+   ""
+  ]
+ },
+ "rowMark": {
+  "note": "From screenshots: 9 squares of 2 by 2, 2 apart, black, on the bottom of the 44 tall icon, 5 in from its left. Only rows with phone values have it. Desktop never.",
+  "box": [
+   27,
+   158,
+   34,
+   2
+  ],
+  "oLoop": [
+   true,
+   false,
+   true
+  ],
+  "jList": [
+   true
+  ],
+  "fPhoneTwo": [
+   false,
+   true
+  ]
+ },
+ "delay": {
+  "note": "A row with a delay shows a pause icon and the delay left of the clock and time: On Hover, 0.9s, 0.5s. Read on a phone; desktop inferred, the same list.",
+  "jList": "On Hover0.9s0.5s"
+ }
+}

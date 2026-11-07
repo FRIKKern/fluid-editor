@@ -31,10 +31,10 @@ import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette
 import { rowValue } from './theme-rows.js';
 import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
-import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
+import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
-import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
+import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -1571,9 +1571,9 @@ function renderBlockPanel() {
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
   const lookWas = blockPanel.dataset.bid === b.id && !blockPanel.hidden ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
   const lookKeep = lookWas && { value: fullOf(lookWas), folds: foldsOf(lookWas), start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
-  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(animRowsOf(b), bp === 'mobile', bp === 'mobile' ? { order: animPhoneOrder(b.animations || []), own: (b.animations || []).map((a) => !!a.phone) } : {}) : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
-  if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, b.animations?.[anim.i], anim.menu) : animEditorHtml(b.animations[anim.i], anim.tab);
+  if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, animRowsOf(b)[anim.i], anim.menu) : animEditorHtml(animRowsOf(b)[anim.i], anim.tab);
   if (fxView) paintEffectTiles(blockPanel, b.src);
   if (b.type === 'markdown') paintMdBar(blockPanel.querySelector('textarea[data-content="markdown"]'));
   blockPanel.style.width = (b.type === 'code' || b.type === 'markdown') && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
@@ -1597,6 +1597,7 @@ function drawPhoneControls(b) {
   const tabs = blockPanel.querySelector('.sp-tabs');
   if (bp !== 'mobile') { closePhoneMenu(); return; }
   markPhoneLabels(blockPanel, b);
+  if (designTab === 'Animation') { markAnimLabels(blockPanel, b.animations?.[anim.i]?.phone); closePhoneMenu(); return; }
   if (tabs?.querySelector('[data-btab="Animation"]')) tabs.insertAdjacentHTML('beforeend', phoneButtonHtml(hasOverrides(b)));
   else closePhoneMenu();
 }
@@ -1626,7 +1627,7 @@ phoneMenu.addEventListener('click', (e) => {
   blockPanel.scrollTop = top;
 });
 function syncAnimView(b) {
-  const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' ? b.animations?.[anim.i] : null, key = a && poseKey(anim.tab);
+  const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' ? animRowsOf(b)[anim.i] : null, key = a && poseKey(anim.tab);
   if (animPosed && (animPosed !== el || !key)) { releasePose(animPosed); animPosed = null; }
   if (key && el && !animPlaying) { holdPose(el, a[key]); animPosed = el; }
   const play = animPlay;
@@ -1634,7 +1635,8 @@ function syncAnimView(b) {
   if (play === 'tiles' && b) blockPanel.querySelectorAll('.an-tile[data-anim-tile]').forEach((t) => { const p = PRESETS[anim.trigger].find((x) => x.id === t.dataset.animTile); if (p) playTile(t.querySelector('.an-sq'), newAnimation(anim.trigger, p.id)); });
   if (play === 'square' && a) { const q = blockPanel.querySelector('.an-stage .an-sq'); if (q) playTile(q, a); }
 }
-function animRows() { return B(sel.sid, sel.bid).animations || []; }
+function animRowsOf(b) { return (b.animations || []).map((a) => rowOn(a, bp)); }
+function animRows() { return animRowsOf(B(sel.sid, sel.bid)); }
 function animEdit(label, change) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   b.animations = [...(b.animations || [])];
@@ -1675,7 +1677,7 @@ function animAction(el) {
     const a = rows[i];
     anim = { ...ANIM_LIST, view: a.preset === 'custom' ? 'editor' : 'picker', i, trigger: a.trigger, tab: TABS[a.trigger].includes(anim.tab) ? anim.tab : TABS[a.trigger][0] };
     if (anim.view === 'picker') animPlay = 'tiles';
-  } else if (act === 'remove') { animEdit('Remove animation', (l) => { l.splice(i, 1); }); return; }
+  } else if (act === 'remove') { const bk = B(sel.sid, sel.bid); animEdit('Remove animation', (l) => { if (bp === 'mobile' && l[i].phone) bk.animPhoneGone = true; l.splice(i, 1); }); return; }
   else if (act === 'play') { animPreview(rows[i ?? anim.i]); return; }
   else if (act === 'menu') anim.menu = !anim.menu;
   else if (act === 'trigger') { anim = { ...anim, trigger: el.dataset.v, menu: false }; animPlay = 'tiles'; }
@@ -1683,7 +1685,7 @@ function animAction(el) {
   else if (act === 'blank') {
     const a = newAnimation(anim.trigger);
     const at = anim.i ?? rows.length;
-    animEdit('Start blank', (l) => { l[at] = a; });
+    animEdit('Start blank', (l) => { animPlace(l, at, a); });
     anim = { ...anim, view: 'editor', i: at, menu: false, tab: TABS[a.trigger].includes(anim.tab) ? anim.tab : TABS[a.trigger][0] };
   } else if (act === 'tab') anim.tab = el.dataset.v;
   else if (act === 'sel') { openAnimOptions('sel', el, { key: el.dataset.key }); return; }
@@ -1697,8 +1699,22 @@ function animPick(id) {
   if (id === 'custom') return;
   const a = newAnimation(anim.trigger, id), at = anim.i ?? animRows().length;
   anim = { ...anim, i: at, menu: false };
-  animEdit(`Animation ${id}`, (l) => { l[at] = a; });
+  animEdit(`Animation ${id}`, (l) => { animPlace(l, at, a); });
   animPreview(a);
+}
+// A pick: a new row, or on this row. On a phone it stays the phone's alone, and desktop keeps its row.
+function animPlace(l, at, a) {
+  if (bp === 'mobile' && l[at]) l[at] = { ...l[at], phone: ownOf(a) };
+  else l[at] = l[at]?.phone ? { ...a, phone: l[at].phone } : a;
+}
+// One value, in the layout being edited.
+function animPut(l, i, key, v) {
+  if (bp !== 'mobile') { l[i] = { ...l[i] }; animWrite(l[i], key, v); return; }
+  const was = rowOn(l[i], 'mobile'), now = { ...was };
+  animWrite(now, key, v);
+  const own = { ...l[i].phone, preset: 'custom', [key]: v };
+  for (const k of ['bounce', 'custom']) if (now[k] !== was[k]) own[k] = now[k];
+  l[i] = { ...l[i], phone: own };
 }
 function animWrite(a, key, v) {
   a.preset = 'custom';
@@ -1709,7 +1725,7 @@ function animWrite(a, key, v) {
 }
 function animSet(key, v) {
   animPlay = 'square';
-  animEdit(`Animation ${key}`, (l) => { l[anim.i] = { ...l[anim.i] }; animWrite(l[anim.i], key, v); });
+  animEdit(`Animation ${key}`, (l) => { animPut(l, anim.i, key, v); });
 }
 blockPanel.addEventListener('change', (e) => {
   const input = e.target.closest('[data-afield]');
@@ -1753,8 +1769,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
     } else if (key) {
       const v = scrubbed(start, dx, key);
       input.value = v;
-      b.animations[anim.i] = { ...b.animations[anim.i] };
-      animWrite(b.animations[anim.i], key, v);
+      animPut(b.animations, anim.i, key, v);
       syncAnimView(b);
     } else {
       const f = DESIGN_FIELDS.find((x) => x[0] === dk), v = Math.min(f[4], Math.max(f[3], Math.round((parseFloat(start) + dx * 0.4) * 10) / 10)), bag = designBag(bp);
@@ -6142,7 +6157,7 @@ function boot() {
   bindPhonePrefix(doc);
   bindVideoPlayer(doc, () => doc.body.classList.contains('is-preview'));
   new win.Function(IMAGE_EFFECT_SCRIPT)();
-  bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations; } return null; });
+  bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations && animRowsOf(b); } return null; });
   doc.addEventListener('pointerdown', onDown);
   doc.addEventListener('pointermove', onMove);
   doc.addEventListener('pointerup', onUp);
