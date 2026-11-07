@@ -1,8 +1,11 @@
 {
   "check": "text toolbar HTML",
-  "pass": 535,
-  "total": 535,
-  "couldNotRun": [],
+  "pass": 532,
+  "total": 532,
+  "couldNotRun": [
+    "CAP-E4GAP2 typed, Cmd+A with no wait, Bold pressed",
+    "CAP-E4GAP2 typed, 0.3 s, Bold pressed"
+  ],
   "results": [
     {
       "name": "Heading 1",
@@ -482,6 +485,10 @@
     },
     {
       "name": "Link \"foo.no\"",
+      "ok": true
+    },
+    {
+      "name": "Keys guard: a selected block no, an edit yes",
       "ok": true
     },
     {
@@ -1246,22 +1253,6 @@
     },
     {
       "name": "CAP-E4GAP2 typed, Cmd+A pressed, Bold pressed 2",
-      "ok": true
-    },
-    {
-      "name": "CAP-E4GAP2 typed, Cmd+A with no wait, Bold pressed start",
-      "ok": true
-    },
-    {
-      "name": "CAP-E4GAP2 typed, Cmd+A with no wait, Bold pressed 1",
-      "ok": true
-    },
-    {
-      "name": "CAP-E4GAP2 typed, 0.3 s, Bold pressed start",
-      "ok": true
-    },
-    {
-      "name": "CAP-E4GAP2 typed, 0.3 s, Bold pressed 1",
       "ok": true
     },
     {
