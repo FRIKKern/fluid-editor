@@ -1,8 +1,8 @@
 {
   "check": "where a held drag or resize takes the next line",
   "tolerance": 1,
-  "pass": 153,
-  "total": 153,
+  "pass": 156,
+  "total": 156,
   "results": [
     {
       "kind": "move",
@@ -694,6 +694,21 @@
     },
     {
       "kind": "CAP-G4LAST2 phone group, box on the margin",
+      "leg": "xHome",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4HELD held block inside the box",
+      "leg": "xOut",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4HELD held block inside the box",
+      "leg": "xBack",
+      "ok": true
+    },
+    {
+      "kind": "CAP-G4HELD held block inside the box",
       "leg": "xHome",
       "ok": true
     },

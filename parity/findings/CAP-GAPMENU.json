@@ -1,0 +1,288 @@
+{
+  "item": "CAP-GAPMENU",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "S3: the stack Design panel Gap options menu: its rows, icons and tick, pressed by its label Expand gap options, closed with Escape.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "closed",
+      {
+        "rows": [
+          "Gap"
+        ],
+        "panelEls": "[aria-label=\"Expand gap options\"], [aria-label=\"Expand gap options\"] *"
+      }
+    ],
+    [
+      "click",
+      "Expand gap options"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Gap menu",
+      {
+        "panelEls": "[role=option], [role=option] *, [role=menuitem], [role=menuitem] *, [role=menuitemradio], [role=menuitemradio] *, [aria-expanded=true], [aria-expanded=true] *, [role=listbox], [role=menu]"
+      }
+    ],
+    [
+      "shot",
+      "gapmenu"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "after Escape",
+      {
+        "rows": [
+          "Gap"
+        ],
+        "panelEls": "[role=option], [aria-expanded=true]"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "closed": {
+      "rows": {
+        "Gap": [
+          "20px"
+        ]
+      },
+      "panelEls": [
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "css-8srzob",
+          "label": "Expand gap options",
+          "lines": 1,
+          "box": [
+            1073,
+            572,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "span",
+          "cls": "css-1y3olqs",
+          "label": "",
+          "lines": 2,
+          "box": [
+            1083,
+            583,
+            16,
+            14
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "css-khe1vw",
+          "label": "",
+          "lines": 1,
+          "box": [
+            1083,
+            583,
+            16,
+            14
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "css-1wp4z0p",
+          "label": "",
+          "lines": 1,
+          "box": [
+            1083,
+            583,
+            16,
+            14
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1086.6,
+            587.3,
+            8.8,
+            6.2
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Gap menu": {
+      "panelEls": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after Escape": {
+      "rows": {
+        "Gap": [
+          "20px"
+        ]
+      },
+      "panelEls": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "shot": {
+    "note": "Measured from the gapmenu shot at 1600 by 1000, px, the field's top-left at 930, 568.",
+    "field": [
+      930,
+      568,
+      182,
+      44
+    ],
+    "ring": "2px rgb(14, 14, 14) outside the field while open, none while closed (CAP-G4HELD.json panel shot)",
+    "toggle": [
+      1073,
+      572,
+      36,
+      36
+    ],
+    "toggleBg": "rgb(255, 255, 255) with an up chevron while open; no fill and a down chevron while closed",
+    "menu": [
+      930,
+      618,
+      182,
+      110
+    ],
+    "menuPadding": [
+      11,
+      11
+    ],
+    "menuCorner": 6,
+    "rows": [
+      [
+        "20px",
+        44
+      ],
+      [
+        "Fill",
+        44
+      ]
+    ],
+    "rowTextLeft": 942,
+    "rowIcons": 0,
+    "tick": false,
+    "currentRowGrey": false
+  },
+  "answer": "The Gap menu has two rows, 20px and Fill, 44 tall, 182 wide, with no icon, no tick and no grey current row. The menu starts 50 below the field's top, with 11 above and below the rows and corners of 6. While it is open the field has a 2px rgb(14, 14, 14) ring and the toggle is white with an up chevron.",
+  "predicted": "CAP-FIXES-PREDICTED.json predicted8, pushed before the read. Wrong: no icon and no tick.",
+  "ours": "The same now, by a pixel column through the field and menu, the same steps as the oracle's shot: npm run mid-check, 'Stack Gap menu open'. Before, ours had the menu 61 below the field's top with no padding, square corners, no ring and a down chevron on a clear toggle.",
+  "differs": [],
+  "pressed": "Add Section, Add Block and the tile by the tool's hover and press; blocks' middles and handles by the real mouse; Shift and a press for the group; Stack Blocks, Edit, Design and Expand gap options by their labels, on top. On Gestures Probe, unsaved. Closed by Escape only, no backdrop press. Then Exit Without Saving; CAP-GAPMENU-RELOAD.json reads the page back as it was: no sections, Save clean."
+}
