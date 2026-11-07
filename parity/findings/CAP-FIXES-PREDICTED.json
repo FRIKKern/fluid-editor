@@ -74,5 +74,18 @@
       "the rings left by a group, then an empty box": "The rings go."
     },
     "score": "Right: the box on the selected block, on a second, with nothing selected, a group held, what ends the rings, the next section. Wrong: a group and an empty box released, which I expected kept (rings only). A group and a box on a member released: I expected the member alone, it stays the group. A group and a box on another: I expected that block alone, then those two; it takes in all three."
+  },
+  "predicted5": {
+    "CAP-GROUPBAR": {
+      "two or three shapes, nothing overlapping": "4 buttons: Stack Blocks, Align Group, Duplicate, Remove. Forward and Backward not there.",
+      "two that overlap each other, nothing else": "Forward and Backward not there or both off: nothing outside the group to pass. Least sure of this one.",
+      "two with a third over a member": "All 6, as GROUPRESIZE.json. Forward on, or off by z.",
+      "on a phone": "Not sure a group can be made there; if it can, the same rule."
+    },
+    "CAP-S3HUGFIXED": {
+      "Hug on a Shape child at Fixed": "Greyed as at Fill: a shape has no content to hug. Pressing does nothing.",
+      "typing hug in W": "Refused, value stays.",
+      "Stretch off, Hug": "Offered: this is how 300 by 150 was reached."
+    }
   }
 }
