@@ -9,5 +9,6 @@
   {"case": "Shape alone", "predict": "off, as read"},
   {"case": "every other type alone: Video, Form, Accordion, Scrolling, Line, Code, Embed, Markdown, Quote, Social Links, Map, Newsletter, Audio, Summary, Calendar, Menu, Chart, Search Field, Page Link, Tag Cloud, RSS, Archive, Instagram, Tock, SoundCloud, Flickr, OpenTable, Zola, Bandsintown", "predict": "off"},
   {"case": "a mix of a read mix plus one other type (heading, paragraph and a Video)", "predict": "off"}
- ]
+ ],
+ "scored": "3 of 6 held (CAP-U10TYPES1.json to 3). Misses: a new Text is off, as it's empty and so dropped; 19 of the other 29 types are on, not off; the mix case wasn't read. Image, Button and Shape held."
 }
