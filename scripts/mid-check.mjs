@@ -80,7 +80,8 @@ const HOLD_IDS = evalJs(S, `JSON.stringify(fe.model.sections[${F.section}].block
 const hold = (block, dir, dx, dy, drop = false) => evalJs(S, `(async () => { ${FRAME}
   const b = d.querySelector('.fe-block[data-block-id="${HOLD_IDS[block]}"]');
   b.scrollIntoView({ block: 'center' }); await sleep(150);
-  fe.select(s.id, '${HOLD_IDS[block]}'); await sleep(50);
+  // A drag starts from a block not yet selected: from the text of a selected Text it would open the editor (CAP-TEXTPRESS.json).
+  fe.select(${dir ? `s.id, '${HOLD_IDS[block]}'` : 'null'}); await sleep(50);
   const el = ${dir ? `d.querySelector('.fe-handle[data-dir="${dir}"]')` : 'b'};
   const q = el.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2;
   const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 };
@@ -679,6 +680,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     cdp(S, { op: 'drag', from: p, to: [p[0] + 118, p[1]], steps: 12, holdMs: 200 }); await pause(200);
     const got = evalJs(S, `JSON.stringify({ a: fe.model.sections[0].blocks[0].layout.desktop.area[1], open: !document.getElementById('text-bar').hidden })`);
     groupCases.push({ name: `X2 selected Text, a drag ${name}`, diffs: [(got.a !== 5) !== moved && `oracle moved ${moved}, ours column ${got.a}`, got.open === moved && `oracle editor ${!moved}, ours ${got.open}`].filter(Boolean) });
+    browser(S, 'press', 'Escape'); await pause(60); browser(S, 'press', 'Escape'); await pause(60);
   }
 }
 // X8: Move Forward with a block between the members (CAP-GROUPFORWARD.json): 1, 2, 3 with the first and last selected.

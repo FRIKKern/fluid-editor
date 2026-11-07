@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 690,
+  "pass": 692,
   "known": [
     "group south by 4",
     "hold phone, full width -24,12",
@@ -12,7 +12,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 699,
+  "total": 701,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3131,6 +3131,14 @@
     },
     {
       "name": "X2 Shape corner 70, 70 by touch",
+      "diffs": []
+    },
+    {
+      "name": "X2 selected Text, a drag on the text",
+      "diffs": []
+    },
+    {
+      "name": "X2 selected Text, a drag under the text",
       "diffs": []
     },
     {
