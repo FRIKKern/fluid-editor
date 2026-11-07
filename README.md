@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 41 changes
+- **Today** · 42 changes
+  - T12: row walker refuses UNREAD's no rows and fields that reach outside; a tab with a wide note is read only ([#333](https://github.com/FRIKKern/fluid-editor/pull/333))
   - T12: row walker presses by name only, reloads when a panel has no named way out ([#332](https://github.com/FRIKKern/fluid-editor/pull/332))
-  - T12: row by row, Product, Pricing Plan, Donation, Summary, Archive, OpenTable, Zola ([#331](https://github.com/FRIKKern/fluid-editor/pull/331))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
