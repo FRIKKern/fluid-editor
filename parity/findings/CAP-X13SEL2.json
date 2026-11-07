@@ -1391,5 +1391,11 @@
     }
   },
   "errors": [],
-  "leftDirty": true
+  "leftDirty": true,
+  "answer": "One block selected: it keeps toolbar and handles under a box, on it or not, and the section's chrome stays away. A block the box touches gets a thin ring and shows selected, and its label while the pointer is on it. Past it the ring stays and the label goes. On release: the block the box touched alone, or the first if the box touched only that. Nothing selected: rings and the label, no toolbar, chrome on; on release that block with its toolbar. A group keeps its toolbar and handles under a box. A first run of this read had no button down (the tool's moveAt, #295) and was thrown away.",
+  "ours": "As the oracle: npm run mid-check, box with a selection.",
+  "differs": [],
+  "pressed": [
+    "Real mouse on empty canvas by position, named blocks by select and Shift+click. Nothing was under a press on canvas. Each run ended with Exit Without Saving."
+  ]
 }
