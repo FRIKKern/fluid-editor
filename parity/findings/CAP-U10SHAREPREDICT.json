@@ -1,0 +1,49 @@
+{
+ "item": "U10",
+ "capturedAt": "2026-11-07",
+ "question": "U10's shared-set test: do the 5 and 10 tile lists picked in full (Code, Quote, Accordion; Video, Map) predict other types' lists? Predictions from those picks, pushed before any read. Two picks per type, Blocks Probe, unsaved, one type per reload.",
+ "basis": "5 tiles (CAP-U10PICK-CODE, QUOTE, ACCORDION): each pick has a fixed desktop row start and columns, phone row start and columns, rows past the block and look; the block's height is its content's. 10 tiles (CAP-U10PICK-VIDEO, MAP): the same, with no rows past the block. Ours builds the 13 unread 5 and 10 tile lists by this rule now (inferred).",
+ "predictions": [
+  {
+   "case": "Markdown alone, picks 1 and 4",
+   "predict": "the same as Code's read picks 1 and 4 exactly, since its tile heights equal Code's to 0.1px: pick 1 desktop 8/15/10/25, phone 2/2/4/10, 9 rows, soft divider; pick 4 desktop 3/10/5/18, phone 1/2/3/10, 6 rows, dark"
+  },
+  {
+   "case": "Instagram alone, pick 2",
+   "predict": "desktop row start 3, columns 3-13 (end column exclusive: 3/13); phone row start 2, columns 2/10; section rows = desktop end row - 1 + 4; look: dark, rounded divider"
+  },
+  {
+   "case": "Instagram alone, pick 4",
+   "predict": "desktop row start 3, columns 10-18 (end column exclusive: 10/18); phone row start 1, columns 2/10; section rows = desktop end row - 1 + 2; look: dark"
+  },
+  {
+   "case": "Instagram alone, both picks",
+   "predict": "the block's phone height is the same in both picks. Desktop height is not predicted: its content follows its width, and ours keeps the block's own height, so a change with width is a named miss of the rule, not a pass"
+  },
+  {
+   "case": "Chart alone, pick 0",
+   "predict": "desktop row start 5, columns 7-21 (end column exclusive: 7/21); phone row start 2, columns 2/10; section rows = desktop end row - 1 + 4; look: none"
+  },
+  {
+   "case": "Chart alone, pick 3",
+   "predict": "desktop row start 4, columns 9-19 (end column exclusive: 9/19); phone row start 1, columns 2/10; section rows = desktop end row - 1 + 3; look: none"
+  },
+  {
+   "case": "Chart alone, both picks",
+   "predict": "the block's phone height is the same in both picks. Desktop height is not predicted: its content follows its width, and ours keeps the block's own height, so a change with width is a named miss of the rule, not a pass"
+  },
+  {
+   "case": "Zola alone, pick 2",
+   "predict": "desktop 1/7/1+h/21, phone 3/1/3+p/11, section rows = h (no rows past the block), no theme, no divider"
+  },
+  {
+   "case": "Zola alone, pick 5",
+   "predict": "desktop 1/1/1+h/14, phone 1/1/1+p/11, section rows = h, no theme, no divider; h is the same as in pick 2, since tiles 1 to 7 are all 45.6px (Zola doesn't follow its width)"
+  },
+  {
+   "case": "Scrolling alone, picks 0 and 2 (6 tiles, no picked partner: a weak guess)",
+   "predict": "tiles 0 and 2 are both 111.5px, so: the same section rows, the same block height and the same look in both, and different desktop columns"
+  }
+ ],
+ "ifMiss": "a type that misses goes back to count and order, its areas named not read (lead, 2026-11-07)"
+}
