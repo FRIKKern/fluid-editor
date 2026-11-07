@@ -1,0 +1,34 @@
+{
+ "item": "U10",
+ "capturedAt": "2026-11-07",
+ "question": "U10: a pick moving the Layouts panel. Rule fitted on seen reads (33 of 34 within 1.5 px: CAP-VIEWLAYOUTS.json afterPick, CAP-U10READ4.json to 6): on opening, a divider's own height doesn't count; after each pick the panel goes up to where it would open on the section as it now is, never down, and never above the section's top + 140. Predictions from ours with the rule built, pushed before the two reads; each within 1.5 px.",
+ "setup": "Blocks Probe, unsaved, one panel open per reload: a new section, a Text with one paragraph, the panel opened by a real press",
+ "predictions": [
+  {
+   "case": "A, at the window's top: open",
+   "predict": "panel top 248; section 667.6, 8 rows"
+  },
+  {
+   "case": "A: pick 1",
+   "predict": "248 (the section grows to 873, 13 rows: it doesn't move down)"
+  },
+  {
+   "case": "A: pick 5",
+   "predict": "206 (the section shrinks to 626.5, 7 rows: up to where it would open)",
+   "old": "248: ours moved it only on a short section's first pick"
+  },
+  {
+   "case": "A: pick 2",
+   "predict": "206 (763.6 with a divider, 667.6 without: would open at 248, so it stays)"
+  },
+  {
+   "case": "B, the page scrolled 100 first (section top at -45): open",
+   "predict": "148"
+  },
+  {
+   "case": "B: pick 5",
+   "predict": "106 (626.5 tall: 40 px over the section's top + 140 floor at 95)",
+   "old": "148"
+  }
+ ]
+}
