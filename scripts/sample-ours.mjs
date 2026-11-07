@@ -2,24 +2,32 @@
 // each changed once on a fresh load, and what the change did to the block (scripts/lib/sample-look.mjs). These are the
 // predictions: they are pushed before scripts/oracle-sample.mjs reads the same changes on the oracle.
 //   FLUID_PORT=<port> FLUID_SURFACE=cdp:<port> node scripts/sample-ours.mjs     writes parity/findings/SAMPLE-ROWS.json
+//   ... sample-ours.mjs --round2   the same picks again, each read at about 1.1 s and at 3 s, into round2.ours
 //   node scripts/sample-ours.mjs --score                                       scores the file, once the oracle is read
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, pause, viewport } from './lib/cmux.mjs';
 import { pressOnTop } from './oracle/press.mjs';
 import { noRows, onNoList, reachesOut, hasName } from './lib/press-names.mjs';
-import { controlsJs, lookJs, lookDiff, scoreOne, change, findAt, findValue, KINDS, REFUSE, COMMON, norm } from './lib/sample-look.mjs';
+import { controlsJs, lookJs, lookDiff, scoreOne, change, findAt, findValue, readTwice, KINDS, REFUSE, COMMON, norm } from './lib/sample-look.mjs';
 
 const FILE = new URL('../parity/findings/SAMPLE-ROWS.json', import.meta.url);
 if (process.argv.includes('--score')) {
   const f = JSON.parse(readFileSync(FILE));
-  const read = f.picks.filter((p) => p.oracle?.diff);
-  const scored = read.map((p) => ({ p, s: scoreOne(p.ours.diff, p.oracle.diff) }));
-  const by = {};
-  for (const { p, s } of scored) { by[p.tile] ||= [0, 0]; by[p.tile][1]++; if (s.match) by[p.tile][0]++; }
-  console.log(`${scored.filter((x) => x.s.match).length} of ${read.length} match; ${f.picks.length - read.length} not read on the oracle`);
-  for (const [t, [m, n]] of Object.entries(by)) console.log(`  ${t.padEnd(13)} ${m}/${n}`);
-  for (const { p, s } of scored.filter((x) => !x.s.match)) console.log(`  miss: ${p.tile} | ${p.tab} | ${p.row} | ${p.name}: ${s.why.join('; ')}`);
-  for (const p of f.picks.filter((x) => !x.oracle?.diff)) console.log(`  not read: ${p.tile} | ${p.row} | ${p.name}: ${p.oracle?.notPressed || p.oracle?.error || 'no read'}`);
+  const tally = (label, get) => {
+    const read = f.picks.filter((p) => get(p)?.oracle && get(p)?.ours);
+    const scored = read.map((p) => ({ p, s: scoreOne(get(p).ours, get(p).oracle) }));
+    const by = {};
+    for (const { p, s } of scored) { by[p.tile] ||= [0, 0]; by[p.tile][1]++; if (s.match) by[p.tile][0]++; }
+    console.log(`${label}: ${scored.filter((x) => x.s.match).length} of ${read.length} match (${scored.filter((x) => x.s.match && !Object.keys(get(x.p).ours).length).length} of them nothing on both); ${f.picks.length - read.length} not read`);
+    console.log(`  ${Object.entries(by).map(([t, [m, n]]) => `${t} ${m}/${n}`).join(', ')}`);
+    for (const { p, s } of scored.filter((x) => !x.s.match)) console.log(`  miss: ${p.tile} | ${p.row} | ${p.name}: ${s.why.join('; ')}`);
+  };
+  tally('round 1', (p) => ({ ours: p.ours?.diff, oracle: p.oracle?.diff }));
+  if (f.picks.some((p) => p.round2)) {
+    tally('round 2 at 1.1 s', (p) => ({ ours: p.round2?.ours?.d1, oracle: p.round2?.oracle?.d1 }));
+    tally('round 2 at 3 s', (p) => ({ ours: p.round2?.ours?.d3, oracle: p.round2?.oracle?.d3 }));
+    for (const p of f.picks.filter((x) => x.round2 && !x.round2.oracle?.d3)) console.log(`  round 2 not read: ${p.tile} | ${p.row} | ${p.name}: ${p.round2.oracle?.notPressed || p.round2.oracle?.error || p.round2.ours?.error || 'no read'}`);
+  }
   process.exit(0);
 }
 
@@ -70,6 +78,28 @@ function candidates(T, tab, list) {
 }
 
 viewport(S, 1600, 1000);
+// One pick on a fresh load: the change, and what it did.
+async function run(c, two) {
+  const id = await fresh(c.tile); await toTab(c.tab); await pause(300);
+  const at = findAt(controls(), c); if (!at) throw new Error('not found on a fresh load');
+  const look = () => js(lookJs('site-frame', id)), before = look();
+  const to = await change(S, c, at, js);
+  if (two) return { ...(await readTwice(look, before)), value: findValue(controls(), c) };
+  await pause(300);
+  return { diff: lookDiff(before, look()), value: findValue(controls(), c), to };
+}
+if (process.argv.includes('--round2')) {
+  const f = JSON.parse(readFileSync(FILE));
+  for (const p of f.picks) {
+    p.round2 = {};
+    try { p.round2.ours = await run(p, true); } catch (e) { p.round2.ours = { error: e.message.slice(0, 120) }; }
+    console.log(p.tile, '|', p.row, '|', p.name, '|', p.round2.ours.d3 ? Object.keys(p.round2.ours.d3).join(',') || 'nothing' : p.round2.ours.error);
+  }
+  f.round2 = { rule: 'The same picks. Each read at about 1.1 s (round 1\'s moment) and at 3 s after the gesture (readTwice), with ::before and ::after counted in the look. A measurement fix, not a refit.' };
+  writeFileSync(FILE, `${JSON.stringify(f, null, 1)}\n`);
+  console.log('wrote round2.ours');
+  process.exit(0);
+}
 const picks = [];
 for (const T of BUILT) {
   if (!(await fresh(T))) { picks.push({ tile: T, error: 'no panel on ours' }); continue; }
@@ -80,14 +110,7 @@ for (const T of BUILT) {
   console.log(T, chosen.map((c) => `${c.tab}|${c.kind}|${c.row}|${c.name}`).join(' ; ') || 'none');
   for (const c of chosen) {
     const p = { tile: T, ...c };
-    try {
-      const id = await fresh(T); await toTab(c.tab); await pause(300);
-      const at = findAt(controls(), c); if (!at) throw new Error('not found on a fresh load');
-      const before = js(lookJs('site-frame', id));
-      const to = await change(S, c, at, js); if (to) p.to = to;
-      await pause(300);
-      p.ours = { diff: lookDiff(before, js(lookJs('site-frame', id))), value: findValue(controls(), c) };
-    } catch (e) { p.ours = { error: e.message.slice(0, 120) }; }
+    try { const r = await run(p, false); if (r.to) p.to = r.to; p.ours = { diff: r.diff, value: r.value }; } catch (e) { p.ours = { error: e.message.slice(0, 120) }; }
     picks.push(p);
   }
 }
