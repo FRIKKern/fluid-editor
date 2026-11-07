@@ -167,6 +167,11 @@ export function curve(a, t) {
   if (e === 'Custom') { const c = String(a.custom || '0, 0, 1, 1').split(',').map(Number); return c.length === 4 && c.every(Number.isFinite) ? bezier(c, t) : t; }
   return bezier(BEZIER[e] || BEZIER.Out, t);
 }
+// On Scroll eases the scroll's progress with its own curves, read on the oracle (CAP-T15FRESH.json).
+const SCROLL_BEZIER = { In: [0.214, 0, 0.739, 0], Out: [0.22, 0.597, 0.359, 1], 'In Out': [0.78, 0, 0.22, 1] }; // Ease and the Back eases: not read
+function scrollCurve(a, t) {
+  return SCROLL_BEZIER[a.ease] ? bezier(SCROLL_BEZIER[a.ease], t) : curve(a, t);
+}
 // A small drawing of an ease for its select: the curve itself.
 export function easeGlyph(a) {
   if (a.ease === 'Custom') return '';
@@ -321,14 +326,17 @@ export function scrollSpan({ top, h }, a, view) {
   };
   const within = (name, p) => { const [x, y] = spans[name] || spans.Cover; return x + (y - x) * pct(p); };
   if (custom) return [within(a.startCross, a.startPasses), within(a.endCross, a.endPasses)];
-  const name = { Enters: 'Entry', Leaves: 'Exit' }[a.action] || 'Cover';
+  // Enters and Leaves are the crossing ranges: a block taller than the view and a section show it.
+  const name = { Enters: 'Entry Crossing', Leaves: 'Exit Crossing' }[a.action] || 'Cover';
   return [within(name, a.startPasses), within(name, a.endPasses)];
 }
 export function scrollProgress(a, y, [from, to]) {
   const p = to > from ? (y - from) / (to - from) : y >= to ? 1 : 0;
   if (p <= 0) return 0;
-  if (p >= 1) return 1;
-  return curve(a, (p * (parseFloat(a.iterations) || 1)) % 1);
+  const n = parseFloat(a.iterations) || 1;
+  // At the end it holds where the last run stopped, as CSS does: 1.5 runs end half way.
+  if (p >= 1) return n % 1 ? scrollCurve(a, n % 1) : 1;
+  return scrollCurve(a, (p * n) % 1);
 }
 const between = (from, to, p) => Object.fromEntries(Object.keys(from).map((k) => [k, from[k] + (to[k] - from[k]) * p]));
 // Continuous starts over; Ping Pong runs to its End and back, each way one Duration.
@@ -357,18 +365,14 @@ export function followPose(a, dx, dy, R, away = [1, 0]) {
     xp: end.xp * ax * push, xpx: end.xpx * ax * push, yp: end.yp * ay * push, ypx: end.ypx * ay * push,
   };
 }
-// How a block chases that pose: a spring whose speed and damping come from Smoothing, scaled by
-// Bounce. Fitted to steps read at Smoothing .25 to 1 and Bounce 0 to .6 (CAP-T15FOLLOW.json).
-const FOLLOW_S = [[0.25, 43, 1.3], [0.5, 30, 1.2], [0.75, 13.5, 0.87], [1, 7, 0.8]]; // at Bounce .3: speed, damping
-const FOLLOW_B = [[0, 1.4, 2], [0.3, 1, 1], [0.6, 0.62, 0.38], [1, 0.3, 0.1]]; // their factors by Bounce
-const along = (pts, x, i) => {
-  if (x <= pts[0][0]) return pts[0][i];
-  for (let k = 1; k < pts.length; k++) if (x <= pts[k][0]) { const [a, b] = [pts[k - 1], pts[k]]; return a[i] + ((b[i] - a[i]) * (x - a[0])) / (b[0] - a[0]); }
-  return pts.at(-1)[i];
-};
+// How a block chases that pose: a spring. Its speed w and damping z are smooth in Smoothing (s)
+// and Bounce (b), fitted to the steps read at 13 pairs (CAP-T15FOLLOW.json, CAP-T15FRESH.json).
+// Smoothing .25 with Bounce 0 fits no spring (rms .05): that corner stays a miss.
+const FOLLOW_W = [2.0943, -1.5149, -0.0504, 0.6614], FOLLOW_Z = [0.2321, -0.2493, -0.6381, -2.247];
 export function followSpring(a) {
-  const s = parseFloat(a.smoothing) || 0, b = parseFloat(a.bounce) || 0;
-  return { w: along(FOLLOW_S, s, 1) * along(FOLLOW_B, b, 1), z: along(FOLLOW_S, s, 2) * along(FOLLOW_B, b, 2) };
+  const s = Math.min(1, Math.max(0.05, parseFloat(a.smoothing) || 0)), b = parseFloat(a.bounce) || 0, ls = Math.log(s);
+  const [a0, a1, a2, a3] = FOLLOW_W, [b0, b1, b2, b3] = FOLLOW_Z;
+  return { w: Math.exp(a0 + a1 * ls + a2 * b + a3 * b * ls), z: Math.exp(b0 + b1 * ls + b2 * b + b3 * b * b) };
 }
 function chaser(el, a) {
   const s = stateOf(el), win = el.ownerDocument.defaultView, { w, z } = followSpring(a), vel = {};
