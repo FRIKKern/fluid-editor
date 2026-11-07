@@ -461,9 +461,9 @@ q(`document.getElementById('preview').click(); await sleep(350); return 'true';`
   // Follow's Preview: the button works, the block goes round and out, the square stays, it ends at rest.
   await fresh();
   await clickSel(act('add')); await pickTrigger('Follow'); await clickRadio('follow-1', 500);
-  q(`if (!panel.querySelector('.an-footbtn')) { panel.querySelector('.an-open')?.click(); await sleep(200); } return 'true';`);
-  add("Follow's Preview: on", q(`const b = panel.querySelector('.an-footbtn'); return JSON.stringify(!!b && !b.disabled && !b.hasAttribute('data-unbuilt'));`));
-  const path = q(`const e = d.querySelector('.fe-block[data-block-id="${id}"]'), sq = panel.querySelector('.an-stage .an-sq'); const out = [], sqs = []; panel.querySelector('.an-footbtn').click(); const t0 = performance.now(); while (performance.now() - t0 < 2100) { const c = W.getComputedStyle(e).translate.split(' '); out.push([Math.round(performance.now() - t0), parseFloat(c[0]) || 0, parseFloat(c[1]) || 0]); if (sq) sqs.push(getComputedStyle(sq).transform); await sleep(40); } return JSON.stringify({ out, sqs: [...new Set(sqs)] });`);
+  await clickSel(act('gear')); await clickTab('Timing'); // Timing holds no pose (ANIMFLOW.json), so the run shows alone
+  add("Follow's Preview: on", q(`const b = panel.querySelector('[data-anim="play"]'); return JSON.stringify(!!b && !b.disabled && !b.hasAttribute('data-unbuilt'));`));
+  const path = q(`const e = d.querySelector('.fe-block[data-block-id="${id}"]'), sq = panel.querySelector('.an-stage .an-sq'); const out = [], sqs = []; panel.querySelector('[data-anim="play"]').click(); const t0 = performance.now(); while (performance.now() - t0 < 2100) { const c = W.getComputedStyle(e).translate.split(' '); out.push([Math.round(performance.now() - t0), parseFloat(c[0]) || 0, parseFloat(c[1]) || 0]); if (sq) sqs.push(getComputedStyle(sq).transform); await sleep(40); } return JSON.stringify({ out, sqs: [...new Set(sqs)] });`);
   const rr = path.out.map((p) => Math.hypot(p[1], p[2])), far = Math.max(...rr), farAt = path.out[rr.indexOf(far)][0], angles = new Set(path.out.filter((p) => Math.hypot(p[1], p[2]) > 3).map((p) => Math.round(Math.atan2(p[2], p[1]) / 1.57)));
   add("Follow's Preview: goes out, late in its run", far > T.preview.farPx[0] && far < T.preview.farPx[1] && farAt > 1000, `${far} at ${farAt}`);
   add("Follow's Preview: goes all the way round", angles.size >= 4, [...angles].join());
@@ -472,8 +472,8 @@ q(`document.getElementById('preview').click(); await sleep(350); return 'true';`
   // Preview with the End tab open stays at the End (one read, On Hover).
   await fresh();
   await clickSel(act('add')); await clickRadio('hover-1', 900);
-  q(`if (!panel.querySelector('.an-footbtn')) { panel.querySelector('.an-open')?.click(); await sleep(200); } const t = [...panel.querySelectorAll('.an-tab')].find((e) => e.textContent === 'End'); t?.click(); await sleep(200); return 'true';`);
-  const stay = q(`const e = d.querySelector('.fe-block[data-block-id="${id}"]'), sq = panel.querySelector('.an-stage .an-sq'); const held = W.getComputedStyle(e).transform; panel.querySelector('.an-footbtn').click(); await sleep(40); const first = W.getComputedStyle(e).transform; await sleep(1300); return JSON.stringify({ held, first, then: W.getComputedStyle(e).transform, square: sq ? getComputedStyle(sq).transform : null });`);
+  await clickSel(act('gear')); await clickTab('End');
+  const stay = q(`const e = d.querySelector('.fe-block[data-block-id="${id}"]'), sq = panel.querySelector('.an-stage .an-sq'); const held = W.getComputedStyle(e).transform; panel.querySelector('[data-anim="play"]').click(); await sleep(40); const first = W.getComputedStyle(e).transform; await sleep(1300); return JSON.stringify({ held, first, then: W.getComputedStyle(e).transform, square: sq ? getComputedStyle(sq).transform : null });`);
   add('Preview on End: starts from rest', scale(stay.first) < 1.06, stay.first);
   add('Preview on End: stays at the End', near(scale(stay.then), 1.1, 0.005), stay.then);
 }
