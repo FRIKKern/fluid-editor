@@ -384,22 +384,30 @@ export async function enterEdit(title) {
 // was a dialog, that is, whether the page was dirty. Each press has an on-top check. If one fails,
 // or the top bar still has Exit afterwards, it throws, and the message says the page is still in
 // edit mode: nothing is saved, and the caller must not take the page as left.
+// With Site Styles open the top Exit only drops the edit and Site Styles stays with Exit still up, so it closes first.
+// exitWithoutSaving.steps and the log name each step that ran, and so does a failure.
 const TOP_EXIT = `[...document.querySelectorAll('button')].find((b) => b.textContent.trim() === 'Exit' && b.getBoundingClientRect().width > 0)`;
 const DIALOG_EXIT = `(() => { const t = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && /exit without saving/i.test(e.textContent) && e.getBoundingClientRect().width > 0); let box = t; while (box && ![...box.querySelectorAll('button')].some((b) => b.textContent.trim() === 'Exit')) box = box.parentElement; return box ? [...box.querySelectorAll('button')].find((b) => b.textContent.trim() === 'Exit') : null; })()`;
+const SITE_STYLES_CLOSE = `[...document.querySelectorAll('button')].find((b) => { const r = b.getBoundingClientRect(); return b.getAttribute('aria-label') === 'Close' && r.width > 0 && innerWidth - r.right < 80 && r.top < 70; })`;
 export async function exitWithoutSaving() {
-  const asked = () => evalJs(SURFACE, `(() => JSON.stringify(!!${DIALOG_EXIT}))()`) === true;
-  const stuck = (why) => new Error(`exitWithoutSaving: ${why}. Still in edit mode, nothing saved.`);
-  const onTop = (find, wait) => pressOnTop(SURFACE, find, wait).catch((e) => { throw stuck(e.message); });
-  const hasExit = () => evalJs(SURFACE, `(() => JSON.stringify(!!${TOP_EXIT}))()`) === true;
-  if (!asked() && !hasExit()) throw new Error('exitWithoutSaving: no Exit button, so not in edit mode.');
-  if (!asked()) await onTop(TOP_EXIT, 1500);
-  const dirty = asked();
-  if (dirty) await onTop(DIALOG_EXIT, 3000);
-  for (let i = 0; i < 10; i++) {
-    if (!hasExit()) return dirty;
-    await pause(500);
+  const steps = [];
+  exitWithoutSaving.steps = steps;
+  const found = (find) => evalJs(SURFACE, `(() => JSON.stringify(!!${find}))()`) === true;
+  const stuck = (why) => new Error(`exitWithoutSaving: ${why} (ran: ${steps.join(', ') || 'nothing'}). Still in edit mode, nothing saved.`);
+  const press = async (step, find, wait) => { await pressOnTop(SURFACE, find, wait).catch((e) => { throw stuck(`${step}: ${e.message}`); }); steps.push(step); };
+  const gone = async (find) => { for (let i = 0; i < 10; i++) { if (!found(find)) return true; await pause(500); } return false; };
+  const asked = () => found(DIALOG_EXIT);
+  if (!asked() && !found(TOP_EXIT)) throw new Error('exitWithoutSaving: no Exit button, so not in edit mode.');
+  if (!asked() && found(SITE_STYLES_CLOSE)) {
+    await press('closed Site Styles', SITE_STYLES_CLOSE, 800);
+    if (!await gone(SITE_STYLES_CLOSE)) throw stuck('Site Styles is still open after Close');
   }
-  throw stuck('the top bar still has Exit after pressing it');
+  if (!asked()) await press('top Exit', TOP_EXIT, 1500);
+  const dirty = asked();
+  if (dirty) await press('dialog Exit', DIALOG_EXIT, 3000);
+  if (!await gone(TOP_EXIT)) throw stuck('the top bar still has Exit after pressing it');
+  console.log(`exit ran: ${steps.join(', ')}`);
+  return dirty;
 }
 
 export const blockEl = (i, id) => BLOCK(i, id);

@@ -607,6 +607,7 @@ try {
 } finally {
   await desktop().catch(() => {});
   finding.leftDirty = await exitWithoutSaving().catch((e) => (/not in edit mode/.test(e.message) ? false : `exit failed: ${e.message}`));
+  finding.exitSteps = exitWithoutSaving.steps;
 }
 const text = JSON.stringify(finding, null, 2).replace(/(https?):\/\/([^"' )]+)/g, (m, sch, rest) => (/squarespace|sqsp/.test(rest) ? '<url>' : `<${sch}>${rest}`)) + '\n';
 writeFileSync(file, text);
