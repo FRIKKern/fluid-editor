@@ -631,6 +631,6 @@
   "answer": "The rule holds at both widths, in that width's own pitch. 1280 (column 49.5, row 36.3): move x 31, 80, back 79, 30, -26; y 24, 60. Corner x 31, 80, -31, -80; y 24, 60, -24, -60. 1920 (column 58.78, row 41.1, the same as 1600): move x 35; y 27, 68. Corner x 35, -35; y 27, 68, -27, -68.",
   "predicted": "Half a pitch plus half a gap, as at 1600, in the pitches read here.",
   "result": "Right at both.",
-  "ours": "Move: 1280 x 31, 80, back 79, 30, -27; y 24, 60. 1920 x 35; y 27, 68. Corner, 1 px early each way: 1280 x 30, 79, -32; y 23, 59, -25, -61. 1920 x 34, -36; y 26, 67, -28, -69. The same 1 px at 1600, and snap-check allows 1 px. Ours is off by that much because its corner handle sits 1 px past the line and it counts from the line: CAP-G4GRAB.json.",
+  "ours": "The same within 1 px at 1280 and 1920, move and corner: npm run snap-check, 4 reads. The corner's 1 px came from counting from the line, gone with CAP-G4GRAB.json.",
   "pressed": "Add Block and the tile, by the tool's hover and press, and the block's middle and handles by the real mouse, on Gestures Probe, unsaved. Nothing else but Escape and Exit."
 }

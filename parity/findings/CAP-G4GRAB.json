@@ -466,9 +466,7 @@
   "answer": "The press point on a handle doesn't matter. Corner and east, pressed on the middle and 6 px either way: 35 and -35 each time, y 27 and -27. The step counts from where the press was.",
   "predicted": "The first step at 35 from any press.",
   "result": "Right, 5 of 5.",
-  "ours": "Counts from the line, so the step moves with the press. Middle x 34, -36; y 26. 6 px in: x 40, -30. 6 px out: x 28; y 20. The hit area is 34 px, so up to 17 px off.",
-  "differs": [
-    "74: ours counts a handle's step from the line, the oracle from the press (updateResize: d = x - m.colEnd[...]). snap-check presses each handle in its middle, so it can't see it."
-  ],
+  "ours": "Counts from the press now: 35 and -35, y 27 and -27, from the middle and from 6 px either way. npm run snap-check, 5 reads. It counted from the line before: 6 px in gave 40, 6 px out gave 28.",
+  "differs": [],
   "pressed": "Add Block and the tile, by the tool's hover and press, and the block's middle and handles by the real mouse, on Gestures Probe, unsaved. Nothing else but Escape and Exit."
 }

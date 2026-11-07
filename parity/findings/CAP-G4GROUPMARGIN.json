@@ -245,9 +245,7 @@
   "leftDirty": false,
   "answer": "A group on a phone from the left margin goes into the right margin too: out 14, 56, 105, 153, 201, 250, 304, to 1/8/13/11; back 303, 249, 200, 152, 104, 55, 13.",
   "predicted": "None written: the question was which of two.",
-  "ours": "14, 56, 104, 153, 201, 250, and it stops at 1/7/13/10.",
-  "differs": [
-    "72: from the left margin, on a phone, ours stops a group at the last column (editor.js, the !(solo && bp === 'mobile') in cMax). The oracle takes one more step, at 304."
-  ],
+  "ours": "Goes on into the right margin now: 14, 56, 105, 153, 201, 250, 304, to 1/8/13/11; back 303, 249, 200, 152, 104, 55, 13, within 1 px. npm run snap-check. It stopped at 1/7/13/10 before.",
+  "differs": [],
   "pressed": "Add Block and the tile, by the tool's hover and press, and the block's middle and handles by the real mouse, on Gestures Probe, unsaved. Nothing else but Escape and Exit."
 }
