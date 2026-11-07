@@ -9,5 +9,17 @@
   "A form font's Style list opens like its Size list and holds 4 options with no group heads.",
   "The page's stylesheets hold button font variables by tier (--primary-button-font-* or similar) and meta font variables, at the values these rows show: 0.02em and 1rem for buttons, 1em, 0.01em and 1rem for Miscellaneous."
  ],
- "how": "Open and read only. No value, slider or list option picked. Blocks Probe. Variables read from the frame's stylesheets by name and value, nothing copied but names and numbers."
+ "how": "Open and read only. No value, slider or list option picked. Blocks Probe. Variables read from the frame's stylesheets by name and value, nothing copied but names and numbers.",
+ "counted": {
+  "held": [
+   "Buttons: 3 groups by tier, those rows.",
+   "Miscellaneous: a lead and one size row. It is laid out like Paragraphs from Font down, but with no Size head.",
+   "Style's list: 4 options, no heads."
+  ],
+  "missed": [],
+  "notRead": [
+   "The stylesheet variables: the read returned none, so that is untested, not wrong."
+  ],
+  "count": "3 held, 0 missed, 1 not read."
+ }
 }
