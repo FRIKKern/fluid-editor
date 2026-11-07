@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 83 changes
+- **Today** · 84 changes
+  - T11: Map Zoom takes each key at once (88) ([#376](https://github.com/FRIKKern/fluid-editor/pull/376))
   - U10: a pick moves the Layouts panel up, never down; 3 of 6 fresh, 8 px named ([#375](https://github.com/FRIKKern/fluid-editor/pull/375))
-  - L5: block menu greys and rows by tile (83, 84, 85) ([#374](https://github.com/FRIKKern/fluid-editor/pull/374))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
