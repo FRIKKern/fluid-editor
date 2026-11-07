@@ -1,5 +1,5 @@
 {
-  "item": "CAP-Y2KEYS",
+  "item": "Y2",
   "oracle": "/gestures-probe",
   "capturedAt": "2026-11-07",
   "engine": "chrome",
@@ -4588,5 +4588,8 @@
     "read [\"Shift+Enter in a burst 4 z\",{\"html\":[0,\"new\"],\"areas\":0,\"h: js_error: TypeError: Cannot read properties of undefined (reading 'querySelector')",
     "read [\"a link 2 z\",{\"html\":[0,\"new\"],\"areas\":0,\"has\":[\"Bold\",\"Wri: js_error: TypeError: Cannot read properties of null (reading 'querySelector')"
   ],
-  "leftDirty": true
+  "leftDirty": true,
+  "answer": "Cmd+Z in an edit is the page list running under the edit, not a list of its own. It goes past where the text was opened, through earlier edits, and when it reaches the Add the block goes. The caret goes to the end of the text, every time. Typed gaps of 60, 300, 600 and 800 ms stay one step, also with arrow keys in between. New typing starts a new step and takes Redo away. Redo stays lit after leaving. One Escape keeps the same list.",
+  "ours": "Predicted a list that stops where the text was opened, and the caret where it was. 46 of 78 reads held on the text; the misses are past the start and the caret.",
+  "pressed": "Named presses with an on-top check; real clicks on Text blocks and drags by the block; typing by real keys. No Save, no upload. The run reports left dirty because each case ends unsaved; each read ended with Exit Without Saving, and after a reload the probe page had 0 blocks."
 }

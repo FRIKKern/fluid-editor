@@ -1,5 +1,5 @@
 {
-  "item": "CAP-Y2KEYS3",
+  "item": "Y2",
   "oracle": "/gestures-probe",
   "capturedAt": "2026-11-07",
   "engine": "chrome",
@@ -2053,5 +2053,8 @@
     }
   },
   "errors": [],
-  "leftDirty": true
+  "leftDirty": true,
+  "answer": "Rows at exact gaps. Going back over a step that made the text taller the block comes back short of the rows it had. A step that brings another block back closes the edit and selects it.",
+  "ours": "Predicted rows from the snapshot and a fall only on the first step: 9 misses, all those.",
+  "pressed": "Named presses with an on-top check; real clicks on Text blocks and drags by the block; typing by real keys. No Save, no upload. The run reports left dirty because each case ends unsaved; each read ended with Exit Without Saving, and after a reload the probe page had 0 blocks."
 }
