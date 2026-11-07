@@ -1,9 +1,9 @@
 {
   "check": "pulls per type against the oracle",
   "tolerance": 0,
-  "pass": 360,
-  "total": 360,
-  "known": 32,
+  "pass": 364,
+  "total": 364,
+  "known": 35,
   "results": [
     {
       "file": "CAP-X6PULLS",
@@ -1803,6 +1803,26 @@
     {
       "file": "CAP-68PULL",
       "read": "Pricing Plan one row more",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYPHONE",
+      "read": "Summary start",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYPHONE",
+      "read": "Summary after e",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYPHONE",
+      "read": "Summary after w",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYPHONE",
+      "read": "Summary after s",
       "ok": true
     }
   ]
