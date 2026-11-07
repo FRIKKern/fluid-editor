@@ -1,0 +1,90 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Tag Cloud: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Tag Cloud",
+ "tabs": {
+  "(no tabs)": {
+   "rows": [
+    {
+     "row": "Display tags or categories from one of your pages arranged in a fun cloud format",
+     "kind": "button",
+     "name": "Learn more",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Tags",
+     "kind": "menu",
+     "name": "Tags",
+     "value": "Tags",
+     "options": [
+      "Tags",
+      "Categories"
+     ],
+     "to": "Categories",
+     "change": [],
+     "back": "Tags"
+    },
+    {
+     "row": "Alphabetical",
+     "kind": "menu",
+     "name": "Alphabetical",
+     "value": "Alphabetical",
+     "options": [
+      "Alphabetical",
+      "Weight",
+      "Activity"
+     ],
+     "to": "Weight",
+     "change": [],
+     "back": "Activity"
+    },
+    {
+     "row": "5 Tags",
+     "kind": "slider",
+     "name": "5 Tags",
+     "value": "5",
+     "min": "5",
+     "max": "100",
+     "change": [
+      "elements 30 > 29",
+      "DIV.fe-block b: 100.1,244.2,459.3,194.5 > 100.1,-64.8,459.3,194.5",
+      "DIV b: 100.1,244.2,459.3,194.5 > 100.1,-64.8,459.3,194.5",
+      "DIV.yui3-widget cl: yui3-widget yui3-block-base sqs-block tagclo > yui3-widget yui3-block-base sqs-block tagclo",
+      "DIV.yui3-widget b: 100.1,244.2,459.3,194.5 > 100.1,-64.8,459.3,194.5",
+      "DIV cl: targeted > ",
+      "DIV b: 100.1,244.2,459.3,56.8 > 100.1,-64.8,459.3,56.8",
+      "DIV.sqs-blockStatus b: 100.1,244.2,459.3,194.5 > 100.1,-64.8,459.3,194.5",
+      "DIV b: 101.1,245.2,457.3,0 > 101.1,-63.8,457.3,0",
+      "DIV b: 174.1,249.5,380,113.1 > 174.1,-59.5,380,114.1",
+      "DIV b: 197.1,272.5,300,19.8 > 197.1,-36.5,300,19.8",
+      "DIV b: 197.1,303.3,300,36.3 > 197.1,-5.7,300,37.3",
+      "A b: 0,0,0,0 > 413.3,12.4,59.6,19.2",
+      "A display: none > inline-block"
+     ],
+     "error": "press: none",
+     "reloaded": true
+    }
+   ]
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "(no tabs)"
+ ],
+ "dialog": {
+  "title": "Tag Cloud",
+  "box": [
+   556,
+   236,
+   300,
+   495
+  ],
+  "buttons": [],
+  "escapeCloses": false,
+  "blockPressCloses": false
+ },
+ "answer": "Tag Cloud: tabs (no tabs). 3 rows read, 1 changed the block when changed. Each row below has its default and what the change did.",
+ "pressed": "Add Block, Tag Cloud, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved."
+}
