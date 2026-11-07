@@ -1,0 +1,526 @@
+{
+ "item": "U12",
+ "capturedAt": "2026-11-07",
+ "question": "Fonts > Assign Styles: what each of its 122 rows opens. Predictions pushed before any row but Site Title is opened. No pick.",
+ "from": "CAP-STYLEROWS.json: the view's rows and Site Title's view, Forms > Fonts' views.",
+ "rule": "Inferred: every row is the same control as a form font's: Style, then Size.",
+ "hit": "Each line counted over all rows.",
+ "predictions": {
+  "rows": 122,
+  "Every row opens a view of its own name, with Style and Size lists": 122,
+  "Style list": [
+   "Paragraph",
+   "Heading",
+   "Miscellaneous",
+   "Custom"
+  ],
+  "Size list": [
+   "Paragraph 1",
+   "Paragraph 2",
+   "Paragraph 3",
+   "Heading 1",
+   "Heading 2",
+   "Heading 3",
+   "Heading 4",
+   "Miscellaneous",
+   "Custom"
+  ],
+  "style value per row": "The word at the row's right, in the same order: Heading, Paragraph, Custom, Miscellaneous",
+  "exception": "Header Button says Custom at its right. Predicted: its Style reads Custom, like the others, and no Size row is predicted for it.",
+  "size value": "A row at Heading has a Size at Heading 1 to 4 or Custom, a row at Paragraph one of Paragraph 1 to 3, a row at Miscellaneous reads Miscellaneous. Site Title (read) is Heading with Size Custom and a Size slider.",
+  "the slider": "Only a row at Size Custom has a Size slider with a text box in rem.",
+  "form rows": "The eight rows Title to Survey Title under Forms show Style Paragraph and Size Paragraph 2, as Forms > Fonts does on Title and Input.",
+  "writes": "None: Save stays off through every open and back."
+ },
+ "rowsRead": [
+  [
+   "Site Title",
+   "Heading"
+  ],
+  [
+   "Mobile Site Title",
+   "Heading"
+  ],
+  [
+   "Site Navigation",
+   "Paragraph"
+  ],
+  [
+   "Header Button",
+   "Custom"
+  ],
+  [
+   "Text",
+   "Paragraph"
+  ],
+  [
+   "Title",
+   "Paragraph"
+  ],
+  [
+   "Menu Nav Font",
+   "Miscellaneous"
+  ],
+  [
+   "Menu Title Font",
+   "Heading"
+  ],
+  [
+   "Menu Item Title Font",
+   "Heading"
+  ],
+  [
+   "Menu Item Description Font",
+   "Paragraph"
+  ],
+  [
+   "Menu Item Price Font",
+   "Paragraph"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Description",
+   "Paragraph"
+  ],
+  [
+   "Field",
+   "Paragraph"
+  ],
+  [
+   "Button",
+   "Paragraph"
+  ],
+  [
+   "Footnote",
+   "Paragraph"
+  ],
+  [
+   "Text",
+   "Paragraph"
+  ],
+  [
+   "Source",
+   "Miscellaneous"
+  ],
+  [
+   "Title",
+   "Paragraph"
+  ],
+  [
+   "Description",
+   "Paragraph"
+  ],
+  [
+   "Caption",
+   "Paragraph"
+  ],
+  [
+   "Input",
+   "Paragraph"
+  ],
+  [
+   "Placeholder",
+   "Paragraph"
+  ],
+  [
+   "Select Dropdown",
+   "Paragraph"
+  ],
+  [
+   "Option",
+   "Paragraph"
+  ],
+  [
+   "Survey Title",
+   "Paragraph"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Excerpt",
+   "Paragraph"
+  ],
+  [
+   "Meta",
+   "Miscellaneous"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Excerpt",
+   "Paragraph"
+  ],
+  [
+   "Meta",
+   "Miscellaneous"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Excerpt",
+   "Paragraph"
+  ],
+  [
+   "Meta",
+   "Miscellaneous"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Excerpt",
+   "Paragraph"
+  ],
+  [
+   "Meta",
+   "Miscellaneous"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Excerpt",
+   "Paragraph"
+  ],
+  [
+   "Meta",
+   "Miscellaneous"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Meta",
+   "Miscellaneous"
+  ],
+  [
+   "Author Profile",
+   "Paragraph"
+  ],
+  [
+   "Pagination",
+   "Heading"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Pagination",
+   "Heading"
+  ],
+  [
+   "List Title",
+   "Heading"
+  ],
+  [
+   "Product Price",
+   "Miscellaneous"
+  ],
+  [
+   "Product Status",
+   "Miscellaneous"
+  ],
+  [
+   "Product Limited Availability Label",
+   "Miscellaneous"
+  ],
+  [
+   "Item Description",
+   "Paragraph"
+  ],
+  [
+   "Clear Filters Button",
+   "Paragraph"
+  ],
+  [
+   "Results Count",
+   "Paragraph"
+  ],
+  [
+   "Item Title",
+   "Heading"
+  ],
+  [
+   "Item Price",
+   "Heading"
+  ],
+  [
+   "Product Add Ons Title",
+   "Paragraph"
+  ],
+  [
+   "Restock Notification",
+   "Paragraph"
+  ],
+  [
+   "Item Description",
+   "Paragraph"
+  ],
+  [
+   "Variant Fields",
+   "Miscellaneous"
+  ],
+  [
+   "Limited Availability",
+   "Miscellaneous"
+  ],
+  [
+   "Item Title",
+   "Heading"
+  ],
+  [
+   "Item Price",
+   "Paragraph"
+  ],
+  [
+   "Item Description",
+   "Paragraph"
+  ],
+  [
+   "Product Add Ons Title",
+   "Paragraph"
+  ],
+  [
+   "Restock Notification",
+   "Paragraph"
+  ],
+  [
+   "Variant Fields",
+   "Paragraph"
+  ],
+  [
+   "Limited Availability",
+   "Miscellaneous"
+  ],
+  [
+   "Item Title",
+   "Heading"
+  ],
+  [
+   "Item Price",
+   "Paragraph"
+  ],
+  [
+   "Item Description",
+   "Paragraph"
+  ],
+  [
+   "Product Add Ons Title",
+   "Paragraph"
+  ],
+  [
+   "Restock Notification",
+   "Paragraph"
+  ],
+  [
+   "Variant Fields",
+   "Paragraph"
+  ],
+  [
+   "Limited Availability",
+   "Miscellaneous"
+  ],
+  [
+   "Item Title",
+   "Heading"
+  ],
+  [
+   "Item Price",
+   "Paragraph"
+  ],
+  [
+   "Item Description",
+   "Paragraph"
+  ],
+  [
+   "Product Add Ons Title",
+   "Paragraph"
+  ],
+  [
+   "Restock Notification",
+   "Paragraph"
+  ],
+  [
+   "Variant Fields",
+   "Paragraph"
+  ],
+  [
+   "Limited Availability",
+   "Miscellaneous"
+  ],
+  [
+   "Pagination",
+   "Heading"
+  ],
+  [
+   "Pagination Date",
+   "Miscellaneous"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Category Navigation",
+   "Paragraph"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Excerpt",
+   "Paragraph"
+  ],
+  [
+   "Meta",
+   "Miscellaneous"
+  ],
+  [
+   "Title",
+   "Heading"
+  ],
+  [
+   "Meta",
+   "Miscellaneous"
+  ],
+  [
+   "Description",
+   "Paragraph"
+  ],
+  [
+   "Pagination",
+   "Heading"
+  ],
+  [
+   "Badge Font",
+   "Paragraph"
+  ],
+  [
+   "Course Name",
+   "Heading"
+  ],
+  [
+   "Course Description",
+   "Paragraph"
+  ],
+  [
+   "Chapter Name",
+   "Heading"
+  ],
+  [
+   "Chapter Meta",
+   "Miscellaneous"
+  ],
+  [
+   "Lesson Name",
+   "Paragraph"
+  ],
+  [
+   "Lesson Excerpt",
+   "Paragraph"
+  ],
+  [
+   "Lesson Meta",
+   "Miscellaneous"
+  ],
+  [
+   "Chapter Name",
+   "Heading"
+  ],
+  [
+   "Chapter Meta",
+   "Miscellaneous"
+  ],
+  [
+   "Lesson Name",
+   "Heading"
+  ],
+  [
+   "Lesson Excerpt",
+   "Paragraph"
+  ],
+  [
+   "Lesson Meta",
+   "Miscellaneous"
+  ],
+  [
+   "Side Nav Chapter Name",
+   "Heading"
+  ],
+  [
+   "Side Nav Chapter Metadata",
+   "Miscellaneous"
+  ],
+  [
+   "Side Nav Lesson Name",
+   "Paragraph"
+  ],
+  [
+   "Side Nav Lesson Metadata",
+   "Miscellaneous"
+  ],
+  [
+   "Course Name",
+   "Heading"
+  ],
+  [
+   "Course Name (Mobile)",
+   "Heading"
+  ],
+  [
+   "Chapter Name",
+   "Paragraph"
+  ],
+  [
+   "Lesson Name",
+   "Heading"
+  ],
+  [
+   "Disclaimer Text",
+   "Paragraph"
+  ],
+  [
+   "Title",
+   "Paragraph"
+  ],
+  [
+   "Price",
+   "Paragraph"
+  ],
+  [
+   "Description",
+   "Paragraph"
+  ]
+ ],
+ "count": "Filled after the read, no refit first."
+}
