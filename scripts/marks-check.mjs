@@ -3249,6 +3249,46 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const arch = await open(), archOn = evalJs(S, `JSON.stringify([document.querySelectorAll('.lo-tile.lo-unbuilt[disabled]').length, document.querySelectorAll('[data-layout]').length])`);
   add('Archive alone: its 6 tiles show, not built', arch.length === 6 && archOn.join() === '6,0', JSON.stringify({ arch, archOn }));
   browser(S, 'press', 'Escape'); await pause(200);
+  // Two picks read each (CAP-U10SHARE-*.json): those built as read, the other tiles shown and not built.
+  for (const [T, F, picks] of [['Instagram', 'INSTAGRAM', [2, 4]], ['Flickr', 'FLICKR', [2, 4]], ['Scrolling', 'SCROLLING', [0, 2]]]) {
+    const R = FIND(`CAP-U10SHARE-${F}`).reads, L = FIND(`CAP-U10LIST-${F}`).reads.open.tileNames.length;
+    alone(T); await pause(250);
+    const tiles = await open(), errs = [];
+    const off = evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list .lo-tile')].map((t) => t.disabled ? -1 : +t.dataset.layout))`);
+    const want = tiles.map((_, n) => (picks.includes(n) ? n : -1));
+    if (tiles.length !== L || off.join() !== want.join()) errs.push(`tiles ${off}`);
+    for (const n of picks) {
+      const g = pick(n), r = R[`pick ${n}`], lk = r.look, st = r.stack[0];
+      if (!g) { errs.push(`${n} no tile`); continue; }
+      if (g.rows !== lk.rows || g.at[0][0] !== st.desktop || g.at[0][1] !== st.phone || g.look.join() !== [lk.th, lk.dv ? DV[JSON.parse(lk.ctx).type] : ''].join()) errs.push(`${n} ${JSON.stringify(g)}`);
+    }
+    add(`View Layouts, ${T} alone: ${picks.length} read picks of ${L}, the rest not built`, errs.length === 0, errs.slice(0, 3).join(' | '));
+    browser(S, 'press', 'Escape'); await pause(200);
+  }
+  // The types the family test didn't put with Code or Video: every tile shown, none built.
+  const none = [];
+  for (const T of ['Chart', 'Calendar', 'Bandsintown', 'Tock', 'SoundCloud', 'Menu']) {
+    alone(T); await pause(250); const t = await open();
+    const c = evalJs(S, `JSON.stringify([document.querySelectorAll('.lo-tile.lo-unbuilt[disabled]').length, document.querySelectorAll('[data-layout]').length])`);
+    if (t.length !== 5 || c.join() !== '5,0') none.push(`${T} ${t.length} ${c}`);
+    browser(S, 'press', 'Escape'); await pause(200);
+  }
+  add('Chart, Calendar, Bandsintown, Tock, SoundCloud, Menu alone: 5 tiles, none built', none.length === 0, none.join(', '));
+  // Embed and Tag Cloud take Code's list (CAP-U10FAMILYPREDICT.json): each read pick's columns, row starts, rows past the
+  // block and look; the block keeps its own height here, so the row ends follow ours.
+  const fam = [];
+  for (const [T, F, picks] of [['Embed', 'EMBED', [0, 2]], ['Tag Cloud', 'TAG-CLOUD', [1, 3]]]) {
+    const R = FIND(`CAP-U10SHARE-${F}`).reads;
+    alone(T); await pause(250); await open();
+    for (const n of picks) {
+      const g = pick(n), r = R[`pick ${n}`], st = r.stack[0], lk = r.look, A = (s) => s.split('/').map(Number);
+      const [d0, dc0, d1, dc1] = A(st.desktop), [p0, pc0, , pc1] = A(st.phone), [g0, gc0, g1, gc1] = A(g.at[0][0]), [q0, qc0, , qc1] = A(g.at[0][1]);
+      const ok = g0 === d0 && gc0 === dc0 && gc1 === dc1 && q0 === p0 && qc0 === pc0 && qc1 === pc1 && g.rows - (g1 - 1) === lk.rows - (d1 - 1) && g.look.join() === [lk.th, lk.dv ? DV[JSON.parse(lk.ctx).type] : ''].join();
+      if (!ok) fam.push(`${T} ${n} ${JSON.stringify(g)}`);
+    }
+    browser(S, 'press', 'Escape'); await pause(200);
+  }
+  add('Embed and Tag Cloud alone: their read picks by Code\'s list', fam.length === 0, fam.join(' | '));
 }
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
