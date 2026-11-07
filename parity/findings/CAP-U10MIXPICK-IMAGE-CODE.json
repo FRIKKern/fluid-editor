@@ -1,0 +1,462 @@
+{
+  "item": "CAP-U10MIXPICK-IMAGE-CODE",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "CAP-U10MIXPICK-IMAGE-CODE",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Image"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "before",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0
+      }
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "hover",
+      {
+        "labelTag": true
+      }
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "pick 0",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "pick 4",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "before": {
+      "sections": [
+        {
+          "id": "3f112c",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "85_420",
+            "85_647"
+          ],
+          "h": 667.6
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "5_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "5_647",
+          "type": "csr",
+          "desktop": "1/2/7/6",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "hover": {
+      "labelTag": [
+        "Image",
+        "Code"
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            438.8,
+            ""
+          ],
+          [
+            "2",
+            573.5,
+            ""
+          ],
+          [
+            "3",
+            735.2,
+            ""
+          ],
+          [
+            "4",
+            912.8,
+            ""
+          ],
+          [
+            "5",
+            1087,
+            ""
+          ],
+          [
+            "6",
+            1304.3,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 0": {
+      "sections": [
+        {
+          "id": "3f112c",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 10,
+          "blocks": [
+            "85_420",
+            "85_647"
+          ],
+          "h": 749.8
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            438.8,
+            ""
+          ],
+          [
+            "2",
+            573.5,
+            ""
+          ],
+          [
+            "3",
+            735.2,
+            ""
+          ],
+          [
+            "4",
+            912.8,
+            ""
+          ],
+          [
+            "5",
+            1084.5,
+            ""
+          ],
+          [
+            "6",
+            1284.3,
+            ""
+          ]
+        ]
+      },
+      "stack": [
+        {
+          "id": "5_420",
+          "type": "csr",
+          "desktop": "2/2/10/12",
+          "phone": "1/2/8/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "5_647",
+          "type": "csr",
+          "desktop": "6/14/8/22",
+          "phone": "9/2/11/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 4": {
+      "sections": [
+        {
+          "id": "3f112c",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 15,
+          "blocks": [
+            "85_647",
+            "85_420"
+          ],
+          "h": 955.2
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 955.2,
+        "rows": 15,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            -291,
+            ""
+          ],
+          [
+            "1",
+            -156.2,
+            ""
+          ],
+          [
+            "2",
+            -21.5,
+            ""
+          ],
+          [
+            "3",
+            140.2,
+            ""
+          ],
+          [
+            "4",
+            317.8,
+            ""
+          ],
+          [
+            "5",
+            489.5,
+            ""
+          ],
+          [
+            "6",
+            689.3,
+            ""
+          ]
+        ]
+      },
+      "stack": [
+        {
+          "id": "5_647",
+          "type": "csr",
+          "desktop": "1/10/3/18",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "5_420",
+          "type": "csr",
+          "desktop": "2/3/16/25",
+          "phone": "6/1/16/11",
+          "z": [
+            "0",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

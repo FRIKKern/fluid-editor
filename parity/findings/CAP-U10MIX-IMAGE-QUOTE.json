@@ -1,0 +1,304 @@
+{
+  "item": "CAP-U10MIX-IMAGE-QUOTE",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "CAP-U10MIX-IMAGE-QUOTE",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Image"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "before",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0
+      }
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "hover",
+      {
+        "labelTag": true,
+        "btnByText": [
+          "View Layouts"
+        ]
+      }
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "open",
+      {
+        "tiles": true,
+        "tileNames": true
+      }
+    ],
+    [
+      "shot",
+      "open"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "before": {
+      "sections": [
+        {
+          "id": "beb9dc",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "22_438",
+            "22_665"
+          ],
+          "h": 667.6
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_665",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "hover": {
+      "labelTag": [
+        "Image",
+        "Quote"
+      ],
+      "btnByText": {
+        "View Layouts": {
+          "disabled": false,
+          "aria": null,
+          "opacity": 1,
+          "color": "rgb(14, 14, 14)",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        }
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "open": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          118.8
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          118.8
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          169.3
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          185.2
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          179.4
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          208
+        ],
+        [
+          "layout-suggestion-slice-6",
+          "Section editor form",
+          null,
+          "",
+          283,
+          186.1
+        ]
+      ],
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            438.8,
+            ""
+          ],
+          [
+            "2",
+            573.5,
+            ""
+          ],
+          [
+            "3",
+            758.8,
+            ""
+          ],
+          [
+            "4",
+            970.9,
+            ""
+          ],
+          [
+            "5",
+            1175.4,
+            ""
+          ],
+          [
+            "6",
+            1399.3,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
