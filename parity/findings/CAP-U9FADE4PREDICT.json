@@ -3,12 +3,42 @@
  "capturedAt": "2026-11-07",
  "question": "U9's not-read: a new section during a fade, a scroll during a fade, the phone, and a gesture's start with the press and the first move sent apart. Predictions, written and pushed before any read.",
  "predictions": [
-  {"case": "new section during a fade", "predict": "The first pair keeps falling to 0 on its own series. The middle pair runs back from where it reached. The third rises from 0. Three pairs show at once, all on the 0.2 s curve."},
-  {"case": "back to the first section during a fade", "predict": "The first pair runs back from where it reached; the middle pair runs back down."},
-  {"case": "scroll during a fade", "predict": "The fade runs on, the same series, with the tops moving with the page. It doesn't restart."},
-  {"case": "scroll with the pointer still, a new section under it", "predict": "Nothing changes until the pointer moves: no mouse event, no new hover. Then the normal cross."},
-  {"case": "phone", "predict": "The same 0.2 s ease-in-out both ways."},
-  {"case": "a gesture's start", "predict": "No fade on the press alone. It starts on the first move, as ours does."}
+  {
+   "case": "new section during a fade",
+   "predict": "The first pair keeps falling to 0 on its own series. The middle pair runs back from where it reached. The third rises from 0. Three pairs show at once, all on the 0.2 s curve."
+  },
+  {
+   "case": "back to the first section during a fade",
+   "predict": "The first pair runs back from where it reached; the middle pair runs back down."
+  },
+  {
+   "case": "scroll during a fade",
+   "predict": "The fade runs on, the same series, with the tops moving with the page. It doesn't restart."
+  },
+  {
+   "case": "scroll with the pointer still, a new section under it",
+   "predict": "Nothing changes until the pointer moves: no mouse event, no new hover. Then the normal cross."
+  },
+  {
+   "case": "phone",
+   "predict": "The same 0.2 s ease-in-out both ways."
+  },
+  {
+   "case": "a gesture's start",
+   "predict": "No fade on the press alone. It starts on the first move, as ours does."
+  },
+  {
+   "case": "rising, then off every section",
+   "predict": "It runs back from where it reached, in 0.2 s times that opacity, as the middle pair did in CAP-U9FADE4B. Written after those reads."
+  },
+  {
+   "case": "the outline, a third section during a fade",
+   "predict": "Runs the same way as Add Section: the first falls on, the middle runs back in a shortened time, the third rises. Written after the Add Section reads."
+  },
+  {
+   "case": "the outline, a wheel turn during a fade",
+   "predict": "The fade runs on and the tops move with the page."
+  }
  ],
  "ours": "Written before any read of ours in these cases too, so a difference shows either way."
 }
