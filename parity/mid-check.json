@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 768,
+  "pass": 769,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -10,7 +10,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 775,
+  "total": 776,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3569,6 +3569,10 @@
     },
     {
       "name": "group drop by the rule u3",
+      "diffs": []
+    },
+    {
+      "name": "group drop keeps a written Text short",
       "diffs": []
     }
   ]
