@@ -2446,6 +2446,13 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const withDivider = Math.round(await openLayouts(300));
   add('Layouts panel: a divider\'s height doesn\'t count on opening (248 at 763.6)', withDivider === 248, JSON.stringify(withDivider));
   browser(S, 'press', 'Escape'); await pause(200);
+  // A start with Flip X on (CAP-U10FLIP.json): layout 3's own rounded divider has it off, layout 4 puts the start's back.
+  await para(); await change(`(m) => { m.sections[0].divider = true; m.sections[0].dividerFlip = true; }`);
+  await openLayouts(300);
+  const flipOf = () => js(`const s = fe.model.sections[0]; return JSON.stringify([s.dividerShape || 'wavy', !!s.dividerFlip]);`);
+  await pickTile(3); const f3 = flipOf(); await pickTile(4); const f4 = flipOf();
+  add('Layouts: a Flip X start, off on layout 3\'s rounded divider, back on layout 4', f3.join() === 'rounded,false' && f4.join() === 'wavy,true', JSON.stringify([f3, f4]));
+  browser(S, 'press', 'Escape'); await pause(200);
 }
 // U10: the Layouts panel closing and a pick on a section with a look, against CAP-VIEWLAYOUTS.json.
 {

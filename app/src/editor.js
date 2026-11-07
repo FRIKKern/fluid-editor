@@ -648,10 +648,12 @@ const FORM_ON_PAGE = '.fe-form:not(.form-lightbox .fe-form)';
 function contentRows(b, m, normalizing = false, widthPull = false, exact = false) {
   // Content that follows the width (STANDINS.json). A pull that changes the width lets it run over by
   // less than the gap until the next gesture; one that changes only the height does not.
-  if (b.standin) {
+  // A stand-in with a phone height counts it there, as one whose content follows the width (CAP-68PULL.json).
+  if (b.standin || (b.phoneHeight && bp === 'mobile')) {
     const c = blockEl(b.id)?.querySelector('.sqs-block-content');
     if (!c) return 1;
-    const h = c.getBoundingClientRect().height;
+    // A Quote's padding sits around its content box and still takes rows (CAP-75QUOTE.json).
+    const o = win.getComputedStyle(c.parentElement), h = c.getBoundingClientRect().height + parseFloat(o.paddingTop) + parseFloat(o.paddingBottom);
     if (exact) return (h + m.rg) / m.pitch;
     return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
   }
@@ -1301,6 +1303,16 @@ function startResize(e, dir) {
   gesture.fits = (held.type === 'text' || held.standin === 'instagram') && !gesture.members && [contentRows(held, gesture.m), 2].includes(span) && span >= contentRows(held, gesture.m);
   if (gesture.fits) { gesture.need0 = contentRows(held, gesture.m); gesture.height0 = textHeight(held); }
   gesture.bottom0 = blockEl(held.id).getBoundingClientRect().bottom;
+  // On a phone a stand-in's content stretches its rows. A south pull counts from the rows that content needs on the plain
+  // pitch, the phone's 24px row (render.js) and its gap, and steps on that pitch: one row down gives ceil((height + gap) / pitch) + 1 (CAP-68PULL.json).
+  if (bp === 'mobile' && (held.standin || held.phoneHeight)) {
+    const h = blockEl(held.id).querySelector('.sqs-block-content').getBoundingClientRect().height, rg = gesture.m.rg, pitch = PHONE_ROW + rg;
+    gesture.free = { pitch, rg, need: Math.max(1, Math.ceil((h + rg) / pitch - 0.02)) };
+    // Held, the block leaves the flow and its rows would close up, the page with them, and the frame's scroll would jump: the grid
+    // keeps its height until the gesture ends.
+    const fe = feEl(gesture.sid);
+    fe.style.minHeight = `${fe.getBoundingClientRect().height}px`;
+  }
 }
 
 const boxOf = (areas) => [Math.min(...areas.map((a) => a[0])), Math.min(...areas.map((a) => a[1])), Math.max(...areas.map((a) => a[2])), Math.max(...areas.map((a) => a[3]))];
@@ -1393,10 +1405,12 @@ function updateResize(e) {
     } else c1 = snapColumn(m, c1, d, lo, hi);
   }
   if (g.dir.includes('w')) c0 = snapColumn(m, c0, dx, 1, Math.max(1, c1 - leastCols));
-  if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, dy));
+  if (g.dir.includes('s')) r1 = g.free ? r0 + g.free.need + Math.sign(dy) * Math.max(0, Math.round((Math.abs(dy) - g.free.rg / 2) / g.free.pitch)) : Math.max(r0 + 1, snapRow(m, r1, dy));
   if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, dy)));
   // Guard: a target cannot be shorter than the content at the width the block has now.
-  const need = contentRows(B(g.sid, g.bid), m, false, /[ew]/.test(g.dir));
+  // A stand-in on a phone takes at least the rows of the height it drew at the press, on a side pull too, and keeps them as it
+  // narrows; one whose content grows as it narrows, like a Quote, takes that (CAP-X6PHONEFLOORS.json).
+  const need = Math.max(g.free && !g.dir.includes('n') ? g.free.need : 1, contentRows(B(g.sid, g.bid), m, false, /[ew]/.test(g.dir)));
   // A Video on a corner pull: the rows its new width takes go on the bottom, whatever the top does (CAP-X6PULLS.json, CAP-X6AGAIN.json).
   if (held.type === 'video' && g.dir.includes('n') && /[ew]/.test(g.dir) && g.orig[2] - g.orig[0] < need) r1 = g.orig[0] + need;
   if (r1 - r0 < need) {
@@ -1431,6 +1445,7 @@ function endGesture() {
   const fe = feEl(g.sid);
   fe.dataset.gridIsVisible = 'false';
   fe.style.gridAutoRows = '';
+  fe.style.minHeight = '';
   clearFlags(g.sid);
   fe.classList.remove('is-gesture');
   g.line?.remove();
@@ -4766,6 +4781,10 @@ function renderPanel() {
 // place in the stack goes by size (CAP-NEWORDER*.json).
 const pageTitle = () => document.querySelector('.page-name')?.textContent.trim() || 'Page';
 const STANDIN_TYPES = ['Quote', 'Chart', 'SoundCloud', 'Flickr', 'Instagram']; // their content follows the width (STANDINS.json)
+// On a phone a block draws its content's height, not its rows. These stand-ins hold the height the oracle's block draws at the
+// phone's 376.7 content width: measurements only, nothing of the content (CAP-68SCHED.json, CAP-68CAL.json, CAP-68ARCH.json, CAP-68PRICE.json).
+const PHONE_HEIGHT = { Scheduling: 688, Calendar: 514, Archive: 851.2, 'Pricing Plan': 430.1 };
+const PHONE_ROW = 24; // a phone row's least height, as render.js draws the grid
 const ADD_TYPES = [
   ['Text', 8, 2, () => ({ type: 'text', html: '<p style="white-space:pre-wrap;" data-rte-preserve-empty="true"></p>' })],
   ['Image', 6, 6, () => ({ type: 'image', alt: '', empty: true, mode: 'fit' })],
@@ -4785,10 +4804,11 @@ const ADD_TYPES = [
   ['Markdown', 4, 6, () => ({ type: 'markdown', text: '' })], // CAP-T10PRE.json
   // Not built yet (T11, T12): a stand-in of the size the oracle gives (parity/findings/U5.json sizes).
   ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Menu: [12, 28], Chart: [8, 8], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
-    .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}) })]),
+    .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}), ...(PHONE_HEIGHT[name] ? { phoneHeight: PHONE_HEIGHT[name] } : {}) })]),
 ];
 // A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6, CAP-X6FLOORSPHONE.json, CAP-T14CONTROL.json, CAP-T14LAND.json, CAP-T14HEIGHTS2.json).
-const PHONE_ROWS = { Accordion: 5, Scheduling: 5, Flickr: 5, SoundCloud: 5, Archive: 8 };
+// Calendar and Pricing Plan too, a rule and not late content: the same rows from 1 s to 111 s (CAP-68CAL.json, CAP-68PRICE.json, CAP-68PULL.json).
+const PHONE_ROWS = { Accordion: 5, Scheduling: 5, Flickr: 5, SoundCloud: 5, Archive: 8, Calendar: 15, 'Pricing Plan': 10 };
 // A new block lands by how far its section's top sits above the frame; past the section's last row it lands on
 // row 1, and the frame goes so the block's middle is at its middle, or as near as the page allows (CAP-T14FRAME.json,
 // CAP-T14FRAME2.json, CAP-T14PLACE.json, CAP-T14BACK.json: inferred, on predictions). Read on desktop only, so the

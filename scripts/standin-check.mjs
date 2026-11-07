@@ -31,6 +31,7 @@ const content = () => evalJs(S, `(() => { const d = document.getElementById('sit
 const C = F.content;
 place('Quote', 6, 6); let c = content();
 add('Quote at span 6: the block', near(c.block.slice(2), C.Quote.at6.block), c.block);
+add('Quote at span 6: its content box, inside the padding', near(c.inner, C.Quote.at6.content), c.inner);
 add('Quote at span 6: its text box and wrap', Math.abs(c.figure[3] + 2 * C.Quote.figureMargin + 2 * c.block[2] * 0.06 - (C.Quote.at6.content[3] + 2 * C.Quote.at6.content[0])) <= 1.5 && Math.abs(c.figure[0] - C.Quote.at6.content[0]) <= 1, c.figure);
 for (const [span, k] of [[8, 'at8'], [10, 'at10'], [12, 'at12']]) {
   place('Quote', span, 6); c = content();
