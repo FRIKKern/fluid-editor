@@ -228,15 +228,17 @@ const HOLD = 500; // how long a preview stays at its end (0.3s and 0.5s runs rea
 const SCROLL_PREVIEW = 1000; // a row's Preview on On Scroll, with no scroll needed
 
 // Preview: to the end, a hold, and back; On Appear from its Start to rest; a Loop one way, Ping
-// Pong back too; On Scroll from Start to End. Follow has no preview here yet (unbuilt).
-export function playPreview(el, a, done) {
+// Pong back too; On Scroll from Start to End; Follow along a path of our own. With the End tab
+// open it stays at the End (CAP-T15FOLLOW.json).
+export function playPreview(el, a, done, stay) {
   clear(el);
   el.setAttribute('data-m-id', 'm-preview-sequence');
   const s = stateOf(el), end = () => { clear(el); done?.(); };
   if (a.trigger === 'appear') { s.pose = numbers(a.start); write(el, s); morph(el, REST_N, a, seconds(a), end); return; }
   if (a.trigger === 'scroll') { s.pose = numbers(a.start); write(el, s); morph(el, numbers(a.end), a, SCROLL_PREVIEW, end); return; }
   if (a.trigger === 'loop') { morph(el, numbers(a.end), a, seconds(a), a.type === 'Ping Pong' ? () => morph(el, REST_N, a, seconds(a), end) : end); return; }
-  if (a.trigger === 'follow') { end(); return; }
+  if (a.trigger === 'follow') { followPreview(el, a, end); return; }
+  if (stay && (a.trigger === 'hover' || a.trigger === 'press')) { morph(el, numbers(a.end), a, seconds(a), end); return; }
   morph(el, numbers(a.end), a, seconds(a), () => { s.timer = setTimeout(() => morph(el, REST_N, a, seconds(a), end), HOLD); });
 }
 // The End, Start or Range tab holds the block in that pose.
@@ -250,6 +252,7 @@ export const releasePose = clear;
 
 // A preset's tile plays its own preset on the square; Grow and Lift reach 1.21 there, not 1.10.
 export function playTile(square, a) {
+  if (a.trigger === 'follow') return;
   const t = JSON.parse(JSON.stringify(a));
   if (t.end) { t.end[2] = `${parseFloat(t.end[2]) ** 2 / 100}%`; t.end[3] = `${parseFloat(t.end[3]) ** 2 / 100}%`; }
   playPreview(square, t);
@@ -340,6 +343,68 @@ function runLoop(el, a) {
   };
   s.raf = win.requestAnimationFrame(frame);
 }
+// ---- Follow (CAP-T15FOLLOW.json). The mouse's place from the box's centre sets a pose. Attract
+// grows with the distance, Repel fades with it and pushes away; past the radius there is no pose.
+export function followPose(a, dx, dy, R, away = [1, 0]) {
+  const d = Math.hypot(dx, dy);
+  if (d >= R) return null;
+  const end = numbers(a.end), repel = a.motion === 'Repel', v = repel ? 1 - d / R : d / R;
+  const ux = d ? dx / d : away[0], uy = d ? dy / d : away[1];
+  const ax = repel ? v * ux : dx / R, ay = repel ? v * uy : dy / R, push = repel ? -1 : 1;
+  return {
+    o: 1 + (end.o - 1) * v, r: end.r * (ax - ay), sx: 1 + (end.sx - 1) * v, sy: 1 + (end.sy - 1) * v,
+    kx: end.kx * ax, ky: end.ky * ay,
+    xp: end.xp * ax * push, xpx: end.xpx * ax * push, yp: end.yp * ay * push, ypx: end.ypx * ay * push,
+  };
+}
+// How a block chases that pose: Smoothing sets the time, Bounce the spring. Fitted to steps read.
+export function followSpring(a) {
+  const s = Math.max(0.02, parseFloat(a.smoothing) || 0), b = parseFloat(a.bounce) || 0;
+  const at = (pts) => { for (let i = 1; i < pts.length; i++) if (b <= pts[i][0]) { const k = (b - pts[i - 1][0]) / (pts[i][0] - pts[i - 1][0]); return pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * k; } return pts.at(-1)[1]; };
+  return { w: at(FOLLOW_W) / s, z: at(FOLLOW_Z) };
+}
+const FOLLOW_W = [[0, 18], [0.3, 15], [0.6, 9], [1, 6]], FOLLOW_Z = [[0, 2.2], [0.3, 1.2], [0.6, 0.45], [1, 0.1]];
+function chaser(el, a) {
+  const s = stateOf(el), win = el.ownerDocument.defaultView, { w, z } = followSpring(a), vel = {};
+  let to = REST_N, last = 0;
+  s.win = win;
+  const tick = (now) => {
+    const dt = Math.min(0.033, last ? (now - last) / 1000 : 0.016);
+    last = now;
+    const n = {};
+    let moving = false;
+    for (const k of Object.keys(to)) {
+      vel[k] = (vel[k] || 0) + (w * w * (to[k] - s.pose[k]) - 2 * z * w * (vel[k] || 0)) * dt;
+      n[k] = s.pose[k] + vel[k] * dt;
+      if (Math.abs(to[k] - n[k]) > 0.001 || Math.abs(vel[k]) > 0.01) moving = true;
+    }
+    s.pose = moving ? n : to;
+    write(el, s);
+    s.raf = moving ? win.requestAnimationFrame(tick) : 0;
+    if (!moving) last = 0;
+  };
+  return { aim(p) { to = p; if (!s.raf) s.raf = win.requestAnimationFrame(tick); } };
+}
+function followBox(el, a) {
+  const box = a.on === 'Section' ? el.closest('section') || el : el;
+  let top = 0, left = 0;
+  for (let e = box; e; e = e.offsetParent) { top += e.offsetTop; left += e.offsetLeft; }
+  const w = box.offsetWidth, h = box.offsetHeight;
+  return { x: left + w / 2, y: top + h / 2, R: (pct(a.radius) * Math.hypot(w, h)) / 2 };
+}
+// Preview has no mouse: an imagined one goes round and out from the centre, and the block ends at rest.
+const PATH_MS = 1650, PATH_TURN = 1330, PATH_OUT = 0.27;
+function followPreview(el, a, end) {
+  const { R } = followBox(el, a), c = chaser(el, a), win = el.ownerDocument.defaultView, s = stateOf(el), t0 = win.performance.now();
+  const step = (now) => {
+    const t = now - t0;
+    if (t >= PATH_MS) { end(); return; }
+    const out = (PATH_OUT * R * t) / 1000, turn = (2 * Math.PI * t) / PATH_TURN;
+    c.aim(followPose(a, out * Math.cos(turn), out * Math.sin(turn), R) || REST_N);
+    s.timer = setTimeout(() => step(win.performance.now()), 16);
+  };
+  step(t0);
+}
 let motion = null;
 export function stopPageMotion() {
   if (!motion) return;
@@ -349,13 +414,14 @@ export function stopPageMotion() {
 }
 export function startPageMotion(doc, rowsOf) {
   stopPageMotion();
-  const win = doc.defaultView, els = new Set(), appear = [], scroll = [];
+  const win = doc.defaultView, els = new Set(), appear = [], scroll = [], follow = [];
   for (const el of doc.querySelectorAll('.fe-block')) {
     const rows = rowsOf(el.dataset.blockId) || [];
     const row = (t) => rows.find((a) => a.trigger === t);
-    const a = row('scroll') || row('appear') || row('loop');
+    const a = row('scroll') || row('appear') || row('loop') || row('follow');
     if (!a) continue;
     els.add(el);
+    if (a.trigger === 'follow') { follow.push({ el, a, c: chaser(el, a), away: [1, 0] }); continue; }
     if (a.trigger === 'loop') { runLoop(el, a); continue; }
     (a.trigger === 'appear' ? appear : scroll).push({ el, a, from: numbers(a.start), to: a.trigger === 'scroll' ? numbers(a.end) : REST_N });
     const s = stateOf(el);
@@ -371,8 +437,18 @@ export function startPageMotion(doc, rowsOf) {
       morph(r.el, REST_N, r.a, seconds(r.a), () => clear(r.el));
     }
   };
+  const moved = (e) => {
+    for (const r of follow) {
+      const b = followBox(r.el, r.a), dx = e.clientX + win.scrollX - b.x, dy = e.clientY + win.scrollY - b.y, d = Math.hypot(dx, dy);
+      if (d) r.away = [dx / d, dy / d];
+      const p = followPose(r.a, dx, dy, b.R, r.away);
+      if (p) r.c.aim(p);
+      else if (r.a.snap) r.c.aim(REST_N);
+    }
+  };
   win.addEventListener('scroll', check, { passive: true });
   win.addEventListener('resize', check);
+  if (follow.length) doc.addEventListener('pointermove', moved);
   check();
-  motion = { els, off: () => { win.removeEventListener('scroll', check); win.removeEventListener('resize', check); } };
+  motion = { els, off: () => { win.removeEventListener('scroll', check); win.removeEventListener('resize', check); doc.removeEventListener('pointermove', moved); } };
 }
