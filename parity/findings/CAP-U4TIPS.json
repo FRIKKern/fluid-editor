@@ -299,10 +299,8 @@
   "errors": [],
   "leftDirty": true,
   "answer": "The tip shows 517 ms after the pointer gets on the button, all 8 tries on Duplicate and Remove within 528, by the page's own clock at each frame, so a timer of about 500 ms. It shows at full opacity at once, no fade. Corrects TOOLBARS.json's \"there at 400 ms\", which was timed from outside the page. Primary's tip says Button Type.",
-  "ours": "216 and 217 ms, by the same clock: ours has a 200 ms timer. Read on 5210, 2026-11-06.",
-  "differs": [
-    "The tip on a toolbar button: about 500 ms on the oracle, 200 in ours."
-  ],
+  "ours": "510 to 530 ms over 3 tries by the same clock, full opacity: ours has a 500 ms timer now (npm run marks-check, 'Tip waits about 517 ms, no fade'). It was 216 and 217 with a 200 ms timer, read on 5210, 2026-11-06, and 207 to 217 on the old app, 2026-11-07.",
+  "differs": [],
   "pressed": [
     "Real moves only."
   ]

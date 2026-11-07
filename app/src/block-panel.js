@@ -291,6 +291,12 @@ function blendRow(cur, open) {
   return `<div class="bp-blend-wrap"><div class="sp-row bp-blend" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="${open}" data-blend-toggle><span class="sp-label">Blend Mode</span><span class="bp-blend-value">${name}</span></div>${list}</div>`;
 }
 
+// A Video's is a name and a menu, not one button (CAP-VBLEND.json): the same list, over it and 9 to its left.
+function videoBlendRow(cur) {
+  const name = BLEND_MODES.find((m) => blendValue(m) === cur) || 'Normal';
+  return `<div class="sp-row bp-image-sel bp-vblend"><span class="sp-label">Blend Mode</span><button type="button" role="combobox" class="an-sel" data-image-sel="vblend" data-cur="${cur}" aria-haspopup="listbox"><span>${name}</span>${pi('<path d="M7 10l5 5 5-5"/>')}</button></div>`;
+}
+
 // Stroke (parity/findings/STROKE.json): No, Solid and Dashed Stroke; with a stroke, Stroke Color
 // (not built), Thickness S/M/L, Corner and Padding S/M/L.
 // The Stack's Layout group (parity/findings/S3.json panel): Direction, Position, Gap and Padding.
@@ -544,7 +550,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
     else if (content?.kind === 'map') body = mapDesignHtml(content, pairs.join(''));
     else if (content?.kind === 'video') body = '<div class="bp-thead"><span>Appearance</span></div>' + videoAppearanceRows(d)
       + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`
-      + '<div class="bp-thead"><span>Effects</span></div>' + blendRow(d.blend || 'normal', open === 'blend') + blurRows(d);
+      + '<div class="bp-thead bp-vfx"><span>Effects</span></div>' + videoBlendRow(d.blend || 'normal') + blurRows(d);
     // Code, embed and Line blocks (CODEEMBED.json, T11.json) and a form as a Lightbox button have the transforms alone.
     else if (content?.kind === 'code' || content?.kind === 'embed' || content?.kind === 'line' || (content?.kind === 'form' && content.lightbox)) body = `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`;
     // A shape's Design tab (parity/findings/SHAPESTYLES.json):
