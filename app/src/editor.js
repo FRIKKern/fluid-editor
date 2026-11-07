@@ -4091,7 +4091,9 @@ function softenTextEdit() {
   b.html = ed.ce.innerHTML;
   lay(b).area = [...ed.area];
   growRows(S(ed.sid));
+  editing = null; // The phone order follows now: this is the edit's close
   const now = commitTextSteps(ed, height);
+  editing = ed;
   Object.assign(ed, { soft: true, before: now, marks: [now], lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height, height1: undefined });
   blockEl(ed.bid).classList.remove('is-text-editing');
   renderTextBar();
