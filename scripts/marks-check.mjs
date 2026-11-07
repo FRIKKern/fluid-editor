@@ -316,7 +316,7 @@ const openPanelAt = async (edit, H) => {
   const sy = 914 + 55 + 29 - edit;
   await frameScroll(sy);
   await hoverInSection(Math.min(H - 10, Math.max(70, 914 - sy + 55 + 40)));
-  const e = chromeBox('Edit Section');
+  const e = chromeBox('Open Section Settings');
   await pressAt(e[0] + 60, e[1] + 20);
   const p = panelRect();
   browser(S, 'press', 'Escape'); await pause(120); await hoverBar(800, 20); await pause(180);
@@ -334,7 +334,7 @@ for (const [e, want] of SB.panelTop.samples.H800.filter(([v]) => [111, 311, 361,
 viewport(S, 1600, 1000); await pause(300);
 // With the panel open: comes along with the button, stops at H - 476, leaves the section's bottom alone.
 await frameScroll(914); await hoverInSection(300);
-const pe = chromeBox('Edit Section'); await pressAt(pe[0] + 60, pe[1] + 20);
+const pe = chromeBox('Open Section Settings'); await pressAt(pe[0] + 60, pe[1] + 20);
 const during = {};
 for (const y of [814, 514, 464, 214, 714, 1014, 1214, 1414]) { await frameScroll(y); during[y] = panelRect()[1]; }
 add('open panel follows the button', Math.abs(during[814] - 179) <= 3 && Math.abs(during[514] - 479) <= 3, JSON.stringify(during));
@@ -344,19 +344,19 @@ browser(S, 'press', 'Escape'); await pause(120); await hoverBar(800, 20); await 
 // Stuck chrome, on any scroll; not stopped by the section's bottom.
 for (const [sy, y] of [[914, 300], [1214, 300], [1700, 80]]) {
   await frameScroll(sy); await hoverInSection(y);
-  const ed = chromeBox('Edit Section'), la = chromeBox('Open Layers Panel'), rm = chromeBox('Remove Section');
+  const ed = chromeBox('Open Section Settings'), la = chromeBox('Open Layers Panel'), rm = chromeBox('Remove Section');
   add(`stuck at scroll ${sy}`, Math.abs(ed[1] - 84) <= 1 && Math.abs(la[1] - 81) <= 1 && Math.abs(rm[1] - 236) <= 1, JSON.stringify([ed[1], la[1], rm[1]]));
 }
 await frameScroll(0); await hoverInSection(700);
-add('first section under its header', Math.abs(chromeBox('Edit Section')[1] - 222.6) <= 1 && Math.abs(chromeBox('Open Layers Panel')[1] - 219.6) <= 1);
+add('first section under its header', Math.abs(chromeBox('Open Section Settings')[1] - 222.6) <= 1 && Math.abs(chromeBox('Open Layers Panel')[1] - 219.6) <= 1);
 // Edit Section sits on the sum of the rounded heights above, 29 under it; Layers 3 less. Exact, against each section's read.
 const preciseTop = (label) => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-chrome button')].find((b) => b.getAttribute('aria-label') === '${label}').getBoundingClientRect().top))()`);
 await pause(250);
-add('first section: Edit Section exact', Math.abs(preciseTop('Edit Section') - 222.6) <= 0.1, String(preciseTop('Edit Section')));
+add('first section: Edit Section exact', Math.abs(preciseTop('Open Section Settings') - 222.6) <= 0.1, String(preciseTop('Open Section Settings')));
 for (const [n, want] of Object.entries(SB.sticky.offsets.Edit)) {
   const at = evalJs(S, `(() => { const W = document.querySelector('iframe').contentWindow, s = W.document.querySelectorAll('main#page .page-section')[${n}]; return JSON.stringify(s.getBoundingClientRect().top + W.scrollY); })()`);
   await frameScroll(Math.round(at - 100)); await hoverInSection(sectionTop(Number(n)) + 100); await pause(250);
-  const top = sectionTop(Number(n)), e = preciseTop('Edit Section') - top, l = preciseTop('Open Layers Panel') - top;
+  const top = sectionTop(Number(n)), e = preciseTop('Open Section Settings') - top, l = preciseTop('Open Layers Panel') - top;
   add(`section ${n}: Edit Section ${want} under its top, Layers 3 less`, Math.abs(e - want) <= 0.05 && Math.abs(l - (want - 3)) <= 0.05, JSON.stringify([e, l]));
 }
 // Phones the same, Add Section too. Read on a page of other heights: parity/findings/SECTIONBAR.json, sticky.offsets.fresh.
@@ -368,7 +368,7 @@ evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(600);
   add('phone: a section with drift to test', n > 0, JSON.stringify(heights));
   const at = evalJs(S, `(() => { const W = document.querySelector('iframe').contentWindow, s = W.document.querySelectorAll('main#page .page-section')[${n}]; return JSON.stringify(s.getBoundingClientRect().top + W.scrollY); })()`);
   await frameScroll(Math.round(at - 100)); await hoverInSection(sectionTop(n) + 100, 800); await pause(250);
-  const top = sectionTop(n), e = preciseTop('Edit Section') - top, l = preciseTop('Open Layers Panel') - top;
+  const top = sectionTop(n), e = preciseTop('Open Section Settings') - top, l = preciseTop('Open Layers Panel') - top;
   add('phone: Edit Section 29 plus the sum above, Layers 3 less', Math.abs(e - 29 - sum(n)) <= 0.05 && Math.abs(l - 26 - sum(n)) <= 0.05, JSON.stringify([e, l, sum(n)]));
   const adds = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#section-chrome button')].filter((b) => b.textContent.trim() === 'Add Section').map((b) => b.getBoundingClientRect().top)))()`).map((v) => v - top);
   add('phone: Add Section on the same sum', adds.length === 2 && Math.abs(adds[0] + 18 - sum(n)) <= 0.05 && Math.abs(adds[1] + 18 - heights[n] - sum(n + 1)) <= 0.05, JSON.stringify([adds, sum(n), sum(n + 1)]));
@@ -497,7 +497,7 @@ await fresh(); await hoverBar(800, 20); await pause(300);
   const { sectionPanelGone, PANEL_CLOSES_AT } = await import('../app/src/section-chrome.js');
   add('panel closes at the inferred -421', PANEL_CLOSES_AT === -421 && sectionPanelGone({ secTop: -570.7, secBottom: 53 }) && !sectionPanelGone({ secTop: -568.7, secBottom: 55 }));
   await frameScroll(0); await hoverInSection(400);
-  const eb = chromeBox('Edit Section'); await pressAt(eb[0] + 60, eb[1] + 20);
+  const eb = chromeBox('Open Section Settings'); await pressAt(eb[0] + 60, eb[1] + 20);
   const secBottomAt = (y) => evalJs(S, `(() => { const f = document.querySelector('iframe'), W = f.contentWindow; W.scrollTo({ left: 0, top: ${y}, behavior: 'instant' }); return JSON.stringify(f.getBoundingClientRect().top + W.document.querySelectorAll('main#page .page-section')[0].getBoundingClientRect().bottom); })()`);
   const b0 = secBottomAt(0); const open0 = !!panelRect();
   const b1 = secBottomAt(b0 - 60); await pause(200); const open1 = !!panelRect();
@@ -505,7 +505,7 @@ await fresh(); await hoverBar(800, 20); await pause(300);
   await frameScroll(0); await pause(200); const open3 = !!panelRect();
   add('panel open with its section still above 54, closed past it, and closed on the way back', open0 && open1 && !open2 && !open3, JSON.stringify([b1, open1, b2, open2, open3]));
   evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(600); await frameScroll(0); await hoverInSection(400, 800);
-  const pb = chromeBox('Edit Section'); await pressAt(pb[0] + 40, pb[1] + 20);
+  const pb = chromeBox('Open Section Settings'); await pressAt(pb[0] + 40, pb[1] + 20);
   await frameScroll(4000); await pause(200); const openPhone = !!panelRect();
   add('phone: not read, so the panel stays open', openPhone);
   browser(S, 'press', 'Escape'); await pause(150);
@@ -513,13 +513,13 @@ await fresh(); await hoverBar(800, 20); await pause(300);
 }
 // Hover colors.
 const hoverColor = async (label) => { await hoverInSection(400); const b = chromeBox(label); mouse(S, 'move', b[0] + 10, b[1] + 10); await pause(100); return evalJs(S, `(() => { const x = [...document.querySelectorAll('#section-chrome button')].find((b) => b.getAttribute('aria-label') === '${label}'); return JSON.stringify(getComputedStyle(x).backgroundColor); })()`); };
-for (const [label, ours] of [['Open Layers Panel', 'Layers'], ['Add Block', 'Add Block'], ['Edit Section', 'Edit Section'], ['Duplicate Section', 'Duplicate Section'], ['Remove Section', 'Remove Section']]) {
+for (const [label, ours] of [['Open Layers Panel', 'Layers'], ['Add Block', 'Add Block'], ['Open Section Settings', 'Edit Section'], ['Duplicate Section', 'Duplicate Section'], ['Remove Section', 'Remove Section']]) {
   const c = await hoverColor(label);
   add(`hover ${label}`, c === SB.hover[ours], c);
 }
 const addc = await hoverColor('Add Section'); add('hover Add Section stays', addc === 'rgb(2, 122, 255)', addc);
 await hoverInSection(400);
-for (const [label, want, off] of [['Edit Section', [1416, 95 - 84], 'svg'], ['Add Block', [94, 88 - 81], 'svg']]) {
+for (const [label, want, off] of [['Open Section Settings', [1416, 95 - 84], 'svg'], ['Add Block', [94, 88 - 81], 'svg']]) {
   const b = chromeBox(label);
   const q = evalJs(S, `(() => { const x = [...document.querySelectorAll('#section-chrome button')].find((b) => b.getAttribute('aria-label') === '${label}'); const r = x.querySelector('${off}').getBoundingClientRect(); const t = x.querySelector('span').getBoundingClientRect(); return JSON.stringify([r.left, r.top, r.width, t.left]); })()`);
   add(`${label} icon and words`, Math.abs(q[0] - want[0]) <= 0.6 && Math.abs(q[1] - b[1] - want[1]) <= 1 && q[2] === 22 && Math.abs(q[3] - (label === 'Add Block' ? 127 : 1448)) <= 0.6, JSON.stringify(q));
@@ -555,7 +555,7 @@ browser(S, 'press', 'Escape'); await pause(120);
 await fresh();
 evalJs(S, `document.getElementById('bp-mobile').click()`); await pause(500);
 await frameScroll(900); await hoverInSection(700, 800);
-const pl = chromeBox('Open Layers Panel'), ped = chromeBox('Edit Section');
+const pl = chromeBox('Open Layers Panel'), ped = chromeBox('Open Section Settings');
 add('Phone Layers and card', pl[0] === 522 && ped[0] === 1043 && !chromeBox('Add Block') && !chromeBox('View Layouts'), JSON.stringify([pl, ped]));
 await pressAt(ped[0] + 60, ped[1] + 20);
 const pp = panelRect();
@@ -570,7 +570,7 @@ add('Phone canvas shadow', lines.shadow === 'rgba(0, 0, 0, 0.11) 0px 0px 25px 0p
 // P3: the custom height's slider and field (parity/findings/P3.json, range).
 await fresh();
 await frameScroll(914); await hoverInSection(300);
-const pc = chromeBox('Edit Section'); await pressAt(pc[0] + 60, pc[1] + 20);
+const pc = chromeBox('Open Section Settings'); await pressAt(pc[0] + 60, pc[1] + 20);
 evalJs(S, `(() => { document.querySelector('#section-panel button[aria-label="Custom height"]').click(); return 'ok'; })()`); await pause(200);
 const sli = evalJs(S, `(() => { const r = document.querySelector('.sp-custom-height input[type=range]'), t = document.querySelector('.sp-custom-height input[type=text]'), q = (e) => { const b = e.getBoundingClientRect(); return [b.left, b.width]; }; return JSON.stringify({ min: r.min, max: r.max, step: r.step, r: q(r), t: q(t), v: t.value }); })()`);
 add('Custom height slider 1 to 100', sli.min === String(P3.range.slider.min) && sli.max === String(P3.range.slider.max) && sli.step === String(P3.range.slider.step) && sli.r[1] === 237 && sli.t[1] === 28, JSON.stringify(sli));
@@ -3023,6 +3023,23 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Undo takes it back', js(`return JSON.stringify(fe.model.siteStyles.fontAssign?.[0]?.size ?? null);`) === null);
   await hit('[data-ss-back]', 120);
   add('The list shows the value', js(`return JSON.stringify(document.querySelector('.ss-as-row .ss-as-v').textContent);`) === 'Heading');
+}
+
+// U9: the control's accessible name is the oracle's and its words stay (CAP-U9BARNAMES.json). U12: a press in the frame leaves a color's popover open (CAP-U12FRAMEPRESS.json).
+{
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const hit = async (sel, wait = 100) => { js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true';`); await pause(wait); };
+  viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1200);
+  mouse(S, 'move', 700, 400); await pause(350);
+  add('Open Section Settings: the name read, its words stay', js(`const e = document.querySelector('[data-sc="edit"]'); return JSON.stringify([e.getAttribute('aria-label'), e.textContent.trim()].join());`) === 'Open Section Settings,Edit Section');
+  mouse(S, 'move', 800, 28); await pause(200);
+  await hit('#site-styles-toggle', 300); await hit('[data-ss-view="Forms"]', 200); await hit('[data-ss-view="FormColors"]', 200); await hit('[data-ss-select="form-color-Field Background"]', 150);
+  const open = () => js(`return JSON.stringify(document.getElementById('ss-dot-pop').hidden);`) === false;
+  add('A color\'s popover opens', open());
+  mouse(S, 'move', 600, 230); await pause(40); mouse(S, 'down', 600, 230, { buttons: 1 }); await pause(30); mouse(S, 'up', 600, 230); await pause(250);
+  add('A press in the frame leaves it open', open());
+  browser(S, 'press', 'Escape'); await pause(150);
+  add('Escape closes it', !open());
 }
 
 console.log(`Marks: ${pass} of ${total} checks match`);

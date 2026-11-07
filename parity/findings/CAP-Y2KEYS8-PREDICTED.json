@@ -1,0 +1,18 @@
+{
+  "item": "Y2",
+  "note": "What ours gives before the read. textpush-check showed the wrapped rule of CAP-Y2KEYS6.json breaks the first step of an edit (t14, v7, w11), so it now holds past the first step only.",
+  "capturedAt": "2026-11-07",
+  "predicted": {
+    "rows Z1 typed": "<p>abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</p> {\"Bold\":true,\"Write\":false} 1/2/3/10",
+    "rows Z1 1 z": "<p></p> {\"Bold\":true,\"Write\":false} 1/2/2/10",
+    "rows Z1 2 y": "<p>abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</p> {\"Bold\":true,\"Write\":false} 1/2/3/10",
+    "rows Z1 1 Undo": "<p></p> {\"Bold\":false,\"Write\":false} 1/2/2/10",
+    "rows Z1 2 Redo": "<p>abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</p> {\"Bold\":false,\"Write\":false} 1/2/3/10",
+    "rows Z2 typed": "<p>abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</p> {\"Bold\":true,\"Write\":false} 1/2/3/10",
+    "rows Z2 1 z": "<p>abc longer line of words that runs on past the end of the block</p> {\"Bold\":true,\"Write\":false} 1/2/2/10",
+    "rows Z2 2 y": "<p>abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</p> {\"Bold\":true,\"Write\":false} 1/2/3/10",
+    "rows Z2 1 Undo": "<p>abc longer line of words that runs on past the end of the block</p> {\"Bold\":false,\"Write\":false} 1/2/2/10",
+    "rows Z2 2 Redo": "<p>abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</p> {\"Bold\":false,\"Write\":false} 1/2/3/10",
+    "rows Z3 1 z": "<p>abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill</p> {\"Bold\":true,\"Write\":false} 1/2/3/10"
+  }
+}

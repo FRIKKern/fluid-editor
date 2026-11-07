@@ -1,6 +1,6 @@
 {
   "check": "phone order of a section built here",
-  "pass": 189,
+  "pass": 186,
   "total": 194,
   "known": [
     "CAP-TEXTPUSH7 w1 emptied",
@@ -9,5 +9,9 @@
     "CAP-TEXTPUSH7 w5 emptied",
     "CAP-TEXTPUSH7 w14 emptied"
   ],
-  "fails": []
+  "fails": [
+    "CAP-TEXTPUSH5 t14 undo",
+    "CAP-TEXTPUSH6 v7 undo 1",
+    "CAP-TEXTPUSH7 w11 undo"
+  ]
 }

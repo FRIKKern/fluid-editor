@@ -1,0 +1,322 @@
+{
+ "item": "U9",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-07",
+ "engine": "chrome",
+ "question": "Difference 78: does the oracle have Add Section's Small, Medium and Large, and the row count handle, with no name? What's the name of the section's settings control?",
+ "steps": [
+  [
+   "window",
+   1600,
+   1000
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "moveAt",
+   700,
+   400
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "read",
+   "hovered",
+   {
+    "controls": true,
+    "cursorEls": true
+   }
+  ],
+  [
+   "pressNamed",
+   "Add Section"
+  ],
+  [
+   "pause",
+   1500
+  ],
+  [
+   "moveAt",
+   40,
+   600
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "read",
+   "dialog",
+   {
+    "controls": true,
+    "elsIn": [
+     1000,
+     40,
+     1300,
+     140
+    ]
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   600
+  ]
+ ],
+ "reads": {
+  "hovered": {
+   "controls": [
+    {
+     "role": "button",
+     "label": "Save",
+     "box": [
+      11,
+      8.5,
+      55.6,
+      38
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Exit",
+     "box": [
+      77.6,
+      8.5,
+      45.8,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Undo",
+     "box": [
+      145.4,
+      1.5,
+      36,
+      52
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Redo",
+     "box": [
+      189.4,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Desktop View",
+     "box": [
+      1390,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Mobile View",
+     "box": [
+      1436,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle Site Styles editing",
+     "box": [
+      1495,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle preview mode",
+     "box": [
+      1542,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Add Section",
+     "box": [
+      744.4,
+      175.6,
+      111.1,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Open Layers Panel",
+     "box": [
+      26,
+      219.6,
+      38,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Add Block",
+     "box": [
+      83,
+      219.6,
+      129.6,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Open Section Settings",
+     "box": [
+      1407,
+      222.6,
+      164,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "View Layouts",
+     "box": [
+      1407,
+      272.6,
+      164,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Duplicate Section",
+     "box": [
+      1412,
+      327.6,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Save Section",
+     "box": [
+      1452,
+      327.6,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Move Section Up",
+     "box": [
+      1492,
+      327.6,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Move Section Down",
+     "box": [
+      1532,
+      327.6,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Remove Section",
+     "box": [
+      1407,
+      374.6,
+      164,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Add Section",
+     "box": [
+      744.4,
+      705,
+      111.1,
+      36
+     ]
+    }
+   ],
+   "cursorEls": [
+    {
+     "cursor": "row-resize",
+     "box": [
+      1328,
+      600.5,
+      44,
+      33
+     ],
+     "center": true,
+     "inside": [
+      true,
+      true,
+      true,
+      true
+     ],
+     "outside": [
+      false,
+      false,
+      false,
+      false
+     ]
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "dialog": {
+   "controls": [
+    {
+     "role": "button",
+     "label": "Close",
+     "box": [
+      1358,
+      66,
+      36,
+      36
+     ]
+    }
+   ],
+   "elsIn": [],
+   "path": "/blocks-probe",
+   "save": "changed"
+  }
+ },
+ "errors": [],
+ "leftDirty": true,
+ "exitSteps": [
+  "top Exit",
+  "dialog Exit"
+ ],
+ "answer": "Hovered section: the control is named Open Section Settings at 1407, 222.6, 164 by 44. A row-resize element sits at 1328, 600.5, 44 by 33, with no name in the controls, where ours has Drag to change the row count. Add a Section: the named controls near the top are Close only, and CAP-ADDSECTIONVIEWS.json reads three boxes at 1087, 1129 and 1171, 77, each 36 by 36. So the view sizes are there with no name. Ours keeps them, named. AI Terms reads AI Terms apply.",
+ "pressed": "Add Section by name; Blank; Escape. The tool's blank left the page dirty, so exit went through top Exit and the dialog's Exit. No Save."
+}

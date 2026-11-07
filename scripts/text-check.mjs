@@ -127,8 +127,19 @@ for (const [name, body, want] of [['one burst', `type('one'); await sleep(50); t
   const ce = () => d.querySelector('.fe-block[data-block-id="' + b.id + '"] .sqs-html-content'); const start = ce().textContent;
   fe.edit(s.id, b.id); d.execCommand('insertText', false, 'one'); d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(120);
   fe.edit(s.id, b.id); d.execCommand('insertText', false, 'two'); await sleep(30); document.getElementById('undo').click(); await sleep(120);
-  return JSON.stringify({ back: ce().textContent === start, open: ce().contentEditable === 'true' }); })()`);
-  const ok = got.back && got.open; results.push({ name: 'Undo button during an edit', ok }); if (!ok) console.log('Undo button during an edit DIFF', JSON.stringify(got)); }
+  return JSON.stringify({ kept: ce().textContent.includes('one'), gone: !ce().textContent.includes('two'), open: ce().contentEditable === 'true', bar: !document.getElementById('text-bar').hidden, sel: !!document.querySelector('#block-toolbar:not([hidden])') }); })()`);
+  // The last typing goes, an earlier edit stays, and the edit closes and lets go (CAP-Y2EDIT.json).
+  const ok = got.kept && got.gone && !got.open && !got.bar && !got.sel; results.push({ name: 'Undo button during an edit', ok }); if (!ok) console.log('Undo button during an edit DIFF', JSON.stringify(got)); }
+// Cmd+Z in an edit: one step, the edit stays open, Cmd+Shift+Z brings it back, and leaving counts each step (CAP-Y2EDIT.json).
+{ goto(S, `${BASE}/index.html?replay`); waitFor(S, 'window.fe'); const got = evalJs(S, `(async () => { const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const s = fe.model.sections[2]; const b = s.blocks.find((x) => x.type === 'text' && x.html.includes('On desktop the smallest')); const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow;
+  const ce = () => d.querySelector('.fe-block[data-block-id="' + b.id + '"] .sqs-html-content'); const key = (shift) => d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'z', code: 'KeyZ', metaKey: true, shiftKey: shift, bubbles: true }));
+  fe.edit(s.id, b.id); const start = ce().textContent; d.execCommand('insertText', false, 'aa'); await sleep(1100); d.execCommand('insertText', false, 'bb'); await sleep(30);
+  key(false); await sleep(30); const one = ce().textContent, open = ce().contentEditable === 'true'; key(true); await sleep(30); const two = ce().textContent;
+  d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(120);
+  document.getElementById('undo').click(); await sleep(120); const walk1 = ce().textContent; document.getElementById('undo').click(); await sleep(120);
+  return JSON.stringify({ one: one.includes('aa') && !one.includes('bb'), open, two: two.includes('aabb'), walk1: walk1.includes('aa') && !walk1.includes('bb'), walk2: ce().textContent === start }); })()`);
+  const ok = Object.values(got).every(Boolean); results.push({ name: 'Cmd+Z during an edit', ok }); if (!ok) console.log('Cmd+Z during an edit DIFF', JSON.stringify(got)); }
 { const words = [...TU.links.linked, ...TU.links.notLinked, ...TU.links.wrapped]; const got = edit(`const r = d.createRange(); r.selectNodeContents(ce.querySelector('p')); r.collapse(false); const q = W.getSelection(); q.removeAllRanges(); q.addRange(r); type(' '); for (const w of ${JSON.stringify(words)}) { type(w); type(' '); }`).links;
   for (const w of words) { const inner = TU.links.wrapped.includes(w) ? w.slice(1, -1) : w; const hit = got.find((a) => a[0] === inner); const want = inner !== w || TU.links.linked.includes(w); const ok = !!hit === want && (!hit || hit[1] === (w.includes('@') ? 'mailto:' : 'http:')); results.push({ name: `Link ${w}`, ok }); if (!ok) console.log(`Link ${w} DIFF oracle ${want}, ours ${JSON.stringify(hit)}`); } }
 
@@ -147,10 +158,9 @@ for (const [name, body, want] of [['one burst', `type('one'); await sleep(50); t
     if (wrong.length) console.log(`Link ${read} DIFF ${wrong.length}: ${wrong.slice(0, 12).join(' ')}`);
   } }
 // E4: with a caret, undo by time, nesting, Clear Formatting, Highlight: replayed with real keys and presses.
-// Named misses, not built: after one Escape the oracle's bar is gone but letters still go into the text.
 const noRun = [];
-const KNOWN = ['Undo, left', 'after an Undo'];
-for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS', 'CAP-E4SCORE', 'CAP-E4GAP', 'CAP-E4GAP2', 'CAP-E4ENTER', 'CAP-TEXTEMPTY', 'CAP-T3EMPTY', 'CAP-T3EMPTY2', 'CAP-T3EMPTY3', 'CAP-E4REOPEN', 'CAP-E4REOPEN2', 'CAP-E4REOPEN3', 'CAP-ESC1', 'CAP-ESC2', 'CAP-E4BREAK'] : ['CAP-E4CARET', 'CAP-TEXTEMPTY']) {
+const KNOWN = ['rows Paragraph 3 3 z', 'rows Heading 1 2 z', 'rows Heading 1 3 z', 'rows Heading 1 4 y', 'rows Heading 1 5 y', 'rows Heading 1 6 y']; // Named in Y2's evidence
+for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS', 'CAP-E4SCORE', 'CAP-E4GAP', 'CAP-E4GAP2', 'CAP-E4ENTER', 'CAP-TEXTEMPTY', 'CAP-T3EMPTY', 'CAP-T3EMPTY2', 'CAP-T3EMPTY3', 'CAP-E4REOPEN', 'CAP-E4REOPEN2', 'CAP-E4REOPEN3', 'CAP-ESC1', 'CAP-ESC2', 'CAP-E4BREAK', 'CAP-Y2EDIT', 'CAP-Y2KEYS', 'CAP-Y2KEYS2', 'CAP-Y2KEYS3', 'CAP-Y2KEYS4', 'CAP-Y2KEYS5', 'CAP-Y2KEYS6', 'CAP-Y2KEYS7', 'CAP-Y2KEYS8', 'CAP-Y2KEYS9'] : ['CAP-E4CARET', 'CAP-TEXTEMPTY']) {
   await replay(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (what, ok, detail) => {
     if (ok === null) { noRun.push(`${name} ${what}`); console.log(`could not run: ${name} ${what}: ${detail}`); return; }
     if (!ok && KNOWN.includes(what)) { console.log(`known miss: ${what}`); return; }
