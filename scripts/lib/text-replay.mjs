@@ -118,7 +118,7 @@ export async function replay(S, finding, add) {
       add(`${a[0]}: ${names.length - wrong.length} of ${names.length} names`, !wrong.length, `${wrong.length} differ: ${wrong.slice(0, 12).join(' ')}`);
     }
     else if (op === 'read') {
-      const want = finding.reads[a[0]]?.html; if (want === undefined) continue;
+      const want = finding.reads[a[0]]?.html; if (want === undefined && !finding.reads[a[0]]?.areas) continue;
       // A read of another block, by its place in the section.
       const other = a[1]?.html?.[1], who = typeof other === 'number' ? evalJs(S, `JSON.stringify(fe.model.sections[1].blocks[${other}].id)`) : id;
       const got = evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', who)}; return JSON.stringify(ce ? ce.innerHTML : null); })()`);
@@ -130,7 +130,7 @@ export async function replay(S, finding, add) {
       // has: is the text bar's Bold showing, is the toolbar's Write?
       const hasWant = finding.reads[a[0]]?.has, hasGot = hasWant && evalJs(S, `JSON.stringify({ Bold: !document.getElementById('text-bar').hidden, Write: !document.getElementById('block-toolbar').hidden && !!document.querySelector('#block-toolbar [aria-label="Write"]') })`);
       const hasSame = !hasWant || ['Bold', 'Write'].every((k) => hasWant[k] === undefined || hasWant[k] === hasGot[k]);
-      add(a[0], textNorm(got) === textNorm(want) && hasSame && areasSame && btnSame, `oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`);
+      add(a[0], (want === undefined || textNorm(got) === textNorm(want)) && hasSame && areasSame && btnSame, `oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`);
     }
     else if (op === 'undoWalk') await undoHere(a[0], finding.reads[a[0]] || { undo: [] }, k);
     if (paced && changesIn([op, ...a])) lastChange = Date.now();

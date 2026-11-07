@@ -27,6 +27,7 @@ const ESCAPED = [...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press
 const FRESH = [['exit'], ['enter'], ['blank'], ...NEWTEXT];
 const ENTERS = (n) => Array.from({ length: n }, () => ['press', 'Enter']);
 const FAST = (n) => [['keysGap', 100, Array.from({ length: n }, () => 'Enter')]];
+const WALK = (name, keys) => keys.flatMap((k, n) => [['pressNamed', k], ['pause', 500], ['read', `${name} ${n + 1} ${k}`, ESCR]]);
 const LEAVE = [['press', 'Escape'], ['pause', 200], ['press', 'Escape'], ['pause', 300]];
 // Cmd+Z (z) and Cmd+Shift+Z (y), reading after each.
 const ZS = (name, keys) => keys.flatMap((k, n) => [['press', k === 'z' ? 'Meta+z' : 'Meta+Shift+z'], ['pause', 300], ['read', `${name} ${n + 1} ${k}`, ESCR]]);
@@ -119,6 +120,14 @@ export const RECIPES = {
     ...FRESH, ...FAST(3), ['pause', 1300], ['read', 'rows F typed', ESCR], ...ZS('rows F', ['z', 'y', 'z']), ...LEAVE, ['pressNamed', 'Redo'], ['pause', 500], ['read', 'rows F redo', ESCR], ['pressNamed', 'Undo'], ['pause', 500], ['read', 'rows F undo', ESCR],
     ['exit'], ['enter'], ['blank'], ['press', 'Escape'], ['add', 0, 'Text'], ['press', 'Escape'], ['add', 0, 'Text'], ['press', 'Escape'], ['pick', 0, 'new'], ['pause', 200], ['drag', 0, 'new', 'middle', 0, 120], ['pause', 400], ['read', 'rows G start', { areas: 0 }], ['press', 'Escape'], ['pause', 300], ['pick', 0, 0], ['click', 'Write'], ['keys', 'a'], ['pause', 1300], ...FAST(8), ['pause', 1300], ['read', 'rows G typed', { areas: 0, has: ['Bold', 'Write'] }], ['press', 'Meta+z'], ['pause', 300], ['read', 'rows G z', { areas: 0, has: ['Bold', 'Write'] }], ['press', 'Meta+Shift+z'], ['pause', 300], ['read', 'rows G y', { areas: 0, has: ['Bold', 'Write'] }], ['press', 'Meta+z'], ['pause', 300], ['press', 'Meta+z'], ['pause', 300], ['read', 'rows G z z', { areas: 0, has: ['Bold', 'Write'] }], ...LEAVE,
     ...FRESH, ['keys', 'one'], ...LEAVE, ['add', 0, 'Text'], ['press', 'Escape'], ['pick', 0, 0], ['click', 'Write'], ['pause', 300], ['press', 'Meta+z'], ['pause', 400], ['read', 'another added, z', { areas: 0, has: ['Bold', 'Write'] }], ['press', 'Meta+Shift+z'], ['pause', 400], ['read', 'another added, y', { areas: 0, has: ['Bold', 'Write'] }], ...LEAVE,
+  ] },
+  'CAP-Y2KEYS4': { question: 'Y2: rows on going back to a later step, fresh line counts and spare rows; Redo of a step a row short. Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['keys', 'a'], ['pause', 1300], ...FAST(2), ['pause', 1300], ...FAST(4), ['pause', 1300], ...LEAVE, ...WALK('rows H', ['Undo', 'Undo', 'Undo', 'Redo', 'Redo', 'Redo']),
+    ...FRESH, ['keys', 'a'], ['pause', 1300], ...FAST(1), ['pause', 1300], ...FAST(1), ['pause', 1300], ...FAST(1), ['pause', 1300], ...ZS('rows I', ['z', 'z', 'z', 'z', 'y', 'y', 'y', 'y']), ...LEAVE,
+    ...FRESH, ['keys', 'a'], ['pause', 1300], ...FAST(5), ['pause', 1300], ...FAST(4), ['pause', 1300], ['read', 'rows J typed', ESCR], ...ZS('rows J', ['z', 'z', 'y', 'y']), ...LEAVE,
+    ...FRESH, ['press', 'Escape'], ['pause', 300], ['select', 0, 'new'], ['pause', 300], ['drag', 0, 'new', 's', 0, 330], ['pause', 400], ['pick', 0, 'new'], ['click', 'Write'], ['keys', 'a'], ['pause', 1300], ...FAST(3), ['pause', 1300], ...FAST(3), ['pause', 1300], ['read', 'rows K typed', ESCR], ...ZS('rows K', ['z', 'z', 'z', 'y', 'y', 'y']), ...LEAVE,
+    ...FRESH, ['keysList', ['a', 'b', 'c']], ['pause', 1300], ['keys', ' longer line of words that runs on past the end of the block and then on and on over a second line and a third line and more'], ['pause', 1300], ['read', 'rows L typed', ESCR], ...ZS('rows L', ['z', 'y']), ...LEAVE,
   ] },
   'CAP-E4BREAK': { question: 'E4: Shift+Enter: mid line, at the end of a line, at the start, twice, in a heading, a list, a quote and monospace, over a selection.', page: 'Gestures Probe', steps: [
     ['enter'], ['blank'],

@@ -1,0 +1,2057 @@
+{
+  "item": "CAP-Y2KEYS3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "Y2: rows when going back over steps, with Enter at exact gaps: Undo and Redo buttons in an edit and after it, Cmd+Z over two runs, pushed blocks; a step that adds another block under an edit. Predicted first.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "a"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysGap",
+      100,
+      [
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter"
+      ]
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows A undo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows A undo 2",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Redo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows A redo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Redo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows A redo 2",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "a"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysGap",
+      100,
+      [
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter"
+      ]
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows B undo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows B undo 2",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Redo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows B redo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Redo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows B redo 2",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "a"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysGap",
+      100,
+      [
+        "Enter",
+        "Enter",
+        "Enter"
+      ]
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysGap",
+      100,
+      [
+        "Enter",
+        "Enter",
+        "Enter"
+      ]
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "read",
+      "rows C typed",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows C 1 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows C 2 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows C 3 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows C 4 y",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows C 5 y",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows C 6 y",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows C left",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "a"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysGap",
+      100,
+      [
+        "Enter",
+        "Enter",
+        "Enter"
+      ]
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysGap",
+      100,
+      [
+        "Enter",
+        "Enter",
+        "Enter"
+      ]
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows D undo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows D undo 2",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows D undo 3",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Redo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows D redo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Redo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows D redo 2",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Redo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows D redo 3",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "a"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysGap",
+      100,
+      [
+        "Enter",
+        "Enter",
+        "Enter"
+      ]
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keys",
+      "X"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "read",
+      "rows E typed",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows E 1 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows E 2 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows E 3 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysGap",
+      100,
+      [
+        "Enter",
+        "Enter",
+        "Enter"
+      ]
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "read",
+      "rows F typed",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows F 1 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows F 2 y",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows F 3 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Redo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows F redo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows F undo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      120
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "rows G start",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "a"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysGap",
+      100,
+      [
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter"
+      ]
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "read",
+      "rows G typed",
+      {
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows G z",
+      {
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows G y",
+      {
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows G z z",
+      {
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "one"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "another added, z",
+      {
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "another added, y",
+      {
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "rows A undo": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows A undo 2": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows A redo": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows A redo 2": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/8/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows B undo": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows B undo 2": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows B redo": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows B redo 2": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/8/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows C typed": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/8/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows C 1 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/4/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows C 2 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows C 3 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows C 4 y": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows C 5 y": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/5/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows C 6 y": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/8/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows C left": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/8/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows D undo": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/4/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows D undo 2": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows D undo 3": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows D redo": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows D redo 2": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/5/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows D redo 3": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/8/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows E typed": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">X</p>",
+      "areas": [
+        [
+          "1/2/5/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows E 1 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/5/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows E 2 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows E 3 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows F typed": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/5/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows F 1 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows F 2 y": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/5/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows F 3 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows F redo": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/5/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows F undo": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows G start": {
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/6/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows G typed": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ],
+        [
+          "11/2/13/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows G z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ],
+        [
+          "3/2/5/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows G y": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ],
+        [
+          "11/2/13/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows G z z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ],
+        [
+          "4/2/6/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "another added, z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "another added, y": {
+      "has": {
+        "Bold": false,
+        "Write": true
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/3/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}
