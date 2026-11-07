@@ -920,6 +920,27 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
       groupCases.push({ name: `next gesture after a short Text ${n}`, diffs: want.flatMap((a, i) => (got[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got[i]}`])) });
     } }
 }
+// 81: a pressed block is selected on let go, not on the press nor while it is dragged (CAP-SELECTLETGO.json, part a and c).
+{ const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-SELECTLETGO.json', import.meta.url))).reads, on = (k) => R[k].block.data['data-is-selected'];
+  for (const [name, at] of [['a press, 11 px, let go', [0, 11]], ['a press, 14 px, let go', [0, 7, 14]], ['c 35, 70 px, let go', [0, 35, 70]]]) {
+    const keys = name[0] === 'a' ? ['a pressed', `a ${at[1]} px`, ...(at[2] ? [`a ${at[2]} px`] : []), 'a let go'] : ['c 35 px', 'c 35 px', 'c 70 px', 'c let go'];
+    const got = evalJs(S, `(async () => {
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+      fe.setBp('desktop');
+      fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 8 }, blocks: [{ id: 'b0', type: 'button', label: 'Button', layout: { desktop: { area: [1, 2, 3, 8], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }] }] });
+      await sleep(150);
+      const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, el = d.querySelector('.fe-block[data-block-id="b0"]'), r = el.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+      const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 }, out = [];
+      el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, clientX: x, clientY: y, buttons: 1 })); await sleep(30);
+      for (const dx of ${JSON.stringify(at)}) { if (dx) d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x + dx, clientY: y, buttons: 1 })); await sleep(30); out.push(d.querySelector('.fe-block[data-block-id="b0"]').dataset.isSelected); }
+      d.dispatchEvent(new W.PointerEvent('pointerup', { ...o, clientX: x + ${at[at.length - 1]}, clientY: y, buttons: 0 })); await sleep(80);
+      out.push(d.querySelector('.fe-block[data-block-id="b0"]').dataset.isSelected);
+      fe.select(null);
+      return JSON.stringify(out); })()`);
+    const want = keys.map(on);
+    groupCases.push({ name: `selected on let go: ${name}`, diffs: got.flatMap((v, i) => (v === want[i] ? [] : [`step ${i}: oracle ${want[i]}, ours ${v}`])) });
+  }
+}
 const groupFails = groupCases.filter((c) => c.diffs.length && !c.known);
 const groupKnown = groupCases.filter((c) => c.known);
 for (const c of groupFails) console.log(`DIFF ${c.name}\n  ${c.diffs.join('\n  ')}`);

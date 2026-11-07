@@ -11,7 +11,7 @@
     "E7 CAP-E7REOPEN3 Clear, Undo",
     "R2 wider 5"
   ],
-  "total": 850,
+  "total": 853,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3940,6 +3940,29 @@
     {
       "name": "next gesture after a short Text n5",
       "diffs": []
+    },
+    {
+      "name": "selected on let go: a press, 11 px, let go",
+      "diffs": [
+        "step 0: oracle false, ours true",
+        "step 1: oracle false, ours true"
+      ]
+    },
+    {
+      "name": "selected on let go: a press, 14 px, let go",
+      "diffs": [
+        "step 0: oracle false, ours true",
+        "step 1: oracle false, ours true",
+        "step 2: oracle false, ours true"
+      ]
+    },
+    {
+      "name": "selected on let go: c 35, 70 px, let go",
+      "diffs": [
+        "step 0: oracle false, ours true",
+        "step 1: oracle false, ours true",
+        "step 2: oracle false, ours true"
+      ]
     }
   ]
 }

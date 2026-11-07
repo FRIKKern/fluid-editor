@@ -1024,6 +1024,7 @@ function onUp(e) {
   // A mouse or pen let go well below the block's old bottom lands on the grid, not on the block's
   // overlay, and the block ends up not selected; touch keeps it, and so does text (HANDLEUP.json).
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type !== 'text' && !g.members && e.clientY - g.bottom0 > LET_GO_BELOW) select(null);
+  if (g.type === 'move' && g.pick) select(g.pick);
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
@@ -1166,8 +1167,14 @@ function prepare(e, type, extra = {}) {
 }
 
 function beginMove(e) {
-  if (gesture.pick) select(gesture.pick);
-  if (sel?.bid !== gesture.bid && !sel?.more?.length) select({ sid: gesture.sid, bid: gesture.bid });
+  // A block not yet selected stays unselected while it is dragged, and is selected on the drop (CAP-SELECTLETGO.json, a 12 to 14 px, c 70 px).
+  // That the block selected before is let go at the drag's start is inferred: it was not read.
+  // A block already in the selection stays selected, a group too (trace T0022).
+  const p = gesture.pick, fresh = p && !(sel?.sid === p.sid && [sel.bid, ...(sel.more || [])].includes(p.bid));
+  if (fresh) select(null);
+  else if (p) select(p);
+  else if (sel?.bid !== gesture.bid && !sel?.more?.length) select({ sid: gesture.sid, bid: gesture.bid });
+  if (!fresh) gesture.pick = null;
   const g = prepare(e, 'move');
   g.more = (sel?.more || []).map((id) => ({ id, orig: [...lay(B(g.sid, id)).area] }));
   // A group's ring is around all its blocks from the start.
