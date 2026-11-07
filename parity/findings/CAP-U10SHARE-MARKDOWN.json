@@ -1,0 +1,385 @@
+{
+  "item": "CAP-U10SHARE-MARKDOWN",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "CAP-U10SHARE-MARKDOWN",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "before",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0
+      }
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "hover",
+      {
+        "labelTag": true
+      }
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "pick 1",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "pick 4",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "before": {
+      "sections": [
+        {
+          "id": "f37236",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "77_420"
+          ],
+          "h": 667.6
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/2/7/6",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "hover": {
+      "labelTag": [
+        "Markdown"
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            435.9,
+            ""
+          ],
+          [
+            "2",
+            576.3,
+            ""
+          ],
+          [
+            "3",
+            710.8,
+            ""
+          ],
+          [
+            "4",
+            826.7,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 1": {
+      "sections": [
+        {
+          "id": "f37236",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 9,
+          "blocks": [
+            "77_420"
+          ],
+          "h": 804.7
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.882,
+        "edge": "curve",
+        "h": 804.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            186,
+            ""
+          ],
+          [
+            "1",
+            317.9,
+            ""
+          ],
+          [
+            "2",
+            458.3,
+            ""
+          ],
+          [
+            "3",
+            592.8,
+            ""
+          ],
+          [
+            "4",
+            708.7,
+            ""
+          ]
+        ]
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "8/15/10/25",
+          "phone": "2/2/4/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 4": {
+      "sections": [
+        {
+          "id": "f37236",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 6,
+          "blocks": [
+            "77_420"
+          ],
+          "h": 623.7
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 6,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          195,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            48,
+            ""
+          ],
+          [
+            "1",
+            179.9,
+            ""
+          ],
+          [
+            "2",
+            320.3,
+            ""
+          ],
+          [
+            "3",
+            454.8,
+            ""
+          ],
+          [
+            "4",
+            570.7,
+            ""
+          ]
+        ]
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "3/10/5/18",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
