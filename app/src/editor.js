@@ -6127,11 +6127,12 @@ pinPop.addEventListener('input', (e) => {
   const L = lay(B(pinPop.dataset.sid, pinPop.dataset.bid));
   if (!L?.sticky) return;
   const before = JSON.stringify(model);
-  const offset = Number(e.target.value);
-  L.sticky = { anchor: L.sticky.anchor, offset };
+  // A move keeps the unit the field had: 5vh, then ArrowRight, gives 6vh (CAP-U4PINUNIT.json).
+  const offset = Number(e.target.value), unit = L.sticky.unit;
+  L.sticky = { anchor: L.sticky.anchor, offset, ...(unit ? { unit } : {}) };
   renderSectionDom(pinPop.dataset.sid);
-  commit(before, `Pin offset ${offset}px`);
-  pinPop.querySelector('[data-pin-offset]').value = `${offset}px`;
+  commit(before, `Pin offset ${offset}${unit || 'px'}`);
+  pinPop.querySelector('[data-pin-offset]').value = `${offset}${unit || 'px'}`;
 });
 pinPop.addEventListener('focusout', (e) => { if (e.target.matches('[data-pin-offset]')) applyPinField(e.target, true); });
 // Keys typed here stay here: an arrow on the slider must not nudge the block.

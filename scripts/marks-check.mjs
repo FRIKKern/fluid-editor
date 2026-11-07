@@ -708,6 +708,13 @@ for (const [k, want] of [['ArrowRight', '51px'], ['End', '250px'], ['Home', '0px
   const r = pinState(); add(`Slider key ${k}`, r.top === want && r.field === want, JSON.stringify(r));
 }
 add('Slider keys leave the block where it is', JSON.stringify(shapeArea()) === JSON.stringify(area0));
+// A slider move keeps a unit that isn't px: 5vh, then ArrowRight twice, gives 6vh and 7vh (CAP-U4PINUNIT.json).
+await typePin('5vh');
+for (const want of ['6vh', '7vh']) {
+  focusRange(); browser(S, 'press', 'ArrowRight'); await pause(200);
+  const r = pinState(); add(`Slider after 5vh keeps the unit: ${want}`, r.field === want && r.range === String(parseFloat(want)), JSON.stringify(r));
+}
+await typePin('50px');
 const rb = evalJs(S, `(() => { const q = document.querySelector('[data-pin-range]').getBoundingClientRect(); return JSON.stringify([q.left, q.top, q.width, q.height]); })()`);
 const ry = rb[1] + rb[3] / 2, rx = (f) => rb[0] + rb[2] * f;
 mouse(S, 'move', rx(0.2), ry); await pause(60); mouse(S, 'down', rx(0.2), ry, { buttons: 1 }); await pause(120);
