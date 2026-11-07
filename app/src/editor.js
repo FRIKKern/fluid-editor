@@ -651,7 +651,8 @@ function contentRows(b, m, normalizing = false, widthPull = false, exact = false
   if (b.standin) {
     const c = blockEl(b.id)?.querySelector('.sqs-block-content');
     if (!c) return 1;
-    const h = c.getBoundingClientRect().height;
+    // A Quote's padding sits around its content box and still takes rows (CAP-75QUOTE.json).
+    const o = win.getComputedStyle(c.parentElement), h = c.getBoundingClientRect().height + parseFloat(o.paddingTop) + parseFloat(o.paddingBottom);
     if (exact) return (h + m.rg) / m.pitch;
     return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
   }
