@@ -841,19 +841,6 @@ const rightEdgeOut = (m, line, d) => snapColumn(m, line, d, line, m.colStart.len
 // The same rule for rows, on a uniform pitch, also past the last row (traces T0013, T0014).
 const snapRow = (m, line, d) => line + Math.sign(d) * Math.max(0, Math.round((Math.abs(d) - m.rg / 2) / m.pitch));
 
-function nearest(from, to, f) {
-  let best = from;
-  let bd = Infinity;
-  for (let v = from; v <= to; v++) {
-    const d = Math.abs(f(v));
-    if (d < bd) {
-      bd = d;
-      best = v;
-    }
-  }
-  return best;
-}
-
 // ---------- gestures ----------
 // Marquee (X13, parity/findings/X13.json): a drag of 30px from empty space in a section draws a 3px
 // rgb(0, 114, 240) box. The blocks of that section it touches join the selection while held, with
@@ -1138,13 +1125,13 @@ function updateMove(e) {
   const cHi = Math.max(...origs.map((a) => a[3]));
   const cMin = c0 + 1 - cLo;
   // A box that starts on the left margin track goes as far as the last column, not the right margin.
-  // One block on a phone does go into it (CAP-G4MARGIN2.json to CAP-G4MARGIN4.json); a group on a phone isn't read.
-  const cMax = Math.max(c0, c0 + (cLo === 1 && !(solo && bp === 'mobile') ? LAST_LINE[bp] - 1 : LAST_LINE[bp]) - cHi);
+  // A phone does go into it, one block or a group (CAP-G4MARGIN2.json to CAP-G4MARGIN4.json, CAP-G4GROUPMARGIN.json).
+  const cMax = Math.max(c0, c0 + (cLo === 1 && bp !== 'mobile' ? LAST_LINE[bp] - 1 : LAST_LINE[bp]) - cHi);
   const dx = left - baseLeft;
   let nc0 = dx > 0 && c0 > 1 ? snapColumn(m, c0 + w, dx, cMin + w, cMax + w) - w : snapColumn(m, c0, dx, cMin, cMax);
   // From the left margin track the last step waits for the right edge to pass the right margin's middle
   // (MARGINSTEPS.json, CAP-G4MARGIN3.json, CAP-G4MARGIN4.json, CAP-G4MARGIN5.json).
-  if (solo && c0 === 1 && nc0 === cMax && cMax > c0 && !rightEdgeOut(m, c0 + w, dx)) nc0 = cMax - 1;
+  if ((solo || bp === 'mobile') && c0 === 1 && nc0 === cMax && cMax > c0 && !rightEdgeOut(m, c0 + w, dx)) nc0 = cMax - 1;
   // A group's ring stops when its box reaches the top (HOLD.json).
   const nr0 = Math.max(r0 + 1 - Math.min(...origs.map((a) => a[0])), snapRow(m, r0, y - baseTop));
   let t = [nr0, nc0, nr0 + h, nc0 + w];
@@ -1241,11 +1228,12 @@ function updateGroupResize(e) {
   const m = g.m;
   const top = fe.getBoundingClientRect().top;
   let [r0, c0, r1, c1] = g.box0;
-  const x = e.clientX, y = e.clientY;
-  if (g.dir.includes('e')) c1 = nearest(c0 + 1, LAST_LINE[bp], (l) => m.colEnd[l - 2] - x);
-  if (g.dir.includes('w')) c0 = nearest(1, c1 - 1, (l) => m.colStart[l - 1] - x);
-  if (g.dir.includes('s')) r1 = Math.max(r0 + 1, Math.round((y - top + m.rg) / m.pitch) + 1);
-  if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, Math.round((y - top) / m.pitch) + 1));
+  // One block's handle rule, from the press (CAP-G4GROUPRESIZE.json).
+  const dx = e.clientX - g.x0, dy = e.clientY - top - g.py0;
+  if (g.dir.includes('e')) c1 = snapColumn(m, c1, dx, c0 + 1, LAST_LINE[bp]);
+  if (g.dir.includes('w')) c0 = snapColumn(m, c0, dx, 1, c1 - 1);
+  if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, dy));
+  if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, dy)));
   const [br0, bc0, br1, bc1] = g.box0;
   const kc = Math.round((c1 - c0) / (bc1 - bc0) * 10) / 10, kr = Math.round((r1 - r0) / (br1 - br0) * 10) / 10;
   const place = (id, a) => {
@@ -1299,7 +1287,8 @@ function updateResize(e) {
   // Out of the flow, so its height does not push the grid's rows. Its area is still its place.
   Object.assign(el.style, { position: 'absolute', left: '0', top: '0', width: `${R - L}px` });
   if (g.dir.includes('e')) {
-    const lo = Math.min(c0 + leastCols, LAST_LINE[bp]), hi = LAST_LINE[bp], d = x - m.colEnd[c1 - 2];
+    // The step counts from the press, wherever on the handle that was (CAP-G4GRAB.json).
+    const lo = Math.min(c0 + leastCols, LAST_LINE[bp]), hi = LAST_LINE[bp], d = dx;
     // A block on the left margin track grows by its left edge's steps, as a move does. It stops as a move does, and its last
     // step waits the same way (CAP-G4MARGIN.json, CAP-G4MARGIN2.json, CAP-G4MARGIN5.json, CAP-G4MARGIN6.json, BLOCKTYPES.json columnSnap).
     const top = bp === 'mobile' ? hi : hi - 1;
@@ -1308,9 +1297,9 @@ function updateResize(e) {
       c1 = Math.max(lo, e === top && !rightEdgeOut(m, c1, d) ? top - 1 : e);
     } else c1 = snapColumn(m, c1, d, lo, hi);
   }
-  if (g.dir.includes('w')) c0 = snapColumn(m, c0, x - m.colStart[c0 - 1], 1, Math.max(1, c1 - leastCols));
-  if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, y - (top + (r1 - 1) * m.pitch - m.rg)));
-  if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, y - (top + (r0 - 1) * m.pitch))));
+  if (g.dir.includes('w')) c0 = snapColumn(m, c0, dx, 1, Math.max(1, c1 - leastCols));
+  if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, dy));
+  if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, dy)));
   // Guard: a target cannot be shorter than the content at the width the block has now.
   const need = contentRows(B(g.sid, g.bid), m, false, /[ew]/.test(g.dir));
   // A Video on a corner pull: the rows its new width takes go on the bottom, whatever the top does (CAP-X6PULLS.json, CAP-X6AGAIN.json).
