@@ -1,14 +1,16 @@
 // A row-by-row read of one tile's panel, unsaved, on a probe page: each row's name, kind and default, and what a change does
 // to the block. It changes only the tile's own rows: a switch both ways, each choice, a menu's other options, a slider at
 // three quarters, a text field by a few typed letters. It goes one level into a Navigate row, to read it, and comes back.
-// It never presses what REFUSE names, and reads a tab without changing it if the tab says it reaches other pages or blocks.
+// It presses only what has a name, and reloads if a panel has no named way out. It never presses what REFUSE names or what UNREAD marks `no` on this tile. A tab whose note says it reaches further is read, nothing pressed.
+// A field that can reach outside (URL, ID, name lookup, a service's name) isn't typed in, and the tile's presses stop there.
 //   ORACLE_SURFACE=cdp:<port> node scripts/oracle-rows.mjs --type Quote [--page 'Gestures Probe'] [--only Design] [--name CAP-ROWSQUOTE]
 // Writes parity/findings/CAP-ROWS<TILE>.json after each tab, so a stop loses little.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { evalJs, pause, mouse, browser } from './lib/cmux.mjs';
+import { evalJs, pause, mouse, browser, goto } from './lib/cmux.mjs';
 import { pressOnTop } from './oracle/press.mjs';
 import { enterEdit, exitWithoutSaving, addSection, addBlock, sectionCount, escape, select } from './oracle/ui.mjs';
 import { tabsJs } from './lib/panel-rows.mjs';
+import { BACK_NAME, hasName, noRows, onNoList, reachesOut, WIDE_NOTE } from './lib/press-names.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S?.startsWith('cdp:')) { console.error('oracle-rows: set ORACLE_SURFACE=cdp:<port>'); process.exit(2); }
@@ -23,9 +25,12 @@ const save = () => writeFileSync(FILE, `${JSON.stringify(out, null, 1).replace(/
 
 // Never pressed, by name: what writes outside the block, reaches an account or a store, or takes a file.
 const REFUSE = /reset|save|delete|remove|upload|replace|create|connect|account|manage|export|store|payment|learn more|set up|site style|form style|edit button|color theme|privacy|terms|add an image|add a new animation|add item|attach|duplicate|^close$|storage|podcast|^x$/i;
+const READ_ONLY = process.argv.includes('--read-only');
 // Rows every panel has: their defaults are read, block design has their rules (T15).
 const COMMON = /^(Background|Stroke|Stroke Color|Blend Mode|Blur|Transforms|More actions|Opacity|Rotate|Scale|Offset|Skew|Anchor|Position|Triggers|Animation list actions|Add a new animation|Fill|Thickness|Corner)\b/;
-const WIDE = /all forms|whole site|every page|site-wide|across your site/i;
+// UNREAD's `no` rows for this tile: never pressed or typed in.
+const NO = noRows(JSON.parse(readFileSync(new URL('../parity/findings/UNREAD.json', import.meta.url), 'utf8')), TYPE);
+let stoppedAt = null;
 
 const js = (b) => evalJs(S, b);
 const FRAME = `document.getElementById('sqs-site-frame')`;
@@ -76,7 +81,29 @@ async function openPanel() {
 async function toTab(t) { await openPanel(); if (js(`(() => JSON.stringify((${tabEl(t)})?.getAttribute('aria-selected') === 'true'))()`)) return; await pressOnTop(S, tabEl(t), 900); }
 // Back in the panel, on the tab, after whatever a press did. Escape only if something sits on top of it.
 async function settle(t) { const open = js(`(() => JSON.stringify([...document.querySelectorAll('[role=listbox],[role=menu],[role=dialog]')].some((x) => x.getBoundingClientRect().width > 1 && !x.contains(${PANEL}))))()`); if (open) { await escape(); await pause(300); } await toTab(t); }
-const find = (c) => (read() || []).find((x) => x.kind === c.kind && x.name === c.name && x.row === c.row);
+// A row's heading can change after an earlier press, so a name that's unique on its own will do.
+const find = (c) => { const l = read() || []; return l.find((x) => x.kind === c.kind && x.name === c.name && x.row === c.row) || (l.filter((x) => x.kind === c.kind && x.name === c.name).length === 1 ? l.find((x) => x.kind === c.kind && x.name === c.name) : undefined); };
+
+// The panel's own Back, by its name. No named way back means a reload, not another press.
+async function goBack(rec, t) {
+  const back = js(`(() => { const r = ${ROOT}; if (!r) return JSON.stringify(null); const b = [...r.querySelectorAll('button,[role=button]')].filter((x) => x.getBoundingClientRect().width > 1).find((x) => new RegExp(${JSON.stringify(BACK_NAME.source)}, 'i').test((x.getAttribute('aria-label') || x.textContent).trim())); if (b) window.__back = b; return JSON.stringify(b ? (b.getAttribute('aria-label') || b.textContent).trim() : null); })()`);
+  rec.back = back;
+  if (back) await pressOnTop(S, `window.__back`, 800); else await startOver(t, rec);
+}
+
+// Stuck, or nothing named to press: a reload throws the unsaved block away. A new block on the same page, on the same tab.
+async function startOver(t, rec) {
+  if (rec) rec.reloaded = true;
+  goto(S, js(`JSON.stringify(location.origin)`) + '/config/pages'); await pause(9000);
+  await enterEdit(PAGE);
+  if (!/-probe$/.test(js(`(() => JSON.stringify(${FRAME}.contentWindow.location.pathname))()`))) throw new Error('not on a probe page after a reload');
+  await addSection();
+  blockId = await addBlock(sectionCount() - 1, TYPE); await pause(1200); await escape(); await pause(300);
+  await openPanel(); if (t) await toTab(t);
+}
+
+// The names of everything pressable that is really on top, outside the page frame.
+const onTop = () => js(`(() => JSON.stringify([...new Set([...document.querySelectorAll('button,[role=button],[role=radio],[role=option],label,a,input')].filter((x) => { const q = x.getBoundingClientRect(); if (q.width < 2 || q.height < 2 || q.top < 56 || q.top >= innerHeight) return false; if (x.closest('#sqs-site-frame')) return false; const t = document.elementFromPoint(q.left + q.width / 2, q.top + q.height / 2); return !!t && (t === x || x.contains(t) || t.contains(x)); }).map((x) => (x.getAttribute('aria-label') || x.textContent || x.title || x.getAttribute('placeholder') || x.tagName).replace(/\\s+/g, ' ').trim().slice(0, 60)))]))()`);
 
 const tried = new Set();
 async function changeRow(c, t, rec) {
@@ -93,11 +120,24 @@ async function changeRow(c, t, rec) {
     mouse(S, 'move', q[0], q[1]); await pause(80); mouse(S, 'down', q[0], q[1], { buttons: 1 }); await pause(40); mouse(S, 'up', q[0], q[1]); await pause(700);
     rec.to = find(c)?.value; rec.change = diff(before, blockNow());
   } else if (c.kind === 'menu') {
+    const seen = onTop(), rows0 = read() || [];
     await pressAt(c.i, 800);
     const opts = js(`(() => JSON.stringify([...document.querySelectorAll('[role=option],[role=menuitem],[role=menuitemradio]')].filter((x) => x.getBoundingClientRect().width > 1).map((x) => x.textContent.replace(/\\s+/g, ' ').trim())))()`);
     rec.options = opts;
-    // A list with no option roles: the buttons it brought.
-    if (!opts.length) { rec.options = js(`(() => JSON.stringify([...document.querySelectorAll('button,[role=button],[role=radio],label')].filter((x) => { const q = x.getBoundingClientRect(); return q.width > 1 && !x.closest('#sqs-site-frame') && !x.closest('[role=tablist]') && q.left > 100 && !(${ROOT})?.contains(x); }).map((x) => (x.getAttribute('aria-label') || x.textContent || '').replace(/\\s+/g, ' ').trim()).filter(Boolean).slice(0, 30)))()`); await escape(); await pause(300); }
+    // No list of options: a view inside the panel, or a popover. Read what came, and close it the way it came.
+    if (!opts.length) {
+      rec.inside = (read() || []).map((x) => ({ row: x.row, kind: x.kind, name: x.name, value: x.value }));
+      const now = onTop(); rec.opened = now.filter((x) => !seen.includes(x));
+      const same = JSON.stringify(rows0.map((x) => x.name)) === JSON.stringify(rec.inside.map((x) => x.name));
+      if (same && rec.opened.length) {
+        // Scrolled out of sight still counts: every button beside the first one that came.
+        rec.openedList = js(`(() => { const n = ${JSON.stringify(rec.opened[0])}; const e = [...document.querySelectorAll('button,[role=button],[role=radio],[role=option],label')].find((x) => !x.closest('#sqs-site-frame') && (x.getAttribute('aria-label') || x.textContent || '').replace(/\\s+/g, ' ').trim().startsWith(n)); let p = e && e.parentElement; const kids = (q) => [...q.querySelectorAll('button,[role=button],[role=radio],[role=option],label')]; while (p && kids(p).length < 2) p = p.parentElement; return JSON.stringify(p ? kids(p).map((x) => (x.getAttribute('aria-label') || x.textContent || '').replace(/\\s+/g, ' ').trim().slice(0, 60)) : []); })()`);
+        await escape(); await pause(500); rec.closedBy = 'Escape';
+        if (onTop().some((x) => rec.opened.includes(x))) { rec.closedBy = 'a reload'; await startOver(t, rec); return; }
+      }
+      else if (!same) await goBack(rec, t);
+      await settle(t); return;
+    }
     const pick = opts.find((o) => o && o !== String(c.value) && !REFUSE.test(o));
     if (pick) { await pressOnTop(S, `[...document.querySelectorAll('[role=option],[role=menuitem],[role=menuitemradio]')].find((x) => x.getBoundingClientRect().width > 1 && x.textContent.replace(/\\s+/g, ' ').trim() === ${JSON.stringify(pick)})`, 800); rec.picked = pick; rec.change = diff(before, blockNow()); }
     await settle(t);
@@ -110,10 +150,7 @@ async function changeRow(c, t, rec) {
     rec.to = find(c)?.value; rec.change = diff(before, blockNow());
   } else if (c.kind === 'nav') {
     await pressAt(c.i, 900); rec.inside = (read() || []).map((x) => ({ row: x.row, kind: x.kind, name: x.name, value: x.value }));
-    // Its way back is the first button with no way into anything: the panel's own back arrow.
-    const back = js(`(() => { const r = ${ROOT}; if (!r) return JSON.stringify(null); const bs = [...r.querySelectorAll('button,[role=button]')].filter((x) => x.getBoundingClientRect().width > 1); const b = bs.find((x) => /^(back|go back|return)/i.test(x.getAttribute('aria-label') || x.textContent.trim())) || bs.find((x) => x.querySelector('svg') && !x.textContent.trim() && !x.getAttribute('aria-label')); if (b) window.__back = b; return JSON.stringify(b ? (b.getAttribute('aria-label') || b.textContent.trim() || 'an arrow') : null); })()`);
-    rec.back = back;
-    if (back) await pressOnTop(S, `window.__back`, 800); else { await escape(); await pause(500); }
+    await goBack(rec, t);
     await settle(t);
   }
 }
@@ -122,20 +159,25 @@ async function readTab(t) {
   await toTab(t); await pause(500);
   const panelText = js(`(() => JSON.stringify((${PANEL}).innerText))()`);
   const rows = [], list = read() || [];
-  const wide = WIDE.test(panelText);
-  out.tabs[t] = { rows, wideNote: wide ? panelText.match(/[^\n]*(all forms|whole site|every page|site-wide|across your site)[^\n]*/i)?.[0] : undefined };
+  const wide = WIDE_NOTE.test(panelText);
+  out.tabs[t] = { rows, wideNote: wide ? panelText.split('\n').find((l) => WIDE_NOTE.test(l)) : undefined };
   for (const c0 of list) {
     const key = `${t}|${c0.kind}|${c0.row}|${c0.name}`;
     if (c0.kind === 'button' && c0.name === c0.row) continue;
     const rec = { row: c0.row, kind: c0.kind, name: c0.name, value: c0.value }; if (c0.min !== undefined) Object.assign(rec, { min: c0.min, max: c0.max, step: c0.step }); if (c0.off) rec.off = true; if (c0.options) rec.options = c0.options;
     rows.push(rec); save();
     if (tried.has(key)) continue; tried.add(key);
+    if (READ_ONLY) { rec.notPressed = 'a read-only run'; continue; }
     const label = `${c0.row} ${c0.name}`;
-    if (c0.off || REFUSE.test(c0.name) || REFUSE.test(c0.row) || (c0.kind === 'button')) { rec.notPressed = c0.kind === 'button' ? 'a plain button' : 'refused by name'; continue; }
+    if (stoppedAt) { rec.notPressed = `the walk stopped at ${stoppedAt}`; continue; }
+    if (wide) { rec.notPressed = 'the tab says it reaches further'; continue; }
+    if (onNoList(c0, NO)) { rec.notPressed = 'UNREAD says no'; continue; }
+    if (reachesOut(c0)) { rec.notPressed = 'it can reach outside'; stoppedAt = c0.name; continue; }
+    if (!hasName(c0)) { rec.notPressed = 'no name'; continue; }
+    if (c0.off || REFUSE.test(c0.name) || (REFUSE.test(c0.row) && !/^reset to default/i.test(c0.row)) || (c0.kind === 'button')) { rec.notPressed = c0.off ? 'greyed out' : c0.kind === 'button' ? 'a plain button' : 'refused by name'; continue; }
     if (COMMON.test(c0.row) || COMMON.test(c0.name)) { rec.notPressed = 'a row every panel has'; continue; }
-    if (wide && /style/i.test(label)) { rec.notPressed = 'the tab says it reaches further'; continue; }
     if (c0.kind === 'choice') { if (c0.value) { rec.notPressed = 'the default'; continue; } rec.home = list.find((x) => x.kind === 'choice' && x.row === c0.row && x.value)?.name; }
-    try { await toTab(t); await pause(250); const c = find(c0); if (!c) { rec.gone = true; continue; } await changeRow(c, t, rec); await settle(t); await pause(200); console.log(`  ${t} | ${c0.kind} | ${label.slice(0, 50)} | ${(rec.change || []).length} changes`); } catch (e) { rec.error = e.message.slice(0, 160); console.log(`  ${t} | ${label.slice(0, 50)} ERROR ${rec.error}`); try { await settle(t); } catch { out.errors.push(`${t}: could not get back after ${label}`); return; } }
+    try { await toTab(t); await pause(250); const c = find(c0); if (!c) { rec.gone = true; continue; } await changeRow(c, t, rec); await settle(t); await pause(200); console.log(`  ${t} | ${c0.kind} | ${label.slice(0, 50)} | ${(rec.change || []).length} changes`); } catch (e) { rec.error = e.message.slice(0, 160); console.log(`  ${t} | ${label.slice(0, 50)} ERROR ${rec.error}`); try { await settle(t); } catch { rec.reloaded = true; await startOver(t, rec); } }
   }
   save();
 }
@@ -149,7 +191,7 @@ blockId = await addBlock(i, TYPE); await pause(1200); await escape(); await paus
 out.path = path;
 await openPanel();
 const tabs = js(tabsJs(PANEL)); out.tabList = tabs;
-for (const t of tabs) { if (ONLY && t !== ONLY) continue; if (t === 'Animation' || t === 'Storage') { await toTab(t); await pause(400); out.tabs[t] = { rows: (read() || []).map((x) => ({ row: x.row, kind: x.kind, name: x.name, value: x.value })), notPressed: t === 'Storage' ? 'form storage is read only' : 'every panel has it' }; save(); continue; } await readTab(t); console.log(t, out.tabs[t].rows.length); }
+for (const t of tabs) { if (ONLY && t !== ONLY) continue; if (t === 'Animation' || t === 'Storage') { await toTab(t); await pause(400); out.tabs[t] = { rows: (read() || []).map((x) => ({ row: x.row, kind: x.kind, name: x.name, value: x.value })), notPressed: t === 'Storage' ? 'form storage is read only' : 'every panel has it' }; save(); continue; } try { await readTab(t); console.log(t, out.tabs[t].rows.length); } catch (e) { (out.errors ||= []).push(`${t}: ${e.message.slice(0, 120)}`); console.log(`${t} stopped: ${e.message.slice(0, 120)}`); await startOver(null); } }
 const all = Object.values(out.tabs).flatMap((t) => t.rows || []);
 out.answer = `${TYPE}: tabs ${(out.tabList || []).join(', ')}. ${all.filter((r) => r.kind !== 'button').length} rows read, ${all.filter((r) => r.change?.length).length} changed the block when changed. Each row below has its default and what the change did.`;
 out.pressed = `Add Block, ${TYPE}, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved.`;

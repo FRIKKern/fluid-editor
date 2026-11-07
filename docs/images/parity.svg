@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="914" viewBox="0 0 1200 914" role="img" aria-labelledby="t d">
 <title id="t">Fluid editor parity</title>
-<desc id="d">94 of 118 items done, 24 partial, 0 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 7 of 8 done. Block types: 7 of 15 done. Geometry and snapping: 7 of 8 done. Gestures: 10 of 13 done. Row stretch: 4 of 5 done. Text editing: 5 of 7 done. Overlap and layers: 5 of 5 done. Phone layout: 8 of 8 done. Section settings and Stacks: 4 of 4 done. Editor chrome: 6 of 12 done. History, save and publish: 5 of 5 done. Accessibility and order: 2 of 3 done.</desc>
+<desc id="d">94 of 118 items done, 24 partial, 0 open, 0 unknown. Harness and oracle: 11 of 12 done. Published grid CSS: 13 of 13 done. Page and site context: 7 of 8 done. Block types: 8 of 15 done. Geometry and snapping: 7 of 8 done. Gestures: 10 of 13 done. Row stretch: 4 of 5 done. Text editing: 5 of 7 done. Overlap and layers: 5 of 5 done. Phone layout: 8 of 8 done. Section settings and Stacks: 4 of 4 done. Editor chrome: 6 of 12 done. History, save and publish: 4 of 5 done. Accessibility and order: 2 of 3 done.</desc>
 <style>
   svg { --bg:#fbfaf7; --card:#ffffff; --line:#e3e0d6; --ink:#1f1e1b; --muted:#6c6a63; --done:#2c7a4b; --now:#b26b00; --todo:#a3a097; --nowbg:#fff6e5; --partbg:#fdf0d8; --unk:#8a6fb0; }
   @media (prefers-color-scheme: dark) {
@@ -108,7 +108,7 @@
 </g>
 <g data-area="Block types">
 <text x="40" y="372" font-size="15" font-weight="600">Block types</text>
-<text x="324" y="372" font-size="14" text-anchor="end" class="muted">7/15</text>
+<text x="324" y="372" font-size="14" text-anchor="end" class="muted">8/15</text>
 <rect x="340" y="352" width="50" height="30" rx="6" class="c-done"><title>T1 Wrapper chain `.fe-block &gt; .sqs-block &gt; .sqs-block-content`: done</title></rect>
 <text x="365" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-done">T1</text>
 <rect x="396" y="352" width="50" height="30" rx="6" class="c-done"><title>T2 `.sqs-block-alignment-wrapper` on the right block types: done</title></rect>
@@ -135,8 +135,8 @@
 <text x="981" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">T12</text>
 <rect x="1012" y="352" width="50" height="30" rx="6" class="c-done"><title>T13 Default and minimum size per block type: done</title></rect>
 <text x="1037" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-done">T13</text>
-<rect x="1068" y="352" width="50" height="30" rx="6" class="c-partial"><title>T14 Which types keep an aspect ratio and which follow content: partial</title></rect>
-<text x="1093" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">T14</text>
+<rect x="1068" y="352" width="50" height="30" rx="6" class="c-done"><title>T14 Which types keep an aspect ratio and which follow content: done</title></rect>
+<text x="1093" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-done">T14</text>
 <rect x="1124" y="352" width="50" height="30" rx="6" class="c-partial"><title>T15 Block design: background, blur, opacity, transforms (Edit &gt; Design): partial</title></rect>
 <text x="1149" y="372" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">T15</text>
 </g>
@@ -298,11 +298,11 @@
 </g>
 <g data-area="History, save and publish">
 <text x="40" y="786" font-size="15" font-weight="600">History, save and publish</text>
-<text x="324" y="786" font-size="14" text-anchor="end" class="done">5/5</text>
+<text x="324" y="786" font-size="14" text-anchor="end" class="muted">4/5</text>
 <rect x="340" y="766" width="50" height="30" rx="6" class="c-done"><title>Y1 One undo step per gesture; normalization is not undone and does not mark the page changed: done</title></rect>
 <text x="365" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Y1</text>
-<rect x="396" y="766" width="50" height="30" rx="6" class="c-done"><title>Y2 Undo grouping while typing: done</title></rect>
-<text x="421" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Y2</text>
+<rect x="396" y="766" width="50" height="30" rx="6" class="c-partial"><title>Y2 Undo grouping while typing: partial</title></rect>
+<text x="421" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-partial">Y2</text>
 <rect x="452" y="766" width="50" height="30" rx="6" class="c-done"><title>Y3 Save versus publish, drafts, revision conflicts: done</title></rect>
 <text x="477" y="786" font-size="13" font-weight="700" text-anchor="middle" class="t-done">Y3</text>
 <rect x="508" y="766" width="50" height="30" rx="6" class="c-done"><title>Y4 Copy and paste between sections and pages: done</title></rect>

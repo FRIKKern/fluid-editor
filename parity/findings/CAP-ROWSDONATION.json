@@ -1,0 +1,596 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Donation: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Donation",
+ "tabs": {
+  "Content": {
+   "rows": [
+    {
+     "row": "General Fund",
+     "kind": "nav",
+     "name": "Navigate to Funds",
+     "inside": [
+      {
+       "row": "",
+       "kind": "button",
+       "name": "Click and drag to reposition block editor form"
+      }
+     ],
+     "back": "Back"
+    },
+    {
+     "row": "Fund Dropdown Label",
+     "kind": "field",
+     "name": "Fund Dropdown Label",
+     "value": "Contribute to",
+     "to": "Contribute toAb",
+     "change": []
+    },
+    {
+     "row": "Button Text",
+     "kind": "field",
+     "name": "Button Text",
+     "value": "Donate",
+     "to": "DonateAb",
+     "change": [
+      "BUTTON.button b: 184.7,708.6,172.5,66.6 > 173.4,708.6,195.2,66.6",
+      "SPAN w: Donate > DonateAb",
+      "SPAN b: 240.7,729.4,60.5,25 > 229.4,729.4,83.2,25",
+      "SPAN gridTemplateColumns: 60.5312px > 83.1719px",
+      "SPAN w: Donate > DonateAb",
+      "SPAN b: 240.7,729.4,60.5,25 > 229.4,729.4,83.2,25"
+     ]
+    }
+   ]
+  },
+  "Design": {
+   "rows": [
+    {
+     "row": "",
+     "kind": "menu",
+     "name": "Text",
+     "value": "Text",
+     "options": [],
+     "inside": [
+      {
+       "row": "",
+       "kind": "menu",
+       "name": "Text",
+       "value": "Text"
+      },
+      {
+       "row": "Lightbox",
+       "kind": "switch",
+       "name": "Lightbox",
+       "value": false
+      },
+      {
+       "row": "Background",
+       "kind": "switch",
+       "name": "Background",
+       "value": false
+      },
+      {
+       "row": "Stroke",
+       "kind": "choice",
+       "name": "No Stroke",
+       "value": false
+      },
+      {
+       "row": "Stroke",
+       "kind": "choice",
+       "name": "Solid Stroke",
+       "value": true
+      },
+      {
+       "row": "Stroke",
+       "kind": "choice",
+       "name": "Dashed Stroke",
+       "value": false
+      },
+      {
+       "row": "Stroke",
+       "kind": "button",
+       "name": "Stroke Color"
+      },
+      {
+       "row": "Thickness",
+       "kind": "choice",
+       "name": "S",
+       "value": true
+      },
+      {
+       "row": "Thickness",
+       "kind": "choice",
+       "name": "M",
+       "value": false
+      },
+      {
+       "row": "Thickness",
+       "kind": "choice",
+       "name": "L",
+       "value": false
+      },
+      {
+       "row": "Thickness",
+       "kind": "choice",
+       "name": "Custom block background stroke thickness",
+       "value": false
+      },
+      {
+       "row": "Corner",
+       "kind": "field",
+       "name": "Corner",
+       "value": "20px"
+      },
+      {
+       "row": "Corner",
+       "kind": "button",
+       "name": "Corner"
+      },
+      {
+       "row": "Corner",
+       "kind": "button",
+       "name": "Corner"
+      },
+      {
+       "row": "Corner",
+       "kind": "button",
+       "name": "Corner"
+      },
+      {
+       "row": "Corner",
+       "kind": "button",
+       "name": "Reset to default value"
+      },
+      {
+       "row": "Padding",
+       "kind": "choice",
+       "name": "S",
+       "value": false
+      },
+      {
+       "row": "Padding",
+       "kind": "choice",
+       "name": "M",
+       "value": true
+      },
+      {
+       "row": "Padding",
+       "kind": "choice",
+       "name": "L",
+       "value": false
+      },
+      {
+       "row": "Padding",
+       "kind": "choice",
+       "name": "Custom block background padding",
+       "value": false
+      },
+      {
+       "row": "Donation Amount Alignment",
+       "kind": "choice",
+       "name": "left",
+       "value": false
+      },
+      {
+       "row": "Donation Amount Alignment",
+       "kind": "choice",
+       "name": "center",
+       "value": true
+      },
+      {
+       "row": "Donation Amount Alignment",
+       "kind": "choice",
+       "name": "right",
+       "value": false
+      },
+      {
+       "row": "Donation Amount Alignment",
+       "kind": "choice",
+       "name": "stretch",
+       "value": false
+      },
+      {
+       "row": "Disclaimer Alignment",
+       "kind": "choice",
+       "name": "left",
+       "value": false
+      },
+      {
+       "row": "Disclaimer Alignment",
+       "kind": "choice",
+       "name": "center",
+       "value": true
+      },
+      {
+       "row": "Disclaimer Alignment",
+       "kind": "choice",
+       "name": "right",
+       "value": false
+      },
+      {
+       "row": "Donate Button",
+       "kind": "menu",
+       "name": "Aa",
+       "value": "Primary Button"
+      },
+      {
+       "row": "Button Alignment",
+       "kind": "choice",
+       "name": "left",
+       "value": false
+      },
+      {
+       "row": "Button Alignment",
+       "kind": "choice",
+       "name": "center",
+       "value": true
+      },
+      {
+       "row": "Button Alignment",
+       "kind": "choice",
+       "name": "right",
+       "value": false
+      },
+      {
+       "row": "Button Alignment",
+       "kind": "choice",
+       "name": "stretch",
+       "value": false
+      }
+     ],
+     "opened": [
+      "Form pack form-pack-01",
+      "Form pack form-pack-02",
+      "Form pack form-pack-03",
+      "Form pack form-pack-04",
+      "Form pack form-pack-05"
+     ],
+     "openedList": [
+      "Form pack form-pack-01",
+      "Form pack form-pack-02",
+      "Form pack form-pack-03",
+      "Form pack form-pack-04",
+      "Form pack form-pack-05",
+      "Form pack form-pack-06"
+     ],
+     "closedBy": "Escape"
+    },
+    {
+     "row": "Lightbox",
+     "kind": "switch",
+     "name": "Lightbox",
+     "value": false,
+     "change": [
+      "elements 99 > 21",
+      "DIV b: 100.1,296.2,341.7,501.4 > 100.1,513.6,341.7,66.6",
+      "DIV b: 100.1,296.2,341.7,501.4 > 100.1,513.6,341.7,66.6",
+      "DIV.sqs-blockStatus b: 100.1,296.2,341.7,501.4 > 100.1,513.6,341.7,66.6",
+      "DIV b: 101.1,297.2,339.7,0 > 101.1,514.6,339.7,0",
+      "svg b: 407.8,308.2,22,22 > 407.8,525.6,22,22",
+      "path b: 409.8,310.2,18,18 > 409.8,527.6,18,18",
+      "path b: 417.8,314.2,2,7 > 417.8,531.6,2,7",
+      "path b: 417.8,322.2,2,2 > 417.8,539.6,2,2",
+      "DIV b: 105.4,301.5,331.2,113.1 > 105.4,518.9,331.2,113.1",
+      "DIV b: 128.4,324.5,251.2,19.8 > 128.4,541.9,251.2,19.8",
+      "DIV b: 128.4,355.3,251.2,36.3 > 128.4,572.7,251.2,36.3",
+      "DIV.form-wrapper cl: sqs-block-form donation-form > form-wrapper",
+      "DIV.form-wrapper b: 100.1,296.2,341.7,501.4 > 100.1,513.6,341.7,66.6"
+     ]
+    },
+    {
+     "row": "Background",
+     "kind": "switch",
+     "name": "Background",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "No Stroke",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "Solid Stroke",
+     "value": true,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "Dashed Stroke",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "button",
+     "name": "Stroke Color",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Thickness",
+     "kind": "choice",
+     "name": "S",
+     "value": true,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Thickness",
+     "kind": "choice",
+     "name": "M",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Thickness",
+     "kind": "choice",
+     "name": "L",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Thickness",
+     "kind": "choice",
+     "name": "Custom block background stroke thickness",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Corner",
+     "kind": "field",
+     "name": "Corner",
+     "value": "20px",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Corner",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Padding",
+     "kind": "choice",
+     "name": "S",
+     "value": false,
+     "home": "M",
+     "change": [
+      "DIV b: 100.1,296.2,341.7,501.4 > 100.1,306.5,341.7,480.9",
+      "DIV b: 100.1,296.2,341.7,501.4 > 100.1,306.5,341.7,480.9",
+      "DIV.sqs-blockStatus b: 100.1,296.2,341.7,501.4 > 100.1,306.5,341.7,480.9",
+      "DIV b: 101.1,297.2,339.7,0 > 101.1,307.5,339.7,0",
+      "svg b: 407.8,308.2,22,22 > 407.8,318.5,22,22",
+      "path b: 409.8,310.2,18,18 > 409.8,320.5,18,18",
+      "path b: 417.8,314.2,2,7 > 417.8,324.5,2,7",
+      "path b: 417.8,322.2,2,2 > 417.8,332.5,2,2",
+      "DIV b: 105.4,301.5,331.2,113.1 > 105.4,311.7,331.2,113.1",
+      "DIV b: 128.4,324.5,251.2,19.8 > 128.4,334.7,251.2,19.8",
+      "DIV b: 128.4,355.3,251.2,36.3 > 128.4,365.5,251.2,36.3",
+      "DIV.sqs-block-form b: 100.1,296.2,341.7,501.4 > 100.1,306.5,341.7,480.9",
+      "DIV.sqs-block-form padding: 20.5px > 10.25px",
+      "STYLE w: #block-yui_3_17_2_1_17940290 .. ing-right: 6 > #block-yui_3_17_2_1_17940290 .. ing-right: 3"
+     ]
+    },
+    {
+     "row": "Padding",
+     "kind": "choice",
+     "name": "M",
+     "value": true,
+     "notPressed": "the default"
+    },
+    {
+     "row": "Padding",
+     "kind": "choice",
+     "name": "L",
+     "value": false,
+     "home": "M",
+     "change": [
+      "DIV b: 100.1,296.2,341.7,501.4 > 100.1,275.7,341.7,542.4",
+      "DIV b: 100.1,296.2,341.7,501.4 > 100.1,275.7,341.7,542.4",
+      "DIV.sqs-blockStatus b: 100.1,296.2,341.7,501.4 > 100.1,275.7,341.7,542.4",
+      "DIV b: 101.1,297.2,339.7,0 > 101.1,276.7,339.7,0",
+      "svg b: 407.8,308.2,22,22 > 407.8,287.7,22,22",
+      "path b: 409.8,310.2,18,18 > 409.8,289.7,18,18",
+      "path b: 417.8,314.2,2,7 > 417.8,293.7,2,7",
+      "path b: 417.8,322.2,2,2 > 417.8,301.7,2,2",
+      "DIV b: 105.4,301.5,331.2,113.1 > 105.4,281,331.2,113.1",
+      "DIV b: 128.4,324.5,251.2,19.8 > 128.4,304,251.2,19.8",
+      "DIV b: 128.4,355.3,251.2,36.3 > 128.4,334.8,251.2,36.3",
+      "DIV.sqs-block-form b: 100.1,296.2,341.7,501.4 > 100.1,275.7,341.7,542.4",
+      "DIV.sqs-block-form padding: 20.5px > 41px",
+      "STYLE w: #block-yui_3_17_2_1_17940290 .. ing-right: 6 > #block-yui_3_17_2_1_17940290 .. ng-right: 12"
+     ]
+    },
+    {
+     "row": "Padding",
+     "kind": "choice",
+     "name": "Custom block background padding",
+     "value": false,
+     "home": "M",
+     "change": []
+    },
+    {
+     "row": "Donation Amount Alignment",
+     "kind": "choice",
+     "name": "left",
+     "value": false,
+     "home": "center",
+     "change": [
+      "DIV.option b: 219.9,330.7,102.2,20 > 122.6,330.7,102.2,20",
+      "DIV.option textAlign: center > left",
+      "LABEL b: 219.9,330.7,102.2,20 > 122.6,330.7,102.2,20",
+      "LABEL textAlign: center > left",
+      "INPUT b: 219.9,330.7,20,20 > 122.6,330.7,20,20",
+      "SPAN.radio-label b: 250.9,330.9,67.2,19.7 > 153.6,330.9,67.2,19.7",
+      "SPAN.radio-label textAlign: center > left",
+      "SPAN.radio-mark b: 219.9,330.7,20,20 > 122.6,330.7,20,20",
+      "SPAN.radio-mark textAlign: center > left",
+      "SPAN.radio-outline b: 219.9,330.7,20,20 > 122.6,330.7,20,20",
+      "SPAN.radio-outline textAlign: center > left",
+      "DIV.option b: 218.1,362.7,105.8,20 > 122.6,362.7,105.8,20",
+      "DIV.option textAlign: center > left",
+      "LABEL b: 218.1,362.7,105.8,20 > 122.6,362.7,105.8,20"
+     ]
+    },
+    {
+     "row": "Donation Amount Alignment",
+     "kind": "choice",
+     "name": "center",
+     "value": true,
+     "notPressed": "the default"
+    },
+    {
+     "row": "Donation Amount Alignment",
+     "kind": "choice",
+     "name": "right",
+     "value": false,
+     "home": "center",
+     "change": [
+      "DIV.option b: 219.9,330.7,102.2,20 > 317.2,330.7,102.2,20",
+      "DIV.option textAlign: center > right",
+      "LABEL b: 219.9,330.7,102.2,20 > 317.2,330.7,102.2,20",
+      "LABEL textAlign: center > right",
+      "INPUT b: 219.9,330.7,20,20 > 317.2,330.7,20,20",
+      "SPAN.radio-label b: 250.9,330.9,67.2,19.7 > 348.2,330.9,67.2,19.7",
+      "SPAN.radio-label textAlign: center > right",
+      "SPAN.radio-mark b: 219.9,330.7,20,20 > 317.2,330.7,20,20",
+      "SPAN.radio-mark textAlign: center > right",
+      "SPAN.radio-outline b: 219.9,330.7,20,20 > 317.2,330.7,20,20",
+      "SPAN.radio-outline textAlign: center > right",
+      "DIV.option b: 218.1,362.7,105.8,20 > 313.6,362.7,105.8,20",
+      "DIV.option textAlign: center > right",
+      "LABEL b: 218.1,362.7,105.8,20 > 313.6,362.7,105.8,20"
+     ]
+    },
+    {
+     "row": "Donation Amount Alignment",
+     "kind": "choice",
+     "name": "stretch",
+     "value": false,
+     "home": "center",
+     "change": [
+      "DIV.stretch-layout cl:  > stretch-layout",
+      "DIV.option b: 219.9,330.7,102.2,20 > 122.6,330.7,296.7,20",
+      "LABEL b: 219.9,330.7,102.2,20 > 120.6,330.7,300.7,20",
+      "INPUT b: 219.9,330.7,20,20 > 120.6,330.7,20,20",
+      "SPAN.radio-label b: 250.9,330.9,67.2,19.7 > 151.6,330.9,265.7,19.7",
+      "SPAN.radio-mark b: 219.9,330.7,20,20 > 120.6,330.7,20,20",
+      "SPAN.radio-outline b: 219.9,330.7,20,20 > 120.6,330.7,20,20",
+      "DIV.option b: 218.1,362.7,105.8,20 > 122.6,362.7,296.7,20",
+      "LABEL b: 218.1,362.7,105.8,20 > 120.6,362.7,300.7,20",
+      "INPUT b: 218.1,362.7,20,20 > 120.6,362.7,20,20",
+      "SPAN.radio-label b: 249.1,362.9,70.8,19.7 > 151.6,362.9,265.7,19.7",
+      "SPAN.radio-mark b: 218.1,362.7,20,20 > 120.6,362.7,20,20",
+      "SPAN.radio-outline b: 218.1,362.7,20,20 > 120.6,362.7,20,20",
+      "DIV.option b: 218,394.7,105.9,20 > 122.6,394.7,296.7,20"
+     ]
+    },
+    {
+     "row": "Disclaimer Alignment",
+     "kind": "choice",
+     "name": "left",
+     "value": false,
+     "home": "center",
+     "change": []
+    },
+    {
+     "row": "Disclaimer Alignment",
+     "kind": "choice",
+     "name": "center",
+     "value": true,
+     "notPressed": "the default"
+    },
+    {
+     "row": "Disclaimer Alignment",
+     "kind": "choice",
+     "name": "right",
+     "value": false,
+     "home": "center",
+     "change": []
+    },
+    {
+     "row": "Donate Button",
+     "kind": "menu",
+     "name": "Aa",
+     "value": "Primary Button",
+     "options": [
+      "AaPrimary Button",
+      "AaSecondary Button",
+      "AaTertiary Button"
+     ],
+     "picked": "AaPrimary Button",
+     "change": []
+    },
+    {
+     "row": "Button Alignment",
+     "kind": "choice",
+     "name": "left",
+     "value": false,
+     "home": "center",
+     "change": [
+      "DIV textAlign: center > left",
+      "BUTTON.button b: 173.4,708.6,195.2,66.6 > 122.6,708.6,195.2,66.6",
+      "SPAN b: 229.4,729.4,83.2,25 > 178.6,729.4,83.2,25",
+      "SPAN b: 229.4,729.4,83.2,25 > 178.6,729.4,83.2,25",
+      "SPAN b: 257,739.1,28,5.6 > 206.2,739.1,28,5.6",
+      "SPAN b: 257,739.1,28,5.6 > 206.2,739.1,28,5.6",
+      "SPAN b: 260.6,731.5,20.8,20.8 > 209.8,731.5,20.8,20.8",
+      "SPAN b: 260.6,731.5,20.8,20.8 > 209.8,731.5,20.8,20.8"
+     ]
+    },
+    {
+     "row": "Button Alignment",
+     "kind": "choice",
+     "name": "center",
+     "value": true,
+     "notPressed": "the default"
+    },
+    {
+     "row": "Button Alignment",
+     "kind": "choice",
+     "name": "right",
+     "value": false,
+     "home": "center",
+     "change": [
+      "DIV textAlign: center > right",
+      "BUTTON.button b: 173.4,708.6,195.2,66.6 > 224.1,708.6,195.2,66.6",
+      "SPAN b: 229.4,729.4,83.2,25 > 280.1,729.4,83.2,25",
+      "SPAN b: 229.4,729.4,83.2,25 > 280.1,729.4,83.2,25",
+      "SPAN b: 257,739.1,28,5.6 > 307.7,739.1,28,5.6",
+      "SPAN b: 257,739.1,28,5.6 > 307.7,739.1,28,5.6",
+      "SPAN b: 260.6,731.5,20.8,20.8 > 311.3,731.5,20.8,20.8",
+      "SPAN b: 260.6,731.5,20.8,20.8 > 311.3,731.5,20.8,20.8"
+     ]
+    },
+    {
+     "row": "Button Alignment",
+     "kind": "choice",
+     "name": "stretch",
+     "value": false,
+     "home": "center",
+     "change": [
+      "DIV textAlign: center > start",
+      "BUTTON.button b: 173.4,708.6,195.2,66.6 > 122.6,708.6,296.7,66.6",
+      "SPAN b: 229.4,729.4,83.2,25 > 178.6,729.4,184.7,25"
+     ]
+    }
+   ],
+   "wideNote": "Form style affects all forms on your site."
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Content",
+  "Design"
+ ],
+ "answer": "Donation: tabs Content, Design. 30 rows read, 10 changed the block when changed. Each row below has its default and what the change did.",
+ "pressed": "Add Block, Donation, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved."
+}

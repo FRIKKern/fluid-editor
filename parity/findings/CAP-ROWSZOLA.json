@@ -1,0 +1,138 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Zola: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Zola",
+ "tabs": {
+  "Content": {
+   "rows": [
+    {
+     "row": "Enter your Zola registry name to display items from your registry. Sign up for a",
+     "kind": "button",
+     "name": "Learn more",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Learn more",
+     "kind": "button",
+     "name": "here",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Registry Name",
+     "kind": "field",
+     "name": "Registry Name",
+     "value": "",
+     "to": "Ab",
+     "change": [
+      "DIV b: 100.1,244.2,459.3,613.4 > 100.1,244.2,459.3,121.4",
+      "DIV b: 100.1,244.2,459.3,613.4 > 100.1,244.2,459.3,121.4",
+      "IFRAME st: border-width: medium; border-style: none; bo > border-width: medium; border-style: none; bo",
+      "IFRAME b: 100.1,244.2,459.3,607 > 100.1,244.2,459.3,115"
+     ]
+    },
+    {
+     "row": "Items to Display",
+     "kind": "field",
+     "name": "Items to Display",
+     "value": "4",
+     "to": "5",
+     "change": []
+    },
+    {
+     "row": "Items to Display",
+     "kind": "slider",
+     "name": "Items to Display",
+     "value": "4",
+     "min": "1",
+     "max": "12",
+     "step": "1",
+     "to": "9",
+     "change": []
+    }
+   ]
+  },
+  "Design": {
+   "rows": [
+    {
+     "row": "Add Padding",
+     "kind": "switch",
+     "name": "Add Padding",
+     "value": false,
+     "change": [
+      "DIV padding: 0px > 0px 20px",
+      "IFRAME b: 100.1,244.2,459.3,115 > 120.1,244.2,419.3,115",
+      "STYLE w: #block-yui_3_17_2_1_17940298 .. --zola-inset > #block-yui_3_17_2_1_17940298 .. ola-inset-pa"
+     ]
+    },
+    {
+     "row": "Transforms",
+     "kind": "menu",
+     "name": "More actions",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Opacity",
+     "kind": "field",
+     "name": "Opacity",
+     "value": "100%",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Opacity",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Rotate",
+     "kind": "field",
+     "name": "Rotate",
+     "value": "0°",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Rotate",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Anchor",
+     "kind": "menu",
+     "name": "Position",
+     "notPressed": "a row every panel has"
+    }
+   ]
+  },
+  "Animation": {
+   "rows": [
+    {
+     "row": "Triggers",
+     "kind": "menu",
+     "name": "Animation list actions"
+    },
+    {
+     "row": "Animation list actions",
+     "kind": "button",
+     "name": "Add a new animation"
+    },
+    {
+     "row": "Add a new animation",
+     "kind": "button",
+     "name": "Press + to get started"
+    }
+   ],
+   "notPressed": "every panel has it"
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Content",
+  "Design",
+  "Animation"
+ ],
+ "answer": "Zola: tabs Content, Design, Animation. 9 rows read, 2 changed the block when changed. Each row below has its default and what the change did.",
+ "pressed": "Add Block, Zola, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved."
+}

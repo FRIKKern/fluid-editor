@@ -1,0 +1,378 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Summary: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Summary",
+ "tabs": {
+  "Content": {
+   "rows": [
+    {
+     "row": "Display content from other pages on your site, such as blog posts, products, eve",
+     "kind": "button",
+     "name": "Learn More",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Learn More",
+     "kind": "menu",
+     "name": "There are no Collection Pages",
+     "value": "There are no Collection Pages",
+     "notPressed": "refused by name"
+    },
+    {
+     "row": "Primary Metadata",
+     "kind": "menu",
+     "name": "No metadata found",
+     "value": "No metadata found",
+     "options": [],
+     "inside": [
+      {
+       "row": "Display content from other pages on your site, such as blog posts, products, eve",
+       "kind": "button",
+       "name": "Learn More"
+      },
+      {
+       "row": "Learn More",
+       "kind": "menu",
+       "name": "There are no Collection Pages",
+       "value": "There are no Collection Pages"
+      },
+      {
+       "row": "Primary Metadata",
+       "kind": "menu",
+       "name": "No metadata found",
+       "value": "No metadata found"
+      },
+      {
+       "row": "Secondary Metadata",
+       "kind": "menu",
+       "name": "No metadata found",
+       "value": "No metadata found"
+      }
+     ],
+     "opened": [],
+     "back": null
+    },
+    {
+     "row": "Secondary Metadata",
+     "kind": "menu",
+     "name": "No metadata found",
+     "value": "No metadata found",
+     "options": [],
+     "inside": [
+      {
+       "row": "Display content from other pages on your site, such as blog posts, products, eve",
+       "kind": "button",
+       "name": "Learn More"
+      },
+      {
+       "row": "Learn More",
+       "kind": "menu",
+       "name": "There are no Collection Pages",
+       "value": "There are no Collection Pages"
+      },
+      {
+       "row": "Primary Metadata",
+       "kind": "menu",
+       "name": "No metadata found",
+       "value": "No metadata found"
+      },
+      {
+       "row": "Secondary Metadata",
+       "kind": "menu",
+       "name": "No metadata found",
+       "value": "No metadata found"
+      }
+     ],
+     "opened": [],
+     "back": null
+    }
+   ]
+  },
+  "Design": {
+   "rows": [
+    {
+     "row": "",
+     "kind": "menu",
+     "name": "Wall",
+     "value": "Wall",
+     "options": [
+      "Wall",
+      "Carousel",
+      "List",
+      "Grid"
+     ],
+     "picked": "Carousel",
+     "change": [
+      "area 1 / 2 / 12 / 20 > 1 / 2 / 6 / 20",
+      "section rows 11 > 5",
+      "DIV.fe-block b: 100.1,244.2,1047.1,441 > 100.1,244.2,1047.1,380",
+      "DIV b: 100.1,244.2,1047.1,441 > 100.1,244.2,1047.1,380",
+      "DIV.yui3-widget b: 100.1,244.2,1047.1,441 > 100.1,244.2,1047.1,380",
+      "DIV b: 100.1,244.2,1047.1,427 > 100.1,244.2,1047.1,380",
+      "DIV.\n cl: \n summary-block-wrapper\n summary-block-colle > \n summary-block-wrapper\n summary-block-colle",
+      "DIV.\n b: 100.1,244.2,1047.1,427 > 100.1,244.2,1047.1,380",
+      "DIV b: 100.1,244.2,1047.1,427 > 100.1,244.2,1047.1,380",
+      "HEADER b: 100.1,244.2,1047.1,0 > 100.1,244.2,1047.1,15",
+      "DIV.summary-heading b: 0,0,0,0 > 100.1,244.2,997.1,0",
+      "DIV.summary-heading display: none > block",
+      "DIV b: 0,0,0,0 > 1097.2,244.2,50,0",
+      "DIV justifyContent: normal > flex-end"
+     ]
+    },
+    {
+     "row": "Number of Items",
+     "kind": "field",
+     "name": "Number of Items",
+     "value": "3",
+     "to": "4",
+     "change": [
+      "area 1 / 2 / 6 / 20 > 1 / 2 / 11 / 20",
+      "section rows 5 > 10",
+      "elements 79 > 99",
+      "DIV.fe-block b: 100.1,244.2,1047.1,380 > 100.1,244.2,1047.1,399.9",
+      "DIV b: 100.1,244.2,1047.1,380 > 100.1,244.2,1047.1,399.9",
+      "DIV.yui3-widget st:  > --summary-title-font-size: 20px; --summary-e",
+      "DIV.yui3-widget b: 100.1,244.2,1047.1,380 > 100.1,244.2,1047.1,399.9",
+      "DIV b: 100.1,244.2,1047.1,380 > 100.1,244.2,1047.1,396.7",
+      "DIV.\n b: 100.1,244.2,1047.1,380 > 100.1,244.2,1047.1,396.7",
+      "DIV b: 100.1,244.2,1047.1,380 > 100.1,244.2,1047.1,396.7",
+      "HEADER b: 100.1,244.2,1047.1,15 > 100.1,244.2,1047.1,31.6",
+      "DIV b: 1097.2,244.2,50,0 > 1097.2,244.2,50,31.6",
+      "SPAN.previous cl: previous sqs-hidden sqs-disabled > previous sqs-disabled",
+      "SPAN.previous b: 0,0,0,0 > 1105.2,244.2,16,16.6"
+     ]
+    },
+    {
+     "row": "Number of Items",
+     "kind": "slider",
+     "name": "Number of Items",
+     "value": "3",
+     "min": "1",
+     "max": "30",
+     "step": "1",
+     "to": "23",
+     "change": [
+      "area 1 / 2 / 11 / 20 > 1 / 2 / 5 / 20",
+      "section rows 10 > 4",
+      "elements 99 > 160",
+      "DIV.fe-block b: 100.1,244.2,1047.1,399.9 > 100.1,244.2,1047.1,396.7",
+      "DIV b: 100.1,244.2,1047.1,399.9 > 100.1,244.2,1047.1,396.7",
+      "DIV.yui3-widget st: --summary-title-font-size: 20px; --summary-e > ",
+      "DIV.yui3-widget b: 100.1,244.2,1047.1,399.9 > 100.1,244.2,1047.1,396.7",
+      "DIV.sqs-gallery st: transform: translateX(0%); margin-left: -1%; > margin-left: -1%; transform: translateX(0%);",
+      "new DIV summary-item",
+      "new DIV",
+      "new A \n summary-thumbnail-container\n sqs-galle",
+      "new DIV img-wrapper",
+      "new IMG loaded",
+      "new DIV summary-content"
+     ]
+    },
+    {
+     "row": "Text",
+     "kind": "choice",
+     "name": "Left Aligned",
+     "value": true,
+     "notPressed": "the default"
+    },
+    {
+     "row": "Text",
+     "kind": "choice",
+     "name": "Center Aligned",
+     "value": false,
+     "home": "Left Aligned",
+     "change": [
+      "DIV.yui3-widget st:  > --summary-title-font-size: 20px; --summary-e",
+      "DIV.sqs-gallery st: margin-left: -1%; transform: translateX(0%); > transform: translateX(0%); margin-left: -1%;",
+      "DIV.summary-content textAlign: left > center",
+      "DIV textAlign: left > center",
+      "DIV textAlign: left > center",
+      "DIV textAlign: left > center",
+      "DIV.summary-title textAlign: left > center",
+      "A b: 100.2,512.1,139.9,28 > 197.7,512.1,139.9,28",
+      "A textAlign: left > center",
+      "DIV textAlign: left > center",
+      "DIV textAlign: left > center",
+      "DIV textAlign: left > center",
+      "DIV.\n textAlign: left > center",
+      "P textAlign: left > center"
+     ]
+    },
+    {
+     "row": "Text",
+     "kind": "choice",
+     "name": "Right Aligned",
+     "value": false,
+     "home": "Left Aligned",
+     "change": [
+      "DIV.yui3-widget st: --summary-title-font-size: 20px; --summary-e > --summary-title-font-size: 20px; --summary-e",
+      "DIV.summary-content textAlign: left > right",
+      "DIV textAlign: left > right",
+      "DIV textAlign: left > right",
+      "DIV textAlign: left > right",
+      "DIV.summary-title textAlign: left > right",
+      "A b: 100.2,512.1,139.9,28 > 295.2,512.1,139.9,28",
+      "A textAlign: left > right",
+      "DIV textAlign: left > right",
+      "DIV textAlign: left > right",
+      "DIV textAlign: left > right",
+      "DIV.\n textAlign: left > right",
+      "P textAlign: left > right",
+      "A textAlign: left > right"
+     ]
+    },
+    {
+     "row": "Title",
+     "kind": "switch",
+     "name": "Title",
+     "value": true,
+     "change": [
+      "DIV b: 100.1,244.2,1047.1,396.7 > 100.1,244.2,1047.1,362.7",
+      "DIV.\n b: 100.1,244.2,1047.1,396.7 > 100.1,244.2,1047.1,362.7",
+      "DIV b: 100.1,244.2,1047.1,396.7 > 100.1,244.2,1047.1,362.7",
+      "DIV.sqs-gallery b: 89.7,275.8,1057.5,365 > 89.7,275.8,1057.5,331",
+      "DIV.summary-item b: 89.7,275.8,356,341 > 89.7,275.8,356,307",
+      "DIV.summary-content b: 100.2,514.1,334.9,92.8 > 100.2,514.1,334.9,58.8",
+      "DIV.summary-title b: 100.2,514.1,334.9,24 > 0,0,0,0",
+      "DIV.summary-title display: block > none",
+      "A b: 100.2,512.1,139.9,28 > 0,0,0,0",
+      "DIV.\n b: 100.2,548.1,334.9,58.8 > 100.2,514.1,334.9,58.8",
+      "P b: 100.2,548.1,334.9,58.8 > 100.2,514.1,334.9,58.8",
+      "DIV b: 100.2,616.9,334.9,0 > 100.2,582.9,334.9,0",
+      "DIV.summary-item b: 445.7,275.8,356,341 > 445.7,275.8,356,307",
+      "DIV.summary-content b: 456.3,514.1,334.9,92.8 > 456.3,514.1,334.9,58.8"
+     ]
+    },
+    {
+     "row": "Featured Image",
+     "kind": "switch",
+     "name": "Featured Image",
+     "value": true,
+     "change": [
+      "area 1 / 2 / 11 / 20 > 1 / 2 / 4 / 20",
+      "section rows 10 > 3",
+      "DIV.fe-block b: 100.1,244.2,1047.1,399.9 > 100.1,302,1047.1,158.4",
+      "DIV b: 100.1,244.2,1047.1,399.9 > 100.1,302,1047.1,158.4",
+      "DIV.yui3-widget b: 100.1,244.2,1047.1,399.9 > 100.1,302,1047.1,158.4",
+      "DIV b: 100.1,244.2,1047.1,396.7 > 100.1,302,1047.1,158.4",
+      "DIV.\n b: 100.1,244.2,1047.1,396.7 > 100.1,302,1047.1,158.4",
+      "DIV b: 100.1,244.2,1047.1,396.7 > 100.1,302,1047.1,158.4",
+      "HEADER b: 100.1,244.2,1047.1,31.6 > 100.1,302,1047.1,31.6",
+      "DIV.summary-heading b: 100.1,244.2,997.1,0 > 100.1,302,997.1,0",
+      "DIV b: 1097.2,244.2,50,31.6 > 1097.2,302,50,31.6",
+      "SPAN.previous b: 1105.2,244.2,16,16.6 > 1105.2,302,16,16.6",
+      "SPAN.next b: 1131.2,244.2,16,16.6 > 1131.2,302,16,16.6",
+      "DIV.sqs-gallery b: 89.7,275.8,1057.5,365 > 89.7,333.6,1057.5,126.8"
+     ]
+    },
+    {
+     "row": "Excerpt",
+     "kind": "switch",
+     "name": "Excerpt",
+     "value": true,
+     "change": [
+      "area 1 / 2 / 11 / 20 > 1 / 2 / 8 / 20",
+      "section rows 10 > 7",
+      "DIV.fe-block b: 100.1,244.2,1047.1,399.9 > 100.1,244.2,1047.1,319.9",
+      "DIV b: 100.1,244.2,1047.1,399.9 > 100.1,244.2,1047.1,319.9",
+      "DIV.yui3-widget b: 100.1,244.2,1047.1,399.9 > 100.1,244.2,1047.1,319.9",
+      "DIV b: 100.1,244.2,1047.1,396.7 > 100.1,244.2,1047.1,319.9",
+      "DIV.\n b: 100.1,244.2,1047.1,396.7 > 100.1,244.2,1047.1,319.9",
+      "DIV b: 100.1,244.2,1047.1,396.7 > 100.1,244.2,1047.1,319.9",
+      "DIV.sqs-gallery b: 89.7,275.8,1057.5,365 > 89.7,275.8,1057.5,288.3",
+      "DIV.summary-item b: 89.7,275.8,356,341 > 89.7,275.8,356,264.3",
+      "DIV.summary-content b: 100.2,514.1,334.9,92.8 > 100.2,514.1,334.9,24",
+      "DIV.\n b: 100.2,548.1,334.9,58.8 > 0,0,0,0",
+      "DIV.\n display: block > none",
+      "P b: 100.2,548.1,334.9,58.8 > 0,0,0,0"
+     ]
+    },
+    {
+     "row": "Metadata Position",
+     "kind": "menu",
+     "name": "Below Content",
+     "value": "Below Content",
+     "options": [
+      "Above Title",
+      "Below Title",
+      "Below Content"
+     ],
+     "picked": "Above Title",
+     "change": [
+      "DIV.yui3-widget st: --summary-title-font-size: 20px; --summary-e > --summary-title-font-size: 20px; --summary-e",
+      "DIV b: 0,0,0,0 > 100.2,514.1,334.9,0",
+      "DIV display: none > block",
+      "DIV b: 100.2,616.9,334.9,0 > 0,0,0,0",
+      "DIV display: block > none",
+      "DIV b: 0,0,0,0 > 456.3,514.1,334.9,0",
+      "DIV display: none > block",
+      "DIV b: 456.3,616.9,334.9,0 > 0,0,0,0",
+      "DIV display: block > none",
+      "DIV b: 0,0,0,0 > 812.3,514.1,334.9,0",
+      "DIV display: none > block",
+      "DIV b: 812.3,616.9,334.9,0 > 0,0,0,0",
+      "DIV display: block > none",
+      "DIV b: 0,0,0,0 > 1168.3,514.1,334.9,0"
+     ]
+    },
+    {
+     "row": "Size and Spacing",
+     "kind": "nav",
+     "name": "Navigate to Size and Spacing",
+     "gone": true
+    },
+    {
+     "row": "Background",
+     "kind": "switch",
+     "name": "Background",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "No Stroke",
+     "value": true,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "Solid Stroke",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "Dashed Stroke",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "menu",
+     "name": "Blend Mode",
+     "value": "Normal",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Blur",
+     "kind": "switch",
+     "name": "Blur",
+     "value": false,
+     "notPressed": "a row every panel has"
+    }
+   ]
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Content",
+  "Design"
+ ],
+ "answer": "Summary: tabs Content, Design. 20 rows read, 9 changed the block when changed. Each row below has its default and what the change did.",
+ "pressed": "Add Block, Summary, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved."
+}
