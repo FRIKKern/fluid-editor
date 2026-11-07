@@ -1,0 +1,167 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Instagram: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Instagram",
+ "tabs": {
+  "Account": {
+   "rows": [
+    {
+     "row": "Display your own Instagram feed on your site and choose between four different l",
+     "kind": "button",
+     "name": "Learn more",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Choose an account",
+     "kind": "menu",
+     "name": "Choose an account",
+     "value": "Choose an account",
+     "options": [
+      "Choose an account",
+      "Add an account"
+     ],
+     "notPressed": "refused by name"
+    },
+    {
+     "row": "10 Items",
+     "kind": "slider",
+     "name": "10 Items",
+     "value": "10",
+     "min": "1",
+     "max": "20",
+     "to": "10",
+     "change": []
+    }
+   ]
+  },
+  "Design": {
+   "rows": [
+    {
+     "row": "1:1 Square",
+     "kind": "menu",
+     "name": "1:1 Square",
+     "value": "1:1 Square",
+     "options": [
+      "1:1 Square",
+      "3:2 Standard",
+      "2:3 Standard (Vertical)",
+      "4:3 Four-Three",
+      "3:4 Three-Four (Vertical)",
+      "16:9 Widescreen",
+      "2.40 Anamorphic Widescreen"
+     ],
+     "to": "3:2 Standard",
+     "change": [
+      "area 1 / 2 / 13 / 10 > 1 / 2 / 9 / 10",
+      "section rows 12 > 8",
+      "DIV.fe-block b: 100.1,244.2,459.3,482.1 > 100.1,244.2,459.3,317.8",
+      "DIV b: 100.1,244.2,459.3,482.1 > 100.1,244.2,459.3,317.8",
+      "DIV.yui3-widget b: 100.1,244.2,459.3,482.1 > 100.1,244.2,459.3,317.8",
+      "DIV.targeted b: 100.1,244.2,459.3,359.4 > 100.1,244.2,459.3,259.6",
+      "DIV.sqs-blockStatus b: 100.1,244.2,459.3,482.1 > 100.1,244.2,459.3,317.8",
+      "DIV.sqs-gallery-container\n cl: sqs-gallery-container\n sqs-gallery-block-sho > sqs-gallery-container\n sqs-gallery-block-gri",
+      "DIV.sqs-gallery-container\n b: 100.1,244.2,459.3,359.4 > 100.1,244.2,459.3,259.6",
+      "DIV.slide b: 100.1,244.2,119.8,119.8 > 100.1,244.2,119.8,86.5",
+      "DIV.margin-wrapper b: 100.1,244.2,99.8,99.8 > 100.1,244.2,99.8,66.5",
+      "A.\n b: 100.1,244.2,99.8,99.8 > 100.1,244.2,99.8,66.5",
+      "A.\n padding: 0px 0px 99.8125px > 0px 0px 66.5312px",
+      "IMG.thumb-image st: opacity: 1; left: 0px; top: 0px; width: 100p > opacity: 0.665789; left: 0px; top: -16.5px; "
+     ],
+     "back": "16:9 Widescreen"
+    },
+    {
+     "row": "1:1 Square",
+     "kind": "switch",
+     "name": "Crop Images",
+     "value": false,
+     "change": [
+      "A.\n cl: \n image-slide-anchor\n \n content-fill\n > \n image-slide-anchor\n \n content-fit\n",
+      "A.\n st: overflow: hidden; > ",
+      "IMG.thumb-image st: opacity: 1; left: 0px; top: -22px; width: 10 > opacity: 0; left: 22px; top: 0px; width: 56p",
+      "IMG.thumb-image b: 100.1,241.4,100,100 > 122.1,263.4,56,56",
+      "IMG.thumb-image opacity: 1 > 0.408577",
+      "A.\n cl: \n image-slide-anchor\n \n content-fill\n > \n image-slide-anchor\n \n content-fit\n",
+      "A.\n st: overflow: hidden; > ",
+      "IMG.thumb-image st: opacity: 1; left: 0px; top: -22px; width: 10 > opacity: 0; left: 22px; top: 0px; width: 56p",
+      "IMG.thumb-image b: 219.9,241.4,100,100 > 241.9,263.4,56,56",
+      "IMG.thumb-image opacity: 1 > 0.122074",
+      "A.\n cl: \n image-slide-anchor\n \n content-fill\n > \n image-slide-anchor\n \n content-fit\n",
+      "A.\n st: overflow: hidden; > ",
+      "IMG.thumb-image st: opacity: 1; left: 0px; top: -22px; width: 10 > opacity: 0; left: 22px; top: 0px; width: 56p",
+      "IMG.thumb-image b: 339.8,241.4,100,100 > 361.8,263.4,56,56"
+     ]
+    },
+    {
+     "row": "4",
+     "kind": "slider",
+     "name": "4",
+     "value": "4",
+     "min": "1",
+     "max": "10",
+     "to": "4",
+     "change": []
+    },
+    {
+     "row": "20",
+     "kind": "slider",
+     "name": "20",
+     "value": "20",
+     "min": "0",
+     "max": "50",
+     "to": "20",
+     "change": []
+    },
+    {
+     "row": "Padding around the gridded images.",
+     "kind": "switch",
+     "name": "Lightbox",
+     "value": false,
+     "change": []
+    },
+    {
+     "row": "Lightbox",
+     "kind": "switch",
+     "name": "Open Links in New Window",
+     "value": false,
+     "change": [
+      "elements 77 > 89",
+      "A.\n cl: \n image-slide-anchor\n \n content-fit\n > \n image-slide-anchor\n \n js-gallery-lightbox-",
+      "new SPAN  View fullsize",
+      "new NOSCRIPT  <img src=\"assets.squ ..  alt=\"Aenean eu leo Quam\" />",
+      "new IMG thumb-image loaded",
+      "DIV.slide cl: margin-wrapper > slide",
+      "DIV.slide b: 219.9,263.4,99.8,56.1 > 219.9,263.4,119.8,76.1",
+      "new DIV margin-wrapper",
+      "new A \n image-slide-anchor\n \n js-gallery-light",
+      "new SPAN  View fullsize",
+      "new NOSCRIPT  <img src=\"assets.squ .. ew.jpg\" alt=\"Cursus Amet\" />",
+      "new IMG thumb-image loaded",
+      "new DIV slide",
+      "new DIV margin-wrapper"
+     ]
+    }
+   ]
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Account",
+  "Design"
+ ],
+ "dialog": {
+  "title": "Grid",
+  "box": [
+   555,
+   237,
+   395,
+   498
+  ],
+  "buttons": [],
+  "escapeCloses": false,
+  "blockPressCloses": false
+ },
+ "answer": "Instagram: tabs Account, Design. 8 rows read, 3 changed the block when changed. Each row below has its default and what the change did.",
+ "pressed": "Add Block, Instagram, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved."
+}
