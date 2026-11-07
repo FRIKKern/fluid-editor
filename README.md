@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 52 changes
+- **Today** · 53 changes
+  - U4, T4, T7, T9, T10, T11: Align Vertically on every tile, a new Image's two buttons, no More actions on a phone ([#344](https://github.com/FRIKKern/fluid-editor/pull/344))
   - U12: the faded rows by opening only: Font Packs' tabs, Customize, the strip, Image Blocks, a type's Font popover ([#343](https://github.com/FRIKKern/fluid-editor/pull/343))
-  - T12: 0005 names stand-in rows that need an account, a lookup or a collection ([#342](https://github.com/FRIKKern/fluid-editor/pull/342))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
