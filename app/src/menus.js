@@ -83,10 +83,11 @@ export function layersPanelHtml(rows) {
 }
 
 const K = { cmd: '⌘', shift: '⇧', back: '⌫' };
-// The Arrange submenu (parity/findings/ARRANGE.json).
-export function arrangeMenuHtml() {
-  const it = (act, label, keys = '') => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"><span>${label}</span>${keys ? `<kbd>${keys}</kbd>` : ''}</button>`;
-  return [it('z-forward', 'Move forward', '↑'), it('z-front', 'Move to front'), it('z-backward', 'Move backward', '↓'), it('z-back', 'Move to back')].join('');
+// The Arrange submenu (parity/findings/ARRANGE.json). On the top block Move forward and Move to front are grey
+// (CAP-MENUS.json, the newest block, the only one read); on the bottom block the other two are, inferred.
+export function arrangeMenuHtml({ top = false, bottom = false } = {}) {
+  const it = (act, label, keys = '', off = false) => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"${off ? ' disabled' : ''}><span>${label}</span>${keys ? `<kbd>${keys}</kbd>` : ''}</button>`;
+  return [it('z-forward', 'Move forward', '↑', top), it('z-front', 'Move to front', '', top), it('z-backward', 'Move backward', '↓', bottom), it('z-back', 'Move to back', '', bottom)].join('');
 }
 
 // Copy Properties and Paste Properties, read on the oracle (parity/findings/CAP-COPYANIM.json).
@@ -100,8 +101,10 @@ export function pastePropsMenuHtml({ canTransforms, canAnimations }) {
   return [propRow('ppaste-transforms', 'Transforms', canTransforms), propRow('ppaste-animations', 'Animations', canAnimations), propRow('preplace-animations', 'Replace Animations', canAnimations)].join('');
 }
 
-// On a phone the oracle's menu has no Copy Properties or Paste Properties (parity/findings/LINKBOX.json).
-export function contextMenuHtml({ canPaste, phone = false }) {
+// On a phone the oracle's menu has no Copy Properties or Paste Properties (parity/findings/LINKBOX.json), and on
+// desktop these 16 tiles have neither (CAP-MENUS.json). Arrange is grey on a block alone in its section (27 of 27).
+export const NO_PROPERTIES = new Set(['Accordion', 'Pricing Plan', 'Donation', 'Newsletter', 'Calendar', 'Menu', 'Chart', 'Markdown', 'Page Link', 'Tag Cloud', 'RSS', 'Instagram', 'Tock', 'SoundCloud', 'Flickr', 'Bandsintown']);
+export function contextMenuHtml({ canPaste, phone = false, tile = '', alone = false }) {
   const item = (act, label, keys = '', opts = {}) => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"${opts.off ? ' disabled' : ''}${opts.unbuilt ? ' data-unbuilt' : ''}><span>${label}</span>${keys ? `<kbd>${keys}</kbd>` : ''}${opts.more ? '<span class="cm-more">›</span>' : ''}</button>`;
   return [
     item('copy', 'Copy', `${K.cmd} C`),
@@ -109,9 +112,9 @@ export function contextMenuHtml({ canPaste, phone = false }) {
     item('duplicate', 'Duplicate', `${K.cmd} D`),
     item('delete', 'Delete', K.back),
     '<hr>',
-    ...(phone ? [] : [item('copy-props', 'Copy Properties', '', { more: true }), item('paste-props', 'Paste Properties', '', { more: true }), '<hr>']),
+    ...(phone || NO_PROPERTIES.has(tile) ? [] : [item('copy-props', 'Copy Properties', '', { more: true }), item('paste-props', 'Paste Properties', '', { more: true }), '<hr>']),
     item('stack', 'Stack', `${K.shift} S`),
-    item('arrange', 'Arrange', '', { more: true }),
+    item('arrange', 'Arrange', '', { more: true, off: alone }),
     '<hr>',
     item('hide-desktop', 'Hide on desktop', `${K.cmd} ${K.shift} H`),
     item('hide-mobile', 'Hide on mobile', ''),

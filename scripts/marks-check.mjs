@@ -2426,6 +2426,26 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   await real(await centre(`document.querySelector('[data-layout="2"]')`)); await pause(300);
   add('Layouts panel: later picks leave it there', js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`) === afterPick);
   browser(S, 'press', 'Escape'); await pause(200);
+  // Each pick moves it up to where it would open on the section as it now is, never down (CAP-U10PANELPREDICT.json:
+  // ours' own values; the oracle read 214 and 114 for the two 206 and 106, a named 8 px miss).
+  const para = async () => { await start(); await change(`(m) => { const s = m.sections[0], t = JSON.parse(JSON.stringify(m.sections.flatMap((x) => x.blocks).find((b) => b.type === 'text'))); t.id = 'probe-p'; t.html = '<p>Paragraph words for a probe</p>'; t.layout.desktop.area = [2, 2, 4, 12]; t.layout.mobile.area = [1, 2, 3, 10]; s.blocks = [t]; s.height = 'medium'; s.rows = { ...s.rows, desktop: 8 }; delete s.theme; delete s.divider; }`); };
+  const panelTop = () => js(`return JSON.stringify(Math.round(document.getElementById('layouts-panel').getBoundingClientRect().top));`);
+  const pickTile = async (n) => { js(`document.querySelector('[data-layout="${n}"]').scrollIntoView({ block: 'nearest' }); return 'true';`); await pause(200); await real(await centre(`document.querySelector('[data-layout="${n}"]')`)); await pause(400); return panelTop(); };
+  await para();
+  const walk = [Math.round(await openLayouts(300))];
+  for (const n of [1, 5, 2]) walk.push(await pickTile(n));
+  add('Layouts panel: picks 1, 5, 2 on a paragraph: 248, 248, up to 206, stays', walk.join() === '248,248,206,206', walk.join());
+  browser(S, 'press', 'Escape'); await pause(200);
+  await para();
+  const fr = js(`const r = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + 400]);`);
+  wheel(S, fr[0], fr[1], 100); await pause(800);
+  const scrolled = [Math.round(await openLayouts(250)), await pickTile(5)];
+  add('Layouts panel: scrolled 100, a pick moves it up from 148 to 106', scrolled.join() === '148,106', scrolled.join());
+  browser(S, 'press', 'Escape'); await pause(200);
+  await para(); await change(`(m) => { m.sections[0].divider = true; }`);
+  const withDivider = Math.round(await openLayouts(300));
+  add('Layouts panel: a divider\'s height doesn\'t count on opening (248 at 763.6)', withDivider === 248, JSON.stringify(withDivider));
+  browser(S, 'press', 'Escape'); await pause(200);
 }
 // U10: the Layouts panel closing and a pick on a section with a look, against CAP-VIEWLAYOUTS.json.
 {
@@ -3289,6 +3309,26 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     browser(S, 'press', 'Escape'); await pause(200);
   }
   add('Embed and Tag Cloud alone: their read picks by Code\'s list', fam.length === 0, fam.join(' | '));
+  // A type with one other block (CAP-U10MIX-*.json): on or off, the tile count, and the read picks as read
+  // (CAP-U10MIXPICK-*.json; areas compared as a set, as ours puts blocks in page order); the rest of the tiles shown, not built.
+  const pair = (a, b) => evalJs(S, `(() => { const m = ${JSON.stringify(base)}; m.sections[0].blocks = []; fe.load(m); const sid = fe.model.sections[0].id; fe.addBlock(sid, ${JSON.stringify(a)}); fe.addBlock(sid, ${JSON.stringify(b)}); fe.select(null); return 'true'; })()`);
+  for (const [a, b, F, picks] of [['Image', 'Code', 'IMAGE-CODE', [0, 4]], ['Video', 'Button', 'VIDEO-BUTTON', [0, 5]], ['Image', 'Quote', 'IMAGE-QUOTE', []], ['Map', 'Button', 'MAP-BUTTON', []], ['Map', 'Code', 'MAP-CODE', []]]) {
+    const L = FIND(`CAP-U10MIX-${F}`).reads.open.tileNames.map((x) => Math.round(x[5] * 10) / 10), errs = [];
+    pair(a, b); await pause(250);
+    const tiles = await open();
+    const on = evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list .lo-tile')].map((t) => t.disabled ? -1 : +t.dataset.layout))`);
+    if (tiles.join() !== L.join() || on.join() !== L.map((_, n) => (picks.includes(n) ? n : -1)).join()) errs.push(`tiles ${tiles} ${on}`);
+    for (const n of picks) {
+      const r = FIND(`CAP-U10MIXPICK-${F}`).reads[`pick ${n}`], g = pick(n);
+      const want = r.stack.map((x) => [x.desktop, x.phone].join(' ')).sort().join(), got = g && evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.map((x) => [x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/')].join(' ')))`).sort().join();
+      if (!g || got !== want || g.rows !== r.look.rows || g.look.join() !== ',') errs.push(`${n} ${got} ${g && g.rows}`);
+    }
+    add(`View Layouts, ${a} + ${b}: ${L.length} tiles, ${picks.length} read picks built`, errs.length === 0, errs.slice(0, 3).join(' | '));
+    browser(S, 'press', 'Escape'); await pause(200);
+  }
+  pair('Instagram', 'Button'); await pause(250);
+  const ib = await btn();
+  add('View Layouts, Instagram + Button: off, as read', !!ib && ib.off, JSON.stringify(ib));
 }
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);

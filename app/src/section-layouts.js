@@ -1,7 +1,7 @@
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): the Layouts panel lists a section's own blocks
 // re-laid out, from the list its mix of blocks has. Mixes not read on the oracle have no list here.
 import { LAYOUTS } from './section-layouts-data.js';
-import { TYPE_LAYOUTS, TYPE_TILES } from './section-layouts-types.js';
+import { TYPE_LAYOUTS, TYPE_TILES, MIX_LAYOUTS } from './section-layouts-types.js';
 
 const words = (b) => String(b.html || '').replace(/<[^>]+>/g, '').trim();
 const roleOf = (b) => {
@@ -45,6 +45,15 @@ export function sectionMix(s) {
   if (kept.length === 1 && kindOf(kept[0])) {
     const list = typeList(kindOf(kept[0]), kept[0]);
     return list ? { key: kindOf(kept[0]), by: { t: kept }, list } : null;
+  }
+  // One of those types with other blocks: the mixes read (CAP-U10MIX-*.json), by the blocks' names; the rest off.
+  if (kept.some(kindOf)) {
+    const ROLE = { i: 'Image', b: 'Button', h: 'Heading', p: 'Text' };
+    const key = kept.map((b) => kindOf(b) || ROLE[roleOf(b)]).sort().join('+'), list = MIX_LAYOUTS[key];
+    if (!list) return null;
+    const by = {};
+    for (const b of kept) (by[kindOf(b) ? 't' : roleOf(b)] ||= []).push(b);
+    return { key, by, list };
   }
   const by = { h: [], p: [], i: [], b: [] };
   for (const b of s.blocks) {
@@ -115,8 +124,9 @@ export function layoutsPanelHtml(mix, picked, look) {
   return `<div class="lo-head">Layouts</div><ul class="lo-list">${mix.list.map((_, n) => tile(mix, n, picked === n, look)).join('')}</ul>`;
 }
 
-// Opening, it sits where Edit Section's panel does (sectionPanelTop). The first pick in a short section
-// moves it down once, and it stays there until it closes (CAP-VIEWLAYOUTS.json, panelTop.afterPick).
-export const layoutsPickTop = ({ top, secTop, h }) => (h < 644 ? Math.max(top, secTop + 140) : top);
+// The panel after a pick: up to where it would open on the section as it now is, never down, and never above the
+// section's top + 140: 195 from 562 and 603.1 tall, 248 after a pick made it 667.6 (CAP-VIEWLAYOUTS.json afterPick,
+// CAP-U10READ4.json, CAP-U10READ6.json; 33 of 34 seen reads within 1.5 px, a reopen at 681.4 with a divider 3 px off).
+export const layoutsPickTop = ({ top, secTop, fresh }) => Math.max(secTop + 140, Math.min(top, fresh));
 
 export const sectionLook = (s) => ({ theme: s.theme, height: s.height, divider: s.divider, dividerShape: s.dividerShape, dividerStroke: s.dividerStroke });

@@ -5488,12 +5488,22 @@ function openLayouts(sid) {
   const fr = frame.getBoundingClientRect(), q = sectionEl(sid).getBoundingClientRect();
   // From the card's set place: it may still be sliding in.
   const editAt = stage.getBoundingClientRect().top + parseFloat(chrome.querySelector('[data-sc-part="card"]').style.top) + 7;
-  layoutsPlace = { top: sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom }), secTop: fr.top + q.top, h: q.height, moved: false };
+  // A divider's own height doesn't count: the panel goes by the section above it (CAP-U10READ6.json, 248 at 763.6 with one).
+  layoutsPlace = { top: sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom - dividerPx(S(sid)) }), edit: editAt, secTop: fr.top + q.top };
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
   readLayoutsLook();
   renderLayouts();
 }
 function closeLayouts() { layoutsSid = null; layoutsPanel.hidden = true; }
+const dividerPx = (s) => (s.divider ? ((s.dividerHeight ?? 6) / 100) * frame.getBoundingClientRect().width : 0);
+// After each pick: up to where it would open on the section as it now is, never down, and not above the section's
+// top + 140 (CAP-VIEWLAYOUTS.json afterPick, CAP-U10READ4.json, CAP-U10READ6.json).
+function pickMovesLayouts() {
+  const fr = frame.getBoundingClientRect(), q = sectionEl(layoutsSid).getBoundingClientRect(), secTop = fr.top + q.top;
+  const fresh = sectionPanelTop({ edit: layoutsPlace.edit + secTop - layoutsPlace.secTop, H: window.innerHeight, secTop, secBottom: fr.top + q.bottom - dividerPx(S(layoutsSid)) });
+  layoutsPlace.top = layoutsPickTop({ top: layoutsPlace.top, secTop, fresh });
+  layoutsPanel.style.top = `${layoutsPlace.top}px`;
+}
 // While the page scrolls: down with the section's bottom, up only once section top + 140 reaches it, by Edit Section's rule
 // (sectionPanelTop with prev). It closes where Edit Section's does (CAP-U10WALK2.json, CAP-U10READ5.json).
 // 5 of 34 oracle reads ran ahead of this on the way down, by up to one scroll step, with no rule.
@@ -5505,7 +5515,6 @@ function placeLayouts() {
   // Up: top + 140 under the header, top + 1.4 on other sections on 2 walks of 3. Those sections' way down has no rule (CAP-U10SECOND2.json).
   const edit = secTop + (model.sections[0].id === layoutsSid ? 143 : 4);
   layoutsPlace.top = sectionPanelTop({ edit, H: window.innerHeight, secTop, secBottom, prev: layoutsPlace.top });
-  layoutsPlace.secTop = secTop;
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
 }
 layoutsPanel.addEventListener('click', (e) => {
@@ -5514,11 +5523,11 @@ layoutsPanel.addEventListener('click', (e) => {
   if (!mix) return;
   const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
   layoutsPicked = layoutsLast = Number(t.dataset.layout);
-  if (!layoutsPlace.moved) { layoutsPlace.moved = true; layoutsPlace.top = layoutsPickTop(layoutsPlace); layoutsPanel.style.top = `${layoutsPlace.top}px`; }
   applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase);
   if (sel?.sid === layoutsSid) select(null);
   commit(before, `Layout ${layoutsPicked + 1}`);
   renderAll();
+  pickMovesLayouts();
   layoutsMix = openedMix();
   renderLayouts();
   layoutsPanel.querySelector('.lo-list').scrollTop = top;
@@ -6334,8 +6343,10 @@ addMenu.addEventListener('input', (e) => {
 });
 // A text block is named by its text, cut by CSS (the oracle row label holds at least the
 // first 48 characters, gap review 2026-11-04).
+// A block's tile name, as the add menu and Layers name it: a stand-in's label, else its type.
+const tileName = (b) => { const n = b.label && b.type === 'shape' ? b.label : b.type; return n[0].toUpperCase() + n.slice(1); };
 function layerRows(s) {
-  const named = (b) => { const n = b.label && b.type === 'shape' ? b.label : b.type; return n[0].toUpperCase() + n.slice(1); };
+  const named = tileName;
   const row = (b, kidOf) => ({ id: b.id, kidOf, type: named(b), on: sel?.bid === b.id, hidden: !!lay(b).hidden,
     label: b.type === 'text' ? (b.html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() || 'Text' : named(b) });
   // A stack's children follow it, one step in (S3.json children).
@@ -6466,7 +6477,7 @@ function onContextMenu(e) {
   // A right press on a group leaves that one block selected (CAP-COPYANIM.json).
   if (sel?.bid !== blk.dataset.blockId || sel.more?.length) select({ sid, bid: blk.dataset.blockId });
   closeFloating();
-  contextMenu.innerHTML = contextMenuHtml({ canPaste: !!blockClip, phone: bp === 'mobile' });
+  contextMenu.innerHTML = contextMenuHtml({ canPaste: !!blockClip, phone: bp === 'mobile', tile: tileName(B(sid, blk.dataset.blockId)), alone: S(sid).blocks.length < 2 });
   const fr = frame.getBoundingClientRect(), st = stage.getBoundingClientRect();
   contextMenu.style.left = `${Math.min(fr.left - st.left + e.clientX, st.width - 180)}px`;
   contextMenu.style.top = `${Math.min(fr.top - st.top + e.clientY, st.height - 400)}px`;
@@ -6540,7 +6551,8 @@ function arrange(sid, bid, how) {
 const arrangeMenu = $('arrange-menu');
 function openSubmenu(it) {
   const act = it.dataset.cm;
-  const html = act === 'arrange' ? arrangeMenuHtml()
+  const zs = act === 'arrange' && S(sel.sid).blocks.map((o) => lay(o).z), z = lay(B(sel.sid, sel.bid)).z;
+  const html = act === 'arrange' ? arrangeMenuHtml({ top: z >= Math.max(...zs), bottom: z <= Math.min(...zs) })
     : act === 'copy-props' ? copyPropsMenuHtml({ hasAnimations: animRows().length > 0 })
       : act === 'paste-props' ? pastePropsMenuHtml({ canTransforms: !!transformClip, canAnimations: !!animClip }) : null;
   if (!html) return false;
@@ -6556,7 +6568,7 @@ function openSubmenu(it) {
 // A hover opens a row's submenu, as on the oracle.
 contextMenu.addEventListener('mouseover', (e) => {
   const it = e.target.closest('button[data-cm]');
-  if (!it || !sel || openSubmenu(it)) return;
+  if (!it || !sel || (!it.disabled && openSubmenu(it))) return;
   arrangeMenu.hidden = true;
 });
 arrangeMenu.addEventListener('mousedown', (e) => e.preventDefault());
