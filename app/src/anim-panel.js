@@ -49,9 +49,18 @@ export function animPickerHtml(trigger, row, menu) {
 
 // Edge hit regions take a drag (top, bottom, left 11, right 44); a click on them does nothing.
 export const HITS = '<button type="button" class="sc-hit sc-t" tabindex="-1" aria-hidden="true"></button><button type="button" class="sc-hit sc-b" tabindex="-1" aria-hidden="true"></button><button type="button" class="sc-hit sc-l" tabindex="-1" aria-hidden="true"></button><button type="button" class="sc-hit sc-r" tabindex="-1" aria-hidden="true"></button>';
-export const resetBtn = (attrs, on) => `<button type="button" class="sc-reset${on ? ' is-on' : ''}" ${attrs} aria-label="Reset to default value" tabindex="-1">${svg('<path d="M5 12a7 7 0 1 0 2.2-5.1"/><path d="M5 4v4h4"/>', 14)}</button>`;
+export const resetBtn = (attrs, on) => `<button type="button" class="sc-reset${on ? ' is-on' : ''}" ${attrs} aria-label="Reset to default value" tabindex="-1"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7.5 7.5l7 7M14.5 7.5l-7 7"/></svg></button>`;
+// A field's parts, as read (CAP-T6FIELDS.json): <> on hover and focus, and a bar that shows only in a drag.
+export const ARROWS = '<span class="sc-arrows" aria-hidden="true"><svg width="22" height="28" viewBox="0 0 22 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 10L5 14l3.5 4M13.5 10L17 14l-3.5 4"/></svg></span>';
+export const barAt = (v, [lo, hi]) => (Math.min(1, Math.max(0, (parseFloat(v) - lo) / (hi - lo))) - 1) * 100;
+export const barHtml = (v, range) => `<span class="sc-bar" aria-hidden="true"><i style="transform:translateX(${barAt(v, range)}%)"></i></span>`;
+// The bar's range for each of the eight values, in the order of REST. Scale, Offset and Skew fit their reads; typed values go past them.
+export const POSE_RANGE = [[0, 100], [-360, 360], [0, 200], [0, 200], [-1000, 1000], [-1000, 1000], [-60, 60], [-60, 60]];
 
-const field = (key, value, reset, extra = '') => `<span class="an-box sc-box${extra}" data-field="${key}"><input type="text" data-afield="${key}" value="${esc(value)}" autocomplete="off" spellcheck="false">${HITS}${resetBtn(`data-anim="reset" data-key="${key}"`, reset)}${extra.includes('is-axis') ? `<b class="an-axis">${key.endsWith('X') ? 'X' : 'Y'}</b>` : ''}</span>`;
+const field = (key, value, reset, extra = '') => {
+  const pose = /:(\d)/.exec(key);
+  return `<span class="an-box sc-box${extra}" data-field="${key}">${pose ? barHtml(value, POSE_RANGE[pose[1]]) : ''}<input type="text" data-afield="${key}" value="${esc(value)}" autocomplete="off" spellcheck="false">${HITS}${extra.includes('is-axis') ? `<b class="an-axis">${key.endsWith('X') ? 'X' : 'Y'}</b>` : ARROWS}${resetBtn(`data-anim="reset" data-key="${key}"`, reset)}</span>`;
+};
 const line = (label, control) => `<div class="an-f"><span class="an-l">${label}</span>${control}</div>`;
 const select = (key, value, glyph = '') => `<button type="button" class="an-sel" data-anim="sel" data-key="${key}" aria-haspopup="listbox">${glyph}<span>${esc(value)}</span>${CHEVRON}</button>`;
 
