@@ -1684,8 +1684,8 @@
     },
     {
       "item": "U10",
-      "what": "View Layouts: the picks of the 15 type lists not picked (12 five-tile, Zola, Archive, Scrolling). Ours infers the shared columns for 13 and shows Archive's and Scrolling's tiles unbuilt.",
-      "source": "CAP-U10LIST-*.json",
+      "what": "View Layouts: the picks not read on a type alone: every tile of Chart, Calendar, Bandsintown, Tock, SoundCloud, Menu and Archive, 3 of Instagram's and Flickr's 5, 4 of Scrolling's 6 (ours shows them faded), and the untested tiles of Markdown, Audio, Embed, Tag Cloud and Zola (ours infers them by family).",
+      "source": "CAP-U10LIST-*.json, CAP-U10SHARE-*.json",
       "safeRead": "yes",
       "how": "picks on a probe page, unsaved, one type per reload",
       "lane": "chrome",
