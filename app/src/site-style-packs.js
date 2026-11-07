@@ -1,6 +1,7 @@
 // The style packs of the Site Styles popovers, measured on the oracle (parity/findings/SITESTYLES2.json):
 // the values each pack gave the site's page, and how its tile draws. Colors are the palette's ten
 // hsl values in the order of VARS. Fonts load from Google Fonts by name, as Poppins does (O2).
+import { assignCss } from './assign-styles.js';
 import { brightness } from './color-math.js';
 import { themeRowsCss } from './theme-rows.js';
 import { tierCss } from './button-tiers.js';
@@ -104,8 +105,7 @@ export const fontName = (f) => f.split(',')[0].replace(/"/g, '').trim();
 export const fontFamilyCss = (f) => (isFontStack(f) ? f : `"${fontName(f)}", sans-serif`);
 const ALL_WEIGHTS = [100, 200, 300, 400, 500, 600, 700, 800, 900].flatMap((w) => [w, `${w}i`]).join(',');
 export const fontListLink = (f) => `<link rel="stylesheet" data-fe-site-styles href="https://fonts.googleapis.com/css?family=${fontName(f).replace(/ /g, '+')}:${ALL_WEIGHTS}&display=swap">`;
-const TYPE_KEYS = ['h', 'p', 'primary', 'secondary', 'tertiary', 'misc'];
-export const pickedFonts = (styles) => [...new Set(TYPE_KEYS.map((k) => styles?.type?.[k]?.family).filter(Boolean))];
+export const pickedFonts = (styles) => [...new Set(Object.values(styles?.type || {}).map((t) => t?.family).filter(Boolean))];
 
 // Headings, Paragraphs and Spacing rows (parity/findings/CAP-SITESTYLEROWS.json): each is one of the
 // page's own values. Line Height in em, Letter Spacing in rem for headings and em for paragraphs, sizes as the value in the size formula.
@@ -193,7 +193,7 @@ export function siteStylesCss(styles) {
     if (z.bw) css += `.sqs-block-button-element { font-weight: ${z.bw}; }\n`;
     if (z.bls) css += `.sqs-block-button-element { letter-spacing: ${z.bls}em; }\n`;
   }
-  css += typeCss(styles);
+  css += typeCss(styles) + assignCss(styles);
   if (button) {
     css += `.sqs-block-button-element { border-radius: ${button.radius}; border: ${button.border}px solid var(--button-bg, #000); padding: ${button.pad}; }\n`;
   }

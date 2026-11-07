@@ -5227,7 +5227,7 @@ const contextMenu = $('context-menu');
 // button again close it.
 const siteStyles = $('site-styles');
 let ssView = null;
-let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary', ssFormKind = 'check', ssFormFont = 'Title', ssFormTheme = null;
+let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary', ssFormKind = 'check', ssFormFont = 'Title', ssFormTheme = null, ssAssign = 0;
 const pal = { swatch: 'accent', tab: 'Presets', format: 'Hex', list: false }; // Edit Palette's own view state
 let fontPop = null; // the open font list: { key, query, watch }
 let dot = null; // the open color popover: { row, custom, format, list }, and form: the theme when it is a Forms > Colors row
@@ -5254,6 +5254,7 @@ function renderSsPanel() {
   }
   if (ssView === 'FormOption') opts = { ...opts, formKind: ssFormKind };
   if (ssView === 'FormFont') opts = { ...opts, formFont: ssFormFont };
+  if (ssView === 'AssignRow') opts = { ...opts, assignRow: ssAssign };
   if (ssView === 'FormColors') { const list = themeRows(); opts = { ...opts, themeRows: list, formTheme: ssFormTheme || list.find((t) => t.used)?.name || 'Light 1', colorRow: dot?.form ? dot.row : null }; }
   const top = siteStyles.scrollTop;
   siteStyles.innerHTML = siteStylesHtml(model.siteStyles, ssView, rows, opts);
@@ -5555,6 +5556,8 @@ function formPress(e) {
   if (kind) ssFormKind = kind.dataset.ssFkind;
   const font = e.target.closest('[data-ss-ffont]');
   if (font) ssFormFont = font.dataset.ssFfont;
+  const assign = e.target.closest('[data-ss-assign]');
+  if (assign) ssAssign = Number(assign.dataset.ssAssign);
   const f = formValues(model.siteStyles);
   const shape = e.target.closest('[data-ss-fshape]');
   if (shape) { const n = shape.dataset.ssFshape; const r = FORM_CUSTOM_RADIUS; setForms(n, n === 'Custom' ? { shape: n, multi: false, radii: [r, r, r, r] } : { shape: n }); return true; }
@@ -5696,7 +5699,7 @@ styleConfirm.addEventListener('click', (e) => {
     });
     return;
   }
-  setSiteStyleKeys(`Reset ${kind} pack`, (st) => { delete st[kind]; if (kind === 'button') delete st.buttons; if (kind === 'form') delete st.forms; if (kind === 'font') { delete st.base; delete st.type; } return st; });
+  setSiteStyleKeys(`Reset ${kind} pack`, (st) => { delete st[kind]; if (kind === 'button') delete st.buttons; if (kind === 'form') delete st.forms; if (kind === 'font') { delete st.base; delete st.type; delete st.fontAssign; } return st; });
 });
 // A style pack popover (parity/findings/SITESTYLES2.json). A tile sets that part of the site's
 // styles in one undo step and the popover stays open, as on the oracle.

@@ -1,6 +1,7 @@
 // The read-back's comparison can't pass a narrowed read: oracle-readback.mjs is only as honest as this.
 import { readFileSync } from 'node:fs';
 import { FONT_GROUPS, OTHER_FONTS } from '../app/src/font-names.js';
+import { ASSIGN_GROUPS } from '../app/src/assign-names.js';
 import { THEMES, NAMES, colorsOf, compareRows, comparePalette, compareView, compareLists, compareFamilies, compareFormColors, settledRead, STYLES, FINDING } from './oracle/readback.mjs';
 import { VIEWS, DEEP, LISTS } from './oracle/style-views.mjs';
 import { siteStylesHtml } from '../app/src/site-styles.js';
@@ -96,6 +97,7 @@ is('a renamed font fails', compareFamilies(STYLES.families.map((n, i) => (i === 
 is('the font list starts with the first screen', eq(STYLES.families.slice(0, heads.family.first.length), heads.family.first));
 const groupsRead = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U12FONTLIST.json', import.meta.url))).results.groups;
 is('our font list holds the 1503 names read', eq([...new Set([...FONT_GROUPS.flatMap(([, n]) => n), ...OTHER_FONTS])].sort(), [...STYLES.families].sort()));
+is('Assign Styles has the 122 rows read, in order, with their values', eq(ASSIGN_GROUPS.flatMap(([, r]) => r.map(([n, st]) => `${n} ${st}`)), STYLES.views['Fonts > Assign Styles'].map((r) => r[1]).filter(Boolean).slice(0, 122)));
 is('our font list has the groups read', eq(FONT_GROUPS.map(([h, n]) => [h, n.length]), groupsRead.slice(1, 4)) && OTHER_FONTS.length === groupsRead[4][1]);
 const ourOptions = (view, key) => [...siteStylesHtml(null, view, [], { select: key }).matchAll(/role="option"[^>]*data-v="([^"]+)"/g)].map((m) => m[1]);
 for (const [view, k] of [['Headings', 'h'], ['Paragraphs', 'p']]) {

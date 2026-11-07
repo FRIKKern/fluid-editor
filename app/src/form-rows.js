@@ -108,9 +108,10 @@ const FONT_SMALL = new Set(['Description', 'Caption', 'Option']);
 export const formFont = (styles, row) => styles?.forms?.fonts?.[row] || (FONT_SMALL.has(row) ? 'Paragraph 3' : 'Paragraph 2');
 export const formFontRem = (styles, row) => styles?.forms?.fontRem?.[row] ?? 1;
 const FONT_VALUE = { 'Paragraph 1': 'large-text', 'Paragraph 2': 'normal-text', 'Paragraph 3': 'small-text', 'Heading 1': 'heading-1', 'Heading 2': 'heading-2', 'Heading 3': 'heading-3', 'Heading 4': 'heading-4', Miscellaneous: 'normal-text' };
+export const fontSizeVar = (name) => (name === 'Miscellaneous' ? 'var(--meta-size-value, var(--normal-text-size-value))' : `var(--${FONT_VALUE[name]}-size-value)`);
 const fontSize = (name, rem) => {
   if (name === 'Custom') return `${rem}rem`;
-  const n = name === 'Miscellaneous' ? 'var(--meta-size-value, var(--normal-text-size-value))' : `var(--${FONT_VALUE[name]}-size-value)`;
+  const n = fontSizeVar(name);
   return `min(calc((${n} - 1) * 1.2vw + 1rem), max(calc((${n} - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(${n} * 1rem)))`;
 };
 const FONT_PART = { Title: 'legend, label.title', Description: '.description', Caption: '.caption-row', Input: 'input[type=text], input[type=email], textarea', Placeholder: 'input::placeholder, textarea::placeholder', 'Select Dropdown': 'select', Option: '.form-checkbox .option, .form-signup' };
