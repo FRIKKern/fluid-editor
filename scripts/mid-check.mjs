@@ -887,6 +887,10 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     const got = play(start, null, false, 'se', [ring], true);
     groupCases.push({ name: `group drop by the rule ${name}`, diffs: want.flatMap((a, i) => (got.after[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got.after[i]}`])) });
   }
+  // A written Text made narrower in a group keeps the rows it needed at the press (CAP-X8NEXT.json, c start to c dropped).
+  { const N = JSON.parse(readFileSync(new URL('../parity/findings/CAP-X8NEXT.json', import.meta.url))).reads, one = 'Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home.';
+    const want = N['c dropped'].areas.map((a) => a[0]), got = play(N['c start'].areas, { type: 'text', html: `<p>${[one, one, one].join(' ')}</p>` }, false, 'e', [[1, 2, 8, 14]], true);
+    groupCases.push({ name: 'group drop keeps a written Text short', diffs: want.flatMap((a, i) => (got.after[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got.after[i]}`])) }); }
 }
 const groupFails = groupCases.filter((c) => c.diffs.length && !c.known);
 const groupKnown = groupCases.filter((c) => c.known);

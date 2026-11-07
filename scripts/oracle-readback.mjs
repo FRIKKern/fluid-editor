@@ -4,6 +4,8 @@
 // and leaves by Exit. Never Reset, a pick or a slider. Run it after a probe:
 //   ORACLE_SURFACE=cdp:<port> node scripts/oracle-readback.mjs
 // --store replaces CAP-STYLEROWS.json's views, lists, families and formColors with what it reads. Only for a site known to be as it should be.
+// It reads the site footer first, against CAP-FOOTER.json (scripts/oracle/footer.mjs). --footer-only stops after that;
+// --store-footer replaces that base.
 // Exit 0: the same. Exit 1: differences, listed. Exit 2: it could not read, so it says nothing about the site.
 import { writeFileSync } from 'node:fs';
 import { browser, evalJs, goto, mouse, viewport, pause } from './lib/cmux.mjs';
@@ -11,6 +13,7 @@ import { pressOnTop } from './oracle/press.mjs';
 import { exitWithoutSaving } from './oracle/ui.mjs';
 import { THEMES, NAMES, compareRows, comparePalette, compareView, settledRead, compareLists, compareFamilies, compareFormColors, STYLES, STYLE_FILE } from './oracle/readback.mjs';
 import { VIEWS, DEEP, DEEP_BACK, LISTS, READ_VIEW } from './oracle/style-views.mjs';
+import { FOOTER_FILE, FOOTER_PATHS, FOOTER_READ, compareFooter } from './oracle/footer.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S) { console.error('oracle-readback: set ORACLE_SURFACE'); process.exit(2); }
@@ -148,6 +151,38 @@ async function readLists(view) {
 
 const diffs = [], read = {}, listsRead = {}, formColors = {};
 let families = [];
+// The footer first: read only, on a load of each page, no press. --footer-only stops after it, --store-footer stores it.
+const FOOTER_ONLY = process.argv.includes('--footer-only'), STORE_FOOTER = process.argv.includes('--store-footer'), footers = {};
+async function readFooter(path) {
+  goto(S, PAGES.replace('/config/pages', path));
+  for (let i = 0; i < 30; i++) { await pause(1000); if (evalJs(S, FOOTER_READ)) { await pause(2000); return evalJs(S, FOOTER_READ); } }
+  return null;
+}
+try {
+  viewport(S, 1600, 1000);
+  for (const p of FOOTER_PATHS) {
+    footers[p] = await readFooter(p);
+    if (STORE_FOOTER) continue;
+    const found = compareFooter(p, footers[p]); diffs.push(...found);
+    console.log(`footer ${p.padEnd(16)} ${footers[p]?.blocks.length ?? 0} blocks, ${found.length} differ`);
+  }
+  if (STORE_FOOTER) {
+    const empty = FOOTER_PATHS.filter((p) => !footers[p]);
+    if (empty.length) throw new Error(`nothing read on ${empty.join(', ')}: not stored`);
+    writeFileSync(FOOTER_FILE, `${JSON.stringify({ item: 'U12', capturedAt: new Date().toISOString().slice(0, 10), how: 'oracle-readback --store-footer: a load of each page, read only. Emails read as (an email); links by aria-label or words, no targets.', reads: footers }, null, 1)}\n`);
+    console.log(`footer base stored for ${FOOTER_PATHS.join(', ')}`);
+  }
+} catch (e) {
+  console.error(`oracle-readback: could not read the footer: ${e.message}`);
+  goto(S, PAGES);
+  process.exit(2);
+}
+if (FOOTER_ONLY) {
+  goto(S, PAGES);
+  if (diffs.length) { console.log(`DIFFERENT: ${diffs.length}`); for (const x of diffs.slice(0, 40)) console.log(`  ${x}`); process.exit(1); }
+  if (!STORE_FOOTER) console.log(`The same: the footer on ${FOOTER_PATHS.join(', ')}.`);
+  process.exit(0);
+}
 try {
   viewport(S, 1600, 1000); goto(S, PAGES); await pause(9000);
   await press(PAGE, FIND[PAGE], 5000);
@@ -229,4 +264,4 @@ try {
 }
 goto(S, PAGES);
 if (diffs.length) { console.log(`DIFFERENT: ${diffs.length}`); for (const x of diffs.slice(0, 40)) console.log(`  ${x}`); process.exit(1); }
-console.log(`The same: palette, ${NAMES.length} rows on each of ${THEMES.length} themes, ${Object.keys(read).length} views of Fonts, Buttons, Forms and Miscellaneous, ${Object.keys(listsRead).length} sets of closed lists, ${families.length} font names and Forms > Colors on ${Object.keys(formColors).length} themes, on ${PAGE_PATH}, Save off at every read, no question on Exit.`);
+console.log(`The same: the footer on ${FOOTER_PATHS.length} pages, palette, ${NAMES.length} rows on each of ${THEMES.length} themes, ${Object.keys(read).length} views of Fonts, Buttons, Forms and Miscellaneous, ${Object.keys(listsRead).length} sets of closed lists, ${families.length} font names and Forms > Colors on ${Object.keys(formColors).length} themes, on ${PAGE_PATH}, Save off at every read, no question on Exit.`);
