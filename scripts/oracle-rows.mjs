@@ -37,16 +37,20 @@ const FRAME = `document.getElementById('sqs-site-frame')`;
 const PANEL = `(() => { const t = [...document.querySelectorAll('[role=tab]')].filter((x) => { const q = x.getBoundingClientRect(); return q.width > 1 && !x.closest('#sqs-site-frame') && q.left > 100; }).pop(); if (!t) return null; let p = t; while (p.parentElement && p.parentElement.getBoundingClientRect().width <= 700 && p.parentElement.getBoundingClientRect().height <= 960 && !p.parentElement.querySelector('#sqs-site-frame')) p = p.parentElement; return p; })()`;
 // Every control in the panel in page order, with the row it's under. Kept on window for a press by number.
 // A way in hides the tabs, so the panel found while they showed is kept.
-const ROOT = `(() => { const p = ${PANEL}; if (p) window.__panel = p; return window.__panel && window.__panel.isConnected ? window.__panel : null; })()`;
+// An older tile opens a dialog in the top document instead of a panel. Its tabs are plain words in its header.
+const DIALOG = `[...document.querySelectorAll('.standard-dialog-wrapper')].find((e) => e.getBoundingClientRect().width > 1)`;
+const BODY = `(() => { const d = ${DIALOG}; return d ? ([...d.querySelectorAll('.tab-wrapper')].find((e) => e.getBoundingClientRect().height > 1) || d.querySelector('.body-block')) : null; })()`;
+const NO_TABS = '(no tabs)';
+const ROOT = `(() => { const b = ${BODY}; if (b) { window.__panel = b; return b; } const p = ${PANEL}; if (p) window.__panel = p; return window.__panel && window.__panel.isConnected ? window.__panel : null; })()`;
 const CONTROLS = `(() => { const root = ${ROOT}; window.__ctl = []; if (!root) return JSON.stringify(null); const clean = (s) => (s || '').replace(/\\s+/g, ' ').trim();
   const vis = (e) => { const q = e.getBoundingClientRect(); if (q.width < 2 || q.height < 2) return false; const c = getComputedStyle(e); return c.visibility !== 'hidden' && c.display !== 'none'; };
-  const kindOf = (e) => { const r = e.getAttribute('role'), t = e.tagName, ty = e.type; if (r === 'radio' || ty === 'radio') return 'choice'; if (r === 'switch' || r === 'checkbox' || ty === 'checkbox') return 'switch'; if (r === 'slider' || ty === 'range') return 'slider'; if (t === 'SELECT' || r === 'combobox' || e.getAttribute('aria-haspopup')) return 'menu'; if (t === 'TEXTAREA' || e.isContentEditable) return 'area'; if (t === 'INPUT') return 'field'; if (t === 'BUTTON' || r === 'button' || t === 'A') return 'button'; return null; };
+  const kindOf = (e) => { const r = e.getAttribute('role'), t = e.tagName, ty = e.type; if (/check-element/.test(String(e.className))) return 'switch'; if (r === 'radio' || ty === 'radio') return 'choice'; if (r === 'switch' || r === 'checkbox' || ty === 'checkbox') return 'switch'; if (r === 'slider' || ty === 'range') return 'slider'; if (t === 'SELECT' || r === 'combobox' || e.getAttribute('aria-haspopup')) return 'menu'; if (t === 'TEXTAREA' || e.isContentEditable) return 'area'; if (t === 'INPUT') return 'field'; if (t === 'BUTTON' || r === 'button' || t === 'A') return 'button'; return null; };
   const out = []; let row = '';
   const walk = (e) => { if (!vis(e) || e.getAttribute('role') === 'tablist') return;
     if (e.getAttribute('role') === 'radiogroup') { const group = clean(e.getAttribute('aria-label')); if (group) row = group; [...e.querySelectorAll('[role=radio], input[type=radio]')].forEach((r, n) => { const t = vis(r) ? r : r.closest('label') || r.parentElement; window.__ctl.push(t); out.push({ i: window.__ctl.length - 1, row, kind: 'choice', name: clean(r.getAttribute('aria-label')) || clean(t.getAttribute('aria-label')) || clean(t.innerText) || 'option ' + (n + 1), value: r.getAttribute('aria-checked') === 'true' || r.checked === true }); }); return; }
     const k = e.querySelector('[role=tablist]') ? null : kindOf(e);
-    if (k) { const lines = (e.innerText || '').split('\\n').map(clean).filter(Boolean); const name = clean(e.getAttribute('aria-label')) || (k === 'button' || k === 'menu' ? lines[0] : '') || clean(e.getAttribute('placeholder')) || '';
-      const v = k === 'switch' ? (e.getAttribute('aria-checked') ?? (e.checked ? 'true' : 'false')) === 'true' : k === 'choice' ? (e.getAttribute('aria-checked') === 'true' || e.checked === true) : k === 'slider' ? (e.value ?? e.getAttribute('aria-valuenow')) : k === 'field' || k === 'area' ? (e.value ?? clean(e.textContent)) : k === 'menu' ? (e.tagName === 'SELECT' ? e.options[e.selectedIndex]?.text : lines[lines.length - 1]) : undefined;
+    if (k) { const lines = (e.innerText || '').split('\\n').map(clean).filter(Boolean); const name = clean(e.getAttribute('aria-label')) || (k === 'button' || k === 'menu' || (k === 'switch' && e.tagName === 'DIV') ? lines[0] : '') || clean(e.getAttribute('placeholder')) || '';
+      const v = k === 'switch' ? (e.tagName === 'DIV' && /check-element/.test(String(e.className)) ? /checked/.test(String(e.className)) : (e.getAttribute('aria-checked') ?? (e.checked ? 'true' : 'false')) === 'true') : k === 'choice' ? (e.getAttribute('aria-checked') === 'true' || e.checked === true) : k === 'slider' ? (e.value ?? e.getAttribute('aria-valuenow')) : k === 'field' || k === 'area' ? (e.value ?? clean(e.textContent)) : k === 'menu' ? (e.tagName === 'SELECT' ? e.options[e.selectedIndex]?.text : lines[lines.length - 1]) : undefined;
       const nav = k === 'button' && /^navigate to /i.test(name);
       window.__ctl.push(e); const c = { i: window.__ctl.length - 1, row, kind: nav ? 'nav' : k, name: name || row, value: v }; if (k === 'slider') { c.min = e.min ?? e.getAttribute('aria-valuemin'); c.max = e.max ?? e.getAttribute('aria-valuemax'); c.step = e.step || undefined; } if (e.disabled || e.getAttribute('aria-disabled') === 'true') c.off = true; if (k === 'menu' && e.tagName === 'SELECT') c.options = [...e.options].map((o) => o.text); out.push(c); if (k !== 'choice') row = c.name; return; }
     const own = clean([...e.childNodes].filter((c) => c.nodeType === 3).map((c) => c.textContent).join(' ')); if (own) row = own.slice(0, 80);
@@ -67,9 +71,11 @@ const diff = (a, b) => { if (!a || !b) return ['block gone']; const out = []; if
 const read = () => js(CONTROLS);
 let blockId = null, tabNow = null;
 const blockNow = () => js(BLOCK(blockId));
-const panelUp = () => js(tabsJs(PANEL)).length > 0;
+const dialogUp = () => js(`(() => JSON.stringify(!!${DIALOG}))()`) === true;
+const dialogTabs = () => js(`(() => JSON.stringify([...(${DIALOG}).querySelectorAll('.tabbed-header-container *')].filter((e) => e.childElementCount === 0 && e.textContent.trim() && e.getBoundingClientRect().width > 1).map((e) => e.textContent.trim())))()`);
+const panelUp = () => dialogUp() || js(tabsJs(PANEL)).length > 0;
 const pressAt = (i, wait = 700) => pressOnTop(S, at(i), wait);
-const tabEl = (t) => `[...(${PANEL}).querySelectorAll('[role=tab]')].find((x) => (x.getAttribute('aria-label') || x.textContent).replace(/\\s+/g, ' ').trim() === ${JSON.stringify(t)})`;
+const tabEl = (t) => `[...document.querySelectorAll('.standard-dialog-wrapper .tabbed-header-container *')].find((e) => e.childElementCount === 0 && e.textContent.trim() === ${JSON.stringify(t)} && e.getBoundingClientRect().width > 1) || [...(${PANEL}).querySelectorAll('[role=tab]')].find((x) => (x.getAttribute('aria-label') || x.textContent).replace(/\\s+/g, ' ').trim() === ${JSON.stringify(t)})`;
 async function openPanel() {
   if (panelUp()) return;
   const sel = js(`(() => { const b = ${FRAME}.contentDocument.querySelector('.fe-block[data-block-id="${blockId}"]'); return JSON.stringify(!!b && b.dataset.isSelected === 'true'); })()`);
@@ -78,7 +84,7 @@ async function openPanel() {
   await pressOnTop(S, edit, 1500);
   for (let w = 0; w < 6 && !panelUp(); w++) await pause(500);
 }
-async function toTab(t) { await openPanel(); if (js(`(() => JSON.stringify((${tabEl(t)})?.getAttribute('aria-selected') === 'true'))()`)) return; await pressOnTop(S, tabEl(t), 900); }
+async function toTab(t) { await openPanel(); if (t === NO_TABS) return; if (js(`(() => JSON.stringify((${tabEl(t)})?.getAttribute('aria-selected') === 'true'))()`)) return; await pressOnTop(S, tabEl(t), 900); }
 // Back in the panel, on the tab, after whatever a press did. Escape only if something sits on top of it.
 async function settle(t) { const open = js(`(() => JSON.stringify([...document.querySelectorAll('[role=listbox],[role=menu],[role=dialog]')].some((x) => x.getBoundingClientRect().width > 1 && !x.contains(${PANEL}))))()`); if (open) { await escape(); await pause(300); } await toTab(t); }
 // A row's heading can change after an earlier press, so a name that's unique on its own will do.
@@ -119,6 +125,14 @@ async function changeRow(c, t, rec) {
     const q = js(`(() => { const r = ${at(c.i)}.getBoundingClientRect(); return JSON.stringify([r.left + r.width * 0.75, r.top + r.height / 2]); })()`);
     mouse(S, 'move', q[0], q[1]); await pause(80); mouse(S, 'down', q[0], q[1], { buttons: 1 }); await pause(40); mouse(S, 'up', q[0], q[1]); await pause(700);
     rec.to = find(c)?.value; rec.change = diff(before, blockNow());
+  } else if (c.kind === 'menu' && c.options) {
+    // A plain select. Focus and a typed first letter pick another option with no popup, then the same way back.
+    const sel = `window.__ctl[${c.i}]`, now = () => js(`(() => JSON.stringify(${sel}.options[${sel}.selectedIndex]?.text))()`);
+    const other = c.options.find((o) => o && o[0].toLowerCase() !== String(c.value)[0].toLowerCase() && !REFUSE.test(o));
+    if (!other) { rec.notPressed = 'no other option to pick'; return; }
+    js(`(() => { ${sel}.focus(); return 'true'; })()`); browser(S, 'press', other[0].toLowerCase()); await pause(900);
+    rec.to = now(); rec.change = diff(before, blockNow());
+    if (rec.to !== c.value) { for (const ch of String(c.value)[0].toLowerCase()) browser(S, 'press', ch); await pause(600); rec.back = now(); }
   } else if (c.kind === 'menu') {
     const seen = onTop(), rows0 = read() || [];
     await pressAt(c.i, 800);
@@ -157,7 +171,7 @@ async function changeRow(c, t, rec) {
 
 async function readTab(t) {
   await toTab(t); await pause(500);
-  const panelText = js(`(() => JSON.stringify((${PANEL}).innerText))()`);
+  const panelText = js(`(() => JSON.stringify((${ROOT}).innerText))()`);
   const rows = [], list = read() || [];
   const wide = WIDE_NOTE.test(panelText);
   out.tabs[t] = { rows, wideNote: wide ? panelText.split('\n').find((l) => WIDE_NOTE.test(l)) : undefined };
@@ -171,8 +185,8 @@ async function readTab(t) {
     const label = `${c0.row} ${c0.name}`;
     if (stoppedAt) { rec.notPressed = `the walk stopped at ${stoppedAt}`; continue; }
     if (wide) { rec.notPressed = 'the tab says it reaches further'; continue; }
-    if (onNoList(c0, NO)) { rec.notPressed = 'UNREAD says no'; continue; }
     if (reachesOut(c0)) { rec.notPressed = 'it can reach outside'; stoppedAt = c0.name; continue; }
+    if (onNoList(c0, NO)) { rec.notPressed = 'UNREAD says no'; continue; }
     if (!hasName(c0)) { rec.notPressed = 'no name'; continue; }
     if (c0.off || REFUSE.test(c0.name) || (REFUSE.test(c0.row) && !/^reset to default/i.test(c0.row)) || (c0.kind === 'button')) { rec.notPressed = c0.off ? 'greyed out' : c0.kind === 'button' ? 'a plain button' : 'refused by name'; continue; }
     if (COMMON.test(c0.row) || COMMON.test(c0.name)) { rec.notPressed = 'a row every panel has'; continue; }
@@ -190,13 +204,28 @@ const i = sectionCount() - 1;
 blockId = await addBlock(i, TYPE); await pause(1200); await escape(); await pause(300);
 out.path = path;
 await openPanel();
-const tabs = js(tabsJs(PANEL)); out.tabList = tabs;
+const inDialog = dialogUp();
+const tabs = inDialog ? dialogTabs() : js(tabsJs(PANEL)); if (inDialog && !tabs.length) tabs.push(NO_TABS); out.tabList = tabs;
+if (inDialog) out.dialog = js(`(() => { const d = ${DIALOG}, q = (d.querySelector('.main-container') || d).getBoundingClientRect(), body = d.querySelector('.body-block'); return JSON.stringify({ title: d.querySelector('.title-text')?.textContent.trim() || '', box: [q.left, q.top, q.width, q.height].map(Math.round), buttons: [...d.querySelectorAll('button,[role=button],a,[class*=button],[class*=Button],[class*=close]')].filter((x) => x.getBoundingClientRect().width > 1 && !body?.contains(x) && !x.closest('.tabbed-header-container')).map((x) => (x.getAttribute('aria-label') || x.textContent || '(no name)').replace(/\\s+/g, ' ').trim().slice(0, 40)) }); })()`);
 for (const t of tabs) { if (ONLY && t !== ONLY) continue; if (t === 'Animation' || t === 'Storage') { await toTab(t); await pause(400); out.tabs[t] = { rows: (read() || []).map((x) => ({ row: x.row, kind: x.kind, name: x.name, value: x.value })), notPressed: t === 'Storage' ? 'form storage is read only' : 'every panel has it' }; save(); continue; } try { await readTab(t); console.log(t, out.tabs[t].rows.length); } catch (e) { (out.errors ||= []).push(`${t}: ${e.message.slice(0, 120)}`); console.log(`${t} stopped: ${e.message.slice(0, 120)}`); await startOver(null); } }
 const all = Object.values(out.tabs).flatMap((t) => t.rows || []);
 out.answer = `${TYPE}: tabs ${(out.tabList || []).join(', ')}. ${all.filter((r) => r.kind !== 'button').length} rows read, ${all.filter((r) => r.change?.length).length} changed the block when changed. Each row below has its default and what the change did.`;
 out.pressed = `Add Block, ${TYPE}, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved.`;
 save();
 await escape(); await escape();
+// How a dialog closes: Escape is tried, and a button named Cancel if it has one. Never Save. Otherwise a reload.
+if (dialogUp()) {
+  out.dialog.escapeCloses = false;
+  const cancel = `[...(${DIALOG}).querySelectorAll('button,[role=button],a,[class*=button],[class*=Button]')].filter((x) => x.getBoundingClientRect().width > 1 && (x.getAttribute('aria-label') || x.textContent || '').trim() === 'Cancel').pop()`;
+  if (js(`(() => JSON.stringify(!!${cancel}))()`) === true) { await pressOnTop(S, cancel, 1200); out.dialog.cancelCloses = !dialogUp(); }
+  // No button: its own block, in the page beside it, by its id. Only if that's on top.
+  if (dialogUp()) {
+    const q = js(`(() => { const F = ${FRAME}, d = F.contentDocument, f = F.getBoundingClientRect(), b = d.querySelector('.fe-block[data-block-id="${blockId}"]'); if (!b) return JSON.stringify(null); const r = b.getBoundingClientRect(), x = r.left + 30, y = r.top + r.height / 2; if (document.elementFromPoint(f.left + x, f.top + y) !== F) return JSON.stringify(null); const t = d.elementFromPoint(x, y); return JSON.stringify(t && (t === b || b.contains(t)) ? [f.left + x, f.top + y] : null); })()`);
+    if (q) { mouse(S, 'move', q[0], q[1]); await pause(90); mouse(S, 'down', q[0], q[1], { buttons: 1 }); await pause(30); mouse(S, 'up', q[0], q[1]); await pause(1200); out.dialog.blockPressCloses = !dialogUp(); } else out.dialog.blockPress = 'its block is covered';
+  }
+  save();
+} else if (inDialog) { out.dialog.escapeCloses = true; save(); }
+if (dialogUp()) { goto(S, js(`JSON.stringify(location.origin)`) + '/config/pages'); await pause(9000); console.log(`wrote ${NAME}.json, left by a reload`); process.exit(0); }
 await exitWithoutSaving(); await pause(1500);
 console.log(`wrote ${NAME}.json`);
 process.exit(0);
