@@ -465,7 +465,25 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   lk('a page sets the link and stays open', r.page.href === '/home' && r.page.open && r.page.value === '/home' && r.page.list, r.page);
   lk('a click elsewhere closes', r.outside === true, r.outside);
   // The box a linked Button opens, walked with real keys and presses against the reads. Keys back to it are not read.
-  for (const name of ['CAP-E7REOPEN', 'CAP-E7REOPEN2', 'CAP-E7REOPEN3', 'CAP-E7REOPEN4', 'CAP-E7SCORE']) await replayLinkBox(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (read, diffs) => groupCases.push({ name: `E7 ${name} ${read}`, diffs, known: read === 'Clear, Undo' }));
+  for (const name of ['CAP-E7REOPEN', 'CAP-E7REOPEN2', 'CAP-E7REOPEN3', 'CAP-E7REOPEN4', 'CAP-E7SCORE']) await replayLinkBox(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (read, diffs) => groupCases.push({ name: `E7 ${name} ${read}`, diffs }));
+  // Difference 82: the Undo button lets a block selected with only its toolbar go, Cmd+Z keeps it (CAP-82UNDO.json), by real keys and presses.
+  { const U = JSON.parse(readFileSync(new URL('../parity/findings/CAP-82UNDO.json', import.meta.url))).reads;
+    evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 8 }, blocks: [] }] }); await new Promise((r) => setTimeout(r, 200)); return 1; })()`);
+    const read = () => evalJs(S, `(() => { const tb = document.getElementById('block-toolbar'); return JSON.stringify({ selected: !!tb && !tb.hidden && tb.getBoundingClientRect().width > 0, areas: fe.model.sections[0].blocks.map((b) => b.layout.desktop.area.join('/')).sort() }); })()`);
+    const pick = async (type) => { const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), id = fe.model.sections[0].blocks.find((b) => b.id.startsWith('${type.toLowerCase()}-')).id, r = f.contentDocument.querySelector('.fe-block[data-block-id="' + id + '"]').getBoundingClientRect(); return JSON.stringify([q.left + r.left + r.width / 2, q.top + r.top + r.height / 2]); })()`); mouse(S, 'move', p[0], p[1]); await pause(40); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(40); mouse(S, 'up', p[0], p[1]); await pause(300); };
+    for (const type of ['Shape', 'Button', 'Text']) {
+      evalJs(S, `(() => { fe.addBlock('s', ${JSON.stringify(type)}, true); return 1; })()`); await pause(200);
+      browser(S, 'press', 'Escape'); await pause(200);
+      const got = {};
+      await pick(type); browser(S, 'press', 'ArrowRight'); await pause(300); browser(S, 'click', '#undo'); await pause(300); got.Undo = read();
+      browser(S, 'press', 'Escape'); await pause(200);
+      await pick(type); browser(S, 'press', 'ArrowRight'); await pause(300); browser(S, 'press', 'Meta+z'); await pause(300); got['Cmd+Z'] = read();
+      browser(S, 'press', 'Escape'); await pause(200);
+      for (const [how, ours] of Object.entries(got)) {
+        const r = U[`${type} ${how}`], selected = r.controls.some((c) => ['Edit', 'Remove', 'Duplicate'].includes(c.label)), areas = r.areas.map((a) => a[0]).sort();
+        groupCases.push({ name: `82 ${type} ${how}: ${selected ? 'kept' : 'let go'}`, diffs: [ours.selected !== selected && `selected: oracle ${selected}, ours ${ours.selected}`, ours.areas.join() !== areas.join() && `areas: oracle ${areas}, ours ${ours.areas}`].filter(Boolean) });
+      }
+    } }
   // On text: the target waits for the close, target first, no rel; two paragraphs get a link each.
   evalJs(S, `(async () => { fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [${JSON.stringify(bl('t', 'text', { html: '<p>one</p><p>two</p>' }))}] }] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60);
   const t = evalJs(S, `(async () => { const sleep = (x) => new Promise((r) => setTimeout(r, x)); const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, P = document.getElementById('link-popover'), fb = d.querySelector('.fe-block[data-block-id="t"]'); fe.edit('s', 't'); await sleep(250);
@@ -929,6 +947,27 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
         return JSON.stringify(fe.model.sections[0].blocks.map((b) => b.layout.desktop.area.join('/'))); })()`);
       groupCases.push({ name: `next gesture after a short Text ${n}`, diffs: want.flatMap((a, i) => (got[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got[i]}`])) });
     } }
+}
+// 81: a pressed block is selected on let go, not on the press nor while it is dragged (CAP-SELECTLETGO.json, part a and c).
+{ const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-SELECTLETGO.json', import.meta.url))).reads, on = (k) => R[k].block.data['data-is-selected'];
+  for (const [name, at] of [['a press, 11 px, let go', [0, 11]], ['a press, 14 px, let go', [0, 7, 14]], ['c 35, 70 px, let go', [0, 35, 70]]]) {
+    const keys = name[0] === 'a' ? ['a pressed', `a ${at[1]} px`, ...(at[2] ? [`a ${at[2]} px`] : []), 'a let go'] : ['c 35 px', 'c 35 px', 'c 70 px', 'c let go'];
+    const got = evalJs(S, `(async () => {
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+      fe.setBp('desktop');
+      fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 8 }, blocks: [{ id: 'b0', type: 'button', label: 'Button', layout: { desktop: { area: [1, 2, 3, 8], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }] }] });
+      await sleep(150);
+      const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, el = d.querySelector('.fe-block[data-block-id="b0"]'), r = el.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+      const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 }, out = [];
+      el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, clientX: x, clientY: y, buttons: 1 })); await sleep(30);
+      for (const dx of ${JSON.stringify(at)}) { if (dx) d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x + dx, clientY: y, buttons: 1 })); await sleep(30); out.push(d.querySelector('.fe-block[data-block-id="b0"]').dataset.isSelected); }
+      d.dispatchEvent(new W.PointerEvent('pointerup', { ...o, clientX: x + ${at[at.length - 1]}, clientY: y, buttons: 0 })); await sleep(80);
+      out.push(d.querySelector('.fe-block[data-block-id="b0"]').dataset.isSelected);
+      fe.select(null);
+      return JSON.stringify(out); })()`);
+    const want = keys.map(on);
+    groupCases.push({ name: `selected on let go: ${name}`, diffs: got.flatMap((v, i) => (v === want[i] ? [] : [`step ${i}: oracle ${want[i]}, ours ${v}`])) });
+  }
 }
 const groupFails = groupCases.filter((c) => c.diffs.length && !c.known);
 const groupKnown = groupCases.filter((c) => c.known);

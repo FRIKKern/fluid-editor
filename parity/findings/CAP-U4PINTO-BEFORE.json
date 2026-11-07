@@ -1,0 +1,33 @@
+{
+  "item": "CAP-U4PINTO-BEFORE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "Before 97: the probe page on a fresh load",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "read",
+      "fresh load",
+      {
+        "sections": true
+      }
+    ]
+  ],
+  "reads": {
+    "fresh load": {
+      "sections": [],
+      "path": "/gestures-probe",
+      "save": "clean"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [
+    "top Exit"
+  ]
+}

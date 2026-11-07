@@ -38,9 +38,25 @@ const account = (top) => [
   { k: 'slider', y: top + 88, value: 10, min: 1, max: 20, unit: 'Items', out: true },
 ];
 const CHART_CSV = [['Label', 'Population'], ['New York', '150'], ['Las Vegas', '250'], ['San Francisco', '150']];
-// The palettes read on the swatches (CAP-ROWSCHART.json). The other twelve are in the list but not read, so they stay off.
-export const CHART_PALETTES = { Grayscale: ['rgb(121, 121, 121)', 'rgb(191, 191, 191)', 'rgb(229, 229, 229)'], Primary: ['rgb(240, 82, 59)', 'rgb(247, 180, 19)', 'rgb(36, 128, 196)'] };
-const PALETTE_NAMES = ['Grayscale', 'Primary', 'Warm', 'Cool', 'Muted', 'Cobblestone', 'Shops', 'Suburbs', 'Tea Party', 'Highway', 'DB-Nine', 'Italia', 'M-Three', 'Thunderbird'];
+// The 14 palettes, three swatch colours each in row order (Grayscale and Primary in CAP-ROWSCHART.json, the other 12 in
+// CAP-T12PALETTES.json). None is greyed on the oracle.
+export const CHART_PALETTES = {
+  Grayscale: ['rgb(121, 121, 121)', 'rgb(191, 191, 191)', 'rgb(229, 229, 229)'],
+  Primary: ['rgb(240, 82, 59)', 'rgb(247, 180, 19)', 'rgb(36, 128, 196)'],
+  Warm: ['rgb(153, 0, 0)', 'rgb(226, 71, 45)', 'rgb(233, 148, 48)'],
+  Cool: ['rgb(16, 44, 99)', 'rgb(7, 75, 230)', 'rgb(81, 146, 235)'],
+  Muted: ['rgb(52, 43, 43)', 'rgb(112, 105, 100)', 'rgb(156, 148, 131)'],
+  Cobblestone: ['rgb(41, 31, 22)', 'rgb(180, 158, 146)', 'rgb(127, 112, 105)'],
+  Shops: ['rgb(227, 227, 230)', 'rgb(69, 78, 89)', 'rgb(95, 205, 217)'],
+  Suburbs: ['rgb(73, 33, 48)', 'rgb(227, 227, 227)', 'rgb(69, 84, 115)'],
+  'Tea Party': ['rgb(115, 13, 3)', 'rgb(182, 125, 44)', 'rgb(234, 195, 148)'],
+  Highway: ['rgb(176, 201, 217)', 'rgb(166, 166, 166)', 'rgb(89, 72, 57)'],
+  'DB-Nine': ['rgb(134, 135, 136)', 'rgb(168, 182, 111)', 'rgb(169, 143, 119)'],
+  Italia: ['rgb(124, 184, 200)', 'rgb(2, 100, 171)', 'rgb(2, 155, 59)'],
+  'M-Three': ['rgb(98, 140, 187)', 'rgb(209, 191, 78)', 'rgb(90, 98, 105)'],
+  Thunderbird: ['rgb(217, 60, 73)', 'rgb(103, 189, 218)', 'rgb(231, 231, 192)'],
+};
+const PALETTE_NAMES = Object.keys(CHART_PALETTES);
 
 // Each live key's value when the block has none. setDialogValue drops a key that is back at this value.
 export const DIALOG_DEFAULTS = { galAspect: '1:1 Square', galCrop: true, galTitle: false, galNewWindow: false, tagCount: 5, chartType: 'Bar Chart', chartFlip: false, chartTitle: '', chartCaption: '', chartLegend: false, chartPalette: 'Grayscale', chartData: CHART_CSV };
@@ -94,7 +110,7 @@ export const DIALOGS = {
         { k: 'field', y: 210, key: 'chartCaption', name: 'Caption' },
         { k: 'check', y: 276, key: 'chartLegend', text: 'Show Legend' },
         { k: 'label', y: 320, text: 'Color Palette' },
-        { k: 'select', y: 342, key: 'chartPalette', options: PALETTE_NAMES, live: Object.keys(CHART_PALETTES) },
+        { k: 'select', y: 342, key: 'chartPalette', options: PALETTE_NAMES },
       ],
       'Import / Export': [
         { k: 'heading', y: 100, text: 'Import or Export Chart Data' },
@@ -170,7 +186,7 @@ function rowHtml(r, cw, b, pages) {
     case 'heading': return `<div class="${cls}" ${at(r.y, 22)}>${esc(r.text)}</div>`;
     case 'select': {
       const cur = v ?? r.options[0];
-      return `<div class="${cls}" ${at(r.y, 44)}><span class="dl-sel-text">${esc(cur)}</span>${CHEVRON}<select aria-label="${esc(cur)}"${data}${dis}>${r.options.map((o) => `<option${o === cur ? ' selected' : ''}${r.live && !r.live.includes(o) ? ' disabled' : ''}>${esc(o)}</option>`).join('')}</select></div>`;
+      return `<div class="${cls}" ${at(r.y, 44)}><span class="dl-sel-text">${esc(cur)}</span>${CHEVRON}<select aria-label="${esc(cur)}"${data}${dis}>${r.options.map((o) => `<option${o === cur ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select></div>`;
     }
     case 'field': return `<div class="${cls}" ${at(r.y, 44)}><input type="text"${data}${r.key ? ` value="${esc(v)}"` : ''} placeholder="${esc(r.placeholder || '')}" aria-label="${esc(r.name || r.placeholder || 'Field')}"${dis}>${r.code ? '<svg class="dl-code" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M7 6l-4 4 4 4M13 6l4 4-4 4M11 4.5l-2 11"/></svg>' : ''}</div>`;
     case 'check': return `<div class="${cls}" ${at(r.y, null)}><button type="button" role="checkbox" class="dl-box${v ? ' is-on' : ''}" aria-checked="${!!v}" aria-label="${esc(r.text)}"${data}${dis}>${v ? TICK : ''}</button><div class="dl-check-label">${esc(r.text)}</div>${r.help ? `<div class="dl-check-help" style="height:${r.helpH || 22}px">${esc(r.help)}</div>` : ''}</div>`;
