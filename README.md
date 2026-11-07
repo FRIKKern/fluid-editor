@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 5 changes
+- **Today** · 6 changes
+  - T10: a Markdown rule at 75%, a bare bullet as text (93, 94) ([#388](https://github.com/FRIKKern/fluid-editor/pull/388))
   - X8: the short Quote re-read after 86, 6 of 8, stays partial ([#387](https://github.com/FRIKKern/fluid-editor/pull/387))
-  - X6, U5: phone stand-in heights and pulls (68, 71), Summary's columns, U5 done ([#384](https://github.com/FRIKKern/fluid-editor/pull/384))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
