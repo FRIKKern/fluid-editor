@@ -34,7 +34,7 @@ export async function replayLinkBox(S, finding, add) {
   const place = () => { const q = evalJs(S, `(() => { const r = document.querySelector('#block-toolbar [data-tb="link"]').getBoundingClientRect(); return JSON.stringify([r.left, r.top]); })()`); dx = q[0] - 249.8; dy = q[1] - 242.2; };
   await fresh(); place();
   for (const [op, ...a] of finding.steps) {
-    if (op === 'keys') break; // the last case is a Text block, and is read by itself
+    if (op === 'add' && a[1] === 'Text') break; // a Text block's case is read by itself
     if (op === 'exit') await fresh();
     else if (op === 'select') { evalJs(S, `(() => { const s = fe.model.sections[0]; fe.select(s.id, s.blocks[0].id); return 1; })()`); await pause(120); place(); }
     else if (op === 'click') { browser(S, 'click', BUTTONS[a[0]]); await pause(150); }
