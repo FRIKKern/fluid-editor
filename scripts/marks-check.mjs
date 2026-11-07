@@ -451,14 +451,17 @@ const copyTiming = (r) => r.timing?.join() === '200,ease-in-out';
 await frameScroll(500); mouse(S, 'move', 60, 300); mouse(S, 'move', 62, 301); await pause(500);
 const addCrossed = await addCross(async () => { mouse(S, 'move', 60, 700); mouse(S, 'move', 62, 701); });
 add('straight to another section: the old Add Section fades as the new one comes', addCrossed.copies === 2 && copyTiming(addCrossed) && addCrossed.gone >= 6 && addCrossed.falling && addCrossed.lit >= 6 && addCrossed.rising && addCrossed.end[0] === 0 && addCrossed.through, JSON.stringify(addCrossed));
-// Off and back on within the fade it runs back from where it is, on CAP-U9ADDFADE2.json. Only a try where the chrome stayed counts: the wait can pass 200 ms.
+// Off and back on within the fade it runs back from where it is, on CAP-U9ADDFADE2.json. The way back is sent in the page,
+// on the first frame the fade has passed 0.8, so a slow machine can't make the wait pass the 200 ms. Only a try where the chrome stayed counts.
 let addBack = null;
-for (let tryAt = 0; tryAt < 3 && !addBack?.seen; tryAt++) {
+for (let tryAt = 0; tryAt < 5 && !addBack?.seen; tryAt++) {
   mouse(S, 'move', 60, 700); mouse(S, 'move', 62, 701); await pause(500);
-  evalJs(S, `(() => { const T = window.__abw = { seen: [], gone: false, stop: false }; const tick = () => { if (T.stop) return; const c = document.getElementById('section-chrome'), o = c.querySelector('[data-sc="add-section-below"]'); if (c.hidden || !o) T.gone = true; else T.seen.push(+getComputedStyle(o).opacity); requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
-  mouse(S, 'move', 800, 20); await pause(50); mouse(S, 'move', 60, 700); mouse(S, 'move', 62, 701); await pause(500);
-  const r = evalJs(S, `(() => { const T = window.__abw; T.stop = true; return JSON.stringify({ seen: T.seen, gone: T.gone }); })()`);
-  if (!r.gone) addBack = { seen: r.seen };
+  evalJs(S, `(() => { const T = window.__abw = { seen: [], gone: false, stop: false, back: false }; const tick = () => { if (T.stop) return; const c = document.getElementById('section-chrome'), o = c.querySelector('[data-sc="add-section-below"]'); if (c.hidden || !o) T.gone = true; else { const v = +getComputedStyle(o).opacity; T.seen.push(v); if (!T.back && v > 0 && v < 0.8) { T.back = true; const f = document.getElementById('site-frame'), fr = f.getBoundingClientRect(), x = 62 - fr.left, y = 701 - fr.top; f.contentDocument.elementFromPoint(x, y).dispatchEvent(new f.contentWindow.PointerEvent('pointermove', { bubbles: true, clientX: x, clientY: y })); } } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
+  mouse(S, 'move', 800, 20);
+  for (let w = 0; w < 40 && !evalJs(S, `window.__abw.back || window.__abw.gone`); w++) await pause(50);
+  mouse(S, 'move', 60, 700); mouse(S, 'move', 62, 701); await pause(500);
+  const r = evalJs(S, `(() => { const T = window.__abw; T.stop = true; return JSON.stringify({ seen: T.seen, gone: T.gone, back: T.back }); })()`);
+  if (!r.gone && r.back) addBack = { seen: r.seen };
 }
 const addLow = addBack ? Math.min(...addBack.seen) : null, addLowAt = addBack ? addBack.seen.indexOf(addLow) : -1;
 add('Add Section back on during its fade runs back', !!addBack && addLow > 0 && addLow < 1 && addBack.seen.at(-1) === 1 && addBack.seen.slice(addLowAt).every((a, i, l) => !i || a >= l[i - 1]) && addBack.seen.slice(0, addLowAt + 1).every((a, i, l) => !i || a <= l[i - 1]), JSON.stringify({ low: addLow, frames: addBack?.seen.length }));
@@ -2423,6 +2426,26 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   await real(await centre(`document.querySelector('[data-layout="2"]')`)); await pause(300);
   add('Layouts panel: later picks leave it there', js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`) === afterPick);
   browser(S, 'press', 'Escape'); await pause(200);
+  // Each pick moves it up to where it would open on the section as it now is, never down (CAP-U10PANELPREDICT.json:
+  // ours' own values; the oracle read 214 and 114 for the two 206 and 106, a named 8 px miss).
+  const para = async () => { await start(); await change(`(m) => { const s = m.sections[0], t = JSON.parse(JSON.stringify(m.sections.flatMap((x) => x.blocks).find((b) => b.type === 'text'))); t.id = 'probe-p'; t.html = '<p>Paragraph words for a probe</p>'; t.layout.desktop.area = [2, 2, 4, 12]; t.layout.mobile.area = [1, 2, 3, 10]; s.blocks = [t]; s.height = 'medium'; s.rows = { ...s.rows, desktop: 8 }; delete s.theme; delete s.divider; }`); };
+  const panelTop = () => js(`return JSON.stringify(Math.round(document.getElementById('layouts-panel').getBoundingClientRect().top));`);
+  const pickTile = async (n) => { js(`document.querySelector('[data-layout="${n}"]').scrollIntoView({ block: 'nearest' }); return 'true';`); await pause(200); await real(await centre(`document.querySelector('[data-layout="${n}"]')`)); await pause(400); return panelTop(); };
+  await para();
+  const walk = [Math.round(await openLayouts(300))];
+  for (const n of [1, 5, 2]) walk.push(await pickTile(n));
+  add('Layouts panel: picks 1, 5, 2 on a paragraph: 248, 248, up to 206, stays', walk.join() === '248,248,206,206', walk.join());
+  browser(S, 'press', 'Escape'); await pause(200);
+  await para();
+  const fr = js(`const r = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + 400]);`);
+  wheel(S, fr[0], fr[1], 100); await pause(800);
+  const scrolled = [Math.round(await openLayouts(250)), await pickTile(5)];
+  add('Layouts panel: scrolled 100, a pick moves it up from 148 to 106', scrolled.join() === '148,106', scrolled.join());
+  browser(S, 'press', 'Escape'); await pause(200);
+  await para(); await change(`(m) => { m.sections[0].divider = true; }`);
+  const withDivider = Math.round(await openLayouts(300));
+  add('Layouts panel: a divider\'s height doesn\'t count on opening (248 at 763.6)', withDivider === 248, JSON.stringify(withDivider));
+  browser(S, 'press', 'Escape'); await pause(200);
 }
 // U10: the Layouts panel closing and a pick on a section with a look, against CAP-VIEWLAYOUTS.json.
 {
@@ -3140,33 +3163,40 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const up = (a) => a.every((v, i) => !i || v >= a[i - 1]), down = (a) => a.every((v, i) => !i || v <= a[i - 1]);
   const [y1, y2, y3] = await place();
 
-  await go(y1); start(); mouse(S, 'move', 800, y2); await pause(70); mouse(S, 'move', 800, y3); await pause(500); let f = stop();
+  // The second move is sent in the page on the first frame the new pair passes 0.3, so a slow machine can't push it
+  // past the 0.2 s fade; the real pointer follows it there.
+  const midway = (y) => evalJs(S, `(() => { const c = document.getElementById('section-chrome'), sid0 = c.dataset.key?.split('|')[0]; const T = window.__mid = { done: false }; const tick = () => { if (T.done) return; const o = c.hidden ? null : c.querySelector('.sc-add-section'), sid = c.dataset.key?.split('|')[0]; if (o && sid !== sid0) { const v = +getComputedStyle(o).opacity; if (v > 0.3 && v < 0.7) { T.done = true; ${y === 'bar' ? "document.querySelector('.bar').dispatchEvent(new PointerEvent('pointerenter'));" : y === 'scroll' ? "document.getElementById('site-frame').contentWindow.scrollBy(0, 60);" : `const f = document.getElementById('site-frame'), fr = f.getBoundingClientRect(), x = 800 - fr.left, yy = ${y} - fr.top; f.contentDocument.elementFromPoint(x, yy).dispatchEvent(new f.contentWindow.PointerEvent('pointermove', { bubbles: true, clientX: x, clientY: yy }));`} return; } } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
+  const cross = async (y, to, toY) => { midway(to); mouse(S, 'move', 800, y); for (let w = 0; w < 40 && !evalJs(S, `window.__mid.done`); w++) await pause(25); mouse(S, 'move', 800, toY); await pause(500); };
+  await go(y1); start(); await cross(y2, y3, y3); let f = stop();
   const short = [...new Set(f.flatMap((r) => r.times.filter((x) => x && x[0] === 'a').map((x) => x[1])))];
   const thirdGone = f.map((r) => r.gone.length).reduce((a, b) => Math.max(a, b), 0);
   add('a third section during a fade: the first falls on, the middle falls in a shorter time, the third rises', thirdGone === 4 && short.includes(200) && short.some((d) => d > 0 && d < 190) && up(f.filter((r) => r.lit.length).slice(-20).map((r) => r.lit[0][1])) && f.at(-1).gone.length === 0, JSON.stringify({ thirdGone, short }));
   const olShort = [...new Set(f.flatMap((r) => r.times.filter((x) => x && x[0] === 'o').map((x) => x[1])))];
   add('the outline the same way', olShort.includes(200) && olShort.some((d) => d > 0 && d < 190), JSON.stringify(olShort));
 
-  await go(y1); start(); mouse(S, 'move', 800, y2); await pause(40); mouse(S, 'move', 800, y1); await pause(500); f = stop();
+  await go(y1); start(); await cross(y2, y1, y1); f = stop();
   const s0 = f[0].sid, mid = f.findIndex((r) => r.sid && r.sid !== s0), backAt = mid > 0 ? f.findIndex((r, i) => i > mid && r.sid === s0) : -1;
   const back = backAt > 0 ? f.slice(backAt).map((r) => r.lit[0][1]) : [];
   const backGone = backAt > 0 ? f[backAt].gone.length : -1;
   add('back to the first during a fade: it runs back from where it is', back.length > 3 && back[0] > 0 && back[0] < 1 && up(back) && back.at(-1) === 1 && backGone === 2 && f.slice(backAt).find((r) => r.lit[0][1] === 1).ms - f[backAt].ms <= 200 * (1 - back[0]) + 40, JSON.stringify({ backAt, backGone, first: back[0], frames: back.length }));
 
-  await go(y1); start(); mouse(S, 'move', 800, y2); await pause(50); mouse(S, 'move', 800, 20); await pause(500); f = stop();
+  await go(y1); start(); await cross(y2, 'bar', 20); f = stop();
   const midSid = f.find((r) => r.sid && r.sid !== f[0].sid)?.sid, risen = f.filter((r) => r.sid === midSid && r.lit.length).map((r) => r.lit[0][1]);
   const peak = Math.max(...risen.slice(0, -1)), peakAt = risen.indexOf(peak), fall = risen.slice(peakAt);
   add('rising, then off every section: it falls from where it is, no jump, in a shorter time', peak > 0 && peak < 1 && fall.length >= 3 && down(fall) && fall[1] > peak * 0.7 && f.filter((r) => r.sid === midSid && r.lit.length).at(-1).ms - f.filter((r) => r.sid === midSid && r.lit.length)[peakAt].ms <= 200 * peak + 150, JSON.stringify({ peak, frames: fall.length }));
 
-  await go(y1); start(); mouse(S, 'move', 800, y2); wheel(S, 800, y2, 60); await pause(500); f = stop();
+  // A scroll mid-fade, sent in the page as the others are; the oracle's wheel and script scrolls read the same (CAP-U9FADE4.json).
+  await go(y1); start(); midway('scroll'); mouse(S, 'move', 800, y2); for (let w = 0; w < 40 && !evalJs(S, `window.__mid.done`); w++) await pause(25); await pause(500); f = stop();
   const both = f.filter((r) => r.gone.length === 2 && r.lit.length === 2);
   const moved = both.length ? both[0].gone[1][0] - both.at(-1).gone[1][0] : 0, movedLit = both.length ? both[0].lit[1][0] - both.at(-1).lit[1][0] : 0;
   const olBoth = f.filter((r) => r.olGone.length === 1 && r.ol);
   const olMoved = olBoth.length ? olBoth[0].olGone[0][0] - olBoth.at(-1).olGone[0][0] : 0;
-  add('a wheel turn during a fade: the fade runs on and the copies move with the page', moved === 60 && movedLit === 60 && olMoved === 60 && up(both.map((r) => r.lit[0][1])) && down(both.map((r) => r.gone[0][1])) && f.at(-1).lit[0][1] === 1, JSON.stringify({ moved, movedLit, olMoved }));
+  add('a scroll during a fade: the fade runs on and the copies move with the page', moved === 60 && movedLit === 60 && olMoved === 60 && up(both.map((r) => r.lit[0][1])) && down(both.map((r) => r.gone[0][1])) && f.at(-1).lit[0][1] === 1, JSON.stringify({ moved, movedLit, olMoved }));
 
   const [, , y3b] = await place();
-  await go(y3b - 60 - 20); const was = evalJs(S, `document.getElementById('section-chrome').dataset.key.split('|')[0]`); wheel(S, 802, y3b - 80, 300); await pause(500); const now = evalJs(S, `document.getElementById('section-chrome').dataset.key.split('|')[0]`);
+  await go(y3b - 60 - 20); const was = evalJs(S, `document.getElementById('section-chrome').dataset.key.split('|')[0]`); wheel(S, 802, y3b - 80, 300); let now = was;
+  // The browser's own pointerover after a scroll comes late on a busy page: wait for it, up to 2 s.
+  for (let w = 0; w < 20 && now === was; w++) { await pause(100); now = evalJs(S, `document.getElementById('section-chrome').dataset.key.split('|')[0]`); }
   add('a wheel turn with the pointer still: a new section under it takes the chrome', now !== was && !!now, JSON.stringify({ was, now }));
 
   // A block with nothing selected: the press alone changes nothing, as a press and 6 px don't on the oracle.
@@ -3194,6 +3224,111 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('the phone: off, the same fade', pFall.length >= 6 && down(pFall), JSON.stringify(pFall.length));
   evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(400);
   viewport(S, 1600, 1000); await pause(300);
+}
+// U10: View Layouts for one block alone, all 33 types as read (CAP-U10TYPES1.json to 3), each read pick of the five
+// types read in full (CAP-U10PICK-*.json), a shared list for an unread type, and Archive's tiles shown unbuilt.
+{
+  const FIND = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url)));
+  const ON = new Set();
+  for (const n of ['CAP-U10TYPES1', 'CAP-U10TYPES2', 'CAP-U10TYPES3']) for (const [t, v] of Object.entries(FIND(n).reads)) if (v.btnByText['View Layouts'].disabled === false) ON.add(t);
+  const TYPES = Object.keys(FIND('CAP-U10TYPES1').reads).concat(Object.keys(FIND('CAP-U10TYPES2').reads), Object.keys(FIND('CAP-U10TYPES3').reads));
+  goto(S, `${BASE}/index.html`); await pause(800); evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`); goto(S, `${BASE}/index.html`); await pause(1300);
+  const base = evalJs(S, `JSON.stringify(fe.model)`);
+  const alone = (name) => evalJs(S, `(() => { const m = ${JSON.stringify(base)}; m.sections[0].blocks = []; fe.load(m); fe.addBlock(fe.model.sections[0].id, ${JSON.stringify(name)}); fe.select(null); return 'true'; })()`);
+  const btn = async () => { const f = evalJs(S, `(() => { const r = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + 200]); })()`); mouse(S, 'move', 800, 20); await pause(250); mouse(S, 'move', f[0], f[1]); await pause(150); mouse(S, 'move', f[0] + 3, f[1] + 2); await pause(300); return evalJs(S, `(() => { const b = document.querySelector('#section-chrome:not([hidden]) [data-sc="layouts"]'); if (!b) return 'null'; const r = b.getBoundingClientRect(); return JSON.stringify({ x: r.left + r.width / 2, y: r.top + r.height / 2, off: b.hasAttribute('data-unbuilt') }); })()`); };
+  const wrong = [];
+  for (const t of TYPES) { alone(t); await pause(250); const b = await btn(); if (!b || b.off === ON.has(t)) wrong.push(`${t} ${b ? (b.off ? 'off' : 'on') : 'none'}`); }
+  add(`View Layouts for one block alone: ${TYPES.length} types as read, ${ON.size} on`, TYPES.length === 33 && wrong.length === 0, wrong.join(', '));
+  const open = async () => { const b = await btn(); mouse(S, 'move', b.x, b.y); await pause(50); mouse(S, 'down', b.x, b.y, { buttons: 1 }); await pause(30); mouse(S, 'up', b.x, b.y); await pause(400); return evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list li')].map((li) => Math.round(li.getBoundingClientRect().height * 10) / 10))`); };
+  const pick = (n) => evalJs(S, `(() => { const t = document.querySelector('[data-layout="${n}"]'); if (!t) return 'null'; t.click(); const s = fe.model.sections[0], d = document.getElementById('site-frame').contentDocument, sec = d.querySelector('section[data-section-id="' + s.id + '"]'); return JSON.stringify({ rows: s.rows.desktop, h: sec.getBoundingClientRect().height, look: [s.theme || '', s.divider ? s.dividerShape : ''], at: s.blocks.map((x) => [x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/')]) }); })()`);
+  const DV = { 'soft-corners': 'soft', rounded: 'rounded' };
+  for (const T of ['Code', 'Quote', 'Accordion', 'Video', 'Map']) {
+    const P = FIND(`CAP-U10PICK-${T.toUpperCase()}`).reads, L = FIND(`CAP-U10LIST-${T.toUpperCase()}`).reads.open.tileNames.map((x) => x[5]);
+    alone(T); await pause(250);
+    const tiles = await open(), errs = [];
+    if (tiles.join() !== L.map((h) => Math.round(h * 10) / 10).join()) errs.push(`tiles ${tiles}`);
+    for (let n = 0; n < L.length; n++) {
+      const g = pick(n), r = P[`pick ${n}`], lk = r.look, want = r.stack[0];
+      if (!g) { errs.push(`${n} no tile`); continue; }
+      // Rows, areas and look, not the section's height: that was read under Blocks Probe's shorter header, and ours
+      // grows a row where a Quote or a wide Video's content is taller than it (named in U10's evidence).
+      if (g.rows !== lk.rows) errs.push(`${n} rows ${g.rows}`);
+      if (g.at.length !== 1 || g.at[0][0] !== want.desktop || g.at[0][1] !== want.phone) errs.push(`${n} at ${g.at}`);
+      if (g.look.join() !== [lk.th, lk.dv ? DV[JSON.parse(lk.ctx).type] : ''].join()) errs.push(`${n} look ${g.look}`);
+    }
+    add(`View Layouts, ${T} alone: ${L.length} read picks`, errs.length === 0, errs.slice(0, 3).join(' | '));
+    browser(S, 'press', 'Escape'); await pause(200);
+  }
+  // Audio alone takes the list Code, Quote and Accordion share; its spans are its own, an inference.
+  alone('Audio'); await pause(250);
+  const audioTiles = await open(), au0 = evalJs(S, `JSON.stringify(fe.model.sections[0].blocks[0].layout.desktop.area)`), au = pick(2);
+  const span = au0[2] - au0[0];
+  add('Audio alone: 5 tiles, the shared list', audioTiles.length === 5 && !!au && au.at[0][0] === `3/3/${3 + span}/13` && au.rows === 3 + span - 1 + 4 && au.look.join() === 'dark,rounded', JSON.stringify({ audioTiles, au }));
+  browser(S, 'press', 'Escape'); await pause(200);
+  alone('Archive'); await pause(250);
+  const arch = await open(), archOn = evalJs(S, `JSON.stringify([document.querySelectorAll('.lo-tile.lo-unbuilt[disabled]').length, document.querySelectorAll('[data-layout]').length])`);
+  add('Archive alone: its 6 tiles show, not built', arch.length === 6 && archOn.join() === '6,0', JSON.stringify({ arch, archOn }));
+  browser(S, 'press', 'Escape'); await pause(200);
+  // Two picks read each (CAP-U10SHARE-*.json): those built as read, the other tiles shown and not built.
+  for (const [T, F, picks] of [['Instagram', 'INSTAGRAM', [2, 4]], ['Flickr', 'FLICKR', [2, 4]], ['Scrolling', 'SCROLLING', [0, 2]]]) {
+    const R = FIND(`CAP-U10SHARE-${F}`).reads, L = FIND(`CAP-U10LIST-${F}`).reads.open.tileNames.length;
+    alone(T); await pause(250);
+    const tiles = await open(), errs = [];
+    const off = evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list .lo-tile')].map((t) => t.disabled ? -1 : +t.dataset.layout))`);
+    const want = tiles.map((_, n) => (picks.includes(n) ? n : -1));
+    if (tiles.length !== L || off.join() !== want.join()) errs.push(`tiles ${off}`);
+    for (const n of picks) {
+      const g = pick(n), r = R[`pick ${n}`], lk = r.look, st = r.stack[0];
+      if (!g) { errs.push(`${n} no tile`); continue; }
+      if (g.rows !== lk.rows || g.at[0][0] !== st.desktop || g.at[0][1] !== st.phone || g.look.join() !== [lk.th, lk.dv ? DV[JSON.parse(lk.ctx).type] : ''].join()) errs.push(`${n} ${JSON.stringify(g)}`);
+    }
+    add(`View Layouts, ${T} alone: ${picks.length} read picks of ${L}, the rest not built`, errs.length === 0, errs.slice(0, 3).join(' | '));
+    browser(S, 'press', 'Escape'); await pause(200);
+  }
+  // The types the family test didn't put with Code or Video: every tile shown, none built.
+  const none = [];
+  for (const T of ['Chart', 'Calendar', 'Bandsintown', 'Tock', 'SoundCloud', 'Menu']) {
+    alone(T); await pause(250); const t = await open();
+    const c = evalJs(S, `JSON.stringify([document.querySelectorAll('.lo-tile.lo-unbuilt[disabled]').length, document.querySelectorAll('[data-layout]').length])`);
+    if (t.length !== 5 || c.join() !== '5,0') none.push(`${T} ${t.length} ${c}`);
+    browser(S, 'press', 'Escape'); await pause(200);
+  }
+  add('Chart, Calendar, Bandsintown, Tock, SoundCloud, Menu alone: 5 tiles, none built', none.length === 0, none.join(', '));
+  // Embed and Tag Cloud take Code's list (CAP-U10FAMILYPREDICT.json): each read pick's columns, row starts, rows past the
+  // block and look; the block keeps its own height here, so the row ends follow ours.
+  const fam = [];
+  for (const [T, F, picks] of [['Embed', 'EMBED', [0, 2]], ['Tag Cloud', 'TAG-CLOUD', [1, 3]]]) {
+    const R = FIND(`CAP-U10SHARE-${F}`).reads;
+    alone(T); await pause(250); await open();
+    for (const n of picks) {
+      const g = pick(n), r = R[`pick ${n}`], st = r.stack[0], lk = r.look, A = (s) => s.split('/').map(Number);
+      const [d0, dc0, d1, dc1] = A(st.desktop), [p0, pc0, , pc1] = A(st.phone), [g0, gc0, g1, gc1] = A(g.at[0][0]), [q0, qc0, , qc1] = A(g.at[0][1]);
+      const ok = g0 === d0 && gc0 === dc0 && gc1 === dc1 && q0 === p0 && qc0 === pc0 && qc1 === pc1 && g.rows - (g1 - 1) === lk.rows - (d1 - 1) && g.look.join() === [lk.th, lk.dv ? DV[JSON.parse(lk.ctx).type] : ''].join();
+      if (!ok) fam.push(`${T} ${n} ${JSON.stringify(g)}`);
+    }
+    browser(S, 'press', 'Escape'); await pause(200);
+  }
+  add('Embed and Tag Cloud alone: their read picks by Code\'s list', fam.length === 0, fam.join(' | '));
+  // A type with one other block (CAP-U10MIX-*.json): on or off, the tile count, and the read picks as read
+  // (CAP-U10MIXPICK-*.json; areas compared as a set, as ours puts blocks in page order); the rest of the tiles shown, not built.
+  const pair = (a, b) => evalJs(S, `(() => { const m = ${JSON.stringify(base)}; m.sections[0].blocks = []; fe.load(m); const sid = fe.model.sections[0].id; fe.addBlock(sid, ${JSON.stringify(a)}); fe.addBlock(sid, ${JSON.stringify(b)}); fe.select(null); return 'true'; })()`);
+  for (const [a, b, F, picks] of [['Image', 'Code', 'IMAGE-CODE', [0, 4]], ['Video', 'Button', 'VIDEO-BUTTON', [0, 5]], ['Image', 'Quote', 'IMAGE-QUOTE', []], ['Map', 'Button', 'MAP-BUTTON', []], ['Map', 'Code', 'MAP-CODE', []]]) {
+    const L = FIND(`CAP-U10MIX-${F}`).reads.open.tileNames.map((x) => Math.round(x[5] * 10) / 10), errs = [];
+    pair(a, b); await pause(250);
+    const tiles = await open();
+    const on = evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list .lo-tile')].map((t) => t.disabled ? -1 : +t.dataset.layout))`);
+    if (tiles.join() !== L.join() || on.join() !== L.map((_, n) => (picks.includes(n) ? n : -1)).join()) errs.push(`tiles ${tiles} ${on}`);
+    for (const n of picks) {
+      const r = FIND(`CAP-U10MIXPICK-${F}`).reads[`pick ${n}`], g = pick(n);
+      const want = r.stack.map((x) => [x.desktop, x.phone].join(' ')).sort().join(), got = g && evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.map((x) => [x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/')].join(' ')))`).sort().join();
+      if (!g || got !== want || g.rows !== r.look.rows || g.look.join() !== ',') errs.push(`${n} ${got} ${g && g.rows}`);
+    }
+    add(`View Layouts, ${a} + ${b}: ${L.length} tiles, ${picks.length} read picks built`, errs.length === 0, errs.slice(0, 3).join(' | '));
+    browser(S, 'press', 'Escape'); await pause(200);
+  }
+  pair('Instagram', 'Button'); await pause(250);
+  const ib = await btn();
+  add('View Layouts, Instagram + Button: off, as read', !!ib && ib.off, JSON.stringify(ib));
 }
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);

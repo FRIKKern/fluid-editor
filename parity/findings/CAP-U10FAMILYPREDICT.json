@@ -1,0 +1,39 @@
+{
+ "item": "U10",
+ "capturedAt": "2026-11-07",
+ "question": "U10 family rule, its own round (lead, 2026-11-07): the step from tile to tile in a 5 tile list sorts types into families. Code family: Code, Quote, Accordion, Markdown, Audio, Embed, Tag Cloud. Instagram family: Instagram, Flickr, Chart, Calendar. Others: Bandsintown, Tock, SoundCloud; Menu. Predictions, pushed and frozen before any read. Two picks per type, Blocks Probe, unsaved, one type per reload.",
+ "basis": "Code family from CAP-U10PICK-CODE (places, rows past the block, look). Flickr from CAP-U10SHARE-INSTAGRAM, the same picks.",
+ "predictions": [
+  {
+   "case": "Embed alone, pick 0",
+   "predict": "as Code's pick 0: desktop row start 5, columns 7/21; phone row start 2, columns 2/10; section rows = desktop end row - 1 + 4; look: none. Height is the block's own, not predicted"
+  },
+  {
+   "case": "Embed alone, pick 2",
+   "predict": "as Code's pick 2: desktop row start 3, columns 3/13; phone row start 2, columns 2/10; section rows = desktop end row - 1 + 4; look: dark, rounded divider. Height is the block's own, not predicted"
+  },
+  {
+   "case": "Embed alone, both picks",
+   "predict": "the same block height in both picks, desktop and phone: its tile heights are Code's plus 14.1px each"
+  },
+  {
+   "case": "Tag Cloud alone, pick 1",
+   "predict": "as Code's pick 1: desktop row start 8, columns 15/25; phone row start 2, columns 2/10; section rows = desktop end row - 1 + 0; look: soft divider. Height is the block's own, not predicted"
+  },
+  {
+   "case": "Tag Cloud alone, pick 3",
+   "predict": "as Code's pick 3: desktop row start 4, columns 9/19; phone row start 1, columns 2/10; section rows = desktop end row - 1 + 3; look: none. Height is the block's own, not predicted"
+  },
+  {
+   "case": "Flickr alone, pick 2",
+   "predict": "as Instagram's read pick 2 exactly (same tile heights to 0.1px): desktop 3/3/22/19, phone 2/2/36/10, 23 rows, no theme, no divider"
+  },
+  {
+   "case": "Flickr alone, pick 4",
+   "predict": "as Instagram's read pick 4 exactly: desktop 2/8/16/20, phone 2/2/36/10, 16 rows, dark, no divider"
+  }
+ ],
+ "ifHeld": "Code family: Audio, Embed and Tag Cloud keep the shared list (inferred). Flickr gets Instagram's two read picks as built; the rest of that family stays count and order.",
+ "ifMiss": "that type goes back to count and order, its areas named not read",
+ "scored": "7 of 7 held, frozen first round (CAP-U10SHARE-EMBED, TAG-CLOUD, FLICKR). Embed pick 0: 5/7/9/21, phone 2/2/6/10, 12 rows, no style; pick 2: 3/3/7/13, phone 2/2/6/10, 10 rows, dark, rounded; the same height in both. Tag Cloud pick 1: 8/15/11/25, phone 2/2/6/10, 10 rows, soft divider; pick 3: 4/9/7/19, phone 1/2/5/10, 9 rows, no style. Flickr picks 2 and 4: exactly Instagram's (3/3/22/19, 2/2/36/10, 23 rows; 2/8/16/20, 2/2/36/10, 16 rows, dark)."
+}

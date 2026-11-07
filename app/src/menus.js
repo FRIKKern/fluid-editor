@@ -6,6 +6,8 @@
 //   Context    right-click on a block: Copy, Paste, Duplicate, Delete | Copy Properties, Paste
 //              Properties | Stack, Arrange | Hide on desktop, Hide on mobile, with shortcuts.
 // Our icons are our own (O2). Items marked data-unbuilt are shown but not built yet.
+import { SEARCH_WORDS } from './search-words.js';
+
 const svg = (d, w = 16) => `<svg width="${w}" height="${w}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 export const TYPE_ICON = {
   Stack: '<rect x="4" y="5" width="6" height="6"/><rect x="14" y="5" width="6" height="6"/><path d="M5 17h14"/><path d="M16 14l3 3-3 3"/>',
@@ -57,15 +59,12 @@ const GROUPS = [
   ['Links', ['Social Links', 'Search Field', 'Page Link', 'Tag Cloud', 'RSS', 'Archive']],
   ['Integrations', ['Instagram', 'Tock', 'SoundCloud', 'Flickr', 'OpenTable', 'Zola', 'Bandsintown']],
 ];
-// Search also matches words the menu does not show. "co" was the one query read (U5.json search);
-// these words are ours and give the same tiles.
-const ALSO = { Form: 'contact', 'Pricing Plan': 'cost', Donation: 'contribute', 'Page Link': 'content', Bandsintown: 'concert' };
 
 export function addBlockMenuHtml(types, query = '') {
   const q = query.trim().toLowerCase();
   const tile = (n) => `<button type="button" class="am-tile" data-add="${n}" aria-label="${n}">${svg(TYPE_ICON[n] || TYPE_ICON.Shape)}<span>${n}</span></button>`;
   const names = GROUPS.flatMap(([, list]) => list).filter((n) => types.some(([t]) => t === n));
-  const hit = names.filter((n) => `${n} ${ALSO[n] || ''}`.toLowerCase().includes(q));
+  const hit = names.filter((n) => (SEARCH_WORDS[n] || []).some((w) => w.includes(q)));
   const grid = (list) => `<div class="am-grid">${list.map(tile).join('')}</div>`;
   const body = !q ? GROUPS.map(([head, list]) => `<div class="am-head">${head}</div>${grid(list.filter((n) => names.includes(n)))}`).join('')
     : hit.length ? grid(hit) : '<p class="am-none">No Results</p>';
@@ -84,10 +83,11 @@ export function layersPanelHtml(rows) {
 }
 
 const K = { cmd: '⌘', shift: '⇧', back: '⌫' };
-// The Arrange submenu (parity/findings/ARRANGE.json).
-export function arrangeMenuHtml() {
-  const it = (act, label, keys = '') => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"><span>${label}</span>${keys ? `<kbd>${keys}</kbd>` : ''}</button>`;
-  return [it('z-forward', 'Move forward', '↑'), it('z-front', 'Move to front'), it('z-backward', 'Move backward', '↓'), it('z-back', 'Move to back')].join('');
+// The Arrange submenu (parity/findings/ARRANGE.json). On the top block Move forward and Move to front are grey
+// (CAP-MENUS.json, the newest block, the only one read); on the bottom block the other two are, inferred.
+export function arrangeMenuHtml({ top = false, bottom = false } = {}) {
+  const it = (act, label, keys = '', off = false) => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"${off ? ' disabled' : ''}><span>${label}</span>${keys ? `<kbd>${keys}</kbd>` : ''}</button>`;
+  return [it('z-forward', 'Move forward', '↑', top), it('z-front', 'Move to front', '', top), it('z-backward', 'Move backward', '↓', bottom), it('z-back', 'Move to back', '', bottom)].join('');
 }
 
 // Copy Properties and Paste Properties, read on the oracle (parity/findings/CAP-COPYANIM.json).
@@ -101,8 +101,10 @@ export function pastePropsMenuHtml({ canTransforms, canAnimations }) {
   return [propRow('ppaste-transforms', 'Transforms', canTransforms), propRow('ppaste-animations', 'Animations', canAnimations), propRow('preplace-animations', 'Replace Animations', canAnimations)].join('');
 }
 
-// On a phone the oracle's menu has no Copy Properties or Paste Properties (parity/findings/LINKBOX.json).
-export function contextMenuHtml({ canPaste, phone = false }) {
+// On a phone the oracle's menu has no Copy Properties or Paste Properties (parity/findings/LINKBOX.json), and on
+// desktop these 16 tiles have neither (CAP-MENUS.json). Arrange is grey on a block alone in its section (27 of 27).
+export const NO_PROPERTIES = new Set(['Accordion', 'Pricing Plan', 'Donation', 'Newsletter', 'Calendar', 'Menu', 'Chart', 'Markdown', 'Page Link', 'Tag Cloud', 'RSS', 'Instagram', 'Tock', 'SoundCloud', 'Flickr', 'Bandsintown']);
+export function contextMenuHtml({ canPaste, phone = false, tile = '', alone = false }) {
   const item = (act, label, keys = '', opts = {}) => `<button type="button" class="cm-item" role="menuitem" data-cm="${act}" aria-label="${label}"${opts.off ? ' disabled' : ''}${opts.unbuilt ? ' data-unbuilt' : ''}><span>${label}</span>${keys ? `<kbd>${keys}</kbd>` : ''}${opts.more ? '<span class="cm-more">›</span>' : ''}</button>`;
   return [
     item('copy', 'Copy', `${K.cmd} C`),
@@ -110,9 +112,9 @@ export function contextMenuHtml({ canPaste, phone = false }) {
     item('duplicate', 'Duplicate', `${K.cmd} D`),
     item('delete', 'Delete', K.back),
     '<hr>',
-    ...(phone ? [] : [item('copy-props', 'Copy Properties', '', { more: true }), item('paste-props', 'Paste Properties', '', { more: true }), '<hr>']),
+    ...(phone || NO_PROPERTIES.has(tile) ? [] : [item('copy-props', 'Copy Properties', '', { more: true }), item('paste-props', 'Paste Properties', '', { more: true }), '<hr>']),
     item('stack', 'Stack', `${K.shift} S`),
-    item('arrange', 'Arrange', '', { more: true }),
+    item('arrange', 'Arrange', '', { more: true, off: alone }),
     '<hr>',
     item('hide-desktop', 'Hide on desktop', `${K.cmd} ${K.shift} H`),
     item('hide-mobile', 'Hide on mobile', ''),

@@ -7,6 +7,7 @@ import { markdownHtml, markdownParts } from './markdown.js';
 import { formFieldHtml, formLightboxHtml, formPostHtml, formSubmitJs, formView, phoneAlign, phoneStyle } from './form-fields.js';
 import { imageShapeById } from './image-shapes.js';
 import { effectData, IMAGE_EFFECT_SCRIPT } from './image-effects.js';
+import { ASPECTS, galleryOf, chartOf, CHART_PALETTES } from './dialogs.js';
 
 export const BPS = ['mobile', 'desktop'];
 export const COLS = { mobile: 8, desktop: 24 };
@@ -263,16 +264,45 @@ export const MAP_ZOOMS = [0, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8,
 // Our own palettes: land, water, park, hill, road, ink.
 export const MAP_PALETTES = { 1: ['#f2efe6', '#a6d3ea', '#c8e3b4', '#d7cdb2', '#fff', '#444'], 2: ['#f8f8f8', '#6e6e6e', '#e4e4e4', '#cfcfcf', '#d0d0d0', '#333'], 3: ['#4d5a3c', '#16302f', '#33482d', '#6a6647', '#a59a7c', '#fff'], 4: ['#fbfbfb', '#ececec', '#f3f3f3', '#e6e6e6', '#f0f0f0', '#8a8a8a'], 5: ['#2a2a2a', '#121212', '#333', '#3d3d3d', '#3f3f3f', '#bbb'], 6: ['#f7f9fb', '#c6dff0', '#e8f0f5', '#dbe6ed', '#fff', '#54687a'] };
 export const mapVars = (style) => ['land', 'water', 'park', 'hill', 'road', 'ink'].map((k, i) => `--m-${k}:${MAP_PALETTES[style][i]}`).join(';');
+// Chart (CAP-ROWSCHART.json, CAP-T12CHARTLOOK.json): a title above (the page's h2), the picture 15 below it, the legend
+// under the picture and the caption 15 under that. The picture is our own drawing of the data, in the palette's colours
+// (the oracle draws on a canvas, so its marks aren't read; a flipped chart's colour per bar is inferred). With Flip on, the
+// legend went away though Show Legend was on (one read).
+function chartHtml(b) {
+  const c = chartOf(b), pal = CHART_PALETTES[c.palette], rows = c.data.slice(1).map(([l, v]) => [l, Number(v) || 0]);
+  const max = Math.max(1, ...rows.map(([, v]) => v)), step = 10 ** Math.floor(Math.log10(max)), top = (Math.floor(max / step) + 1) * step;
+  const L = 80, R = 450.5, T = 16, B = 184, y = (v) => B - ((B - T) * v) / top, band = (R - L) / Math.max(1, rows.length);
+  const ticks = Array.from({ length: Math.round(top / step) + 1 }, (_, n) => n * step);
+  const axis = c.type === 'Pie Chart' ? '' : ticks.map((t) => `<path d="M${L} ${y(t)}H${R}" class="fe-chart-rule"/><text x="${L - 10}" y="${y(t) + 5}" text-anchor="end" class="fe-chart-text">${t}</text>`).join('') + rows.map(([l], n) => `<text x="${L + band * (n + 0.5)}" y="${B + 24}" text-anchor="middle" class="fe-chart-text">${escapeHtml(l)}</text>`).join('');
+  const colour = (n) => pal[(c.flip ? n : 0) % pal.length];
+  let marks = '';
+  if (c.type === 'Bar Chart') marks = rows.map(([, v], n) => `<rect x="${L + band * n + band * 0.055}" y="${y(v)}" width="${band * 0.89}" height="${B - y(v)}" fill="${colour(n)}" class="fe-chart-bar"/>`).join('');
+  else if (c.type === 'Line Chart') { const pts = rows.map(([, v], n) => `${L + band * (n + 0.5)},${y(v)}`); marks = `<polyline points="${pts.join(' ')}" fill="none" stroke="${pal[0]}" stroke-width="2"/>${pts.map((p, n) => `<circle cx="${p.split(',')[0]}" cy="${p.split(',')[1]}" r="4" fill="${colour(n)}"/>`).join('')}`; }
+  else {
+    const sum = rows.reduce((a, [, v]) => a + v, 0) || 1;
+    let a = -Math.PI / 2;
+    marks = rows.map(([, v], n) => { const a1 = a + (2 * Math.PI * v) / sum, big = a1 - a > Math.PI ? 1 : 0, p = (t) => `${229.5 + 100 * Math.cos(t)} ${114.5 + 100 * Math.sin(t)}`, d = `M229.5 114.5L${p(a)}A100 100 0 ${big} 1 ${p(a1)}Z`; a = a1; return `<path d="${d}" fill="${pal[n % pal.length]}"/>`; }).join('');
+  }
+  const legend = c.legend && !c.flip ? `<div class="chart-block-legend"><figcaption class="legend-content"><ul class="${c.type === 'Line Chart' ? 'line' : 'bar'}-legend"><li><span style="background-color:${pal[0]}"></span>${escapeHtml(c.data[0][1] || '')}</li></ul></figcaption></div>` : '';
+  return `${c.title ? `<h2 class="fe-chart-title">${escapeHtml(c.title)}</h2>` : ''}<div class="fe-chart"><svg viewBox="0 0 459 229" aria-hidden="true">${axis}${marks}</svg></div>${legend}${c.caption ? `<div class="chart-block-caption"><figcaption>${escapeHtml(c.caption)}</figcaption></div>` : ''}`;
+}
 // Five menu types whose content sets the height and follows the width (STANDINS.json). The words and
 // the 12 plain tiles are local; no picture or service is behind them.
 const STANDIN = {
   quote: () => '<figure class="sqs-quote-block-contents"><blockquote><span>“</span>Whatever it is, the way you tell your story online can make all the difference.<span>”</span></blockquote><figcaption class="source">— Quote Source</figcaption></figure>',
-  chart: () => `<div class="fe-chart"><svg viewBox="0 0 459 229" preserveAspectRatio="none" aria-hidden="true">${[32, 88, 144, 200].map((y) => `<path d="M60 ${y}H448" class="fe-chart-rule"/>`).join('')}${[[66, 118, 125], [189, 62, 181], [313, 118, 125]].map(([x, y, h]) => `<rect x="${x}" y="${y + 19}" width="111" height="${h}" class="fe-chart-bar"/>`).join('')}</svg></div>`,
+  chart: (b) => chartHtml(b),
   soundcloud: () => '<div class="fe-status"><div class="fe-status-title">SoundCloud Block</div><div class="fe-status-message">Enter a SoundCloud track, playlist, or profile URL.</div></div>',
-  gallery: () => `<div class="fe-tiles">${'<span></span>'.repeat(12)}</div>`,
+  // Aspect Ratio, Crop Images, Show Title and Open Links in New Window (CAP-ROWSINSTAGRAM.json, CAP-ROWSFLICKR.json): a
+  // cropped tile takes the ratio; an uncropped one shows its picture whole, 16:9 as the oracle's sample pictures read
+  // (56.1 high in 99.8). A title is 14px, centred, 22.4 high and 7 below its picture. Our tiles link nowhere.
+  gallery: (b) => {
+    const g = galleryOf(b), ratio = g.crop ? ASPECTS.find(([n]) => n === g.aspect)?.[1] ?? 1 : 9 / 16;
+    const tile = (n) => `<a class="fe-tile ${g.crop ? 'content-fill' : 'content-fit'}"${g.newWindow ? ' target="_blank"' : ''}><span style="aspect-ratio:${1 / ratio}"></span>${g.title ? `<span class="fe-tile-title">Image ${n + 1}</span>` : ''}</a>`;
+    return `<div class="fe-tiles">${Array.from({ length: 12 }, (_, n) => tile(n)).join('')}</div>`;
+  },
 };
 const STANDIN_BLOCK = { quote: 'sqs-block-quote quote-block', chart: 'sqs-block-chart chart-block', soundcloud: 'sqs-block-soundcloud soundcloud-block', flickr: 'sqs-block-flickr flickr-block', instagram: 'sqs-block-instagram instagram-block' };
-export const standinHtml = (b) => `<div class="sqs-block ${STANDIN_BLOCK[b.standin]}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${(STANDIN[b.standin] || STANDIN.gallery)()}</div></div>`;
+export const standinHtml = (b) => `<div class="sqs-block ${STANDIN_BLOCK[b.standin]}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${(STANDIN[b.standin] || STANDIN.gallery)(b)}</div></div>`;
 
 export const mapOf = (b) => ({ style: b.mapStyle ?? 2, labels: b.mapLabels !== false, terrain: !!b.mapTerrain, controls: !!b.mapControls, zoom: b.mapZoom ?? 12 });
 export const mapArt = (labels = true, terrain = false) => `<rect class="m-land" x="-400" y="-400" width="1200" height="1200"/>${terrain ? '<g class="m-hill"><ellipse cx="90" cy="110" rx="90" ry="60"/><ellipse cx="320" cy="310" rx="110" ry="70"/><ellipse cx="310" cy="70" rx="70" ry="45"/></g>' : ''}<path class="m-park" d="M250 150l60-14 22 58-58 20zM60 300l58-10 14 50-60 14z"/><path class="m-water" d="M-400 330C40 300 90 240 150 170S210 30 250-400H330C300 40 260 130 210 200S120 340-400 480z"/><g class="m-road"><path d="M-400 90L800 40M-400 250L800 210M-400 370L800 330M60-400L110 800M300-400L340 800"/><path class="m-thin" d="M-400 150L800 110M-400 310L800 270M-400 30L800-10M10-400L50 800M180-400L220 800M250-400L290 800M370-400L410 800"/></g>${labels ? '<g class="m-label"><text x="262" y="122">Harbor</text><text x="42" y="214">Old Town</text><text x="238" y="286">Riverside</text><text x="120" y="368">South Park</text></g>' : ''}`;

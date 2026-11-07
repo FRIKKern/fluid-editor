@@ -19,6 +19,7 @@ import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
 import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, linkBoxHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
+import { dialogOf, dialogHtml, DIALOG_DEFAULTS, chartOf, parseCsv } from './dialogs.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -160,6 +161,7 @@ function undo() {
   if (ed) finishTextEdit();
   if (!undoStack.length) { if (ed) select(null); return; }
   unsettled = null;
+  stored = null;
   leaveAnimField();
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
@@ -175,6 +177,7 @@ function redo() {
   if (ed) finishTextEdit();
   if (!redoStack.length) { if (ed) select(null); return; }
   unsettled = null;
+  stored = null;
   leaveAnimField();
   undoStack.push(JSON.stringify(model));
   const had = new Set(model.sections.flatMap((o) => o.blocks.map((x) => x.id)));
@@ -544,6 +547,7 @@ toolbar.addEventListener('click', (e) => {
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
+  if (act === 'edit' && dialogOf(b)) { designOpen = bid; dlgTab = dialogOf(b).tabs?.[0] || null; updateUi(); return; } // T12's older dialogs (dialogs.js)
   if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
@@ -637,13 +641,14 @@ function measure(fe) {
 // Rows a block needs so its content fits without stretching a row.
 // The form on the page, not the copy a Lightbox holds to open.
 const FORM_ON_PAGE = '.fe-form:not(.form-lightbox .fe-form)';
-function contentRows(b, m, normalizing = false, widthPull = false) {
+function contentRows(b, m, normalizing = false, widthPull = false, exact = false) {
   // Content that follows the width (STANDINS.json). A pull that changes the width lets it run over by
   // less than the gap until the next gesture; one that changes only the height does not.
   if (b.standin) {
     const c = blockEl(b.id)?.querySelector('.sqs-block-content');
     if (!c) return 1;
     const h = c.getBoundingClientRect().height;
+    if (exact) return (h + m.rg) / m.pitch;
     return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
   }
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
@@ -678,6 +683,7 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
   if (!c) return 1;
   // A text block's stroke counts: it sits outside the text (BLOCKDESIGN.json).
   const outer = b.type === 'text' ? root.querySelector('.sqs-block') : null, edge = outer ? outer.offsetHeight - outer.clientHeight : 0;
+  if (exact) return (c.offsetHeight + edge + m.rg) / m.pitch;
   return Math.max(1, Math.ceil((c.offsetHeight + edge + m.rg) / m.pitch - 0.02));
 }
 
@@ -1010,6 +1016,7 @@ function onUp(e) {
   growRows(s);
   endGesture();
   renderSectionDom(g.sid);
+  if (g.type === 'gresize') stored = storedRows(g);
   if (g.fits && !/[ns]/.test(g.dir)) {
     fitTextRows(s, b, g);
     if (b.type === 'text' && g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
@@ -1082,8 +1089,43 @@ function onCancel(e) {
   if (gesture && e.pointerId === gesture.pointerId) cancelGesture();
 }
 
+// After a group resize leaves a Text or Quote short of its content, the next layout gesture moves rows in
+// (CAP-X8NEXT.json, CAP-X8LAG.json): d is the overflow in rows, rounded, and L the short block's bottom line.
+// The short block grows d, a block across L grows d, and so does one ending on L that starts on or above the
+// short block's top; any other block that ends on or below L moves d, and blocks above L stay, in the whole
+// section (CAP-X8LAG2.json). A press, a select, typing and undo don't do it. Candidate, refit 2.
+let stored = null;
+function storedRows(g) {
+  const m = measure(feEl(g.sid)), s = S(g.sid);
+  let d = 0, L = 0, t0 = 0, tid = null;
+  for (const id of g.kept.keys()) {
+    const b = B(g.sid, id), a = lay(b).area, over = Math.round(contentRows(b, m, false, false, true) - (a[2] - a[0]));
+    if (over > d) { d = over; L = a[2]; t0 = a[0]; tid = id; }
+  }
+  if (d <= 0) return null;
+  const areas = new Map();
+  for (const b of s.blocks) {
+    const a = [...lay(b).area];
+    if (b.id === tid || (a[0] < L && a[2] > L) || (a[2] === L && a[0] <= t0)) a[2] += d;
+    else if (a[2] >= L) { a[0] += d; a[2] += d; }
+    areas.set(b.id, a);
+  }
+  return { sid: g.sid, bp, areas };
+}
+function showStored() {
+  const t = stored, shift = new Map();
+  stored = null;
+  const s = t.bp === bp ? S(t.sid) : null;
+  if (!s) return shift;
+  for (const b of s.blocks) if (t.areas.has(b.id)) { shift.set(b.id, t.areas.get(b.id)[0] - lay(b).area[0]); lay(b).area = t.areas.get(b.id); }
+  growRows(s);
+  renderSectionDom(s.id);
+  return shift;
+}
+
 function prepare(e, type, extra = {}) {
   if (unsettled) settleTextRows();
+  const shift = stored ? showStored() : null;
   const g = gesture?.type === 'pending' ? gesture : { sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, before: JSON.stringify(model) };
   Object.assign(g, { type }, extra);
   gesture = g;
@@ -1099,6 +1141,8 @@ function prepare(e, type, extra = {}) {
   g.rows0 = s.rows[bp];
   g.target = [...g.orig];
   g.m = measure(fe);
+  // A block the stored rows moved is held where they put it (CAP-X8LAG.json, l3 and l6).
+  if (shift?.get(g.bid) && g.grabY != null) g.grabY -= shift.get(g.bid) * g.m.pitch;
   fe.style.gridAutoRows = `${g.m.rowMin}px`;
   showGrid(g.sid, s.rows[bp]);
   g.original = layer(fe, 'fe-original-position', g.orig);
@@ -1622,6 +1666,8 @@ let imageView = null; // the image Shape picker's tab, or null
 let fxView = null; // the Image Effect panel: 'list', 'settings' or null
 let fxOpen = []; // its settings groups that are open: they all start closed
 const blockPanel = $('block-panel');
+const dialogEl = $('block-dialog');
+let dlgTab = null; // the open tab of T12's dialog
 let shapeUi = null; // the open popup of a shape's Design tab: { kind, bid, custom }
 let codeCommit = false;
 function renderBlockPanel() {
@@ -1629,6 +1675,8 @@ function renderBlockPanel() {
   if (shapeUi && !shapeUi.section && (!sel || shapeUi.bid !== sel.bid || designOpen !== sel.bid)) closeShapePop();
   if (shapeUi?.kind === 'anchor') queueMicrotask(() => { if (shapeUi?.kind === 'anchor') renderShapePop(); }); // an undo too
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
+  if (b && dialogOf(b)) { blockPanel.hidden = true; renderDialog(b); return; }
+  if (!dialogEl.hidden) { dialogEl.hidden = true; dialogEl.dataset.key = ''; }
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
   if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; accView = null; imageView = null; ffView = null; showFormPost(null); fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
@@ -1683,6 +1731,75 @@ function renderBlockPanel() {
   if (blockPanel.dataset.bid !== b.id) { blockPanel.dataset.bid = b.id; blockPanel.scrollTop = 0; } // another block starts at the top
   if (shapeUi) renderShapePop(); // undo can change what an open popup shows
   drawPhoneControls(b);
+}
+// T12's older dialogs (dialogs.js, CAP-DIALOGS.json): no way out inside them. A press on the section beside one closes
+// it and lets the block go; Escape and a press on its own block leave it open. It sits by the block's right edge, at a
+// height read against the window: 235 to 241 whatever the block's top, so ours holds it to the frame (inferred).
+const dialogPages = () => [...new Set([...(model.header?.nav || []).map((n) => n.label), ...SITE_PAGES])].sort((x, y) => x.localeCompare(y));
+function renderDialog(b) {
+  const d = dialogOf(b), key = JSON.stringify([b, dlgTab]);
+  if (dialogEl.dataset.key !== key) {
+    const top = dialogEl.scrollTop;
+    dialogEl.innerHTML = dialogHtml(b, dlgTab, dialogPages());
+    if (dialogEl.dataset.bid === b.id) dialogEl.scrollTop = top;
+    dialogEl.dataset.key = key;
+    dialogEl.dataset.bid = b.id;
+  }
+  const el = blockEl(b.id), f = frame.getBoundingClientRect(), st = stage.getBoundingClientRect();
+  dialogEl.style.width = `${d.w}px`;
+  dialogEl.style.height = `${d.h}px`;
+  dialogEl.style.left = `${f.left - st.left + el.getBoundingClientRect().right + d.dx}px`;
+  dialogEl.style.top = `${f.top - st.top + d.top}px`;
+  dialogEl.hidden = false;
+}
+// A row's change is one undo step. A gallery row that changes the content's height refits the rows to it, as Flickr
+// read four times (CAP-ROWSFLICKR.json); Instagram's one Aspect Ratio read kept a row more (12 to 8, ours 7).
+// Chart's rows only grow: a title over its 8 rows kept them, and a Flip that took 44 off kept 11 (CAP-T12CHARTLOOK.json).
+function setDialogValue(k, v) {
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  const content = () => blockEl(b.id)?.querySelector('.sqs-block-content')?.getBoundingClientRect().height;
+  const was = content();
+  if (JSON.stringify(v) === JSON.stringify(DIALOG_DEFAULTS[k])) delete b[k]; else b[k] = v;
+  renderSectionDom(sel.sid);
+  if (b.standin && content() !== was) {
+    const a = lay(b).area, need = contentRows(b, formPitch(b)); // the pitch with the content out, as it stretches the rows
+    setFormRows(b, S(sel.sid), b.standin === 'chart' ? Math.max(need, a[2] - a[0]) : need);
+  }
+  commit(before, `${dialogOf(b).title} changed`);
+}
+dialogEl.addEventListener('click', (e) => {
+  const tab = e.target.closest('[data-dl-tab]');
+  if (tab) { dlgTab = tab.dataset.dlTab; dialogEl.scrollTop = 0; renderDialog(B(sel.sid, sel.bid)); return; }
+  const box = e.target.closest('button[data-dl]');
+  if (box && !box.disabled) setDialogValue(box.dataset.dl, box.getAttribute('aria-checked') !== 'true');
+  // Update reads the box's text as the data (not pressed on the oracle: inferred).
+  if (e.target.closest('[data-dl-action="csv"]')) { const t = dialogEl.querySelector('[data-dl-area]'); setDialogValue(t.dataset.dlArea, parseCsv(t.value)); }
+});
+dialogEl.addEventListener('input', (e) => {
+  const r = e.target.closest('input[type="range"][data-dl]');
+  if (r) r.parentElement.querySelector('.dl-count').textContent = `${r.value} ${r.getAttribute('aria-label')}`;
+});
+dialogEl.addEventListener('change', (e) => {
+  const cell = e.target.closest('[data-dl-cell]');
+  if (cell && sel) {
+    const [r, k] = cell.dataset.dlCell.split(',').map(Number), data = chartOf(B(sel.sid, sel.bid)).data.map((row) => [...row]);
+    data[r][k] = cell.value;
+    setDialogValue('chartData', data);
+    return;
+  }
+  const c = e.target.closest('[data-dl]');
+  if (!c || !sel) return;
+  setDialogValue(c.dataset.dl, c.type === 'range' ? Number(c.value) : c.value);
+  if (c.type === 'range') c.blur();
+});
+const dialogOpen = () => !dialogEl.hidden && sel && designOpen === sel.bid;
+function holdDialogEscape(e) { if (e.key === 'Escape' && dialogOpen()) { e.preventDefault(); e.stopImmediatePropagation(); } }
+window.addEventListener('keydown', holdDialogEscape, true);
+function dialogPress(e) {
+  if (!dialogOpen()) return;
+  if (e.target.closest?.('.fe-block')?.dataset.blockId === sel.bid) { e.preventDefault(); e.stopImmediatePropagation(); return; }
+  designOpen = null; // the press goes on: on the section it lets the block go, on another block it takes that one (not read)
+  renderBlockPanel();
 }
 // A phone's dotted labels and its button right of the Animation tab, on any block with that tab.
 const phoneMenu = $('phone-menu');
@@ -5371,12 +5488,22 @@ function openLayouts(sid) {
   const fr = frame.getBoundingClientRect(), q = sectionEl(sid).getBoundingClientRect();
   // From the card's set place: it may still be sliding in.
   const editAt = stage.getBoundingClientRect().top + parseFloat(chrome.querySelector('[data-sc-part="card"]').style.top) + 7;
-  layoutsPlace = { top: sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom }), secTop: fr.top + q.top, h: q.height, moved: false };
+  // A divider's own height doesn't count: the panel goes by the section above it (CAP-U10READ6.json, 248 at 763.6 with one).
+  layoutsPlace = { top: sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom - dividerPx(S(sid)) }), edit: editAt, secTop: fr.top + q.top };
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
   readLayoutsLook();
   renderLayouts();
 }
 function closeLayouts() { layoutsSid = null; layoutsPanel.hidden = true; }
+const dividerPx = (s) => (s.divider ? ((s.dividerHeight ?? 6) / 100) * frame.getBoundingClientRect().width : 0);
+// After each pick: up to where it would open on the section as it now is, never down, and not above the section's
+// top + 140 (CAP-VIEWLAYOUTS.json afterPick, CAP-U10READ4.json, CAP-U10READ6.json).
+function pickMovesLayouts() {
+  const fr = frame.getBoundingClientRect(), q = sectionEl(layoutsSid).getBoundingClientRect(), secTop = fr.top + q.top;
+  const fresh = sectionPanelTop({ edit: layoutsPlace.edit + secTop - layoutsPlace.secTop, H: window.innerHeight, secTop, secBottom: fr.top + q.bottom - dividerPx(S(layoutsSid)) });
+  layoutsPlace.top = layoutsPickTop({ top: layoutsPlace.top, secTop, fresh });
+  layoutsPanel.style.top = `${layoutsPlace.top}px`;
+}
 // While the page scrolls: down with the section's bottom, up only once section top + 140 reaches it, by Edit Section's rule
 // (sectionPanelTop with prev). It closes where Edit Section's does (CAP-U10WALK2.json, CAP-U10READ5.json).
 // 5 of 34 oracle reads ran ahead of this on the way down, by up to one scroll step, with no rule.
@@ -5388,7 +5515,6 @@ function placeLayouts() {
   // Up: top + 140 under the header, top + 1.4 on other sections on 2 walks of 3. Those sections' way down has no rule (CAP-U10SECOND2.json).
   const edit = secTop + (model.sections[0].id === layoutsSid ? 143 : 4);
   layoutsPlace.top = sectionPanelTop({ edit, H: window.innerHeight, secTop, secBottom, prev: layoutsPlace.top });
-  layoutsPlace.secTop = secTop;
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
 }
 layoutsPanel.addEventListener('click', (e) => {
@@ -5397,11 +5523,11 @@ layoutsPanel.addEventListener('click', (e) => {
   if (!mix) return;
   const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
   layoutsPicked = layoutsLast = Number(t.dataset.layout);
-  if (!layoutsPlace.moved) { layoutsPlace.moved = true; layoutsPlace.top = layoutsPickTop(layoutsPlace); layoutsPanel.style.top = `${layoutsPlace.top}px`; }
   applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase);
   if (sel?.sid === layoutsSid) select(null);
   commit(before, `Layout ${layoutsPicked + 1}`);
   renderAll();
+  pickMovesLayouts();
   layoutsMix = openedMix();
   renderLayouts();
   layoutsPanel.querySelector('.lo-list').scrollTop = top;
@@ -6217,8 +6343,10 @@ addMenu.addEventListener('input', (e) => {
 });
 // A text block is named by its text, cut by CSS (the oracle row label holds at least the
 // first 48 characters, gap review 2026-11-04).
+// A block's tile name, as the add menu and Layers name it: a stand-in's label, else its type.
+const tileName = (b) => { const n = b.label && b.type === 'shape' ? b.label : b.type; return n[0].toUpperCase() + n.slice(1); };
 function layerRows(s) {
-  const named = (b) => { const n = b.label && b.type === 'shape' ? b.label : b.type; return n[0].toUpperCase() + n.slice(1); };
+  const named = tileName;
   const row = (b, kidOf) => ({ id: b.id, kidOf, type: named(b), on: sel?.bid === b.id, hidden: !!lay(b).hidden,
     label: b.type === 'text' ? (b.html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() || 'Text' : named(b) });
   // A stack's children follow it, one step in (S3.json children).
@@ -6349,7 +6477,7 @@ function onContextMenu(e) {
   // A right press on a group leaves that one block selected (CAP-COPYANIM.json).
   if (sel?.bid !== blk.dataset.blockId || sel.more?.length) select({ sid, bid: blk.dataset.blockId });
   closeFloating();
-  contextMenu.innerHTML = contextMenuHtml({ canPaste: !!blockClip, phone: bp === 'mobile' });
+  contextMenu.innerHTML = contextMenuHtml({ canPaste: !!blockClip, phone: bp === 'mobile', tile: tileName(B(sid, blk.dataset.blockId)), alone: S(sid).blocks.length < 2 });
   const fr = frame.getBoundingClientRect(), st = stage.getBoundingClientRect();
   contextMenu.style.left = `${Math.min(fr.left - st.left + e.clientX, st.width - 180)}px`;
   contextMenu.style.top = `${Math.min(fr.top - st.top + e.clientY, st.height - 400)}px`;
@@ -6423,7 +6551,8 @@ function arrange(sid, bid, how) {
 const arrangeMenu = $('arrange-menu');
 function openSubmenu(it) {
   const act = it.dataset.cm;
-  const html = act === 'arrange' ? arrangeMenuHtml()
+  const zs = act === 'arrange' && S(sel.sid).blocks.map((o) => lay(o).z), z = lay(B(sel.sid, sel.bid)).z;
+  const html = act === 'arrange' ? arrangeMenuHtml({ top: z >= Math.max(...zs), bottom: z <= Math.min(...zs) })
     : act === 'copy-props' ? copyPropsMenuHtml({ hasAnimations: animRows().length > 0 })
       : act === 'paste-props' ? pastePropsMenuHtml({ canTransforms: !!transformClip, canAnimations: !!animClip }) : null;
   if (!html) return false;
@@ -6439,7 +6568,7 @@ function openSubmenu(it) {
 // A hover opens a row's submenu, as on the oracle.
 contextMenu.addEventListener('mouseover', (e) => {
   const it = e.target.closest('button[data-cm]');
-  if (!it || !sel || openSubmenu(it)) return;
+  if (!it || !sel || (!it.disabled && openSubmenu(it))) return;
   arrangeMenu.hidden = true;
 });
 arrangeMenu.addEventListener('mousedown', (e) => e.preventDefault());
@@ -6674,6 +6803,8 @@ function boot() {
   frame.contentDocument.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !vAlignOpen && pinPop.hidden) { closeFloating(); closeSectionPanel(); } }); // An open toolbar menu is onKey's, and the block stays selected
   doc = frame.contentDocument;
   win = frame.contentWindow;
+  doc.addEventListener('pointerdown', dialogPress, true);
+  win.addEventListener('keydown', holdDialogEscape, true);
   doc.addEventListener('pointerdown', closeLinkOutside, true);
   bindLightbox(doc);
   bindPhonePrefix(doc);
@@ -6716,6 +6847,7 @@ function boot() {
       undoStack.length = 0;
       redoStack.length = 0;
       sel = null;
+      stored = null;
       leftRings = null;
       renderAll();
       return true;

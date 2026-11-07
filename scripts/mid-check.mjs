@@ -465,7 +465,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   lk('a page sets the link and stays open', r.page.href === '/home' && r.page.open && r.page.value === '/home' && r.page.list, r.page);
   lk('a click elsewhere closes', r.outside === true, r.outside);
   // The box a linked Button opens, walked with real keys and presses against the reads. Keys back to it are not read.
-  for (const name of ['CAP-E7REOPEN', 'CAP-E7REOPEN2', 'CAP-E7REOPEN3', 'CAP-E7REOPEN4']) await replayLinkBox(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (read, diffs) => groupCases.push({ name: `E7 ${name} ${read}`, diffs, known: read === 'Clear, Undo' }));
+  for (const name of ['CAP-E7REOPEN', 'CAP-E7REOPEN2', 'CAP-E7REOPEN3', 'CAP-E7REOPEN4', 'CAP-E7SCORE']) await replayLinkBox(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (read, diffs) => groupCases.push({ name: `E7 ${name} ${read}`, diffs, known: read === 'Clear, Undo' }));
   // On text: the target waits for the close, target first, no rel; two paragraphs get a link each.
   evalJs(S, `(async () => { fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [${JSON.stringify(bl('t', 'text', { html: '<p>one</p><p>two</p>' }))}] }] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60);
   const t = evalJs(S, `(async () => { const sleep = (x) => new Promise((r) => setTimeout(r, x)); const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, P = document.getElementById('link-popover'), fb = d.querySelector('.fe-block[data-block-id="t"]'); fe.edit('s', 't'); await sleep(250);
@@ -796,6 +796,16 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   await load('row', 'center', { w: 'Hug', h: '200px' }, {}); { const got = offset(), want = size('typed hug'); groupCases.push({ name: 'Shape child: typed hug is 300 wide', diffs: got[3] === want[3] ? [] : [`oracle ${want[3]}, ours ${got[3]}`] }); }
   await load('row', 'center', { w: 'Hug', h: '200px' }, { stretch: false }); { const got = offset(), want = size('stretch off'); groupCases.push({ name: 'Shape child: Hug with Stretch off', diffs: JSON.stringify(got) === JSON.stringify(want) ? [] : [`oracle ${want}, ours ${got}`] }); }
   await load('row', 'center', { w: '100px', h: '200px' }, { stretch: false }); { const got = hug('w'); groupCases.push({ name: 'Shape child: Hug offered with Stretch off', diffs: [got.off && 'grey', got.size?.w !== 'Hug' && `w ${got.size?.w}`].filter(Boolean) }); }
+  // The stack's open Gap menu, to the oracle's shot (CAP-GAPMENU.json shot): ring, white toggle, menu 50 below the field's top, 11 above and below, corners 6, two plain rows.
+  { const G = JSON.parse(readFileSync(new URL('../parity/findings/CAP-GAPMENU.json', import.meta.url))).shot;
+    await load('row', 'center', undefined, {});
+    const got = evalJs(S, `(async () => { const sleep = (x) => new Promise((r) => setTimeout(r, x)); fe.select('s', 'st'); await sleep(100); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(150); document.querySelector('#block-panel [data-stack="gapopen"]').click(); await sleep(100);
+      const f = document.querySelector('#block-panel .st-gap'), m = f && f.querySelector('.st-gap-menu'), t = f && f.querySelector('[data-stack="gapopen"]'); if (!m) return JSON.stringify(null);
+      const q = f.getBoundingClientRect(), mq = m.getBoundingClientRect(), c = getComputedStyle(f), mc = getComputedStyle(m);
+      return JSON.stringify({ ring: c.outlineStyle + ' ' + c.outlineWidth + ' ' + c.outlineColor, toggle: getComputedStyle(t).backgroundColor, up: t.innerHTML.includes('M8 14'), menu: [mq.left - q.left, mq.top - q.top, mq.width, mq.height], pad: [mc.paddingTop, mc.paddingBottom], corner: mc.borderRadius, rows: [...m.querySelectorAll('button')].map((b) => [b.textContent, b.getBoundingClientRect().height, b.querySelectorAll('svg').length]) }); })()`);
+    const want = { ring: 'solid 2px rgb(14, 14, 14)', toggle: 'rgb(255, 255, 255)', up: true, menu: [G.menu[0] - G.field[0], G.menu[1] - G.field[1], G.menu[2], G.menu[3]], pad: G.menuPadding.map((v) => `${v}px`), corner: `${G.menuCorner}px`, rows: G.rows.map(([t, h]) => [t, h, 0]) };
+    groupCases.push({ name: 'Stack Gap menu open', diffs: JSON.stringify(got) === JSON.stringify(want) ? [] : [`oracle ${JSON.stringify(want)}, ours ${JSON.stringify(got)}`] });
+    evalJs(S, `fe.select(null)`); }
   // The Size menu's rows: icon, text and tick to the oracle's boxes, the current row grey, the open toggle white (CAP-SIZEMENU.json, CAP-SIZEMENU2.json, CAP-SIZEMENUH.json).
   const SM = JSON.parse(readFileSync(new URL('../parity/findings/CAP-SIZEMENU.json', import.meta.url))).reads, SH = JSON.parse(readFileSync(new URL('../parity/findings/CAP-SIZEMENUH.json', import.meta.url))).reads;
   const shape = (F) => { const rows = F.panelEls.filter((e) => e.tag === 'div'), out = []; rows.forEach((r) => { const inside = F.panelEls.filter((e) => e.box[1] >= r.box[1] && e.box[1] + e.box[3] <= r.box[1] + r.box[3]); out.push([r.label.replace(/ · .*/, ''), r.box[2], r.box[3], ...inside.filter((e) => e.tag === 'svg').map((e) => [e.box[0] - r.box[0], e.box[1] - r.box[1], e.box[2]]).flat(), inside.find((e) => e.tag === 'p').box[0] - r.box[0]]); }); return out; };
@@ -890,7 +900,35 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   // A written Text made narrower in a group keeps the rows it needed at the press (CAP-X8NEXT.json, c start to c dropped).
   { const N = JSON.parse(readFileSync(new URL('../parity/findings/CAP-X8NEXT.json', import.meta.url))).reads, one = 'Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home.';
     const want = N['c dropped'].areas.map((a) => a[0]), got = play(N['c start'].areas, { type: 'text', html: `<p>${[one, one, one].join(' ')}</p>` }, false, 'e', [[1, 2, 8, 14]], true);
-    groupCases.push({ name: 'group drop keeps a written Text short', diffs: want.flatMap((a, i) => (got.after[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got.after[i]}`])) }); }
+    groupCases.push({ name: 'group drop keeps a written Text short', diffs: want.flatMap((a, i) => (got.after[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got.after[i]}`])) });
+    // The next gesture after it moves rows in, section-wide (CAP-X8LAG*.json): each read whose next gesture is a drag
+    // of one block down, replayed from its start: the group made narrower from the east, then that block moved.
+    const L = Object.assign({}, ...['CAP-X8LAG', 'CAP-X8LAG2', 'CAP-X8LAG3'].map((n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads));
+    const MOVES = { l1: [[1], 0, 2], l3: [[1], 1, 1], l6: [[2], 1, 1], m2: [[1], 0, 2], m4: [[1], 0, 2], n2: [[1], 0, 1], n5: [[1], 0, 1] };
+    for (const [n, [members, k, rows]] of Object.entries(MOVES)) {
+      const start = L[`${n} start`].areas, box = L[`${n} dropped`].areas.filter((_, i) => i === 0 || members.includes(i)).map((a) => a[0].split('/').map(Number));
+      const c1 = Math.max(...box.map((a) => a[3])), want = L[`${n} next`].areas.map((a) => a[0]);
+      const got = evalJs(S, `(async () => {
+        const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+        fe.setBp('desktop');
+        fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 30, mobile: 40 }, blocks: ${JSON.stringify(start)}.map((a, i) => { const L = (v) => ({ area: v.split('/').map(Number), z: i + 1, justify: 'flex-start', align: 'flex-start' }); return { id: 'b' + i, ...(i === 0 ? { type: 'text', html: ${JSON.stringify(`<p>${[one, one, one].join(' ')}</p>`)} } : { type: 'shape', fill: '#ccc', radius: '0', label: 'b' + i }), layout: { desktop: L(a[0]), mobile: L(a[1]) } }; }) }] });
+        await sleep(150);
+        const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, block = (i) => d.querySelector('.fe-block[data-block-id="b' + i + '"]');
+        const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 }, at = (el) => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+        const down = (el, x, y, more = {}) => el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, ...more, clientX: x, clientY: y, buttons: 1 }));
+        const move = (x, y) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x, clientY: y, buttons: 1 }));
+        const up = (x, y, more = {}) => d.dispatchEvent(new W.PointerEvent('pointerup', { ...o, ...more, clientX: x, clientY: y, buttons: 0 }));
+        fe.select('s', 'b0'); await sleep(30);
+        for (const i of ${JSON.stringify(members)}) { const [x, y] = at(block(i)); down(block(i), x, y, { shiftKey: true }); up(x, y, { shiftKey: true }); await sleep(30); }
+        const m = fe.measure('s'), h = d.querySelector('.fe-indicator.is-group .fe-handle[data-dir="e"]'), [x0, y0] = at(h);
+        down(h, x0, y0); move(x0 + 14, y0); await sleep(15); move(x0, y0); await sleep(15);
+        move(m.colEnd[${c1} - 2], y0); await sleep(15); up(m.colEnd[${c1} - 2], y0); await sleep(80);
+        fe.select(null); await sleep(30);
+        const [bx, by] = at(block(${k}));
+        down(block(${k}), bx, by); for (let s = 1; s <= 8; s++) { move(bx, by + s * ${rows} * m.pitch / 8); await sleep(15); } up(bx, by + ${rows} * m.pitch); await sleep(80);
+        return JSON.stringify(fe.model.sections[0].blocks.map((b) => b.layout.desktop.area.join('/'))); })()`);
+      groupCases.push({ name: `next gesture after a short Text ${n}`, diffs: want.flatMap((a, i) => (got[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got[i]}`])) });
+    } }
 }
 const groupFails = groupCases.filter((c) => c.diffs.length && !c.known);
 const groupKnown = groupCases.filter((c) => c.known);

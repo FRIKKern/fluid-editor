@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 70 changes
-  - U12: oracle-readback goes on past a set that fails under load ([#360](https://github.com/FRIKKern/fluid-editor/pull/360))
-  - U4, T7: the tip's 500 ms, a Pin slider keeps its unit, a Video's Blend Mode as a menu ([#358](https://github.com/FRIKKern/fluid-editor/pull/358))
+- **Today** · 83 changes
+  - U10: a pick moves the Layouts panel up, never down; 3 of 6 fresh, 8 px named ([#375](https://github.com/FRIKKern/fluid-editor/pull/375))
+  - L5: block menu greys and rows by tile (83, 84, 85) ([#374](https://github.com/FRIKKern/fluid-editor/pull/374))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed

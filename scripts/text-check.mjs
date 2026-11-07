@@ -157,10 +157,19 @@ for (const [name, body, want] of [['one burst', `type('one'); await sleep(50); t
     results.push({ name: `Link ${read}: ${names.length - wrong.length} of ${names.length} names`, ok: !wrong.length });
     if (wrong.length) console.log(`Link ${read} DIFF ${wrong.length}: ${wrong.slice(0, 12).join(' ')}`);
   } }
+// E4: the longer names of CAP-E4ENDS2.json, 47 of which don't link, and CAP-E4ENDS3.json, all typed in one text each.
+for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
+  const E = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url)));
+  const names = E.steps.filter((x) => x[0] === 'keysFast').flatMap((x) => x[1].trim().split(/\s+/)), want = new Set(E.reads.longer.linkTexts);
+  const got = new Set(edit(`const r = d.createRange(); r.selectNodeContents(ce.querySelector('p')); r.collapse(false); const q = W.getSelection(); q.removeAllRanges(); q.addRange(r); type(' '); for (const w of ${JSON.stringify(names)}) { type(w); type(' '); }`).links.map((a) => a[0]));
+  const wrong = names.filter((n) => got.has(n) !== want.has(n));
+  results.push({ name: `Link ${file}: ${names.length - wrong.length} of ${names.length} names`, ok: !wrong.length });
+  if (wrong.length) console.log(`Link ${file} DIFF ${wrong.length}: ${wrong.slice(0, 12).join(' ')}`);
+}
 // E4: with a caret, undo by time, nesting, Clear Formatting, Highlight: replayed with real keys and presses.
 const noRun = [];
-const KNOWN = ['rows Paragraph 3 3 z', 'rows Heading 1 2 z', 'rows Heading 1 3 z', 'rows Heading 1 4 y', 'rows Heading 1 5 y', 'rows Heading 1 6 y']; // Named in Y2's evidence
-for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS', 'CAP-E4SCORE', 'CAP-E4GAP', 'CAP-E4GAP2', 'CAP-E4ENTER', 'CAP-TEXTEMPTY', 'CAP-T3EMPTY', 'CAP-T3EMPTY2', 'CAP-T3EMPTY3', 'CAP-E4REOPEN', 'CAP-E4REOPEN2', 'CAP-E4REOPEN3', 'CAP-ESC1', 'CAP-ESC2', 'CAP-E4BREAK', 'CAP-Y2EDIT', 'CAP-Y2KEYS', 'CAP-Y2KEYS2', 'CAP-Y2KEYS3', 'CAP-Y2KEYS4', 'CAP-Y2KEYS5', 'CAP-Y2KEYS6', 'CAP-Y2KEYS7', 'CAP-Y2KEYS8', 'CAP-Y2KEYS9'] : ['CAP-E4CARET', 'CAP-TEXTEMPTY']) {
+const KNOWN = ['rows Paragraph 3 3 z', 'rows Heading 1 2 z', 'rows Heading 1 3 z', 'rows Heading 1 4 y', 'rows Heading 1 5 y', 'rows Heading 1 6 y', 'rows S1 2 z', 'rows S1 3 z', 'rows S2 3 z', 'rows S5 1 z', 'rows S5 2 z', 'rows S5 3 y']; // Named in Y2's evidence
+for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS', 'CAP-E4SCORE', 'CAP-E4GAP', 'CAP-E4GAP2', 'CAP-E4ENTER', 'CAP-TEXTEMPTY', 'CAP-T3EMPTY', 'CAP-T3EMPTY2', 'CAP-T3EMPTY3', 'CAP-E4REOPEN', 'CAP-E4REOPEN2', 'CAP-E4REOPEN3', 'CAP-ESC1', 'CAP-ESC2', 'CAP-E4BREAK', 'CAP-Y2EDIT', 'CAP-Y2KEYS', 'CAP-Y2KEYS2', 'CAP-Y2KEYS3', 'CAP-Y2KEYS4', 'CAP-Y2KEYS5', 'CAP-Y2KEYS6', 'CAP-Y2KEYS7', 'CAP-Y2KEYS8', 'CAP-Y2KEYS9', 'CAP-Y2SCORE'] : ['CAP-E4CARET', 'CAP-TEXTEMPTY']) {
   await replay(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (what, ok, detail) => {
     if (ok === null) { noRun.push(`${name} ${what}`); console.log(`could not run: ${name} ${what}: ${detail}`); return; }
     if (!ok && KNOWN.includes(what)) { console.log(`known miss: ${what}`); return; }

@@ -1,0 +1,196 @@
+{
+  "item": "CAP-U10LIST-MARKDOWN",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "CAP-U10LIST-MARKDOWN",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "hover",
+      {
+        "labelTag": true,
+        "btnByText": [
+          "View Layouts"
+        ]
+      }
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "open",
+      {
+        "tiles": true,
+        "tileNames": true
+      }
+    ],
+    [
+      "shot",
+      "open"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "hover": {
+      "labelTag": [
+        "Markdown"
+      ],
+      "btnByText": {
+        "View Layouts": {
+          "disabled": false,
+          "aria": null,
+          "opacity": 1,
+          "color": "rgb(14, 14, 14)",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        }
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "open": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          115.9
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          124.4
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          118.5
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          99.9
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          84
+        ]
+      ],
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            435.9,
+            ""
+          ],
+          [
+            "2",
+            576.3,
+            ""
+          ],
+          [
+            "3",
+            710.8,
+            ""
+          ],
+          [
+            "4",
+            826.7,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

@@ -1,0 +1,304 @@
+{
+  "item": "CAP-U10MIX-VIDEO-BUTTON",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "CAP-U10MIX-VIDEO-BUTTON",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Video"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "before",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0
+      }
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "hover",
+      {
+        "labelTag": true,
+        "btnByText": [
+          "View Layouts"
+        ]
+      }
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "open",
+      {
+        "tiles": true,
+        "tileNames": true
+      }
+    ],
+    [
+      "shot",
+      "open"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "before": {
+      "sections": [
+        {
+          "id": "9981f5",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "30_438",
+            "30_697"
+          ],
+          "h": 667.6
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/9/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_697",
+          "type": "csr",
+          "desktop": "1/2/3/8",
+          "phone": "9/2/11/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "hover": {
+      "labelTag": [
+        "Video",
+        "Button"
+      ],
+      "btnByText": {
+        "View Layouts": {
+          "disabled": false,
+          "aria": null,
+          "opacity": 1,
+          "color": "rgb(14, 14, 14)",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        }
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "open": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          136.4
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          136.4
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          162.8
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          207.3
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          215.2
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          250
+        ],
+        [
+          "layout-suggestion-slice-6",
+          "Section editor form",
+          null,
+          "",
+          283,
+          256.6
+        ]
+      ],
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            456.4,
+            ""
+          ],
+          [
+            "2",
+            608.9,
+            ""
+          ],
+          [
+            "3",
+            787.7,
+            ""
+          ],
+          [
+            "4",
+            1011,
+            ""
+          ],
+          [
+            "5",
+            1242.2,
+            ""
+          ],
+          [
+            "6",
+            1511.6,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
