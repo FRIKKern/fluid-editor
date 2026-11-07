@@ -1,0 +1,301 @@
+{
+ "item": "T15",
+ "what": "A transform field on the oracle's Design tab, and the same field in Animation and on Corner: measured on a new Shape on the probe page with real mouse input.",
+ "field": {
+  "single": [
+   182,
+   44
+  ],
+  "pair": [
+   88,
+   44
+  ],
+  "gap": 6,
+  "rowStep": 51,
+  "background": "rgb(242, 242, 242)",
+  "radius": 6,
+  "input": {
+   "left": 11,
+   "font": "14px",
+   "color": "rgb(14, 14, 14)",
+   "text": "one text value with its unit"
+  }
+ },
+ "values": {
+  "Opacity": "100%",
+  "Rotate": "0°",
+  "Scale": "100%",
+  "Offset": "0px",
+  "Skew": "0°",
+  "thousands": {
+   "2000": "2,000px",
+   "-2000": "-2,000px"
+  },
+  "overflow": "2,000px runs under the letter, as on the oracle"
+ },
+ "letter": {
+  "where": "pair fields only, always shown, in a 22 by 28 box at 55,8",
+  "color": "rgb(148, 148, 148)"
+ },
+ "arrows": {
+  "where": "single fields and Timing fields; not Corner, not pairs",
+  "box": "22 by 28 at right 11, top 8",
+  "color": "rgb(148, 148, 148)",
+  "shown": "opacity 0 idle, 1 on hover anywhere on the field and on focus"
+ },
+ "reset": {
+  "box": [
+   16,
+   16
+  ],
+  "at": "right -9, top 14",
+  "background": "rgb(14, 14, 14)",
+  "border": "1px rgb(14, 14, 14)",
+  "radius": 4,
+  "glyph": "white cross in a 22 by 22 box at -3,-3",
+  "shown": "only with focus or in a drag, and only off the default",
+  "sameOn": [
+   "Transforms",
+   "Corner",
+   "Animation End",
+   "Animation Timing"
+  ],
+  "notOn": "Anchor's X and Y: its Reset stays opacity 0 at 58%"
+ },
+ "focus": {
+  "ring": "outline 2px solid rgb(14, 14, 14), outside the box",
+  "pixels": {
+   "x575": [
+    14,
+    14,
+    14
+   ],
+   "x576": [
+    14,
+    14,
+    14
+   ],
+   "x577": [
+    242,
+    242,
+    242
+   ]
+  },
+  "background": "stays rgb(242, 242, 242)",
+  "caret": "Enter keeps focus, caret at the end: 30° at 3,3",
+  "hitsStay": "the edge hits keep their place on focus"
+ },
+ "drag": {
+  "rule": "0.4 per pixel. 20 px gives 8 on Rotate, Scale, Offset, Skew and Corner",
+  "activeElement": {
+   "during": "BUTTON",
+   "after": "INPUT, caret at the end"
+  },
+  "ring": "shown during the drag",
+  "fields": {
+   "Opacity0": {
+    "box": [
+     182,
+     44
+    ],
+    "value": "100%",
+    "after20px": "100%",
+    "barLeft": 0.0,
+    "barIdle": 0.0
+   },
+   "Rotate0": {
+    "box": [
+     182,
+     44
+    ],
+    "value": "0°",
+    "after20px": "8°",
+    "barLeft": -89.0,
+    "barIdle": -91.0
+   },
+   "Scale0": {
+    "box": [
+     88,
+     44
+    ],
+    "value": "100%",
+    "after20px": "108%",
+    "barLeft": -40.5,
+    "barIdle": -44.0
+   },
+   "Scale1": {
+    "box": [
+     88,
+     44
+    ],
+    "value": "100%",
+    "after20px": "108%",
+    "barLeft": -40.5,
+    "barIdle": -44.0
+   },
+   "Offset0": {
+    "box": [
+     88,
+     44
+    ],
+    "value": "0px",
+    "after20px": "8px",
+    "barLeft": -43.6,
+    "barIdle": -44.0
+   },
+   "Offset1": {
+    "box": [
+     88,
+     44
+    ],
+    "value": "0px",
+    "after20px": "8px",
+    "barLeft": -43.6,
+    "barIdle": -44.0
+   },
+   "Skew0": {
+    "box": [
+     88,
+     44
+    ],
+    "value": "0°",
+    "after20px": "8°",
+    "barLeft": -38.1,
+    "barIdle": -44.0
+   },
+   "Skew1": {
+    "box": [
+     88,
+     44
+    ],
+    "value": "0°",
+    "after20px": "8°",
+    "barLeft": -38.1,
+    "barIdle": -44.0
+   }
+  }
+ },
+ "bar": {
+  "color": "rgb(231, 231, 231)",
+  "rule": "left = (f - 1) * width, f = (value - low) / (high - low), held to 0..1; shown only during a drag",
+  "ranges": {
+   "Opacity": [
+    0,
+    100
+   ],
+   "Rotate": [
+    -360,
+    360
+   ],
+   "Scale": [
+    0,
+    200
+   ],
+   "Offset": [
+    -1000,
+    1000
+   ],
+   "Skew": [
+    -60,
+    60
+   ],
+   "Corner": [
+    0,
+    1000
+   ]
+  },
+  "timingHasNone": true,
+  "readsPast": {
+   "Scale0": {
+    "typed": "500",
+    "shows": "500%",
+    "barLeft": 0.0
+   },
+   "Scale1": {
+    "typed": "50",
+    "shows": "50%",
+    "barLeft": -66.0
+   },
+   "Offset0": {
+    "typed": "2000",
+    "shows": "2,000px",
+    "barLeft": 0.0
+   },
+   "Offset1": {
+    "typed": "-2000",
+    "shows": "-2,000px",
+    "barLeft": -88.0
+   },
+   "Skew0": {
+    "typed": "70",
+    "shows": "70°",
+    "barLeft": 0.0
+   },
+   "Skew1": {
+    "typed": "-70",
+    "shows": "-70°",
+    "barLeft": -88.0
+   },
+   "Rotate0": {
+    "typed": "30",
+    "shows": "30°",
+    "barLeft": -83.4
+   }
+  },
+  "inferred": "The ranges for Scale, Offset, Skew and Corner are what fits these reads, and no read lands on an end except the held ones."
+ },
+ "corner": {
+  "sameField": true,
+  "arrows": false,
+  "after20px": "8px",
+  "barLeft": -180.5,
+  "barAt12": -179.8,
+  "barAt8": -180.5
+ },
+ "timing": {
+  "box": [
+   135,
+   44
+  ],
+  "arrows": true,
+  "bar": false,
+  "after20px": "1.3s",
+  "drag": "0.5s + 20 px = 1.3s; no bar, the <> and a Reset as on the others"
+ },
+ "anchor": {
+  "box": [
+   136,
+   44
+  ],
+  "after20px": "58%",
+  "focusAfterDrag": true
+ },
+ "dottedMeasured": {
+  "corner": {
+   "block": "new Image, phone, Corner 12",
+   "decoration": "underline dotted",
+   "thickness": "2.24px",
+   "offset": "6px",
+   "color": "rgb(49, 49, 49)",
+   "element": "the parent of the label's text",
+   "phoneButton": {
+    "before": "off",
+    "at12": "on"
+   }
+  },
+  "animationRow": {
+   "pseudo": "::before",
+   "box": "left 5, bottom 0, 34 by 0",
+   "border": "border-bottom 2px dotted rgb(0, 0, 0)"
+  }
+ },
+ "notBuilt": [
+  "The panel moves on our side when a transform changes the block's rect, as Offset 2000 does: placeBlockPanel reads the transformed rect. The oracle's panel stays. Named, placement is the fixes lane's."
+ ],
+ "unread": [
+  "Dragging past a bar range's end on Scale, Offset and Skew: the value's own limit there.",
+  "Timing fields beyond Duration: Delay and the rest share its code.",
+  "Thousands commas on Animation's fields: read on Transforms only, ours shows Animation's with none.",
+  "Undo with the focus left in a field after a drag: ours leaves the field, then undoes."
+ ]
+}

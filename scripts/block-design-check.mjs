@@ -156,7 +156,7 @@ add('Paste brings 50 back, one undo step', read().op === '0.5' && q(`fe.undo(); 
 // Reset to default value shows while its field has focus, and a hover shows nothing (CAP-L6RESET.json), with real keys and a real mouse.
 const RS = JSON.parse(readFileSync(new URL('../parity/findings/CAP-L6RESET.json', import.meta.url))).reads;
 await openDesign();
-const rstOf = (key) => q(`const f = panel.querySelector('input[data-design="${key}"]'); f.scrollIntoView({ block: 'center' }); const box = f.closest('.sc-box'), e = box.querySelector('.sc-reset'), r = e.getBoundingClientRect(), c = getComputedStyle(e), hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2), b = box.getBoundingClientRect(); return JSON.stringify({ on: c.opacity === '1' && c.pointerEvents !== 'none', pointer: c.pointerEvents, onTop: !!hit?.closest('.sc-reset'), v: f.value, focus: document.activeElement === f, at: [r.left + r.width / 2, r.top + r.height / 2], box: [b.left + b.width / 2, b.top + b.height / 2] });`);
+const rstOf = (key) => q(`const f = panel.querySelector('input[data-design="${key}"]'); f.scrollIntoView({ block: 'center' }); const box = f.closest('.sc-box'), e = box.querySelector('.sc-reset'), r = e.getBoundingClientRect(), c = getComputedStyle(e), hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2), b = box.getBoundingClientRect(); return JSON.stringify({ on: c.opacity === '1' && c.pointerEvents !== 'none', pointer: c.pointerEvents, onTop: !!hit?.closest('.sc-reset'), v: String(parseFloat(f.value.replace(/,/g, ''))), focus: document.activeElement === f, at: [r.left + r.width / 2, r.top + r.height / 2], box: [b.left + b.width / 2, b.top + b.height / 2] });`);
 const typeRst = (key, text) => { browser(S, 'fill', `#block-panel input[data-design="${key}"]`, text); browser(S, 'press', 'Enter'); };
 const realPress = async (at) => { mouse(S, 'move', at[0], at[1]); await pause(60); mouse(S, 'down', at[0], at[1], { buttons: 1 }); await pause(40); mouse(S, 'up', at[0], at[1]); await pause(280); };
 let rs = rstOf('rotate');
@@ -182,6 +182,56 @@ const onIt = rstOf('rotate');
 add('Blurred, hovered on the spot: nothing to press', !onIt.on && !onIt.onTop, JSON.stringify(onIt));
 await realPress(onIt.at);
 add('Blurred, a press there leaves 30', rstOf('rotate').v === '30', rstOf('rotate').v);
+
+// A transform field's parts, against what the oracle's field measured (CAP-T6FIELDS.json).
+const TF = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T6FIELDS.json', import.meta.url)));
+await openDesign();
+const dIn = (k) => `panel.querySelector('input[data-design="${k}"]')`;
+const part = (k) => q(`const i = ${dIn(k)}, b = i.closest('.sc-box'); b.scrollIntoView({ block: 'center' }); const r = b.getBoundingClientRect(), c = getComputedStyle(b), rs = b.querySelector('.sc-reset'), rr = rs.getBoundingClientRect(), rc = getComputedStyle(rs), ar = b.querySelector('.sc-arrows'), bar = b.querySelector('.sc-bar'), bi = bar.querySelector('i'); return JSON.stringify({ text: i.value, type: i.type, box: [r.width, r.height], radius: c.borderRadius, bg: c.backgroundColor, outline: c.outlineStyle + ' ' + c.outlineWidth + ' ' + c.outlineColor, pad: getComputedStyle(i).paddingLeft, arrows: ar ? [getComputedStyle(ar).opacity, ar.getBoundingClientRect().left - r.left, ar.getBoundingClientRect().top - r.top, getComputedStyle(ar).color] : null, letter: b.querySelector('.an-axis')?.textContent ?? null, letterColor: b.querySelector('.an-axis') ? getComputedStyle(b.querySelector('.an-axis')).color : null, reset: [rr.left - r.left, rr.top - r.top, rr.width, rr.height, rc.backgroundColor, rc.borderRadius, rc.color], glyph: [rs.querySelector('svg').getBoundingClientRect().left - rr.left, rs.querySelector('svg').getBoundingClientRect().width], bar: Math.round((bi.getBoundingClientRect().left - r.left) * 10) / 10, barOn: getComputedStyle(bar).opacity, barColor: getComputedStyle(bi).backgroundColor, focus: document.activeElement === i, caret: [i.selectionStart, i.selectionEnd], at: [r.left, r.top] });`);
+q(`document.activeElement?.blur?.(); return 'true';`);
+const texts = () => q(`return JSON.stringify(['opacity', 'rotate', 'sx', 'tx', 'kx'].map((k) => panel.querySelector('input[data-design="' + k + '"]').value));`);
+const fresh2 = async () => { for (const k of ['rotate', 'sx', 'sy', 'tx', 'ty', 'kx', 'ky', 'opacity']) { q(`const i = ${dIn(k)}; i.value = ${k === 'sx' || k === 'sy' || k === 'opacity' ? 100 : 0}; i.dispatchEvent(new Event('change', { bubbles: true })); await sleep(120); return 'true';`); } q(`document.activeElement?.blur?.(); return 'true';`); mouse(S, 'move', 5, 500); await pause(100); };
+await fresh2();
+const tv = TF.values;
+const sameT = (what, a, b) => add(what, JSON.stringify(a) === JSON.stringify(b), `${JSON.stringify(a)} against ${JSON.stringify(b)}`);
+sameT('Fields: one text with its unit, as read', texts(), [tv.Opacity, tv.Rotate, tv.Scale, tv.Offset, tv.Skew]);
+let pa = part('rotate'), pb = part('sx');
+add('Field: text, not a number box', pa.type === 'text');
+sameT('Field: box, single and pair', [pa.box, pb.box], [TF.field.single, TF.field.pair]);
+sameT('Field: fill, radius, text inset', [pa.bg, pa.radius, pa.pad], [TF.field.background, `${TF.field.radius}px`, `${TF.field.input.left}px`]);
+sameT('Field: Reset is a black chip, as read', pa.reset, [175, 14, 16, 16, TF.reset.background, `${TF.reset.radius}px`, 'rgb(255, 255, 255)']);
+sameT('Field: its cross, 22 wide, 3 out', pa.glyph, [-3, 22]);
+sameT('Single: <> hidden at rest, on the place read', pa.arrows, ['0', 149, 8, TF.arrows.color]);
+add('Pair: a letter and no <>', pb.arrows === null && pb.letter === 'X' && pb.letterColor === TF.letter.color, JSON.stringify([pb.arrows, pb.letter, pb.letterColor]));
+mouse(S, 'move', pa.at[0] + 20, pa.at[1] + 22); await pause(120);
+add('Hover: <> on, no ring', part('rotate').arrows[0] === '1' && part('rotate').outline.startsWith('none'), JSON.stringify(part('rotate')));
+await realPress([pa.at[0] + 20, pa.at[1] + 22]); mouse(S, 'move', 5, 500); await pause(120);
+pa = part('rotate');
+add('Focus, mouse away: <> stays, fill stays', pa.focus && pa.arrows[0] === '1' && pa.bg === TF.field.background, JSON.stringify(pa));
+add('Focus: a 2px ring outside', pa.outline === 'solid 2px rgb(14, 14, 14)', pa.outline);
+add('Focus at the default: no Reset to press', rstOf('rotate').on === false, JSON.stringify(rstOf('rotate')));
+typeRst('rotate', '30'); await pause(250);
+pa = part('rotate');
+add('Typed: keeps focus, caret at the end', pa.text === '30°' && pa.focus && pa.caret.join() === '3,3', JSON.stringify([pa.text, pa.focus, pa.caret]));
+for (const [k, L, want, typed] of [['sx', 'Scale0', '500%', '500'], ['sy', 'Scale1', '50%', '50'], ['tx', 'Offset0', '2,000px', '2000'], ['ty', 'Offset1', '-2,000px', '-2000'], ['kx', 'Skew0', '70°', '70'], ['ky', 'Skew1', '-70°', '-70']]) {
+  typeRst(k, typed); await pause(220);
+  const fp = part(k);
+  add(`${L} ${typed}: shows and its bar, as read`, fp.text === want && fp.text === TF.bar.readsPast[L].shows && Math.abs(fp.bar - TF.bar.readsPast[L].barLeft) < 0.15, JSON.stringify([fp.text, fp.bar, TF.bar.readsPast[L]]));
+}
+typeRst('tx', '2,500'); await pause(220);
+add('A value with a comma reads as the number', part('tx').text === '2,500px', part('tx').text);
+await fresh2();
+// A real drag: the ring and bar in it, the focus on the input after it.
+for (const [k, L] of [['rotate', 'Rotate0'], ['sx', 'Scale0'], ['tx', 'Offset0'], ['kx', 'Skew0'], ['opacity', 'Opacity0']]) {
+  const at = part(k), R = TF.drag.fields[L], x = at.at[0] + at.box[0] / 2, y = at.at[1] + 4;
+  mouse(S, 'move', x, y); await pause(70); mouse(S, 'down', x, y, { buttons: 1 }); await pause(50); mouse(S, 'move', x + 10, y, { buttons: 1 }); await pause(90); mouse(S, 'move', x + 20, y, { buttons: 1 }); await pause(170);
+  const dr = part(k);
+  add(`${L} in a drag: value, bar, ring, as read`, dr.text === R.after20px && Math.abs(dr.bar - R.barLeft) < 0.15 && dr.barOn === '1' && dr.outline.startsWith('solid 2px') && dr.barColor === TF.bar.color, JSON.stringify([dr.text, dr.bar, dr.barOn, dr.outline, R]));
+  mouse(S, 'up', x + 20, y); await pause(260);
+  const af = part(k);
+  add(`${L} let go: bar gone, focus on the input, caret at the end`, af.text === R.after20px && af.barOn === '0' && af.focus && af.caret.join() === `${R.after20px.length},${R.after20px.length}`, JSON.stringify([af.text, af.barOn, af.focus, af.caret]));
+}
+await fresh2();
 
 // The panel's tabs, a Back row and Animation's foot stay put, so a row moved into view must not land under them:
 // by Tab, and by a scroll to it (FORMFIELDS.json panelTabs: the oracle's scroller starts below them).
