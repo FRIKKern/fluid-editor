@@ -1,13 +1,15 @@
 // The block menu (right-click) and the Layers list, tile by tile, read only, on a probe page, unsaved.
 // For each tile: a new block, a right-click on it, every row of the menu with its keys and whether it is greyed out, and the
-// rows of the menus that open from it, read by moving the mouse over them. Nothing in a menu is pressed. The menu is left by
-// a press on its backdrop. Then the section's Layers list, opened by its named button, row by row.
+// rows of the menus that open from it, read by moving the mouse over them. Nothing in a menu is pressed, and a menu is never
+// closed by a press: its backdrop passes a press through (on 2026-11-07 one opened the site footer). One menu per load: each
+// tile gets a fresh load of the editor, and the read ends with the next load. Layers is read the same way, once for each
+// --per tiles, on a section holding a block of each.
 //   ORACLE_SURFACE=cdp:<port> node scripts/oracle-menus.mjs [--types Text,Image] [--page 'Gestures Probe'] [--per 6]
 // Writes parity/findings/CAP-MENUS.json after each section, so a stop loses little.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { evalJs, pause, mouse } from './lib/cmux.mjs';
+import { evalJs, pause, mouse, goto } from './lib/cmux.mjs';
 import { pressOnTop } from './oracle/press.mjs';
-import { enterEdit, exitWithoutSaving, addSection, addBlock, sectionCount, escape, hoverSection } from './oracle/ui.mjs';
+import { enterEdit, addSection, addBlock, sectionCount, escape, hoverSection } from './oracle/ui.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S?.startsWith('cdp:')) { console.error('oracle-menus: set ORACLE_SURFACE=cdp:<port>'); process.exit(2); }
@@ -40,12 +42,14 @@ async function rightClick(id) {
   await pause(900);
 }
 const menuUp = () => js(`(() => JSON.stringify(!!${MENU}))()`) === true;
-// The backdrop: whatever is on top far from the menu, if it is not the page frame and not a control.
-async function closeMenu(rec) {
-  const p = js(`(() => { const m = ${MENU}; if (!m) return JSON.stringify(null); const q = m.getBoundingClientRect(); const x = q.left > 800 ? 200 : 1300, y = 700; const t = document.elementFromPoint(x, y); return JSON.stringify(t && t.id !== 'sqs-site-frame' && !t.closest('button,a,[role=button],input') ? [x, y, t.tagName + '.' + String(t.className).split(' ').slice(-1)[0]] : null); })()`);
-  if (p) { mouse(S, 'move', p[0], p[1]); await pause(80); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(30); mouse(S, 'up', p[0], p[1]); await pause(600); rec.closedBy = `its backdrop (${p[2]})`; }
-  if (menuUp()) { await escape(); await pause(400); rec.closedBy = (rec.closedBy ? rec.closedBy + ', then ' : '') + 'Escape'; }
-  if (menuUp()) rec.closedBy = 'still open';
+// A fresh load: the pages list, edit mode on the probe page, a new section. Whatever was open goes with the old load.
+async function fresh() {
+  goto(S, `${js('(() => JSON.stringify(location.origin))()')}/config/pages`); await pause(9000);
+  await enterEdit(PAGE);
+  const path = js(`(() => JSON.stringify(${FRAME}.contentWindow.location.pathname))()`);
+  if (!/-probe$/.test(path)) throw new Error(`on ${path}, not a probe page`);
+  out.path = path;
+  await addSection(); return sectionCount() - 1;
 }
 // A menu inside: the mouse over its row, and the new box beside the menu.
 async function readInside(rowName) {
@@ -56,31 +60,37 @@ async function readInside(rowName) {
   return sub ? js(rowsOf('window.__sub')) : null;
 }
 
-const done = new Set(Object.keys(out.types));
-const todo = TYPES.filter((t) => !done.has(t));
-await enterEdit(PAGE);
-const path = js(`(() => JSON.stringify(${FRAME}.contentWindow.location.pathname))()`);
-if (!/-probe$/.test(path)) { console.error(`oracle-menus: on ${path}, not a probe page`); process.exit(2); }
-out.path = path;
-for (let k = 0; k < todo.length; k += PER) {
-  const batch = todo.slice(k, k + PER);
-  await addSection(); const i = sectionCount() - 1;
-  const ids = {};
-  for (const T of batch) {
-    const rec = { };
-    try {
-      const id = await addBlock(i, T); ids[T] = id; await pause(1200); await escape(); await escape(); await pause(400);
-      await rightClick(id);
-      const m = js(rowsOf(MENU));
-      if (!m) { rec.error = 'no menu'; out.types[T] = rec; save(); continue; }
+const todo = TYPES.filter((t) => !out.types[t]);
+for (const T of todo) {
+  const rec = {};
+  try {
+    const i = await fresh();
+    const id = await addBlock(i, T); await pause(1200); await escape(); await escape(); await pause(400);
+    await rightClick(id);
+    const m = js(rowsOf(MENU));
+    if (!m) rec.error = 'no menu';
+    else {
       rec.menu = m;
       for (const r of m.rows) if (r.inside && !r.greyed) r.rows = (await readInside(r.name))?.rows?.map((x) => ({ name: x.name, keys: x.keys, greyed: x.greyed }));
-      await closeMenu(rec);
-    } catch (e) { rec.error = e.message.slice(0, 160); try { await escape(); } catch {} }
-    out.types[T] = rec; save(); console.log(T, rec.menu ? rec.menu.rows.map((r) => r.name + (r.greyed ? '*' : '')).join(', ') : rec.error, '|', rec.closedBy);
-  }
-  // The section's Layers list, by its named button.
+      rec.closedBy = 'not closed: the next load';
+    }
+  } catch (e) { rec.error = e.message.slice(0, 160); }
+  out.types[T] = rec; save(); console.log(T, rec.menu ? rec.menu.rows.map((r) => r.name + (r.greyed ? '*' : '')).join(', ') : rec.error);
+}
+// Layers, by its named button, on a fresh load with a section holding a block of each tile in the batch.
+out.layers = (out.layers || []).filter((l) => l.rows?.length);
+const laid = new Set(out.layers.flatMap((l) => l.types));
+// A tile that opens a dialog when added covers the section, so its Layers button can't be pressed on top, and the next Add
+// Block can't be either. Those are named, not read.
+const DIALOGS = [...Object.keys(JSON.parse(readFileSync(new URL('../parity/findings/CAP-DIALOGS.json', import.meta.url))).dialogs), 'Tock'];
+out.layersNotRead = { tiles: TYPES.filter((t) => DIALOGS.includes(t)), why: 'the dialog a new block opens covers the section and its Open Layers Panel button; no press closes it (no backdrop presses)' };
+out.errors = (out.errors || []).filter((e) => !e.startsWith('layers '));
+const left = TYPES.filter((t) => !laid.has(t) && !DIALOGS.includes(t));
+for (let k = 0; k < left.length; k += PER) {
+  const batch = left.slice(k, k + PER);
   try {
+    const i = await fresh();
+    for (const T of batch) { await addBlock(i, T); await pause(1200); await escape(); await escape(); await pause(400); }
     await hoverSection(i); await pause(600);
     await pressOnTop(S, `[...document.querySelectorAll('button,[role=button]')].find((x) => x.getBoundingClientRect().width > 1 && (x.getAttribute('aria-label') || '').trim() === 'Open Layers Panel')`, 900);
     const layers = js(`(() => { const t = [...document.querySelectorAll('body *')].filter((e) => !e.closest('#sqs-site-frame') && e.childElementCount === 0 && /^layers$/i.test(e.textContent.trim()) && e.getBoundingClientRect().width > 1)[0]; let p = t; while (p && p.getBoundingClientRect().height < 120) p = p.parentElement; if (!p) return JSON.stringify(null); window.__layers = p; const q = p.getBoundingClientRect();
@@ -89,13 +99,13 @@ for (let k = 0; k < todo.length; k += PER) {
     // The buttons a row shows under the mouse, read on the first row.
     const r0 = js(`(() => { if (!window.__layers) return JSON.stringify(null); const r = [...window.__layers.querySelectorAll('[role=button]')].filter((x) => x.getBoundingClientRect().height > 30 && x.getBoundingClientRect().height < 80); const e = r[0]; if (!e) return JSON.stringify(null); window.__row = e; const q = e.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
     if (r0 && layers) { mouse(S, 'move', r0[0], r0[1]); await pause(600); layers.hoverButtons = js(`(() => JSON.stringify([...window.__row.querySelectorAll('button,[role=button],[aria-label]')].filter((b) => b.getBoundingClientRect().width > 1).map((b) => b.getAttribute('aria-label') || b.textContent.trim()).filter(Boolean)))()`); }
-    out.layers = out.layers || []; out.layers.push({ types: batch, ...layers }); save(); console.log('layers', JSON.stringify(layers?.rows?.map((r) => r.name)));
-    await escape(); await pause(400);
+    out.layers.push({ types: batch, ...layers }); save(); console.log('layers', JSON.stringify(layers?.rows?.map((r) => r.name)));
   } catch (e) { (out.errors ||= []).push(`layers ${batch.join(',')}: ${e.message.slice(0, 100)}`); save(); }
 }
-out.pressed = 'Add Section, Add Block and each tile, a right-click on each new block, the mouse over each menu row that opens a menu, a press on the menu backdrop away from the menu, and Open Layers Panel. Nothing in a menu was pressed. On a probe page, unsaved, left by Exit Without Saving.';
+out.pressed = 'For each tile on its own load: Add Section, Add Block and the tile, a right-click on the new block, and the mouse over each menu row that opens a menu. Nothing in a menu was pressed and no menu was closed by a press: the next load ended it. Layers on its own load per batch: Open Layers Panel by name. On a probe page, unsaved, left by a load of the pages list. The first 12 tiles were read before this rule, with the menu closed by its backdrop: see closedBy.';
 save();
-await escape(); await escape();
-await exitWithoutSaving(); await pause(1200);
+goto(S, `${js('(() => JSON.stringify(location.origin))()')}/config/pages`); await pause(9000);
+const bar = js(`(() => JSON.stringify([...document.querySelectorAll('button')].filter((x) => x.getBoundingClientRect().width > 0).map((x) => x.textContent.trim()).filter((t) => t === 'Save' || t === 'Exit')))()`);
+if (bar.length) { console.error(`oracle-menus: the pages list still shows ${bar.join(', ')}`); process.exit(1); }
 console.log('wrote CAP-MENUS.json');
 process.exit(0);
