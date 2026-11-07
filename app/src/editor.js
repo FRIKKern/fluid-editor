@@ -948,7 +948,10 @@ function onUp(e) {
   growRows(s);
   endGesture();
   renderSectionDom(g.sid);
-  if (g.fits && !/[ns]/.test(g.dir)) { fitTextRows(s, b, g); unsettled = { sid: s.id, bid: b.id, bp }; }
+  if (g.fits && !/[ns]/.test(g.dir)) {
+    fitTextRows(s, b, g);
+    if (g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
+  }
   // A mouse or pen let go well below the block's old bottom lands on the grid, not on the block's
   // overlay, and the block ends up not selected; touch keeps it, and so does text (HANDLEUP.json).
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type !== 'text' && !g.members && e.clientY - g.bottom0 > LET_GO_BELOW) select(null);
@@ -965,9 +968,12 @@ function fitTextRows(s, b, g) {
   // stretches the rows until the block is let go.
   const c = narrowing ? blockEl(b.id)?.querySelector('.sqs-block-content') : null;
   if (c) c.style.width = `${c.getBoundingClientRect().width + Math.abs(g.stepX || 0)}px`;
-  // A line of text takes one row, though a new Text starts at two (CAP-TEXTWIDTH6.json s6).
-  const lost = a[2] - a[0] - contentRows(b, measure(feEl(s.id)));
+  const m = measure(feEl(s.id)), need = contentRows(b, m), span = a[2] - a[0];
   if (c) c.style.width = '';
+  // Narrowing only adds rows. Widening takes rows off only if the need for them fell, and then by the
+  // height lost: a line of text keeps two rows, and 268.9 to 224.1 goes from 7 rows to 5, though 224.1
+  // needs 6 (CAP-TEXTWIDTH7.json). The next gesture takes back what it needs.
+  const lost = narrowing ? span - Math.max(g.orig[2] - g.orig[0], need) : need < g.need0 ? Math.min(span - 1, Math.ceil((g.height0 - textHeight(b)) / m.pitch)) : 0;
   if (!lost) return;
   const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2]));
   const before = lowest();
@@ -979,9 +985,9 @@ function fitTextRows(s, b, g) {
   renderSectionDom(s.id);
 }
 
-// Those rows last until the block is let go: Escape, another block or the next drag. Then they follow
-// the text at its real width (CAP-TEXTWIDTH4.json, CAP-TEXTWIDTH5.json). Time alone does nothing.
-// No undo step of its own. Growing pushes as typing does; falling moves nothing else.
+// After narrowing, those rows last until the block is let go: Escape, another block or the next drag.
+// Then the rows the text needs at its real width are added (CAP-TEXTWIDTH4.json, CAP-TEXTWIDTH5.json).
+// Time alone does nothing. No undo step of its own. Growing pushes as typing does.
 let unsettled = null;
 function settleTextRows() {
   const u = unsettled;
@@ -995,15 +1001,9 @@ function settleTextRows() {
   const free = measure(feEl(s.id));
   content.style.display = '';
   const a = lay(b).area, d = contentRows(b, free) - (a[2] - a[0]);
-  if (!d) return;
-  if (d > 0) {
-    moveWithText(s, b, a, d);
-    a[2] += d;
-  } else {
-    const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), before = lowest();
-    a[2] += d;
-    s.rows[bp] -= before - lowest();
-  }
+  if (d <= 0) return;
+  moveWithText(s, b, a, d);
+  a[2] += d;
   renderSectionDom(s.id);
 }
 
@@ -1173,6 +1173,7 @@ function startResize(e, dir) {
   prepare(e, 'resize', { dir });
   const held = B(gesture.sid, gesture.bid), span = lay(held).area[2] - lay(held).area[0];
   gesture.fits = (held.type === 'text' || held.standin === 'instagram') && !gesture.members && [contentRows(held, gesture.m), 2].includes(span) && span >= contentRows(held, gesture.m);
+  if (gesture.fits) { gesture.need0 = contentRows(held, gesture.m); gesture.height0 = textHeight(held); }
   gesture.bottom0 = blockEl(held.id).getBoundingClientRect().bottom;
 }
 
@@ -1233,8 +1234,7 @@ function updateResize(e) {
   let [r0, c0, r1, c1] = g.orig;
   const x = e.clientX;
   const y = e.clientY;
-  g.stepX = x - (g.lastX ?? x);
-  g.lastX = x;
+  if (x !== g.lastX) { g.stepX = x - (g.lastX ?? x); g.lastX = x; }
   const held = B(g.sid, g.bid), leastCols = LEAST_COLS[held.label] ?? LEAST_COLS[held.type] ?? 1;
   const q = fe.getBoundingClientRect();
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(v, hi));
