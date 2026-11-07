@@ -21,10 +21,10 @@
     "id": "H3",
     "area": "Harness and oracle",
     "milestone": "M0",
-    "status": "partial",
+    "status": "done",
     "title": "Corpus of at least 300 sections from at least 30 public sites",
     "gate": "covers gap 0 and 11, bleed blocks, overlap, every block type in area 3",
-    "evidence": "parity/corpus.json and Gate A 380 of 380 sections from 56 sites incl. the 5 oracle pages and footer. Missing: map blocks",
+    "evidence": "parity/corpus.json and Gate A 385 of 385 sections from 56 sites incl. the 5 oracle pages and footer. Gap 0 in 18 sections and 11 in 365; 66 bleed blocks; 61 sections with overlap. Every block type area 3 builds is there: text 789, image 223, button 103, shape 54, line 46, social links 25, form 11, scrolling 11, accordion 8, code 8, video 2, embed 1, map 5. Maps: 2 on pages read before, which the type reader missed (a Map block names itself only by its component, not data-sqsp-block; scripts/corpus-report.mjs now reads both), and 3 from three contact and location pages added on 2026-11-07 (5 sections). npm run corpus counts types from local raw pages; the trial site's pages are private and not counted",
     "outOfScope": [
       "0005: gallery blocks (Fluid Engine has none, parity/findings/T8.json)"
     ]
