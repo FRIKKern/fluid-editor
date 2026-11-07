@@ -319,7 +319,7 @@ function stackCornerRow(d, always = false) {
   const each = d.corners;
   const seg = (v, label, on, icon) => `<button type="button" role="radio" class="st-corner-btn${on ? ' is-on' : ''}" aria-checked="${on}" aria-label="${label}" data-stack="corners:${v}">${pi(icon)}</button>`;
   const four = each ? `<span class="st-corners">${[['Top left', 0], ['Top right', 1], ['Bottom right', 2], ['Bottom left', 3]].map(([n, k]) => `<input type="text" aria-label="${n} corner radius" data-stack-field="c${k}" value="${each[k]}">`).join('')}</span>` : '';
-  return `<div class="sp-row st-row-corner${each ? ' is-four' : ''}"><span class="sp-label">Corner</span><span class="st-corner-seg" role="radiogroup" aria-label="Corner">${seg(0, 'Uniform corner radii', !each, '<rect x="6" y="6" width="12" height="12" rx="3"/>')}${seg(1, 'Individual corner radii', !!each, '<path d="M6 10V6h4M14 6h4v4M18 14v4h-4M10 18H6v-4"/>')}</span><label class="st-corner-field"><input type="text" aria-label="Corner" data-stack-field="corner" value="${each ? (each.every((v) => v === each[0]) ? `${each[0]}px` : 'Mixed') : `${d.corner || 0}px`}">${always && (d.corner || each) ? '<button type="button" class="st-corner-reset" aria-label="Reset to default value" data-stack="cornerreset">×</button>' : ''}</label>${four}</div>`;
+  return `<div class="sp-row st-row-corner${each ? ' is-four' : ''}"><span class="sp-label">Corner</span><span class="st-corner-seg" role="radiogroup" aria-label="Corner">${seg(0, 'Uniform corner radii', !each, '<rect x="6" y="6" width="12" height="12" rx="3"/>')}${seg(1, 'Individual corner radii', !!each, '<path d="M6 10V6h4M14 6h4v4M18 14v4h-4M10 18H6v-4"/>')}</span><label class="st-corner-field"><input type="text" aria-label="Corner" data-stack-field="corner" value="${each ? (each.every((v) => v === each[0]) ? `${each[0]}px` : 'Mixed') : `${d.corner || 0}px`}">${always && !each ? '<span class="bp-vscrub is-bare" data-scrub="corner" aria-hidden="true"></span>' : ''}${always && (d.corner || each) ? '<button type="button" class="st-corner-reset" aria-label="Reset to default value" data-stack="cornerreset">×</button>' : ''}</label>${four}</div>`;
 }
 
 // A value with a range under it (BLOCKDESIGN.json): Blur Amount and custom Padding.
@@ -344,7 +344,7 @@ function strokeRows(d, stack = false, shape = false) {
 }
 // A video's Appearance, empty or with a file (CAP-T7CORNER.json, CAP-T7DESIGN2.json, CAP-T7DESIGN3.json).
 function videoAppearanceRows(d) {
-  const white = 'rgb(255, 255, 255)', pct = (key, label, v) => `<label class="st-pad"><span class="st-pad-icon${{ padX: ' is-x', padT: ' is-t', padL: ' is-l', padB: ' is-b', padR: ' is-r' }[key] || ''}" aria-hidden="true"></span><input type="text" aria-label="${label}" data-design="${key}" value="${v}%"></label>`;
+  const white = 'rgb(255, 255, 255)', pct = (key, label, v) => `<label class="st-pad"><span class="st-pad-icon${{ padX: ' is-x', padT: ' is-t', padL: ' is-l', padB: ' is-b', padR: ' is-r' }[key] || ''}" aria-hidden="true"></span><input type="text" aria-label="${label}" data-design="${key}" value="${v}%"><span class="bp-vscrub is-bare is-edge" data-scrub="${key}" aria-hidden="true"></span></label>`;
   const y = d.padY ?? 6, x = d.padX ?? 6;
   const fill = d.background
     ? `<span class="st-color"><button type="button" class="bp-swatch sh-swatch-btn" data-shape-act="bgColor" aria-label="Color"><i style="background:${esc(d.bgColor || white)}"></i></button><button type="button" class="st-color-x" aria-label="Remove color" data-dset="background">−</button></span>`
