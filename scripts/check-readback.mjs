@@ -107,7 +107,10 @@ if (bad.length) { console.error(`read-back compare: ${bad.join('; ')}`); process
 const para = lists['Fonts > Paragraphs'].combos.map((c) => c[1].map(([n]) => n));
 is('Fonts > Buttons holds Paragraphs\' 3 lists for each of 3 buttons', eq(lists['Fonts > Buttons'].combos.map((c) => c[1].map(([n]) => n)), [...para, ...para, ...para]));
 is('Fonts > Miscellaneous holds Paragraphs\' 3 lists', eq(lists['Fonts > Miscellaneous'].combos.map((c) => c[1].map(([n]) => n)), para));
+is('our Fonts > Buttons offers those lists for each button', eq(['primary', 'secondary', 'tertiary'].flatMap((k) => ['style', 'weight', 'tt'].map((n) => ourOptions('FontButtons', `type.${k}.${n}`))), [...para, ...para, ...para]));
+is('our Fonts > Miscellaneous offers those lists', eq(['style', 'weight', 'tt'].map((n) => ourOptions('FontMisc', `type.misc.${n}`)), para));
 const sizes = FORM_FONT_SIZES.flatMap(([, names]) => names);
+for (const f of DEEP['Forms > Fonts']) is(`our ${f} Style list offers the oracle's`, eq(lists[`Forms > Fonts > ${f}`].combos[0][1].map(([n]) => n), [...siteStylesHtml(null, 'FormFont', [], { select: `forms.fontStyle.${f}`, formFont: f }).matchAll(/role="option"[^>]*data-v="([^"]+)"/g)].map((m) => m[1])));
 for (const f of DEEP['Forms > Fonts']) is(`our ${f} Size list offers the oracle's`, eq(lists[`Forms > Fonts > ${f}`].combos[1][1].map(([n]) => n), sizes));
 // Forms > Colors on each theme: stored, a change fails, and it holds what Colors holds for that theme.
 const fc = STYLES.formColors, formStart = NAMES.indexOf('Field Background');

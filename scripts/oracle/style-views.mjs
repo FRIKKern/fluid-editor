@@ -15,11 +15,11 @@ export const DEEP = {
 // The words on the back button in those views. Selection Options calls itself Field Options.
 export const DEEP_BACK = { 'Forms > Fonts': 'Fonts', 'Forms > Selection Options': 'Field Options', 'Fonts > Assign Styles': 'Assign Styles' };
 // Lists that are closed until pressed, read in that view and closed again. Combos: every list row. Shape: the row with the
-// Fill, No fill and tiles popover. Family: the font list. A pick from any of them would write: none is pressed.
+// Fill, No fill and tiles popover. Family: the font list. moreFamilies: the view's other font rows, by the name they show. A pick from any of them would write: none is pressed.
 export const LISTS = {
   'Fonts > Headings': { combos: true, family: 'all' },
   'Fonts > Paragraphs': { combos: true, family: 'top' },
-  'Fonts > Buttons': { combos: true, family: 'top' },
+  'Fonts > Buttons': { combos: true, family: 'top', moreFamilies: 'Poppins' },
   'Fonts > Miscellaneous': { combos: true, family: 'top' },
   'Fonts > Assign Styles > Site Title': { combos: true },
   ...Object.fromEntries(['Title', 'Description', 'Caption', 'Input', 'Placeholder', 'Select Dropdown', 'Option', 'Survey Title'].map((f) => [`Forms > Fonts > ${f}`, { combos: true }])),
