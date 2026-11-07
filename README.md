@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 19 changes
+- **Today** · 20 changes
+  - U12: a pack reaches Radio again as a named guess; #306's picks named ([#311](https://github.com/FRIKKern/fluid-editor/pull/311))
   - G4: read the other widths, a group on a phone, group resize, and the press point ([#310](https://github.com/FRIKKern/fluid-editor/pull/310))
-  - T10: the misses' rules, one fresh round, the unread pair ([#309](https://github.com/FRIKKern/fluid-editor/pull/309))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
