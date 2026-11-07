@@ -60,6 +60,8 @@ const B = {
 // The groups of buttons for a block, with '|' for a separator.
 // fit: a Button that does not fill its block (parity/findings/S3.json fitButton) gains Align
 // Horizontally and Align Vertically. Alone in its section on a phone, a block has no Move Up or Down (S3.json aloneBar).
+// Every tile has Align Vertically but these: a Button, a Shape and a Map have none (CAP-COVERAGE.json, CAP-75MAP.json), and a stack has its own bar.
+const NO_ALIGN = new Set(['button', 'shape', 'map', 'stack']);
 export function toolbarItems(type, bp, z, fit = false, inStack = false) {
   // A child picked from Layers (S3.json children): no Pin, no Move.
   if (inStack) {
@@ -73,18 +75,17 @@ export function toolbarItems(type, bp, z, fit = false, inStack = false) {
     const moves = z.first && z.last ? [] : ['up', 'down'];
     if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', ...zs, ...moves, '|', 'remove'];
     if (type === 'line') return ['edit', 'align', 'pin', ...zs, ...moves, '|', 'remove']; // CAP-U4LINE.json: no line after Edit
-    if (type === 'accordion') return ['edit', '|', 'align', 'pin', ...zs, ...moves, '|', 'remove']; // CAP-ACCPHONE.json
-    return ['edit', '|', 'pin', ...zs, ...moves, '|', 'remove'];
+    if (NO_ALIGN.has(type)) return ['edit', '|', 'pin', ...zs, ...moves, '|', 'remove'];
+    return ['edit', '|', 'align', 'pin', ...zs, ...moves, '|', 'remove']; // CAP-ACCPHONE.json, CAP-COVERAGE.json
   }
   if (type === 'stack') return ['edit', '|', 'link', 'stackopts', 'pin', ...zs, 'duplicate', 'remove'];
   if (type === 'button' && fit) return ['edit', '|', 'primary', 'link', 'halign', 'align', 'pin', '|', 'duplicate', 'remove'];
-  // A video with a file gains Align Vertically (VIDEOPLAYER.json).
-  if (type === 'video' && fit) return ['edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove'];
   if (type === 'text') return ['write', 'edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove'];
-  if (type === 'markdown' || type === 'accordion') return ['edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove']; // CAP-T10PRE.json, CAP-ACCBAR.json
   if (type === 'line') return ['edit', 'align', 'pin', ...zs, '|', 'duplicate', 'remove']; // CAP-U4LINE.json: no line after Edit
   if (type === 'button') return ['edit', '|', 'primary', 'link', 'pin', 'duplicate', 'remove'];
-  return ['edit', '|', 'pin', ...zs, '|', 'duplicate', 'remove'];
+  if (type === 'image') return ['edit', '|', 'link', 'halign', 'align', 'pin', ...zs, '|', 'duplicate', 'remove']; // CAP-75IMAGE.json
+  if (NO_ALIGN.has(type)) return ['edit', '|', 'pin', ...zs, '|', 'duplicate', 'remove'];
+  return ['edit', '|', 'align', 'pin', ...zs, '|', 'duplicate', 'remove']; // CAP-COVERAGE.json, CAP-75QUOTE.json, CAP-75CODE.json, CAP-75FORM.json, CAP-75VIDEO.json
 }
 
 // Align Vertically's menu (parity/findings/TOOLBARS.json alignMenu): Top, Center, Bottom. The
@@ -107,8 +108,11 @@ export function toolbarHtml(items, z, align = {}) {
     const b = B[k];
     const off = (k === 'z+' && !z.above) || (k === 'z-' && !z.below) || (k === 'up' && z.first) || (k === 'down' && z.last);
     const open = align.open && k === (align.menu || 'align');
-    const html = k === 'align' ? svg(VALIGN.find(([v]) => v === align.current)?.[2] || 'align') : b.html;
-    return `<button type="button" class="tb-btn ${b.cls || ''}${off ? ' is-off' : ''}${open ? ' tb-open' : ''}" data-tb="${k}" aria-label="${b.label}" data-tip="${b.tip || b.label}"${b.keys ? ` data-tip-keys="${b.keys}"` : ''}>${html}</button>`;
+    // A new Image's Align Center is named and drawn as what it holds (CAP-75IMAGE3.json).
+    const hNow = k === 'halign' && align.hNamed ? BAR_MENUS.halign[1].find(([v]) => v === align.hAlign) : null;
+    const html = k === 'align' ? svg(VALIGN.find(([v]) => v === align.current)?.[2] || 'align') : hNow ? svg(hNow[2]) : b.html;
+    const name = hNow ? hNow[1] : b.label;
+    return `<button type="button" class="tb-btn ${b.cls || ''}${off ? ' is-off' : ''}${open ? ' tb-open' : ''}" data-tb="${k}" aria-label="${name}" data-tip="${hNow ? name : b.tip || b.label}"${b.keys ? ` data-tip-keys="${b.keys}"` : ''}>${html}</button>`;
   }).join('') + (align.open ? alignMenuHtml(align.menu === 'stackopts' ? align.stackDir : align.menu === 'halign' ? align.hAlign : align.current, align.menu) : '');
 }
 
