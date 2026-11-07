@@ -954,10 +954,11 @@ function onDown(e) {
   // A click on the selected child keeps it; a drag from there moves the whole stack (S3.json children).
   const onKid = sel && sel.sid === sid && parentStack(sid, sel.bid)?.id === bid && e.target.closest(`[data-kid="${sel.bid}"]`);
   pressFresh = !sel;
-  if (!onKid) select(keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid });
+  // The block is selected on let go, or when a drag starts, not on the press (CAP-U9FADE4D.json, CAP-SELECTLETGO.json).
+  const pick = onKid ? null : keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid };
   const r = blk.getBoundingClientRect();
   gesture = {
-    type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected,
+    type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected, pick,
     onWords: wasSelected && B(sid, bid)?.type === 'text' && onWords(blk, e.clientX, e.clientY),
     x0: e.clientX, y0: e.clientY, grabX: e.clientX - r.left, grabY: e.clientY - r.top,
     before: JSON.stringify(model),
@@ -1002,6 +1003,7 @@ function onUp(e) {
     // A click on a text block that was already selected opens its editor (E1, as on the oracle).
     const g = gesture;
     gesture = null;
+    if (g.pick) select(g.pick);
     if (pressFresh) { pressFresh = false; placeChrome(); }
     if (g.wasSelected && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
@@ -1164,6 +1166,7 @@ function prepare(e, type, extra = {}) {
 }
 
 function beginMove(e) {
+  if (gesture.pick) select(gesture.pick);
   if (sel?.bid !== gesture.bid && !sel?.more?.length) select({ sid: gesture.sid, bid: gesture.bid });
   const g = prepare(e, 'move');
   g.more = (sel?.more || []).map((id) => ({ id, orig: [...lay(B(g.sid, id)).area] }));
