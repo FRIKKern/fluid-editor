@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 37 changes
+- **Today** · 38 changes
+  - U9: the outline's run-back case reads its real gap, retries, and says NOT RUN ([#328](https://github.com/FRIKKern/fluid-editor/pull/328))
   - U10: findings hold a divider's edge as numbers, not the oracle's path strings ([#327](https://github.com/FRIKKern/fluid-editor/pull/327))
-  - P3: a flat top per frame scored 2 of 12, so not the rule ([#326](https://github.com/FRIKKern/fluid-editor/pull/326))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
