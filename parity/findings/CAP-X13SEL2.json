@@ -1,0 +1,1401 @@
+{
+  "item": "CAP-X13SEL2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "X13: a box with a selection: on the selected block itself, on another with the pointer on and past it, with nothing selected, and with a group selected",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "start",
+      {
+        "areas": 0,
+        "sections": true
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "holdAt",
+      600,
+      420
+    ],
+    [
+      "moveAt",
+      400,
+      420
+    ],
+    [
+      "read",
+      "own held",
+      {
+        "block": [
+          0,
+          0
+        ],
+        "has": [
+          "Edit"
+        ],
+        "frameEls": ".sqs-block-label-tag"
+      }
+    ],
+    [
+      "shot",
+      "own"
+    ],
+    [
+      "releaseAt"
+    ],
+    [
+      "read",
+      "own released",
+      {
+        "block": [
+          0,
+          0
+        ],
+        "has": [
+          "Edit"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "holdAt",
+      600,
+      420
+    ],
+    [
+      "moveAt",
+      850,
+      420
+    ],
+    [
+      "read",
+      "second first",
+      {
+        "block": [
+          0,
+          0
+        ],
+        "has": [
+          "Edit",
+          "Stack Blocks"
+        ],
+        "frameEls": ".sqs-block-label-tag"
+      }
+    ],
+    [
+      "read",
+      "second second",
+      {
+        "block": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "shot",
+      "second"
+    ],
+    [
+      "moveAt",
+      1300,
+      420
+    ],
+    [
+      "read",
+      "past first",
+      {
+        "block": [
+          0,
+          0
+        ],
+        "has": [
+          "Edit",
+          "Stack Blocks"
+        ],
+        "frameEls": ".sqs-block-label-tag"
+      }
+    ],
+    [
+      "read",
+      "past second",
+      {
+        "block": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "shot",
+      "past"
+    ],
+    [
+      "releaseAt"
+    ],
+    [
+      "read",
+      "second released",
+      {
+        "block": [
+          0,
+          1
+        ],
+        "has": [
+          "Edit",
+          "Stack Blocks"
+        ]
+      }
+    ],
+    [
+      "read",
+      "second released first",
+      {
+        "block": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "holdAt",
+      600,
+      420
+    ],
+    [
+      "moveAt",
+      850,
+      420
+    ],
+    [
+      "read",
+      "none held",
+      {
+        "block": [
+          0,
+          1
+        ],
+        "has": [
+          "Edit",
+          "Stack Blocks"
+        ],
+        "frameEls": ".sqs-block-label-tag"
+      }
+    ],
+    [
+      "shot",
+      "none"
+    ],
+    [
+      "releaseAt"
+    ],
+    [
+      "read",
+      "none released",
+      {
+        "block": [
+          0,
+          1
+        ],
+        "has": [
+          "Edit",
+          "Stack Blocks"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "group",
+      {
+        "block": [
+          0,
+          0
+        ],
+        "has": [
+          "Edit",
+          "Stack Blocks"
+        ]
+      }
+    ],
+    [
+      "holdAt",
+      600,
+      420
+    ],
+    [
+      "moveAt",
+      650,
+      420
+    ],
+    [
+      "read",
+      "group nothing",
+      {
+        "block": [
+          0,
+          0
+        ],
+        "has": [
+          "Edit",
+          "Stack Blocks"
+        ],
+        "frameEls": ".sqs-block-label-tag"
+      }
+    ],
+    [
+      "shot",
+      "group"
+    ],
+    [
+      "releaseAt"
+    ],
+    [
+      "read",
+      "group nothing released",
+      {
+        "block": [
+          0,
+          0
+        ],
+        "has": [
+          "Edit",
+          "Stack Blocks"
+        ]
+      }
+    ],
+    [
+      "holdAt",
+      600,
+      420
+    ],
+    [
+      "moveAt",
+      850,
+      420
+    ],
+    [
+      "read",
+      "group member",
+      {
+        "block": [
+          0,
+          0
+        ],
+        "has": [
+          "Edit",
+          "Stack Blocks"
+        ],
+        "frameEls": ".sqs-block-label-tag"
+      }
+    ],
+    [
+      "read",
+      "group member second",
+      {
+        "block": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "shot",
+      "member"
+    ],
+    [
+      "releaseAt"
+    ],
+    [
+      "read",
+      "group member released",
+      {
+        "block": [
+          0,
+          1
+        ],
+        "has": [
+          "Edit",
+          "Stack Blocks"
+        ]
+      }
+    ],
+    [
+      "read",
+      "group member released first",
+      {
+        "block": [
+          0,
+          0
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "sections": [
+        {
+          "id": "81e994",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "03_420",
+            "03_641"
+          ],
+          "h": 667.6
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/14/7/20",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "own held": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            805.5,
+            277.2,
+            52.1,
+            16
+          ]
+        }
+      ],
+      "has": {
+        "Edit": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "own released": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "has": {
+        "Edit": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "second first": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            805.5,
+            277.2,
+            52.1,
+            16
+          ]
+        }
+      ],
+      "has": {
+        "Edit": true,
+        "Stack Blocks": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "second second": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "7/2/13/10",
+        "box": [
+          805.5,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_641",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "past first": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            805.5,
+            277.2,
+            52.1,
+            16
+          ]
+        }
+      ],
+      "has": {
+        "Edit": true,
+        "Stack Blocks": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "past second": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "7/2/13/10",
+        "box": [
+          805.5,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_641",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "second released": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "7/2/13/10",
+        "box": [
+          805.5,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_641",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "has": {
+        "Edit": true,
+        "Stack Blocks": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "second released first": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "none held": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "7/2/13/10",
+        "box": [
+          805.5,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_641",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            805.5,
+            277.2,
+            52.1,
+            16
+          ]
+        }
+      ],
+      "has": {
+        "Edit": false,
+        "Stack Blocks": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "none released": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "7/2/13/10",
+        "box": [
+          805.5,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_641",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "has": {
+        "Edit": true,
+        "Stack Blocks": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "group": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -7,112.8",
+          "nw 10x10 at -7,-7",
+          "sw 10x10 at -7,232.6"
+        ]
+      },
+      "has": {
+        "Edit": false,
+        "Stack Blocks": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "group nothing": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -7,112.8",
+          "nw 10x10 at -7,-7",
+          "sw 10x10 at -7,232.6"
+        ]
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            805.5,
+            277.2,
+            52.1,
+            16
+          ]
+        }
+      ],
+      "has": {
+        "Edit": false,
+        "Stack Blocks": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "group nothing released": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "has": {
+        "Edit": false,
+        "Stack Blocks": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "group member": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            52.1,
+            16
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Shape",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            805.5,
+            277.2,
+            52.1,
+            16
+          ]
+        }
+      ],
+      "has": {
+        "Edit": false,
+        "Stack Blocks": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "group member second": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "7/2/13/10",
+        "box": [
+          805.5,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_641",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "group member released": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "7/2/13/10",
+        "box": [
+          805.5,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_641",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "has": {
+        "Edit": true,
+        "Stack Blocks": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "group member released first": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794009466903_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "One block selected: it keeps toolbar and handles under a box, on it or not, and the section's chrome stays away. A block the box touches gets a thin ring and shows selected, and its label while the pointer is on it. Past it the ring stays and the label goes. On release: the block the box touched alone, or the first if the box touched only that. Nothing selected: rings and the label, no toolbar, chrome on; on release that block with its toolbar. A group keeps its toolbar and handles under a box. A first run of this read had no button down (the tool's moveAt, #295) and was thrown away.",
+  "ours": "As the oracle: npm run mid-check, box with a selection.",
+  "differs": [],
+  "pressed": [
+    "Real mouse on empty canvas by position, named blocks by select and Shift+click. Nothing was under a press on canvas. Each run ended with Exit Without Saving."
+  ]
+}
