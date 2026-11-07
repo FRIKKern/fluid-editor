@@ -480,8 +480,11 @@ view('desktop');
   const C = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T6CORNERS.json', import.meta.url))), U = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T6CUSTOM.json', import.meta.url)));
   const [W, H] = [342, 236];
   const W0 = { nostroke: 0, solidS: 2, solidM: 6, solidL: 15, dashS: 2, dashM: 6, dashL: 15 };
-  for (const [k, w] of Object.entries(W0)) add(`The path rule, ${k}`, rectPath(W, H, C.corners, w) === C.reads[k].d, rectPath(W, H, C.corners, w));
-  add('The path rule, radii that do not fit', rectPath(W, H, C.big.corners, 6) === C.big.stroked.d && rectPath(W, H, C.big.corners, 0) === C.big.off.d, rectPath(W, H, C.big.corners, 6));
+  // The finding holds numbers, not a path: where it starts, how far it reaches, each arc's radius.
+  const parts = (d) => { const t = d.match(/[MHVAZ]|-?\d*\.?\d+/g), xs = [], ys = [], arcs = []; let x, y, start; for (let i = 0; i < t.length;) { const c = t[i++]; if (c === 'Z') continue; if (c === 'M') { x = +t[i++]; y = +t[i++]; start = [x, y]; } else if (c === 'H') x = +t[i++]; else if (c === 'V') y = +t[i++]; else { arcs.push(+t[i]); x = +t[i + 5]; y = +t[i + 6]; i += 7; } xs.push(x); ys.push(y); } return { start, extent: [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)], arcs }; };
+  const sameParts = (d, r) => { const p = parts(d); return ['start', 'extent', 'arcs'].every((k) => JSON.stringify(p[k]) === JSON.stringify(r[k])); };
+  for (const [k, w] of Object.entries(W0)) add(`The path rule, ${k}`, sameParts(rectPath(W, H, C.corners, w), C.reads[k]), rectPath(W, H, C.corners, w));
+  add('The path rule, radii that do not fit', sameParts(rectPath(W, H, C.big.corners, 6), C.big.stroked) && sameParts(rectPath(W, H, C.big.corners, 0), C.big.off), rectPath(W, H, C.big.corners, 6));
   q(`const next = JSON.parse(JSON.stringify(fe.model)); const b = next.sections[1].blocks.find((x) => x.id === '${id}'); for (const k of ['shape', 'radius', 'corners', 'color', 'designMobile', 'design']) delete b[k]; b.stretch = true; fe.load(next); await sleep(300); return 'true';`);
   openDesign();
   const setCorners = (v) => q(`const u = panel.querySelector('[aria-label="Individual corner radii"]'); if (u.getAttribute('aria-checked') !== 'true') { u.click(); await sleep(150); } const labels = ['Top left', 'Top right', 'Bottom right', 'Bottom left']; const vals = ${JSON.stringify(v)}; for (let i = 0; i < 4; i++) { const f = panel.querySelector('[aria-label="' + labels[i] + ' corner radius"]'); f.value = vals[i]; f.dispatchEvent(new Event('change', { bubbles: true })); await sleep(120); } return 'true';`);

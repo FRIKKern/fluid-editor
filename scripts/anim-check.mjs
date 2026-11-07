@@ -350,6 +350,81 @@ mouse(S, 'move', 1500, 900); await pause(600);
 add('Preview mode: leaving goes back', blockState() === 'none', blockState());
 q(`document.getElementById('preview').click(); await sleep(350); return 'true';`);
 
+// Loop, On Appear and On Scroll on the page (CAP-T15TRIGGERS.json). First the rules against every
+// read, with the oracle's box and frame, then the same rows in preview mode on ours.
+{
+  const T = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T15TRIGGERS.json', import.meta.url)));
+  const { appearAt, scrollSpan, scrollProgress, newAnimation, PRESETS } = await import('../app/src/animations.js');
+  const boxOf = (when) => (when === 'Section' ? { top: T.section.top, h: T.section.h, self: false } : { top: T.block.top, h: T.block.h, self: true });
+  for (const r of T.appear.reads) {
+    const y = appearAt(boxOf(r.when), r, r.view);
+    const ok = r.after == null ? y > r.lastRead : y <= r.after && (r.before < 0 || y > r.before - 1);
+    add(`On Appear rule: ${r.preset || ''} ${r.edge} ${r.screen} ${r.when} ${r.start[0]} ${r.start[2]} ${r.start[5]}`, ok, `plays at ${y}, read ${r.before} to ${r.after}`);
+  }
+  for (const [id, e] of Object.entries(T.appear.presetEdges)) add(`Edge of ${id}`, newAnimation('appear', id).edge === e, newAnimation('appear', id).edge);
+  for (const [id, e] of Object.entries(T.scroll.presetEdges)) { const a = newAnimation('scroll', id); add(`Edges of ${id}`, a.startEdge === e.start && a.endEdge === e.end, `${a.startEdge} ${a.endEdge}`); }
+  const worst = (r) => { let w = 0, at = null; for (const [y, v] of r.at) { const p = scrollProgress(r.row, y, scrollSpan(boxOf(r.row.when), { topInset: '0%', bottomInset: '0%', ...r.row }, r.view)); if (Math.abs(p - v) > w) { w = Math.abs(p - v); at = [y, v, +p.toFixed(4)]; } } return [w, at]; };
+  for (const r of T.scroll.reads) { const [w, at] = worst(r); add(`On Scroll rule: ${r.row.action} ${r.row.startCross || r.row.startEdge || ''} ${r.row.startPasses} ${r.row.endCross || r.row.endEdge || ''} ${r.row.endPasses} ${r.row.when} x${r.row.iterations}`, w <= 0.006, JSON.stringify(at)); }
+  for (const r of T.scroll.presets) { const [w, at] = worst(r); add(`On Scroll rule: ${r.preset} with its ease`, w <= 0.02, JSON.stringify(at)); }
+
+  const state = () => q(`const c = W.getComputedStyle(d.querySelector('.fe-block[data-block-id="${id}"]')); return JSON.stringify([c.transform, c.opacity, c.translate]);`);
+  const angle = (t) => { const m = /matrix\(([\d.e-]+), ([\d.e-]+)/.exec(t); return m ? (Math.atan2(+m[2], +m[1]) * 180) / Math.PI : 0; };
+  const previewBtn = (w) => q(`document.getElementById('preview').click(); await sleep(${w}); return 'true';`);
+  const inlineNow = () => q(`return JSON.stringify(d.querySelector('.fe-block[data-block-id="${id}"]').getAttribute('style'));`);
+  const scrollTo = (y, w = 120) => q(`W.scrollTo(0, ${y}); await sleep(${w}); return JSON.stringify(W.scrollY);`);
+  const boxLive = () => q(`const e = d.querySelector('.fe-block[data-block-id="${id}"]'); let t = 0; for (let x = e; x; x = x.offsetParent) t += x.offsetTop; const r = e.getBoundingClientRect(); return JSON.stringify({ top: t, h: e.offsetHeight, self: true, rectTop: r.top + W.scrollY, view: W.innerHeight, max: d.documentElement.scrollHeight - W.innerHeight });`);
+  // Spin: 36 degrees a second, from the moment preview goes on.
+  await fresh();
+  await clickSel(act('add')); await pickTrigger('Loop'); await clickRadio('loop-1', 500);
+  await previewBtn(1000);
+  const a0 = angle(state()[0]); await pause(1000); const a1 = angle(state()[0]);
+  add('Loop: Spin turns 36 degrees a second', near(a1 - a0, T.loop.spin.degPerSecond, 12) && a0 > 15, `${a0} then ${a1}`);
+  await previewBtn(300);
+  add('Loop: out of preview it stops and leaves no style', state()[0] === 'none' && !inlineNow(), inlineNow());
+  // Float: 2 s to its End, 2 s back.
+  await fresh();
+  await clickSel(act('add')); await pickTrigger('Loop'); await clickRadio('loop-2', 500);
+  const h0 = boxLive().h;
+  await previewBtn(0);
+  await pause(1950); const fl1 = state(); await pause(2000); const fl2 = state();
+  const ty = (t) => parseFloat(String(t).split(' ')[1]) || 0;
+  add('Loop: Float reaches its End at 2 s', near(ty(fl1[2]), 20, 2) && near(scale(fl1[0]), T.loop.float.scale, 0.015), JSON.stringify(fl1));
+  add('Loop: Float is back at 4 s', near(ty(fl2[2]), 0, 2) && near(scale(fl2[0]), 1, 0.015), JSON.stringify(fl2));
+  await previewBtn(300);
+  // Pop below the line holds, plays once as its middle meets the frame's bottom.
+  await fresh();
+  await clickSel(act('add')); await pickTrigger('On Appear'); await clickRadio('appear-1', 500);
+  viewport(S, 1600, 300); await pause(500);
+  await scrollTo(0, 300);
+  const lb = boxLive();
+  await previewBtn(500);
+  const line = lb.top + lb.h / 2 - lb.view;
+  add('On Appear: the page is long enough here', line > 40 && line < lb.max, JSON.stringify(lb));
+  add('On Appear: holds Start before its line', near(scale(state()[0]), 0, 0.001), state()[0]);
+  await scrollTo(Math.max(0, Math.floor(line - 30)), 500);
+  add('On Appear: still Start just above the line', near(scale(state()[0]), 0, 0.001), state()[0]);
+  await scrollTo(Math.ceil(line + 10), 1200);
+  add('On Appear: plays past the line, to rest', state()[0] === 'none' && !inlineNow(), state()[0]);
+  await scrollTo(0, 500);
+  add('On Appear: does not play again', state()[0] === 'none', state()[0]);
+  await previewBtn(300);
+  viewport(S, 1600, 1000); await pause(400);
+  // Drop on scroll: Top at the frame's bottom to Top at the frame's top.
+  await fresh();
+  await clickSel(act('add')); await pickTrigger('On Scroll'); await clickRadio('scroll-5', 500);
+  viewport(S, 1600, 300); await pause(500);
+  const lc = boxLive();
+  await previewBtn(400);
+  const row = newAnimation('scroll', 'scroll-5'), span = scrollSpan(lc, row, lc.view);
+  for (const f of [0.25, 0.5, 0.8]) { const y = Math.round(span[0] + (span[1] - span[0]) * f); const got = await scrollTo(y); const want = scrollProgress(row, got, span); add(`On Scroll: Drop's opacity at ${f} of its span`, near(+state()[1], want, 0.01) && got === y, `${state()[1]} want ${want} at ${got}`); }
+  await scrollTo(Math.ceil(span[1]) + 5);
+  add('On Scroll: past its span it holds End', near(+state()[1], 1, 0.001) && near(scale(state()[0]), 1, 0.001), JSON.stringify(state()));
+  await scrollTo(0, 200);
+  await previewBtn(300);
+  add('On Scroll: out of preview it leaves no style', state()[0] === 'none' && !inlineNow(), inlineNow());
+  viewport(S, 1600, 1000); await pause(400);
+}
+
 // A phone: no list actions, no row actions, a wider row.
 await fresh();
 await clickSel(act('add')); await clickRadio('hover-1', 500); await clickSel(`panel.querySelector('.an-back')`);
