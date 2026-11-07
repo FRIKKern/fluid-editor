@@ -1,0 +1,1915 @@
+{
+  "item": "CAP-T7CORNERS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "T7: where a pull takes on the four Corner fields",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Video"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "pressNamed",
+      "Individual corner radii"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "corners",
+      {
+        "controls": true,
+        "panelCss": "input",
+        "rows": [
+          "Corner",
+          "Padding",
+          "Thickness"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      716,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      716,
+      739,
+      746,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "top left, 716, right 30",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      726,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      726,
+      739,
+      756,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "top left, 726, right 30",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      706,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      706,
+      739,
+      736,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "top left, 706, right 30",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      726,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      726,
+      739,
+      716,
+      739
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "top left, 726, left 10",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      762,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      762,
+      739,
+      792,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "top right, 762, right 30",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      772,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      772,
+      739,
+      802,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "top right, 772, right 30",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      752,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      752,
+      739,
+      782,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "top right, 752, right 30",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      772,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      772,
+      739,
+      762,
+      739
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "top right, 772, left 10",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      808,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      808,
+      739,
+      838,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "bottom right, 808, right 30",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      818,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      818,
+      739,
+      848,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "bottom right, 818, right 30",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      798,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      798,
+      739,
+      828,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "bottom right, 798, right 30",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      818,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      818,
+      739,
+      808,
+      739
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "bottom right, 818, left 10",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      854,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      854,
+      739,
+      884,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "bottom left, 854, right 30",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      864,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      864,
+      739,
+      894,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "bottom left, 864, right 30",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      844,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      844,
+      739,
+      874,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "bottom left, 844, right 30",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      864,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      864,
+      739,
+      854,
+      739
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "bottom left, 864, left 10",
+      {
+        "rows": [
+          "Corner"
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      400,
+      300
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "shot",
+      "c-after"
+    ]
+  ],
+  "reads": {
+    "corners": {
+      "rows": {
+        "Corner": [
+          "0px",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "Padding": [
+          "6%",
+          "6%"
+        ],
+        "Thickness": [
+          "6px"
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            600,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            668.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            730.8,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add fill",
+          "box": [
+            840,
+            415,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Show individual padding controls",
+          "box": [
+            666,
+            462,
+            28,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            728,
+            462,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            462,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            495,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            771,
+            462,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            462,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            822,
+            462,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            462,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            495,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            865,
+            462,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            462,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "No Stroke",
+          "box": [
+            697,
+            516,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Solid Stroke",
+          "box": [
+            756.7,
+            516,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Dashed Stroke",
+          "box": [
+            816.3,
+            516,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6px",
+          "box": [
+            705,
+            564,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            564,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            597,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            564,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            832,
+            615,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            799,
+            666,
+            66,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            666,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            699,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            666,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            697,
+            669,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            738,
+            669,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Top left corner radius",
+          "value": "0",
+          "box": [
+            700,
+            717,
+            32,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            717,
+            44,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            750,
+            44,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            717,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Top right corner radius",
+          "value": "0",
+          "box": [
+            746,
+            717,
+            32,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            740,
+            717,
+            44,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            740,
+            750,
+            44,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            740,
+            717,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Bottom right corner radius",
+          "value": "0",
+          "box": [
+            792,
+            717,
+            32,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            786,
+            717,
+            44,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            786,
+            750,
+            44,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            786,
+            717,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Bottom left corner radius",
+          "value": "0",
+          "box": [
+            838,
+            717,
+            32,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            832,
+            717,
+            44,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            832,
+            750,
+            44,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            832,
+            717,
+            11,
+            44
+          ]
+        }
+      ],
+      "panelCss": [
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            728,
+            462,
+            43,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            822,
+            462,
+            43,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            705,
+            564,
+            160,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            799,
+            666,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            700,
+            717,
+            32,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Top left corner radius",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            746,
+            717,
+            32,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Top right corner radius",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            792,
+            717,
+            32,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Bottom right corner radius",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            838,
+            717,
+            32,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Bottom left corner radius",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            705,
+            835,
+            160,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            705,
+            886,
+            160,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            705,
+            937,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            799,
+            937,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            705,
+            988,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            799,
+            988,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            705,
+            1039,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            799,
+            1039,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-c0kh2j",
+          "text": "",
+          "box": [
+            740,
+            1207,
+            1,
+            1
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "16px",
+          "pad": "0px",
+          "opacity": "0",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            850,
+            1275,
+            12,
+            12
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "16px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top left, 716, right 30": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "12",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top left, 726, right 30": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "24",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top left, 706, right 30": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "36",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top left, 726, left 10": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "32",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top right, 762, right 30": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "32",
+          "12",
+          "0",
+          "0"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top right, 772, right 30": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "32",
+          "24",
+          "0",
+          "0"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top right, 752, right 30": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "32",
+          "36",
+          "0",
+          "0"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top right, 772, left 10": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "32",
+          "32",
+          "0",
+          "0"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bottom right, 808, right 30": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "32",
+          "32",
+          "12",
+          "0"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bottom right, 818, right 30": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "32",
+          "32",
+          "24",
+          "0"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bottom right, 798, right 30": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "32",
+          "32",
+          "36",
+          "0"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bottom right, 818, left 10": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "32",
+          "32",
+          "32",
+          "0"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bottom left, 854, right 30": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "32",
+          "32",
+          "32",
+          "12"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bottom left, 864, right 30": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "32",
+          "32",
+          "32",
+          "24"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bottom left, 844, right 30": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "32",
+          "32",
+          "32",
+          "36"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bottom left, 864, left 10": {
+      "rows": {
+        "Corner": [
+          "32px",
+          "32",
+          "32",
+          "32",
+          "32"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}

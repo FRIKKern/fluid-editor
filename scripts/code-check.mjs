@@ -819,14 +819,31 @@ for (const [name, c] of Object.entries(FIX.look)) {
   if (pressed) { const shows = await shownBy(), href = hrefOf(pressed); same = same && shows === href; detail += `, shows ${shows} wants ${href}`; await closeLink(); }
   add(`Fresh ${name.split(' ')[0]}`, same, detail);
 }
-// Named misses, the Link form on a reference: the oracle writes the definition, ours as predicted (CAP-T10FIX3.json, CAP-T10FIX7.json).
+// The Link form on a reference, built as read, so not scored (CAP-T10FIX3.json, CAP-T10FIX7.json, CAP-T10FORM.json, CAP-T10FORM2.json).
 const formAs = { add: async () => { await pressAt(mdBtn('Link')); typeLink('/about'); await key('Enter'); await pause(200); }, edit: async () => { await pressAt(mdBtn('Link')); await pressAt('#link-popover [data-md-link="edit"]'); typeLink('/n'); await key('Enter'); await pause(200); }, remove: async () => { await pressAt(mdBtn('Link')); await pressAt('#link-popover [data-md-link="remove"]'); await pause(200); } };
 function typeLink(v) { evalJs(S, `(() => { const i = document.querySelector('#link-popover .lk-input'); i.focus(); i.value = ${JSON.stringify(v)}; i.dispatchEvent(new Event('input', { bubbles: true })); return 'true'; })()`); }
 for (const [name, c] of Object.entries(FIX.form)) {
   await setMd(c.text); setSel(...c.sel); await pause(60);
   await formAs[c.do]();
-  const v = mdVal(), wants = name.startsWith('F3') ? FIX7[name].codeText : FIX3[name].codeText, as = c.do === 'edit' ? '[x](/n)\n\n[y]: /z' : c.value;
-  add(`Named miss ${name.split(' ')[0]}`, v === as && v !== wants, `${JSON.stringify(v)} as predicted ${JSON.stringify(as)}, oracle ${JSON.stringify(wants)}`);
+  const v = mdVal(), wants = name.startsWith('F3') ? FIX7[name].codeText : FIX3[name].codeText;
+  add(`Link form ${name}`, v === wants, `${JSON.stringify(v)} oracle ${JSON.stringify(wants)}`);
+  await pause(120);
+}
+const FORM = read('CAP-T10FORM').reads, FORM2 = read('CAP-T10FORM2').reads;
+const REF = '[x][y] and [z][y]\n\n[y]: /z';
+for (const [name, text, how, sel = [1, 1], then] of [
+  ['G1 Remove, a second reference to the definition', REF, 'remove'], ['G2 Edit, a second reference to the definition', REF, 'edit'],
+  ['G3 Remove, text after the definition', '[x][y]\n\n[y]: /z\n\nlast', 'remove'], ['G4 Remove, text between', '[x][y]\n\nmid\n\n[y]: /z', 'remove'],
+  ['G5 Remove a bare bracket', '[x] t\n\n[x]: /z', 'remove'], ['G6 Remove with an empty label', '[x][] t\n\n[x]: /z', 'remove'], ["G7 Edit, another label's case", '[x][Y]\n\n[y]: /z', 'edit'],
+  ['G8 Add Link, text after', '[x][y] t\nnext\n\nlast', 'add', [0, 6]], ['G9 Add Link caret in a bare bracket, text after', '[x] t\n\nlast', 'add'],
+  ['G10 Add Link, another definition at the end', '[x][y]\n\n[a]: /b', 'add', [0, 6]], ["G11 Add Link with a caret in a label's first part", '[x][y]', 'add'], ['G12 Add Link, a text ending in a new line', '[x][y]\n', 'add', [0, 6]],
+  ['G13 Add Link, Meta+Z', '[x][y]', 'add', [0, 6], true], ['G14 Remove Link, Meta+Z', '[x][y]\n\n[y]: /z', 'remove', [1, 1], true],
+]) {
+  await setMd(text); setSel(...sel); await pause(60);
+  await formAs[how]();
+  if (then) { await key('Meta+z'); await pause(200); }
+  const v = mdVal(), wants = (FORM[name] ?? FORM2[name]).codeText;
+  add(`Link form ${name}`, v === wants, `${JSON.stringify(v)} oracle ${JSON.stringify(wants)}`);
   await pause(120);
 }
 // The unread pair (CAP-T10FIX4.json): import's names, and a CSS rule's marks, its braces beside the caret.

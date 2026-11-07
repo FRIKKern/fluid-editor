@@ -17,7 +17,7 @@ import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-ki
 import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
 import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
-import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
+import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
 import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
@@ -1382,6 +1382,8 @@ const ARROWS = { ArrowLeft: [0, -1], ArrowRight: [0, 1], ArrowUp: [-1, 0], Arrow
 
 function onKey(e) {
   const mod = e.metaKey || e.ctrlKey;
+  // A press on a code editor's column leaves the focus on the editor: a key does nothing there, and Meta+Z is the page's (CAP-T10UNDO.json, CAP-T10UNDO2.json).
+  if (e.target.matches?.('.bp-code') && !(mod && e.key.toLowerCase() === 'z') && e.key !== 'Escape') return;
   if (editing) {
     // One Escape takes the text bar and leaves the block selected, and keys still reach the text. The next Escape,
     // or Tab then, lets the block go (CAP-ESC1.json).
@@ -3000,7 +3002,7 @@ blockPanel.addEventListener('change', (e) => {
 }, true);
 // Code and embed (parity/findings/CODEEMBED.json, CODEMODAL.json). The canvas follows the typing; a
 // text is one undo step when the field is left.
-let codeBefore = null;
+let codeBefore = null, codeIdle = 0;
 // Rows follow the height of what is in the block, in whole pixels (CAP-T10ROWS.json, CAP-T10DOWN.json,
 // CAP-T10PULL.json, CAP-T10EMBED.json, CAP-T10VIEW.json, CAP-T10FRESH.json). An embed's height is that of
 // what is in it, margins included, and an empty one's is its 95 tall placeholder.
@@ -3197,7 +3199,9 @@ function openMdLink(root, btn, s, e) {
       const q = mdRootField(root), at = urlIn(fullOf(q));
       if (!v && !at) return;
       flushMdStep();
-      writeMd(q, at ? (v ? mdChangeLink(fullOf(q), at, v) : mdRemoveLink(fullOf(q), at)) : mdSetLink(fullOf(q), s, e, v));
+      // A caret in a reference or bare bracket with no definition, or all of it selected, gets a definition (CAP-T10FIX3.json).
+      const t = fullOf(q), ref = !at && mdLinkIn(t, s, e);
+      writeMd(q, at ? (v ? mdChangeLink(t, at, v) : mdRemoveLink(t, at)) : ref?.label != null && (s === e || (s === ref.start && e === ref.end)) ? mdAddDefinition(t, ref, v, s, e) : mdSetLink(t, s, e, v));
       flushMdStep();
     },
     remove: () => { const q = mdRootField(root), at = urlIn(fullOf(q)); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(fullOf(q), at)); flushMdStep(); } },
@@ -3292,12 +3296,12 @@ for (const root of [blockPanel, codeModal]) {
   root.addEventListener('click', (e) => {
     const t = e.target.closest('[data-fold], [data-fold-open]');
     if (!t) return;
-    const f = t.closest('.bp-code').querySelector('textarea');
+    const box = t.closest('.bp-code'), f = box.querySelector('textarea'), onText = t.classList.contains('bp-code-ph');
     if (t.dataset.fold) { const [from, to] = t.dataset.fold.split(',').map(Number); toggleFold(f, from, to); } else {
-      const onText = t.classList.contains('bp-code-ph');
       openFold(f, Number(t.dataset.foldOpen), onText);
       if (onText) f.focus();
     }
+    if (!onText) { box.tabIndex = -1; box.focus(); }
     paintCode(f);
     if (f.dataset.content === 'markdown') paintMdBar(f);
   });
@@ -3334,6 +3338,9 @@ blockPanel.addEventListener('input', (e) => {
   else if (f.value) { b.html = f.value; delete b.embedInvalid; } else delete b.html;
   renderSectionDom(sel.sid);
   fitRows(b, was);
+  // A pause in the typing ends a step of the page's undo (CAP-T10STEPS.json, CAP-T10STEPS2.json; 400 ms lies inside what those show).
+  clearTimeout(codeIdle);
+  if (f.dataset.content !== 'embedHtml') codeIdle = setTimeout(() => { if (codeBefore == null) return; codeCommit = true; commit(codeBefore, f.dataset.content === 'code' ? 'Code changed' : 'Markdown changed'); codeCommit = false; codeBefore = null; }, 400);
   mdLines(f);
   if (f.dataset.content === 'markdown') paintMdBar(f);
   placeBlockPanel();
@@ -3879,6 +3886,29 @@ blockPanel.addEventListener('pointerdown', (e) => {
     if (v === start) { input.value = `${start}${unit}`; return; }
     input.value = String(v);
     input.dispatchEvent(new Event('change', { bubbles: true }));
+  };
+  addEventListener('pointermove', move); addEventListener('pointerup', up);
+});
+// The four Corner fields take the same pull from anywhere on them, and a press with no pull goes on into the field (CAP-T7CORNERS.json, CAP-T7CORNERS2.json).
+blockPanel.addEventListener('pointerdown', (e) => {
+  const input = e.target.closest?.('.st-corners input[data-stack-field]');
+  if (!input || !sel || e.button) return;
+  const b = B(sel.sid, sel.bid), bag = designBag(bp), n = Number(input.dataset.stackField[1]), had = b[bag]?.corners, x0 = e.clientX, start = parseFloat(input.value) || 0;
+  const valueAt = (x) => Math.min(1000, Math.max(0, start + Math.round((x - x0) * SCRUB_PER_PX)));
+  let pulled = false;
+  const paint = (v) => { const now = [...designFor(b, bp).corners]; now[n] = v; b[bag] = { ...(b[bag] || {}), corners: now }; renderSectionDom(sel.sid); input.value = String(v); input.setSelectionRange(0, 0); };
+  const move = (m) => { if (!pulled && Math.abs(m.clientX - x0) < 3) return; if (!pulled) { pulled = true; input.setPointerCapture(e.pointerId); } m.preventDefault(); paint(valueAt(m.clientX)); };
+  const up = (m) => {
+    removeEventListener('pointermove', move); removeEventListener('pointerup', up);
+    if (!pulled) return;
+    const v = valueAt(m.clientX), k = input.dataset.stackField;
+    b[bag] = { ...(b[bag] || {}) };
+    if (had === undefined) delete b[bag].corners; else b[bag].corners = had;
+    renderSectionDom(sel.sid);
+    if (v === start) { input.value = String(start); return; }
+    input.value = String(v);
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+    blockPanel.querySelector(`.st-corners input[data-stack-field="${k}"]`)?.focus();
   };
   addEventListener('pointermove', move); addEventListener('pointerup', up);
 });
