@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 770,
+  "pass": 835,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -8,9 +8,10 @@
     "hold from the right margin track -70,12",
     "hold from the right margin track -80,12",
     "hold from the right margin track -90,12",
+    "E7 CAP-E7REOPEN3 Clear, Undo",
     "R2 wider 5"
   ],
-  "total": 783,
+  "total": 843,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -2696,7 +2697,7 @@
       "diffs": []
     },
     {
-      "name": "E7 reopened: ticked, list over the box",
+      "name": "E7 opened again, Edit: ticked, no list",
       "diffs": []
     },
     {
@@ -2710,6 +2711,343 @@
     {
       "name": "E7 a click elsewhere closes",
       "diffs": []
+    },
+    {
+      "name": "E7 CAP-E7REOPEN set",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN closed",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN reopened",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN reopened, Edit",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN ticked",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN after the tick and Escape",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN reopened after the tick",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN reopened after the tick, Edit",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 page, Enter",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 page, Escape",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 page",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 page, on the row",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 page, on Remove Link",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 page, mouse away",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 Tab 1",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 Tab 2",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 Tab 3",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 Tab 4",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 Escape",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 link button again",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 let go",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 reselected",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 Edit",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 Edit, Clear",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 Edit, Clear, Escape",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 reopened after Clear",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 typed, Enter",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 typed, Escape",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 typed",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 typed, Edit",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 long, Enter",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 long, Escape",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 long",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 email form",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 email form, Escape",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 email",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 email, Tab",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 email, Edit",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 phone form",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 phone form, Escape",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 phone",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 phone, Edit",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 to undo, Enter",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 to undo, Escape",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 to undo",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 Undo",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN2 Undo, reopened",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN3 typed, on the row",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN3 typed, Shift+Tab",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN3 long, on the row",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN3 no page, Enter",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN3 field",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN3 field, link button again",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN3 Clear, press away",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN3 Clear, press away, reopened",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN3 Clear, Undo",
+      "diffs": [
+        "selected: oracle false, ours true"
+      ],
+      "known": true
+    },
+    {
+      "name": "E7 CAP-E7REOPEN3 Clear, Undo, reopened",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN3 page, Edit, one Escape",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN3 panel, typed, Enter",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN4 long email",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN4 long email, on the row",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN4 short email, on the row",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN4 phone, on the row",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN4 short with a path, on the row",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN4 typed, by keys to Edit",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN4 typed, Clear, press away",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7REOPEN4 typed, Clear, press away, reopened",
+      "diffs": [],
+      "known": false
     },
     {
       "name": "E7 text: one link per paragraph, href only until the close",
@@ -3574,48 +3912,6 @@
     {
       "name": "group drop keeps a written Text short",
       "diffs": []
-    },
-    {
-      "name": "next gesture after a short Text l1",
-      "diffs": []
-    },
-    {
-      "name": "next gesture after a short Text l3",
-      "diffs": [
-        "block 1: oracle 7/10/13/14, ours 6/10/12/14"
-      ]
-    },
-    {
-      "name": "next gesture after a short Text l6",
-      "diffs": [
-        "block 1: oracle 12/2/18/8, ours 11/2/17/8",
-        "block 2: oracle 2/10/9/14, ours 2/10/8/14"
-      ]
-    },
-    {
-      "name": "next gesture after a short Text m2",
-      "diffs": [
-        "block 1: oracle 2/10/9/14, ours 2/10/8/14",
-        "block 2: oracle 3/20/10/26, ours 3/20/9/26"
-      ]
-    },
-    {
-      "name": "next gesture after a short Text m4",
-      "diffs": [
-        "block 1: oracle 2/9/10/12, ours 2/9/8/12"
-      ]
-    },
-    {
-      "name": "next gesture after a short Text n2",
-      "diffs": [
-        "block 1: oracle 3/10/8/14, ours 3/10/7/14"
-      ]
-    },
-    {
-      "name": "next gesture after a short Text n5",
-      "diffs": [
-        "block 1: oracle 3/10/10/14, ours 3/10/9/14"
-      ]
     }
   ]
 }

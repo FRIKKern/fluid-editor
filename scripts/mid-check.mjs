@@ -8,6 +8,7 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, waitFor, mouse, cdp, browser } from './lib/cmux.mjs';
 import { modelFor } from './lib/trace-model.mjs';
 import { BASE } from './lib/base.mjs';
+import { replayLinkBox } from './lib/link-box-replay.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const dir = new URL('../traces/', import.meta.url);
@@ -448,7 +449,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     key('Enter'); await sleep(150); out.enter = { href: B().href, open: !P.hidden, list: list().hidden, focus: document.activeElement === inp(), box: onBox(), attr: a().hasAttribute('target') };
     P.querySelector('.lk-box').click(); await sleep(150); out.tick = { model: B().newTab, target: a().getAttribute('target'), open: !P.hidden };
     key('Escape'); await sleep(80); out.escape = P.hidden;
-    await open(); out.reopen = { checked: P.querySelector('.lk-box').checked, value: inp().value, covered: !onBox(), pages: showing() };
+    await open(); P.querySelector('[data-link-box="edit"]').click(); await sleep(60); out.reopen = { checked: P.querySelector('.lk-box').checked, value: inp().value, list: list().hidden, covered: !onBox() };
     [...P.querySelectorAll('.lk-page')].find((x) => x.getAttribute('aria-label') === 'About/about').click(); await sleep(120); P.querySelector('.lk-box').click(); await sleep(120); out.untick = { model: B().newTab ?? false, target: a().hasAttribute('target') };
     inp().value = ''; inp().dispatchEvent(new Event('input', { bubbles: true })); await sleep(40); [...P.querySelectorAll('.lk-page')].find((x) => x.getAttribute('aria-label') === 'Home/home').click(); await sleep(120); out.page = { href: B().href, open: !P.hidden, value: inp().value, list: list().hidden };
     document.body.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })); await sleep(50); out.outside = P.hidden;
@@ -459,10 +460,12 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   lk('typing narrows the list', r.typed.join() === 'About/about' && r.typedGroups.join() === 'Main Navigation', [r.typed, r.typedGroups]);
   lk('Enter sets the link and stays open', r.enter.href === '/about' && r.enter.open && r.enter.list && r.enter.focus && r.enter.box && !r.enter.attr, r.enter);
   lk('the box on a button', r.tick.model === true && r.tick.target === '_blank' && r.tick.open && r.escape, [r.tick, r.escape]);
-  lk('reopened: ticked, list over the box', r.reopen.checked && r.reopen.value === '/about' && r.reopen.covered && r.reopen.pages.join() === 'About/about', r.reopen);
+  lk('opened again, Edit: ticked, no list', r.reopen.checked && r.reopen.value === '/about' && r.reopen.list && !r.reopen.covered, r.reopen);
   lk('unticking', r.untick.model === false && !r.untick.target, r.untick);
   lk('a page sets the link and stays open', r.page.href === '/home' && r.page.open && r.page.value === '/home' && r.page.list, r.page);
   lk('a click elsewhere closes', r.outside === true, r.outside);
+  // The box a linked Button opens, walked with real keys and presses against the reads. Keys back to it are not read.
+  for (const name of ['CAP-E7REOPEN', 'CAP-E7REOPEN2', 'CAP-E7REOPEN3', 'CAP-E7REOPEN4']) await replayLinkBox(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (read, diffs) => groupCases.push({ name: `E7 ${name} ${read}`, diffs, known: read === 'Clear, Undo' }));
   // On text: the target waits for the close, target first, no rel; two paragraphs get a link each.
   evalJs(S, `(async () => { fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [${JSON.stringify(bl('t', 'text', { html: '<p>one</p><p>two</p>' }))}] }] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60);
   const t = evalJs(S, `(async () => { const sleep = (x) => new Promise((r) => setTimeout(r, x)); const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, P = document.getElementById('link-popover'), fb = d.querySelector('.fe-block[data-block-id="t"]'); fe.edit('s', 't'); await sleep(250);
