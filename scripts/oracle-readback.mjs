@@ -6,12 +6,13 @@
 // --store replaces CAP-STYLEROWS.json's views, lists, families and formColors with what it reads. Only for a site known to be as it should be.
 // It reads the site footer first, against CAP-FOOTER.json (scripts/oracle/footer.mjs). --footer-only stops after that;
 // --store-footer replaces that base.
-// Exit 0: the same. Exit 1: differences, listed. Exit 2: it could not read, so it says nothing about the site.
+// Exit 0: all read and the same. Exit 1: differences, listed. Exit 2: the same where read, with the sets it could not read
+// listed. Each set (a theme, a view, a row) runs on its own: one that fails under load is listed and the run goes on.
 import { writeFileSync } from 'node:fs';
 import { browser, evalJs, goto, mouse, viewport, pause } from './lib/cmux.mjs';
 import { pressOnTop } from './oracle/press.mjs';
 import { exitWithoutSaving } from './oracle/ui.mjs';
-import { THEMES, NAMES, compareRows, comparePalette, compareView, settledRead, compareLists, compareFamilies, compareFormColors, STYLES, STYLE_FILE } from './oracle/readback.mjs';
+import { THEMES, NAMES, compareRows, comparePalette, compareView, settledRead, compareLists, compareFamilies, compareFormColors, runSets, exitCode, STYLES, STYLE_FILE } from './oracle/readback.mjs';
 import { VIEWS, DEEP, DEEP_BACK, LISTS, READ_VIEW } from './oracle/style-views.mjs';
 import { FOOTER_FILE, FOOTER_PATHS, FOOTER_READ, compareFooter } from './oracle/footer.mjs';
 
@@ -31,10 +32,17 @@ const FIND = {
   row: (t) => `[...document.querySelectorAll('button')].filter((x) => { const r = x.getBoundingClientRect(); return r.left >= 1282 && r.width > 200; }).find((x) => { const w = x.innerText.replace(/\\s+/g, ' ').trim().toUpperCase(), n = ${JSON.stringify(t.toUpperCase())}; return w === n || w.startsWith(n + ' '); })`,
   theme: (n) => `[...document.querySelectorAll('button')].filter((x) => { const r = x.getBoundingClientRect(); return r.left >= 1282 && r.height >= 40 && r.height <= 50 && r.width > 250; }).find((x) => x.innerText.replace(/\\s+/g, ' ').trim().toUpperCase() === ${JSON.stringify(n)})`,
 };
-// A real press on a named element that is on top, or it stops.
+// A real press on a named element that is on top. Under load a button can be late or briefly covered: it waits for it up
+// to PRESS_WAIT ms, trying again, and only then stops.
+const PRESS_WAIT = 10000;
 async function press(name, find, wait = 1000) {
   if (!PRESS.has(name)) throw new Error(`refused ${name}`);
-  await pressOnTop(S, find, wait).catch((e) => { throw new Error(`${name}: ${e.message}`); });
+  for (const end = Date.now() + PRESS_WAIT; ;) {
+    try { await pressOnTop(S, find, wait); return; } catch (e) {
+      if (!/none|covered/.test(e.message) || Date.now() > end) throw new Error(`${name}: ${e.message}`);
+      await pause(700);
+    }
+  }
 }
 // No upper limit near a row's height: names on two lines make a row 66 tall, not 44.
 const rows = () => js(`const pan = [...document.querySelectorAll('button')].filter((x) => { const r = x.getBoundingClientRect(); return r.left >= 1285 && r.width > 270 && r.height >= 40 && r.height <= 200; }); return JSON.stringify(pan.map((x) => { const dot = [...x.querySelectorAll('*')].filter((e) => { const q = e.getBoundingClientRect(); return q.width > 10 && q.width < 30 && q.height === q.width; }).map((e) => getComputedStyle(e).backgroundColor).filter((c) => c !== 'rgba(0, 0, 0, 0)'); return [x.getAttribute('aria-label') || x.innerText.trim().slice(0, 30), dot[0] || '']; }));`);
@@ -47,7 +55,12 @@ const saveOff = () => topBar().save === 'off';
 const panelToTop = () => js(`for (const x of document.querySelectorAll('body *')) { if (x.scrollTop > 0 && x.getBoundingClientRect().left >= 1250) x.scrollTop = 0; } return 'true';`);
 const goBack = async (want) => {
   panelToTop(); await pause(150);
-  const words = js(`const b = ${FIND.back}; return JSON.stringify(b ? b.textContent.trim() : null);`);
+  let words;
+  for (const end = Date.now() + PRESS_WAIT; ;) {
+    words = js(`const b = ${FIND.back}; return JSON.stringify(b ? b.textContent.trim() : null);`);
+    if (words === want || Date.now() > end) break;
+    await pause(600); panelToTop();
+  }
   if (words !== want) throw new Error(`back button reads ${JSON.stringify(words)}, wanted ${want}`);
   await press(want, FIND.back, 1000);
 };
@@ -70,7 +83,7 @@ async function readFamily(how, record) {
   const words = evalJs(S, READ_VIEW).at(-1)[1].split(' | '), now = words[words.indexOf('Font') + 1];
   const family = `[...document.querySelectorAll('body *')].filter((x) => { const r = x.getBoundingClientRect(); return r.left >= 1282 && r.width > 150 && getComputedStyle(x).cursor === 'pointer' && (x.innerText || '').trim() === ${JSON.stringify(now)}; }).pop()`;
   await press('font row', family, 1300); await away(); await pause(500);
-  if (!saveOff()) diffs.push(`font list: Save is not off: ${JSON.stringify(topBar())}`);
+  if (!saveOff()) sink.push(`font list: Save is not off: ${JSON.stringify(topBar())}`);
   const names = () => js(`return JSON.stringify(${FAMILY_ROWS}.map((x) => x.querySelector('img').alt));`);
   const heads = js(`return JSON.stringify([...document.querySelectorAll('body *')].filter((x) => { const r = x.getBoundingClientRect(); return x.childElementCount === 0 && r.left >= 1260 && r.width > 200 && r.top > 300 && x.textContent.trim() && getComputedStyle(x).textTransform === 'uppercase'; }).map((x) => x.textContent.trim()));`);
   record.family = { first: names(), heads };
@@ -111,30 +124,12 @@ async function readLists(view) {
   if (spec.family) await readFamily(spec.family, out);
   // A view's font rows after the first one read: each opens its own list, read and closed the same way.
   if (spec.moreFamilies) {
-    const name = JSON.stringify(spec.moreFamilies);
-    const isRow = `(x) => { const r = x.getBoundingClientRect(); return r.left >= 1282 && r.width > 150 && getComputedStyle(x).cursor === 'pointer' && (x.innerText || '').trim() === ${name}; }`;
-    const rows = `[...document.querySelectorAll('body *')].filter(${isRow}).filter((x) => ![...x.children].some(${isRow}))`;
-    const count = js(`return JSON.stringify(${COMBOS}.length);`);
-    if (!count) throw new Error(`${view}: no list rows`);
-    out.combos = [];
-    for (let i = 0; i < count; i++) {
-      const name = js(`return JSON.stringify(${COMBOS}[${i}].innerText.replace(/\\s+/g, ' ').trim());`);
-      await press('list row', `${COMBOS}[${i}]`, 700); await away();
-      const options = js(`return JSON.stringify([...document.querySelectorAll('[role=listbox] [role=option]')].filter((x) => x.getBoundingClientRect().width > 0).map((x) => [x.innerText.trim(), x.getAttribute('aria-selected') || '']));`);
-      if (!options.length) throw new Error(`${view} ${name}: no list opened`);
-      out.combos.push([name, options]);
-      await closeOpen(`${view} ${name}`);
-    }
-  }
-  if (spec.family) await readFamily(spec.family, out);
-  // A view's font rows after the first one read: each opens its own list, read and closed the same way.
-  if (spec.moreFamilies) {
     const rows = `[...document.querySelectorAll('body *')].filter((x) => { const r = x.getBoundingClientRect(); return r.left >= 1282 && r.width > 150 && getComputedStyle(x).cursor === 'pointer' && (x.innerText || '').trim() === ${JSON.stringify(spec.moreFamilies)} && !x.parentElement.closest('[style*="cursor"]') && ![...x.children].some((c) => (c.innerText || '').trim() === ${JSON.stringify(spec.moreFamilies)} && getComputedStyle(c).cursor === 'pointer'); })`;
     const count = js(`return JSON.stringify(${rows}.length);`);
     out.moreFamilies = [];
     for (let n = 0; n < count; n++) {
       await press('font row', `${rows}[${n}]`, 1300); await away(); await pause(500);
-      if (!saveOff()) diffs.push(`font list: Save is not off: ${JSON.stringify(topBar())}`);
+      if (!saveOff()) sink.push(`font list: Save is not off: ${JSON.stringify(topBar())}`);
       out.moreFamilies.push(js(`return JSON.stringify(${FAMILY_ROWS}.map((x) => x.querySelector('img').alt));`));
       await closeOpen('font list');
     }
@@ -145,12 +140,13 @@ async function readLists(view) {
     if (!out.shape.length) throw new Error(`${view}: no popover`);
     browser(S, 'press', 'Escape'); await pause(700);
   }
-  if (!saveOff()) diffs.push(`${view} lists: Save is not off: ${JSON.stringify(topBar())}`);
+  if (!saveOff()) sink.push(`${view} lists: Save is not off: ${JSON.stringify(topBar())}`);
   return out;
 }
 
-const diffs = [], read = {}, listsRead = {}, formColors = {};
-let families = [];
+// diffs: the footer's and every set's that finished. sink: the set running now (runSets hands each its own).
+const diffs = [], notRead = [], read = {}, listsRead = {}, formColors = {};
+let sink = diffs, families = null;
 // The footer first: read only, on a load of each page, no press. --footer-only stops after it, --store-footer stores it.
 const FOOTER_ONLY = process.argv.includes('--footer-only'), STORE_FOOTER = process.argv.includes('--store-footer'), footers = {};
 async function readFooter(path) {
@@ -163,6 +159,7 @@ try {
   for (const p of FOOTER_PATHS) {
     footers[p] = await readFooter(p);
     if (STORE_FOOTER) continue;
+    if (!footers[p]) { notRead.push(`footer ${p}: nothing read`); console.log(`footer ${p.padEnd(16)} not read`); continue; }
     const found = compareFooter(p, footers[p]); diffs.push(...found);
     console.log(`footer ${p.padEnd(16)} ${footers[p]?.blocks.length ?? 0} blocks, ${found.length} differ`);
   }
@@ -179,89 +176,115 @@ try {
 }
 if (FOOTER_ONLY) {
   goto(S, PAGES);
-  if (diffs.length) { console.log(`DIFFERENT: ${diffs.length}`); for (const x of diffs.slice(0, 40)) console.log(`  ${x}`); process.exit(1); }
-  if (!STORE_FOOTER) console.log(`The same: the footer on ${FOOTER_PATHS.join(', ')}.`);
-  process.exit(0);
+  if (!STORE_FOOTER) report();
+  process.exit(STORE_FOOTER ? 0 : exitCode({ diffs, notRead }));
 }
-try {
-  viewport(S, 1600, 1000); goto(S, PAGES); await pause(9000);
+// Site Styles, open on the probe page with Save off. Also how a set that failed is undone: Exit if editing, a load of the
+// pages list, the page, Site Styles again.
+async function restart() {
+  if (topBar()?.exit) { const asked = await exitWithoutSaving().catch((e) => { throw new Error(`Exit: ${e.message}`); }); if (asked) diffs.push('Exit asked about unsaved changes'); }
+  viewport(S, 1600, 1000); goto(S, PAGES);
+  for (const end = Date.now() + 30000; !js(`return JSON.stringify(!!${FIND[PAGE]});`) && Date.now() < end;) await pause(1000);
   await press(PAGE, FIND[PAGE], 5000);
-  for (let i = 0; i < 15 && pathNow() !== PAGE_PATH; i++) await pause(1000);
+  for (let i = 0; i < 20 && pathNow() !== PAGE_PATH; i++) await pause(1000);
   if (pathNow() !== PAGE_PATH) throw new Error(`the frame is on ${pathNow()}, not ${PAGE_PATH}`);
   if (!closed()) throw new Error(`the page is being edited: ${JSON.stringify(topBar())}`);
   await press('Toggle Site Styles editing', FIND.named('Toggle Site Styles editing'), 2000);
-  if (!saveOff()) throw new Error(`Save is not off in Site Styles: ${JSON.stringify(topBar())}`);
-  const TOGGLE = 'Toggle Themes style pack popover';
-  await press(TOGGLE, FIND.named(TOGGLE), 800); await away();
-  const themes = js(`return JSON.stringify({ heads: [...document.querySelectorAll('body *')].filter((x) => { const r = x.getBoundingClientRect(); return x.childElementCount === 0 && r.left >= 900 && r.left < 1262 && r.width >= 300 && x.textContent.trim(); }).map((x) => x.textContent.trim()), tiles: [...document.querySelectorAll('[aria-label^="Site theme"]')].filter((x) => x.getBoundingClientRect().width > 0).map((x) => [x.getAttribute('aria-label'), x.innerText.replace(/\\s+/g, ' ').trim()]) });`);
-  if (!themes.tiles.length) throw new Error('the Themes popover did not open');
-  listsRead.Themes = themes;
-  if (!saveOff()) diffs.push(`Themes popover: Save is not off: ${JSON.stringify(topBar())}`);
-  await press(TOGGLE, FIND.named(TOGGLE), 800); await away();
-  await press('Open Colors style disclosure', FIND.named('Open Colors style disclosure'), 1300);
-  diffs.push(...comparePalette(js(`${frame} const a = W.getComputedStyle(d.documentElement), b = W.getComputedStyle(d.body), o = {}; for (const n of ${JSON.stringify(VARS)}) o[n] = (a.getPropertyValue('--' + n + '-hsl') || b.getPropertyValue('--' + n + '-hsl')).trim(); return JSON.stringify(o);`)));
-  for (const t of THEMES) {
-    await press(`AA ${t}`, FIND.theme(`AA ${t}`), 1100);
-    const { rows: two, settled } = await settledRead(rows, () => pause(500));
-    if (!settled) diffs.push(`${t}: the list kept moving over 6 reads`);
-    if (!/^Aa/.test(two[0]?.[0] || '')) throw new Error(`${t}: no head row, read ${JSON.stringify(two[0])}`);
-    if (!saveOff()) diffs.push(`${t}: Save is not off: ${JSON.stringify(topBar())}`);
-    const found = compareRows(t, two.slice(1));
-    diffs.push(...found);
-    console.log(`${t.padEnd(11)} ${two.length - 1} rows, ${found.length} differ`);
-    await goBack('Colors');
-  }
-  await goBack('Site Styles');
-  // Fonts, Buttons, Forms, Miscellaneous: each view and the views one row under it.
-  const take = async (view) => {
-    const { rows: two, settled } = await settledRead(() => evalJs(S, READ_VIEW), () => pause(400));
-    if (!settled) diffs.push(`${view}: kept moving over 6 reads`);
-    if (!saveOff()) diffs.push(`${view}: Save is not off: ${JSON.stringify(topBar())}`);
-    read[view] = two;
-    if (!process.argv.includes('--store')) { const found = compareView(view, two); diffs.push(...found); console.log(`${view.padEnd(28)} ${two.length} controls, ${found.length} differ`); }    if (LISTS[view]) listsRead[view] = await readLists(view);
-  };
-  for (const [view, rs] of Object.entries(VIEWS)) {
-    if (view === 'Miscellaneous') await press(view, FIND.row(view), 1300);
-    else await press(`Open ${view} style disclosure`, FIND.named(`Open ${view} style disclosure`), 1300);
-    await take(view);
-    for (const r of rs) {
-      const at = `${view} > ${r}`;
-      await press(at, FIND.row(r), 1200); await take(at);
-      for (const d of DEEP[at] || []) { await press(`${at} > ${d}`, FIND.row(d), 1200); await take(`${at} > ${d}`); await goBack(DEEP_BACK[at]); }
-      await goBack(view);
-    }
+  for (let i = 0; i < 10 && topBar()?.save === 'none'; i++) await pause(500);
+  if (!saveOff()) { diffs.push(`Save is not off in Site Styles: ${JSON.stringify(topBar())}`); throw new Error('Save is not off in Site Styles'); }
+}
+const TOGGLE = 'Toggle Themes style pack popover';
+const STORE = process.argv.includes('--store');
+// A view's controls, read when they hold still at their stored count, compared, and its closed lists read.
+const take = async (view) => {
+  const { rows: two, settled } = await settledRead(() => evalJs(S, READ_VIEW), () => pause(400), 6, STYLES.views?.[view]?.length || 0);
+  if (!settled) throw new Error(`${view}: kept moving`);
+  if (!saveOff()) sink.push(`${view}: Save is not off: ${JSON.stringify(topBar())}`);
+  read[view] = two;
+  if (!STORE) { const found = compareView(view, two); sink.push(...found); console.log(`${view.padEnd(28)} ${two.length} controls, ${found.length} differ`); }
+  if (LISTS[view]) listsRead[view] = await readLists(view);
+};
+const openView = async (view) => {
+  if (view === 'Miscellaneous') await press(view, FIND.row(view), 1300);
+  else await press(`Open ${view} style disclosure`, FIND.named(`Open ${view} style disclosure`), 1300);
+};
+// Every set starts and ends at Site Styles' first view.
+const sets = [
+  ['Themes popover', async () => {
+    await press(TOGGLE, FIND.named(TOGGLE), 800); await away();
+    const themes = js(`return JSON.stringify({ heads: [...document.querySelectorAll('body *')].filter((x) => { const r = x.getBoundingClientRect(); return x.childElementCount === 0 && r.left >= 900 && r.left < 1262 && r.width >= 300 && x.textContent.trim(); }).map((x) => x.textContent.trim()), tiles: [...document.querySelectorAll('[aria-label^="Site theme"]')].filter((x) => x.getBoundingClientRect().width > 0).map((x) => [x.getAttribute('aria-label'), x.innerText.replace(/\\s+/g, ' ').trim()]) });`);
+    if (!themes?.tiles?.length) throw new Error('the Themes popover did not open');
+    listsRead.Themes = themes;
+    if (!saveOff()) sink.push(`Themes popover: Save is not off: ${JSON.stringify(topBar())}`);
+    await press(TOGGLE, FIND.named(TOGGLE), 800); await away();
+  }],
+  ['palette', async () => {
+    await press('Open Colors style disclosure', FIND.named('Open Colors style disclosure'), 1300);
+    const vars = js(`${frame} const a = W.getComputedStyle(d.documentElement), b = W.getComputedStyle(d.body), o = {}; for (const n of ${JSON.stringify(VARS)}) o[n] = (a.getPropertyValue('--' + n + '-hsl') || b.getPropertyValue('--' + n + '-hsl')).trim(); return JSON.stringify(o);`);
+    if (!vars || typeof vars !== 'object') throw new Error('no palette read');
+    sink.push(...comparePalette(vars));
     await goBack('Site Styles');
-  }
-  // Forms > Colors holds the theme Colors last opened: Colors, a theme, back out, Forms > Colors, for each theme.
-  for (const t of THEMES) {
+  }],
+  ...THEMES.map((t) => [`Colors > ${t}`, async () => {
+    await press('Open Colors style disclosure', FIND.named('Open Colors style disclosure'), 1300);
+    await press(`AA ${t}`, FIND.theme(`AA ${t}`), 1100);
+    const { rows: two, settled } = await settledRead(rows, () => pause(500), 6, NAMES.length + 1);
+    if (!settled) throw new Error(`${t}: the list kept moving`);
+    if (!/^Aa/.test(two?.[0]?.[0] || '')) throw new Error(`${t}: no head row, read ${JSON.stringify(two?.[0])}`);
+    if (!saveOff()) sink.push(`${t}: Save is not off: ${JSON.stringify(topBar())}`);
+    const found = compareRows(t, two.slice(1)); sink.push(...found);
+    console.log(`${t.padEnd(11)} ${two.length - 1} rows, ${found.length} differ`);
+    await goBack('Colors'); await goBack('Site Styles');
+  }]),
+  ...Object.entries(VIEWS).flatMap(([view, rs]) => [
+    [view, async () => { await openView(view); await take(view); await goBack('Site Styles'); }],
+    ...rs.map((r) => [`${view} > ${r}`, async () => {
+      const at = `${view} > ${r}`;
+      await openView(view); await press(at, FIND.row(r), 1200); await take(at);
+      for (const dd of DEEP[at] || []) { await press(`${at} > ${dd}`, FIND.row(dd), 1200); await take(`${at} > ${dd}`); await goBack(DEEP_BACK[at]); }
+      await goBack(view); await goBack('Site Styles');
+    }]),
+  ]),
+  // Forms > Colors holds the theme Colors last opened: Colors, a theme, back out, Forms > Colors.
+  ...THEMES.map((t) => [`Forms > Colors on ${t}`, async () => {
     await press('Open Colors style disclosure', FIND.named('Open Colors style disclosure'), 1300);
     await press(`AA ${t}`, FIND.theme(`AA ${t}`), 1100);
     await goBack('Colors'); await goBack('Site Styles');
     await press('Open Forms style disclosure', FIND.named('Open Forms style disclosure'), 1300);
     await press('Forms > Colors', FIND.row('Colors'), 1200);
-    const { rows: two, settled } = await settledRead(() => evalJs(S, READ_VIEW), () => pause(400));
-    if (!settled) diffs.push(`Forms > Colors on ${t}: kept moving over 6 reads`);
-    if (!saveOff()) diffs.push(`Forms > Colors on ${t}: Save is not off: ${JSON.stringify(topBar())}`);
+    const { rows: two, settled } = await settledRead(() => evalJs(S, READ_VIEW), () => pause(400), 6, STYLES.formColors?.[t]?.length || 0);
+    if (!settled) throw new Error(`Forms > Colors on ${t}: kept moving`);
+    if (!saveOff()) sink.push(`Forms > Colors on ${t}: Save is not off: ${JSON.stringify(topBar())}`);
     formColors[t] = two;
-    if (!process.argv.includes('--store')) { const found = compareFormColors(t, two); diffs.push(...found); console.log(`Forms > Colors, ${t.padEnd(11)} ${two.length} rows, ${found.length} differ`); }
+    if (!STORE) { const found = compareFormColors(t, two); sink.push(...found); console.log(`Forms > Colors, ${t.padEnd(11)} ${two.length} rows, ${found.length} differ`); }
     await goBack('Forms'); await goBack('Site Styles');
-  }
-  families = listsRead['Fonts > Headings'].families;
-  delete listsRead['Fonts > Headings'].families;
-  if (process.argv.includes('--store')) writeFileSync(STYLE_FILE, `${JSON.stringify({ ...STYLES, views: read, lists: listsRead, families, formColors }, null, 1)}\n`);
-  else {
-    for (const [k, v] of Object.entries(listsRead)) { const found = compareLists(k, v); diffs.push(...found); console.log(`${k.padEnd(28)} lists, ${found.length} differ`); }
-    const found = compareFamilies(families); diffs.push(...found); console.log(`${families.length} font names, ${found.length} differ`);
-  }
-  if (await exitWithoutSaving()) diffs.push('Exit asked about unsaved changes');
+  }]),
+];
+const done = await runSets(sets, { restart, begin: (x) => { sink = x; }, log: (x) => console.log(x) });
+sink = diffs;
+diffs.push(...done.diffs); notRead.push(...done.notRead);
+families = listsRead['Fonts > Headings']?.families;
+if (listsRead['Fonts > Headings']) delete listsRead['Fonts > Headings'].families;
+if (STORE) {
+  if (notRead.length) { console.log('not stored: sets not read'); report(); process.exit(2); }
+  writeFileSync(STYLE_FILE, `${JSON.stringify({ ...STYLES, views: read, lists: listsRead, families, formColors }, null, 1)}\n`);
+} else {
+  // Lists and font names compare only where their view was read; a view not read is already listed.
+  for (const [k, v] of Object.entries(listsRead)) { const found = compareLists(k, v); diffs.push(...found); console.log(`${k.padEnd(28)} lists, ${found.length} differ`); }
+  if (families) { const found = compareFamilies(families); diffs.push(...found); console.log(`${families.length} font names, ${found.length} differ`); } else notRead.push('font names: Fonts > Headings was not read');
+}
+try {
+  if (topBar()?.exit && await exitWithoutSaving()) diffs.push('Exit asked about unsaved changes');
   await pause(1500);
   if (!closed()) diffs.push(`the page is still being edited after Exit: ${JSON.stringify(topBar())}`);
-} catch (e) {
-  console.error(`oracle-readback: could not read: ${e.message}`);
-  if (topBar().exit) await exitWithoutSaving().catch((x) => console.error(x.message));
-  goto(S, PAGES);
-  process.exit(2);
-}
+} catch (e) { notRead.push(`the last Exit: ${e.message}`); }
 goto(S, PAGES);
-if (diffs.length) { console.log(`DIFFERENT: ${diffs.length}`); for (const x of diffs.slice(0, 40)) console.log(`  ${x}`); process.exit(1); }
-console.log(`The same: the footer on ${FOOTER_PATHS.length} pages, palette, ${NAMES.length} rows on each of ${THEMES.length} themes, ${Object.keys(read).length} views of Fonts, Buttons, Forms and Miscellaneous, ${Object.keys(listsRead).length} sets of closed lists, ${families.length} font names and Forms > Colors on ${Object.keys(formColors).length} themes, on ${PAGE_PATH}, Save off at every read, no question on Exit.`);
+report();
+process.exit(exitCode({ diffs, notRead }));
+
+function report() {
+  if (diffs.length) { console.log(`DIFFERENT: ${diffs.length}`); for (const x of diffs.slice(0, 40)) console.log(`  ${x}`); }
+  if (notRead.length) { console.log(`NOT READ: ${notRead.length}`); for (const x of notRead) console.log(`  ${x}`); }
+  if (!diffs.length && !notRead.length) console.log(`The same: the footer on ${FOOTER_PATHS.length} pages, palette, ${NAMES.length} rows on each of ${THEMES.length} themes, ${Object.keys(read).length} views of Fonts, Buttons, Forms and Miscellaneous, ${Object.keys(listsRead).length} sets of closed lists, ${families?.length ?? 0} font names and Forms > Colors on ${Object.keys(formColors).length} themes, on ${PAGE_PATH}, Save off at every read, no question on Exit.`);
+  else if (!diffs.length) console.log('The same where read.');
+}

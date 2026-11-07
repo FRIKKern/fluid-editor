@@ -795,7 +795,7 @@ add('Both pins kept in the model', saved[0] && saved[1] && saved[2] === 'flex-en
 // Tips: 11px under the button, centred, keys in chips, none on an unavailable button.
 await fresh();
 await pick(BIDS.text);
-const tipOf = async (tb) => { const q = evalJs(S, `(() => { const q = document.querySelector('#block-toolbar [data-tb="${tb}"]').getBoundingClientRect(); return JSON.stringify([q.left, q.top, q.width, q.height]); })()`); moveTo([q[0] + q[2] / 2, q[1] + q[3] / 2]); await moveTo([q[0] + q[2] / 2, q[1] + q[3] / 2 + 1]); await pause(400); const t = evalJs(S, `(() => { const e = document.getElementById('bar-tip'); if (e.hidden) return 'null'; const q = e.getBoundingClientRect(); return JSON.stringify({ text: e.innerText.replace(/\\s+/g, ' ').trim(), box: [q.left, q.top, q.width, q.height] }); })()`); await moveTo([20, 996]); await pause(100); return [q, t]; };
+const tipOf = async (tb) => { const q = evalJs(S, `(() => { const q = document.querySelector('#block-toolbar [data-tb="${tb}"]').getBoundingClientRect(); return JSON.stringify([q.left, q.top, q.width, q.height]); })()`); moveTo([q[0] + q[2] / 2, q[1] + q[3] / 2]); await moveTo([q[0] + q[2] / 2, q[1] + q[3] / 2 + 1]); await pause(700); const t = evalJs(S, `(() => { const e = document.getElementById('bar-tip'); if (e.hidden) return 'null'; const q = e.getBoundingClientRect(); return JSON.stringify({ text: e.innerText.replace(/\\s+/g, ' ').trim(), box: [q.left, q.top, q.width, q.height] }); })()`); await moveTo([20, 996]); await pause(100); return [q, t]; };
 const tipCheck = async (tb, label) => {
   const [q, t] = await tipOf(tb);
   const want = TB.tips.words[label];
@@ -803,6 +803,16 @@ const tipCheck = async (tb, label) => {
   add(`Tip ${label}`, ok, JSON.stringify(t));
 };
 for (const [tb, label] of [['write', 'Write'], ['edit', 'Edit'], ['align', 'Align Vertically'], ['pin', 'Pin'], ['duplicate', 'Duplicate'], ['remove', 'Remove']]) await tipCheck(tb, label);
+// The tip waits about 517 ms from the pointer getting on the button, by the page's own clock, with no fade (CAP-U4TIPS.json: 517 to 528).
+{
+  const q = evalJs(S, `(() => { const b = document.querySelector('#block-toolbar [data-tb="duplicate"]'), q = b.getBoundingClientRect(), tip = document.getElementById('bar-tip');
+    window.__tipWait = null; b.addEventListener('pointerover', () => { const t0 = performance.now(); const tick = () => { if (!tip.hidden) window.__tipWait = [Math.round(performance.now() - t0), getComputedStyle(tip).opacity]; else requestAnimationFrame(tick); }; requestAnimationFrame(tick); }, { once: true });
+    return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
+  await moveTo(q); await pause(900);
+  const w = evalJs(S, `(() => JSON.stringify(window.__tipWait))()`);
+  add('Tip waits about 517 ms, no fade', !!w && Math.abs(w[0] - 517) <= 25 && w[1] === '1', JSON.stringify(w));
+  await moveTo([20, 996]); await pause(100);
+}
 const zOverlap = evalJs(S, `(() => { const s = fe.model.sections[${SEC}], t = s.blocks.find((b) => b.id === '${BIDS.text}'), o = s.blocks.find((b) => b.id === '${BIDS.shape}'); o.layout.desktop.area = [...t.layout.desktop.area]; t.layout.desktop.z = Math.min(...s.blocks.map((x) => x.layout.desktop.z)) - 1; fe.select(null); fe.select(s.id, t.id); return JSON.stringify(true); })()`);
 await pause(250);
 await tipCheck('z+', 'Move Forward');

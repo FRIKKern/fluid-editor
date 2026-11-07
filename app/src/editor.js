@@ -160,6 +160,7 @@ function undo() {
   if (ed) finishTextEdit();
   if (!undoStack.length) { if (ed) select(null); return; }
   unsettled = null;
+  stored = null;
   leaveAnimField();
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
@@ -175,6 +176,7 @@ function redo() {
   if (ed) finishTextEdit();
   if (!redoStack.length) { if (ed) select(null); return; }
   unsettled = null;
+  stored = null;
   leaveAnimField();
   undoStack.push(JSON.stringify(model));
   const had = new Set(model.sections.flatMap((o) => o.blocks.map((x) => x.id)));
@@ -637,13 +639,14 @@ function measure(fe) {
 // Rows a block needs so its content fits without stretching a row.
 // The form on the page, not the copy a Lightbox holds to open.
 const FORM_ON_PAGE = '.fe-form:not(.form-lightbox .fe-form)';
-function contentRows(b, m, normalizing = false, widthPull = false) {
+function contentRows(b, m, normalizing = false, widthPull = false, exact = false) {
   // Content that follows the width (STANDINS.json). A pull that changes the width lets it run over by
   // less than the gap until the next gesture; one that changes only the height does not.
   if (b.standin) {
     const c = blockEl(b.id)?.querySelector('.sqs-block-content');
     if (!c) return 1;
     const h = c.getBoundingClientRect().height;
+    if (exact) return (h + m.rg) / m.pitch;
     return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
   }
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
@@ -678,6 +681,7 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
   if (!c) return 1;
   // A text block's stroke counts: it sits outside the text (BLOCKDESIGN.json).
   const outer = b.type === 'text' ? root.querySelector('.sqs-block') : null, edge = outer ? outer.offsetHeight - outer.clientHeight : 0;
+  if (exact) return (c.offsetHeight + edge + m.rg) / m.pitch;
   return Math.max(1, Math.ceil((c.offsetHeight + edge + m.rg) / m.pitch - 0.02));
 }
 
@@ -852,6 +856,8 @@ function snapColumn(m, line, d, lo, hi) {
   return l;
 }
 const rightEdgeOut = (m, line, d) => snapColumn(m, line, d, line, m.colStart.length + 1) === m.colStart.length + 1;
+// The east line of a box on the left margin track, pulled d to the right: its left edge's steps, the last waiting for the right edge.
+const marginEast = (m, c1, d, hi, top) => { const e = Math.min(top, c1 + snapColumn(m, 1, d, 1, 1 + hi - c1) - 1); return e === top && !rightEdgeOut(m, c1, d) ? top - 1 : e; };
 // The same rule for rows, on a uniform pitch, also past the last row (traces T0013, T0014).
 const snapRow = (m, line, d) => line + Math.sign(d) * Math.max(0, Math.round((Math.abs(d) - m.rg / 2) / m.pitch));
 
@@ -1008,6 +1014,7 @@ function onUp(e) {
   growRows(s);
   endGesture();
   renderSectionDom(g.sid);
+  if (g.type === 'gresize') stored = storedRows(g);
   if (g.fits && !/[ns]/.test(g.dir)) {
     fitTextRows(s, b, g);
     if (b.type === 'text' && g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
@@ -1080,8 +1087,43 @@ function onCancel(e) {
   if (gesture && e.pointerId === gesture.pointerId) cancelGesture();
 }
 
+// After a group resize leaves a Text or Quote short of its content, the next layout gesture moves rows in
+// (CAP-X8NEXT.json, CAP-X8LAG.json): d is the overflow in rows, rounded, and L the short block's bottom line.
+// The short block grows d, a block across L grows d, and so does one ending on L that starts on or above the
+// short block's top; any other block that ends on or below L moves d, and blocks above L stay, in the whole
+// section (CAP-X8LAG2.json). A press, a select, typing and undo don't do it. Candidate, refit 2.
+let stored = null;
+function storedRows(g) {
+  const m = measure(feEl(g.sid)), s = S(g.sid);
+  let d = 0, L = 0, t0 = 0, tid = null;
+  for (const id of g.kept.keys()) {
+    const b = B(g.sid, id), a = lay(b).area, over = Math.round(contentRows(b, m, false, false, true) - (a[2] - a[0]));
+    if (over > d) { d = over; L = a[2]; t0 = a[0]; tid = id; }
+  }
+  if (d <= 0) return null;
+  const areas = new Map();
+  for (const b of s.blocks) {
+    const a = [...lay(b).area];
+    if (b.id === tid || (a[0] < L && a[2] > L) || (a[2] === L && a[0] <= t0)) a[2] += d;
+    else if (a[2] >= L) { a[0] += d; a[2] += d; }
+    areas.set(b.id, a);
+  }
+  return { sid: g.sid, bp, areas };
+}
+function showStored() {
+  const t = stored, shift = new Map();
+  stored = null;
+  const s = t.bp === bp ? S(t.sid) : null;
+  if (!s) return shift;
+  for (const b of s.blocks) if (t.areas.has(b.id)) { shift.set(b.id, t.areas.get(b.id)[0] - lay(b).area[0]); lay(b).area = t.areas.get(b.id); }
+  growRows(s);
+  renderSectionDom(s.id);
+  return shift;
+}
+
 function prepare(e, type, extra = {}) {
   if (unsettled) settleTextRows();
+  const shift = stored ? showStored() : null;
   const g = gesture?.type === 'pending' ? gesture : { sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, before: JSON.stringify(model) };
   Object.assign(g, { type }, extra);
   gesture = g;
@@ -1097,6 +1139,8 @@ function prepare(e, type, extra = {}) {
   g.rows0 = s.rows[bp];
   g.target = [...g.orig];
   g.m = measure(fe);
+  // A block the stored rows moved is held where they put it (CAP-X8LAG.json, l3 and l6).
+  if (shift?.get(g.bid) && g.grabY != null) g.grabY -= shift.get(g.bid) * g.m.pitch;
   fe.style.gridAutoRows = `${g.m.rowMin}px`;
   showGrid(g.sid, s.rows[bp]);
   g.original = layer(fe, 'fe-original-position', g.orig);
@@ -1155,10 +1199,13 @@ function updateMove(e) {
   // A phone does go into it, one block or a group (CAP-G4MARGIN2.json to CAP-G4MARGIN4.json, CAP-G4GROUPMARGIN.json).
   const cMax = Math.max(c0, c0 + (cLo === 1 && bp !== 'mobile' ? LAST_LINE[bp] - 1 : LAST_LINE[bp]) - cHi);
   const dx = left - baseLeft;
-  let nc0 = dx > 0 && c0 > 1 ? snapColumn(m, c0 + w, dx, cMin + w, cMax + w) - w : snapColumn(m, c0, dx, cMin, cMax);
+  // A group steps by its box's edges, not the held block's (CAP-G4LAST2.json): bl is the box's left line, bw its width, sh the held block's offset in it.
+  const bl = solo ? c0 : cLo, bw = solo ? w : cHi - cLo, sh = c0 - bl;
+  let nb = dx > 0 && bl > 1 ? snapColumn(m, bl + bw, dx, cMin - sh + bw, cMax - sh + bw) - bw : snapColumn(m, bl, dx, cMin - sh, cMax - sh);
   // From the left margin track the last step waits for the right edge to pass the right margin's middle
   // (MARGINSTEPS.json, CAP-G4MARGIN3.json, CAP-G4MARGIN4.json, CAP-G4MARGIN5.json).
-  if ((solo || bp === 'mobile') && c0 === 1 && nc0 === cMax && cMax > c0 && !rightEdgeOut(m, c0 + w, dx)) nc0 = cMax - 1;
+  if ((solo || bp === 'mobile') && bl === 1 && nb === cMax - sh && cMax > c0 && !rightEdgeOut(m, bl + bw, dx)) nb = cMax - sh - 1;
+  const nc0 = nb + sh;
   // A group's ring stops when its box reaches the top (HOLD.json).
   const nr0 = Math.max(r0 + 1 - Math.min(...origs.map((a) => a[0])), snapRow(m, r0, y - baseTop));
   let t = [nr0, nc0, nr0 + h, nc0 + w];
@@ -1263,7 +1310,8 @@ function updateGroupResize(e) {
   let [r0, c0, r1, c1] = g.box0;
   // One block's handle rule, from the press (CAP-G4GROUPRESIZE.json).
   const dx = e.clientX - g.x0, dy = e.clientY - top - g.py0;
-  if (g.dir.includes('e')) c1 = snapColumn(m, c1, dx, c0 + 1, LAST_LINE[bp]);
+  // A box on the left margin track grows by its left edge's steps, as one block does (CAP-G4LAST.json margin group).
+  if (g.dir.includes('e')) { const hi = LAST_LINE[bp], top = bp === 'mobile' ? hi : hi - 1; c1 = c0 === 1 && dx > 0 && c1 < top ? Math.max(c0 + 1, marginEast(m, c1, dx, hi, top)) : snapColumn(m, c1, dx, c0 + 1, hi); }
   if (g.dir.includes('w')) c0 = snapColumn(m, c0, dx, 1, c1 - 1);
   if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, dy));
   if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, dy)));
@@ -1325,8 +1373,7 @@ function updateResize(e) {
     // step waits the same way (CAP-G4MARGIN.json, CAP-G4MARGIN2.json, CAP-G4MARGIN5.json, CAP-G4MARGIN6.json, BLOCKTYPES.json columnSnap).
     const top = bp === 'mobile' ? hi : hi - 1;
     if (c0 === 1 && d > 0 && c1 < top) {
-      const e = Math.min(top, c1 + snapColumn(m, 1, d, 1, 1 + hi - c1) - 1);
-      c1 = Math.max(lo, e === top && !rightEdgeOut(m, c1, d) ? top - 1 : e);
+      c1 = Math.max(lo, marginEast(m, c1, d, hi, top));
     } else c1 = snapColumn(m, c1, d, lo, hi);
   }
   if (g.dir.includes('w')) c0 = snapColumn(m, c0, dx, 1, Math.max(1, c1 - leastCols));
@@ -2168,6 +2215,7 @@ blockPanel.addEventListener('click', (e) => {
   if (!a || !sel) return;
   if (shapeUi?.kind === 'imagesel' && shapeUi.key === a.dataset.imageSel) { closeShapePop(); return; }
   shapeUi = { kind: 'imagesel', key: a.dataset.imageSel, bid: sel.bid, custom: null, rect: a.getBoundingClientRect() };
+  if (a.dataset.imageSel === 'vblend') a.blur(); // No ring while its list is open (CAP-VBLEND.json list); a pick brings it back.
   renderShapePop();
 });
 // Image Effect (IMAGEEFFECT.json): a tile, a seg, a switch and Shuffle are one undo step each and the
@@ -2743,10 +2791,11 @@ function renderShapePop() {
     shapePop.style.cssText = `left:${P.left + 11}px;top:${shapeUi.rect.top - 5}px`;
   } else if (kind === 'imagesel') {
     // Blend Mode and Lightbox Theme (IMAGEDESIGN.json): a list over the button, 9px to its left.
-    const blend = shapeUi.key === 'blend', list = blend ? BLEND_MODES : ['Light Overlay', 'Dark Overlay'];
-    const cur = blend ? BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')) : b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay';
+    const video = shapeUi.key === 'vblend', blend = video || shapeUi.key === 'blend', list = blend ? BLEND_MODES : ['Light Overlay', 'Dark Overlay'];
+    const on = video ? blockPanel.querySelector('[data-image-sel="vblend"]')?.dataset.cur || 'normal' : b.overlayBlend || 'normal';
+    const cur = blend ? BLEND_MODES.find((m) => blendValue(m) === on) : b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay';
     shapePop.innerHTML = list.map((o) => `<button type="button" role="option" class="${o === cur ? 'is-cur' : ''}" data-image-opt="${o}">${o}</button>`).join('');
-    shapePop.style.cssText = `left:${shapeUi.rect.left - 9}px;top:${shapeUi.rect.top}px;max-height:${innerHeight - shapeUi.rect.top - 8}px;overflow:auto`;
+    shapePop.style.cssText = `left:${shapeUi.rect.left - 9}px;top:${shapeUi.rect.top}px;max-height:${video ? Math.min(220, innerHeight - shapeUi.rect.top - 8) : innerHeight - shapeUi.rect.top - 8}px;overflow:auto`;
   } else if (kind === 'ffmenu') {
     // An option's menu (followUp.menu): its right edge 4 left of the button, 40 below the button's top.
     shapePop.innerHTML = `${ffView.startsWith('ff-fu:') ? '' : '<button type="button" data-ff-pop="follow">Add follow-up question</button>'}<button type="button" class="is-red" data-ff-pop="delete">Delete Option</button>`;
@@ -2840,6 +2889,7 @@ shapePop.addEventListener('click', (e) => {
   if (io) {
     const { key } = shapeUi, v = io.dataset.imageOpt;
     closeShapePop();
+    if (key === 'vblend') { setDesign('blend', v === 'Normal' ? null : blendValue(v)); blockPanel.querySelector('[data-image-sel="vblend"]')?.focus(); return; }
     setShape((b) => {
       if (key === 'blend') { if (v === 'Normal') delete b.overlayBlend; else b.overlayBlend = blendValue(v); }
       else if (v === 'Light Overlay') b.lightboxTheme = 'light'; else delete b.lightboxTheme;
@@ -6122,11 +6172,11 @@ pinPop.addEventListener('input', (e) => {
   const L = lay(B(pinPop.dataset.sid, pinPop.dataset.bid));
   if (!L?.sticky) return;
   const before = JSON.stringify(model);
-  const offset = Number(e.target.value);
-  L.sticky = { anchor: L.sticky.anchor, offset };
+  const offset = Number(e.target.value), unit = L.sticky.unit;
+  L.sticky = { anchor: L.sticky.anchor, offset, ...(unit ? { unit } : {}) }; // It keeps the unit (CAP-U4PINUNIT.json, CAP-U4PINDRAG.json).
   renderSectionDom(pinPop.dataset.sid);
-  commit(before, `Pin offset ${offset}px`);
-  pinPop.querySelector('[data-pin-offset]').value = `${offset}px`;
+  commit(before, `Pin offset ${offset}${unit || 'px'}`);
+  pinPop.querySelector('[data-pin-offset]').value = `${offset}${unit || 'px'}`;
 });
 pinPop.addEventListener('focusout', (e) => { if (e.target.matches('[data-pin-offset]')) applyPinField(e.target, true); });
 // Keys typed here stay here: an arrow on the slider must not nudge the block.
@@ -6525,13 +6575,13 @@ function showBarTip(btn) {
   barTip.style.top = `${q.bottom + (btn.closest('#block-toolbar, #block-panel') ? 11 : btn.classList.contains('tb-icon') ? 11.5 : 6.5)}px`;
 }
 // The block toolbar's tips (parity/findings/TOOLBARS.json tips): not on an unavailable button. They
-// appear between 100 and 400 ms after the hover on the oracle; ours at 200.
+// appear about 517 ms after the pointer gets on the button, by the page's own clock, at full opacity with no fade (CAP-U4TIPS.json).
 let tbTipBtn = null, tbTipTimer = 0;
 function setTbTip(btn) {
   clearTimeout(tbTipTimer);
   barTip.hidden = true;
   tbTipBtn = btn;
-  if (btn && !btn.classList.contains('is-off')) tbTipTimer = setTimeout(() => showBarTip(btn), 200);
+  if (btn && !btn.classList.contains('is-off')) tbTipTimer = setTimeout(() => showBarTip(btn), 500);
 }
 // No tip on the button whose menu is open (parity/findings/S3.json).
 // An option's menu button has its tip too (FORMFIELDS.json, followUp.menu).
@@ -6708,6 +6758,7 @@ function boot() {
       undoStack.length = 0;
       redoStack.length = 0;
       sel = null;
+      stored = null;
       leftRings = null;
       renderAll();
       return true;

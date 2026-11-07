@@ -485,6 +485,67 @@ add('Thickness: one undo step', thick().v === '1px', thick().v);
   q(`fe.setBp('desktop'); await sleep(200); return 'true';`);
 }
 
+// A Video's Blend Mode: a name and a menu (CAP-VBLEND.json, CAP-VBLEND2.json).
+{
+  const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-VBLEND.json', import.meta.url))).reads, R2 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-VBLEND2.json', import.meta.url))).reads;
+  const { sid, id } = await fresh('Video');
+  q(`panel.querySelector('[data-btab="Design"]').click(); await sleep(250); panel.querySelector('[data-image-sel="vblend"]')?.scrollIntoView({ block: 'nearest' }); await sleep(100); return 'true';`);
+  const P = 578; // The oracle's panel left in these reads.
+  const closed = R.closed.controls.find((c) => c.role === 'combobox' && c.label === 'Normal').box;
+  const look = q(`const e = panel.querySelector('[data-image-sel="vblend"]'); if (!e) return 'null'; const c = e.getBoundingClientRect(), p = panel.getBoundingClientRect(), l = e.previousElementSibling.getBoundingClientRect(); return JSON.stringify({ role: e.getAttribute('role'), text: e.textContent.trim(), x: c.left - p.left, w: c.width, h: c.height, label: e.previousElementSibling.textContent, labelX: l.left - p.left });`);
+  add('Video, Blend Mode: a name and a menu', look?.role === 'combobox' && look.text === 'Normal' && look.label === 'Blend Mode' && near(look.labelX, 22, 1), JSON.stringify(look));
+  add('Video, Blend Mode: the menu\'s box', !!look && near(look.x, closed[0] - P, 1) && near(look.w, closed[2], 1) && near(look.h, closed[3], 1), `${JSON.stringify(look)} wants ${closed}`);
+  const gaps = q(`const e = panel.querySelector('[data-image-sel="vblend"]'); if (!e) return 'null'; const t = e.getBoundingClientRect().top, head = [...panel.querySelectorAll('.bp-thead')].find((x) => x.textContent === 'Effects'), a = panel.querySelector('.bp-anchor').getBoundingClientRect(), h = head.firstElementChild.getBoundingClientRect(); return JSON.stringify([t - a.bottom, t - (h.top + h.height / 2)]);`);
+  add('Video, Blend Mode: 74 under the Anchor, 29 under Effects', !!gaps && near(gaps[0], 74, 2) && near(gaps[1], 29, 2), JSON.stringify(gaps));
+  const press = () => q(`const e = panel.querySelector('[data-image-sel="vblend"]'); e?.click(); await sleep(200); return JSON.stringify(!!e);`);
+  const list = () => q(`const c = panel.querySelector('[data-image-sel="vblend"]')?.getBoundingClientRect(), r = pop.getBoundingClientRect(), o = [...pop.querySelectorAll('[role="option"]')]; return JSON.stringify(!pop.hidden && c ? { x: r.left - c.left, y: r.top - c.top, w: r.width, h: r.height, n: o.length, first: o[0]?.textContent, last: o.at(-1)?.textContent, cur: pop.querySelector('.is-cur')?.textContent, row: o[0]?.getBoundingClientRect().height } : null);`);
+  press();
+  const l1 = list(), o0 = R.list.controls.find((c) => c.label === 'Normal').box;
+  add('Video, Blend Mode: no ring while the list is open', q(`return JSON.stringify(getComputedStyle(panel.querySelector('[data-image-sel="vblend"]')).outlineStyle === 'none');`), 'ring');
+  add('Video, Blend Mode: its list over it, 9 left, five rows', !!l1 && near(l1.x, o0[0] - closed[0], 1) && near(l1.y, o0[1] - closed[1], 1) && near(l1.w, o0[2], 1) && near(l1.h, 220, 1) && near(l1.row, 44, 0.5), JSON.stringify(l1));
+  add('Video, Blend Mode: Normal to Luminosity, sixteen', l1?.n === 16 && l1.first === 'Normal' && l1.last === R['list end'].controls.filter((c) => c.role === 'option').at(-1).label && l1.cur === 'Normal', JSON.stringify(l1));
+  q(`pop.querySelector('[data-image-opt="Multiply"]')?.click(); await sleep(300); return 'true';`);
+  const after = () => q(`const e = panel.querySelector('[data-image-sel="vblend"]'); return JSON.stringify(e ? { text: e.textContent.trim(), blend: W.getComputedStyle(block('${id}')).mixBlendMode, focus: document.activeElement === e, open: !pop.hidden, ring: getComputedStyle(e).outlineWidth } : null);`);
+  const a1 = after();
+  add('Video, Blend Mode: Multiply, on the block, closed, and focused', a1?.text === 'Multiply' && a1.blend === R.multiply.block.css.mixBlendMode && a1.focus && !a1.open && a1.ring === '2px', JSON.stringify(a1));
+  press(); q(`pop.querySelector('[data-image-opt="Screen"]')?.click(); await sleep(300); return 'true';`);
+  add('Video, Blend Mode: Screen, a second read', after()?.blend === R2['screen picked'].block.css.mixBlendMode, JSON.stringify(after()));
+  press();
+  const l2 = list(), rows = R2['list on Screen'].controls.filter((c) => c.role === 'option');
+  add('Video, Blend Mode: another current keeps the list from the top', !!l2 && l2.cur === 'Screen' && near(l2.y, rows[0].box[1] - closed[1], 1), JSON.stringify(l2));
+  q(`document.body.click(); await sleep(150); return 'true';`);
+  q(`fe.setBp('mobile'); await sleep(350); fe.select('${sid}', '${id}'); await sleep(250); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(250); panel.querySelector('[data-btab="Design"]').click(); await sleep(200); return 'true';`);
+  add('Video, Blend Mode: a phone has it too', q(`return JSON.stringify(!!panel.querySelector('[data-image-sel="vblend"]'));`), 'none');
+  q(`fe.setBp('desktop'); await sleep(200); return 'true';`);
+  // Others keep one button (CAP-COVERAGE.json Text > Design).
+  await fresh('Text');
+  q(`panel.querySelector('[data-btab="Design"]').click(); await sleep(250); return 'true';`);
+  add('Text, Blend Mode: still one button', q(`const e = panel.querySelector('.bp-blend'); return JSON.stringify(!!e && e.getAttribute('role') === 'button' && !panel.querySelector('[data-image-sel="vblend"]'));`), 'not');
+}
+
+// U4: a Pin slider keeping the unit (CAP-U4PINUNIT.json, CAP-U4PINDRAG.json). The tip's delay is in marks-check.
+{
+  const { id } = await fresh('Quote');
+  q(`fe.select(null); await sleep(150); fe.select(fe.model.sections[1].id, '${id}'); await sleep(250); return 'true';`); // Without the panel, so the bar shows.
+  add('U4: the bar shows', q(`return JSON.stringify(panel.hidden && !document.getElementById('block-toolbar').hidden);`), 'no');
+  const U = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U4PINUNIT.json', import.meta.url))).reads;
+  q(`document.querySelector('#block-toolbar [data-tb="pin"]').click(); await sleep(250); const f = document.querySelector('[data-pin-offset]'); f.focus(); f.value = '5vh'; f.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); f.blur(); await sleep(200); return 'true';`);
+  const pinNow = () => q(`const c = W.getComputedStyle(block('${id}')); return JSON.stringify({ field: document.querySelector('[data-pin-offset]').value, range: document.querySelector('[data-pin-range]').value, top: fe.model.sections[1].blocks.at(-1).layout.desktop.sticky });`);
+  const stepRange = () => { evalJs(S, `(() => { document.querySelector('[data-pin-range]').focus(); return 'true'; })()`); browser(S, 'press', 'ArrowRight'); };
+  stepRange(); await pause(200);
+  const p1 = pinNow();
+  add('U4: a Pin slider key, 5vh to 6vh', p1.field === '6vh' && p1.range === '6' && p1.top.offset === 6 && p1.top.unit === 'vh', JSON.stringify(p1));
+  stepRange(); await pause(200);
+  const p2 = pinNow();
+  add('U4: and to 7vh', p2.field === '7vh' && p2.range === '7' && p2.top.unit === 'vh', JSON.stringify(p2));
+  q(`const r = document.querySelector('[data-pin-range]'); r.value = 96; r.dispatchEvent(new Event('input', { bubbles: true })); await sleep(200); return 'true';`);
+  const p3 = pinNow();
+  add('U4: a drag, to 96vh', p3.field === '96vh' && p3.top.offset === 96 && p3.top.unit === 'vh', JSON.stringify(p3));
+  q(`const r = document.querySelector('[data-pin-range]'); const f = document.querySelector('[data-pin-offset]'); f.focus(); f.value = '20px'; f.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); f.blur(); await sleep(150); r.value = 21; r.dispatchEvent(new Event('input', { bubbles: true })); await sleep(200); return 'true';`);
+  const p4 = pinNow();
+  add('U4: from px it stays px', p4.field === '21px' && p4.top.offset === 21 && !p4.top.unit, JSON.stringify(p4));
+}
+
 writeFileSync(new URL('../parity/t11-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nT11: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);

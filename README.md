@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 64 changes
-  - E7: a linked Button opens a box with Edit, Copy and Remove Link (item 58) ([#354](https://github.com/FRIKKern/fluid-editor/pull/354))
-  - X8: a Text or Quote keeps its rows in a narrowed group ([#353](https://github.com/FRIKKern/fluid-editor/pull/353))
+- **Today** · 72 changes
+  - X8: rows move in on the next gesture after a short Text ([#362](https://github.com/FRIKKern/fluid-editor/pull/362))
+  - T14: resize-check compares every column for a block in the gutter; columnSnap is built ([#361](https://github.com/FRIKKern/fluid-editor/pull/361))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed

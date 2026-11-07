@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 832,
+  "pass": 842,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -11,7 +11,7 @@
     "E7 CAP-E7REOPEN3 Clear, Undo",
     "R2 wider 5"
   ],
-  "total": 840,
+  "total": 850,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -2445,6 +2445,14 @@
       "diffs": []
     },
     {
+      "name": "touch 200,0 after 30 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch 200,0 after 60 ms",
+      "diffs": []
+    },
+    {
       "name": "touch 200,0 after 100 ms",
       "diffs": []
     },
@@ -2490,6 +2498,10 @@
     },
     {
       "name": "touch on a handle 0,240 after 100 ms",
+      "diffs": []
+    },
+    {
+      "name": "touch on a handle -240,0 after 0 ms",
       "diffs": []
     },
     {
@@ -3899,6 +3911,34 @@
     },
     {
       "name": "group drop keeps a written Text short",
+      "diffs": []
+    },
+    {
+      "name": "next gesture after a short Text l1",
+      "diffs": []
+    },
+    {
+      "name": "next gesture after a short Text l3",
+      "diffs": []
+    },
+    {
+      "name": "next gesture after a short Text l6",
+      "diffs": []
+    },
+    {
+      "name": "next gesture after a short Text m2",
+      "diffs": []
+    },
+    {
+      "name": "next gesture after a short Text m4",
+      "diffs": []
+    },
+    {
+      "name": "next gesture after a short Text n2",
+      "diffs": []
+    },
+    {
+      "name": "next gesture after a short Text n5",
       "diffs": []
     }
   ]
