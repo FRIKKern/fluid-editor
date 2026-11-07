@@ -206,6 +206,19 @@ const named = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) 
   }
   return JSON.stringify(out); })()`);
 for (const [n, [txt, w]] of Object.entries(named)) add(`label ${n}`, txt === n && Math.abs(w - F.labels.width[n]) <= 2, `${txt} ${w} oracle ${F.labels.width[n]}`);
+// The other types read (CAP-X13LABELS.json), stand-ins among them. Within 2px too.
+const LBL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-X13LABELS.json', import.meta.url))).reads;
+const labelled = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const out = {}; ${FR}
+  const sid0 = fe.model.sections[${SEC}].id;
+  for (const n of ${JSON.stringify(Object.keys(LBL))}) {
+    const before = new Set(fe.model.sections[${SEC}].blocks.map((b) => b.id));
+    fe.addBlock(sid0, n); await sleep(60);
+    const id = fe.model.sections[${SEC}].blocks.find((b) => !before.has(b.id)).id;
+    const g = d.querySelector('.fe-label[data-for="' + id + '"]'); out[n] = [g.firstElementChild.textContent, g.getBoundingClientRect().width];
+    fe.select(null);
+  }
+  return JSON.stringify(out); })()`);
+for (const [n, [txt, w]] of Object.entries(labelled)) { const want = LBL[n].frameEls[0]; add(`label read ${n}`, txt === want.label && Math.abs(w - want.box[2]) <= 2, `${txt} ${w} oracle ${want.label} ${want.box[2]}`); }
 
 // U6: the top bar's looks, tooltips, keys and the exit dialog (parity/findings/TOPBAR.json).
 const T = JSON.parse(readFileSync(new URL('../parity/findings/TOPBAR.json', import.meta.url)));

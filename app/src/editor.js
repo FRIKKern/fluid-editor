@@ -269,7 +269,8 @@ function drawLabels(sid) {
     setArea(g, lay(b).area);
     const tag = doc.createElement('span');
     tag.className = 'fe-label-tag';
-    tag.textContent = b.label === 'form' ? 'Form' : LABELS[b.type] || 'Block';
+    // A stand-in is a Shape in the model and goes by the name the Add Block menu gave it (CAP-X13LABELS.json).
+    tag.textContent = b.label === 'form' ? 'Form' : b.type === 'shape' && ADD_TYPES.some(([name]) => name === b.label) ? b.label : LABELS[b.type] || 'Block';
     g.append(tag);
     fe.append(g);
   }
