@@ -672,6 +672,14 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     if (how === 'touch') cdp(S, { op: 'touch', from: p, to, steps: 10, holdMs: 120 }); else cdp(S, { op: 'drag', from: p, to, steps: 10, holdMs: 80, ...(how === 'pen' ? { pointerType: 'pen' } : {}) });
     await pause(150); const got = onSel(); groupCases.push({ name: `X2 ${name}`, diffs: got === want ? [] : [`oracle selected ${want}, ours ${got}`] });
   }
+  // A drag on a selected Text: inside its text it opens the editor and stays, under it the block moves (CAP-TEXTPRESS.json).
+  for (const [name, below, moved] of [['on the text', 0, false], ['under the text', 30, true]]) {
+    await load('text', '<p>Some text</p>');
+    const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), t = f.contentDocument.querySelector('.sqs-html-content').getBoundingClientRect(); return JSON.stringify([q.left + t.left + 60, q.top + t.bottom - 4 + ${below}]); })()`);
+    cdp(S, { op: 'drag', from: p, to: [p[0] + 118, p[1]], steps: 12, holdMs: 200 }); await pause(200);
+    const got = evalJs(S, `JSON.stringify({ a: fe.model.sections[0].blocks[0].layout.desktop.area[1], open: !document.getElementById('text-bar').hidden })`);
+    groupCases.push({ name: `X2 selected Text, a drag ${name}`, diffs: [(got.a !== 5) !== moved && `oracle moved ${moved}, ours column ${got.a}`, got.open === moved && `oracle editor ${!moved}, ours ${got.open}`].filter(Boolean) });
+  }
 }
 // X8: Move Forward with a block between the members (CAP-GROUPFORWARD.json): 1, 2, 3 with the first and last selected.
 { const F = JSON.parse(readFileSync(new URL('../parity/findings/CAP-GROUPFORWARD.json', import.meta.url))).reads; const bl = (id, c, z) => ({ id, type: 'shape', label: id, fill: '#ccc', layout: { desktop: { area: [1 + z * 4, c, 4 + z * 4, c + 5], z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1 + z * 4, 2, 4 + z * 4, 8], z, justify: 'flex-start', align: 'flex-start' } } });
