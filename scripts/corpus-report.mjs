@@ -32,10 +32,15 @@ if (existsSync(raw)) {
   const seen = new Set();
   for (const f of readdirSync(raw).filter((x) => x.endsWith('.html'))) {
     const html = readFileSync(new URL(f, raw), 'utf8');
-    for (const m of html.matchAll(/<div class="fe-block fe-block-([\w-]+)"[\s\S]{0,4000}?data-sqsp-block="([\w-]+)"/g)) {
-      if (seen.has(m[1])) continue;
-      seen.add(m[1]);
-      types[m[2]] = (types[m[2]] || 0) + 1;
+    // Each block up to the next one. A Map has no data-sqsp-block, only its component's name.
+    const parts = html.split(/(?=<div class="fe-block fe-block-)/).slice(1);
+    for (const p of parts) {
+      const id = p.match(/^<div class="fe-block fe-block-([\w-]+)"/)?.[1];
+      const type = p.match(/data-sqsp-block="([\w-]+)"/)?.[1]
+        || p.match(/data-definition-name="website\.components\.(\w+)"/)?.[1].replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
+      if (!id || !type || seen.has(id)) continue;
+      seen.add(id);
+      types[type] = (types[type] || 0) + 1;
     }
   }
 }

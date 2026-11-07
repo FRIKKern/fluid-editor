@@ -21,11 +21,14 @@ export const controlsJs = (root) => `(() => { const root = ${root}; window.__ctl
   for (const c of root.children) walk(c); return JSON.stringify(out); })()`;
 
 // What the block looks like, from outside its markup: its box, the box its content fills, how many things show, its words,
-// the first text's style, fills, corners, borders, opacity and transforms. Editor-only parts (handles, overlays) are left out.
+// the first text's style, fills, corners, borders, opacity and transforms, the ::before and ::after of each element counted
+// in. Editor-only parts (handles, overlays) are left out.
 // frame: the page frame's id, sqs-site-frame on the oracle, site-frame on ours.
 export const lookJs = (frame, id) => `(() => { const F = document.getElementById('${frame}'), d = F.contentDocument, W = F.contentWindow;
   const b = d.querySelector('.fe-block[data-block-id="${id}"]'); if (!b) return JSON.stringify(null);
-  const EDITOR = /overlay|resiz|handle|indicator|editing|outline|selection|fe-design/i;
+  // Editor-only parts, by name. Not a word like "editing": with its panel open the oracle's own content wrapper takes
+  // sqs-block-editing, and rounds 1 and 2 dropped the whole content that way.
+  const EDITOR = /\b(sqs-editing-overlay|sqs-block-outline|sqs-block-resizing-outline|sqs-block-resizing-inner|sqs-block-label-tag|sqs-block-editor-button-container|fe-handle|fe-label)\b|fluid-engine-block-editing-indicator/;
   const cls = (e) => String(e.className && (e.className.baseVal ?? e.className));
   const editor = (e) => { for (let p = e; p && p !== b; p = p.parentElement) if (EDITOR.test(cls(p))) return true; return false; };
   const shown = (e) => { const q = e.getBoundingClientRect(); return q.width >= 1 && q.height >= 1 && e.checkVisibility({ opacityProperty: true, visibilityProperty: true }); };
@@ -36,7 +39,9 @@ export const lookJs = (frame, id) => `(() => { const F = document.getElementById
   const B = b.getBoundingClientRect(), r = (v) => Math.round(v);
   const U = leaves.reduce((u, e) => { const q = e.getBoundingClientRect(); return u ? [Math.min(u[0], q.left), Math.min(u[1], q.top), Math.max(u[2], q.right), Math.max(u[3], q.bottom)] : [q.left, q.top, q.right, q.bottom]; }, null) || [B.left, B.top, B.right, B.bottom];
   const t = leaves.find((e) => own(e)), c = t ? W.getComputedStyle(t) : null;
-  const all = [b, ...els], cs = all.map((e) => W.getComputedStyle(e));
+  // ::before and ::after count where they draw something: a fill, a border or a shadow can live there alone.
+  const all = [b, ...els], pseudo = all.flatMap((e) => ['::before', '::after'].map((p) => W.getComputedStyle(e, p)).filter((x) => x.content && x.content !== 'none' && x.display !== 'none'));
+  const cs = [...all.map((e) => W.getComputedStyle(e)), ...pseudo];
   const fills = [...new Set(cs.map((x) => x.backgroundColor).filter((x) => x && x !== 'rgba(0, 0, 0, 0)' && x !== 'transparent'))].sort().slice(0, 6);
   const transforms = [...new Set(cs.map((x) => x.transform).filter((x) => x && x !== 'none'))].sort().slice(0, 4);
   const shadows = cs.filter((x) => x.boxShadow && x.boxShadow !== 'none').length + cs.filter((x) => x.filter && /drop-shadow/.test(x.filter)).length;
@@ -109,3 +114,11 @@ export const findAt = (list, c) => {
 
 // The control's value after the change, to show the gesture took.
 export const findValue = (list, c) => { const at = findAt(list, c); if (!at) return null; const i = Number(at.match(/\d+/)[0]); const x = list.find((y) => y.i === i); return x ? x.value : null; };
+
+// Round 2's two reads: at round 1's moment (the gesture's own wait, then 300 ms, about 1.1 s) and again 3 s after the gesture
+// ended, for a page that redraws late.
+export async function readTwice(look, before) {
+  const t = Date.now();
+  await pause(300); const d1 = lookDiff(before, look());
+  await pause(Math.max(0, 3000 - (Date.now() - t))); return { d1, d3: lookDiff(before, look()) };
+}
