@@ -1,0 +1,2546 @@
+{
+  "item": "CAP-TEXTWIDTH7",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "R2: does a line of text take one row after a width drop, there and back, against predictions. X2: what a drag from the middle of a selected Text does, with Shape, Button and an unselected Text as controls.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "hello"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      58.78,
+      0
+    ],
+    [
+      "read",
+      "f1 hello wider 1 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f1 hello wider 1 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "hello"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      58.78,
+      0
+    ],
+    [
+      "read",
+      "f2 hello wider 1 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f2 hello wider 1 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      -58.78,
+      0
+    ],
+    [
+      "read",
+      "f2 hello narrower 1 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f2 hello narrower 1 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      235.12,
+      0
+    ],
+    [
+      "read",
+      "f3 T3 wider 4 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f3 T3 wider 4 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      -235.12,
+      0
+    ],
+    [
+      "read",
+      "f3 T3 narrower 4 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f3 T3 narrower 4 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      58.78,
+      0
+    ],
+    [
+      "read",
+      "f4 T3 wider 1 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f4 T3 wider 1 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "hello"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      -176.34,
+      0
+    ],
+    [
+      "read",
+      "f5 hello narrower 3 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f5 hello narrower 3 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      529.02,
+      0
+    ],
+    [
+      "read",
+      "f6 T4 wider 9 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f6 T4 wider 9 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      -58.78,
+      0
+    ],
+    [
+      "read",
+      "f6 T4 narrower 1 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f6 T4 narrower 1 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      352.68,
+      0
+    ],
+    [
+      "read",
+      "f7 T3 wider 6 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f7 T3 wider 6 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      117.56,
+      0
+    ],
+    [
+      "read",
+      "f7 T3 wider 2 more held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f7 T3 wider 2 more let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "hello"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "read",
+      "d1 selected",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold",
+          "Done"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      58.78,
+      0
+    ],
+    [
+      "read",
+      "d1 dragged",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold",
+          "Done"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "d1 after",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold",
+          "Done"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      176.34,
+      82
+    ],
+    [
+      "read",
+      "d2 dragged",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold",
+          "Done"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "d2 after",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold",
+          "Done"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "hello"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      58.78,
+      0
+    ],
+    [
+      "read",
+      "d3 not selected",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold",
+          "Done"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "d3 after",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold",
+          "Done"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      58.78,
+      0
+    ],
+    [
+      "read",
+      "d4 Shape selected",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold",
+          "Done"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "hello"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      58.78,
+      0
+    ],
+    [
+      "read",
+      "d5 select verb",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold",
+          "Done"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "d5 after",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold",
+          "Done"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      58.78,
+      0
+    ],
+    [
+      "read",
+      "d6 Button selected",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold",
+          "Done"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ]
+  ],
+  "reads": {
+    "f1 hello wider 1 held": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "5_420",
+          "type": "csr",
+          "desktop": "1/2/3/11",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f1 hello wider 1 let go": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "5_420",
+          "type": "csr",
+          "desktop": "1/2/3/11",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f2 hello wider 1 held": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "1/2/3/11",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f2 hello wider 1 let go": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "1/2/3/11",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f2 hello narrower 1 held": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f2 hello narrower 1 let go": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f3 T3 wider 4 held": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          626.5
+        ],
+        "rows": 7,
+        "rowSizes": "30.1x7",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/2/14",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f3 T3 wider 4 let go": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          626.5
+        ],
+        "rows": 7,
+        "rowSizes": "30.1x7",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/2/14",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f3 T3 narrower 4 held": {
+      "textH": 44.8,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          641.2
+        ],
+        "rows": 7,
+        "rowSizes": "44.8 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/2/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f3 T3 narrower 4 let go": {
+      "textH": 44.8,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f4 T3 wider 1 held": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "1/2/3/11",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f4 T3 wider 1 let go": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          626.5
+        ],
+        "rows": 7,
+        "rowSizes": "30.1x7",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "1/2/2/11",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f5 hello narrower 3 held": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "5_420",
+          "type": "csr",
+          "desktop": "1/2/3/7",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f5 hello narrower 3 let go": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "5_420",
+          "type": "csr",
+          "desktop": "1/2/3/7",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f6 T4 wider 9 held": {
+      "textH": 44.8,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "1/2/3/19",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f6 T4 wider 9 let go": {
+      "textH": 44.8,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "1/2/3/19",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f6 T4 narrower 1 held": {
+      "textH": 44.8,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "1/2/3/18",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f6 T4 narrower 1 let go": {
+      "textH": 44.8,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "1/2/3/18",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f7 T3 wider 6 held": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "5_420",
+          "type": "csr",
+          "desktop": "1/2/3/16",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f7 T3 wider 6 let go": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          626.5
+        ],
+        "rows": 7,
+        "rowSizes": "30.1x7",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "5_420",
+          "type": "csr",
+          "desktop": "1/2/2/16",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f7 T3 wider 2 more held": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          626.5
+        ],
+        "rows": 7,
+        "rowSizes": "30.1x7",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "5_420",
+          "type": "csr",
+          "desktop": "1/2/2/18",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f7 T3 wider 2 more let go": {
+      "textH": 22.4,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          626.5
+        ],
+        "rows": 7,
+        "rowSizes": "30.1x7",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "5_420",
+          "type": "csr",
+          "desktop": "1/2/2/18",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "d1 selected": {
+      "has": {
+        "Write": true,
+        "Bold": false,
+        "Done": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "d1 dragged": {
+      "has": {
+        "Write": true,
+        "Bold": false,
+        "Done": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/3/3/11",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "d1 after": {
+      "has": {
+        "Write": false,
+        "Bold": false,
+        "Done": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/3/3/11",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "d2 dragged": {
+      "has": {
+        "Write": false,
+        "Bold": true,
+        "Done": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "0_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "d2 after": {
+      "has": {
+        "Write": false,
+        "Bold": false,
+        "Done": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "0_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "d3 not selected": {
+      "has": {
+        "Write": true,
+        "Bold": false,
+        "Done": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/3/3/11",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "d3 after": {
+      "has": {
+        "Write": false,
+        "Bold": false,
+        "Done": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/3/3/11",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "d4 Shape selected": {
+      "has": {
+        "Write": false,
+        "Bold": false,
+        "Done": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/3/7/9",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "d5 select verb": {
+      "has": {
+        "Write": true,
+        "Bold": false,
+        "Done": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "0_420",
+          "type": "csr",
+          "desktop": "1/3/3/11",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "d5 after": {
+      "has": {
+        "Write": false,
+        "Bold": false,
+        "Done": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "0_420",
+          "type": "csr",
+          "desktop": "1/3/3/11",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "d6 Button selected": {
+      "has": {
+        "Write": false,
+        "Bold": false,
+        "Done": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "1/3/3/9",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}
