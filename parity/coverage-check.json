@@ -10,7 +10,7 @@
   "proseOnlyOurs": 0,
   "tabs": 48,
   "toolbar": 61,
-  "bars": 16,
+  "bars": 12,
   "kinds": 6,
   "oursOff": 29
  },
@@ -12021,22 +12021,14 @@
   {
    "where": "Hovered section",
    "side": "oracle only",
-   "name": "Open Section Settings"
-  },
-  {
-   "where": "Hovered section",
-   "side": "oracle only",
-   "name": "Edit Site Header"
+   "name": "Edit Site Header",
+   "why": "out of scope, 0005"
   },
   {
    "where": "Hovered section",
    "side": "ours only",
-   "name": "Drag to change the row count"
-  },
-  {
-   "where": "Hovered section",
-   "side": "ours only",
-   "name": "Edit Section"
+   "name": "Drag to change the row count",
+   "why": "the oracle has a row-resize handle here with no name (CAP-U9BARNAMES.json); ours names it"
   },
   {
    "where": "Hovered section, phone",
@@ -12051,42 +12043,38 @@
   {
    "where": "Hovered section, phone",
    "side": "oracle only",
-   "name": "Open Section Settings"
-  },
-  {
-   "where": "Hovered section, phone",
-   "side": "oracle only",
-   "name": "Edit Site Header"
+   "name": "Edit Site Header",
+   "why": "out of scope, 0005"
   },
   {
    "where": "Hovered section, phone",
    "side": "ours only",
-   "name": "Drag to change the row count"
-  },
-  {
-   "where": "Hovered section, phone",
-   "side": "ours only",
-   "name": "Edit Section"
+   "name": "Drag to change the row count",
+   "why": "the oracle has a row-resize handle here with no name (CAP-U9BARNAMES.json); ours names it"
   },
   {
    "where": "Add Section menu",
    "side": "oracle only",
-   "name": "AI Terms"
+   "name": "AI Terms",
+   "why": "out of scope, 0005"
   },
   {
    "where": "Add Section menu",
    "side": "ours only",
-   "name": "Small"
+   "name": "Small",
+   "why": "the oracle has this button with no name (CAP-ADDSECTIONVIEWS.json, CAP-U9BARNAMES.json); ours names it"
   },
   {
    "where": "Add Section menu",
    "side": "ours only",
-   "name": "Medium"
+   "name": "Medium",
+   "why": "the oracle has this button with no name (CAP-ADDSECTIONVIEWS.json, CAP-U9BARNAMES.json); ours names it"
   },
   {
    "where": "Add Section menu",
    "side": "ours only",
-   "name": "Large"
+   "name": "Large",
+   "why": "the oracle has this button with no name (CAP-ADDSECTIONVIEWS.json, CAP-U9BARNAMES.json); ours names it"
   }
  ],
  "kinds": [
