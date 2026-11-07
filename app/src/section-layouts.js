@@ -1,6 +1,7 @@
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): the Layouts panel lists a section's own blocks
 // re-laid out, from the list its mix of blocks has. Mixes not read on the oracle have no list here.
 import { LAYOUTS } from './section-layouts-data.js';
+import { TYPE_LAYOUTS, TYPE_TILES, MIX_LAYOUTS } from './section-layouts-types.js';
 
 const words = (b) => String(b.html || '').replace(/<[^>]+>/g, '').trim();
 const roleOf = (b) => {
@@ -10,12 +11,50 @@ const roleOf = (b) => {
   return null;
 };
 
-// An empty text block and a Shape have no part in a layout: a pick drops them.
-const dropped = (b) => b.type === 'shape' || (b.type === 'text' && !words(b));
+// An empty text block and a Shape have no part in a layout: a pick drops them. A stand-in is a Shape with its type's label.
+const dropped = (b) => (b.type === 'shape' && !b.label) || (b.type === 'text' && !words(b));
+// The oracle's name for a block outside the text, image and button mixes: ours, or a stand-in's label.
+const NAMES = { video: 'Video', accordion: 'Accordion', scrolling: 'Scrolling', code: 'Code', embed: 'Embed', markdown: 'Markdown', map: 'Map' };
+const kindOf = (b) => (b.type === 'shape' ? b.label : NAMES[b.type]) || null;
+// The list a 5 or 10 tile type shares, by place: desktop row start and columns, phone row start and columns,
+// rows past the block's last row, style (CAP-U10PICK-CODE.json, QUOTE, ACCORDION; VIDEO, MAP).
+const SHARED = {
+  5: [[5, 7, 21, 2, 2, 10, 4], [8, 15, 25, 2, 2, 10, 0, { divider: 'soft' }], [3, 3, 13, 2, 2, 10, 4, { theme: 'dark', divider: 'rounded' }], [4, 9, 19, 1, 2, 10, 3], [3, 10, 18, 1, 2, 10, 2, { theme: 'dark' }]],
+  10: [[3, 11, 17, 3, 1, 11, 0], [1, 10, 18, 3, 1, 11, 0], [1, 7, 21, 3, 1, 11, 0], [1, 5, 23, 3, 1, 11, 0], [1, 3, 25, 3, 1, 11, 0], [1, 1, 14, 1, 1, 11, 0], [1, 14, 27, 1, 1, 11, 0], [1, 1, 27, 1, 1, 11, 0], [3, 11, 17, 3, 1, 11, 0, { theme: 'dark', divider: 'soft' }], [1, 3, 25, 3, 1, 11, 0, { theme: 'dark', divider: 'soft' }]],
+};
+// The types whose step from tile to tile matches Code's (5 tiles) or Video's and Map's (10): CAP-U10FAMILYPREDICT.json.
+const FAMILY = new Set(['Markdown', 'Audio', 'Embed', 'Tag Cloud', 'Zola']);
+function typeList(kind, b) {
+  if (TYPE_LAYOUTS[kind]) return TYPE_LAYOUTS[kind];
+  const tiles = TYPE_TILES[kind];
+  if (!tiles) return null;
+  const rows = b.layout.desktop.area[2] - b.layout.desktop.area[0], phone = b.layout.mobile.area[2] - b.layout.mobile.area[0];
+  // Only the families the reads put with Code or Video share a list; the rest show their tiles, not built.
+  if (!FAMILY.has(kind)) return tiles.map((tile) => ({ tile, unbuilt: true }));
+  return SHARED[tiles.length].map(([r, c0, c1, pr, pc0, pc1, pad, style], n) => ({
+    rows: r + rows - 1 + pad, phoneRows: pr + phone - 1, tile: tiles[n], inferred: true,
+    places: { t0: [`${r}/${c0}/${r + rows}/${c1}`, `${pr}/${pc0}/${pr + phone}/${pc1}`] }, ...(style && { style }),
+  }));
+}
 
 // The blocks by role in section order, and the mix's key: 'h1p1i1b1'. No key for an empty section or
 // a block type outside the mixes.
 export function sectionMix(s) {
+  const kept = s.blocks.filter((b) => !dropped(b));
+  // One block of a type outside the mixes, alone: its own list (CAP-U10TYPES1.json to 3). Mixed with others: off, not read.
+  if (kept.length === 1 && kindOf(kept[0])) {
+    const list = typeList(kindOf(kept[0]), kept[0]);
+    return list ? { key: kindOf(kept[0]), by: { t: kept }, list } : null;
+  }
+  // One of those types with other blocks: the mixes read (CAP-U10MIX-*.json), by the blocks' names; the rest off.
+  if (kept.some(kindOf)) {
+    const ROLE = { i: 'Image', b: 'Button', h: 'Heading', p: 'Text' };
+    const key = kept.map((b) => kindOf(b) || ROLE[roleOf(b)]).sort().join('+'), list = MIX_LAYOUTS[key];
+    if (!list) return null;
+    const by = {};
+    for (const b of kept) (by[kindOf(b) ? 't' : roleOf(b)] ||= []).push(b);
+    return { key, by, list };
+  }
   const by = { h: [], p: [], i: [], b: [] };
   for (const b of s.blocks) {
     if (dropped(b)) continue;
@@ -37,6 +76,7 @@ export const layoutTheme = (theme) => THEME_TURN[theme || ''];
 // One pick: every block's areas, the rows, the heading's tag; dropped blocks go. One undo step is the caller's.
 export function applyLayout(s, mix, n, base) {
   const L = mix.list[n];
+  if (L.unbuilt) return;
   s.blocks = s.blocks.filter((b) => !dropped(b));
   for (const r of Object.keys(mix.by)) {
     mix.by[r].forEach((b, k) => {
@@ -54,7 +94,7 @@ export function applyLayout(s, mix, n, base) {
 
 // Which layout the section now shows, for the tile's mark after Undo and Redo: the last one picked if it still fits.
 export function layoutShown(s, mix, last) {
-  const fits = (n) => s.rows?.desktop === mix.list[n].rows && Object.keys(mix.by).every((r) => mix.by[r].every((b, k) => b.layout.desktop.area.join('/') === mix.list[n].places[r + k][0]));
+  const fits = (n) => !mix.list[n].unbuilt && s.rows?.desktop === mix.list[n].rows && Object.keys(mix.by).every((r) => mix.by[r].every((b, k) => b.layout.desktop.area.join('/') === mix.list[n].places[r + k][0]));
   if (last != null && fits(last)) return last;
   const n = mix.list.findIndex((_, k) => fits(k));
   return n < 0 ? null : n;
@@ -65,13 +105,14 @@ const SCALE = 283 / 1600;
 const xOf = (line) => (line <= 1 ? 0 : line >= 27 ? 1600 : 100 + (line - 2) * 58.75);
 function tile(mix, n, on, look) {
   const L = mix.list[n], height = L.tile, { bg, ink } = look(L.style?.theme);
+  if (L.unbuilt) return `<li><button type="button" class="lo-tile lo-unbuilt" disabled aria-label="Layout ${n + 1}, not built" style="height:${height}px;background:${bg}"></button></li>`;
   const pad = Math.max(0, (height / SCALE - L.rows * 41.09) / 2);
   const parts = [];
   for (const r of Object.keys(mix.by)) {
     mix.by[r].forEach((b, k) => {
       const [r0, c0, r1, c1] = area(L.places[r + k][0]);
       const box = `left:${(xOf(c0) * SCALE).toFixed(1)}px;top:${((pad + (r0 - 1) * 41.09) * SCALE).toFixed(1)}px;width:${((xOf(c1) - xOf(c0) - 11) * SCALE).toFixed(1)}px;height:${(((r1 - r0) * 41.09 - 11) * SCALE).toFixed(1)}px`;
-      if (r === 'i') parts.push(`<span class="lo-i" style="${box}"></span>`);
+      if (r === 'i' || r === 't') parts.push(`<span class="lo-i" style="${box}"></span>`);
       if (r === 'b') parts.push(`<span class="lo-b" style="${box}"><i></i></span>`);
       if (r === 'h' || r === 'p') parts.push(`<span class="lo-t lo-${L.tag && r === 'h' ? L.tag : r}" style="${box};color:${ink}">${words(b).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</span>`);
     });

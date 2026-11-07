@@ -690,13 +690,23 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .sqs-quote-block-contents { margin: 16px 0; }
 .sqs-quote-block-contents blockquote { margin: 0; font-size: 24.4px; line-height: 34.16px; }
 .sqs-quote-block-contents .source { font-size: 16px; line-height: 16px; font-weight: 500; text-align: right; }
-.sqs-block-chart .sqs-block-content { padding: 15px 0 5.75px; box-sizing: border-box; }
-.fe-chart svg { display: block; width: 100%; aspect-ratio: 2 / 1; height: auto; }
+.fe-chart { padding: 15px 0 5.75px; }
+.fe-chart svg { display: block; width: 100%; aspect-ratio: 2 / 1; height: auto; overflow: visible; }
 .fe-chart-rule { stroke: currentColor; stroke-opacity: .15; }
-.fe-chart-bar { fill: #777; }
+.fe-chart-text { fill: currentColor; fill-opacity: .45; font-size: 16px; }
+.sqs-block-chart .fe-chart-title { margin: 0; }
+.chart-block-legend { text-align: center; }
+.chart-block-legend .legend-content { display: inline-block; vertical-align: top; padding: 15px 15px 0; }
+.chart-block-legend ul { margin: 0; padding: 0; list-style: none; font-size: 16px; line-height: 28.8px; }
+.chart-block-legend li { display: inline-block; margin-right: 15px; line-height: 22.4px; }
+.chart-block-legend li span { display: inline-block; width: 15px; height: 15px; margin: 3px 5px 0 0; vertical-align: top; }
+.chart-block-caption { margin-top: 15px; }
+.chart-block-caption figcaption { padding-top: 9.6px; border-top: 1px solid rgba(0, 0, 0, .1); font-size: 16px; line-height: 28.8px; }
 .sqs-block-soundcloud .sqs-block-content { position: relative; padding-bottom: 67%; }
 .fe-status { position: absolute; inset: 0 0 auto; box-sizing: border-box; padding: 22px 56px 22px 22px; border: 1px solid rgba(0, 0, 0, .12); border-radius: 2px; background: #fff; color: rgb(62, 62, 62); text-align: left; }
 .fe-status-title { margin-bottom: 11px; font-size: 12px; line-height: 19.8px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
 .fe-status-message { font-size: 11px; line-height: 18.15px; }
 .fe-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding-bottom: 20px; }
-.fe-tiles span { aspect-ratio: 1; background: #d9d4ca; }
+.fe-tile { display: block; color: inherit; text-decoration: none; }
+.fe-tile > span:first-child { display: block; aspect-ratio: 1; background: #d9d4ca; }
+.fe-tile-title { display: block; margin-top: 7px; font-size: 14px; line-height: 22.4px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

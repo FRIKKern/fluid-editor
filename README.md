@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 72 changes
-  - X8: rows move in on the next gesture after a short Text ([#362](https://github.com/FRIKKern/fluid-editor/pull/362))
-  - T14: resize-check compares every column for a block in the gutter; columnSnap is built ([#361](https://github.com/FRIKKern/fluid-editor/pull/361))
+- **Today** · 81 changes
+  - U10: mixes holding one of the 20 types, six read, four picks built ([#373](https://github.com/FRIKKern/fluid-editor/pull/373))
+  - U5: Add Block search by the oracle's 175 strings ([#370](https://github.com/FRIKKern/fluid-editor/pull/370))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed

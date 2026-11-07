@@ -1,0 +1,261 @@
+{
+  "item": "CAP-U10LIST-VIDEO",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "CAP-U10LIST-VIDEO",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Video"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "hover",
+      {
+        "labelTag": true,
+        "btnByText": [
+          "View Layouts"
+        ]
+      }
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "open",
+      {
+        "tiles": true,
+        "tileNames": true
+      }
+    ],
+    [
+      "shot",
+      "open"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "hover": {
+      "labelTag": [
+        "Video"
+      ],
+      "btnByText": {
+        "View Layouts": {
+          "disabled": false,
+          "aria": null,
+          "opacity": 1,
+          "color": "rgb(14, 14, 14)",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        }
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "open": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          98.8
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          103.5
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          148.5
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          177.7
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          207.4
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          145.8
+        ],
+        [
+          "layout-suggestion-slice-6",
+          "Section editor form",
+          null,
+          "",
+          283,
+          145.8
+        ],
+        [
+          "layout-suggestion-slice-7",
+          "Section editor form",
+          null,
+          "",
+          283,
+          247.5
+        ],
+        [
+          "layout-suggestion-slice-8",
+          "Section editor form",
+          null,
+          "",
+          283,
+          117.4
+        ],
+        [
+          "layout-suggestion-slice-9",
+          "Section editor form",
+          null,
+          "",
+          283,
+          226.1
+        ]
+      ],
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            418.8,
+            ""
+          ],
+          [
+            "2",
+            538.3,
+            ""
+          ],
+          [
+            "3",
+            702.8,
+            ""
+          ],
+          [
+            "4",
+            896.5,
+            ""
+          ],
+          [
+            "5",
+            1121.3,
+            ""
+          ],
+          [
+            "6",
+            1300.3,
+            ""
+          ],
+          [
+            "7",
+            1463.5,
+            ""
+          ],
+          [
+            "8",
+            1727,
+            ""
+          ],
+          [
+            "9",
+            1860.3,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

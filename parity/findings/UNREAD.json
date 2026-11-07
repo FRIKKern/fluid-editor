@@ -5,12 +5,12 @@
   "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here. Entries with source CAP-COVERAGE.json come from the coverage walk: parity/coverage-check.json lists them, npm run coverage-check compares.",
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it.",
   "counts": {
-    "total": 158,
-    "yes": 114,
+    "total": 161,
+    "yes": 117,
     "no": 44,
     "read": 114,
     "notPressed": 0,
-    "open": 44
+    "open": 47
   },
   "entries": [
     {
@@ -1680,6 +1680,33 @@
       "safeRead": "no",
       "why": "needs a pick in Site Styles, which reaches the whole site; read only",
       "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "U10",
+      "what": "View Layouts: the picks not read on a type alone: every tile of Chart, Calendar, Bandsintown, Tock, SoundCloud, Menu and Archive, 3 of Instagram's and Flickr's 5, 4 of Scrolling's 6 (ours shows them faded), and the untested tiles of Markdown, Audio, Embed, Tag Cloud and Zola (ours infers them by family).",
+      "source": "CAP-U10LIST-*.json, CAP-U10SHARE-*.json",
+      "safeRead": "yes",
+      "how": "picks on a probe page, unsaved, one type per reload",
+      "lane": "chrome",
+      "state": "open"
+    },
+    {
+      "item": "U10",
+      "what": "View Layouts: a section holding one of the 20 types with other blocks, past the six read (CAP-U10MIX-*.json; ours stays off), and the faded tiles of those six: 5 of 7 for Image + Code and Video + Button, all of Image + Quote's 7, Map + Button's 8 and Map + Code's 8.",
+      "source": "CAP-U10TYPES1.json, CAP-U10MIX-*.json",
+      "safeRead": "yes",
+      "how": "picks on a probe page, unsaved, one type per reload",
+      "lane": "chrome",
+      "state": "open"
+    },
+    {
+      "item": "U10",
+      "what": "View Layouts: the phone rows after a pick on a type alone. Ours takes the last phone row.",
+      "source": "CAP-U10PICK-*.json",
+      "safeRead": "yes",
+      "how": "picks on a probe page, unsaved, one type per reload",
+      "lane": "chrome",
       "state": "open"
     }
   ]

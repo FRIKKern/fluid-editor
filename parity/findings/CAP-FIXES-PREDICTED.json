@@ -142,5 +142,13 @@
     "CAP-G4LAST group w and n": "Right.",
     "CAP-G4LAST margin group se and e": "Wrong on x: I said as from column 2. The one I was less sure of, the left edge's steps from the margin, was right (51). Right on y.",
     "CAP-G4LAST2 phone group": "Right: 14, 56, 105, 153, 201, then a last step that waits (255)."
+  },
+  "predicted8": {
+    "CAP-G4HELD: desktop group, held block inside the box on both sides (box from line 2, held block from a later column), moved left 100 and right 100": "The box rule (ours since #356): right 35, 94, back 93, 34; left the box's left edge goes into the margin as one block's does, at -51 to box line 1, home -50. The held block's rule (ours before) would give -35 there. Right side the same either way.",
+    "CAP-GAPMENU: the stack Design panel's Gap options, pressed by its label": "Opens a menu like the Size menu (CAP-SIZEMENU.json): rows with an icon at 11 and text at 39, a tick and #f2f2f2 on the current row, the toggle white with an up chevron while open. Rows: a px row (20px, current) and Fill. Ours has the two rows with no icon or tick. Less sure: the row names and the menu's width."
+  },
+  "score8": {
+    "CAP-G4HELD": "Right: -51 into the margin, home -50, and 35, 94 to the right.",
+    "CAP-GAPMENU": "Wrong on the look: no icon, no tick, no grey row. Right on the rows, 20px and Fill, and on the white toggle with an up chevron."
   }
 }

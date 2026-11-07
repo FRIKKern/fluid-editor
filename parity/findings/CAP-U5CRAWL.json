@@ -1142,10 +1142,8 @@
     ]
   },
   "answer": "Every string behind Add Block's search, read by typing alone: 5300 queries. Each letter, each pair, each pair grown while its tile stays, each triple the pairs allow, then two strings joined. CAP-U5PHRASES.json finishes the phrases. The list in words predicts all 95 words in CAP-U5WORDS.json, the 450 in CAP-U5PHRASES.json and the 49 in CAP-U5RULE.json, with no misses. 175 strings on 37 tiles. A word inside a longer string on the same tile, like link in content link, is not listed apart. j, digits and marks give nothing, except - on Pricing Plan, and ' and ! on Zola.",
-  "ours": "Ours has one extra word on 5 tiles: Form contact, Pricing Plan cost, Donation contribute, Page Link content, Bandsintown concert. cost and contribute are not on the oracle's list: contribution is. Ours has none of the other words.",
-  "differs": [
-    "Ours has 5 hidden words and the oracle 175 strings, listed in words. For difference 51."
-  ],
+  "ours": "The same 175 strings now, in app/src/search-words.js, by the same rule; cost, contribute and concert are gone. npm run check (check-search.mjs): 594 of 594 queries give the oracle's tiles. Before: 5 words of ours, 90 of the 594 wrong.",
+  "differs": [],
   "inferred": "A string could hide if every one of its triples also sits in another string of the same tile. Checked against 594 queries, none does.",
   "pressed": "Named presses with an on-top check. Typing by real keys in the search and link fields. Unnamed: real clicks on blocks and a drag, the box Edit by Enter since it opens focused. No Save, no upload, no Reset, no tile or row pressed, Copy and Remove Link not pressed."
 }

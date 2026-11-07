@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 845,
+  "pass": 848,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -11,7 +11,7 @@
     "E7 CAP-E7REOPEN3 Clear, Undo",
     "R2 wider 5"
   ],
-  "total": 853,
+  "total": 856,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3050,6 +3050,31 @@
       "known": false
     },
     {
+      "name": "E7 CAP-E7SCORE another long email, on the row",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7SCORE a middling email, on the row",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7SCORE a long number, on the row",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7SCORE a long typed link, on the row",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "E7 CAP-E7SCORE a short typed link, on the row",
+      "diffs": [],
+      "known": false
+    },
+    {
       "name": "E7 text: one link per paragraph, href only until the close",
       "diffs": []
     },
@@ -3746,6 +3771,10 @@
       "diffs": []
     },
     {
+      "name": "Stack Gap menu open",
+      "diffs": []
+    },
+    {
       "name": "Size menu: W at Fill",
       "diffs": []
     },
@@ -3939,18 +3968,6 @@
     },
     {
       "name": "next gesture after a short Text n5",
-      "diffs": []
-    },
-    {
-      "name": "selected on let go: a press, 11 px, let go",
-      "diffs": []
-    },
-    {
-      "name": "selected on let go: a press, 14 px, let go",
-      "diffs": []
-    },
-    {
-      "name": "selected on let go: c 35, 70 px, let go",
       "diffs": []
     }
   ]
