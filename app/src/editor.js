@@ -1214,6 +1214,8 @@ function startResize(e, dir) {
     const members = [sel.bid, ...sel.more];
     const g = prepare(e, 'gresize', { dir, members });
     g.more = sel.more.map((id) => ({ id, orig: [...lay(B(g.sid, id)).area] }));
+    // A Text or a Quote keeps the rows its content needs at the press, however narrow the group gets (CAP-X8TYPES.json, CAP-X8TYPES2.json).
+    g.kept = new Map(members.filter((id) => B(g.sid, id).type === 'text' || B(g.sid, id).standin === 'quote').map((id) => [id, contentRows(B(g.sid, id), g.m)]));
     g.box0 = boxOf([g.orig, ...g.more.map((o) => o.orig)]);
     g.box = g.box0;
     setArea(g.tind, g.box0);
@@ -1261,7 +1263,7 @@ function updateGroupResize(e) {
     const el = blockEl(id);
     setArea(el, [rs0, cs, re, ce]);
     // A text block keeps the rows its content needs by moving its start up.
-    const need = contentRows(B(g.sid, id), m);
+    const need = g.kept.get(id) ?? contentRows(B(g.sid, id), m);
     const rs = re - rs0 < need ? Math.max(r0, re - need) : rs0;
     const t = [rs, cs, Math.max(re, rs + need), ce];
     setArea(el, t);
