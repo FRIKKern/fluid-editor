@@ -1030,10 +1030,14 @@ function onUp(e) {
   // A mouse or pen let go well below the block's old bottom lands on the grid, not on the block's
   // overlay, and the block ends up not selected; touch keeps it, and so does text (HANDLEUP.json).
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type !== 'text' && !g.members && e.clientY - g.bottom0 > LET_GO_BELOW) select(null);
+  // A Text let go off its south-east corner, right of its old right side, is not selected; off its east side it is
+  // (CAP-X2STEPS.json: se 20, 40, 60, 80 and 60 again right, e 60). Left, up, down and the other corners are not read.
+  if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && g.dir === 'se' && e.clientX - g.right0 > LET_GO_RIGHT) select(null);
   if (g.type === 'move' && g.pick) select(g.pick);
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
+const LET_GO_RIGHT = 10; // a Text's south-east corner: 20 did, under 20 is not read
 
 // Widening or narrowing a text block that fits its text keeps it fitted: its rows follow the text
 // (CAP-TEXTWIDTH.json, CAP-TEXTWIDTH2.json). One made taller by hand keeps its rows (HANDLEUP.json).
@@ -1217,10 +1221,7 @@ function updateMove(e) {
   const dx = left - baseLeft;
   // A group steps by its box's edges, not the held block's (CAP-G4LAST2.json): bl is the box's left line, bw its width, sh the held block's offset in it.
   const bl = solo ? c0 : cLo, bw = solo ? w : cHi - cLo, sh = c0 - bl;
-  // A lone block on the right margin track goes left by its right edge, the mirror of the left margin (CAP-X2STEPS.json:
-  // 2, 4, 7, 8 and 10 wide step at -51, -135, -194, -253). A group and a phone are not read.
-  const fromRight = dx < 0 && solo && bp !== 'mobile' && bl + bw === m.colStart.length + 1;
-  let nb = (dx > 0 && bl > 1) || fromRight ? snapColumn(m, bl + bw, dx, cMin - sh + bw, cMax - sh + bw) - bw : snapColumn(m, bl, dx, cMin - sh, cMax - sh);
+  let nb = dx > 0 && bl > 1 ? snapColumn(m, bl + bw, dx, cMin - sh + bw, cMax - sh + bw) - bw : snapColumn(m, bl, dx, cMin - sh, cMax - sh);
   // From the left margin track the last step waits for the right edge to pass the right margin's middle
   // (MARGINSTEPS.json, CAP-G4MARGIN3.json, CAP-G4MARGIN4.json, CAP-G4MARGIN5.json).
   if ((solo || bp === 'mobile') && bl === 1 && nb === cMax - sh && cMax > c0 && !rightEdgeOut(m, bl + bw, dx)) nb = cMax - sh - 1;
@@ -1303,7 +1304,9 @@ function startResize(e, dir) {
   const held = B(gesture.sid, gesture.bid), span = lay(held).area[2] - lay(held).area[0];
   gesture.fits = (held.type === 'text' || held.standin === 'instagram') && !gesture.members && [contentRows(held, gesture.m), 2].includes(span) && span >= contentRows(held, gesture.m);
   if (gesture.fits) { gesture.need0 = contentRows(held, gesture.m); gesture.height0 = textHeight(held); }
-  gesture.bottom0 = blockEl(held.id).getBoundingClientRect().bottom;
+  const q0 = blockEl(held.id).getBoundingClientRect();
+  gesture.bottom0 = q0.bottom;
+  gesture.right0 = q0.right;
 }
 
 const boxOf = (areas) => [Math.min(...areas.map((a) => a[0])), Math.min(...areas.map((a) => a[1])), Math.max(...areas.map((a) => a[2])), Math.max(...areas.map((a) => a[3]))];
