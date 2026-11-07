@@ -38,7 +38,9 @@ const click = async (id, mods = []) => { const p = inTextReads ? onTop(id) : poi
 // The capture's drag, with the block as far down the frame as on the probe page: a long drag runs
 // near the window edge, the page scrolls a little, and it lands a row further (CAP-LONGDRAG).
 const DRAG = { steps: 12, holdMs: 200 };
-evalJs(S, `(() => { document.getElementById('site-frame').contentDocument.body.style.paddingTop = '185px'; return 1; })()`);
+// And as much page below the section: 633px. With less, a scroll to a low block stops short and a long
+// drag starts lower in the window, runs into the edge and lands a row off (CAP-RESIZESCROLL.json tails).
+evalJs(S, `(() => { const b = document.getElementById('site-frame').contentDocument.body; b.style.paddingTop = '185px'; b.style.paddingBottom = '633px'; return 1; })()`);
 const cases = [];
 for (const file of FILES) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url)));
@@ -55,7 +57,8 @@ for (const file of FILES) {
       view = 'desktop';
       evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 2 }, phoneFollows: true, blocks: [] }] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`);
     } else if (op === 'add') {
-      last = evalJs(S, `(() => { fe.addBlock('s', ${JSON.stringify(step[2])}); return JSON.stringify(fe.model.sections[0].blocks.find((b, k, all) => b.layout.desktop.z === Math.max(...all.map((x) => x.layout.desktop.z))).id); })()`);
+      // The capture's add finds its tile with the page back at the top (CAP-DRAGSCROLL.json: 44 and 10 become 0).
+      last = evalJs(S, `(() => { document.getElementById('site-frame').contentWindow.scrollTo(0, 0); fe.addBlock('s', ${JSON.stringify(step[2])}); return JSON.stringify(fe.model.sections[0].blocks.find((b, k, all) => b.layout.desktop.z === Math.max(...all.map((x) => x.layout.desktop.z))).id); })()`);
       await pause(3); quiet = false; press('Escape'); await pause(40);
     } else if (op === 'view') {
       view = step[1] === 'Mobile' ? 'mobile' : 'desktop';

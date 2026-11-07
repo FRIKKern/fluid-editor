@@ -148,6 +148,7 @@ function phoneFollowsMove(s, was) {
 
 function undo() {
   if (!undoStack.length) return;
+  unsettled = null;
   // The Undo button during an edit: what was typed goes, the step before it goes, and the edit stays
   // open (parity/findings/TEXTUNDO.json).
   const ed = editing;
@@ -167,6 +168,7 @@ function undo() {
 }
 function redo() {
   if (!redoStack.length) return;
+  unsettled = null;
   undoStack.push(JSON.stringify(model));
   model = JSON.parse(redoStack.pop());
   note('Redo');
@@ -565,6 +567,7 @@ toolbar.addEventListener('click', (e) => {
 });
 
 function select(next) {
+  if (unsettled && (next?.sid !== unsettled.sid || next?.bid !== unsettled.bid)) settleTextRows();
   sel = next;
   drawSelection();
   updateUi();
@@ -751,9 +754,7 @@ function autoScroll(g) {
     else if (y >= 0 && y <= EDGE_TOP && y + moved >= 0) dir = -1;
     if (!dir) { g.scrolling = false; return; }
     win.scrollBy(0, dir * SCROLL_STEP);
-    if (g.type === 'move') updateMove(g.lastEvent);
-    else if (g.type === 'resize') updateResize(g.lastEvent);
-    else if (g.type === 'gresize') updateGroupResize(g.lastEvent);
+    updateMove(g.lastEvent);
     win.setTimeout(tick, SCROLL_EVERY);
   };
   // At once: a pointer that crosses the edge in one move still scrolls one step (CAP-LONGDRAG).
@@ -926,7 +927,8 @@ function onMove(e) {
   if (gesture.type === 'move') updateMove(e);
   else if (gesture.type === 'resize') updateResize(e);
   else if (gesture.type === 'gresize') updateGroupResize(e);
-  if (gesture.type === 'move' || gesture.type === 'resize' || gesture.type === 'gresize') autoScroll(gesture);
+  // Only a move scrolls the page: a resize held near the edge leaves it where it is (CAP-RESIZESCROLL.json).
+  if (gesture.type === 'move') autoScroll(gesture);
 }
 
 function onUp(e) {
@@ -946,7 +948,7 @@ function onUp(e) {
   growRows(s);
   endGesture();
   renderSectionDom(g.sid);
-  if (g.fits && !/[ns]/.test(g.dir)) fitTextRows(s, b, g);
+  if (g.fits && !/[ns]/.test(g.dir)) { fitTextRows(s, b, g); unsettled = { sid: s.id, bid: b.id, bp }; }
   // A mouse or pen let go well below the block's old bottom lands on the grid, not on the block's
   // overlay, and the block ends up not selected; touch keeps it, and so does text (HANDLEUP.json).
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type !== 'text' && !g.members && e.clientY - g.bottom0 > LET_GO_BELOW) select(null);
@@ -956,13 +958,13 @@ const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does no
 
 // Widening or narrowing a text block that fits its text keeps it fitted: its rows follow the text
 // (CAP-TEXTWIDTH.json, CAP-TEXTWIDTH2.json). One made taller by hand keeps its rows (HANDLEUP.json).
-const NARROWED_BY = 5.5;
 function fitTextRows(s, b, g) {
   const a = lay(b).area, narrowing = g.target[3] - g.target[1] < g.orig[3] - g.orig[1];
-  // Narrowing, the oracle takes the text's height a little before the final width: 5 to 6px wider
-  // fits 20 of 20 drops. Text that then runs over stretches the rows until the next gesture.
+  // Narrowing, the oracle takes the text's height at the width one pointer step before the end: 4.9px
+  // for a column over 12 steps, 19.6 for four (CAP-TEXTWIDTH4.json). Text that then runs over
+  // stretches the rows until the block is let go.
   const c = narrowing ? blockEl(b.id)?.querySelector('.sqs-block-content') : null;
-  if (c) c.style.width = `${c.getBoundingClientRect().width + NARROWED_BY}px`;
+  if (c) c.style.width = `${c.getBoundingClientRect().width + Math.abs(g.stepX || 0)}px`;
   const lost = a[2] - a[0] - Math.max(2, contentRows(b, measure(feEl(s.id))));
   if (c) c.style.width = '';
   if (!lost) return;
@@ -973,6 +975,34 @@ function fitTextRows(s, b, g) {
   // with other blocks lower down; alone, 12 go to 8).
   if (lost > 0 && !narrowing) s.rows[bp] -= before - lowest();
   else { s.rows[bp] = g.rows0; growRows(s); }
+  renderSectionDom(s.id);
+}
+
+// Those rows last until the block is let go: Escape, another block or the next drag. Then they follow
+// the text at its real width (CAP-TEXTWIDTH4.json, CAP-TEXTWIDTH5.json). Time alone does nothing.
+// No undo step of its own. Growing pushes as typing does; falling moves nothing else.
+let unsettled = null;
+function settleTextRows() {
+  const u = unsettled;
+  unsettled = null;
+  const s = u && u.bp === bp ? S(u.sid) : null, b = s?.blocks.find((o) => o.id === u.bid);
+  if (!b) return;
+  const content = blockEl(b.id)?.querySelector('.sqs-block-content');
+  if (!content) return;
+  // Text that runs over stretches the rows, so the pitch is read with the text out, as a form's is.
+  content.style.display = 'none';
+  const free = measure(feEl(s.id));
+  content.style.display = '';
+  const a = lay(b).area, d = Math.max(2, contentRows(b, free)) - (a[2] - a[0]);
+  if (!d) return;
+  if (d > 0) {
+    moveWithText(s, b, a, d);
+    a[2] += d;
+  } else {
+    const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), before = lowest();
+    a[2] += d;
+    s.rows[bp] -= before - lowest();
+  }
   renderSectionDom(s.id);
 }
 
@@ -989,6 +1019,7 @@ function onCancel(e) {
 }
 
 function prepare(e, type, extra = {}) {
+  if (unsettled) settleTextRows();
   const g = gesture?.type === 'pending' ? gesture : { sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, before: JSON.stringify(model) };
   Object.assign(g, { type }, extra);
   gesture = g;
@@ -1201,6 +1232,8 @@ function updateResize(e) {
   let [r0, c0, r1, c1] = g.orig;
   const x = e.clientX;
   const y = e.clientY;
+  g.stepX = x - (g.lastX ?? x);
+  g.lastX = x;
   const held = B(g.sid, g.bid), leastCols = LEAST_COLS[held.label] ?? LEAST_COLS[held.type] ?? 1;
   const q = fe.getBoundingClientRect();
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(v, hi));
