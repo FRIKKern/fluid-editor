@@ -239,6 +239,14 @@ function linkHeadHtml(kind) {
   return `<div class="lk-head"><button type="button" class="lk-pill" aria-expanded="false">${LINK_ICONS[kind]}<span>${name}</span>${CHEVRON}</button>`
     + `<div class="lk-menu" hidden>${rows}<div class="lk-sep" role="separator"></div><button type="button" class="lk-learn">${LINK_ICONS.info}<span>Learn more</span></button></div></div>`;
 }
+// The box a linked Button opens from its toolbar (CAP-E7REOPEN2.json): the link as the panel's row shows it, then Edit, Copy and
+// Remove Link. A page has a tip with its full address; a typed link has one only if the row cuts it short (drawLinkBox), an email or number none.
+export function linkBoxHtml(href, groups, origin) {
+  const sum = linkSummary(href, groups);
+  return `<button type="button" class="lk-box-row${sum.sub ? '' : ' is-one'}" aria-label="${esc(`${sum.title}${sum.sub}`)}"><span class="lk-box-icon">${sum.icon === 'page' ? PAGE_ROW_ICON : LINK_ICONS[sum.icon]}</span><span class="lk-box-name">${esc(sum.title)}</span>${sum.sub ? `<span class="lk-box-sub">${esc(sum.sub)}</span>` : ''}</button>`
+    + (sum.icon === 'page' || sum.icon === 'url' ? `<div class="lk-tip" role="tooltip"${sum.icon === 'page' ? ' data-page' : ''}>${esc(sum.icon === 'page' ? origin + href : href)}</div>` : '')
+    + '<div class="lk-box-acts"><button type="button" data-link-box="edit">Edit</button><button type="button" data-link-box="copy">Copy</button><button type="button" data-link-box="remove">Remove Link</button></div>';
+}
 function urlBodyHtml(href, groups, newTab) {
   const pages = groups.filter((g) => g.pages.length).map((g) => `<div class="lk-set"><div class="lk-group">${esc(g.name)}</div>${g.pages.map((pg) => `<button type="button" class="lk-page" data-href="${esc(pg.href)}" aria-label="${esc(`${pg.label}${pg.href}`)}">${PAGE_ROW_ICON}<span>${esc(pg.label)}</span><span class="lk-path">${esc(pg.href)}</span></button>`).join('')}</div>`).join('');
   return `<div class="lk-row"><input class="lk-input" type="text" placeholder="Enter link, search, or add files" value="${esc(href || '')}"><button type="button" class="lk-clear" aria-label="Clear selected page">×</button></div>`
