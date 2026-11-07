@@ -1750,14 +1750,18 @@ function renderBlockPanel() {
 // it and lets the block go; Escape and a press on its own block leave it open. It sits by the block's right edge, at a
 // height read against the window: 235 to 241 whatever the block's top, so ours holds it to the frame (inferred).
 const dialogPages = () => [...new Set([...(model.header?.nav || []).map((n) => n.label), ...SITE_PAGES])].sort((x, y) => x.localeCompare(y));
+// Edit gives the first control that takes input the focus, with its ring (CAP-T12PALETTES.json: Chart Type on Chart, read
+// once; the others inferred). A row that redraws the dialog keeps the focus on its own control.
+const DIALOG_FIRST = '.dl-row select:not([disabled]), .dl-row input[type="text"]:not([disabled]), .dl-row textarea:not([disabled])';
 function renderDialog(b) {
-  const d = dialogOf(b), key = JSON.stringify([b, dlgTab]);
+  const d = dialogOf(b), key = JSON.stringify([b, dlgTab]), opening = dialogEl.hidden;
   if (dialogEl.dataset.key !== key) {
-    const top = dialogEl.scrollTop;
+    const top = dialogEl.scrollTop, had = dialogEl.contains(document.activeElement) ? document.activeElement.dataset.dl : null;
     dialogEl.innerHTML = dialogHtml(b, dlgTab, dialogPages());
     if (dialogEl.dataset.bid === b.id) dialogEl.scrollTop = top;
     dialogEl.dataset.key = key;
     dialogEl.dataset.bid = b.id;
+    if (had) dialogEl.querySelector(`[data-dl="${had}"]`)?.focus({ preventScroll: true });
   }
   const el = blockEl(b.id), f = frame.getBoundingClientRect(), st = stage.getBoundingClientRect();
   dialogEl.style.width = `${d.w}px`;
@@ -1765,6 +1769,7 @@ function renderDialog(b) {
   dialogEl.style.left = `${f.left - st.left + el.getBoundingClientRect().right + d.dx}px`;
   dialogEl.style.top = `${f.top - st.top + d.top}px`;
   dialogEl.hidden = false;
+  if (opening) dialogEl.querySelector(DIALOG_FIRST)?.focus({ preventScroll: true });
 }
 // A row's change is one undo step. A gallery row that changes the content's height refits the rows to it, as Flickr
 // read four times (CAP-ROWSFLICKR.json); Instagram's one Aspect Ratio read kept a row more (12 to 8, ours 7).
