@@ -1,10 +1,9 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 713,
+  "pass": 715,
   "known": [
     "group south by 4",
     "hold phone, full width -24,12",
-    "hold resize w to the far side -50,0",
     "hold from the right margin track -30,12",
     "hold from the right margin track -60,12",
     "hold from the right margin track -70,12",
@@ -1742,7 +1741,7 @@
     {
       "name": "hold resize w to the far side -50,0",
       "diffs": [],
-      "known": true
+      "known": false
     },
     {
       "name": "hold resize w to the far side -90,0",
