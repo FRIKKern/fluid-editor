@@ -1,0 +1,169 @@
+{
+ "item": "CAP-SHORTPULL-PREDICTED",
+ "from": "our code in this commit, run with these steps before any read of CAP-SHORTPULL. 87's candidate: at a gesture's start (normalize) a Text's need is its exact rows rounded, not rounded up. The stored-rows rule of X8 is unchanged and runs first. 'reads' is the candidate; 'readsBefore' is ours before this commit, on the same steps.",
+ "question": "87: a single-block resize after a group narrowing left a Text short, from kept rows. Two Texts written, widened 2 columns, with a Shape 12 columns right and 1 row down; the group is narrowed by its south-east corner, then one block is pulled 1 row taller by its south handle. a: 4 lines of text, narrowed 6 columns (ours: 6.26 rows of content in 5 kept, 1.26 over), the Text pulled. b: 2 lines, narrowed 8 (4.08 in 3, 1.08 over), the Text pulled. c: 4 lines, narrowed 8 (7.35 in 5, 2.35 over), the Text pulled. shape: a's setup, the Shape pulled. image: a's setup with an Image in the Shape's place, held by its corner, pulled by its south-east corner straight down. Read for each: start, after the drop (with every grid number and the Text's content height), after the pull, after Escape and letting go. Own count. The short Quote is left out until 86 lands. Each cell lists the blocks' desktop areas from ours in DOM order.",
+ "reads": {
+  "a start": [
+   "1/2/6/12",
+   "2/14/8/20"
+  ],
+  "a dropped": [
+   "1/2/6/9",
+   "2/10/8/14"
+  ],
+  "a next": [
+   "1/2/8/9",
+   "2/10/9/14"
+  ],
+  "a next let go": [
+   "1/2/8/9",
+   "2/10/9/14"
+  ],
+  "b start": [
+   "1/2/4/12",
+   "2/14/8/20"
+  ],
+  "b dropped": [
+   "1/2/4/8",
+   "2/9/8/12"
+  ],
+  "b next": [
+   "1/2/6/8",
+   "2/9/9/12"
+  ],
+  "b next let go": [
+   "1/2/6/8",
+   "2/9/9/12"
+  ],
+  "c start": [
+   "1/2/6/12",
+   "2/14/8/20"
+  ],
+  "c dropped": [
+   "1/2/6/8",
+   "2/9/8/12"
+  ],
+  "c next": [
+   "1/2/9/8",
+   "2/9/10/12"
+  ],
+  "c next let go": [
+   "1/2/9/8",
+   "2/9/10/12"
+  ],
+  "shape start": [
+   "1/2/6/12",
+   "2/14/8/20"
+  ],
+  "shape dropped": [
+   "1/2/6/9",
+   "2/10/8/14"
+  ],
+  "shape next": [
+   "1/2/7/9",
+   "2/10/10/14"
+  ],
+  "shape next let go": [
+   "1/2/7/9",
+   "2/10/10/14"
+  ],
+  "image start": [
+   "1/2/6/12",
+   "2/14/8/20"
+  ],
+  "image dropped": [
+   "1/2/6/9",
+   "2/10/8/14"
+  ],
+  "image next": [
+   "1/2/7/9",
+   "2/10/10/14"
+  ],
+  "image next let go": [
+   "1/2/7/9",
+   "2/10/10/14"
+  ]
+ },
+ "readsBefore": {
+  "a start": [
+   "1/2/6/12",
+   "2/14/8/20"
+  ],
+  "a dropped": [
+   "1/2/6/9",
+   "2/10/8/14"
+  ],
+  "a next": [
+   "1/2/9/9",
+   "2/10/9/14"
+  ],
+  "a next let go": [
+   "1/2/9/9",
+   "2/10/9/14"
+  ],
+  "b start": [
+   "1/2/4/12",
+   "2/14/8/20"
+  ],
+  "b dropped": [
+   "1/2/4/8",
+   "2/9/8/12"
+  ],
+  "b next": [
+   "1/2/7/8",
+   "2/9/9/12"
+  ],
+  "b next let go": [
+   "1/2/7/8",
+   "2/9/9/12"
+  ],
+  "c start": [
+   "1/2/6/12",
+   "2/14/8/20"
+  ],
+  "c dropped": [
+   "1/2/6/8",
+   "2/9/8/12"
+  ],
+  "c next": [
+   "1/2/10/8",
+   "2/9/10/12"
+  ],
+  "c next let go": [
+   "1/2/10/8",
+   "2/9/10/12"
+  ],
+  "shape start": [
+   "1/2/6/12",
+   "2/14/8/20"
+  ],
+  "shape dropped": [
+   "1/2/6/9",
+   "2/10/8/14"
+  ],
+  "shape next": [
+   "1/2/8/9",
+   "2/10/10/14"
+  ],
+  "shape next let go": [
+   "1/2/8/9",
+   "2/10/10/14"
+  ],
+  "image start": [
+   "1/2/6/12",
+   "2/14/8/20"
+  ],
+  "image dropped": [
+   "1/2/6/9",
+   "2/10/8/14"
+  ],
+  "image next": [
+   "1/2/8/9",
+   "2/10/10/14"
+  ],
+  "image next let go": [
+   "1/2/8/9",
+   "2/10/10/14"
+  ]
+ }
+}
