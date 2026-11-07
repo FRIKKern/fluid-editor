@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 49 changes
+- **Today** · 50 changes
+  - T12: the older dialogs, Instagram and Flickr; section names, 0 updates, Copy Link ([#341](https://github.com/FRIKKern/fluid-editor/pull/341))
   - Check: npm run check fails on conflict markers, bad findings JSON, SVG path strings and stale UNREAD counts ([#340](https://github.com/FRIKKern/fluid-editor/pull/340))
-  - X8: a group's sizes by the read rule, 138 of 138 fresh ([#339](https://github.com/FRIKKern/fluid-editor/pull/339))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
