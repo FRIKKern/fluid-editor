@@ -1161,11 +1161,8 @@
   "errors": [],
   "leftDirty": true,
   "answer": "A drag of 20px on empty canvas with a block selected: still selected while held, cleared on release, as a click. A box 50px wide touching nothing: the first block keeps its toolbar and handles. A box reaching the second block: the first still keeps them, the second gets thin outlines and its label, with the pointer on it. A box that left the second again and released: the first stays selected.",
-  "ours": "Same on release, both cases. While the box is up ours hides the first block's toolbar and handles from 30px, draws rings on it, and shows no label on the second.",
-  "differs": [
-    "while a box is up with a block selected: oracle keeps that block's toolbar and handles, ours hides them from 30px and rings it",
-    "the touched block's label with the pointer on it: oracle shows it, ours doesn't"
-  ],
+  "ours": "As the oracle: npm run mid-check, box with a selection.",
+  "differs": [],
   "pressed": [
     "Real mouse on empty canvas at 600,420, unnamed. Nothing was under it."
   ]

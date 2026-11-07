@@ -313,25 +313,32 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
 }
 // X11 with real touch events and a pen (TOUCHHOLD.json), on a page that scrolls.
 { const area0 = [1, 2, 7, 8];
-  const load = async () => { evalJs(S, `(async () => { const sec = (id, blocks) => ({ id, theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 24, mobile: 6 }, blocks }); fe.load({ version: 1, title: 't', sections: [sec('s', [{ id: 'k', type: 'shape', label: 'k', fill: '#ccc', layout: { desktop: { area: ${JSON.stringify(area0)}, z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }]), sec('t', []), sec('u', [])] }); fe.select(null); await new Promise((r) => setTimeout(r, 80)); document.getElementById('site-frame').contentWindow.scrollTo(0, 0); window.__c = 0; const d = document.getElementById('site-frame').contentDocument; if (!d.__x11) { d.__x11 = true; d.addEventListener('pointercancel', () => { window.__c++; }, true); } return JSON.stringify(1); })()`); await pause(100); };
+  const load = async () => { evalJs(S, `(async () => { const sec = (id, blocks) => ({ id, theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 24, mobile: 6 }, blocks }); fe.load({ version: 1, title: 't', sections: [sec('s', [{ id: 'k', type: 'shape', label: 'k', fill: '#ccc', layout: { desktop: { area: ${JSON.stringify(area0)}, z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }]), sec('t', []), sec('u', [])] }); fe.select(null); await new Promise((r) => setTimeout(r, 80)); document.getElementById('site-frame').contentWindow.scrollTo(0, 0); window.__c = 0; const d = document.getElementById('site-frame').contentDocument; if (!d.__x11) { d.__x11 = true; d.addEventListener('pointercancel', () => { window.__c++; }, true); d.addEventListener('pointerdown', (e) => { window.__t0 = e.timeStamp; window.__gap = null; }, true); d.addEventListener('pointermove', (e) => { if (window.__gap === null) window.__gap = e.timeStamp - window.__t0; }, true); } return JSON.stringify(1); })()`); await pause(100); };
   const at = (fx, fy) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), b = f.contentDocument.querySelector('.fe-block[data-block-id="k"]').getBoundingClientRect(); return JSON.stringify([q.left + b.left + b.width * ${fx}, q.top + b.top + b.height * ${fy}]); })()`);
   const area = () => evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.find((x) => x.id === 'k').layout.desktop.area.join('/'))`);
   const handles = () => evalJs(S, `JSON.stringify(document.getElementById('site-frame').contentDocument.querySelectorAll('.fe-handle').length)`);
   const cancels = () => evalJs(S, `JSON.stringify(window.__c)`);
   const touch = (p, dx, dy, holdMs = 0) => cdp(S, { op: 'touch', from: p, to: [p[0] + dx, p[1] + dy], steps: 12, holdMs });
   const walk = [[70, 0, 0, '1/3/7/9'], [125, 0, 0, '1/4/7/10'], [150, 0, 0, '1/4/7/10'], [200, 0, 0, '1/2/7/8', true], [200, 0, 30, '1/2/7/8', true], [200, 0, 60, '1/2/7/8', true], [200, 0, 100, '1/5/7/11'], [200, 0, 800, '1/5/7/11'], [0, 125, 0, '4/2/10/8'], [0, 200, 0, '1/2/7/8', true]];
-  for (const [dx, dy, hold, want, cancelled] of walk) {
-    await load(); touch(at(0.5, 0.5), dx, dy, hold); await pause(150);
-    groupCases.push({ name: `touch ${dx},${dy} after ${hold} ms`, diffs: [area() !== want && `oracle ${want}, ours ${area()}`, (cancels() > 0) !== !!cancelled && `cancelled: oracle ${!!cancelled}, ours ${cancels() > 0}`].filter(Boolean) });
-  }
+  // A cancel needs a first move inside the hold. On a busy machine the press can sit past it, and
+  // that run tests nothing: read the real gap, try again, and say so if it never came.
+  const touchCase = async (name, want, cancelled, press) => {
+    for (let tries = 0; tries < 3; tries++) {
+      await press(); await pause(150);
+      if (cancelled && evalJs(S, `JSON.stringify(window.__gap)`) >= 100) continue;
+      groupCases.push({ name, diffs: [area() !== want && `oracle ${want}, ours ${area()}`, (cancels() > 0) !== !!cancelled && `cancelled: oracle ${!!cancelled}, ours ${cancels() > 0}`].filter(Boolean) });
+      return;
+    }
+    console.log(`NOT RUN ${name}: the first move came after the hold, 3 times`);
+  };
+  for (const [dx, dy, hold, want, cancelled] of walk) await touchCase(`touch ${dx},${dy} after ${hold} ms`, want, cancelled, async () => { await load(); touch(at(0.5, 0.5), dx, dy, hold); });
   await load(); { const p = at(0.5, 0.5); touch(p, 0, 0); await pause(150); }
   groupCases.push({ name: 'a tap selects', diffs: [handles() !== 8 && `${handles()} handles`, area() !== '1/2/7/8' && area()].filter(Boolean) });
   touch(at(1, 1), 70, 70); await pause(150); const h1 = area(), s1 = handles(); touch(at(1, 1), 125, 75); await pause(150); const h2 = area();
   groupCases.push({ name: 'a touch on a handle resizes', diffs: [h1 !== '1/2/9/9' && `oracle 1/2/9/9, ours ${h1}`, h2 !== '1/2/11/11' && `oracle 1/2/11/11, ours ${h2}`, s1 !== 8 && 'not selected after'].filter(Boolean) });
   // At 20 px a move a handle needs the hold a body needs (CAP-X11FAST.json).
   for (const [fx, fy, dx, dy, hold, want, cancelled] of [[1, 0.5, 240, 0, 0, '1/2/7/8', true], [1, 0.5, 240, 0, 60, '1/2/7/8', true], [1, 0.5, 240, 0, 100, '1/2/7/12'], [1, 0.5, 240, 0, 300, '1/2/7/12'], [0.5, 1, 0, 240, 0, '1/2/7/8', true], [0.5, 1, 0, 240, 100, '1/2/13/8'], [1, 0.5, -240, 0, 0, '1/2/7/8', true], [1, 0.5, -120, 0, 100, '1/2/7/6']]) {
-    await load(); evalJs(S, `fe.select('s', 'k')`); await pause(80); touch(at(fx, fy), dx, dy, hold); await pause(150);
-    groupCases.push({ name: `touch on a handle ${dx},${dy} after ${hold} ms`, diffs: [area() !== want && `oracle ${want}, ours ${area()}`, (cancels() > 0) !== !!cancelled && `cancelled: oracle ${!!cancelled}, ours ${cancels() > 0}`].filter(Boolean) });
+    await touchCase(`touch on a handle ${dx},${dy} after ${hold} ms`, want, cancelled, async () => { await load(); evalJs(S, `fe.select('s', 'k')`); await pause(80); touch(at(fx, fy), dx, dy, hold); });
   }
   await load(); { const p = at(1, 0); touch([p[0] + 300, p[1] + 60], 70, 70); await pause(150); }
   groupCases.push({ name: 'a touch on the empty grid', diffs: [area() !== '1/2/7/8' && area(), cancels() !== 1 && `${cancels()} cancels`, handles() !== 0 && 'selected'].filter(Boolean) });
@@ -671,6 +678,48 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     fe.select('s', 'a'); click('c', true); await sleep(60); const zs = () => fe.model.sections[0].blocks.map((b) => b.layout.desktop.z).join(); const press = async (a) => { document.querySelector('[data-tb="' + a + '"]').click(); await sleep(80); }; const out = {};
     await press('z+'); out.once = zs(); await press('z+'); out.twice = zs(); await press('z-'); out.back = zs(); return JSON.stringify(out); })()`);
   for (const [name, read, k] of [['forward once', 'forward once', 'once'], ['forward twice', 'forward twice', 'twice'], ['backward once', 'backward once', 'back']]) groupCases.push({ name: `X8 ${name}`, diffs: got[k] === F[read].zs.join() ? [] : [`oracle ${F[read].zs.join()}, ours ${got[k]}`] });
+}
+// With a selection the box leaves it alone until release (CAP-X13SEL.json, CAP-X13SEL2.json to CAP-X13SEL5.json), with the real mouse.
+{ const shape = (id, c) => ({ id, type: 'shape', label: id, fill: '#ccc', layout: { desktop: { area: [1, c, 7, c + 6], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 8], z: 1, justify: 'flex-start', align: 'flex-start' } } });
+  const sec = (id, blocks) => ({ id, theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 10, mobile: 8 }, blocks });
+  const load = async (cols) => { evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: ${JSON.stringify([sec('s', Object.entries(cols).map(([id, c]) => shape(id, c))), sec('n', [])])} }); await new Promise((r) => setTimeout(r, 120)); document.getElementById('site-frame').contentWindow.scrollTo(0, 0); return 1; })()`); await pause(120); };
+  const rect = (id) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), r = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect(); return JSON.stringify({ l: q.left + r.left, r: q.left + r.right, t: q.top + r.top, b: q.top + r.bottom }); })()`);
+  const look = () => evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument, t = document.getElementById('block-toolbar'); return JSON.stringify({ ids: [...d.querySelectorAll('.fe-block[data-is-selected="true"]')].map((e) => e.dataset.blockId).sort().join(), bar: t.hidden ? '' : t.classList.contains('is-group') ? 'group' : 'one', handles: d.querySelectorAll('.fe-handle').length, label: [...d.querySelectorAll('.fe-label.is-on')].map((e) => e.dataset.for).join() }); })()`);
+  const click = async (x, y, mods = []) => { mouse(S, 'move', x, y, { mods }); await pause(30); mouse(S, 'down', x, y, { buttons: 1, mods }); mouse(S, 'up', x, y, { mods }); await pause(90); };
+  const hold = async (x, y) => { mouse(S, 'move', x, y); await pause(30); mouse(S, 'down', x, y, { buttons: 1 }); await pause(30); };
+  const to = async (x, y) => { mouse(S, 'move', x, y, { buttons: 1 }); await pause(60); };
+  const up = async (x, y) => { mouse(S, 'up', x, y); await pause(90); };
+  const box = (name, got, want) => groupCases.push({ name: `box with a selection: ${name}`, diffs: Object.entries(want).filter(([k, v]) => got[k] !== v).map(([k, v]) => `${k}: oracle ${JSON.stringify(v)}, ours ${JSON.stringify(got[k])}`) });
+  const one = (id, handles = 8) => ({ ids: id, bar: 'one', handles });
+  const group = (ids) => ({ ids, bar: 'group', handles: 8 });
+  const rings = (ids) => ({ ids, bar: '', handles: 0 });
+  const two = { l: 2, r: 14 }, three = { l: 2, m: 8, r: 14 };
+  const select = async (...ids) => { const a = rect(ids[0]); await click(a.l + 20, a.t + 20); for (const id of ids.slice(1)) { const q = rect(id); await click(q.l + 20, q.t + 20, ['Shift']); } };
+  let L, R, y, x;
+  await load(two); await select('l'); L = rect('l'); R = rect('r'); y = (L.t + L.b) / 2; x = (L.r + R.l) / 2;
+  await hold(x, y); await to(x + 50, y); box('touching nothing, held', look(), { ...one('l'), label: '' });
+  await to(R.l + 40, y); box('on another, the pointer on it', look(), { ids: 'l,r', bar: 'one', handles: 8, label: 'r' });
+  await to(R.r + 40, y); box('past another', look(), { ids: 'l,r', bar: 'one', handles: 8, label: '' });
+  await to(x + 50, y); box('off another', look(), { ...one('l'), label: '' });
+  await up(x + 50, y); box('off another, released', look(), one('l'));
+  await hold(x, y); await to(L.r - 40, y); box('on itself, held', look(), { ...one('l'), label: '' }); await up(L.r - 40, y); box('on itself, released', look(), one('l'));
+  await hold(x, y); await to(R.l + 40, y); await up(R.l + 40, y); box('on another, released', look(), one('r'));
+  await load(two); await hold(x, y); await to(R.l + 40, y); box('nothing selected, held', look(), { ...rings('r'), label: 'r' }); await up(R.l + 40, y); box('nothing selected, released', look(), one('r'));
+  await load(three); await select('l'); { const M = rect('m'), Y = L.b + 30; await hold(M.l + 60, Y); await to(M.l - 30, L.b - 30); await up(M.l - 30, L.b - 30); box('one, on itself and another', look(), group('l,m')); }
+  await load(two); await select('l', 'r'); box('a group', look(), group('l,r'));
+  await hold(x, y); await to(x + 50, y); box('a group, touching nothing, held', look(), { ...group('l,r'), label: '' }); await to(R.l + 40, y); box('a group, on a member, held', look(), group('l,r')); await to(x + 50, y); await up(x + 50, y);
+  box('a group, touching nothing, released', look(), rings('l,r'));
+  evalJs(S, `(() => { const f = document.getElementById('site-frame').contentDocument; for (const t of [document, f]) t.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 1; })()`);
+  await pause(60); box('its rings stay on Escape', look(), rings('l,r'));
+  await click(x, L.b + 40); box('a click on empty ends the rings', look(), rings(''));
+  await select('l', 'r'); await hold(x, y); await to(x + 50, y); await up(x + 50, y); await click(R.l + 20, R.t + 20); box('a click on a block after the rings', look(), one('r'));
+  await select('r', 'l'); await hold(x, y); await to(x + 50, y); await up(x + 50, y); await hold(x, y); await to(x + 50, y); box('an empty box after the rings, held', look(), rings('l,r')); await up(x + 50, y); box('an empty box after the rings', look(), rings(''));
+  await select('l', 'r'); await hold(x, y); await to(x + 50, y); await up(x + 50, y); await hold(x, y); await to(R.l + 40, y); box('a box on a block after the rings, held', look(), { ...rings('l,r') }); await up(R.l + 40, y); box('a box on a block after the rings', look(), one('r'));
+  await select('l', 'r'); await hold(x, y); await to(R.l + 40, y); await up(R.l + 40, y); box('a group, on a member, released', look(), group('l,r'));
+  await click(x, L.b + 40); await select('l', 'r'); await hold(x, y); await to(x + 20, y); box('a group, under 30px, held', look(), group('l,r')); await up(x + 20, y); box('a group, under 30px, released', look(), rings(''));
+  await load(three); await select('l', 'r'); { const M = rect('m'), Y = L.b + 30; await hold((M.l + M.r) / 2, Y); await to((M.l + M.r) / 2, L.b - 30); box('a group, on another, held', look(), { ids: 'l,m,r', bar: 'group', handles: 8 }); await up((M.l + M.r) / 2, L.b - 30); box('a group takes in another', look(), group('l,m,r')); }
+  await load(two); await select('l'); { const n = evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), r = f.contentDocument.querySelector('[data-section-id="n"]').getBoundingClientRect(); return JSON.stringify(q.top + r.top + 40); })()`); await hold(x, n); await to(x + 50, n); box('a box in the next section, held', look(), one('l')); await up(x + 50, n); box('a box in the next section, released', look(), one('l')); }
+  await click(x, L.b + 40); evalJs(S, `fe.select(null)`);
 }
 // S4 on phones (CAP-S4PHONE.json), with the real mouse: the handle, 90 down, 150 up, desktop stays, a click does nothing.
 { const T = JSON.parse(readFileSync(new URL('../parity/findings/CAP-S4PHONE.json', import.meta.url))).reads;
