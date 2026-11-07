@@ -345,6 +345,22 @@ export const RECIPES = {
       ['exit'], ['enter'], ...BTN, ...SET('a.com'), ...OPEN, ['press', 'Tab'], ['pause', 200], ['press', 'Enter'], ['pause', 600], ...R('typed, by keys to Edit'), ['click', 'Clear selected page'], ['pause', 500], ['clickAt', 1300, 700], ['pause', 500], ...R('typed, Clear, press away'), ...AGAIN, ...R('typed, Clear, press away, reopened'), ...LEAVE,
     ];
   })() },
+  'CAP-E7SCORE': { page: 'Gestures Probe', question: 'E7: the frozen score of the tip rule as merged in #354: long and short emails and numbers, long and short typed links, under the mouse. No press on the page: closed by Escape. Predicted first.', steps: (() => {
+    const OPEN = [['click', 'Open link editor popover'], ['pause', 600]];
+    const R = (name) => [['read', name, { controls: true, checks: true, focused: true, looks: [100, 284, 440, 420] }], ['read', `${name}, above`, { looks: [100, 190, 440, 284] }]];
+    const BTN = [['blank'], ['add', 0, 'Button'], ['press', 'Escape'], ['select', 0, 0], ['pause', 400]];
+    const LEAVE = [['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300]];
+    const KIND = (kind) => [...OPEN, ['click', 'URL'], ['pause', 300], ['click', kind], ['pause', 400]];
+    const ROW = [['moveAt', 260, 320], ['pause', 800]];
+    const TYPED = (name, link) => [['exit'], ['enter'], ...BTN, ...OPEN, ['keysFast', link], ['press', 'Enter'], ['pause', 500], ...OPEN, ...ROW, ...R(name), ...LEAVE];
+    return [
+      ['enter'], ...BTN, ...KIND('Email'), ['fill', 'To', 'a-second-quite-long-address-for-the-box@some-long-domain.com'], ['pause', 400], ['press', 'Escape'], ['pause', 400], ...OPEN, ...ROW, ...R('another long email, on the row'), ...LEAVE,
+      ['exit'], ['enter'], ...BTN, ...KIND('Email'), ['fill', 'To', 'first.last.name@domain-name.no'], ['pause', 400], ['press', 'Escape'], ['pause', 400], ...OPEN, ...ROW, ...R('a middling email, on the row'), ...LEAVE,
+      ['exit'], ['enter'], ...BTN, ...KIND('Phone'), ['fill', 'Enter phone number', '12345678901234567890123456789012'], ['pause', 400], ...OPEN, ...ROW, ...R('a long number, on the row'), ...LEAVE,
+      ...TYPED('a long typed link, on the row', 'another-long-typed-address-that-will-not-fit-in-the-row.com'),
+      ...TYPED('a short typed link, on the row', 'b.no'),
+    ];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],
