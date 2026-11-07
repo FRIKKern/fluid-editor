@@ -1,6 +1,7 @@
 // The style packs of the Site Styles popovers, measured on the oracle (parity/findings/SITESTYLES2.json):
 // the values each pack gave the site's page, and how its tile draws. Colors are the palette's ten
 // hsl values in the order of VARS. Fonts load from Google Fonts by name, as Poppins does (O2).
+import { assignCss } from './assign-styles.js';
 import { brightness } from './color-math.js';
 import { themeRowsCss } from './theme-rows.js';
 import { tierCss } from './button-tiers.js';
@@ -97,6 +98,14 @@ export function baseSize(styles) {
 const family = (f) => `"${f}"`;
 const fontUrl = (f, w) => `https://fonts.googleapis.com/css2?family=${f.replace(/ /g, '+')}${w && w !== 400 ? `:wght@${w}` : ''}&display=swap`;
 export const fontLink = (f, w) => `<link rel="stylesheet" data-fe-site-styles href="${fontUrl(f, w)}">`;
+// The font list's names (U12, CAP-U12FONTLIST.json). A stack is the visitor's own fonts, with nothing to load. A name loads every weight the
+// service has, since asking for one it lacks fails, and 6 names have no 400. 15 of the 1493 aren't served: their row and value work, and the page falls back.
+export const isFontStack = (f) => f.includes(',');
+export const fontName = (f) => f.split(',')[0].replace(/"/g, '').trim();
+export const fontFamilyCss = (f) => (isFontStack(f) ? f : `"${fontName(f)}", sans-serif`);
+const ALL_WEIGHTS = [100, 200, 300, 400, 500, 600, 700, 800, 900].flatMap((w) => [w, `${w}i`]).join(',');
+export const fontListLink = (f) => `<link rel="stylesheet" data-fe-site-styles href="https://fonts.googleapis.com/css?family=${fontName(f).replace(/ /g, '+')}:${ALL_WEIGHTS}&display=swap">`;
+export const pickedFonts = (styles) => [...new Set(Object.values(styles?.type || {}).map((t) => t?.family).filter(Boolean))];
 
 // Headings, Paragraphs and Spacing rows (parity/findings/CAP-SITESTYLEROWS.json): each is one of the
 // page's own values. Line Height in em, Letter Spacing in rem for headings and em for paragraphs, sizes as the value in the size formula.
@@ -112,6 +121,7 @@ function typeCss(styles) {
     if (h.lh != null) vars += ` --heading-font-line-height: ${h.lh}em;`;
     if (h.ls != null) vars += ` --heading-font-letter-spacing: ${h.ls}rem;`;
     for (const n of [1, 2, 3, 4]) if (h[`s${n}`] != null) vars += ` --heading-${n}-size-value: ${h[`s${n}`]};`;
+    if (h.family) out += `h1, h2, h3, h4, .header-title { font-family: ${fontFamilyCss(h.family)}; }\n`;
     const rule = [h.weight ? `font-weight: ${h.weight};` : '', h.style ? `font-style: ${h.style.toLowerCase()};` : '', h.tt ? `text-transform: ${TT[h.tt]};` : ''].join(' ').trim();
     if (rule) out += `h1, h2, h3, h4, .header-title { ${rule} }\n`;
     if (h.lh != null || h.ls != null) out += `.header-title { ${h.lh != null ? `line-height: ${h.lh}em;` : ''} ${h.ls != null ? `letter-spacing: ${h.ls}rem;` : ''} }\n`;
@@ -122,6 +132,7 @@ function typeCss(styles) {
     if (p.s1 != null) vars += ` --large-text-size-value: ${p.s1};`;
     if (p.s2 != null) vars += ` --normal-text-size-value: ${p.s2};`;
     if (p.s3 != null) vars += ` --small-text-size-value: ${p.s3};`;
+    if (p.family) out += `body, .header-nav-item, .header-action { font-family: ${fontFamilyCss(p.family)}; }\n`;
     const rule = [p.weight ? `font-weight: ${p.weight};` : '', p.style ? `font-style: ${p.style.toLowerCase()};` : '', p.tt ? `text-transform: ${TT[p.tt]};` : ''].join(' ').trim();
     if (rule) out += `body { ${rule} }\n`;
     // The header links follow Paragraphs on the oracle: the same line height, letter spacing and size.
@@ -133,7 +144,7 @@ function typeCss(styles) {
   for (const k of ['primary', 'secondary', 'tertiary']) {
     const t = styles?.type?.[k];
     if (!t) continue;
-    const rule = [t.weight ? `font-weight: ${t.weight};` : '', t.style ? `font-style: ${t.style.toLowerCase()};` : '', t.ls != null ? `letter-spacing: ${t.ls}em;` : '', t.tt ? `text-transform: ${TT[t.tt]};` : '', t.size != null ? `font-size: calc((${t.size} - 1) * 1.2vw + 1rem);` : ''].join(' ').trim();
+    const rule = [t.family ? `font-family: ${fontFamilyCss(t.family)};` : '', t.weight ? `font-weight: ${t.weight};` : '', t.style ? `font-style: ${t.style.toLowerCase()};` : '', t.ls != null ? `letter-spacing: ${t.ls}em;` : '', t.tt ? `text-transform: ${TT[t.tt]};` : '', t.size != null ? `font-size: calc((${t.size} - 1) * 1.2vw + 1rem);` : ''].join(' ').trim();
     out += `.sqs-button-element--${k}.sqs-block-button-element { ${rule} }\n`;
   }
   const m = styles?.type?.misc;
@@ -182,7 +193,7 @@ export function siteStylesCss(styles) {
     if (z.bw) css += `.sqs-block-button-element { font-weight: ${z.bw}; }\n`;
     if (z.bls) css += `.sqs-block-button-element { letter-spacing: ${z.bls}em; }\n`;
   }
-  css += typeCss(styles);
+  css += typeCss(styles) + assignCss(styles);
   if (button) {
     css += `.sqs-block-button-element { border-radius: ${button.radius}; border: ${button.border}px solid var(--button-bg, #000); padding: ${button.pad}; }\n`;
   }
@@ -194,5 +205,6 @@ export function siteStylesHead(styles) {
   const { font } = resolveSiteStyles(styles);
   const css = siteStylesCss(styles);
   if (!css) return '';
-  return `${font ? fontLink(font.h, font.hw) + fontLink(font.p, font.pw) : ''}<style data-fe-site-styles>${css}</style>`;
+  const picked = pickedFonts(styles).filter((f) => !isFontStack(f)).map(fontListLink).join('');
+  return `${font ? fontLink(font.h, font.hw) + fontLink(font.p, font.pw) : ''}${picked}<style data-fe-site-styles>${css}</style>`;
 }
