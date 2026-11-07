@@ -1,0 +1,38 @@
+{
+ "item": "P3",
+ "capturedAt": "2026-11-07",
+ "question": "Is the moved top of the Edit Section panel a flat value per frame, not a slope with H? Predictions for three frames not read before, pushed before any read at those frames. A question, no build until they hold.",
+ "from": "CAP-P3FRAME.json readTops, whole dialog box. From fresh, flat at 150 and up: 645 at frame 1145, 1013 at frame 1745. Reopened at 300, flat at 450 and up: 724 at window 1200. CAP-P3EDGE.json, the 421 part: 579 at window 1000, which is 524 for the whole dialog.",
+ "rule": {
+  "flat from fresh": "Inferred from two frames. top = 0.6133 x frame - 57.3, and no lower than window - 476. Against frame 945, read already: the line gives 522, the whole dialog read 513 in one run and 435 in another, so runs there differ and this line may fail.",
+  "flat reopened": "Inferred from two windows. top = window - 476: the dialog's bottom on the window's bottom."
+ },
+ "hit": "Within 10 px of the top, whole dialog box, as panelCss reads it.",
+ "predictions": {
+  "window 900, frame 845, step by step": {
+   "150": 424,
+   "200": 424
+  },
+  "window 900, frame 845, reopened at 300": {
+   "450": 424,
+   "500": 424
+  },
+  "window 1500, frame 1445, step by step": {
+   "150": 829,
+   "200": 829
+  },
+  "window 1500, frame 1445, reopened at 300": {
+   "450": 1024,
+   "500": 1024
+  },
+  "window 2100, frame 2045, step by step": {
+   "150": 1197,
+   "200": 1197
+  },
+  "window 2100, frame 2045, reopened at 300": {
+   "450": 1624,
+   "500": 1624
+  }
+ },
+ "count": "Filled after the read, no refit first."
+}
