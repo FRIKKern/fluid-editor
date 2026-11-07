@@ -124,8 +124,9 @@ export function layoutsPanelHtml(mix, picked, look) {
   return `<div class="lo-head">Layouts</div><ul class="lo-list">${mix.list.map((_, n) => tile(mix, n, picked === n, look)).join('')}</ul>`;
 }
 
-// Opening, it sits where Edit Section's panel does (sectionPanelTop). The first pick in a short section
-// moves it down once, and it stays there until it closes (CAP-VIEWLAYOUTS.json, panelTop.afterPick).
-export const layoutsPickTop = ({ top, secTop, h }) => (h < 644 ? Math.max(top, secTop + 140) : top);
+// The panel after a pick: up to where it would open on the section as it now is, never down, and never above the
+// section's top + 140: 195 from 562 and 603.1 tall, 248 after a pick made it 667.6 (CAP-VIEWLAYOUTS.json afterPick,
+// CAP-U10READ4.json, CAP-U10READ6.json; 33 of 34 seen reads within 1.5 px, a reopen at 681.4 with a divider 3 px off).
+export const layoutsPickTop = ({ top, secTop, fresh }) => Math.max(secTop + 140, Math.min(top, fresh));
 
 export const sectionLook = (s) => ({ theme: s.theme, height: s.height, divider: s.divider, dividerShape: s.dividerShape, dividerStroke: s.dividerStroke });
