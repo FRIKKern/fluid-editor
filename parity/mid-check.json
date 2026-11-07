@@ -10,7 +10,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 760,
+  "total": 761,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3510,6 +3510,12 @@
     {
       "name": "group drop by the rule u3",
       "diffs": []
+    },
+    {
+      "name": "group drop keeps a written Text short",
+      "diffs": [
+        "block 0: oracle 1/2/5/9, ours 1/2/6/9"
+      ]
     }
   ]
 }
