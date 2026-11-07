@@ -4404,16 +4404,25 @@ const ADD_TYPES = [
 ];
 // A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6, CAP-X6FLOORSPHONE.json, CAP-T14CONTROL.json, CAP-T14LAND.json, CAP-T14HEIGHTS2.json).
 const PHONE_ROWS = { Accordion: 5, Scheduling: 5, Flickr: 5, SoundCloud: 5, Archive: 8 };
-// A new block lands by how far its section's top sits above the frame; past the section's last row it
-// lands on row 1, with the frame back at the section (CAP-T14FRAME.json, CAP-T14FRAME2.json: inferred, 8 of 8
-// on predictions). Read on desktop only, so the phone view stays on row 1.
+// A new block lands by how far its section's top sits above the frame; past the section's last row it lands on
+// row 1, and the frame goes so the block's middle is at its middle, or as near as the page allows (CAP-T14FRAME.json,
+// CAP-T14FRAME2.json, CAP-T14PLACE.json, CAP-T14BACK.json: inferred, on predictions). Read on desktop only, so the
+// phone view stays on row 1.
+let landedPast = false;
 function landingRow(s) {
   const el = sectionEl(s.id), fe = feEl(s.id);
   if (bp !== 'desktop' || !el || !fe) return 1;
   const above = -el.getBoundingClientRect().top, row = 1 + Math.max(0, Math.floor(above / measure(fe).pitch));
   if (row <= s.rows.desktop) return row;
-  win.scrollBy({ top: -above, behavior: 'instant' });
+  landedPast = true;
   return 1;
+}
+// After the new block is drawn.
+function frameToLanded(bid) {
+  if (!landedPast) return;
+  landedPast = false;
+  const c = blockEl(bid)?.getBoundingClientRect();
+  if (c) win.scrollBy({ top: c.top + c.height / 2 - win.innerHeight / 2, behavior: 'instant' });
 }
 // A new Line sits in the middle of its block, in each view (CAP-U4LINE.json).
 const NEW_ALIGN = { Line: 'center', Shape: 'center' }; // CAP-S3ALIGN.json start
@@ -4776,6 +4785,7 @@ panel.addEventListener('click', (e) => {
   if (btn.dataset.act === 'stack') stackBlocks();
   if (btn.dataset.act === 'add') addBlock(sel.sid, btn.dataset.v);
   renderSectionDom(sel.sid);
+  frameToLanded(sel.bid);
   commit(before, `${btn.textContent} on ${b.id}`);
 });
 
@@ -5213,6 +5223,7 @@ addMenu.addEventListener('click', (e) => {
   addBlock(sid, b.dataset.add);
   addMenu.hidden = true;
   renderSectionDom(sid);
+  frameToLanded(sel.bid);
   commit(before, `Added ${b.dataset.add} to ${sid}`);
 });
 // ---------- floating menus: Add Block, Layers, the block context menu ----------
@@ -6386,7 +6397,7 @@ function boot() {
     select: (sid, bid) => { select(sid ? { sid, bid } : null); return true; },
     edit: (sid, bid) => { startTextEdit(sid, bid); return !!editing; },
     finishEdit: () => { finishTextEdit(); return true; },
-    addBlock: (sid, name) => { addBlock(sid, name); renderSectionDom(sid); return true; },
+    addBlock: (sid, name) => { addBlock(sid, name); renderSectionDom(sid); frameToLanded(sel.bid); return true; },
   };
 }
 
