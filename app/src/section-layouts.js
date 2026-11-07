@@ -89,7 +89,8 @@ export function applyLayout(s, mix, n, base) {
   s.rows = { ...s.rows, desktop: L.rows, mobile: L.phoneRows };
   // A few layouts set the section's theme, divider or height; the rest leave what it had on opening.
   // A divider a layout sets has no stroke (CAP-U10UNDO.json, the section's context reads style none).
-  Object.assign(s, base, L.style?.theme && { theme: layoutTheme(base.theme) }, L.style?.height && { height: L.style.height }, L.style?.divider && { divider: true, dividerShape: L.style.divider, dividerStroke: 'none' });
+  // Its flips go off too, and a layout with no divider of its own puts the start's back (CAP-U10FLIP.json: Flip X; Flip Y inferred).
+  Object.assign(s, base, L.style?.theme && { theme: layoutTheme(base.theme) }, L.style?.height && { height: L.style.height }, L.style?.divider && { divider: true, dividerShape: L.style.divider, dividerStroke: 'none', dividerFlip: undefined, dividerFlipY: undefined });
 }
 
 // Which layout the section now shows, for the tile's mark after Undo and Redo: the last one picked if it still fits.
@@ -129,4 +130,4 @@ export function layoutsPanelHtml(mix, picked, look) {
 // CAP-U10READ4.json, CAP-U10READ6.json; 33 of 34 seen reads within 1.5 px, a reopen at 681.4 with a divider 3 px off).
 export const layoutsPickTop = ({ top, secTop, fresh }) => Math.max(secTop + 140, Math.min(top, fresh));
 
-export const sectionLook = (s) => ({ theme: s.theme, height: s.height, divider: s.divider, dividerShape: s.dividerShape, dividerStroke: s.dividerStroke });
+export const sectionLook = (s) => ({ theme: s.theme, height: s.height, divider: s.divider, dividerShape: s.dividerShape, dividerStroke: s.dividerStroke, dividerFlip: s.dividerFlip, dividerFlipY: s.dividerFlipY });
