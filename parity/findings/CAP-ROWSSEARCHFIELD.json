@@ -1,0 +1,165 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Search Field: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Search Field",
+ "tabs": {
+  "Content": {
+   "rows": [
+    {
+     "row": "Add a search field to your page that returns results from across your site, or l",
+     "kind": "button",
+     "name": "Learn more",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Search specific page",
+     "kind": "switch",
+     "name": "Search specific page",
+     "value": false,
+     "change": []
+    }
+   ],
+   "wideNote": "Add a search field to your page that returns results from across your site, or limited to one page. Learn more"
+  },
+  "Design": {
+   "rows": [
+    {
+     "row": "Theme",
+     "kind": "choice",
+     "name": "Dark",
+     "value": true,
+     "notPressed": "the default"
+    },
+    {
+     "row": "Theme",
+     "kind": "choice",
+     "name": "Light",
+     "value": false,
+     "home": "Dark",
+     "change": [
+      "DIV.color-light cl: color-dark > color-light",
+      "INPUT.search-input color: rgb(0, 0, 0) > rgb(247, 247, 247)",
+      "STYLE w: #block-yui_3_17_2_1_17940270 .. holder-color > #block-yui_3_17_2_1_17940270 .. holder-color"
+     ]
+    },
+    {
+     "row": "Quick preview",
+     "kind": "switch",
+     "name": "Quick preview",
+     "value": true,
+     "change": []
+    },
+    {
+     "row": "Background",
+     "kind": "switch",
+     "name": "Background",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "No Stroke",
+     "value": true,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "Solid Stroke",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "Dashed Stroke",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "menu",
+     "name": "Blend Mode",
+     "value": "Normal",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Blur",
+     "kind": "switch",
+     "name": "Blur",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Transforms",
+     "kind": "menu",
+     "name": "More actions",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Opacity",
+     "kind": "field",
+     "name": "Opacity",
+     "value": "100%",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Opacity",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Rotate",
+     "kind": "field",
+     "name": "Rotate",
+     "value": "0°",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Rotate",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Anchor",
+     "kind": "menu",
+     "name": "Position",
+     "notPressed": "a row every panel has"
+    }
+   ]
+  },
+  "Animation": {
+   "rows": [
+    {
+     "row": "Triggers",
+     "kind": "menu",
+     "name": "Animation list actions"
+    },
+    {
+     "row": "Animation list actions",
+     "kind": "button",
+     "name": "Add a new animation"
+    },
+    {
+     "row": "Add a new animation",
+     "kind": "button",
+     "name": "Press + to get started"
+    }
+   ],
+   "notPressed": "every panel has it"
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Content",
+  "Design",
+  "Animation"
+ ],
+ "pressed": "Add Block, Search Field, Edit, its tabs, and the rows with a change below, each named and on top, on Gestures Probe, unsaved.",
+ "answer": "Search Field: tabs Content, Design, Animation. 15 rows read, 1 changed the block when changed. Each row below has its default and what the change did."
+}

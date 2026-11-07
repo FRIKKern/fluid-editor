@@ -65,7 +65,7 @@ const T = '# a\nb\nc\n# d';
 const start = async (text = T) => { await setCode(''); await setCode(text); await press(CHEV); };
 const home3 = async () => { await press(ROW); await key('Home'); for (let i = 0; i < 3; i++) await key('ArrowRight'); };
 
-const md = await fresh('Markdown');
+let md = await fresh('Markdown');
 await start(); await key('Z'); await pause(150); compare('Chevron, then a key', F5.reads['chevron then a key'], md);
 await start(); await press(ROW); compare('Click right of it', F5.reads['click right of the fold'], md); await key('Z'); await pause(150); compare('Click right, key', F5.reads['click right, key'], md);
 await start(); await home3(); compare('Caret before it', F5.reads['caret before the fold'], md); await key('Z'); await pause(150); compare('Key before it', F5.reads['key before the fold'], md);
@@ -110,6 +110,34 @@ const overFold = evalJs(S, `(() => { const f = document.querySelector('${FIELD}'
 await key('Meta+z'); await pause(250);
 const backFold = evalJs(S, `(() => { const f = document.querySelector('${FIELD}'); return JSON.stringify({ v: f.value, text: fe.model.sections[1].blocks.at(-1).text, marked: document.querySelectorAll('#block-panel .bp-code .c-fold, #block-panel .bp-code [data-fold-open]').length }); })()`);
 add('Toolbar over a fold, Meta+z: the fold stays', backFold.v.split('\n').length === 2 && !backFold.v.includes('>') && overFold.includes('>') && backFold.text === T, JSON.stringify([overFold, backFold]));
+// After a chevron the focus has left the field, so a key does nothing and Meta+z is the page's undo, as the toolbar's is: every
+// fold opens. Back in the field, Meta+z takes typing back and a fold stays, typing from before the first fold too (CAP-T10UNDO.json, CAP-T10UNDO2.json, CAP-T10FIX3.json).
+const U = read('CAP-T10UNDO').reads, U2 = read('CAP-T10UNDO2').reads, U1 = read('CAP-T10FIX3').reads;
+const T3 = '# a\nb\n# d';
+const textIs = (name, r) => { const now = shown().text; add(name, now === r.codeText, `want ${JSON.stringify(r.codeText)} got ${JSON.stringify(now)}`); };
+const typedQ = async (text = T3) => { await setCode(''); await setCode(text); await pause(1000); await key('Meta+ArrowDown'); await key('Q'); await pause(1000); };
+await typedQ(); await press(CHEV); textIs('Q, fold', U['V1 Q, fold: where focus is']);
+await key('Meta+z'); await pause(250); textIs('Q, fold, Meta+z', U1['U1 Meta+Z']);
+await fresh('Markdown');
+await typedQ(); await press(CHEV); await press(ROW, 1); textIs('Q, fold, press a line', U['V1 pressed a line']);
+await key('Meta+z'); await pause(200); textIs('Then Meta+z', U['V1 Meta+Z']);
+await key('Meta+z'); await pause(200); textIs('Then Meta+z twice', U['V1 Meta+Z twice']);
+await typedQ(); await press(CHEV); await press(ROW, 1); await key('End'); await key('R'); await pause(1000); textIs('Q, fold, R', U['V2 Q, fold, R']);
+await key('Meta+z'); await pause(200); textIs('R goes', U['V2 Meta+Z']);
+await key('Meta+z'); await pause(200); textIs('Q goes', U['V2 Meta+Z twice']);
+await fresh('Markdown');
+await setCode(''); await setCode('# a\nb\n# c\nd'); await press(CHEV); await press(ROW, 1); await key('End'); await key('Q'); await pause(1000); await press(CHEV); textIs('Fold, Q, a second fold', U['V3 fold, Q, a second fold']);
+await key('Meta+z'); await pause(250); textIs('Both open with Meta+z', U['V3 Meta+Z']);
+await fresh('Markdown');
+await typedQ(); await press(CHEV); await press('#undo'); await pause(250); textIs("The toolbar's Undo", U["V4 Q, fold, the toolbar's Undo"]);
+await fresh('Markdown');
+for (const [k, name] of [['z', 'K1 z'], ['ArrowRight', 'K2 fold over the caret, ArrowRight'], ['Backspace', 'K3 fold over the caret, Backspace']]) {
+  await setCode(''); await setCode(T); await key('Meta+ArrowUp'); await key('ArrowDown'); await press(CHEV); textIs(`Fold over the caret, ${k}`, U2[k === 'z' ? 'K1 fold over the caret' : name]);
+  await key(k); await pause(150); textIs(`${k}, no focus`, U2[name]);
+  add(`${k}, no focus: the block stays, unmoved`, evalJs(S, `(() => JSON.stringify(fe.model.sections[1].blocks.length === 1 && !document.getElementById('block-panel').hidden && document.activeElement.matches('.bp-code')))()`), 'gone, or the focus elsewhere');
+  await press(ROW); await key('Meta+a'); await key('Backspace');
+}
+md = await fresh('Markdown');
 // A deleted fold comes back as open text with Meta+z, nothing lost.
 await start(); await press(ROW); await key('Meta+a'); await key('Backspace'); await pause(150); await key('Meta+z'); await pause(200);
 add('Meta+z brings back hidden lines', evalJs(S, `(() => JSON.stringify(fe.model.sections[1].blocks.at(-1).text))()`) === T, evalJs(S, `(() => JSON.stringify(fe.model.sections[1].blocks.at(-1).text))()`));

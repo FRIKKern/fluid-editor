@@ -1,0 +1,1559 @@
+{
+  "item": "CAP-T7TRANSFORM",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "T7, T6: the Opacity and Rotate fields on a Video and a Shape",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Video"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "video design",
+      {
+        "controls": true,
+        "panelCss": "input, [role=\"spinbutton\"], [role=\"slider\"]",
+        "rows": [
+          "Opacity",
+          "Rotate",
+          "Corner",
+          "Padding"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "t-video"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "shape design",
+      {
+        "controls": true,
+        "panelCss": "input, [role=\"spinbutton\"], [role=\"slider\"]",
+        "rows": [
+          "Opacity",
+          "Rotate",
+          "Corner",
+          "Padding"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "t-shape"
+    ]
+  ],
+  "reads": {
+    "video design": {
+      "rows": {
+        "Opacity": [
+          "100%"
+        ],
+        "Rotate": [
+          "0°"
+        ],
+        "Corner": [
+          "0px"
+        ],
+        "Padding": null
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            600,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            668.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            730.8,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add fill",
+          "box": [
+            840,
+            415,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "No Stroke",
+          "box": [
+            697,
+            465,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Solid Stroke",
+          "box": [
+            756.7,
+            465,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Dashed Stroke",
+          "box": [
+            816.3,
+            465,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            799,
+            513,
+            66,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            513,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            546,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            513,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            697,
+            516,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            738,
+            516,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            584,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            705,
+            631,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            631,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            664,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            631,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0°",
+          "box": [
+            705,
+            682,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            682,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            715,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            682,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            733,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            738,
+            733,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            733,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            832,
+            733,
+            44,
+            44
+          ]
+        }
+      ],
+      "panelCss": [
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            799,
+            513,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            705,
+            631,
+            160,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            705,
+            682,
+            160,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            705,
+            733,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            799,
+            733,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            705,
+            784,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            799,
+            784,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            705,
+            835,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            799,
+            835,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-c0kh2j",
+          "text": "",
+          "box": [
+            740,
+            1003,
+            1,
+            1
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "16px",
+          "pad": "0px",
+          "opacity": "0",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            850,
+            1071,
+            12,
+            12
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "16px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "shape design": {
+      "rows": {
+        "Opacity": [
+          "100%"
+        ],
+        "Rotate": [
+          "0°"
+        ],
+        "Corner": null,
+        "Padding": null
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            483,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            545,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            461,
+            405,
+            320,
+            103
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            588,
+            514,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            514,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            547,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            514,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            486,
+            517,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            527,
+            517,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Stretch",
+          "value": true,
+          "box": [
+            745,
+            590.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            472,
+            680,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            472,
+            728,
+            298,
+            46
+          ]
+        }
+      ],
+      "panelCss": [
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Toggle visibility",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            588,
+            514,
+            160,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            745,
+            590.5,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Stretch",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            733,
+            834.5,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Drop Shadow",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-1h34l1u",
+          "text": "",
+          "box": [
+            733,
+            879.5,
+            12,
+            12
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Blur",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": "1px solid rgba(0, 0, 0, 0)"
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            588,
+            983,
+            160,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            588,
+            1034,
+            160,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            588,
+            1085,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            682,
+            1085,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            588,
+            1136,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            682,
+            1136,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            588,
+            1187,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        },
+        {
+          "cls": "css-8jq485",
+          "text": "",
+          "box": [
+            682,
+            1187,
+            66,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}

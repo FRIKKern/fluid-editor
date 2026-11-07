@@ -1,0 +1,416 @@
+{
+  "item": "CAP-T7CORNERS2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "T7: the four Corner fields, a press with no pull, typing, a pull after that, off the field and below 0",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Video"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "pressNamed",
+      "Individual corner radii"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "moveAt",
+      716,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickAt",
+      716,
+      739
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "press, no pull",
+      {
+        "rows": [
+          "Corner"
+        ],
+        "panelCss": ":focus"
+      }
+    ],
+    [
+      "keysList",
+      [
+        "Meta+a"
+      ]
+    ],
+    [
+      "keys",
+      "5"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "typed 5",
+      {
+        "rows": [
+          "Corner"
+        ],
+        "panelCss": ":focus"
+      }
+    ],
+    [
+      "moveAt",
+      716,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      716,
+      739,
+      746,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "a pull after that",
+      {
+        "rows": [
+          "Corner"
+        ],
+        "panelCss": ":focus"
+      }
+    ],
+    [
+      "moveAt",
+      762,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      762,
+      739,
+      800,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "a pull off the field",
+      {
+        "rows": [
+          "Corner"
+        ],
+        "panelCss": ":focus"
+      }
+    ],
+    [
+      "moveAt",
+      808,
+      739
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "dragAt",
+      808,
+      739,
+      700,
+      739
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "a pull below 0",
+      {
+        "rows": [
+          "Corner"
+        ],
+        "panelCss": ":focus"
+      }
+    ]
+  ],
+  "reads": {
+    "press, no pull": {
+      "rows": {
+        "Corner": [
+          "0px",
+          "0",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "panelCss": [
+        {
+          "cls": "css-8jq485 focus-visible",
+          "text": "",
+          "box": [
+            700,
+            717,
+            32,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Top left corner radius",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "typed 5": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "5",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "panelCss": [
+        {
+          "cls": "css-8jq485 focus-visible",
+          "text": "",
+          "box": [
+            700,
+            717,
+            32,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Top left corner radius",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "a pull after that": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "17",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "panelCss": [
+        {
+          "cls": "css-8jq485 focus-visible",
+          "text": "",
+          "box": [
+            700,
+            717,
+            32,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Top left corner radius",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "a pull off the field": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "17",
+          "15",
+          "0",
+          "0"
+        ]
+      },
+      "panelCss": [
+        {
+          "cls": "css-8jq485 focus-visible",
+          "text": "",
+          "box": [
+            746,
+            717,
+            32,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Top right corner radius",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "a pull below 0": {
+      "rows": {
+        "Corner": [
+          "Mixed",
+          "17",
+          "15",
+          "0",
+          "0"
+        ]
+      },
+      "panelCss": [
+        {
+          "cls": "css-8jq485 focus-visible",
+          "text": "",
+          "box": [
+            792,
+            717,
+            32,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Bottom right corner radius",
+          "off": false,
+          "on": "",
+          "cursor": "text",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}

@@ -1,0 +1,1269 @@
+{
+  "item": "CAP-T10UNDO",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "T10: Meta+Z over typing done before a fold; the first run's keys after a chevron were refused, for no focus, and it was thrown away",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "setCode",
+      ""
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "setCode",
+      "# a\nb\n# d"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keys",
+      "Q"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressEl",
+      ".cm-foldGutter span[title=\"Fold line\"]"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "V1 Q, fold: where focus is",
+      {
+        "codeText": true,
+        "panelCss": ".cm-foldPlaceholder, .cm-activeLine, :focus"
+      }
+    ],
+    [
+      "pressEl",
+      ".cm-line",
+      1
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "V1 pressed a line",
+      {
+        "codeText": true,
+        "panelCss": ".cm-foldPlaceholder, .cm-activeLine, :focus"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "V1 Meta+Z",
+      {
+        "codeText": true,
+        "panelCss": ".cm-foldPlaceholder, .cm-activeLine, :focus"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "V1 Meta+Z twice",
+      {
+        "codeText": true,
+        "panelCss": ".cm-foldPlaceholder, .cm-activeLine, :focus"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "setCode",
+      ""
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "setCode",
+      "# a\nb\n# d"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keys",
+      "Q"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressEl",
+      ".cm-foldGutter span[title=\"Fold line\"]"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressEl",
+      ".cm-line",
+      1
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "keys",
+      "R"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "V2 Q, fold, R",
+      {
+        "codeText": true,
+        "panelCss": ".cm-foldPlaceholder, .cm-activeLine, :focus"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "V2 Meta+Z",
+      {
+        "codeText": true,
+        "panelCss": ".cm-foldPlaceholder, .cm-activeLine, :focus"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "V2 Meta+Z twice",
+      {
+        "codeText": true,
+        "panelCss": ".cm-foldPlaceholder, .cm-activeLine, :focus"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "setCode",
+      ""
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "setCode",
+      "# a\nb\n# c\nd"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressEl",
+      ".cm-foldGutter span[title=\"Fold line\"]"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressEl",
+      ".cm-line",
+      1
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "keys",
+      "Q"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressEl",
+      ".cm-foldGutter span[title=\"Fold line\"]"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "V3 fold, Q, a second fold",
+      {
+        "codeText": true,
+        "panelCss": ".cm-foldPlaceholder, .cm-activeLine, :focus"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "V3 Meta+Z",
+      {
+        "codeText": true,
+        "panelCss": ".cm-foldPlaceholder, .cm-activeLine, :focus"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "setCode",
+      ""
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "setCode",
+      "# a\nb\n# d"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keys",
+      "Q"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressEl",
+      ".cm-foldGutter span[title=\"Fold line\"]"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "V4 Q, fold, the toolbar's Undo",
+      {
+        "codeText": true,
+        "panelCss": ".cm-foldPlaceholder, .cm-activeLine, :focus"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ]
+  ],
+  "reads": {
+    "V1 Q, fold: where focus is": {
+      "codeText": "# a…\n# dQ",
+      "panelCss": [
+        {
+          "cls": "cm-scroller",
+          "text": "913››# a…# dQ",
+          "box": [
+            365,
+            412,
+            531,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "cm-foldPlaceholder",
+          "text": "…",
+          "box": [
+            428.7,
+            425,
+            12.4,
+            18
+          ],
+          "color": "rgb(136, 136, 136)",
+          "bg": "rgb(238, 238, 238)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "folded code",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "# dQ",
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "V1 pressed a line": {
+      "codeText": "# a…\n# dQ",
+      "panelCss": [
+        {
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "text": "# a…# dQ",
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "cm-foldPlaceholder",
+          "text": "…",
+          "box": [
+            428.7,
+            425,
+            12.4,
+            18
+          ],
+          "color": "rgb(136, 136, 136)",
+          "bg": "rgb(238, 238, 238)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "folded code",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "# dQ",
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "V1 Meta+Z": {
+      "codeText": "# a…\n# d",
+      "panelCss": [
+        {
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "text": "# a…# d",
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "cm-foldPlaceholder",
+          "text": "…",
+          "box": [
+            428.7,
+            425,
+            12.4,
+            18
+          ],
+          "color": "rgb(136, 136, 136)",
+          "bg": "rgb(238, 238, 238)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "folded code",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "# d",
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "V1 Meta+Z twice": {
+      "codeText": "",
+      "panelCss": [
+        {
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "text": "Add markdown…",
+          "box": [
+            396.4,
+            412,
+            499.6,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "Add markdown…",
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "V2 Q, fold, R": {
+      "codeText": "# a…\n# dQR",
+      "panelCss": [
+        {
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "text": "# a…# dQR",
+          "box": [
+            396.4,
+            493,
+            499.6,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "cm-foldPlaceholder",
+          "text": "…",
+          "box": [
+            428.7,
+            506,
+            12.4,
+            18
+          ],
+          "color": "rgb(136, 136, 136)",
+          "bg": "rgb(238, 238, 238)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "folded code",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "# dQR",
+          "box": [
+            396.4,
+            526,
+            499.6,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "V2 Meta+Z": {
+      "codeText": "# a…\n# dQ",
+      "panelCss": [
+        {
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "text": "# a…# dQ",
+          "box": [
+            396.4,
+            493,
+            499.6,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "cm-foldPlaceholder",
+          "text": "…",
+          "box": [
+            428.7,
+            506,
+            12.4,
+            18
+          ],
+          "color": "rgb(136, 136, 136)",
+          "bg": "rgb(238, 238, 238)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "folded code",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "# dQ",
+          "box": [
+            396.4,
+            526,
+            499.6,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "V2 Meta+Z twice": {
+      "codeText": "# a…\n# d",
+      "panelCss": [
+        {
+          "cls": "cm-content cm-lineWrapping focus-visible",
+          "text": "# a…# d",
+          "box": [
+            396.4,
+            493,
+            499.6,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "cm-foldPlaceholder",
+          "text": "…",
+          "box": [
+            428.7,
+            506,
+            12.4,
+            18
+          ],
+          "color": "rgb(136, 136, 136)",
+          "bg": "rgb(238, 238, 238)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "folded code",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "# d",
+          "box": [
+            396.4,
+            526,
+            499.6,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "V3 fold, Q, a second fold": {
+      "codeText": "# a…\n# cQ…",
+      "panelCss": [
+        {
+          "cls": "cm-scroller",
+          "text": "913›››# a…# cQ…",
+          "box": [
+            365,
+            412,
+            531,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "cm-foldPlaceholder",
+          "text": "…",
+          "box": [
+            428.7,
+            425,
+            12.4,
+            18
+          ],
+          "color": "rgb(136, 136, 136)",
+          "bg": "rgb(238, 238, 238)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "folded code",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "# cQ…",
+          "box": [
+            396.4,
+            445,
+            499.6,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "cm-foldPlaceholder",
+          "text": "…",
+          "box": [
+            437.2,
+            447,
+            12.4,
+            18
+          ],
+          "color": "rgb(136, 136, 136)",
+          "bg": "rgb(238, 238, 238)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "1px",
+          "opacity": "1",
+          "label": "folded code",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "V3 Meta+Z": {
+      "codeText": "# a\nb\n# c\nd",
+      "panelCss": [
+        {
+          "cls": "cm-scroller",
+          "text": "91234›⌄⌄# ab# cd",
+          "box": [
+            365,
+            412,
+            531,
+            344
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "# a",
+          "box": [
+            396.4,
+            423,
+            499.6,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "V4 Q, fold, the toolbar's Undo": {
+      "codeText": "# a\nb\n# d",
+      "panelCss": [
+        {
+          "cls": "css-1mdex4j",
+          "text": "",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "12px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Undo",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "cm-line cm-activeLine",
+          "text": "# d",
+          "box": [
+            396.4,
+            467,
+            499.6,
+            22
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(211, 211, 211, 0.267)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "\"SF Mono\", Consolas, \"Liberation Mono\", ",
+          "size": "14px",
+          "line": "22px",
+          "pad": "6px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "auto",
+          "outline": ""
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "no Edit"
+  ],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}

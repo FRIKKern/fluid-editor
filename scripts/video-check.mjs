@@ -368,6 +368,42 @@ q(`document.getElementById('preview').click(); await sleep(350); return 'true';`
   mouse(S, 'move', 5, 5);
 }
 
+// The four Corner fields: the same pull from anywhere on each, and a press with no pull goes into the field (CAP-T7CORNERS.json, CAP-T7CORNERS2.json).
+{
+  const read = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads;
+  const CO = read('CAP-T7CORNERS'), C2 = read('CAP-T7CORNERS2');
+  await design([1, 2, 9, 10]);
+  press('Solid Stroke');
+  press('Individual corner radii');
+  const row = () => q(`return JSON.stringify([panel.querySelector('input[aria-label="Corner"]').value, ...[...panel.querySelectorAll('.st-corners input')].map((i) => i.value)]);`);
+  const at = (n) => q(`const f = panel.querySelectorAll('.st-corners input')[${n}].getBoundingClientRect(); return JSON.stringify([f.left, f.top + f.height / 2, f.width]);`);
+  const pullOn = async (n, along, dx) => { const [x, y] = at(n); mouse(S, 'move', x + along, y); await pause(80); drag(S, [x + along, y], [x + along + dx, y], { steps: 8, holdMs: 60 }); await pause(220); };
+  const same = (name, want, extra = '') => { const v = row(); add(`Four Corner fields, ${name}: ${want.join(' ')}`, v.join() === want.join(), `${JSON.stringify(v)} ${extra}`); };
+  const box = at(0); add('Four Corner fields: 46 apart', near(at(1)[0] - box[0], 46) && near(at(3)[0] - box[0], 138), JSON.stringify(box));
+  for (const [n, name, x0] of [[0, 'top left', 700], [1, 'top right', 746], [2, 'bottom right', 792], [3, 'bottom left', 838]]) {
+    await pullOn(n, 16, 30); same(`${name}, its middle`, CO[`${name}, ${x0 + 16}, right 30`].rows.Corner);
+    await pullOn(n, 26, 30); same(`${name}, its right`, CO[`${name}, ${x0 + 26}, right 30`].rows.Corner);
+    await pullOn(n, 6, 30); same(`${name}, its left`, CO[`${name}, ${x0 + 6}, right 30`].rows.Corner);
+    await pullOn(n, 26, -10); same(`${name}, left 10`, CO[`${name}, ${x0 + 26}, left 10`].rows.Corner);
+  }
+  await design([1, 2, 9, 10]);
+  press('Solid Stroke');
+  press('Individual corner radii');
+  const focusOn = () => q(`return JSON.stringify(document.activeElement.getAttribute('aria-label'));`);
+  { const [x, y] = at(0); drag(S, [x + 16, y], [x + 16, y], { steps: 1, holdMs: 40 }); await pause(150); }
+  add('Four Corner fields: a press with no pull goes into the field', focusOn() === C2['press, no pull'].panelCss[0].label && row().join() === C2['press, no pull'].rows.Corner.join(), `${focusOn()} ${row()}`);
+  q(`const i = document.activeElement; i.value = '5'; i.dispatchEvent(new Event('change', { bubbles: true })); await sleep(150); return 'true';`);
+  same('typed', C2['typed 5'].rows.Corner);
+  await pullOn(0, 16, 30); same('a pull after that', C2['a pull after that'].rows.Corner);
+  add('Four Corner fields: a pull leaves the focus on it', focusOn() === C2['a pull after that'].panelCss[0].label, focusOn());
+  await pullOn(1, 16, 38); same('a pull off the field', C2['a pull off the field'].rows.Corner);
+  add('Four Corner fields: another pull moves the focus', focusOn() === C2['a pull off the field'].panelCss[0].label, focusOn());
+  await pullOn(2, 16, -108); same('a pull below 0', C2['a pull below 0'].rows.Corner);
+  const undone = q(`const c = () => model().design.corners.join(); const was = c(); fe.undo(); await sleep(300); return JSON.stringify([was, c()]);`);
+  add('Four Corner fields: a pull is one undo step', undone[0] === '17,15,0,0' && undone[1] === '17,0,0,0', JSON.stringify(undone));
+  mouse(S, 'move', 5, 5);
+}
+
 // The colours on a video: the top row and Reset to theme (CAP-T7COLOR.json to CAP-T7COLOR10.json).
 {
   const pop = () => q(`const p = document.getElementById('shape-pop'), c = p.getBoundingClientRect(), at = (x) => { const e = p.querySelector(x); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left - c.left, r.top - c.top, r.width, r.height]; }; const bg = panel.querySelector('button[aria-label="Color"][data-shape-act="bgColor"] i'), st = panel.querySelector('button[aria-label="Color"][data-shape-act="strokeColor"] i'), a = panel.querySelector('[data-shape-act="bgColor"]'), b = panel.querySelector('[data-shape-act="strokeColor"]'); return JSON.stringify({ open: !p.hidden, top: c.top, bottom: c.bottom, h: c.height, strip: at('.sh-tabs button'), plus: at('[data-color-custom]'), bar: at('.sh-opacity'), reset: at('[data-color-reset]'), ring: [...p.querySelectorAll('[data-color-pick]')].filter((i) => i.checked).map((i) => i.dataset.colorPick), n: p.querySelectorAll('[data-color-pick]').length, format: p.querySelector('[data-color-format]')?.value, hex: p.querySelector('[aria-label="Hex"]')?.value, alpha: !!p.querySelector('[aria-label="Alpha"]'), red: p.querySelector('[aria-label="Red"]')?.value, fill: bg && getComputedStyle(bg).backgroundColor, stroke: st && getComputedStyle(st).backgroundColor, under: a?.getBoundingClientRect().bottom, under2: b?.getBoundingClientRect().bottom });`);
@@ -430,6 +466,12 @@ q(`document.getElementById('preview').click(); await sleep(350); return 'true';`
   const big = p;
   reset(); p = pop(); v = vr();
   add('Reset in Custom color: back to the swatches, 39 lower', near(p.h, 116) && near(p.bottom, big.bottom + 39) && p.plus && v.bg === white, JSON.stringify(p));
+  // Twice more on the oracle, and again from where that left it: the swatch row 424 below its place in Custom color, each time (CAP-T7RESET.json, CAP-T7RESET2.json).
+  const RS = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T7RESET.json', import.meta.url))).reads, colorTop = (r) => r.panelCss.find((e) => e.label === 'Color').box[1];
+  pick('#B564F7'); tap('#shape-pop [data-color-custom]'); const big2 = pop();
+  add('Custom color again, from there', near(big2.top, big.top + colorTop(RS['custom again']) - colorTop(RS.custom)), JSON.stringify([big.top, big2.top]));
+  reset(); p = pop();
+  add('Reset in Custom color again: the same move', near(p.bottom, big2.bottom + 39) && near(p.top - big2.top, colorTop(RS['reset in custom again']) - colorTop(RS['custom again'])), JSON.stringify([big2.bottom, p.bottom, p.top]));
   const undone = q(`fe.undo(); await sleep(300); return JSON.stringify({ open: !document.getElementById('shape-pop').hidden, bg: model().design.bgColor });`);
   add('Undo: the colour back, the colours closed', !undone.open && undone.bg === 'rgb(181, 100, 247)', JSON.stringify(undone));
 
