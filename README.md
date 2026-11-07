@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 88 changes
-  - H3: map blocks in the corpus; the type reader sees a Map by its component name; 385 sections ([#378](https://github.com/FRIKKern/fluid-editor/pull/378))
-  - U12: sample rounds 2 and 3, the reader fixed; differences 88, 90 to 96 ([#377](https://github.com/FRIKKern/fluid-editor/pull/377))
+- **Today** · 90 changes
+  - Y1: the Undo button lets a selected block go, Cmd+Z keeps it (difference 82) ([#381](https://github.com/FRIKKern/fluid-editor/pull/381))
+  - 87: short Text pulled from kept rows, reads only; difference 98 named ([#380](https://github.com/FRIKKern/fluid-editor/pull/380))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
