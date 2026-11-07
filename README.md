@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 51 changes
-  - T12: 0005 names stand-in rows that need an account, a lookup or a collection ([#342](https://github.com/FRIKKern/fluid-editor/pull/342))
-  - T12: the older dialogs, Instagram and Flickr; section names, 0 updates, Copy Link ([#341](https://github.com/FRIKKern/fluid-editor/pull/341))
+- **Today** · 60 changes
+  - U9: fades broken off, scrolls, a still pointer, a press alone, the phone ([#350](https://github.com/FRIKKern/fluid-editor/pull/350))
+  - T15, S3, U4, X8, U3: panel stays under a transform, Size menu rows, bar stops, five labels ([#336](https://github.com/FRIKKern/fluid-editor/pull/336))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed

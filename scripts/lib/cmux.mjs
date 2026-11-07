@@ -46,6 +46,10 @@ export function mouse(surface, type, x, y, { buttons = 0, mods = [] } = {}) {
   if (!isCdp(surface)) throw new Error('mouse needs a cdp surface');
   return cdp(surface, { op: 'mouse', type, x, y, buttons, mods });
 }
+export function wheel(surface, x, y, dy) {
+  if (!isCdp(surface)) throw new Error('wheel needs a cdp surface');
+  return cdp(surface, { op: 'wheel', x, y, dy });
+}
 export function drag(surface, from, to, { steps = 12, holdMs = 150, mods = [] } = {}) {
   if (!isCdp(surface)) throw new Error('drag needs a cdp surface');
   return cdp(surface, { op: 'drag', from, to, steps, holdMs, mods });

@@ -1,0 +1,3240 @@
+{
+  "item": "CAP-75FORM",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "75: Align Vertically on Form, made taller, each pressed by name",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Form"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "se",
+      0,
+      160
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "taller",
+      {
+        "controls": true,
+        "block": [
+          0,
+          "new"
+        ],
+        "inside": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Align Vertically"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "menu",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Align Bottom"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "bottom",
+      {
+        "controls": true,
+        "block": [
+          0,
+          "new"
+        ],
+        "inside": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Align Center"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "center",
+      {
+        "controls": true,
+        "block": [
+          0,
+          "new"
+        ],
+        "inside": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Align Top"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "top",
+      {
+        "controls": true,
+        "block": [
+          0,
+          "new"
+        ],
+        "inside": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "taller": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            175.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            153.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            193.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            238.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            278.1,
+            198.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "1/2/21/11",
+        "mobile": "1/2/17/10",
+        "box": [
+          100.1,
+          200.2,
+          518,
+          810.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794030971755_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "borderRadius": "20px",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 21 / 11",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,400.4",
+          "col 10x10 at 514,400.4",
+          "ne 10x10 at 514,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 254,-6",
+          "row 10x10 at 254,806.9",
+          "se 10x10 at 514,806.9",
+          "sw 10x10 at -6,806.9"
+        ]
+      },
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            810.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-form",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            810.9
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "flex-start"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-site-style-form",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-form-block-submission-html",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            0
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "form-wrapper",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "grid",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "form",
+          "cls": "react-form-contents",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "gridArea": "form",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            0
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "field-list",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            474.3
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "fieldset",
+          "cls": "form-item fields name",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            122.5
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "gap": "0px 10px",
+            "alignItems": "flex-end"
+          }
+        },
+        {
+          "tag": "legend",
+          "cls": "",
+          "box": [
+            100.1,
+            200.2,
+            48.5,
+            30.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "title",
+          "box": [
+            100.1,
+            200.2,
+            48.5,
+            30.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            100.1,
+            200.2,
+            48.5,
+            22.4
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "gap": "normal 8.768px",
+            "alignItems": "baseline"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "",
+          "box": [
+            100.1,
+            200.2,
+            48.5,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "field first-name",
+          "box": [
+            100.1,
+            230.6,
+            254,
+            72.1
+          ],
+          "css": {
+            "display": "grid",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "alignItems": "flex-start"
+          }
+        },
+        {
+          "tag": "label",
+          "cls": "caption",
+          "box": [
+            100.1,
+            230.6,
+            254,
+            27.7
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "gridArea": "auto / 1 / auto / span 2",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            100.1,
+            234.6,
+            254,
+            23.7
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "caption-text",
+          "box": [
+            100.1,
+            234.6,
+            254,
+            23.7
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "14.08px",
+            "flexDirection": "row",
+            "gap": "normal 7.71584px",
+            "alignItems": "baseline"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "description required",
+          "box": [
+            182.5,
+            236.6,
+            72.3,
+            14.1
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "0.7",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "14.08px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "input",
+          "cls": "",
+          "box": [
+            100.1,
+            258.4,
+            254,
+            44.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "1",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "1px",
+            "borderTopStyle": "solid",
+            "borderRadius": "24.784px",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 1px",
+            "fontSize": "16px",
+            "gridArea": "auto / 1 / auto / span 2",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "form-input-effects",
+          "box": [
+            100.1,
+            258.4,
+            254,
+            44.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "gridArea": "2 / 1 / span 1 / span 2",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "form-input-effects-border",
+          "box": [
+            100.1,
+            258.4,
+            254,
+            44.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "backgroundColor": "rgba(255, 255, 255, 0)",
+            "borderTopWidth": "1px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "borderRadius": "24.784px",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "field last-name",
+          "box": [
+            364.1,
+            230.6,
+            254,
+            72.1
+          ],
+          "css": {
+            "display": "grid",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "alignItems": "flex-start"
+          }
+        },
+        {
+          "tag": "label",
+          "cls": "caption",
+          "box": [
+            364.1,
+            230.6,
+            254,
+            27.7
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "gridArea": "auto / 1 / auto / span 2",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "menu": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            175.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            153.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            193.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            238.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            278.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Top",
+          "box": [
+            113.1,
+            245.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Center",
+          "box": [
+            153.1,
+            245.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Bottom",
+          "box": [
+            193.1,
+            245.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bottom": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            175.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            153.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            193.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            238.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            278.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Top",
+          "box": [
+            113.1,
+            245.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Center",
+          "box": [
+            153.1,
+            245.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Bottom",
+          "box": [
+            193.1,
+            245.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "1/2/21/11",
+        "mobile": "1/2/17/10",
+        "box": [
+          100.1,
+          200.2,
+          518,
+          810.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794030971755_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "borderRadius": "20px",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 21 / 11",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,400.4",
+          "col 10x10 at 514,400.4",
+          "ne 10x10 at 514,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 254,-6",
+          "row 10x10 at 254,806.9",
+          "se 10x10 at 514,806.9",
+          "sw 10x10 at -6,806.9"
+        ]
+      },
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            810.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-form",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            810.9
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "flex-end"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            100.1,
+            450.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-site-style-form",
+          "box": [
+            100.1,
+            450.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-form-block-submission-html",
+          "box": [
+            100.1,
+            450.2,
+            518,
+            0
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "form-wrapper",
+          "box": [
+            100.1,
+            450.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "grid",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "form",
+          "cls": "react-form-contents",
+          "box": [
+            100.1,
+            450.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "gridArea": "form",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            100.1,
+            450.2,
+            518,
+            0
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "field-list",
+          "box": [
+            100.1,
+            450.2,
+            518,
+            474.3
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "fieldset",
+          "cls": "form-item fields name",
+          "box": [
+            100.1,
+            450.2,
+            518,
+            122.5
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "gap": "0px 10px",
+            "alignItems": "flex-end"
+          }
+        },
+        {
+          "tag": "legend",
+          "cls": "",
+          "box": [
+            100.1,
+            450.2,
+            48.5,
+            30.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "title",
+          "box": [
+            100.1,
+            450.2,
+            48.5,
+            30.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            100.1,
+            450.2,
+            48.5,
+            22.4
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "gap": "normal 8.768px",
+            "alignItems": "baseline"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "",
+          "box": [
+            100.1,
+            450.2,
+            48.5,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "field first-name",
+          "box": [
+            100.1,
+            480.6,
+            254,
+            72.1
+          ],
+          "css": {
+            "display": "grid",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "alignItems": "flex-start"
+          }
+        },
+        {
+          "tag": "label",
+          "cls": "caption",
+          "box": [
+            100.1,
+            480.6,
+            254,
+            27.7
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "gridArea": "auto / 1 / auto / span 2",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            100.1,
+            484.6,
+            254,
+            23.7
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "caption-text",
+          "box": [
+            100.1,
+            484.6,
+            254,
+            23.7
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "14.08px",
+            "flexDirection": "row",
+            "gap": "normal 7.71584px",
+            "alignItems": "baseline"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "description required",
+          "box": [
+            182.5,
+            486.6,
+            72.3,
+            14.1
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "0.7",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "14.08px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "input",
+          "cls": "",
+          "box": [
+            100.1,
+            508.4,
+            254,
+            44.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "1",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "1px",
+            "borderTopStyle": "solid",
+            "borderRadius": "24.784px",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 1px",
+            "fontSize": "16px",
+            "gridArea": "auto / 1 / auto / span 2",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "form-input-effects",
+          "box": [
+            100.1,
+            508.4,
+            254,
+            44.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "gridArea": "2 / 1 / span 1 / span 2",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "form-input-effects-border",
+          "box": [
+            100.1,
+            508.4,
+            254,
+            44.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "backgroundColor": "rgba(255, 255, 255, 0)",
+            "borderTopWidth": "1px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "borderRadius": "24.784px",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "field last-name",
+          "box": [
+            364.1,
+            480.6,
+            254,
+            72.1
+          ],
+          "css": {
+            "display": "grid",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "alignItems": "flex-start"
+          }
+        },
+        {
+          "tag": "label",
+          "cls": "caption",
+          "box": [
+            364.1,
+            480.6,
+            254,
+            27.7
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "gridArea": "auto / 1 / auto / span 2",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "center": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            175.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            153.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            193.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            238.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            278.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Top",
+          "box": [
+            113.1,
+            245.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Center",
+          "box": [
+            153.1,
+            245.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Bottom",
+          "box": [
+            193.1,
+            245.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "1/2/21/11",
+        "mobile": "1/2/17/10",
+        "box": [
+          100.1,
+          200.2,
+          518,
+          810.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794030971755_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "borderRadius": "20px",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 21 / 11",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,400.4",
+          "col 10x10 at 514,400.4",
+          "ne 10x10 at 514,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 254,-6",
+          "row 10x10 at 254,806.9",
+          "se 10x10 at 514,806.9",
+          "sw 10x10 at -6,806.9"
+        ]
+      },
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            810.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-form",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            810.9
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            100.1,
+            325.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-site-style-form",
+          "box": [
+            100.1,
+            325.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-form-block-submission-html",
+          "box": [
+            100.1,
+            325.2,
+            518,
+            0
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "form-wrapper",
+          "box": [
+            100.1,
+            325.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "grid",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "form",
+          "cls": "react-form-contents",
+          "box": [
+            100.1,
+            325.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "gridArea": "form",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            100.1,
+            325.2,
+            518,
+            0
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "field-list",
+          "box": [
+            100.1,
+            325.2,
+            518,
+            474.3
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "fieldset",
+          "cls": "form-item fields name",
+          "box": [
+            100.1,
+            325.2,
+            518,
+            122.5
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "gap": "0px 10px",
+            "alignItems": "flex-end"
+          }
+        },
+        {
+          "tag": "legend",
+          "cls": "",
+          "box": [
+            100.1,
+            325.2,
+            48.5,
+            30.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "title",
+          "box": [
+            100.1,
+            325.2,
+            48.5,
+            30.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            100.1,
+            325.2,
+            48.5,
+            22.4
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "gap": "normal 8.768px",
+            "alignItems": "baseline"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "",
+          "box": [
+            100.1,
+            325.2,
+            48.5,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "field first-name",
+          "box": [
+            100.1,
+            355.6,
+            254,
+            72.1
+          ],
+          "css": {
+            "display": "grid",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "alignItems": "flex-start"
+          }
+        },
+        {
+          "tag": "label",
+          "cls": "caption",
+          "box": [
+            100.1,
+            355.6,
+            254,
+            27.7
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "gridArea": "auto / 1 / auto / span 2",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            100.1,
+            359.6,
+            254,
+            23.7
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "caption-text",
+          "box": [
+            100.1,
+            359.6,
+            254,
+            23.7
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "14.08px",
+            "flexDirection": "row",
+            "gap": "normal 7.71584px",
+            "alignItems": "baseline"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "description required",
+          "box": [
+            182.5,
+            361.6,
+            72.3,
+            14.1
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "0.7",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "14.08px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "input",
+          "cls": "",
+          "box": [
+            100.1,
+            383.4,
+            254,
+            44.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "1",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "1px",
+            "borderTopStyle": "solid",
+            "borderRadius": "24.784px",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 1px",
+            "fontSize": "16px",
+            "gridArea": "auto / 1 / auto / span 2",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "form-input-effects",
+          "box": [
+            100.1,
+            383.4,
+            254,
+            44.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "gridArea": "2 / 1 / span 1 / span 2",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "form-input-effects-border",
+          "box": [
+            100.1,
+            383.4,
+            254,
+            44.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "backgroundColor": "rgba(255, 255, 255, 0)",
+            "borderTopWidth": "1px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "borderRadius": "24.784px",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "field last-name",
+          "box": [
+            364.1,
+            355.6,
+            254,
+            72.1
+          ],
+          "css": {
+            "display": "grid",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "alignItems": "flex-start"
+          }
+        },
+        {
+          "tag": "label",
+          "cls": "caption",
+          "box": [
+            364.1,
+            355.6,
+            254,
+            27.7
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "gridArea": "auto / 1 / auto / span 2",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            175.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            153.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            193.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            238.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            278.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Top",
+          "box": [
+            113.1,
+            245.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Center",
+          "box": [
+            153.1,
+            245.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Bottom",
+          "box": [
+            193.1,
+            245.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "1/2/21/11",
+        "mobile": "1/2/17/10",
+        "box": [
+          100.1,
+          200.2,
+          518,
+          810.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794030971755_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "borderRadius": "20px",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 21 / 11",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,400.4",
+          "col 10x10 at 514,400.4",
+          "ne 10x10 at 514,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 254,-6",
+          "row 10x10 at 254,806.9",
+          "se 10x10 at 514,806.9",
+          "sw 10x10 at -6,806.9"
+        ]
+      },
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            810.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-form",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            810.9
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "flex-start"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-site-style-form",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-form-block-submission-html",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            0
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "form-wrapper",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "grid",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "form",
+          "cls": "react-form-contents",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            560.9
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "gridArea": "form",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            0
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "field-list",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            474.3
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "fieldset",
+          "cls": "form-item fields name",
+          "box": [
+            100.1,
+            200.2,
+            518,
+            122.5
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "gap": "0px 10px",
+            "alignItems": "flex-end"
+          }
+        },
+        {
+          "tag": "legend",
+          "cls": "",
+          "box": [
+            100.1,
+            200.2,
+            48.5,
+            30.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "title",
+          "box": [
+            100.1,
+            200.2,
+            48.5,
+            30.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            100.1,
+            200.2,
+            48.5,
+            22.4
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "gap": "normal 8.768px",
+            "alignItems": "baseline"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "",
+          "box": [
+            100.1,
+            200.2,
+            48.5,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "field first-name",
+          "box": [
+            100.1,
+            230.6,
+            254,
+            72.1
+          ],
+          "css": {
+            "display": "grid",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "alignItems": "flex-start"
+          }
+        },
+        {
+          "tag": "label",
+          "cls": "caption",
+          "box": [
+            100.1,
+            230.6,
+            254,
+            27.7
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "gridArea": "auto / 1 / auto / span 2",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            100.1,
+            234.6,
+            254,
+            23.7
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "caption-text",
+          "box": [
+            100.1,
+            234.6,
+            254,
+            23.7
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "14.08px",
+            "flexDirection": "row",
+            "gap": "normal 7.71584px",
+            "alignItems": "baseline"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "description required",
+          "box": [
+            182.5,
+            236.6,
+            72.3,
+            14.1
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "0.7",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "14.08px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "input",
+          "cls": "",
+          "box": [
+            100.1,
+            258.4,
+            254,
+            44.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "1",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "1px",
+            "borderTopStyle": "solid",
+            "borderRadius": "24.784px",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 1px",
+            "fontSize": "16px",
+            "gridArea": "auto / 1 / auto / span 2",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "form-input-effects",
+          "box": [
+            100.1,
+            258.4,
+            254,
+            44.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "gridArea": "2 / 1 / span 1 / span 2",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "span",
+          "cls": "form-input-effects-border",
+          "box": [
+            100.1,
+            258.4,
+            254,
+            44.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "backgroundColor": "rgba(255, 255, 255, 0)",
+            "borderTopWidth": "1px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "borderRadius": "24.784px",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "field last-name",
+          "box": [
+            364.1,
+            230.6,
+            254,
+            72.1
+          ],
+          "css": {
+            "display": "grid",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row",
+            "alignItems": "flex-start"
+          }
+        },
+        {
+          "tag": "label",
+          "cls": "caption",
+          "box": [
+            364.1,
+            230.6,
+            254,
+            27.7
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "12px",
+            "gridArea": "auto / 1 / auto / span 2",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

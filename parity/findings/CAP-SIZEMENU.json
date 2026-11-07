@@ -1,0 +1,630 @@
+{
+  "item": "CAP-SIZEMENU",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "The Size menu on a stack child: what each row holds, icon and tick, at Fill, at Fixed, and on a Text child",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressCombo",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Shape W at Fill",
+      {
+        "panelEls": "[role=option], [role=option] *"
+      }
+    ],
+    [
+      "shot",
+      "fillW"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "typeAt",
+      1040,
+      439,
+      "100"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressCombo",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Shape W at Fixed",
+      {
+        "panelEls": "[role=option], [role=option] *"
+      }
+    ],
+    [
+      "shot",
+      "w100"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressRow",
+      "Text"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressCombo",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Text W",
+      {
+        "panelEls": "[role=option], [role=option] *"
+      }
+    ],
+    [
+      "shot",
+      "textW"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "Shape W at Fill": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fixed · 375px",
+          "lines": 3,
+          "box": [
+            1005,
+            472,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "",
+          "label": "",
+          "lines": 1,
+          "box": [
+            1016,
+            483,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1018,
+            490,
+            18,
+            8
+          ]
+        },
+        {
+          "tag": "p",
+          "cls": "css-1h5u42v",
+          "label": "Fixed · 375px",
+          "lines": 0,
+          "box": [
+            1044,
+            483,
+            132,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-u1oxo1",
+          "label": "Hug",
+          "lines": 3,
+          "box": [
+            1005,
+            516,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "",
+          "label": "",
+          "lines": 2,
+          "box": [
+            1016,
+            527,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "g",
+          "cls": "",
+          "label": "",
+          "lines": 2,
+          "box": [
+            1016,
+            534,
+            22,
+            8
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1016,
+            534,
+            10.5,
+            8
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1027.5,
+            534,
+            10.5,
+            8
+          ]
+        },
+        {
+          "tag": "p",
+          "cls": "css-1h5u42v",
+          "label": "Hug",
+          "lines": 0,
+          "box": [
+            1044,
+            527,
+            132,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fill",
+          "lines": 3,
+          "box": [
+            1005,
+            560,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "",
+          "label": "",
+          "lines": 1,
+          "box": [
+            1016,
+            571,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1017,
+            578,
+            20,
+            8
+          ]
+        },
+        {
+          "tag": "p",
+          "cls": "css-1h5u42v",
+          "label": "Fill",
+          "lines": 0,
+          "box": [
+            1044,
+            571,
+            104,
+            22
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "css-10beffl",
+          "label": "",
+          "lines": 1,
+          "box": [
+            1154,
+            571,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1159,
+            576.2,
+            12,
+            10.8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Shape W at Fixed": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fixed · 100px",
+          "lines": 3,
+          "box": [
+            1005,
+            472,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "",
+          "label": "",
+          "lines": 1,
+          "box": [
+            1016,
+            483,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1018,
+            490,
+            18,
+            8
+          ]
+        },
+        {
+          "tag": "p",
+          "cls": "css-1h5u42v",
+          "label": "Fixed · 100px",
+          "lines": 0,
+          "box": [
+            1044,
+            483,
+            104,
+            22
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "css-10beffl",
+          "label": "",
+          "lines": 1,
+          "box": [
+            1154,
+            483,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1159,
+            488.2,
+            12,
+            10.8
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-u1oxo1",
+          "label": "Hug",
+          "lines": 3,
+          "box": [
+            1005,
+            516,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "",
+          "label": "",
+          "lines": 2,
+          "box": [
+            1016,
+            527,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "g",
+          "cls": "",
+          "label": "",
+          "lines": 2,
+          "box": [
+            1016,
+            534,
+            22,
+            8
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1016,
+            534,
+            10.5,
+            8
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1027.5,
+            534,
+            10.5,
+            8
+          ]
+        },
+        {
+          "tag": "p",
+          "cls": "css-1h5u42v",
+          "label": "Hug",
+          "lines": 0,
+          "box": [
+            1044,
+            527,
+            132,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fill",
+          "lines": 3,
+          "box": [
+            1005,
+            560,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "",
+          "label": "",
+          "lines": 1,
+          "box": [
+            1016,
+            571,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1017,
+            578,
+            20,
+            8
+          ]
+        },
+        {
+          "tag": "p",
+          "cls": "css-1h5u42v",
+          "label": "Fill",
+          "lines": 0,
+          "box": [
+            1044,
+            571,
+            132,
+            22
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text W": {
+      "panelEls": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "no Edit",
+    "pressRow [\"Text\"]: nothing labelled Stack",
+    "no Edit",
+    "pressCombo [0]: no combobox 0"
+  ],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "Each row 182 by 44: a 22 by 22 icon 11 in and 11 down, the text 39 in, a 22 by 22 tick 149 in on the current row only. Icons #b7b7b7 on every row, a greyed Hug's text #b7b7b7, the current row #f2f2f2, the tick #0e0e0e (colours sampled from the shots). The menu has 6 above and below its rows and round corners. The toggle while open is a white 36 box with an up chevron, from the shot.",
+  "ours": "Same boxes and colours, npm run mid-check, 3 cases. Our own drawing of the icons, the same size within a pixel or two: the check compares the 22 box, not the strokes.",
+  "differs": [],
+  "pressed": "Probe page, unsaved. The errors are the capture's last steps after Escape had cleared the selection: the Text child was read in CAP-SIZEMENU2.json."
+}

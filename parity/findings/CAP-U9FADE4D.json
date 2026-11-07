@@ -1,0 +1,1543 @@
+{
+  "item": "CAP-U9FADE4D",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "U9: what a press alone does with nothing selected: the block's selected state on the press, at 2 px and at 3 to 6 px, let go with no drag, and Escape.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1400
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      1,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "frameTo",
+      300
+    ],
+    [
+      "hoverBlock",
+      1,
+      "new"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "hover",
+      {
+        "block": [
+          1,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressOnly",
+      1,
+      "new"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "pressed",
+      {
+        "block": [
+          1,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "u9-pressed"
+    ],
+    [
+      "move",
+      2,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "2 px",
+      {
+        "block": [
+          1,
+          "new"
+        ]
+      }
+    ],
+    [
+      "addStart"
+    ],
+    [
+      "release"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "addStop",
+      "let go with no drag"
+    ],
+    [
+      "read",
+      "let go",
+      {
+        "block": [
+          1,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "u9-letgo"
+    ],
+    [
+      "addStart"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "addStop",
+      "Escape"
+    ],
+    [
+      "addStart"
+    ],
+    [
+      "pressOnly",
+      1,
+      "new"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "addStop",
+      "second press"
+    ],
+    [
+      "read",
+      "pressed 2",
+      {
+        "block": [
+          1,
+          "new"
+        ]
+      }
+    ],
+    [
+      "addStart"
+    ],
+    [
+      "move",
+      3,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "move",
+      4,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "move",
+      5,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "move",
+      6,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "addStop",
+      "3, 4, 5, 6 px"
+    ],
+    [
+      "read",
+      "6 px",
+      {
+        "block": [
+          1,
+          "new"
+        ]
+      }
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ]
+  ],
+  "reads": {
+    "hover": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          872.7,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794042407456_425",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pressed": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          872.7,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794042407456_425",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 px": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          872.7,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794042407456_425",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "let go with no drag": {
+      "columns": [
+        "ms",
+        "each Add Section: top, opacity with its parents, visibility"
+      ],
+      "seen": [
+        [
+          2,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              1,
+              "visible"
+            ],
+            [
+              1513,
+              1,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          136,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.986,
+              "visible"
+            ],
+            [
+              1513,
+              0.986,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          152,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.944,
+              "visible"
+            ],
+            [
+              1513,
+              0.944,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          169,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.871,
+              "visible"
+            ],
+            [
+              1513,
+              0.871,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          185,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.768,
+              "visible"
+            ],
+            [
+              1513,
+              0.768,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          202,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.642,
+              "visible"
+            ],
+            [
+              1513,
+              0.642,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          219,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.5,
+              "visible"
+            ],
+            [
+              1513,
+              0.5,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          235,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.36,
+              "visible"
+            ],
+            [
+              1513,
+              0.36,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          252,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.231,
+              "visible"
+            ],
+            [
+              1513,
+              0.231,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          268,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.129,
+              "visible"
+            ],
+            [
+              1513,
+              0.129,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          285,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.056,
+              "visible"
+            ],
+            [
+              1513,
+              0.056,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          301,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.014,
+              "visible"
+            ],
+            [
+              1513,
+              0.014,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          318,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          336,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ]
+      ]
+    },
+    "let go": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          872.7,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794042407456_425",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,30.6",
+          "col 10x10 at 337.7,30.6",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,67.2",
+          "se 10x10 at 337.7,67.2",
+          "sw 10x10 at -6,67.2"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Escape": {
+      "columns": [
+        "ms",
+        "each Add Section: top, opacity with its parents, visibility"
+      ],
+      "seen": [
+        [
+          6,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          150,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.013,
+              "visible"
+            ],
+            [
+              1513,
+              0.013,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          157,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.056,
+              "visible"
+            ],
+            [
+              1513,
+              0.056,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          173,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.129,
+              "visible"
+            ],
+            [
+              1513,
+              0.129,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          190,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.231,
+              "visible"
+            ],
+            [
+              1513,
+              0.231,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          207,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.359,
+              "visible"
+            ],
+            [
+              1513,
+              0.359,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          223,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.5,
+              "visible"
+            ],
+            [
+              1513,
+              0.5,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          240,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.641,
+              "visible"
+            ],
+            [
+              1513,
+              0.641,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          257,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.768,
+              "visible"
+            ],
+            [
+              1513,
+              0.768,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          273,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.871,
+              "visible"
+            ],
+            [
+              1513,
+              0.871,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          289,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.944,
+              "visible"
+            ],
+            [
+              1513,
+              0.944,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          307,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0.986,
+              "visible"
+            ],
+            [
+              1513,
+              0.986,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          323,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              1,
+              "visible"
+            ],
+            [
+              1513,
+              1,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ]
+      ]
+    },
+    "second press": {
+      "columns": [
+        "ms",
+        "each Add Section: top, opacity with its parents, visibility"
+      ],
+      "seen": [
+        [
+          12,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              1,
+              "visible"
+            ],
+            [
+              1513,
+              1,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ]
+      ]
+    },
+    "pressed 2": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          872.7,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794042407456_425",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "3, 4, 5, 6 px": {
+      "columns": [
+        "ms",
+        "each Add Section: top, opacity with its parents, visibility"
+      ],
+      "seen": [
+        [
+          11,
+          [
+            [
+              -124,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              625,
+              1,
+              "visible"
+            ],
+            [
+              1513,
+              1,
+              "visible"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ]
+      ]
+    },
+    "6 px": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          872.7,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794042407456_425",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "A press alone, 2 px and 3 to 6 px: the Button stays unselected (data-is-selected false), the hover outline shows and Add Section stays. Let go with no drag: the block is selected then, and Add Section fades out over 0.2 s. Escape fades it back in over 0.2 s.",
+  "ours": "Ours selects the block on the press, so its toolbar shows then. Add Section now waits for the let go or for past 10 px, as here (npm run marks-check).",
+  "differs": "Selecting on the press is not changed here: it's the gesture code's, named for the lead.",
+  "notRead": "The block's selected state at 11 to 14 px."
+}

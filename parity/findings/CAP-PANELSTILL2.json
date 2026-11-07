@@ -1,0 +1,416 @@
+{
+  "item": "CAP-PANELSTILL2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "The same block, Offset, Rotate and Scale on it: the panel closed and opened again. Does it open beside the moved rect or the untransformed box?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "fillRow",
+      "Offset",
+      0,
+      "200"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "fillRow",
+      "Offset",
+      1,
+      "100"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "30"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "fillRow",
+      "Scale",
+      0,
+      "150"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "open, moved",
+      {
+        "panelBox": true,
+        "boxes": [
+          "Design"
+        ],
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "selected",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "has": [
+          "Edit"
+        ]
+      }
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "opened again",
+      {
+        "panelBox": true,
+        "boxes": [
+          "Design"
+        ],
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "again"
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "open, moved": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          190.1,
+          231.9,
+          561.6,
+          460.3
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794033722117_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "transform": "matrix(1.29904, 0.75, -0.5, 0.866025, 200, 100)",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at 247.7,125.1",
+          "ne 10x10 at 247.7,6.4",
+          "row 10x10 at 75.8,243.9",
+          "row 10x10 at 75.8,6.4",
+          "se 10x10 at 247.7,243.9"
+        ]
+      },
+      "boxes": {
+        "Design": [
+          [
+            483,
+            299,
+            46,
+            55
+          ],
+          [
+            483,
+            299,
+            276,
+            55
+          ],
+          [
+            461,
+            299,
+            320,
+            55
+          ],
+          [
+            461,
+            299,
+            320,
+            502
+          ],
+          [
+            461,
+            299,
+            320,
+            500
+          ],
+          [
+            461,
+            301,
+            320,
+            500
+          ]
+        ]
+      },
+      "panelBox": {
+        "box": [
+          461,
+          299,
+          320,
+          500
+        ],
+        "edit": 211.6,
+        "scrollY": 0,
+        "secTop": 55,
+        "secH": 667.6
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "selected": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          190.1,
+          231.9,
+          561.6,
+          460.3
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794033722117_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "transform": "matrix(1.29904, 0.75, -0.5, 0.866025, 200, 100)",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at 247.7,125.1",
+          "ne 10x10 at 247.7,6.4",
+          "row 10x10 at 75.8,243.9",
+          "row 10x10 at 75.8,6.4",
+          "se 10x10 at 247.7,243.9"
+        ]
+      },
+      "has": {
+        "Edit": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "opened again": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          190.1,
+          231.9,
+          561.6,
+          460.3
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794033722117_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "transform": "matrix(1.29904, 0.75, -0.5, 0.866025, 200, 100)",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at 247.7,125.1",
+          "ne 10x10 at 247.7,6.4",
+          "row 10x10 at 75.8,243.9",
+          "row 10x10 at 75.8,6.4",
+          "se 10x10 at 247.7,243.9"
+        ]
+      },
+      "boxes": {
+        "Design": [
+          [
+            483,
+            301,
+            46,
+            55
+          ],
+          [
+            483,
+            301,
+            276,
+            55
+          ],
+          [
+            461,
+            301,
+            320,
+            55
+          ],
+          [
+            461,
+            301,
+            320,
+            502
+          ],
+          [
+            461,
+            301,
+            320,
+            500
+          ],
+          [
+            0,
+            0,
+            1600,
+            1000
+          ]
+        ]
+      },
+      "panelBox": {
+        "box": [
+          461,
+          301,
+          320,
+          500
+        ],
+        "edit": 211.6,
+        "scrollY": 0,
+        "secTop": 55,
+        "secH": 667.6
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "Closed and opened again on the moved block, the panel opens at 461,301, beside the untransformed box, not the moved rect.",
+  "ours": "Same now, npm run chrome-check.",
+  "differs": [],
+  "pressed": "Probe page, unsaved: as CAP-PANELSTILL.json, then a real select and Edit."
+}

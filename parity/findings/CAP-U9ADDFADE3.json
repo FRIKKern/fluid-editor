@@ -2138,5 +2138,6 @@
  "ours": "Before, by the code, not read by frame: selecting and a gesture took it away at once, and Escape replayed the fade in only if the class was still on. Now as read, by copies left behind and by the fade in on letting go of the block.",
  "differs": [],
  "pressed": "The Add Block menu by name for a Button, then Escape. A Button block pressed by its middle: a press and let go to select, a press and drag let go at home. Pointer moves at set coordinates. Scrolling by script. Left without saving: left dirty is true because a block was added.",
- "notRead": "Whether a gesture's fade starts on the press or on the first move: the step sends both together. Ours starts on the move that begins the drag. The phone view."
+ "notRead": "Whether a gesture's fade starts on the press or on the first move: the step sends both together. Ours starts on the move that begins the drag. The phone view.",
+ "correction": "2026-11-07: the hold step selects the block before it presses (scripts/oracle-capture.mjs), so 'a gesture from hover, no selection first' was a selection, then a gesture. Read with the press alone in CAP-U9FADE4.json and CAP-U9FADE4D.json."
 }
