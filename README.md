@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 26 changes
+- **Today** · 27 changes
+  - U12: Fonts > Buttons, Fonts > Miscellaneous and a form font's Style row ([#318](https://github.com/FRIKKern/fluid-editor/pull/318))
   - T4, T9, T11: back to partial, the toolbar's Align Vertically is unbuilt on them ([#317](https://github.com/FRIKKern/fluid-editor/pull/317))
-  - T12: the walk's list cleaned, by tile and by kind ([#316](https://github.com/FRIKKern/fluid-editor/pull/316))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
