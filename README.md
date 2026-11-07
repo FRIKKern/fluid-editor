@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 36 changes
+- **Today** · 37 changes
+  - U10: findings hold a divider's edge as numbers, not the oracle's path strings ([#327](https://github.com/FRIKKern/fluid-editor/pull/327))
   - P3: a flat top per frame scored 2 of 12, so not the rule ([#326](https://github.com/FRIKKern/fluid-editor/pull/326))
-  - Oracle tools: Exit closes Site Styles first and says which step ran ([#323](https://github.com/FRIKKern/fluid-editor/pull/323))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
