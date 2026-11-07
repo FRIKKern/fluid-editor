@@ -1,0 +1,26 @@
+{
+ "item": "U10",
+ "capturedAt": "2026-11-07",
+ "question": "U10 mixes, round 2 (lead, 2026-11-07, option A): do Image + Code and Video + Button take p1i1's and i1b1's places, Code as the paragraph and Video as the image? Predictions pushed and frozen before any read. Two picks each on Blocks Probe, unsaved, one mix per reload.",
+ "basis": "parity/findings/CAP-VIEWLAYOUTS.json (p1i1, i1b1) as built in app/src/section-layouts-data.js; CAP-U10MIX-*.json tile counts",
+ "predictions": [
+  {
+   "case": "Image + Code, pick 0",
+   "predict": "as p1i1's tile 0 with Code as the paragraph: Image 2/2/10/12, phone 1/2/8/10; Code desktop row start 5, columns 14/22, phone row start 9, columns 2/10; 10 rows (tile 0's height equals p1i1's); no style"
+  },
+  {
+   "case": "Image + Code, pick 4",
+   "predict": "as p1i1's tile 4: Code desktop row start 1, columns 10/18, phone row start 3, columns 2/10; Image columns 3/25 and phone columns 1/11, its rows as p1i1's (3/3/17/25, phone 7/1/17/11); no style. Section rows not predicted: this tile is 4.3px shorter than p1i1's"
+  },
+  {
+   "case": "Video + Button, pick 0",
+   "predict": "as i1b1's tile 0 with Video as the image: Video desktop row start 2, columns 2/12, phone row start 1, columns 2/10; Button columns 14/22, phone columns 2/10, its phone row start right after the Video's phone end; no style. Rows not predicted (a Video's height follows its width)"
+  },
+  {
+   "case": "Video + Button, pick 5",
+   "predict": "as i1b1's tile 5: Button 1/18/4/26, phone 4/2/8/10; Video desktop row start 5, columns 2/26, phone row start 6, columns 1/11; no style"
+  }
+ ],
+ "ifHeld": "Image + Code and Video + Button built by the rule; Image + Quote by the same rule, named inferred",
+ "ifMiss": "those mixes show their tiles faded, count and order only"
+}
