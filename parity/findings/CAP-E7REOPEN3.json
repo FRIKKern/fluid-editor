@@ -1,5 +1,5 @@
 {
-  "item": "CAP-E7REOPEN3",
+  "item": "E7",
   "oracle": "/gestures-probe",
   "capturedAt": "2026-11-07",
   "engine": "chrome",
@@ -10136,5 +10136,8 @@
   "leftDirty": false,
   "exitSteps": [
     "top Exit"
-  ]
+  ],
+  "answer": "Tested a prediction, 9 of 12 on the Button cases (e6ab7e0). A typed link under the mouse has no tip unless the row cuts it short; a long one has its address as a tip. An address that is no page, /nope, closes on Enter. The link button closes the field view too. Clear and a press on the page take the link as Escape does. Undo after Clear brings the link back, and lets the block go. Shift+Tab from the row goes to Remove Link. One Escape closes Edit's field. The panel's Attach link closes on a typed Enter too, focus on the panel's row.",
+  "ours": "Missed: the long tip, Clear by a press on the page, built since. Named: after Undo the oracle's block lets go, ours stays selected, one read. The panel's focus isn't compared.",
+  "pressed": "Named presses with an on-top check. Typing by real keys. Not by name, no on-top check: clickAt 138, 380 on the box's Edit, since Edit is also the toolbar's name, and clickAt 1300, 700 on the page; moveAt to hover; real clicks on blocks. Copy, Remove Link and the row with a page not pressed. No Save, no upload. Each run ended with Exit Without Saving; after the last, a reload showed /gestures-probe with 0 blocks."
 }

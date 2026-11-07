@@ -1,5 +1,5 @@
 {
-  "item": "CAP-E7REOPEN4",
+  "item": "E7",
   "oracle": "/gestures-probe",
   "capturedAt": "2026-11-07",
   "engine": "chrome",
@@ -7671,5 +7671,8 @@
   "exitSteps": [
     "top Exit",
     "dialog Exit"
-  ]
+  ],
+  "answer": "Tested a prediction, 7 of 8 (9a17b4f). A long email under the mouse has no tip, nor a short email, a number, or a short link with a path. Tab then Enter on Edit opens the field by keys. Clear and a press on the page on a typed link takes it and reopens with the box on.",
+  "ours": "Missed: ours gave the long email a tip, built since, with no later read to test it.",
+  "pressed": "Named presses with an on-top check. Typing by real keys. Not by name, no on-top check: clickAt 138, 380 on the box's Edit, since Edit is also the toolbar's name, and clickAt 1300, 700 on the page; moveAt to hover; real clicks on blocks. Copy, Remove Link and the row with a page not pressed. No Save, no upload. Each run ended with Exit Without Saving; after the last, a reload showed /gestures-probe with 0 blocks."
 }

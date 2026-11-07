@@ -46,7 +46,8 @@ export async function replayLinkBox(S, finding, add) {
     else if (op === 'read' && !a[0].endsWith(', above') && !a[0].startsWith('skip ') && !finding.setAside?.[a[0]]) {
       const was = oracleSees(finding.reads, a[0]), ours = evalJs(S, SEE);
       // With no block selected the focus isn't the link editor's. The capture cuts long labels short.
-      const same = (k) => (k === 'focus' && (!was.selected || !('focused' in (finding.reads[a[0]] || {})))) || JSON.stringify(was[k]) === JSON.stringify(ours[k]) || ((k === 'row' || k === 'focus' || k === 'tip') && was[k] && String(ours[k]).startsWith(was[k]));
+      const read = finding.reads[a[0]] || {};
+      const same = (k) => (k === 'focus' && !was.selected) || (!('focused' in read) && ['focus', 'value', 'tip'].includes(k)) || JSON.stringify(was[k]) === JSON.stringify(ours[k]) || ((k === 'row' || k === 'focus' || k === 'tip') && was[k] && String(ours[k]).startsWith(was[k]));
       add(a[0], Object.keys(was).filter((k) => !same(k)).map((k) => `${k}: oracle ${JSON.stringify(was[k])}, ours ${JSON.stringify(ours[k])}`), ours);
     }
   }

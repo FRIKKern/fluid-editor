@@ -3731,7 +3731,7 @@ function drawLinkPop(kind, href, newTab) {
   else linkPop.querySelector('.lk-pill').focus();
 }
 // The box: a page opens with Edit in focus and its tip showing until the mouse moves, anything else with the row in focus
-// and a tip only under the mouse, if it is cut short (CAP-E7REOPEN2.json, CAP-E7REOPEN3.json).
+// and, on a typed link cut short, a tip only under the mouse (CAP-E7REOPEN2.json to CAP-E7REOPEN4.json).
 function drawLinkBox(b) {
   delete linkPop.dataset.cleared;
   linkPop.dataset.kind = 'box';
@@ -3739,7 +3739,7 @@ function drawLinkBox(b) {
   linkPop.innerHTML = linkBoxHtml(b.href, siteLinkGroups(), location.origin);
   placeLinkPop();
   const name = linkPop.querySelector('.lk-box-name');
-  if (!linkPop.querySelector('.lk-tip[data-page]') && name.scrollWidth <= name.clientWidth) linkPop.querySelector('.lk-tip').remove();
+  if (!linkPop.querySelector('.lk-tip[data-page]') && name.scrollWidth <= name.clientWidth) linkPop.querySelector('.lk-tip')?.remove();
   if (linkPop.querySelector('.lk-tip[data-page]')) {
     linkPop.querySelector('[data-link-box="edit"]').focus();
     linkPop.classList.add('tip-held');
