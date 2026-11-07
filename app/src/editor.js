@@ -845,6 +845,8 @@ function snapColumn(m, line, d, lo, hi) {
   return l;
 }
 const rightEdgeOut = (m, line, d) => snapColumn(m, line, d, line, m.colStart.length + 1) === m.colStart.length + 1;
+// The east line of a box on the left margin track, pulled d to the right: its left edge's steps, the last waiting for the right edge.
+const marginEast = (m, c1, d, hi, top) => { const e = Math.min(top, c1 + snapColumn(m, 1, d, 1, 1 + hi - c1) - 1); return e === top && !rightEdgeOut(m, c1, d) ? top - 1 : e; };
 // The same rule for rows, on a uniform pitch, also past the last row (traces T0013, T0014).
 const snapRow = (m, line, d) => line + Math.sign(d) * Math.max(0, Math.round((Math.abs(d) - m.rg / 2) / m.pitch));
 
@@ -1145,10 +1147,13 @@ function updateMove(e) {
   // A phone does go into it, one block or a group (CAP-G4MARGIN2.json to CAP-G4MARGIN4.json, CAP-G4GROUPMARGIN.json).
   const cMax = Math.max(c0, c0 + (cLo === 1 && bp !== 'mobile' ? LAST_LINE[bp] - 1 : LAST_LINE[bp]) - cHi);
   const dx = left - baseLeft;
-  let nc0 = dx > 0 && c0 > 1 ? snapColumn(m, c0 + w, dx, cMin + w, cMax + w) - w : snapColumn(m, c0, dx, cMin, cMax);
+  // A group steps by its box's edges, not the held block's (CAP-G4LAST2.json): bl is the box's left line, bw its width, sh the held block's offset in it.
+  const bl = solo ? c0 : cLo, bw = solo ? w : cHi - cLo, sh = c0 - bl;
+  let nb = dx > 0 && bl > 1 ? snapColumn(m, bl + bw, dx, cMin - sh + bw, cMax - sh + bw) - bw : snapColumn(m, bl, dx, cMin - sh, cMax - sh);
   // From the left margin track the last step waits for the right edge to pass the right margin's middle
   // (MARGINSTEPS.json, CAP-G4MARGIN3.json, CAP-G4MARGIN4.json, CAP-G4MARGIN5.json).
-  if ((solo || bp === 'mobile') && c0 === 1 && nc0 === cMax && cMax > c0 && !rightEdgeOut(m, c0 + w, dx)) nc0 = cMax - 1;
+  if ((solo || bp === 'mobile') && bl === 1 && nb === cMax - sh && cMax > c0 && !rightEdgeOut(m, bl + bw, dx)) nb = cMax - sh - 1;
+  const nc0 = nb + sh;
   // A group's ring stops when its box reaches the top (HOLD.json).
   const nr0 = Math.max(r0 + 1 - Math.min(...origs.map((a) => a[0])), snapRow(m, r0, y - baseTop));
   let t = [nr0, nc0, nr0 + h, nc0 + w];
@@ -1251,7 +1256,8 @@ function updateGroupResize(e) {
   let [r0, c0, r1, c1] = g.box0;
   // One block's handle rule, from the press (CAP-G4GROUPRESIZE.json).
   const dx = e.clientX - g.x0, dy = e.clientY - top - g.py0;
-  if (g.dir.includes('e')) c1 = snapColumn(m, c1, dx, c0 + 1, LAST_LINE[bp]);
+  // A box on the left margin track grows by its left edge's steps, as one block does (CAP-G4LAST.json margin group).
+  if (g.dir.includes('e')) { const hi = LAST_LINE[bp], top = bp === 'mobile' ? hi : hi - 1; c1 = c0 === 1 && dx > 0 && c1 < top ? Math.max(c0 + 1, marginEast(m, c1, dx, hi, top)) : snapColumn(m, c1, dx, c0 + 1, hi); }
   if (g.dir.includes('w')) c0 = snapColumn(m, c0, dx, 1, c1 - 1);
   if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, dy));
   if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, dy)));
@@ -1313,8 +1319,7 @@ function updateResize(e) {
     // step waits the same way (CAP-G4MARGIN.json, CAP-G4MARGIN2.json, CAP-G4MARGIN5.json, CAP-G4MARGIN6.json, BLOCKTYPES.json columnSnap).
     const top = bp === 'mobile' ? hi : hi - 1;
     if (c0 === 1 && d > 0 && c1 < top) {
-      const e = Math.min(top, c1 + snapColumn(m, 1, d, 1, 1 + hi - c1) - 1);
-      c1 = Math.max(lo, e === top && !rightEdgeOut(m, c1, d) ? top - 1 : e);
+      c1 = Math.max(lo, marginEast(m, c1, d, hi, top));
     } else c1 = snapColumn(m, c1, d, lo, hi);
   }
   if (g.dir.includes('w')) c0 = snapColumn(m, c0, dx, 1, Math.max(1, c1 - leastCols));

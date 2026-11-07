@@ -99,11 +99,19 @@ const FIXTURES = {
   group: { view: 'desktop', members: ['a', 'b'], blocks: [['a', area(1, 2, 7, 8), area(1, 2, 7, 10)], ['b', area(6, 14, 12, 20), area(7, 2, 13, 10)]] },
   margin: { view: 'mobile', members: ['a', 'b'], blocks: [['a', area(1, 2, 7, 8), area(1, 1, 7, 4)], ['b', area(1, 2, 7, 8), area(7, 1, 13, 4)]] },
   column2: { view: 'mobile', members: ['a', 'b'], blocks: [['a', area(1, 2, 7, 8), area(1, 2, 7, 5)], ['b', area(1, 14, 7, 20), area(7, 2, 13, 5)]] },
+  // A desktop group on the left margin track, and a phone group whose box is on the margin while its held block is in column 2 (CAP-G4LAST.json, CAP-G4LAST2.json).
+  gmargin: { view: 'desktop', members: ['a', 'b'], blocks: [['a', area(1, 1, 7, 7), area(1, 2, 7, 10)], ['b', area(6, 14, 12, 20), area(7, 2, 13, 10)]] },
+  boxmargin: { view: 'mobile', members: ['a', 'b'], blocks: [['a', area(1, 2, 7, 8), area(1, 2, 7, 5)], ['b', area(1, 2, 7, 8), area(7, 1, 13, 4)]] },
 };
 const GRABS = [
   ['CAP-G4GRAB', 'se middle', 'one', [0, 0], 40, 30], ['CAP-G4GRAB', 'se 6 in', 'one', [-6, -6], 40, 30], ['CAP-G4GRAB', 'se 6 out', 'one', [6, 6], 40, 30], ['CAP-G4GRAB', 'e 6 in', 'one', [-6, 0], 40, 0], ['CAP-G4GRAB', 'e 6 out', 'one', [6, 0], 40, 0],
   ['CAP-G4GROUPRESIZE', 'se', 'group', [0, 0], 120, 90], ['CAP-G4GROUPRESIZE', 'e', 'group', [0, 0], 120, 0], ['CAP-G4GROUPRESIZE', 's', 'group', [0, 0], 0, 90],
   ['CAP-G4GROUPMARGIN', 'from the margin', 'margin', [0, 0], 340, 0], ['CAP-G4GROUPPHONE', 'phone group move', 'column2', [0, 0], 340, 70],
+  ['CAP-G4LAST', 'w middle', 'one', [0, 0], 60, 0], ['CAP-G4LAST', 'w 6 in', 'one', [6, 0], 60, 0], ['CAP-G4LAST', 'w 6 out', 'one', [-6, 0], 60, 0],
+  ['CAP-G4LAST', 'n middle', 'one', [0, 0], 0, 30], ['CAP-G4LAST', 'n 6 in', 'one', [0, 6], 0, 30], ['CAP-G4LAST', 'n 6 out', 'one', [0, -6], 0, 30],
+  ['CAP-G4LAST', 'group w', 'group', [0, 0], 100, 0], ['CAP-G4LAST', 'group n', 'group', [0, 0], 0, 70],
+  ['CAP-G4LAST', 'margin group se', 'gmargin', [0, 0], 120, 90], ['CAP-G4LAST', 'margin group e', 'gmargin', [0, 0], 120, 0],
+  ['CAP-G4LAST2', 'phone group, box on the margin', 'boxmargin', [0, 0], 260, 0],
   ['CAP-G4WIDTHS', '1280 se', 'one', [0, 0], 80, 70, 1280], ['CAP-G4WIDTHS', '1280 move', 'one', [0, 0], 80, 70, 1280], ['CAP-G4WIDTHS', '1920 se', 'one', [0, 0], 80, 70, 1920], ['CAP-G4WIDTHS', '1920 move', 'one', [0, 0], 80, 70, 1920],
 ];
 for (const [file, name, fx, [gx, gy], mx, my, width = 1600] of GRABS) {
