@@ -109,6 +109,34 @@
       ]
      },
      "value": true
+    },
+    "oracle": {
+     "value0": false,
+     "d1": {
+      "h": [
+       71,
+       112
+      ],
+      "fills": [
+       [],
+       [
+        "rgb(255, 255, 255)"
+       ]
+      ]
+     },
+     "d3": {
+      "h": [
+       71,
+       112
+      ],
+      "fills": [
+       [],
+       [
+        "rgb(255, 255, 255)"
+       ]
+      ]
+     },
+     "value": true
     }
    }
   },
@@ -186,6 +214,30 @@
    },
    "round3": {
     "ours": {
+     "d1": {
+      "h": [
+       71,
+       112
+      ],
+      "border": [
+       0,
+       2
+      ]
+     },
+     "d3": {
+      "h": [
+       71,
+       112
+      ],
+      "border": [
+       0,
+       2
+      ]
+     },
+     "value": true
+    },
+    "oracle": {
+     "value0": false,
      "d1": {
       "h": [
        71,
@@ -301,6 +353,26 @@
       ]
      },
      "value": true
+    },
+    "oracle": {
+     "value0": false,
+     "d1": {
+      "filters": [
+       [],
+       [
+        "blur(15px)"
+       ]
+      ]
+     },
+     "d3": {
+      "filters": [
+       [],
+       [
+        "blur(15px)"
+       ]
+      ]
+     },
+     "value": true
     }
    }
   },
@@ -334,6 +406,9 @@
      "d1": {},
      "d3": {},
      "value": true
+    },
+    "oracle": {
+     "notPressed": "no control of that kind and name on the oracle"
     }
    }
   },
@@ -412,6 +487,22 @@
       ]
      },
      "value": "50%"
+    },
+    "oracle": {
+     "value0": "100%",
+     "d1": {
+      "opacity": [
+       1,
+       0.5
+      ]
+     },
+     "d3": {
+      "opacity": [
+       1,
+       0.5
+      ]
+     },
+     "value": "50%"
     }
    }
   },
@@ -421,7 +512,7 @@
    "kind": "field",
    "row": "Rotate",
    "name": "Rotate",
-   "value": "0°",
+   "value": "0\u00b0",
    "common": true,
    "ours": {
     "diff": {
@@ -440,10 +531,10 @@
       ]
      ]
     },
-    "value": "50°"
+    "value": "50\u00b0"
    },
    "oracle": {
-    "value0": "0°",
+    "value0": "0\u00b0",
     "diff": {
      "w": [
       342,
@@ -460,7 +551,7 @@
       ]
      ]
     },
-    "value": "50°"
+    "value": "50\u00b0"
    },
    "round2": {
     "ours": {
@@ -502,10 +593,10 @@
        ]
       ]
      },
-     "value": "50°"
+     "value": "50\u00b0"
     },
     "oracle": {
-     "value0": "0°",
+     "value0": "0\u00b0",
      "d1": {
       "w": [
        342,
@@ -538,7 +629,7 @@
        ]
       ]
      },
-     "value": "50°"
+     "value": "50\u00b0"
     }
    },
    "round3": {
@@ -581,7 +672,67 @@
        ]
       ]
      },
-     "value": "50°"
+     "value": "50\u00b0"
+    },
+    "oracle": {
+     "value0": "0\u00b0",
+     "d1": {
+      "w": [
+       342,
+       400
+      ],
+      "h": [
+       236,
+       413
+      ],
+      "cl": [
+       -1,
+       180
+      ],
+      "cr": [
+       160,
+       185
+      ],
+      "cb": [
+       107,
+       191
+      ],
+      "transforms": [
+       [],
+       [
+        "matrix(0.642788, 0.766044, -0.766044, 0.642788, 0, 0)"
+       ]
+      ]
+     },
+     "d3": {
+      "w": [
+       342,
+       400
+      ],
+      "h": [
+       236,
+       413
+      ],
+      "cl": [
+       -1,
+       180
+      ],
+      "cr": [
+       160,
+       185
+      ],
+      "cb": [
+       107,
+       191
+      ],
+      "transforms": [
+       [],
+       [
+        "matrix(0.642788, 0.766044, -0.766044, 0.642788, 0, 0)"
+       ]
+      ]
+     },
+     "value": "50\u00b0"
     }
    }
   },
@@ -642,6 +793,22 @@
       "words": [
        "Learn more",
        "Learn moreAb"
+      ]
+     },
+     "value": "Learn moreAb"
+    },
+    "oracle": {
+     "value0": "Learn more",
+     "d1": {
+      "words": [
+       "Learn more",
+       "Learn moreA"
+      ]
+     },
+     "d3": {
+      "words": [
+       "Learn more",
+       "Learn moreA"
       ]
      },
      "value": "Learn moreAb"
@@ -768,6 +935,46 @@
       ]
      },
      "value": true
+    },
+    "oracle": {
+     "value0": false,
+     "d1": {
+      "cl": [
+       0,
+       68
+      ],
+      "ct": [
+       0,
+       2
+      ],
+      "cr": [
+       0,
+       68
+      ],
+      "cb": [
+       0,
+       2
+      ]
+     },
+     "d3": {
+      "cl": [
+       0,
+       68
+      ],
+      "ct": [
+       0,
+       2
+      ],
+      "cr": [
+       0,
+       68
+      ],
+      "cb": [
+       0,
+       2
+      ]
+     },
+     "value": true
     }
    }
   },
@@ -846,6 +1053,22 @@
       ]
      },
      "value": "50%"
+    },
+    "oracle": {
+     "value0": "100%",
+     "d1": {
+      "opacity": [
+       1,
+       0.5
+      ]
+     },
+     "d3": {
+      "opacity": [
+       1,
+       0.5
+      ]
+     },
+     "value": "50%"
     }
    }
   },
@@ -879,6 +1102,9 @@
      "d1": {},
      "d3": {},
      "value": true
+    },
+    "oracle": {
+     "notPressed": "no control of that kind and name on the oracle"
     }
    }
   },
@@ -918,6 +1144,9 @@
      "d1": {},
      "d3": {},
      "value": "Enabled"
+    },
+    "oracle": {
+     "notPressed": "no control of that kind and name on the oracle"
     }
    }
   },
@@ -1056,6 +1285,46 @@
       ]
      },
      "value": true
+    },
+    "oracle": {
+     "value0": false,
+     "d1": {
+      "h": [
+       318,
+       359
+      ],
+      "ct": [
+       136,
+       148
+      ],
+      "cb": [
+       162,
+       191
+      ],
+      "border": [
+       0,
+       6
+      ]
+     },
+     "d3": {
+      "h": [
+       318,
+       359
+      ],
+      "ct": [
+       136,
+       148
+      ],
+      "cb": [
+       162,
+       191
+      ],
+      "border": [
+       0,
+       6
+      ]
+     },
+     "value": true
     }
    }
   },
@@ -1094,6 +1363,12 @@
      "d1": {},
      "d3": {},
      "value": "How Fluid EnAbgine works Form"
+    },
+    "oracle": {
+     "value0": "Gestures Probe Form",
+     "d1": {},
+     "d3": {},
+     "value": "Gestures PrAbobe Form"
     }
    }
   },
@@ -1129,6 +1404,12 @@
    },
    "round3": {
     "ours": {
+     "d1": {},
+     "d3": {},
+     "value": "SubmitAb"
+    },
+    "oracle": {
+     "value0": "Submit",
      "d1": {},
      "d3": {},
      "value": "SubmitAb"
@@ -1257,6 +1538,64 @@
       ]
      },
      "value": true
+    },
+    "oracle": {
+     "value0": false,
+     "d1": {
+      "h": [
+       318,
+       359
+      ],
+      "cb": [
+       48,
+       36
+      ],
+      "leaves": [
+       3,
+       4
+      ],
+      "words": [
+       "Accordion Item 1 Accordion Item 2 Accordion Item 3",
+       "Accordion Item 1 Description text goes here Accordion Item 2 Accordion Item 3"
+      ],
+      "transforms": [
+       [
+        "matrix(0, 1, -1, 0, 0, 0)"
+       ],
+       [
+        "matrix(0, 1, -1, 0, 0, 0)",
+        "matrix(1, 0, 0, 1, 0, 0)"
+       ]
+      ]
+     },
+     "d3": {
+      "h": [
+       318,
+       359
+      ],
+      "cb": [
+       48,
+       36
+      ],
+      "leaves": [
+       3,
+       4
+      ],
+      "words": [
+       "Accordion Item 1 Accordion Item 2 Accordion Item 3",
+       "Accordion Item 1 Description text goes here Accordion Item 2 Accordion Item 3"
+      ],
+      "transforms": [
+       [
+        "matrix(0, 1, -1, 0, 0, 0)"
+       ],
+       [
+        "matrix(0, 1, -1, 0, 0, 0)",
+        "matrix(1, 0, 0, 1, 0, 0)"
+       ]
+      ]
+     },
+     "value": true
     }
    }
   },
@@ -1292,6 +1631,12 @@
    },
    "round3": {
     "ours": {
+     "d1": {},
+     "d3": {},
+     "value": true
+    },
+    "oracle": {
+     "value0": false,
      "d1": {},
      "d3": {},
      "value": true
@@ -1358,6 +1703,22 @@
       ]
      },
      "value": true
+    },
+    "oracle": {
+     "value0": false,
+     "d1": {
+      "cr": [
+       14,
+       24
+      ]
+     },
+     "d3": {
+      "cr": [
+       14,
+       24
+      ]
+     },
+     "value": true
     }
    }
   },
@@ -1391,6 +1752,9 @@
      "d1": {},
      "d3": {},
      "value": true
+    },
+    "oracle": {
+     "notPressed": "no control of that kind and name on the oracle"
     }
    }
   },
@@ -1428,6 +1792,30 @@
     "ours": {
      "d1": {},
      "d3": {},
+     "value": false
+    },
+    "oracle": {
+     "value0": true,
+     "d1": {
+      "cl": [
+       0,
+       53
+      ],
+      "cr": [
+       0,
+       53
+      ]
+     },
+     "d3": {
+      "cl": [
+       0,
+       53
+      ],
+      "cr": [
+       0,
+       53
+      ]
+     },
      "value": false
     }
    }
@@ -1494,6 +1882,22 @@
    },
    "round3": {
     "ours": {
+     "d1": {
+      "shadows": [
+       0,
+       1
+      ]
+     },
+     "d3": {
+      "shadows": [
+       0,
+       1
+      ]
+     },
+     "value": true
+    },
+    "oracle": {
+     "value0": false,
      "d1": {
       "shadows": [
        0,
@@ -1585,6 +1989,22 @@
       ]
      },
      "value": "50%"
+    },
+    "oracle": {
+     "value0": "100%",
+     "d1": {
+      "opacity": [
+       1,
+       0.5
+      ]
+     },
+     "d3": {
+      "opacity": [
+       1,
+       0.5
+      ]
+     },
+     "value": "50%"
     }
    }
   },
@@ -1594,7 +2014,7 @@
    "kind": "field",
    "row": "Rotate",
    "name": "Rotate",
-   "value": "0°",
+   "value": "0\u00b0",
    "common": true,
    "ours": {
     "diff": {
@@ -1613,10 +2033,10 @@
       ]
      ]
     },
-    "value": "50°"
+    "value": "50\u00b0"
    },
    "oracle": {
-    "value0": "0°",
+    "value0": "0\u00b0",
     "diff": {
      "w": [
       224,
@@ -1633,7 +2053,7 @@
       ]
      ]
     },
-    "value": "50°"
+    "value": "50\u00b0"
    },
    "round2": {
     "ours": {
@@ -1669,10 +2089,10 @@
        ]
       ]
      },
-     "value": "50°"
+     "value": "50\u00b0"
     },
     "oracle": {
-     "value0": "0°",
+     "value0": "0\u00b0",
      "d1": {
       "w": [
        224,
@@ -1705,7 +2125,7 @@
        ]
       ]
      },
-     "value": "50°"
+     "value": "50\u00b0"
     }
    },
    "round3": {
@@ -1742,7 +2162,43 @@
        ]
       ]
      },
-     "value": "50°"
+     "value": "50\u00b0"
+    },
+    "oracle": {
+     "value0": "0\u00b0",
+     "d1": {
+      "w": [
+       224,
+       167
+      ],
+      "h": [
+       30,
+       191
+      ],
+      "transforms": [
+       [],
+       [
+        "matrix(0.642788, 0.766044, -0.766044, 0.642788, 0, 0)"
+       ]
+      ]
+     },
+     "d3": {
+      "w": [
+       224,
+       167
+      ],
+      "h": [
+       30,
+       191
+      ],
+      "transforms": [
+       [],
+       [
+        "matrix(0.642788, 0.766044, -0.766044, 0.642788, 0, 0)"
+       ]
+      ]
+     },
+     "value": "50\u00b0"
     }
    }
   },
@@ -1768,6 +2224,9 @@
    "round3": {
     "ours": {
      "error": "press: covered"
+    },
+    "oracle": {
+     "notPressed": "no control of that kind and name on the oracle"
     }
    }
   },
@@ -1806,6 +2265,62 @@
      "d1": {},
      "d3": {},
      "value": "50"
+    },
+    "oracle": {
+     "value0": "1",
+     "d1": {
+      "cl": [
+       -35,
+       -177
+      ],
+      "ct": [
+       -245,
+       49
+      ],
+      "cr": [
+       -17,
+       -131
+      ],
+      "cb": [
+       -41,
+       -79
+      ],
+      "leaves": [
+       13,
+       12
+      ],
+      "words": [
+       "Keyboard shortcuts Map data \u00a92026 Google Terms Report a map error",
+       "Keyboard shortcuts Map data \u00a92026 Google Terms"
+      ]
+     },
+     "d3": {
+      "cl": [
+       -35,
+       -177
+      ],
+      "ct": [
+       -245,
+       49
+      ],
+      "cr": [
+       -17,
+       -131
+      ],
+      "cb": [
+       -41,
+       -79
+      ],
+      "leaves": [
+       13,
+       12
+      ],
+      "words": [
+       "Keyboard shortcuts Map data \u00a92026 Google Terms Report a map error",
+       "Keyboard shortcuts Map data \u00a92026 Google Terms"
+      ]
+     },
+     "value": "0.01"
     }
    }
   },
@@ -1844,6 +2359,12 @@
      "d1": {},
      "d3": {},
      "value": false
+    },
+    "oracle": {
+     "value0": true,
+     "d1": {},
+     "d3": {},
+     "value": false
     }
    }
   },
@@ -1879,6 +2400,12 @@
    },
    "round3": {
     "ours": {
+     "d1": {},
+     "d3": {},
+     "value": true
+    },
+    "oracle": {
+     "value0": false,
      "d1": {},
      "d3": {},
      "value": true
@@ -1968,6 +2495,9 @@
       ]
      },
      "value": "CSS"
+    },
+    "oracle": {
+     "notPressed": "no control of that kind and name on the oracle"
     }
    }
   },
@@ -2030,6 +2560,30 @@
    },
    "round3": {
     "ours": {
+     "d1": {
+      "words": [
+       "Hello, World!",
+       "<p>Hello, World!</p>"
+      ],
+      "family": [
+       "Poppins",
+       "monospace"
+      ]
+     },
+     "d3": {
+      "words": [
+       "Hello, World!",
+       "<p>Hello, World!</p>"
+      ],
+      "family": [
+       "Poppins",
+       "monospace"
+      ]
+     },
+     "value": true
+    },
+    "oracle": {
+     "value0": false,
      "d1": {
       "words": [
        "Hello, World!",
@@ -2116,6 +2670,22 @@
    },
    "round3": {
     "ours": {
+     "d1": {
+      "opacity": [
+       1,
+       0.5
+      ]
+     },
+     "d3": {
+      "opacity": [
+       1,
+       0.5
+      ]
+     },
+     "value": "50%"
+    },
+    "oracle": {
+     "value0": "100%",
      "d1": {
       "opacity": [
        1,
@@ -2447,6 +3017,110 @@
       ]
      },
      "value": true
+    },
+    "oracle": {
+     "value0": false,
+     "d1": {
+      "h": [
+       236,
+       194
+      ],
+      "cb": [
+       213,
+       0
+      ],
+      "leaves": [
+       1,
+       0
+      ],
+      "words": [
+       "Double-click to edit...",
+       ""
+      ],
+      "align": [
+       "start",
+       null
+      ],
+      "size": [
+       16,
+       null
+      ],
+      "weight": [
+       "400",
+       null
+      ],
+      "italic": [
+       "normal",
+       null
+      ],
+      "case": [
+       "none",
+       null
+      ],
+      "deco": [
+       "none",
+       null
+      ],
+      "color": [
+       "rgba(0, 0, 0, 0.3)",
+       null
+      ],
+      "family": [
+       "Poppins",
+       null
+      ]
+     },
+     "d3": {
+      "h": [
+       236,
+       194
+      ],
+      "cb": [
+       213,
+       0
+      ],
+      "leaves": [
+       1,
+       0
+      ],
+      "words": [
+       "Double-click to edit...",
+       ""
+      ],
+      "align": [
+       "start",
+       null
+      ],
+      "size": [
+       16,
+       null
+      ],
+      "weight": [
+       "400",
+       null
+      ],
+      "italic": [
+       "normal",
+       null
+      ],
+      "case": [
+       "none",
+       null
+      ],
+      "deco": [
+       "none",
+       null
+      ],
+      "color": [
+       "rgba(0, 0, 0, 0.3)",
+       null
+      ],
+      "family": [
+       "Poppins",
+       null
+      ]
+     },
+     "value": true
     }
    }
   },
@@ -2509,6 +3183,30 @@
    },
    "round3": {
     "ours": {
+     "d1": {
+      "words": [
+       "Double-click to edit...",
+       "**"
+      ],
+      "color": [
+       "rgba(0, 0, 0, 0.3)",
+       "rgb(0, 0, 0)"
+      ]
+     },
+     "d3": {
+      "words": [
+       "Double-click to edit...",
+       "**"
+      ],
+      "color": [
+       "rgba(0, 0, 0, 0.3)",
+       "rgb(0, 0, 0)"
+      ]
+     },
+     "value": true
+    },
+    "oracle": {
+     "value0": false,
      "d1": {
       "words": [
        "Double-click to edit...",
@@ -2793,6 +3491,30 @@
       ]
      },
      "value": true
+    },
+    "oracle": {
+     "value0": false,
+     "d1": {
+      "words": [
+       "Double-click to edit...",
+       "*"
+      ],
+      "color": [
+       "rgba(0, 0, 0, 0.3)",
+       "rgb(0, 0, 0)"
+      ]
+     },
+     "d3": {
+      "words": [
+       "Double-click to edit...",
+       "*"
+      ],
+      "color": [
+       "rgba(0, 0, 0, 0.3)",
+       "rgb(0, 0, 0)"
+      ]
+     },
+     "value": true
     }
    }
   },
@@ -2828,6 +3550,12 @@
    },
    "round3": {
     "ours": {
+     "d1": {},
+     "d3": {},
+     "value": true
+    },
+    "oracle": {
+     "value0": false,
      "d1": {},
      "d3": {},
      "value": true
@@ -2909,6 +3637,22 @@
       ]
      },
      "value": "50%"
+    },
+    "oracle": {
+     "value0": "100%",
+     "d1": {
+      "opacity": [
+       1,
+       0.5
+      ]
+     },
+     "d3": {
+      "opacity": [
+       1,
+       0.5
+      ]
+     },
+     "value": "50%"
     }
    }
   },
@@ -2918,7 +3662,7 @@
    "kind": "field",
    "row": "Rotate",
    "name": "Rotate",
-   "value": "0°",
+   "value": "0\u00b0",
    "common": true,
    "ours": {
     "diff": {
@@ -2953,10 +3697,10 @@
       ]
      ]
     },
-    "value": "50°"
+    "value": "50\u00b0"
    },
    "oracle": {
-    "value0": "0°",
+    "value0": "0\u00b0",
     "diff": {
      "w": [
       459,
@@ -2973,7 +3717,7 @@
       ]
      ]
     },
-    "value": "50°"
+    "value": "50\u00b0"
    },
    "round2": {
     "ours": {
@@ -3041,10 +3785,10 @@
        ]
       ]
      },
-     "value": "50°"
+     "value": "50\u00b0"
     },
     "oracle": {
-     "value0": "0°",
+     "value0": "0\u00b0",
      "d1": {
       "w": [
        459,
@@ -3077,7 +3821,7 @@
        ]
       ]
      },
-     "value": "50°"
+     "value": "50\u00b0"
     }
    },
    "round3": {
@@ -3146,7 +3890,75 @@
        ]
       ]
      },
-     "value": "50°"
+     "value": "50\u00b0"
+    },
+    "oracle": {
+     "value0": "0\u00b0",
+     "d1": {
+      "w": [
+       459,
+       539
+      ],
+      "h": [
+       318,
+       556
+      ],
+      "cl": [
+       23,
+       203
+      ],
+      "ct": [
+       23,
+       32
+      ],
+      "cr": [
+       57,
+       54
+      ],
+      "cb": [
+       246,
+       202
+      ],
+      "transforms": [
+       [],
+       [
+        "matrix(0.642788, 0.766044, -0.766044, 0.642788, 0, 0)"
+       ]
+      ]
+     },
+     "d3": {
+      "w": [
+       459,
+       539
+      ],
+      "h": [
+       318,
+       556
+      ],
+      "cl": [
+       23,
+       203
+      ],
+      "ct": [
+       23,
+       32
+      ],
+      "cr": [
+       57,
+       54
+      ],
+      "cb": [
+       246,
+       202
+      ],
+      "transforms": [
+       [],
+       [
+        "matrix(0.642788, 0.766044, -0.766044, 0.642788, 0, 0)"
+       ]
+      ]
+     },
+     "value": "50\u00b0"
     }
    }
   },
@@ -3270,6 +4082,62 @@
       ]
      },
      "value": true
+    },
+    "oracle": {
+     "value0": false,
+     "d1": {
+      "cl": [
+       60,
+       62
+      ],
+      "ct": [
+       -10,
+       0
+      ],
+      "cr": [
+       60,
+       62
+      ],
+      "cb": [
+       41,
+       43
+      ],
+      "transforms": [
+       [
+        "matrix(2, 0, 0, 2, 0, 0)"
+       ],
+       [
+        "matrix(1, 0, 0, 1, 0, 0)"
+       ]
+      ]
+     },
+     "d3": {
+      "cl": [
+       60,
+       62
+      ],
+      "ct": [
+       -10,
+       0
+      ],
+      "cr": [
+       60,
+       62
+      ],
+      "cb": [
+       41,
+       43
+      ],
+      "transforms": [
+       [
+        "matrix(2, 0, 0, 2, 0, 0)"
+       ],
+       [
+        "matrix(1, 0, 0, 1, 0, 0)"
+       ]
+      ]
+     },
+     "value": true
     }
    }
   },
@@ -3332,6 +4200,30 @@
    },
    "round3": {
     "ours": {
+     "d1": {
+      "cl": [
+       60,
+       -10
+      ],
+      "cr": [
+       60,
+       130
+      ]
+     },
+     "d3": {
+      "cl": [
+       60,
+       -10
+      ],
+      "cr": [
+       60,
+       130
+      ]
+     },
+     "value": true
+    },
+    "oracle": {
+     "value0": false,
      "d1": {
       "cl": [
        60,
@@ -3511,6 +4403,54 @@
       ]
      },
      "value": true
+    },
+    "oracle": {
+     "value0": false,
+     "d1": {
+      "h": [
+       71,
+       30
+      ],
+      "cl": [
+       60,
+       70
+      ],
+      "ct": [
+       -10,
+       -8
+      ],
+      "cr": [
+       60,
+       70
+      ],
+      "cb": [
+       41,
+       6
+      ]
+     },
+     "d3": {
+      "h": [
+       71,
+       30
+      ],
+      "cl": [
+       60,
+       70
+      ],
+      "ct": [
+       -10,
+       -8
+      ],
+      "cr": [
+       60,
+       70
+      ],
+      "cb": [
+       41,
+       6
+      ]
+     },
+     "value": true
     }
    }
   }
@@ -3539,9 +4479,36 @@
   "caveat": "The oracle was read about 1.1 s after each change. On Button Text the field already read Learn moreAb while the button still showed Learn more, so some misses where the oracle shows nothing may be a late redraw, not a difference. The reader also sees no pseudo-element: Text Background and Stroke change the height alike, and only ours shows a fill or border. Not refitted."
  },
  "round2": {
-  "rule": "The same picks. Each read at about 1.1 s (round 1's moment) and at 3 s after the gesture (readTwice), with ::before and ::after counted in the look. A measurement fix, not a refit."
+  "rule": "The same picks. Each read at about 1.1 s (round 1's moment) and at 3 s after the gesture (readTwice), with ::before and ::after counted in the look. A measurement fix, not a refit.",
+  "count": "17 of 31 match at 1.1 s and at 3 s (8 of them nothing on both); 7 not read. The oracle read the same at both times, so a late redraw was not it."
  },
  "round3": {
-  "rule": "Round 2 with one reader fix, found after round 2: editor-only parts are dropped by name, not by the word editing. With its panel open the oracle adds sqs-block-editing to the block's own content wrapper, so rounds 1 and 2 read no content on the oracle: no words, no leaves, no fills. A measurement fix, not a refit."
+  "rule": "Round 2 with one reader fix, found after round 2: editor-only parts are dropped by name, not by the word editing. With its panel open the oracle adds sqs-block-editing to the block's own content wrapper, so rounds 1 and 2 read no content on the oracle: no words, no leaves, no fills. A measurement fix, not a refit.",
+  "count": "24 of 32 match at 1.1 s and at 3 s (6 of them nothing on both); 6 not read (no control of that kind and name on the oracle: Image Corner, Video Custom thumbnail, Video Lazy Loading, Shape style, Line Scale X, Code Mode).",
+  "byTile": {
+   "Text": "3/3",
+   "Image": "1/2",
+   "Button": "3/3",
+   "Video": "1/1",
+   "Form": "2/2",
+   "Accordion": "2/3",
+   "Shape": "1/2",
+   "Line": "2/2",
+   "Map": "2/3",
+   "Code": "2/2",
+   "Markdown": "1/3",
+   "Embed": "2/3",
+   "Social Links": "2/3"
+  },
+  "misses": [
+   "Image Rotate: the oracle moves the content box inside the block (cl, cr, cb); ours does not",
+   "Accordion Expand first item: the oracle adds a transform; ours does not (the description shows on both)",
+   "Shape Stretch off: the oracle moves the content box sideways (cl, cr); ours does not",
+   "Map Zoom: typed 50 is 0.01 on the oracle (difference 88) and the map redraws there; ours shows nothing",
+   "Markdown Bold: ours adds a border; the oracle does not",
+   "Markdown Bulleted List: ours drops the placeholder text and its style; the oracle keeps it and changes only words and colour",
+   "Embed Rotate: the right inset moves the other way",
+   "Social Links Border Square: the oracle adds a transform; ours does not"
+  ]
  }
 }
