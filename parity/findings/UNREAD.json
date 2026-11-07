@@ -1606,6 +1606,24 @@
       "what": "Section panel, Design: Copy Link, a button by the anchor's field. Ours has the field, not this button.",
       "safeRead": "yes",
       "how": "on a probe page, unsaved, a name in the field first. Synthetic clipboard only."
+    },
+    {
+      "item": "U12",
+      "what": "The font list's language filter: what a pick in it does. Its list is read. Ours is faded.",
+      "source": "CAP-STYLEROWS.json, CAP-U12FONTLIST.json",
+      "safeRead": "no",
+      "why": "a press could write, in a panel that reaches the whole site; read only",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "U12",
+      "what": "A pick in the font list, typing in Search all fonts, and what In Use holds with more than one font.",
+      "source": "CAP-U12FONTLIST.json",
+      "safeRead": "no",
+      "why": "needs a pick in Site Styles, which reaches the whole site; read only",
+      "lane": "none",
+      "state": "open"
     }
   ]
 }

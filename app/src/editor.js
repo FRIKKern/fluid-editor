@@ -26,6 +26,7 @@ import { SUB as SS_SUB, siteStylesHtml, stylePopoverHtml, stylePopoverPosition, 
 import { TIERS, TIER_NAMES, CUSTOM_RADIUS, tierValues } from './button-tiers.js';
 import { formOption, OPTION_RADIUS, FORM_KINDS, FORM_CUSTOM_RADIUS, formValues } from './form-rows.js';
 import { formColor } from './form-colors.js';
+import { fontListHtml, fontRowsHtml, fontListTop, watchFontRows } from './font-list.js';
 import { siteStylesHead, baseSize, resolveSiteStyles, VARS as PALETTE_VARS, BASE_VARS } from './site-style-packs.js';
 import { hslToRgb, rgbToHsl, rgbToHsv, hsvToRgb, hexToRgb, hueToRgb, clampByte, rgbToHslParts } from './color-math.js';
 import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette.js';
@@ -5235,6 +5236,7 @@ const siteStyles = $('site-styles');
 let ssView = null;
 let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary', ssFormKind = 'check', ssFormFont = 'Title', ssFormTheme = null;
 const pal = { swatch: 'accent', tab: 'Presets', format: 'Hex', list: false }; // Edit Palette's own view state
+let fontPop = null; // the open font list: { key, query, watch }
 let dot = null; // the open color popover: { row, custom, format, list }, and form: the theme when it is a Forms > Colors row
 function themeRows() {
   themeColors = themeColors || readThemeColors();
@@ -5250,7 +5252,7 @@ function pageButtonTiers() {
 function renderSsPanel() {
   let rows = [];
   if (ssView === 'Colors') rows = themeRows();
-  let opts = { select: ssSelect, help: ssHelp, pal };
+  let opts = { select: ssSelect, help: ssHelp, pal, fontRow: fontPop?.key };
   if (ssView === 'ButtonTier') opts = { ...opts, tier: ssTier, pageTiers: pageButtonTiers() };
   if (ssView === 'ThemeRows') {
     themeColors = themeColors || readThemeColors();
@@ -5297,6 +5299,7 @@ function setSiteStyles(on) {
   }
   closeStylePopover();
   closeDotPop();
+  closeFontList();
   hideStyleConfirm();
   if (!on) ssView = null;
   placeThemeChips();
@@ -5317,7 +5320,7 @@ siteStyles.addEventListener('click', (e) => {
   }
   if (tierPress(e) || formPress(e)) return;
   const open = e.target.closest('[data-ss-view]');
-  if (open || e.target.closest('[data-ss-back]')) { ssThemeList = false; closeDotPop(); pal.list = false; }
+  if (open || e.target.closest('[data-ss-back]')) { ssThemeList = false; closeDotPop(); closeFontList(); pal.list = false; }
   // Edit Color Theme's back goes to Site Styles' Colors, not to the section panel it was opened from (CAP-DIVSHAPES.json).
   if (ssView === 'ColorTheme' && e.target.closest('[data-ss-back]')) { ssView = 'Colors'; ssSelect = null; renderSsPanel(); siteStyles.scrollTop = 0; return; }
   if (e.target.closest('[data-ss-help]')) { ssHelp = !ssHelp; renderSsPanel(); return; }
@@ -5336,6 +5339,8 @@ siteStyles.addEventListener('click', (e) => {
   const from = e.target.closest('[data-pal-from]');
   if (from) { setPalette(fromColor(palette().accent, Number(from.dataset.palFrom)), from.getAttribute('aria-label')); return; }
   if (colorFormatPress(e, pal)) { renderSsPanel(); return; }
+  const fontBtn = e.target.closest('[data-ss-fontrow]');
+  if (fontBtn) { const same = fontPop?.key === fontBtn.dataset.ssFontrow; closeFontList(); if (!same) openFontList(fontBtn); return; }
   const sel0 = e.target.closest('[data-ss-select]');
   if (sel0?.dataset.ssFcTheme) {
     const name = sel0.getAttribute('aria-label'), same = dot?.form && dot.row === name;
@@ -5411,6 +5416,39 @@ siteStyles.addEventListener('pointerdown', (e) => {
   const key = pal.swatch;
   colorDrag(e, (x, y) => mapOrHue(kind, x, y, hslToRgb(palette()[key]), (rgb) => withColors({ [key]: rgbToHsl(rgb) })));
 });
+// The font list (U12, CAP-U12FONTLIST.json). It lives outside the panel, so a pick's redraw keeps its place.
+const fontList = $('ss-font-list');
+function closeFontList() {
+  if (!fontPop) return;
+  fontPop.watch?.disconnect();
+  siteStyles.querySelector(`[data-ss-fontrow="${fontPop.key}"]`)?.setAttribute('aria-expanded', 'false');
+  fontPop = null; fontList.hidden = true; fontList.innerHTML = '';
+}
+function fontRowsNow() {
+  const host = fontList.querySelector('.ss-fl-scroll'), top = host.scrollTop;
+  fontPop.watch?.disconnect();
+  host.innerHTML = fontRowsHtml(model.siteStyles, fontPop.key, fontPop.query);
+  host.scrollTop = top;
+  fontPop.watch = watchFontRows(host);
+}
+function openFontList(btn) {
+  fontPop = { key: btn.dataset.ssFontrow, query: '' };
+  btn.setAttribute('aria-expanded', 'true');
+  fontList.innerHTML = fontListHtml(model.siteStyles, fontPop.key);
+  fontList.style.top = `${fontListTop(btn.getBoundingClientRect().bottom, innerHeight)}px`;
+  fontList.hidden = false;
+  fontPop.watch = watchFontRows(fontList.querySelector('.ss-fl-scroll'));
+}
+fontList.addEventListener('click', (e) => {
+  const pick = e.target.closest('[data-ss-font]');
+  if (!pick) return;
+  const key = fontPop.key, f = pick.dataset.ssFont;
+  setSiteStyleKeys(`${key} font ${f}`, (st) => { st.type = { ...(st.type || {}), [key]: { ...(st.type?.[key] || {}), family: f } }; return st; });
+  fontRowsNow();
+});
+fontList.addEventListener('input', (e) => { if (e.target.matches('input')) { fontPop.query = e.target.value; fontRowsNow(); fontList.querySelector('.ss-fl-scroll').scrollTop = 0; } });
+document.addEventListener('pointerdown', (e) => { if (fontPop && !fontList.contains(e.target) && !e.target.closest?.('[data-ss-fontrow]')) closeFontList(); }, true);
+document.addEventListener('keydown', (e) => { if (fontPop && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeFontList(); } }, true);
 // A row's color popover (U12): five palette circles, Custom color, the opacity track. Centered on its row.
 const dotPop = $('ss-dot-pop');
 function closeDotPop() {
@@ -5700,6 +5738,8 @@ function applyStylePick(t) {
   if (kind === 'button') delete st.buttons;
   if (kind === 'form') delete st.forms;
   model.siteStyles = kind === 'theme' ? { theme: t.dataset.v } : { ...st, [kind]: t.dataset.v };
+  // A font pack sets the fonts, so the rows' own picks go (inferred: no pick is read).
+  if (kind === 'font' && st.type) model.siteStyles.type = Object.fromEntries(Object.entries(st.type).map(([k, { family, ...rest }]) => [k, rest]));
   commit(before, `Site Styles: ${t.getAttribute('aria-label')}`);
   renderAll();
   fitHeader();

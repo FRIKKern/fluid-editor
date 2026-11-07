@@ -2774,8 +2774,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const boxes = (sel) => js(`return JSON.stringify([...document.querySelectorAll(${JSON.stringify(`#site-styles ${sel}`)})].map((e) => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; }));`);
   const close = (got, want, tol = 1) => got.length >= want.length && want.every((v, n) => Math.abs(got[n] - v) <= tol);
   const nearBox = (got, want) => want.every((b, n) => got[n] && b.every((v, i) => Math.abs(got[n][i] - v) <= 1));
-  // A value's box in ours is 70 wide as in Headings, and its words sit at the right; the oracle's fits the value. So its right edge and top.
-  const nearValue = (got, want) => want.every((b, n) => got[n] && Math.abs(got[n][0] + got[n][2] - b[0] - b[2]) <= 1 && Math.abs(got[n][1] - b[1]) <= 1);
+  const nearValue = nearBox;
   const start = async () => { viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1200); await hit('#site-styles-toggle', 300); await hit('#site-styles [data-ss-view="Fonts"]', 200); };
   const FD = `const d = document.getElementById('site-frame').contentDocument, W = d.defaultView;`;
   await start();
@@ -2788,7 +2787,6 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Fonts > Buttons: sliders land', close(tops('.ss-slide input[type=range]'), R.buttons.ranges), JSON.stringify(tops('.ss-slide input[type=range]')));
   add('Fonts > Buttons: values read', js(`return JSON.stringify([...document.querySelectorAll('.ss-slide input[type=text]')].map((e) => e.value).join());`) === '0.02em,1rem,0.02em,1rem,0.02em,1rem');
   add('Fonts > Buttons: slider ranges', js(`const e = document.querySelectorAll('.ss-slide input[type=range]'); return JSON.stringify([e[0].min, e[0].max, e[1].min, e[1].max].map(Number));`).join() === [...R.buttons.lsRange, ...R.buttons.sizeRange].join());
-  add('Fonts > Buttons: font row stays unbuilt', js(`return JSON.stringify([...document.querySelectorAll('.ss-font')].every((e) => e.hasAttribute('data-unbuilt')));`) === true);
   const button = (k) => js(`${FD} const b = d.querySelector('.sqs-button-element--${k}.sqs-block-button-element'); if (!b) return JSON.stringify(null); const c = W.getComputedStyle(b); return JSON.stringify([c.fontWeight, c.textTransform]);`);
   const undoCount = () => js(`return JSON.stringify(document.querySelector('[data-tb="undo"], #undo')?.disabled ?? null);`);
   await hit('[data-ss-select="type.primary.weight"]', 120); await hit('[data-ss-set="type.primary.weight"][data-v="700"]', 200);
@@ -2891,6 +2889,77 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   await color('Title');
   await pressAt(1400, 100);
   add('A press outside closes it', js(`return JSON.stringify(document.getElementById('ss-dot-pop').hidden);`) === true);
+}
+
+// U12: the font list, against parity/findings/CAP-U12FONTLIST.json. Boxes, heads and names are read. What a pick does isn't: Site Styles is read only.
+{
+  const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U12FONTLIST.json', import.meta.url))).results;
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const hit = async (sel, wait = 100) => { js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true';`); await pause(wait); };
+  const box = (sel) => js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify(r.width ? [r.left, r.top, r.width, r.height] : null);`);
+  const same = (a, b, tol = 1) => !!a && b.every((v, i) => Math.abs(a[i] - v) <= tol);
+  const FD = `const d = document.getElementById('site-frame').contentDocument, W = d.defaultView, cs = (e) => W.getComputedStyle(e);`;
+  const pageFont = (sel) => js(`${FD} return JSON.stringify(cs(d.querySelector(${JSON.stringify(sel)})).fontFamily);`);
+  const heads = () => js(`return JSON.stringify([...document.querySelectorAll('.ss-fl-h')].map((e) => [e.textContent, e.getBoundingClientRect().top]));`);
+  viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1200);
+  await hit('#site-styles-toggle', 300); await hit('[data-ss-view="Fonts"]', 200); await hit('[data-ss-view="Headings"]', 200);
+  add('Font row: lands', same(box('[data-ss-fontrow="h"]'), R.opensUnder[0][0]) && !js(`return JSON.stringify(document.querySelector('[data-ss-fontrow="h"]').hasAttribute('data-unbuilt'));`), JSON.stringify(box('[data-ss-fontrow="h"]')));
+  await hit('[data-ss-fontrow="h"]', 200);
+  add('Font list: the box', same(box('#ss-font-list'), R.opensUnder[0][1]), JSON.stringify(box('#ss-font-list')));
+  add('Font list: opening changes nothing', js(`return JSON.stringify(document.getElementById('undo').disabled);`) === true);
+  add('Font list: search lands', same(box('#ss-font-list input'), R.search.input) && same(box('[aria-label="Filter by language or script"]'), R.search.filter) && same(box('[aria-label="Upload and manage custom fonts"]'), R.search.upload), JSON.stringify([box('#ss-font-list input'), box('[aria-label="Filter by language or script"]'), box('[aria-label="Upload and manage custom fonts"]')]));
+  add('Font list: the filter and Upload are faded', js(`return JSON.stringify(document.querySelector('[aria-label="Filter by language or script"]').hasAttribute('data-unbuilt') && document.querySelector('[aria-label="Upload and manage custom fonts"]').hasAttribute('data-unbuilt'));`) === true);
+  add('Font list: the scroller', same(box('.ss-fl-scroll'), R.scroller.box), JSON.stringify(box('.ss-fl-scroll')));
+  const h = heads(), at = Object.fromEntries(h);
+  add('Font list: heads in order', h.map((x) => x[0]).join() === 'In Use,Sans Serif,Serif,Mono,Other', h.map((x) => x[0]).join());
+  add('Font list: heads land', ['In Use', 'Sans Serif', 'Serif'].every((n) => Math.abs(at[n] - R.tops[n]) <= 1), JSON.stringify(at));
+  add('Font list: Mono and Other land', Math.abs(at.Mono - (R.scroller.box[1] + R.groupsAt.Mono)) <= 1 && Math.abs(at.Other - (R.scroller.box[1] + R.groupsAt.Other)) <= 1, JSON.stringify(at));
+  add('Font list: a head\'s look', js(`const c = getComputedStyle(document.querySelector('.ss-fl-h')), r = document.querySelector('.ss-fl-h').getBoundingClientRect(); return JSON.stringify([r.left, r.height, c.fontSize, c.fontWeight, c.color, c.letterSpacing].join());`) === [R.head.left, R.head.height, R.head.size, R.head.weight, R.head.color, R.head.letterSpacing].join());
+  const rows = js(`return JSON.stringify([...document.querySelectorAll('.ss-fl-row')].slice(0, 8).map((e) => e.getBoundingClientRect().top));`);
+  add('Font list: rows land', Math.abs(rows[0] - R.tops.firstRow) <= 1 && R.tops.sansRows.every((t, n) => Math.abs(rows[n + 1] - t) <= 1) && Math.abs(rows[6] - R.tops.serifRow) <= 1, JSON.stringify(rows));
+  add('Font list: a row\'s box', same(box('.ss-fl-row'), R.rowBox), JSON.stringify(box('.ss-fl-row')));
+  add('Font list: the note', js(`const e = document.querySelector('.ss-fl-note'), r = e.getBoundingClientRect(); return JSON.stringify([e.textContent.trim(), Math.round(r.top), getComputedStyle(e).fontSize].join());`) === [R.note.text, R.note.box[1], R.note.size].join());
+  add('Font list: every name and how long', js(`const p = document.querySelector('.ss-fl-scroll'); return JSON.stringify(document.querySelectorAll('.ss-fl-row').length);`) === 1504 && Math.abs(js(`return JSON.stringify(document.querySelector('.ss-fl-scroll').scrollHeight);`) - R.scroller.scrollHeight) <= 60, js(`return JSON.stringify(document.querySelector('.ss-fl-scroll').scrollHeight);`));
+  add('Font list: the row in use is checked', js(`const e = document.querySelector('.ss-fl-row.is-on'); return JSON.stringify([e.textContent, !!e.querySelector('svg')].join());`) === 'Poppins,true');
+  add('Font list: a stack in its own font', js(`return JSON.stringify(getComputedStyle(document.querySelector('[aria-label="Georgia"]')).fontFamily);`).startsWith('Georgia'));
+  // What follows is inferred: no pick is read.
+  await hit('.ss-fl-row[aria-label="Georgia"]', 200);
+  add('A pick: stores the font, on Headings', js(`return JSON.stringify(fe.model.siteStyles.type.h.family);`) === 'Georgia, serif', JSON.stringify(js(`return JSON.stringify(fe.model.siteStyles.type);`)));
+  add('A pick: reaches headings, not the body', pageFont('h1, h2, h3').startsWith('Georgia') && pageFont('.header-title').startsWith('Georgia') && !pageFont('p').startsWith('Georgia'), `${pageFont('h1, h2, h3')} ${pageFont('p')}`);
+  add('A pick: the row shows it, the list stays', js(`return JSON.stringify([document.querySelector('[data-ss-fontrow="h"] span').textContent, document.getElementById('ss-font-list').hidden, document.querySelector('.ss-fl-row.is-on').getAttribute('aria-label')].join());`) === 'Georgia,false,Georgia');
+  add('A pick: In Use holds both', js(`const out = []; for (const e of document.querySelectorAll('.ss-fl-scroll > *')) { if (e.classList.contains('ss-fl-note')) break; if (e.classList.contains('ss-fl-row')) out.push(e.getAttribute('aria-label')); } return JSON.stringify(out.sort().join());`) === 'Georgia,Poppins');
+  const head = () => js(`${FD} return JSON.stringify([...d.querySelectorAll('link[data-fe-site-styles]')].map((e) => e.getAttribute('href')));`);
+  add('A stack loads nothing', head().filter((u) => u.includes('Georgia')).length === 0, head().join());
+  await hit('.ss-fl-row[aria-label="ABeeZee"]', 200);
+  add('A name: one link, every weight', head().filter((u) => u.includes('family=ABeeZee:100,100i')).length === 1 && pageFont('h1, h2, h3').startsWith('ABeeZee'), `${pageFont('h1, h2, h3')} ${head().join()}`);
+  await hit('.ss-fl-row[aria-label="Exo 2"]', 200);
+  add('A quoted name loads without its quotes', head().some((u) => u.includes('family=Exo+2:')) && pageFont('h1, h2, h3').startsWith('"Exo 2"'), head().join());
+  const un = () => js(`fe.undo(); return 'true';`);
+  un(); await pause(150);
+  add('Undo takes back one font', js(`return JSON.stringify(fe.model.siteStyles.type.h.family);`) === 'ABeeZee');
+  // Search, inferred.
+  const type = async (v) => { js(`const e = document.querySelector('#ss-font-list input'); e.value = ${JSON.stringify(v)}; e.dispatchEvent(new Event('input', { bubbles: true })); return 'true';`); await pause(150); };
+  await type('georg');
+  add('Search: filters by the words', js(`return JSON.stringify([...document.querySelectorAll('.ss-fl-row')].every((e) => /georg/i.test(e.getAttribute('aria-label'))) && document.querySelectorAll('.ss-fl-row').length > 0);`) === true);
+  add('Search: no In Use or note', js(`return JSON.stringify(!document.querySelector('.ss-fl-note') && [...document.querySelectorAll('.ss-fl-h')].every((e) => e.textContent !== 'In Use'));`) === true);
+  await type('');
+  js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(150);
+  add('Escape closes it, Site Styles stays', js(`return JSON.stringify([document.getElementById('ss-font-list').hidden, document.getElementById('site-styles').hidden].join());`) === 'true,false');
+  // Under the other rows, on the same reads.
+  await hit('[data-ss-back]', 150); await hit('[data-ss-view="FontButtons"]', 200);
+  const under = [['primary', 1], ['secondary', 2], ['tertiary', 3]];
+  for (const [k, n] of under) {
+    js(`document.querySelector('#site-styles').scrollTop = 0; return 'true';`); await pause(60);
+    if (n === 1) add('Fonts > Buttons: the first font row lands', same(box(`[data-ss-fontrow="${k}"]`), R.opensUnder[1][0]), JSON.stringify(box(`[data-ss-fontrow="${k}"]`)));
+    await hit(`[data-ss-fontrow="${k}"]`, 150);
+    add(`Fonts > Buttons: ${k}'s list stops short of the window's bottom`, Math.abs(box('#ss-font-list')[1] - Math.min(box(`[data-ss-fontrow="${k}"]`)[1] + 74, R.opensUnder[2][1][1])) <= 1, JSON.stringify(box('#ss-font-list')));
+    await hit(`[data-ss-fontrow="${k}"]`, 100);
+  }
+  await hit('[data-ss-fontrow="secondary"]', 150); await hit('.ss-fl-row[aria-label="Georgia"]', 200);
+  add('A guess: a button type\'s font reaches its buttons', js(`${FD} return JSON.stringify([...d.querySelectorAll('style')].some((s) => /sqs-button-element--secondary[^{]*\{[^}]*font-family: Georgia/.test(s.textContent)));`) === true);
+  await hit('[data-ss-fontrow="secondary"]', 100);
+  await hit('[data-ss-back]', 150); await hit('[data-ss-view="Paragraphs"]', 200); await hit('[data-ss-fontrow="p"]', 150); await hit('.ss-fl-row[aria-label="Verdana"]', 200);
+  add('Paragraphs: a font reaches the body', pageFont('p').startsWith('Verdana') && pageFont('.header-nav-item').startsWith('Verdana'), pageFont('p'));
 }
 
 console.log(`Marks: ${pass} of ${total} checks match`);
