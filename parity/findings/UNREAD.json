@@ -6,8 +6,8 @@
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it.",
   "counts": {
     "total": 157,
-    "yes": 115,
-    "no": 42,
+    "yes": 114,
+    "no": 43,
     "read": 114,
     "notPressed": 0,
     "open": 43
@@ -350,9 +350,9 @@
       "item": "G4",
       "what": "Snap at other gaps",
       "source": "item G4",
-      "safeRead": "yes",
-      "how": "Not read. No gap control found in the section panel, by a search of what we read so far. Site Styles Spacing stays read only. Needs a block-level or section-level gap control, or a ruling.",
-      "lane": "recorder",
+      "safeRead": "no",
+      "why": "no gap control outside Site Styles Spacing, which reaches the whole site; read only. Lead ruling 2026-11-07: named, not guessed, not 0005",
+      "lane": "none",
       "state": "open"
     },
     {

@@ -904,5 +904,10 @@
   "exitSteps": [
     "top Exit",
     "dialog Exit"
-  ]
+  ],
+  "answer": "One block's w and n handles step the same from the middle and 6 px either way: w out 35, back 34, -51 to the margin, home -50; n 27, back 26. A group's w and n handles take one block's rule: w 35, 94, back 93, 34, -51, home -50; n 27, 68, back 67, 26. A desktop group on the left margin track grows east by its left edge's steps, as one block does: 51 to 1/1/12/21, back 50, -35, -94, home -93, -34; north and south as from column 2.",
+  "predicted": "CAP-FIXES-PREDICTED.json predicted7, pushed before the read.",
+  "ours": "All the same now, within 1 px: npm run snap-check, 153 of 153. Before, the margin group grew at 35 and 94 as from column 2 (147 of 153 on the old app).",
+  "differs": [],
+  "pressed": "Add Section, Add Block and the tile, by the tool's hover and press; the block's middle and handles by the real mouse; Shift and a press for the group; Mobile View for the phone case. On Gestures Probe, unsaved. Nothing else but Escape and Exit, then Exit Without Saving. CAP-G4LAST-RELOAD.json reads the page back as it was: no sections, Save clean."
 }
