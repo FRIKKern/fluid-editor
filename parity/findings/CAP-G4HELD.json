@@ -1,0 +1,1205 @@
+{
+  "item": "CAP-G4HELD",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "G4: a desktop group whose held block is inside the box on both sides, moved left and right 100. And the stack Design panel controls, to find the Gap options label.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      600,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      240,
+      280
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "set up",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      0
+    ],
+    [
+      "read",
+      "group",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "walkGroup",
+      0,
+      1,
+      "middle",
+      100,
+      0
+    ],
+    [
+      "read",
+      "held block inside the box",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "stack",
+      {
+        "has": [
+          "Edit"
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "stack panel",
+      {
+        "controls": true,
+        "rows": [
+          "Gap"
+        ],
+        "panelEls": "button, input, [role=button], [role=combobox]"
+      }
+    ],
+    [
+      "shot",
+      "panel"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "set up": {
+      "areas": [
+        [
+          "1/2/7/18",
+          "1/2/7/10"
+        ],
+        [
+          "8/6/14/12",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "group": {
+      "areas": [
+        [
+          "1/2/7/18",
+          "1/2/7/10"
+        ],
+        [
+          "8/6/14/12",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "held block inside the box": {
+      "walk": {
+        "part": "middle",
+        "from": "",
+        "xOut": [
+          [
+            1,
+            "1/2/14/18"
+          ],
+          [
+            35,
+            "1/3/14/19"
+          ],
+          [
+            94,
+            "1/4/14/20"
+          ]
+        ],
+        "xBack": [
+          [
+            93,
+            "1/3/14/19"
+          ],
+          [
+            34,
+            "1/2/14/18"
+          ],
+          [
+            -51,
+            "1/1/14/17"
+          ]
+        ],
+        "xHome": [
+          [
+            -50,
+            "1/2/14/18"
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/18",
+          "1/2/7/10"
+        ],
+        [
+          "8/6/14/12",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stack": {
+      "has": {
+        "Edit": true
+      },
+      "areas": [
+        [
+          "1/2/13/18",
+          "1/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stack panel": {
+      "rows": {
+        "Gap": [
+          "20px"
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            1049,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1071,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            1133,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Column",
+          "box": [
+            1168,
+            421,
+            86.5,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Row",
+          "box": [
+            1257.5,
+            421,
+            86.5,
+            38
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "",
+          "box": [
+            1290.3,
+            476,
+            25.3,
+            25.3
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "",
+          "box": [
+            1318.7,
+            476,
+            25.3,
+            25.3
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "",
+          "box": [
+            1262,
+            504.3,
+            25.3,
+            25.3
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "",
+          "box": [
+            1290.3,
+            504.3,
+            25.3,
+            25.3
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "",
+          "box": [
+            1318.7,
+            504.3,
+            25.3,
+            25.3
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "",
+          "box": [
+            1262,
+            532.7,
+            25.3,
+            25.3
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "",
+          "box": [
+            1290.3,
+            532.7,
+            25.3,
+            25.3
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "",
+          "box": [
+            1318.7,
+            532.7,
+            25.3,
+            25.3
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "20px",
+          "box": [
+            1199,
+            568,
+            137,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1165,
+            568,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1165,
+            601,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1165,
+            568,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Expand gap options",
+          "box": [
+            1308,
+            572,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Show top, bottom, left, and right padding contro",
+          "box": [
+            1137,
+            619,
+            28,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            1199,
+            619,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1165,
+            619,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1165,
+            652,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1242,
+            619,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1165,
+            619,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            1293,
+            619,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1259,
+            619,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1259,
+            652,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1336,
+            619,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            1259,
+            619,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add fill",
+          "box": [
+            1311,
+            739,
+            36,
+            36
+          ]
+        }
+      ],
+      "panelEls": [
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "css-194zh13",
+          "label": "Search",
+          "lines": 1,
+          "box": [
+            -117,
+            33,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "vUN3TpGr8u1yAgFU css-167yf1x",
+          "label": "Notifications",
+          "lines": 1,
+          "box": [
+            -70,
+            33,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "css-dz73cg",
+          "label": "Account",
+          "lines": 1,
+          "box": [
+            -226,
+            873.5,
+            49.5,
+            38.5
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "css-pvx3nu",
+          "label": "Help",
+          "lines": 1,
+          "box": [
+            -139,
+            874.8,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "css-pvx3nu",
+          "label": "Customize Sidebar",
+          "lines": 1,
+          "box": [
+            -101,
+            874.8,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "css-pvx3nu",
+          "label": "Settings",
+          "lines": 1,
+          "box": [
+            -63,
+            874.8,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "Maj2mCXag7M0dz9o css-1421874",
+          "label": "Website",
+          "lines": 1,
+          "box": [
+            0,
+            22,
+            113.6,
+            44
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "css-1ky8znl",
+          "label": "Open search",
+          "lines": 1,
+          "box": [
+            286,
+            94,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "css-1wxk0c5",
+          "label": "Add a new page to the \"Main Navigation\" group",
+          "lines": 1,
+          "box": [
+            253,
+            158,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "css-1wxk0c5",
+          "label": "Collapse the \"Main Navigation\" group",
+          "lines": 1,
+          "box": [
+            286,
+            158,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "label": "Services",
+          "lines": 1,
+          "box": [
+            0,
+            198,
+            342,
+            44
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "mQ6_2bjhViMjgDwd css-3vbqvv",
+          "label": "Page settings Services",
+          "lines": 1,
+          "box": [
+            286,
+            202,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "nskSQ1McN2kccjmY css-1go2089",
+          "label": "Delete page Services",
+          "lines": 1,
+          "box": [
+            -21,
+            202,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "label": "About",
+          "lines": 1,
+          "box": [
+            0,
+            242,
+            342,
+            44
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "mQ6_2bjhViMjgDwd css-3vbqvv",
+          "label": "Page settings About",
+          "lines": 1,
+          "box": [
+            286,
+            246,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "nskSQ1McN2kccjmY css-1go2089",
+          "label": "Delete page About",
+          "lines": 1,
+          "box": [
+            -21,
+            246,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "label": "Contact",
+          "lines": 1,
+          "box": [
+            0,
+            286,
+            342,
+            44
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "mQ6_2bjhViMjgDwd css-3vbqvv",
+          "label": "Page settings Contact",
+          "lines": 1,
+          "box": [
+            286,
+            290,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "nskSQ1McN2kccjmY css-1go2089",
+          "label": "Delete page Contact",
+          "lines": 1,
+          "box": [
+            -21,
+            290,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "css-1wxk0c5",
+          "label": "Add a new page to the \"Not Linked\" navigation group",
+          "lines": 1,
+          "box": [
+            253,
+            356,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "css-1wxk0c5",
+          "label": "Collapse the \"Not Linked\" navigation group",
+          "lines": 1,
+          "box": [
+            286,
+            356,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "label": "Gestures Probe",
+          "lines": 1,
+          "box": [
+            0,
+            396,
+            342,
+            44
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "mQ6_2bjhViMjgDwd css-3vbqvv",
+          "label": "Page settings Gestures Probe",
+          "lines": 1,
+          "box": [
+            286,
+            400,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "nskSQ1McN2kccjmY css-1go2089",
+          "label": "Delete page Gestures Probe",
+          "lines": 1,
+          "box": [
+            -21,
+            400,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "label": "Blocks Probe",
+          "lines": 1,
+          "box": [
+            0,
+            440,
+            342,
+            44
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "mQ6_2bjhViMjgDwd css-3vbqvv",
+          "label": "Page settings Blocks Probe",
+          "lines": 1,
+          "box": [
+            286,
+            444,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "nskSQ1McN2kccjmY css-1go2089",
+          "label": "Delete page Blocks Probe",
+          "lines": 1,
+          "box": [
+            -21,
+            444,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "label": "How Fluid Engine works",
+          "lines": 1,
+          "box": [
+            0,
+            484,
+            342,
+            44
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "mQ6_2bjhViMjgDwd css-3vbqvv",
+          "label": "Page settings How Fluid Engine works",
+          "lines": 1,
+          "box": [
+            286,
+            488,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "nskSQ1McN2kccjmY css-1go2089",
+          "label": "Delete page How Fluid Engine works",
+          "lines": 1,
+          "box": [
+            -21,
+            488,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "label": "Home",
+          "lines": 1,
+          "box": [
+            0,
+            528,
+            342,
+            44
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "mQ6_2bjhViMjgDwd css-3vbqvv",
+          "label": "Page settings Home",
+          "lines": 1,
+          "box": [
+            286,
+            532,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "nskSQ1McN2kccjmY css-1go2089",
+          "label": "Delete page Home",
+          "lines": 1,
+          "box": [
+            -21,
+            532,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "WdAH9GXvKxsB7uKv undefined css-pyzp5w",
+          "label": "Save",
+          "lines": 1,
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "tag": "button",
+          "value": "",
+          "cls": "WdAH9GXvKxsB7uKv css-a42ay1",
+          "label": "Exit",
+          "lines": 1,
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "A desktop group whose held block sits inside the box on both sides moves by the box's edges: right 35, 94, back 93, 34; left the box's left edge goes into the margin at -51, home -50, as one block's does. The held block's own edges would have stepped at -35.",
+  "predicted": "CAP-FIXES-PREDICTED.json predicted8, pushed before the read.",
+  "ours": "The same, within 1 px: npm run snap-check. Ours moves every group by its box since #356.",
+  "differs": [],
+  "pressed": "Add Section, Add Block and the tile by the tool's hover and press; blocks' middles and handles by the real mouse; Shift and a press for the group; Stack Blocks, Edit, Design and Expand gap options by their labels, on top. On Gestures Probe, unsaved. Closed by Escape only, no backdrop press. Then Exit Without Saving; CAP-GAPMENU-RELOAD.json reads the page back as it was: no sections, Save clean."
+}
