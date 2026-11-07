@@ -1,0 +1,137 @@
+{
+  "item": "CAP-U4PINTO-PARTS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "97: what holds the Pin option radios (read only, nothing pressed in the popover)",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "parts",
+      {
+        "panelEls": ":has(> input[aria-label=\"Pin to Center on Scroll\"])"
+      }
+    ],
+    [
+      "read",
+      "labels",
+      {
+        "panelEls": "label:has(input[aria-label=\"Pin to Center on Scroll\"])"
+      }
+    ],
+    [
+      "read",
+      "next",
+      {
+        "panelEls": "input[aria-label=\"Pin to Center on Scroll\"] + *"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ]
+  ],
+  "reads": {
+    "parts": {
+      "panelEls": [
+        {
+          "tag": "label",
+          "cls": "css-owbdot",
+          "label": "Pin to Center on Scroll",
+          "lines": 2,
+          "box": [
+            155.4,
+            305.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "labels": {
+      "panelEls": [
+        {
+          "tag": "label",
+          "cls": "css-owbdot",
+          "label": "Pin to Center on Scroll",
+          "lines": 2,
+          "box": [
+            155.4,
+            305.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "next": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "content css-y84vo3",
+          "label": "",
+          "lines": 1,
+          "box": [
+            155.4,
+            305.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

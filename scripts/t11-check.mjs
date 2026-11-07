@@ -559,6 +559,30 @@ add('Thickness: one undo step', thick().v === '1px', thick().v);
   const p4 = pinNow();
   add('U4: from px it stays px', p4.field === '21px' && p4.top.offset === 21 && !p4.top.unit, JSON.stringify(p4));
 }
+// 97: each Pin option keeps its own Offset with its unit, one never set starts at 0px (CAP-U4PINTO2.json, as read in order).
+{
+  const { id } = await fresh('Quote');
+  q(`fe.select(null); await sleep(150); fe.select(fe.model.sections[1].id, '${id}'); await sleep(250); return 'true';`);
+  const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U4PINTO2.json', import.meta.url))).reads;
+  const want = (name) => R[name].panelEls.filter((e) => e.label === 'Offset').map((e) => e.value);
+  const typed = (v) => q(`const f = document.querySelector('[data-pin-offset]'); f.focus(); f.value = '${v}'; f.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); f.blur(); await sleep(200); return 'true';`);
+  const pick = (k) => q(`document.querySelector('[data-pin="${k}"]').click(); await sleep(200); return 'true';`);
+  const now = () => q(`return JSON.stringify([document.querySelector('[data-pin-offset]')?.value, document.querySelector('[data-pin-range]')?.value]);`);
+  q(`document.querySelector('#block-toolbar [data-tb="pin"]').click(); await sleep(250); return 'true';`);
+  typed('5vh');
+  let ok = 0; const miss = [];
+  const at = (name) => { const g = now(), w = want(name); if (JSON.stringify(g) === JSON.stringify(w)) ok++; else miss.push(`${name}: ${g}, oracle ${w}`); };
+  at('Top 5vh');
+  pick('center'); at('Center');
+  typed('3vh'); at('Center 3vh');
+  pick('bottom'); at('Bottom');
+  pick('center'); at('Center again');
+  pick('top'); at('Top again');
+  pick('bottom'); at('Bottom again');
+  add('97: each Pin option keeps its own Offset, 7 reads', ok === 7, `${ok} of 7; ${miss.join('; ')}`);
+  const css = q(`pick: { document.querySelector('[data-pin="top"]').click(); await sleep(200); } return JSON.stringify(W.getComputedStyle(block('${id}')).top);`);
+  add('97: back on Top the block is held 5vh down', Math.abs(parseFloat(css) - 0.05 * q(`return JSON.stringify(document.getElementById('site-frame').contentWindow.innerHeight);`)) <= 1, css);
+}
 
 writeFileSync(new URL('../parity/t11-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nT11: ${pass}/${total}`);

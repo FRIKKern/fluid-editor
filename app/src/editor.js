@@ -6238,6 +6238,15 @@ styleMenu.addEventListener('click', (e) => {
 });
 
 const pinPop = $('pin-popover');
+// Each option keeps its own Offset with its unit, and one never set starts at 0px (97, CAP-U4PINTO.json, CAP-U4PINTO2.json:
+// 5vh on Top, Center 0px, 3vh on Center, Bottom 0px, Center 3vh again, Top 5vh again). The others wait in kept.
+function pinTo(st, k) {
+  const kept = { ...(st?.kept || {}) };
+  if (st) kept[st.anchor] = { offset: st.offset, ...(st.unit ? { unit: st.unit } : {}) };
+  const got = kept[k] || { offset: 0 };
+  delete kept[k];
+  return { anchor: k, ...got, ...(Object.keys(kept).length ? { kept } : {}) };
+}
 function openPin(sid, bid) {
   const b = B(sid, bid);
   pinPop.dataset.sid = sid; pinPop.dataset.bid = bid;
@@ -6261,7 +6270,7 @@ pinPop.addEventListener('click', (e) => {
   const o = e.target.closest('[data-pin]');
   if (!o) return;
   const k = o.dataset.pin;
-  setPin((L) => { if (k === 'remove') delete L.sticky; else L.sticky = { anchor: k, offset: L.sticky?.offset || 0 }; }, k === 'remove' ? 'Removed the pin' : `Pinned to ${k}`);
+  setPin((L) => { if (k === 'remove') delete L.sticky; else L.sticky = pinTo(L.sticky, k); }, k === 'remove' ? 'Removed the pin' : `Pinned to ${k}`);
 });
 // The field wants a number and a unit, exactly so: anything else stays as typed until the field is
 // left, then goes back. No limit on the number; the slider only shows what fits its range.
@@ -6274,7 +6283,8 @@ function applyPinField(f, revert) {
   const offset = parseFloat(m[1]), unit = m[2];
   if (offset === L.sticky.offset && unit === (L.sticky.unit || 'px')) return;
   const before = JSON.stringify(model);
-  L.sticky = { anchor: L.sticky.anchor, offset, ...(unit === 'px' ? {} : { unit }) };
+  L.sticky = { ...L.sticky, offset, unit };
+  if (unit === 'px') delete L.sticky.unit;
   renderSectionDom(pinPop.dataset.sid);
   commit(before, `Pin offset ${f.value}`);
   pinPop.querySelector('[data-pin-range]').value = pinRangeValue(offset);
@@ -6287,7 +6297,7 @@ pinPop.addEventListener('input', (e) => {
   if (!L?.sticky) return;
   const before = JSON.stringify(model);
   const offset = Number(e.target.value), unit = L.sticky.unit;
-  L.sticky = { anchor: L.sticky.anchor, offset, ...(unit ? { unit } : {}) }; // It keeps the unit (CAP-U4PINUNIT.json, CAP-U4PINDRAG.json).
+  L.sticky = { ...L.sticky, offset }; // It keeps the unit (CAP-U4PINUNIT.json, CAP-U4PINDRAG.json).
   renderSectionDom(pinPop.dataset.sid);
   commit(before, `Pin offset ${offset}${unit || 'px'}`);
   pinPop.querySelector('[data-pin-offset]').value = `${offset}${unit || 'px'}`;
