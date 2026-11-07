@@ -25,6 +25,13 @@ for (let k = 0; k < F9.steps.length; k++) {
   if (squeeze(got) !== squeeze(want)) { bad++; console.error(`Markdown ${name}:\n  ours   ${JSON.stringify(got)}\n  oracle ${JSON.stringify(want)}`); }
 }
 if (n9 !== 25) { bad++; console.error(`expected 25 further samples, read ${n9}`); }
+// What Bold and Bulleted List write on an empty block, and two rules (CAP-93MDEMBED.json): "* " alone is text, not a list.
+const R93 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-93MDEMBED.json', import.meta.url))).reads;
+for (const name of ['bold empty', 'bullet empty', 'rule alone', 'rule between']) {
+  const r = R93[name], got = markdownHtml(r.codeText);
+  n++;
+  if (got !== r.htmlOf) { bad++; console.error(`Markdown ${name}:\n  ours   ${JSON.stringify(got)}\n  oracle ${JSON.stringify(r.htmlOf)}`); }
+}
 // Nothing here may reach a page as live markup: not one of these is read on the oracle.
 const UNSAFE = [
   '<script>alert(1)</script>', '<SCRIPT SRC=x></SCRIPT>', 'a <script>alert(1)</script> b', '<script>alert(1)', '<style>x{}</style>',
