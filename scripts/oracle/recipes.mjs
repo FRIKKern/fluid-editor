@@ -274,6 +274,50 @@ export const RECIPES = {
     ['enter'], ...selectEdit(0, 2), ['click', 'Design'], ['read', 'fill', { block: [0, 2], inside: [0, 2] }], ['click', 'Fit'], ['read', 'fit', { block: [0, 2], inside: [0, 2] }], ['shot', 'fit'],
   ] },
 
+  'CAP-E7REOPEN2': { page: 'Gestures Probe', question: 'E7: the box a linked Button opens: its look and its tip, focus and Tab order, Escape, a press on the link button again, after letting go, after Clear and Undo, and for a typed link, an email and a phone. Copy and Remove Link are not pressed, nor the row with a page.', steps: (() => {
+    const OPEN = [['click', 'Open link editor popover'], ['pause', 600]];
+    const R = (name) => [['read', name, { controls: true, checks: true, focused: true, looks: [100, 284, 440, 420] }], ['read', `${name}, above`, { looks: [100, 190, 440, 284] }]];
+    const BTN = [['blank'], ['add', 0, 'Button'], ['press', 'Escape'], ['select', 0, 0], ['pause', 400]];
+    const AGAIN = [['select', 0, 0], ['pause', 400], ...OPEN];
+    const SET = (name, link) => [...OPEN, ['keysFast', link], ['press', 'Enter'], ['pause', 500], ...R(`${name}, Enter`), ['press', 'Escape'], ['pause', 400], ...R(`${name}, Escape`), ...AGAIN, ...R(name), ['shot', name]];
+    const KIND = (kind) => [...OPEN, ['click', 'URL'], ['pause', 300], ['click', kind], ['pause', 400]];
+    const EDITAT = [['clickAt', 138, 380], ['pause', 600]];
+    const CLOSE = [['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300]];
+    return [
+      ['enter'], ...BTN, ...SET('page', '/about'),
+      ['moveAt', 260, 320], ['pause', 800], ...R('page, on the row'), ['moveAt', 368, 380], ['pause', 800], ...R('page, on Remove Link'), ['moveAt', 1300, 700], ['pause', 800], ...R('page, mouse away'),
+      ['press', 'Tab'], ['pause', 200], ...R('Tab 1'), ['press', 'Tab'], ['pause', 200], ...R('Tab 2'), ['press', 'Tab'], ['pause', 200], ...R('Tab 3'), ['press', 'Tab'], ['pause', 200], ...R('Tab 4'),
+      ['press', 'Escape'], ['pause', 400], ...R('Escape'),
+      ...OPEN, ['click', 'Open link editor popover'], ['pause', 600], ...R('link button again'),
+      ...OPEN, ...CLOSE, ['clickAt', 1300, 700], ['pause', 500], ...R('let go'), ...AGAIN, ...R('reselected'),
+      ['press', 'Enter'], ['pause', 600], ...R('Edit'), ['shot', 'edit'], ['click', 'Clear selected page'], ['pause', 500], ...R('Edit, Clear'), ['press', 'Escape'], ['pause', 400], ...R('Edit, Clear, Escape'), ...OPEN, ...R('reopened after Clear'), ...CLOSE,
+      ['exit'], ['enter'], ...BTN, ...SET('typed', 'a.com'), ...EDITAT, ...R('typed, Edit'), ...CLOSE,
+      ['exit'], ['enter'], ...BTN, ...SET('long', 'a-very-long-address-that-goes-on-and-on-and-on-past-the-end-of-the-box.com/with/a/path'), ...CLOSE,
+      ['exit'], ['enter'], ...BTN, ...KIND('Email'), ['fill', 'To', 'a@b.no'], ['pause', 400], ...R('email form'), ['press', 'Escape'], ['pause', 400], ...R('email form, Escape'), ...AGAIN, ...R('email'), ['shot', 'email'], ['press', 'Tab'], ['pause', 200], ...R('email, Tab'), ...EDITAT, ...R('email, Edit'), ...CLOSE,
+      ['exit'], ['enter'], ...BTN, ...KIND('Phone'), ['fill', 'Enter phone number', '12345678'], ['pause', 400], ...R('phone form'), ['press', 'Escape'], ['pause', 400], ...R('phone form, Escape'), ...AGAIN, ...R('phone'), ['shot', 'phone'], ...EDITAT, ...R('phone, Edit'), ...CLOSE,
+      ['exit'], ['enter'], ...BTN, ...SET('to undo', '/about'), ...CLOSE, ['click', 'Undo'], ['pause', 500], ...R('Undo'), ...AGAIN, ...R('Undo, reopened'), ...CLOSE,
+    ];
+  })() },
+  'CAP-E7REOPEN3': { page: 'Gestures Probe', question: 'E7: tested against what ours predicts: the tip on a typed link, an address that is no page, the link button with the field open, Clear and a press away, Undo after Clear, Shift+Tab, the panel, and a Text link opened again.', steps: (() => {
+    const OPEN = [['click', 'Open link editor popover'], ['pause', 600]];
+    const R = (name) => [['read', name, { controls: true, checks: true, focused: true, looks: [100, 284, 440, 420] }], ['read', `${name}, above`, { looks: [100, 190, 440, 284] }]];
+    const BTN = [['blank'], ['add', 0, 'Button'], ['press', 'Escape'], ['select', 0, 0], ['pause', 400]];
+    const AGAIN = [['select', 0, 0], ['pause', 400], ...OPEN];
+    const LEAVE = [['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300]];
+    const SET = (link) => [...OPEN, ['keysFast', link], ['press', 'Enter'], ['pause', 500]];
+    const PAGE = [...SET('/about'), ['press', 'Escape'], ['pause', 400], ...OPEN];
+    return [
+      ['enter'], ...BTN, ...SET('a.com'), ...OPEN, ['moveAt', 260, 320], ['pause', 800], ...R('typed, on the row'), ['moveAt', 1300, 700], ['pause', 500], ['press', 'Shift+Tab'], ['pause', 200], ...R('typed, Shift+Tab'), ...LEAVE,
+      ['exit'], ['enter'], ...BTN, ...SET('a-very-long-address-that-goes-on-and-on-and-on-past-the-end-of-the-box.com/with/a/path'), ...OPEN, ['moveAt', 260, 320], ['pause', 800], ...R('long, on the row'), ...LEAVE,
+      ['exit'], ['enter'], ...BTN, ...SET('/nope'), ...R('no page, Enter'), ...LEAVE,
+      ['exit'], ['enter'], ...BTN, ...OPEN, ...R('field'), ...OPEN, ...R('field, link button again'), ...LEAVE,
+      ['exit'], ['enter'], ...BTN, ...PAGE, ['press', 'Enter'], ['pause', 600], ['click', 'Clear selected page'], ['pause', 500], ['clickAt', 1300, 700], ['pause', 500], ...R('Clear, press away'), ...AGAIN, ...R('Clear, press away, reopened'), ...LEAVE,
+      ['exit'], ['enter'], ...BTN, ...PAGE, ['press', 'Enter'], ['pause', 600], ['click', 'Clear selected page'], ['pause', 500], ['press', 'Escape'], ['pause', 400], ['click', 'Undo'], ['pause', 500], ...R('Clear, Undo'), ...AGAIN, ...R('Clear, Undo, reopened'), ...LEAVE,
+      ['exit'], ['enter'], ...BTN, ...PAGE, ['clickAt', 138, 380], ['pause', 600], ['press', 'Escape'], ['pause', 400], ...R('page, Edit, one Escape'), ...LEAVE,
+      ['exit'], ['enter'], ...BTN, ['click', 'Edit'], ['pause', 500], ['click', 'Attach link'], ['pause', 500], ['keysFast', 'a.com'], ['press', 'Enter'], ['pause', 500], ...R('panel, typed, Enter'), ...LEAVE,
+      ['exit'], ['enter'], ...NEWTEXT, ['keys', 'hello'], ['press', 'Meta+a'], ['click', 'Link'], ['pause', 500], ['keysFast', '/about'], ['press', 'Enter'], ['pause', 500], ['press', 'Escape'], ['pause', 400], ['click', 'Link'], ['pause', 600], ['read', 'skip text, opened again', { controls: true, checks: true, focused: true }], ['shot', 'text'], ...LEAVE,
+    ];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],

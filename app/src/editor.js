@@ -18,7 +18,7 @@ import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, p
 import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
-import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
+import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, linkBoxHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -502,6 +502,7 @@ function placeToolbar() {
   if (toolbar.dataset.key !== key) {
     const inStack = !!parentStack(sel.sid, sel.bid);
     toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z, !!b.fit || !!b.video?.src, inStack), z, align);
+    markLinkBar();
     toolbar.dataset.key = key;
     // The menu sits 4px under the bar, centred on the button.
     const vm = toolbar.querySelector('.tb-vmenu');
@@ -543,7 +544,11 @@ toolbar.addEventListener('click', (e) => {
   if (act === 'edit') { designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
-  if (act === 'link' && (b.type === 'button' || b.type === 'stack')) { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
+  if (act === 'link' && (b.type === 'button' || b.type === 'stack')) {
+    // A press on it with the editor open only closes it (CAP-E7REOPEN2.json).
+    if (linkBarClosed) { linkBarClosed = false; btn.focus(); return; }
+    openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }, null, true); return;
+  }
   // Pin (parity/findings/PIN.json): the first click pins to the top with no offset, in the layout
   // on screen, and opens the popover; one undo step.
   if (act === 'pin') {
@@ -3652,6 +3657,7 @@ const formMessage = messageBox({ panel: blockPanel, bar: $('msg-bar'), stage, li
 function closeLinkPopover() {
   if (linkPop.hidden) return;
   linkPop.hidden = true;
+  markLinkBar();
   // The box, an Email and a Phone reach a text link only now (parity/findings/CAP-LINK.json, LINKBOX.json, LINKMENU.json).
   const t = linkTarget;
   linkTarget = null;
@@ -3661,7 +3667,10 @@ function closeLinkPopover() {
   if (!t) {
     // What is typed counts without Enter too (LINKMENU.json).
     const v = linkPop.dataset.kind === 'url' ? linkValue(linkPop.querySelector('.lk-input').value) : '';
-    if (v && sel?.bid === linkPop.dataset.bid && v !== B(sel.sid, sel.bid)?.href) setLinkOnButton(v, linkPop.querySelector('.lk-box').checked);
+    const was = sel?.bid === linkPop.dataset.bid ? B(sel.sid, sel.bid) : null;
+    if (v && was && v !== was.href) setLinkOnButton(v, linkPop.querySelector('.lk-box').checked);
+    // Clear takes the link at the close, and the box is on when it opens again (CAP-E7REOPEN2.json).
+    else if (!v && linkPop.dataset.cleared && was?.href) setButton((x) => { delete x.href; x.newTab = true; }, 'Link removed');
     return;
   }
   if (linkPop.dataset.kind !== 'url') t.apply(linkFormHref());
@@ -3702,26 +3711,54 @@ function onLinkAction(act, el) {
 // What Enter or a page applies to: the selected button (default) or a saved text range.
 let linkTarget = null;
 let linkPlace = null;
+let linkFromBar = false;
+let linkBarClosed = false;
 function placeLinkPop() {
   const p = linkPlace(stage.getBoundingClientRect(), linkPop.offsetHeight);
   linkPop.style.left = `${p.left}px`; linkPop.style.top = `${p.top}px`;
 }
 // The field holds the focus on URL, the pill on Email and Phone (LINKMENU.json).
 function drawLinkPop(kind, href, newTab) {
+  delete linkPop.dataset.cleared;
   linkPop.dataset.kind = kind;
   linkPop.innerHTML = linkPopoverHtml(href, siteLinkGroups(), newTab, kind);
   placeLinkPop();
   if (kind === 'url') { showLinkList(true); linkPop.querySelector('.lk-input').focus(); }
   else linkPop.querySelector('.lk-pill').focus();
 }
-function openLinkPopover(b, place, target = null) {
+// The box: a page opens with Edit in focus and its tip showing until the mouse moves, anything else with the row in focus
+// (CAP-E7REOPEN2.json).
+function drawLinkBox(b) {
+  delete linkPop.dataset.cleared;
+  linkPop.dataset.kind = 'box';
+  linkPop.classList.add('is-box');
+  linkPop.innerHTML = linkBoxHtml(b.href, siteLinkGroups(), location.origin);
+  placeLinkPop();
+  if (linkPop.querySelector('.lk-tip')) {
+    linkPop.querySelector('[data-link-box="edit"]').focus();
+    linkPop.classList.add('tip-held');
+    document.addEventListener('pointermove', () => linkPop.classList.remove('tip-held'), { once: true });
+  } else linkPop.querySelector('.lk-box-row').focus();
+}
+// Closing by a key hands the focus back to the toolbar's button, the block still selected (CAP-E7REOPEN2.json).
+// The toolbar's button stays lit while its editor is open, with no tip (CAP-E7REOPEN2.json).
+function markLinkBar() { toolbar.querySelector('[data-tb="link"]')?.classList.toggle('tb-open', !linkPop.hidden && linkFromBar); }
+function closeLinkToBar() {
+  const back = linkFromBar;
+  closeLinkPopover();
+  if (back) document.querySelector('#block-toolbar [data-tb="link"]')?.focus();
+}
+function openLinkPopover(b, place, target = null, fromBar = false) {
   closeLinkPopover();
   linkTarget = target;
   linkPlace = place;
+  linkFromBar = fromBar;
   linkPop.classList.toggle('is-md', !!target?.markdown || !!target?.atClose);
-  linkPop.classList.remove('is-summary');
+  linkPop.classList.remove('is-summary', 'is-box', 'tip-held');
   linkPop.dataset.bid = b.id;
   linkPop.hidden = false;
+  if (fromBar) { markLinkBar(); barTip.hidden = true; }
+  if (fromBar && b.type === 'button' && b.href) { drawLinkBox(b); return; }
   const href = target ? target.href : b.href;
   drawLinkPop(linkKind(href), href, target ? target.newTab : !!b.newTab);
 }
@@ -3779,30 +3816,45 @@ function switchLinkKind(kind) {
   liveLink((b) => { delete b.href; if (kind === 'url' && hadLink) b.newTab = true; else delete b.newTab; });
 }
 linkPop.addEventListener('input', (e) => {
-  if (e.target.matches('.lk-input')) showLinkList(true);
+  if (e.target.matches('.lk-input')) { delete linkPop.dataset.cleared; showLinkList(true); }
   const f = e.target.closest('[data-f]');
   if (!f) return;
   if (f.dataset.f === 'phone') f.value = phoneDigits(f.value);
   else { const x = f.parentElement.querySelector('.lk-clear'); if (x) x.hidden = !f.value; }
   writeLinkForm();
 });
+// Tab goes round the box: Edit, Copy, Remove Link, the row (CAP-E7REOPEN2.json). Its keys stay out of the page's.
+function onLinkBoxKey(e) {
+  if (e.key === 'Tab') {
+    const all = [...linkPop.querySelectorAll('button')], at = all.indexOf(document.activeElement);
+    if (e.shiftKey ? at === 0 : at === all.length - 1) { e.preventDefault(); all[e.shiftKey ? all.length - 1 : 0].focus(); }
+  }
+  if (e.key !== 'Escape' && !e.metaKey && !e.ctrlKey) e.stopPropagation();
+}
 linkPop.addEventListener('keydown', (e) => {
+  if (linkPop.classList.contains('is-box')) onLinkBoxKey(e);
   if (e.key === 'Enter' && e.target.matches('.lk-input')) {
     e.preventDefault();
-    if (linkTarget?.markdown) { e.target.value = linkValue(e.target.value); closeLinkPopover(); } else applyLink(e.target.value);
+    if (linkTarget?.markdown) { e.target.value = linkValue(e.target.value); closeLinkPopover(); }
+    else {
+      applyLink(e.target.value);
+      // An address that is no page closes the editor on a button (CAP-E7REOPEN2.json); a page leaves it open (LINKBOX.json).
+      const v = e.target.value;
+      if (!linkTarget && v && !siteLinkGroups().some((g) => g.pages.some((p) => p.href === v))) closeLinkToBar();
+    }
   }
   // Enter stays in the form on Email, closes on a number, and an empty Phone goes back to URL.
   if (e.key === 'Enter' && e.target.matches('input[data-f]')) {
     e.preventDefault();
-    if (e.target.dataset.f === 'phone') { if (e.target.value) closeLinkPopover(); else switchLinkKind('url'); }
+    if (e.target.dataset.f === 'phone') { if (e.target.value) closeLinkToBar(); else switchLinkKind('url'); }
   }
   // With the list showing, Escape takes the list; the next one closes the editor (LINKMENU.json).
   if (e.key === 'Escape') {
     e.stopPropagation();
     // On a Markdown block Escape drops what is in the field, closes the panel and lets the block go (CAP-T10MD4.json).
     if (linkTarget?.markdown) { const t = linkTarget; linkTarget = null; linkPop.hidden = true; t.done(); if (codeModal.hidden) { designOpen = null; select(null); } return; }
-    if (linkPop.querySelector('.lk-pages:not([hidden])')) showLinkList(false);
-    else closeLinkPopover();
+    if (!linkPop.dataset.cleared && linkPop.querySelector('.lk-pages:not([hidden])')) showLinkList(false);
+    else closeLinkToBar();
   }
 });
 linkPop.addEventListener('mousedown', (e) => {
@@ -3810,6 +3862,18 @@ linkPop.addEventListener('mousedown', (e) => {
   if (e.target.matches('.lk-input')) showLinkList(true);
 });
 linkPop.addEventListener('click', (e) => {
+  const boxAct = e.target.closest('[data-link-box]');
+  if (boxAct) {
+    const act = boxAct.dataset.linkBox;
+    if (act === 'edit') {
+      const b = B(sel.sid, sel.bid);
+      linkPop.classList.remove('is-box', 'tip-held');
+      drawLinkPop(linkKind(b.href), b.href, !!b.newTab);
+      showLinkList(false);
+    } else onLinkAction(act, boxAct);
+    return;
+  }
+  if (e.target.closest('.lk-box-row')) return;
   const mdAct = e.target.closest('[data-md-link]');
   if (mdAct) {
     const t = linkTarget, act = mdAct.dataset.mdLink;
@@ -3847,7 +3911,7 @@ linkPop.addEventListener('click', (e) => {
   const clear = e.target.closest('.lk-clear');
   if (!clear) return;
   const f = clear.parentElement.querySelector('[data-f]');
-  if (!f) { const i = linkPop.querySelector('.lk-input'); i.value = ''; showLinkList(true); i.focus(); return; }
+  if (!f) { const i = linkPop.querySelector('.lk-input'); i.value = ''; showLinkList(true); i.focus(); if (!linkTarget) linkPop.dataset.cleared = '1'; return; }
   f.value = '';
   if (f.dataset.f !== 'phone') clear.hidden = true;
   writeLinkForm();
@@ -3858,7 +3922,11 @@ linkPop.addEventListener('change', (e) => {
   setButton((b) => { if (e.target.checked) b.newTab = true; else delete b.newTab; }, 'Link changed');
 });
 // A click anywhere else closes the editor (read for the panel's tabs).
-const closeLinkOutside = (e) => { if (!linkPop.contains(e.target)) closeLinkPopover(); };
+const closeLinkOutside = (e) => {
+  if (linkPop.contains(e.target)) return;
+  linkBarClosed = !linkPop.hidden && linkFromBar && !!e.target.closest?.('#block-toolbar [data-tb="link"]');
+  closeLinkPopover();
+};
 document.addEventListener('pointerdown', closeLinkOutside, true);
 // The values with a range of their own (BLOCKDESIGN.json); the others are a field of DESIGN_FIELDS.
 const RANGE_LIMITS = { strokePx: 50, padY: 20, padX: 20, padT: 20, padR: 20, padB: 20, padL: 20, blurPx: 100 };
