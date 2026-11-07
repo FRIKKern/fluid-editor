@@ -6343,8 +6343,10 @@ addMenu.addEventListener('input', (e) => {
 });
 // A text block is named by its text, cut by CSS (the oracle row label holds at least the
 // first 48 characters, gap review 2026-11-04).
+// A block's tile name, as the add menu and Layers name it: a stand-in's label, else its type.
+const tileName = (b) => { const n = b.label && b.type === 'shape' ? b.label : b.type; return n[0].toUpperCase() + n.slice(1); };
 function layerRows(s) {
-  const named = (b) => { const n = b.label && b.type === 'shape' ? b.label : b.type; return n[0].toUpperCase() + n.slice(1); };
+  const named = tileName;
   const row = (b, kidOf) => ({ id: b.id, kidOf, type: named(b), on: sel?.bid === b.id, hidden: !!lay(b).hidden,
     label: b.type === 'text' ? (b.html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() || 'Text' : named(b) });
   // A stack's children follow it, one step in (S3.json children).
@@ -6475,7 +6477,7 @@ function onContextMenu(e) {
   // A right press on a group leaves that one block selected (CAP-COPYANIM.json).
   if (sel?.bid !== blk.dataset.blockId || sel.more?.length) select({ sid, bid: blk.dataset.blockId });
   closeFloating();
-  contextMenu.innerHTML = contextMenuHtml({ canPaste: !!blockClip, phone: bp === 'mobile' });
+  contextMenu.innerHTML = contextMenuHtml({ canPaste: !!blockClip, phone: bp === 'mobile', tile: tileName(B(sid, blk.dataset.blockId)), alone: S(sid).blocks.length < 2 });
   const fr = frame.getBoundingClientRect(), st = stage.getBoundingClientRect();
   contextMenu.style.left = `${Math.min(fr.left - st.left + e.clientX, st.width - 180)}px`;
   contextMenu.style.top = `${Math.min(fr.top - st.top + e.clientY, st.height - 400)}px`;
@@ -6549,7 +6551,8 @@ function arrange(sid, bid, how) {
 const arrangeMenu = $('arrange-menu');
 function openSubmenu(it) {
   const act = it.dataset.cm;
-  const html = act === 'arrange' ? arrangeMenuHtml()
+  const zs = act === 'arrange' && S(sel.sid).blocks.map((o) => lay(o).z), z = lay(B(sel.sid, sel.bid)).z;
+  const html = act === 'arrange' ? arrangeMenuHtml({ top: z >= Math.max(...zs), bottom: z <= Math.min(...zs) })
     : act === 'copy-props' ? copyPropsMenuHtml({ hasAnimations: animRows().length > 0 })
       : act === 'paste-props' ? pastePropsMenuHtml({ canTransforms: !!transformClip, canAnimations: !!animClip }) : null;
   if (!html) return false;
@@ -6565,7 +6568,7 @@ function openSubmenu(it) {
 // A hover opens a row's submenu, as on the oracle.
 contextMenu.addEventListener('mouseover', (e) => {
   const it = e.target.closest('button[data-cm]');
-  if (!it || !sel || openSubmenu(it)) return;
+  if (!it || !sel || (!it.disabled && openSubmenu(it))) return;
   arrangeMenu.hidden = true;
 });
 arrangeMenu.addEventListener('mousedown', (e) => e.preventDefault());
