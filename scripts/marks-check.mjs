@@ -2962,6 +2962,69 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Paragraphs: a font reaches the body', pageFont('p').startsWith('Verdana') && pageFont('.header-nav-item').startsWith('Verdana'), pageFont('p'));
 }
 
+// U12: Assign Styles, against parity/findings/CAP-U12ASSIGN.json: all read, no pick. What a value draws isn't.
+{
+  const A = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U12ASSIGN.json', import.meta.url))).results;
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const hit = async (sel, wait = 100) => { js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true';`); await pause(wait); };
+  const box = (sel) => js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify(r.width ? [r.left, r.top, r.width, r.height] : null);`);
+  const same = (a, b, tol = 1) => !!a && b.every((v, i) => Math.abs(a[i] - v) <= tol);
+  const FD = `const d = document.getElementById('site-frame').contentDocument, W = d.defaultView;`;
+  viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1200);
+  await hit('#site-styles-toggle', 300); await hit('[data-ss-view="Fonts"]', 200); await hit('[data-ss-view="AssignStyles"]', 200);
+  add('Assign Styles: title and back', js(`return JSON.stringify([document.querySelector('#site-styles .ss-title').textContent, document.querySelector('#site-styles .ss-back span').textContent].join());`) === 'Assign Styles,Fonts');
+  add('Assign Styles: the lead', same(box('.ss-as-lead'), A.lead), JSON.stringify(box('.ss-as-lead')));
+  const tops = (sel) => js(`const p = document.getElementById('site-styles'), t = p.scrollTop; return JSON.stringify([...document.querySelectorAll(${JSON.stringify(sel)})].map((e) => e.getBoundingClientRect().top + t));`);
+  const heads = js(`return JSON.stringify([...document.querySelectorAll('.ss-as-h')].map((e) => e.textContent));`), ht = tops('.ss-as-h'), rt = tops('.ss-as-row');
+  add('Assign Styles: 35 heads in order', heads.join() === A.groupTops.map((g) => g[0]).join(), heads.join());
+  add('Assign Styles: heads land', A.groupTops.every(([, t], n) => Math.abs(ht[n] - t) <= 1.5), JSON.stringify(A.groupTops.map(([g, t], n) => [g, +(ht[n] - t).toFixed(1)]).filter((x) => Math.abs(x[1]) > 1.5).slice(0, 6)));
+  add('Assign Styles: 122 rows land', rt.length === 122 && A.rowTops.every((t, n) => Math.abs(rt[n] - t) <= 1.5), `${rt.length} ${JSON.stringify(A.rowTops.map((t, n) => [n, +(rt[n] - t).toFixed(1)]).filter((x) => Math.abs(x[1]) > 1.5).slice(0, 6))}`);
+  add('Assign Styles: a row\'s box', same(box('.ss-as-row'), A.row), JSON.stringify(box('.ss-as-row')));
+  add('Assign Styles: a row\'s name and value', same(box('.ss-as-row .ss-as-n').slice(0, 2), A.name.slice(1, 3)) && Math.abs(box('.ss-as-row .ss-as-v')[0] + box('.ss-as-row .ss-as-v')[2] - A.value[1] - A.value[3]) <= 1, JSON.stringify([box('.ss-as-row .ss-as-n'), box('.ss-as-row .ss-as-v')]));
+  add('Assign Styles: a row\'s value ends where read', Math.abs(box('.ss-as-row .ss-as-v')[0] + box('.ss-as-row .ss-as-v')[2] - 1539) <= 1);
+  add('Assign Styles: a head\'s look', js(`const c = getComputedStyle(document.querySelector('.ss-as-h')); return JSON.stringify([c.fontSize, c.fontWeight, c.color, c.letterSpacing].join());`) === [A.head.size, A.head.weight, A.head.color, A.head.letterSpacing].join());
+  add('Assign Styles: opening changes nothing', js(`return JSON.stringify(document.getElementById('undo').disabled);`) === true);
+  const open = async (name) => { await hit(`[data-ss-assign="${name}"]`, 180); };
+  const sels = () => js(`return JSON.stringify([...document.querySelectorAll('#site-styles .ss-sel-row')].map((e) => [e.getBoundingClientRect().top, e.textContent.trim()]));`);
+  const rows = JSON.parse(readFileSync(new URL('../app/src/assign-names.js', import.meta.url)).toString().replace(/^[\s\S]*?ASSIGN_GROUPS = /, '').replace(/;\s*$/, '')).flatMap(([, r]) => r);
+  await open(0);
+  add('Site Title: title and back', js(`return JSON.stringify([document.querySelector('#site-styles .ss-title').textContent, document.querySelector('#site-styles .ss-back span').textContent].join());`) === 'Site Title,Assign Styles');
+  let s = sels();
+  add('Site Title: Style and Size land', Math.abs(s[0][0] - A.styleTop) <= 1 && Math.abs(s[1][0] - A.sizeTop) <= 1 && s[0][1] === 'StyleHeading' && s[1][1] === 'SizeCustom', JSON.stringify(s));
+  add('Site Title: its Custom size', js(`return JSON.stringify(document.querySelector('#site-styles input[type=text][aria-label="Size value"]').value);`) === '2rem');
+  await hit('[data-ss-back]', 150);
+  const bad = [];
+  for (let n = 0; n < rows.length; n += 13) {
+    await open(n); s = sels();
+    const [name, style, size] = rows[n];
+    if (rows[n][1] !== 'Custom' && !(s[0][1] === `Style${style}` && s[1][1] === `Size${size}`)) bad.push([n, name, s]);
+    await hit('[data-ss-back]', 80);
+  }
+  add('Every 13th row reads its Style and Size', bad.length === 0, JSON.stringify(bad));
+  const two = rows.findIndex((r) => r[0] === 'Menu Item Description Font');
+  await open(two); s = sels();
+  add('A two line title moves them down', Math.abs(s[0][0] - A.twoLineTops[0]) <= 1 && Math.abs(s[1][0] - A.twoLineTops[1]) <= 1, JSON.stringify(s));
+  await hit('[data-ss-back]', 100);
+  await open(3); s = sels();
+  const HB = A.headerButton.combos;
+  add('Header Button: its lists land', HB.every((c, n) => Math.abs(s[n][0] - c[2]) <= 1.5) && s.map((x) => x[1].replace(/\s/g, '')).join() === HB.map((c) => c[0].replace(/\s/g, '')).join(), JSON.stringify(s));
+  add('Header Button: its Font row', same(box('#site-styles .ss-as-font'), A.headerButton.fontLabel) && same(box('#site-styles .ss-font'), A.headerButton.fontRow), JSON.stringify([box('#site-styles .ss-as-font'), box('#site-styles .ss-font')]));
+  add('Header Button: its boxes read', js(`return JSON.stringify([...document.querySelectorAll('#site-styles .ss-slide input[type=text]')].map((e) => [e.value, e.getBoundingClientRect().width].join()).join('|'));`) === A.headerButton.texts.map((t) => `${t[1]},${t[2]}`).join('|'), js(`return JSON.stringify([...document.querySelectorAll('#site-styles .ss-slide input[type=text]')].map((e) => [e.value, e.getBoundingClientRect().width].join()).join('|'));`));
+  await hit('[data-ss-back]', 100);
+  // Inferred from here: no pick is read.
+  const form = rows.findIndex((r, n) => r[0] === 'Input' && n > 10);
+  await open(form); await hit('[data-ss-select="form-fsize"]', 100); await hit('.ss-ff-o[data-v="Paragraph 1"]', 150);
+  add('Form Block: shares Forms > Fonts\' store', js(`return JSON.stringify(fe.model.siteStyles.forms.fonts.Input);`) === 'Paragraph 1' && js(`return JSON.stringify(fe.model.siteStyles.fontAssign == null);`) === true);
+  await hit('[data-ss-back]', 100);
+  await open(0); await hit('[data-ss-select="form-fsize"]', 100); await hit('.ss-ff-o[data-v="Heading 2"]', 150);
+  add('A guess: Site Title\'s Size reaches the page', js(`${FD} const c = W.getComputedStyle(d.querySelector('.header-title')); return JSON.stringify(c.getPropertyValue('--site-title-font-size-value').trim() === c.getPropertyValue('--heading-2-size-value').trim() && !!c.getPropertyValue('--heading-2-size-value').trim());`) === true);
+  add('A row stores one undo step', js(`return JSON.stringify(fe.model.siteStyles.fontAssign[0].size);`) === 'Heading 2');
+  js(`fe.undo(); return 'true';`); await pause(150);
+  add('Undo takes it back', js(`return JSON.stringify(fe.model.siteStyles.fontAssign?.[0]?.size ?? null);`) === null);
+  await hit('[data-ss-back]', 120);
+  add('The list shows the value', js(`return JSON.stringify(document.querySelector('.ss-as-row .ss-as-v').textContent);`) === 'Heading');
+}
+
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
 if (pass !== total) process.exit(1);

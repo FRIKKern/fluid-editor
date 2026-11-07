@@ -43,12 +43,16 @@ export function formFontsHtml(styles, { svg, CHEV }) {
     ${FORM_FONT_ROWS.map((n) => `<button type="button" class="ss-dis" data-ss-view="FormFont" data-ss-ffont="${n}" aria-label="${n}"><span class="ss-dis-l">${n}</span><span class="ss-dis-v">${formFont(styles, n).split(' ')[0]}</span>${svg(CHEV)}</button>`).join('')}`;
 }
 
-export function formFontHtml(styles, opts, { svg, slide, select, CHEV_DOWN, CHECK }) {
-  const row = opts.formFont, now = formFont(styles, row), open = opts.select === 'form-fsize';
-  const list = !open ? '' : `<div class="ss-ff-list" role="listbox">${FORM_FONT_SIZES.map(([g, names]) => `<div class="ss-ff-g">${g}</div>${names.map((n) => `<button type="button" role="option" class="ss-ff-o" aria-selected="${n === now}" data-ss-set="forms.fonts.${row}" data-v="${n}"><span>${n}</span>${n === now ? svg(CHECK) : ''}</button>`).join('')}`).join('')}</div>`;
-  const rem = now === 'Custom' ? slide(`forms.fontRem.${row}`, 'Size', formFontRem(styles, row), 0.1, 10, 0.1, 'rem') : '';
-  return `<div class="ss-ff-g1">Style</div>${select(`forms.fontStyle.${row}`, 'Style', formFontStyle(styles, row), FORM_FONT_STYLES)}
-    <div class="ss-ff-g1">Size</div><div class="ss-sel-row"><span>Size</span><button type="button" class="ss-sel" data-ss-select="form-fsize" aria-label="Size" aria-expanded="${open}"><span>${now}</span>${svg(CHEV_DOWN)}</button></div>${rem}${list}`;
+// A font's Style and Size rows: a form font's and every Assign Styles row's, the same control on all 122 (CAP-U12ASSIGN.json).
+export function styleSizeHtml({ style, size, rem, keys }, open, { svg, slide, select, CHEV_DOWN, CHECK }) {
+  const list = !open ? '' : `<div class="ss-ff-list" role="listbox">${FORM_FONT_SIZES.map(([g, names]) => `<div class="ss-ff-g">${g}</div>${names.map((n) => `<button type="button" role="option" class="ss-ff-o" aria-selected="${n === size}" data-ss-set="${keys.size}" data-v="${n}"><span>${n}</span>${n === size ? svg(CHECK) : ''}</button>`).join('')}`).join('')}</div>`;
+  const box = size === 'Custom' ? slide(keys.rem, 'Size', rem, 0.1, 10, 0.1, 'rem') : '';
+  return `<div class="ss-ff-g1">Style</div>${select(keys.style, 'Style', style, FORM_FONT_STYLES)}
+    <div class="ss-ff-g1">Size</div><div class="ss-sel-row"><span>Size</span><button type="button" class="ss-sel" data-ss-select="form-fsize" aria-label="Size" aria-expanded="${open}"><span>${size}</span>${svg(CHEV_DOWN)}</button></div>${box}${list}`;
+}
+export function formFontHtml(styles, opts, parts) {
+  const row = opts.formFont;
+  return styleSizeHtml({ style: formFontStyle(styles, row), size: formFont(styles, row), rem: formFontRem(styles, row), keys: { style: `forms.fontStyle.${row}`, size: `forms.fonts.${row}`, rem: `forms.fontRem.${row}` } }, opts.select === 'form-fsize', parts);
 }
 
 export function formColorsHtml(styles, opts, vars, names, { svg, CHEV_DOWN }) {

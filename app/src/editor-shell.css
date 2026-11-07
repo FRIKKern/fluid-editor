@@ -317,6 +317,16 @@ body:has(#layers-panel:not([hidden])) .sc-layers { background: #e7e7e7; }
 .ss-tr-list > .ss-group:first-child { margin-top: 22px; }
 .ss-dotpop { position: fixed; right: 11px; z-index: 56; width: 320px; box-sizing: border-box; background: #fff; border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.12) 0 16px 64px 0, rgba(0, 0, 0, 0.08) 0 0 1px 0; font: 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; }
 .ss-dotpop[hidden] { display: none; }
+/* Assign Styles (CAP-U12ASSIGN.json). */
+.ss-as-lead { margin: -16px 0 27px; height: 88px; font-size: 14px; line-height: 22px; color: rgb(118, 118, 118); }
+.ss-as-h { margin: 50px 0 -1px; height: 16px; font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: .75px; text-transform: uppercase; color: rgb(102, 102, 102); }
+.ss-as-lead + .ss-as-h { margin-top: 0; }
+.ss-as-font { height: 28px; margin: 0 -22px; padding: 0 22px; font-size: 14px; line-height: 22px; }
+.ss-as-row { position: relative; display: flex; align-items: center; gap: 11px; width: 298px; min-height: 45px; margin: 0 -11px -1px; padding: 11px 11px 12px; box-sizing: border-box; border: 0; background: none; font-size: 14px; line-height: 22px; color: rgb(14, 14, 14); text-align: left; cursor: pointer; }
+.ss-as-row::after { content: ""; position: absolute; left: 11px; right: 11px; bottom: 0; height: 1px; background: #e7e7e7; }
+.ss-as-n { flex: 1; }
+.ss-as-v { color: rgb(102, 102, 102); }
+.ss-as-row svg { flex: none; width: 22px; height: 22px; margin-left: 6px; }
 /* The font list (CAP-U12FONTLIST.json). */
 .ss-fl { position: fixed; right: 0; z-index: 56; width: 342px; height: 550px; box-sizing: border-box; background: #fff; box-shadow: rgba(0, 0, 0, 0.12) 0 16px 64px 0, rgba(0, 0, 0, 0.08) 0 0 1px 0; font: 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; }
 .ss-fl[hidden] { display: none; }
