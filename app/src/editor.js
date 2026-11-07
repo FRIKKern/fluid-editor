@@ -965,7 +965,8 @@ function fitTextRows(s, b, g) {
   // stretches the rows until the block is let go.
   const c = narrowing ? blockEl(b.id)?.querySelector('.sqs-block-content') : null;
   if (c) c.style.width = `${c.getBoundingClientRect().width + Math.abs(g.stepX || 0)}px`;
-  const lost = a[2] - a[0] - Math.max(2, contentRows(b, measure(feEl(s.id))));
+  // A line of text takes one row, though a new Text starts at two (CAP-TEXTWIDTH6.json s6).
+  const lost = a[2] - a[0] - contentRows(b, measure(feEl(s.id)));
   if (c) c.style.width = '';
   if (!lost) return;
   const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2]));
@@ -993,7 +994,7 @@ function settleTextRows() {
   content.style.display = 'none';
   const free = measure(feEl(s.id));
   content.style.display = '';
-  const a = lay(b).area, d = Math.max(2, contentRows(b, free)) - (a[2] - a[0]);
+  const a = lay(b).area, d = contentRows(b, free) - (a[2] - a[0]);
   if (!d) return;
   if (d > 0) {
     moveWithText(s, b, a, d);
@@ -1171,7 +1172,7 @@ function startResize(e, dir) {
   }
   prepare(e, 'resize', { dir });
   const held = B(gesture.sid, gesture.bid), span = lay(held).area[2] - lay(held).area[0];
-  gesture.fits = (held.type === 'text' || held.standin === 'instagram') && !gesture.members && span === Math.max(2, contentRows(held, gesture.m));
+  gesture.fits = (held.type === 'text' || held.standin === 'instagram') && !gesture.members && [contentRows(held, gesture.m), 2].includes(span) && span >= contentRows(held, gesture.m);
   gesture.bottom0 = blockEl(held.id).getBoundingClientRect().bottom;
 }
 
