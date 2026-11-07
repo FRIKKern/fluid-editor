@@ -2290,10 +2290,10 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   }
   await hit('.ss-fc-theme', 100); await hit('[data-ss-ftheme="Light 1"]', 100);
   await hit('[data-ss-select="form-color-Field Border"]', 150);
-  add('Color list: dots land and read', near(box('.ss-fc-dot').map((b) => b[0]), K.dots.left) && js(`return JSON.stringify([...document.querySelectorAll('.ss-fc-dot')].map((e) => e.getAttribute('aria-label')).join());`) === K.dots.labels.join());
-  add('Color list: the popup box', near([box('.ss-fc-pop')[0][0], box('.ss-fc-pop')[0][2], box('.ss-fc-pop')[0][3]], [K.popup.left, K.popup.width, K.popup.height]));
-  add('Color list: on top', js(`const r = document.querySelector('.ss-fc-dot').getBoundingClientRect(); return JSON.stringify(document.elementFromPoint(r.left + 17, r.top + 17).className.includes('ss-fc-dot'));`) === true);
-  const color = async (row, role) => { js(`const s = document.querySelector('[data-ss-select="form-color-${row}"]'); if (s.getAttribute('aria-expanded') !== 'true') s.click(); return 'true';`); await pause(80); await hit(`.ss-fc-pop [data-ss-fcolor="${role}"]`, 100); };
+  add('Color list: dots land and read', near(box('#ss-dot-pop .ss-circle').map((b) => b[0]), K.dots.left) && js(`return JSON.stringify([...document.querySelectorAll('#ss-dot-pop .ss-circle input')].map((e) => e.getAttribute('aria-label')).join());`) === K.dots.labels.join());
+  add('Color list: the popup box', near([box('#ss-dot-pop')[0][0], box('#ss-dot-pop')[0][2], box('#ss-dot-pop')[0][3]], [K.popup.left, K.popup.width, K.popup.height]));
+  add('Color list: on top', js(`const r = document.querySelector('#ss-dot-pop .ss-circle').getBoundingClientRect(); return JSON.stringify(!!document.elementFromPoint(r.left + 17, r.top + 17).closest('.ss-circle'));`) === true);
+  const color = async (row, role) => { js(`const s = document.querySelector('[data-ss-select="form-color-${row}"]'); if (s.getAttribute('aria-expanded') !== 'true') s.click(); return 'true';`); await pause(80); await hit(`#ss-dot-pop [data-dot-role="${role}"]`, 100); };
   const part = (sel, prop) => js(`${FD} return JSON.stringify(cs(q(${JSON.stringify(sel)})).${prop});`);
   await color('Field Border', 'darkAccent');
   add('Field Border reaches the edge', fld().edge === hsl.darkAccent, fld().edge);
@@ -2311,10 +2311,10 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     add(`${row}: a variable only`, got === `hsla(${hue}, 1)`, got);
   }
   js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(100);
-  add('Escape closes the color list', box('.ss-fc-pop').length === 0);
+  add('Escape closes the color list', js(`return JSON.stringify(document.getElementById('ss-dot-pop').hidden);`) === true);
   const undo0 = fe_undoCount();
   function fe_undoCount() { return js(`return JSON.stringify(Object.keys(fe.model.siteStyles.forms.colors['Light 1']).length);`); }
-  await hit('[data-ss-select="form-color-Title"]', 80); await hit('.ss-fc-pop [data-ss-fcolor="black"]', 100);
+  await hit('[data-ss-select="form-color-Title"]', 80); await hit('#ss-dot-pop [data-dot-role="black"]', 100);
   js(`fe.undo(); return 'true';`); await pause(120);
   add('Undo takes back one color', fe_undoCount() === undo0 && part('legend', 'color') === hsl.lightAccent, part('legend', 'color'));
   await hit('.ss-fc-theme', 100); await hit('[data-ss-ftheme="Darkest 1"]', 120);
@@ -2739,7 +2739,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const rest0 = rest();
   await hit('[data-ss-back]', 80); await hit('[data-ss-back]', 80);
   await hit('[data-ss-view="FormColors"]', 150);
-  await hit('[data-ss-select="form-color-Field Accent"]', 120); await hit('.ss-fc-pop [data-ss-fcolor="darkAccent"]', 150);
+  await hit('[data-ss-select="form-color-Field Accent"]', 120); await hit('#ss-dot-pop [data-dot-role="darkAccent"]', 150);
   const want = js(`${FD} const t = d.createElement('i'); t.style.color = 'hsla(' + W.getComputedStyle(d.documentElement).getPropertyValue('--darkAccent-hsl') + ', 1)'; d.body.append(t); const v = W.getComputedStyle(t).color; t.remove(); return JSON.stringify(v);`);
   for (const [n, sel] of [['Radio', '.form-radio input'], ['Checkbox', '.form-checkbox:not(.form-radio) input'], ['Survey', '.likert-options input']]) {
     const g = await ring(sel);
@@ -2809,6 +2809,79 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Form font Style: stored, the row shows it', js(`return JSON.stringify([fe.model.siteStyles.forms.fontStyle.Title, document.querySelector('[data-ss-select="forms.fontStyle.Title"] span').textContent].join());`) === 'Heading,Heading');
   add('Form font Style: Size stays', js(`return JSON.stringify(document.querySelector('[data-ss-select="form-fsize"] span').textContent);`) === 'Paragraph 2');
   add('Form font Style: a guess, Heading takes Headings\' weight', title() === '800' && w0 !== '800', JSON.stringify([w0, title()]));
+}
+
+// U12: a Forms > Colors row's Custom and opacity, against CAP-U12COLORPOP.json and CAP-U12CUSTOM.json. The boxes are reads.
+// What each press does is inferred from the Shape's, because the press writes on the oracle.
+{
+  const reads = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads;
+  const P = reads('CAP-U12COLORPOP').popover.controls, C = reads('CAP-U12CUSTOM')['custom open'].controls;
+  const at = (list, label) => list.find((x) => x.label === label).box;
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const hit = async (sel, wait = 100) => { js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true';`); await pause(wait); };
+  const box = (sel) => js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify(r.width ? [r.left, r.top, r.width, r.height] : null);`);
+  const same = (a, b) => !!a && b.every((v, i) => Math.abs(a[i] - v) <= 1);
+  const pressAt = async (x, y) => { mouse(S, 'move', x, y); await pause(40); mouse(S, 'down', x, y, { buttons: 1 }); await pause(30); mouse(S, 'up', x, y); await pause(200); };
+  const setBox = async (label, v) => { js(`const e = document.querySelector('#ss-dot-pop input[aria-label=${JSON.stringify(label)}]'); e.value = ${JSON.stringify(String(v))}; e.dispatchEvent(new Event('change', { bubbles: true })); return 'true';`); await pause(200); };
+  const FD = `const d = document.getElementById('site-frame').contentDocument, W = d.defaultView, cs = (e) => W.getComputedStyle(e), q = (s) => d.querySelector('.fe-form ' + s);`;
+  const part = (sel, prop) => js(`${FD} return JSON.stringify(cs(q(${JSON.stringify(sel)})).${prop});`);
+  const stored = (row, theme = 'Lightest 1') => js(`return JSON.stringify(fe.model.siteStyles?.forms?.colors?.[${JSON.stringify(theme)}]?.[${JSON.stringify(row)}] ?? null);`);
+  const rowDot = (row) => js(`return JSON.stringify(getComputedStyle(document.querySelector('[data-ss-select="form-color-${row}"] .ss-dot')).backgroundColor);`);
+  const undoOff = () => js(`return JSON.stringify(document.getElementById('undo').disabled);`);
+  const undoLeft = () => js(`return JSON.stringify(fe.undoCount?.() ?? null);`);
+  const color = (row) => hit(`[data-ss-select="form-color-${row}"]`, 150);
+  viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1200);
+  js(`const m = JSON.parse(JSON.stringify(fe.model)), b = m.sections[0].blocks[0]; m.sections[0].theme = 'white'; m.sections[0].blocks.push({ id: 'marks-custom', type: 'form', layout: JSON.parse(JSON.stringify(b.layout)), fields: [{ kind: 'email', label: 'Email' }] }); fe.load(m); return 'true';`); await pause(400);
+  await hit('#site-styles-toggle', 300); await hit('[data-ss-view="Forms"]', 200); await hit('[data-ss-view="FormColors"]', 200);
+  await hit('.ss-fc-theme', 100); await hit('[data-ss-ftheme="Lightest 1"]', 120);
+  await color('Field Background');
+  add('Forms color row: the popover is the row one', js(`return JSON.stringify(document.getElementById('ss-dot-pop').hidden);`) === false && js(`return JSON.stringify(document.querySelector('[data-ss-select="form-color-Field Background"]').getAttribute('aria-expanded'));`) === 'true');
+  add('Forms color row: Custom color lands', same(box('#ss-dot-pop .ss-plus'), at(P, 'Custom color')), JSON.stringify(box('#ss-dot-pop .ss-plus')));
+  add('Forms color row: Opacity lands, at 1', same(box('#ss-dot-pop .ss-alpha .ss-handle'), at(P, 'Opacity slider')) && js(`return JSON.stringify(document.querySelector('#ss-dot-pop .ss-alpha .ss-handle').getAttribute('aria-valuenow'));`) === '1', JSON.stringify(box('#ss-dot-pop .ss-alpha .ss-handle')));
+  add('Forms color row: opening changes nothing', undoOff() === true && stored('Field Background') === null);
+  // Custom color: the press writes, one undo step, and the row's color is what it opens on.
+  await hit('#ss-dot-pop [data-dot-custom]', 200);
+  add('Custom press: writes the row\'s own color', JSON.stringify(stored('Field Background')) === JSON.stringify({ rgb: [255, 207, 90], a: 1 }), JSON.stringify(stored('Field Background')));
+  add('Custom press: Undo goes on', undoOff() === false);
+  for (const [label, sel] of [['Color Map', '.ss-map .ss-handle'], ['Hue slider', '.ss-hue .ss-handle'], ['Opacity slider', '.ss-alpha .ss-handle']]) add(`Custom open: ${label} lands`, same(box(`#ss-dot-pop ${sel}`), at(C, label)), JSON.stringify(box(`#ss-dot-pop ${sel}`)));
+  add('Custom open: the boxes read the row', ['Red', 'Green', 'Blue', 'Alpha'].every((n) => js(`return JSON.stringify(document.querySelector('#ss-dot-pop input[aria-label="${n}"]').value);`) === C.find((x) => x.label === n).value));
+  add('Custom open: the boxes land', ['Red', 'Green', 'Blue', 'Alpha'].every((n) => Math.abs(box(`#ss-dot-pop input[aria-label="${n}"]`)[1] - at(C, n)[1]) <= 1.5 && Math.abs(box(`#ss-dot-pop input[aria-label="${n}"]`)[0] - at(C, n)[0]) <= 1.5), JSON.stringify(['Red', 'Alpha'].map((n) => box(`#ss-dot-pop input[aria-label="${n}"]`))));
+  add('Custom press: the row\'s dot looks the same', rowDot('Field Background') === 'rgb(255, 207, 90)', rowDot('Field Background'));
+  // The value reaches the page: a text row by its own color, a field by its variables.
+  await hit('[data-ss-select="form-theme"]', 80);
+  js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(100);
+  await color('Input'); await hit('#ss-dot-pop [data-dot-custom]', 150); await setBox('Red', 18); await setBox('Green', 52); await setBox('Blue', 86);
+  add('A typed color reaches the page: Input', part('input[type=email]', 'color') === 'rgb(18, 52, 86)', part('input[type=email]', 'color'));
+  add('A typed color: the row\'s dot', rowDot('Input') === 'rgb(18, 52, 86)', rowDot('Input'));
+  await setBox('Alpha', '50%');
+  add('Opacity reaches the page: Input', part('input[type=email]', 'color') === 'rgba(18, 52, 86, 0.5)', part('input[type=email]', 'color'));
+  const undoBefore = JSON.stringify(stored('Input'));
+  js(`fe.undo(); return 'true';`); await pause(150);
+  add('Undo takes back one value', JSON.stringify(stored('Input')) === JSON.stringify({ rgb: [18, 52, 86], a: 1 }) && undoBefore !== JSON.stringify(stored('Input')), JSON.stringify(stored('Input')));
+  add('The popover stays over undo', js(`return JSON.stringify(document.getElementById('ss-dot-pop').hidden);`) === false);
+  // A field's border: it goes through the variables the fields' rules share.
+  await color('Field Border'); await hit('#ss-dot-pop [data-dot-custom]', 150); await setBox('Red', 200); await setBox('Green', 0); await setBox('Blue', 0);
+  add('A typed color reaches the page: Field Border', part('input[type=email]', 'borderTopColor').startsWith('rgb(200, 0, 0'), part('input[type=email]', 'borderTopColor'));
+  const edgeA = () => js(`${FD} return JSON.stringify(cs(q('input[type=email]')).getPropertyValue('--ff-edge-a').trim());`);
+  await setBox('Alpha', '50%');
+  const edge = part('input[type=email]', 'borderTopColor');
+  add('Opacity reaches the page: Field Border', edgeA() === '0.5' && /^rgba\(200, 0, 0, 0?\.\d+\)$/.test(edge), `${edgeA()} ${edge}`);
+  // A palette circle goes back to a role, so a palette change follows it, and keeps the opacity.
+  await hit('#ss-dot-pop input[data-dot-role="accent"]', 180);
+  add('A circle after Custom: role and opacity', JSON.stringify(stored('Field Border')) === JSON.stringify({ role: 'accent', a: 0.5 }), JSON.stringify(stored('Field Border')));
+  // A real press on the track, by the row popover's own rule.
+  js(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return 'true';`); await pause(100);
+  add('Escape closes it, Site Styles stays', js(`return JSON.stringify([document.getElementById('ss-dot-pop').hidden, document.getElementById('site-styles').hidden, document.querySelector('[data-ss-select="form-color-Field Border"]').getAttribute('aria-expanded')].join());`) === 'true,false,false');
+  await color('Title');
+  const tr = box('#ss-dot-pop .ss-alpha');
+  await pressAt(tr[0] + tr[2] / 2, tr[1] + tr[3] / 2);
+  add('Opacity: a middle press is 0.5 on the row', stored('Title')?.a === 0.5 && stored('Title')?.role, JSON.stringify(stored('Title')));
+  add('Opacity: Title on the page', /, 0\.5\)$/.test(part('legend, label.title', 'color')), part('legend, label.title', 'color'));
+  await color('Title');
+  add('The same row closes it', js(`return JSON.stringify(document.getElementById('ss-dot-pop').hidden);`) === true);
+  await color('Title');
+  await pressAt(1400, 100);
+  add('A press outside closes it', js(`return JSON.stringify(document.getElementById('ss-dot-pop').hidden);`) === true);
 }
 
 console.log(`Marks: ${pass} of ${total} checks match`);

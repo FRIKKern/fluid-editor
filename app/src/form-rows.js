@@ -31,9 +31,9 @@ export const FORM_SUBMITS = ['Label', 'Spinner', 'Ellipsis', 'Bar', 'Circle'];
 const FADE = { Outline: [1, 1], Accent: [1, 1], Opacity: [0.8, 0.55], Scale: [0.8, 0.55] };
 const CURVE = 'cubic-bezier(.33, 1, .68, 1)';
 function hoverCss(v, field) {
-  const on = field.split(', ').map((s) => `${s}:hover`).join(', '), edge = `hsla(var(--ff-edge), ${FADE[v.hover][1]})`;
+  const on = field.split(', ').map((s) => `${s}:hover`).join(', '), edge = `hsla(var(--ff-edge), calc(${FADE[v.hover][1]} * var(--ff-edge-a, 1)))`;
   if (v.hover === 'Scale') return `${field} { transition: transform .15s ${CURVE}; }\n${on} { box-shadow: none; transform: scale(1.025); }\n`;
-  if (v.hover === 'Outline') return `${field} { transition: background-color .15s ${CURVE}; }\n${on} { box-shadow: none;${v.fill ? '' : ' background: hsla(var(--ff-bg), .4);'} }\n`;
+  if (v.hover === 'Outline') return `${field} { transition: background-color .15s ${CURVE}; }\n${on} { box-shadow: none;${v.fill ? '' : ' background: hsla(var(--ff-bg), calc(.4 * var(--ff-bg-a, 1)));'} }\n`;
   // Off while focused: focus has its own ring (site.css).
   return `${field} { transition: box-shadow .075s ${CURVE}; }\n${on.split(', ').map((x) => `${x}:not(:focus)`).join(', ')} { box-shadow: ${v.border ? `inset 0 0 0 1px ${edge}` : 'none'}; }\n`;
 }
@@ -66,14 +66,14 @@ function markCss(o, input, label, dot = false) {
   const size = sizeOf(o), rule = input.split(', ');
   const on = (x) => rule.map((r) => `${r}${x}`).join(', ');
   const d = (size - 2 * (o.thick + 1)) / 2;
-  let css = `${input} { width: ${size}px; height: ${size}px; border-width: ${o.thick + 1}px; outline-width: ${o.thick}px; outline-offset: -${o.thick}px; border-radius: ${optionRadius(o)}; background: hsla(var(--ff-bg), ${o.fill ? 1 : 0}); }\n`;
+  let css = `${input} { width: ${size}px; height: ${size}px; border-width: ${o.thick + 1}px; outline-width: ${o.thick}px; outline-offset: -${o.thick}px; border-radius: ${optionRadius(o)}; background: hsla(var(--ff-bg), calc(${o.fill ? 1 : 0} * var(--ff-bg-a, 1))); }\n`;
   if (label) css += `${label} { gap: ${o.gap}px; }\n`;
   if (dot) {
     css += `${on('::before')} { width: ${d + 4}px; height: ${d + 4}px; background: radial-gradient(circle at center, currentColor ${d / 2 - 0.4}px, transparent ${d / 2 + 0.4}px); }\n`;
     // The row grows with a mark over 20 and shrinks by half as much under it (CAP-U12OPTIONS.json, sizes S and L).
     if (label && size !== 20) css += `.fe-form .form-radio .option { min-height: ${25.7 + (size > 20 ? size - 20 : (size - 20) / 2)}px; }\n`;
   }
-  if (o.color === 'Inverted') css += `${on(':checked')} { background: currentColor; }\n${on(':checked::before')} { color: hsl(var(--ff-bg)); }\n`;
+  if (o.color === 'Inverted') css += `${on(':checked')} { background: currentColor; }\n${on(':checked::before')} { color: hsla(var(--ff-bg), var(--ff-bg-a, 1)); }\n`;
   return css;
 }
 // Field Style Button: the input is out of sight, the words are the box. Picked, it fills with the edge color and the words take the fill's.
@@ -85,8 +85,8 @@ function buttonCss(o, group) {
   const radius = o.shape === 'Pill' ? `calc(${pt}px + .924em)` : optionRadius(o);
   return `${group} label { position: relative; gap: 0; padding-right: 4px; }
 ${group} input { position: absolute; opacity: 0; pointer-events: none; }
-${group} label > span { box-sizing: content-box; padding: ${pt}px ${pr}px ${pb}px ${pl}px; border: ${o.thick}px solid currentColor; border-radius: ${radius}; background: hsla(var(--ff-bg), ${o.fill ? 1 : 0}); }
-${group} input:checked + span { background: hsl(var(--ff-edge)); border-color: hsl(var(--ff-edge)); color: hsl(var(--ff-bg)); }
+${group} label > span { box-sizing: content-box; padding: ${pt}px ${pr}px ${pb}px ${pl}px; border: ${o.thick}px solid currentColor; border-radius: ${radius}; background: hsla(var(--ff-bg), calc(${o.fill ? 1 : 0} * var(--ff-bg-a, 1))); }
+${group} input:checked + span { background: hsla(var(--ff-edge), var(--ff-edge-a, 1)); border-color: hsla(var(--ff-edge), var(--ff-edge-a, 1)); color: hsla(var(--ff-bg), var(--ff-bg-a, 1)); }
 ${group} input:focus + span { outline: 2px solid var(--form-ring); outline-offset: -2px; }
 ${group} .option { min-height: 0; }
 `;
@@ -145,7 +145,7 @@ export function formCss(styles, headFamily) {
   if (!styles?.form && !styles?.forms) return '';
   const v = formValues(styles), [t, r, b, l] = formPadding(v), field = '.fe-form input[type=text], .fe-form input[type=email], .fe-form textarea, .fe-form select';
   const [fill, edge] = FADE[v.hover];
-  return `${formColorCss(styles)}${field} { border-radius: ${formRadius(v)}; padding: ${t}px ${r}px ${b}px ${l}px; border: ${v.thick}px solid ${v.border ? `hsla(var(--ff-edge), ${edge})` : 'transparent'}; background: hsla(var(--ff-bg), ${v.fill ? fill : 0}); }
+  return `${formColorCss(styles)}${field} { border-radius: ${formRadius(v)}; padding: ${t}px ${r}px ${b}px ${l}px; border: ${v.thick}px solid ${v.border ? `hsla(var(--ff-edge), calc(${edge} * var(--ff-edge-a, 1)))` : 'transparent'}; background: hsla(var(--ff-bg), calc(${v.fill ? fill : 0} * var(--ff-bg-a, 1))); }
 .fe-form input[type=text], .fe-form input[type=email] { height: auto; }
 .fe-form legend, .fe-form label.title { padding-bottom: ${v.label}px; }
 .fe-form .description { padding-bottom: ${v.desc}px; }

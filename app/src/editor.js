@@ -25,6 +25,7 @@ import { addSectionPanelHtml, blankSection } from './add-section.js';
 import { SUB as SS_SUB, siteStylesHtml, stylePopoverHtml, stylePopoverPosition, packFontLinks } from './site-styles.js';
 import { TIERS, TIER_NAMES, CUSTOM_RADIUS, tierValues } from './button-tiers.js';
 import { formOption, OPTION_RADIUS, FORM_KINDS, FORM_CUSTOM_RADIUS, formValues } from './form-rows.js';
+import { formColor } from './form-colors.js';
 import { siteStylesHead, baseSize, resolveSiteStyles, VARS as PALETTE_VARS, BASE_VARS } from './site-style-packs.js';
 import { hslToRgb, rgbToHsl, rgbToHsv, hsvToRgb, hexToRgb, hueToRgb, clampByte, rgbToHslParts } from './color-math.js';
 import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette.js';
@@ -5223,7 +5224,7 @@ const siteStyles = $('site-styles');
 let ssView = null;
 let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary', ssFormKind = 'check', ssFormFont = 'Title', ssFormTheme = null;
 const pal = { swatch: 'accent', tab: 'Presets', format: 'Hex', list: false }; // Edit Palette's own view state
-let dot = null; // the open color popover: { row, custom, format, list }
+let dot = null; // the open color popover: { row, custom, format, list }, and form: the theme when it is a Forms > Colors row
 function themeRows() {
   themeColors = themeColors || readThemeColors();
   const used = new Set(model.sections.map((s) => s.theme || 'light'));
@@ -5247,12 +5248,10 @@ function renderSsPanel() {
   }
   if (ssView === 'FormOption') opts = { ...opts, formKind: ssFormKind };
   if (ssView === 'FormFont') opts = { ...opts, formFont: ssFormFont };
-  if (ssView === 'FormColors') { const list = themeRows(); opts = { ...opts, themeRows: list, formTheme: ssFormTheme || list.find((t) => t.used)?.name || 'Light 1' }; }
+  if (ssView === 'FormColors') { const list = themeRows(); opts = { ...opts, themeRows: list, formTheme: ssFormTheme || list.find((t) => t.used)?.name || 'Light 1', colorRow: dot?.form ? dot.row : null }; }
   const top = siteStyles.scrollTop;
   siteStyles.innerHTML = siteStylesHtml(model.siteStyles, ssView, rows, opts);
   siteStyles.scrollTop = top;
-  const colorPop = siteStyles.querySelector('.ss-fc-pop');
-  if (colorPop) colorPop.style.top = `${colorPop.parentElement.getBoundingClientRect().top - 36}px`;
   placeThemeChips();
   const tip = siteStyles.querySelector('.ss-tip');
   if (tip) tip.style.top = `${siteStyles.querySelector('.ss-help').getBoundingClientRect().top - 16}px`;
@@ -5327,6 +5326,12 @@ siteStyles.addEventListener('click', (e) => {
   if (from) { setPalette(fromColor(palette().accent, Number(from.dataset.palFrom)), from.getAttribute('aria-label')); return; }
   if (colorFormatPress(e, pal)) { renderSsPanel(); return; }
   const sel0 = e.target.closest('[data-ss-select]');
+  if (sel0?.dataset.ssFcTheme) {
+    const name = sel0.getAttribute('aria-label'), same = dot?.form && dot.row === name;
+    closeDotPop();
+    if (!same) { openDotPop(name, sel0, sel0.dataset.ssFcTheme); sel0.setAttribute('aria-expanded', 'true'); }
+    return;
+  }
   if (sel0) { ssSelect = ssSelect === sel0.dataset.ssSelect ? null : sel0.dataset.ssSelect; renderSsPanel(); return; }
   const set0 = e.target.closest('button[data-ss-set]');
   if (set0) { ssSelect = null; setSsValue(set0.dataset.ssSet, set0.dataset.v); return; }
@@ -5397,10 +5402,21 @@ siteStyles.addEventListener('pointerdown', (e) => {
 });
 // A row's color popover (U12): five palette circles, Custom color, the opacity track. Centered on its row.
 const dotPop = $('ss-dot-pop');
-function closeDotPop() { dot = null; dotPop.hidden = true; dotPop.innerHTML = ''; }
-function rowNow(i) { const st = model.siteStyles; return rowValue(st, resolveSiteStyles(st).picked, ssTheme, i); }
+function closeDotPop() {
+  if (dot?.form) siteStyles.querySelector(`[data-ss-select="form-color-${dot.row}"]`)?.setAttribute('aria-expanded', 'false');
+  dot = null; dotPop.hidden = true; dotPop.innerHTML = '';
+}
+function rowNow(i) {
+  const st = model.siteStyles;
+  return dot?.form ? formColor(st, dot.form, i) : rowValue(st, resolveSiteStyles(st).picked, ssTheme, i);
+}
 function setRow(i, value) {
   const st = model.siteStyles || {};
+  if (dot?.form) {
+    const colors = st.forms?.colors || {};
+    model.siteStyles = { ...st, forms: { ...(st.forms || {}), colors: { ...colors, [dot.form]: { ...(colors[dot.form] || {}), [i]: value } } } };
+    return;
+  }
   model.siteStyles = { ...st, themeRows: { ...(st.themeRows || {}), [ssTheme]: { ...(st.themeRows?.[ssTheme] || {}), [i]: value } } };
 }
 function renderDotPop() {
@@ -5412,9 +5428,9 @@ function renderDotPop() {
   dotPop.style.top = `${dotPopTop(dot.center, dot.custom, innerHeight)}px`;
   dotPop.hidden = false;
 }
-function openDotPop(i, rowEl) {
+function openDotPop(i, rowEl, form = null) {
   const r = rowEl.getBoundingClientRect();
-  dot = { row: i, custom: false, format: 'RGB', list: false, center: r.top + r.height / 2 };
+  dot = { row: i, form, custom: false, format: 'RGB', list: false, center: r.top + r.height / 2 };
   renderDotPop();
 }
 function changeRow(label, change) {
@@ -5449,7 +5465,7 @@ dotPop.addEventListener('change', (e) => {
   const rgb = typedColor(e.target);
   if (rgb) changeRow('row color', () => setRow(dot.row, { rgb, a: v.a ?? 1 }));
 });
-document.addEventListener('pointerdown', (e) => { if (dot && !dotPop.contains(e.target) && !e.target.closest?.('[data-ss-row]')) closeDotPop(); }, true);
+document.addEventListener('pointerdown', (e) => { if (dot && !dotPop.contains(e.target) && !e.target.closest?.('[data-ss-row],[data-ss-fc-theme]')) closeDotPop(); }, true);
 document.addEventListener('keydown', (e) => { if (dot && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeDotPop(); } }, true);
 document.addEventListener('keydown', (e) => { if ((ssSelect === 'tier-shape' || ssSelect?.startsWith('form-')) && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); ssSelect = null; renderSsPanel(); } }, true);
 siteStyles.addEventListener('input', (e) => {
@@ -5485,16 +5501,10 @@ function formOptionPress(e) {
   }
   return false;
 }
-// Colors: the theme picker changes only which theme the rows show; a dot sets one row of that theme.
+// Colors: the theme picker changes only which theme the rows show. A row opens the color popover (openDotPop).
 function formColorPress(e) {
   const pick = e.target.closest('[data-ss-ftheme]');
   if (pick) { ssFormTheme = pick.dataset.ssFtheme; ssSelect = null; renderSsPanel(); return true; }
-  const dot = e.target.closest('[data-ss-fcolor]');
-  if (dot) {
-    const theme = dot.dataset.theme, row = dot.dataset.row;
-    setSiteStyleKeys(`Forms ${row} color`, (st) => { const colors = st.forms?.colors || {}; st.forms = { ...(st.forms || {}), colors: { ...colors, [theme]: { ...(colors[theme] || {}), [row]: dot.dataset.ssFcolor } } }; return st; });
-    return true;
-  }
   return false;
 }
 function formPress(e) {

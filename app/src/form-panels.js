@@ -1,8 +1,7 @@
 // The Forms view's four sub panels (U12, parity/findings/CAP-FORMSUBS.json): Effects, Selection Options,
-// Fonts and Colors. Faded and not built (data-unbuilt): a color's Custom and opacity.
+// Fonts and Colors. A color row opens Edit Color Theme's row popover (editor.js).
 import { FORM_HOVERS, FORM_SUBMITS, FORM_KINDS, OPTION_SHAPES, FORM_FONT_ROWS, FORM_FONT_SIZES, FORM_FONT_STYLES, formOption, formValues, formFont, formFontRem, formFontStyle } from './form-rows.js';
-import { FORM_COLOR_GROUPS, FORM_ROLES, formColor } from './form-colors.js';
-import { hexOf } from './color-math.js';
+import { FORM_COLOR_GROUPS, formColor } from './form-colors.js';
 
 export function formEffectsHtml(styles) {
   const v = formValues(styles);
@@ -58,9 +57,8 @@ export function formColorsHtml(styles, opts, vars, names, { svg, CHEV_DOWN }) {
   const tr = (t) => `<button type="button" class="ss-tr${t.name === theme ? ' is-now' : ''}" data-ss-ftheme="${t.name}" style="background:${t.bg};color:${t.ink}"><span class="ss-tr-aa">Aa</span><span class="ss-tr-n">${t.name}</span></button>`;
   const list = listOpen ? `<div class="ss-tr-list ss-fc-list">${rows.filter((t) => t.used).map(tr).join('')}${rows.filter((t) => !t.used).map(tr).join('')}</div>` : '';
   const row = (name) => {
-    const open = opts.select === `form-color-${name}`, role = formColor(styles, theme, name);
-    const pop = !open ? '' : `<div class="ss-fc-pop">${FORM_ROLES.map((r) => { const hex = hexOf(value[r]); return `<button type="button" class="ss-fc-dot${r === role ? ' is-on' : ''}" aria-label="Color ${hex}" aria-pressed="${r === role}" data-ss-fcolor="${r}" data-theme="${theme}" data-row="${name}" style="background:hsl(${value[r]})"></button>`; }).join('')}<span class="ss-fc-custom" data-unbuilt aria-label="Custom color"></span><span class="ss-fc-alpha" data-unbuilt></span></div>`;
-    return `<div class="ss-fc-row"><button type="button" class="ss-dis ss-theme-row" data-ss-select="form-color-${name}" aria-label="${name}" aria-expanded="${open}"><span class="ss-dis-l">${name}</span><i class="ss-dot" style="background:hsl(${value[role]})"></i></button>${pop}</div>`;
+    const v = formColor(styles, theme, name), paint = v.rgb ? `rgba(${v.rgb.join(',')},${v.a ?? 1})` : `hsla(${value[v.role]},${v.a ?? 1})`;
+    return `<div class="ss-fc-row"><button type="button" class="ss-dis ss-theme-row" data-ss-select="form-color-${name}" data-ss-fc-theme="${theme}" aria-label="${name}" aria-expanded="${opts.colorRow === name}"><span class="ss-dis-l">${name}</span><i class="ss-dot" style="background:${paint}"></i></button></div>`;
   };
   return `<button type="button" class="ss-tr ss-tr-now ss-fc-theme" data-ss-select="form-theme" aria-expanded="${listOpen}" style="background:${now.bg};color:${now.ink}"><span class="ss-tr-aa">Aa</span><span class="ss-tr-n">${theme}</span>${svg(CHEV_DOWN)}</button>${list}
     ${FORM_COLOR_GROUPS.map(([g, names2]) => `<h3 class="ss-group ss-theme-h">${g}</h3>${names2.map(row).join('')}`).join('')}`;
