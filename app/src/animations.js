@@ -72,6 +72,35 @@ export const poseKey = (tab) => (tab === 'Start' ? 'start' : tab === 'Timing' ? 
 export const hasPoseNote = (t) => t !== 'hover' && t !== 'press';
 
 // A new row from a preset, or from Start blank.
+// A row on a phone (CAP-L6ANIMPHONE.json): a.phone holds the values the phone set, key by key, so the
+// rest follow desktop. Rows themselves are shared: both layouts add and remove the same ones.
+export function rowOn(a, bp) {
+  if (!a.phone) return a;
+  const { phone, ...row } = a;
+  if (bp !== 'mobile') return row;
+  for (const [k, v] of Object.entries(phone)) {
+    if (!k.includes(':')) { row[k] = v; continue; }
+    const [p, n] = k.split(':');
+    row[p] = [...(row[p] || REST)];
+    row[p][parseInt(n, 10)] = v;
+  }
+  return row;
+}
+// Every value of a row picked on a phone, so all of them are the phone's own.
+export function ownOf(row) {
+  const own = {};
+  for (const [k, v] of Object.entries(row)) {
+    if (Array.isArray(v)) v.forEach((x, n) => { own[`${k}:${n}`] = x; });
+    else own[k] = v;
+  }
+  return own;
+}
+// A row whose trigger the phone changed goes after the others on a phone (read with two and three rows).
+export function animPhoneOrder(rows) {
+  const moved = (a) => a.phone?.trigger && a.phone.trigger !== a.trigger;
+  const all = rows.map((_, i) => i);
+  return [...all.filter((i) => !moved(rows[i])), ...all.filter((i) => moved(rows[i]))];
+}
 export function newAnimation(trigger, id) {
   const p = id && PRESETS[trigger].find((x) => x.id === id);
   const a = { trigger, preset: p ? p.id : 'custom', ...BLANK[trigger], end: [...REST] };
