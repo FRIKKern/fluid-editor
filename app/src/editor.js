@@ -442,7 +442,10 @@ function groupZ(sid, ids) {
   const outside = S(sid).blocks.filter((o) => !ids.includes(o.id)).map((o) => lay(o).z);
   // A block between the members counts both ways (CAP-GROUPFORWARD.json).
   const between = outside.some((z) => z > Math.min(...inside) && z < Math.max(...inside));
-  return { above: between || outside.some((z) => z > Math.max(...inside)), below: between || outside.some((z) => z < Math.min(...inside)) };
+  // Forward and Backward show when a member overlaps a block outside the group; overlaps inside it don't count (CAP-GROUPBAR.json).
+  const pinned = S(sid).blocks.some((o) => o.layout[bp]?.sticky), others = S(sid).blocks.filter((o) => !ids.includes(o.id) && o.layout[bp]), members = S(sid).blocks.filter((o) => ids.includes(o.id));
+  const shows = others.length > 0 && (pinned || members.some((m) => others.some((o) => overlaps(lay(m).area, o.layout[bp].area))));
+  return { shows, above: between || outside.some((z) => z > Math.max(...inside)), below: between || outside.some((z) => z < Math.min(...inside)) };
 }
 // The next block outside the group crosses it, and the z values stay the same set: 1, 2, 3 with
 // the group on 1 and 2 becomes group 2, 3 and the other block 1.
@@ -466,10 +469,11 @@ function placeGroupToolbar() {
   const g = doc.querySelector('.fe-indicator.is-group');
   if (!g) { toolbar.hidden = true; return; }
   const z = groupZ(sel.sid, [sel.bid, ...sel.more]);
-  const key = `group|${sel.bid}|${sel.more.join(',')}|${groupAlignOpen}|${z.above}|${z.below}`;
-  if (toolbar.dataset.key !== key) { toolbar.innerHTML = groupToolbarHtml(groupAlignOpen, z); toolbar.dataset.key = key; }
-  const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), g.getBoundingClientRect());
-  toolbar.style.left = `${p.left - 7}px`;
+  const key = `group|${sel.bid}|${sel.more.join(',')}|${groupAlignOpen}|${z.shows}|${z.above}|${z.below}|${bp}`;
+  if (toolbar.dataset.key !== key) { toolbar.innerHTML = groupToolbarHtml(groupAlignOpen, z, bp === 'mobile'); toolbar.dataset.key = key; }
+  const phone = bp === 'mobile';
+  const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), g.getBoundingClientRect(), phone);
+  toolbar.style.left = `${p.left - (phone ? 1 : 7)}px`; // CAP-GROUPBAR.json
   toolbar.style.top = `${p.top - 7}px`;
   toolbar.hidden = false;
 }
@@ -495,7 +499,7 @@ function placeToolbar() {
     const sb = toolbar.querySelector('[data-tb="primary"]');
     if (sb && b.buttonStyle) { const n = b.buttonStyle[0].toUpperCase() + b.buttonStyle.slice(1); sb.setAttribute('aria-label', n); sb.querySelector('.tb-text').textContent = n; }
   }
-  const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), el.getBoundingClientRect());
+  const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), el.getBoundingClientRect(), bp === 'mobile');
   toolbar.style.left = `${p.left}px`;
   toolbar.style.top = `${p.top}px`;
   toolbar.hidden = false;
@@ -1567,7 +1571,7 @@ function renderBlockPanel() {
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: cornerFor(b, bp).first, corners: shownCorners(b), empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
-  const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
+  const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, noHug: b.type === 'shape' && b.stretch !== false, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
   const buttonView = b.type !== 'button' ? null : bp === 'mobile' && b.btnMobile ? b.btnMobile : { fit: b.fit, align: b.halign };
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
   const lookWas = blockPanel.dataset.bid === b.id && !blockPanel.hidden ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
@@ -4251,7 +4255,7 @@ function landingRow(s) {
   return 1;
 }
 // A new Line sits in the middle of its block, in each view (CAP-U4LINE.json).
-const NEW_ALIGN = { Line: 'center' };
+const NEW_ALIGN = { Line: 'center', Shape: 'center' }; // CAP-S3ALIGN.json start
 function addBlock(sid, name) {
   const [, w, h, make] = ADD_TYPES.find((t) => t[0] === name);
   const s = S(sid);

@@ -2604,10 +2604,8 @@
   "leftDirty": true,
   "notes": "The two column cases were read in a second run with the same steps, after a first that typed into the wrong place.",
   "answer": "Align Vertically on a Shape child sets the align-items of the shape's wrapper: Align Center gives center, Top flex-start, Bottom flex-end. With Stretch on it moves nothing, at Fill or at H 200. With Stretch off, W 100, H 200, the shape is 100 by 100 and moves, its box does not. Row, box 532.3,0,100,200: Top y 0, Center y 50, Bottom y 100. Column, box 0,42.4,100,200: Top y 42.4, Bottom y 142.4, Center not read in a column. This corrects S3.json round3, which said it moved nothing: that was one read of a stretched shape.",
-  "ours": "Ours stores the value and never moves the shape: y 50 in a row and 92.4 in a column for every value. The box is the same. Measured on 5210 by setting the stored value that the Align buttons write (layout.desktop.align and justify), 2026-11-06; the buttons themselves were not pressed in ours.",
-  "differs": [
-    "A Shape child with Stretch off: the oracle moves it to Top or Bottom inside its box, ours keeps it centred."
-  ],
+  "ours": "Ours now moves the shape with Stretch off: row Top 0, Center 50, Bottom 100; column Top 42.4, Bottom 142.4, box still; Stretch on moves nothing. npm run mid-check, 6 cases. It stored the value and never moved the shape before. Align on a phone child uses the same rule; not read.",
+  "differs": "None in what was read.",
   "pressed": [
     "By position or index, not by name: Custom at 1538,534 or 1538,589, typeAt in the Custom field, comboboxes by index, real clicks on blocks and a drag on the stack. All else pressed by name with an on-top check."
   ]
