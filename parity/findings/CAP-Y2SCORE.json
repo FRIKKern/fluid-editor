@@ -1,5 +1,5 @@
 {
-  "item": "CAP-Y2SCORE",
+  "item": "Y2",
   "oracle": "/gestures-probe",
   "capturedAt": "2026-11-07",
   "engine": "chrome",
@@ -1438,5 +1438,8 @@
   "exitSteps": [
     "top Exit",
     "dialog Exit"
-  ]
+  ],
+  "answer": "The frozen score of the rule as merged in #337, on 26 reads it had not seen: 20 of 26. Heading 2 back to its first line takes 9 rows on the oracle, ours 8; Heading 3 back to its first words keeps 2 rows, ours 1. In two cases the oracle took smaller steps than the typing was meant to make: a Cmd+Z that stopped mid word, and letters one step each across a 700 ms gap. Load was about 30 during the read, so slow keys may be why, not shown.",
+  "ours": "Predicted first (e59739f, CAP-Y2SCORE-PREDICTED.json) on main a1a5913 with no code change; scored by the replay text-check uses. The six misses are named in text-check KNOWN.",
+  "pressed": "Named presses with an on-top check; real clicks on blocks; typing by real keys; Left by Escape. No Save, no upload. Each case ended with Exit Without Saving; one run hit a 560 s limit mid-case and was left by reload, unsaved, then rerun whole. A read after the last showed /gestures-probe with 0 sections and Save clean."
 }
