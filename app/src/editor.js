@@ -4075,7 +4075,6 @@ function textStep(ed, html, area) {
   if (snap !== ed.marks.at(-1)) {
     ed.marks.push(snap);
     (ed.stepHeights ??= new Map()).set(snap, ed.prevHeight);
-    if (ed.marks.length === 2) ed.height1 = ed.prevHeight;
   }
 }
 // A word that reads as a domain or a mail address links when a space or Enter follows it
@@ -4190,17 +4189,16 @@ function textUndo(ed) {
   const b = B(ed.sid, ed.bid), now = textSnap(ed, ed.ce.innerHTML, ed.area), height = textHeight(b);
   redoStack.push(textRises.get(now) ?? now);
   showTextStep(ed, to);
-  // The text got shorter: the first step's rows fall by the height it lost, a later step comes back a row short
-  // (CAP-Y2KEYS.json, CAP-Y2KEYS3.json). A step off the page's list has its rows already.
+  // The text got shorter, so the rows fall (textFall). A step off the page's list has its rows already.
   const lost = height - textHeight(b);
   if (lost > 0 && !fromPage) {
     const was = to;
-    to = ed.marks.length === 1 ? textFall(ed, now, lost, ed.ce.innerHTML) : stepRowShort(ed, was);
+    to = textFall(ed, now, was, lost);
     showTextStep(ed, to);
-    if (ed.marks.length > 1) noteTextRise(ed, to, was, textHeight(b));
+    noteTextRise(ed, to, was, textHeight(b));
   }
   ed.marks[ed.marks.length - 1] = to;
-  if (ed.marks.length === 1) { ed.before = to; ed.height0 = textHeight(b); ed.height1 = undefined; }
+  if (ed.marks.length === 1) { ed.before = to; ed.height0 = textHeight(b); }
   ed.atMark = true;
   updateUi();
 }
@@ -4316,11 +4314,10 @@ function commitTextSteps(ed, height) {
   const now = JSON.stringify(model);
   // A step can look like where the edit ended (Bold, then Clear Formatting): it's still a step (CAP-E4SCORE.json).
   const steps = ed.marks.at(-1) === now ? ed.marks.slice(0, -1) : ed.marks;
-  const first = steps.length > 1 ? ed.height1 : height;
-  if (first > ed.height0) steps[0] = undoTextFalls(ed, steps[1] ?? now, first);
-  const heights = steps.map((m) => ed.stepHeights?.get(m));
-  for (let k = 1; k < steps.length; k++) {
-    if (heights[k] !== undefined && (heights[k + 1] ?? height) > heights[k]) { const full = steps[k]; steps[k] = stepRowShort(ed, full); noteTextRise(ed, steps[k], full, heights[k]); }
+  const heights = steps.map((m, k) => (k ? ed.stepHeights?.get(m) : ed.height0));
+  for (let k = steps.length - 1; k >= 0; k--) {
+    const lost = (heights[k + 1] ?? height) - heights[k];
+    if (lost > 0) { const full = steps[k]; steps[k] = textFall(ed, steps[k + 1] ?? now, full, lost); noteTextRise(ed, steps[k], full, heights[k]); }
   }
   for (const m of steps.slice(0, -1)) undoStack.push(m);
   // What Cmd+Z took stays for Redo after the edit closes (CAP-Y2KEYS.json).
@@ -4342,41 +4339,32 @@ function softenTextEdit() {
   const now = commitTextSteps(ed, height);
   softening = false;
   editing = ed;
-  Object.assign(ed, { soft: true, before: now, marks: [now], atMark: true, lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height, height1: undefined });
+  Object.assign(ed, { soft: true, before: now, marks: [now], atMark: true, lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height });
   blockEl(ed.bid).classList.remove('is-text-editing');
   renderTextBar();
   placeToolbar();
   placeBlockPanel();
 }
 
-// Undoing an edit whose text got taller: the old text comes back and the rows fall by the height it
-// lost, rounded up, which can leave the text a row short. Spare rows are not given back
-// (CAP-TEXTPUSH2.json q8, CAP-TEXTPUSH5.json t13 and t14, CAP-TEXTPUSH6.json v7 and v8).
-function undoTextFalls(ed, now, height) {
-  return textFall(ed, now, height - ed.height0, JSON.parse(ed.before).sections.find((o) => o.id === ed.sid).blocks.find((o) => o.id === ed.bid)?.html) ?? ed.before;
-}
-// Going back to a later step of an edit, shorter text comes back a row short, and Redo gives it its row again (CAP-Y2KEYS3.json).
+// Redo of a step that fell gives back the rows it had only if the text needs them (CAP-Y2KEYS3.json, CAP-Y2KEYS4.json).
 const textRises = new Map();
 const noteTextRise = (ed, short, full, height) => {
-  const rows = (j) => { const a = JSON.parse(j).sections.find((o) => o.id === ed.sid).blocks.find((o) => o.id === ed.bid).layout[bp].area; return a[2] - a[0]; };
+  const rows = (j) => { const a = JSON.parse(j).sections.find((o) => o.id === ed.sid).blocks.find((o) => o.id === ed.bid)?.layout[bp].area; return a ? a[2] - a[0] : Infinity; };
   if (rows(short) < Math.ceil((height + ed.m.rg) / ed.m.pitch - 0.02)) textRises.set(short, full);
 };
-function stepRowShort(ed, snap) {
-  const m = JSON.parse(snap), s = m.sections.find((o) => o.id === ed.sid), b = s.blocks.find((o) => o.id === ed.bid), a = b.layout[bp].area;
-  if (a[2] - a[0] > 1) {
-    moveWithText(s, b, a, -1);
-    a[2] -= 1;
-  }
-  return JSON.stringify(m);
-}
-function textFall(ed, now, lost, html) {
-  const m = JSON.parse(now), s = m.sections.find((o) => o.id === ed.sid);
-  const b = s.blocks.find((o) => o.id === ed.bid);
-  if (!b) return null;
-  const a = b.layout[bp].area, fall = Math.min(a[2] - a[0] - 1, Math.ceil(lost / ed.m.pitch));
-  moveWithText(s, b, a, -fall);
-  a[2] -= fall;
-  b.html = html;
+// Going back over a step that made the text taller: the old text comes back, and the rows are the larger of what the
+// block has now and what the step had, less the height lost and a gap, rounded up, so the text can come back a row
+// short. One row at least. Spare rows are not given back (CAP-TEXTPUSH2.json q8, CAP-TEXTPUSH5.json t13 and t14,
+// CAP-TEXTPUSH6.json v7 and v8, CAP-Y2KEYS3.json, CAP-Y2KEYS4.json).
+function textFall(ed, live, target, lost) {
+  const m = JSON.parse(live), s = m.sections.find((o) => o.id === ed.sid), b = s.blocks.find((o) => o.id === ed.bid);
+  const t = JSON.parse(target).sections.find((o) => o.id === ed.sid)?.blocks.find((o) => o.id === ed.bid);
+  if (!b || !t) return target;
+  const a = b.layout[bp].area, rows = a[2] - a[0], then = t.layout[bp].area;
+  const next = Math.max(1, Math.max(rows, then[2] - then[0]) - Math.ceil((lost + ed.m.rg) / ed.m.pitch - 0.02));
+  moveWithText(s, b, a, next - rows);
+  a[2] = a[0] + next;
+  b.html = t.html;
   return JSON.stringify(m);
 }
 
