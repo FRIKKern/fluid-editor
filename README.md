@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 47 changes
+- **Today** · 48 changes
+  - X8: a group's sizes by the read rule, 138 of 138 fresh ([#339](https://github.com/FRIKKern/fluid-editor/pull/339))
   - U9: difference 78, names against the oracle's, Edit Site Header and AI Terms in 0005 ([#338](https://github.com/FRIKKern/fluid-editor/pull/338))
-  - Y2: Cmd+Z and Undo during an edit run the page's list (items 56, 57) ([#337](https://github.com/FRIKKern/fluid-editor/pull/337))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
