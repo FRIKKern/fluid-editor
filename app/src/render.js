@@ -7,6 +7,7 @@ import { markdownHtml, markdownParts } from './markdown.js';
 import { formFieldHtml, formLightboxHtml, formPostHtml, formSubmitJs, formView, phoneAlign, phoneStyle } from './form-fields.js';
 import { imageShapeById } from './image-shapes.js';
 import { effectData, IMAGE_EFFECT_SCRIPT } from './image-effects.js';
+import { ASPECTS, galleryOf } from './dialogs.js';
 
 export const BPS = ['mobile', 'desktop'];
 export const COLS = { mobile: 8, desktop: 24 };
@@ -269,10 +270,17 @@ const STANDIN = {
   quote: () => '<figure class="sqs-quote-block-contents"><blockquote><span>“</span>Whatever it is, the way you tell your story online can make all the difference.<span>”</span></blockquote><figcaption class="source">— Quote Source</figcaption></figure>',
   chart: () => `<div class="fe-chart"><svg viewBox="0 0 459 229" preserveAspectRatio="none" aria-hidden="true">${[32, 88, 144, 200].map((y) => `<path d="M60 ${y}H448" class="fe-chart-rule"/>`).join('')}${[[66, 118, 125], [189, 62, 181], [313, 118, 125]].map(([x, y, h]) => `<rect x="${x}" y="${y + 19}" width="111" height="${h}" class="fe-chart-bar"/>`).join('')}</svg></div>`,
   soundcloud: () => '<div class="fe-status"><div class="fe-status-title">SoundCloud Block</div><div class="fe-status-message">Enter a SoundCloud track, playlist, or profile URL.</div></div>',
-  gallery: () => `<div class="fe-tiles">${'<span></span>'.repeat(12)}</div>`,
+  // Aspect Ratio, Crop Images, Show Title and Open Links in New Window (CAP-ROWSINSTAGRAM.json, CAP-ROWSFLICKR.json): a
+  // cropped tile takes the ratio; an uncropped one shows its picture whole, 16:9 as the oracle's sample pictures read
+  // (56.1 high in 99.8). A title is 14px, centred, 22.4 high and 7 below its picture. Our tiles link nowhere.
+  gallery: (b) => {
+    const g = galleryOf(b), ratio = g.crop ? ASPECTS.find(([n]) => n === g.aspect)?.[1] ?? 1 : 9 / 16;
+    const tile = (n) => `<a class="fe-tile ${g.crop ? 'content-fill' : 'content-fit'}"${g.newWindow ? ' target="_blank"' : ''}><span style="aspect-ratio:${1 / ratio}"></span>${g.title ? `<span class="fe-tile-title">Image ${n + 1}</span>` : ''}</a>`;
+    return `<div class="fe-tiles">${Array.from({ length: 12 }, (_, n) => tile(n)).join('')}</div>`;
+  },
 };
 const STANDIN_BLOCK = { quote: 'sqs-block-quote quote-block', chart: 'sqs-block-chart chart-block', soundcloud: 'sqs-block-soundcloud soundcloud-block', flickr: 'sqs-block-flickr flickr-block', instagram: 'sqs-block-instagram instagram-block' };
-export const standinHtml = (b) => `<div class="sqs-block ${STANDIN_BLOCK[b.standin]}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${(STANDIN[b.standin] || STANDIN.gallery)()}</div></div>`;
+export const standinHtml = (b) => `<div class="sqs-block ${STANDIN_BLOCK[b.standin]}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${(STANDIN[b.standin] || STANDIN.gallery)(b)}</div></div>`;
 
 export const mapOf = (b) => ({ style: b.mapStyle ?? 2, labels: b.mapLabels !== false, terrain: !!b.mapTerrain, controls: !!b.mapControls, zoom: b.mapZoom ?? 12 });
 export const mapArt = (labels = true, terrain = false) => `<rect class="m-land" x="-400" y="-400" width="1200" height="1200"/>${terrain ? '<g class="m-hill"><ellipse cx="90" cy="110" rx="90" ry="60"/><ellipse cx="320" cy="310" rx="110" ry="70"/><ellipse cx="310" cy="70" rx="70" ry="45"/></g>' : ''}<path class="m-park" d="M250 150l60-14 22 58-58 20zM60 300l58-10 14 50-60 14z"/><path class="m-water" d="M-400 330C40 300 90 240 150 170S210 30 250-400H330C300 40 260 130 210 200S120 340-400 480z"/><g class="m-road"><path d="M-400 90L800 40M-400 250L800 210M-400 370L800 330M60-400L110 800M300-400L340 800"/><path class="m-thin" d="M-400 150L800 110M-400 310L800 270M-400 30L800-10M10-400L50 800M180-400L220 800M250-400L290 800M370-400L410 800"/></g>${labels ? '<g class="m-label"><text x="262" y="122">Harbor</text><text x="42" y="214">Old Town</text><text x="238" y="286">Riverside</text><text x="120" y="368">South Park</text></g>' : ''}`;
