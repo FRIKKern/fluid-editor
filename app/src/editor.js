@@ -950,7 +950,7 @@ function onUp(e) {
   renderSectionDom(g.sid);
   if (g.fits && !/[ns]/.test(g.dir)) {
     fitTextRows(s, b, g);
-    if (g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
+    if (b.type === 'text' && g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
   }
   // A mouse or pen let go well below the block's old bottom lands on the grid, not on the block's
   // overlay, and the block ends up not selected; touch keeps it, and so does text (HANDLEUP.json).
@@ -973,7 +973,8 @@ function fitTextRows(s, b, g) {
   // Narrowing only adds rows. Widening takes rows off only if the need for them fell, and then by the
   // height lost: a line of text keeps two rows, and 268.9 to 224.1 goes from 7 rows to 5, though 224.1
   // needs 6 (CAP-TEXTWIDTH7.json). The next gesture takes back what it needs.
-  const lost = narrowing ? span - Math.max(g.orig[2] - g.orig[0], need) : need < g.need0 ? Math.min(span - 1, Math.ceil((g.height0 - textHeight(b)) / m.pitch)) : 0;
+  // An Instagram post follows its width, both ways (STANDINS.json).
+  const lost = b.type !== 'text' ? span - Math.max(2, need) : narrowing ? span - Math.max(g.orig[2] - g.orig[0], need) : need < g.need0 ? Math.min(span - 1, Math.ceil((g.height0 - textHeight(b)) / m.pitch)) : 0;
   if (!lost) return;
   const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2]));
   const before = lowest();
