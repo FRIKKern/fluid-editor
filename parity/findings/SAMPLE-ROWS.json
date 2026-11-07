@@ -4476,11 +4476,13 @@
    "Social Links": "0/3"
   },
   "valuesDiffer": "Map Zoom: typed 50 reads 50 on ours and 0.01 on the oracle. Every other gesture ended at the same value on both.",
-  "caveat": "The oracle was read about 1.1 s after each change. On Button Text the field already read Learn moreAb while the button still showed Learn more, so some misses where the oracle shows nothing may be a late redraw, not a difference. The reader also sees no pseudo-element: Text Background and Stroke change the height alike, and only ours shows a fill or border. Not refitted."
+  "caveat": "The oracle was read about 1.1 s after each change. On Button Text the field already read Learn moreAb while the button still showed Learn more, so some misses where the oracle shows nothing may be a late redraw, not a difference. The reader also sees no pseudo-element: Text Background and Stroke change the height alike, and only ours shows a fill or border. Not refitted.",
+  "readerBug": "Reader bug, not differences: this round dropped the block content wrapper on the oracle, which gets sqs-block-editing while its panel is open, so the oracle read no words, leaves or fills. Its misses are not differences. Round 3 has the fixed reader and the count that stands."
  },
  "round2": {
   "rule": "The same picks. Each read at about 1.1 s (round 1's moment) and at 3 s after the gesture (readTwice), with ::before and ::after counted in the look. A measurement fix, not a refit.",
-  "count": "17 of 31 match at 1.1 s and at 3 s (8 of them nothing on both); 7 not read. The oracle read the same at both times, so a late redraw was not it."
+  "count": "17 of 31 match at 1.1 s and at 3 s (8 of them nothing on both); 7 not read. The oracle read the same at both times, so a late redraw was not it.",
+  "readerBug": "Reader bug, not differences: this round dropped the block content wrapper on the oracle, which gets sqs-block-editing while its panel is open, so the oracle read no words, leaves or fills. Its misses are not differences. Round 3 has the fixed reader and the count that stands."
  },
  "round3": {
   "rule": "Round 2 with one reader fix, found after round 2: editor-only parts are dropped by name, not by the word editing. With its panel open the oracle adds sqs-block-editing to the block's own content wrapper, so rounds 1 and 2 read no content on the oracle: no words, no leaves, no fills. A measurement fix, not a refit.",
@@ -4509,6 +4511,17 @@
    "Markdown Bulleted List: ours drops the placeholder text and its style; the oracle keeps it and changes only words and colour",
    "Embed Rotate: the right inset moves the other way",
    "Social Links Border Square: the oracle adds a transform; ours does not"
-  ]
+  ],
+  "differences": {
+   "88": "Map Zoom: typed 50 reads 0.01 on the oracle, 50 on ours",
+   "90": "Image Rotate: the oracle moves the content box inside the block (cl, cr, cb); ours does not",
+   "91": "Accordion Expand first item: the oracle adds a transform; ours does not",
+   "92": "Shape Stretch off: the oracle moves the content box sideways (cl, cr); ours does not",
+   "93": "Markdown Bold: ours adds a border; the oracle does not",
+   "94": "Markdown Bulleted List: ours drops the placeholder text and its style; the oracle keeps it and changes only words and colour",
+   "95": "Embed Rotate: the right inset moves the other way on ours",
+   "96": "Social Links Border Square: the oracle adds a transform; ours does not"
+  },
+  "standing": "This count stands (lead, 2026-11-07)."
  }
 }
