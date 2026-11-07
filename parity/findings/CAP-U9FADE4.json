@@ -3,7 +3,7 @@
   "oracle": "/blocks-probe",
   "capturedAt": "2026-11-07",
   "engine": "chrome",
-  "question": "CAP-U9FADE4",
+  "question": "U9's not-read on a probe page, desktop: a new section during a fade, back during one, a wheel turn and a script scroll during one, a wheel turn with the pointer still, and a gesture's start with the press, a 2 px move and a 14 px move sent apart.",
   "steps": [
     [
       "window",
@@ -3445,5 +3445,9 @@
   "exitSteps": [
     "top Exit",
     "dialog Exit"
-  ]
+  ],
+  "answer": "The middle and third sections here were both under 1400 high, so 'a third section during a fade' stayed in the second section: read again in CAP-U9FADE4B.json. Back to the first during a fade: the first pair runs back from 0.768 to 1 in about 50 ms, 0.2 s times the way it had come. A wheel turn of 60 or a script scroll during a fade: the fade runs on with the same series and both pairs' tops move 60 with the page at once. A wheel turn of 600 with the pointer still: about 33 ms after the page moves, the section now under the pointer takes Add Section, on the same 0.2 s cross, with no pointer move. A move after that changes nothing. A press on a Button with nothing selected: nothing fades, nor at 2 px; the move to 14 px fades the pair out over 0.2 s. Let go at home: it stays out.",
+  "ours": "Before this change: a copy left behind didn't move with a scroll, a section under a still pointer didn't take the chrome until the pointer moved, back on a falling section rose from 0 under the falling copy, and a press alone faded Add Section, because ours selects on the press. After it: the same as the oracle in each (npm run marks-check, U9 cases).",
+  "differs": "Fixed here. Ours still selects a block on the press, the oracle on letting go (CAP-U9FADE4D.json): only Add Section's fade waits now.",
+  "notRead": "A wheel turn over the section's own buttons. A press with another block already selected. Selecting and Escape within the same 0.2 s."
 }

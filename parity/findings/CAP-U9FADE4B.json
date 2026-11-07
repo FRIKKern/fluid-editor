@@ -3,7 +3,7 @@
   "oracle": "/blocks-probe",
   "capturedAt": "2026-11-07",
   "engine": "chrome",
-  "question": "CAP-U9FADE4B",
+  "question": "U9: a third section during a fade, the same a little later, and the phone view: off, on, and crossing to the next section.",
   "steps": [
     [
       "window",
@@ -3028,5 +3028,9 @@
   "exitSteps": [
     "top Exit",
     "dialog Exit"
-  ]
+  ],
+  "answer": "A third section during a fade: the first pair falls on, the middle pair falls back from where it had reached in 0.2 s times that (from 0.056 in about 11 ms, from 0.5 in about 100 ms), and the third rises from 0 over 0.2 s, so three pairs show at once. The phone: Add Section is there at the section edges, off and on fade over 0.2 s, ease-in-out, the same series as the desktop, and crossing to the next section is the same cross. Sections here are 887.7 high at a 1400 high window, 800 for the first on the phone.",
+  "ours": "The same after this change (npm run marks-check: a third section, the phone's cross and fade).",
+  "differs": "Before: the middle pair fell over a full 0.2 s from where it was.",
+  "notRead": "The phone's gesture start and a scroll there; read on the desktop only."
 }
