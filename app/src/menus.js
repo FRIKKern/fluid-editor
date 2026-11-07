@@ -6,6 +6,8 @@
 //   Context    right-click on a block: Copy, Paste, Duplicate, Delete | Copy Properties, Paste
 //              Properties | Stack, Arrange | Hide on desktop, Hide on mobile, with shortcuts.
 // Our icons are our own (O2). Items marked data-unbuilt are shown but not built yet.
+import { SEARCH_WORDS } from './search-words.js';
+
 const svg = (d, w = 16) => `<svg width="${w}" height="${w}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 export const TYPE_ICON = {
   Stack: '<rect x="4" y="5" width="6" height="6"/><rect x="14" y="5" width="6" height="6"/><path d="M5 17h14"/><path d="M16 14l3 3-3 3"/>',
@@ -57,15 +59,12 @@ const GROUPS = [
   ['Links', ['Social Links', 'Search Field', 'Page Link', 'Tag Cloud', 'RSS', 'Archive']],
   ['Integrations', ['Instagram', 'Tock', 'SoundCloud', 'Flickr', 'OpenTable', 'Zola', 'Bandsintown']],
 ];
-// Search also matches words the menu does not show. "co" was the one query read (U5.json search);
-// these words are ours and give the same tiles.
-const ALSO = { Form: 'contact', 'Pricing Plan': 'cost', Donation: 'contribute', 'Page Link': 'content', Bandsintown: 'concert' };
 
 export function addBlockMenuHtml(types, query = '') {
   const q = query.trim().toLowerCase();
   const tile = (n) => `<button type="button" class="am-tile" data-add="${n}" aria-label="${n}">${svg(TYPE_ICON[n] || TYPE_ICON.Shape)}<span>${n}</span></button>`;
   const names = GROUPS.flatMap(([, list]) => list).filter((n) => types.some(([t]) => t === n));
-  const hit = names.filter((n) => `${n} ${ALSO[n] || ''}`.toLowerCase().includes(q));
+  const hit = names.filter((n) => (SEARCH_WORDS[n] || []).some((w) => w.includes(q)));
   const grid = (list) => `<div class="am-grid">${list.map(tile).join('')}</div>`;
   const body = !q ? GROUPS.map(([head, list]) => `<div class="am-head">${head}</div>${grid(list.filter((n) => names.includes(n)))}`).join('')
     : hit.length ? grid(hit) : '<p class="am-none">No Results</p>';

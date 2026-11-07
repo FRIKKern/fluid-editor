@@ -22,13 +22,15 @@ const SHARED = {
   5: [[5, 7, 21, 2, 2, 10, 4], [8, 15, 25, 2, 2, 10, 0, { divider: 'soft' }], [3, 3, 13, 2, 2, 10, 4, { theme: 'dark', divider: 'rounded' }], [4, 9, 19, 1, 2, 10, 3], [3, 10, 18, 1, 2, 10, 2, { theme: 'dark' }]],
   10: [[3, 11, 17, 3, 1, 11, 0], [1, 10, 18, 3, 1, 11, 0], [1, 7, 21, 3, 1, 11, 0], [1, 5, 23, 3, 1, 11, 0], [1, 3, 25, 3, 1, 11, 0], [1, 1, 14, 1, 1, 11, 0], [1, 14, 27, 1, 1, 11, 0], [1, 1, 27, 1, 1, 11, 0], [3, 11, 17, 3, 1, 11, 0, { theme: 'dark', divider: 'soft' }], [1, 3, 25, 3, 1, 11, 0, { theme: 'dark', divider: 'soft' }]],
 };
+// The types whose step from tile to tile matches Code's (5 tiles) or Video's and Map's (10): CAP-U10FAMILYPREDICT.json.
+const FAMILY = new Set(['Markdown', 'Audio', 'Embed', 'Tag Cloud', 'Zola']);
 function typeList(kind, b) {
   if (TYPE_LAYOUTS[kind]) return TYPE_LAYOUTS[kind];
   const tiles = TYPE_TILES[kind];
   if (!tiles) return null;
   const rows = b.layout.desktop.area[2] - b.layout.desktop.area[0], phone = b.layout.mobile.area[2] - b.layout.mobile.area[0];
-  // A 6 tile list (Archive, Scrolling) has no read pattern: its tiles show, not built.
-  if (!SHARED[tiles.length]) return tiles.map((tile) => ({ tile, unbuilt: true }));
+  // Only the families the reads put with Code or Video share a list; the rest show their tiles, not built.
+  if (!FAMILY.has(kind)) return tiles.map((tile) => ({ tile, unbuilt: true }));
   return SHARED[tiles.length].map(([r, c0, c1, pr, pc0, pc1, pad, style], n) => ({
     rows: r + rows - 1 + pad, phoneRows: pr + phone - 1, tile: tiles[n], inferred: true,
     places: { t0: [`${r}/${c0}/${r + rows}/${c1}`, `${pr}/${pc0}/${pr + phone}/${pc1}`] }, ...(style && { style }),
