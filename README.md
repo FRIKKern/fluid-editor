@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 85 changes
+- **Today** · 86 changes
+  - 81: a block is selected on let go, not on the press ([#372](https://github.com/FRIKKern/fluid-editor/pull/372))
   - T15: Follow in preview mode, its Preview, and the fresh test of the T15 rules ([#365](https://github.com/FRIKKern/fluid-editor/pull/365))
-  - T11: Map Zoom takes each key at once (88) ([#376](https://github.com/FRIKKern/fluid-editor/pull/376))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
