@@ -2748,6 +2748,12 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const t = await ring('input[type=email]');
   add('Field Accent: text field edge on focus', t[3] === want && t[4].includes(want) && t[4].includes('1px') && t[2] === 'none', JSON.stringify([t, want]));
   add('Field Accent: nothing at rest', JSON.stringify(rest()) === JSON.stringify(rest0), JSON.stringify(rest()));
+  // A pack on Radio and Survey was not read. Ours keeps what it did before Radio had its own rows: this holds that guess, it isn't a reading.
+  await start();
+  await hit('[data-ss-back]', 80); await hit('[data-ss-back]', 80);
+  await hit('[data-ss-pop="Forms"]', 250); await hit('#ss-popover [data-ss-pick="form"][data-v="form-pack-04"]', 200);
+  const packed = (k) => read(k).radius;
+  add('A pack, a guess: Checkbox and Radio Square, Survey not', packed('check') === '0px' && packed('radio') === '0px' && packed('survey') !== '0px', JSON.stringify([packed('check'), packed('radio'), packed('survey')]));
 }
 
 console.log(`Marks: ${pass} of ${total} checks match`);
