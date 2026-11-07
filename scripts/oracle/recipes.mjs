@@ -168,6 +168,16 @@ export const RECIPES = {
     ...['Paragraph 1', 'Paragraph 3', 'Heading 4', 'Heading 1'].flatMap((style, n) => [...(n ? FRESH : NEWTEXT), ['keys', 'abc'], ['pause', 300], ['click', 'Text Style'], ['click', style], ['pause', 1300],
       ['keysFast', WORD1], ['pause', 1300], ['keysFast', WORD2], ['pause', 1300], ['keysFast', WORD3], ['pause', 1300], ['read', `rows ${style} typed`, ESCR], ...ZS(`rows ${style}`, ['z', 'z', 'z', 'y', 'y', 'y']), ...LEAVE]),
   ] },
+  'CAP-Y2SCORE': { question: 'Y2: the last score of the rule as merged in #337, frozen: reads it has not seen. Heading 2 and Heading 3 wrapped lines, short words wrapping, Enter lines with a wrapped line, typing gaps under and over a second, the Undo and Redo buttons over wrapped text. Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...['Heading 2', 'Heading 3'].flatMap((style, n) => [...(n ? FRESH : NEWTEXT), ['keys', 'abc'], ['pause', 300], ['click', 'Text Style'], ['click', style], ['pause', 1300],
+      ['keysFast', WORD1], ['pause', 1300], ['keysFast', WORD2], ['pause', 1300], ['keysFast', WORD3], ['pause', 1300], ['read', `rows S${n + 1} typed`, ESCR], ...ZS(`rows S${n + 1}`, ['z', 'z', 'z', 'y']), ...LEAVE]),
+    ...FRESH, ['keysFast', 'go on'], ['pause', 1300], ['keysFast', ' a b c d e f g h i j k l m n o p q r s t u v w x y z a b c d e f g'], ['pause', 1300], ['keysFast', ' h i j k l m n o p q r s t u v w x y z a b c d e f g h i j k l m n'], ['pause', 1300], ['keysFast', ' o p q r s t u v w x y z'], ['pause', 1300],
+    ['read', 'rows S3 typed', ESCR], ...ZS('rows S3', ['z', 'z', 'z', 'y']), ...LEAVE,
+    ...FRESH, ['keys', 'abc'], ['pause', 1300], ...FAST(2), ['pause', 1300], ['keysFast', WORD1], ['pause', 1300], ['read', 'rows S4 typed', ESCR], ...ZS('rows S4', ['z', 'z', 'y']), ...LEAVE,
+    ...FRESH, ['keys', 'ab'], ['pause', 700], ['keys', 'cd'], ['pause', 1300], ['keys', 'ef'], ['pause', 1300], ['read', 'rows S5 typed', ESCR], ...ZS('rows S5', ['z', 'z', 'y']), ...LEAVE,
+    ...FRESH, ['keys', 'abc'], ['pause', 1300], ['keysFast', WORD1], ['pause', 1300], ['keysFast', WORD2], ['pause', 300], ...LEAVE, ...WALK('rows S6', ['Undo', 'Undo', 'Redo']),
+  ] },
   'CAP-E4BREAK': { question: 'E4: Shift+Enter: mid line, at the end of a line, at the start, twice, in a heading, a list, a quote and monospace, over a selection.', page: 'Gestures Probe', steps: [
     ['enter'], ['blank'],
     ...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['read', 'mid line', H], ['keys', 'X'], ['pause', 200], ['read', 'mid line, X', H],
