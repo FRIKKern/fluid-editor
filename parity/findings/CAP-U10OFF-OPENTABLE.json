@@ -1,0 +1,94 @@
+{
+  "item": "CAP-U10OFF-OPENTABLE",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "CAP-U10OFF-OPENTABLE",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "OpenTable"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "hover",
+      {
+        "labelTag": true,
+        "btnByText": [
+          "View Layouts"
+        ],
+        "stack": 0
+      }
+    ]
+  ],
+  "reads": {
+    "hover": {
+      "labelTag": [
+        "OpenTable"
+      ],
+      "btnByText": {
+        "View Layouts": {
+          "disabled": true,
+          "aria": null,
+          "opacity": 1,
+          "color": "rgb(183, 183, 183)",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        }
+      },
+      "stack": [
+        {
+          "id": "8_438",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/9/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
