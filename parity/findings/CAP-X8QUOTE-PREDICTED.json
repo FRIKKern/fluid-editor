@@ -1,0 +1,43 @@
+{
+  "item": "CAP-X8QUOTE-PREDICTED",
+  "from": "ours on main after #379 (86, a Quote's padding on the block), with the frozen X8 stored-rows rule, run with these steps before any read of CAP-X8QUOTE. On the old reads (CAP-X8LAG.json q1, CAP-X8LAG2.json m5) this gives 6 of 8: q1's Shape across the Quote's line does not grow in ours.",
+  "question": "X8: the short Quote after 86, re-read: q1's setup (CAP-X8LAG.json, a Shape across the Quote's bottom line) and m5's (CAP-X8LAG2.json, Shapes above and below it), the same steps. Read start, dropped, after the next gesture and after letting go. Each cell lists the blocks' desktop areas from ours in DOM order.",
+  "reads": {
+    "q1 start": [
+      "1/2/7/10",
+      "2/14/8/20"
+    ],
+    "q1 dropped": [
+      "1/2/7/7",
+      "2/9/8/12"
+    ],
+    "q1 next": [
+      "3/2/10/7",
+      "2/9/8/12"
+    ],
+    "q1 next let go": [
+      "3/2/10/7",
+      "2/9/8/12"
+    ],
+    "m5 start": [
+      "1/2/7/10",
+      "2/14/6/20",
+      "9/14/15/20"
+    ],
+    "m5 dropped": [
+      "1/2/7/7",
+      "2/9/6/12",
+      "9/9/15/12"
+    ],
+    "m5 next": [
+      "3/2/10/7",
+      "2/9/6/12",
+      "9/9/15/12"
+    ],
+    "m5 next let go": [
+      "3/2/10/7",
+      "2/9/6/12",
+      "9/9/15/12"
+    ]
+  }
+}
