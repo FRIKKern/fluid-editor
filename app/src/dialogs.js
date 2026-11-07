@@ -38,6 +38,16 @@ const account = (top) => [
   { k: 'slider', y: top + 88, value: 10, min: 1, max: 20, unit: 'Items', out: true },
 ];
 const CHART_CSV = [['Label', 'Population'], ['New York', '150'], ['Las Vegas', '250'], ['San Francisco', '150']];
+// The palettes read on the swatches (CAP-ROWSCHART.json). The other twelve are in the list but not read, so they stay off.
+export const CHART_PALETTES = { Grayscale: ['rgb(121, 121, 121)', 'rgb(191, 191, 191)', 'rgb(229, 229, 229)'], Primary: ['rgb(240, 82, 59)', 'rgb(247, 180, 19)', 'rgb(36, 128, 196)'] };
+const PALETTE_NAMES = ['Grayscale', 'Primary', 'Warm', 'Cool', 'Muted', 'Cobblestone', 'Shops', 'Suburbs', 'Tea Party', 'Highway', 'DB-Nine', 'Italia', 'M-Three', 'Thunderbird'];
+
+// Each live key's value when the block has none. setDialogValue drops a key that is back at this value.
+export const DIALOG_DEFAULTS = { galAspect: '1:1 Square', galCrop: true, galTitle: false, galNewWindow: false, tagCount: 5, chartType: 'Bar Chart', chartFlip: false, chartTitle: '', chartCaption: '', chartLegend: false, chartPalette: 'Grayscale', chartData: CHART_CSV };
+export const dialogValue = (b, k) => b?.[k] ?? DIALOG_DEFAULTS[k];
+export const chartOf = (b) => ({ type: dialogValue(b, 'chartType'), flip: dialogValue(b, 'chartFlip'), title: dialogValue(b, 'chartTitle'), caption: dialogValue(b, 'chartCaption'), legend: dialogValue(b, 'chartLegend'), palette: dialogValue(b, 'chartPalette'), data: dialogValue(b, 'chartData') });
+export const chartCsv = (data) => data.map((r) => r.join(',')).join('\n');
+export const parseCsv = (text) => text.split(/\r?\n/).filter((l) => l.trim()).map((l) => { const [a = '', v = ''] = l.split(','); return [a.trim(), v.trim()]; });
 
 export const DIALOGS = {
   Instagram: {
@@ -72,26 +82,26 @@ export const DIALOGS = {
       Data: [
         { k: 'text', y: 100, h: 44, html: `Add compelling data visualizations to your site by entering the data below or pasting it from a .csv file in the <strong>Import/Export</strong> tab. ${LEARN}` },
         { k: 'label', y: 166, text: 'Chart Type' },
-        { k: 'select', y: 188, options: ['Bar Chart', 'Line Chart', 'Pie Chart'], unbuilt: true },
-        { k: 'check', y: 254, text: 'Flip X And Y Axes', unbuilt: true },
+        { k: 'select', y: 188, key: 'chartType', options: ['Bar Chart', 'Line Chart', 'Pie Chart'] },
+        { k: 'check', y: 254, key: 'chartFlip', text: 'Flip X And Y Axes' },
         { k: 'label', y: 298, text: 'Chart Data' },
-        { k: 'grid', y: 320, data: CHART_CSV, unbuilt: true },
+        { k: 'grid', y: 320, key: 'chartData' },
       ],
       Design: [
         { k: 'label', y: 100, text: 'Chart Title' },
-        { k: 'field', y: 122, name: 'Chart Title', unbuilt: true },
+        { k: 'field', y: 122, key: 'chartTitle', name: 'Chart Title' },
         { k: 'label', y: 188, text: 'Caption' },
-        { k: 'field', y: 210, name: 'Caption', unbuilt: true },
-        { k: 'check', y: 276, text: 'Show Legend', unbuilt: true },
+        { k: 'field', y: 210, key: 'chartCaption', name: 'Caption' },
+        { k: 'check', y: 276, key: 'chartLegend', text: 'Show Legend' },
         { k: 'label', y: 320, text: 'Color Palette' },
-        { k: 'select', y: 342, options: ['Grayscale', 'Primary', 'Warm', 'Cool', 'Muted', 'Cobblestone', 'Shops', 'Suburbs', 'Tea Party', 'Highway', 'DB-Nine', 'Italia', 'M-Three', 'Thunderbird'], unbuilt: true },
+        { k: 'select', y: 342, key: 'chartPalette', options: PALETTE_NAMES, live: Object.keys(CHART_PALETTES) },
       ],
       'Import / Export': [
         { k: 'heading', y: 100, text: 'Import or Export Chart Data' },
         { k: 'help', y: 122, h: 88, text: 'Your data is provided here in CSV (comma separated value) format. You can copy the text below and save it as a .csv file to export your data. To import a spreadsheet, first save it as a .csv file. Then open it with a text editor and copy and paste the content into the box below, overwriting the existing text.' },
         { k: 'label', y: 232, text: 'Chart Data' },
-        { k: 'area', y: 254, h: 144, value: CHART_CSV.map((r) => r.join(',')).join('\n'), unbuilt: true },
-        { k: 'button', y: 427, text: 'Update', unbuilt: true },
+        { k: 'area', y: 254, h: 144, key: 'chartData' },
+        { k: 'button', y: 427, text: 'Update', action: 'csv' },
       ],
     },
   },
@@ -151,7 +161,7 @@ function rowHtml(r, cw, b, pages) {
   const dis = off ? ' disabled' : '';
   const cls = `dl-row dl-${r.k}${r.out ? ' is-out' : ''}${r.unbuilt ? ' is-unbuilt' : ''}`;
   const at = (y, h, x = 33, w = cw) => `style="top:${y}px;left:${x}px;width:${w}px${h != null ? `;height:${h}px` : ''}"`;
-  const v = r.key ? (r.key === 'tagCount' ? tagCountOf(b) : r.key === 'galAspect' ? galleryOf(b).aspect : galleryOf(b)[{ galCrop: 'crop', galTitle: 'title', galNewWindow: 'newWindow' }[r.key]]) : r.value;
+  const v = r.key ? dialogValue(b, r.key) : r.value;
   const data = r.key ? ` data-dl="${r.key}"` : '';
   switch (r.k) {
     case 'text': return `<div class="${cls}" ${at(r.y, r.h)}>${r.html}</div>`;
@@ -160,9 +170,9 @@ function rowHtml(r, cw, b, pages) {
     case 'heading': return `<div class="${cls}" ${at(r.y, 22)}>${esc(r.text)}</div>`;
     case 'select': {
       const cur = v ?? r.options[0];
-      return `<div class="${cls}" ${at(r.y, 44)}><span class="dl-sel-text">${esc(cur)}</span>${CHEVRON}<select aria-label="${esc(cur)}"${data}${dis}>${r.options.map((o) => `<option${o === cur ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select></div>`;
+      return `<div class="${cls}" ${at(r.y, 44)}><span class="dl-sel-text">${esc(cur)}</span>${CHEVRON}<select aria-label="${esc(cur)}"${data}${dis}>${r.options.map((o) => `<option${o === cur ? ' selected' : ''}${r.live && !r.live.includes(o) ? ' disabled' : ''}>${esc(o)}</option>`).join('')}</select></div>`;
     }
-    case 'field': return `<div class="${cls}" ${at(r.y, 44)}><input type="text"${data} placeholder="${esc(r.placeholder || '')}" aria-label="${esc(r.name || r.placeholder || 'Field')}"${dis}>${r.code ? '<svg class="dl-code" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M7 6l-4 4 4 4M13 6l4 4-4 4M11 4.5l-2 11"/></svg>' : ''}</div>`;
+    case 'field': return `<div class="${cls}" ${at(r.y, 44)}><input type="text"${data}${r.key ? ` value="${esc(v)}"` : ''} placeholder="${esc(r.placeholder || '')}" aria-label="${esc(r.name || r.placeholder || 'Field')}"${dis}>${r.code ? '<svg class="dl-code" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M7 6l-4 4 4 4M13 6l4 4-4 4M11 4.5l-2 11"/></svg>' : ''}</div>`;
     case 'check': return `<div class="${cls}" ${at(r.y, null)}><button type="button" role="checkbox" class="dl-box${v ? ' is-on' : ''}" aria-checked="${!!v}" aria-label="${esc(r.text)}"${data}${dis}>${v ? TICK : ''}</button><div class="dl-check-label">${esc(r.text)}</div>${r.help ? `<div class="dl-check-help" style="height:${r.helpH || 22}px">${esc(r.help)}</div>` : ''}</div>`;
     case 'slider': {
       const n = v ?? r.min;
@@ -177,14 +187,15 @@ function rowHtml(r, cw, b, pages) {
       // Header, the data rows and the + row, at the read cells (CAP-T12DCHART.json): every row has six inputs, two of
       // them under the grip and the label; the header has five, with a rule under it.
       const head = [[33, 132], [165, 110], [275, 44], [319, 110], [429, 110]], body = [[33, 110], [55, 110], [165, 110], [275, 44], [319, 110], [429, 110]];
-      const cell = (y, [x, w], val, extra) => `<input type="text" class="dl-cell${extra}" style="top:${y}px;left:${x}px;width:${w}px" value="${esc(val)}" aria-label="Chart Data"${dis}>`;
-      const rowsAt = [...r.data.slice(1).map((_, n) => 44 * (n + 1)), 44 * r.data.length + 2];
-      const html = head.map((c, n) => cell(0, c, n === 1 ? r.data[0][1] : '', ' is-head')).join('') + '<span class="dl-plus" style="top:0;left:275px">+</span>'
-        + rowsAt.map((y, n) => body.map((c, k) => cell(y, c, r.data[n + 1]?.[k - 1] ?? '', n % 2 ? ' is-alt' : '')).join('') + (r.data[n + 1] ? `<span class="dl-grip" style="top:${y}px"></span>` : `<span class="dl-plus" style="top:${y}px;left:55px">+</span>`)).join('');
+      // Only the series name, the labels and the values take typing; the empty cells and the + row are off, as read.
+      const cell = (y, [x, w], val, extra, at) => `<input type="text" class="dl-cell${extra}" style="top:${y}px;left:${x}px;width:${w}px" value="${esc(val)}" aria-label="Chart Data"${at && !off ? ` data-dl-cell="${at}"` : ' disabled'}>`;
+      const rowsAt = [...v.slice(1).map((_, n) => 44 * (n + 1)), 44 * v.length + 2];
+      const html = head.map((c, n) => cell(0, c, n === 1 ? v[0][1] : '', ' is-head', n === 1 && '0,1')).join('') + '<span class="dl-plus" style="top:0;left:275px">+</span>'
+        + rowsAt.map((y, n) => body.map((c, k) => cell(y, c, v[n + 1]?.[k - 1] ?? '', n % 2 ? ' is-alt' : '', v[n + 1] && (k === 1 || k === 2) && `${n + 1},${k - 1}`)).join('') + (v[n + 1] ? `<span class="dl-grip" style="top:${y}px"></span>` : `<span class="dl-plus" style="top:${y}px;left:55px">+</span>`)).join('');
       return `<div class="${cls}" ${at(r.y, rowsAt.at(-1) + 44, 0, cw + 66)}>${html}</div>`;
     }
-    case 'area': return `<div class="${cls}" ${at(r.y, r.h)}><textarea aria-label="Chart Data"${dis}>${esc(r.value)}</textarea></div>`;
-    case 'button': return `<div class="${cls}" ${at(r.y, 44)}><button type="button"${dis}><div>${esc(r.text)}</div></button></div>`;
+    case 'area': return `<div class="${cls}" ${at(r.y, r.h)}><textarea aria-label="Chart Data" data-dl-area="${r.key}"${dis}>${esc(chartCsv(v))}</textarea></div>`;
+    case 'button': return `<div class="${cls}" ${at(r.y, 44)}><button type="button"${r.action ? ` data-dl-action="${r.action}"` : ''}${dis}><div>${esc(r.text)}</div></button></div>`;
     default: return '';
   }
 }
@@ -195,6 +206,6 @@ export function dialogHtml(b, tab, pages = []) {
   const cw = d.w - 66;
   const rows = d.tabs ? d.rows[tab] : d.rows;
   const tabs = d.tabs ? `<div class="dl-tabs" role="tablist">${d.tabs.map((t) => `<button type="button" role="tab" class="dl-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-dl-tab="${esc(t)}">${esc(t)}</button>`).join('')}</div>` : '<div class="dl-rule"></div>';
-  const end = Math.max(...rows.map((r) => r.y + (r.k === 'pages' ? 49.5 * pages.length : r.k === 'grid' ? 44 * (r.data.length + 1) + 2 : r.h ?? 44)));
+  const end = Math.max(...rows.map((r) => r.y + (r.k === 'pages' ? 49.5 * pages.length : r.k === 'grid' ? 44 * (dialogValue(b, r.key).length + 1) + 2 : r.h ?? 44)));
   return `<div class="dl-title" style="width:${cw}px">${esc(d.title)}</div>${tabs}${rows.map((r) => rowHtml(r, cw, b, pages)).join('')}<div class="dl-end" style="top:${end + 33}px"></div>`;
 }
