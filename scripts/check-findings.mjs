@@ -7,7 +7,7 @@ const DIRS = ['app', 'scripts', 'parity'];
 const BINARY = /\.(png|jpe?g|gif|webp|ico|woff2?|ttf|otf|mp4|webm)$/i;
 
 // Each of these still holds path strings. A file comes off as soon as it is clean, and this list ends empty.
-const PATHS_LEFT = new Set(['CAP-L6CORNER.json', 'SHAPEDESIGN.json']);
+const PATHS_LEFT = new Set();
 
 const MARKER = /^(<{7}|>{7})/m;
 const PATH_DATA = /<path\b|\bd=["']|(?:^|[^A-Za-z])[Mm]\s*-?[\d.]+[ ,]+-?[\d.]+\s*[LlCcQqAaZzHhVvSsTtMm-]/;
